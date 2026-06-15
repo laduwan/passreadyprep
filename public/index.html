@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — Study</title>
+<style>
+  :root{
+    --ink:#1B2A3A; --muted:#5B6B7A;
+    --primary:#0E7C7B; --primary-dark:#0A5E5D;
+    --bg:#F7F5F1; --card:#FFFFFF; --border:#E5E0D8;
+    --correct:#1E7F4E; --correct-bg:#E7F3EC;
+    --incorrect:#B23A60; --incorrect-bg:#F8E9EE;
+    --amber:#9A6614; --amber-bg:#F6EEDD;
+    --serif:Georgia,"Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:17px; line-height:1.55;
+  }
+  .wrap{max-width:720px; margin:0 auto; padding:20px 18px 64px}
+  a{color:var(--primary-dark)}
+
+  /* header */
+  header.site{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:6px 2px 18px}
+  .brand{font-weight:700; font-size:20px; letter-spacing:-.01em}
+  .brand .prep{color:var(--primary); font-weight:600}
+  .exam-badge{font-size:12px; font-weight:600; color:var(--primary-dark);
+    background:#E5F0EF; border:1px solid #CFE5E3; padding:4px 10px; border-radius:999px}
+
+  /* cards */
+  .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:18px}
+  .stack > * + *{margin-top:14px}
+
+  h1{font-family:var(--serif); font-size:26px; line-height:1.2; margin:0 0 4px}
+  h2{font-family:var(--serif); font-size:21px; margin:0 0 6px}
+  .lead{color:var(--muted); margin:0 0 18px}
+
+  /* case list */
+  .case-btn{display:block; width:100%; text-align:left; cursor:pointer;
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:16px 18px; margin-bottom:12px; font:inherit; color:inherit; transition:border-color .15s, transform .15s}
+  .case-btn:hover{border-color:var(--primary)}
+  .case-btn .t{font-family:var(--serif); font-size:19px; font-weight:600}
+  .chips{margin-top:8px; display:flex; gap:8px; flex-wrap:wrap}
+  .chip{font-size:12.5px; font-weight:600; color:var(--muted);
+    background:#F0ECE4; border-radius:999px; padding:3px 10px}
+
+  /* vignette */
+  .vignette{font-family:var(--serif); font-size:18px; line-height:1.62}
+  .vignette .seg{margin-top:14px}
+  .seg-label{font-family:var(--sans); font-size:12px; font-weight:700; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--primary-dark); margin-bottom:2px}
+  .dx{background:var(--amber-bg); border:1px solid #E8D9B8; border-radius:10px; padding:12px 14px; margin-top:8px}
+  .dx .seg-label{color:var(--amber)}
+  .dx .dx-name{font-family:var(--serif); font-size:18px; font-weight:600}
+
+  /* progress */
+  .progress{display:flex; align-items:center; justify-content:space-between; margin:22px 2px 10px;
+    font-size:13.5px; font-weight:600; color:var(--muted)}
+  .bar{height:6px; background:#E9E4DB; border-radius:999px; overflow:hidden; margin:6px 2px 0}
+  .bar > i{display:block; height:100%; background:var(--primary); transition:width .25s}
+
+  /* question + options */
+  .qstem{font-family:var(--serif); font-size:20px; line-height:1.35; margin:6px 0 14px}
+  .opt{display:flex; gap:12px; align-items:flex-start; width:100%; text-align:left; cursor:pointer;
+    background:var(--card); border:1.5px solid var(--border); border-radius:10px;
+    padding:13px 15px; margin-bottom:10px; font:inherit; color:inherit; transition:border-color .15s, background .15s}
+  .opt:hover:not(:disabled){border-color:var(--primary)}
+  .opt:disabled{cursor:default}
+  .opt .key{flex:0 0 auto; width:26px; height:26px; border-radius:7px; background:#EEE9E1;
+    display:grid; place-items:center; font-weight:700; font-size:14px}
+  .opt.correct{border-color:var(--correct); background:var(--correct-bg)}
+  .opt.incorrect{border-color:var(--incorrect); background:var(--incorrect-bg)}
+  .opt.correct .key{background:var(--correct); color:#fff}
+  .opt.incorrect .key{background:var(--incorrect); color:#fff}
+  .opt .mark{margin-left:auto; font-weight:700}
+  .opt.correct .mark{color:var(--correct)}
+  .opt.incorrect .mark{color:var(--incorrect)}
+
+  /* feedback */
+  .feedback{margin-top:6px}
+  .verdict{font-weight:700; font-size:16px; margin-bottom:8px; display:flex; align-items:center; gap:8px}
+  .verdict.ok{color:var(--correct)} .verdict.no{color:var(--incorrect)}
+  .fb-block{margin-top:12px}
+  .fb-label{font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); margin-bottom:3px}
+  .fb-list{margin:4px 0 0; padding-left:20px}
+  .fb-list li{margin:3px 0}
+  .mistake{background:var(--incorrect-bg); border-left:3px solid var(--incorrect); padding:9px 12px; border-radius:0 8px 8px 0}
+
+  /* evidence — the signature element */
+  .sources{margin-top:14px}
+  .source{display:flex; gap:10px; align-items:flex-start; background:var(--amber-bg);
+    border:1px solid #E8D9B8; border-radius:9px; padding:10px 12px; margin-top:8px}
+  .source .src-name{font-weight:700; color:var(--amber); font-size:13px; white-space:nowrap}
+  .source .src-detail{font-size:14.5px; color:var(--ink)}
+
+  /* buttons */
+  .btn{display:inline-flex; align-items:center; gap:8px; cursor:pointer; font:inherit; font-weight:600;
+    background:var(--primary); color:#fff; border:none; border-radius:10px; padding:12px 20px; transition:background .15s}
+  .btn:hover{background:var(--primary-dark)}
+  .btn.secondary{background:transparent; color:var(--primary-dark); border:1.5px solid var(--border)}
+  .btn.secondary:hover{background:#fff; border-color:var(--primary)}
+  .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+  .back{background:none; border:none; cursor:pointer; font:inherit; color:var(--muted); font-weight:600; padding:6px 0; margin-bottom:6px}
+  .back:hover{color:var(--ink)}
+
+  /* results */
+  .score-big{font-family:var(--serif); font-size:48px; font-weight:700; color:var(--primary-dark); line-height:1}
+  .dom-row{display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:15px}
+  .dom-row:last-child{border-bottom:none}
+  .dom-score{font-weight:700}
+
+  .hint{font-size:13px; color:var(--muted); margin-top:18px; text-align:center}
+
+  /* accessibility */
+  :focus-visible{outline:3px solid var(--primary); outline-offset:2px; border-radius:6px}
+  .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0}
+  @media (prefers-reduced-motion:reduce){*{transition:none !important}}
+  @media (max-width:520px){ body{font-size:16px} h1{font-size:23px} .wrap{padding:16px 14px 56px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <div class="brand">PassReady <span class="prep">Prep</span></div>
+    <div class="exam-badge">NCMHCE</div>
+  </header>
+  <main id="app" aria-live="polite"></main>
+  <p class="hint" id="modehint"></p>
+</div>
+
+<script>
+const EMBEDDED_CASES = [{"id":"ncmhce-G031","title":"Recurrent Sudden Surges of Fear","category":"Anxiety","difficulty":"medium","primaryDiagnosis":{"name":"Panic Disorder","code":"F41.0"},"diagnosis":{"name":"Panic Disorder","code":"F41.0"},"differentialOptions":[{"id":"panic","name":"Panic Disorder","isCorrect":true},{"id":"gad","name":"Generalized Anxiety Disorder","isCorrect":false},{"id":"phobia","name":"Specific Phobia","isCorrect":false},{"id":"cardiac","name":"Cardiac / medical condition","isCorrect":false}],"narrative":{"intake":"Marcus, 29, a warehouse supervisor, presents after three emergency-room visits in two months for chest tightness, racing heart, and a feeling he was dying. Each cardiac workup was negative. The episodes come \"out of nowhere,\" peak within minutes, and leave him shaken for hours. He is embarrassed and worried something was missed.","session1":"Marcus describes discrete attacks: pounding heart, shortness of breath, sweating, dizziness, and a fear of losing control. Between attacks he now worries constantly about the next one and has started checking his pulse. He denies a single feared object or social trigger; the attacks are unexpected. No substance use beyond occasional coffee.","session2":"Marcus reports he has begun avoiding the highway and crowded stores because an attack there would be \"humiliating.\" He called out of work twice. He asks whether he should just avoid the places that set them off, and whether the lorazepam an ER doctor gave him is something he can take daily."},"diagnosticRationale":"Recurrent UNEXPECTED panic attacks plus 1+ month of persistent worry about additional attacks and maladaptive avoidance meet Panic Disorder criteria. Not GAD (the worry is about attacks, not diffuse multi-domain worry). Not Specific Phobia (no single cued trigger). Medical causes were reasonably excluded by negative cardiac workups.","questions":[{"id":"q1","domain":"treatment","question":"Which is the MOST appropriate first-line treatment?","options":[{"id":"a","text":"CBT with interoceptive exposure and psychoeducation about the panic cycle","isCorrect":true,"weight":3,"rationale":"CBT with interoceptive exposure is first-line for panic disorder.","explanation":{"approach":"Target the fear-of-fear cycle directly with exposure to bodily sensations.","rationale":"CBT with interoceptive and situational exposure has the strongest evidence base for panic disorder and reduces relapse versus medication alone.","keyIndicators":["Fear is of the sensations and the next attack","Avoidance is developing"],"commonMistake":"Skipping exposure and relying on reassurance, which maintains the cycle."}},{"id":"b","text":"Daily as-needed benzodiazepine as the primary treatment","isCorrect":false,"weight":-2,"rationale":"Standing PRN benzodiazepines risk dependence and undercut exposure learning.","explanation":{"approach":"Medication can have a role but not as the primary, standing treatment here.","rationale":"Routine benzodiazepine use fosters dependence and prevents the corrective learning exposure provides.","keyIndicators":["Young client","Avoidance already forming"],"commonMistake":"Treating panic with scheduled sedatives instead of exposure-based therapy."}},{"id":"c","text":"SSRI alone with no psychotherapy","isCorrect":false,"weight":0,"rationale":"An SSRI can help but therapy addresses the avoidance and fear-of-fear.","explanation":{"approach":"Pharmacotherapy is reasonable but incomplete by itself.","rationale":"An SSRI may reduce attack frequency but does not directly extinguish the avoidance Marcus is building.","keyIndicators":["Emerging agoraphobic avoidance"],"commonMistake":"Assuming medication alone resolves the behavioral avoidance."}},{"id":"d","text":"Supportive counseling only, with no specific protocol","isCorrect":false,"weight":-1,"rationale":"Supportive work alone is insufficient for a treatable, protocol-driven condition.","explanation":{"approach":"Support is necessary but not sufficient.","rationale":"Panic disorder responds to a specific exposure-based protocol; generic support leaves the mechanism untreated.","keyIndicators":["Clear, treatable target"],"commonMistake":"Defaulting to nonspecific support for a condition with a clear evidence-based treatment."}}],"evidenceRef":["R2","R3"]},{"id":"q2","domain":"intake","question":"The three negative cardiac workups are clinically MOST useful for what purpose?","options":[{"id":"a","text":"To reframe his bodily sensations and provide psychoeducation about the panic cycle","isCorrect":true,"weight":3,"rationale":"Negative workups support psychoeducation that the sensations are panic, not danger.","explanation":{"approach":"Use the negative results therapeutically to recalibrate threat appraisal.","rationale":"Demonstrating that the body is not in danger is the foundation for interoceptive exposure.","keyIndicators":["Repeated catastrophic misinterpretation of sensations"],"commonMistake":"Treating the workups as merely \"ruling things out\" rather than as therapeutic data."}},{"id":"b","text":"To tell him the symptoms are \"all in his head\"","isCorrect":false,"weight":-2,"rationale":"Dismissive framing damages alliance and misrepresents panic as imaginary.","explanation":{"approach":"Validate that the sensations are real while reframing their meaning.","rationale":"Panic sensations are physiologically real; calling them imaginary alienates the client.","keyIndicators":["Client already embarrassed and fearful"],"commonMistake":"Invalidating the client, which erodes trust and engagement."}},{"id":"c","text":"To justify ordering additional medical tests for reassurance","isCorrect":false,"weight":-1,"rationale":"More testing feeds reassurance-seeking and reinforces the disorder.","explanation":{"approach":"Avoid reinforcing reassurance-seeking.","rationale":"Repeated testing maintains health anxiety and the panic cycle.","keyIndicators":["Pulse-checking and ER-seeking behavior"],"commonMistake":"Colluding with reassurance-seeking via unnecessary tests."}},{"id":"d","text":"To reassure him the symptoms are not real and will pass","isCorrect":false,"weight":-1,"rationale":"Blanket reassurance is a safety behavior that maintains panic.","explanation":{"approach":"Replace reassurance with skills and exposure.","rationale":"Reassurance briefly relieves anxiety but reinforces the need for it.","keyIndicators":["Seeks reassurance repeatedly"],"commonMistake":"Providing reassurance instead of building tolerance for uncertainty."}}],"evidenceRef":["R1","R3"]},{"id":"q3","domain":"counseling","question":"Marcus is starting to avoid driving and crowded stores. The BEST response is to:","options":[{"id":"a","text":"Begin graded, collaborative exposure to the avoided situations","isCorrect":true,"weight":3,"rationale":"Graded exposure reverses the developing agoraphobic avoidance.","explanation":{"approach":"Address avoidance early before it generalizes.","rationale":"Situational exposure prevents the consolidation of agoraphobia.","keyIndicators":["Avoidance is recent and limited"],"commonMistake":"Waiting until avoidance is entrenched before intervening."}},{"id":"b","text":"Advise him to avoid the triggering situations until he feels calmer","isCorrect":false,"weight":-2,"rationale":"Endorsing avoidance accelerates agoraphobia.","explanation":{"approach":"Do not sanction avoidance.","rationale":"Avoidance is negatively reinforced and expands over time.","keyIndicators":["Early agoraphobic pattern"],"commonMistake":"Advising avoidance, which worsens the disorder."}},{"id":"c","text":"Defer any exposure until the panic attacks stop on their own","isCorrect":false,"weight":-1,"rationale":"Attacks are unlikely to remit without intervention; waiting entrenches avoidance.","explanation":{"approach":"Intervene now rather than waiting for spontaneous remission.","rationale":"Untreated panic with avoidance tends to persist and broaden.","keyIndicators":["Functional impairment already present"],"commonMistake":"Passively waiting instead of treating."}},{"id":"d","text":"Refer him out without addressing the avoidance","isCorrect":false,"weight":0,"rationale":"Referral without action delays a manageable, in-scope intervention.","explanation":{"approach":"This is within an LPC scope; act on it.","rationale":"Graded exposure is core counseling work, not grounds for referral.","keyIndicators":["Standard panic presentation"],"commonMistake":"Reflexively referring treatable, in-scope cases."}}],"evidenceRef":["R3"]},{"id":"q4","domain":"core","question":"What MOST distinguishes Marcus’s presentation from Generalized Anxiety Disorder?","options":[{"id":"a","text":"Recurrent unexpected attacks plus fear of future attacks, rather than chronic diffuse worry","isCorrect":true,"weight":3,"rationale":"Panic = discrete uncued attacks + anticipatory fear; GAD = pervasive worry.","explanation":{"approach":"Differentiate by the focus and form of the anxiety.","rationale":"Panic centers on discrete attacks and fear of them; GAD is sustained multi-domain worry.","keyIndicators":["Attacks are unexpected and peak in minutes","Worry is about the attacks"],"commonMistake":"Collapsing all anxiety into GAD without checking attack structure."}},{"id":"b","text":"The presence of any physical symptoms at all","isCorrect":false,"weight":-1,"rationale":"Both disorders include physical symptoms.","explanation":{"approach":"Physical symptoms are nonspecific.","rationale":"GAD also produces somatic symptoms, so they do not separate the two.","keyIndicators":["Somatic overlap"],"commonMistake":"Using somatic symptoms as the differentiator."}},{"id":"c","text":"That he worries about many areas of life","isCorrect":false,"weight":-1,"rationale":"Multi-domain worry actually points toward GAD, not panic.","explanation":{"approach":"Check what the worry is about.","rationale":"Marcus worries specifically about attacks, not broadly, which fits panic.","keyIndicators":["Worry is attack-focused"],"commonMistake":"Mis-assigning attack-focused worry as generalized worry."}},{"id":"d","text":"The duration of symptoms being longer than six months","isCorrect":false,"weight":0,"rationale":"Duration is not the distinguishing feature here.","explanation":{"approach":"Form, not duration, separates these.","rationale":"Both can be chronic; the attack structure is the discriminator.","keyIndicators":["Discrete vs diffuse pattern"],"commonMistake":"Relying on duration to differentiate."}}],"evidenceRef":["R1"]},{"id":"q5","domain":"ethics","question":"Marcus asks you to support a request for daily lorazepam from his PCP. You should:","options":[{"id":"a","text":"Coordinate with the PCP, share concerns about daily benzodiazepine use, and prioritize CBT","isCorrect":true,"weight":3,"rationale":"Collaborative care plus advocating evidence-based treatment serves the client.","explanation":{"approach":"Stay in your lane while coordinating care.","rationale":"Counselors do not prescribe but can communicate concerns and champion exposure-based treatment.","keyIndicators":["Risk of dependence","Interferes with exposure learning"],"commonMistake":"Either rubber-stamping the request or ignoring the medication question entirely."}},{"id":"b","text":"Tell him counselors cannot discuss medication, so it is not your concern","isCorrect":false,"weight":-1,"rationale":"Medication coordination is within the counselor’s collaborative role.","explanation":{"approach":"Coordination is part of good care.","rationale":"Declining to engage abandons a relevant clinical issue.","keyIndicators":["Medication affects therapy outcome"],"commonMistake":"Treating medication as wholly outside the counselor’s purview."}},{"id":"c","text":"Write to the PCP endorsing daily lorazepam to relieve his distress","isCorrect":false,"weight":-2,"rationale":"Endorsing standing benzodiazepines exceeds scope and risks harm.","explanation":{"approach":"Do not advocate a treatment that conflicts with the evidence and your scope.","rationale":"Recommending daily sedatives is outside scope and clinically counterproductive.","keyIndicators":["Dependence risk"],"commonMistake":"Overstepping scope to relieve short-term distress."}},{"id":"d","text":"Refuse to communicate with the PCP about the case","isCorrect":false,"weight":-1,"rationale":"Refusing coordination undermines integrated care.","explanation":{"approach":"Communicate with consent.","rationale":"With a release, coordinating care improves outcomes.","keyIndicators":["Shared client"],"commonMistake":"Withholding appropriate, consented coordination."}}],"evidenceRef":["R4","R2"]}],"references":[{"id":"R1","source":"DSM-5-TR","detail":"Panic Disorder criteria: recurrent unexpected panic attacks + 1 month of worry/maladaptive change."},{"id":"R2","source":"NICE guidelines","detail":"Panic disorder: CBT is first-line; cautions on routine benzodiazepine use."},{"id":"R3","source":"Barlow PCT","detail":"Panic Control Treatment: interoceptive and situational exposure to the fear-of-fear cycle."},{"id":"R4","source":"ACA Code of Ethics","detail":"Coordination of care and consultation with other providers (with client consent)."}]}];
+let DATA_SOURCE = 'embedded';
+
+const app = document.getElementById('app');
+const modehint = document.getElementById('modehint');
+
+// ---- data layer (API with embedded fallback) ----
+async function fetchList(){
+  try{
+    const r = await fetch('/api/content?exam=ncmhce');
+    if(!r.ok) throw 0;
+    const j = await r.json();
+    if(!j.items || !j.items.length) throw 0;
+    DATA_SOURCE = 'api';
+    return j.items;
+  }catch(_){
+    DATA_SOURCE = 'embedded';
+    return EMBEDDED_CASES.map(c => ({externalId:c.id, title:c.title, category:c.category, difficulty:c.difficulty}));
+  }
+}
+async function fetchCase(externalId){
+  if(DATA_SOURCE === 'api'){
+    const r = await fetch('/api/content/' + encodeURIComponent(externalId));
+    const j = await r.json();
+    return j.item.caseSim;
+  }
+  return EMBEDDED_CASES.find(c => c.id === externalId);
+}
+
+// ---- helpers ----
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const cap = s => s ? s.charAt(0).toUpperCase()+s.slice(1) : s;
+function refsFor(caseObj, ids){
+  const map = {}; (caseObj.references||[]).forEach(r => map[r.id]=r);
+  return (ids||[]).map(id => map[id]).filter(Boolean);
+}
+
+// ---- state ----
+let CASE=null, qi=0, answers=[];
+
+// ---- screens ----
+async function showList(){
+  app.innerHTML = '<p class="lead">Loading cases…</p>';
+  const items = await fetchList();
+  modehint.textContent = DATA_SOURCE === 'embedded'
+    ? 'Preview mode — showing a sample case. Once connected to your API, every published case appears here.'
+    : '';
+  let h = '<h1>Choose a case</h1><p class="lead">Read the client, work the questions, and see the reasoning behind each answer.</p>';
+  items.forEach(it => {
+    h += '<button class="case-btn" onclick="startCase(\''+esc(it.externalId)+'\')">'
+       + '<span class="t">'+esc(it.title)+'</span>'
+       + '<span class="chips"><span class="chip">'+esc(it.category)+'</span>'
+       + '<span class="chip">'+esc(cap(it.difficulty))+'</span></span></button>';
+  });
+  app.innerHTML = h;
+}
+
+async function startCase(externalId){
+  app.innerHTML = '<p class="lead">Loading…</p>';
+  CASE = await fetchCase(externalId);
+  qi = 0; answers = [];
+  renderCase();
+}
+
+function renderCase(){
+  const c = CASE, n = c.questions.length;
+  const dx = c.diagnosis || c.primaryDiagnosis || {};
+  let h = '<button class="back" onclick="showList()">‹ All cases</button>';
+  h += '<h1>'+esc(c.title)+'</h1>';
+  h += '<div class="chips" style="margin-bottom:14px"><span class="chip">'+esc(c.category)+'</span><span class="chip">'+esc(cap(c.difficulty))+'</span></div>';
+
+  // vignette
+  h += '<div class="card stack"><div class="vignette">';
+  const seg = (label, txt) => txt ? '<div class="seg"><div class="seg-label">'+label+'</div>'+esc(txt)+'</div>' : '';
+  h += seg('Intake', c.narrative && c.narrative.intake);
+  h += seg('Session 1', c.narrative && c.narrative.session1);
+  h += seg('Session 2', c.narrative && c.narrative.session2);
+  h += '</div>';
+  if(dx.name){
+    h += '<div class="dx"><div class="seg-label">Working diagnosis</div>'
+       + '<div class="dx-name">'+esc(dx.name)+(dx.code?' <span style="color:var(--muted);font-weight:400">('+esc(dx.code)+')</span>':'')+'</div></div>';
+  }
+  h += '</div>';
+
+  // progress
+  const answered = answers.filter(a=>a).length;
+  h += '<div class="progress"><span>Question '+(qi+1)+' of '+n+'</span><span>'+answered+'/'+n+' answered</span></div>';
+  h += '<div class="bar"><i style="width:'+Math.round((qi)/(n)*100)+'%"></i></div>';
+
+  // current question
+  h += '<div class="card" style="margin-top:14px">'+renderQuestion(qi)+'</div>';
+  app.innerHTML = h;
+}
+
+function renderQuestion(i){
+  const q = CASE.questions[i];
+  const ans = answers[i]; // {chosenId}
+  const letters = ['A','B','C','D','E','F'];
+  let h = '<div class="qstem">'+esc(q.question)+'</div>';
+
+  q.options.forEach((o,idx) => {
+    let cls = 'opt';
+    let mark = '';
+    let disabled = '';
+    if(ans){
+      disabled = 'disabled';
+      if(o.isCorrect){ cls += ' correct'; mark = '<span class="mark" aria-hidden="true">✓</span>'; }
+      else if(o.id === ans.chosenId){ cls += ' incorrect'; mark = '<span class="mark" aria-hidden="true">✗</span>'; }
+    }
+    h += '<button class="'+cls+'" '+disabled+' onclick="choose(\''+esc(q.id)+'\',\''+esc(o.id)+'\')">'
+       + '<span class="key" aria-hidden="true">'+letters[idx]+'</span>'
+       + '<span>'+esc(o.text)+'</span>'+mark+'</button>';
+  });
+
+  if(ans) h += renderFeedback(q, ans);
+  return h;
+}
+
+function renderFeedback(q, ans){
+  const chosen = q.options.find(o=>o.id===ans.chosenId);
+  const correct = q.options.find(o=>o.isCorrect);
+  const ok = chosen && chosen.isCorrect;
+  const ex = (ok ? chosen : correct).explanation || {};
+  const sources = refsFor(CASE, q.evidenceRef);
+
+  let h = '<div class="feedback" role="status">';
+  h += '<div class="verdict '+(ok?'ok':'no')+'">'+(ok?'✓ Correct':'✗ Not quite')+'</div>';
+
+  if(!ok && chosen){
+    h += '<div class="fb-block"><div class="fb-label">Why that one misleads</div>'+esc(chosen.rationale)+'</div>';
+    h += '<div class="fb-block"><div class="fb-label">The keyed answer</div><strong>'+esc(correct.text)+'</strong></div>';
+  }
+  if(ex.approach) h += '<div class="fb-block"><div class="fb-label">Approach</div>'+esc(ex.approach)+'</div>';
+  if(ex.rationale) h += '<div class="fb-block"><div class="fb-label">Why</div>'+esc(ex.rationale)+'</div>';
+  if(ex.keyIndicators && ex.keyIndicators.length){
+    h += '<div class="fb-block"><div class="fb-label">Key indicators</div><ul class="fb-list">'
+       + ex.keyIndicators.map(k=>'<li>'+esc(k)+'</li>').join('') + '</ul></div>';
+  }
+  if(ex.commonMistake) h += '<div class="fb-block"><div class="mistake"><div class="fb-label" style="color:var(--incorrect)">Common mistake</div>'+esc(ex.commonMistake)+'</div></div>';
+
+  if(sources.length){
+    h += '<div class="sources"><div class="fb-label">Evidence</div>';
+    sources.forEach(s => {
+      h += '<div class="source"><span class="src-name">'+esc(s.source)+'</span><span class="src-detail">'+esc(s.detail)+'</span></div>';
+    });
+    h += '</div>';
+  }
+
+  // next / finish
+  const last = qi === CASE.questions.length-1;
+  h += '<div class="row">';
+  if(last) h += '<button class="btn" onclick="finish()">See results</button>';
+  else h += '<button class="btn" onclick="next()">Next question ›</button>';
+  h += '</div></div>';
+  return h;
+}
+
+function choose(qid, oid){
+  if(answers[qi]) return;
+  answers[qi] = {chosenId:oid};
+  renderCase();
+  // move focus to the feedback for screen-reader users
+  const fb = app.querySelector('.feedback');
+  if(fb){ fb.setAttribute('tabindex','-1'); fb.focus(); }
+}
+function next(){ qi++; renderCase(); window.scrollTo({top:0,behavior:'smooth'}); }
+
+function finish(){
+  const qs = CASE.questions;
+  let correct = 0; const dom = {};
+  qs.forEach((q,i) => {
+    const a = answers[i];
+    const isOk = a && q.options.find(o=>o.id===a.chosenId)?.isCorrect;
+    if(isOk) correct++;
+    const d = q.domain || 'general';
+    dom[d] = dom[d] || {ok:0,total:0};
+    dom[d].total++; if(isOk) dom[d].ok++;
+  });
+  const pct = Math.round(correct/qs.length*100);
+
+  let h = '<button class="back" onclick="showList()">‹ All cases</button>';
+  h += '<h1>'+esc(CASE.title)+'</h1>';
+  h += '<div class="card stack" style="text-align:center"><div class="score-big">'+correct+'/'+qs.length+'</div>'
+     + '<p class="lead" style="margin:6px 0 0">'+pct+'% on this case</p></div>';
+
+  h += '<div class="card" style="margin-top:14px"><h2>By area</h2>';
+  Object.keys(dom).forEach(d => {
+    h += '<div class="dom-row"><span>'+esc(cap(d))+'</span><span class="dom-score">'+dom[d].ok+'/'+dom[d].total+'</span></div>';
+  });
+  h += '</div>';
+
+  h += '<div class="row"><button class="btn" onclick="startCase(\''+esc(CASE.id)+'\')">Retry this case</button>'
+     + '<button class="btn secondary" onclick="showList()">Another case</button></div>';
+  app.innerHTML = h;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// go
+showList();
+</script>
+</body>
+</html>
