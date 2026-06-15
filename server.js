@@ -17,6 +17,7 @@ app.get('/api/health', (req, res) =>
 // The front door (accounts + login) and the lockbox (saved progress).
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/progress', require('./routes/progress'));
+app.use('/api/content', require('./routes/content'));
 
 const PORT = process.env.PORT || 4000;
 
