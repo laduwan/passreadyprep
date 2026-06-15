@@ -70,7 +70,7 @@ async function main() {
     console.error('MONGO_URI is not set — add it to your .env first.');
     process.exit(1);
   }
-  await mongoose.connect(process.env.MONGO_URI);
+  await mongoose.connect(process.env.MONGO_URI, { dbName: 'passreadyprep' });
   console.log('Connected to MongoDB.');
 
   // 3) Make sure the NCMHCE exam exists, and load the cases under it.

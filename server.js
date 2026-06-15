@@ -26,7 +26,7 @@ async function start() {
     console.warn('MONGO_URI is not set — add it to your .env before using accounts for real.');
   } else {
     try {
-      await mongoose.connect(process.env.MONGO_URI);
+      await mongoose.connect(process.env.MONGO_URI, { dbName: 'passreadyprep' });
       console.log('Connected to MongoDB');
     } catch (err) {
       console.error('MongoDB connection failed:', err.message);
