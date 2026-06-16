@@ -137,6 +137,7 @@ Rules:
 - Weight the 5 questions to the NCMHCE domains: Counseling Skills/Interventions is the heaviest area, followed by Intake/Assessment, then Treatment Planning, with Ethics or Core Attributes. Assign the question domains EXACTLY in the order given in the user prompt.
 - Reflect client diversity and culturally responsive practice in every case (per the diversity note in the user prompt). Make at least one option in the case hinge on culturally responsive judgment, and never stereotype or pathologize cultural difference.
 - Make distractors plausible and instructive; each option needs a teaching explanation.
+- OPTION BALANCE (critical — no test-wiseness cues): all four options must be parallel in length, grammar, and specificity. The correct answer must NOT be the longest, most detailed, or most hedged option — write fuller, genuinely tempting distractors and keep the key the same length and style as them. Vary which option is correct across questions; never default the answer to the first option.
 - DOCUMENTARY EVIDENCE: ground every case in 2-4 authoritative sources, drawn ONLY from the APPROVED SOURCES list in the user prompt (use the exact source string). Put the specific criterion or guideline recommendation in each reference "detail". Give every question an evidenceRef naming the reference id(s) that justify the KEYED (correct) answer. Never cite a source that is not on the approved list, and never invent page numbers or study names.
 - Safety first: if risk is present, the safe action is the correct one.
 - For eating-disorder or self-harm content, stay at the level of diagnosis, medical risk, level of care, and evidence-based treatment. NEVER include weights, calorie figures, restriction methods, or any how-to detail that could enable harm.
@@ -275,7 +276,7 @@ async function generateOne(target, idx, corpus) {
         : parseCase(await callAnthropic(buildUserPrompt(target, pickExemplar(target), domainPlan, diversityHint, angle, avoidSummaries)));
       c.id = 'ncmhce-G' + String(idNum).padStart(3, '0');
       c.category = target.category; // enforce blueprint category
-      const v = validateCase(c, { categories: bp.CATEGORY_NAMES, allowedSources: ALLOWED_SOURCES });
+      const v = validateCase(c, { categories: bp.CATEGORY_NAMES, allowedSources: ALLOWED_SOURCES, strictItemQuality: true });
       if (!v.ok) { console.warn('    attempt ' + (attempt + 1) + ' invalid: ' + v.errors.slice(0, 3).join(' | ')); continue; }
       if (!DRY_RUN) {
         const dup = dedup.isNearDuplicate(c, corpus || [], { threshold: DUP_THRESHOLD });
