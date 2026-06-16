@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — Review</title>
+<style>
+  :root{
+    --ink:#1B2A3A; --muted:#5B6B7A;
+    --primary:#0E7C7B; --primary-dark:#0A5E5D;
+    --bg:#F7F5F1; --card:#FFFFFF; --border:#E5E0D8;
+    --correct:#1E7F4E; --correct-bg:#E7F3EC;
+    --amber:#9A6614; --amber-bg:#F6EEDD;
+    --review:#9A6614; --review-bg:#F6EEDD;
+    --pub:#1E7F4E; --pub-bg:#E7F3EC;
+    --serif:Georgia,"Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 64px}
+  header.site{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 2px 14px}
+  .brand{font-weight:700;font-size:19px}
+  .brand .prep{color:var(--primary);font-weight:600}
+  .tag{font-size:12px;font-weight:600;color:var(--review);background:var(--review-bg);border:1px solid #E8D9B8;padding:4px 10px;border-radius:999px}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:12px}
+  h1{font-family:var(--serif);font-size:24px;margin:0 0 4px}
+  h2{font-family:var(--serif);font-size:19px;margin:0 0 8px}
+  .lead{color:var(--muted);margin:0 0 16px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+  input[type=password],input[type=text]{font:inherit;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;flex:1;min-width:200px}
+  .btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font:inherit;font-weight:600;background:var(--primary);color:#fff;border:none;border-radius:10px;padding:11px 18px}
+  .btn:hover{background:var(--primary-dark)}
+  .btn.pub{background:var(--pub)} .btn.pub:hover{background:#176b40}
+  .btn.ghost{background:transparent;color:var(--primary-dark);border:1.5px solid var(--border)}
+  .btn.ghost:hover{background:#fff;border-color:var(--primary)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .back{background:none;border:none;cursor:pointer;font:inherit;color:var(--muted);font-weight:600;padding:6px 0;margin-bottom:4px}
+  .back:hover{color:var(--ink)}
+
+  .tabs{display:flex;gap:8px;margin:4px 0 14px}
+  .tabs button{font:inherit;font-weight:600;cursor:pointer;background:#fff;border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;color:var(--muted)}
+  .tabs button.on{border-color:var(--primary);color:var(--primary-dark);background:#E5F0EF}
+
+  .case-btn{display:block;width:100%;text-align:left;cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;font:inherit;color:inherit}
+  .case-btn:hover{border-color:var(--primary)}
+  .case-btn .t{font-family:var(--serif);font-size:18px;font-weight:600}
+  .chips{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-size:12.5px;font-weight:600;color:var(--muted);background:#F0ECE4;border-radius:999px;padding:3px 10px}
+  .status{font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px}
+  .status.sme_review{color:var(--review);background:var(--review-bg)}
+  .status.published{color:var(--pub);background:var(--pub-bg)}
+  .status.needs{color:#A4451F;background:#F6E4DA}
+
+  .vignette{font-family:var(--serif);font-size:17px;line-height:1.6}
+  .seg{margin-top:12px}
+  .seg-label{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--primary-dark);margin-bottom:2px}
+  .dx{background:var(--amber-bg);border:1px solid #E8D9B8;border-radius:10px;padding:11px 13px;margin-top:10px}
+  .dx .seg-label{color:var(--amber)}
+
+  .q{border-top:1px solid var(--border);padding-top:14px;margin-top:14px}
+  .qmeta{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .qstem{font-family:var(--serif);font-size:18px;margin:4px 0 10px}
+  .opt{border:1.5px solid var(--border);border-radius:9px;padding:10px 12px;margin-bottom:8px}
+  .opt.correct{border-color:var(--correct);background:var(--correct-bg)}
+  .opt .otext{font-weight:600}
+  .opt.correct .otext::after{content:" ✓";color:var(--correct)}
+  .opt .orat{font-size:14px;color:var(--muted);margin-top:4px}
+  .ex{margin-top:8px;font-size:14.5px}
+  .ex b{font-weight:700}
+  .ex ul{margin:4px 0;padding-left:20px}
+  .source{display:flex;gap:10px;background:var(--amber-bg);border:1px solid #E8D9B8;border-radius:9px;padding:9px 11px;margin-top:8px}
+  .source .src-name{font-weight:700;color:var(--amber);font-size:13px;white-space:nowrap}
+  .source .src-detail{font-size:14px}
+
+  .err{color:#B23A60;font-weight:600;margin-top:8px}
+  .ok{color:var(--pub);font-weight:600}
+  :focus-visible{outline:3px solid var(--primary);outline-offset:2px;border-radius:6px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <div class="brand">PassReady <span class="prep">Prep</span></div>
+    <span class="tag">Review</span>
+  </header>
+  <main id="app"></main>
+</div>
+
+<script>
+let TOKEN = '';
+let TAB = 'sme_review';
+const app = document.getElementById('app');
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const cap = s => s?s.charAt(0).toUpperCase()+s.slice(1):s;
+
+async function api(path, opts){
+  opts = opts || {};
+  opts.headers = Object.assign({'x-admin-token':TOKEN,'Content-Type':'application/json'}, opts.headers||{});
+  const r = await fetch(path, opts);
+  if(r.status===401) throw new Error('Invalid admin token');
+  if(!r.ok){ const j=await r.json().catch(()=>({})); throw new Error(j.error||('Error '+r.status)); }
+  return r.json();
+}
+
+function gate(msg){
+  app.innerHTML =
+    '<div class="card"><h1>Reviewer sign-in</h1>'
+    + '<p class="lead">Enter your admin token to review and publish cases.</p>'
+    + '<div class="row"><input id="tok" type="password" placeholder="Admin token" />'
+    + '<button class="btn" onclick="signIn()">Continue</button></div>'
+    + (msg?'<p class="err">'+esc(msg)+'</p>':'') + '</div>';
+  const i=document.getElementById('tok'); i.focus();
+  i.addEventListener('keydown',e=>{ if(e.key==='Enter') signIn(); });
+}
+async function signIn(){
+  TOKEN = document.getElementById('tok').value.trim();
+  if(!TOKEN) return gate('Enter your token.');
+  try{ await api('/api/admin/content?status=sme_review'); showList(); }
+  catch(e){ gate(e.message); }
+}
+
+async function showList(){
+  app.innerHTML = '<p class="lead">Loading…</p>';
+  let data;
+  try{ data = await api('/api/admin/content?status='+TAB); }
+  catch(e){ return gate(e.message); }
+  let h = '<div class="tabs">'
+    + '<button class="'+(TAB==='sme_review'?'on':'')+'" onclick="setTab(\'sme_review\')">Pending review</button>'
+    + '<button class="'+(TAB==='published'?'on':'')+'" onclick="setTab(\'published\')">Published</button></div>';
+  h += '<h1>'+(TAB==='sme_review'?'Pending review':'Published')+' <span style="color:var(--muted);font-weight:400">('+data.count+')</span></h1>';
+  if(!data.count){
+    h += '<p class="lead">'+(TAB==='sme_review'?'Nothing waiting. Generated cases show up here after you import them.':'No published cases yet.')+'</p>';
+  }
+  data.items.forEach(it=>{
+    h += '<button class="case-btn" onclick="openCase(\''+esc(it.externalId)+'\')">'
+       + '<span class="t">'+esc(it.title)+'</span>'
+       + '<span class="chips"><span class="chip">'+esc(it.category)+'</span>'
+       + '<span class="chip">'+esc(cap(it.difficulty))+'</span>'
+       + '<span class="status '+esc(it.status)+'">'+(it.status==='sme_review'?'Pending':'Published')+'</span>'
+       + (it.needsWork?'<span class="status needs">Needs work</span>':'')
+       + '</span></button>';
+  });
+  app.innerHTML = h;
+}
+function setTab(t){ TAB=t; showList(); }
+
+async function openCase(externalId){
+  app.innerHTML = '<p class="lead">Loading…</p>';
+  let item;
+  try{ item = (await api('/api/admin/content/'+encodeURIComponent(externalId))).item; }
+  catch(e){ return gate(e.message); }
+  renderReview(item);
+}
+
+function renderReview(item){
+  const c = item.caseSim; const dx = c.diagnosis||c.primaryDiagnosis||{};
+  const refMap={}; (c.references||[]).forEach(r=>refMap[r.id]=r);
+  const isPending = item.status==='sme_review';
+
+  let h = '<button class="back" onclick="showList()">‹ Back to list</button>';
+  h += '<div class="row" style="justify-content:space-between"><h1 style="margin:0">'+esc(c.title)+'</h1>'
+     + '<span class="status '+esc(item.status)+'">'+(isPending?'Pending':'Published')+'</span></div>';
+  h += '<div class="chips" style="margin:8px 0 14px"><span class="chip">'+esc(c.category)+'</span><span class="chip">'+esc(cap(c.difficulty))+'</span></div>';
+
+  // action bar
+  h += '<div class="row" id="actions">'+actionButtons(item)+'</div>';
+  h += '<p id="msg"></p>';
+
+  h += '<div class="card"><div class="seg-label">Reviewer note'
+     + (item.needsWork?' &nbsp;<span class="status needs">flagged: needs work</span>':'')
+     + '</div>'
+     + '<textarea id="note" rows="3" style="width:100%;font:inherit;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;margin-top:6px;resize:vertical" placeholder="Flag edits to yourself — e.g. &quot;Q3 distractor too weak, rewrite.&quot; Saving a note marks this case as needs-work.">'+esc(item.reviewNote||'')+'</textarea>'
+     + '<div class="row" style="margin-top:8px"><button class="btn ghost" onclick="saveNote(\''+esc(item.externalId)+'\')">Save note</button><span id="noteMsg"></span></div></div>';
+
+  // vignette + diagnosis
+  h += '<div class="card"><div class="vignette">';
+  const seg=(l,t)=>t?'<div class="seg"><div class="seg-label">'+l+'</div>'+esc(t)+'</div>':'';
+  h += seg('Intake',c.narrative&&c.narrative.intake)+seg('Session 1',c.narrative&&c.narrative.session1)+seg('Session 2',c.narrative&&c.narrative.session2);
+  h += '</div>';
+  if(dx.name) h += '<div class="dx"><div class="seg-label">Working diagnosis</div><strong>'+esc(dx.name)+(dx.code?' ('+esc(dx.code)+')':'')+'</strong></div>';
+  if(c.diagnosticRationale) h += '<div class="seg"><div class="seg-label">Diagnostic rationale</div>'+esc(c.diagnosticRationale)+'</div>';
+  h += '</div>';
+
+  // questions — full, with keyed answer + explanations + evidence shown
+  h += '<div class="card"><h2>Questions ('+c.questions.length+')</h2>';
+  c.questions.forEach((q,i)=>{
+    h += '<div class="q"><div class="qmeta">Q'+(i+1)+' · '+esc(q.domain)+'</div><div class="qstem">'+esc(q.question)+'</div>';
+    q.options.forEach(o=>{
+      h += '<div class="opt'+(o.isCorrect?' correct':'')+'"><div class="otext">'+esc(o.text)+'</div>';
+      if(o.rationale) h += '<div class="orat">'+esc(o.rationale)+'</div>';
+      if(o.isCorrect && o.explanation){
+        const ex=o.explanation;
+        h += '<div class="ex">';
+        if(ex.approach) h += '<div><b>Approach:</b> '+esc(ex.approach)+'</div>';
+        if(ex.rationale) h += '<div><b>Why:</b> '+esc(ex.rationale)+'</div>';
+        if(ex.keyIndicators&&ex.keyIndicators.length) h += '<div><b>Key indicators:</b><ul>'+ex.keyIndicators.map(k=>'<li>'+esc(k)+'</li>').join('')+'</ul></div>';
+        if(ex.commonMistake) h += '<div><b>Common mistake:</b> '+esc(ex.commonMistake)+'</div>';
+        h += '</div>';
+      }
+      h += '</div>';
+    });
+    (q.evidenceRef||[]).forEach(rid=>{ const r=refMap[rid]; if(r) h+='<div class="source"><span class="src-name">'+esc(r.source)+'</span><span class="src-detail">'+esc(r.detail)+'</span></div>'; });
+    h += '</div>';
+  });
+  h += '</div>';
+
+  h += '<div class="row">'+actionButtons(item)+'</div>';
+  app.innerHTML = h;
+}
+
+function actionButtons(item){
+  if(item.status==='sme_review'){
+    return '<button class="btn pub" onclick="publish(\''+esc(item.externalId)+'\')">Approve &amp; publish</button>'
+         + '<button class="btn ghost" onclick="showList()">Not yet</button>';
+  }
+  return '<button class="btn ghost" onclick="unpublish(\''+esc(item.externalId)+'\')">Unpublish (send back to pending)</button>';
+}
+
+async function publish(id){
+  const msg=document.getElementById('msg');
+  try{ await api('/api/admin/content/'+encodeURIComponent(id)+'/publish',{method:'POST',body:JSON.stringify({})});
+    if(msg){ msg.className='ok'; msg.textContent='Published — now live to learners.'; }
+    setTimeout(showList, 700);
+  }catch(e){ if(msg){ msg.className='err'; msg.textContent=e.message; } }
+}
+async function unpublish(id){
+  try{ await api('/api/admin/content/'+encodeURIComponent(id)+'/unpublish',{method:'POST',body:JSON.stringify({})}); showList(); }
+  catch(e){ const msg=document.getElementById('msg'); if(msg){ msg.className='err'; msg.textContent=e.message; } }
+}
+async function saveNote(id){
+  const note=document.getElementById('note').value;
+  const m=document.getElementById('noteMsg');
+  try{
+    const r=await api('/api/admin/content/'+encodeURIComponent(id)+'/note',{method:'POST',body:JSON.stringify({note:note})});
+    if(m){ m.className='ok'; m.textContent = r.needsWork ? 'Saved — flagged as needs work.' : 'Saved.'; }
+  }catch(e){ if(m){ m.className='err'; m.textContent=e.message; } }
+}
+
+gate('');
+</script>
+</body>
+</html>
