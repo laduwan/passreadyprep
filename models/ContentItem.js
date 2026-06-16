@@ -35,6 +35,8 @@ const ContentItemSchema = new Schema(
       index: true,
     },
     reviewedBy: { name: String, credential: String, date: Date },
+    reviewNote: String,
+    needsWork: { type: Boolean, default: false },
 
     // format-specific payload (exactly one present)
     caseSim: Schema.Types.Mixed,
