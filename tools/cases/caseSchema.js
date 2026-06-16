@@ -154,6 +154,25 @@ function validateCase(c, opts = {}) {
           if (!isNonEmptyStr(ex.commonMistake, 8)) e.push(op + 'explanation.commonMistake missing');
         }
       });
+
+      // --- item quality: option-length balance (test-wiseness guard) ---
+      // The keyed answer must not be detectable by length. Flags items where the
+      // correct option is the longest/most elaborated while distractors are thin.
+      if (correct.length === 1 && correct[0] && typeof correct[0].text === 'string') {
+        const correctLen = correct[0].text.length;
+        const dLens = q.options.filter((o) => o && !o.isCorrect).map((o) => (o.text || '').length);
+        if (dLens.length) {
+          const maxD = Math.max(...dLens);
+          const meanD = dLens.reduce((a, b) => a + b, 0) / dLens.length;
+          const tell =
+            (correctLen > maxD && correctLen >= meanD * 1.25)
+              ? qp + 'correct answer is the longest option (length cue — match distractor length/specificity)'
+              : (meanD > 0 && correctLen > meanD * 1.6)
+                ? qp + 'correct answer much longer than distractors (length cue)'
+                : null;
+          if (tell) (opts.strictItemQuality ? e : w).push(tell);
+        }
+      }
     });
   }
 
