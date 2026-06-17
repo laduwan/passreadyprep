@@ -41,6 +41,16 @@ if (fs.existsSync(path.join(__dirname, 'generated-cases.js'))) {
   }
 }
 
+// Load migrated cases (ported from v4 prototype) — always sme_review until verified.
+let MIGRATED_CASES = [];
+if (fs.existsSync(path.join(__dirname, 'migrated-cases.js'))) {
+  try {
+    MIGRATED_CASES = require('./migrated-cases').MIGRATED_CASES || [];
+  } catch (err) {
+    console.warn('Could not read migrated-cases.js: ' + err.message);
+  }
+}
+
 function toContentItem(examId, c, status) {
   return {
     examId,
@@ -73,10 +83,19 @@ async function main() {
       process.exit(1);
     }
   }
-  console.log('Validated ' + SEED_CASES.length + ' seed + ' + GENERATED_CASES.length + ' generated cases — clean.');
+  if (MIGRATED_CASES.length) {
+    const migRes = validateCaseSet(MIGRATED_CASES, { allowedSources: ALLOWED_SOURCES });
+    if (!migRes.ok) {
+      console.error('Migrated validation FAILED — nothing loaded:');
+      migRes.errors.slice(0, 8).forEach((e) => console.error('  - ' + e));
+      process.exit(1);
+    }
+  }
+  console.log('Validated ' + SEED_CASES.length + ' seed + ' + GENERATED_CASES.length + ' generated + ' + MIGRATED_CASES.length + ' migrated cases — clean.');
 
   const plan = SEED_CASES.map((c) => [c, 'published']).concat(
-    GENERATED_CASES.map((c) => [c, genStatus])
+    GENERATED_CASES.map((c) => [c, genStatus]),
+    MIGRATED_CASES.map((c) => [c, 'sme_review'])
   );
 
   if (DRY_RUN) {
