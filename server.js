@@ -18,6 +18,7 @@ app.get('/api/health', (req, res) =>
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/progress', require('./routes/progress'));
 app.use('/api/content', require('./routes/content'));
+app.use('/api/admin', require('./routes/admin'));
 
 // Serve the study screen (and any future static frontend files) from /public.
 app.use(express.static('public'));

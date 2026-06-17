@@ -6,129 +6,191 @@
 <title>PassReady Prep — Study</title>
 <style>
   :root{
-    --ink:#1B2A3A; --muted:#5B6B7A;
-    --primary:#0E7C7B; --primary-dark:#0A5E5D;
-    --bg:#F7F5F1; --card:#FFFFFF; --border:#E5E0D8;
-    --correct:#1E7F4E; --correct-bg:#E7F3EC;
-    --incorrect:#B23A60; --incorrect-bg:#F8E9EE;
-    --amber:#9A6614; --amber-bg:#F6EEDD;
-    --serif:Georgia,"Times New Roman",serif;
+    --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+    --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
+    --emerald:#10B981; --emerald-400:#34D399;
+    --blue-400:#60A5FA; --blue:#3B82F6;
+    --amber-400:#FBBF24; --amber:#F59E0B;
+    --red-400:#F87171; --red:#EF4444; --red-600:#DC2626;
+    --purple-400:#A78BFA; --purple:#8B5CF6;
     --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    --radius:12px;
+    --r-xl:16px; --r-lg:12px; --r-md:10px;
+    --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{
-    margin:0; background:var(--bg); color:var(--ink);
-    font-family:var(--sans); font-size:17px; line-height:1.55;
+    margin:0; min-height:100vh;
+    background:linear-gradient(160deg,#0F172A 0%,#1E293B 50%,#0F172A 100%); background-attachment:fixed;
+    color:var(--slate-200); font-family:var(--sans); font-size:16px; line-height:1.55;
   }
-  .wrap{max-width:720px; margin:0 auto; padding:20px 18px 64px}
-  a{color:var(--primary-dark)}
+  .wrap{max-width:760px; margin:0 auto; padding:18px 16px 64px}
+  a{color:var(--emerald-400)}
 
   /* header */
-  header.site{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:6px 2px 18px}
-  .brand{font-weight:700; font-size:20px; letter-spacing:-.01em}
-  .brand .prep{color:var(--primary); font-weight:600}
-  .exam-badge{font-size:12px; font-weight:600; color:var(--primary-dark);
-    background:#E5F0EF; border:1px solid #CFE5E3; padding:4px 10px; border-radius:999px}
+  header.site{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:4px 2px 20px}
+  .brand-wrap{display:flex; align-items:center; gap:11px}
+  .brand-chip{width:38px; height:38px; border-radius:11px; background:rgba(16,185,129,.16); display:grid; place-items:center; flex:0 0 auto}
+  .brand-chip svg{width:21px; height:21px; color:var(--emerald-400)}
+  .brand{font-weight:700; font-size:18px; color:var(--white); letter-spacing:-.01em; line-height:1.1}
+  .brand .prep{color:var(--emerald-400)}
+  .brand small{display:block; font-weight:600; font-size:11.5px; color:var(--emerald-400); letter-spacing:.02em; margin-top:1px}
+  .exam-badge{font-size:12px; font-weight:700; color:var(--emerald-400); background:rgba(16,185,129,.14);
+    border:1px solid rgba(16,185,129,.3); padding:5px 11px; border-radius:999px}
+
+  h1{font-size:25px; line-height:1.15; margin:0 0 6px; color:var(--white); font-weight:700; letter-spacing:-.01em}
+  h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
+  .lead{color:var(--slate-400); margin:0 0 18px}
 
   /* cards */
-  .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:18px}
+  .card{background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-xl); padding:18px 20px}
   .stack > * + *{margin-top:14px}
 
-  h1{font-family:var(--serif); font-size:26px; line-height:1.2; margin:0 0 4px}
-  h2{font-family:var(--serif); font-size:21px; margin:0 0 6px}
-  .lead{color:var(--muted); margin:0 0 18px}
+  /* badges */
+  .badge{display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.03em; padding:4px 10px; border-radius:999px; text-transform:uppercase}
+  .b-emerald{color:var(--emerald-400); background:rgba(16,185,129,.15)}
+  .b-blue{color:var(--blue-400); background:rgba(59,130,246,.15)}
+  .b-amber{color:var(--amber-400); background:rgba(245,158,11,.15)}
+  .b-red{color:var(--red-400); background:rgba(239,68,68,.15)}
+  .b-purple{color:var(--purple-400); background:rgba(139,92,246,.15)}
+  .b-slate{color:var(--slate-300); background:rgba(51,65,85,.5)}
+  .chips{display:flex; gap:8px; flex-wrap:wrap}
+
+  /* mode toggle (dashboard) */
+  .mode-grid{display:grid; gap:12px}
+  @media(min-width:560px){ .mode-grid{grid-template-columns:1fr 1fr} }
+  .mode-card{display:flex; flex-direction:column; gap:6px; text-align:left; cursor:pointer; font:inherit; color:inherit;
+    background:var(--card); border:1.5px solid var(--card-border); border-radius:var(--r-lg); padding:16px 18px; transition:.15s}
+  .mode-card:hover{border-color:var(--slate-600)}
+  .mode-card.sel{border-color:var(--emerald); background:rgba(16,185,129,.08)}
+  .mc-head{font-weight:700; color:var(--white); font-size:15px; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+  .mc-desc{color:var(--slate-400); font-size:14px; line-height:1.45}
+  .mc-sel{font-size:12px; font-weight:700; color:var(--slate-500); margin-top:2px}
+  .mode-card.sel .mc-sel{color:var(--emerald-400)}
+
+  /* session stats */
+  .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; text-align:center}
+  .stat-num{font-size:26px; font-weight:800; color:var(--white); line-height:1}
+  .stat-lbl{font-size:12px; color:var(--slate-400); margin-top:3px}
+
+  /* difficulty filter */
+  .filter{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:0 2px 16px}
+  .filter .flabel{font-size:13px; color:var(--slate-400); margin-right:2px}
+  .fbtn{cursor:pointer; font:inherit; font-size:13px; font-weight:600; border-radius:999px; padding:6px 14px;
+    border:1px solid var(--card-border); background:rgba(51,65,85,.4); color:var(--slate-300); transition:.15s}
+  .fbtn:hover{background:rgba(51,65,85,.7)}
+  .fbtn[aria-pressed="true"]{background:var(--emerald); color:#04261C; border-color:var(--emerald)}
 
   /* case list */
-  .case-btn{display:block; width:100%; text-align:left; cursor:pointer;
-    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
-    padding:16px 18px; margin-bottom:12px; font:inherit; color:inherit; transition:border-color .15s, transform .15s}
-  .case-btn:hover{border-color:var(--primary)}
-  .case-btn .t{font-family:var(--serif); font-size:19px; font-weight:600}
-  .chips{margin-top:8px; display:flex; gap:8px; flex-wrap:wrap}
-  .chip{font-size:12.5px; font-weight:600; color:var(--muted);
-    background:#F0ECE4; border-radius:999px; padding:3px 10px}
+  .case-btn{display:block; width:100%; text-align:left; cursor:pointer; font:inherit; color:inherit;
+    background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-lg);
+    padding:16px 18px; margin-bottom:12px; transition:border-color .15s, transform .12s}
+  .case-btn:hover{border-color:rgba(16,185,129,.5); transform:translateY(-1px)}
+  .case-btn .row-top{display:flex; align-items:center; justify-content:space-between; gap:10px}
+  .case-btn .t{font-size:17px; font-weight:700; color:var(--white); margin-top:10px; display:block}
+  .chev{color:var(--slate-400); font-size:20px; flex:0 0 auto; line-height:1}
 
   /* vignette */
-  .vignette{font-family:var(--serif); font-size:18px; line-height:1.62}
-  .vignette .seg{margin-top:14px}
-  .seg-label{font-family:var(--sans); font-size:12px; font-weight:700; letter-spacing:.06em;
-    text-transform:uppercase; color:var(--primary-dark); margin-bottom:2px}
-  .dx{background:var(--amber-bg); border:1px solid #E8D9B8; border-radius:10px; padding:12px 14px; margin-top:8px}
-  .dx .seg-label{color:var(--amber)}
-  .dx .dx-name{font-family:var(--serif); font-size:18px; font-weight:600}
+  .vignette .seg{margin-top:15px}
+  .vignette .seg:first-child{margin-top:0}
+  .seg-label{font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:4px}
+  .seg-intake{color:var(--emerald-400)} .seg-s1{color:var(--blue-400)} .seg-s2{color:var(--amber-400)}
+  .seg-text{color:var(--slate-200); line-height:1.62}
+
+  /* diagnosis banner (purple) */
+  .dx{background:rgba(139,92,246,.13); border:1px solid rgba(139,92,246,.32); border-radius:var(--r-lg); padding:13px 15px}
+  .dx .seg-label{color:var(--purple-400)}
+  .dx .dx-name{font-size:17px; font-weight:700; color:var(--white)}
+  .dx .dx-code{color:var(--slate-400); font-weight:500; font-size:14px}
 
   /* progress */
-  .progress{display:flex; align-items:center; justify-content:space-between; margin:22px 2px 10px;
-    font-size:13.5px; font-weight:600; color:var(--muted)}
-  .bar{height:6px; background:#E9E4DB; border-radius:999px; overflow:hidden; margin:6px 2px 0}
-  .bar > i{display:block; height:100%; background:var(--primary); transition:width .25s}
+  .progress{display:flex; align-items:center; justify-content:space-between; margin:22px 2px 8px; font-size:13px; font-weight:600; color:var(--slate-400)}
+  .bar{height:8px; background:var(--slate-700); border-radius:999px; overflow:hidden; margin:0 2px}
+  .bar > i{display:block; height:100%; background:var(--emerald); transition:width .25s}
 
   /* question + options */
-  .qstem{font-family:var(--serif); font-size:20px; line-height:1.35; margin:6px 0 14px}
-  .opt{display:flex; gap:12px; align-items:flex-start; width:100%; text-align:left; cursor:pointer;
-    background:var(--card); border:1.5px solid var(--border); border-radius:10px;
-    padding:13px 15px; margin-bottom:10px; font:inherit; color:inherit; transition:border-color .15s, background .15s}
-  .opt:hover:not(:disabled){border-color:var(--primary)}
+  .qstem{font-size:18px; line-height:1.4; margin:12px 0 16px; color:var(--white); font-weight:600}
+  .opt{display:flex; gap:12px; align-items:flex-start; width:100%; text-align:left; cursor:pointer; font:inherit; color:inherit;
+    background:rgba(30,41,59,.5); border:1.5px solid var(--card-border); border-radius:var(--r-md);
+    padding:13px 15px; margin-bottom:10px; transition:border-color .15s, background .15s}
+  .opt:hover:not(:disabled){border-color:var(--slate-600); background:rgba(30,41,59,.85)}
   .opt:disabled{cursor:default}
-  .opt .key{flex:0 0 auto; width:26px; height:26px; border-radius:7px; background:#EEE9E1;
+  .opt .key{flex:0 0 auto; width:28px; height:28px; border-radius:8px; background:var(--slate-700); color:var(--slate-300);
     display:grid; place-items:center; font-weight:700; font-size:14px}
-  .opt.correct{border-color:var(--correct); background:var(--correct-bg)}
-  .opt.incorrect{border-color:var(--incorrect); background:var(--incorrect-bg)}
-  .opt.correct .key{background:var(--correct); color:#fff}
-  .opt.incorrect .key{background:var(--incorrect); color:#fff}
-  .opt .mark{margin-left:auto; font-weight:700}
-  .opt.correct .mark{color:var(--correct)}
-  .opt.incorrect .mark{color:var(--incorrect)}
+  .opt .otext{flex:1}
+  .opt .mark{margin-left:8px; font-weight:700; flex:0 0 auto}
+  .opt.correct{border-color:rgba(16,185,129,.55); background:rgba(16,185,129,.13)}
+  .opt.incorrect{border-color:rgba(239,68,68,.5); background:rgba(239,68,68,.12)}
+  .opt.dim{opacity:.5}
+  .opt.correct .key{background:var(--emerald); color:#04261C}
+  .opt.incorrect .key{background:var(--red-600); color:#fff}
+  .opt.correct .mark{color:var(--emerald-400)}
+  .opt.incorrect .mark{color:var(--red-400)}
+  .opt-weight{font-size:12.5px; font-weight:700; margin-top:6px}
+  .w-pos{color:var(--emerald-400)} .w-neg{color:var(--red-400)} .w-zero{color:var(--slate-400)}
 
   /* feedback */
-  .feedback{margin-top:6px}
-  .verdict{font-weight:700; font-size:16px; margin-bottom:8px; display:flex; align-items:center; gap:8px}
-  .verdict.ok{color:var(--correct)} .verdict.no{color:var(--incorrect)}
+  .feedback{margin-top:8px}
+  .verdict{font-weight:700; font-size:16px; margin-bottom:6px}
+  .verdict.ok{color:var(--emerald-400)} .verdict.no{color:var(--red-400)}
   .fb-block{margin-top:12px}
-  .fb-label{font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); margin-bottom:3px}
+  .fb-label{font-size:11.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--slate-400); margin-bottom:3px}
+  .fb-block strong{color:var(--white)}
   .fb-list{margin:4px 0 0; padding-left:20px}
   .fb-list li{margin:3px 0}
-  .mistake{background:var(--incorrect-bg); border-left:3px solid var(--incorrect); padding:9px 12px; border-radius:0 8px 8px 0}
+  .mistake{background:rgba(239,68,68,.1); border-left:3px solid var(--red); padding:9px 12px; border-radius:0 8px 8px 0}
+  .mistake .fb-label{color:var(--red-400)}
 
   /* evidence — the signature element */
   .sources{margin-top:14px}
-  .source{display:flex; gap:10px; align-items:flex-start; background:var(--amber-bg);
-    border:1px solid #E8D9B8; border-radius:9px; padding:10px 12px; margin-top:8px}
-  .source .src-name{font-weight:700; color:var(--amber); font-size:13px; white-space:nowrap}
-  .source .src-detail{font-size:14.5px; color:var(--ink)}
+  .source{display:flex; gap:10px; align-items:flex-start; background:rgba(245,158,11,.1);
+    border:1px solid rgba(245,158,11,.28); border-radius:9px; padding:10px 12px; margin-top:8px}
+  .source .src-name{font-weight:700; color:var(--amber-400); font-size:12.5px; white-space:nowrap}
+  .source .src-detail{font-size:14px; color:var(--slate-200)}
 
   /* buttons */
-  .btn{display:inline-flex; align-items:center; gap:8px; cursor:pointer; font:inherit; font-weight:600;
-    background:var(--primary); color:#fff; border:none; border-radius:10px; padding:12px 20px; transition:background .15s}
-  .btn:hover{background:var(--primary-dark)}
-  .btn.secondary{background:transparent; color:var(--primary-dark); border:1.5px solid var(--border)}
-  .btn.secondary:hover{background:#fff; border-color:var(--primary)}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; font:inherit; font-weight:700;
+    background:var(--emerald); color:#04261C; border:none; border-radius:var(--r-md); padding:13px 22px; transition:background .15s}
+  .btn:hover{background:var(--emerald-400)}
+  .btn.secondary{background:rgba(51,65,85,.5); color:var(--slate-200)}
+  .btn.secondary:hover{background:rgba(51,65,85,.85)}
   .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
-  .back{background:none; border:none; cursor:pointer; font:inherit; color:var(--muted); font-weight:600; padding:6px 0; margin-bottom:6px}
-  .back:hover{color:var(--ink)}
+  .back{background:none; border:none; cursor:pointer; font:inherit; color:var(--slate-400); font-weight:600; padding:6px 0; margin-bottom:8px}
+  .back:hover{color:var(--white)}
 
   /* results */
-  .score-big{font-family:var(--serif); font-size:48px; font-weight:700; color:var(--primary-dark); line-height:1}
-  .dom-row{display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:15px}
+  .score-card{text-align:center; border-radius:var(--r-xl); padding:26px 20px; border:1px solid}
+  .score-card.pass{background:rgba(16,185,129,.1); border-color:rgba(16,185,129,.3)}
+  .score-card.partial{background:rgba(245,158,11,.1); border-color:rgba(245,158,11,.3)}
+  .score-icon{font-size:34px; line-height:1; margin-bottom:6px}
+  .score-big{font-size:42px; font-weight:800; color:var(--white); line-height:1}
+  .score-sub{color:var(--slate-300); margin-top:6px}
+  .summary-row{display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--card-border); font-size:14px}
+  .summary-row:last-child{border-bottom:none}
+  .summary-row .sm-mark{flex:0 0 auto; font-weight:700}
+  .summary-row .sm-mark.ok{color:var(--emerald-400)} .summary-row .sm-mark.no{color:var(--red-400)}
+  .summary-row .sm-dom{flex:1; color:var(--slate-300)}
+  .dom-row{display:flex; align-items:center; justify-content:space-between; padding:9px 0; border-bottom:1px solid var(--card-border); font-size:15px; color:var(--slate-200)}
   .dom-row:last-child{border-bottom:none}
-  .dom-score{font-weight:700}
+  .dom-score{font-weight:700; color:var(--white)}
 
-  .hint{font-size:13px; color:var(--muted); margin-top:18px; text-align:center}
+  .hint{font-size:13px; color:var(--slate-500); margin-top:18px; text-align:center}
 
   /* accessibility */
-  :focus-visible{outline:3px solid var(--primary); outline-offset:2px; border-radius:6px}
+  :focus-visible{outline:2.5px solid var(--emerald-400); outline-offset:2px; border-radius:6px}
   .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0}
   @media (prefers-reduced-motion:reduce){*{transition:none !important}}
-  @media (max-width:520px){ body{font-size:16px} h1{font-size:23px} .wrap{padding:16px 14px 56px} }
+  @media (max-width:520px){ h1{font-size:22px} .wrap{padding:16px 14px 56px} .card{padding:16px} }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="site">
-    <div class="brand">PassReady <span class="prep">Prep</span></div>
-    <div class="exam-badge">NCMHCE</div>
+    <div class="brand-wrap">
+      <span class="brand-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
+      <span class="brand">PassReady <span class="prep">Prep</span><small>NCMHCE clinical simulations</small></span>
+    </div>
+    <span class="exam-badge">NCMHCE</span>
   </header>
   <main id="app" aria-live="polite"></main>
   <p class="hint" id="modehint"></p>
@@ -171,82 +233,217 @@ function refsFor(caseObj, ids){
   const map = {}; (caseObj.references||[]).forEach(r => map[r.id]=r);
   return (ids||[]).map(id => map[id]).filter(Boolean);
 }
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+const DOMAIN_B = {treatment:'b-emerald', counseling:'b-blue', ethics:'b-red', intake:'b-amber', core:'b-purple'};
+const DIFF_B = {easy:'b-emerald', medium:'b-amber', hard:'b-red'};
+const domBadgeClass = d => DOMAIN_B[d] || 'b-slate';
+const diffBadgeClass = d => DIFF_B[d] || 'b-slate';
+const weightClass = w => w>0?'w-pos':w<0?'w-neg':'w-zero';
+const weightText = w => (w>0?'+':'')+w;
 
 // ---- state ----
 let CASE=null, qi=0, answers=[];
+let LIST_ITEMS=[], LIST_FILTER='all';
+let MODE='new';            // 'new' (diagnosis given) | 'classic' (diagnose first)
+let dxChoice=null;         // classic: chosen differential id
+let phase='answer';        // 'diagnose' | 'answer'
+const SESSION={correct:0, total:0};
 
-// ---- screens ----
-async function showList(){
-  app.innerHTML = '<p class="lead">Loading cases…</p>';
-  const items = await fetchList();
+// ---- dashboard ----
+async function showDashboard(){
+  app.innerHTML = '<p class="lead">Loading…</p>';
+  if(!LIST_ITEMS.length){ LIST_ITEMS = await fetchList(); }
   modehint.textContent = DATA_SOURCE === 'embedded'
     ? 'Preview mode — showing a sample case. Once connected to your API, every published case appears here.'
     : '';
-  let h = '<h1>Choose a case</h1><p class="lead">Read the client, work the questions, and see the reasoning behind each answer.</p>';
+  const total = LIST_ITEMS.length;
+  const acc = SESSION.total ? Math.round(SESSION.correct/SESSION.total*100) : 0;
+
+  let h = '<h1>PassReady Prep</h1>'
+        + '<p class="lead">NCMHCE clinical simulations — read the client, work the questions, and see the reasoning and evidence behind every answer.</p>';
+
+  h += '<h2>Practice mode</h2>';
+  h += '<div class="mode-grid" role="group" aria-label="Practice mode">';
+  h += modeCard('new','New format','Diagnosis is given — focus on treatment, counseling & ethics decisions.','Current exam');
+  h += modeCard('classic','Classic format','Work out the diagnosis yourself first, then answer. Extra diagnostic practice.','');
+  h += '</div>';
+
+  h += '<div class="card" style="margin-top:16px"><h2>This session</h2>';
+  if(SESSION.total){
+    h += '<div class="stats">'
+       + '<div class="stat"><div class="stat-num">'+SESSION.correct+'</div><div class="stat-lbl">Correct</div></div>'
+       + '<div class="stat"><div class="stat-num">'+SESSION.total+'</div><div class="stat-lbl">Answered</div></div>'
+       + '<div class="stat"><div class="stat-num">'+acc+'%</div><div class="stat-lbl">Accuracy</div></div></div>'
+       + '<div class="bar" style="margin-top:12px"><i style="width:'+acc+'%"></i></div>';
+  } else {
+    h += '<p class="lead" style="margin:0">No questions answered yet — your running score will show up here.</p>';
+  }
+  h += '</div>';
+
+  h += '<div class="row"><button class="btn" style="width:100%" onclick="goCases()">Start practicing — '
+     + total + ' case' + (total===1?'':'s') + ' ›</button></div>';
+
+  app.innerHTML = h;
+}
+function modeCard(m, title, desc, tag){
+  const sel = MODE === m;
+  return '<button class="mode-card'+(sel?' sel':'')+'" aria-pressed="'+sel+'" onclick="setMode(\''+m+'\')">'
+       + '<span class="mc-head">'+title+(tag?' <span class="badge b-amber">'+tag+'</span>':'')+'</span>'
+       + '<span class="mc-desc">'+desc+'</span>'
+       + '<span class="mc-sel">'+(sel?'● Selected':'Tap to select')+'</span></button>';
+}
+function setMode(m){ MODE = m; showDashboard(); }
+function goCases(){ renderList(); window.scrollTo({top:0,behavior:'smooth'}); }
+
+// ---- case list ----
+function renderList(){
+  const items = LIST_FILTER==='all'
+    ? LIST_ITEMS
+    : LIST_ITEMS.filter(it => (it.difficulty||'').toLowerCase()===LIST_FILTER);
+  let h = '<button class="back" onclick="showDashboard()">‹ Dashboard</button>';
+  h += '<h1>Choose a case</h1>';
+  h += '<p class="lead">Mode: <strong style="color:var(--white)">'
+     + (MODE==='classic' ? 'Classic — you diagnose first' : 'New format — diagnosis given')
+     + '</strong></p>';
+  h += '<div class="filter"><span class="flabel">Difficulty</span>';
+  ['all','easy','medium','hard'].forEach(d => {
+    h += '<button class="fbtn" aria-pressed="'+(LIST_FILTER===d)+'" onclick="setFilter(\''+d+'\')">'+(d==='all'?'All':cap(d))+'</button>';
+  });
+  h += '</div>';
+  if(!items.length){ h += '<p class="lead">No cases at this level yet.</p>'; }
   items.forEach(it => {
+    const diff = (it.difficulty||'').toLowerCase();
     h += '<button class="case-btn" onclick="startCase(\''+esc(it.externalId)+'\')">'
-       + '<span class="t">'+esc(it.title)+'</span>'
-       + '<span class="chips"><span class="chip">'+esc(it.category)+'</span>'
-       + '<span class="chip">'+esc(cap(it.difficulty))+'</span></span></button>';
+       + '<span class="row-top"><span class="chips">'
+       + '<span class="badge '+diffBadgeClass(diff)+'">'+esc(cap(it.difficulty||''))+'</span>'
+       + (it.category ? '<span class="badge b-slate">'+esc(it.category)+'</span>' : '')
+       + '</span><span class="chev" aria-hidden="true">›</span></span>'
+       + '<span class="t">'+esc(it.title)+'</span></button>';
   });
   app.innerHTML = h;
 }
+function setFilter(d){ LIST_FILTER=d; renderList(); }
 
+// ---- a case ----
 async function startCase(externalId){
   app.innerHTML = '<p class="lead">Loading…</p>';
   CASE = await fetchCase(externalId);
-  qi = 0; answers = [];
+  CASE.questions.forEach(q => { q._opts = shuffle(q.options.slice()); });
+  qi = 0; answers = []; dxChoice = null;
+  const hasDx = Array.isArray(CASE.differentialOptions) && CASE.differentialOptions.length > 0;
+  phase = (MODE==='classic' && hasDx) ? 'diagnose' : 'answer';
   renderCase();
 }
 
 function renderCase(){
   const c = CASE, n = c.questions.length;
   const dx = c.diagnosis || c.primaryDiagnosis || {};
-  let h = '<button class="back" onclick="showList()">‹ All cases</button>';
+  const hideDx = (MODE==='classic' && phase==='diagnose');
+  let h = '<button class="back" onclick="goCases()">‹ All cases</button>';
   h += '<h1>'+esc(c.title)+'</h1>';
-  h += '<div class="chips" style="margin-bottom:14px"><span class="chip">'+esc(c.category)+'</span><span class="chip">'+esc(cap(c.difficulty))+'</span></div>';
+  h += '<div class="chips" style="margin-bottom:16px">'
+     + '<span class="badge '+diffBadgeClass((c.difficulty||'').toLowerCase())+'">'+esc(cap(c.difficulty||''))+'</span>'
+     + (c.category ? '<span class="badge b-slate">'+esc(c.category)+'</span>' : '')
+     + '<span class="badge '+(MODE==='classic'?'b-blue':'b-emerald')+'">'+(MODE==='classic'?'Classic':'New format')+'</span></div>';
 
   // vignette
   h += '<div class="card stack"><div class="vignette">';
-  const seg = (label, txt) => txt ? '<div class="seg"><div class="seg-label">'+label+'</div>'+esc(txt)+'</div>' : '';
-  h += seg('Intake', c.narrative && c.narrative.intake);
-  h += seg('Session 1', c.narrative && c.narrative.session1);
-  h += seg('Session 2', c.narrative && c.narrative.session2);
+  const seg = (cls,label,txt) => txt ? '<div class="seg"><div class="seg-label '+cls+'">'+label+'</div><div class="seg-text">'+esc(txt)+'</div></div>' : '';
+  h += seg('seg-intake','Intake', c.narrative && c.narrative.intake);
+  h += seg('seg-s1','Session 1', c.narrative && c.narrative.session1);
+  h += seg('seg-s2','Session 2', c.narrative && c.narrative.session2);
   h += '</div>';
-  if(dx.name){
+  if(dx.name && !hideDx){
     h += '<div class="dx"><div class="seg-label">Working diagnosis</div>'
-       + '<div class="dx-name">'+esc(dx.name)+(dx.code?' <span style="color:var(--muted);font-weight:400">('+esc(dx.code)+')</span>':'')+'</div></div>';
+       + '<div class="dx-name">'+esc(dx.name)+(dx.code?' <span class="dx-code">('+esc(dx.code)+')</span>':'')+'</div></div>';
   }
   h += '</div>';
 
-  // progress
+  // classic: diagnose first
+  if(MODE==='classic' && phase==='diagnose'){
+    h += '<div style="margin-top:14px">'+renderDiagnosis()+'</div>';
+    app.innerHTML = h;
+    return;
+  }
+
+  // answer phase
   const answered = answers.filter(a=>a).length;
   h += '<div class="progress"><span>Question '+(qi+1)+' of '+n+'</span><span>'+answered+'/'+n+' answered</span></div>';
   h += '<div class="bar"><i style="width:'+Math.round((qi)/(n)*100)+'%"></i></div>';
-
-  // current question
   h += '<div class="card" style="margin-top:14px">'+renderQuestion(qi)+'</div>';
   app.innerHTML = h;
 }
 
+// ---- classic: diagnosis decision ----
+function renderDiagnosis(){
+  const c = CASE;
+  const opts = c.differentialOptions || [];
+  const letters = ['A','B','C','D','E','F'];
+  let h = '<div class="card"><div style="margin-bottom:8px"><span class="badge b-purple">Diagnosis</span></div>';
+  h += '<div class="qstem">Based on the presentation, what is the MOST likely primary diagnosis?</div>';
+  opts.forEach((o,idx) => {
+    let cls='opt', mark='', dis='';
+    if(dxChoice){
+      dis='disabled';
+      if(o.isCorrect){ cls+=' correct'; mark='<span class="mark" aria-hidden="true">✓</span>'; }
+      else if(o.id===dxChoice){ cls+=' incorrect'; mark='<span class="mark" aria-hidden="true">✗</span>'; }
+      else cls+=' dim';
+    }
+    h += '<button class="'+cls+'" '+dis+' onclick="chooseDx(\''+esc(o.id)+'\')">'
+       + '<span class="key" aria-hidden="true">'+letters[idx]+'</span>'
+       + '<span class="otext">'+esc(o.name)+'</span>'+mark+'</button>';
+  });
+  if(dxChoice){
+    const corr = opts.find(o=>o.isCorrect);
+    const ok = corr && dxChoice===corr.id;
+    h += '<div class="feedback" role="status">';
+    h += '<div class="verdict '+(ok?'ok':'no')+'">'+(ok?'✓ Correct':'✗ Not quite')+'</div>';
+    if(!ok && corr) h += '<div class="fb-block"><div class="fb-label">Most likely diagnosis</div><strong>'+esc(corr.name)+'</strong></div>';
+    if(c.diagnosticRationale) h += '<div class="fb-block"><div class="fb-label">Why</div>'+esc(c.diagnosticRationale)+'</div>';
+    h += '<div class="row"><button class="btn" onclick="toAnswers()">Continue to questions ›</button></div>';
+    h += '</div>';
+  }
+  h += '</div>';
+  return h;
+}
+function chooseDx(id){
+  if(dxChoice) return;
+  dxChoice = id;
+  const corr = (CASE.differentialOptions||[]).find(o=>o.isCorrect);
+  SESSION.total++; if(corr && id===corr.id) SESSION.correct++;
+  renderCase();
+  const fb = app.querySelector('.feedback');
+  if(fb){ fb.setAttribute('tabindex','-1'); fb.focus(); }
+}
+function toAnswers(){ phase='answer'; qi=0; renderCase(); window.scrollTo({top:0,behavior:'smooth'}); }
+
+// ---- questions ----
 function renderQuestion(i){
   const q = CASE.questions[i];
   const ans = answers[i]; // {chosenId}
   const letters = ['A','B','C','D','E','F'];
-  let h = '<div class="qstem">'+esc(q.question)+'</div>';
+  const opts = q._opts || q.options;
+  let h = '';
+  if(q.domain) h += '<div style="margin-bottom:8px"><span class="badge '+domBadgeClass(q.domain)+'">'+esc(q.domain)+'</span></div>';
+  h += '<div class="qstem">'+esc(q.question)+'</div>';
 
-  q.options.forEach((o,idx) => {
+  opts.forEach((o,idx) => {
     let cls = 'opt';
     let mark = '';
     let disabled = '';
+    let weightHtml = '';
     if(ans){
       disabled = 'disabled';
       if(o.isCorrect){ cls += ' correct'; mark = '<span class="mark" aria-hidden="true">✓</span>'; }
       else if(o.id === ans.chosenId){ cls += ' incorrect'; mark = '<span class="mark" aria-hidden="true">✗</span>'; }
+      else { cls += ' dim'; }
+      if(typeof o.weight === 'number'){
+        weightHtml = '<div class="opt-weight '+weightClass(o.weight)+'">'+weightText(o.weight)+' pts</div>';
+      }
     }
     h += '<button class="'+cls+'" '+disabled+' onclick="choose(\''+esc(q.id)+'\',\''+esc(o.id)+'\')">'
        + '<span class="key" aria-hidden="true">'+letters[idx]+'</span>'
-       + '<span>'+esc(o.text)+'</span>'+mark+'</button>';
+       + '<span class="otext">'+esc(o.text)+weightHtml+'</span>'+mark+'</button>';
   });
 
   if(ans) h += renderFeedback(q, ans);
@@ -273,7 +470,7 @@ function renderFeedback(q, ans){
     h += '<div class="fb-block"><div class="fb-label">Key indicators</div><ul class="fb-list">'
        + ex.keyIndicators.map(k=>'<li>'+esc(k)+'</li>').join('') + '</ul></div>';
   }
-  if(ex.commonMistake) h += '<div class="fb-block"><div class="mistake"><div class="fb-label" style="color:var(--incorrect)">Common mistake</div>'+esc(ex.commonMistake)+'</div></div>';
+  if(ex.commonMistake) h += '<div class="fb-block"><div class="mistake"><div class="fb-label">Common mistake</div>'+esc(ex.commonMistake)+'</div></div>';
 
   if(sources.length){
     h += '<div class="sources"><div class="fb-label">Evidence</div>';
@@ -283,7 +480,6 @@ function renderFeedback(q, ans){
     h += '</div>';
   }
 
-  // next / finish
   const last = qi === CASE.questions.length-1;
   h += '<div class="row">';
   if(last) h += '<button class="btn" onclick="finish()">See results</button>';
@@ -295,8 +491,9 @@ function renderFeedback(q, ans){
 function choose(qid, oid){
   if(answers[qi]) return;
   answers[qi] = {chosenId:oid};
+  const picked = CASE.questions[qi].options.find(o=>o.id===oid);
+  SESSION.total++; if(picked && picked.isCorrect) SESSION.correct++;
   renderCase();
-  // move focus to the feedback for screen-reader users
   const fb = app.querySelector('.feedback');
   if(fb){ fb.setAttribute('tabindex','-1'); fb.focus(); }
 }
@@ -304,36 +501,60 @@ function next(){ qi++; renderCase(); window.scrollTo({top:0,behavior:'smooth'});
 
 function finish(){
   const qs = CASE.questions;
-  let correct = 0; const dom = {};
+  let correct = 0, weighted = 0, possible = 0; const dom = {}; const rows = [];
   qs.forEach((q,i) => {
     const a = answers[i];
-    const isOk = a && q.options.find(o=>o.id===a.chosenId)?.isCorrect;
+    const chosen = a && q.options.find(o=>o.id===a.chosenId);
+    const isOk = chosen && chosen.isCorrect;
     if(isOk) correct++;
+    if(chosen && typeof chosen.weight === 'number') weighted += chosen.weight;
+    possible += 3;
     const d = q.domain || 'general';
     dom[d] = dom[d] || {ok:0,total:0};
     dom[d].total++; if(isOk) dom[d].ok++;
+    rows.push({i, domain:d, isOk, weight: chosen ? (chosen.weight||0) : 0});
   });
   const pct = Math.round(correct/qs.length*100);
+  const pass = pct >= 70;
 
-  let h = '<button class="back" onclick="showList()">‹ All cases</button>';
+  // classic diagnosis result
+  let dxLine = '';
+  if(MODE==='classic' && Array.isArray(CASE.differentialOptions) && CASE.differentialOptions.length){
+    const corr = CASE.differentialOptions.find(o=>o.isCorrect);
+    const dxOk = dxChoice && corr && dxChoice===corr.id;
+    dxLine = '<div class="dom-row"><span>Diagnosis</span><span class="dom-score '+(dxOk?'w-pos':'w-neg')+'">'+(dxOk?'✓ Correct':'✗ Missed')+'</span></div>';
+  }
+
+  let h = '<button class="back" onclick="goCases()">‹ All cases</button>';
   h += '<h1>'+esc(CASE.title)+'</h1>';
-  h += '<div class="card stack" style="text-align:center"><div class="score-big">'+correct+'/'+qs.length+'</div>'
-     + '<p class="lead" style="margin:6px 0 0">'+pct+'% on this case</p></div>';
+  h += '<div class="score-card '+(pass?'pass':'partial')+'">'
+     + '<div class="score-icon" aria-hidden="true">'+(pass?'🏆':'📈')+'</div>'
+     + '<div class="score-big">'+pct+'%</div>'
+     + '<div class="score-sub">'+correct+' of '+qs.length+' correct · weighted '+weightText(weighted)+'/'+possible+'</div></div>';
+
+  h += '<div class="card" style="margin-top:14px"><h2>Question summary</h2>';
+  rows.forEach(r => {
+    h += '<div class="summary-row"><span class="sm-mark '+(r.isOk?'ok':'no')+'" aria-hidden="true">'+(r.isOk?'✓':'✗')+'</span>'
+       + '<span class="sm-dom">Q'+(r.i+1)+' · '+esc(cap(r.domain))+'</span>'
+       + '<span class="'+weightClass(r.weight)+'" style="font-weight:700; font-size:13px">'+weightText(r.weight)+'</span></div>';
+  });
+  h += '</div>';
 
   h += '<div class="card" style="margin-top:14px"><h2>By area</h2>';
+  h += dxLine;
   Object.keys(dom).forEach(d => {
     h += '<div class="dom-row"><span>'+esc(cap(d))+'</span><span class="dom-score">'+dom[d].ok+'/'+dom[d].total+'</span></div>';
   });
   h += '</div>';
 
   h += '<div class="row"><button class="btn" onclick="startCase(\''+esc(CASE.id)+'\')">Retry this case</button>'
-     + '<button class="btn secondary" onclick="showList()">Another case</button></div>';
+     + '<button class="btn secondary" onclick="goCases()">More cases</button></div>';
   app.innerHTML = h;
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
 // go
-showList();
+showDashboard();
 </script>
 </body>
 </html>

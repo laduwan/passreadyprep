@@ -1,18 +1,24 @@
 /*
  * Loads NCMHCE cases into the database as ContentItems.
  *
- * It runs every case through your existing validator (caseSchema.js) FIRST and
- * refuses to load anything if a case fails — same quality gate as the pipeline.
+ *   - seed cases (seed-cases.js)        -> status 'published'  (your vetted anchors)
+ *   - generated cases (generated-cases.js, if present) -> status 'sme_review'
+ *        i.e. loaded but HIDDEN from learners until you review and publish them.
+ *        Pass --publish-generated to load them as 'published' for your own testing
+ *        (use with care — that puts unreviewed AI content in front of learners).
+ *
+ * Every case is run through your validator first; nothing loads if a case is invalid.
+ * Re-running is safe (matched by exam + externalId, updated in place).
  *
  * Usage:
- *   node tools/cases/importCases.js --dry-run   # validate + preview, touches nothing
- *   node tools/cases/importCases.js             # validate + load into MongoDB
- *
- * Re-running is safe: cases are matched by (exam, externalId) and updated in place,
- * so you never get duplicates.
+ *   node tools/cases/importCases.js --dry-run            # validate + preview, no DB
+ *   node tools/cases/importCases.js                      # seed published, generated pending review
+ *   node tools/cases/importCases.js --publish-generated  # also publish generated (testing only)
  */
 
 require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
 const mongoose = require('mongoose');
 
 const { SEED_CASES } = require('./seed-cases');
@@ -23,13 +29,29 @@ const Exam = require('../../models/Exam');
 const ContentItem = require('../../models/ContentItem');
 
 const DRY_RUN = process.argv.includes('--dry-run');
+const PUBLISH_GENERATED = process.argv.includes('--publish-generated');
 
-// The 4 seed cases are your hand-authored, vetted anchors → load as published.
-// (AI-generated cases would import as 'sme_review' pending your sign-off.)
-const SEED_STATUS = 'published';
+// Load generated cases if the file exists yet.
+let GENERATED_CASES = [];
+if (fs.existsSync(path.join(__dirname, 'generated-cases.js'))) {
+  try {
+    GENERATED_CASES = require('./generated-cases').GENERATED_CASES || [];
+  } catch (err) {
+    console.warn('Could not read generated-cases.js: ' + err.message);
+  }
+}
 
-// Turn one case object into a ContentItem document.
-function toContentItem(examId, c) {
+// Load migrated cases (ported from v4 prototype) — always sme_review until verified.
+let MIGRATED_CASES = [];
+if (fs.existsSync(path.join(__dirname, 'migrated-cases.js'))) {
+  try {
+    MIGRATED_CASES = require('./migrated-cases').MIGRATED_CASES || [];
+  } catch (err) {
+    console.warn('Could not read migrated-cases.js: ' + err.message);
+  }
+}
+
+function toContentItem(examId, c, status) {
   return {
     examId,
     format: 'case_sim',
@@ -38,29 +60,49 @@ function toContentItem(examId, c) {
     category: c.category,
     difficulty: c.difficulty,
     references: c.references || [],
-    status: SEED_STATUS,
-    caseSim: c, // full case kept intact so the viewer can render either format
+    status,
+    caseSim: c,
   };
 }
 
 async function main() {
-  const cases = SEED_CASES;
+  const genStatus = PUBLISH_GENERATED ? 'published' : 'sme_review';
 
-  // 1) Quality gate — validate through the existing schema before anything loads.
-  const result = validateCaseSet(cases, { allowedSources: ALLOWED_SOURCES });
-  if (!result.ok) {
-    console.error('Validation FAILED — nothing was loaded. Issues:');
-    (result.errors || []).forEach((e) => console.error('  - ' + e));
+  // 1) Quality gate — validate both sets before anything loads.
+  const seedRes = validateCaseSet(SEED_CASES, { allowedSources: ALLOWED_SOURCES });
+  if (!seedRes.ok) {
+    console.error('Seed validation FAILED — nothing loaded:');
+    seedRes.errors.slice(0, 8).forEach((e) => console.error('  - ' + e));
     process.exit(1);
   }
-  const warnCount = (result.warnings || []).length;
-  console.log(`Validated ${cases.length} cases — clean${warnCount ? ` (${warnCount} warnings)` : ''}.`);
+  if (GENERATED_CASES.length) {
+    const genRes = validateCaseSet(GENERATED_CASES, { allowedSources: ALLOWED_SOURCES });
+    if (!genRes.ok) {
+      console.error('Generated validation FAILED — nothing loaded:');
+      genRes.errors.slice(0, 8).forEach((e) => console.error('  - ' + e));
+      process.exit(1);
+    }
+  }
+  if (MIGRATED_CASES.length) {
+    const migRes = validateCaseSet(MIGRATED_CASES, { allowedSources: ALLOWED_SOURCES });
+    if (!migRes.ok) {
+      console.error('Migrated validation FAILED — nothing loaded:');
+      migRes.errors.slice(0, 8).forEach((e) => console.error('  - ' + e));
+      process.exit(1);
+    }
+  }
+  console.log('Validated ' + SEED_CASES.length + ' seed + ' + GENERATED_CASES.length + ' generated + ' + MIGRATED_CASES.length + ' migrated cases — clean.');
+
+  const plan = SEED_CASES.map((c) => [c, 'published']).concat(
+    GENERATED_CASES.map((c) => [c, genStatus]),
+    MIGRATED_CASES.map((c) => [c, 'sme_review'])
+  );
 
   if (DRY_RUN) {
-    console.log('\nDry run — preview of what would load:');
-    cases.forEach((c) =>
-      console.log(`  ${c.id}  [${c.category}/${c.difficulty}]  ${c.questions.length} questions  "${c.title}"`)
-    );
+    console.log('\nDry run — what would load:');
+    plan.forEach(function (pair) {
+      console.log('  ' + pair[0].id + '  [' + pair[0].category + '/' + pair[0].difficulty + ']  -> ' + pair[1]);
+    });
     console.log('\nNo database changes made. Drop --dry-run to load for real.');
     return;
   }
@@ -73,7 +115,7 @@ async function main() {
   await mongoose.connect(process.env.MONGO_URI, { dbName: 'passreadyprep' });
   console.log('Connected to MongoDB.');
 
-  // 3) Make sure the NCMHCE exam exists, and load the cases under it.
+  // 3) Ensure the exam exists, then load every case under it.
   const exam = await Exam.findOneAndUpdate(
     { key: 'ncmhce' },
     {
@@ -91,24 +133,27 @@ async function main() {
 
   let added = 0;
   let updated = 0;
-  for (const c of cases) {
-    const doc = toContentItem(exam._id, c);
+  for (const pair of plan) {
+    const c = pair[0];
+    const status = pair[1];
     const res = await ContentItem.updateOne(
       { examId: exam._id, externalId: c.id },
-      { $set: doc },
+      { $set: toContentItem(exam._id, c, status) },
       { upsert: true }
     );
     if (res.upsertedCount) added += 1;
     else updated += 1;
   }
 
-  const total = await ContentItem.countDocuments({ examId: exam._id, status: 'published' });
-  console.log(`Done. Added ${added}, updated ${updated}. NCMHCE now has ${total} published cases.`);
+  const published = await ContentItem.countDocuments({ examId: exam._id, status: 'published' });
+  const review = await ContentItem.countDocuments({ examId: exam._id, status: 'sme_review' });
+  console.log('Done. Added ' + added + ', updated ' + updated + '.');
+  console.log('NCMHCE bank: ' + published + ' published (live to learners), ' + review + ' pending your review.');
 
   await mongoose.disconnect();
 }
 
-main().catch((err) => {
+main().catch(function (err) {
   console.error('Import error:', err);
   process.exit(1);
 });
