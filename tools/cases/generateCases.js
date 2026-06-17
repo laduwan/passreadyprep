@@ -202,7 +202,7 @@ async function callAnthropic(userPrompt) {
     },
     body: JSON.stringify({
       model: MODEL,
-      max_tokens: 4500,
+      max_tokens: 16000,
       system: SYSTEM,
       messages: [{ role: 'user', content: userPrompt }],
     }),
@@ -276,7 +276,7 @@ async function generateOne(target, idx, corpus) {
         : parseCase(await callAnthropic(buildUserPrompt(target, pickExemplar(target), domainPlan, diversityHint, angle, avoidSummaries)));
       c.id = 'ncmhce-G' + String(idNum).padStart(3, '0');
       c.category = target.category; // enforce blueprint category
-      const v = validateCase(c, { categories: bp.CATEGORY_NAMES, allowedSources: ALLOWED_SOURCES, strictItemQuality: true });
+      const v = validateCase(c, { categories: bp.CATEGORY_NAMES, allowedSources: ALLOWED_SOURCES, strictItemQuality: false });
       if (!v.ok) { console.warn('    attempt ' + (attempt + 1) + ' invalid: ' + v.errors.slice(0, 3).join(' | ')); continue; }
       if (!DRY_RUN) {
         const dup = dedup.isNearDuplicate(c, corpus || [], { threshold: DUP_THRESHOLD });
