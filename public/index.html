@@ -391,7 +391,7 @@ async function showDashboard(){
   // Free sample hero (shown when not connected to API or always as branding)
   h += '<div class="hero">';
   h += '<h2>Try a free clinical simulation</h2>';
-  h += '<p class="lead">Experience NCMHCE-format case practice with evidence-based feedback — no signup required.</p>';
+  h += '<p class="lead">Work through a full NCMHCE-format case — read the vignette, answer 5 clinical questions, and get evidence-based feedback with weighted scoring after each one. No signup required.</p>';
   h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Start free case ›</button>';
   h += '<br /><a href="/guarantee.html" class="guar-link">✓ Pass guarantee — pass and get a free CE course, or we extend your access</a>';
   h += '</div>';
@@ -400,7 +400,8 @@ async function showDashboard(){
   const rd = computeReadiness();
   if(rd){
     h += '<div class="card" style="margin-bottom:16px">';
-    h += '<h2 style="margin-bottom:12px">Exam readiness</h2>';
+    h += '<h2 style="margin-bottom:4px">Exam readiness</h2>';
+    h += '<div style="font-size:13px;color:var(--slate-400);margin-bottom:12px">Your readiness score is weighted by actual NCMHCE domain proportions — Counseling (28%), Intake (25%), Treatment (22%), Ethics (15%), Core (10%). It factors in how many cases you\'ve completed and whether your recent performance is trending up or down. Green (70%+) = exam ready. Amber (50–69%) = almost there. Red (&lt;50%) = keep building.</div>';
     h += '<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">';
 
     // Ring gauge
@@ -465,6 +466,7 @@ async function showDashboard(){
   h += '</div>';
 
   h += '<div class="card" style="margin-top:16px"><h2>This session</h2>';
+  h += '<div style="font-size:12px;color:var(--slate-500);margin-bottom:8px">Running score for this browser session. Your full history (readiness, flashcards, study plan) is saved locally in this browser — clearing browser data or switching devices will reset it. Create an account for cross-device sync.</div>';
   if(SESSION.total){
     h += '<div class="stats">'
        + '<div class="stat"><div class="stat-num">'+SESSION.correct+'</div><div class="stat-lbl">Correct</div></div>'
@@ -479,7 +481,34 @@ async function showDashboard(){
   h += '<div class="row"><button class="btn" style="width:100%" onclick="goCases()">Start practicing — '
      + total + ' case' + (total===1?'':'s') + ' ›</button></div>';
 
+  // Study tools nav
+  h += '<div class="card" style="margin-top:16px"><h2>Study tools</h2>';
+  h += '<div class="mode-grid">';
+  h += '<a href="/flashcards.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📇 Flashcards</span><span class="mc-desc">258 cards with spaced repetition. Covers ICD-10 codes, first-line treatments, differentials, ethics, and crisis. Cards you miss come back sooner.</span></a>';
+  h += '<a href="/dsm.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📖 DSM-5-TR Reference</span><span class="mc-desc">92 diagnoses with ICD-10 codes and first-line treatments. Search by name, code, or treatment keyword. Use alongside cases to look up unfamiliar disorders.</span></a>';
+  h += '<a href="/sheets/ncmhce-study-sheets.pdf" target="_blank" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📄 Study sheets (PDF)</span><span class="mc-desc">Printable one-pagers for all 18 categories. Download the combined 92-diagnosis reference or individual category sheets to study offline.</span></a>';
+  h += '</div></div>';
+
+  // Study plan generator
+  h += '<div class="card" style="margin-top:16px"><h2>Study plan</h2>';
+  h += '<div style="font-size:13px;color:var(--slate-400);margin-bottom:10px">Set your exam date and we\'ll build a 3-phase plan based on your actual domain performance: focused practice on weak areas first, then full-length timed exams, then light review before test day. Updates as your scores change.</div>';
+  if(!rd || rd.totalCases < 3){
+    h += '<p class="lead" style="margin:0">Complete at least 3 cases to unlock your personalized study plan.</p>';
+  } else {
+    const examDateKey = 'prp_exam_date';
+    const savedDate = localStorage.getItem(examDateKey) || '';
+    h += '<div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap">';
+    h += '<label style="font-size:13px;color:var(--slate-400)">Exam date:</label>';
+    h += '<input type="date" id="exam-date" value="'+esc(savedDate)+'" style="font:inherit;padding:8px 12px;border:1.5px solid rgba(51,65,85,.6);border-radius:10px;background:rgba(30,41,59,.6);color:var(--white)" onchange="genPlan()" />';
+    h += '</div>';
+    h += '<div id="study-plan"></div>';
+  }
+  h += '</div>';
+
   app.innerHTML = h;
+  // Auto-render study plan if exam date is saved
+  var rd2 = computeReadiness();
+  if(rd2 && rd2.totalCases >= 3) setTimeout(genPlan, 50);
 }
 function modeCard(m, title, desc, tag){
   const sel = MODE === m;
@@ -753,6 +782,75 @@ function finish(){
      + '<button class="btn secondary" onclick="goCases()">More cases</button></div>';
   app.innerHTML = h;
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ---- study plan generator ----
+function genPlan(){
+  var dateEl = document.getElementById('exam-date');
+  var planEl = document.getElementById('study-plan');
+  if(!dateEl || !planEl) return;
+  var dateVal = dateEl.value;
+  if(dateVal) localStorage.setItem('prp_exam_date', dateVal);
+  if(!dateVal){ planEl.innerHTML = '<p style="color:var(--slate-400);font-size:14px;margin:0">Set your exam date to generate a plan.</p>'; return; }
+
+  var rd = computeReadiness();
+  if(!rd){ planEl.innerHTML = ''; return; }
+
+  var examDate = new Date(dateVal + 'T12:00:00');
+  var now = new Date();
+  var daysLeft = Math.max(1, Math.ceil((examDate - now) / 86400000));
+
+  var domLabels = {counseling:'Counseling/Interventions',intake:'Assessment/Intake',treatment:'Treatment Planning',ethics:'Professional Ethics',core:'Core Attributes'};
+  var domOrder = ['counseling','intake','treatment','ethics','core'];
+
+  // Sort domains by weakness (lowest score first)
+  var ranked = domOrder.filter(function(d){ return rd.agg[d] && rd.agg[d].total >= 1; })
+    .map(function(d){ return {d:d, sc:rd.domainScores[d]||0}; })
+    .sort(function(a,b){ return a.sc - b.sc; });
+
+  var h = '<div style="font-size:14px;color:var(--slate-300)">';
+  h += '<div style="font-weight:700;color:var(--white);margin-bottom:8px">' + daysLeft + ' day' + (daysLeft===1?'':'s') + ' until exam</div>';
+
+  // Phase breakdown
+  var phase1 = Math.max(1, Math.floor(daysLeft * 0.5));
+  var phase2 = Math.max(1, Math.floor(daysLeft * 0.3));
+  var phase3 = Math.max(1, daysLeft - phase1 - phase2);
+
+  h += '<div style="margin:12px 0">';
+  // Phase 1
+  h += '<div style="display:flex;gap:10px;align-items:flex-start;margin:10px 0">';
+  h += '<div style="flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:rgba(59,130,246,.15);color:var(--blue-400);display:grid;place-items:center;font-weight:700;font-size:13px">1</div>';
+  h += '<div style="flex:1"><strong style="color:var(--white)">Days 1–' + phase1 + ': Build foundations</strong><br>';
+  h += 'Focus on your weakest areas: ';
+  var weak = ranked.slice(0, 2);
+  h += weak.map(function(w){ return '<strong style="color:var(--amber-400)">' + (domLabels[w.d]||w.d) + '</strong> (' + w.sc + '%)'; }).join(', ');
+  h += '. Do 2–3 cases per day in these domains + 15 min flashcards.';
+  h += '</div></div>';
+
+  // Phase 2
+  h += '<div style="display:flex;gap:10px;align-items:flex-start;margin:10px 0">';
+  h += '<div style="flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:rgba(139,92,246,.15);color:var(--purple-400);display:grid;place-items:center;font-weight:700;font-size:13px">2</div>';
+  h += '<div style="flex:1"><strong style="color:var(--white)">Days ' + (phase1+1) + '–' + (phase1+phase2) + ': Full-length practice</strong><br>';
+  h += 'Shift to timed full exams (10–11 cases). Simulate real conditions. Review every missed question. Continue flashcards for retention.';
+  h += '</div></div>';
+
+  // Phase 3
+  h += '<div style="display:flex;gap:10px;align-items:flex-start;margin:10px 0">';
+  h += '<div style="flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:rgba(16,185,129,.15);color:var(--emerald-400);display:grid;place-items:center;font-weight:700;font-size:13px">3</div>';
+  h += '<div style="flex:1"><strong style="color:var(--white)">Days ' + (phase1+phase2+1) + '–' + daysLeft + ': Sharpen and rest</strong><br>';
+  h += 'Light review of flagged weak spots. DSM reference for any lingering gaps. Day before exam: rest, no cramming.';
+  h += '</div></div>';
+  h += '</div>';
+
+  // Daily targets
+  var casesPerDay = Math.max(2, Math.min(5, Math.ceil((20 - rd.totalCases) / Math.max(1, phase1))));
+  h += '<div style="margin-top:12px;padding:12px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px">';
+  h += '<strong style="color:var(--emerald-400)">Daily targets:</strong> ' + casesPerDay + ' cases + 15 min flashcards + 10 min DSM review';
+  if(rd.totalCases < 20) h += '<br><span style="color:var(--amber-400);font-size:13px">You need ' + (20 - rd.totalCases) + ' more cases for pass guarantee eligibility</span>';
+  h += '</div>';
+
+  h += '</div>';
+  planEl.innerHTML = h;
 }
 
 // go

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — DSM-5-TR Reference</title>
+<style>
+  :root{--slate-900:#0F172A;--slate-800:#1E293B;--slate-700:#334155;--slate-600:#475569;--slate-500:#64748B;--slate-400:#94A3B8;--slate-300:#CBD5E1;--slate-200:#E2E8F0;--white:#F8FAFC;--emerald:#10B981;--emerald-400:#34D399;--blue-400:#60A5FA;--amber-400:#FBBF24;--purple-400:#A78BFA;--sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--r-xl:16px;--r-lg:12px;--card:rgba(30,41,59,.55);--card-border:rgba(51,65,85,.6)}
+  *{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(160deg,#0F172A,#1E293B 50%,#0F172A);background-attachment:fixed;color:var(--slate-200);font-family:var(--sans);font-size:16px;line-height:1.55}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 64px}a{color:var(--emerald-400)}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 20px}
+  .bw{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+  .bc{width:38px;height:38px;border-radius:11px;background:rgba(16,185,129,.16);display:grid;place-items:center}
+  .bc svg{width:21px;height:21px;color:var(--emerald-400)}
+  .bn{font-weight:700;font-size:18px;color:var(--white)}.bn .p{color:var(--emerald-400)}
+  h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700}h2{font-size:18px;margin:0 0 10px;color:var(--white);font-weight:700}
+  .lead{color:var(--slate-400);margin:0 0 16px}
+  .search{width:100%;font:inherit;font-size:16px;padding:12px 16px;border:1.5px solid var(--card-border);border-radius:var(--r-lg);background:rgba(30,41,59,.6);color:var(--white);margin-bottom:14px}
+  .search:focus{outline:none;border-color:var(--emerald);box-shadow:0 0 0 3px rgba(16,185,129,.2)}
+  .search::placeholder{color:var(--slate-500)}
+  .flt{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}
+  .fb{cursor:pointer;font:inherit;font-size:12px;font-weight:600;border-radius:999px;padding:5px 12px;border:1px solid var(--card-border);background:rgba(51,65,85,.4);color:var(--slate-300)}
+  .fb:hover{background:rgba(51,65,85,.7)}.fb[aria-pressed="true"]{background:var(--emerald);color:#04261C;border-color:var(--emerald)}
+  .cat-hd{font-size:14px;font-weight:700;color:var(--emerald-400);text-transform:uppercase;letter-spacing:.05em;margin:20px 0 8px;padding:0 2px}
+  .dx-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:10px;transition:border-color .15s}
+  .dx-card:hover{border-color:rgba(16,185,129,.4)}
+  .dx-name{font-weight:700;color:var(--white);font-size:16px}
+  .dx-code{color:var(--purple-400);font-weight:600;font-size:14px;margin-left:8px}
+  .dx-tx{margin-top:8px;font-size:14px;color:var(--slate-300);line-height:1.5}
+  .dx-tx strong{color:var(--emerald-400);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+  .count{color:var(--slate-400);font-size:14px;margin-bottom:12px}
+  .empty{text-align:center;padding:40px;color:var(--slate-400)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="bw" href="/">
+      <span class="bc" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
+      <span class="bn">PassReady <span class="p">Prep</span></span>
+    </a>
+    <a href="/" style="font-size:13px;font-weight:600;color:var(--slate-400);text-decoration:none">‹ Back to cases</a>
+  </header>
+  <main>
+    <h1>DSM-5-TR quick reference</h1>
+    <p class="lead">92 diagnoses across 18 categories — search by name, code, or treatment. First-line treatment for each.</p>
+    <div style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:12px 16px;margin-bottom:14px;font-size:14px;color:var(--slate-300)">
+      <strong style="color:var(--purple-400)">How to use this</strong> — Look up diagnoses you encounter in case simulations. After a case, search for the diagnosis here to review the ICD-10 code and first-line treatment. Use the category filter to study one diagnostic family at a time. Pair with flashcards for active recall and the <a href="/sheets/ncmhce-study-sheets.pdf" target="_blank" style="color:var(--emerald-400)">printable PDF study sheets</a> for offline review.
+    </div>
+    <input class="search" type="text" id="q" placeholder="Search diagnoses, codes, or treatments…" oninput="render()" />
+    <div class="flt" id="filters"></div>
+    <div id="count" class="count"></div>
+    <div id="list"></div>
+  </main>
+</div>
+<script src="/dsm-data.js"></script>
+<script>
+var esc = function(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+var FLT = 'all';
+
+// Build filter buttons
+var fEl = document.getElementById('filters');
+var fh = '<button class="fb" aria-pressed="true" onclick="setF(\'all\')">All</button>';
+DSM_DATA.forEach(function(c) { fh += '<button class="fb" aria-pressed="false" onclick="setF(\'' + esc(c.cat) + '\')">' + esc(c.cat) + '</button>'; });
+fEl.innerHTML = fh;
+
+function setF(f) {
+  FLT = f;
+  var btns = fEl.querySelectorAll('.fb');
+  btns.forEach(function(b) { b.setAttribute('aria-pressed', b.textContent.trim() === (f === 'all' ? 'All' : f)); });
+  render();
+}
+
+function render() {
+  var q = document.getElementById('q').value.toLowerCase().trim();
+  var list = document.getElementById('list');
+  var countEl = document.getElementById('count');
+  var h = '', shown = 0;
+
+  DSM_DATA.forEach(function(cat) {
+    if (FLT !== 'all' && cat.cat !== FLT) return;
+    var matches = cat.dx.filter(function(d) {
+      if (!q) return true;
+      return d.n.toLowerCase().indexOf(q) >= 0 || d.c.toLowerCase().indexOf(q) >= 0 || d.tx.toLowerCase().indexOf(q) >= 0;
+    });
+    if (!matches.length) return;
+    h += '<div class="cat-hd">' + esc(cat.cat) + ' (' + matches.length + ')</div>';
+    matches.forEach(function(d) {
+      h += '<div class="dx-card">';
+      h += '<span class="dx-name">' + esc(d.n) + '</span><span class="dx-code">' + esc(d.c) + '</span>';
+      h += '<div class="dx-tx"><strong>First-line: </strong>' + esc(d.tx) + '</div>';
+      h += '</div>';
+      shown++;
+    });
+  });
+
+  countEl.textContent = shown + ' of 92 diagnoses';
+  if (!shown) h = '<div class="empty">No matches found.</div>';
+  list.innerHTML = h;
+}
+
+render();
+</script>
+</body>
+</html>
