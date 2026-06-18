@@ -1,3 +1,6 @@
+# Build output
+client/dist/
+
 # Secrets — never commit your real environment file
 .env
 .env.local
