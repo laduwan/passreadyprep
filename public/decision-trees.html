@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — Decision Trees</title>
+<style>
+  :root{
+    --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+    --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
+    --emerald:#10B981; --emerald-400:#34D399; --blue-400:#60A5FA; --amber-400:#FBBF24;
+    --red-400:#F87171; --purple-400:#A78BFA;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --r-xl:16px; --r-lg:12px;
+    --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:linear-gradient(160deg,#0F172A,#1E293B 50%,#0F172A);background-attachment:fixed;
+    color:var(--slate-200);font-family:var(--sans);font-size:16px;line-height:1.55}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 64px}
+  a{color:var(--emerald-400)}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 20px}
+  .bw{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+  .bc{width:38px;height:38px;border-radius:11px;background:rgba(16,185,129,.16);display:grid;place-items:center}
+  .bc svg{width:21px;height:21px;color:var(--emerald-400)}
+  .bn{font-weight:700;font-size:18px;color:var(--white)}.bn .p{color:var(--emerald-400)}
+  h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700}
+  h2{font-size:18px;margin:0 0 6px;color:var(--white);font-weight:700}
+  .lead{color:var(--slate-400);margin:0 0 16px}
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-xl);padding:18px 20px;margin-bottom:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font:inherit;font-weight:700;
+    background:var(--emerald);color:#04261C;border:none;border-radius:10px;padding:12px 20px}
+  .btn:hover{background:var(--emerald-400)}
+  .btn-s{background:rgba(51,65,85,.5);color:var(--slate-200)}.btn-s:hover{background:rgba(51,65,85,.8)}
+  .badge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:4px 10px;border-radius:999px;text-transform:uppercase}
+  .b-em{color:var(--emerald-400);background:rgba(16,185,129,.15)}
+  .b-bl{color:var(--blue-400);background:rgba(59,130,246,.15)}
+  .b-am{color:var(--amber-400);background:rgba(245,158,11,.15)}
+  .b-rd{color:var(--red-400);background:rgba(239,68,68,.15)}
+  .b-pu{color:var(--purple-400);background:rgba(139,92,246,.15)}
+  .b-sl{color:var(--slate-300);background:rgba(51,65,85,.5)}
+  .flt{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+  .fb{cursor:pointer;font:inherit;font-size:12px;font-weight:600;border-radius:999px;padding:5px 12px;
+    border:1px solid var(--card-border);background:rgba(51,65,85,.4);color:var(--slate-300)}
+  .fb:hover{background:rgba(51,65,85,.7)}
+  .fb[aria-pressed="true"]{background:var(--emerald);color:#04261C;border-color:var(--emerald)}
+
+  /* Library grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:4px}
+  .tree-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-xl);
+    padding:18px 20px;cursor:pointer;transition:border-color .15s,transform .1s}
+  .tree-card:hover{border-color:rgba(16,185,129,.45);transform:translateY(-1px)}
+  .tree-card-title{font-size:16px;font-weight:700;color:var(--white);margin:8px 0 4px}
+  .tree-card-domain{font-size:12px;color:var(--slate-400);margin-bottom:8px}
+  .tree-card-desc{font-size:13.5px;color:var(--slate-300);line-height:1.5}
+
+  /* Walkthrough */
+  .wt-header{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .wt-title{font-size:20px;font-weight:700;color:var(--white);flex:1}
+  .question-box{background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(139,92,246,.06));
+    border:1.5px solid rgba(59,130,246,.25);border-radius:var(--r-xl);padding:22px 24px;margin:16px 0}
+  .question-text{font-size:19px;font-weight:600;color:var(--white);line-height:1.45;margin-bottom:18px}
+  .yn-row{display:flex;gap:10px}
+  .yn-btn{flex:1;cursor:pointer;font:inherit;font-weight:700;font-size:15px;padding:13px 12px;
+    border-radius:10px;border:1.5px solid;transition:background .15s}
+  .yn-yes{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.4);color:var(--emerald-400)}
+  .yn-yes:hover{background:rgba(16,185,129,.25)}
+  .yn-no{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.3);color:var(--red-400)}
+  .yn-no:hover{background:rgba(239,68,68,.18)}
+  .teach-box{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;
+    padding:12px 14px;margin-top:12px;font-size:13.5px;color:var(--amber-400);line-height:1.5}
+  .teach-label{font-weight:700;font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+    color:rgba(245,158,11,.6);margin-bottom:4px}
+
+  /* Outcome node */
+  .outcome-box{border-radius:var(--r-xl);padding:22px 24px;margin:16px 0;border:2px solid}
+  .outcome-label{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+  .outcome-action{font-size:14.5px;color:var(--slate-200);margin-top:10px;line-height:1.55}
+  .outcome-note{font-size:13px;color:var(--slate-400);margin-top:8px;padding-top:8px;
+    border-top:1px solid rgba(255,255,255,.08);line-height:1.5}
+
+  /* Teaching panel */
+  .teach-panel{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-xl);
+    padding:20px 22px;margin:14px 0}
+  .teach-panel-title{font-size:13px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--emerald-400);margin-bottom:14px}
+  .tp-section{margin-bottom:14px}
+  .tp-label{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--slate-500);margin-bottom:4px}
+  .tp-text{font-size:14px;color:var(--slate-300);line-height:1.55}
+  .golden{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);border-radius:10px;
+    padding:12px 14px;font-size:14px;color:var(--emerald-400);line-height:1.55;font-style:italic}
+
+  /* Path breadcrumb */
+  .path-trail{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;font-size:12px;color:var(--slate-500)}
+  .path-step{background:rgba(51,65,85,.4);border-radius:6px;padding:3px 8px;color:var(--slate-400)}
+  .path-step.active{background:rgba(16,185,129,.15);color:var(--emerald-400)}
+
+  /* Progress bar */
+  .bar{height:6px;background:var(--slate-700);border-radius:999px;overflow:hidden;margin:8px 0}
+  .bar>i{display:block;height:100%;background:var(--emerald);border-radius:999px;transition:width .4s}
+
+  .restart-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .empty{text-align:center;padding:40px 20px;color:var(--slate-400)}
+
+  @media(max-width:520px){
+    .grid{grid-template-columns:1fr}
+    .question-text{font-size:17px}
+    .yn-row{flex-direction:column}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="bw" href="/">
+      <span class="bc" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
+      <span class="bn">PassReady <span class="p">Prep</span></span>
+    </a>
+    <a href="/" style="font-size:13px;font-weight:600;color:var(--slate-400);text-decoration:none">‹ Back to cases</a>
+  </header>
+  <main id="app"></main>
+</div>
+
+<script src="/dt-data.js"></script>
+<script>
+var app = document.getElementById('app');
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+// category badge map
+var catBadge = {safety:'b-rd', differential:'b-bl', ethics:'b-am', treatment:'b-em'};
+
+// --- LIBRARY VIEW ---
+var LIB_FILTER = 'all';
+
+function getCategoryLabel(id) {
+  if (!DT_CATEGORIES) return id;
+  for (var i = 0; i < DT_CATEGORIES.length; i++) {
+    if (DT_CATEGORIES[i].id === id) return DT_CATEGORIES[i].label;
+  }
+  return id;
+}
+
+function showLibrary() {
+  var trees = Object.values(DT_TREES);
+  var cats = DT_CATEGORIES || [];
+  var filtered = LIB_FILTER === 'all' ? trees : trees.filter(function(t){ return t.category === LIB_FILTER; });
+
+  var h = '<h1>Clinical Decision Trees</h1>';
+  h += '<p class="lead">Work through branching clinical scenarios. Each node teaches a key NCMHCE principle.</p>';
+
+  h += '<div class="flt"><span style="font-size:13px;color:var(--slate-400);margin-right:4px;align-self:center">Filter:</span>';
+  h += '<button class="fb" aria-pressed="' + (LIB_FILTER==='all') + '" onclick="setLib(\'all\')">All (' + trees.length + ')</button>';
+  cats.forEach(function(cat){
+    var count = trees.filter(function(t){ return t.category === cat.id; }).length;
+    h += '<button class="fb" aria-pressed="' + (LIB_FILTER===cat.id) + '" onclick="setLib(\'' + esc(cat.id) + '\')">' + esc(cat.label) + ' (' + count + ')</button>';
+  });
+  h += '</div>';
+
+  if (filtered.length === 0) {
+    h += '<div class="empty">No trees in this category.</div>';
+  } else {
+    h += '<div class="grid">';
+    filtered.forEach(function(tree){
+      var badge = catBadge[tree.category] || 'b-sl';
+      var catLabel = getCategoryLabel(tree.category);
+      h += '<div class="tree-card" onclick="startTree(\'' + esc(tree.id) + '\')" role="button" tabindex="0" onkeydown="if(event.key===\'Enter\'||event.key===\' \')startTree(\'' + esc(tree.id) + '\')">';
+      h += '<span class="badge ' + badge + '">' + esc(catLabel) + '</span>';
+      h += '<div class="tree-card-title">' + esc(tree.title) + '</div>';
+      h += '<div class="tree-card-domain">' + esc(tree.domain) + '</div>';
+      h += '<div class="tree-card-desc">' + esc(tree.description) + '</div>';
+      h += '</div>';
+    });
+    h += '</div>';
+  }
+  app.innerHTML = h;
+}
+
+function setLib(f){ LIB_FILTER = f; showLibrary(); }
+
+// --- WALKTHROUGH STATE ---
+var WT_TREE = null;
+var WT_NODE_ID = null;
+var WT_PATH = []; // array of {question, answer} for breadcrumb
+var WT_DEPTH = 0;
+
+function nodeById(tree, id) {
+  for (var i = 0; i < tree.nodes.length; i++) {
+    if (tree.nodes[i].id === id) return tree.nodes[i];
+  }
+  return null;
+}
+
+function isOutcome(node) {
+  return node && node.outcome !== undefined;
+}
+
+function estimateDepth(tree) {
+  // approximate max path length for progress
+  var maxDepth = 0;
+  function walk(id, depth) {
+    if (depth > 20) return; // guard
+    var n = nodeById(tree, id);
+    if (!n || isOutcome(n)) { if (depth > maxDepth) maxDepth = depth; return; }
+    walk(n.yes, depth+1);
+    walk(n.no, depth+1);
+  }
+  walk(tree.startId, 0);
+  return maxDepth || 6;
+}
+
+function startTree(id) {
+  WT_TREE = DT_TREES[id];
+  if (!WT_TREE) return;
+  WT_NODE_ID = WT_TREE.startId;
+  WT_PATH = [];
+  WT_DEPTH = estimateDepth(WT_TREE);
+  renderWalkthrough();
+}
+
+function answerNode(answer) {
+  var node = nodeById(WT_TREE, WT_NODE_ID);
+  if (!node || isOutcome(node)) return;
+  WT_PATH.push({ question: node.question, answer: answer });
+  WT_NODE_ID = answer === 'yes' ? node.yes : node.no;
+  renderWalkthrough();
+}
+
+function colorToStyle(color) {
+  // returns inline style fragment for outcome box
+  var bg, border, text;
+  if (!color) color = '#64748B';
+  // derive a light alpha version for bg
+  return 'border-color:' + color + ';background:' + color + '18;';
+}
+
+function renderWalkthrough() {
+  var tree = WT_TREE;
+  var node = nodeById(tree, WT_NODE_ID);
+  var badge = catBadge[tree.category] || 'b-sl';
+  var catLabel = getCategoryLabel(tree.category);
+  var progress = Math.round(WT_PATH.length / (WT_DEPTH || 6) * 100);
+  if (progress > 90) progress = 90; // never show full until outcome
+
+  var h = '';
+  // header
+  h += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">';
+  h += '<button class="btn btn-s" style="font-size:12px;padding:7px 14px;flex-shrink:0" onclick="showLibrary()">‹ Library</button>';
+  h += '<div style="flex:1">';
+  h += '<div style="font-size:19px;font-weight:700;color:var(--white);line-height:1.25">' + esc(tree.title) + '</div>';
+  h += '<div style="font-size:12px;color:var(--slate-500);margin-top:2px"><span class="badge ' + badge + '" style="font-size:10px">' + esc(catLabel) + '</span> &nbsp;' + esc(tree.domain) + '</div>';
+  h += '</div></div>';
+
+  // progress
+  if (!isOutcome(node)) {
+    h += '<div class="bar"><i style="width:' + progress + '%"></i></div>';
+    h += '<div style="font-size:12px;color:var(--slate-500);margin-bottom:4px">' + WT_PATH.length + ' question' + (WT_PATH.length===1?'':'s') + ' answered</div>';
+  } else {
+    h += '<div class="bar"><i style="width:100%"></i></div>';
+  }
+
+  // path trail
+  if (WT_PATH.length > 0) {
+    h += '<div class="path-trail">';
+    WT_PATH.forEach(function(step, i){
+      var short = step.question.length > 42 ? step.question.slice(0, 40) + '…' : step.question;
+      var ans = step.answer === 'yes' ? '✓ Yes' : '✗ No';
+      h += '<span class="path-step" title="' + esc(step.question) + '">' + esc(short) + ' — <strong style="color:' + (step.answer==='yes'?'var(--emerald-400)':'var(--red-400)') + '">' + ans + '</strong></span>';
+    });
+    h += '</div>';
+  }
+
+  if (!isOutcome(node)) {
+    // question node
+    h += '<div class="question-box">';
+    h += '<div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue-400);margin-bottom:8px">Clinical Question</div>';
+    h += '<div class="question-text">' + esc(node.question) + '</div>';
+    h += '<div class="yn-row">';
+    h += '<button class="yn-btn yn-yes" onclick="answerNode(\'yes\')">✓ Yes</button>';
+    h += '<button class="yn-btn yn-no" onclick="answerNode(\'no\')">✗ No</button>';
+    h += '</div>';
+    if (node.teach) {
+      h += '<div class="teach-box"><div class="teach-label">Teaching point</div>' + esc(node.teach) + '</div>';
+    }
+    h += '</div>';
+  } else {
+    // outcome node
+    var color = node.color || '#64748B';
+    h += '<div class="outcome-box" style="' + colorToStyle(color) + '">';
+    h += '<div class="outcome-label" style="color:' + color + '">' + esc(node.outcome) + '</div>';
+    if (node.action) {
+      h += '<div class="outcome-action"><strong style="color:var(--white)">Recommended Action:</strong><br>' + esc(node.action) + '</div>';
+    }
+    if (node.clinicalNote) {
+      h += '<div class="outcome-note"><strong style="color:var(--slate-300)">Clinical Note:</strong> ' + esc(node.clinicalNote) + '</div>';
+    }
+    h += '</div>';
+
+    // Teaching panel
+    h += '<div class="teach-panel">';
+    h += '<div class="teach-panel-title">Teaching Panel</div>';
+    if (tree.whatToNotice) {
+      h += '<div class="tp-section"><div class="tp-label">What to Notice</div><div class="tp-text">' + esc(tree.whatToNotice) + '</div></div>';
+    }
+    if (tree.whyItMatters) {
+      h += '<div class="tp-section"><div class="tp-label">Why It Matters on the NCMHCE</div><div class="tp-text">' + esc(tree.whyItMatters) + '</div></div>';
+    }
+    if (tree.goldenFormula) {
+      h += '<div class="tp-section"><div class="tp-label">Golden Formula</div><div class="golden">' + esc(tree.goldenFormula) + '</div></div>';
+    }
+    h += '</div>';
+
+    // restart / library buttons
+    h += '<div class="restart-row">';
+    h += '<button class="btn" onclick="startTree(\'' + esc(tree.id) + '\')">↺ Restart Tree</button>';
+    h += '<button class="btn btn-s" onclick="showLibrary()">‹ Back to Library</button>';
+    h += '</div>';
+  }
+
+  app.innerHTML = h;
+}
+
+// boot
+showLibrary();
+</script>
+</body>
+</html>
