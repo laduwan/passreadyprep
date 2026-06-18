@@ -80,6 +80,26 @@
   .ok{color:var(--pub);font-weight:600}
   :focus-visible{outline:3px solid var(--primary);outline-offset:2px;border-radius:6px}
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+  /* generate form */
+  .gen-form label{display:block;font-weight:600;font-size:14px;color:var(--muted);margin:12px 0 4px}
+  .gen-form label:first-child{margin-top:0}
+  .gen-form select,.gen-form input[type=password]{font:inherit;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;width:100%;background:#fff}
+  .gen-form select:focus,.gen-form input:focus{border-color:var(--primary);outline:none;box-shadow:0 0 0 3px rgba(14,124,123,.15)}
+  .gen-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:540px){.gen-grid{grid-template-columns:1fr}}
+  .gap-bar{margin-top:12px}
+  .gap-row{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:13px}
+  .gap-row .gl{min-width:110px;font-weight:600;color:var(--ink)}
+  .gap-row .gbar{flex:1;height:8px;background:var(--border);border-radius:999px;overflow:hidden}
+  .gap-row .gbar i{display:block;height:100%;border-radius:999px;transition:width .3s}
+  .gap-row .gn{font-size:12px;color:var(--muted);min-width:50px;text-align:right}
+  .spinner{display:inline-block;width:18px;height:18px;border:2.5px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:sp .6s linear infinite;vertical-align:middle;margin-right:8px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .gen-result{margin-top:14px;padding:14px 16px;border-radius:var(--radius);border:1.5px solid}
+  .gen-result.success{background:var(--correct-bg);border-color:#A3D9B5}
+  .gen-result.fail{background:#FDE8E8;border-color:#F5A3A3}
+  .key-note{font-size:12px;color:var(--muted);margin-top:4px}
 </style>
 </head>
 <body>
@@ -94,9 +114,14 @@
 <script>
 let TOKEN = '';
 let TAB = 'sme_review';
+let BLUEPRINT = null; // loaded once from server
 const app = document.getElementById('app');
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const cap = s => s?s.charAt(0).toUpperCase()+s.slice(1):s;
+
+// Persist the Anthropic API key in sessionStorage (browser tab lifetime only)
+function getApiKey(){ return sessionStorage.getItem('prp_api_key')||''; }
+function setApiKey(k){ sessionStorage.setItem('prp_api_key',k); }
 
 async function api(path, opts){
   opts = opts || {};
@@ -124,17 +149,24 @@ async function signIn(){
   catch(e){ gate(e.message); }
 }
 
+function tabsHtml(){
+  return '<div class="tabs">'
+    + '<button class="'+(TAB==='sme_review'?'on':'')+'" onclick="setTab(\'sme_review\')">Pending review</button>'
+    + '<button class="'+(TAB==='published'?'on':'')+'" onclick="setTab(\'published\')">Published</button>'
+    + '<button class="'+(TAB==='generate'?'on':'')+'" onclick="setTab(\'generate\')" style="border-color:'+(TAB==='generate'?'var(--primary)':'var(--border)')+'">⚡ Cases</button>'
+    + '</div>';
+}
+
 async function showList(){
+  if(TAB==='generate') return showGenerate();
   app.innerHTML = '<p class="lead">Loading…</p>';
   let data;
   try{ data = await api('/api/admin/content?status='+TAB); }
   catch(e){ return gate(e.message); }
-  let h = '<div class="tabs">'
-    + '<button class="'+(TAB==='sme_review'?'on':'')+'" onclick="setTab(\'sme_review\')">Pending review</button>'
-    + '<button class="'+(TAB==='published'?'on':'')+'" onclick="setTab(\'published\')">Published</button></div>';
+  let h = tabsHtml();
   h += '<h1>'+(TAB==='sme_review'?'Pending review':'Published')+' <span style="color:var(--muted);font-weight:400">('+data.count+')</span></h1>';
   if(!data.count){
-    h += '<p class="lead">'+(TAB==='sme_review'?'Nothing waiting. Generated cases show up here after you import them.':'No published cases yet.')+'</p>';
+    h += '<p class="lead">'+(TAB==='sme_review'?'Nothing waiting. Generated cases show up here after you import or generate them.':'No published cases yet.')+'</p>';
   }
   data.items.forEach(it=>{
     h += '<button class="case-btn" onclick="openCase(\''+esc(it.externalId)+'\')">'
@@ -148,6 +180,324 @@ async function showList(){
   app.innerHTML = h;
 }
 function setTab(t){ TAB=t; showList(); }
+
+// ── Generate tab ────────────────────────────────────────────────────
+
+async function loadBlueprint(){
+  if(BLUEPRINT) return BLUEPRINT;
+  BLUEPRINT = await api('/api/admin/generate/blueprint');
+  return BLUEPRINT;
+}
+
+async function showGenerate(){
+  app.innerHTML = '<p class="lead">Loading blueprint…</p>';
+  let bp, coverage;
+  try{
+    bp = await loadBlueprint();
+    coverage = await api('/api/admin/generate/coverage');
+  } catch(e){ return gate(e.message); }
+
+  let h = tabsHtml();
+  h += '<h1>Generate new case</h1>';
+  h += '<p class="lead">Create an NCMHCE case via Anthropic API. It lands in Pending Review.</p>';
+
+  // Coverage bar
+  h += '<div class="card"><h2>Case bank coverage <span style="color:var(--muted);font-weight:400">'+coverage.total+' / '+coverage.target+'</span></h2>';
+  h += '<div class="gap-bar">';
+  coverage.gaps.forEach(g => {
+    const pct = g.target ? Math.min(100, Math.round(g.have / g.target * 100)) : 100;
+    const color = pct >= 100 ? 'var(--correct)' : pct >= 60 ? 'var(--amber)' : 'var(--review)';
+    h += '<div class="gap-row"><span class="gl">'+esc(g.category)+'</span>'
+       + '<span class="gbar"><i style="width:'+pct+'%;background:'+color+'"></i></span>'
+       + '<span class="gn">'+g.have+'/'+g.target+'</span></div>';
+  });
+  h += '</div></div>';
+
+  // Form
+  h += '<div class="card gen-form">';
+  h += '<h2>Parameters</h2>';
+
+  h += '<div class="gen-grid"><div>';
+  h += '<label for="gen-cat">Category</label>';
+  h += '<select id="gen-cat" onchange="updateDxOptions()">';
+  bp.categories.forEach(c => {
+    h += '<option value="'+esc(c.category)+'">'+esc(c.category)+'</option>';
+  });
+  h += '</select></div>';
+
+  h += '<div><label for="gen-diff">Difficulty</label>';
+  h += '<select id="gen-diff">';
+  h += '<option value="easy">Easy</option><option value="medium" selected>Medium</option><option value="hard">Hard</option>';
+  h += '</select></div></div>';
+
+  h += '<label for="gen-dx">Diagnosis</label>';
+  h += '<select id="gen-dx">';
+  const firstCat = bp.categories[0];
+  firstCat.diagnoses.forEach(d => {
+    h += '<option value="'+esc(d.name)+'|'+esc(d.code)+'">'+esc(d.name)+' ('+esc(d.code)+')</option>';
+  });
+  h += '</select>';
+
+  h += '<label for="gen-key">Anthropic API Key</label>';
+  h += '<input type="password" id="gen-key" placeholder="sk-ant-api03-…" value="'+esc(getApiKey())+'" />';
+  h += '<div class="key-note">Stored in this browser tab only. Sent to your server for the API call — never logged or saved.</div>';
+
+  h += '<div class="gen-grid" style="margin-top:14px"><div>';
+  h += '<label for="gen-mode">Mode</label>';
+  h += '<select id="gen-mode" onchange="toggleBatchOpts()">';
+  h += '<option value="single">Single case</option>';
+  h += '<option value="batch">Batch generate</option>';
+  h += '<option value="auto">Auto-fill gaps</option>';
+  h += '</select></div>';
+  h += '<div id="batch-count-wrap" style="display:none">';
+  h += '<label for="gen-count">Count</label>';
+  h += '<input type="number" id="gen-count" min="1" max="50" value="5" style="font:inherit;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;width:100%" />';
+  h += '</div></div>';
+  h += '<div id="auto-note" style="display:none;margin-top:6px" class="key-note">Auto-fill reads the coverage gaps and generates cases for the categories that need them most, rotating diagnoses and difficulty. Your category/diagnosis selection above is ignored in this mode.</div>';
+
+  h += '<div style="margin-top:16px;display:flex;gap:10px;align-items:center">';
+  h += '<button class="btn" id="gen-btn" onclick="runGenerate()">⚡ Generate</button>';
+  h += '<button class="btn ghost" id="stop-btn" onclick="stopBatch()" style="display:none">■ Stop</button>';
+  h += '<span id="gen-counter" style="font-weight:600;color:var(--muted);font-size:14px"></span>';
+  h += '</div>';
+  h += '<div id="gen-progress" style="margin-top:10px"></div>';
+  h += '<div id="gen-status"></div>';
+  h += '<div id="gen-result"></div>';
+  h += '</div>';
+
+  app.innerHTML = h;
+}
+
+function toggleBatchOpts(){
+  const mode = document.getElementById('gen-mode').value;
+  document.getElementById('batch-count-wrap').style.display = (mode==='single')?'none':'block';
+  document.getElementById('auto-note').style.display = (mode==='auto')?'block':'none';
+}
+
+function updateDxOptions(){
+  if(!BLUEPRINT) return;
+  const cat = document.getElementById('gen-cat').value;
+  const sel = document.getElementById('gen-dx');
+  const catObj = BLUEPRINT.categories.find(c => c.category === cat);
+  if(!catObj) return;
+  sel.innerHTML = '';
+  catObj.diagnoses.forEach(d => {
+    const o = document.createElement('option');
+    o.value = d.name+'|'+d.code;
+    o.textContent = d.name+' ('+d.code+')';
+    sel.appendChild(o);
+  });
+}
+
+let BATCH_STOP = false;
+
+function stopBatch(){ BATCH_STOP = true; }
+
+async function runGenerate(){
+  const mode = document.getElementById('gen-mode').value;
+  const apiKey = document.getElementById('gen-key').value.trim();
+  if(!apiKey){ alert('Enter your Anthropic API key.'); return; }
+  setApiKey(apiKey);
+
+  if(mode === 'single') return runSingle();
+  if(mode === 'batch') return runBatch();
+  if(mode === 'auto') return runAutoFill();
+}
+
+// ── Single case ─────────────────────────────────────────────────────
+async function runSingle(){
+  const cat = document.getElementById('gen-cat').value;
+  const diff = document.getElementById('gen-diff').value;
+  const dxVal = document.getElementById('gen-dx').value;
+  const apiKey = document.getElementById('gen-key').value.trim();
+  const [diagnosisName, diagnosisCode] = dxVal.split('|');
+
+  const btn = document.getElementById('gen-btn');
+  const status = document.getElementById('gen-status');
+  const result = document.getElementById('gen-result');
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Generating…';
+  status.innerHTML = '<p style="color:var(--muted);margin-top:10px">Calling Anthropic API — this takes 30–60 seconds…</p>';
+  result.innerHTML = '';
+  document.getElementById('gen-progress').innerHTML = '';
+
+  try{
+    const data = await api('/api/admin/generate', {
+      method: 'POST',
+      body: JSON.stringify({ category: cat, difficulty: diff, diagnosisName, diagnosisCode, apiKey }),
+    });
+    result.innerHTML = successCard(data);
+    status.innerHTML = '';
+  } catch(e){
+    result.innerHTML = failCard(e.message);
+    status.innerHTML = '';
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '⚡ Generate';
+}
+
+// ── Batch: same category/dx N times ─────────────────────────────────
+async function runBatch(){
+  const cat = document.getElementById('gen-cat').value;
+  const diff = document.getElementById('gen-diff').value;
+  const dxVal = document.getElementById('gen-dx').value;
+  const apiKey = document.getElementById('gen-key').value.trim();
+  const count = Math.min(50, Math.max(1, parseInt(document.getElementById('gen-count').value)||5));
+  const [diagnosisName, diagnosisCode] = dxVal.split('|');
+
+  await runLoop(count, ()=>({category:cat, difficulty:diff, diagnosisName, diagnosisCode, apiKey}));
+}
+
+// ── Auto-fill: read coverage gaps, pick targets ─────────────────────
+async function runAutoFill(){
+  const apiKey = document.getElementById('gen-key').value.trim();
+  const count = Math.min(50, Math.max(1, parseInt(document.getElementById('gen-count').value)||10));
+
+  // Fetch gap-aware targets from the server's blueprint logic
+  let coverage;
+  try{ coverage = await api('/api/admin/generate/coverage'); }
+  catch(e){ document.getElementById('gen-result').innerHTML = failCard(e.message); return; }
+
+  const gapsWithNeed = coverage.gaps.filter(g => g.need > 0);
+  if(!gapsWithNeed.length){
+    document.getElementById('gen-result').innerHTML =
+      '<div class="gen-result success"><strong style="color:var(--correct)">All 200 targets met!</strong> No gaps to fill.</div>';
+    return;
+  }
+
+  // Build a round-robin target list from gaps (largest gaps first)
+  const targets = [];
+  let round = 0;
+  while(targets.length < count){
+    let added = false;
+    for(const g of gapsWithNeed){
+      if(targets.length >= count) break;
+      const catObj = BLUEPRINT.categories.find(c => c.category === g.category);
+      if(!catObj) continue;
+      const filled = targets.filter(t => t.category === g.category).length;
+      if(filled >= g.need) continue;
+      const dx = catObj.diagnoses[(round + filled) % catObj.diagnoses.length];
+      const diffs = ['easy','medium','hard'];
+      const diff = diffs[(round + filled) % 3] || 'medium';
+      targets.push({ category:g.category, difficulty:diff, diagnosisName:dx.name, diagnosisCode:dx.code, apiKey });
+      added = true;
+    }
+    round++;
+    if(!added) break;
+  }
+
+  let idx = 0;
+  await runLoop(targets.length, ()=>targets[idx++]);
+}
+
+// ── Shared batch loop ───────────────────────────────────────────────
+async function runLoop(total, getParams){
+  BATCH_STOP = false;
+  const btn = document.getElementById('gen-btn');
+  const stopBtn = document.getElementById('stop-btn');
+  const counter = document.getElementById('gen-counter');
+  const progress = document.getElementById('gen-progress');
+  const status = document.getElementById('gen-status');
+  const result = document.getElementById('gen-result');
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Running…';
+  stopBtn.style.display = 'inline-flex';
+  result.innerHTML = '';
+  progress.innerHTML = '';
+
+  let ok = 0, fail = 0;
+  const log = [];
+
+  for(let i = 0; i < total; i++){
+    if(BATCH_STOP){ log.push({i:i+1, stopped:true}); break; }
+
+    counter.textContent = 'Case '+(i+1)+' of '+total+'…';
+    status.innerHTML = '<p style="color:var(--muted)"><span class="spinner"></span>Generating case '+(i+1)+' of '+total+' — ~30-60s per case…</p>';
+
+    const params = getParams();
+    try{
+      const data = await api('/api/admin/generate', {
+        method: 'POST',
+        body: JSON.stringify(params),
+      });
+      ok++;
+      log.push({i:i+1, ok:true, title:data.title, externalId:data.externalId, category:data.category, difficulty:data.difficulty, warnings:data.warnings});
+    } catch(e){
+      fail++;
+      log.push({i:i+1, ok:false, error:e.message, category:params.category, diagnosisName:params.diagnosisName});
+    }
+
+    // Update progress bar
+    const pct = Math.round((i+1)/total*100);
+    progress.innerHTML = '<div style="display:flex;align-items:center;gap:10px">'
+      + '<div style="flex:1;height:10px;background:var(--border);border-radius:999px;overflow:hidden">'
+      + '<div style="height:100%;width:'+pct+'%;background:var(--primary);border-radius:999px;transition:width .3s"></div></div>'
+      + '<span style="font-size:13px;font-weight:600;color:var(--muted);min-width:70px">'+ok+' ok'+(fail?' · '+fail+' err':'')+'</span></div>';
+  }
+
+  // Final summary
+  status.innerHTML = '';
+  counter.textContent = '';
+  btn.disabled = false;
+  btn.innerHTML = '⚡ Generate';
+  stopBtn.style.display = 'none';
+
+  let rh = '<div class="card" style="margin-top:14px"><h2>Batch complete</h2>';
+  rh += '<div style="display:flex;gap:14px;margin-bottom:12px">';
+  rh += '<span style="font-size:22px;font-weight:800;color:var(--correct)">'+ok+'</span><span style="color:var(--muted);font-weight:600;align-self:center">generated</span>';
+  if(fail) rh += '<span style="font-size:22px;font-weight:800;color:#B23A60">'+fail+'</span><span style="color:var(--muted);font-weight:600;align-self:center">failed</span>';
+  if(BATCH_STOP) rh += '<span style="color:var(--amber);font-weight:600;align-self:center">· stopped by user</span>';
+  rh += '</div>';
+
+  log.forEach(l => {
+    if(l.stopped) return;
+    if(l.ok){
+      rh += '<div style="display:flex;gap:8px;align-items:center;margin:6px 0">';
+      rh += '<span style="color:var(--correct);font-weight:700">✓</span>';
+      rh += '<span style="font-weight:600">'+esc(l.title)+'</span>';
+      rh += '<span class="chip">'+esc(l.category)+'</span>';
+      rh += '<span class="chip">'+esc(cap(l.difficulty))+'</span>';
+      rh += '<button class="btn ghost" style="padding:4px 10px;font-size:12px;margin-left:auto" onclick="openCase(\''+esc(l.externalId)+'\')">Review</button>';
+      rh += '</div>';
+      if(l.warnings && l.warnings.length) rh += '<div style="font-size:12px;color:var(--amber);margin-left:22px">⚠ '+l.warnings.map(esc).join(', ')+'</div>';
+    } else {
+      rh += '<div style="display:flex;gap:8px;align-items:center;margin:6px 0">';
+      rh += '<span style="color:#B23A60;font-weight:700">✗</span>';
+      rh += '<span style="color:#B23A60">'+esc(l.category)+' / '+esc(l.diagnosisName)+': '+esc(l.error)+'</span>';
+      rh += '</div>';
+    }
+  });
+
+  rh += '<div style="margin-top:12px">';
+  rh += '<button class="btn ghost" onclick="setTab(\'sme_review\')">Review all pending</button>';
+  rh += ' <button class="btn ghost" onclick="showGenerate()">Generate more</button>';
+  rh += '</div></div>';
+  result.innerHTML = rh;
+}
+
+// ── Result cards ────────────────────────────────────────────────────
+function successCard(data){
+  let rh = '<div class="gen-result success">';
+  rh += '<strong style="color:var(--correct)">✓ Case generated</strong><br />';
+  rh += '<strong>'+esc(data.title)+'</strong> ('+esc(data.externalId)+')<br />';
+  rh += '<span class="chip" style="margin-right:6px">'+esc(data.category)+'</span>';
+  rh += '<span class="chip" style="margin-right:6px">'+esc(cap(data.difficulty))+'</span>';
+  rh += '<span class="chip">'+data.questionCount+' questions</span>';
+  if(data.warnings && data.warnings.length){
+    rh += '<div style="margin-top:8px;font-size:13px;color:var(--amber)">⚠ '+data.warnings.map(esc).join('<br />')+'</div>';
+  }
+  rh += '<div style="margin-top:10px">';
+  rh += '<button class="btn ghost" onclick="openCase(\''+esc(data.externalId)+'\')">Review now</button>';
+  rh += ' <button class="btn ghost" onclick="showGenerate()">Generate another</button>';
+  rh += '</div></div>';
+  return rh;
+}
+function failCard(msg){
+  return '<div class="gen-result fail"><strong style="color:#B23A60">✗ Generation failed</strong><br />'+esc(msg)+'</div>';
+}
 
 async function openCase(externalId){
   app.innerHTML = '<p class="lead">Loading…</p>';

@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — Flashcards</title>
+<style>
+  :root{
+    --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+    --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
+    --emerald:#10B981; --emerald-400:#34D399; --blue-400:#60A5FA; --amber-400:#FBBF24;
+    --red-400:#F87171; --purple-400:#A78BFA;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --r-xl:16px; --r-lg:12px;
+    --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:linear-gradient(160deg,#0F172A,#1E293B 50%,#0F172A);background-attachment:fixed;
+    color:var(--slate-200);font-family:var(--sans);font-size:16px;line-height:1.55}
+  .wrap{max-width:680px;margin:0 auto;padding:18px 16px 64px}
+  a{color:var(--emerald-400)}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 20px}
+  .bw{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+  .bc{width:38px;height:38px;border-radius:11px;background:rgba(16,185,129,.16);display:grid;place-items:center}
+  .bc svg{width:21px;height:21px;color:var(--emerald-400)}
+  .bn{font-weight:700;font-size:18px;color:var(--white)}.bn .p{color:var(--emerald-400)}
+  h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700}
+  h2{font-size:18px;margin:0 0 6px;color:var(--white);font-weight:700}
+  .lead{color:var(--slate-400);margin:0 0 16px}
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-xl);padding:18px 20px;margin-bottom:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font:inherit;font-weight:700;
+    background:var(--emerald);color:#04261C;border:none;border-radius:10px;padding:12px 20px}
+  .btn:hover{background:var(--emerald-400)}
+  .btn-s{background:rgba(51,65,85,.5);color:var(--slate-200)}.btn-s:hover{background:rgba(51,65,85,.8)}
+  .badge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:4px 10px;border-radius:999px;text-transform:uppercase}
+  .b-em{color:var(--emerald-400);background:rgba(16,185,129,.15)}
+  .b-bl{color:var(--blue-400);background:rgba(59,130,246,.15)}
+  .b-am{color:var(--amber-400);background:rgba(245,158,11,.15)}
+  .b-rd{color:var(--red-400);background:rgba(239,68,68,.15)}
+  .b-pu{color:var(--purple-400);background:rgba(139,92,246,.15)}
+  .b-sl{color:var(--slate-300);background:rgba(51,65,85,.5)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center;margin:12px 0}
+  .sn{font-size:22px;font-weight:800;color:var(--white);line-height:1}
+  .sl{font-size:11px;color:var(--slate-400);margin-top:3px}
+  .flt{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+  .fb{cursor:pointer;font:inherit;font-size:12px;font-weight:600;border-radius:999px;padding:5px 12px;
+    border:1px solid var(--card-border);background:rgba(51,65,85,.4);color:var(--slate-300)}
+  .fb:hover{background:rgba(51,65,85,.7)}
+  .fb[aria-pressed="true"]{background:var(--emerald);color:#04261C;border-color:var(--emerald)}
+  .fc{perspective:800px;height:280px;margin:16px 0;cursor:pointer}
+  .fc-in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+  .fc.flipped .fc-in{transform:rotateY(180deg)}
+  .fc-f,.fc-b{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r-xl);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;text-align:center}
+  .fc-f{background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(139,92,246,.08));border:1.5px solid rgba(59,130,246,.3)}
+  .fc-b{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(52,211,153,.06));border:1.5px solid rgba(16,185,129,.3);transform:rotateY(180deg)}
+  .fc-q{font-size:19px;font-weight:600;color:var(--white);line-height:1.4}
+  .fc-a{font-size:17px;color:var(--emerald-400);font-weight:600;line-height:1.5}
+  .fc-h{font-size:12px;color:var(--slate-500);margin-top:12px}
+  .fc-tl{position:absolute;top:14px;left:16px}
+  .fc-tr{position:absolute;top:14px;right:16px}
+  .rating{display:flex;gap:8px;justify-content:center;margin:10px 0}
+  .rb{cursor:pointer;font:inherit;font-size:13px;font-weight:700;border-radius:10px;padding:10px 16px;
+    border:1.5px solid var(--card-border);background:rgba(51,65,85,.4);color:var(--slate-300);flex:1;max-width:120px;text-align:center}
+  .rb:hover{background:rgba(51,65,85,.7)}
+  .r1{border-color:rgba(239,68,68,.4);color:var(--red-400)}.r1:hover{background:rgba(239,68,68,.15)}
+  .r3{border-color:rgba(245,158,11,.4);color:var(--amber-400)}.r3:hover{background:rgba(245,158,11,.15)}
+  .r5{border-color:rgba(16,185,129,.4);color:var(--emerald-400)}.r5:hover{background:rgba(16,185,129,.15)}
+  .bar{height:8px;background:var(--slate-700);border-radius:999px;overflow:hidden;margin:4px 0}
+  .bar>i{display:block;height:100%;background:var(--emerald);border-radius:999px;transition:width .3s}
+  .empty{text-align:center;padding:40px 20px;color:var(--slate-400)}
+  @media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}.fc{height:240px}.fc-q{font-size:17px}.fc-a{font-size:15px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="bw" href="/">
+      <span class="bc" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
+      <span class="bn">PassReady <span class="p">Prep</span></span>
+    </a>
+    <a href="/" style="font-size:13px;font-weight:600;color:var(--slate-400);text-decoration:none">‹ Back to cases</a>
+  </header>
+  <main id="app"></main>
+</div>
+
+<script src="/fc-data.js"></script>
+<script>
+var app = document.getElementById('app');
+var esc = function(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+
+// SM-2 spaced repetition engine (localStorage)
+var SK = 'prp_sr';
+function ldSR(){ try { return JSON.parse(localStorage.getItem(SK)) || {}; } catch(e) { return {}; } }
+function svSR(sr){ localStorage.setItem(SK, JSON.stringify(sr)); }
+
+function updCard(id, quality) {
+  var sr = ldSR();
+  var s = sr[id] || { ef:2.5, iv:0, rp:0, du:0 };
+  if (quality < 3) { s.rp = 0; s.iv = 0; }
+  else {
+    if (s.rp === 0) s.iv = 1;
+    else if (s.rp === 1) s.iv = 3;
+    else s.iv = Math.round(s.iv * s.ef);
+    s.rp++;
+  }
+  s.ef = Math.max(1.3, s.ef + 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
+  s.du = Date.now() + s.iv * 86400000;
+  sr[id] = s;
+  svSR(sr);
+}
+
+var FLT = 'all', DK = [], DI = 0, FLIP = false;
+
+function getDue() {
+  var now = Date.now(), sr = ldSR();
+  return ALL_CARDS.filter(function(c) {
+    if (FLT !== 'all' && c.cat !== FLT) return false;
+    var s = sr[c.id];
+    return !s || s.du <= now;
+  });
+}
+function getMast() { var sr = ldSR(); return ALL_CARDS.filter(function(c){ var s = sr[c.id]; return s && s.rp >= 3 && s.du > Date.now(); }).length; }
+function getLrn() { var sr = ldSR(); return ALL_CARDS.filter(function(c){ var s = sr[c.id]; return s && s.rp > 0 && s.rp < 3; }).length; }
+
+var typeBadge = { code:'b-bl', tx:'b-em', diff:'b-am', ethics:'b-rd', crisis:'b-rd', concept:'b-pu' };
+var typeLabel = { code:'Code', tx:'Treatment', diff:'Differential', ethics:'Ethics', crisis:'Crisis', concept:'Concept' };
+
+function showHome() {
+  var due = getDue(), mast = getMast(), lrn = getLrn(), tot = ALL_CARDS.length;
+  var pct = tot ? Math.round(mast/tot*100) : 0;
+  var h = '<h1>Flashcards</h1>';
+  h += '<p class="lead">Spaced repetition — cards you miss come back sooner. ' + tot + ' cards across ' + CATS.length + ' categories.</p>';
+  // First-time info
+  if (mast === 0 && lrn === 0) {
+    h += '<div style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);border-radius:12px;padding:14px 16px;margin-bottom:14px;font-size:14px;color:var(--slate-300)">';
+    h += '<strong style="color:var(--blue-400)">How it works</strong><br>';
+    h += 'Tap a card to flip it and reveal the answer. Then rate yourself:<br>';
+    h += '<span style="color:var(--red-400);font-weight:700">Again</span> — didn\'t know it (comes back today)<br>';
+    h += '<span style="color:var(--amber-400);font-weight:700">Hard</span> — got it but struggled (comes back in 1–3 days)<br>';
+    h += '<span style="color:var(--emerald-400);font-weight:700">Easy</span> — knew it cold (pushed out further each time)<br>';
+    h += 'Cards you master disappear from your due queue. Your progress is saved in this browser.';
+    h += '</div>';
+  }
+  h += '<div class="card"><div class="stats">';
+  h += '<div><div class="sn" style="color:var(--blue-400)">' + due.length + '</div><div class="sl">Due now</div></div>';
+  h += '<div><div class="sn" style="color:var(--amber-400)">' + lrn + '</div><div class="sl">Learning</div></div>';
+  h += '<div><div class="sn" style="color:var(--emerald-400)">' + mast + '</div><div class="sl">Mastered</div></div>';
+  h += '<div><div class="sn">' + tot + '</div><div class="sl">Total</div></div>';
+  h += '</div>';
+  h += '<div class="bar"><i style="width:' + pct + '%"></i></div>';
+  h += '<div style="text-align:center;font-size:13px;color:var(--slate-400);margin-top:4px">' + pct + '% mastered</div></div>';
+  h += '<div class="flt"><span style="font-size:13px;color:var(--slate-400);margin-right:4px">Filter:</span>';
+  h += '<button class="fb" aria-pressed="' + (FLT==='all') + '" onclick="setF(\'all\')">All</button>';
+  CATS.forEach(function(cat) {
+    h += '<button class="fb" aria-pressed="' + (FLT===cat) + '" onclick="setF(\'' + esc(cat) + '\')">' + esc(cat) + '</button>';
+  });
+  h += '</div>';
+  if (due.length) {
+    h += '<button class="btn" style="width:100%;font-size:16px;padding:14px" onclick="startDk()">Study ' + due.length + ' due card' + (due.length===1?'':'s') + ' ›</button>';
+  } else {
+    h += '<div class="empty"><div style="font-size:32px;margin-bottom:8px">✓</div><strong style="color:var(--emerald-400)">All caught up!</strong><br>Come back later or switch categories.</div>';
+  }
+  h += '<div style="margin-top:14px;text-align:center"><button class="btn btn-s" style="font-size:13px;padding:10px 16px" onclick="resetSR()">Reset progress</button></div>';
+  app.innerHTML = h;
+}
+
+function setF(f) { FLT = f; showHome(); }
+
+function startDk() {
+  DK = getDue();
+  for (var i = DK.length - 1; i > 0; i--) { var j = Math.floor(Math.random()*(i+1)); var t = DK[i]; DK[i] = DK[j]; DK[j] = t; }
+  DI = 0; FLIP = false; showCd();
+}
+
+function showCd() {
+  if (DI >= DK.length) { showRes(); return; }
+  var c = DK[DI];
+  var pr = Math.round(DI / DK.length * 100);
+  var tb = typeBadge[c.type] || 'b-sl';
+  var tl = typeLabel[c.type] || c.type;
+
+  var h = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
+  h += '<span style="font-size:13px;color:var(--slate-400)">' + (DI+1) + ' / ' + DK.length + '</span>';
+  h += '<button class="btn btn-s" style="font-size:12px;padding:6px 12px" onclick="showHome()">Exit</button></div>';
+  h += '<div class="bar"><i style="width:' + pr + '%"></i></div>';
+
+  h += '<div class="fc' + (FLIP ? ' flipped' : '') + '" onclick="flipCd()">';
+  h += '<div class="fc-in">';
+  h += '<div class="fc-f">';
+  h += '<span class="fc-tl"><span class="badge b-sl">' + esc(c.cat) + '</span></span>';
+  h += '<span class="fc-tr"><span class="badge ' + tb + '">' + esc(tl) + '</span></span>';
+  h += '<div class="fc-q">' + esc(c.q) + '</div>';
+  h += '<div class="fc-h">Tap to reveal</div></div>';
+  h += '<div class="fc-b">';
+  h += '<span class="fc-tl"><span class="badge b-sl">' + esc(c.cat) + '</span></span>';
+  h += '<span class="fc-tr"><span class="badge ' + tb + '">' + esc(tl) + '</span></span>';
+  h += '<div class="fc-a">' + esc(c.a) + '</div></div>';
+  h += '</div></div>';
+
+  if (FLIP) {
+    h += '<div style="text-align:center;font-size:13px;color:var(--slate-400);margin-bottom:8px">How well did you know this?</div>';
+    h += '<div class="rating">';
+    h += '<button class="rb r1" onclick="rate(1)">Again</button>';
+    h += '<button class="rb r3" onclick="rate(3)">Hard</button>';
+    h += '<button class="rb r5" onclick="rate(5)">Easy</button>';
+    h += '</div>';
+  }
+  app.innerHTML = h;
+}
+
+function flipCd() { if (!FLIP) { FLIP = true; showCd(); } }
+function rate(q) { updCard(DK[DI].id, q); DI++; FLIP = false; showCd(); }
+
+function showRes() {
+  var h = '<div style="text-align:center;padding:30px 0">';
+  h += '<div style="font-size:48px;margin-bottom:12px">🎉</div>';
+  h += '<h1>Session complete</h1>';
+  h += '<p class="lead">Reviewed ' + DK.length + ' cards. Cards marked Again reappear sooner.</p>';
+  h += '<div style="display:flex;gap:10px;justify-content:center;margin-top:16px">';
+  h += '<button class="btn" onclick="showHome()">Overview</button>';
+  var nd = getDue();
+  if (nd.length) h += '<button class="btn btn-s" onclick="startDk()">' + nd.length + ' more ›</button>';
+  h += '</div></div>';
+  app.innerHTML = h;
+}
+
+function resetSR() {
+  if (!confirm('Reset all flashcard progress?')) return;
+  localStorage.removeItem(SK);
+  showHome();
+}
+
+showHome();
+</script>
+</body>
+</html>

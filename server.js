@@ -19,9 +19,23 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/progress', require('./routes/progress'));
 app.use('/api/content', require('./routes/content'));
 app.use('/api/admin', require('./routes/admin'));
+app.use('/api/admin/generate', require('./routes/adminGenerate'));
+app.use('/api/debrief', require('./routes/debrief'));
 
-// Serve the study screen (and any future static frontend files) from /public.
+// Serve the React SPA (built by Vite to client/dist/) and legacy static pages from /public.
+// React app takes priority; /public has admin review page, standalone tools, and data files.
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'client/dist')));
 app.use(express.static('public'));
+
+// SPA fallback — any non-API, non-file route serves the React app's index.html
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api/')) return next();
+  const spaIndex = path.join(__dirname, 'client/dist/index.html');
+  const fs = require('fs');
+  if (fs.existsSync(spaIndex)) return res.sendFile(spaIndex);
+  next();
+});
 
 const PORT = process.env.PORT || 4000;
 
