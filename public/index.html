@@ -121,6 +121,13 @@
   :focus-visible{outline:3px solid var(--primary); outline-offset:2px; border-radius:6px}
   .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0}
   @media (prefers-reduced-motion:reduce){*{transition:none !important}}
+  /* study tools mode-grid */
+  .mode-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:0 0 22px}
+  .mode-card{display:block;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:16px 18px;transition:border-color .15s}
+  .mode-card:hover{border-color:var(--primary);text-decoration:none}
+  .mc-head{display:block;font-weight:700;font-size:16px;color:var(--ink);margin-bottom:5px}
+  .mc-desc{display:block;font-size:14px;color:var(--muted);line-height:1.45}
   @media (max-width:520px){ body{font-size:16px} h1{font-size:23px} .wrap{padding:16px 14px 56px} }
 </style>
 </head>
@@ -183,6 +190,10 @@ async function showList(){
     ? 'Preview mode — showing a sample case. Once connected to your API, every published case appears here.'
     : '';
   let h = '<h1>Choose a case</h1><p class="lead">Read the client, work the questions, and see the reasoning behind each answer.</p>';
+  h += '<div class="mode-grid">';
+  h += '<a href="/flashcards.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📇 Flashcards</span><span class="mc-desc">258 spaced-repetition cards covering DSM codes, treatment protocols, differentials, ethics, and crisis response.</span></a>';
+  h += '<a href="/decision-trees.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🌳 Decision Trees</span><span class="mc-desc">25 branching clinical scenarios — risk and safety, differential diagnosis, ethics, and treatment selection. Walk each one node by node to drill the reasoning the exam rewards.</span></a>';
+  h += '</div>';
   items.forEach(it => {
     h += '<button class="case-btn" onclick="startCase(\''+esc(it.externalId)+'\')">'
        + '<span class="t">'+esc(it.title)+'</span>'
