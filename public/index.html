@@ -181,6 +181,25 @@
   .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0}
   @media (prefers-reduced-motion:reduce){*{transition:none !important}}
   @media (max-width:520px){ h1{font-size:22px} .wrap{padding:16px 14px 56px} .card{padding:16px} }
+
+  /* readiness dashboard */
+  .ready-ring{position:relative;width:120px;height:120px;margin:0 auto 8px}
+  .ready-ring svg{transform:rotate(-90deg)}
+  .ready-ring .rlabel{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ready-ring .rnum{font-size:28px;font-weight:800;color:var(--white);line-height:1}
+  .ready-ring .rtag{font-size:11px;color:var(--slate-400);margin-top:2px}
+  .dom-bar-wrap{margin:6px 0}
+  .dom-bar-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px}
+  .dom-bar-label span:first-child{color:var(--slate-300)}
+  .dom-bar-label span:last-child{font-weight:700;color:var(--white)}
+  .dom-bar{height:8px;background:var(--slate-700);border-radius:999px;overflow:hidden}
+  .dom-bar > i{display:block;height:100%;border-radius:999px;transition:width .4s}
+  .weak-tag{display:inline-block;font-size:12px;font-weight:700;color:var(--amber-400);background:rgba(245,158,11,.15);padding:4px 10px;border-radius:999px;margin:2px 4px 2px 0}
+  .hero{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(59,130,246,.08));border:1px solid rgba(16,185,129,.25);border-radius:var(--r-xl);padding:22px 24px;margin-bottom:16px;text-align:center}
+  .hero h2{color:var(--emerald-400);margin-bottom:6px}
+  .hero .lead{margin-bottom:14px}
+  .guar-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--emerald-400);text-decoration:none;margin-top:8px}
+  .guar-link:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -249,6 +268,114 @@ let dxChoice=null;         // classic: chosen differential id
 let phase='answer';        // 'diagnose' | 'answer'
 const SESSION={correct:0, total:0};
 
+// ---- localStorage history & readiness ----
+const HISTORY_KEY = 'prp_history';
+function loadHistory(){ try{ return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }catch(_){ return []; } }
+function saveHistory(h){ localStorage.setItem(HISTORY_KEY, JSON.stringify(h)); }
+
+function saveToHistory(caseObj, answers, dxCorrect){
+  const h = loadHistory();
+  const domains = {};
+  caseObj.questions.forEach((q,i) => {
+    const a = answers[i];
+    const chosen = a && q.options.find(o=>o.id===a.chosenId);
+    const isOk = chosen && chosen.isCorrect;
+    const d = q.domain || 'general';
+    if(!domains[d]) domains[d] = {ok:0,total:0};
+    domains[d].total++;
+    if(isOk) domains[d].ok++;
+  });
+  const correct = Object.values(domains).reduce((s,d)=>s+d.ok,0);
+  const total = Object.values(domains).reduce((s,d)=>s+d.total,0);
+  h.push({
+    caseId: caseObj.id || caseObj.title,
+    date: Date.now(),
+    correct, total, domains,
+    dxCorrect: typeof dxCorrect === 'boolean' ? dxCorrect : null,
+    difficulty: caseObj.difficulty || 'medium',
+  });
+  // keep last 500 entries
+  if(h.length > 500) h.splice(0, h.length - 500);
+  saveHistory(h);
+}
+
+// NCMHCE domain weights (approximate from NBCC content outline)
+const DOMAIN_WEIGHTS = { counseling: 0.28, intake: 0.25, treatment: 0.22, ethics: 0.15, core: 0.10 };
+
+function computeReadiness(){
+  const h = loadHistory();
+  if(!h.length) return null;
+
+  // Aggregate domain stats across all history
+  const agg = {};
+  let totalCases = h.length;
+  let totalCorrect = 0, totalQs = 0;
+  let dxCorrectCount = 0, dxTotal = 0;
+
+  h.forEach(entry => {
+    totalCorrect += entry.correct || 0;
+    totalQs += entry.total || 0;
+    if(entry.dxCorrect !== null && entry.dxCorrect !== undefined){ dxTotal++; if(entry.dxCorrect) dxCorrectCount++; }
+    Object.entries(entry.domains || {}).forEach(([d, v]) => {
+      if(!agg[d]) agg[d] = {ok:0,total:0};
+      agg[d].ok += v.ok;
+      agg[d].total += v.total;
+    });
+  });
+
+  // Domain accuracy rates
+  const domainScores = {};
+  Object.entries(agg).forEach(([d, v]) => {
+    domainScores[d] = v.total ? Math.round(v.ok / v.total * 100) : 0;
+  });
+
+  // Weighted composite readiness
+  let weightedSum = 0, weightTotal = 0;
+  Object.entries(DOMAIN_WEIGHTS).forEach(([d, w]) => {
+    if(agg[d] && agg[d].total >= 1){
+      weightedSum += (agg[d].ok / agg[d].total) * w;
+      weightTotal += w;
+    }
+  });
+
+  // Volume factor: more cases = more confidence in the score
+  // 0 cases = 0 multiplier, 20+ cases = 1.0 multiplier
+  const volumeFactor = Math.min(1, totalCases / 20);
+
+  // Recency boost: if last 5 attempts average > overall, slight bump
+  const recent = h.slice(-5);
+  let recentPct = 0;
+  if(recent.length){
+    const rc = recent.reduce((s,e)=>s+e.correct,0);
+    const rt = recent.reduce((s,e)=>s+e.total,0);
+    recentPct = rt ? rc/rt*100 : 0;
+  }
+  const overallPct = totalQs ? totalCorrect/totalQs*100 : 0;
+  const recencyBoost = recentPct > overallPct ? Math.min(5, (recentPct - overallPct) * 0.3) : 0;
+
+  const rawReadiness = weightTotal ? (weightedSum / weightTotal) * 100 : overallPct;
+  const readiness = Math.min(99, Math.round(rawReadiness * volumeFactor + recencyBoost));
+
+  // Find weakest domains (below 60%)
+  const weakDomains = Object.entries(domainScores)
+    .filter(([d,s]) => agg[d].total >= 2 && s < 60)
+    .sort((a,b) => a[1] - b[1])
+    .map(([d,s]) => ({domain:d, score:s}));
+
+  // Readiness label
+  let label = 'Keep practicing';
+  if(readiness >= 85) label = 'Exam ready';
+  else if(readiness >= 70) label = 'Almost there';
+  else if(readiness >= 50) label = 'Building momentum';
+
+  return {
+    readiness, label, totalCases, totalCorrect, totalQs, overallPct: Math.round(overallPct),
+    domainScores, agg, weakDomains,
+    dxAccuracy: dxTotal ? Math.round(dxCorrectCount/dxTotal*100) : null,
+    recentTrend: recentPct > overallPct ? 'up' : recentPct < overallPct - 5 ? 'down' : 'steady',
+  };
+}
+
 // ---- dashboard ----
 async function showDashboard(){
   app.innerHTML = '<p class="lead">Loading…</p>';
@@ -259,8 +386,77 @@ async function showDashboard(){
   const total = LIST_ITEMS.length;
   const acc = SESSION.total ? Math.round(SESSION.correct/SESSION.total*100) : 0;
 
-  let h = '<h1>PassReady Prep</h1>'
-        + '<p class="lead">NCMHCE clinical simulations — read the client, work the questions, and see the reasoning and evidence behind every answer.</p>';
+  let h = '';
+
+  // Free sample hero (shown when not connected to API or always as branding)
+  h += '<div class="hero">';
+  h += '<h2>Try a free clinical simulation</h2>';
+  h += '<p class="lead">Experience NCMHCE-format case practice with evidence-based feedback — no signup required.</p>';
+  h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Start free case ›</button>';
+  h += '<br /><a href="/guarantee.html" class="guar-link">✓ Pass guarantee — pass and get a free CE course, or we extend your access</a>';
+  h += '</div>';
+
+  // Readiness predictor
+  const rd = computeReadiness();
+  if(rd){
+    h += '<div class="card" style="margin-bottom:16px">';
+    h += '<h2 style="margin-bottom:12px">Exam readiness</h2>';
+    h += '<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">';
+
+    // Ring gauge
+    const circ = 2 * Math.PI * 50;
+    const offset = circ - (rd.readiness / 100) * circ;
+    const ringColor = rd.readiness >= 70 ? 'var(--emerald-400)' : rd.readiness >= 50 ? 'var(--amber-400)' : 'var(--red-400)';
+    h += '<div class="ready-ring">';
+    h += '<svg viewBox="0 0 120 120" width="120" height="120">';
+    h += '<circle cx="60" cy="60" r="50" fill="none" stroke="var(--slate-700)" stroke-width="8" />';
+    h += '<circle cx="60" cy="60" r="50" fill="none" stroke="'+ringColor+'" stroke-width="8" stroke-linecap="round"'
+       + ' stroke-dasharray="'+circ.toFixed(1)+'" stroke-dashoffset="'+offset.toFixed(1)+'" />';
+    h += '</svg>';
+    h += '<div class="rlabel"><span class="rnum">'+rd.readiness+'%</span><span class="rtag">'+esc(rd.label)+'</span></div>';
+    h += '</div>';
+
+    // Stats summary
+    h += '<div style="flex:1;min-width:200px">';
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">';
+    h += '<div style="text-align:center"><div class="stat-num" style="font-size:20px">'+rd.totalCases+'</div><div class="stat-lbl">Cases done</div></div>';
+    h += '<div style="text-align:center"><div class="stat-num" style="font-size:20px">'+rd.overallPct+'%</div><div class="stat-lbl">Overall accuracy</div></div>';
+    h += '</div>';
+
+    // Domain bars
+    const domOrder = ['counseling','intake','treatment','ethics','core'];
+    const domLabels = {counseling:'Counseling / Interventions',intake:'Assessment / Intake',treatment:'Treatment planning',ethics:'Professional ethics',core:'Core attributes'};
+    domOrder.forEach(d => {
+      const sc = rd.domainScores[d];
+      const a = rd.agg[d];
+      if(!a || !a.total) return;
+      const pctD = sc;
+      const barColor = pctD >= 70 ? 'var(--emerald)' : pctD >= 50 ? 'var(--amber)' : 'var(--red)';
+      h += '<div class="dom-bar-wrap">';
+      h += '<div class="dom-bar-label"><span>'+(domLabels[d]||cap(d))+'</span><span>'+pctD+'%</span></div>';
+      h += '<div class="dom-bar"><i style="width:'+pctD+'%;background:'+barColor+'"></i></div>';
+      h += '</div>';
+    });
+
+    // Weak area callout
+    if(rd.weakDomains.length){
+      h += '<div style="margin-top:10px;font-size:13px;color:var(--slate-400)">Focus areas: ';
+      rd.weakDomains.forEach(w => {
+        h += '<span class="weak-tag">'+(domLabels[w.domain]||cap(w.domain))+' '+w.score+'%</span>';
+      });
+      h += '</div>';
+    }
+
+    // Trend indicator
+    if(rd.totalCases >= 3){
+      const trendIcon = rd.recentTrend === 'up' ? '↑' : rd.recentTrend === 'down' ? '↓' : '→';
+      const trendColor = rd.recentTrend === 'up' ? 'var(--emerald-400)' : rd.recentTrend === 'down' ? 'var(--red-400)' : 'var(--slate-400)';
+      h += '<div style="margin-top:6px;font-size:13px"><span style="color:'+trendColor+';font-weight:700">'+trendIcon+'</span> '
+         + '<span style="color:var(--slate-400)">Recent trend: '+(rd.recentTrend==='up'?'improving':rd.recentTrend==='down'?'slipping':'steady')+'</span></div>';
+    }
+
+    h += '</div></div></div>';
+  }
 
   h += '<h2>Practice mode</h2>';
   h += '<div class="mode-grid" role="group" aria-label="Practice mode">';
@@ -517,11 +713,17 @@ function finish(){
   const pct = Math.round(correct/qs.length*100);
   const pass = pct >= 70;
 
-  // classic diagnosis result
-  let dxLine = '';
+  // Save to localStorage history for readiness tracking
+  let dxOk = null;
   if(MODE==='classic' && Array.isArray(CASE.differentialOptions) && CASE.differentialOptions.length){
     const corr = CASE.differentialOptions.find(o=>o.isCorrect);
-    const dxOk = dxChoice && corr && dxChoice===corr.id;
+    dxOk = !!(dxChoice && corr && dxChoice===corr.id);
+  }
+  saveToHistory(CASE, answers, dxOk);
+
+  // classic diagnosis result
+  let dxLine = '';
+  if(MODE==='classic' && dxOk !== null){
     dxLine = '<div class="dom-row"><span>Diagnosis</span><span class="dom-score '+(dxOk?'w-pos':'w-neg')+'">'+(dxOk?'✓ Correct':'✗ Missed')+'</span></div>';
   }
 

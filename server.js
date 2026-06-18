@@ -19,6 +19,8 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/progress', require('./routes/progress'));
 app.use('/api/content', require('./routes/content'));
 app.use('/api/admin', require('./routes/admin'));
+app.use('/api/admin/generate', require('./routes/adminGenerate'));
+app.use('/api/admin/generate', require('./routes/adminCourse'));
 
 // Serve the study screen (and any future static frontend files) from /public.
 app.use(express.static('public'));
