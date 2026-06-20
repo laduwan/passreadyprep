@@ -16,6 +16,8 @@ npm-debug.log*
 # Temporary case-authoring work files
 exam_*_cases.js
 examC_cases.js
+examD_E_cases.js
+tools/cases/gen-de.js
 
 # OS / editor cruft
 .DS_Store
