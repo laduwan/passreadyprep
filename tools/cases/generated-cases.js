@@ -13750,6 +13750,9155 @@ const GENERATED_CASES = [
         ]
       }
     ]
+  },
+  {
+    "id": "ncmhce-G078",
+    "title": "Fluctuating Confusion After Hospital Discharge",
+    "category": "Neurocognitive",
+    "difficulty": "hard",
+    "primaryDiagnosis": {
+      "name": "Delirium",
+      "code": "F05"
+    },
+    "diagnosis": {
+      "name": "Delirium",
+      "code": "F05"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Delirium",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Major Neurocognitive Disorder due to Alzheimer\u2019s Disease",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Mild Neurocognitive Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Major Depressive Disorder with cognitive features",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 79-year-old retired engineer is brought by his daughter three days after discharge from a urinary tract infection admission. She reports he is suddenly disoriented, mistakes the time of day, and was lucid this morning but agitated and rambling by afternoon. He pulls at his clothing, sees a cat that is not there, and cannot sustain attention long enough to finish a sentence. His baseline, she insists, was sharp and independent only one week ago. He is on a new anticholinergic bladder medication and has slept poorly since returning home.",
+      "session1": "On examination he is inattentive, unable to recite the days of the week backward, and drifts off mid-task. His level of alertness waxes and wanes within the hour. He is fearful, misidentifies the clinician as his brother, and his speech is disorganized. Vital signs show a low-grade fever. The daughter denies any prior memory complaints, getting-lost episodes, or word-finding trouble before the hospitalization.",
+      "session2": "Collateral from the primary physician confirms an acute change over days, not months. A medication review flags the anticholinergic agent and residual infection. With treatment of the infection, discontinuation of the offending drug, reorientation, and restored sleep, his attention and orientation substantially clear over the following week, returning toward his prior baseline."
+    },
+    "diagnosticRationale": "Acute onset over days, fluctuating course, prominent inattention, disturbed alertness, perceptual disturbance, and an identifiable medical and medication cause meet criteria for delirium. The recovery to baseline and absence of a prior gradual cognitive decline argue against a major neurocognitive disorder; the acute medical precipitant and reversibility distinguish it from mild NCD and from depression.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "Delirium: acute onset, fluctuating course, inattention, and evidence of a medical/substance etiology"
+      },
+      {
+        "id": "R2",
+        "source": "Hays (Assessment)",
+        "detail": "Use of collateral history and baseline functioning to interpret an acute cognitive change"
+      },
+      {
+        "id": "R3",
+        "source": "ACA Code of Ethics",
+        "detail": "A.1 / consultation with treating providers to coordinate care for medically complex clients"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature most strongly distinguishes this presentation from a major neurocognitive disorder?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "The acute onset over days with a clearly fluctuating level of attention and alertness",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Acuity and fluctuation are the hallmark of delirium versus dementia.",
+            "explanation": {
+              "approach": "Course analysis",
+              "rationale": "Delirium is acute and fluctuating, dementia gradual",
+              "keyIndicators": [
+                "acute onset",
+                "fluctuating attention"
+              ],
+              "commonMistake": "Assuming any confusion in an elder is dementia"
+            }
+          },
+          {
+            "id": "b",
+            "text": "The presence of visual hallucinations, which by themselves confirm an irreversible cognitive disorder",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Hallucinations occur in both and do not confirm dementia.",
+            "explanation": {
+              "approach": "Single-symptom error",
+              "rationale": "Hallucinations are nonspecific",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Treating one symptom as pathognomonic"
+            }
+          },
+          {
+            "id": "c",
+            "text": "His advanced age of seventy-nine, which makes a chronic degenerative dementia the most probable explanation here",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Age alone is not diagnostic and ignores the acute course.",
+            "explanation": {
+              "approach": "Base-rate bias",
+              "rationale": "Age is not a criterion",
+              "keyIndicators": [
+                "ageism"
+              ],
+              "commonMistake": "Letting age override the timeline"
+            }
+          },
+          {
+            "id": "d",
+            "text": "The word-finding and memory complaints his daughter described as present for many months before admission",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "She explicitly denied any prior cognitive complaints.",
+            "explanation": {
+              "approach": "Fabricated history",
+              "rationale": "Contradicts the collateral",
+              "keyIndicators": [
+                "inattention to data"
+              ],
+              "commonMistake": "Inventing a chronic history"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "intake",
+        "question": "What is the most appropriate next assessment step?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Obtain collateral on his exact baseline functioning and review his recent medication and infection history",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Baseline and precipitants anchor the delirium workup.",
+            "explanation": {
+              "approach": "Collateral and workup",
+              "rationale": "Establishes acuity and cause",
+              "keyIndicators": [
+                "baseline",
+                "medication review"
+              ],
+              "commonMistake": "Skipping collateral in cognitive assessment"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Administer a lengthy standardized neuropsychological battery this afternoon to map his long-term decline in a ",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Inattention invalidates testing; wrong timing.",
+            "explanation": {
+              "approach": "Mistimed testing",
+              "rationale": "Delirium confounds cognitive testing",
+              "keyIndicators": [
+                "confounded data"
+              ],
+              "commonMistake": "Testing through delirium"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Begin individual insight-oriented psychotherapy to address the emotional distress driving his confusion now",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Confusion is medical, not psychodynamic.",
+            "explanation": {
+              "approach": "Wrong modality",
+              "rationale": "Misframes a medical state",
+              "keyIndicators": [
+                "misformulation"
+              ],
+              "commonMistake": "Psychologizing a medical delirium"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Reassure the family that the symptoms are a normal part of aging and schedule a routine follow-up visit",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Minimizes an acute medical emergency.",
+            "explanation": {
+              "approach": "Minimization",
+              "rationale": "Delirium needs urgent care",
+              "keyIndicators": [
+                "undertriage"
+              ],
+              "commonMistake": "Normalizing acute confusion"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "core",
+        "question": "He misidentifies the clinician and becomes fearful. What is the best in-session response?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Calmly reorient him, reduce environmental stimulation, and keep communication simple and reassuring",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Reorientation and low stimulation are first-line for delirium.",
+            "explanation": {
+              "approach": "Supportive reorientation",
+              "rationale": "Reduces agitation safely",
+              "keyIndicators": [
+                "reorientation",
+                "calm"
+              ],
+              "commonMistake": "Confronting or arguing with the client"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Firmly correct each misperception and insist he acknowledge the clinician\u2019s real identity before proceeding",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Confrontation escalates fear.",
+            "explanation": {
+              "approach": "Confrontation",
+              "rationale": "Increases agitation",
+              "keyIndicators": [
+                "escalation"
+              ],
+              "commonMistake": "Arguing with delirious misperceptions"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Interpret the misidentification as transference of unresolved feelings toward his estranged brother figure",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Psychodynamic framing is inappropriate here.",
+            "explanation": {
+              "approach": "Over-interpretation",
+              "rationale": "Ignores medical etiology",
+              "keyIndicators": [
+                "misformulation"
+              ],
+              "commonMistake": "Interpreting organic confusion"
+            }
+          },
+          {
+            "id": "d",
+            "text": "End the session abruptly and document that he is uncooperative and refusing to engage in the evaluation",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Mislabels a medical symptom as refusal.",
+            "explanation": {
+              "approach": "Mislabeling",
+              "rationale": "Penalizes a sick patient",
+              "keyIndicators": [
+                "blaming"
+              ],
+              "commonMistake": "Charting symptoms as noncompliance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "ethics",
+        "question": "The daughter asks the clinician to coordinate with his physician about the medication. What is most appropriate?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Obtain consent and consult the treating physician about the suspected medication-induced contribution",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Coordinated care with consent serves the client.",
+            "explanation": {
+              "approach": "Consented consultation",
+              "rationale": "Aligns with continuity of care",
+              "keyIndicators": [
+                "consent",
+                "consultation"
+              ],
+              "commonMistake": "Acting without authorization or in isolation"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Advise the family to stop the bladder medication immediately on the counselor\u2019s own clinical authority",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Outside scope; prescribers must decide.",
+            "explanation": {
+              "approach": "Scope violation",
+              "rationale": "Counselors do not adjust medications",
+              "keyIndicators": [
+                "scope"
+              ],
+              "commonMistake": "Practicing outside competence"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Decline any contact with the physician, citing confidentiality, and proceed with counseling in isolation",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Consent enables appropriate coordination.",
+            "explanation": {
+              "approach": "Over-restriction",
+              "rationale": "Misapplies confidentiality",
+              "keyIndicators": [
+                "siloing"
+              ],
+              "commonMistake": "Refusing warranted coordination"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Tell the daughter to seek a malpractice attorney regarding the hospital\u2019s prescribing of the medication",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Inappropriate and outside the clinical role.",
+            "explanation": {
+              "approach": "Role confusion",
+              "rationale": "Not a clinical function",
+              "keyIndicators": [
+                "boundary"
+              ],
+              "commonMistake": "Giving legal advice"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "treatment",
+        "question": "As his infection resolves and the drug is stopped, his cognition clears. What does this course support?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "A delirium diagnosis, given symptom resolution once the underlying medical causes were treated",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Reversibility with treatment confirms delirium.",
+            "explanation": {
+              "approach": "Course confirmation",
+              "rationale": "Reversibility is diagnostic",
+              "keyIndicators": [
+                "resolution",
+                "reversible"
+              ],
+              "commonMistake": "Holding a dementia label despite recovery"
+            }
+          },
+          {
+            "id": "b",
+            "text": "An early Alzheimer\u2019s dementia that happened to improve temporarily because of the supportive hospital routine",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Alzheimer\u2019s does not reverse to baseline.",
+            "explanation": {
+              "approach": "Misattribution",
+              "rationale": "Ignores full recovery",
+              "keyIndicators": [
+                "misreading course"
+              ],
+              "commonMistake": "Explaining away recovery"
+            }
+          },
+          {
+            "id": "c",
+            "text": "A major depressive episode with cognitive features that lifted once his sleep and appetite were restored",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "No mood syndrome; cause was medical.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Mood not primary",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Defaulting to depression"
+            }
+          },
+          {
+            "id": "d",
+            "text": "A mild neurocognitive disorder that should now be monitored with serial annual cognitive screenings only",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Acute reversible course is not mild NCD.",
+            "explanation": {
+              "approach": "Wrong category",
+              "rationale": "Mild NCD is chronic",
+              "keyIndicators": [
+                "miscategorization"
+              ],
+              "commonMistake": "Mislabeling a resolved delirium"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G079",
+    "title": "A Phone Call After the Layoff",
+    "category": "Crisis",
+    "difficulty": "medium",
+    "primaryDiagnosis": {
+      "name": "Suicidal Behavior / Acute Risk",
+      "code": "R45.851"
+    },
+    "diagnosis": {
+      "name": "Suicidal Behavior / Acute Risk",
+      "code": "R45.851"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Suicidal Behavior / Acute Risk",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Major Depressive Disorder, Single Episode",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Adjustment Disorder, with Depressed Mood",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Nonsuicidal Self-Injury",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 47-year-old divorced man calls the clinic the evening he was laid off after twenty-two years at a manufacturing plant. He says he feels like a failure, that his children would be better off without him, and that he has been drinking since noon. He states he has thought about ending his life and has his late father\u2019s firearm in the closet. His voice is flat and he speaks slowly. He has no prior counseling history and reports no current support beyond a brother two states away.",
+      "session1": "On the call he endorses active suicidal ideation with a method available, some intent, and a vague plan to act tonight. He admits the alcohol has lowered his resolve to stay safe. He reports a brief prior period two years ago of feeling hopeless after his divorce but never made an attempt. He is reachable, oriented, and willing to keep talking, though he minimizes how serious he feels.",
+      "session2": "With collaborative engagement he agrees to remove the firearm by having his brother take it, identifies his children as a reason for living, and consents to a same-evening crisis evaluation. A safety plan is developed identifying warning signs, internal coping, and crisis contacts. He agrees to reduce access to alcohol tonight and to a follow-up call the next morning."
+    },
+    "diagnosticRationale": "Active suicidal ideation with intent, an available lethal method, acute precipitant, and disinhibiting alcohol use constitute an acute suicide risk requiring immediate intervention regardless of any underlying mood diagnosis. The presentation is coded as acute suicidal behavior/risk; a mood or adjustment disorder may coexist but does not capture the imminent safety concern that drives clinical priority.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "C-SSRS",
+        "detail": "Severity of ideation, intent, plan, and access to means in stratifying acute suicide risk"
+      },
+      {
+        "id": "R2",
+        "source": "Stanley-Brown SPI",
+        "detail": "Collaborative safety planning including means restriction and crisis contacts"
+      },
+      {
+        "id": "R3",
+        "source": "ACA Code of Ethics",
+        "detail": "B.2.a disclosure to protect a client from serious and foreseeable harm"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "core",
+        "question": "What is the most important first assessment priority on this call?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Directly assess his suicidal ideation, intent, plan, and access to the firearm",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Risk stratification with means assessment comes first.",
+            "explanation": {
+              "approach": "Direct risk assessment",
+              "rationale": "Establishes imminence and lethality",
+              "keyIndicators": [
+                "ideation",
+                "means access"
+              ],
+              "commonMistake": "Avoiding direct questions about suicide"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Explore the developmental roots of his self-worth before any discussion of the present suicidal thoughts",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Delays urgent safety assessment.",
+            "explanation": {
+              "approach": "Misprioritization",
+              "rationale": "Insight work is not the priority",
+              "keyIndicators": [
+                "delay"
+              ],
+              "commonMistake": "Pursuing depth over safety"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Focus first on his recent alcohol use and refer him to a substance program before addressing the crisis",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Substance referral does not address imminent risk.",
+            "explanation": {
+              "approach": "Wrong sequence",
+              "rationale": "Risk precedes referral",
+              "keyIndicators": [
+                "mis-sequence"
+              ],
+              "commonMistake": "Treating substance use ahead of safety"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Schedule an intake appointment for next week and encourage him to call back if the feelings get worse",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Dangerously defers an acute crisis.",
+            "explanation": {
+              "approach": "Undertriage",
+              "rationale": "Misses imminent danger",
+              "keyIndicators": [
+                "deferral"
+              ],
+              "commonMistake": "Routinizing an emergency"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "core",
+        "question": "He has a firearm at home. What is the most appropriate intervention?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Collaboratively arrange means restriction so the firearm is removed from his access tonight",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Means restriction is core to safety planning.",
+            "explanation": {
+              "approach": "Means restriction",
+              "rationale": "Lethal-means counseling lowers risk",
+              "keyIndicators": [
+                "means restriction"
+              ],
+              "commonMistake": "Ignoring lethal means"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Accept his verbal promise that he will not use the firearm and proceed without arranging removal",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "No-harm promises are not protective.",
+            "explanation": {
+              "approach": "Reliance on promise",
+              "rationale": "Contracts do not ensure safety",
+              "keyIndicators": [
+                "false reassurance"
+              ],
+              "commonMistake": "Substituting a promise for action"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Tell him you must immediately notify the police to seize the weapon before continuing any conversation",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Premature; collaboration is preferred when feasible.",
+            "explanation": {
+              "approach": "Premature escalation",
+              "rationale": "Bypasses collaboration",
+              "keyIndicators": [
+                "over-coercion"
+              ],
+              "commonMistake": "Jumping to coercion first"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Suggest he simply lock the firearm in the same closet and keep the key in a separate kitchen drawer",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Keeps the means accessible to him.",
+            "explanation": {
+              "approach": "Inadequate restriction",
+              "rationale": "Means still accessible",
+              "keyIndicators": [
+                "weak barrier"
+              ],
+              "commonMistake": "Token means restriction"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "core",
+        "question": "He agrees to keep talking but minimizes his risk. What response best balances empathy and safety?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Validate his pain while clearly stating your concern for his safety and the need for an evaluation tonight",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Empathy plus a clear safety stance.",
+            "explanation": {
+              "approach": "Empathic directness",
+              "rationale": "Holds connection and urgency",
+              "keyIndicators": [
+                "validation",
+                "clear stance"
+              ],
+              "commonMistake": "Either colluding with minimization or being cold"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Accept his reassurance that things are not that bad and shift the conversation to job-search resources in a ma",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Colludes with minimization.",
+            "explanation": {
+              "approach": "Collusion",
+              "rationale": "Drops the safety thread",
+              "keyIndicators": [
+                "minimization"
+              ],
+              "commonMistake": "Following the client away from risk"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Warn him that if he is not honest about his intent you will be forced to end the supportive phone call",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Threatening rupture undermines engagement.",
+            "explanation": {
+              "approach": "Coercive threat",
+              "rationale": "Damages alliance",
+              "keyIndicators": [
+                "threat"
+              ],
+              "commonMistake": "Threatening the client into disclosure"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Tell him many people feel this way after a layoff and that the distress will likely fade within a few weeks",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Normalizing dismisses active risk.",
+            "explanation": {
+              "approach": "Over-normalizing",
+              "rationale": "Minimizes danger",
+              "keyIndicators": [
+                "dismissal"
+              ],
+              "commonMistake": "Normalizing acute suicidality"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "ethics",
+        "question": "Given his risk, what does ethical practice require regarding confidentiality?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Disclose as needed to arrange emergency evaluation to protect him from serious, foreseeable harm",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Imminent-harm exception permits disclosure.",
+            "explanation": {
+              "approach": "Protective disclosure",
+              "rationale": "Safety overrides routine confidentiality",
+              "keyIndicators": [
+                "foreseeable harm"
+              ],
+              "commonMistake": "Treating confidentiality as absolute in a crisis"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Maintain strict confidentiality and take no action without his fully documented written consent first",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Misapplies confidentiality during imminent danger.",
+            "explanation": {
+              "approach": "Rigid confidentiality",
+              "rationale": "Ignores the harm exception",
+              "keyIndicators": [
+                "over-restriction"
+              ],
+              "commonMistake": "Letting confidentiality block rescue"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Disclose his entire clinical history to his distant brother and former employer to mobilize broad support",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Discloses beyond what is necessary.",
+            "explanation": {
+              "approach": "Over-disclosure",
+              "rationale": "Breach exceeds minimum needed",
+              "keyIndicators": [
+                "over-sharing"
+              ],
+              "commonMistake": "Disclosing more than required"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Post about the situation in an anonymized way in a professional online forum to crowdsource guidance fast",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Risks identification and is inappropriate.",
+            "explanation": {
+              "approach": "Inappropriate channel",
+              "rationale": "Violates privacy",
+              "keyIndicators": [
+                "exposure"
+              ],
+              "commonMistake": "Seeking help in unsafe venues"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "core",
+        "question": "After the call, what should documentation prioritize?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Record the risk assessment, the safety plan, means restriction, and the agreed follow-up steps",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Contemporaneous risk and plan documentation is essential.",
+            "explanation": {
+              "approach": "Risk documentation",
+              "rationale": "Captures assessment and plan",
+              "keyIndicators": [
+                "risk note",
+                "safety plan"
+              ],
+              "commonMistake": "Vague or absent crisis documentation"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Write only a brief note that the client called and seemed upset and will follow up at his convenience",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Omits the required risk detail.",
+            "explanation": {
+              "approach": "Insufficient note",
+              "rationale": "Fails the standard of care",
+              "keyIndicators": [
+                "under-documentation"
+              ],
+              "commonMistake": "Minimal crisis charting"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Document a detailed psychosocial and family genogram while deferring the risk and safety details for later",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Misprioritizes content in a crisis note.",
+            "explanation": {
+              "approach": "Misprioritized note",
+              "rationale": "Buries the critical risk data",
+              "keyIndicators": [
+                "mis-emphasis"
+              ],
+              "commonMistake": "Charting background over risk"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Record your personal opinion that the client was likely exaggerating his suicidal statements for attention",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Judgmental and clinically unsound.",
+            "explanation": {
+              "approach": "Biased note",
+              "rationale": "Improper and unsafe",
+              "keyIndicators": [
+                "bias"
+              ],
+              "commonMistake": "Editorializing in the record"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G080",
+    "title": "The Patient Who Cannot Be Reassured",
+    "category": "Somatic",
+    "difficulty": "medium",
+    "primaryDiagnosis": {
+      "name": "Somatic Symptom Disorder",
+      "code": "F45.1"
+    },
+    "diagnosis": {
+      "name": "Somatic Symptom Disorder",
+      "code": "F45.1"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Somatic Symptom Disorder",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Illness Anxiety Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Generalized Anxiety Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Functional Neurological Symptom Disorder",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 38-year-old woman is referred by her primary physician after years of visits for chronic abdominal pain, fatigue, and migrating aches. Extensive workups have been negative, yet she remains convinced something serious is being missed. She spends hours daily researching her symptoms, keeps a detailed symptom diary, and has seen nine specialists. She is distressed, tearful, and frustrated that no one takes her suffering seriously. The somatic symptoms themselves are real and impairing; her preoccupation with them dominates her days.",
+      "session1": "She describes persistent, genuinely felt physical symptoms and disproportionate thoughts about their seriousness, high health anxiety, and excessive time and energy devoted to them for over a year. Reassurance from doctors calms her only briefly. She denies a fixed belief in one specific undiagnosed disease and acknowledges multiple bodily symptoms rather than fear of a single future illness. There is no neurological deficit inconsistent with anatomy.",
+      "session2": "Over sessions she connects symptom flares to periods of stress and begins to tolerate the idea that distress and bodily sensation interact. She agrees to a single coordinating physician, scheduled rather than symptom-driven visits, and a focus on functioning rather than chasing tests. Her catastrophic interpretations soften as she practices refocusing attention and reducing reassurance-seeking."
+    },
+    "diagnosticRationale": "One or more distressing somatic symptoms accompanied by disproportionate and persistent thoughts, high anxiety about health, and excessive time and energy devoted to symptoms for over six months meet criteria for somatic symptom disorder. It differs from illness anxiety disorder, where somatic symptoms are minimal and fear centers on having a disease, and from a conversion presentation, which shows neurological symptoms incompatible with recognized conditions.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "Somatic Symptom Disorder: distressing somatic symptoms plus excessive thoughts, feelings, behaviors"
+      },
+      {
+        "id": "R2",
+        "source": "Corey (Theory & Practice)",
+        "detail": "Therapeutic alliance and validating the client\u2019s experience before reframing"
+      },
+      {
+        "id": "R3",
+        "source": "ACA Code of Ethics",
+        "detail": "A.1.c collaboration and coordination of care with the referring physician"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature best distinguishes this from illness anxiety disorder?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "She has multiple genuinely distressing somatic symptoms, not merely fear of having a disease",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "SSD centers on actual symptoms; IAD on disease fear with minimal symptoms.",
+            "explanation": {
+              "approach": "Symptom focus",
+              "rationale": "SSD has prominent somatic symptoms",
+              "keyIndicators": [
+                "somatic symptoms",
+                "preoccupation"
+              ],
+              "commonMistake": "Confusing the two disorders"
+            }
+          },
+          {
+            "id": "b",
+            "text": "She holds one fixed delusional conviction about a specific rare disease that no physician can disprove",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "She does not hold a single fixed disease belief.",
+            "explanation": {
+              "approach": "Misread belief",
+              "rationale": "Not delusional or single-disease",
+              "keyIndicators": [
+                "mischaracterization"
+              ],
+              "commonMistake": "Adding delusional features"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Her physical symptoms are entirely absent and her distress is driven only by anticipatory health worry",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "That describes IAD, not her real symptoms.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "Symptoms are present and real",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Erasing genuine symptoms"
+            }
+          },
+          {
+            "id": "d",
+            "text": "She shows a neurological deficit, such as weakness, that is incompatible with known anatomical pathways",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That points to conversion, which she lacks.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "No incompatible deficit",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Importing conversion features"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "counseling",
+        "question": "She feels dismissed by prior providers. What is the best initial stance?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Validate that her symptoms and suffering are real before gently exploring the role of stress",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Validation precedes reframing in SSD.",
+            "explanation": {
+              "approach": "Validate then reframe",
+              "rationale": "Builds alliance with a mistrustful client",
+              "keyIndicators": [
+                "validation",
+                "alliance"
+              ],
+              "commonMistake": "Implying the symptoms are imaginary"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Explain early that the tests are all normal so her symptoms are clearly caused by psychological factors",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Dismissive framing ruptures the alliance.",
+            "explanation": {
+              "approach": "Premature reframe",
+              "rationale": "Feels invalidating",
+              "keyIndicators": [
+                "dismissal"
+              ],
+              "commonMistake": "Telling clients it is all in their head"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Encourage her to seek a tenth specialist opinion to be completely certain nothing physical was overlooked",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Reinforces reassurance-seeking and over-investigation.",
+            "explanation": {
+              "approach": "Reinforcing avoidance",
+              "rationale": "Feeds the cycle",
+              "keyIndicators": [
+                "reassurance-seeking"
+              ],
+              "commonMistake": "Endorsing endless workups"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Advise her to stop keeping the detailed symptom diary immediately because it is the cause of her distress",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Premature, directive, and alliance-damaging.",
+            "explanation": {
+              "approach": "Premature directive",
+              "rationale": "Skips collaboration",
+              "keyIndicators": [
+                "over-directing"
+              ],
+              "commonMistake": "Removing coping before alliance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "treatment",
+        "question": "What treatment structure best fits somatic symptom disorder?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "A single coordinating physician with regular scheduled visits and a focus on functioning",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Care coordination and scheduled visits reduce symptom-driven care-seeking.",
+            "explanation": {
+              "approach": "Coordinated care",
+              "rationale": "Limits fragmentation and reinforcement",
+              "keyIndicators": [
+                "coordination",
+                "scheduled visits"
+              ],
+              "commonMistake": "Fragmented, symptom-driven care"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Open-ended access to multiple specialists so every new bodily symptom can be investigated right away",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Encourages doctor-shopping and over-testing.",
+            "explanation": {
+              "approach": "Fragmentation",
+              "rationale": "Reinforces the cycle",
+              "keyIndicators": [
+                "over-testing"
+              ],
+              "commonMistake": "Unlimited specialist referrals"
+            }
+          },
+          {
+            "id": "c",
+            "text": "A strict instruction to never discuss any physical symptoms during her counseling sessions going forward",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Suppressing symptom talk is invalidating.",
+            "explanation": {
+              "approach": "Avoidant rule",
+              "rationale": "Damages alliance",
+              "keyIndicators": [
+                "suppression"
+              ],
+              "commonMistake": "Forbidding symptom discussion"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Discharge from counseling until her physicians can first identify a definitive organic medical diagnosis",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Withholds appropriate psychological care.",
+            "explanation": {
+              "approach": "Inappropriate gatekeeping",
+              "rationale": "Denies indicated care",
+              "keyIndicators": [
+                "denial of care"
+              ],
+              "commonMistake": "Gating therapy on a medical finding"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "counseling",
+        "question": "She becomes anxious whenever a new sensation appears. Which intervention is most appropriate?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Teach attention-refocusing and reduce reassurance-seeking while reframing catastrophic interpretations",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Targets the maintaining cognitive-behavioral cycle.",
+            "explanation": {
+              "approach": "CBT skills",
+              "rationale": "Addresses maintenance factors",
+              "keyIndicators": [
+                "refocusing",
+                "reframing"
+              ],
+              "commonMistake": "Leaving the catastrophizing cycle intact"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Provide detailed medical reassurance about each new sensation so she feels fully calmed in the moment in a",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Reassurance gives only brief relief and reinforces seeking.",
+            "explanation": {
+              "approach": "Reassurance trap",
+              "rationale": "Short-lived and reinforcing",
+              "keyIndicators": [
+                "reassurance"
+              ],
+              "commonMistake": "Over-reassuring"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Recommend she avoid all physical activity and rest completely until every uncomfortable sensation fades",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Promotes deconditioning and avoidance.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Worsens functioning",
+              "keyIndicators": [
+                "deconditioning"
+              ],
+              "commonMistake": "Prescribing rest and avoidance"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Interpret each new sensation as a symbolic expression of an unconscious childhood conflict to be analyzed",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Speculative and not evidence-based here.",
+            "explanation": {
+              "approach": "Over-interpretation",
+              "rationale": "Lacks support",
+              "keyIndicators": [
+                "speculation"
+              ],
+              "commonMistake": "Forcing symbolic meaning"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "ethics",
+        "question": "The referring physician requests an update. What is most appropriate?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Share relevant information with the client\u2019s consent to coordinate her ongoing care",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Consented coordination supports integrated treatment.",
+            "explanation": {
+              "approach": "Consented coordination",
+              "rationale": "Improves continuity",
+              "keyIndicators": [
+                "consent",
+                "coordination"
+              ],
+              "commonMistake": "Acting without consent or refusing to coordinate"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Refuse to communicate at all, asserting that any contact would inevitably damage the therapeutic frame",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Coordination with consent is appropriate.",
+            "explanation": {
+              "approach": "Over-restriction",
+              "rationale": "Misapplies the frame",
+              "keyIndicators": [
+                "siloing"
+              ],
+              "commonMistake": "Refusing warranted coordination"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Send the physician your complete process notes including all personal reflections and clinical hypotheses",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Discloses more than necessary.",
+            "explanation": {
+              "approach": "Over-disclosure",
+              "rationale": "Exceeds minimum necessary",
+              "keyIndicators": [
+                "over-sharing"
+              ],
+              "commonMistake": "Sending raw process notes"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Tell the physician verbally that the client is exaggerating and should be managed as a difficult patient",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Biased, stigmatizing, and harmful.",
+            "explanation": {
+              "approach": "Stigmatizing",
+              "rationale": "Undermines care",
+              "keyIndicators": [
+                "bias"
+              ],
+              "commonMistake": "Labeling the client pejoratively"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G081",
+    "title": "Explosions Out of Proportion",
+    "category": "Disruptive",
+    "difficulty": "hard",
+    "primaryDiagnosis": {
+      "name": "Intermittent Explosive Disorder",
+      "code": "F63.81"
+    },
+    "diagnosis": {
+      "name": "Intermittent Explosive Disorder",
+      "code": "F63.81"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Intermittent Explosive Disorder",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Conduct Disorder, Adolescent-Onset Type",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Oppositional Defiant Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Bipolar I Disorder, Current Episode Manic",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 16-year-old boy is referred after punching a hole in a classroom wall when a teacher asked him to put away his phone. His mother describes recurrent, sudden verbal outbursts and occasional property destruction several times a week, each lasting minutes and followed by genuine remorse and embarrassment. Between episodes he is described as warm, has stable friendships, does his chores, and shows no pattern of lying, stealing, or cruelty. The aggression feels, to him, like it erupts faster than he can think.",
+      "session1": "He reports the outbursts are impulsive and grossly out of proportion to the trigger, not premeditated, and not aimed at obtaining an object or advantage. They have occurred more than twice weekly for over three months. He denies a period of elevated or expansive mood, decreased need for sleep, or grandiosity. He denies any pattern of violating others\u2019 rights, truancy, or serious rule-breaking outside these eruptions.",
+      "session2": "Functional analysis links his outbursts to a low frustration threshold and physiological arousal he does not notice until it peaks. He learns to recognize early body cues, use a brief time-out, and practice paced breathing. His parents are coached to reduce escalation and reinforce calm. Outbursts decline in frequency as he builds an early-warning vocabulary and coping repertoire."
+    },
+    "diagnosticRationale": "Recurrent, impulsive aggressive outbursts grossly out of proportion to provocation, not premeditated and not committed to achieve a tangible goal, occurring twice weekly for more than three months, with remorse between episodes, meet criteria for intermittent explosive disorder. The absence of a broader pattern of rights-violations rules out conduct disorder; the impulsive non-defiant quality and lack of a pervasive negativistic pattern distinguish it from ODD; and the absence of mood elevation rules out mania.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "Intermittent Explosive Disorder: impulsive aggression out of proportion, not premeditated or instrumental"
+      },
+      {
+        "id": "R2",
+        "source": "NICE guidelines",
+        "detail": "Skills-based interventions for impulsive aggression including arousal recognition and parent coaching"
+      },
+      {
+        "id": "R3",
+        "source": "ACA Code of Ethics",
+        "detail": "B.5 confidentiality with minors and involving parents appropriately"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature most distinguishes this presentation from conduct disorder?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "His aggression is impulsive and remorseful, without a broader pattern of violating others\u2019 rights",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "IED lacks the pervasive rights-violation pattern of conduct disorder.",
+            "explanation": {
+              "approach": "Pattern analysis",
+              "rationale": "IED is impulsive and remorseful",
+              "keyIndicators": [
+                "impulsive",
+                "remorse"
+              ],
+              "commonMistake": "Equating any aggression with conduct disorder"
+            }
+          },
+          {
+            "id": "b",
+            "text": "He carefully premeditates each outburst in order to intimidate teachers and gain a clear social advantage",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "IED outbursts are impulsive and non-instrumental.",
+            "explanation": {
+              "approach": "Misread motive",
+              "rationale": "Not instrumental",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Reading planning into impulsive acts"
+            }
+          },
+          {
+            "id": "c",
+            "text": "He shows a long pattern of stealing, truancy, and deliberate cruelty toward peers and to neighborhood animals",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "No such pattern; that would indicate conduct disorder.",
+            "explanation": {
+              "approach": "Fabricated pattern",
+              "rationale": "Contradicts the history",
+              "keyIndicators": [
+                "inattention"
+              ],
+              "commonMistake": "Inventing conduct features"
+            }
+          },
+          {
+            "id": "d",
+            "text": "His outbursts only ever occur during clearly defined periods of elevated, expansive, and grandiose mood",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "No mood elevation; that suggests mania.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "No mood episode",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Importing manic features"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "intake",
+        "question": "To rule out a manic episode, what should the clinician screen for?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "A distinct period of elevated mood with decreased need for sleep and grandiosity",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "These define a manic episode versus episodic aggression.",
+            "explanation": {
+              "approach": "Mania screen",
+              "rationale": "Targets the bipolar differential",
+              "keyIndicators": [
+                "elevated mood",
+                "reduced sleep"
+              ],
+              "commonMistake": "Skipping mood-elevation screening"
+            }
+          },
+          {
+            "id": "b",
+            "text": "A single dramatic outburst of property destruction occurring after an unusually stressful school examination",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "One stressor-linked event does not address mania.",
+            "explanation": {
+              "approach": "Off-target",
+              "rationale": "Does not screen mania",
+              "keyIndicators": [
+                "mis-screen"
+              ],
+              "commonMistake": "Confusing a trigger with an episode"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Whether his friends have noticed that he tends to keep his bedroom and his school locker unusually messy",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Irrelevant to the manic differential.",
+            "explanation": {
+              "approach": "Irrelevant data",
+              "rationale": "No diagnostic value",
+              "keyIndicators": [
+                "noise"
+              ],
+              "commonMistake": "Collecting irrelevant detail"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Whether his outbursts are consistently planned in advance to obtain money or other tangible rewards from peers",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Addresses instrumentality, not mania.",
+            "explanation": {
+              "approach": "Wrong target",
+              "rationale": "Mismatched differential",
+              "keyIndicators": [
+                "mis-screen"
+              ],
+              "commonMistake": "Screening the wrong dimension"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "treatment",
+        "question": "What is the most appropriate evidence-based intervention focus?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Help him recognize early arousal cues and apply coping skills before the outburst peaks",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Early-warning recognition and coping target impulsive aggression.",
+            "explanation": {
+              "approach": "Arousal recognition",
+              "rationale": "Interrupts the escalation cycle",
+              "keyIndicators": [
+                "early cues",
+                "coping skills"
+              ],
+              "commonMistake": "Waiting until the outburst to intervene"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Use consistent harsh consequences and removal of privileges as the central and primary intervention strategy",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Punishment alone does not build regulation skills.",
+            "explanation": {
+              "approach": "Punishment-only",
+              "rationale": "Misses skill-building",
+              "keyIndicators": [
+                "over-punitive"
+              ],
+              "commonMistake": "Relying on consequences alone"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Focus the work on uncovering and resolving repressed early childhood trauma believed to fuel each eruption",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Speculative and not first-line here.",
+            "explanation": {
+              "approach": "Speculative depth",
+              "rationale": "Lacks evidence",
+              "keyIndicators": [
+                "speculation"
+              ],
+              "commonMistake": "Defaulting to trauma uncovering"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Recommend immediate residential placement away from the family home until all of the outbursts fully cease",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Disproportionate to an outpatient-manageable problem.",
+            "explanation": {
+              "approach": "Over-restriction",
+              "rationale": "Unwarranted level of care",
+              "keyIndicators": [
+                "overtreatment"
+              ],
+              "commonMistake": "Escalating care unnecessarily"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "counseling",
+        "question": "His parents escalate during outbursts. What coaching is most appropriate?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Coach parents to stay calm, avoid escalating, and reinforce his calming attempts",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Reducing parental escalation lowers the aggression cycle.",
+            "explanation": {
+              "approach": "Parent coaching",
+              "rationale": "De-escalation and reinforcement",
+              "keyIndicators": [
+                "de-escalation",
+                "reinforcement"
+              ],
+              "commonMistake": "Matching the child\u2019s escalation"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Advise the parents to match his intensity firmly so he learns they cannot ever be intimidated by him",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Escalation worsens the cycle.",
+            "explanation": {
+              "approach": "Counter-escalation",
+              "rationale": "Fuels conflict",
+              "keyIndicators": [
+                "escalation"
+              ],
+              "commonMistake": "Out-escalating the child"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Tell the parents to remove themselves entirely from any involvement and let the school manage all behavior",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Disengagement abandons a key intervention lever.",
+            "explanation": {
+              "approach": "Disengagement",
+              "rationale": "Loses parental role",
+              "keyIndicators": [
+                "withdrawal"
+              ],
+              "commonMistake": "Offloading all responsibility"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Instruct the parents to negotiate and grant whatever he demands during an outburst to keep the peace at home",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Reinforces outbursts through capitulation.",
+            "explanation": {
+              "approach": "Capitulation",
+              "rationale": "Rewards aggression",
+              "keyIndicators": [
+                "reinforcement of aggression"
+              ],
+              "commonMistake": "Giving in during outbursts"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "ethics",
+        "question": "He asks that his parents not be told what he shares. How should the clinician respond?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Explain the limits of confidentiality for a minor and how parents will be appropriately involved",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Clarifying minor-confidentiality limits up front is ethical.",
+            "explanation": {
+              "approach": "Informed limits",
+              "rationale": "Sets realistic expectations",
+              "keyIndicators": [
+                "minor confidentiality",
+                "transparency"
+              ],
+              "commonMistake": "Promising absolute secrecy to a minor"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Promise the teen complete and unconditional confidentiality so he will feel safe enough to disclose everything",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Cannot guarantee absolute confidentiality for a minor.",
+            "explanation": {
+              "approach": "Overpromise",
+              "rationale": "Unworkable guarantee",
+              "keyIndicators": [
+                "false promise"
+              ],
+              "commonMistake": "Guaranteeing total secrecy"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Tell him that, because he is a minor, his parents are legally entitled to a full transcript of every session",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Overstates parental access and harms the alliance.",
+            "explanation": {
+              "approach": "Overstatement",
+              "rationale": "Discourages disclosure",
+              "keyIndicators": [
+                "over-disclosure"
+              ],
+              "commonMistake": "Exaggerating parental rights"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Refuse to discuss confidentiality at all and simply proceed, hoping the issue will not come up again later",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Avoids a required informed-consent conversation.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Skips informed consent",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Ducking the confidentiality talk"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G082",
+    "title": "Wide Awake at Three in the Morning",
+    "category": "Sleep",
+    "difficulty": "medium",
+    "primaryDiagnosis": {
+      "name": "Insomnia Disorder, Chronic",
+      "code": "F51.01"
+    },
+    "diagnosis": {
+      "name": "Insomnia Disorder, Chronic",
+      "code": "F51.01"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Insomnia Disorder, Chronic",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Major Depressive Disorder, Single Episode",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Generalized Anxiety Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Circadian Rhythm Sleep-Wake Disorder",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 52-year-old high school teacher reports four months of difficulty falling and staying asleep at least five nights a week. She lies awake for over an hour, wakes at three a.m. and cannot return to sleep, and feels exhausted and irritable at work. She has started drinking coffee through the afternoon, naps after school, and lies in bed scrolling her phone for hours hoping sleep will come. She feels increasing dread about bedtime itself.",
+      "session1": "She reports the sleep difficulty is present despite adequate opportunity and causes clear daytime impairment. It is not better explained by a substance, and she keeps a regular sleep-wake timing rather than a shifted schedule. She denies pervasive low mood, anhedonia, or excessive worry across many life domains; her preoccupation is specifically about sleep and its consequences for her teaching.",
+      "session2": "A sleep diary reveals an irregular schedule, long time in bed awake, afternoon caffeine, and napping. She begins stimulus control and sleep restriction, fixes her rise time, removes the phone from bed, and limits caffeine after noon. She learns to leave the bed when unable to sleep. Within weeks her sleep consolidates and bedtime dread eases as her sleep efficiency improves."
+    },
+    "diagnosticRationale": "Dissatisfaction with sleep quantity and quality, with difficulty initiating and maintaining sleep, at least three nights weekly for more than three months despite adequate opportunity, causing daytime impairment, meets criteria for chronic insomnia disorder. The absence of a full mood syndrome rules out depression, the lack of pervasive multi-domain worry distinguishes it from GAD, and the preserved conventional sleep timing rules out a circadian rhythm disorder.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "Insomnia Disorder: difficulty initiating/maintaining sleep \u22653 nights/week for \u22653 months with impairment"
+      },
+      {
+        "id": "R2",
+        "source": "NICE guidelines",
+        "detail": "Cognitive behavioral therapy for insomnia (CBT-I) as first-line treatment"
+      },
+      {
+        "id": "R3",
+        "source": "APA CPG",
+        "detail": "Stimulus control and sleep restriction as core behavioral components"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which finding best distinguishes this from a major depressive episode?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Her distress centers on sleep itself, without pervasive low mood or anhedonia",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Isolated sleep complaint without a mood syndrome favors insomnia disorder.",
+            "explanation": {
+              "approach": "Syndrome check",
+              "rationale": "No full depressive syndrome",
+              "keyIndicators": [
+                "no anhedonia",
+                "sleep-focused"
+              ],
+              "commonMistake": "Assuming insomnia always means depression"
+            }
+          },
+          {
+            "id": "b",
+            "text": "She reports a persistently sad and empty mood nearly every day along with a marked loss of interest in activities",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "That describes depression, which she denies.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "Contradicts the history",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Inventing depressive symptoms"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Her sleep schedule is shifted several hours later than conventional times despite an otherwise normal sleep ability",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That points to a circadian disorder, not depression.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Circadian, not mood",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Confusing differentials"
+            }
+          },
+          {
+            "id": "d",
+            "text": "She worries excessively and uncontrollably about many areas of her life, including finances, health, and family",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That describes GAD, which she denies.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "GAD features absent",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Importing GAD worry"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "treatment",
+        "question": "What is the recommended first-line treatment?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Cognitive behavioral therapy for insomnia rather than starting with sleep medication",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "CBT-I is first-line for chronic insomnia.",
+            "explanation": {
+              "approach": "CBT-I first",
+              "rationale": "Durable and evidence-based",
+              "keyIndicators": [
+                "CBT-I",
+                "first-line"
+              ],
+              "commonMistake": "Defaulting to hypnotics"
+            }
+          },
+          {
+            "id": "b",
+            "text": "A long-term nightly prescription hypnotic as the primary and indefinite treatment for her chronic insomnia",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Medication is not first-line and risks dependence.",
+            "explanation": {
+              "approach": "Medication-first",
+              "rationale": "Not recommended initially",
+              "keyIndicators": [
+                "over-medicating"
+              ],
+              "commonMistake": "Leading with hypnotics"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Encouraging her to spend much more total time in bed each night so she has more opportunity to fall asleep",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Excess time in bed worsens insomnia.",
+            "explanation": {
+              "approach": "Counterproductive",
+              "rationale": "Lowers sleep efficiency",
+              "keyIndicators": [
+                "extended time in bed"
+              ],
+              "commonMistake": "Increasing time in bed"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Advising regular long afternoon naps to make up the lost nighttime sleep and restore her daytime alertness",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Napping undermines sleep drive.",
+            "explanation": {
+              "approach": "Napping advice",
+              "rationale": "Reduces homeostatic pressure",
+              "keyIndicators": [
+                "napping"
+              ],
+              "commonMistake": "Endorsing daytime naps"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "treatment",
+        "question": "Which behavioral instruction reflects stimulus control?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Leave the bed when unable to sleep and reserve the bed only for sleep",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Stimulus control re-links bed with sleep.",
+            "explanation": {
+              "approach": "Stimulus control",
+              "rationale": "Strengthens bed-sleep association",
+              "keyIndicators": [
+                "leave bed",
+                "bed for sleep"
+              ],
+              "commonMistake": "Staying in bed awake for hours"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Stay lying in bed even while fully awake so the body can rest and gradually drift back into natural sleep",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Opposite of stimulus control.",
+            "explanation": {
+              "approach": "Anti-control",
+              "rationale": "Conditions wakefulness to bed",
+              "keyIndicators": [
+                "lying awake"
+              ],
+              "commonMistake": "Remaining in bed awake"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Keep the phone nearby in bed for a calming activity to do during the long middle-of-the-night awakenings",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Screen use in bed undermines sleep.",
+            "explanation": {
+              "approach": "Screen exposure",
+              "rationale": "Reinforces arousal",
+              "keyIndicators": [
+                "phone in bed"
+              ],
+              "commonMistake": "Using screens in bed"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Vary the daily wake-up time widely depending on how tired she feels on each particular morning of the week",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Irregular rise time destabilizes the rhythm.",
+            "explanation": {
+              "approach": "Irregular schedule",
+              "rationale": "Disrupts consolidation",
+              "keyIndicators": [
+                "variable wake"
+              ],
+              "commonMistake": "Allowing a drifting rise time"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "counseling",
+        "question": "She fears she will never sleep normally again. What is the best response?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Normalize her frustration and explain how the behavioral plan rebuilds healthy sleep over time",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Validation plus psychoeducation supports adherence.",
+            "explanation": {
+              "approach": "Validate and educate",
+              "rationale": "Builds hope and buy-in",
+              "keyIndicators": [
+                "validation",
+                "psychoeducation"
+              ],
+              "commonMistake": "Dismissing fears or overpromising"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Reassure her flatly that her insomnia will completely vanish within just two or three nights of any treatment",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Overpromises a rapid cure.",
+            "explanation": {
+              "approach": "Overpromise",
+              "rationale": "Sets up disappointment",
+              "keyIndicators": [
+                "false reassurance"
+              ],
+              "commonMistake": "Guaranteeing fast results"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Tell her that chronic insomnia at her age is generally permanent and that she should learn to live with it",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Inaccurate and demoralizing.",
+            "explanation": {
+              "approach": "Hopelessness",
+              "rationale": "Discourages treatment",
+              "keyIndicators": [
+                "nihilism"
+              ],
+              "commonMistake": "Telling clients it is hopeless"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Suggest she avoid the topic of sleep entirely in sessions so she does not reinforce her nighttime anxiety further",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Avoidance blocks the core treatment target.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Cannot treat what is avoided",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Sidestepping the presenting problem"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "intake",
+        "question": "A sleep diary is recommended. What is its primary clinical purpose here?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "To track sleep patterns and behaviors that maintain the insomnia and guide the plan",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "The diary identifies modifiable maintaining factors.",
+            "explanation": {
+              "approach": "Functional tracking",
+              "rationale": "Reveals patterns and triggers",
+              "keyIndicators": [
+                "monitoring",
+                "maintaining factors"
+              ],
+              "commonMistake": "Collecting data without using it"
+            }
+          },
+          {
+            "id": "b",
+            "text": "To definitively diagnose an underlying neurological seizure disorder occurring silently during her deep sleep stages",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "A diary cannot diagnose seizures.",
+            "explanation": {
+              "approach": "Wrong purpose",
+              "rationale": "Not a neurological test",
+              "keyIndicators": [
+                "misuse"
+              ],
+              "commonMistake": "Overreaching the tool"
+            }
+          },
+          {
+            "id": "c",
+            "text": "To document her caffeine spending each week so the clinician can build a detailed monthly household budget plan",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Irrelevant to clinical purpose.",
+            "explanation": {
+              "approach": "Off-target",
+              "rationale": "No clinical value",
+              "keyIndicators": [
+                "noise"
+              ],
+              "commonMistake": "Misusing the diary"
+            }
+          },
+          {
+            "id": "d",
+            "text": "To prove to her skeptical employer that her daytime fatigue is genuine and warrants a formal accommodation request",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Not the diary\u2019s clinical purpose.",
+            "explanation": {
+              "approach": "Wrong aim",
+              "rationale": "Administrative, not clinical",
+              "keyIndicators": [
+                "misframe"
+              ],
+              "commonMistake": "Repurposing the tool"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G083",
+    "title": "Becoming Who She Has Always Been",
+    "category": "Sexual-Gender",
+    "difficulty": "hard",
+    "primaryDiagnosis": {
+      "name": "Gender Dysphoria in Adolescents/Adults",
+      "code": "F64.0"
+    },
+    "diagnosis": {
+      "name": "Gender Dysphoria in Adolescents/Adults",
+      "code": "F64.0"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Gender Dysphoria in Adolescents/Adults",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Body Dysmorphic Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Adjustment Disorder, with Depressed Mood",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Other Specified Sexual Dysfunction",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 24-year-old assigned male at birth presents seeking support around a long-standing experience of being female. Since childhood she has felt a marked incongruence between her experienced gender and her assigned sex, with distress about secondary sex characteristics and a strong desire to be seen and treated as a woman. She reports relief and rightness when using her chosen name and pronouns. The distress intensifies with family rejection and workplace misgendering, not from any disgust with her body\u2019s appearance per se.",
+      "session1": "She describes a persistent cross-gender identification and discomfort with her assigned sex characteristics lasting well over six months, with clinically significant distress and impairment. She denies a preoccupation with a perceived defect in her appearance unrelated to gender, and her distress is not a transient reaction to a single recent stressor. Her sense of being a woman is stable, coherent, and lifelong.",
+      "session2": "Using an affirmative framework, the counselor explores her goals, supports her in social transition, and coordinates a referral for gender-affirming medical care per established standards. They process minority stress and family dynamics. Her mood lifts as affirmation increases. The work centers her self-defined goals rather than questioning the validity of her identity."
+    },
+    "diagnosticRationale": "A marked incongruence between experienced and assigned gender for more than six months, with a strong desire to be the other gender and significant distress, meets criteria for gender dysphoria. The distress is identity-based, not a preoccupation with a perceived appearance defect as in body dysmorphic disorder, not a transient stressor reaction as in adjustment disorder, and unrelated to a sexual dysfunction. Affirmative care, not identity change, is indicated.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "Gender Dysphoria: marked incongruence \u22656 months with clinically significant distress"
+      },
+      {
+        "id": "R2",
+        "source": "ACA Code of Ethics",
+        "detail": "C.5 nondiscrimination and A.4.b avoiding imposition of counselor values"
+      },
+      {
+        "id": "R3",
+        "source": "NICE guidelines",
+        "detail": "Affirmative, collaborative care and appropriate referral for gender-affirming services"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature best distinguishes gender dysphoria from body dysmorphic disorder here?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Her distress is about gender incongruence, not a perceived defect in appearance",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "GD centers on gender identity; BDD on a perceived appearance flaw.",
+            "explanation": {
+              "approach": "Focus distinction",
+              "rationale": "Identity vs appearance defect",
+              "keyIndicators": [
+                "gender incongruence",
+                "identity"
+              ],
+              "commonMistake": "Conflating gender distress with BDD"
+            }
+          },
+          {
+            "id": "b",
+            "text": "She is preoccupied for hours each day with a specific perceived flaw in her nose and skin unrelated to gender",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "That describes BDD, which she denies.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "Not an appearance-defect preoccupation",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Mapping BDD onto GD"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Her distress arose suddenly within the past month entirely as a reaction to one specific identifiable stressor",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "GD is long-standing, not a transient reaction.",
+            "explanation": {
+              "approach": "Wrong course",
+              "rationale": "Identity is lifelong",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Treating identity as a stress reaction"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Her concern is primarily about difficulty with sexual arousal and performance rather than her gender identity",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That points to a sexual dysfunction, not GD.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Not a dysfunction",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Confusing the differentials"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "counseling",
+        "question": "What is the most appropriate therapeutic stance?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Affirm her identity and center her self-defined goals for transition",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Affirmative care is the ethical standard.",
+            "explanation": {
+              "approach": "Affirmative stance",
+              "rationale": "Respects autonomy and identity",
+              "keyIndicators": [
+                "affirmation",
+                "client goals"
+              ],
+              "commonMistake": "Questioning the validity of identity"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Gently encourage her to explore whether she might feel more comfortable living in her originally assigned gender",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "This is conversion-oriented and unethical.",
+            "explanation": {
+              "approach": "Conversion framing",
+              "rationale": "Harmful and prohibited",
+              "keyIndicators": [
+                "identity change"
+              ],
+              "commonMistake": "Steering toward assigned gender"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Remain strictly neutral by avoiding her chosen name and pronouns until a formal diagnosis is fully confirmed",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Withholding affirmation is harmful misgendering.",
+            "explanation": {
+              "approach": "False neutrality",
+              "rationale": "Misgendering causes harm",
+              "keyIndicators": [
+                "misgendering"
+              ],
+              "commonMistake": "Withholding basic affirmation"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Focus the sessions on persuading her family to accept her before addressing any of her own personal goals",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Centers others over the client\u2019s goals.",
+            "explanation": {
+              "approach": "Misplaced focus",
+              "rationale": "Decenter the client",
+              "keyIndicators": [
+                "mis-prioritization"
+              ],
+              "commonMistake": "Prioritizing family over client"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "treatment",
+        "question": "She wishes to pursue gender-affirming medical care. What is most appropriate?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Provide a collaborative referral for gender-affirming care per established standards",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Coordinated referral follows accepted standards of care.",
+            "explanation": {
+              "approach": "Standards-based referral",
+              "rationale": "Connects to appropriate care",
+              "keyIndicators": [
+                "referral",
+                "standards of care"
+              ],
+              "commonMistake": "Obstructing or gatekeeping inappropriately"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Tell her she must first complete at least two full years of counseling before any referral can be considered",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Imposes an arbitrary, non-standard barrier.",
+            "explanation": {
+              "approach": "Arbitrary gatekeeping",
+              "rationale": "Not standard",
+              "keyIndicators": [
+                "barrier"
+              ],
+              "commonMistake": "Inventing prerequisites"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Refuse to make any referral, explaining that affirming her request would violate your own personal beliefs",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Imposing values and discriminating is unethical.",
+            "explanation": {
+              "approach": "Value imposition",
+              "rationale": "Discriminatory refusal",
+              "keyIndicators": [
+                "discrimination"
+              ],
+              "commonMistake": "Letting personal beliefs deny care"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Advise her to obtain hormones independently online so she can avoid the cost and delay of a formal referral",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Endorses unsafe, unsupervised care.",
+            "explanation": {
+              "approach": "Unsafe advice",
+              "rationale": "Bypasses medical oversight",
+              "keyIndicators": [
+                "unsafe care"
+              ],
+              "commonMistake": "Recommending unsupervised treatment"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "counseling",
+        "question": "She describes minority stress from workplace misgendering. Best response?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Validate the harm of minority stress and explore coping and support resources",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Naming minority stress and building coping is appropriate.",
+            "explanation": {
+              "approach": "Minority-stress framing",
+              "rationale": "Validates and equips",
+              "keyIndicators": [
+                "validation",
+                "coping"
+              ],
+              "commonMistake": "Treating distress as internal pathology"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Suggest she could avoid the stress simply by not disclosing her gender identity to anyone at her workplace",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Promotes concealment and self-erasure.",
+            "explanation": {
+              "approach": "Concealment advice",
+              "rationale": "Harmful and invalidating",
+              "keyIndicators": [
+                "concealment"
+              ],
+              "commonMistake": "Advising her to hide"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Interpret her distress about misgendering as evidence of an underlying unresolved attachment wound from childhood",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Pathologizes an external stressor.",
+            "explanation": {
+              "approach": "Pathologizing",
+              "rationale": "Misattributes the cause",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Internalizing external harm"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Reassure her that her coworkers almost certainly mean no harm and that she should try to let the comments go",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Minimizes the real impact of misgendering.",
+            "explanation": {
+              "approach": "Minimization",
+              "rationale": "Dismisses harm",
+              "keyIndicators": [
+                "dismissal"
+              ],
+              "commonMistake": "Excusing the misgendering"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "ethics",
+        "question": "A counselor feels personal discomfort with gender-affirming work. What is the ethical course?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Set aside personal values, provide competent affirmative care, and seek consultation or training",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Counselors must not impose values; they build competence.",
+            "explanation": {
+              "approach": "Values bracketing",
+              "rationale": "Maintains competent, nondiscriminatory care",
+              "keyIndicators": [
+                "nondiscrimination",
+                "consultation"
+              ],
+              "commonMistake": "Referring out due to bias"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Refer the client elsewhere immediately on the grounds that her identity conflicts with the counselor\u2019s values",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Values-based referral is discriminatory.",
+            "explanation": {
+              "approach": "Value-based referral",
+              "rationale": "Ethically prohibited",
+              "keyIndicators": [
+                "discrimination"
+              ],
+              "commonMistake": "Refusing service over identity"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Continue the work but subtly share the counselor\u2019s reservations so the client can weigh them in her decision",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Imposes counselor values on the client.",
+            "explanation": {
+              "approach": "Value imposition",
+              "rationale": "Undermines autonomy",
+              "keyIndicators": [
+                "imposition"
+              ],
+              "commonMistake": "Injecting personal beliefs"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Avoid the topic of gender entirely in sessions and redirect to safer issues until the discomfort passes on its own",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Avoidance fails the client\u2019s actual needs.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Neglects the presenting concern",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Dodging the central issue"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G084",
+    "title": "The Client Who Is Also a Neighbor",
+    "category": "Ethics",
+    "difficulty": "medium",
+    "primaryDiagnosis": {
+      "name": "Boundary / Dual-Relationship Dilemma",
+      "code": "Z65.8"
+    },
+    "diagnosis": {
+      "name": "Boundary / Dual-Relationship Dilemma",
+      "code": "Z65.8"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Boundary / Dual-Relationship Dilemma",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Confidentiality / Duty-to-Warn Dilemma",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Informed Consent / Competence Dilemma",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Mandated Reporting Decision",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A counselor in a small rural town is contacted by a prospective client who turns out to be a member of the same tight-knit community association the counselor chairs. They see each other regularly at meetings and share several mutual friends. The client is in genuine distress with anxiety and wants to begin therapy, noting there is only one other counselor within ninety minutes. The counselor recognizes the overlapping roles and the potential for a harmful dual relationship.",
+      "session1": "In supervision the counselor weighs the risks: impaired objectivity, confidentiality strain in a small community, and role confusion at association meetings. She considers the limited access to alternative providers and the client\u2019s real need. She reviews her code of ethics on managing unavoidable multiple relationships, documenting the rationale, and setting clear boundaries when a dual relationship cannot be avoided.",
+      "session2": "She decides to discuss the overlap openly with the client, document the safeguards, clarify how they will interact outside sessions, and arrange consultation. She considers stepping back from a direct supervisory role over the client in the association. The plan centers client welfare, informed consent about the risks, and ongoing monitoring of the boundary."
+    },
+    "diagnosticRationale": "The central issue is a potential dual relationship in a small community where roles overlap, raising risks to objectivity, confidentiality, and the client\u2019s welfare. This is a boundary and multiple-relationship dilemma rather than a duty-to-warn, informed-consent competence, or mandated-reporting question. Ethical management requires transparency, documented safeguards, consultation, and centering client welfare when the relationship cannot reasonably be avoided.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "ACA Code of Ethics",
+        "detail": "A.6 managing and documenting unavoidable multiple relationships to minimize harm"
+      },
+      {
+        "id": "R2",
+        "source": "ACA Code of Ethics",
+        "detail": "A.2 informed consent including risks of the counseling relationship"
+      },
+      {
+        "id": "R3",
+        "source": "Corey (Theory & Practice)",
+        "detail": "Ethical decision-making and use of consultation for boundary dilemmas"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "ethics",
+        "question": "How should the counselor frame this situation ethically?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "As a potentially unavoidable multiple relationship requiring documented safeguards",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Small-community overlap is a multiple-relationship issue.",
+            "explanation": {
+              "approach": "Boundary framing",
+              "rationale": "Identifies the dual-relationship risk",
+              "keyIndicators": [
+                "multiple relationship",
+                "safeguards"
+              ],
+              "commonMistake": "Ignoring the role overlap"
+            }
+          },
+          {
+            "id": "b",
+            "text": "As a duty-to-warn situation that immediately requires notifying an identifiable third party of imminent danger",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "No threat of harm exists here.",
+            "explanation": {
+              "approach": "Wrong category",
+              "rationale": "Not a duty-to-warn case",
+              "keyIndicators": [
+                "miscategorization"
+              ],
+              "commonMistake": "Misreading the dilemma"
+            }
+          },
+          {
+            "id": "c",
+            "text": "As a mandated-reporting decision that obligates the counselor to file a report with the appropriate state agency",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "No abuse or reportable condition is present.",
+            "explanation": {
+              "approach": "Wrong category",
+              "rationale": "Not a reporting matter",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Forcing a reporting frame"
+            }
+          },
+          {
+            "id": "d",
+            "text": "As a competence-and-consent problem stemming from doubt about the client\u2019s capacity to consent to the treatment",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Capacity is not in question here.",
+            "explanation": {
+              "approach": "Wrong category",
+              "rationale": "Capacity not at issue",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Mislabeling the issue"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "core",
+        "question": "What is the most appropriate first step before deciding to proceed?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Seek consultation and weigh client welfare, risks, and the lack of alternative providers",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Consultation and a welfare analysis guide the decision.",
+            "explanation": {
+              "approach": "Consultation first",
+              "rationale": "Structured ethical reasoning",
+              "keyIndicators": [
+                "consultation",
+                "welfare"
+              ],
+              "commonMistake": "Deciding alone without consultation"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Decline the client outright with no further discussion because any overlap whatsoever is strictly forbidden always",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Multiple relationships are not categorically banned.",
+            "explanation": {
+              "approach": "Over-rigid rule",
+              "rationale": "Misstates the standard",
+              "keyIndicators": [
+                "rigidity"
+              ],
+              "commonMistake": "Treating all overlap as prohibited"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Begin therapy immediately and simply avoid ever mentioning the obvious community overlap during their sessions",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Ignoring the issue invites harm.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "No safeguards or consent",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Proceeding without addressing risk"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Ask several mutual friends in the association whether they think the counseling arrangement would be acceptable",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Breaches confidentiality and is improper.",
+            "explanation": {
+              "approach": "Confidentiality breach",
+              "rationale": "Improper consultation source",
+              "keyIndicators": [
+                "breach"
+              ],
+              "commonMistake": "Consulting the client\u2019s social circle"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "ethics",
+        "question": "If she proceeds, what best protects the client?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Transparent informed consent about the risks plus clear boundaries for outside contact",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Consent and explicit boundaries protect the client.",
+            "explanation": {
+              "approach": "Informed consent",
+              "rationale": "Discloses risks and sets limits",
+              "keyIndicators": [
+                "informed consent",
+                "boundaries"
+              ],
+              "commonMistake": "Skipping risk disclosure"
+            }
+          },
+          {
+            "id": "b",
+            "text": "A private personal agreement that they will both simply pretend not to know one another at any public gathering",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Unrealistic and not a true safeguard.",
+            "explanation": {
+              "approach": "Pseudo-safeguard",
+              "rationale": "Not a real protection",
+              "keyIndicators": [
+                "weak boundary"
+              ],
+              "commonMistake": "Relying on pretending"
+            }
+          },
+          {
+            "id": "c",
+            "text": "A signed waiver in which the client gives up the right to raise any future ethics complaint about the overlap",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Clients cannot waive ethical protections.",
+            "explanation": {
+              "approach": "Improper waiver",
+              "rationale": "Unenforceable and coercive",
+              "keyIndicators": [
+                "coercion"
+              ],
+              "commonMistake": "Demanding a rights waiver"
+            }
+          },
+          {
+            "id": "d",
+            "text": "A decision to keep no documentation of the arrangement so the dual relationship leaves no discoverable record",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Failing to document is itself unethical.",
+            "explanation": {
+              "approach": "No documentation",
+              "rationale": "Violates the standard",
+              "keyIndicators": [
+                "under-documentation"
+              ],
+              "commonMistake": "Hiding the arrangement"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "counseling",
+        "question": "How should she handle her supervisory role over the client in the association?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Step back from directly supervising the client to reduce the role conflict",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Reducing overlapping authority limits the conflict.",
+            "explanation": {
+              "approach": "Role reduction",
+              "rationale": "Minimizes power-based overlap",
+              "keyIndicators": [
+                "role conflict",
+                "recusal"
+              ],
+              "commonMistake": "Keeping conflicting authority roles"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Keep both roles but promise herself she will remain perfectly fair and objective in all association decisions",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Self-assurance does not remove the conflict.",
+            "explanation": {
+              "approach": "Self-reliance",
+              "rationale": "Overestimates objectivity",
+              "keyIndicators": [
+                "bias risk"
+              ],
+              "commonMistake": "Trusting willpower over structure"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Use her association authority to give the client preferential treatment so the therapy alliance is strengthened",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Exploits the dual role and harms fairness.",
+            "explanation": {
+              "approach": "Exploitation",
+              "rationale": "Abuses the role",
+              "keyIndicators": [
+                "favoritism"
+              ],
+              "commonMistake": "Leveraging power inappropriately"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Resign entirely from the community association immediately, abandoning all her other unrelated civic commitments",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Disproportionate; recusal from the role suffices.",
+            "explanation": {
+              "approach": "Overreaction",
+              "rationale": "Excessive response",
+              "keyIndicators": [
+                "overcorrection"
+              ],
+              "commonMistake": "Overcorrecting unnecessarily"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "ethics",
+        "question": "What ongoing practice best manages the boundary over time?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Periodic consultation and documentation reviewing the boundary and client welfare",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Ongoing monitoring sustains ethical safeguards.",
+            "explanation": {
+              "approach": "Ongoing monitoring",
+              "rationale": "Maintains accountability",
+              "keyIndicators": [
+                "consultation",
+                "documentation"
+              ],
+              "commonMistake": "A one-time fix without follow-up"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Assuming that once the initial consent form is signed no further attention to the boundary is ever needed again",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Boundaries require continued attention.",
+            "explanation": {
+              "approach": "Set-and-forget",
+              "rationale": "Neglects monitoring",
+              "keyIndicators": [
+                "complacency"
+              ],
+              "commonMistake": "Treating consent as a one-time event"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Quietly discontinuing all documentation about the relationship to avoid creating a paper trail that could be misread",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Avoiding documentation is unethical.",
+            "explanation": {
+              "approach": "No record",
+              "rationale": "Undermines accountability",
+              "keyIndicators": [
+                "concealment"
+              ],
+              "commonMistake": "Erasing the record"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Sharing details of the arrangement informally with colleagues at social events to get their casual reactions to it",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Risks confidentiality and is improper.",
+            "explanation": {
+              "approach": "Improper disclosure",
+              "rationale": "Casual breach risk",
+              "keyIndicators": [
+                "breach"
+              ],
+              "commonMistake": "Discussing cases socially"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G085",
+    "title": "Heavy Mornings and Quiet Evenings",
+    "category": "Depressive",
+    "difficulty": "easy",
+    "primaryDiagnosis": {
+      "name": "Major Depressive Disorder, Moderate",
+      "code": "F33.1"
+    },
+    "diagnosis": {
+      "name": "Major Depressive Disorder, Moderate",
+      "code": "F33.1"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Major Depressive Disorder, Moderate",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Persistent Depressive Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Adjustment Disorder, with Depressed Mood",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Bipolar II Disorder",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 29-year-old graduate student reports six weeks of low mood, loss of interest in friends and hobbies, poor sleep with early waking, low energy, difficulty concentrating on coursework, and feelings of worthlessness. She has had two similar episodes in the past that each lifted after several months. She denies any period of unusually elevated mood or decreased need for sleep. She is tearful, withdrawn, and worried she is falling behind in her program.",
+      "session1": "She endorses five depressive symptoms present nearly every day for over two weeks, with clear impairment in school and relationships. She reports passive thoughts that life is not worth it but denies any plan or intent. There is no recent single identifiable stressor that fully explains the onset, and the symptoms exceed an expected reaction. She has no history of mania or hypomania.",
+      "session2": "Reviewing her history, the recurrent nature of her episodes and full remission between them become clear. She is open to therapy and possibly a medication referral. A safety check is documented. Behavioral activation and cognitive work are introduced, and she identifies small, achievable steps to re-engage with valued activities."
+    },
+    "diagnosticRationale": "Five or more depressive symptoms present nearly every day for at least two weeks with significant impairment, in a recurrent pattern with prior full remissions and no history of mania or hypomania, support recurrent major depressive disorder, moderate. The episodic course distinguishes it from persistent depressive disorder, the severity and full criteria distinguish it from adjustment disorder, and the absence of hypomania rules out bipolar II.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "MDD: five+ symptoms for two weeks with impairment; recurrent course with remissions"
+      },
+      {
+        "id": "R2",
+        "source": "C-SSRS",
+        "detail": "Routine screening for suicidal ideation, plan, and intent in depression"
+      },
+      {
+        "id": "R3",
+        "source": "APA CPG",
+        "detail": "Behavioral activation and cognitive therapy as first-line for moderate MDD"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "What is the most important safety step at intake?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Screen directly for suicidal ideation, plan, and intent",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Suicide screening is essential in depression.",
+            "explanation": {
+              "approach": "Risk screening",
+              "rationale": "Standard in any depressive intake",
+              "keyIndicators": [
+                "ideation",
+                "intent"
+              ],
+              "commonMistake": "Skipping suicide screening"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Wait until a strong therapeutic alliance has clearly formed over several sessions before raising any safety topics",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Risk screening cannot be deferred.",
+            "explanation": {
+              "approach": "Deferred screening",
+              "rationale": "Unsafe delay",
+              "keyIndicators": [
+                "delay"
+              ],
+              "commonMistake": "Postponing the risk question"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Assume she is at no risk because she is a high-functioning graduate student with a promising academic future ahead",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Functioning does not rule out risk.",
+            "explanation": {
+              "approach": "False assumption",
+              "rationale": "Status is not protective",
+              "keyIndicators": [
+                "bias"
+              ],
+              "commonMistake": "Assuming low risk from achievement"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Ask her roommate to quietly monitor her at home instead of conducting a direct clinical suicide assessment yourself",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Outsourcing replaces direct assessment.",
+            "explanation": {
+              "approach": "Outsourced screening",
+              "rationale": "Avoids the clinical task",
+              "keyIndicators": [
+                "deflection"
+              ],
+              "commonMistake": "Delegating the assessment"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "intake",
+        "question": "Which feature best distinguishes this from persistent depressive disorder?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Her depression is episodic with full remission between distinct episodes",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "PDD is chronic for two-plus years; hers remits.",
+            "explanation": {
+              "approach": "Course distinction",
+              "rationale": "Episodic vs chronic",
+              "keyIndicators": [
+                "episodic",
+                "remission"
+              ],
+              "commonMistake": "Confusing MDD with PDD"
+            }
+          },
+          {
+            "id": "b",
+            "text": "She has experienced a continuous low-grade depressed mood every single day for the last several uninterrupted years",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "That describes PDD, not her course.",
+            "explanation": {
+              "approach": "Wrong course",
+              "rationale": "Contradicts the history",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Inventing chronicity"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Her symptoms began abruptly right after a single clearly identifiable and overwhelming recent academic stressor",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That suggests adjustment disorder.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Not stressor-bound",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Importing adjustment features"
+            }
+          },
+          {
+            "id": "d",
+            "text": "She has had repeated distinct episodes of clearly elevated, expansive mood with a markedly decreased need for sleep",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That would indicate bipolar, which she denies.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "No hypomania present",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Adding bipolar features"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "treatment",
+        "question": "What is an appropriate first-line treatment focus?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Behavioral activation to re-engage her with valued activities",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Behavioral activation is first-line for moderate MDD.",
+            "explanation": {
+              "approach": "Behavioral activation",
+              "rationale": "Evidence-based and practical",
+              "keyIndicators": [
+                "activation",
+                "valued activity"
+              ],
+              "commonMistake": "Waiting passively for mood to lift"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Long-term intensive psychoanalysis focused chiefly on uncovering repressed early childhood developmental conflicts",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Not first-line for moderate MDD.",
+            "explanation": {
+              "approach": "Wrong modality",
+              "rationale": "Not first-line",
+              "keyIndicators": [
+                "mismatch"
+              ],
+              "commonMistake": "Defaulting to depth work"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Strict and indefinite bed rest at home along with a complete withdrawal from all of her demanding coursework",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Withdrawal and inactivity worsen depression.",
+            "explanation": {
+              "approach": "Inactivity",
+              "rationale": "Reinforces depression",
+              "keyIndicators": [
+                "withdrawal"
+              ],
+              "commonMistake": "Prescribing rest and avoidance"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Telling her the episode will simply pass on its own and that no specific treatment or follow-up is really needed",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Withholds indicated care.",
+            "explanation": {
+              "approach": "Undertreatment",
+              "rationale": "Denies effective care",
+              "keyIndicators": [
+                "neglect"
+              ],
+              "commonMistake": "Minimizing the need for treatment"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "counseling",
+        "question": "She says she feels worthless. What is the best reflective response?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Reflect her pain and note that worthlessness is a recognized symptom of depression",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Empathy plus psychoeducation reframes the symptom.",
+            "explanation": {
+              "approach": "Reflect and educate",
+              "rationale": "Validates and contextualizes",
+              "keyIndicators": [
+                "reflection",
+                "psychoeducation"
+              ],
+              "commonMistake": "Either minimizing or only arguing"
+            }
+          },
+          {
+            "id": "b",
+            "text": "List several of her concrete recent academic accomplishments so she can rationally dispute the negative belief herself",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Premature disputation bypasses empathy.",
+            "explanation": {
+              "approach": "Premature disputing",
+              "rationale": "Skips validation",
+              "keyIndicators": [
+                "disputing"
+              ],
+              "commonMistake": "Arguing with the feeling"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Tell her that everyone in graduate school feels worthless sometimes and that the feeling will fade with more time",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Over-normalizing minimizes a clinical symptom.",
+            "explanation": {
+              "approach": "Over-normalizing",
+              "rationale": "Misses the symptom",
+              "keyIndicators": [
+                "minimizing"
+              ],
+              "commonMistake": "Normalizing worthlessness"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Quickly change the subject to a more positive topic so that she does not dwell on the painful negative thoughts",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Avoidance shuts down disclosure.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Suppresses affect",
+              "keyIndicators": [
+                "redirection"
+              ],
+              "commonMistake": "Steering away from feelings"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "treatment",
+        "question": "She is hesitant about a medication referral. What is the best response?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Explore her concerns and present medication as one collaborative option among several",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Collaborative, informed decision-making respects autonomy.",
+            "explanation": {
+              "approach": "Collaborative option",
+              "rationale": "Honors client choice",
+              "keyIndicators": [
+                "collaboration",
+                "autonomy"
+              ],
+              "commonMistake": "Pressuring or dismissing medication"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Insist firmly that she will not improve at all unless she immediately starts a prescribed antidepressant medication",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Coercive and inaccurate.",
+            "explanation": {
+              "approach": "Coercion",
+              "rationale": "Removes autonomy",
+              "keyIndicators": [
+                "pressure"
+              ],
+              "commonMistake": "Forcing medication"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Agree with her that medication is generally harmful and advise her to avoid considering it under any circumstances",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Biased advice outside scope.",
+            "explanation": {
+              "approach": "Biased steering",
+              "rationale": "Improper steering",
+              "keyIndicators": [
+                "misinformation"
+              ],
+              "commonMistake": "Discouraging an evidence-based option"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Drop the subject permanently and never raise the possibility of a medication referral again during the treatment",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Forecloses a reasonable option.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Closes a valid path",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Abandoning the discussion"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G086",
+    "title": "The Racing Heart in the Grocery Aisle",
+    "category": "Anxiety",
+    "difficulty": "hard",
+    "primaryDiagnosis": {
+      "name": "Panic Disorder",
+      "code": "F41.0"
+    },
+    "diagnosis": {
+      "name": "Panic Disorder",
+      "code": "F41.0"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Panic Disorder",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Agoraphobia",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Generalized Anxiety Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Social Anxiety Disorder",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 34-year-old delivery driver reports recurrent, unexpected surges of intense fear that peak within minutes, with pounding heart, shortness of breath, sweating, dizziness, and a terror of dying or losing control. The first attack struck while driving and felt like a heart attack; cardiac workups were normal. He now worries constantly about the next attack and has begun avoiding driving alone. He describes persistent concern about additional attacks and their meaning.",
+      "session1": "He endorses recurrent unexpected panic attacks followed by at least a month of persistent worry about further attacks and a change in behavior to avoid them. The attacks are not triggered only by social scrutiny or by a single specific feared object. His worry is focused on the attacks themselves rather than spread across many unrelated life domains, and the avoidance is just beginning rather than pervasive across situations.",
+      "session2": "Psychoeducation reframes panic as a false alarm of the fight-or-flight system. He learns interoceptive exposure to feared bodily sensations, drops safety behaviors like gripping the wheel, and practices remaining in situations until anxiety subsides. He begins gradually driving alone again. His catastrophic misinterpretation of bodily cues decreases as he tests his feared predictions."
+    },
+    "diagnosticRationale": "Recurrent unexpected panic attacks with a month or more of persistent worry about additional attacks and maladaptive behavioral change meet criteria for panic disorder. The attacks are not bound to social evaluation as in social anxiety, not cued by a single phobic object as in specific phobia, and the worry is centered on panic rather than diffuse across domains as in GAD. Avoidance is early and not yet the pervasive multi-situation pattern defining agoraphobia.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "Panic Disorder: recurrent unexpected panic attacks plus \u22651 month of worry or behavior change"
+      },
+      {
+        "id": "R2",
+        "source": "Barlow PCT",
+        "detail": "Interoceptive exposure and dropping safety behaviors in panic control treatment"
+      },
+      {
+        "id": "R3",
+        "source": "APA CPG",
+        "detail": "Cognitive behavioral therapy as first-line for panic disorder"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature best distinguishes panic disorder from social anxiety disorder here?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "His attacks are unexpected and not bound to fear of social scrutiny",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Panic disorder features uncued attacks; social anxiety is evaluation-cued.",
+            "explanation": {
+              "approach": "Cue analysis",
+              "rationale": "Unexpected vs socially cued",
+              "keyIndicators": [
+                "unexpected attacks",
+                "no social cue"
+              ],
+              "commonMistake": "Assuming all anxiety is social"
+            }
+          },
+          {
+            "id": "b",
+            "text": "His attacks occur only when he is being directly observed or judged by other people in clearly public settings",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "That describes social anxiety, which he denies.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "Not socially cued",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Forcing a social-anxiety frame"
+            }
+          },
+          {
+            "id": "c",
+            "text": "His fear is triggered exclusively by one specific feared object or animal that he reliably encounters at his work",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That suggests specific phobia.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Not object-specific",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Importing phobia features"
+            }
+          },
+          {
+            "id": "d",
+            "text": "His anxiety is spread evenly across finances, health, family, and work without any clear discrete panic episodes",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That describes GAD, not panic disorder.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Not diffuse worry",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Confusing with GAD"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "intake",
+        "question": "He had a normal cardiac workup. How should this inform assessment?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Use the negative workup to support reframing the attacks as non-dangerous panic",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Medical rule-out enables a panic reframe.",
+            "explanation": {
+              "approach": "Medical context",
+              "rationale": "Supports the panic formulation",
+              "keyIndicators": [
+                "rule-out",
+                "reframe"
+              ],
+              "commonMistake": "Continuing to fear a missed cardiac cause"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Recommend that he pursue several additional cardiology opinions until a hidden heart abnormality is finally found",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Reinforces health anxiety and over-testing.",
+            "explanation": {
+              "approach": "Over-testing",
+              "rationale": "Feeds reassurance-seeking",
+              "keyIndicators": [
+                "over-investigation"
+              ],
+              "commonMistake": "Endorsing endless workups"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Conclude that because his heart is healthy his frightening symptoms must be entirely imagined and not really real",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Dismissive; panic symptoms are real.",
+            "explanation": {
+              "approach": "Dismissal",
+              "rationale": "Invalidates the experience",
+              "keyIndicators": [
+                "dismissal"
+              ],
+              "commonMistake": "Telling him it is imaginary"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Advise him to avoid all physical exertion permanently so that his heart rate never rises and triggers another attack",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Promotes avoidance and deconditioning.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Reinforces fear of arousal",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Prescribing exertion avoidance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "treatment",
+        "question": "What is a core component of panic-focused CBT?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Interoceptive exposure to feared bodily sensations while dropping safety behaviors",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Interoceptive exposure targets the fear of sensations.",
+            "explanation": {
+              "approach": "Interoceptive exposure",
+              "rationale": "Disconfirms catastrophic beliefs",
+              "keyIndicators": [
+                "exposure",
+                "safety behaviors"
+              ],
+              "commonMistake": "Avoiding the feared sensations"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Teaching him to carry and rely on numerous safety objects so he always feels protected during any future attack",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Safety behaviors maintain panic.",
+            "explanation": {
+              "approach": "Safety behaviors",
+              "rationale": "Prevent disconfirmation",
+              "keyIndicators": [
+                "safety crutch"
+              ],
+              "commonMistake": "Reinforcing safety behaviors"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Instructing him to immediately leave any situation the instant he notices the very first physical sign of anxiety",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Escape reinforces the panic cycle.",
+            "explanation": {
+              "approach": "Escape pattern",
+              "rationale": "Strengthens avoidance",
+              "keyIndicators": [
+                "escape"
+              ],
+              "commonMistake": "Encouraging escape"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Focusing entirely on relaxation breathing used specifically to suppress and eliminate every uncomfortable sensation",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Using breathing to avoid sensations becomes a safety behavior.",
+            "explanation": {
+              "approach": "Misused relaxation",
+              "rationale": "Becomes avoidance",
+              "keyIndicators": [
+                "safety behavior"
+              ],
+              "commonMistake": "Turning coping into avoidance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "counseling",
+        "question": "He fears another attack means he is going crazy. Best response?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Provide psychoeducation that panic is a harmless false alarm of the body\u2019s alarm system",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Reframing panic reduces catastrophic appraisal.",
+            "explanation": {
+              "approach": "Psychoeducation",
+              "rationale": "Corrects the misappraisal",
+              "keyIndicators": [
+                "false alarm",
+                "psychoeducation"
+              ],
+              "commonMistake": "Leaving the catastrophic belief intact"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Agree that frequent panic attacks like his often do progress over time into a serious and lasting mental illness",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "False and frightening.",
+            "explanation": {
+              "approach": "Misinformation",
+              "rationale": "Increases fear",
+              "keyIndicators": [
+                "catastrophizing"
+              ],
+              "commonMistake": "Confirming the feared belief"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Suggest that he simply try his best to never think about the attacks at all so that they will eventually disappear",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Thought suppression backfires.",
+            "explanation": {
+              "approach": "Suppression",
+              "rationale": "Paradoxically increases focus",
+              "keyIndicators": [
+                "suppression"
+              ],
+              "commonMistake": "Recommending thought suppression"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Tell him that as long as he avoids stressful situations completely he will be guaranteed to never panic ever again",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Promotes avoidance and false certainty.",
+            "explanation": {
+              "approach": "Avoidance promise",
+              "rationale": "Reinforces avoidance",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Promising safety through avoidance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "treatment",
+        "question": "He is starting to avoid driving alone. What is the priority?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Use graded exposure to prevent the avoidance from generalizing into agoraphobia",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Early exposure stops avoidance from spreading.",
+            "explanation": {
+              "approach": "Graded exposure",
+              "rationale": "Blocks avoidance escalation",
+              "keyIndicators": [
+                "exposure",
+                "prevention"
+              ],
+              "commonMistake": "Allowing avoidance to expand"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Support his decision to stop driving alone for now and arrange for others to drive him everywhere he needs to go",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Accommodating avoidance worsens it.",
+            "explanation": {
+              "approach": "Accommodation",
+              "rationale": "Entrenches avoidance",
+              "keyIndicators": [
+                "accommodation"
+              ],
+              "commonMistake": "Reinforcing the avoidance"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Wait passively until his panic attacks have fully stopped on their own before introducing any driving exposure work",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Delays the key intervention.",
+            "explanation": {
+              "approach": "Delaying",
+              "rationale": "Avoidance consolidates",
+              "keyIndicators": [
+                "delay"
+              ],
+              "commonMistake": "Postponing exposure"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Recommend he change careers to a job that never requires driving so that he can permanently sidestep the trigger",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Reinforces avoidance at great cost.",
+            "explanation": {
+              "approach": "Life avoidance",
+              "rationale": "Costly accommodation",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Reshaping life around fear"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G087",
+    "title": "Echoes of the Convoy",
+    "category": "Trauma",
+    "difficulty": "medium",
+    "primaryDiagnosis": {
+      "name": "Posttraumatic Stress Disorder",
+      "code": "F43.10"
+    },
+    "diagnosis": {
+      "name": "Posttraumatic Stress Disorder",
+      "code": "F43.10"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Posttraumatic Stress Disorder",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Acute Stress Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Adjustment Disorder, with Mixed Anxiety and Depressed Mood",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Major Depressive Disorder, Single Episode",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 41-year-old veteran presents eight months after a roadside explosion during deployment that killed a fellow soldier. He reports intrusive memories, nightmares, and flashbacks, intense reactions to loud noises and traffic, and avoidance of driving and crowds. He feels emotionally numb, detached from his family, irritable, and hypervigilant, scanning every room for exits. He sleeps poorly and startles easily. He says he has not felt like himself since coming home and feels guilt that he survived.",
+      "session1": "He endorses exposure to a life-threatening event, recurrent intrusions, persistent avoidance of reminders, negative alterations in mood and cognition including detachment and guilt, and marked hyperarousal, all lasting more than one month with significant impairment. The symptoms have persisted well beyond the first month after the trauma rather than resolving, and they are clearly anchored to the traumatic event rather than to a general life stressor.",
+      "session2": "Building safety and trust, the counselor introduces psychoeducation about trauma responses and grounding skills for hyperarousal. They plan trauma-focused work, pacing exposure to memories and reminders as tolerance grows. Survivor guilt and avoidance are addressed gradually. He begins reconnecting with his family as numbing eases and he practices staying present during triggers."
+    },
+    "diagnosticRationale": "Exposure to a life-threatening event followed by intrusions, avoidance, negative cognitions and mood, and hyperarousal persisting more than one month with impairment meets criteria for PTSD. Persistence beyond one month rules out acute stress disorder, the clear traumatic anchor and symptom profile exceed an adjustment disorder, and the breadth of intrusion, avoidance, and arousal symptoms distinguishes it from a primary depressive episode.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "PTSD: trauma exposure with intrusion, avoidance, negative cognition/mood, arousal >1 month"
+      },
+      {
+        "id": "R2",
+        "source": "VA/DoD CPG",
+        "detail": "Trauma-focused psychotherapy as first-line treatment for PTSD"
+      },
+      {
+        "id": "R3",
+        "source": "SAMHSA TIP 35",
+        "detail": "Building safety, trust, and readiness before trauma processing"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature distinguishes PTSD from acute stress disorder here?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "His symptoms have persisted for more than one month after the trauma",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "ASD is diagnosed within the first month; PTSD beyond.",
+            "explanation": {
+              "approach": "Duration analysis",
+              "rationale": "Timeframe separates the two",
+              "keyIndicators": [
+                "duration",
+                "one month"
+              ],
+              "commonMistake": "Confusing ASD and PTSD by timing"
+            }
+          },
+          {
+            "id": "b",
+            "text": "His distressing symptoms began and fully resolved entirely within just the first three days after the explosion",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Contradicts the chronic course described.",
+            "explanation": {
+              "approach": "Wrong course",
+              "rationale": "Misreads the timeline",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Inventing a rapid resolution"
+            }
+          },
+          {
+            "id": "c",
+            "text": "His symptoms are a mild and clearly proportionate reaction to an ordinary, non-life-threatening everyday life stressor",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That describes adjustment disorder, not PTSD.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Trauma criterion met",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Downgrading the stressor"
+            }
+          },
+          {
+            "id": "d",
+            "text": "His presentation consists only of low mood and anhedonia without any intrusions, avoidance, or hyperarousal symptoms",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That suggests depression, not PTSD.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Trauma cluster present",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Reducing PTSD to depression"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "core",
+        "question": "What should the counselor prioritize in early sessions?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Establish safety, trust, and grounding skills before processing the trauma",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Stabilization precedes trauma processing.",
+            "explanation": {
+              "approach": "Phase-based care",
+              "rationale": "Safety before processing",
+              "keyIndicators": [
+                "safety",
+                "stabilization"
+              ],
+              "commonMistake": "Rushing into trauma exposure"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Immediately have him recount every graphic detail of the explosion in full during the very first intake session",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Premature exposure can retraumatize.",
+            "explanation": {
+              "approach": "Premature exposure",
+              "rationale": "Destabilizing",
+              "keyIndicators": [
+                "flooding"
+              ],
+              "commonMistake": "Forcing early disclosure"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Focus exclusively on his current marital communication problems and defer any discussion of the trauma indefinitely",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Avoids the central clinical issue.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Sidesteps the trauma",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Neglecting the core problem"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Encourage him to suppress and push away all intrusive memories so that they stop interrupting his daily routine",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Suppression worsens intrusions.",
+            "explanation": {
+              "approach": "Suppression",
+              "rationale": "Increases intrusions",
+              "keyIndicators": [
+                "suppression"
+              ],
+              "commonMistake": "Recommending suppression"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "treatment",
+        "question": "What is the recommended first-line treatment for PTSD?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Trauma-focused psychotherapy such as prolonged exposure or cognitive processing therapy",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Trauma-focused therapies are first-line.",
+            "explanation": {
+              "approach": "Trauma-focused therapy",
+              "rationale": "Strongest evidence base",
+              "keyIndicators": [
+                "CPT/PE",
+                "first-line"
+              ],
+              "commonMistake": "Defaulting to non-trauma approaches"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Indefinite supportive counseling that carefully avoids any direct discussion of the traumatic event itself entirely",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Avoidant supportive therapy is not first-line.",
+            "explanation": {
+              "approach": "Avoidant support",
+              "rationale": "Misses active ingredient",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Relying on avoidance-based support"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Long-term benzodiazepine prescription as the central and primary treatment to suppress all of his anxiety symptoms",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Benzodiazepines are not recommended for PTSD.",
+            "explanation": {
+              "approach": "Inappropriate medication",
+              "rationale": "Not indicated",
+              "keyIndicators": [
+                "over-medicating"
+              ],
+              "commonMistake": "Leading with benzodiazepines"
+            }
+          },
+          {
+            "id": "d",
+            "text": "A single brief stress-management workshop on relaxation techniques expected to fully resolve his chronic symptoms",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Insufficient for established PTSD.",
+            "explanation": {
+              "approach": "Undertreatment",
+              "rationale": "Too low intensity",
+              "keyIndicators": [
+                "undertreatment"
+              ],
+              "commonMistake": "Underdosing the intervention"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "counseling",
+        "question": "He expresses guilt that he survived. What is the best response?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Validate his survivor guilt and explore it gently within a trauma framework",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Survivor guilt warrants empathic, paced exploration.",
+            "explanation": {
+              "approach": "Validate and explore",
+              "rationale": "Addresses moral injury",
+              "keyIndicators": [
+                "validation",
+                "survivor guilt"
+              ],
+              "commonMistake": "Dismissing or arguing the guilt away"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Quickly reassure him that the death was clearly not his fault and then promptly move on to a different topic entirely",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Premature reassurance shuts down processing.",
+            "explanation": {
+              "approach": "Premature reassurance",
+              "rationale": "Closes exploration",
+              "keyIndicators": [
+                "reassurance"
+              ],
+              "commonMistake": "Rushing past the guilt"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Tell him that dwelling at all on the soldier who died is unhealthy and that he should focus only on the future now",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Invalidating and avoidant.",
+            "explanation": {
+              "approach": "Dismissal",
+              "rationale": "Suppresses grief",
+              "keyIndicators": [
+                "dismissal"
+              ],
+              "commonMistake": "Forbidding the grief"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Interpret his guilt as a sign that he secretly wished harm upon his fellow soldier before the explosion occurred",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Harmful, unfounded interpretation.",
+            "explanation": {
+              "approach": "Harmful interpretation",
+              "rationale": "Baseless and damaging",
+              "keyIndicators": [
+                "speculation"
+              ],
+              "commonMistake": "Imposing a destructive meaning"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "core",
+        "question": "He becomes triggered by traffic noise during a session. Best in-session response?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Use grounding techniques to help him reorient to the present and the safe room",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Grounding manages acute hyperarousal.",
+            "explanation": {
+              "approach": "Grounding",
+              "rationale": "Reduces dissociative arousal",
+              "keyIndicators": [
+                "grounding",
+                "present focus"
+              ],
+              "commonMistake": "Pushing through without stabilizing"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Direct him to keep talking through the full traumatic memory right now while the intense distress is at its peak",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Pushing through peak distress can retraumatize.",
+            "explanation": {
+              "approach": "Flooding",
+              "rationale": "Overwhelms the client",
+              "keyIndicators": [
+                "flooding"
+              ],
+              "commonMistake": "Forcing processing at peak arousal"
+            }
+          },
+          {
+            "id": "c",
+            "text": "End the session right away and send him home alone to recover by himself until he feels completely calm again later",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Abandons him in a triggered state.",
+            "explanation": {
+              "approach": "Premature ending",
+              "rationale": "Leaves him dysregulated",
+              "keyIndicators": [
+                "abandonment"
+              ],
+              "commonMistake": "Discharging a triggered client"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Tell him the noise is harmless and that he is simply overreacting and needs to learn to ignore such ordinary sounds",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Invalidating and unhelpful.",
+            "explanation": {
+              "approach": "Invalidation",
+              "rationale": "Dismisses the trigger",
+              "keyIndicators": [
+                "dismissal"
+              ],
+              "commonMistake": "Minimizing the trauma response"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G088",
+    "title": "One More Drink to Take the Edge Off",
+    "category": "Substance",
+    "difficulty": "easy",
+    "primaryDiagnosis": {
+      "name": "Alcohol Use Disorder, Moderate",
+      "code": "F10.20"
+    },
+    "diagnosis": {
+      "name": "Alcohol Use Disorder, Moderate",
+      "code": "F10.20"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Alcohol Use Disorder, Moderate",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Alcohol Use Disorder, Severe",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Generalized Anxiety Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Major Depressive Disorder, Single Episode",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 45-year-old accountant comes in at his wife\u2019s urging, concerned about his drinking. Over the past year he has been drinking more than he intends, failed several times to cut back, and needs more alcohol to get the same effect. He drinks to unwind after work, has missed two deadlines after heavy nights, and continues despite arguments at home. He spends time recovering from hangovers. He minimizes the problem but admits he feels uneasy about it.",
+      "session1": "He endorses about five of the eleven criteria: impaired control, craving, tolerance, use despite social problems, and continued use despite knowing it causes trouble. He denies withdrawal symptoms such as tremor or seizures and has not given up major activities entirely. His drinking is not solely a way to manage a primary mood or anxiety disorder; rather, it has taken on a life of its own with mounting consequences.",
+      "session2": "Using a motivational stance, the counselor reflects his ambivalence, explores the discrepancy between his values and his drinking, and avoids arguing. He moves from precontemplation toward contemplation, voicing his own reasons to change. They discuss reducing harm and building support. He agrees to track his drinking and to consider his goals without feeling judged or pushed."
+    },
+    "diagnosticRationale": "Meeting roughly four to five of the eleven criteria within a twelve-month period, including impaired control, tolerance, craving, and continued use despite social and occupational problems, indicates a moderate alcohol use disorder. The criterion count places it as moderate rather than severe, and the disorder is primary rather than secondary to a mood or anxiety condition, which are not the driving diagnoses here.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "Alcohol Use Disorder: criterion count of 4\u20135 indicates moderate severity over 12 months"
+      },
+      {
+        "id": "R2",
+        "source": "Miller & Rollnick (MI)",
+        "detail": "Rolling with resistance and developing discrepancy rather than confronting"
+      },
+      {
+        "id": "R3",
+        "source": "Transtheoretical Model",
+        "detail": "Stages of change guiding stage-matched intervention"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "How is the moderate severity specifier determined?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "By counting four to five of the eleven criteria met within twelve months",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Severity is set by criterion count.",
+            "explanation": {
+              "approach": "Criterion count",
+              "rationale": "Severity follows the count",
+              "keyIndicators": [
+                "criterion count",
+                "severity"
+              ],
+              "commonMistake": "Judging severity by gut impression"
+            }
+          },
+          {
+            "id": "b",
+            "text": "By measuring the exact number of standard alcoholic drinks he consumes on each and every single drinking occasion",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Quantity alone does not set severity.",
+            "explanation": {
+              "approach": "Wrong metric",
+              "rationale": "Not quantity-based",
+              "keyIndicators": [
+                "misapplication"
+              ],
+              "commonMistake": "Using volume instead of criteria"
+            }
+          },
+          {
+            "id": "c",
+            "text": "By determining whether his spouse and his employer personally consider his current drinking to be a serious problem",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Others\u2019 opinions do not define the specifier.",
+            "explanation": {
+              "approach": "Wrong basis",
+              "rationale": "Not based on others\u2019 views",
+              "keyIndicators": [
+                "misframe"
+              ],
+              "commonMistake": "Outsourcing the diagnosis"
+            }
+          },
+          {
+            "id": "d",
+            "text": "By confirming the presence of physical withdrawal seizures, which alone automatically classify the disorder as severe",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Withdrawal is one criterion, not the whole specifier.",
+            "explanation": {
+              "approach": "Single-criterion error",
+              "rationale": "Overweights one sign",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Equating one symptom with severity"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "counseling",
+        "question": "He minimizes the problem. What is the best motivational response?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Reflect his ambivalence and develop discrepancy without arguing",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "MI rolls with resistance rather than confronting.",
+            "explanation": {
+              "approach": "Roll with resistance",
+              "rationale": "Avoids the confrontation trap",
+              "keyIndicators": [
+                "reflection",
+                "discrepancy"
+              ],
+              "commonMistake": "Arguing the client into change"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Confront him directly with a detailed list of all the serious consequences his drinking has clearly already caused",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Confrontation increases resistance.",
+            "explanation": {
+              "approach": "Confrontation",
+              "rationale": "Hardens defenses",
+              "keyIndicators": [
+                "confrontation"
+              ],
+              "commonMistake": "Pushing against ambivalence"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Warn him sternly that if he refuses to quit drinking completely today his wife will almost certainly leave him soon",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Coercive scare tactics backfire.",
+            "explanation": {
+              "approach": "Scare tactic",
+              "rationale": "Coercive and counterproductive",
+              "keyIndicators": [
+                "coercion"
+              ],
+              "commonMistake": "Threatening the client"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Agree with his view that his drinking is probably not really a problem and reassure him there is nothing to address",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Colludes with minimization.",
+            "explanation": {
+              "approach": "Collusion",
+              "rationale": "Reinforces denial",
+              "keyIndicators": [
+                "collusion"
+              ],
+              "commonMistake": "Validating the minimization"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "treatment",
+        "question": "He is in precontemplation. What is a stage-matched intervention?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Raise awareness and explore ambivalence rather than pushing an action plan",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Precontemplation calls for consciousness-raising.",
+            "explanation": {
+              "approach": "Stage matching",
+              "rationale": "Fits the change stage",
+              "keyIndicators": [
+                "precontemplation",
+                "awareness"
+              ],
+              "commonMistake": "Forcing action prematurely"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Hand him a detailed structured relapse-prevention plan with daily homework and require him to begin it immediately",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Action tools mismatch precontemplation.",
+            "explanation": {
+              "approach": "Mismatch",
+              "rationale": "Too advanced for the stage",
+              "keyIndicators": [
+                "mis-stage"
+              ],
+              "commonMistake": "Skipping ahead of readiness"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Insist that he commit right now to lifelong total abstinence before he is permitted to continue any further sessions",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Coercive and stage-mismatched.",
+            "explanation": {
+              "approach": "Coercion",
+              "rationale": "Ignores readiness",
+              "keyIndicators": [
+                "coercion"
+              ],
+              "commonMistake": "Demanding commitment"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Tell him that since he is not yet ready to change there is really no point in continuing counseling with him at all",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Disengaging abandons the client.",
+            "explanation": {
+              "approach": "Disengagement",
+              "rationale": "Drops the client",
+              "keyIndicators": [
+                "withdrawal"
+              ],
+              "commonMistake": "Giving up too early"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "intake",
+        "question": "Which finding best distinguishes this from a primary anxiety disorder?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "His drinking has independent consequences and criteria, not just relief of anxiety",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "AUD stands on its own criteria beyond self-medication.",
+            "explanation": {
+              "approach": "Primary vs secondary",
+              "rationale": "Disorder is independent",
+              "keyIndicators": [
+                "criteria met",
+                "independent"
+              ],
+              "commonMistake": "Reducing AUD to self-medication"
+            }
+          },
+          {
+            "id": "b",
+            "text": "He reports persistent uncontrollable worry across many life domains that long predates any of his current drinking",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That points to GAD, which he denies.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "GAD pattern absent",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Importing GAD features"
+            }
+          },
+          {
+            "id": "c",
+            "text": "His only symptom is a calm and relaxed feeling that appears reliably after he drinks and never causes any problems",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Ignores the documented consequences.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "Consequences are present",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Erasing the harms"
+            }
+          },
+          {
+            "id": "d",
+            "text": "He experiences daily panic attacks with chest pain and dizziness that occur completely independently of his drinking",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That suggests panic disorder, not present here.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "No panic disorder",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Adding panic features"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "counseling",
+        "question": "He says he wants to cut down but not quit entirely. Best response?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Explore his own goals collaboratively and discuss harm reduction options",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Honoring client-defined goals supports engagement.",
+            "explanation": {
+              "approach": "Client-centered goals",
+              "rationale": "Respects autonomy",
+              "keyIndicators": [
+                "autonomy",
+                "harm reduction"
+              ],
+              "commonMistake": "Insisting on one fixed goal"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Tell him firmly that moderation never works for anyone and that complete abstinence is the only acceptable option here",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Rigid and alliance-damaging.",
+            "explanation": {
+              "approach": "Rigidity",
+              "rationale": "Removes autonomy",
+              "keyIndicators": [
+                "rigidity"
+              ],
+              "commonMistake": "Imposing a single goal"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Agree to whatever he says without any further exploration and end the session early since the matter seems fully settled",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Skips meaningful exploration.",
+            "explanation": {
+              "approach": "Under-engagement",
+              "rationale": "Misses the work",
+              "keyIndicators": [
+                "passivity"
+              ],
+              "commonMistake": "Failing to explore goals"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Warn him that wanting to merely cut down rather than quit clearly proves he is still in deep and total denial about it",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Labeling increases resistance.",
+            "explanation": {
+              "approach": "Labeling",
+              "rationale": "Provokes defensiveness",
+              "keyIndicators": [
+                "labeling"
+              ],
+              "commonMistake": "Pathologizing the goal"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G089",
+    "title": "Three Days Without Sleep",
+    "category": "Bipolar",
+    "difficulty": "hard",
+    "primaryDiagnosis": {
+      "name": "Bipolar I Disorder, Current Episode Manic",
+      "code": "F31.13"
+    },
+    "diagnosis": {
+      "name": "Bipolar I Disorder, Current Episode Manic",
+      "code": "F31.13"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Bipolar I Disorder, Current Episode Manic",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Bipolar II Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Major Depressive Disorder, Single Episode",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Stimulant Intoxication",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 27-year-old startup founder is brought in by his sister, who is alarmed by a week of dramatic change. He has barely slept for three days yet feels boundless energy, talks rapidly and is hard to interrupt, and has launched four new ventures overnight. He maxed out a credit card on equipment, believes he is destined to revolutionize his industry, and is irritable when questioned. His thoughts race and he jumps between topics. He sees nothing wrong and resents being brought in.",
+      "session1": "He shows elevated and expansive mood with marked irritability for over a week, decreased need for sleep, grandiosity, pressured speech, flight of ideas, distractibility, and excessive involvement in risky financial activities. The disturbance is severe enough to impair functioning and has caused conflict at work. The sister reports a past episode of deep depression two years ago. He denies recent stimulant or other drug use, and a screen is negative.",
+      "session2": "Collateral confirms a clear manic episode with functional impairment, not a milder hypomania. Safety, risk of harm from impulsive decisions, and need for a higher level of care are assessed. The counselor coordinates urgent psychiatric evaluation, addresses the financial risk, and engages the family. Psychoeducation about the illness and the importance of sleep and routine is introduced once he is stabilized."
+    },
+    "diagnosticRationale": "A distinct period of elevated, expansive, and irritable mood lasting at least one week with decreased need for sleep, grandiosity, pressured speech, flight of ideas, distractibility, and high-risk activity, causing marked impairment, defines a manic episode and Bipolar I disorder. The severity and impairment exceed hypomania, ruling out bipolar II; the prior depressive episode and current mania rule out unipolar depression; and a negative substance screen rules out stimulant intoxication.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "Manic episode: \u22651 week of elevated/irritable mood with three+ B-criteria and marked impairment"
+      },
+      {
+        "id": "R2",
+        "source": "IPSRT",
+        "detail": "Stabilizing social rhythms and sleep to manage bipolar disorder"
+      },
+      {
+        "id": "R3",
+        "source": "APA CPG",
+        "detail": "Urgent psychiatric referral and safety assessment in acute mania"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature distinguishes this manic episode from hypomania?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "The marked functional impairment and one-week duration of his elevated mood",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Mania requires impairment and a week; hypomania does not.",
+            "explanation": {
+              "approach": "Severity and duration",
+              "rationale": "Impairment defines mania",
+              "keyIndicators": [
+                "impairment",
+                "one week"
+              ],
+              "commonMistake": "Mistaking severe mania for hypomania"
+            }
+          },
+          {
+            "id": "b",
+            "text": "The mere presence of any elevated mood at all, which by itself is always sufficient to confirm a full manic episode",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Elevated mood alone does not distinguish the two.",
+            "explanation": {
+              "approach": "Oversimplified",
+              "rationale": "Ignores impairment threshold",
+              "keyIndicators": [
+                "misapplication"
+              ],
+              "commonMistake": "Reducing the distinction to mood"
+            }
+          },
+          {
+            "id": "c",
+            "text": "His relatively young age of twenty-seven, which strongly indicates the milder bipolar II form of the illness instead",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Age does not determine the episode type.",
+            "explanation": {
+              "approach": "Base-rate error",
+              "rationale": "Age is not a criterion",
+              "keyIndicators": [
+                "bias"
+              ],
+              "commonMistake": "Letting age decide the diagnosis"
+            }
+          },
+          {
+            "id": "d",
+            "text": "The fact that he denies any drug use, which on its own is enough to fully confirm a manic rather than hypomanic state",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Substance status is a rule-out, not the mania/hypomania line.",
+            "explanation": {
+              "approach": "Wrong basis",
+              "rationale": "Confuses differentials",
+              "keyIndicators": [
+                "misframe"
+              ],
+              "commonMistake": "Conflating rule-out with severity"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "intake",
+        "question": "Why is collateral information especially important here?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "He lacks insight, so family corroboration clarifies severity and duration",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Impaired insight in mania makes collateral essential.",
+            "explanation": {
+              "approach": "Collateral value",
+              "rationale": "Compensates for poor insight",
+              "keyIndicators": [
+                "insight",
+                "corroboration"
+              ],
+              "commonMistake": "Relying solely on self-report in mania"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Collateral is needed only so the clinician can later bill the family directly for the additional time that it requires",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Irrelevant and improper rationale.",
+            "explanation": {
+              "approach": "Improper rationale",
+              "rationale": "No clinical basis",
+              "keyIndicators": [
+                "noise"
+              ],
+              "commonMistake": "Misstating the purpose"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Collateral should be gathered mainly so the counselor can decide which specific medication and dose to prescribe today",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Counselors do not prescribe; wrong purpose.",
+            "explanation": {
+              "approach": "Scope confusion",
+              "rationale": "Not a prescribing role",
+              "keyIndicators": [
+                "scope"
+              ],
+              "commonMistake": "Overstepping scope"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Collateral matters here only because the client is young and therefore his own account can simply never be trusted at all",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Overgeneralizes and is not the reason.",
+            "explanation": {
+              "approach": "Overgeneralization",
+              "rationale": "Wrong justification",
+              "keyIndicators": [
+                "bias"
+              ],
+              "commonMistake": "Dismissing all self-report"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "core",
+        "question": "What is the most urgent clinical priority?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Assess safety and risk from impulsive behavior and arrange urgent psychiatric evaluation",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Acute mania needs safety assessment and higher-level care.",
+            "explanation": {
+              "approach": "Safety and referral",
+              "rationale": "Mania carries acute risk",
+              "keyIndicators": [
+                "safety",
+                "psychiatric referral"
+              ],
+              "commonMistake": "Treating acute mania as routine outpatient work"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Begin long-term weekly insight-oriented psychotherapy this week to explore the early roots of his grandiose self-image",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Inappropriate during acute mania.",
+            "explanation": {
+              "approach": "Premature depth work",
+              "rationale": "Wrong phase of care",
+              "keyIndicators": [
+                "mistiming"
+              ],
+              "commonMistake": "Insight work during mania"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Encourage him to channel his abundant new energy into launching even more ambitious business ventures right away",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Reinforces dangerous risk-taking.",
+            "explanation": {
+              "approach": "Reinforcing risk",
+              "rationale": "Amplifies harm",
+              "keyIndicators": [
+                "risk"
+              ],
+              "commonMistake": "Fueling manic activity"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Schedule a routine follow-up in several weeks and simply advise him to try to get a bit more sleep in the meantime",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Undertriages an acute episode.",
+            "explanation": {
+              "approach": "Undertriage",
+              "rationale": "Misses acuity",
+              "keyIndicators": [
+                "deferral"
+              ],
+              "commonMistake": "Routinizing an emergency"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "treatment",
+        "question": "Once stabilized, what does IPSRT emphasize for relapse prevention?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Stabilizing daily routines and sleep-wake rhythms to reduce relapse",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Social rhythm regularity protects against episodes.",
+            "explanation": {
+              "approach": "Rhythm stabilization",
+              "rationale": "Regularity prevents relapse",
+              "keyIndicators": [
+                "social rhythms",
+                "sleep"
+              ],
+              "commonMistake": "Ignoring routine and sleep regularity"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Deliberately keeping his schedule highly variable and spontaneous so that he never feels boxed in by any daily structure",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Irregularity destabilizes bipolar illness.",
+            "explanation": {
+              "approach": "Irregularity",
+              "rationale": "Triggers episodes",
+              "keyIndicators": [
+                "instability"
+              ],
+              "commonMistake": "Promoting chaotic routines"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Encouraging him to stay up late working whenever inspiration strikes because productivity should always take priority",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Sleep loss precipitates mania.",
+            "explanation": {
+              "approach": "Sleep disruption",
+              "rationale": "Provokes relapse",
+              "keyIndicators": [
+                "sleep loss"
+              ],
+              "commonMistake": "Sacrificing sleep for work"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Focusing the work entirely on confronting and disputing his grandiose beliefs while ignoring his daily rhythm patterns",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Misses the rhythm-based core of IPSRT.",
+            "explanation": {
+              "approach": "Wrong focus",
+              "rationale": "Neglects rhythms",
+              "keyIndicators": [
+                "mis-emphasis"
+              ],
+              "commonMistake": "Overlooking routine stabilization"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "ethics",
+        "question": "He wants to make a large impulsive financial decision. How should the counselor respond?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Express concern, encourage delaying major decisions, and involve supports with consent",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Protecting him from impulsive harm is appropriate.",
+            "explanation": {
+              "approach": "Protective guidance",
+              "rationale": "Reduces impulsive harm",
+              "keyIndicators": [
+                "delay",
+                "supports"
+              ],
+              "commonMistake": "Standing by during high-risk decisions"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Encourage him to trust his confident instincts fully and proceed with the major financial decision without any delay",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Endorses harmful impulsivity.",
+            "explanation": {
+              "approach": "Endorsing risk",
+              "rationale": "Amplifies harm",
+              "keyIndicators": [
+                "risk"
+              ],
+              "commonMistake": "Cheering on the impulse"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Take direct control of his bank accounts and personally manage his finances for him until the manic episode resolves",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Far outside the counselor\u2019s role.",
+            "explanation": {
+              "approach": "Role violation",
+              "rationale": "Improper overreach",
+              "keyIndicators": [
+                "boundary"
+              ],
+              "commonMistake": "Assuming control of finances"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Stay completely neutral and silent about the decision, since commenting at all would risk imposing the counselor\u2019s values",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Silence neglects a safety concern.",
+            "explanation": {
+              "approach": "False neutrality",
+              "rationale": "Ignores risk",
+              "keyIndicators": [
+                "passivity"
+              ],
+              "commonMistake": "Withholding needed concern"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G090",
+    "title": "The Voices Behind the Walls",
+    "category": "Psychotic",
+    "difficulty": "medium",
+    "primaryDiagnosis": {
+      "name": "Schizophrenia",
+      "code": "F20.9"
+    },
+    "diagnosis": {
+      "name": "Schizophrenia",
+      "code": "F20.9"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Schizophrenia",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Schizoaffective Disorder, Bipolar Type",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Brief Psychotic Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Schizophreniform Disorder",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 23-year-old man is brought by his parents, who describe an eighteen-month decline. He hears voices commenting on his actions, believes neighbors are broadcasting his thoughts, and has withdrawn from college and friends. His speech is at times derailed and hard to follow. He stopped attending classes, neglects hygiene, and shows little emotional expression. He is guarded and suspicious during the interview but cooperative. There is no evidence of substance use or a medical cause for the symptoms.",
+      "session1": "He endorses persistent auditory hallucinations, delusions of reference and thought broadcasting, disorganized speech, and prominent negative symptoms, continuously for well over six months. His parents report the decline has been steady, not episodic. There is no sustained period of a major mood episode running alongside the psychosis, and the duration far exceeds the one- to six-month windows of brief or schizophreniform presentations.",
+      "session2": "The counselor focuses on rapport, safety, and engagement, coordinating urgent psychiatric referral for evaluation and medication. Psychoeducation is offered to the family, and the counselor avoids directly challenging delusions while maintaining a supportive, reality-grounded stance. The treatment plan emphasizes continuity of care, monitoring, and gradual psychosocial rehabilitation alongside medical treatment."
+    },
+    "diagnosticRationale": "Two or more active-phase symptoms including hallucinations, delusions, disorganized speech, and negative symptoms, with continuous signs of disturbance for at least six months and marked functional decline, meet criteria for schizophrenia. The absence of a concurrent major mood episode for the majority of the illness rules out schizoaffective disorder, and the duration well beyond six months excludes brief psychotic and schizophreniform disorders.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "Schizophrenia: two+ active symptoms with continuous disturbance \u22656 months"
+      },
+      {
+        "id": "R2",
+        "source": "NICE guidelines",
+        "detail": "Early intervention, engagement, and coordinated care in psychosis"
+      },
+      {
+        "id": "R3",
+        "source": "ACA Code of Ethics",
+        "detail": "A.1 client welfare and appropriate referral for medical evaluation"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature distinguishes schizophrenia from schizoaffective disorder here?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "No major mood episode runs alongside his psychosis for most of the illness",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Schizoaffective requires a concurrent mood episode for much of the course.",
+            "explanation": {
+              "approach": "Mood-psychosis link",
+              "rationale": "Absence of concurrent mood episode",
+              "keyIndicators": [
+                "no mood episode",
+                "psychosis"
+              ],
+              "commonMistake": "Confusing the two diagnoses"
+            }
+          },
+          {
+            "id": "b",
+            "text": "He experiences continuous and severe manic and depressive mood episodes that fully dominate the entire clinical picture",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "That points to schizoaffective, which he lacks.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "Mood does not dominate",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Imposing mood features"
+            }
+          },
+          {
+            "id": "c",
+            "text": "His full set of psychotic symptoms began suddenly and then completely resolved within just under one single month",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That describes brief psychotic disorder.",
+            "explanation": {
+              "approach": "Wrong duration",
+              "rationale": "Course is chronic",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Importing brief-psychosis course"
+            }
+          },
+          {
+            "id": "d",
+            "text": "His symptoms have lasted somewhere between one and six months and are expected to remit fully within that short window",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That describes schizophreniform, not his course.",
+            "explanation": {
+              "approach": "Wrong duration",
+              "rationale": "Exceeds six months",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Misjudging duration"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "core",
+        "question": "He shares a delusion that neighbors broadcast his thoughts. Best response?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Maintain a supportive stance, neither confirming nor directly arguing the delusion",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Avoiding confrontation preserves the alliance.",
+            "explanation": {
+              "approach": "Supportive neutrality",
+              "rationale": "Neither colludes nor argues",
+              "keyIndicators": [
+                "alliance",
+                "non-confrontation"
+              ],
+              "commonMistake": "Debating the delusion"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Firmly and repeatedly insist that the neighbors are obviously not broadcasting anything until he finally admits the truth",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Arguing damages rapport.",
+            "explanation": {
+              "approach": "Confrontation",
+              "rationale": "Erodes trust",
+              "keyIndicators": [
+                "argument"
+              ],
+              "commonMistake": "Disputing the delusion"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Enthusiastically agree that the neighbors really are broadcasting his thoughts so that he feels fully understood and safe",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Colluding reinforces the delusion.",
+            "explanation": {
+              "approach": "Collusion",
+              "rationale": "Reinforces psychosis",
+              "keyIndicators": [
+                "collusion"
+              ],
+              "commonMistake": "Validating the delusion"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Change the subject abruptly every time he mentions the neighbors so that the delusional content is never discussed at all",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Avoidant deflection harms engagement.",
+            "explanation": {
+              "approach": "Deflection",
+              "rationale": "Avoids his experience",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Shutting down disclosure"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "treatment",
+        "question": "What is the most appropriate treatment-planning step?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Coordinate urgent psychiatric referral while maintaining engagement and support",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Medical evaluation plus engagement is essential.",
+            "explanation": {
+              "approach": "Coordinated referral",
+              "rationale": "Links to needed care",
+              "keyIndicators": [
+                "referral",
+                "engagement"
+              ],
+              "commonMistake": "Attempting to treat psychosis with counseling alone"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Provide intensive insight-oriented talk therapy as the sole treatment, expecting it to fully resolve the psychotic symptoms",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Counseling alone is insufficient for schizophrenia.",
+            "explanation": {
+              "approach": "Inadequate plan",
+              "rationale": "Misses medical care",
+              "keyIndicators": [
+                "undertreatment"
+              ],
+              "commonMistake": "Omitting psychiatric referral"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Wait several more months without any referral to confirm the diagnosis is truly stable before involving any psychiatrist",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Delays needed evaluation.",
+            "explanation": {
+              "approach": "Delaying care",
+              "rationale": "Postpones care",
+              "keyIndicators": [
+                "deferral"
+              ],
+              "commonMistake": "Withholding referral"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Discharge him from services entirely, explaining that his condition is far too severe for any outpatient counseling support",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Abandons the client.",
+            "explanation": {
+              "approach": "Abandonment",
+              "rationale": "Drops the client",
+              "keyIndicators": [
+                "abandonment"
+              ],
+              "commonMistake": "Refusing supportive care"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "counseling",
+        "question": "His parents feel overwhelmed and confused. What is most helpful?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Offer psychoeducation about psychosis and connect them with family support",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Family psychoeducation improves outcomes.",
+            "explanation": {
+              "approach": "Family psychoeducation",
+              "rationale": "Builds understanding and support",
+              "keyIndicators": [
+                "psychoeducation",
+                "family support"
+              ],
+              "commonMistake": "Leaving the family without guidance"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Tell the parents that the illness was most likely caused by specific parenting mistakes they made during his childhood",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Blaming and inaccurate.",
+            "explanation": {
+              "approach": "Family blame",
+              "rationale": "Stigmatizing and false",
+              "keyIndicators": [
+                "blame"
+              ],
+              "commonMistake": "Blaming the family"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Advise the parents to conceal the diagnosis from him indefinitely so that he is never burdened by knowing his condition",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Concealment undermines care and autonomy.",
+            "explanation": {
+              "approach": "Concealment",
+              "rationale": "Harms trust",
+              "keyIndicators": [
+                "concealment"
+              ],
+              "commonMistake": "Hiding the diagnosis"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Reassure the parents firmly that the symptoms will almost certainly disappear completely on their own within a few weeks",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "False reassurance about a chronic illness.",
+            "explanation": {
+              "approach": "False reassurance",
+              "rationale": "Misleads the family",
+              "keyIndicators": [
+                "minimization"
+              ],
+              "commonMistake": "Minimizing a serious illness"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "intake",
+        "question": "What is essential to rule out before confirming the diagnosis?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "A substance-induced or medical cause for the psychotic symptoms",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Medical and substance causes must be excluded.",
+            "explanation": {
+              "approach": "Medical rule-out",
+              "rationale": "Excludes organic causes",
+              "keyIndicators": [
+                "rule-out",
+                "medical"
+              ],
+              "commonMistake": "Skipping the organic workup"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Whether he has recently experienced any normal short-lived sadness following an ordinary and expected life disappointment",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Irrelevant to ruling out psychosis causes.",
+            "explanation": {
+              "approach": "Off-target",
+              "rationale": "Not a rule-out",
+              "keyIndicators": [
+                "noise"
+              ],
+              "commonMistake": "Chasing irrelevant data"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Whether his beliefs are shared by a few close friends, which would automatically prove that they are not delusional at all",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Misunderstands delusion assessment.",
+            "explanation": {
+              "approach": "Misconception",
+              "rationale": "Faulty reasoning",
+              "keyIndicators": [
+                "misframe"
+              ],
+              "commonMistake": "Misapplying the criterion"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Whether he has any family history of high intelligence, which some assume can fully explain unusual or eccentric thinking",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Irrelevant and unfounded.",
+            "explanation": {
+              "approach": "Irrelevant factor",
+              "rationale": "No diagnostic value",
+              "keyIndicators": [
+                "noise"
+              ],
+              "commonMistake": "Using a spurious factor"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G091",
+    "title": "The Endless Ritual of Reassurance",
+    "category": "OCD-Related",
+    "difficulty": "hard",
+    "primaryDiagnosis": {
+      "name": "Obsessive-Compulsive Disorder",
+      "code": "F42.2"
+    },
+    "diagnosis": {
+      "name": "Obsessive-Compulsive Disorder",
+      "code": "F42.2"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Obsessive-Compulsive Disorder",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Generalized Anxiety Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Obsessive-Compulsive Personality Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Illness Anxiety Disorder",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 31-year-old nurse describes intrusive, unwanted thoughts that she might have contaminated patients or left a door unlocked, causing harm. The thoughts feel senseless to her, yet they trigger intense anxiety. To neutralize them she washes repeatedly, checks locks dozens of times, and seeks reassurance from coworkers, consuming over three hours daily. She recognizes the rituals are excessive but cannot stop. The behaviors are interfering with her shifts and exhausting her.",
+      "session1": "She reports recurrent intrusive obsessions experienced as intrusive and unwanted, paired with compulsions performed to reduce distress, occupying more than an hour a day and causing significant impairment. She has good insight that the thoughts are products of her own mind and that the feared outcomes are unlikely. The worries are tied to specific obsessions with ritualized neutralizing behaviors rather than free-floating worry across many topics.",
+      "session2": "The counselor introduces exposure and response prevention, explaining the rationale for facing feared cues without performing rituals. They build a hierarchy, start with manageable exposures, and target reassurance-seeking as a compulsion to be eliminated. She learns to tolerate uncertainty and distress until it subsides naturally. Over sessions her ritual time decreases as she resists neutralizing and her catastrophic appraisals weaken."
+    },
+    "diagnosticRationale": "Recurrent intrusive obsessions and repetitive compulsions performed to neutralize distress, consuming more than an hour daily and causing impairment, with good insight, meet criteria for OCD. The presence of true obsessions and ritualized compulsions distinguishes it from GAD's free-floating worry, the ego-dystonic intrusions and rituals distinguish it from the ego-syntonic perfectionism of OCPD, and the broad contamination and checking themes distinguish it from illness anxiety disorder.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "OCD: obsessions and compulsions consuming >1 hour/day with impairment"
+      },
+      {
+        "id": "R2",
+        "source": "NICE guidelines",
+        "detail": "Exposure and response prevention as first-line for OCD"
+      },
+      {
+        "id": "R3",
+        "source": "APA CPG",
+        "detail": "Eliminating reassurance-seeking and rituals as part of ERP"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature best distinguishes OCD from generalized anxiety disorder here?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Her anxiety is driven by specific intrusive obsessions neutralized by rituals",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "OCD pairs obsessions with compulsions, unlike GAD\u2019s diffuse worry.",
+            "explanation": {
+              "approach": "Obsession-compulsion link",
+              "rationale": "Ritualized neutralizing is key",
+              "keyIndicators": [
+                "obsessions",
+                "compulsions"
+              ],
+              "commonMistake": "Equating OCD with general worry"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Her worries are spread broadly and evenly across finances, health, work, and family without any ritualized behaviors at all",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "That describes GAD, not her presentation.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "No rituals in GAD",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Forcing a GAD frame"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Her perfectionism and orderliness feel entirely comfortable and consistent with her values rather than distressing to her",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That describes ego-syntonic OCPD.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Hers is ego-dystonic",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Confusing OCD with OCPD"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Her central fear is specifically that she already has a serious undiagnosed disease despite repeated negative medical tests",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That points to illness anxiety disorder.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Not illness anxiety",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Importing health-anxiety features"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "treatment",
+        "question": "What is the first-line treatment for OCD?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Exposure and response prevention targeting her obsessions and rituals",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "ERP is the evidence-based first-line therapy.",
+            "explanation": {
+              "approach": "ERP therapy",
+              "rationale": "Strongest evidence for OCD",
+              "keyIndicators": [
+                "exposure",
+                "response prevention"
+              ],
+              "commonMistake": "Avoiding exposure-based work"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Open-ended supportive talk therapy that helps her feel calmer but never directly confronts her feared situations at all",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Supportive therapy alone is not first-line.",
+            "explanation": {
+              "approach": "Non-exposure support",
+              "rationale": "Misses active ingredient",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Relying on support alone"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Teaching her additional and more efficient checking and washing routines so the rituals take up far less of her daily time",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Optimizing rituals reinforces OCD.",
+            "explanation": {
+              "approach": "Ritual reinforcement",
+              "rationale": "Strengthens compulsions",
+              "keyIndicators": [
+                "reinforcement"
+              ],
+              "commonMistake": "Improving rather than removing rituals"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Providing thorough and repeated reassurance about each specific feared outcome so that her anxiety is fully relieved each time",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Reassurance is itself a compulsion to eliminate.",
+            "explanation": {
+              "approach": "Reassurance",
+              "rationale": "Feeds the cycle",
+              "keyIndicators": [
+                "reassurance"
+              ],
+              "commonMistake": "Giving reassurance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "counseling",
+        "question": "She constantly seeks reassurance in session. How should the counselor respond?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Identify reassurance-seeking as a compulsion and gently decline to provide it",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Withholding reassurance is part of ERP.",
+            "explanation": {
+              "approach": "Reassurance as compulsion",
+              "rationale": "Refusing to reinforce",
+              "keyIndicators": [
+                "compulsion",
+                "non-reinforcement"
+              ],
+              "commonMistake": "Repeatedly reassuring the client"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Provide detailed and thorough reassurance every single time she asks so that the therapeutic alliance is kept strong and warm",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Reinforces the compulsion.",
+            "explanation": {
+              "approach": "Over-reassurance",
+              "rationale": "Maintains OCD",
+              "keyIndicators": [
+                "reassurance"
+              ],
+              "commonMistake": "Feeding reassurance-seeking"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Ignore her requests for reassurance entirely and stay silent without ever explaining why you are choosing not to respond",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Withholding without rationale harms alliance.",
+            "explanation": {
+              "approach": "Unexplained withholding",
+              "rationale": "Confuses the client",
+              "keyIndicators": [
+                "poor framing"
+              ],
+              "commonMistake": "Withholding without psychoeducation"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Tell her sternly that continuing to ask for reassurance proves she is simply not trying hard enough to get better at all",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Shaming undermines treatment.",
+            "explanation": {
+              "approach": "Shaming client",
+              "rationale": "Damages alliance",
+              "keyIndicators": [
+                "shaming"
+              ],
+              "commonMistake": "Blaming the client"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "counseling",
+        "question": "She is anxious about starting exposures. What is the best approach?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Collaboratively build a graded hierarchy and start with manageable exposures",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Graded, collaborative exposure builds tolerance.",
+            "explanation": {
+              "approach": "Graded hierarchy",
+              "rationale": "Paces exposure collaboratively",
+              "keyIndicators": [
+                "hierarchy",
+                "graded"
+              ],
+              "commonMistake": "Starting with the hardest exposure"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Begin immediately with her single most terrifying feared situation so that she can prove to herself she can handle anything",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Flooding without pacing risks dropout.",
+            "explanation": {
+              "approach": "Flooding",
+              "rationale": "Overwhelms the client",
+              "keyIndicators": [
+                "flooding"
+              ],
+              "commonMistake": "Skipping the hierarchy"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Postpone any exposure work indefinitely until she reports that she feels completely free of all anxiety about doing it first",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Waiting for zero anxiety prevents treatment.",
+            "explanation": {
+              "approach": "Endless delay",
+              "rationale": "Avoidance maintained",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Waiting for anxiety to vanish"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Allow her to keep performing a few small rituals during the exposures so that the overall experience feels less distressing",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Permitting rituals undermines response prevention.",
+            "explanation": {
+              "approach": "Partial rituals",
+              "rationale": "Weakens ERP",
+              "keyIndicators": [
+                "safety behavior"
+              ],
+              "commonMistake": "Allowing rituals during exposure"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "intake",
+        "question": "Her insight that the fears are senseless is intact. What does this indicate?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Good insight, a specifier that supports the OCD diagnosis and prognosis",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Insight level is an OCD specifier.",
+            "explanation": {
+              "approach": "Insight specifier",
+              "rationale": "Documents the insight level",
+              "keyIndicators": [
+                "good insight",
+                "specifier"
+              ],
+              "commonMistake": "Ignoring the insight specifier"
+            }
+          },
+          {
+            "id": "b",
+            "text": "That the diagnosis is almost certainly a primary psychotic disorder, since only psychosis produces such fixed strange beliefs",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Good insight argues against psychosis.",
+            "explanation": {
+              "approach": "Wrong conclusion",
+              "rationale": "Misreads insight",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Confusing OCD with psychosis"
+            }
+          },
+          {
+            "id": "c",
+            "text": "That she does not really meet the threshold for OCD at all because true OCD always involves a complete loss of all insight",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "OCD can occur with good insight.",
+            "explanation": {
+              "approach": "Misconception",
+              "rationale": "Insight varies in OCD",
+              "keyIndicators": [
+                "misframe"
+              ],
+              "commonMistake": "Requiring absent insight"
+            }
+          },
+          {
+            "id": "d",
+            "text": "That her presentation is best explained as ordinary everyday conscientiousness rather than any diagnosable clinical disorder",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Ignores the impairment and ritual time.",
+            "explanation": {
+              "approach": "Minimization",
+              "rationale": "Overlooks impairment",
+              "keyIndicators": [
+                "minimization"
+              ],
+              "commonMistake": "Normalizing the symptoms"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G092",
+    "title": "The Weight of Control",
+    "category": "Eating",
+    "difficulty": "hard",
+    "primaryDiagnosis": {
+      "name": "Anorexia Nervosa, Restricting Type",
+      "code": "F50.01"
+    },
+    "diagnosis": {
+      "name": "Anorexia Nervosa, Restricting Type",
+      "code": "F50.01"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Anorexia Nervosa, Restricting Type",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Bulimia Nervosa",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Avoidant/Restrictive Food Intake Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Body Dysmorphic Disorder",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "An 18-year-old dancer is referred by her physician after significant weight loss and a fainting episode. She is markedly underweight, restricts her intake severely, exercises compulsively, and is intensely afraid of gaining weight. She sees herself as too large despite being dangerously thin, and her self-worth is dominated by her body shape. Her periods have stopped. She insists she is fine and resists the referral, minimizing the danger. Her family is frightened by the changes.",
+      "session1": "She presents with restriction leading to significantly low body weight, an intense fear of weight gain, and a disturbance in how she experiences her body, with denial of the seriousness of her low weight. She does not report recurrent binge eating followed by compensatory purging, and her food avoidance is driven by fear of weight gain and body-image disturbance rather than sensory aversion or lack of interest in eating.",
+      "session2": "Given the medical risk, the counselor coordinates urgent medical monitoring and a team-based approach, prioritizing medical stability and weight restoration alongside psychotherapy. The counselor builds a nonjudgmental alliance, addresses ambivalence, and avoids power struggles over food. Family involvement and a higher level of care are considered. The focus stays on safety, medical risk, and engagement rather than on appearance or specifics of intake."
+    },
+    "diagnosticRationale": "Restriction of energy intake leading to significantly low body weight, intense fear of weight gain, and a disturbance in body image with denial of medical seriousness meet criteria for anorexia nervosa, restricting type. The absence of recurrent binge-purge cycles distinguishes it from bulimia nervosa, the weight-and-shape-driven fear distinguishes it from the non-body-image avoidance of ARFID, and the global body-image disturbance differs from a circumscribed appearance preoccupation in BDD.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "Anorexia Nervosa: restriction, low weight, fear of weight gain, body-image disturbance"
+      },
+      {
+        "id": "R2",
+        "source": "NICE guidelines",
+        "detail": "Medical monitoring and team-based care with weight restoration in anorexia"
+      },
+      {
+        "id": "R3",
+        "source": "Miller & Rollnick (MI)",
+        "detail": "Engaging ambivalence and avoiding confrontation in low-readiness clients"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature distinguishes this from bulimia nervosa?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "She restricts to a low weight without recurrent binge-purge cycles",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Restricting-type anorexia lacks the binge-purge pattern of bulimia.",
+            "explanation": {
+              "approach": "Behavior pattern",
+              "rationale": "Restriction vs binge-purge",
+              "keyIndicators": [
+                "restriction",
+                "low weight"
+              ],
+              "commonMistake": "Confusing the two eating disorders"
+            }
+          },
+          {
+            "id": "b",
+            "text": "She reports frequent episodes of eating very large amounts of food followed by deliberate self-induced compensatory purging",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "That describes bulimia, which she denies.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "No binge-purge cycle",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Imposing bulimia features"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Her food avoidance stems entirely from a strong sensory aversion to textures with no concern at all about her body weight",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That describes ARFID, not anorexia.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Body-image driven",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Confusing with ARFID"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Her distress is limited to one specific perceived flaw in a single facial feature unrelated to her overall body weight or shape",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That points to BDD, not anorexia.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Global body image",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Importing BDD features"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "core",
+        "question": "What is the most urgent clinical priority given her presentation?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Coordinate urgent medical monitoring and team-based care for her safety",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Medical instability requires immediate attention.",
+            "explanation": {
+              "approach": "Medical priority",
+              "rationale": "Low weight is dangerous",
+              "keyIndicators": [
+                "medical risk",
+                "team care"
+              ],
+              "commonMistake": "Treating it as routine outpatient therapy"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Begin long-term weekly insight-oriented psychotherapy alone, expecting it to gradually resolve the restriction over many months",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Ignores acute medical danger.",
+            "explanation": {
+              "approach": "Misprioritization",
+              "rationale": "Overlooks medical risk",
+              "keyIndicators": [
+                "undertriage"
+              ],
+              "commonMistake": "Deferring medical care"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Set a strict daily eating schedule and firmly require her to follow it exactly, enforcing consequences if she fails to comply",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Coercive control invites power struggles.",
+            "explanation": {
+              "approach": "Coercive control",
+              "rationale": "Provokes resistance",
+              "keyIndicators": [
+                "power struggle"
+              ],
+              "commonMistake": "Battling over food"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Reassure her family that the weight loss is most likely just a temporary phase that will correct itself without intervention",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Dangerously minimizes a medical emergency.",
+            "explanation": {
+              "approach": "Minimization",
+              "rationale": "Underestimates risk",
+              "keyIndicators": [
+                "minimization"
+              ],
+              "commonMistake": "Normalizing the danger"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "counseling",
+        "question": "She is highly resistant and minimizes the problem. Best stance?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Use a nonjudgmental motivational stance and explore her ambivalence",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "MI engages low-readiness clients without confrontation.",
+            "explanation": {
+              "approach": "Motivational stance",
+              "rationale": "Rolls with resistance",
+              "keyIndicators": [
+                "ambivalence",
+                "nonjudgmental"
+              ],
+              "commonMistake": "Confronting her into compliance"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Confront her directly and repeatedly with the frightening medical facts until she is finally forced to admit she is very ill",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Confrontation increases resistance.",
+            "explanation": {
+              "approach": "Confrontation",
+              "rationale": "Hardens denial",
+              "keyIndicators": [
+                "confrontation"
+              ],
+              "commonMistake": "Forcing insight"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Agree with her view that her weight is actually perfectly fine for now so that she will feel comfortable continuing to attend",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Colludes with denial of a dangerous condition.",
+            "explanation": {
+              "approach": "Collusion",
+              "rationale": "Reinforces denial",
+              "keyIndicators": [
+                "collusion"
+              ],
+              "commonMistake": "Validating the minimization"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Focus the entire session on praising her dedication, discipline, and impressive self-control around her eating and exercise",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Reinforces the disorder\u2019s values.",
+            "explanation": {
+              "approach": "Reinforcing pathology",
+              "rationale": "Praises the symptom",
+              "keyIndicators": [
+                "reinforcement"
+              ],
+              "commonMistake": "Admiring the restriction"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "counseling",
+        "question": "In session she wants to discuss her appearance in detail. What is best?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Gently redirect toward feelings and function rather than weight and appearance specifics",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Avoiding appearance focus reduces reinforcement.",
+            "explanation": {
+              "approach": "Redirect focus",
+              "rationale": "Shifts from shape to function",
+              "keyIndicators": [
+                "function",
+                "feelings"
+              ],
+              "commonMistake": "Engaging in detailed weight talk"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Discuss her exact target weight and detailed daily food amounts at length so that she feels fully heard and understood here",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Detailed numbers can reinforce the disorder.",
+            "explanation": {
+              "approach": "Numbers focus",
+              "rationale": "Reinforces preoccupation",
+              "keyIndicators": [
+                "numbers"
+              ],
+              "commonMistake": "Dwelling on figures"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Agree with her stated belief that she still appears noticeably overweight and help her plan further changes to her appearance",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Colludes with body-image distortion.",
+            "explanation": {
+              "approach": "Collusion",
+              "rationale": "Validates distortion",
+              "keyIndicators": [
+                "collusion"
+              ],
+              "commonMistake": "Endorsing the distortion"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Tell her firmly that her appearance is completely irrelevant and refuse to let her bring up the topic at any point in sessions",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Dismissive and alliance-damaging.",
+            "explanation": {
+              "approach": "Dismissal",
+              "rationale": "Shuts down the client",
+              "keyIndicators": [
+                "dismissal"
+              ],
+              "commonMistake": "Forbidding the topic"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "treatment",
+        "question": "When is a higher level of care most clearly indicated?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "When she is medically unstable or unable to restore weight as an outpatient",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Medical instability drives the level-of-care decision.",
+            "explanation": {
+              "approach": "Level of care",
+              "rationale": "Instability warrants escalation",
+              "keyIndicators": [
+                "medical instability",
+                "escalation"
+              ],
+              "commonMistake": "Keeping an unstable client outpatient"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Only once she personally feels completely ready and fully motivated to enter a more intensive treatment program on her own",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Readiness does not override medical danger.",
+            "explanation": {
+              "approach": "Readiness gating",
+              "rationale": "Ignores acute risk",
+              "keyIndicators": [
+                "mis-gating"
+              ],
+              "commonMistake": "Waiting for motivation"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Only after she has clearly failed at least five separate full courses of outpatient therapy with several different providers",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Arbitrary threshold ignores acute risk.",
+            "explanation": {
+              "approach": "Arbitrary threshold",
+              "rationale": "Delays needed escalation",
+              "keyIndicators": [
+                "delay"
+              ],
+              "commonMistake": "Inventing prerequisites"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Never, since anorexia should always be managed in outpatient counseling regardless of how dangerously low her weight becomes",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Ignores indications for higher care.",
+            "explanation": {
+              "approach": "Rigid stance",
+              "rationale": "Misses escalation criteria",
+              "keyIndicators": [
+                "rigidity"
+              ],
+              "commonMistake": "Refusing to escalate"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G093",
+    "title": "Watching Life From Behind Glass",
+    "category": "Dissociative",
+    "difficulty": "medium",
+    "primaryDiagnosis": {
+      "name": "Depersonalization/Derealization Disorder",
+      "code": "F48.1"
+    },
+    "diagnosis": {
+      "name": "Depersonalization/Derealization Disorder",
+      "code": "F48.1"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Depersonalization/Derealization Disorder",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Panic Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Posttraumatic Stress Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Dissociative Identity Disorder",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 26-year-old graduate student reports persistent feelings of being detached from herself, as if observing her own thoughts and actions from outside her body. The world looks foggy, flat, and dreamlike. These experiences have occurred most days for over a year, are deeply distressing, and make her fear she is losing her mind. Throughout, she knows the experiences are not literally real and remains oriented. She has no memory gaps and describes no separate identities.",
+      "session1": "She describes persistent depersonalization and derealization with intact reality testing and significant distress and impairment. The experiences are not confined to discrete panic attacks, and she denies the re-experiencing, avoidance, and hyperarousal cluster that would indicate a trauma disorder as primary. She reports no amnesia for personal information and no shifts between distinct identity states, distinguishing this from a dissociative identity presentation.",
+      "session2": "The counselor provides psychoeducation normalizing the symptoms as a recognized dissociative response, reducing the fear of going crazy that intensifies the experience. Grounding techniques, stress reduction, and addressing maintaining factors such as anxious self-monitoring are introduced. As her fear of the symptoms decreases, their intensity lessens, and she practices re-engaging attention with the external present."
+    },
+    "diagnosticRationale": "Persistent or recurrent depersonalization and derealization with intact reality testing, causing significant distress for more than a brief period and not better explained by another disorder, meet criteria for depersonalization/derealization disorder. The experiences are not confined to panic attacks, lack the full trauma cluster of PTSD, and occur without the amnesia or distinct identity states that define dissociative identity disorder.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "Depersonalization/Derealization Disorder: persistent detachment with intact reality testing"
+      },
+      {
+        "id": "R2",
+        "source": "Corey (Theory & Practice)",
+        "detail": "Psychoeducation and normalization to reduce symptom-related fear"
+      },
+      {
+        "id": "R3",
+        "source": "SAMHSA TIP 35",
+        "detail": "Grounding and stabilization for dissociative symptoms"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature distinguishes this from dissociative identity disorder?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "She has no amnesia and no shifts between distinct separate identity states",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "DID requires identity disruption and amnesia, which she lacks.",
+            "explanation": {
+              "approach": "Identity criterion",
+              "rationale": "No identity states or amnesia",
+              "keyIndicators": [
+                "no amnesia",
+                "single identity"
+              ],
+              "commonMistake": "Confusing detachment with DID"
+            }
+          },
+          {
+            "id": "b",
+            "text": "She reports recurrent gaps in memory for important events and describes several entirely separate identities taking control",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "That describes DID, which she denies.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "No identity disruption",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Imposing DID features"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Her detachment occurs strictly and only during brief discrete panic attacks with pounding heart and a fear of dying",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That suggests panic disorder.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Not panic-bound",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Confusing with panic disorder"
+            }
+          },
+          {
+            "id": "d",
+            "text": "She shows clear intrusive trauma memories, marked avoidance of reminders, and persistent hypervigilance and exaggerated startle",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That points to PTSD, not present.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "No trauma cluster",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Importing PTSD features"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "counseling",
+        "question": "She fears she is going crazy. What is the most helpful response?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Normalize the symptoms as a recognized dissociative response with intact reality testing",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Psychoeducation reduces the secondary fear that amplifies symptoms.",
+            "explanation": {
+              "approach": "Normalization",
+              "rationale": "Reduces catastrophic fear",
+              "keyIndicators": [
+                "psychoeducation",
+                "reality testing"
+              ],
+              "commonMistake": "Confirming the fear of going crazy"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Confirm her worry that these unusual experiences are very likely an early warning sign of an emerging psychotic illness",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "False and frightening.",
+            "explanation": {
+              "approach": "Misinformation",
+              "rationale": "Heightens fear",
+              "keyIndicators": [
+                "catastrophizing"
+              ],
+              "commonMistake": "Confirming a psychosis fear"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Tell her to simply try her hardest to ignore the strange feelings completely so that they will eventually fade on their own",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Suppression and dismissal are unhelpful.",
+            "explanation": {
+              "approach": "Dismissal",
+              "rationale": "Invalidates distress",
+              "keyIndicators": [
+                "dismissal"
+              ],
+              "commonMistake": "Telling her to ignore it"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Suggest the sensations are probably caused by an undiagnosed serious neurological brain tumor that requires urgent imaging",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Unfounded and alarming.",
+            "explanation": {
+              "approach": "Alarmism",
+              "rationale": "Baseless escalation",
+              "keyIndicators": [
+                "catastrophizing"
+              ],
+              "commonMistake": "Inventing a dire cause"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "treatment",
+        "question": "Which intervention directly targets the symptom cycle?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Grounding techniques and reducing anxious self-monitoring that maintains the symptoms",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Grounding and lowering self-focus break the maintaining cycle.",
+            "explanation": {
+              "approach": "Grounding",
+              "rationale": "Re-engages the present",
+              "keyIndicators": [
+                "grounding",
+                "self-monitoring"
+              ],
+              "commonMistake": "Ignoring maintaining factors"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Encouraging her to monitor and analyze every fleeting detachment sensation closely throughout the entire day to understand it",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Increased self-monitoring worsens symptoms.",
+            "explanation": {
+              "approach": "Hypervigilance",
+              "rationale": "Amplifies the symptom",
+              "keyIndicators": [
+                "self-focus"
+              ],
+              "commonMistake": "Increasing symptom monitoring"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Advising her to withdraw from school and all social activities until the detachment feelings have completely disappeared first",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Avoidance and withdrawal worsen the condition.",
+            "explanation": {
+              "approach": "Withdrawal",
+              "rationale": "Reinforces avoidance",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Prescribing withdrawal"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Recommending she consume large amounts of caffeine to feel more alert and forcefully snap herself back into full reality",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Caffeine can heighten anxiety and symptoms.",
+            "explanation": {
+              "approach": "Counterproductive",
+              "rationale": "May worsen anxiety",
+              "keyIndicators": [
+                "stimulant"
+              ],
+              "commonMistake": "Using caffeine as a fix"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "intake",
+        "question": "What should the counselor assess given the symptom onset?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Stressors, substance use, and any trauma history that may contribute",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Identifying precipitants and rule-outs guides care.",
+            "explanation": {
+              "approach": "Contextual assessment",
+              "rationale": "Identifies contributors and rule-outs",
+              "keyIndicators": [
+                "stressors",
+                "rule-out"
+              ],
+              "commonMistake": "Skipping the contextual assessment"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Whether her experiences are shared and validated by close friends, which would automatically prove the symptoms are not real",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Misunderstands the assessment goal.",
+            "explanation": {
+              "approach": "Misconception",
+              "rationale": "Faulty reasoning",
+              "keyIndicators": [
+                "misframe"
+              ],
+              "commonMistake": "Misapplying validation"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Whether she has any family history of exceptional creativity, which some assume can fully account for vivid unusual perceptions",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Irrelevant and unfounded.",
+            "explanation": {
+              "approach": "Irrelevant factor",
+              "rationale": "No diagnostic value",
+              "keyIndicators": [
+                "noise"
+              ],
+              "commonMistake": "Using a spurious factor"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Whether she prefers her current graduate program, which is unrelated to evaluating the cause of her dissociative symptoms",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Off-target for the assessment.",
+            "explanation": {
+              "approach": "Off-target value",
+              "rationale": "Not relevant",
+              "keyIndicators": [
+                "noise"
+              ],
+              "commonMistake": "Collecting irrelevant detail"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "counseling",
+        "question": "She asks whether these symptoms mean permanent damage. Best response?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Explain that the symptoms are distressing but treatable and not a sign of permanent damage",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Accurate, hopeful psychoeducation supports engagement.",
+            "explanation": {
+              "approach": "Accurate reassurance",
+              "rationale": "Hopeful and truthful",
+              "keyIndicators": [
+                "treatable",
+                "psychoeducation"
+              ],
+              "commonMistake": "Either alarming or falsely dismissing"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Tell her honestly that depersonalization symptoms of this kind are generally permanent and that she will need to learn to cope",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Inaccurate and demoralizing.",
+            "explanation": {
+              "approach": "Hopelessness",
+              "rationale": "Discourages treatment",
+              "keyIndicators": [
+                "nihilism"
+              ],
+              "commonMistake": "Telling her it is permanent"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Promise her firmly that the symptoms will completely vanish within just a few days once she begins any form of treatment",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Overpromises a rapid cure.",
+            "explanation": {
+              "approach": "Overpromise",
+              "rationale": "Sets up disappointment",
+              "keyIndicators": [
+                "false reassurance"
+              ],
+              "commonMistake": "Guaranteeing a fast cure"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Avoid answering her direct question and quickly change the topic so she does not dwell on her uncertainty about recovery",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Avoidance fails to address her concern.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Dodges the question",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Sidestepping a direct concern"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G094",
+    "title": "Always on the Edge of Abandonment",
+    "category": "Personality",
+    "difficulty": "easy",
+    "primaryDiagnosis": {
+      "name": "Borderline Personality Disorder",
+      "code": "F60.3"
+    },
+    "diagnosis": {
+      "name": "Borderline Personality Disorder",
+      "code": "F60.3"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Borderline Personality Disorder",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Bipolar II Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Histrionic Personality Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Major Depressive Disorder, Single Episode",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 24-year-old woman seeks help after a breakup, describing a long-standing pattern of intense, unstable relationships, frantic efforts to avoid abandonment, and rapid shifts between idealizing and devaluing others. She reports chronic emptiness, identity confusion, impulsive spending and risky behavior, and intense mood swings that last hours. She has a history of self-harm during emotional crises. The pattern has been present since adolescence across many relationships and settings, not just the recent breakup.",
+      "session1": "She endorses five or more borderline features: abandonment fears, unstable relationships, identity disturbance, impulsivity, recurrent self-harm, affective instability reactive to events, chronic emptiness, and intense anger. The mood shifts are brief and interpersonally triggered rather than sustained multi-day episodes. There is no history of distinct hypomanic episodes with decreased need for sleep, distinguishing this from a bipolar pattern.",
+      "session2": "The counselor validates her distress, establishes a clear and consistent frame, and introduces emotion-regulation and distress-tolerance skills. Self-harm is assessed and a safety plan is reviewed. The counselor models steady, nonreactive boundaries to avoid the idealization-devaluation cycle, and focuses on building skills rather than crisis-to-crisis reaction. Validation balanced with change strategies anchors the work."
+    },
+    "diagnosticRationale": "A pervasive pattern of unstable relationships, self-image, and affect with marked impulsivity beginning by early adulthood, including abandonment fears, identity disturbance, recurrent self-harm, affective instability, chronic emptiness, and intense anger, meets criteria for borderline personality disorder. The brief, reactive mood shifts distinguish it from the sustained episodes of bipolar II, and the enduring trait pattern distinguishes it from a single depressive episode.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "BPD: pervasive instability of relationships, self-image, affect, and marked impulsivity"
+      },
+      {
+        "id": "R2",
+        "source": "C-SSRS",
+        "detail": "Assessment of self-harm and suicide risk in personality-disordered clients"
+      },
+      {
+        "id": "R3",
+        "source": "Corey (Theory & Practice)",
+        "detail": "Consistent boundaries and validation balanced with change"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature distinguishes BPD from bipolar II disorder?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Her mood shifts are brief and triggered by interpersonal events, not sustained episodes",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "BPD affect is reactive and short; bipolar episodes last days.",
+            "explanation": {
+              "approach": "Affect pattern",
+              "rationale": "Reactive shifts vs episodes",
+              "keyIndicators": [
+                "reactive mood",
+                "brief"
+              ],
+              "commonMistake": "Confusing mood reactivity with bipolar"
+            }
+          },
+          {
+            "id": "b",
+            "text": "She has clearly experienced several distinct multi-day hypomanic episodes with a markedly decreased need for sleep recently",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "That points to bipolar II, which she denies.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "No hypomania",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Imposing bipolar features"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Her dramatic and attention-seeking emotional expression is the single most central and defining feature of her clinical picture",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That leans toward histrionic, missing the core instability.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Misses BPD core",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Confusing with histrionic PD"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Her presentation consists solely of a single discrete episode of low mood that began precisely at the time of the recent breakup",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Ignores the lifelong trait pattern.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Pattern is enduring",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Reducing traits to one episode"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "core",
+        "question": "She discloses recent self-harm. What is the priority?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Assess self-harm and suicide risk and review a safety plan",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Risk assessment and safety planning come first.",
+            "explanation": {
+              "approach": "Risk assessment",
+              "rationale": "Safety is the priority",
+              "keyIndicators": [
+                "risk",
+                "safety plan"
+              ],
+              "commonMistake": "Overlooking self-harm risk"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Interpret the self-harm primarily as a manipulative attempt to gain the counselor\u2019s attention and then move on quickly",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Stigmatizing and dismisses genuine risk.",
+            "explanation": {
+              "approach": "Stigmatizing",
+              "rationale": "Dismisses real risk",
+              "keyIndicators": [
+                "bias"
+              ],
+              "commonMistake": "Labeling self-harm as manipulation"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Avoid discussing the self-harm at all for now so that the client does not feel judged or pressured early in treatment",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Avoiding risk assessment is unsafe.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Skips safety work",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Ducking the risk topic"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Immediately arrange involuntary hospitalization based solely on the history of self-harm without any current risk assessment",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Premature without current assessment.",
+            "explanation": {
+              "approach": "Overreaction",
+              "rationale": "Skips assessment",
+              "keyIndicators": [
+                "overtriage"
+              ],
+              "commonMistake": "Escalating without assessing"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "counseling",
+        "question": "She idealizes the counselor in session. What is the best stance?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Maintain consistent, steady boundaries to avoid the idealization-devaluation cycle",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Stable boundaries prevent splitting dynamics.",
+            "explanation": {
+              "approach": "Consistent frame",
+              "rationale": "Steady boundaries reduce splitting",
+              "keyIndicators": [
+                "boundaries",
+                "consistency"
+              ],
+              "commonMistake": "Being inconsistent or over-gratifying"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Enthusiastically accept the idealization and offer her special exceptions and extra access to strengthen the budding alliance",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Special treatment feeds the cycle.",
+            "explanation": {
+              "approach": "Boundary loosening",
+              "rationale": "Fuels idealization",
+              "keyIndicators": [
+                "special treatment"
+              ],
+              "commonMistake": "Granting exceptions"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Coldly reject her positive feelings outright and tell her plainly that such admiration has no place at all in any therapy",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Harsh rejection ruptures the alliance.",
+            "explanation": {
+              "approach": "Harsh rejection",
+              "rationale": "Damages rapport",
+              "keyIndicators": [
+                "coldness"
+              ],
+              "commonMistake": "Rejecting her feelings"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Interpret the idealization to her at length as clear proof of a deep underlying narcissistic disturbance she must confront now",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Premature, mislabeling interpretation.",
+            "explanation": {
+              "approach": "Mislabeling",
+              "rationale": "Premature interpretation",
+              "keyIndicators": [
+                "misframe"
+              ],
+              "commonMistake": "Over-interpreting prematurely"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "treatment",
+        "question": "Which treatment focus is most appropriate?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Building emotion-regulation and distress-tolerance skills",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Skills-based work targets the core dysregulation.",
+            "explanation": {
+              "approach": "Skills training",
+              "rationale": "Targets dysregulation",
+              "keyIndicators": [
+                "emotion regulation",
+                "distress tolerance"
+              ],
+              "commonMistake": "Staying in crisis-to-crisis mode"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Reacting intensively to each successive crisis as it arises without ever building any longer-term coping skills in between them",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Crisis-only work neglects skill-building.",
+            "explanation": {
+              "approach": "Crisis-only mode",
+              "rationale": "No durable change",
+              "keyIndicators": [
+                "reactivity"
+              ],
+              "commonMistake": "Living crisis to crisis"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Focusing the entire treatment exclusively on analyzing her early childhood while ignoring her present coping and safety needs",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Neglects present skills and safety.",
+            "explanation": {
+              "approach": "Imbalanced focus",
+              "rationale": "Ignores the present",
+              "keyIndicators": [
+                "mis-emphasis"
+              ],
+              "commonMistake": "Overlooking current needs"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Discouraging her from ever expressing strong emotions in session so that the therapy can stay calm and orderly throughout",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Suppressing affect is countertherapeutic.",
+            "explanation": {
+              "approach": "Affect suppression",
+              "rationale": "Blocks the work",
+              "keyIndicators": [
+                "suppression"
+              ],
+              "commonMistake": "Forbidding emotion"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "counseling",
+        "question": "She becomes angry when a session must be rescheduled. Best response?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Validate her feelings while calmly holding the boundary about scheduling",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Validation plus a steady boundary models regulation.",
+            "explanation": {
+              "approach": "Validate and hold",
+              "rationale": "Empathy with consistency",
+              "keyIndicators": [
+                "validation",
+                "boundary"
+              ],
+              "commonMistake": "Either capitulating or reacting harshly"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Apologize profusely and immediately rearrange your entire schedule for her so that she does not become any more upset at all",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Capitulating reinforces dysregulation.",
+            "explanation": {
+              "approach": "Capitulation",
+              "rationale": "Rewards the reaction",
+              "keyIndicators": [
+                "boundary collapse"
+              ],
+              "commonMistake": "Caving to the anger"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Respond to her anger with matching frustration and point out firmly that she is being unreasonable and far too demanding now",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Reactivity escalates conflict.",
+            "explanation": {
+              "approach": "Counter-reactivity",
+              "rationale": "Escalates conflict",
+              "keyIndicators": [
+                "escalation"
+              ],
+              "commonMistake": "Matching the anger"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Stay completely silent and offer no response to her anger at all, hoping that she will eventually calm down by herself soon",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Withholding validation feels rejecting.",
+            "explanation": {
+              "approach": "Withholding",
+              "rationale": "Feels dismissive",
+              "keyIndicators": [
+                "passivity"
+              ],
+              "commonMistake": "Offering no validation"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G095",
+    "title": "Restless Minds in the Back Row",
+    "category": "Neurodevelopmental",
+    "difficulty": "medium",
+    "primaryDiagnosis": {
+      "name": "Attention-Deficit/Hyperactivity Disorder, Combined",
+      "code": "F90.2"
+    },
+    "diagnosis": {
+      "name": "Attention-Deficit/Hyperactivity Disorder, Combined",
+      "code": "F90.2"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Attention-Deficit/Hyperactivity Disorder, Combined",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Oppositional Defiant Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Specific Learning Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Generalized Anxiety Disorder",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 9-year-old boy is referred by his teacher for ongoing difficulties in school. He cannot stay seated, blurts out answers, loses materials, fails to finish work, and is easily distracted. His mother reports the same pattern at home: he forgets chores, cannot wait his turn, and is constantly on the go. Teachers note the behaviors have been present since early grades and across multiple settings. He is well-liked and not deliberately defiant, but his impulsivity and inattention cause real problems.",
+      "session1": "Collateral from home and school documents six or more symptoms of inattention and six or more of hyperactivity-impulsivity, present before age twelve, across two or more settings, causing clear impairment. The behaviors are not primarily a refusal to comply with authority, and reading and math skills are age-appropriate when he can attend. His difficulties are not better explained by pervasive worry, which his parents do not report.",
+      "session2": "The counselor coordinates with the school for classroom accommodations, supports behavioral parent training, and recommends a comprehensive evaluation including medical consultation. Psychoeducation about ADHD reframes the behaviors as a regulation difficulty rather than willful misbehavior. Structure, consistent routines, and positive reinforcement are emphasized, and the family is connected with resources."
+    },
+    "diagnosticRationale": "Six or more symptoms each of inattention and hyperactivity-impulsivity, with onset before age twelve, present in two or more settings and causing functional impairment, meet criteria for ADHD, combined presentation. The absence of a pervasive defiant, hostile pattern rules out oppositional defiant disorder, intact academic skills argue against a specific learning disorder, and the lack of pervasive worry distinguishes it from generalized anxiety.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "ADHD: six+ inattentive and hyperactive symptoms before age 12 in two+ settings"
+      },
+      {
+        "id": "R2",
+        "source": "NICE guidelines",
+        "detail": "Behavioral parent training and school support as part of ADHD management"
+      },
+      {
+        "id": "R3",
+        "source": "Hays (Assessment)",
+        "detail": "Multi-informant, cross-setting data in child assessment"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Why is gathering information from both home and school essential?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "ADHD requires symptoms across two or more settings to meet criteria",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Cross-setting impairment is a diagnostic requirement.",
+            "explanation": {
+              "approach": "Cross-setting data",
+              "rationale": "Confirms pervasiveness",
+              "keyIndicators": [
+                "two settings",
+                "multi-informant"
+              ],
+              "commonMistake": "Relying on a single source"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Information is gathered from multiple settings only so the counselor can decide which specific stimulant medication to start",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Counselors do not prescribe; wrong purpose.",
+            "explanation": {
+              "approach": "Scope confusion",
+              "rationale": "Not a prescribing decision",
+              "keyIndicators": [
+                "scope"
+              ],
+              "commonMistake": "Overstepping the role"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Multiple settings matter mainly so the counselor can determine which one of his two parents is the more reliable historian here",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Mischaracterizes the purpose entirely.",
+            "explanation": {
+              "approach": "Wrong purpose",
+              "rationale": "Not about ranking parents",
+              "keyIndicators": [
+                "misframe"
+              ],
+              "commonMistake": "Misstating the rationale"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Cross-setting data is collected primarily so the school can be persuaded to remove him from the classroom for good behavior",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Not the purpose and is punitive.",
+            "explanation": {
+              "approach": "Wrong aim",
+              "rationale": "Punitive misuse",
+              "keyIndicators": [
+                "misuse"
+              ],
+              "commonMistake": "Repurposing the data"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "intake",
+        "question": "Which feature distinguishes ADHD from oppositional defiant disorder?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "His difficulties stem from impulsivity and inattention, not deliberate defiance",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "ODD is defined by a defiant, hostile pattern; ADHD by regulation deficits.",
+            "explanation": {
+              "approach": "Behavior origin",
+              "rationale": "Dysregulation vs defiance",
+              "keyIndicators": [
+                "impulsivity",
+                "not defiant"
+              ],
+              "commonMistake": "Reading impulsivity as defiance"
+            }
+          },
+          {
+            "id": "b",
+            "text": "He shows a pervasive, persistent pattern of angry, argumentative, and vindictive behavior aimed squarely at all authority figures",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "That describes ODD, which he lacks.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "No defiant pattern",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Imposing ODD features"
+            }
+          },
+          {
+            "id": "c",
+            "text": "His core problem is a specific and marked difficulty with reading and mathematics that persists even when he is paying attention",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That suggests a learning disorder.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Skills are intact",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Confusing with SLD"
+            }
+          },
+          {
+            "id": "d",
+            "text": "His behaviors are driven mainly by constant and uncontrollable worry about many different areas of his daily school and home life",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That points to anxiety, not reported.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "No pervasive worry",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Importing anxiety features"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "counseling",
+        "question": "His mother feels he is just being bad. What is the best response?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Reframe the behaviors as a self-regulation difficulty rather than willful misbehavior",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Psychoeducation reduces blame and supports management.",
+            "explanation": {
+              "approach": "Reframing",
+              "rationale": "Shifts from blame to skills",
+              "keyIndicators": [
+                "psychoeducation",
+                "regulation"
+              ],
+              "commonMistake": "Confirming that he is simply being bad"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Agree firmly with the mother that he is indeed choosing to misbehave and recommend much stricter and harsher punishment at home",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Blaming framing worsens outcomes.",
+            "explanation": {
+              "approach": "Blame framing",
+              "rationale": "Increases conflict",
+              "keyIndicators": [
+                "blame"
+              ],
+              "commonMistake": "Endorsing harsh punishment"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Tell the mother that his behavior is entirely the direct result of her own inconsistent parenting choices over the past few years",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Parent-blaming is inaccurate and harmful.",
+            "explanation": {
+              "approach": "Parent blame",
+              "rationale": "Stigmatizing",
+              "keyIndicators": [
+                "blame"
+              ],
+              "commonMistake": "Blaming the parent"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Reassure the mother that he will almost certainly grow out of all of these behaviors completely on his own without any support",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "False reassurance delays needed help.",
+            "explanation": {
+              "approach": "False reassurance",
+              "rationale": "Delays intervention",
+              "keyIndicators": [
+                "minimization"
+              ],
+              "commonMistake": "Minimizing the need for support"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "treatment",
+        "question": "What is an appropriate evidence-based intervention focus?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Behavioral parent training and school accommodations with consistent structure",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Behavioral and educational supports are first-line for children.",
+            "explanation": {
+              "approach": "Behavioral support",
+              "rationale": "Structure and reinforcement",
+              "keyIndicators": [
+                "parent training",
+                "accommodations"
+              ],
+              "commonMistake": "Relying on punishment alone"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Long-term insight-oriented play therapy as the sole intervention, expecting it to fully resolve the attention and activity problems",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Insufficient as a standalone for ADHD.",
+            "explanation": {
+              "approach": "Insufficient modality",
+              "rationale": "Misses behavioral core",
+              "keyIndicators": [
+                "mismatch"
+              ],
+              "commonMistake": "Defaulting to insight work"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Removing him from the regular classroom permanently and placing him in isolation whenever he is unable to sit still and focus",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Punitive exclusion is harmful and inappropriate.",
+            "explanation": {
+              "approach": "Exclusion",
+              "rationale": "Harmful and punitive",
+              "keyIndicators": [
+                "exclusion"
+              ],
+              "commonMistake": "Isolating the child"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Advising the parents to eliminate all structure and routine at home so that he feels less pressured and constrained each day",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Removing structure worsens ADHD symptoms.",
+            "explanation": {
+              "approach": "Structure removal",
+              "rationale": "Worsens regulation",
+              "keyIndicators": [
+                "inconsistency"
+              ],
+              "commonMistake": "Stripping away routine"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "ethics",
+        "question": "The school asks the counselor to share the evaluation. What is appropriate?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Share relevant information with parental consent to support his education",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Consented coordination supports the child\u2019s needs.",
+            "explanation": {
+              "approach": "Consented sharing",
+              "rationale": "Coordinates school support",
+              "keyIndicators": [
+                "consent",
+                "coordination"
+              ],
+              "commonMistake": "Sharing without consent or refusing to coordinate"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Send the school the full clinical file including all family history and process notes without first obtaining parental consent at all",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Discloses without consent and beyond need.",
+            "explanation": {
+              "approach": "Unconsented disclosure",
+              "rationale": "Violates confidentiality",
+              "keyIndicators": [
+                "breach"
+              ],
+              "commonMistake": "Releasing records improperly"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Refuse any communication with the school whatsoever, insisting that all educational matters are completely outside the clinical role",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Coordination with consent is appropriate.",
+            "explanation": {
+              "approach": "Over-restriction",
+              "rationale": "Misapplies confidentiality",
+              "keyIndicators": [
+                "siloing"
+              ],
+              "commonMistake": "Refusing warranted coordination"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Discuss the case informally with a teacher at a community event so that the school can begin planning supports more quickly",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Improper, unconsented social disclosure.",
+            "explanation": {
+              "approach": "Social disclosure",
+              "rationale": "Improper channel",
+              "keyIndicators": [
+                "breach"
+              ],
+              "commonMistake": "Discussing cases socially"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G096",
+    "title": "Years of Gray With a Darker Week",
+    "category": "Depressive",
+    "difficulty": "hard",
+    "primaryDiagnosis": {
+      "name": "Persistent Depressive Disorder",
+      "code": "F34.1"
+    },
+    "diagnosis": {
+      "name": "Persistent Depressive Disorder",
+      "code": "F34.1"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Persistent Depressive Disorder",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Major Depressive Disorder, Single Episode",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Bipolar II Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Cyclothymic Disorder",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 38-year-old librarian describes feeling persistently low for as long as she can remember, certainly for more than two years without relief lasting more than a few weeks. She has low energy, poor self-esteem, difficulty concentrating, and a sense of hopelessness that has become part of who she is. Recently a layoff triggered a worse two-week stretch with additional symptoms. She has always functioned, but joylessly. She wonders whether feeling this way is simply her personality.",
+      "session1": "She reports depressed mood most of the day, more days than not, for over two years, with at least two associated symptoms and no symptom-free period exceeding two months. The recent intensification meets full episode criteria superimposed on the chronic baseline. She denies any history of hypomanic or manic episodes, and her low periods are not interspersed with the numerous hypomanic-like upswings that would suggest a cyclothymic pattern.",
+      "session2": "The counselor frames the chronic course with a recent superimposed episode, validating that long-standing low mood is treatable rather than fixed personality. They set realistic, paced goals, target hopelessness cognitions, and build behavioral activation. A medication consultation is discussed. The chronicity informs expectations for a longer treatment course and attention to demoralization."
+    },
+    "diagnosticRationale": "Depressed mood most of the day for more than two years with associated symptoms and no extended symptom-free interval meets criteria for persistent depressive disorder, with a recent superimposed major depressive episode. The chronic two-year course distinguishes it from a single depressive episode, the absence of any hypomania rules out bipolar II, and the lack of numerous hypomanic-like periods rules out cyclothymia.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "Persistent Depressive Disorder: depressed mood \u22652 years with no relief >2 months"
+      },
+      {
+        "id": "R2",
+        "source": "APA CPG",
+        "detail": "Cognitive therapy and behavioral activation for chronic depression"
+      },
+      {
+        "id": "R3",
+        "source": "C-SSRS",
+        "detail": "Ongoing suicide-risk monitoring in chronic depression"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature distinguishes this from a single major depressive episode?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Her depressed mood has persisted chronically for more than two years",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "PDD requires a two-year chronic course, unlike a discrete episode.",
+            "explanation": {
+              "approach": "Chronicity",
+              "rationale": "Two-year course is key",
+              "keyIndicators": [
+                "chronic",
+                "two years"
+              ],
+              "commonMistake": "Treating chronic depression as a single episode"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Her symptoms began suddenly only two weeks ago with no prior history of any low mood at any earlier point in her life",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Contradicts the chronic history she reports.",
+            "explanation": {
+              "approach": "Wrong course",
+              "rationale": "Ignores chronicity",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Erasing the chronic baseline"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Her low periods are regularly interrupted by distinct multi-day hypomanic episodes with elevated mood and reduced need for sleep",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That suggests bipolar II, which she denies.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "No hypomania",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Importing bipolar features"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Her mood alternates frequently between numerous brief hypomanic-like highs and mild depressive lows across the two-year span",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That describes cyclothymia, not her course.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "No cyclothymic pattern",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Confusing with cyclothymia"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "intake",
+        "question": "How should the recent two-week worsening be conceptualized?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "As a major depressive episode superimposed on her persistent depressive disorder",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Double depression captures the layered course.",
+            "explanation": {
+              "approach": "Double depression",
+              "rationale": "Episode on chronic baseline",
+              "keyIndicators": [
+                "superimposed",
+                "double depression"
+              ],
+              "commonMistake": "Missing the superimposed episode"
+            }
+          },
+          {
+            "id": "b",
+            "text": "As clear and definitive evidence that her actual underlying condition has always been bipolar disorder rather than depression",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "No manic or hypomanic history supports this.",
+            "explanation": {
+              "approach": "Wrong conclusion",
+              "rationale": "No bipolar evidence",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Inventing bipolarity"
+            }
+          },
+          {
+            "id": "c",
+            "text": "As an entirely ordinary and expected stress reaction to the layoff that requires no specific clinical attention or treatment now",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Minimizes a full superimposed episode.",
+            "explanation": {
+              "approach": "Minimization",
+              "rationale": "Overlooks the episode",
+              "keyIndicators": [
+                "minimization"
+              ],
+              "commonMistake": "Dismissing the worsening"
+            }
+          },
+          {
+            "id": "d",
+            "text": "As proof that her chronic low mood is simply her fixed personality and therefore cannot meaningfully respond to any treatment",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Inaccurate and demoralizing.",
+            "explanation": {
+              "approach": "Nihilism",
+              "rationale": "Discourages treatment",
+              "keyIndicators": [
+                "hopelessness"
+              ],
+              "commonMistake": "Framing it as untreatable"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "counseling",
+        "question": "She says feeling low is just who she is. What is the best response?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Validate her experience while explaining that chronic depression is treatable, not fixed identity",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Reframing chronicity counters demoralization.",
+            "explanation": {
+              "approach": "Hopeful reframe",
+              "rationale": "Separates illness from identity",
+              "keyIndicators": [
+                "validation",
+                "treatable"
+              ],
+              "commonMistake": "Agreeing it is unchangeable personality"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Agree with her conclusion that this is simply her permanent personality and that she should focus on accepting it fully instead",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Reinforces hopelessness.",
+            "explanation": {
+              "approach": "Confirming nihilism",
+              "rationale": "Removes hope",
+              "keyIndicators": [
+                "nihilism"
+              ],
+              "commonMistake": "Endorsing the hopeless belief"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Quickly insist that she will feel completely better within just a week or two once she starts thinking far more positively daily",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Overpromises and minimizes.",
+            "explanation": {
+              "approach": "Overpromise",
+              "rationale": "Unrealistic and dismissive",
+              "keyIndicators": [
+                "false reassurance"
+              ],
+              "commonMistake": "Guaranteeing a fast fix"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Change the subject away from her self-view and instead focus only on practical scheduling and logistical matters for the session",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Avoids an important therapeutic moment.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Misses the opening",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Sidestepping the belief"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "treatment",
+        "question": "What does the chronicity imply for treatment planning?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "A longer treatment course with paced goals and attention to demoralization",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Chronic depression needs realistic, sustained planning.",
+            "explanation": {
+              "approach": "Paced planning",
+              "rationale": "Matches the chronic course",
+              "keyIndicators": [
+                "longer course",
+                "demoralization"
+              ],
+              "commonMistake": "Expecting a quick resolution"
+            }
+          },
+          {
+            "id": "b",
+            "text": "That a single brief intervention of just two or three sessions should be entirely sufficient to fully resolve years of symptoms",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Unrealistic for chronic depression.",
+            "explanation": {
+              "approach": "Underdosing",
+              "rationale": "Too brief for chronicity",
+              "keyIndicators": [
+                "undertreatment"
+              ],
+              "commonMistake": "Underestimating the course"
+            }
+          },
+          {
+            "id": "c",
+            "text": "That treatment is essentially pointless and should be discontinued because chronic depression rarely improves with any therapy at all",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Inaccurate and nihilistic.",
+            "explanation": {
+              "approach": "Nihilism",
+              "rationale": "Discourages care",
+              "keyIndicators": [
+                "hopelessness"
+              ],
+              "commonMistake": "Abandoning treatment"
+            }
+          },
+          {
+            "id": "d",
+            "text": "That she should set extremely ambitious goals immediately and push herself hard to overcome everything within the first few weeks",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Overambitious pacing risks failure and demoralization.",
+            "explanation": {
+              "approach": "Overpacing",
+              "rationale": "Sets up failure",
+              "keyIndicators": [
+                "unrealistic goals"
+              ],
+              "commonMistake": "Ignoring realistic pacing"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "core",
+        "question": "Given chronic hopelessness, what should be monitored throughout treatment?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Ongoing suicide risk, since chronic hopelessness elevates long-term risk",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Persistent hopelessness warrants continued risk monitoring.",
+            "explanation": {
+              "approach": "Risk monitoring",
+              "rationale": "Chronic hopelessness raises risk",
+              "keyIndicators": [
+                "risk",
+                "hopelessness"
+              ],
+              "commonMistake": "Assuming chronic clients are low risk"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Only her overall medication adherence, since once she takes medication consistently no further safety monitoring is ever required",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Adherence does not replace risk monitoring.",
+            "explanation": {
+              "approach": "Narrow focus",
+              "rationale": "Neglects risk",
+              "keyIndicators": [
+                "mis-emphasis"
+              ],
+              "commonMistake": "Equating adherence with safety"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Mainly her punctuality and attendance at sessions, which are the clearest and most reliable indicators of her true clinical progress",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Attendance is not a risk measure.",
+            "explanation": {
+              "approach": "Wrong metric",
+              "rationale": "Not a safety indicator",
+              "keyIndicators": [
+                "misframe"
+              ],
+              "commonMistake": "Tracking the wrong variable"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Primarily whether she keeps her living space tidy and organized, which some assume directly reflects her underlying mood state",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Not a valid risk indicator.",
+            "explanation": {
+              "approach": "Spurious metric",
+              "rationale": "No risk validity",
+              "keyIndicators": [
+                "noise"
+              ],
+              "commonMistake": "Using an unrelated proxy"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G097",
+    "title": "The Worry That Never Rests",
+    "category": "Anxiety",
+    "difficulty": "medium",
+    "primaryDiagnosis": {
+      "name": "Generalized Anxiety Disorder",
+      "code": "F41.1"
+    },
+    "diagnosis": {
+      "name": "Generalized Anxiety Disorder",
+      "code": "F41.1"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Generalized Anxiety Disorder",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Panic Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Social Anxiety Disorder",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Major Depressive Disorder, Single Episode",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 44-year-old project manager describes excessive worry about work deadlines, her children\u2019s safety, finances, and health, occurring more days than not for over six months. She finds the worry difficult to control, feels restless and keyed up, tires easily, has trouble concentrating, is irritable, and sleeps poorly. The worry jumps from topic to topic and is out of proportion to actual circumstances. She has no discrete panic attacks and her anxiety is not limited to social situations.",
+      "session1": "She endorses chronic, uncontrollable worry across multiple domains with three or more associated symptoms for more than six months and clear impairment. The anxiety is not focused on having a panic attack, not confined to fear of social evaluation, and not better accounted for by low mood, which she does not primarily report. Her difficulty controlling the worry and the breadth of topics are central features.",
+      "session2": "The counselor introduces cognitive restructuring of catastrophic predictions, worry-postponement strategies, and relaxation training. They examine intolerance of uncertainty as a maintaining factor and practice tolerating not-knowing. Behavioral experiments test feared outcomes. Her worry becomes less all-consuming as she builds skills and reduces reassurance-seeking and avoidance."
+    },
+    "diagnosticRationale": "Excessive, difficult-to-control worry across multiple domains occurring more days than not for at least six months, with at least three associated symptoms and significant impairment, meets criteria for generalized anxiety disorder. The diffuse multi-domain worry distinguishes it from the panic-focused fear of panic disorder, the non-social breadth distinguishes it from social anxiety, and the predominance of worry over low mood distinguishes it from depression.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "DSM-5-TR",
+        "detail": "GAD: excessive uncontrollable worry \u22656 months with three+ associated symptoms"
+      },
+      {
+        "id": "R2",
+        "source": "APA CPG",
+        "detail": "Cognitive behavioral therapy as first-line for generalized anxiety"
+      },
+      {
+        "id": "R3",
+        "source": "Barlow PCT",
+        "detail": "Addressing intolerance of uncertainty and worry behaviors"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "intake",
+        "question": "Which feature distinguishes GAD from panic disorder?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Her anxiety is diffuse worry across domains, not fear of discrete panic attacks",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "GAD is broad worry; panic disorder centers on attacks.",
+            "explanation": {
+              "approach": "Worry breadth",
+              "rationale": "Diffuse vs panic-focused",
+              "keyIndicators": [
+                "multi-domain worry",
+                "no attacks"
+              ],
+              "commonMistake": "Conflating worry with panic"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Her anxiety consists almost entirely of sudden recurrent surges of intense fear that peak within minutes and feel catastrophic",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "That describes panic disorder, which she denies.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "No panic attacks",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Imposing panic features"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Her worry is narrowly confined only to situations where she might be judged or negatively evaluated by other people watching",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That describes social anxiety.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Not social-only",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Confusing with social anxiety"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Her main presentation is pervasive low mood and loss of interest, with worry being only a very minor and secondary background concern",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "That suggests depression, not primary here.",
+            "explanation": {
+              "approach": "Wrong differential",
+              "rationale": "Worry is primary",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Reducing GAD to depression"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "treatment",
+        "question": "What is the recommended first-line treatment?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Cognitive behavioral therapy targeting worry and avoidance",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "CBT is first-line for GAD.",
+            "explanation": {
+              "approach": "CBT therapy",
+              "rationale": "Evidence-based for GAD",
+              "keyIndicators": [
+                "CBT",
+                "first-line"
+              ],
+              "commonMistake": "Defaulting to medication or avoidance"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Long-term daily benzodiazepine use as the central and primary treatment intended to keep her anxiety fully suppressed at all times",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Not first-line and risks dependence.",
+            "explanation": {
+              "approach": "Medication-first",
+              "rationale": "Dependence risk",
+              "keyIndicators": [
+                "over-medicating"
+              ],
+              "commonMistake": "Leading with benzodiazepines"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Advising her to avoid all of the situations and topics that tend to trigger her worry so she experiences far less anxiety overall",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Avoidance maintains anxiety.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Reinforces the disorder",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Promoting avoidance"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Providing repeated detailed reassurance about each specific worry so that she feels completely calmed and settled after every session",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Reassurance reinforces the worry cycle.",
+            "explanation": {
+              "approach": "Reassurance",
+              "rationale": "Feeds the cycle",
+              "keyIndicators": [
+                "reassurance"
+              ],
+              "commonMistake": "Over-reassuring"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "counseling",
+        "question": "She seeks constant reassurance that her fears will not come true. Best response?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Help her tolerate uncertainty rather than providing repeated reassurance",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Targeting intolerance of uncertainty is key in GAD.",
+            "explanation": {
+              "approach": "Uncertainty tolerance",
+              "rationale": "Reduces reassurance dependence",
+              "keyIndicators": [
+                "uncertainty",
+                "non-reinforcement"
+              ],
+              "commonMistake": "Supplying endless reassurance"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Offer her thorough, detailed, and definitive reassurance about every single worry she raises so that her anxiety is fully relieved",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Reinforces reassurance-seeking.",
+            "explanation": {
+              "approach": "Over-reassurance",
+              "rationale": "Maintains the cycle",
+              "keyIndicators": [
+                "reassurance"
+              ],
+              "commonMistake": "Feeding the reassurance loop"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Tell her firmly that her worries are completely irrational and that she should simply decide to stop thinking about them at all",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Dismissive and unhelpful.",
+            "explanation": {
+              "approach": "Dismissal",
+              "rationale": "Invalidates and suppresses",
+              "keyIndicators": [
+                "dismissal"
+              ],
+              "commonMistake": "Telling her to just stop"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Encourage her to research each of her feared outcomes online in great detail until she feels she has gathered enough information",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Information-seeking becomes a worry behavior.",
+            "explanation": {
+              "approach": "Checking",
+              "rationale": "Reinforces worry behavior",
+              "keyIndicators": [
+                "checking"
+              ],
+              "commonMistake": "Promoting reassurance research"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "treatment",
+        "question": "Which technique directly targets a key maintaining factor?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Worry-postponement and behavioral experiments testing feared predictions",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "These reduce worry time and disconfirm catastrophic beliefs.",
+            "explanation": {
+              "approach": "Worry skills",
+              "rationale": "Limits and tests worry",
+              "keyIndicators": [
+                "postponement",
+                "experiments"
+              ],
+              "commonMistake": "Leaving worry processes untouched"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Encouraging her to set aside several long unstructured hours each day specifically devoted to thinking through every possible worry",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Expanding worry time worsens GAD.",
+            "explanation": {
+              "approach": "Worry expansion",
+              "rationale": "Amplifies rumination",
+              "keyIndicators": [
+                "rumination"
+              ],
+              "commonMistake": "Increasing worry time"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Recommending she keep a detailed written list of every catastrophe that could possibly happen so she always feels fully prepared",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Reinforces catastrophizing.",
+            "explanation": {
+              "approach": "Catastrophizing",
+              "rationale": "Feeds the worry",
+              "keyIndicators": [
+                "catastrophizing"
+              ],
+              "commonMistake": "Cataloguing disasters"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Advising her to seek frequent reassurance from her family members whenever a new worry arises so she can feel calmer right away",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Reassurance-seeking maintains the cycle.",
+            "explanation": {
+              "approach": "Reassurance-seeking",
+              "rationale": "Maintains anxiety",
+              "keyIndicators": [
+                "reassurance"
+              ],
+              "commonMistake": "Outsourcing reassurance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "intake",
+        "question": "She reports poor sleep and irritability. How should these be understood?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "As associated symptoms of GAD rather than a separate primary disorder",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "These are part of the GAD symptom cluster.",
+            "explanation": {
+              "approach": "Symptom cluster",
+              "rationale": "Part of GAD criteria",
+              "keyIndicators": [
+                "associated symptoms",
+                "GAD"
+              ],
+              "commonMistake": "Treating each symptom as a new disorder"
+            }
+          },
+          {
+            "id": "b",
+            "text": "As definitive proof that she has a primary independent sleep disorder that must be diagnosed and treated entirely on its own first",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "They are part of GAD here, not a separate disorder.",
+            "explanation": {
+              "approach": "Over-splitting",
+              "rationale": "Misattributes the cluster",
+              "keyIndicators": [
+                "fragmenting"
+              ],
+              "commonMistake": "Splitting off normal GAD features"
+            }
+          },
+          {
+            "id": "c",
+            "text": "As clear and unmistakable evidence that the correct underlying diagnosis is actually bipolar disorder rather than an anxiety condition",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "No mood-elevation history supports this.",
+            "explanation": {
+              "approach": "Wrong conclusion",
+              "rationale": "No bipolar evidence",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Inventing bipolarity"
+            }
+          },
+          {
+            "id": "d",
+            "text": "As entirely unrelated background complaints that have nothing to do with her anxiety and can therefore be safely ignored for now",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "They are core associated features, not irrelevant.",
+            "explanation": {
+              "approach": "Dismissal",
+              "rationale": "Ignores criteria",
+              "keyIndicators": [
+                "minimization"
+              ],
+              "commonMistake": "Overlooking associated symptoms"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G098",
+    "title": "A Note Left on the Kitchen Table",
+    "category": "Crisis",
+    "difficulty": "easy",
+    "primaryDiagnosis": {
+      "name": "Suicidal Behavior / Acute Risk",
+      "code": "R45.851"
+    },
+    "diagnosis": {
+      "name": "Suicidal Behavior / Acute Risk",
+      "code": "R45.851"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Suicidal Behavior / Acute Risk",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Nonsuicidal Self-Injury",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Major Depressive Disorder, Single Episode",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Adjustment Disorder, with Depressed Mood",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 19-year-old college student is brought to the counseling center by a roommate who found a note suggesting she did not want to live. She has been overwhelmed by academic pressure and a recent romantic loss. She acknowledges thoughts of suicide over the past week, says she has considered taking pills, and admits she has been stockpiling them. She is tearful and ambivalent, saying part of her wants the pain to stop and part of her is scared.",
+      "session1": "On assessment she reports active suicidal ideation with a method in mind and some preparatory behavior, but expresses ambivalence and willingness to engage. She denies a history of non-suicidal self-injury done for tension relief without suicidal intent, clarifying that her recent thoughts and actions are aimed at ending her life. She has supportive roommates and a close relationship with her sister, who lives nearby.",
+      "session2": "Using a collaborative approach, the counselor completes a safety plan, arranges for the pills to be removed and secured, identifies reasons for living and coping strategies, and connects her with crisis resources and a follow-up appointment. Her sister is engaged with consent. The counselor balances empathy with a clear focus on safety and an appropriate level of care."
+    },
+    "diagnosticRationale": "Active suicidal ideation with a chosen method and preparatory behavior such as stockpiling pills constitutes acute suicide risk requiring immediate safety intervention. This is distinguished from non-suicidal self-injury, which lacks suicidal intent, and is the priority concern regardless of any co-occurring depressive or adjustment symptoms, which do not capture the imminent safety issue driving the clinical response.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "C-SSRS",
+        "detail": "Assessing ideation, intent, plan, and preparatory behavior for risk stratification"
+      },
+      {
+        "id": "R2",
+        "source": "Stanley-Brown SPI",
+        "detail": "Collaborative safety planning and means restriction"
+      },
+      {
+        "id": "R3",
+        "source": "ACA Code of Ethics",
+        "detail": "B.2.a disclosure to protect from serious and foreseeable harm"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "core",
+        "question": "What is the first assessment priority?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Directly assess her ideation, intent, plan, and preparatory behavior",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Risk stratification comes first.",
+            "explanation": {
+              "approach": "Risk assessment",
+              "rationale": "Establishes acuity",
+              "keyIndicators": [
+                "ideation",
+                "plan"
+              ],
+              "commonMistake": "Avoiding direct suicide questions"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Begin a detailed exploration of her early family history and attachment patterns before raising any of the suicide-related concerns",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Delays urgent safety assessment.",
+            "explanation": {
+              "approach": "Misprioritization",
+              "rationale": "Defers safety",
+              "keyIndicators": [
+                "delay"
+              ],
+              "commonMistake": "Pursuing history over safety"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Focus first on practical academic accommodations and study strategies to relieve the school pressure that triggered her distress",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Does not address imminent risk.",
+            "explanation": {
+              "approach": "Wrong focus",
+              "rationale": "Skips risk",
+              "keyIndicators": [
+                "mis-sequence"
+              ],
+              "commonMistake": "Problem-solving before safety"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Reassure her that the romantic breakup will hurt less with time and schedule a routine follow-up appointment for next week instead",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Dangerously minimizes acute risk.",
+            "explanation": {
+              "approach": "Undertriage",
+              "rationale": "Misses the emergency",
+              "keyIndicators": [
+                "minimization"
+              ],
+              "commonMistake": "Routinizing a crisis"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "core",
+        "question": "She has stockpiled pills. What is the priority intervention?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Arrange for the pills to be removed and secured to restrict means",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Means restriction is central to safety.",
+            "explanation": {
+              "approach": "Means restriction",
+              "rationale": "Reduces lethal access",
+              "keyIndicators": [
+                "means restriction"
+              ],
+              "commonMistake": "Ignoring access to means"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Accept her verbal promise that she will not take the pills tonight and proceed without arranging for them to be removed at all",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Promises are not protective.",
+            "explanation": {
+              "approach": "Reliance on promise",
+              "rationale": "Not protective",
+              "keyIndicators": [
+                "false reassurance"
+              ],
+              "commonMistake": "Trusting a promise over action"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Tell her she should simply move the stockpiled pills to a different and less visible location somewhere else in her dorm room",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Keeps the means accessible.",
+            "explanation": {
+              "approach": "Weak restriction",
+              "rationale": "Means still accessible",
+              "keyIndicators": [
+                "weak barrier"
+              ],
+              "commonMistake": "Token means restriction"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Wait to address the pills until after several sessions of building rapport so she does not feel pressured or controlled too soon",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Delays urgent means restriction.",
+            "explanation": {
+              "approach": "Delaying",
+              "rationale": "Unsafe deferral",
+              "keyIndicators": [
+                "delay"
+              ],
+              "commonMistake": "Postponing means restriction"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "core",
+        "question": "What collaborative tool best supports her safety?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "A safety plan identifying warning signs, coping strategies, and crisis contacts",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Safety planning is evidence-based for acute risk.",
+            "explanation": {
+              "approach": "Safety planning",
+              "rationale": "Structured coping and contacts",
+              "keyIndicators": [
+                "safety plan",
+                "crisis contacts"
+              ],
+              "commonMistake": "Relying on a no-suicide contract"
+            }
+          },
+          {
+            "id": "b",
+            "text": "A signed no-suicide contract in which she formally promises in writing never to attempt suicide under any circumstances at all",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "No-suicide contracts are not effective.",
+            "explanation": {
+              "approach": "No-suicide contract",
+              "rationale": "Not evidence-based",
+              "keyIndicators": [
+                "ineffective tool"
+              ],
+              "commonMistake": "Using a contract for safety"
+            }
+          },
+          {
+            "id": "c",
+            "text": "A detailed long-term academic plan mapping out all of her coursework for the next two years to relieve her future school stress",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Does not address immediate safety.",
+            "explanation": {
+              "approach": "Wrong tool",
+              "rationale": "Not a safety tool",
+              "keyIndicators": [
+                "mis-tool"
+              ],
+              "commonMistake": "Substituting planning for safety"
+            }
+          },
+          {
+            "id": "d",
+            "text": "A daily mood-tracking journal that she will complete privately and bring to review at her next scheduled session in a few weeks",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Too slow for acute risk.",
+            "explanation": {
+              "approach": "Insufficient",
+              "rationale": "Not immediate",
+              "keyIndicators": [
+                "mis-timing"
+              ],
+              "commonMistake": "Using a slow tool in a crisis"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "ethics",
+        "question": "Her sister lives nearby. How should the counselor involve her?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Engage the sister with consent to support safety and means restriction",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Consented support strengthens the safety net.",
+            "explanation": {
+              "approach": "Consented support",
+              "rationale": "Mobilizes support safely",
+              "keyIndicators": [
+                "consent",
+                "support"
+              ],
+              "commonMistake": "Either ignoring supports or disclosing without consent"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Refuse any contact with the sister at all, citing strict confidentiality, even though doing so leaves the client without any support",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Over-restricts during a safety concern.",
+            "explanation": {
+              "approach": "Over-restriction",
+              "rationale": "Misapplies confidentiality",
+              "keyIndicators": [
+                "siloing"
+              ],
+              "commonMistake": "Blocking helpful support"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Contact the sister immediately and disclose the client\u2019s entire detailed clinical and romantic history without seeking any consent first",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Discloses far beyond what is necessary.",
+            "explanation": {
+              "approach": "Over-disclosure",
+              "rationale": "Exceeds minimum necessary",
+              "keyIndicators": [
+                "over-sharing"
+              ],
+              "commonMistake": "Disclosing too much"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Tell the client she must handle the situation entirely on her own and discourage her from involving any family members at all for now",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Isolates the client from protective support.",
+            "explanation": {
+              "approach": "Isolation",
+              "rationale": "Removes support",
+              "keyIndicators": [
+                "isolation"
+              ],
+              "commonMistake": "Discouraging support"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "intake",
+        "question": "Which finding distinguishes her risk from non-suicidal self-injury?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Her thoughts and actions are aimed at ending her life, not relieving tension",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Suicidal intent distinguishes acute risk from NSSI.",
+            "explanation": {
+              "approach": "Intent distinction",
+              "rationale": "Intent to die vs tension relief",
+              "keyIndicators": [
+                "suicidal intent",
+                "not NSSI"
+              ],
+              "commonMistake": "Confusing suicidal intent with self-injury"
+            }
+          },
+          {
+            "id": "b",
+            "text": "She reports a long pattern of cutting herself specifically to relieve emotional tension and without any intention of ending her life",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "That describes NSSI, which she denies.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "Not NSSI here",
+              "keyIndicators": [
+                "misattribution"
+              ],
+              "commonMistake": "Mislabeling as NSSI"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Her distress is best understood as a perfectly ordinary and proportionate short-term reaction to a common everyday life stressor",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Minimizes active suicidal risk.",
+            "explanation": {
+              "approach": "Minimization",
+              "rationale": "Underestimates risk",
+              "keyIndicators": [
+                "minimization"
+              ],
+              "commonMistake": "Downplaying the danger"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Her presentation is limited only to persistent low mood and anhedonia without any thoughts at all about death, dying, or suicide",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Contradicts her reported ideation.",
+            "explanation": {
+              "approach": "Wrong profile",
+              "rationale": "Ideation is present",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Erasing the ideation"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ncmhce-G099",
+    "title": "When a Teen Discloses Danger at Home",
+    "category": "Ethics",
+    "difficulty": "medium",
+    "primaryDiagnosis": {
+      "name": "Mandated Reporting Decision",
+      "code": "Z65.8"
+    },
+    "diagnosis": {
+      "name": "Mandated Reporting Decision",
+      "code": "Z65.8"
+    },
+    "differentialOptions": [
+      {
+        "id": "d1",
+        "name": "Mandated Reporting Decision",
+        "isCorrect": true
+      },
+      {
+        "id": "d2",
+        "name": "Confidentiality / Duty-to-Warn Dilemma",
+        "isCorrect": false
+      },
+      {
+        "id": "d3",
+        "name": "Boundary / Dual-Relationship Dilemma",
+        "isCorrect": false
+      },
+      {
+        "id": "d4",
+        "name": "Informed Consent / Competence Dilemma",
+        "isCorrect": false
+      }
+    ],
+    "narrative": {
+      "intake": "A 14-year-old client in ongoing therapy for anxiety discloses, midway through a session, that her stepfather has been hitting her, leaving bruises, and that she is afraid to go home. She asks the counselor not to tell anyone because she fears it will make things worse. The counselor has a strong therapeutic alliance with the teen and recognizes both the legal obligation and the relational stakes of how this disclosure is handled.",
+      "session1": "The disclosure describes suspected physical abuse of a minor, which triggers a mandated-reporting obligation regardless of the client\u2019s request for secrecy. The situation is not primarily a duty-to-warn matter about a threat to an identifiable third party, not a dual-relationship boundary issue, and not a question about the client\u2019s capacity to consent to treatment. The reporting duty is the central ethical and legal requirement.",
+      "session2": "The counselor responds with empathy, explains the limits of confidentiality in an age-appropriate way, and frames the report as a step to keep her safe rather than a betrayal. The counselor follows mandated-reporting law, makes the required report, documents the process, and continues to support the teen, attending to safety and the therapeutic relationship throughout."
+    },
+    "diagnosticRationale": "Disclosure of suspected physical abuse of a minor invokes a mandated-reporting obligation that overrides the routine confidentiality the client requests. This is distinct from a duty-to-warn scenario involving a threat to a third party, a multiple-relationship boundary dilemma, and a competence-and-consent question. The required action is to make the report per state law while maintaining the therapeutic relationship.",
+    "references": [
+      {
+        "id": "R1",
+        "source": "State law",
+        "detail": "Mandated reporting of suspected child abuse by licensed counselors"
+      },
+      {
+        "id": "R2",
+        "source": "ACA Code of Ethics",
+        "detail": "B.2.a confidentiality limits when disclosure is required to protect a minor"
+      },
+      {
+        "id": "R3",
+        "source": "Wiger (Documentation)",
+        "detail": "Documenting the disclosure, the report, and follow-up actions"
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "ethics",
+        "question": "How should the counselor frame this situation?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "As a mandated report of suspected child abuse required regardless of the request for secrecy",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Suspected abuse of a minor triggers mandatory reporting.",
+            "explanation": {
+              "approach": "Reporting frame",
+              "rationale": "Abuse disclosure mandates a report",
+              "keyIndicators": [
+                "mandated report",
+                "minor"
+              ],
+              "commonMistake": "Treating confidentiality as overriding"
+            }
+          },
+          {
+            "id": "b",
+            "text": "As a duty-to-warn situation that requires the counselor to notify a specific identifiable third party about an imminent violent threat",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "No third-party threat; this is abuse reporting.",
+            "explanation": {
+              "approach": "Wrong category",
+              "rationale": "Not duty-to-warn",
+              "keyIndicators": [
+                "miscategorization"
+              ],
+              "commonMistake": "Misapplying the wrong duty"
+            }
+          },
+          {
+            "id": "c",
+            "text": "As a boundary and multiple-relationship dilemma that primarily concerns the counselor\u2019s overlapping roles with the client and family",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "No dual relationship is present.",
+            "explanation": {
+              "approach": "Wrong category",
+              "rationale": "Not a boundary issue",
+              "keyIndicators": [
+                "misframing"
+              ],
+              "commonMistake": "Misreading the dilemma"
+            }
+          },
+          {
+            "id": "d",
+            "text": "As a question about the minor client\u2019s legal capacity and competence to provide her own fully informed consent to the treatment",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Capacity is not the issue here.",
+            "explanation": {
+              "approach": "Wrong category",
+              "rationale": "Capacity not at issue",
+              "keyIndicators": [
+                "misdirection"
+              ],
+              "commonMistake": "Mislabeling the situation"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "domain": "ethics",
+        "question": "The teen asks the counselor to keep it secret. What is the appropriate response?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Empathically explain the limits of confidentiality and the duty to report for her safety",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Honest, age-appropriate explanation respects the client and the law.",
+            "explanation": {
+              "approach": "Transparent limits",
+              "rationale": "Honors duty and alliance",
+              "keyIndicators": [
+                "confidentiality limits",
+                "transparency"
+              ],
+              "commonMistake": "Promising secrecy that cannot be kept"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Promise her firmly that you will keep the disclosure completely secret so that she continues to feel safe enough to keep talking",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Cannot promise to withhold a mandated report.",
+            "explanation": {
+              "approach": "False promise",
+              "rationale": "Violates the duty",
+              "keyIndicators": [
+                "overpromise"
+              ],
+              "commonMistake": "Guaranteeing impossible secrecy"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Tell her bluntly that you are legally required to report and then immediately end the session without any further support or explanation",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Abrupt and unsupportive handling.",
+            "explanation": {
+              "approach": "Cold handling",
+              "rationale": "Neglects the alliance",
+              "keyIndicators": [
+                "abruptness"
+              ],
+              "commonMistake": "Reporting without support"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Avoid giving her any answer at all about confidentiality and quickly steer the conversation back to her original anxiety symptoms",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Evades a necessary conversation.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Dodges the duty",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Sidestepping the disclosure"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "domain": "ethics",
+        "question": "What is the counselor obligated to do regarding the report?",
+        "evidenceRef": [
+          "R1"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Make the required report to the appropriate authorities per state law",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Mandated reporters must file the report.",
+            "explanation": {
+              "approach": "Mandatory report",
+              "rationale": "Legal obligation to file",
+              "keyIndicators": [
+                "mandated reporter",
+                "report"
+              ],
+              "commonMistake": "Deciding not to report"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Wait to file any report until the counselor has personally gathered enough independent proof to fully confirm that the abuse occurred",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Reporting is based on reasonable suspicion, not proof.",
+            "explanation": {
+              "approach": "Proof error",
+              "rationale": "Suspicion is the standard",
+              "keyIndicators": [
+                "misstandard"
+              ],
+              "commonMistake": "Requiring proof before reporting"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Leave the decision about whether to report entirely up to the teenage client, since she is the one most directly affected by it",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "The duty is the counselor\u2019s, not the client\u2019s.",
+            "explanation": {
+              "approach": "Misplaced duty",
+              "rationale": "Counselor must report",
+              "keyIndicators": [
+                "abdication"
+              ],
+              "commonMistake": "Deferring the duty to the client"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Report the matter only if the client\u2019s mother independently confirms the abuse first, otherwise treating it as an unverified claim",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Conditioning the report on confirmation is improper.",
+            "explanation": {
+              "approach": "Conditional report",
+              "rationale": "Improper precondition",
+              "keyIndicators": [
+                "gatekeeping"
+              ],
+              "commonMistake": "Adding conditions to the duty"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q4",
+        "domain": "core",
+        "question": "How can the counselor preserve the therapeutic relationship through this?",
+        "evidenceRef": [
+          "R2"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Frame the report as a step toward safety and continue to support her afterward",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Maintaining support sustains the alliance.",
+            "explanation": {
+              "approach": "Supportive framing",
+              "rationale": "Safety, not betrayal",
+              "keyIndicators": [
+                "safety framing",
+                "continued support"
+              ],
+              "commonMistake": "Treating the report as the end of the relationship"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Distance yourself from the client after filing the report so that she does not come to associate you with the upsetting outcome at all",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Withdrawing abandons her when she needs support.",
+            "explanation": {
+              "approach": "Withdrawal",
+              "rationale": "Abandons the client",
+              "keyIndicators": [
+                "abandonment"
+              ],
+              "commonMistake": "Pulling away after reporting"
+            }
+          },
+          {
+            "id": "c",
+            "text": "Tell her plainly that the therapeutic relationship simply cannot continue any further now that you have been required to report the abuse",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Unnecessarily terminates needed care.",
+            "explanation": {
+              "approach": "Termination",
+              "rationale": "Drops needed care",
+              "keyIndicators": [
+                "termination"
+              ],
+              "commonMistake": "Ending therapy prematurely"
+            }
+          },
+          {
+            "id": "d",
+            "text": "Avoid mentioning the report ever again in future sessions and act as though the disclosure and report had never actually happened",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Avoidance undermines trust.",
+            "explanation": {
+              "approach": "Avoidance",
+              "rationale": "Erodes honesty",
+              "keyIndicators": [
+                "avoidance"
+              ],
+              "commonMistake": "Pretending it did not occur"
+            }
+          }
+        ]
+      },
+      {
+        "id": "q5",
+        "domain": "core",
+        "question": "What should documentation include?",
+        "evidenceRef": [
+          "R3"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "The disclosure, the report made, and the follow-up safety actions taken",
+            "isCorrect": true,
+            "weight": 3,
+            "rationale": "Thorough documentation records the process and rationale.",
+            "explanation": {
+              "approach": "Process documentation",
+              "rationale": "Records disclosure and report",
+              "keyIndicators": [
+                "documentation",
+                "report record"
+              ],
+              "commonMistake": "Failing to document the report"
+            }
+          },
+          {
+            "id": "b",
+            "text": "Only a vague single line noting that the session went well and that the client appeared somewhat more anxious than usual that day",
+            "isCorrect": false,
+            "weight": -2,
+            "rationale": "Omits the required reporting detail.",
+            "explanation": {
+              "approach": "Insufficient note",
+              "rationale": "Fails the standard",
+              "keyIndicators": [
+                "under-documentation"
+              ],
+              "commonMistake": "Minimal charting"
+            }
+          },
+          {
+            "id": "c",
+            "text": "A lengthy personal opinion piece speculating at length about whether the stepfather is truly guilty of the abuse the client described",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Speculative and inappropriate content.",
+            "explanation": {
+              "approach": "Speculation",
+              "rationale": "Improper content",
+              "keyIndicators": [
+                "editorializing"
+              ],
+              "commonMistake": "Editorializing in the record"
+            }
+          },
+          {
+            "id": "d",
+            "text": "A detailed account of every other unrelated topic discussed in the session while leaving out the disclosure and the report entirely",
+            "isCorrect": false,
+            "weight": -1,
+            "rationale": "Omits the critical event.",
+            "explanation": {
+              "approach": "Misprioritized note",
+              "rationale": "Buries the key event",
+              "keyIndicators": [
+                "mis-emphasis"
+              ],
+              "commonMistake": "Charting around the disclosure"
+            }
+          }
+        ]
+      }
+    ]
   }
 ];
 
