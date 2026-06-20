@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — Timed Mock Exam</title>
+<style>
+:root{
+  --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+  --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
+  --emerald:#10B981; --emerald-400:#34D399;
+  --blue-400:#60A5FA; --blue:#3B82F6;
+  --amber-400:#FBBF24; --amber:#F59E0B;
+  --red-400:#F87171; --red:#EF4444; --red-600:#DC2626;
+  --purple-400:#A78BFA; --purple:#8B5CF6;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --r-xl:16px; --r-lg:12px; --r-md:10px;
+  --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; min-height:100vh;
+  background:linear-gradient(160deg,#0F172A 0%,#1E293B 50%,#0F172A 100%); background-attachment:fixed;
+  color:var(--slate-200); font-family:var(--sans); font-size:16px; line-height:1.55;
+}
+.wrap{max-width:760px; margin:0 auto; padding:18px 16px 64px}
+a{color:var(--emerald-400)}
+header.site{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:4px 2px 20px}
+.brand-wrap{display:flex; align-items:center; gap:11px}
+.brand-chip{width:38px; height:38px; border-radius:11px; background:rgba(16,185,129,.16); display:grid; place-items:center; flex:0 0 auto}
+.brand-chip svg{width:21px; height:21px; color:var(--emerald-400)}
+.brand{font-weight:700; font-size:18px; color:var(--white); letter-spacing:-.01em; line-height:1.1}
+.brand .prep{color:var(--emerald-400)}
+.brand small{display:block; font-weight:600; font-size:11.5px; color:var(--emerald-400); letter-spacing:.02em; margin-top:1px}
+.exam-badge{font-size:12px; font-weight:700; color:var(--emerald-400); background:rgba(16,185,129,.14);
+  border:1px solid rgba(16,185,129,.3); padding:5px 11px; border-radius:999px}
+h1{font-size:25px; line-height:1.15; margin:0 0 6px; color:var(--white); font-weight:700; letter-spacing:-.01em}
+h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
+.lead{color:var(--slate-400); margin:0 0 18px}
+.card{background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-xl); padding:18px 20px}
+.stack > * + *{margin-top:14px}
+.badge{display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.03em; padding:4px 10px; border-radius:999px; text-transform:uppercase}
+.b-emerald{color:var(--emerald-400); background:rgba(16,185,129,.15)}
+.b-blue{color:var(--blue-400); background:rgba(59,130,246,.15)}
+.b-amber{color:var(--amber-400); background:rgba(245,158,11,.15)}
+.b-red{color:var(--red-400); background:rgba(239,68,68,.15)}
+.b-purple{color:var(--purple-400); background:rgba(139,92,246,.15)}
+.b-slate{color:var(--slate-300); background:rgba(51,65,85,.5)}
+.chips{display:flex; gap:8px; flex-wrap:wrap}
+
+/* sticky timer */
+.timer-bar{
+  position:sticky; top:0; z-index:100;
+  background:rgba(15,23,42,.95); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--card-border);
+  padding:10px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.timer-wrap{display:flex; align-items:center; gap:14px}
+.timer-display{font-size:22px; font-weight:800; color:var(--white); letter-spacing:.02em; font-variant-numeric:tabular-nums; min-width:72px}
+.timer-display.warn{color:var(--amber-400)}
+.timer-display.danger{color:var(--red-400)}
+.timer-sub{font-size:11px; color:var(--slate-500); margin-top:1px}
+.timer-prog{font-size:13px; color:var(--slate-400); text-align:right; line-height:1.4}
+.timer-prog strong{color:var(--white); display:block}
+.tbar{height:4px; background:var(--slate-700); border-radius:999px; overflow:hidden; width:90px; margin-top:4px}
+.tbar > i{display:block; height:100%; background:var(--emerald); transition:width 1s linear}
+
+/* vignette */
+.vignette .seg{margin-top:15px}
+.vignette .seg:first-child{margin-top:0}
+.seg-label{font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:4px}
+.seg-intake{color:var(--emerald-400)} .seg-s1{color:var(--blue-400)} .seg-s2{color:var(--amber-400)}
+.seg-text{color:var(--slate-200); line-height:1.62}
+
+/* diagnosis banner */
+.dx-banner{background:rgba(139,92,246,.13); border:1px solid rgba(139,92,246,.32); border-radius:var(--r-lg); padding:13px 15px; margin-top:14px}
+.dx-banner .seg-label{color:var(--purple-400)}
+.dx-banner .dx-name{font-size:17px; font-weight:700; color:var(--white)}
+
+/* question + options */
+.qstem{font-size:18px; line-height:1.4; margin:12px 0 16px; color:var(--white); font-weight:600}
+.opt{display:flex; gap:12px; align-items:flex-start; width:100%; text-align:left; cursor:pointer; font:inherit; color:inherit;
+  background:rgba(30,41,59,.5); border:1.5px solid var(--card-border); border-radius:var(--r-md);
+  padding:13px 15px; margin-bottom:10px; transition:border-color .15s, background .15s}
+.opt:hover:not(:disabled){border-color:var(--slate-600); background:rgba(30,41,59,.85)}
+.opt:disabled{cursor:default}
+.opt.selected{border-color:var(--emerald); background:rgba(16,185,129,.1)}
+.opt.selected .key{background:var(--emerald); color:#04261C}
+.opt.correct{border-color:rgba(16,185,129,.55); background:rgba(16,185,129,.13)}
+.opt.incorrect{border-color:rgba(239,68,68,.5); background:rgba(239,68,68,.12)}
+.opt.dim{opacity:.5}
+.opt.correct .key{background:var(--emerald); color:#04261C}
+.opt.incorrect .key{background:var(--red-600); color:#fff}
+.opt .key{flex:0 0 auto; width:28px; height:28px; border-radius:8px; background:var(--slate-700); color:var(--slate-300);
+  display:grid; place-items:center; font-weight:700; font-size:14px}
+.opt .otext{flex:1}
+.opt .mark{margin-left:8px; font-weight:700; flex:0 0 auto}
+.opt.correct .mark{color:var(--emerald-400)}
+.opt.incorrect .mark{color:var(--red-400)}
+
+/* buttons */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; font:inherit; font-weight:700;
+  background:var(--emerald); color:#04261C; border:none; border-radius:var(--r-md); padding:13px 22px; transition:background .15s}
+.btn:hover{background:var(--emerald-400)}
+.btn.secondary{background:rgba(51,65,85,.5); color:var(--slate-200); border:none}
+.btn.secondary:hover{background:rgba(51,65,85,.85)}
+.btn.danger{background:var(--red); color:#fff; border:none}
+.btn.danger:hover{background:var(--red-400)}
+.btn.sm{padding:8px 16px; font-size:14px}
+.row{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+.back{background:none; border:none; cursor:pointer; font:inherit; color:var(--slate-400); font-weight:600; padding:6px 0; margin-bottom:8px; text-decoration:none; display:inline-block}
+.back:hover{color:var(--white)}
+
+/* flag button */
+.flag-btn{background:none; border:1.5px solid var(--card-border); border-radius:var(--r-md); cursor:pointer; font:inherit;
+  font-size:13px; font-weight:600; color:var(--slate-400); padding:7px 13px; transition:.15s}
+.flag-btn:hover{border-color:var(--amber); color:var(--amber-400)}
+.flag-btn.flagged{border-color:var(--amber); color:var(--amber-400); background:rgba(245,158,11,.1)}
+
+/* answer grid */
+.ag-wrap{margin-bottom:14px}
+.ag-legend{font-size:11.5px; color:var(--slate-500); margin-bottom:6px; display:flex; gap:12px; flex-wrap:wrap}
+.ag-legend span{display:flex; align-items:center; gap:4px}
+.ag-dot{width:10px; height:10px; border-radius:3px; display:inline-block}
+.ag-groups{display:flex; flex-wrap:wrap; gap:10px}
+.ag-group{display:flex; flex-direction:column; gap:4px}
+.ag-group-label{font-size:10px; font-weight:700; color:var(--slate-500); text-transform:uppercase; letter-spacing:.04em}
+.ag-cells{display:flex; gap:4px; flex-wrap:wrap}
+.ag-cell{width:30px; height:30px; border-radius:7px; border:1.5px solid var(--card-border);
+  background:rgba(30,41,59,.5); cursor:pointer; font:inherit; font-size:11px; font-weight:700;
+  color:var(--slate-400); display:grid; place-items:center; transition:.12s; padding:0}
+.ag-cell:hover{border-color:var(--slate-500); color:var(--slate-200)}
+.ag-cell.current{border-color:var(--emerald); color:var(--emerald-400); background:rgba(16,185,129,.12)}
+.ag-cell.answered{background:rgba(16,185,129,.1); border-color:rgba(16,185,129,.35); color:var(--emerald-400)}
+.ag-cell.flagged{background:rgba(245,158,11,.1); border-color:rgba(245,158,11,.4); color:var(--amber-400)}
+.ag-cell.answered.flagged{background:rgba(245,158,11,.12); border-color:rgba(245,158,11,.5)}
+
+/* case progress */
+.case-prog{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px}
+.case-tag{font-size:13px; font-weight:700; color:var(--emerald-400)}
+.bar{height:6px; background:var(--slate-700); border-radius:999px; overflow:hidden; margin:0 0 14px}
+.bar > i{display:block; height:100%; background:var(--emerald); transition:width .25s}
+.q-meta{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px}
+.q-num{font-size:13px; color:var(--slate-400)}
+
+/* score / results */
+.score-card{text-align:center; border-radius:var(--r-xl); padding:26px 20px; border:1px solid}
+.score-card.pass{background:rgba(16,185,129,.1); border-color:rgba(16,185,129,.3)}
+.score-card.fail{background:rgba(239,68,68,.08); border-color:rgba(239,68,68,.3)}
+.score-icon{font-size:34px; line-height:1; margin-bottom:6px}
+.score-big{font-size:42px; font-weight:800; color:var(--white); line-height:1}
+.score-sub{color:var(--slate-300); margin-top:6px}
+.dom-row{display:flex; align-items:center; justify-content:space-between; padding:9px 0; border-bottom:1px solid var(--card-border); font-size:15px; color:var(--slate-200)}
+.dom-row:last-child{border-bottom:none}
+.dom-score{font-weight:700}
+.case-row{display:grid; grid-template-columns:1fr auto auto; gap:8px 12px; align-items:start; padding:10px 0; border-bottom:1px solid var(--card-border); font-size:14px}
+.case-row:last-child{border-bottom:none}
+.cr-title{color:var(--slate-200); min-width:0}
+.cr-cat{font-size:11.5px; color:var(--slate-500); margin-bottom:2px}
+.cr-pct{font-weight:700; color:var(--white); text-align:right}
+.cr-pf{font-size:12px; font-weight:700; padding:3px 9px; border-radius:999px; white-space:nowrap}
+.cr-pass{color:var(--emerald-400); background:rgba(16,185,129,.15)}
+.cr-fail{color:var(--red-400); background:rgba(239,68,68,.15)}
+.dom-bar-wrap{margin:5px 0}
+.dom-bar-label{display:flex; justify-content:space-between; font-size:13px; margin-bottom:3px}
+.dom-bar-label span:first-child{color:var(--slate-300)}
+.dom-bar-label span:last-child{font-weight:700; color:var(--white)}
+.dom-bar{height:7px; background:var(--slate-700); border-radius:999px; overflow:hidden}
+.dom-bar > i{display:block; height:100%; border-radius:999px}
+
+/* review */
+.review-case{margin-bottom:18px}
+.review-hd{font-weight:700; color:var(--white); font-size:15px; padding:11px 15px;
+  background:rgba(30,41,59,.7); border-radius:var(--r-lg); border:1px solid var(--card-border);
+  display:flex; justify-content:space-between; align-items:center; margin-bottom:8px}
+.review-q{padding:14px 16px; background:rgba(30,41,59,.4); border-radius:var(--r-lg);
+  border:1px solid var(--card-border); margin-bottom:8px}
+.review-q .qstem{font-size:15px; margin:8px 0 12px}
+.fb-block{margin-top:10px}
+.fb-label{font-size:11.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--slate-400); margin-bottom:3px}
+.fb-block strong{color:var(--white)}
+.verdict{font-weight:700; font-size:14px; margin-bottom:8px}
+.verdict.ok{color:var(--emerald-400)} .verdict.no{color:var(--red-400)}
+
+:focus-visible{outline:2.5px solid var(--emerald-400); outline-offset:2px; border-radius:6px}
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0}
+@media(prefers-reduced-motion:reduce){*{transition:none !important}}
+@media(max-width:520px){h1{font-size:22px} .wrap{padding:16px 14px 56px} .card{padding:14px 16px} .timer-display{font-size:18px}}
+</style>
+</head>
+<body>
+
+<!-- sticky timer — only visible during exam -->
+<div class="timer-bar" id="timer-bar" style="display:none" role="timer" aria-live="off">
+  <div class="timer-wrap">
+    <div>
+      <div class="timer-display" id="timer-display">225:00</div>
+      <div class="timer-sub">remaining</div>
+    </div>
+    <div>
+      <div class="tbar"><i id="tbar-fill" style="width:100%"></i></div>
+    </div>
+  </div>
+  <div class="timer-prog" id="timer-prog"><strong>Case 1 of 11</strong>0 / 0 answered</div>
+</div>
+
+<div class="wrap">
+  <header class="site">
+    <div class="brand-wrap">
+      <span class="brand-chip" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+          <path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+        </svg>
+      </span>
+      <span class="brand">PassReady <span class="prep">Prep</span><small>NCMHCE clinical simulations</small></span>
+    </div>
+    <span class="exam-badge">MOCK EXAM</span>
+  </header>
+  <main id="app" aria-live="polite"></main>
+</div>
+
+<script>
+// ---- constants ----
+const EXAM_SIZE = 11;
+const EXAM_MINUTES = 225;
+const HISTORY_KEY = 'prp_history';
+
+const BLUEPRINT = {
+  Depressive:20, Anxiety:20, Trauma:18, Substance:16, Personality:16,
+  Bipolar:12, Neurodevelopmental:12, 'OCD-Related':10, Psychotic:10,
+  Eating:10, Crisis:10, Disruptive:8, Somatic:8, Neurocognitive:6,
+  Dissociative:6, Sleep:6, 'Sexual-Gender':6, Ethics:6
+};
+
+// ---- DOM refs ----
+const app = document.getElementById('app');
+const timerBar = document.getElementById('timer-bar');
+const timerDisplay = document.getElementById('timer-display');
+const tbarFill = document.getElementById('tbar-fill');
+const timerProg = document.getElementById('timer-prog');
+
+// ---- helpers ----
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const cap = s => s ? s.charAt(0).toUpperCase()+s.slice(1) : s;
+function shuffle(a){ const b=[...a]; for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+function fmtTime(s){ const m=Math.floor(s/60), ss=s%60; return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0'); }
+
+// ---- state ----
+let examCases = [];     // full case objects (11)
+let examAnswers = [];   // [{dxChosenId, questions:[null|{chosenId}], flags:[bool]}]
+let caseIdx = 0;
+let stepIdx = 0;        // -1 = dx step, 0+ = question index within case
+let timerSecs = EXAM_MINUTES * 60;
+let timerIv = null;
+let examStartTime = null;
+let examEndTime = null;
+let submitted = false;
+const LETTERS = ['A','B','C','D','E','F'];
+
+// ---- history (matching saveToHistory shape exactly) ----
+function loadHistory(){ try{ return JSON.parse(localStorage.getItem(HISTORY_KEY))||[]; }catch(_){ return []; } }
+function saveHistory(h){ localStorage.setItem(HISTORY_KEY, JSON.stringify(h)); }
+
+function saveExamToHistory(){
+  const h = loadHistory();
+  examCases.forEach((c, ci) => {
+    const ea = examAnswers[ci];
+    const domains = {};
+    c.questions.forEach((q, qi) => {
+      const a = ea.questions[qi];
+      const chosen = a && q.options.find(o => o.id === a.chosenId);
+      const isOk = !!(chosen && chosen.isCorrect);
+      const d = q.domain || 'general';
+      if(!domains[d]) domains[d] = {ok:0, total:0};
+      domains[d].total++;
+      if(isOk) domains[d].ok++;
+    });
+    const correct = Object.values(domains).reduce((s,d) => s+d.ok, 0);
+    const total   = Object.values(domains).reduce((s,d) => s+d.total, 0);
+    let dxCorrect = null;
+    if(hasDxStep(c)){
+      const corr = c.differentialOptions.find(o => o.isCorrect);
+      dxCorrect = !!(ea.dxChosenId && corr && ea.dxChosenId === corr.id);
+    }
+    h.push({
+      caseId: c.id || c.title,
+      date: Date.now(),
+      correct, total, domains,
+      dxCorrect,
+      difficulty: c.difficulty || 'medium',
+    });
+  });
+  if(h.length > 500) h.splice(0, h.length - 500);
+  saveHistory(h);
+}
+
+// ---- blueprint-weighted selection ----
+function matchBpKey(cat){
+  if(!cat) return null;
+  const t = cat.trim();
+  for(const k of Object.keys(BLUEPRINT)){
+    if(k.toLowerCase() === t.toLowerCase()) return k;
+  }
+  const first = t.split(/[\s\-_]/)[0].toLowerCase();
+  for(const k of Object.keys(BLUEPRINT)){
+    if(k.toLowerCase().startsWith(first)) return k;
+  }
+  return null;
+}
+
+function weightedSelectItems(items){
+  const groups = {};
+  items.forEach(it => {
+    const k = matchBpKey(it.category);
+    if(!k) return;
+    if(!groups[k]) groups[k] = [];
+    groups[k].push(it);
+  });
+  const bpArr = Object.entries(BLUEPRINT);
+  const totalW = bpArr.reduce((s,[,w]) => s+w, 0);
+  const selected = [], usedIds = new Set();
+  const pools = {};
+  for(const [k,v] of Object.entries(groups)) pools[k] = [...v];
+
+  let attempts = 0;
+  while(selected.length < EXAM_SIZE && attempts < 400){
+    attempts++;
+    let r = Math.random() * totalW, cat = bpArr[bpArr.length-1][0];
+    for(const [k,w] of bpArr){ r -= w; if(r <= 0){ cat = k; break; } }
+    const pool = (pools[cat]||[]).filter(it => !usedIds.has(it.externalId));
+    if(!pool.length) continue;
+    const pick = pool[Math.floor(Math.random()*pool.length)];
+    usedIds.add(pick.externalId);
+    selected.push(pick);
+  }
+  return selected;
+}
+
+// ---- API ----
+async function fetchCatalog(){
+  const r = await fetch('/api/content?exam=ncmhce');
+  if(!r.ok) throw new Error('Catalog request failed ('+r.status+')');
+  const j = await r.json();
+  return j.items || [];
+}
+
+async function fetchCase(externalId){
+  const r = await fetch('/api/content/'+encodeURIComponent(externalId));
+  if(!r.ok) throw new Error('Case request failed for '+externalId);
+  const j = await r.json();
+  return (j.item && j.item.caseSim) ? j.item.caseSim : j.item;
+}
+
+// ---- timer ----
+function startTimer(){
+  timerSecs = EXAM_MINUTES * 60;
+  timerBar.style.display = 'flex';
+  renderTimerBar();
+  timerIv = setInterval(() => {
+    timerSecs--;
+    renderTimerBar();
+    if(timerSecs <= 0){ clearInterval(timerIv); timerIv = null; autoSubmit(); }
+  }, 1000);
+}
+
+function stopTimer(){
+  if(timerIv){ clearInterval(timerIv); timerIv = null; }
+}
+
+function renderTimerBar(){
+  timerDisplay.textContent = fmtTime(timerSecs);
+  timerDisplay.className = 'timer-display' + (timerSecs<=300?' danger':timerSecs<=600?' warn':'');
+  const pct = Math.round(timerSecs / (EXAM_MINUTES*60) * 100);
+  tbarFill.style.width = pct+'%';
+  tbarFill.style.background = timerSecs<=300?'var(--red-400)':timerSecs<=600?'var(--amber-400)':'var(--emerald)';
+  const ans = countAnswered(), tot = countTotal();
+  timerProg.innerHTML = '<strong>Case '+(caseIdx+1)+' of '+examCases.length+'</strong>'+ans+' / '+tot+' answered';
+}
+
+function countAnswered(){
+  let c = 0;
+  examAnswers.forEach((ea, ci) => {
+    if(hasDxStep(examCases[ci]) && ea.dxChosenId) c++;
+    ea.questions.forEach(a => { if(a) c++; });
+  });
+  return c;
+}
+
+function countTotal(){
+  let t = 0;
+  examCases.forEach(c => {
+    if(hasDxStep(c)) t++;
+    t += c.questions.length;
+  });
+  return t;
+}
+
+// ---- nav helpers ----
+function hasDxStep(c){ return Array.isArray(c.differentialOptions) && c.differentialOptions.length > 0; }
+function firstStepIdx(c){ return hasDxStep(c) ? -1 : 0; }
+function isLastStep(){
+  if(caseIdx < examCases.length-1) return false;
+  const c = examCases[caseIdx];
+  return stepIdx === c.questions.length-1;
+}
+
+function goNext(){
+  const c = examCases[caseIdx];
+  if(stepIdx === -1){ stepIdx = 0; render(); return; }
+  if(stepIdx < c.questions.length-1){ stepIdx++; render(); return; }
+  if(caseIdx < examCases.length-1){
+    caseIdx++;
+    stepIdx = firstStepIdx(examCases[caseIdx]);
+    render();
+  }
+}
+
+function goBack(){
+  if(stepIdx === -1){
+    if(caseIdx > 0){ caseIdx--; stepIdx = examCases[caseIdx].questions.length-1; render(); }
+    return;
+  }
+  if(stepIdx === 0){
+    if(hasDxStep(examCases[caseIdx])){ stepIdx = -1; render(); }
+    else if(caseIdx > 0){ caseIdx--; stepIdx = examCases[caseIdx].questions.length-1; render(); }
+    return;
+  }
+  stepIdx--;
+  render();
+}
+
+function jumpTo(ci, si){
+  caseIdx = ci; stepIdx = si;
+  render();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ---- answer recording ----
+function chooseDx(id){
+  examAnswers[caseIdx].dxChosenId = id;
+  render();
+}
+
+function chooseQ(optId){
+  examAnswers[caseIdx].questions[stepIdx] = {chosenId: optId};
+  render();
+}
+
+function toggleFlag(){
+  const ea = examAnswers[caseIdx];
+  ea.flags[stepIdx] = !ea.flags[stepIdx];
+  render();
+}
+
+// ---- submit ----
+function autoSubmit(){
+  if(!submitted) doSubmit();
+}
+
+function confirmSubmit(){
+  const unanswered = countTotal() - countAnswered();
+  if(unanswered > 0 && !confirm('You have '+unanswered+' unanswered item(s). Submit now?')) return;
+  doSubmit();
+}
+
+function doSubmit(){
+  if(submitted) return;
+  submitted = true;
+  stopTimer();
+  examEndTime = Date.now();
+  timerBar.style.display = 'none';
+  saveExamToHistory();
+  renderResults();
+}
+
+// ---- render: loading ----
+function renderLoading(msg){
+  app.innerHTML = '<div style="text-align:center;padding:48px 0">'
+    +'<div style="font-size:32px;margin-bottom:14px">⏳</div>'
+    +'<p class="lead" style="color:var(--slate-300)">'+esc(msg)+'</p></div>';
+}
+
+// ---- render: start screen ----
+function renderStart(n){
+  let h = '<a href="/" class="back">‹ Dashboard</a>';
+  h += '<h1>Timed Mock Exam</h1>';
+  h += '<p class="lead">A full '+n+'-case exam, blueprint-weighted like the real NCMHCE. The timer starts when you press Begin. No feedback until you submit — then a full domain breakdown and answer review.</p>';
+  h += '<div class="card" style="margin-bottom:16px">';
+  h += '<h2 style="margin-bottom:10px">Exam conditions</h2>';
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:14px">';
+  h += '<div style="padding:12px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);border-radius:var(--r-lg)"><div style="font-weight:700;color:var(--emerald-400);margin-bottom:4px">📋 '+n+' Cases</div><div style="color:var(--slate-400)">Blueprint-weighted across all 18 NCMHCE categories</div></div>';
+  h += '<div style="padding:12px;background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:var(--r-lg)"><div style="font-weight:700;color:var(--blue-400);margin-bottom:4px">⏱ '+EXAM_MINUTES+' Minutes</div><div style="color:var(--slate-400)">Official NCMHCE scored-exam window</div></div>';
+  h += '<div style="padding:12px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2);border-radius:var(--r-lg)"><div style="font-weight:700;color:var(--amber-400);margin-bottom:4px">🔒 No Feedback</div><div style="color:var(--slate-400)">Rationale revealed only after you submit</div></div>';
+  h += '<div style="padding:12px;background:rgba(139,92,246,.07);border:1px solid rgba(139,92,246,.2);border-radius:var(--r-lg)"><div style="font-weight:700;color:var(--purple-400);margin-bottom:4px">📊 Full Review</div><div style="color:var(--slate-400)">Domain breakdown + per-question answer review</div></div>';
+  h += '</div></div>';
+  h += '<div class="row"><button class="btn" style="font-size:17px;padding:15px 32px" onclick="beginExam()">Begin Exam ›</button><a href="/" class="btn secondary">Cancel</a></div>';
+  app.innerHTML = h;
+}
+
+function beginExam(){
+  caseIdx = 0;
+  stepIdx = firstStepIdx(examCases[0]);
+  examStartTime = Date.now();
+  startTimer();
+  render();
+}
+
+// ---- render: exam ----
+function render(){
+  const c = examCases[caseIdx];
+  const ea = examAnswers[caseIdx];
+  const totalCases = examCases.length;
+
+  let h = '';
+
+  // Answer map
+  h += '<div class="ag-wrap">';
+  h += '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px">';
+  h += '<div style="font-size:12px;color:var(--slate-500)">Answer map — tap to jump</div>';
+  h += '<button class="btn danger sm" onclick="confirmSubmit()">Submit Exam</button>';
+  h += '</div>';
+  h += '<div class="ag-groups">';
+  examCases.forEach((cas, ci) => {
+    h += '<div class="ag-group">';
+    h += '<div class="ag-group-label">C'+(ci+1)+'</div>';
+    h += '<div class="ag-cells">';
+    if(hasDxStep(cas)){
+      const isCur = ci===caseIdx && stepIdx===-1;
+      const isAns = !!examAnswers[ci].dxChosenId;
+      let cls = 'ag-cell'+(isCur?' current':isAns?' answered':'');
+      h += '<button class="'+cls+'" title="Case '+(ci+1)+' Dx" onclick="jumpTo('+ci+',-1)">Dx</button>';
+    }
+    cas.questions.forEach((_,qi) => {
+      const isCur = ci===caseIdx && stepIdx===qi;
+      const isAns = !!examAnswers[ci].questions[qi];
+      const isFl = !!examAnswers[ci].flags[qi];
+      let cls = 'ag-cell'+(isCur?' current':(isFl?' flagged'+(isAns?' answered':''):isAns?' answered':''));
+      h += '<button class="'+cls+'" title="Case '+(ci+1)+' Q'+(qi+1)+'" onclick="jumpTo('+ci+','+qi+')">'+(qi+1)+'</button>';
+    });
+    h += '</div></div>';
+  });
+  h += '</div></div>';
+
+  // Case header
+  const prgPct = Math.round(((caseIdx * examCases[0].questions.length) / (totalCases * (examCases[0].questions.length||1))) * 100);
+  h += '<div class="case-prog">';
+  h += '<span class="case-tag">Case '+(caseIdx+1)+' of '+totalCases+'</span>';
+  h += '<div class="chips">';
+  if(c.difficulty) h += '<span class="badge b-amber">'+esc(cap(c.difficulty))+'</span>';
+  if(c.category)   h += '<span class="badge b-slate">'+esc(c.category)+'</span>';
+  h += '</div></div>';
+  const progTotal = countTotal(), progDone = countAnswered();
+  h += '<div class="bar"><i style="width:'+Math.round(progDone/Math.max(1,progTotal)*100)+'%"></i></div>';
+
+  // Vignette
+  h += '<div class="card stack" style="margin-bottom:14px">';
+  h += '<h2 style="margin:0 0 12px">'+esc(c.title)+'</h2>';
+  h += '<div class="vignette">';
+  const seg = (cls,label,txt) => txt
+    ? '<div class="seg"><div class="seg-label '+cls+'">'+label+'</div><div class="seg-text">'+esc(txt)+'</div></div>'
+    : '';
+  h += seg('seg-intake','Intake',   c.narrative && c.narrative.intake);
+  h += seg('seg-s1',    'Session 1',c.narrative && c.narrative.session1);
+  h += seg('seg-s2',    'Session 2',c.narrative && c.narrative.session2);
+  h += '</div></div>';
+
+  if(stepIdx === -1){
+    // Diagnosis step
+    const opts = c.differentialOptions || [];
+    h += '<div class="card" style="margin-bottom:14px">';
+    h += '<div style="margin-bottom:8px"><span class="badge b-purple">Diagnosis</span></div>';
+    h += '<div class="qstem">Based on the presentation, what is the MOST likely primary diagnosis?</div>';
+    opts.forEach((o,idx) => {
+      const sel = ea.dxChosenId === o.id;
+      h += '<button class="opt'+(sel?' selected':'')+'" onclick="chooseDx(\''+esc(o.id)+'\')">'
+         + '<span class="key">'+LETTERS[idx]+'</span>'
+         + '<span class="otext">'+esc(o.name)+'</span></button>';
+    });
+    h += '<div class="row">';
+    if(caseIdx > 0) h += '<button class="btn secondary" onclick="goBack()">‹ Back</button>';
+    h += '<button class="btn" onclick="goNext()">Next ›</button>';
+    h += '</div></div>';
+  } else {
+    // Question step
+    const q = c.questions[stepIdx];
+    const ans = ea.questions[stepIdx];
+    const opts = q._opts || q.options;
+    const flagged = ea.flags[stepIdx];
+    const last = isLastStep();
+
+    h += '<div class="card" style="margin-bottom:14px">';
+    h += '<div class="q-meta">';
+    h += '<div class="chips">';
+    if(q.domain) h += '<span class="badge b-blue">'+esc(q.domain)+'</span>';
+    h += '</div>';
+    h += '<button class="flag-btn'+(flagged?' flagged':'')+'" onclick="toggleFlag()">'
+       + (flagged ? '🚩 Flagged' : '⚑ Flag') + '</button>';
+    h += '</div>';
+    h += '<div class="q-num">Question '+(stepIdx+1)+' of '+c.questions.length+'</div>';
+    h += '<div class="qstem">'+esc(q.question)+'</div>';
+
+    opts.forEach((o,idx) => {
+      const sel = ans && ans.chosenId === o.id;
+      h += '<button class="opt'+(sel?' selected':'')+'" onclick="chooseQ(\''+esc(o.id)+'\')">'
+         + '<span class="key">'+LETTERS[idx]+'</span>'
+         + '<span class="otext">'+esc(o.text)+'</span></button>';
+    });
+
+    h += '<div class="row">';
+    if(!(caseIdx === 0 && stepIdx === 0 && !hasDxStep(c)))
+      h += '<button class="btn secondary" onclick="goBack()">‹ Back</button>';
+    if(last){
+      h += '<button class="btn" onclick="confirmSubmit()">Submit Exam ›</button>';
+    } else {
+      h += '<button class="btn" onclick="goNext()">Next ›</button>';
+    }
+    h += '</div></div>';
+  }
+
+  app.innerHTML = h;
+  renderTimerBar();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ---- render: results ----
+function renderResults(){
+  const domLabels = {counseling:'Counseling / Interventions',intake:'Assessment / Intake',treatment:'Treatment Planning',ethics:'Professional Ethics',core:'Core Attributes'};
+  const domOrder  = ['counseling','intake','treatment','ethics','core'];
+
+  const allDomains = {};
+  let totalCorrect = 0, totalQs = 0;
+
+  const caseResults = examCases.map((c, ci) => {
+    const ea = examAnswers[ci];
+    const domains = {};
+    let correct = 0;
+    c.questions.forEach((q, qi) => {
+      const a = ea.questions[qi];
+      const chosen = a && q.options.find(o => o.id === a.chosenId);
+      const isOk = !!(chosen && chosen.isCorrect);
+      if(isOk) correct++;
+      const d = q.domain || 'general';
+      if(!domains[d]) domains[d] = {ok:0, total:0};
+      domains[d].total++;
+      if(isOk) domains[d].ok++;
+      if(!allDomains[d]) allDomains[d] = {ok:0, total:0};
+      allDomains[d].total++;
+      if(isOk) allDomains[d].ok++;
+    });
+    totalCorrect += correct;
+    totalQs += c.questions.length;
+    const pct = Math.round(correct / c.questions.length * 100);
+    let dxCorrect = null;
+    if(hasDxStep(c)){
+      const corr = c.differentialOptions.find(o => o.isCorrect);
+      dxCorrect = !!(ea.dxChosenId && corr && ea.dxChosenId === corr.id);
+    }
+    return {c, ea, correct, total:c.questions.length, pct, pass:pct>=70, domains, dxCorrect};
+  });
+
+  const overallPct  = totalQs ? Math.round(totalCorrect/totalQs*100) : 0;
+  const overallPass = overallPct >= 70;
+  const secsUsed    = examStartTime ? Math.floor((examEndTime - examStartTime)/1000) : 0;
+  const mUsed = Math.floor(secsUsed/60), sUsed = secsUsed%60;
+
+  let h = '<a href="/" class="back">‹ Dashboard</a>';
+  h += '<h1>Exam Results</h1>';
+
+  // Overall score card
+  h += '<div class="score-card '+(overallPass?'pass':'fail')+'">';
+  h += '<div class="score-icon">'+(overallPass?'🏆':'📈')+'</div>';
+  h += '<div class="score-big">'+overallPct+'%</div>';
+  h += '<div class="score-sub">'+totalCorrect+' of '+totalQs+' correct · '+(overallPass?'PASS ✓':'NOT YET — aim for 70%')+'</div>';
+  h += '<div style="font-size:13px;color:var(--slate-400);margin-top:6px">Time used: '+mUsed+'m '+sUsed+'s of '+EXAM_MINUTES+'m</div>';
+  h += '</div>';
+
+  // Domain breakdown
+  h += '<div class="card" style="margin-top:14px"><h2>Domain Breakdown</h2>';
+  const allDomKeys = [...new Set([...domOrder, ...Object.keys(allDomains)])];
+  allDomKeys.forEach(d => {
+    const v = allDomains[d];
+    if(!v || !v.total) return;
+    const pct = Math.round(v.ok/v.total*100);
+    const barColor = pct>=70?'var(--emerald)':pct>=50?'var(--amber)':'var(--red)';
+    const scoreColor = pct>=70?'var(--emerald-400)':pct>=50?'var(--amber-400)':'var(--red-400)';
+    h += '<div class="dom-bar-wrap">';
+    h += '<div class="dom-bar-label"><span>'+(domLabels[d]||cap(d))+'</span><span style="color:'+scoreColor+'">'+v.ok+'/'+v.total+' ('+pct+'%)</span></div>';
+    h += '<div class="dom-bar"><i style="width:'+pct+'%;background:'+barColor+'"></i></div>';
+    h += '</div>';
+  });
+  h += '</div>';
+
+  // Per-case table
+  h += '<div class="card" style="margin-top:14px"><h2>Case Summary</h2>';
+  caseResults.forEach((r, i) => {
+    h += '<div class="case-row">';
+    h += '<div class="cr-title"><div class="cr-cat">Case '+(i+1)+(r.c.category?' · '+esc(r.c.category):'')+'</div>'+esc(r.c.title)+'</div>';
+    const dxBit = r.dxCorrect!==null ? ' · Dx '+(r.dxCorrect?'✓':'✗') : '';
+    h += '<div style="text-align:right"><div class="cr-pct">'+r.pct+'%</div><div style="font-size:12px;color:var(--slate-500)">'+r.correct+'/'+r.total+dxBit+'</div></div>';
+    h += '<div><span class="cr-pf '+(r.pass?'cr-pass':'cr-fail')+'">'+(r.pass?'PASS':'FAIL')+'</span></div>';
+    h += '</div>';
+  });
+  h += '</div>';
+
+  // Action buttons
+  h += '<div class="row">';
+  h += '<button class="btn" id="review-toggle-btn" onclick="toggleReview()">Review Answers ›</button>';
+  h += '<a href="/" class="btn secondary">Dashboard</a>';
+  h += '<button class="btn secondary" onclick="startNewExam()">New Exam</button>';
+  h += '</div>';
+
+  // Review section (hidden until toggled)
+  h += '<div id="review-section" style="display:none;margin-top:20px">';
+  h += buildReview(caseResults);
+  h += '</div>';
+
+  app.innerHTML = h;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+let reviewOpen = false;
+function toggleReview(){
+  reviewOpen = !reviewOpen;
+  const el = document.getElementById('review-section');
+  const btn = document.getElementById('review-toggle-btn');
+  if(el) el.style.display = reviewOpen ? 'block' : 'none';
+  if(btn) btn.textContent = reviewOpen ? 'Hide Review' : 'Review Answers ›';
+  if(reviewOpen && el) el.scrollIntoView({behavior:'smooth'});
+}
+
+function buildReview(caseResults){
+  let h = '<h2>Answer Review</h2>';
+  caseResults.forEach((r, ci) => {
+    const scoreColor = r.pass ? 'var(--emerald-400)' : 'var(--red-400)';
+    h += '<div class="review-case">';
+    h += '<div class="review-hd"><span>Case '+(ci+1)+': '+esc(r.c.title)+'</span>'
+       + '<span style="color:'+scoreColor+'">'+r.pct+'% '+(r.pass?'PASS':'FAIL')+'</span></div>';
+
+    // Dx review
+    if(hasDxStep(r.c)){
+      const opts = r.c.differentialOptions;
+      const corr = opts.find(o => o.isCorrect);
+      const chosen = r.ea.dxChosenId;
+      const ok = !!(corr && chosen === corr.id);
+      h += '<div class="review-q">';
+      h += '<div class="verdict '+(ok?'ok':'no')+'">'+(ok?'✓ Correct diagnosis':'✗ Incorrect diagnosis')+'</div>';
+      h += '<div style="margin-bottom:6px"><span class="badge b-purple">Diagnosis</span></div>';
+      h += '<div class="qstem" style="font-size:15px">Most likely primary diagnosis?</div>';
+      opts.forEach((o,idx) => {
+        let cls='opt', mark='';
+        if(o.isCorrect){ cls+=' correct'; mark='<span class="mark">✓</span>'; }
+        else if(o.id===chosen){ cls+=' incorrect'; mark='<span class="mark">✗</span>'; }
+        else cls+=' dim';
+        h += '<button class="'+cls+'" disabled>'
+           + '<span class="key">'+LETTERS[idx]+'</span>'
+           + '<span class="otext">'+esc(o.name)+'</span>'+mark+'</button>';
+      });
+      if(r.c.diagnosticRationale){
+        h += '<div class="fb-block"><div class="fb-label">Rationale</div>'+esc(r.c.diagnosticRationale)+'</div>';
+      }
+      h += '</div>';
+    }
+
+    // Questions review
+    r.c.questions.forEach((q, qi) => {
+      const a = r.ea.questions[qi];
+      const opts = q._opts || q.options;
+      const chosenId = a && a.chosenId;
+      const flagged = r.ea.flags[qi];
+      const chosenOpt = opts.find(o => o.id === chosenId);
+      const correctOpt = opts.find(o => o.isCorrect);
+      const ok = !!(chosenOpt && chosenOpt.isCorrect);
+      const ex = ok ? (chosenOpt&&chosenOpt.explanation) : (correctOpt&&correctOpt.explanation);
+
+      h += '<div class="review-q">';
+      h += '<div class="verdict '+(ok?'ok':'no')+'">'+(ok?'✓ Correct':'✗ Incorrect')+'</div>';
+      h += '<div style="display:flex;gap:6px;align-items:center;margin-bottom:6px">';
+      if(q.domain) h += '<span class="badge b-blue">'+esc(q.domain)+'</span>';
+      if(flagged)  h += '<span class="badge b-amber">Flagged</span>';
+      h += '</div>';
+      h += '<div style="font-size:12px;color:var(--slate-500);margin-bottom:2px">Q'+(qi+1)+'</div>';
+      h += '<div class="qstem" style="font-size:15px">'+esc(q.question)+'</div>';
+
+      opts.forEach((o,idx) => {
+        let cls='opt', mark='';
+        if(o.isCorrect){ cls+=' correct'; mark='<span class="mark">✓</span>'; }
+        else if(o.id===chosenId){ cls+=' incorrect'; mark='<span class="mark">✗</span>'; }
+        else cls+=' dim';
+        h += '<button class="'+cls+'" disabled>'
+           + '<span class="key">'+LETTERS[idx]+'</span>'
+           + '<span class="otext">'+esc(o.text)+'</span>'+mark+'</button>';
+      });
+
+      if(!ok && chosenOpt && chosenOpt.rationale){
+        h += '<div class="fb-block"><div class="fb-label">Why your choice misleads</div>'+esc(chosenOpt.rationale)+'</div>';
+      }
+      if(!ok && correctOpt){
+        h += '<div class="fb-block"><div class="fb-label">Correct answer</div><strong>'+esc(correctOpt.text)+'</strong></div>';
+      }
+      if(ex && ex.rationale){
+        h += '<div class="fb-block"><div class="fb-label">Why</div>'+esc(ex.rationale)+'</div>';
+      }
+      if(ex && ex.commonMistake){
+        h += '<div class="fb-block" style="background:rgba(239,68,68,.08);border-left:3px solid var(--red);padding:8px 10px;border-radius:0 8px 8px 0;margin-top:10px">'
+           + '<div class="fb-label" style="color:var(--red-400)">Common mistake</div>'+esc(ex.commonMistake)+'</div>';
+      }
+      h += '</div>';
+    });
+
+    h += '</div>';
+  });
+  return h;
+}
+
+// ---- new exam ----
+function startNewExam(){
+  if(!confirm('Start a new exam? This will replace the current results.')) return;
+  submitted = false; reviewOpen = false;
+  init();
+}
+
+// ---- init ----
+async function init(){
+  timerBar.style.display = 'none';
+  stopTimer();
+  submitted = false;
+  renderLoading('Loading case catalog…');
+  try{
+    const items = await fetchCatalog();
+    if(!items.length) throw new Error('No cases available in the catalog.');
+    const selected = weightedSelectItems(items);
+    if(!selected.length) throw new Error('Could not match any cases to the NCMHCE blueprint. Check that cases have category fields.');
+    renderLoading('Loading '+selected.length+' cases…');
+    const cases = await Promise.all(selected.map(it => fetchCase(it.externalId)));
+    cases.forEach(c => {
+      if(!c.questions) c.questions = [];
+      c.questions.forEach(q => { q._opts = shuffle(q.options.slice()); });
+    });
+    examCases = cases;
+    examAnswers = cases.map(c => ({
+      dxChosenId: null,
+      questions: new Array(c.questions.length).fill(null),
+      flags: new Array(c.questions.length).fill(false),
+    }));
+    renderStart(cases.length);
+  } catch(e){
+    app.innerHTML = '<div class="card">'
+      + '<h2 style="color:var(--red-400)">Could not assemble exam</h2>'
+      + '<p class="lead">'+esc(e.message)+'</p>'
+      + '<p style="font-size:13px;color:var(--slate-500)">Make sure cases are published with category fields that match the NCMHCE blueprint.</p>'
+      + '<a href="/" class="btn secondary" style="margin-top:8px">Back to Dashboard</a>'
+      + '</div>';
+  }
+}
+
+init();
+</script>
+</body>
+</html>
