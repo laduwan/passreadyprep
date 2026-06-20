@@ -13,6 +13,10 @@ node_modules/
 *.log
 npm-debug.log*
 
+# Temporary case-authoring work files
+exam_*_cases.js
+examC_cases.js
+
 # OS / editor cruft
 .DS_Store
 Thumbs.db
