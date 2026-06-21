@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — Intake Interview Simulator</title>
+<style>
+:root{
+  --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+  --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
+  --emerald:#10B981; --emerald-400:#34D399;
+  --blue-400:#60A5FA; --blue:#3B82F6;
+  --amber-400:#FBBF24; --amber:#F59E0B;
+  --red-400:#F87171; --red:#EF4444; --red-600:#DC2626;
+  --purple-400:#A78BFA; --purple:#8B5CF6;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --r-xl:16px; --r-lg:12px; --r-md:10px;
+  --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; min-height:100vh;
+  background:linear-gradient(160deg,#0F172A 0%,#1E293B 50%,#0F172A 100%); background-attachment:fixed;
+  color:var(--slate-200); font-family:var(--sans); font-size:16px; line-height:1.55;
+}
+.wrap{max-width:760px; margin:0 auto; padding:18px 16px 64px}
+a{color:var(--emerald-400)}
+header.site{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:4px 2px 20px}
+.brand-wrap{display:flex; align-items:center; gap:11px}
+.brand-chip{width:38px; height:38px; border-radius:11px; background:rgba(16,185,129,.16); display:grid; place-items:center; flex:0 0 auto}
+.brand-chip svg{width:21px; height:21px; color:var(--emerald-400)}
+.brand{font-weight:700; font-size:18px; color:var(--white); letter-spacing:-.01em; line-height:1.1}
+.brand .prep{color:var(--emerald-400)}
+.brand small{display:block; font-weight:600; font-size:11.5px; color:var(--emerald-400); letter-spacing:.02em; margin-top:1px}
+.exam-badge{font-size:12px; font-weight:700; color:var(--emerald-400); background:rgba(16,185,129,.14);
+  border:1px solid rgba(16,185,129,.3); padding:5px 11px; border-radius:999px}
+h1{font-size:25px; line-height:1.15; margin:0 0 6px; color:var(--white); font-weight:700; letter-spacing:-.01em}
+h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
+.lead{color:var(--slate-400); margin:0 0 18px}
+.card{background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-xl); padding:18px 20px}
+.badge{display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.03em; padding:4px 10px; border-radius:999px; text-transform:uppercase}
+.b-emerald{color:var(--emerald-400); background:rgba(16,185,129,.15)}
+.b-blue{color:var(--blue-400); background:rgba(59,130,246,.15)}
+.b-amber{color:var(--amber-400); background:rgba(245,158,11,.15)}
+.b-purple{color:var(--purple-400); background:rgba(139,92,246,.15)}
+.b-slate{color:var(--slate-300); background:rgba(51,65,85,.5)}
+
+/* buttons */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; font:inherit; font-weight:700;
+  background:var(--emerald); color:#04261C; border:none; border-radius:var(--r-md); padding:13px 22px; transition:background .15s}
+.btn:hover{background:var(--emerald-400)}
+.btn:disabled{opacity:.5; cursor:default}
+.btn.secondary{background:rgba(51,65,85,.5); color:var(--slate-200); border:none}
+.btn.secondary:hover{background:rgba(51,65,85,.85)}
+.btn.sm{padding:8px 16px; font-size:14px}
+.row{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+.back{background:none; border:none; cursor:pointer; font:inherit; color:var(--slate-400); font-weight:600; padding:6px 0; margin-bottom:8px; text-decoration:none; display:inline-block}
+.back:hover{color:var(--white)}
+
+/* client picker cards */
+.client-btn{display:block; width:100%; text-align:left; cursor:pointer; font:inherit; color:inherit;
+  background:var(--card); border:1.5px solid var(--card-border); border-radius:var(--r-lg);
+  padding:16px 18px; margin-bottom:12px; transition:border-color .15s, transform .12s}
+.client-btn:hover{border-color:rgba(16,185,129,.5); transform:translateY(-1px)}
+.client-btn .cw{font-weight:700; color:var(--white); font-size:17px}
+.client-btn .cl{color:var(--emerald-400); font-weight:600; font-size:13px; margin-left:6px}
+.client-btn .ci{color:var(--slate-400); font-size:14px; line-height:1.45; margin-top:6px}
+
+/* interview header bar */
+.iv-head{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px}
+.iv-who{font-weight:700; color:var(--white); font-size:17px}
+.iv-sub{font-size:12.5px; color:var(--slate-400)}
+.toggle-btn{cursor:pointer; font:inherit; font-size:13px; font-weight:600; border-radius:999px; padding:7px 13px;
+  border:1px solid var(--card-border); background:rgba(51,65,85,.4); color:var(--slate-300); transition:.15s}
+.toggle-btn:hover{background:rgba(51,65,85,.7)}
+.toggle-btn[aria-pressed="true"]{background:var(--emerald); color:#04261C; border-color:var(--emerald)}
+
+/* chat */
+.chat{height:380px; overflow-y:auto; padding:14px; background:rgba(15,23,42,.45);
+  border:1px solid var(--card-border); border-radius:var(--r-lg)}
+.chat-empty{text-align:center; color:var(--slate-500); font-size:14px; margin-top:48px; line-height:1.6; padding:0 16px}
+.msg{display:flex; margin-bottom:12px}
+.msg.user{justify-content:flex-end}
+.msg.client{justify-content:flex-start}
+.bub{max-width:80%; padding:10px 14px; border-radius:14px; font-size:15px; line-height:1.5}
+.msg.user .bub{background:var(--emerald); color:#04261C; border-bottom-right-radius:4px}
+.msg.client .bub{background:rgba(30,41,59,.85); color:var(--slate-200); border:1px solid var(--card-border); border-bottom-left-radius:4px}
+.bub .who{font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; font-weight:700; margin-bottom:3px; opacity:.7}
+.thinking{color:var(--slate-400); font-size:13px; font-style:italic; padding:2px 4px}
+
+/* input row */
+.input-row{display:flex; gap:8px; margin-top:12px}
+.input-row input{flex:1; font:inherit; font-size:15px; color:var(--white); background:rgba(30,41,59,.6);
+  border:1.5px solid var(--card-border); border-radius:var(--r-md); padding:12px 14px; outline:none}
+.input-row input:focus{border-color:var(--emerald)}
+
+/* debrief */
+.debrief-text{font-size:15px; color:var(--slate-200); line-height:1.65; white-space:pre-wrap}
+
+:focus-visible{outline:2.5px solid var(--emerald-400); outline-offset:2px; border-radius:6px}
+@media(prefers-reduced-motion:reduce){*{transition:none !important}}
+@media(max-width:520px){h1{font-size:22px} .wrap{padding:16px 14px 56px} .card{padding:16px} .chat{height:340px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <div class="brand-wrap">
+      <span class="brand-chip" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+          <path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+        </svg>
+      </span>
+      <span class="brand">PassReady <span class="prep">Prep</span><small>NCMHCE clinical simulations</small></span>
+    </div>
+    <span class="exam-badge">INTAKE SIM</span>
+  </header>
+  <main id="app" aria-live="polite"></main>
+</div>
+
+<script>
+const CLIENTS = [
+  { id:'maya',   who:'Maya, 28',   label:'Adult — low mood & stress',   intro:'Self-referred. Arms crossed, a little tearful. Never been to counseling before.' },
+  { id:'james',  who:'James, 45',  label:'Adult — irritability & sleep', intro:'Referred by his physician. Restless and guarded — says his wife made him come.' },
+  { id:'priya',  who:'Priya, 19',  label:'Young adult — anxiety',        intro:'College referral. Polished, smiling, eager to please. Says she is totally fine, mostly.' },
+  { id:'chad',   who:'Chad, 34',   label:'Adult — court-mandated',       intro:'Court-mandated after a second DUI. Jaw set. Makes it clear he does not want to be here.' },
+  { id:'daniel', who:'Daniel, 31', label:'Veteran — reintegration',      intro:'Combat veteran, home ~3 months from deployment. Polite but closed off. Came at his wife urging.' },
+];
+let activeCase = null, messages = [], voiceOn = true, audioEl = null;
+let loading = false;
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+const app = document.getElementById('app');
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+async function sendMsg(text) {
+  if (!text || !text.trim()) return;
+  messages.push({ role:'user', content:text.trim() });
+  loading = true;
+  renderChat();
+  try {
+    const r = await fetch('/api/intake/reply', { method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ caseId: activeCase.id, messages }) });
+    const d = await r.json();
+    const reply = d.reply || '...';
+    messages.push({ role:'assistant', content: reply });
+    loading = false;
+    renderChat();
+    if (voiceOn) speak(reply);
+  } catch (e) { loading = false; messages.push({ role:'assistant', content:'[connection error — try again]' }); renderChat(); }
+}
+
+async function speak(text) {
+  try {
+    const r = await fetch('/api/intake/tts', { method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ caseId: activeCase.id, text }) });
+    if (r.status === 204 || !r.ok) return;           // voice not configured -> silent
+    const blob = await r.blob();
+    if (audioEl) audioEl.pause();
+    audioEl = new Audio(URL.createObjectURL(blob));
+    audioEl.play().catch(() => {});                  // browser may block autoplay until a tap
+  } catch (e) {}
+}
+
+function startMic() {
+  if (!SR) return;
+  const rec = new SR(); rec.lang = 'en-US'; rec.interimResults = false; rec.maxAlternatives = 1;
+  rec.onresult = e => { const t = e.results[0][0].transcript; const inp = document.getElementById('inp'); inp.value = (inp.value ? inp.value + ' ' : '') + t; };
+  rec.start();
+}
+
+async function endInterview() {
+  if (audioEl) audioEl.pause();
+  const transcript = messages.map(m => (m.role==='user' ? 'COUNSELOR: ' : 'CLIENT: ') + m.content).join('\n');
+  if (messages.length < 2) {
+    showDebrief('You ended before really getting started. Begin a session, ask a few questions, then come back for your debrief.');
+    return;
+  }
+  showDebrief('__loading__');
+  try {
+    const r = await fetch('/api/intake/debrief', { method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ caseId: activeCase.id, transcript }) });
+    const d = await r.json();
+    showDebrief(d.feedback || '[no feedback returned]');
+  } catch (e) { showDebrief('[connection error generating feedback — try again]'); }
+}
+
+// ---- views ----
+function renderPicker() {
+  if (audioEl) audioEl.pause();
+  activeCase = null; messages = []; loading = false;
+  let h = '<a href="/" class="back">‹ Dashboard</a>';
+  h += '<h1>Intake Interview Simulator</h1>';
+  h += '<p class="lead">You are the counselor. Conduct an intake with a simulated client who reveals their story the way a real one does — gradually, and only as far as your rapport and questions take you. When you are done, you will get a supervisor debrief.</p>';
+  h += '<div style="font-size:13px;color:var(--slate-400);font-weight:700;margin:0 2px 12px">Choose a client to begin</div>';
+  CLIENTS.forEach(c => {
+    h += '<button class="client-btn" onclick="startCase(\''+c.id+'\')">'
+       + '<div><span class="cw">'+esc(c.who)+'</span><span class="cl">· '+esc(c.label)+'</span></div>'
+       + '<div class="ci">'+esc(c.intro)+'</div></button>';
+  });
+  h += '<p style="font-size:12.5px;color:var(--slate-500);margin-top:8px;line-height:1.5">Tip: each client has something they will not volunteer — you have to earn it with the right question, asked with care. That is the skill being practiced.</p>';
+  app.innerHTML = h;
+}
+
+function startCase(id) {
+  activeCase = CLIENTS.find(c => c.id === id);
+  messages = []; loading = false;
+  renderInterview();
+}
+
+function renderInterview() {
+  const c = activeCase;
+  let h = '<button class="back" onclick="renderPicker()">‹ Clients</button>';
+  h += '<div class="iv-head">';
+  h += '<div><div class="iv-who">'+esc(c.who)+'</div><div class="iv-sub">'+esc(c.label)+'</div></div>';
+  h += '<button class="toggle-btn" id="voicebtn" aria-pressed="'+voiceOn+'" onclick="toggleVoice()">'+(voiceOn?'🔊 Voice on':'🔇 Voice off')+'</button>';
+  h += '</div>';
+  h += '<div class="chat" id="chat"></div>';
+  h += '<div class="input-row">';
+  h += '<input id="inp" placeholder="'+(SR?'Type, or tap Mic to speak…':'Ask your client something…')+'" onkeydown="if(event.key===\'Enter\')doSend()" />';
+  if (SR) h += '<button class="btn secondary sm" onclick="startMic()" title="Speak your question">🎤 Mic</button>';
+  h += '<button class="btn" id="sendbtn" onclick="doSend()">Send</button>';
+  h += '</div>';
+  h += '<div class="row"><button class="btn secondary" style="width:100%" onclick="endInterview()">End interview &amp; get feedback</button></div>';
+  app.innerHTML = h;
+  renderChat();
+  const inp = document.getElementById('inp');
+  if (inp) inp.focus();
+}
+
+function renderChat() {
+  const chat = document.getElementById('chat');
+  if (!chat) return;
+  const name = activeCase.who.split(',')[0];
+  let h = '';
+  if (!messages.length && !loading) {
+    h += '<div class="chat-empty">'+esc(activeCase.intro)+'<br><br>Open the session however you like — a warm, open question is a good start.</div>';
+  }
+  messages.forEach(m => {
+    const isUser = m.role === 'user';
+    h += '<div class="msg '+(isUser?'user':'client')+'"><div class="bub">'
+       + '<div class="who">'+(isUser?'You (counselor)':esc(name))+'</div>'
+       + esc(m.content)+'</div></div>';
+  });
+  if (loading) h += '<div class="thinking">'+esc(name)+' is responding…</div>';
+  chat.innerHTML = h;
+  chat.scrollTop = chat.scrollHeight;
+  const sb = document.getElementById('sendbtn'), inp = document.getElementById('inp');
+  if (sb) sb.disabled = loading;
+  if (inp) inp.disabled = loading;
+}
+
+function doSend() {
+  if (loading) return;
+  const inp = document.getElementById('inp');
+  if (!inp) return;
+  const t = inp.value;
+  if (!t || !t.trim()) return;
+  inp.value = '';
+  sendMsg(t).then(() => { const i = document.getElementById('inp'); if (i) i.focus(); });
+}
+
+function toggleVoice() {
+  voiceOn = !voiceOn;
+  if (!voiceOn && audioEl) audioEl.pause();
+  const b = document.getElementById('voicebtn');
+  if (b) { b.setAttribute('aria-pressed', voiceOn); b.textContent = voiceOn ? '🔊 Voice on' : '🔇 Voice off'; }
+}
+
+function showDebrief(feedback) {
+  if (audioEl) audioEl.pause();
+  let h = '<button class="back" onclick="renderPicker()">‹ Clients</button>';
+  h += '<h1>Supervisor debrief</h1>';
+  h += '<p class="lead">Your intake with '+esc(activeCase.who)+'</p>';
+  h += '<div class="card">';
+  if (feedback === '__loading__') {
+    h += '<div class="lead" style="margin:0;color:var(--slate-300)">Reviewing your interview…</div>';
+  } else {
+    h += '<div class="debrief-text">'+esc(feedback)+'</div>';
+  }
+  h += '</div>';
+  h += '<div class="row">';
+  h += '<button class="btn" onclick="startCase(\''+activeCase.id+'\')">Retry this client</button>';
+  h += '<button class="btn secondary" onclick="renderPicker()">New client</button>';
+  h += '</div>';
+  app.innerHTML = h;
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+renderPicker();
+</script>
+</body>
+</html>
