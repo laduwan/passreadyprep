@@ -166,8 +166,26 @@ async function speak(text) {
 
 function startMic() {
   if (!SR) return;
-  const rec = new SR(); rec.lang = 'en-US'; rec.interimResults = false; rec.maxAlternatives = 1;
-  rec.onresult = e => { const t = e.results[0][0].transcript; const inp = document.getElementById('inp'); inp.value = (inp.value ? inp.value + ' ' : '') + t; };
+  try { if (window._micRec) window._micRec.abort(); } catch (e) {}
+  const rec = new SR();
+  window._micRec = rec; // hold a reference so Chrome doesn't GC it mid-listen
+  rec.lang = 'en-US';
+  rec.interimResults = true;
+  rec.maxAlternatives = 1;
+  const btn = document.querySelector('button[onclick="startMic()"]');
+  if (btn) btn.textContent = '🎙️ Listening…';
+  rec.onresult = e => {
+    let finalT = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) finalT += e.results[i][0].transcript;
+    }
+    if (finalT) {
+      const inp = document.getElementById('inp');
+      if (inp) inp.value = (inp.value ? inp.value + ' ' : '') + finalT.trim();
+    }
+  };
+  rec.onerror = ev => { console.warn('mic error:', ev.error); };
+  rec.onend = () => { if (btn) btn.textContent = '🎤 Mic'; window._micRec = null; };
   rec.start();
 }
 
