@@ -22,6 +22,7 @@ app.use('/api/admin', require('./routes/admin'));
 app.use('/api/admin/generate', require('./routes/adminGenerate'));
 app.use('/api/debrief', require('./routes/debrief'));
 app.use('/api/intake', require('./routes/intake'));
+app.use('/api/skills', require('./routes/skills'));
 
 // Serve the React SPA (built by Vite to client/dist/) and legacy static pages from /public.
 // React app takes priority; /public has admin review page, standalone tools, and data files.
