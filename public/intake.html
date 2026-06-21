@@ -241,6 +241,7 @@ function renderInterview() {
   if (SR) h += '<button class="btn secondary sm" onclick="startMic()" title="Speak your question">🎤 Mic</button>';
   h += '<button class="btn" id="sendbtn" onclick="doSend()">Send</button>';
   h += '</div>';
+  if (!SR) h += '<div class="row" style="font-size:13px;opacity:.75;margin-top:4px">🎤 Voice input needs Chrome (desktop or Android). You can type here instead — and the client still speaks aloud in any browser. For the mic, open this page in Chrome.</div>';
   h += '<div class="row"><button class="btn secondary" style="width:100%" onclick="endInterview()">End interview &amp; get feedback</button></div>';
   app.innerHTML = h;
   renderChat();
