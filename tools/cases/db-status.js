@@ -1,10 +1,10 @@
 /*
  * db-status.js — read-only health check for the NCMHCE case library.
  *
- * Prints how many ContentItems are actually in the database, grouped by
- * status, so you can see exactly what learners are being served. The public
- * app (routes/content.js) only returns status: 'published', so the
- * "Published" number below is the real, live case count.
+ * Prints a count of ContentItems grouped by status so you can see exactly
+ * what learners are being served. The public app (routes/content.js) only
+ * returns status: 'published', so the "Published" number is the real,
+ * live case count.
  *
  * This script NEVER writes — it only reads and reports.
  *
@@ -55,17 +55,6 @@ async function main() {
 
   // The number that actually matters — what learners can see right now
   console.log(`>>> LIVE (published) cases learners can see: ${statusMap.published} <<<\n`);
-
-  // List externalIds per status so you can spot G031–G044 placement
-  for (const status of ['published', 'sme_review', 'draft']) {
-    const items = await ContentItem.find({ ...examFilter, status })
-      .select('externalId title')
-      .sort({ externalId: 1 });
-    if (!items.length) continue;
-    console.log(`${status} (${items.length}):`);
-    items.forEach((i) => console.log(`  ${i.externalId}  —  ${i.title}`));
-    console.log('');
-  }
 
   await mongoose.disconnect();
 }
