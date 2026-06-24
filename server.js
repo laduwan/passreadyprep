@@ -7,6 +7,10 @@ const app = express();
 
 // Allow the browser frontend to talk to this server, and read JSON bodies.
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || '*' }));
+
+// Stripe webhook needs the raw body — register before express.json() parses it.
+app.use('/api/payment/webhook', express.raw({ type: 'application/json' }));
+
 app.use(express.json());
 
 // A simple heartbeat so you can confirm the server is alive.
@@ -22,6 +26,7 @@ app.use('/api/admin', require('./routes/admin'));
 app.use('/api/admin/generate', require('./routes/adminGenerate'));
 app.use('/api/debrief', require('./routes/debrief'));
 app.use('/api/intake', require('./routes/intake'));
+app.use('/api/payment', require('./routes/payment'));
 
 // Serve the React SPA (built by Vite to client/dist/) and legacy static pages from /public.
 // React app takes priority; /public has admin review page, standalone tools, and data files.

@@ -12,11 +12,33 @@ const UserSchema = new Schema(
 
     examsEnrolled: [{ type: Schema.Types.ObjectId, ref: 'Exam' }],
 
+    // Incremented on every login. Embedded in the JWT so any session using
+    // an older version is rejected immediately — effectively one active
+    // session per account, which blocks credential sharing.
+    sessionVersion: { type: Number, default: 0 },
+
     subscription: {
-      tier: { type: String, default: 'free' },
-      status: { type: String, default: 'active' },
+      tier: { type: String, default: 'free' },      // free | monthly | pass3 | guarantee
+      status: { type: String, default: 'active' },  // active | past_due | canceled
       stripeCustomerId: String,
       currentPeriodEnd: Date,
+
+      // Score report gate — only used for the 'guarantee' tier.
+      // When currentPeriodEnd passes, access is blocked until a score report
+      // is submitted and admin approves an extension (failed) or closes out (passed).
+      scoreReport: {
+        status: {
+          type: String,
+          enum: ['none', 'pending', 'approved_extension', 'passed'],
+          default: 'none',
+        },
+        submittedAt: Date,
+        reviewedAt: Date,
+        examDate: Date,
+        result: String,             // 'pass' | 'fail' — as reported
+        notes: String,              // admin notes on review
+        extensionCount: { type: Number, default: 0 },
+      },
     },
 
     prefs: {

@@ -201,6 +201,62 @@
     display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; justify-content:space-between; color:var(--slate-500); font-size:13px}
   .foot-legal .prov{color:var(--slate-400)}
 
+  /* ---------- pricing ---------- */
+  .price-grid{display:grid; gap:16px; grid-template-columns:1fr}
+  @media (min-width:640px){ .price-grid{grid-template-columns:1fr 1fr} }
+  @media (min-width:960px){ .price-grid{grid-template-columns:repeat(4,1fr)} }
+
+  .price-card{
+    background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-xl);
+    padding:26px 22px 24px; display:flex; flex-direction:column; gap:0; position:relative;
+    transition:border-color .15s, transform .12s;
+  }
+  .price-card:hover{transform:translateY(-2px)}
+  .price-card.featured{
+    border-color:var(--emerald); background:linear-gradient(160deg,rgba(16,185,129,.10),rgba(30,41,59,.7));
+    box-shadow:0 0 0 1px var(--emerald), 0 20px 50px -20px rgba(16,185,129,.3);
+  }
+  .price-card.premium{
+    border-color:rgba(251,191,36,.45);
+    background:linear-gradient(160deg,rgba(245,158,11,.07),rgba(30,41,59,.6));
+  }
+
+  .price-badge{
+    position:absolute; top:-13px; left:50%; transform:translateX(-50%);
+    font-size:11px; font-weight:800; letter-spacing:.07em; text-transform:uppercase;
+    padding:5px 14px; border-radius:999px; white-space:nowrap;
+  }
+  .price-badge.pop{background:var(--emerald); color:#04261C}
+  .price-badge.guar{background:var(--amber); color:#1a0e00}
+
+  .price-tier{font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--slate-400); margin-bottom:10px}
+  .price-tier.t-free{color:var(--slate-400)}
+  .price-tier.t-month{color:var(--blue-400)}
+  .price-tier.t-pass{color:var(--emerald-400)}
+  .price-tier.t-guar{color:var(--amber-400)}
+
+  .price-amount{display:flex; align-items:baseline; gap:4px; margin-bottom:4px}
+  .price-amount .amt{font-size:42px; font-weight:800; color:var(--white); line-height:1; letter-spacing:-.03em}
+  .price-amount .cent{font-size:22px; font-weight:700; color:var(--white); align-self:flex-start; margin-top:8px}
+  .price-amount .per{font-size:14px; color:var(--slate-400); margin-left:2px}
+  .price-tagline{font-size:13.5px; color:var(--slate-400); margin:0 0 20px; min-height:36px}
+
+  .price-divider{height:1px; background:var(--card-border); margin:0 0 18px}
+
+  .price-features{list-style:none; margin:0 0 24px; padding:0; display:flex; flex-direction:column; gap:9px; flex:1}
+  .price-features li{display:flex; align-items:flex-start; gap:9px; font-size:14px; color:var(--slate-300); line-height:1.45}
+  .price-features li svg{width:15px; height:15px; flex:0 0 auto; margin-top:2px}
+  .price-features li.dim{color:var(--slate-600)}
+  .price-features li.dim svg{color:var(--slate-700)}
+  .check-em{color:var(--emerald-400)} .check-am{color:var(--amber-400)}
+
+  .price-cta{margin-top:auto}
+  .price-cta .btn{width:100%; justify-content:center}
+  .price-note{text-align:center; font-size:12px; color:var(--slate-500); margin-top:9px}
+
+  .save-pill{display:inline-flex; align-items:center; font-size:11px; font-weight:700; background:rgba(16,185,129,.15);
+    color:var(--emerald-400); border:1px solid rgba(16,185,129,.3); padding:2px 8px; border-radius:999px; margin-left:6px; vertical-align:middle}
+
   :focus-visible{outline:2.5px solid var(--emerald-400); outline-offset:2px; border-radius:6px}
 </style>
 </head>
@@ -215,6 +271,7 @@
     <nav class="nav-links">
       <a class="navlink" href="#features">Features</a>
       <a class="navlink" href="#how">How it works</a>
+      <a class="navlink" href="#pricing">Pricing</a>
       <a class="navlink" href="/guarantee.html">Guarantee</a>
       <a class="btn" href="/">Start studying</a>
     </nav>
@@ -380,6 +437,110 @@
         <p>Your score updates, weak domains surface, and timed mock exams tell you when it's time to book the real one.</p>
       </div>
     </div>
+  </section>
+
+  <!-- ===================== PRICING ===================== -->
+  <section class="wrap band" id="pricing">
+    <div class="sec-head">
+      <span class="eyebrow">Pricing</span>
+      <h2>Start free. Go deeper when you're ready.</h2>
+      <p>One-time passes, not a subscription treadmill. Every tier includes the pass guarantee once you unlock full access.</p>
+    </div>
+
+    <div class="price-grid">
+
+      <!-- FREE -->
+      <div class="price-card">
+        <div class="price-tier t-free">Free</div>
+        <div class="price-amount"><span class="amt">$0</span></div>
+        <p class="price-tagline">Try it — no account required, no credit card.</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>5 full clinical case simulations</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Readiness score on your results</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>One flashcard deck</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>DSM-5-TR quick reference</li>
+          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>AI debrief with Dr. Claire Moreau</li>
+          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Timed mock exams</li>
+          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Pass guarantee</li>
+        </ul>
+        <div class="price-cta">
+          <a class="btn ghost" href="/">Start free</a>
+          <p class="price-note">No account needed</p>
+        </div>
+      </div>
+
+      <!-- MONTHLY -->
+      <div class="price-card">
+        <div class="price-tier t-month">Monthly</div>
+        <div class="price-amount"><span class="cent">$</span><span class="amt">29</span><span class="per">/mo</span></div>
+        <p class="price-tagline">Full access, cancel any time. Good for last-minute prep.</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>All 270+ case simulations</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>AI debrief with Dr. Claire Moreau</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Timed half &amp; full mock exams</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Full readiness predictor</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>250+ flashcards + study plan</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Decision trees &amp; DSM reference</li>
+          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Pass guarantee</li>
+        </ul>
+        <div class="price-cta">
+          <a class="btn secondary" href="/">Get monthly</a>
+          <p class="price-note">Cancel any time</p>
+        </div>
+      </div>
+
+      <!-- 3-MONTH PASS — FEATURED -->
+      <div class="price-card featured">
+        <span class="price-badge pop">Most popular</span>
+        <div class="price-tier t-pass">3-Month Pass</div>
+        <div class="price-amount"><span class="cent">$</span><span class="amt">79</span></div>
+        <p class="price-tagline">One payment, full access for 3 months. <span class="save-pill">Save $8 vs monthly</span></p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>All 270+ case simulations</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>AI debrief with Dr. Claire Moreau</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Timed half &amp; full mock exams</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Full readiness predictor</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>250+ flashcards + study plan</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Decision trees &amp; DSM reference</li>
+          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Pass guarantee</li>
+        </ul>
+        <div class="price-cta">
+          <a class="btn" href="/">Get 3-month pass</a>
+          <p class="price-note">One-time · no subscription</p>
+        </div>
+      </div>
+
+      <!-- PASS GUARANTEE -->
+      <div class="price-card premium">
+        <span class="price-badge guar">🛡️ Pass guaranteed</span>
+        <div class="price-tier t-guar">Pass Guarantee</div>
+        <div class="price-amount"><span class="cent">$</span><span class="amt">149</span></div>
+        <p class="price-tagline">Everything, until you pass. Win either way.</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>All 270+ case simulations</li>
+          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>AI debrief with Dr. Claire Moreau</li>
+          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Timed half &amp; full mock exams</li>
+          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Full readiness predictor</li>
+          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>250+ flashcards + study plan</li>
+          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Decision trees &amp; DSM reference</li>
+          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg><strong style="color:var(--white)">Pass guarantee</strong> — pass or extend free</li>
+          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg><strong style="color:var(--white)">Free CE course</strong> on CounselorReady when you pass</li>
+        </ul>
+        <div class="price-cta">
+          <a class="btn" style="background:var(--amber);color:#1a0e00;" href="/guarantee.html">Get pass guarantee</a>
+          <p class="price-note">One-time · access until you pass</p>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="text-align:center; color:var(--slate-500); font-size:13px; margin-top:22px;">
+      All prices in USD. Half the cost of AATBS. A fraction of what a retake costs.
+    </p>
   </section>
 
   <!-- ===================== GUARANTEE ===================== -->
