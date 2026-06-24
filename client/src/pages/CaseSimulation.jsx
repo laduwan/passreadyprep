@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, CheckCircle2, X as XIcon, MessageSquare, Loader2 } from 'lucide-react';
+import { ArrowLeft, MessageSquare, Loader2 } from 'lucide-react';
 import { saveToHistory } from '../lib/readiness';
 import { authFetch } from '../lib/api';
 
-export default function CaseSimulation({ caseId, mode, onBack, navigate }) {
+export default function CaseSimulation({ caseId, mode, examMode = false, onBack, navigate }) {
   const [caseData, setCaseData] = useState(null);
   const [qi, setQi] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -29,7 +29,7 @@ export default function CaseSimulation({ caseId, mode, onBack, navigate }) {
   const currentA = answers[qi];
 
   function choose(optId) {
-    if (currentA) return;
+    if (currentA) return; // submissions lock, mirroring the real exam
     const newAnswers = [...answers];
     newAnswers[qi] = { chosenId: optId };
     setAnswers(newAnswers);
@@ -79,6 +79,38 @@ export default function CaseSimulation({ caseId, mode, onBack, navigate }) {
             className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-4 py-2.5 rounded-xl transition-colors">More cases</button>
         </div>
 
+        {/* Exam-mode case review — feedback was held until the end, like the real NCMHCE */}
+        {examMode && (
+          <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
+            <h2 className="text-lg font-bold text-white mb-1">Case review</h2>
+            <p className="text-xs text-slate-500 mb-3">
+              On the real exam, feedback is held until you finish the case. Here's how each answer scored.
+            </p>
+            <div className="space-y-3">
+              {qs.map((q, i) => {
+                const a = answers[i];
+                const chosen = a && q.options.find(o => o.id === a.chosenId);
+                const keyed = q.options.find(o => o.isCorrect);
+                const ok = !!(chosen && chosen.isCorrect);
+                const rationale = (keyed && keyed.explanation && keyed.explanation.rationale) || (keyed && keyed.rationale);
+                return (
+                  <div key={q.id || i} className="border-t border-slate-700/40 pt-3 first:border-t-0 first:pt-0">
+                    <div className="text-sm font-semibold text-white">Q{i + 1}. {q.question}</div>
+                    <div className={`text-sm mt-1 font-semibold ${ok ? 'text-emerald-400' : 'text-red-400'}`}>
+                      {ok ? '✓ Correct' : '✗ Incorrect'}
+                      <span className="font-normal text-slate-400"> — you chose: {chosen ? chosen.text : '(no answer)'}</span>
+                    </div>
+                    {!ok && keyed && (
+                      <div className="text-sm text-slate-300 mt-0.5">Best answer: {keyed.text}</div>
+                    )}
+                    {rationale && <p className="text-sm text-slate-400 mt-1">{rationale}</p>}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {/* AI Debrief */}
         <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-1">
@@ -118,7 +150,12 @@ export default function CaseSimulation({ caseId, mode, onBack, navigate }) {
       <button onClick={onBack} className="text-sm text-slate-400 hover:text-white flex items-center gap-1">
         <ArrowLeft className="w-4 h-4" /> All cases
       </button>
-      <h1 className="text-xl font-bold text-white">{caseData.title}</h1>
+      <div className="flex items-center gap-2 flex-wrap">
+        <h1 className="text-xl font-bold text-white">{caseData.title}</h1>
+        {examMode && (
+          <span className="text-xs font-bold text-amber-400 bg-amber-500/15 px-2 py-0.5 rounded-full">Exam mode</span>
+        )}
+      </div>
 
       {/* Vignette */}
       <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5 space-y-3">
@@ -147,18 +184,24 @@ export default function CaseSimulation({ caseId, mode, onBack, navigate }) {
           <div className="space-y-2.5">
             {(currentQ.options || []).map((opt, idx) => {
               const letter = 'ABCD'[idx];
+              const isChosen = currentA && opt.id === currentA.chosenId;
               let cls = 'border-slate-700/60 bg-slate-800/40 hover:border-slate-600';
+              let badge = 'bg-slate-700 text-slate-300';
               if (currentA) {
-                if (opt.isCorrect) cls = 'border-emerald-500/50 bg-emerald-500/10';
-                else if (opt.id === currentA.chosenId) cls = 'border-red-500/50 bg-red-500/10';
-                else cls = 'border-slate-700/40 bg-slate-800/20 opacity-50';
+                if (examMode) {
+                  // No reveal in exam mode — only show what you picked.
+                  cls = isChosen ? 'border-emerald-500/50 bg-emerald-500/10' : 'border-slate-700/40 bg-slate-800/20 opacity-60';
+                  badge = isChosen ? 'bg-emerald-500 text-slate-900' : 'bg-slate-700 text-slate-300';
+                } else {
+                  if (opt.isCorrect) { cls = 'border-emerald-500/50 bg-emerald-500/10'; badge = 'bg-emerald-500 text-slate-900'; }
+                  else if (isChosen) { cls = 'border-red-500/50 bg-red-500/10'; badge = 'bg-red-500 text-white'; }
+                  else { cls = 'border-slate-700/40 bg-slate-800/20 opacity-50'; }
+                }
               }
               return (
                 <button key={opt.id} onClick={() => choose(opt.id)} disabled={!!currentA}
                   className={`w-full text-left flex gap-3 items-start border rounded-xl p-3.5 transition-colors ${cls}`}>
-                  <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold shrink-0 ${
-                    currentA && opt.isCorrect ? 'bg-emerald-500 text-slate-900' :
-                    currentA && opt.id === currentA.chosenId ? 'bg-red-500 text-white' : 'bg-slate-700 text-slate-300'}`}>{letter}</span>
+                  <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold shrink-0 ${badge}`}>{letter}</span>
                   <span className="text-slate-200">{opt.text}</span>
                 </button>
               );
@@ -166,7 +209,7 @@ export default function CaseSimulation({ caseId, mode, onBack, navigate }) {
           </div>
           {currentA && (
             <div className="mt-4 space-y-2">
-              {currentA && (() => {
+              {!examMode && (() => {
                 const chosen = currentQ.options.find(o => o.id === currentA.chosenId);
                 const correct = currentQ.options.find(o => o.isCorrect);
                 const ok = chosen?.isCorrect;
@@ -178,6 +221,9 @@ export default function CaseSimulation({ caseId, mode, onBack, navigate }) {
                   </>
                 );
               })()}
+              {examMode && (
+                <div className="text-sm text-slate-500 italic">Answer locked. Feedback comes at the end of the case.</div>
+              )}
               <button onClick={next} className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-5 py-2.5 rounded-xl transition-colors mt-2">
                 {qi < qs.length - 1 ? 'Next question ›' : 'See results'}
               </button>

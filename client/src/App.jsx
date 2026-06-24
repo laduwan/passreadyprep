@@ -27,6 +27,7 @@ export default function App() {
   const [view, setView] = useState('home');
   const [caseId, setCaseId] = useState(null);
   const [mode, setMode] = useState('new'); // 'new' | 'classic'
+  const [examMode, setExamMode] = useState(false); // false = study (feedback each Q), true = exam (held to end)
   const [mobileNav, setMobileNav] = useState(false);
 
   const navigate = (v, opts) => {
@@ -40,11 +41,11 @@ export default function App() {
   const renderView = () => {
     switch (view) {
       case 'home':
-        return <Dashboard navigate={navigate} mode={mode} setMode={setMode} />;
+        return <Dashboard navigate={navigate} mode={mode} setMode={setMode} examMode={examMode} setExamMode={setExamMode} />;
       case 'cases':
         return caseId
-          ? <CaseSimulation caseId={caseId} mode={mode} onBack={() => { setCaseId(null); }} navigate={navigate} />
-          : <CaseList mode={mode} onSelect={(id) => { setCaseId(id); }} navigate={navigate} />;
+          ? <CaseSimulation caseId={caseId} mode={mode} examMode={examMode} onBack={() => { setCaseId(null); }} navigate={navigate} />
+          : <CaseList mode={mode} examMode={examMode} onSelect={(id) => { setCaseId(id); }} navigate={navigate} />;
       case 'flashcards':
         return <Flashcards />;
       case 'trees':
@@ -56,7 +57,7 @@ export default function App() {
       case 'guarantee':
         return <Guarantee />;
       default:
-        return <Dashboard navigate={navigate} mode={mode} setMode={setMode} />;
+        return <Dashboard navigate={navigate} mode={mode} setMode={setMode} examMode={examMode} setExamMode={setExamMode} />;
     }
   };
 
