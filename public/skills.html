@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — Microskills Responder</title>
+<style>
+:root{
+  --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+  --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
+  --emerald:#10B981; --emerald-400:#34D399;
+  --blue-400:#60A5FA; --blue:#3B82F6;
+  --amber-400:#FBBF24; --amber:#F59E0B;
+  --red-400:#F87171; --red:#EF4444; --red-600:#DC2626;
+  --purple-400:#A78BFA; --purple:#8B5CF6;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --r-xl:16px; --r-lg:12px; --r-md:10px;
+  --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; min-height:100vh;
+  background:linear-gradient(160deg,#0F172A 0%,#1E293B 50%,#0F172A 100%); background-attachment:fixed;
+  color:var(--slate-200); font-family:var(--sans); font-size:16px; line-height:1.55;
+}
+.wrap{max-width:760px; margin:0 auto; padding:18px 16px 64px}
+a{color:var(--emerald-400)}
+header.site{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:4px 2px 20px}
+.brand-wrap{display:flex; align-items:center; gap:11px}
+.brand-chip{width:38px; height:38px; border-radius:11px; background:rgba(16,185,129,.16); display:grid; place-items:center; flex:0 0 auto}
+.brand-chip svg{width:21px; height:21px; color:var(--emerald-400)}
+.brand{font-weight:700; font-size:18px; color:var(--white); letter-spacing:-.01em; line-height:1.1}
+.brand .prep{color:var(--emerald-400)}
+.brand small{display:block; font-weight:600; font-size:11.5px; color:var(--emerald-400); letter-spacing:.02em; margin-top:1px}
+.exam-badge{font-size:12px; font-weight:700; color:var(--emerald-400); background:rgba(16,185,129,.14);
+  border:1px solid rgba(16,185,129,.3); padding:5px 11px; border-radius:999px}
+h1{font-size:25px; line-height:1.15; margin:0 0 6px; color:var(--white); font-weight:700; letter-spacing:-.01em}
+.lead{color:var(--slate-400); margin:0 0 18px}
+.card{background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-xl); padding:18px 20px}
+.back{background:none; border:none; cursor:pointer; font:inherit; color:var(--slate-400); font-weight:600; padding:6px 0; margin-bottom:8px; text-decoration:none; display:inline-block}
+.back:hover{color:var(--white)}
+
+/* buttons */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; font:inherit; font-weight:700;
+  background:var(--emerald); color:#04261C; border:none; border-radius:var(--r-md); padding:13px 22px; transition:background .15s}
+.btn:hover{background:var(--emerald-400)}
+.btn:disabled{opacity:.5; cursor:default}
+.btn.secondary{background:rgba(51,65,85,.5); color:var(--slate-200); border:none}
+.btn.secondary:hover{background:rgba(51,65,85,.85)}
+.btn.sm{padding:8px 16px; font-size:14px}
+.row{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+.toggle-btn{cursor:pointer; font:inherit; font-size:13px; font-weight:600; border-radius:999px; padding:7px 13px;
+  border:1px solid var(--card-border); background:rgba(51,65,85,.4); color:var(--slate-300); transition:.15s}
+.toggle-btn:hover{background:rgba(51,65,85,.7)}
+.toggle-btn[aria-pressed="true"]{background:var(--emerald); color:#04261C; border-color:var(--emerald)}
+
+/* skill prompt */
+.skill-head{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px; flex-wrap:wrap}
+.skill-pill{display:inline-block; font-size:15px; font-weight:700; color:#04261C; background:var(--emerald-400);
+  padding:8px 16px; border-radius:999px}
+.skill-def{font-size:13.5px; color:var(--slate-400); margin:8px 2px 0; line-height:1.5}
+
+/* client bubble */
+.msg{display:flex; justify-content:flex-start; margin:16px 0}
+.bub{max-width:85%; padding:12px 15px; border-radius:14px; border-bottom-left-radius:4px;
+  background:rgba(30,41,59,.85); color:var(--slate-200); border:1px solid var(--card-border); font-size:16px; line-height:1.5}
+.bub .who{font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; font-weight:700; margin-bottom:3px; opacity:.7}
+
+/* response area */
+textarea#inp{width:100%; font:inherit; font-size:15px; color:var(--white); background:rgba(30,41,59,.6);
+  border:1.5px solid var(--card-border); border-radius:var(--r-md); padding:12px 14px; outline:none; resize:vertical; min-height:84px}
+textarea#inp:focus{border-color:var(--emerald)}
+.controls{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; align-items:center}
+
+/* feedback */
+.feedback-text{font-size:15px; color:var(--slate-200); line-height:1.65; white-space:pre-wrap}
+.nohint{font-size:13px; opacity:.75; margin-top:10px}
+
+:focus-visible{outline:2.5px solid var(--emerald-400); outline-offset:2px; border-radius:6px}
+@media(prefers-reduced-motion:reduce){*{transition:none !important}}
+@media(max-width:520px){h1{font-size:22px} .wrap{padding:16px 14px 56px} .card{padding:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <div class="brand-wrap">
+      <span class="brand-chip" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+          <path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+        </svg>
+      </span>
+      <span class="brand">PassReady <span class="prep">Prep</span><small>NCMHCE clinical simulations</small></span>
+    </div>
+    <span class="exam-badge">MICROSKILLS</span>
+  </header>
+  <main id="app" aria-live="polite"></main>
+</div>
+
+<script>
+let round = null, voiceOn = true, audioEl = null;
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+const app = document.getElementById('app');
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+async function nextRound() {
+  const r = await fetch('/api/skills/round');
+  round = await r.json();
+  const inp = document.getElementById('inp'); if (inp) inp.value = '';
+  renderRound();                       // show round.statement + round.skillLabel + round.skillDef
+  if (voiceOn) speak(round.statement, round.voice);
+}
+
+async function speak(text, voice) {
+  try {
+    const r = await fetch('/api/intake/tts', { method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ caseId: voice, text }) });   // reuses your configured ElevenLabs voices
+    if (r.status === 204 || !r.ok) return;
+    const blob = await r.blob();
+    if (audioEl) audioEl.pause();
+    audioEl = new Audio(URL.createObjectURL(blob));
+    audioEl.play().catch(() => {});
+  } catch (e) {}
+}
+
+async function scoreResponse() {
+  const resp = (document.getElementById('inp').value || '').trim();
+  if (!resp || !round) return;
+  showFeedback('Scoring…');
+  try {
+    const r = await fetch('/api/skills/evaluate', { method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ skillKey: round.skillKey, statement: round.statement, response: resp }) });
+    const d = await r.json();
+    showFeedback(d.feedback || '[no feedback returned]');
+  } catch (e) { showFeedback('[connection error — try again]'); }
+}
+
+// Robust mic: toggle start/stop, fills the box live from interim results.
+function startMic() {
+  if (!SR) return;
+  const btn = document.querySelector('button[onclick="startMic()"]');
+  if (window._micRec) { try { window._micRec.stop(); } catch (e) {} window._micRec = null; if (btn) btn.textContent = '🎤 Mic'; return; }
+  const inp = document.getElementById('inp');
+  const base = (inp && inp.value) ? inp.value.trim() + ' ' : '';
+  const rec = new SR();
+  window._micRec = rec;
+  rec.lang = 'en-US'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 1;
+  if (btn) btn.textContent = '⏹ Stop';
+  rec.onresult = e => { let t = ''; for (let i = 0; i < e.results.length; i++) t += e.results[i][0].transcript; const box = document.getElementById('inp'); if (box) box.value = base + t; };
+  rec.onerror = ev => { console.warn('mic error:', ev.error); if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed') alert('Microphone is blocked. Tap the lock icon in the address bar, allow the microphone, then try again.'); };
+  rec.onend = () => { window._micRec = null; if (btn) btn.textContent = '🎤 Mic'; };
+  rec.start();
+}
+
+// ---- views ----
+function renderRound() {
+  if (!round) { app.innerHTML = '<p class="lead">Loading…</p>'; return; }
+  const name = (round.voice || '').charAt(0).toUpperCase() + (round.voice || '').slice(1);
+  let h = '<a href="/" class="back">‹ Dashboard</a>';
+  h += '<h1>Microskills Responder</h1>';
+  h += '<div class="card">';
+  h += '<div class="skill-head">';
+  h += '<span class="skill-pill">Respond with: ' + esc(round.skillLabel) + '</span>';
+  h += '<button class="toggle-btn" id="voicebtn" aria-pressed="' + voiceOn + '" onclick="toggleVoice()">' + (voiceOn ? '🔊 Voice on' : '🔇 Voice off') + '</button>';
+  h += '</div>';
+  h += '<div class="skill-def">' + esc(round.skillDef) + '</div>';
+  h += '<div class="msg"><div class="bub"><div class="who">' + esc(name || 'Client') + '</div>' + esc(round.statement) + '</div></div>';
+  h += '<textarea id="inp" placeholder="' + (SR ? 'Type your response, or tap Mic to speak…' : 'Type your response…') + '"></textarea>';
+  h += '<div class="controls">';
+  if (SR) h += '<button class="btn secondary sm" onclick="startMic()" title="Speak your response">🎤 Mic</button>';
+  h += '<button class="btn" onclick="scoreResponse()">Score my response</button>';
+  h += '<button class="btn secondary" onclick="nextRound()">Next ›</button>';
+  h += '</div>';
+  if (!SR) h += '<div class="nohint">🎤 Voice input needs Chrome (desktop or Android). You can type here instead — and the client still speaks aloud in any browser. For the mic, open this page in Chrome.</div>';
+  h += '<div id="feedback" style="margin-top:16px"></div>';
+  h += '</div>';
+  app.innerHTML = h;
+}
+
+function showFeedback(text) {
+  const el = document.getElementById('feedback');
+  if (!el) return;
+  el.innerHTML = '<div class="feedback-text">' + esc(text) + '</div>';
+}
+
+function toggleVoice() {
+  voiceOn = !voiceOn;
+  if (!voiceOn && audioEl) audioEl.pause();
+  const b = document.getElementById('voicebtn');
+  if (b) { b.setAttribute('aria-pressed', voiceOn); b.textContent = voiceOn ? '🔊 Voice on' : '🔇 Voice off'; }
+}
+
+nextRound();
+</script>
+</body>
+</html>

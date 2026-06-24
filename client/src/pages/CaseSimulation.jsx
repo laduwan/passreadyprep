@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, CheckCircle2, X as XIcon, MessageSquare, Loader2 } from 'lucide-react';
 import { saveToHistory } from '../lib/readiness';
+import { authFetch } from '../lib/api';
 
 export default function CaseSimulation({ caseId, mode, onBack, navigate }) {
   const [caseData, setCaseData] = useState(null);
@@ -12,12 +13,9 @@ export default function CaseSimulation({ caseId, mode, onBack, navigate }) {
   const [debrief, setDebrief] = useState(null);
   const [debriefLoading, setDebriefLoading] = useState(false);
   const [debriefError, setDebriefError] = useState(null);
-  const [apiKey, setApiKey] = useState(() => {
-    try { return sessionStorage.getItem('prp_api_key') || ''; } catch { return ''; }
-  });
 
   useEffect(() => {
-    fetch('/api/content/' + encodeURIComponent(caseId))
+    authFetch('/api/content/' + encodeURIComponent(caseId))
       .then((r) => r.json())
       .then((d) => { const c = d.item?.caseSim || d.item; setCaseData(c); setAnswers(new Array((c.questions || []).length).fill(null)); })
       .catch(() => {});
@@ -46,15 +44,13 @@ export default function CaseSimulation({ caseId, mode, onBack, navigate }) {
   }
 
   async function runDebrief() {
-    if (!apiKey.trim()) return;
-    try { sessionStorage.setItem('prp_api_key', apiKey); } catch {}
     setDebriefLoading(true);
     setDebriefError(null);
     try {
-      const res = await fetch('/api/debrief', {
+      const res = await authFetch('/api/debrief', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ caseData, answers, mode, apiKey }),
+        body: JSON.stringify({ caseData, answers, mode }),
       });
       if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Request failed');
       const data = await res.json();
@@ -93,26 +89,14 @@ export default function CaseSimulation({ caseId, mode, onBack, navigate }) {
             Dr. Claire Moreau reviews your answers — strengths, growth areas, and an NCMHCE exam tip for this case.
           </p>
           {!debrief && (
-            <>
-              <div className="flex gap-2 items-center flex-wrap">
-                <input
-                  type="password"
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  placeholder="Anthropic API key"
-                  className="flex-1 min-w-[200px] bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm"
-                />
-                <button
-                  onClick={runDebrief}
-                  disabled={debriefLoading || !apiKey.trim()}
-                  className="bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-bold px-4 py-2 rounded-xl transition-colors flex items-center gap-2"
-                >
-                  {debriefLoading && <Loader2 className="w-4 h-4 animate-spin" />}
-                  {debriefLoading ? 'Analyzing…' : 'Get debrief'}
-                </button>
-              </div>
-              <p className="text-xs text-slate-600 mt-1.5">Used for this request only. Not stored on our server.</p>
-            </>
+            <button
+              onClick={runDebrief}
+              disabled={debriefLoading}
+              className="bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-bold px-4 py-2 rounded-xl transition-colors flex items-center gap-2"
+            >
+              {debriefLoading && <Loader2 className="w-4 h-4 animate-spin" />}
+              {debriefLoading ? 'Analyzing…' : 'Get debrief'}
+            </button>
           )}
           {debriefError && (
             <div className="mt-3 text-sm text-red-400">Debrief failed: {debriefError}</div>

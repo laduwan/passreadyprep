@@ -25,6 +25,8 @@ app.use('/api/content', require('./routes/content'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/admin/generate', require('./routes/adminGenerate'));
 app.use('/api/debrief', require('./routes/debrief'));
+app.use('/api/skills', require('./routes/skills'));
+app.use('/api/intake', require('./routes/intake'));
 
 // Explicit page routes — must come BEFORE express.static so the landing page
 // wins at / instead of public/index.html.
@@ -32,6 +34,7 @@ const path = require('path');
 const fs   = require('fs');
 app.get('/', (_req, res) => res.sendFile(path.join(__dirname, 'public', 'landing.html')));
 app.get('/study', (_req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
+app.get('/skills', (_req, res) => res.sendFile(path.join(__dirname, 'public', 'skills.html')));
 
 // Serve the React SPA (built by Vite to client/dist/) and legacy static pages from /public.
 // React app takes priority; /public has admin review page, standalone tools, and data files.
