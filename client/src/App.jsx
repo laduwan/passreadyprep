@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   BookOpen, Brain, GitBranch, Layers, GraduationCap,
-  BarChart3, FileText, Award, Home, ChevronRight, Menu, X, MessageSquare,
+  BarChart3, FileText, Award, Home, ChevronRight, Menu, X, MessageSquare, Clock,
 } from 'lucide-react';
 import Dashboard from './pages/Dashboard';
 import CaseList from './pages/CaseList';
@@ -16,6 +16,7 @@ const NAV_ITEMS = [
   { id: 'home', label: 'Dashboard', icon: Home },
   { id: 'cases', label: 'Case Practice', icon: BookOpen },
   { id: 'microskills', label: 'Microskills', icon: MessageSquare, external: '/skills.html' },
+  { id: 'mock', label: 'Timed Mock Exam', icon: Clock, external: '/exam.html' },
   { id: 'flashcards', label: 'Flashcards', icon: Layers },
   { id: 'trees', label: 'Decision Trees', icon: GitBranch },
   { id: 'dsm', label: 'DSM-5-TR Reference', icon: Brain },

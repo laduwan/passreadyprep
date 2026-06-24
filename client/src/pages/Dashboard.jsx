@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Layers, GitBranch, Brain, FileText, Award, TrendingUp, TrendingDown, Minus, Target } from 'lucide-react';
+import { BookOpen, Layers, GitBranch, Brain, FileText, Award, TrendingUp, TrendingDown, Minus, Target, Clock } from 'lucide-react';
 import { computeReadiness, DOMAIN_ORDER, DOMAIN_LABELS } from '../lib/readiness';
 
 function ReadinessRing({ value, label }) {
@@ -178,6 +178,7 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
         <h2 className="text-lg font-bold text-white mb-3">Study tools</h2>
         <div className="grid sm:grid-cols-2 gap-3">
           {[
+            { id: 'mock', icon: Clock, label: 'Timed Mock Exam', desc: 'Full-length, clock-running NCMHCE simulation — multiple cases scored by domain. The closest thing to exam day.', external: '/exam.html' },
             { id: 'flashcards', icon: Layers, label: 'Flashcards', desc: '258 cards with spaced repetition — codes, treatments, differentials, ethics, crisis.' },
             { id: 'trees', icon: GitBranch, label: 'Decision Trees', desc: '25 clinical reasoning walkthroughs — safety triage, differential diagnosis, treatment selection, ethics.' },
             { id: 'dsm', icon: Brain, label: 'DSM-5-TR Reference', desc: '92 diagnoses with ICD-10 codes and first-line treatments. Searchable.' },
@@ -186,7 +187,7 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
           ].map((tool) => (
             <button
               key={tool.id}
-              onClick={() => navigate(tool.id)}
+              onClick={() => tool.external ? (window.location.href = tool.external) : navigate(tool.id)}
               className="text-left rounded-xl border border-slate-700/60 bg-slate-800/40 hover:border-emerald-500/30 p-4 transition-colors group"
             >
               <div className="flex items-center gap-2.5 mb-1.5">
