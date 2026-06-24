@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /checkout.html
+Disallow: /score-report.html
+
+Sitemap: https://www.passreadyprep.com/sitemap.xml
