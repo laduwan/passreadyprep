@@ -7,10 +7,13 @@ const requireAuth = require('../middleware/auth');
 const router = express.Router();
 
 // Makes the signed token a new account/sign-in hands back to the browser.
+// Embeds sessionVersion (sv) so the middleware can detect stale sessions.
 function signToken(user) {
-  return jwt.sign({ sub: user._id.toString() }, process.env.JWT_SECRET, {
-    expiresIn: '30d',
-  });
+  return jwt.sign(
+    { sub: user._id.toString(), sv: user.sessionVersion },
+    process.env.JWT_SECRET,
+    { expiresIn: '30d' }
+  );
 }
 
 // Only the safe fields — never send the password hash to the browser.
@@ -59,6 +62,11 @@ router.post('/login', async (req, res) => {
 
     const ok = await bcrypt.compare(password, user.passwordHash);
     if (!ok) return res.status(401).json({ error: 'Email or password is incorrect' });
+
+    // Bump session version — invalidates any tokens issued before this login.
+    // Anyone sharing credentials gets kicked out the moment the real user signs in.
+    user.sessionVersion = (user.sessionVersion || 0) + 1;
+    await user.save();
 
     return res.json({ token: signToken(user), user: publicUser(user) });
   } catch (err) {
