@@ -60,10 +60,18 @@ const TIERS = {
 // The frontend redirects the browser; no payment details ever touch your server.
 router.post('/create-checkout-session', requireAuth, async (req, res) => {
   try {
-    const { tier } = req.body;
+    const { tier, guaranteeTermsAccepted } = req.body;
 
     if (!TIERS[tier]) {
       return res.status(400).json({ error: 'Invalid tier' });
+    }
+
+    // Pass Guarantee requires explicit acknowledgment of the check-in terms
+    if (tier === 'guarantee' && !guaranteeTermsAccepted) {
+      return res.status(400).json({
+        error: 'You must acknowledge the Pass Guarantee candidate verification terms to proceed',
+        code: 'GUARANTEE_TERMS_REQUIRED',
+      });
     }
 
     const tierConfig = TIERS[tier];
@@ -87,6 +95,13 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
       customerId = customer.id;
       user.subscription.stripeCustomerId = customerId;
       await user.save();
+    }
+
+    // Record guarantee terms acceptance timestamp
+    if (tier === 'guarantee' && !user.guaranteeTermsAcceptedAt) {
+      await User.findByIdAndUpdate(req.userId, {
+        guaranteeTermsAcceptedAt: new Date(),
+      });
     }
 
     const sessionParams = {

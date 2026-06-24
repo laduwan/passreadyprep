@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Checkout — PassReady Prep</title>
+<style>
+  :root{
+    --emerald:#10B981;--emerald-400:#34D399;--amber:#F59E0B;--amber-400:#FBBF24;
+    --blue-400:#60A5FA;--slate-900:#0F172A;--slate-800:#1E293B;--slate-700:#334155;
+    --slate-600:#475569;--slate-500:#64748B;--slate-400:#94A3B8;--slate-300:#CBD5E1;
+    --white:#F8FAFC;--red:#EF4444;
+    --card:rgba(30,41,59,.6);--card-border:rgba(51,65,85,.6);
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;
+    background:linear-gradient(160deg,#0F172A 0%,#1E293B 50%,#0F172A 100%);
+    background-attachment:fixed;font-family:var(--sans);color:var(--slate-300);padding:24px}
+
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:20px;
+    padding:36px;max-width:460px;width:100%;box-shadow:0 24px 60px -20px rgba(0,0,0,.5)}
+
+  .brand-wrap{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;margin-bottom:26px}
+  .brand-chip{width:36px;height:36px;border-radius:10px;background:rgba(16,185,129,.16);
+    display:grid;place-items:center;flex:0 0 auto}
+  .brand-chip svg{width:20px;height:20px;color:var(--emerald-400)}
+  .brand{font-weight:700;font-size:17px;color:var(--white);letter-spacing:-.01em}
+  .brand .prep{color:var(--emerald-400)}
+
+  /* tier summary */
+  .tier-box{border-radius:14px;padding:18px 20px;margin-bottom:22px;position:relative}
+  .tier-box.monthly{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.25)}
+  .tier-box.pass3{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3)}
+  .tier-box.guarantee{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.25)}
+  .tier-name{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px}
+  .tier-box.monthly .tier-name{color:var(--blue-400)}
+  .tier-box.pass3 .tier-name{color:var(--emerald-400)}
+  .tier-box.guarantee .tier-name{color:var(--amber-400)}
+  .tier-price{font-size:32px;font-weight:800;color:var(--white);line-height:1;margin-bottom:4px;letter-spacing:-.03em}
+  .tier-desc{font-size:13.5px;color:var(--slate-400);line-height:1.5}
+  .tier-features{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+  .tier-features li{font-size:13px;color:var(--slate-300);display:flex;align-items:center;gap:7px}
+  .tier-features li::before{content:"✓";color:var(--emerald-400);font-weight:700;flex:0 0 auto}
+  .tier-box.guarantee .tier-features li::before{color:var(--amber-400)}
+
+  .divider{height:1px;background:var(--card-border);margin:20px 0}
+
+  /* guarantee terms acknowledgment */
+  .guar-ack{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);
+    border-radius:12px;padding:16px 18px;margin-bottom:20px;display:none}
+  .guar-ack.show{display:block}
+  .guar-ack-head{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--amber-400);margin-bottom:10px}
+  .guar-ack p{font-size:13px;color:var(--slate-400);line-height:1.6;margin:0 0 12px}
+  .guar-ack p:last-of-type{margin-bottom:12px}
+  .guar-ack a{color:var(--amber-400)}
+
+  .check-row{display:flex;align-items:flex-start;gap:10px}
+  .check-row input[type=checkbox]{width:18px;height:18px;flex:0 0 auto;
+    margin-top:1px;accent-color:var(--amber);cursor:pointer}
+  .check-row label{font-size:13px;color:var(--slate-300);line-height:1.55;cursor:pointer}
+  .check-row a{color:var(--amber-400);text-decoration:none}
+  .check-row a:hover{text-decoration:underline}
+
+  /* auth prompt */
+  .auth-prompt{text-align:center;padding:8px 0 4px}
+  .auth-prompt p{color:var(--slate-400);font-size:14px;margin:0 0 14px}
+  .auth-prompt a{color:var(--emerald-400);font-weight:600;text-decoration:none}
+
+  /* button */
+  .btn{width:100%;border:none;border-radius:12px;padding:14px;
+    font:700 16px/1 var(--sans);cursor:pointer;transition:background .15s;
+    display:flex;align-items:center;justify-content:center;gap:8px}
+  .btn.emerald{background:var(--emerald);color:#04261C}
+  .btn.emerald:hover:not(:disabled){background:var(--emerald-400)}
+  .btn.amber{background:var(--amber);color:#1a0e00}
+  .btn.amber:hover:not(:disabled){background:var(--amber-400)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+
+  .secure-note{text-align:center;font-size:12px;color:var(--slate-600);margin-top:12px;
+    display:flex;align-items:center;justify-content:center;gap:6px}
+  .secure-note svg{width:13px;height:13px;color:var(--slate-600)}
+
+  .err{color:var(--red);font-size:13.5px;margin:0 0 14px;display:none;line-height:1.5;text-align:center}
+
+  #loading{text-align:center;color:var(--slate-400);padding:20px 0}
+  #main{display:none}
+
+  :focus-visible{outline:2.5px solid var(--emerald-400);outline-offset:2px;border-radius:6px}
+</style>
+</head>
+<body>
+<div class="card">
+  <a class="brand-wrap" href="/landing.html" aria-label="PassReady Prep home">
+    <span class="brand-chip" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+        <path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+      </svg>
+    </span>
+    <span class="brand">PassReady <span class="prep">Prep</span></span>
+  </a>
+
+  <div id="loading">Preparing checkout…</div>
+
+  <div id="main">
+    <!-- Tier summary — populated by JS -->
+    <div id="tier-box" class="tier-box"></div>
+
+    <div class="divider"></div>
+
+    <!-- Pass Guarantee specific acknowledgment -->
+    <div class="guar-ack" id="guar-ack">
+      <div class="guar-ack-head">🛡️ Pass Guarantee — please read</div>
+      <p>Your access is unlimited — you will never need to pay again. To protect your account from being shared, we require a brief candidate verification check-in every 6 months: you confirm your scheduled exam date or submit your score report.</p>
+      <p>If you don't pass, your access is extended free. If you pass, your first CE course on CounselorReady is on us. <a href="/policies.html#guarantee" target="_blank">Full terms →</a></p>
+      <div class="check-row">
+        <input type="checkbox" id="guar-check"/>
+        <label for="guar-check">I understand the Pass Guarantee includes a 6-month candidate verification check-in. No repayment is ever required.</label>
+      </div>
+    </div>
+
+    <p class="err" id="checkout-err"></p>
+
+    <button class="btn emerald" id="pay-btn" onclick="startCheckout()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg>
+      Continue to payment
+    </button>
+
+    <div class="secure-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Secured by Stripe · your card is never stored here
+    </div>
+
+    <!-- Shown if not logged in -->
+    <div id="auth-prompt" class="auth-prompt" style="display:none">
+      <div class="divider"></div>
+      <p>You need an account to purchase. It only takes a moment.</p>
+      <a id="auth-link" href="/register.html">Create account or sign in →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const TIERS = {
+    monthly: {
+      cls: 'monthly',
+      name: 'Monthly Plan',
+      price: '$29/mo',
+      desc: 'Full access, cancel any time.',
+      features: ['All 270+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan'],
+    },
+    pass3: {
+      cls: 'pass3',
+      name: '3-Month Pass',
+      price: '$79',
+      desc: 'One payment, full access for 3 months.',
+      features: ['All 270+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan'],
+    },
+    guarantee: {
+      cls: 'guarantee',
+      name: 'Pass Guarantee',
+      price: '$149',
+      desc: 'Unlimited access — one payment, forever.',
+      features: ['All 270+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Pass guarantee — free CE on CounselorReady when you pass'],
+    },
+  };
+
+  const params  = new URLSearchParams(location.search);
+  const tier    = params.get('tier') || 'pass3';
+  const tierCfg = TIERS[tier] || TIERS.pass3;
+  const token   = localStorage.getItem('prp_token');
+
+  function init() {
+    // Build tier summary box
+    const box = document.getElementById('tier-box');
+    box.className = `tier-box ${tierCfg.cls}`;
+    box.innerHTML = `
+      <div class="tier-name">${tierCfg.name}</div>
+      <div class="tier-price">${tierCfg.price}</div>
+      <div class="tier-desc">${tierCfg.desc}</div>
+      <ul class="tier-features">${tierCfg.features.map(f => `<li>${f}</li>`).join('')}</ul>
+    `;
+
+    // Update pay button color for guarantee
+    if (tier === 'guarantee') {
+      document.getElementById('pay-btn').className = 'btn amber';
+      document.getElementById('guar-ack').classList.add('show');
+    }
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+
+    // If not logged in, disable pay button and show auth prompt
+    if (!token) {
+      const btn = document.getElementById('pay-btn');
+      btn.disabled = true;
+      btn.textContent = 'Sign in to continue';
+      document.getElementById('auth-prompt').style.display = 'block';
+      // Point the auth link back here after login/register
+      document.getElementById('auth-link').href =
+        `/register.html?next=${encodeURIComponent(location.pathname + location.search)}`;
+    }
+  }
+
+  function showErr(msg) {
+    const el = document.getElementById('checkout-err');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  async function startCheckout() {
+    document.getElementById('checkout-err').style.display = 'none';
+
+    if (!token) {
+      window.location.href = `/register.html?next=${encodeURIComponent(location.pathname + location.search)}`;
+      return;
+    }
+
+    // Guarantee tier: require acknowledgment checkbox
+    if (tier === 'guarantee') {
+      const checked = document.getElementById('guar-check').checked;
+      if (!checked) {
+        showErr('Please acknowledge the Pass Guarantee terms to continue.');
+        return;
+      }
+    }
+
+    const btn = document.getElementById('pay-btn');
+    btn.disabled = true;
+    btn.innerHTML = 'Redirecting to Stripe…';
+
+    try {
+      const body = { tier };
+      if (tier === 'guarantee') body.guaranteeTermsAccepted = true;
+
+      const r = await fetch('/api/payment/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
+
+      const data = await r.json();
+
+      if (!r.ok) {
+        // Session invalidated — token stale, send to login
+        if (data.code === 'SESSION_INVALIDATED') {
+          localStorage.removeItem('prp_token');
+          localStorage.removeItem('prp_user');
+          window.location.href = `/register.html?next=${encodeURIComponent(location.pathname + location.search)}`;
+          return;
+        }
+        showErr(data.error || 'Could not start checkout. Please try again.');
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg> Continue to payment';
+        return;
+      }
+
+      // Redirect to Stripe Checkout
+      window.location.href = data.url;
+
+    } catch (e) {
+      showErr('Network error. Please check your connection and try again.');
+      btn.disabled = false;
+      btn.textContent = 'Continue to payment';
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>

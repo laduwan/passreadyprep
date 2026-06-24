@@ -17,6 +17,11 @@ const UserSchema = new Schema(
     // session per account, which blocks credential sharing.
     sessionVersion: { type: Number, default: 0 },
 
+    // Policy acceptance — legal record of when and what version the user agreed to.
+    termsAcceptedAt: Date,
+    termsVersion: { type: String },          // e.g. 'june-2026'
+    guaranteeTermsAcceptedAt: Date,          // set only for Pass Guarantee purchasers
+
     subscription: {
       tier: { type: String, default: 'free' },      // free | monthly | pass3 | guarantee
       status: { type: String, default: 'active' },  // active | past_due | canceled
