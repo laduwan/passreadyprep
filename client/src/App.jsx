@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   BookOpen, Brain, GitBranch, Layers, GraduationCap,
-  BarChart3, FileText, Award, Home, ChevronRight, Menu, X,
+  BarChart3, FileText, Award, Home, ChevronRight, Menu, X, MessageSquare,
 } from 'lucide-react';
 import Dashboard from './pages/Dashboard';
 import CaseList from './pages/CaseList';
@@ -15,6 +15,7 @@ import ExamStrategy from './pages/ExamStrategy';
 const NAV_ITEMS = [
   { id: 'home', label: 'Dashboard', icon: Home },
   { id: 'cases', label: 'Case Practice', icon: BookOpen },
+  { id: 'microskills', label: 'Microskills', icon: MessageSquare, external: '/skills.html' },
   { id: 'flashcards', label: 'Flashcards', icon: Layers },
   { id: 'trees', label: 'Decision Trees', icon: GitBranch },
   { id: 'dsm', label: 'DSM-5-TR Reference', icon: Brain },
@@ -84,7 +85,7 @@ export default function App() {
               return (
                 <button
                   key={item.id}
-                  onClick={() => navigate(item.id)}
+                  onClick={() => item.external ? (window.location.href = item.external) : navigate(item.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-left transition-colors ${
                     active
                       ? 'bg-emerald-500/15 text-emerald-400'
@@ -120,7 +121,7 @@ export default function App() {
               return (
                 <button
                   key={item.id}
-                  onClick={() => navigate(item.id)}
+                  onClick={() => item.external ? (window.location.href = item.external) : navigate(item.id)}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-sm transition-colors ${
                     active
                       ? 'bg-emerald-500/15 text-emerald-400 font-semibold'

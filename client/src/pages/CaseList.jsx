@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BookOpen, ChevronRight } from 'lucide-react';
+import { authFetch } from '../lib/api';
 
 const DIFF_COLORS = { easy: 'text-emerald-400 bg-emerald-500/15', medium: 'text-amber-400 bg-amber-500/15', hard: 'text-red-400 bg-red-500/15' };
 
@@ -9,7 +10,7 @@ export default function CaseList({ mode, onSelect, navigate }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/content?exam=ncmhce')
+    authFetch('/api/content?exam=ncmhce')
       .then((r) => r.json())
       .then((d) => { setCases(d.items || []); setLoading(false); })
       .catch(() => setLoading(false));
