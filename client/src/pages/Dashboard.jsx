@@ -36,7 +36,7 @@ function DomainBar({ name, score }) {
   );
 }
 
-export default function Dashboard({ navigate, mode, setMode }) {
+export default function Dashboard({ navigate, mode, setMode, examMode, setExamMode }) {
   const rd = computeReadiness();
   const [examDate, setExamDate] = useState(() => localStorage.getItem('prp_exam_date') || '');
 
@@ -140,6 +140,36 @@ export default function Dashboard({ navigate, mode, setMode }) {
               </div>
             </button>
           ))}
+        </div>
+
+        {/* Feedback timing — study vs exam-faithful */}
+        <div className="mt-3 rounded-xl border border-slate-700/60 bg-slate-800/40 p-4">
+          <div className="flex items-center gap-2 flex-wrap mb-1.5">
+            <span className="text-sm font-bold text-white">Feedback timing</span>
+            <span className="text-xs text-slate-500">{examMode ? 'Exam-faithful' : 'Study'}</span>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            {[
+              { id: false, label: 'Study', desc: 'after each question' },
+              { id: true, label: 'Exam', desc: 'held until case ends' },
+            ].map((o) => (
+              <button
+                key={String(o.id)}
+                onClick={() => setExamMode(o.id)}
+                className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+                  examMode === o.id
+                    ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-400'
+                    : 'border-slate-700/60 bg-slate-800/40 text-slate-400 hover:border-slate-600'
+                }`}
+              >
+                {o.label} — {o.desc}
+              </button>
+            ))}
+          </div>
+          <p className="text-xs text-slate-500 mt-2">
+            Exam mode mirrors the real NCMHCE: you answer through the whole case with no right/wrong shown,
+            then get a full review at the end.
+          </p>
         </div>
       </div>
 

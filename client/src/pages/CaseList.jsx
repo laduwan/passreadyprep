@@ -4,7 +4,7 @@ import { authFetch } from '../lib/api';
 
 const DIFF_COLORS = { easy: 'text-emerald-400 bg-emerald-500/15', medium: 'text-amber-400 bg-amber-500/15', hard: 'text-red-400 bg-red-500/15' };
 
-export default function CaseList({ mode, onSelect, navigate }) {
+export default function CaseList({ mode, examMode = false, onSelect, navigate }) {
   const [cases, setCases] = useState([]);
   const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(true);
@@ -24,6 +24,8 @@ export default function CaseList({ mode, onSelect, navigate }) {
         <h1 className="text-2xl font-bold text-white">Choose a case</h1>
         <p className="text-slate-400 text-sm mt-1">
           Mode: <span className="text-white font-semibold">{mode === 'classic' ? 'Classic — you diagnose first' : 'New format — diagnosis given'}</span>
+          <span className="text-slate-600"> · </span>
+          <span className={`font-semibold ${examMode ? 'text-amber-400' : 'text-emerald-400'}`}>{examMode ? 'Exam — feedback at the end' : 'Study — feedback each question'}</span>
         </p>
       </div>
       <div className="flex gap-2 flex-wrap">
