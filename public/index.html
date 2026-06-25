@@ -4,6 +4,18 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>PassReady Prep — Study</title>
+<meta name="description" content="Study for the NCMHCE with PassReady Prep — clinical case simulations, a timed mock exam, decision trees, flashcards, and a DSM-5-TR reference.">
+<link rel="canonical" href="https://www.passreadyprep.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PassReady Prep">
+<meta property="og:title" content="PassReady Prep — Study">
+<meta property="og:description" content="Study for the NCMHCE with PassReady Prep — clinical case simulations, a timed mock exam, decision trees, flashcards, and a DSM-5-TR reference.">
+<meta property="og:url" content="https://www.passreadyprep.com/">
+<meta property="og:image" content="https://www.passreadyprep.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PassReady Prep — Study">
+<meta name="twitter:description" content="Study for the NCMHCE with PassReady Prep — clinical case simulations, a timed mock exam, decision trees, flashcards, and a DSM-5-TR reference.">
+<meta name="twitter:image" content="https://www.passreadyprep.com/og.png">
 <style>
   :root{
     --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
@@ -43,6 +55,22 @@
   .lead{color:var(--slate-400); margin:0 0 18px}
 
   /* cards */
+  .hdr-right{display:flex; align-items:center; gap:12px}
+  .acct{display:flex; align-items:center; gap:8px}
+  .acct-email{font-size:12px; color:var(--slate-400); max-width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .acct-btn{font:inherit; font-size:12px; font-weight:700; padding:6px 12px; border-radius:9px; border:1.5px solid var(--card-border); background:rgba(30,41,59,.6); color:var(--slate-200); cursor:pointer}
+  .acct-btn.primary{border-color:var(--emerald-400); background:rgba(16,185,129,.16); color:var(--emerald-400)}
+  .modal-bg{position:fixed; inset:0; background:rgba(2,6,23,.72); display:none; place-items:center; z-index:50; padding:20px}
+  .modal-bg.open{display:grid}
+  .modal{background:var(--slate-900); border:1px solid var(--card-border); border-radius:16px; padding:24px; max-width:380px; width:100%; position:relative; box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .modal h2{margin:0 0 4px; font-size:20px}
+  .modal-sub{font-size:13px; color:var(--slate-400); margin:0 0 16px}
+  .modal input{width:100%; font:inherit; padding:11px 13px; border:1.5px solid var(--card-border); border-radius:10px; background:rgba(30,41,59,.6); color:var(--white); margin-bottom:10px; box-sizing:border-box}
+  .modal .btn{width:100%}
+  .modal-x{position:absolute; top:10px; right:14px; background:none; border:none; color:var(--slate-400); font-size:24px; cursor:pointer; line-height:1}
+  .modal-foot{font-size:13px; color:var(--slate-400); text-align:center; margin:14px 0 0}
+  .modal-foot a{color:var(--emerald-400); text-decoration:none}
+  .auth-err{color:var(--red-400); font-size:13px; min-height:18px; margin-bottom:4px}
   .card{background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-xl); padding:18px 20px}
   .stack > * + *{margin-top:14px}
 
@@ -130,6 +158,7 @@
   .w-pos{color:var(--emerald-400)} .w-neg{color:var(--red-400)} .w-zero{color:var(--slate-400)}
 
   /* feedback */
+  .opt.picked{border-color:var(--blue-400); background:rgba(96,165,250,.10)}
   .feedback{margin-top:8px}
   .verdict{font-weight:700; font-size:16px; margin-bottom:6px}
   .verdict.ok{color:var(--emerald-400)} .verdict.no{color:var(--red-400)}
@@ -201,6 +230,35 @@
   .guar-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--emerald-400);text-decoration:none;margin-top:8px}
   .guar-link:hover{text-decoration:underline}
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "PassReady Prep",
+      "url": "https://www.passreadyprep.com/",
+      "logo": "https://www.passreadyprep.com/og.png"
+    },
+    {
+      "@type": "WebSite",
+      "name": "PassReady Prep",
+      "url": "https://www.passreadyprep.com/"
+    },
+    {
+      "@type": "Course",
+      "name": "NCMHCE Exam Prep",
+      "description": "NCMHCE preparation with clinical case simulations, a timed mock exam, decision trees, flashcards, and a DSM-5-TR reference.",
+      "provider": {
+        "@type": "Organization",
+        "name": "PassReady Prep",
+        "sameAs": "https://www.passreadyprep.com/"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -209,10 +267,26 @@
       <span class="brand-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
       <span class="brand">PassReady <span class="prep">Prep</span><small>NCMHCE clinical simulations</small></span>
     </div>
-    <span class="exam-badge">NCMHCE</span>
+    <div class="hdr-right">
+      <span class="exam-badge">NCMHCE</span>
+      <span id="acct" class="acct"></span>
+    </div>
   </header>
   <main id="app" aria-live="polite"></main>
   <p class="hint" id="modehint"></p>
+</div>
+
+<div class="modal-bg" id="auth-modal" role="dialog" aria-modal="true" aria-label="Sign in">
+  <div class="modal">
+    <button class="modal-x" aria-label="Close" onclick="closeAuth()">&times;</button>
+    <h2>Sign in</h2>
+    <p class="modal-sub">Sign in to unlock all 270+ cases and sync your readiness, history, and study plan across devices.</p>
+    <input id="auth-email" type="email" autocomplete="email" placeholder="Email" />
+    <input id="auth-pass" type="password" autocomplete="current-password" placeholder="Password" />
+    <div class="auth-err" id="auth-err" role="alert"></div>
+    <button class="btn" id="auth-submit" onclick="submitAuth()">Sign in</button>
+    <p class="modal-foot">New here? <a href="/register.html?next=/study">Create an account &rsaquo;</a></p>
+  </div>
 </div>
 
 <script>
@@ -223,9 +297,15 @@ const app = document.getElementById('app');
 const modehint = document.getElementById('modehint');
 
 // ---- data layer (API with embedded fallback) ----
+// Attach the signed-in user's JWT (same key register.html sets) so paying
+// users get the full case bank instead of the 5-case free cap.
+function authHeaders(){
+  try{ const t = localStorage.getItem('prp_token'); return t ? { Authorization: 'Bearer ' + t } : {}; }
+  catch(_){ return {}; }
+}
 async function fetchList(){
   try{
-    const r = await fetch('/api/content?exam=ncmhce');
+    const r = await fetch('/api/content?exam=ncmhce', { headers: authHeaders() });
     if(!r.ok) throw 0;
     const j = await r.json();
     if(!j.items || !j.items.length) throw 0;
@@ -238,10 +318,13 @@ async function fetchList(){
 }
 async function fetchCase(externalId){
   if(DATA_SOURCE === 'api'){
-    const r = await fetch('/api/content/' + encodeURIComponent(externalId));
+    const r = await fetch('/api/content/' + encodeURIComponent(externalId), { headers: authHeaders() });
     const j = await r.json();
+    CASE_EXAM_ID = (j.item && j.item.examId) || null;
+    CASE_ITEM_ID = (j.item && j.item._id) || null;
     return j.item.caseSim;
   }
+  CASE_EXAM_ID = null; CASE_ITEM_ID = null;
   return EMBEDDED_CASES.find(c => c.id === externalId);
 }
 
@@ -262,8 +345,10 @@ const weightText = w => (w>0?'+':'')+w;
 
 // ---- state ----
 let CASE=null, qi=0, answers=[];
+let CASE_EXAM_ID=null, CASE_ITEM_ID=null; // captured per case, for server-side progress sync
 let LIST_ITEMS=[], LIST_FILTER='all';
 let MODE='new';            // 'new' (diagnosis given) | 'classic' (diagnose first)
+let EXAM_FB=false;         // false = study (feedback each Q) | true = exam (held to end)
 let dxChoice=null;         // classic: chosen differential id
 let phase='answer';        // 'diagnose' | 'answer'
 const SESSION={correct:0, total:0};
@@ -297,6 +382,71 @@ function saveToHistory(caseObj, answers, dxCorrect){
   // keep last 500 entries
   if(h.length > 500) h.splice(0, h.length - 500);
   saveHistory(h);
+}
+
+// ---- server-side progress sync (signed-in users) ----
+// Backend already exists: POST/GET /api/progress (routes/progress.js, Attempt model).
+// Logged out → localStorage only, exactly as before. Logged in → the account's
+// saved attempts are the source of truth, so readiness/study-plan follow you across devices.
+function attemptToEntry(att){
+  const db = att.domainBreakdown || {};
+  let correct = 0, total = 0; const domains = {};
+  Object.keys(db).forEach(d => {
+    const v = db[d] || {};
+    const ok = +v.ok || 0, tot = +v.total || 0;
+    domains[d] = { ok, total: tot };
+    correct += ok; total += tot;
+  });
+  return {
+    caseId: att.externalId || att.contentItemId || 'case',
+    date: +new Date(att.completedAt || att.createdAt || Date.now()),
+    correct, total, domains,
+    dxCorrect: null,
+    difficulty: 'medium',
+  };
+}
+
+async function hydrateFromServer(){
+  if(!authHeaders().Authorization) return false; // signed-in only
+  try{
+    const r = await fetch('/api/progress', { headers: authHeaders() });
+    if(!r.ok) return false;
+    const j = await r.json();
+    const entries = (j.attempts || []).map(attemptToEntry).filter(e => e.total > 0);
+    if(!entries.length) return false; // empty account: keep local, don't wipe it
+    entries.sort((a,b) => a.date - b.date);
+    saveHistory(entries.slice(-500));
+    return true;
+  }catch(_){ return false; }
+}
+
+function serverSaveAttempt(caseObj, ans, domainsObj, pct){
+  if(!authHeaders().Authorization || !CASE_EXAM_ID) return; // need login + a real exam id
+  const responses = (caseObj.questions || []).map((q,i) => {
+    const a = ans[i];
+    const chosen = a && q.options.find(o => o.id === a.chosenId);
+    return {
+      questionId: q.id,
+      selectedOptionId: a ? a.chosenId : null,
+      correct: !!(chosen && chosen.isCorrect),
+      weight: chosen && typeof chosen.weight === 'number' ? chosen.weight : 0,
+    };
+  });
+  // Fire-and-forget: local history is already saved, so the UI never waits on this.
+  fetch('/api/progress', {
+    method: 'POST',
+    headers: Object.assign({'Content-Type':'application/json'}, authHeaders()),
+    body: JSON.stringify({
+      examId: CASE_EXAM_ID,
+      contentItemId: CASE_ITEM_ID || undefined,
+      externalId: caseObj.id,
+      mode: EXAM_FB ? 'timed' : 'study',
+      responses,
+      score: pct,
+      domainBreakdown: domainsObj,
+      completedAt: new Date().toISOString(),
+    }),
+  }).catch(()=>{});
 }
 
 // NCMHCE domain weights (approximate from NBCC content outline)
@@ -463,6 +613,15 @@ async function showDashboard(){
   h += '<div class="mode-grid" role="group" aria-label="Practice mode">';
   h += modeCard('new','New format','Diagnosis is given — focus on treatment, counseling & ethics decisions.','Current exam');
   h += modeCard('classic','Classic format','Work out the diagnosis yourself first, then answer. Extra diagnostic practice.','');
+  h += '<div class="mode-card" style="grid-column:1/-1;cursor:default">'
+     + '<span class="mc-head">Feedback timing</span>'
+     + '<span class="mc-desc">Study shows the answer after each question. Exam holds all feedback until you finish the case — like the real NCMHCE.</span>'
+     + '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">'
+     + '<button class="badge '+(!EXAM_FB?'b-emerald':'b-slate')+'" style="cursor:pointer;border:none;font:inherit" aria-pressed="'+(!EXAM_FB)+'" onclick="setExamFb(false)">Study — after each Q</button>'
+     + '<button class="badge '+(EXAM_FB?'b-amber':'b-slate')+'" style="cursor:pointer;border:none;font:inherit" aria-pressed="'+EXAM_FB+'" onclick="setExamFb(true)">Exam — held to the end</button>'
+     + '</div></div>';
+  h += '<a href="/exam.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">📝 Timed Mock Exam</span><span class="mc-desc">A full 11-case exam under the clock, blueprint-weighted like the real NCMHCE. No feedback until you finish — then a full domain breakdown and answer review.</span></a>';
+  h += '<a href="/intake.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">🎙️ Intake Interview Simulator</span><span class="mc-desc">Practice the clinical interview with an AI client who reveals their story the way a real one does — guarded until you earn trust. Five clients including a court-mandated and a returning-veteran case. Speak or type; get a supervisor debrief on rapport, questioning, and risk screening.</span></a>';
   h += '</div>';
 
   h += '<div class="card" style="margin-top:16px"><h2>This session</h2>';
@@ -485,6 +644,7 @@ async function showDashboard(){
   h += '<div class="card" style="margin-top:16px"><h2>Study tools</h2>';
   h += '<div class="mode-grid">';
   h += '<a href="/flashcards.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📇 Flashcards</span><span class="mc-desc">258 cards with spaced repetition. Covers ICD-10 codes, first-line treatments, differentials, ethics, and crisis. Cards you miss come back sooner.</span></a>';
+  h += '<a href="/decision-trees.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🌳 Decision Trees</span><span class="mc-desc">25 branching clinical scenarios — risk and safety, differential diagnosis, ethics, and treatment selection. Walk each one node by node to drill the reasoning the exam rewards.</span></a>';
   h += '<a href="/dsm.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📖 DSM-5-TR Reference</span><span class="mc-desc">92 diagnoses with ICD-10 codes and first-line treatments. Search by name, code, or treatment keyword. Use alongside cases to look up unfamiliar disorders.</span></a>';
   h += '<a href="/sheets/ncmhce-study-sheets.pdf" target="_blank" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📄 Study sheets (PDF)</span><span class="mc-desc">Printable one-pagers for all 18 categories. Download the combined 92-diagnosis reference or individual category sheets to study offline.</span></a>';
   h += '</div></div>';
@@ -518,6 +678,7 @@ function modeCard(m, title, desc, tag){
        + '<span class="mc-sel">'+(sel?'● Selected':'Tap to select')+'</span></button>';
 }
 function setMode(m){ MODE = m; showDashboard(); }
+function setExamFb(v){ EXAM_FB = !!v; showDashboard(); }
 function goCases(){ renderList(); window.scrollTo({top:0,behavior:'smooth'}); }
 
 // ---- case list ----
@@ -659,11 +820,16 @@ function renderQuestion(i){
     let weightHtml = '';
     if(ans){
       disabled = 'disabled';
-      if(o.isCorrect){ cls += ' correct'; mark = '<span class="mark" aria-hidden="true">✓</span>'; }
-      else if(o.id === ans.chosenId){ cls += ' incorrect'; mark = '<span class="mark" aria-hidden="true">✗</span>'; }
-      else { cls += ' dim'; }
-      if(typeof o.weight === 'number'){
-        weightHtml = '<div class="opt-weight '+weightClass(o.weight)+'">'+weightText(o.weight)+' pts</div>';
+      if(EXAM_FB){
+        if(o.id === ans.chosenId){ cls += ' picked'; }
+        else { cls += ' dim'; }
+      } else {
+        if(o.isCorrect){ cls += ' correct'; mark = '<span class="mark" aria-hidden="true">✓</span>'; }
+        else if(o.id === ans.chosenId){ cls += ' incorrect'; mark = '<span class="mark" aria-hidden="true">✗</span>'; }
+        else { cls += ' dim'; }
+        if(typeof o.weight === 'number'){
+          weightHtml = '<div class="opt-weight '+weightClass(o.weight)+'">'+weightText(o.weight)+' pts</div>';
+        }
       }
     }
     h += '<button class="'+cls+'" '+disabled+' onclick="choose(\''+esc(q.id)+'\',\''+esc(o.id)+'\')">'
@@ -671,7 +837,18 @@ function renderQuestion(i){
        + '<span class="otext">'+esc(o.text)+weightHtml+'</span>'+mark+'</button>';
   });
 
-  if(ans) h += renderFeedback(q, ans);
+  if(ans) h += EXAM_FB ? renderExamLock() : renderFeedback(q, ans);
+  return h;
+}
+
+function renderExamLock(){
+  const last = qi === CASE.questions.length-1;
+  let h = '<div class="feedback" role="status">';
+  h += '<div style="color:var(--slate-400);font-size:14px">Answer locked. Feedback comes after you finish the case — like the real exam.</div>';
+  h += '<div class="row">';
+  if(last) h += '<button class="btn" onclick="finish()">See results</button>';
+  else h += '<button class="btn" onclick="next()">Next question ›</button>';
+  h += '</div></div>';
   return h;
 }
 
@@ -749,6 +926,7 @@ function finish(){
     dxOk = !!(dxChoice && corr && dxChoice===corr.id);
   }
   saveToHistory(CASE, answers, dxOk);
+  serverSaveAttempt(CASE, answers, dom, pct); // sync to account (no-op if logged out)
 
   // classic diagnosis result
   let dxLine = '';
@@ -771,6 +949,26 @@ function finish(){
   });
   h += '</div>';
 
+  if(EXAM_FB){
+    h += '<div class="card" style="margin-top:14px"><h2>Case review</h2>';
+    h += '<div style="font-size:12px;color:var(--slate-500);margin-bottom:6px">Feedback was held until the end, like the real exam.</div>';
+    qs.forEach((q,i) => {
+      const a = answers[i];
+      const chosen = a && q.options.find(o=>o.id===a.chosenId);
+      const correctOpt = q.options.find(o=>o.isCorrect);
+      const ok = !!(chosen && chosen.isCorrect);
+      const ex = ((ok?chosen:correctOpt) || {}).explanation || {};
+      h += '<div style="border-top:1px solid var(--card-border);padding:10px 0">';
+      h += '<div style="font-weight:600;color:var(--white);font-size:14px">Q'+(i+1)+'. '+esc(q.question)+'</div>';
+      h += '<div class="'+(ok?'w-pos':'w-neg')+'" style="font-weight:700;font-size:13px;margin-top:4px">'+(ok?'✓ Correct':'✗ Incorrect')+' <span style="font-weight:400;color:var(--slate-400)">— you chose: '+esc(chosen?chosen.text:'(no answer)')+'</span></div>';
+      if(!ok && correctOpt) h += '<div style="font-size:13px;color:var(--slate-300);margin-top:2px">Best answer: '+esc(correctOpt.text)+'</div>';
+      if(ex.rationale) h += '<div style="font-size:13px;color:var(--slate-400);margin-top:4px">'+esc(ex.rationale)+'</div>';
+      if(ex.commonMistake) h += '<div style="font-size:13px;color:var(--amber-400);margin-top:4px">Common mistake: '+esc(ex.commonMistake)+'</div>';
+      h += '</div>';
+    });
+    h += '</div>';
+  }
+
   h += '<div class="card" style="margin-top:14px"><h2>By area</h2>';
   h += dxLine;
   Object.keys(dom).forEach(d => {
@@ -778,10 +976,39 @@ function finish(){
   });
   h += '</div>';
 
+  h += '<div class="card" style="margin-top:14px"><h2>AI clinical debrief</h2>'
+     + '<div style="font-size:12px;color:var(--slate-500);margin-bottom:10px">Dr. Claire Moreau reviews your answers — strengths, growth areas, and an NCMHCE exam tip for this case.</div>'
+     + '<button class="btn" id="debrief-btn" onclick="getDebrief()">Get debrief</button>'
+     + '<div id="debrief-out"></div></div>';
+
   h += '<div class="row"><button class="btn" onclick="startCase(\''+esc(CASE.id)+'\')">Retry this case</button>'
      + '<button class="btn secondary" onclick="goCases()">More cases</button></div>';
   app.innerHTML = h;
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function getDebrief(){
+  const btn = document.getElementById('debrief-btn');
+  const out = document.getElementById('debrief-out');
+  if(!btn || !out) return;
+  btn.disabled = true; btn.textContent = 'Analyzing…';
+  try{
+    const r = await fetch('/api/debrief', {
+      method:'POST',
+      headers: Object.assign({'Content-Type':'application/json'}, authHeaders()),
+      body: JSON.stringify({ caseData: CASE, answers, mode: MODE })
+    });
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j.error || 'Request failed');
+    out.innerHTML = '<div class="feedback" style="margin-top:12px">'
+      + '<div class="fb-label" style="color:var(--purple-400)">Dr. Claire Moreau — Clinical Debrief</div>'
+      + '<div style="white-space:pre-wrap;color:var(--slate-200);font-size:14px;line-height:1.6;margin-top:6px">'+esc(j.debrief)+'</div>'
+      + '<div style="font-size:11px;color:var(--slate-600);font-style:italic;margin-top:8px">AI-generated feedback for learning. Not a substitute for licensed supervision.</div></div>';
+    btn.style.display = 'none';
+  }catch(e){
+    out.innerHTML = '<div style="color:var(--red-400);font-size:13px;margin-top:10px">Debrief failed: '+esc(e.message)+'</div>';
+    btn.disabled = false; btn.textContent = 'Get debrief';
+  }
 }
 
 // ---- study plan generator ----
@@ -853,8 +1080,85 @@ function genPlan(){
   planEl.innerHTML = h;
 }
 
+// ---- account / login surface ----
+function currentUser(){ try{ return JSON.parse(localStorage.getItem('prp_user') || 'null'); }catch(_){ return null; } }
+
+function renderAccount(){
+  const el = document.getElementById('acct');
+  if(!el) return;
+  const u = currentUser();
+  if(u && authHeaders().Authorization){
+    const tier = (u.subscription && u.subscription.tier) || u.tier;
+    const badge = (tier && tier !== 'free') ? '<span class="exam-badge" style="font-size:11px;padding:3px 8px">'+esc(cap(tier))+'</span>' : '';
+    el.innerHTML = badge
+      + '<span class="acct-email" title="'+esc(u.email||'')+'">'+esc(u.email||'Signed in')+'</span>'
+      + '<button class="acct-btn" onclick="logout()">Log out</button>';
+  } else {
+    el.innerHTML = '<button class="acct-btn primary" onclick="openAuth()">Sign in</button>';
+  }
+}
+
+function openAuth(){
+  const m = document.getElementById('auth-modal');
+  document.getElementById('auth-err').textContent = '';
+  m.classList.add('open');
+  const e = document.getElementById('auth-email'); if(e) e.focus();
+}
+function closeAuth(){ document.getElementById('auth-modal').classList.remove('open'); }
+
+async function submitAuth(){
+  const email = (document.getElementById('auth-email').value || '').trim();
+  const pass = document.getElementById('auth-pass').value || '';
+  const errEl = document.getElementById('auth-err');
+  const btn = document.getElementById('auth-submit');
+  errEl.textContent = '';
+  if(!email || !pass){ errEl.textContent = 'Enter your email and password.'; return; }
+  btn.disabled = true; btn.textContent = 'Signing in…';
+  try{
+    const r = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pass }),
+    });
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j.error || 'Sign in failed');
+    localStorage.setItem('prp_token', j.token);
+    localStorage.setItem('prp_user', JSON.stringify(j.user || { email }));
+    closeAuth();
+    renderAccount();
+    await hydrateFromServer();   // pull this account's saved progress
+    showDashboard();
+  }catch(e){
+    errEl.textContent = e.message;
+    btn.disabled = false; btn.textContent = 'Sign in';
+  }
+}
+
+function logout(){
+  // Clear the session AND local history, so the next person on this browser
+  // starts clean — the account's real progress is safe on the server.
+  try{
+    localStorage.removeItem('prp_token');
+    localStorage.removeItem('prp_user');
+    localStorage.removeItem('prp_history');
+  }catch(_){}
+  location.reload();
+}
+
+// Submit auth on Enter from either field
+document.addEventListener('keydown', function(ev){
+  if(ev.key === 'Enter' && document.getElementById('auth-modal').classList.contains('open')){
+    const a = document.activeElement;
+    if(a && (a.id === 'auth-email' || a.id === 'auth-pass')) submitAuth();
+  }
+});
+
 // go
-showDashboard();
+(async function init(){
+  renderAccount();
+  await hydrateFromServer();   // pulls account history when signed in; no-op otherwise
+  showDashboard();
+})();
 </script>
 </body>
 </html>
