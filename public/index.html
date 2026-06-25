@@ -55,6 +55,22 @@
   .lead{color:var(--slate-400); margin:0 0 18px}
 
   /* cards */
+  .hdr-right{display:flex; align-items:center; gap:12px}
+  .acct{display:flex; align-items:center; gap:8px}
+  .acct-email{font-size:12px; color:var(--slate-400); max-width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .acct-btn{font:inherit; font-size:12px; font-weight:700; padding:6px 12px; border-radius:9px; border:1.5px solid var(--card-border); background:rgba(30,41,59,.6); color:var(--slate-200); cursor:pointer}
+  .acct-btn.primary{border-color:var(--emerald-400); background:rgba(16,185,129,.16); color:var(--emerald-400)}
+  .modal-bg{position:fixed; inset:0; background:rgba(2,6,23,.72); display:none; place-items:center; z-index:50; padding:20px}
+  .modal-bg.open{display:grid}
+  .modal{background:var(--slate-900); border:1px solid var(--card-border); border-radius:16px; padding:24px; max-width:380px; width:100%; position:relative; box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .modal h2{margin:0 0 4px; font-size:20px}
+  .modal-sub{font-size:13px; color:var(--slate-400); margin:0 0 16px}
+  .modal input{width:100%; font:inherit; padding:11px 13px; border:1.5px solid var(--card-border); border-radius:10px; background:rgba(30,41,59,.6); color:var(--white); margin-bottom:10px; box-sizing:border-box}
+  .modal .btn{width:100%}
+  .modal-x{position:absolute; top:10px; right:14px; background:none; border:none; color:var(--slate-400); font-size:24px; cursor:pointer; line-height:1}
+  .modal-foot{font-size:13px; color:var(--slate-400); text-align:center; margin:14px 0 0}
+  .modal-foot a{color:var(--emerald-400); text-decoration:none}
+  .auth-err{color:var(--red-400); font-size:13px; min-height:18px; margin-bottom:4px}
   .card{background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-xl); padding:18px 20px}
   .stack > * + *{margin-top:14px}
 
@@ -143,6 +159,7 @@
 
   /* feedback */
   .opt.picked{border-color:var(--blue-400); background:rgba(96,165,250,.10)}
+  .sec-head{font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--emerald-400); margin-bottom:10px}
   .feedback{margin-top:8px}
   .verdict{font-weight:700; font-size:16px; margin-bottom:6px}
   .verdict.ok{color:var(--emerald-400)} .verdict.no{color:var(--red-400)}
@@ -251,10 +268,26 @@
       <span class="brand-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
       <span class="brand">PassReady <span class="prep">Prep</span><small>NCMHCE clinical simulations</small></span>
     </div>
-    <span class="exam-badge">NCMHCE</span>
+    <div class="hdr-right">
+      <span class="exam-badge">NCMHCE</span>
+      <span id="acct" class="acct"></span>
+    </div>
   </header>
   <main id="app" aria-live="polite"></main>
   <p class="hint" id="modehint"></p>
+</div>
+
+<div class="modal-bg" id="auth-modal" role="dialog" aria-modal="true" aria-label="Sign in">
+  <div class="modal">
+    <button class="modal-x" aria-label="Close" onclick="closeAuth()">&times;</button>
+    <h2>Sign in</h2>
+    <p class="modal-sub">Sign in to unlock all 270+ cases and sync your readiness, history, and study plan across devices.</p>
+    <input id="auth-email" type="email" autocomplete="email" placeholder="Email" />
+    <input id="auth-pass" type="password" autocomplete="current-password" placeholder="Password" />
+    <div class="auth-err" id="auth-err" role="alert"></div>
+    <button class="btn" id="auth-submit" onclick="submitAuth()">Sign in</button>
+    <p class="modal-foot">New here? <a href="/register.html?next=/study">Create an account &rsaquo;</a></p>
+  </div>
 </div>
 
 <script>
@@ -320,6 +353,21 @@ let EXAM_FB=false;         // false = study (feedback each Q) | true = exam (hel
 let dxChoice=null;         // classic: chosen differential id
 let phase='answer';        // 'diagnose' | 'answer'
 const SESSION={correct:0, total:0};
+
+// ---- NCMHCE case sections (2022+ format: one case unfolds across 3 sections) ----
+const SECTIONS = [
+  { id:'assessment', title:'Assessment & Conceptualization', domains:['intake','core'] },
+  { id:'planning',   title:'Treatment Planning',             domains:['treatment'] },
+  { id:'process',    title:'Counseling & Ethics',            domains:['counseling','ethics'] },
+];
+const DOMAIN_SECTION = {};
+SECTIONS.forEach((s,i) => s.domains.forEach(d => { DOMAIN_SECTION[d] = i; }));
+function secIndex(d){ return (d in DOMAIN_SECTION) ? DOMAIN_SECTION[d] : SECTIONS.length-1; }
+function presentSections(){
+  const seen = [];
+  (CASE && CASE.questions || []).forEach(q => { const s = secIndex(q.domain); if(!seen.includes(s)) seen.push(s); });
+  return seen.sort((a,b) => a-b);
+}
 
 // ---- localStorage history & readiness ----
 const HISTORY_KEY = 'prp_history';
@@ -683,6 +731,11 @@ async function startCase(externalId){
   app.innerHTML = '<p class="lead">Loading…</p>';
   CASE = await fetchCase(externalId);
   CASE.questions.forEach(q => { q._opts = shuffle(q.options.slice()); });
+  // Order the case into the three NCMHCE sections (stable within each section)
+  CASE.questions = CASE.questions
+    .map((q, idx) => ({ q, idx, s: secIndex(q.domain) }))
+    .sort((a, b) => a.s - b.s || a.idx - b.idx)
+    .map(x => x.q);
   qi = 0; answers = []; dxChoice = null;
   const hasDx = Array.isArray(CASE.differentialOptions) && CASE.differentialOptions.length > 0;
   phase = (MODE==='classic' && hasDx) ? 'diagnose' : 'answer';
@@ -778,6 +831,10 @@ function renderQuestion(i){
   const letters = ['A','B','C','D','E','F'];
   const opts = q._opts || q.options;
   let h = '';
+  const _present = presentSections();
+  const _sIdx = secIndex(q.domain);
+  const _sec = SECTIONS[_sIdx];
+  h += '<div class="sec-head">Section '+(_present.indexOf(_sIdx)+1)+' of '+_present.length+' · '+esc(_sec.title)+'</div>';
   if(q.domain) h += '<div style="margin-bottom:8px"><span class="badge '+domBadgeClass(q.domain)+'">'+esc(q.domain)+'</span></div>';
   h += '<div class="qstem">'+esc(q.question)+'</div>';
 
@@ -937,6 +994,19 @@ function finish(){
     h += '</div>';
   }
 
+  const secAgg = {};
+  Object.keys(dom).forEach(d => {
+    const si = secIndex(d);
+    if(!secAgg[si]) secAgg[si] = {ok:0, total:0};
+    secAgg[si].ok += dom[d].ok; secAgg[si].total += dom[d].total;
+  });
+  h += '<div class="card" style="margin-top:14px"><h2>By section</h2>';
+  Object.keys(secAgg).map(Number).sort((a,b) => a-b).forEach(si => {
+    const v = secAgg[si]; const p = v.total ? Math.round(v.ok/v.total*100) : 0;
+    h += '<div class="dom-row"><span>'+esc(SECTIONS[si].title)+'</span><span class="dom-score '+(p>=70?'w-pos':'w-neg')+'">'+v.ok+'/'+v.total+' · '+p+'%</span></div>';
+  });
+  h += '</div>';
+
   h += '<div class="card" style="margin-top:14px"><h2>By area</h2>';
   h += dxLine;
   Object.keys(dom).forEach(d => {
@@ -1048,8 +1118,82 @@ function genPlan(){
   planEl.innerHTML = h;
 }
 
+// ---- account / login surface ----
+function currentUser(){ try{ return JSON.parse(localStorage.getItem('prp_user') || 'null'); }catch(_){ return null; } }
+
+function renderAccount(){
+  const el = document.getElementById('acct');
+  if(!el) return;
+  const u = currentUser();
+  if(u && authHeaders().Authorization){
+    const tier = (u.subscription && u.subscription.tier) || u.tier;
+    const badge = (tier && tier !== 'free') ? '<span class="exam-badge" style="font-size:11px;padding:3px 8px">'+esc(cap(tier))+'</span>' : '';
+    el.innerHTML = badge
+      + '<span class="acct-email" title="'+esc(u.email||'')+'">'+esc(u.email||'Signed in')+'</span>'
+      + '<button class="acct-btn" onclick="logout()">Log out</button>';
+  } else {
+    el.innerHTML = '<button class="acct-btn primary" onclick="openAuth()">Sign in</button>';
+  }
+}
+
+function openAuth(){
+  const m = document.getElementById('auth-modal');
+  document.getElementById('auth-err').textContent = '';
+  m.classList.add('open');
+  const e = document.getElementById('auth-email'); if(e) e.focus();
+}
+function closeAuth(){ document.getElementById('auth-modal').classList.remove('open'); }
+
+async function submitAuth(){
+  const email = (document.getElementById('auth-email').value || '').trim();
+  const pass = document.getElementById('auth-pass').value || '';
+  const errEl = document.getElementById('auth-err');
+  const btn = document.getElementById('auth-submit');
+  errEl.textContent = '';
+  if(!email || !pass){ errEl.textContent = 'Enter your email and password.'; return; }
+  btn.disabled = true; btn.textContent = 'Signing in…';
+  try{
+    const r = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pass }),
+    });
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j.error || 'Sign in failed');
+    localStorage.setItem('prp_token', j.token);
+    localStorage.setItem('prp_user', JSON.stringify(j.user || { email }));
+    closeAuth();
+    renderAccount();
+    await hydrateFromServer();   // pull this account's saved progress
+    showDashboard();
+  }catch(e){
+    errEl.textContent = e.message;
+    btn.disabled = false; btn.textContent = 'Sign in';
+  }
+}
+
+function logout(){
+  // Clear the session AND local history, so the next person on this browser
+  // starts clean — the account's real progress is safe on the server.
+  try{
+    localStorage.removeItem('prp_token');
+    localStorage.removeItem('prp_user');
+    localStorage.removeItem('prp_history');
+  }catch(_){}
+  location.reload();
+}
+
+// Submit auth on Enter from either field
+document.addEventListener('keydown', function(ev){
+  if(ev.key === 'Enter' && document.getElementById('auth-modal').classList.contains('open')){
+    const a = document.activeElement;
+    if(a && (a.id === 'auth-email' || a.id === 'auth-pass')) submitAuth();
+  }
+});
+
 // go
 (async function init(){
+  renderAccount();
   await hydrateFromServer();   // pulls account history when signed in; no-op otherwise
   showDashboard();
 })();

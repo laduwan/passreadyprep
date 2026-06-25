@@ -31,6 +31,20 @@
 // ============================================================================
 
 const DOMAINS = ['treatment', 'counseling', 'intake', 'ethics', 'core'];
+
+// 2022+ NCMHCE cases unfold across three sections. Each of the five scoring
+// domains maps to one section, so existing cases group into sections with no
+// content change, and new (deeper) cases author directly into this structure.
+const SECTIONS = [
+  { id: 'assessment', title: 'Assessment & Conceptualization', domains: ['intake', 'core'] },
+  { id: 'planning',   title: 'Treatment Planning',             domains: ['treatment'] },
+  { id: 'process',    title: 'Counseling & Ethics',            domains: ['counseling', 'ethics'] },
+];
+const DOMAIN_SECTION = {};
+SECTIONS.forEach((s, i) => s.domains.forEach((d) => { DOMAIN_SECTION[d] = i; }));
+function sectionIndexForDomain(d) {
+  return (d in DOMAIN_SECTION) ? DOMAIN_SECTION[d] : SECTIONS.length - 1;
+}
 const DIFFICULTIES = ['easy', 'medium', 'hard'];
 const ICD10 = /^[A-Z]\d{1,2}(\.[A-Z0-9]{1,4})?$/; // loose DSM-5/ICD-10 code check
 
@@ -202,4 +216,4 @@ function validateCaseSet(cases, opts = {}) {
   return { ok: errors.length === 0, count: cases.length, errors, warnings };
 }
 
-module.exports = { validateCase, validateCaseSet, DOMAINS, DIFFICULTIES };
+module.exports = { validateCase, validateCaseSet, DOMAINS, DIFFICULTIES, SECTIONS, sectionIndexForDomain };
