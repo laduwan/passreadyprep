@@ -288,8 +288,11 @@ async function fetchCase(externalId){
   if(DATA_SOURCE === 'api'){
     const r = await fetch('/api/content/' + encodeURIComponent(externalId), { headers: authHeaders() });
     const j = await r.json();
+    CASE_EXAM_ID = (j.item && j.item.examId) || null;
+    CASE_ITEM_ID = (j.item && j.item._id) || null;
     return j.item.caseSim;
   }
+  CASE_EXAM_ID = null; CASE_ITEM_ID = null;
   return EMBEDDED_CASES.find(c => c.id === externalId);
 }
 
@@ -310,6 +313,7 @@ const weightText = w => (w>0?'+':'')+w;
 
 // ---- state ----
 let CASE=null, qi=0, answers=[];
+let CASE_EXAM_ID=null, CASE_ITEM_ID=null; // captured per case, for server-side progress sync
 let LIST_ITEMS=[], LIST_FILTER='all';
 let MODE='new';            // 'new' (diagnosis given) | 'classic' (diagnose first)
 let EXAM_FB=false;         // false = study (feedback each Q) | true = exam (held to end)
@@ -346,6 +350,71 @@ function saveToHistory(caseObj, answers, dxCorrect){
   // keep last 500 entries
   if(h.length > 500) h.splice(0, h.length - 500);
   saveHistory(h);
+}
+
+// ---- server-side progress sync (signed-in users) ----
+// Backend already exists: POST/GET /api/progress (routes/progress.js, Attempt model).
+// Logged out → localStorage only, exactly as before. Logged in → the account's
+// saved attempts are the source of truth, so readiness/study-plan follow you across devices.
+function attemptToEntry(att){
+  const db = att.domainBreakdown || {};
+  let correct = 0, total = 0; const domains = {};
+  Object.keys(db).forEach(d => {
+    const v = db[d] || {};
+    const ok = +v.ok || 0, tot = +v.total || 0;
+    domains[d] = { ok, total: tot };
+    correct += ok; total += tot;
+  });
+  return {
+    caseId: att.externalId || att.contentItemId || 'case',
+    date: +new Date(att.completedAt || att.createdAt || Date.now()),
+    correct, total, domains,
+    dxCorrect: null,
+    difficulty: 'medium',
+  };
+}
+
+async function hydrateFromServer(){
+  if(!authHeaders().Authorization) return false; // signed-in only
+  try{
+    const r = await fetch('/api/progress', { headers: authHeaders() });
+    if(!r.ok) return false;
+    const j = await r.json();
+    const entries = (j.attempts || []).map(attemptToEntry).filter(e => e.total > 0);
+    if(!entries.length) return false; // empty account: keep local, don't wipe it
+    entries.sort((a,b) => a.date - b.date);
+    saveHistory(entries.slice(-500));
+    return true;
+  }catch(_){ return false; }
+}
+
+function serverSaveAttempt(caseObj, ans, domainsObj, pct){
+  if(!authHeaders().Authorization || !CASE_EXAM_ID) return; // need login + a real exam id
+  const responses = (caseObj.questions || []).map((q,i) => {
+    const a = ans[i];
+    const chosen = a && q.options.find(o => o.id === a.chosenId);
+    return {
+      questionId: q.id,
+      selectedOptionId: a ? a.chosenId : null,
+      correct: !!(chosen && chosen.isCorrect),
+      weight: chosen && typeof chosen.weight === 'number' ? chosen.weight : 0,
+    };
+  });
+  // Fire-and-forget: local history is already saved, so the UI never waits on this.
+  fetch('/api/progress', {
+    method: 'POST',
+    headers: Object.assign({'Content-Type':'application/json'}, authHeaders()),
+    body: JSON.stringify({
+      examId: CASE_EXAM_ID,
+      contentItemId: CASE_ITEM_ID || undefined,
+      externalId: caseObj.id,
+      mode: EXAM_FB ? 'timed' : 'study',
+      responses,
+      score: pct,
+      domainBreakdown: domainsObj,
+      completedAt: new Date().toISOString(),
+    }),
+  }).catch(()=>{});
 }
 
 // NCMHCE domain weights (approximate from NBCC content outline)
@@ -825,6 +894,7 @@ function finish(){
     dxOk = !!(dxChoice && corr && dxChoice===corr.id);
   }
   saveToHistory(CASE, answers, dxOk);
+  serverSaveAttempt(CASE, answers, dom, pct); // sync to account (no-op if logged out)
 
   // classic diagnosis result
   let dxLine = '';
@@ -979,7 +1049,10 @@ function genPlan(){
 }
 
 // go
-showDashboard();
+(async function init(){
+  await hydrateFromServer();   // pulls account history when signed in; no-op otherwise
+  showDashboard();
+})();
 </script>
 </body>
 </html>
