@@ -25,7 +25,20 @@ const Stripe = require('stripe');
 const User = require('../models/User');
 const requireAuth = require('../middleware/auth');
 
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+// Lazy init: construct the Stripe client on first use, not at module load.
+// Building it at require-time meant a missing STRIPE_SECRET_KEY crashed the
+// ENTIRE server at boot — taking down study, login, and progress with it.
+// Now only an actual payment call fails (cleanly) when the key is unset.
+let _stripe = null;
+function getStripe(){
+  if(!_stripe){
+    if(!process.env.STRIPE_SECRET_KEY){
+      throw new Error('Stripe is not configured (STRIPE_SECRET_KEY missing).');
+    }
+    _stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+  }
+  return _stripe;
+}
 
 // ── Tier config ──────────────────────────────────────────────────────────────
 // Maps the tier name the frontend sends to the Stripe price ID and access rules.
@@ -87,7 +100,7 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
     // Retrieve or create Stripe customer so we can pre-fill their email
     let customerId = user.subscription?.stripeCustomerId;
     if (!customerId) {
-      const customer = await stripe.customers.create({
+      const customer = await getStripe().customers.create({
         email: user.email,
         name: user.name || undefined,
         metadata: { userId: user._id.toString() },
@@ -130,7 +143,7 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
       };
     }
 
-    const session = await stripe.checkout.sessions.create(sessionParams);
+    const session = await getStripe().checkout.sessions.create(sessionParams);
     res.json({ url: session.url });
 
   } catch (err) {
@@ -172,7 +185,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
 
   let event;
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    event = getStripe().webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
     console.error('Webhook signature verification failed:', err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
