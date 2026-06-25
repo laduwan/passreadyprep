@@ -159,7 +159,6 @@
 
   /* feedback */
   .opt.picked{border-color:var(--blue-400); background:rgba(96,165,250,.10)}
-  .sec-head{font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--emerald-400); margin-bottom:10px}
   .feedback{margin-top:8px}
   .verdict{font-weight:700; font-size:16px; margin-bottom:6px}
   .verdict.ok{color:var(--emerald-400)} .verdict.no{color:var(--red-400)}
@@ -993,19 +992,6 @@ function finish(){
     });
     h += '</div>';
   }
-
-  const secAgg = {};
-  Object.keys(dom).forEach(d => {
-    const si = secIndex(d);
-    if(!secAgg[si]) secAgg[si] = {ok:0, total:0};
-    secAgg[si].ok += dom[d].ok; secAgg[si].total += dom[d].total;
-  });
-  h += '<div class="card" style="margin-top:14px"><h2>By section</h2>';
-  Object.keys(secAgg).map(Number).sort((a,b) => a-b).forEach(si => {
-    const v = secAgg[si]; const p = v.total ? Math.round(v.ok/v.total*100) : 0;
-    h += '<div class="dom-row"><span>'+esc(SECTIONS[si].title)+'</span><span class="dom-score '+(p>=70?'w-pos':'w-neg')+'">'+v.ok+'/'+v.total+' · '+p+'%</span></div>';
-  });
-  h += '</div>';
 
   h += '<div class="card" style="margin-top:14px"><h2>By area</h2>';
   h += dxLine;
