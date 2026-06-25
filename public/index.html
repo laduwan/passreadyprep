@@ -142,6 +142,7 @@
   .w-pos{color:var(--emerald-400)} .w-neg{color:var(--red-400)} .w-zero{color:var(--slate-400)}
 
   /* feedback */
+  .opt.picked{border-color:var(--blue-400); background:rgba(96,165,250,.10)}
   .feedback{margin-top:8px}
   .verdict{font-weight:700; font-size:16px; margin-bottom:6px}
   .verdict.ok{color:var(--emerald-400)} .verdict.no{color:var(--red-400)}
@@ -264,9 +265,15 @@ const app = document.getElementById('app');
 const modehint = document.getElementById('modehint');
 
 // ---- data layer (API with embedded fallback) ----
+// Attach the signed-in user's JWT (same key register.html sets) so paying
+// users get the full case bank instead of the 5-case free cap.
+function authHeaders(){
+  try{ const t = localStorage.getItem('prp_token'); return t ? { Authorization: 'Bearer ' + t } : {}; }
+  catch(_){ return {}; }
+}
 async function fetchList(){
   try{
-    const r = await fetch('/api/content?exam=ncmhce');
+    const r = await fetch('/api/content?exam=ncmhce', { headers: authHeaders() });
     if(!r.ok) throw 0;
     const j = await r.json();
     if(!j.items || !j.items.length) throw 0;
@@ -279,7 +286,7 @@ async function fetchList(){
 }
 async function fetchCase(externalId){
   if(DATA_SOURCE === 'api'){
-    const r = await fetch('/api/content/' + encodeURIComponent(externalId));
+    const r = await fetch('/api/content/' + encodeURIComponent(externalId), { headers: authHeaders() });
     const j = await r.json();
     return j.item.caseSim;
   }
@@ -305,6 +312,7 @@ const weightText = w => (w>0?'+':'')+w;
 let CASE=null, qi=0, answers=[];
 let LIST_ITEMS=[], LIST_FILTER='all';
 let MODE='new';            // 'new' (diagnosis given) | 'classic' (diagnose first)
+let EXAM_FB=false;         // false = study (feedback each Q) | true = exam (held to end)
 let dxChoice=null;         // classic: chosen differential id
 let phase='answer';        // 'diagnose' | 'answer'
 const SESSION={correct:0, total:0};
@@ -504,6 +512,13 @@ async function showDashboard(){
   h += '<div class="mode-grid" role="group" aria-label="Practice mode">';
   h += modeCard('new','New format','Diagnosis is given — focus on treatment, counseling & ethics decisions.','Current exam');
   h += modeCard('classic','Classic format','Work out the diagnosis yourself first, then answer. Extra diagnostic practice.','');
+  h += '<div class="mode-card" style="grid-column:1/-1;cursor:default">'
+     + '<span class="mc-head">Feedback timing</span>'
+     + '<span class="mc-desc">Study shows the answer after each question. Exam holds all feedback until you finish the case — like the real NCMHCE.</span>'
+     + '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">'
+     + '<button class="badge '+(!EXAM_FB?'b-emerald':'b-slate')+'" style="cursor:pointer;border:none;font:inherit" aria-pressed="'+(!EXAM_FB)+'" onclick="setExamFb(false)">Study — after each Q</button>'
+     + '<button class="badge '+(EXAM_FB?'b-amber':'b-slate')+'" style="cursor:pointer;border:none;font:inherit" aria-pressed="'+EXAM_FB+'" onclick="setExamFb(true)">Exam — held to the end</button>'
+     + '</div></div>';
   h += '<a href="/exam.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">📝 Timed Mock Exam</span><span class="mc-desc">A full 11-case exam under the clock, blueprint-weighted like the real NCMHCE. No feedback until you finish — then a full domain breakdown and answer review.</span></a>';
   h += '<a href="/intake.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">🎙️ Intake Interview Simulator</span><span class="mc-desc">Practice the clinical interview with an AI client who reveals their story the way a real one does — guarded until you earn trust. Five clients including a court-mandated and a returning-veteran case. Speak or type; get a supervisor debrief on rapport, questioning, and risk screening.</span></a>';
   h += '</div>';
@@ -562,6 +577,7 @@ function modeCard(m, title, desc, tag){
        + '<span class="mc-sel">'+(sel?'● Selected':'Tap to select')+'</span></button>';
 }
 function setMode(m){ MODE = m; showDashboard(); }
+function setExamFb(v){ EXAM_FB = !!v; showDashboard(); }
 function goCases(){ renderList(); window.scrollTo({top:0,behavior:'smooth'}); }
 
 // ---- case list ----
@@ -703,11 +719,16 @@ function renderQuestion(i){
     let weightHtml = '';
     if(ans){
       disabled = 'disabled';
-      if(o.isCorrect){ cls += ' correct'; mark = '<span class="mark" aria-hidden="true">✓</span>'; }
-      else if(o.id === ans.chosenId){ cls += ' incorrect'; mark = '<span class="mark" aria-hidden="true">✗</span>'; }
-      else { cls += ' dim'; }
-      if(typeof o.weight === 'number'){
-        weightHtml = '<div class="opt-weight '+weightClass(o.weight)+'">'+weightText(o.weight)+' pts</div>';
+      if(EXAM_FB){
+        if(o.id === ans.chosenId){ cls += ' picked'; }
+        else { cls += ' dim'; }
+      } else {
+        if(o.isCorrect){ cls += ' correct'; mark = '<span class="mark" aria-hidden="true">✓</span>'; }
+        else if(o.id === ans.chosenId){ cls += ' incorrect'; mark = '<span class="mark" aria-hidden="true">✗</span>'; }
+        else { cls += ' dim'; }
+        if(typeof o.weight === 'number'){
+          weightHtml = '<div class="opt-weight '+weightClass(o.weight)+'">'+weightText(o.weight)+' pts</div>';
+        }
       }
     }
     h += '<button class="'+cls+'" '+disabled+' onclick="choose(\''+esc(q.id)+'\',\''+esc(o.id)+'\')">'
@@ -715,7 +736,18 @@ function renderQuestion(i){
        + '<span class="otext">'+esc(o.text)+weightHtml+'</span>'+mark+'</button>';
   });
 
-  if(ans) h += renderFeedback(q, ans);
+  if(ans) h += EXAM_FB ? renderExamLock() : renderFeedback(q, ans);
+  return h;
+}
+
+function renderExamLock(){
+  const last = qi === CASE.questions.length-1;
+  let h = '<div class="feedback" role="status">';
+  h += '<div style="color:var(--slate-400);font-size:14px">Answer locked. Feedback comes after you finish the case — like the real exam.</div>';
+  h += '<div class="row">';
+  if(last) h += '<button class="btn" onclick="finish()">See results</button>';
+  else h += '<button class="btn" onclick="next()">Next question ›</button>';
+  h += '</div></div>';
   return h;
 }
 
@@ -815,6 +847,26 @@ function finish(){
   });
   h += '</div>';
 
+  if(EXAM_FB){
+    h += '<div class="card" style="margin-top:14px"><h2>Case review</h2>';
+    h += '<div style="font-size:12px;color:var(--slate-500);margin-bottom:6px">Feedback was held until the end, like the real exam.</div>';
+    qs.forEach((q,i) => {
+      const a = answers[i];
+      const chosen = a && q.options.find(o=>o.id===a.chosenId);
+      const correctOpt = q.options.find(o=>o.isCorrect);
+      const ok = !!(chosen && chosen.isCorrect);
+      const ex = ((ok?chosen:correctOpt) || {}).explanation || {};
+      h += '<div style="border-top:1px solid var(--card-border);padding:10px 0">';
+      h += '<div style="font-weight:600;color:var(--white);font-size:14px">Q'+(i+1)+'. '+esc(q.question)+'</div>';
+      h += '<div class="'+(ok?'w-pos':'w-neg')+'" style="font-weight:700;font-size:13px;margin-top:4px">'+(ok?'✓ Correct':'✗ Incorrect')+' <span style="font-weight:400;color:var(--slate-400)">— you chose: '+esc(chosen?chosen.text:'(no answer)')+'</span></div>';
+      if(!ok && correctOpt) h += '<div style="font-size:13px;color:var(--slate-300);margin-top:2px">Best answer: '+esc(correctOpt.text)+'</div>';
+      if(ex.rationale) h += '<div style="font-size:13px;color:var(--slate-400);margin-top:4px">'+esc(ex.rationale)+'</div>';
+      if(ex.commonMistake) h += '<div style="font-size:13px;color:var(--amber-400);margin-top:4px">Common mistake: '+esc(ex.commonMistake)+'</div>';
+      h += '</div>';
+    });
+    h += '</div>';
+  }
+
   h += '<div class="card" style="margin-top:14px"><h2>By area</h2>';
   h += dxLine;
   Object.keys(dom).forEach(d => {
@@ -822,10 +874,39 @@ function finish(){
   });
   h += '</div>';
 
+  h += '<div class="card" style="margin-top:14px"><h2>AI clinical debrief</h2>'
+     + '<div style="font-size:12px;color:var(--slate-500);margin-bottom:10px">Dr. Claire Moreau reviews your answers — strengths, growth areas, and an NCMHCE exam tip for this case.</div>'
+     + '<button class="btn" id="debrief-btn" onclick="getDebrief()">Get debrief</button>'
+     + '<div id="debrief-out"></div></div>';
+
   h += '<div class="row"><button class="btn" onclick="startCase(\''+esc(CASE.id)+'\')">Retry this case</button>'
      + '<button class="btn secondary" onclick="goCases()">More cases</button></div>';
   app.innerHTML = h;
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function getDebrief(){
+  const btn = document.getElementById('debrief-btn');
+  const out = document.getElementById('debrief-out');
+  if(!btn || !out) return;
+  btn.disabled = true; btn.textContent = 'Analyzing…';
+  try{
+    const r = await fetch('/api/debrief', {
+      method:'POST',
+      headers: Object.assign({'Content-Type':'application/json'}, authHeaders()),
+      body: JSON.stringify({ caseData: CASE, answers, mode: MODE })
+    });
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j.error || 'Request failed');
+    out.innerHTML = '<div class="feedback" style="margin-top:12px">'
+      + '<div class="fb-label" style="color:var(--purple-400)">Dr. Claire Moreau — Clinical Debrief</div>'
+      + '<div style="white-space:pre-wrap;color:var(--slate-200);font-size:14px;line-height:1.6;margin-top:6px">'+esc(j.debrief)+'</div>'
+      + '<div style="font-size:11px;color:var(--slate-600);font-style:italic;margin-top:8px">AI-generated feedback for learning. Not a substitute for licensed supervision.</div></div>';
+    btn.style.display = 'none';
+  }catch(e){
+    out.innerHTML = '<div style="color:var(--red-400);font-size:13px;margin-top:10px">Debrief failed: '+esc(e.message)+'</div>';
+    btn.disabled = false; btn.textContent = 'Get debrief';
+  }
 }
 
 // ---- study plan generator ----
