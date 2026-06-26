@@ -1,18 +1,21 @@
 #!/usr/bin/env node
 // ============================================================================
-// import-deep-cases.js — Import ALL Phase 2 deep cases into passreadyprep.contents
+// import-deep-cases.js — Import ALL Phase 2 deep cases as ContentItems.
 //
-// Auto-discovers every tools/cases/deep-cases-batch-*.js (plus the D101 exemplar
-// if present), so new agent-authored batches are picked up with NO re-wiring.
-// Re-validates every case against the schema + depth gate before writing, and
-// is idempotent by externalId. Mirrors import-all.js's Content doc shape.
+// Writes ContentItems (collection 'contentitems') under the ncmhce Exam, exactly
+// like importCases.js — the path the live app and admin panel actually read.
+// (An earlier version mirrored import-all.js and wrote to an orphan 'contents'
+// collection; that was wrong and is fixed here.)
 //
-//   Dry run (no DB — discover + validate + show what would import):
-//     node tools/cases/import-deep-cases.js --dry-run
-//   Real import (status defaults to 'sme_review', matching import-all.js):
-//     MONGO_URI=mongodb+srv://... node tools/cases/import-deep-cases.js
-//   Import and publish straight to live (only after SME review):
-//     MONGO_URI=... node tools/cases/import-deep-cases.js --publish
+// Auto-discovers every tools/cases/deep-cases-batch-*.js (+ the D101 exemplar),
+// re-validates each case against the depth gate, and upserts idempotently by
+// {examId, externalId}. Status is set only on INSERT, so re-running never
+// clobbers a case you have already published via the admin panel.
+//
+//   Preview (no DB):       node tools/cases/import-deep-cases.js --dry-run
+//   Import (sme_review):   node tools/cases/import-deep-cases.js
+//   Import new as live:    node tools/cases/import-deep-cases.js --publish
+// MONGO_URI is read from the environment (already set on Render).
 // ============================================================================
 
 const fs = require('fs');
@@ -21,7 +24,6 @@ const { validateExamDepth } = require('./examDepth');
 const { ALLOWED_SOURCES } = require('./references');
 const bp = require('./blueprint');
 
-// Local domain→section map (display only; independent of examDepth internals).
 const SEC_OF = { intake: 0, core: 0, treatment: 1, counseling: 2, ethics: 2 };
 function secCounts(c) {
   const n = [0, 0, 0];
@@ -29,16 +31,12 @@ function secCounts(c) {
   return n;
 }
 
-// --- Auto-discover deep-case source files (sorted, deterministic). ---
 const dir = __dirname;
-const batchFiles = fs.readdirSync(dir)
-  .filter((f) => /^deep-cases-batch-.*\.js$/.test(f))
-  .sort();
+const batchFiles = fs.readdirSync(dir).filter((f) => /^deep-cases-batch-.*\.js$/.test(f)).sort();
 const sourceFiles = [];
 if (fs.existsSync(path.join(dir, 'exemplar-deep-mdd.js'))) sourceFiles.push('exemplar-deep-mdd.js');
 sourceFiles.push(...batchFiles);
 
-// --- Load + de-duplicate by id (first file wins; later dup is reported). ---
 const byId = new Map();
 const fileOf = new Map();
 for (const f of sourceFiles) {
@@ -46,7 +44,7 @@ for (const f of sourceFiles) {
   try { const m = require(path.join(dir, f)); cases = m.CASES || m.GENERATED_CASES || []; }
   catch (e) { console.error('Could not load ' + f + ': ' + e.message); process.exit(1); }
   for (const c of cases) {
-    if (byId.has(c.id)) { console.error('  DUP id ' + c.id + ' in ' + f + ' (already from ' + fileOf.get(c.id) + ') — skipping dup'); continue; }
+    if (byId.has(c.id)) { console.error('  DUP id ' + c.id + ' in ' + f + ' (already from ' + fileOf.get(c.id) + ') — skipping'); continue; }
     byId.set(c.id, c); fileOf.set(c.id, f);
   }
 }
@@ -58,7 +56,6 @@ const STATUS = process.argv.includes('--publish') ? 'published' : 'sme_review';
 console.log('Discovered ' + sourceFiles.length + ' source file(s): ' + sourceFiles.join(', '));
 console.log('Validating ' + allCases.length + ' deep case(s)\n');
 
-// --- Gate every case before any DB work. ---
 const vopts = { categories: bp.CATEGORY_NAMES, allowedSources: ALLOWED_SOURCES };
 let bad = 0;
 for (const c of allCases) {
@@ -73,13 +70,12 @@ for (const c of allCases) {
 }
 if (bad > 0) { console.error('\nAborting: ' + bad + ' case(s) failed validation. Nothing imported.'); process.exit(1); }
 
-// --- Coverage summary. ---
 const cov = {};
 allCases.forEach((c) => { cov[c.category] = (cov[c.category] || 0) + 1; });
 console.log('\nAll cases passed. Coverage: ' + Object.entries(cov).map(([k, v]) => k + ' ' + v).join(', '));
 
 if (DRY_RUN) {
-  console.log('\n--dry-run: would import ' + allCases.length + ' case(s) with status "' + STATUS + '". No DB changes.');
+  console.log('\n--dry-run: would upsert ' + allCases.length + ' ContentItem(s); new ones get status "' + STATUS + '". No DB changes.');
   process.exit(0);
 }
 
@@ -87,36 +83,51 @@ const MONGO_URI = process.env.MONGO_URI;
 if (!MONGO_URI) { console.error('\nSet MONGO_URI env var (or use --dry-run).'); process.exit(1); }
 
 const mongoose = require('mongoose');
-const contentSchema = new mongoose.Schema({
-  exam: { type: String, default: 'ncmhce' },
-  type: { type: String, default: 'case' },
-  externalId: String,
-  title: String,
-  category: String,
-  difficulty: String,
-  status: { type: String, default: 'sme_review' },
-  caseSim: mongoose.Schema.Types.Mixed,
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-}, { collection: 'contents' });
-const Content = mongoose.model('Content', contentSchema);
+const ContentItem = require('../../models/ContentItem');
+const Exam = require('../../models/Exam');
+
+function setFields(examId, c) {
+  return {
+    examId,
+    format: 'case_sim',
+    externalId: c.id,
+    title: c.title,
+    category: c.category,
+    difficulty: c.difficulty,
+    references: c.references || [],
+    caseSim: c,
+  };
+}
 
 async function run() {
   await mongoose.connect(MONGO_URI, { dbName: 'passreadyprep' });
-  console.log('\nConnected to MongoDB (status="' + STATUS + '")\n');
-  let added = 0, skipped = 0;
+  const exam = await Exam.findOneAndUpdate(
+    { key: 'ncmhce' },
+    { $setOnInsert: {
+        key: 'ncmhce',
+        name: 'National Clinical Mental Health Counseling Examination',
+        profession: 'counseling', board: 'NBCC',
+        formatsSupported: ['case_sim'], status: 'live',
+      } },
+    { upsert: true, new: true }
+  );
+  console.log('\nConnected. Exam ncmhce=' + exam._id + ' — writing ContentItems (new status="' + STATUS + '")\n');
+
+  let added = 0, updated = 0;
   for (const c of allCases) {
-    const exists = await Content.findOne({ externalId: c.id });
-    if (exists) { console.log('  SKIP ' + c.id + ' (exists)'); skipped++; continue; }
-    await Content.create({
-      exam: 'ncmhce', type: 'case',
-      externalId: c.id, title: c.title, category: c.category, difficulty: c.difficulty,
-      status: STATUS, caseSim: c,
-    });
-    console.log('  ADD  ' + c.id + ': ' + c.title + ' [' + c.category + ']');
-    added++;
+    const res = await ContentItem.updateOne(
+      { examId: exam._id, externalId: c.id },
+      { $set: setFields(exam._id, c), $setOnInsert: { status: STATUS } },
+      { upsert: true }
+    );
+    if (res.upsertedCount) { console.log('  ADD  ' + c.id + ': ' + c.title + ' [' + c.category + ']'); added += 1; }
+    else { console.log('  UPD  ' + c.id + ' (content refreshed; status unchanged)'); updated += 1; }
   }
-  console.log('\nDone. Added: ' + added + ', Skipped: ' + skipped + ', Total: ' + allCases.length);
+
+  const pending = await ContentItem.countDocuments({ examId: exam._id, status: 'sme_review' });
+  const live = await ContentItem.countDocuments({ examId: exam._id, status: 'published' });
+  console.log('\nDone. Added ' + added + ', Updated ' + updated + ', Total ' + allCases.length);
+  console.log('ContentItems now under ncmhce — sme_review: ' + pending + ', published: ' + live);
   await mongoose.disconnect();
 }
 
