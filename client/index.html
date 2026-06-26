@@ -1,12 +1,1235 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PassReady Prep — NCMHCE</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — Study</title>
+<meta name="description" content="Study for the NCMHCE with PassReady Prep — clinical case simulations, a timed mock exam, decision trees, flashcards, and a DSM-5-TR reference.">
+<link rel="canonical" href="https://www.passreadyprep.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PassReady Prep">
+<meta property="og:title" content="PassReady Prep — Study">
+<meta property="og:description" content="Study for the NCMHCE with PassReady Prep — clinical case simulations, a timed mock exam, decision trees, flashcards, and a DSM-5-TR reference.">
+<meta property="og:url" content="https://www.passreadyprep.com/">
+<meta property="og:image" content="https://www.passreadyprep.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PassReady Prep — Study">
+<meta name="twitter:description" content="Study for the NCMHCE with PassReady Prep — clinical case simulations, a timed mock exam, decision trees, flashcards, and a DSM-5-TR reference.">
+<meta name="twitter:image" content="https://www.passreadyprep.com/og.png">
+<style>
+  :root{
+    --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+    --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
+    --emerald:#10B981; --emerald-400:#34D399;
+    --blue-400:#60A5FA; --blue:#3B82F6;
+    --amber-400:#FBBF24; --amber:#F59E0B;
+    --red-400:#F87171; --red:#EF4444; --red-600:#DC2626;
+    --purple-400:#A78BFA; --purple:#8B5CF6;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --r-xl:16px; --r-lg:12px; --r-md:10px;
+    --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; min-height:100vh;
+    background:linear-gradient(160deg,#0F172A 0%,#1E293B 50%,#0F172A 100%); background-attachment:fixed;
+    color:var(--slate-200); font-family:var(--sans); font-size:16px; line-height:1.55;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:18px 16px 64px}
+  a{color:var(--emerald-400)}
+
+  /* header */
+  header.site{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:4px 2px 20px}
+  .brand-wrap{display:flex; align-items:center; gap:11px}
+  .brand-chip{width:38px; height:38px; border-radius:11px; background:rgba(16,185,129,.16); display:grid; place-items:center; flex:0 0 auto}
+  .brand-chip svg{width:21px; height:21px; color:var(--emerald-400)}
+  .brand{font-weight:700; font-size:18px; color:var(--white); letter-spacing:-.01em; line-height:1.1}
+  .brand .prep{color:var(--emerald-400)}
+  .brand small{display:block; font-weight:600; font-size:11.5px; color:var(--emerald-400); letter-spacing:.02em; margin-top:1px}
+  .exam-badge{font-size:12px; font-weight:700; color:var(--emerald-400); background:rgba(16,185,129,.14);
+    border:1px solid rgba(16,185,129,.3); padding:5px 11px; border-radius:999px}
+
+  h1{font-size:25px; line-height:1.15; margin:0 0 6px; color:var(--white); font-weight:700; letter-spacing:-.01em}
+  h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
+  .lead{color:var(--slate-400); margin:0 0 18px}
+
+  /* cards */
+  .hdr-right{display:flex; align-items:center; gap:12px}
+  .acct{display:flex; align-items:center; gap:8px}
+  .acct-email{font-size:12px; color:var(--slate-400); max-width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .acct-btn{font:inherit; font-size:12px; font-weight:700; padding:6px 12px; border-radius:9px; border:1.5px solid var(--card-border); background:rgba(30,41,59,.6); color:var(--slate-200); cursor:pointer}
+  .acct-btn.primary{border-color:var(--emerald-400); background:rgba(16,185,129,.16); color:var(--emerald-400)}
+  .modal-bg{position:fixed; inset:0; background:rgba(2,6,23,.72); display:none; place-items:center; z-index:50; padding:20px}
+  .modal-bg.open{display:grid}
+  .modal{background:var(--slate-900); border:1px solid var(--card-border); border-radius:16px; padding:24px; max-width:380px; width:100%; position:relative; box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .modal h2{margin:0 0 4px; font-size:20px}
+  .modal-sub{font-size:13px; color:var(--slate-400); margin:0 0 16px}
+  .modal input{width:100%; font:inherit; padding:11px 13px; border:1.5px solid var(--card-border); border-radius:10px; background:rgba(30,41,59,.6); color:var(--white); margin-bottom:10px; box-sizing:border-box}
+  .modal .btn{width:100%}
+  .modal-x{position:absolute; top:10px; right:14px; background:none; border:none; color:var(--slate-400); font-size:24px; cursor:pointer; line-height:1}
+  .modal-foot{font-size:13px; color:var(--slate-400); text-align:center; margin:14px 0 0}
+  .modal-foot a{color:var(--emerald-400); text-decoration:none}
+  .auth-err{color:var(--red-400); font-size:13px; min-height:18px; margin-bottom:4px}
+  .card{background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-xl); padding:18px 20px}
+  .stack > * + *{margin-top:14px}
+
+  /* badges */
+  .badge{display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.03em; padding:4px 10px; border-radius:999px; text-transform:uppercase}
+  .b-emerald{color:var(--emerald-400); background:rgba(16,185,129,.15)}
+  .b-blue{color:var(--blue-400); background:rgba(59,130,246,.15)}
+  .b-amber{color:var(--amber-400); background:rgba(245,158,11,.15)}
+  .b-red{color:var(--red-400); background:rgba(239,68,68,.15)}
+  .b-purple{color:var(--purple-400); background:rgba(139,92,246,.15)}
+  .b-slate{color:var(--slate-300); background:rgba(51,65,85,.5)}
+  .chips{display:flex; gap:8px; flex-wrap:wrap}
+
+  /* mode toggle (dashboard) */
+  .mode-grid{display:grid; gap:12px}
+  @media(min-width:560px){ .mode-grid{grid-template-columns:1fr 1fr} }
+  .mode-card{display:flex; flex-direction:column; gap:6px; text-align:left; cursor:pointer; font:inherit; color:inherit;
+    background:var(--card); border:1.5px solid var(--card-border); border-radius:var(--r-lg); padding:16px 18px; transition:.15s}
+  .mode-card:hover{border-color:var(--slate-600)}
+  .mode-card.sel{border-color:var(--emerald); background:rgba(16,185,129,.08)}
+  .mc-head{font-weight:700; color:var(--white); font-size:15px; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+  .mc-desc{color:var(--slate-400); font-size:14px; line-height:1.45}
+  .mc-sel{font-size:12px; font-weight:700; color:var(--slate-500); margin-top:2px}
+  .mode-card.sel .mc-sel{color:var(--emerald-400)}
+
+  /* session stats */
+  .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; text-align:center}
+  .stat-num{font-size:26px; font-weight:800; color:var(--white); line-height:1}
+  .stat-lbl{font-size:12px; color:var(--slate-400); margin-top:3px}
+
+  /* difficulty filter */
+  .filter{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:0 2px 16px}
+  .filter .flabel{font-size:13px; color:var(--slate-400); margin-right:2px}
+  .fbtn{cursor:pointer; font:inherit; font-size:13px; font-weight:600; border-radius:999px; padding:6px 14px;
+    border:1px solid var(--card-border); background:rgba(51,65,85,.4); color:var(--slate-300); transition:.15s}
+  .fbtn:hover{background:rgba(51,65,85,.7)}
+  .fbtn[aria-pressed="true"]{background:var(--emerald); color:#04261C; border-color:var(--emerald)}
+
+  /* case list */
+  .case-btn{display:block; width:100%; text-align:left; cursor:pointer; font:inherit; color:inherit;
+    background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-lg);
+    padding:16px 18px; margin-bottom:12px; transition:border-color .15s, transform .12s}
+  .case-btn:hover{border-color:rgba(16,185,129,.5); transform:translateY(-1px)}
+  .case-btn .row-top{display:flex; align-items:center; justify-content:space-between; gap:10px}
+  .case-btn .t{font-size:17px; font-weight:700; color:var(--white); margin-top:10px; display:block}
+  .chev{color:var(--slate-400); font-size:20px; flex:0 0 auto; line-height:1}
+
+  /* vignette */
+  .vignette .seg{margin-top:15px}
+  .vignette .seg:first-child{margin-top:0}
+  .seg-label{font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:4px}
+  .seg-intake{color:var(--emerald-400)} .seg-s1{color:var(--blue-400)} .seg-s2{color:var(--amber-400)}
+  .seg-text{color:var(--slate-200); line-height:1.62}
+
+  /* diagnosis banner (purple) */
+  .dx{background:rgba(139,92,246,.13); border:1px solid rgba(139,92,246,.32); border-radius:var(--r-lg); padding:13px 15px}
+  .dx .seg-label{color:var(--purple-400)}
+  .dx .dx-name{font-size:17px; font-weight:700; color:var(--white)}
+  .dx .dx-code{color:var(--slate-400); font-weight:500; font-size:14px}
+
+  /* split case/question layout — case stays in view while answering */
+  .case-layout{margin-top:4px}
+  .case-toggle{display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%; cursor:pointer; font:inherit; color:var(--white); font-weight:600; font-size:14px;
+    background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-lg); padding:12px 15px}
+  .case-toggle .ct-chev{color:var(--slate-400); font-size:13px}
+  .case-pane{position:sticky; top:0; z-index:5; margin-bottom:14px; background:var(--slate-900); padding:4px 0}
+  .case-pane .case-body{display:none; margin-top:8px; max-height:44vh; overflow:auto}
+  .case-pane.open .case-body{display:block}
+  @media (min-width:860px){
+    .case-layout{display:grid; grid-template-columns:minmax(0,0.92fr) minmax(0,1.08fr); gap:18px; align-items:start}
+    .case-toggle{display:none}
+    .case-pane{position:sticky; top:14px; z-index:auto; margin-bottom:0; padding:0; background:none}
+    .case-pane .case-body{display:block; margin-top:0; max-height:calc(100vh - 120px); overflow:auto}
+  }
+
+  /* progress */
+  .progress{display:flex; align-items:center; justify-content:space-between; margin:22px 2px 8px; font-size:13px; font-weight:600; color:var(--slate-400)}
+  .bar{height:8px; background:var(--slate-700); border-radius:999px; overflow:hidden; margin:0 2px}
+  .bar > i{display:block; height:100%; background:var(--emerald); transition:width .25s}
+
+  /* question + options */
+  .qstem{font-size:18px; line-height:1.4; margin:12px 0 16px; color:var(--white); font-weight:600}
+  .opt{display:flex; gap:12px; align-items:flex-start; width:100%; text-align:left; cursor:pointer; font:inherit; color:inherit;
+    background:rgba(30,41,59,.5); border:1.5px solid var(--card-border); border-radius:var(--r-md);
+    padding:13px 15px; margin-bottom:10px; transition:border-color .15s, background .15s}
+  .opt:hover:not(:disabled){border-color:var(--slate-600); background:rgba(30,41,59,.85)}
+  .opt:disabled{cursor:default}
+  .opt .key{flex:0 0 auto; width:28px; height:28px; border-radius:8px; background:var(--slate-700); color:var(--slate-300);
+    display:grid; place-items:center; font-weight:700; font-size:14px}
+  .opt .otext{flex:1}
+  .opt .mark{margin-left:8px; font-weight:700; flex:0 0 auto}
+  .opt.correct{border-color:rgba(16,185,129,.55); background:rgba(16,185,129,.13)}
+  .opt.incorrect{border-color:rgba(239,68,68,.5); background:rgba(239,68,68,.12)}
+  .opt.dim{opacity:.5}
+  .opt.correct .key{background:var(--emerald); color:#04261C}
+  .opt.incorrect .key{background:var(--red-600); color:#fff}
+  .opt.correct .mark{color:var(--emerald-400)}
+  .opt.incorrect .mark{color:var(--red-400)}
+  .opt-weight{font-size:12.5px; font-weight:700; margin-top:6px}
+  .w-pos{color:var(--emerald-400)} .w-neg{color:var(--red-400)} .w-zero{color:var(--slate-400)}
+
+  /* feedback */
+  .opt.picked{border-color:var(--blue-400); background:rgba(96,165,250,.10)}
+  .sec-head{font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--emerald-400); margin-bottom:10px}
+  .feedback{margin-top:8px}
+  .verdict{font-weight:700; font-size:16px; margin-bottom:6px}
+  .verdict.ok{color:var(--emerald-400)} .verdict.no{color:var(--red-400)}
+  .fb-block{margin-top:12px}
+  .fb-label{font-size:11.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--slate-400); margin-bottom:3px}
+  .fb-block strong{color:var(--white)}
+  .fb-list{margin:4px 0 0; padding-left:20px}
+  .fb-list li{margin:3px 0}
+  .mistake{background:rgba(239,68,68,.1); border-left:3px solid var(--red); padding:9px 12px; border-radius:0 8px 8px 0}
+  .mistake .fb-label{color:var(--red-400)}
+
+  /* evidence — the signature element */
+  .sources{margin-top:14px}
+  .source{display:flex; gap:10px; align-items:flex-start; background:rgba(245,158,11,.1);
+    border:1px solid rgba(245,158,11,.28); border-radius:9px; padding:10px 12px; margin-top:8px}
+  .source .src-name{font-weight:700; color:var(--amber-400); font-size:12.5px; white-space:nowrap}
+  .source .src-detail{font-size:14px; color:var(--slate-200)}
+
+  /* buttons */
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; font:inherit; font-weight:700;
+    background:var(--emerald); color:#04261C; border:none; border-radius:var(--r-md); padding:13px 22px; transition:background .15s}
+  .btn:hover{background:var(--emerald-400)}
+  .btn.secondary{background:rgba(51,65,85,.5); color:var(--slate-200)}
+  .btn.secondary:hover{background:rgba(51,65,85,.85)}
+  .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+  .back{background:none; border:none; cursor:pointer; font:inherit; color:var(--slate-400); font-weight:600; padding:6px 0; margin-bottom:8px}
+  .back:hover{color:var(--white)}
+
+  /* results */
+  .score-card{text-align:center; border-radius:var(--r-xl); padding:26px 20px; border:1px solid}
+  .score-card.pass{background:rgba(16,185,129,.1); border-color:rgba(16,185,129,.3)}
+  .score-card.partial{background:rgba(245,158,11,.1); border-color:rgba(245,158,11,.3)}
+  .score-icon{font-size:34px; line-height:1; margin-bottom:6px}
+  .score-big{font-size:42px; font-weight:800; color:var(--white); line-height:1}
+  .score-sub{color:var(--slate-300); margin-top:6px}
+  .summary-row{display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--card-border); font-size:14px}
+  .summary-row:last-child{border-bottom:none}
+  .summary-row .sm-mark{flex:0 0 auto; font-weight:700}
+  .summary-row .sm-mark.ok{color:var(--emerald-400)} .summary-row .sm-mark.no{color:var(--red-400)}
+  .summary-row .sm-dom{flex:1; color:var(--slate-300)}
+  .dom-row{display:flex; align-items:center; justify-content:space-between; padding:9px 0; border-bottom:1px solid var(--card-border); font-size:15px; color:var(--slate-200)}
+  .dom-row:last-child{border-bottom:none}
+  .dom-score{font-weight:700; color:var(--white)}
+
+  .hint{font-size:13px; color:var(--slate-500); margin-top:18px; text-align:center}
+
+  /* accessibility */
+  :focus-visible{outline:2.5px solid var(--emerald-400); outline-offset:2px; border-radius:6px}
+  .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0}
+  @media (prefers-reduced-motion:reduce){*{transition:none !important}}
+  @media (max-width:520px){ h1{font-size:22px} .wrap{padding:16px 14px 56px} .card{padding:16px} }
+
+  /* readiness dashboard */
+  .ready-ring{position:relative;width:120px;height:120px;margin:0 auto 8px}
+  .ready-ring svg{transform:rotate(-90deg)}
+  .ready-ring .rlabel{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ready-ring .rnum{font-size:28px;font-weight:800;color:var(--white);line-height:1}
+  .ready-ring .rtag{font-size:11px;color:var(--slate-400);margin-top:2px}
+  .dom-bar-wrap{margin:6px 0}
+  .dom-bar-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px}
+  .dom-bar-label span:first-child{color:var(--slate-300)}
+  .dom-bar-label span:last-child{font-weight:700;color:var(--white)}
+  .dom-bar{height:8px;background:var(--slate-700);border-radius:999px;overflow:hidden}
+  .dom-bar > i{display:block;height:100%;border-radius:999px;transition:width .4s}
+  .weak-tag{display:inline-block;font-size:12px;font-weight:700;color:var(--amber-400);background:rgba(245,158,11,.15);padding:4px 10px;border-radius:999px;margin:2px 4px 2px 0}
+  .hero{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(59,130,246,.08));border:1px solid rgba(16,185,129,.25);border-radius:var(--r-xl);padding:22px 24px;margin-bottom:16px;text-align:center}
+  .hero h2{color:var(--emerald-400);margin-bottom:6px}
+  .hero .lead{margin-bottom:14px}
+  .guar-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--emerald-400);text-decoration:none;margin-top:8px}
+  .guar-link:hover{text-decoration:underline}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "PassReady Prep",
+      "url": "https://www.passreadyprep.com/",
+      "logo": "https://www.passreadyprep.com/og.png"
+    },
+    {
+      "@type": "WebSite",
+      "name": "PassReady Prep",
+      "url": "https://www.passreadyprep.com/"
+    },
+    {
+      "@type": "Course",
+      "name": "NCMHCE Exam Prep",
+      "description": "NCMHCE preparation with clinical case simulations, a timed mock exam, decision trees, flashcards, and a DSM-5-TR reference.",
+      "provider": {
+        "@type": "Organization",
+        "name": "PassReady Prep",
+        "sameAs": "https://www.passreadyprep.com/"
+      }
+    }
+  ]
+}
+</script>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
+<body>
+<div class="wrap">
+  <header class="site">
+    <div class="brand-wrap">
+      <span class="brand-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
+      <span class="brand">PassReady <span class="prep">Prep</span><small>NCMHCE clinical simulations</small></span>
+    </div>
+    <div class="hdr-right">
+      <span class="exam-badge">NCMHCE</span>
+      <span id="acct" class="acct"></span>
+    </div>
+  </header>
+  <main id="app" aria-live="polite"></main>
+  <p class="hint" id="modehint"></p>
+</div>
+
+<div class="modal-bg" id="auth-modal" role="dialog" aria-modal="true" aria-label="Sign in">
+  <div class="modal">
+    <button class="modal-x" aria-label="Close" onclick="closeAuth()">&times;</button>
+    <h2>Sign in</h2>
+    <p class="modal-sub">Sign in to unlock all 270+ cases and sync your readiness, history, and study plan across devices.</p>
+    <input id="auth-email" type="email" autocomplete="email" placeholder="Email" />
+    <input id="auth-pass" type="password" autocomplete="current-password" placeholder="Password" />
+    <div class="auth-err" id="auth-err" role="alert"></div>
+    <button class="btn" id="auth-submit" onclick="submitAuth()">Sign in</button>
+    <p class="modal-foot">New here? <a href="/register.html?next=/study">Create an account &rsaquo;</a></p>
+  </div>
+</div>
+
+<script>
+const EMBEDDED_CASES = [{"id":"ncmhce-G031","title":"Recurrent Sudden Surges of Fear","category":"Anxiety","difficulty":"medium","primaryDiagnosis":{"name":"Panic Disorder","code":"F41.0"},"diagnosis":{"name":"Panic Disorder","code":"F41.0"},"differentialOptions":[{"id":"panic","name":"Panic Disorder","isCorrect":true},{"id":"gad","name":"Generalized Anxiety Disorder","isCorrect":false},{"id":"phobia","name":"Specific Phobia","isCorrect":false},{"id":"cardiac","name":"Cardiac / medical condition","isCorrect":false}],"narrative":{"intake":"Marcus, 29, a warehouse supervisor, presents after three emergency-room visits in two months for chest tightness, racing heart, and a feeling he was dying. Each cardiac workup was negative. The episodes come \"out of nowhere,\" peak within minutes, and leave him shaken for hours. He is embarrassed and worried something was missed.","session1":"Marcus describes discrete attacks: pounding heart, shortness of breath, sweating, dizziness, and a fear of losing control. Between attacks he now worries constantly about the next one and has started checking his pulse. He denies a single feared object or social trigger; the attacks are unexpected. No substance use beyond occasional coffee.","session2":"Marcus reports he has begun avoiding the highway and crowded stores because an attack there would be \"humiliating.\" He called out of work twice. He asks whether he should just avoid the places that set them off, and whether the lorazepam an ER doctor gave him is something he can take daily."},"diagnosticRationale":"Recurrent UNEXPECTED panic attacks plus 1+ month of persistent worry about additional attacks and maladaptive avoidance meet Panic Disorder criteria. Not GAD (the worry is about attacks, not diffuse multi-domain worry). Not Specific Phobia (no single cued trigger). Medical causes were reasonably excluded by negative cardiac workups.","questions":[{"id":"q1","domain":"treatment","question":"Which is the MOST appropriate first-line treatment?","options":[{"id":"a","text":"CBT with interoceptive exposure and psychoeducation about the panic cycle","isCorrect":true,"weight":3,"rationale":"CBT with interoceptive exposure is first-line for panic disorder.","explanation":{"approach":"Target the fear-of-fear cycle directly with exposure to bodily sensations.","rationale":"CBT with interoceptive and situational exposure has the strongest evidence base for panic disorder and reduces relapse versus medication alone.","keyIndicators":["Fear is of the sensations and the next attack","Avoidance is developing"],"commonMistake":"Skipping exposure and relying on reassurance, which maintains the cycle."}},{"id":"b","text":"Daily as-needed benzodiazepine as the primary treatment","isCorrect":false,"weight":-2,"rationale":"Standing PRN benzodiazepines risk dependence and undercut exposure learning.","explanation":{"approach":"Medication can have a role but not as the primary, standing treatment here.","rationale":"Routine benzodiazepine use fosters dependence and prevents the corrective learning exposure provides.","keyIndicators":["Young client","Avoidance already forming"],"commonMistake":"Treating panic with scheduled sedatives instead of exposure-based therapy."}},{"id":"c","text":"SSRI alone with no psychotherapy","isCorrect":false,"weight":0,"rationale":"An SSRI can help but therapy addresses the avoidance and fear-of-fear.","explanation":{"approach":"Pharmacotherapy is reasonable but incomplete by itself.","rationale":"An SSRI may reduce attack frequency but does not directly extinguish the avoidance Marcus is building.","keyIndicators":["Emerging agoraphobic avoidance"],"commonMistake":"Assuming medication alone resolves the behavioral avoidance."}},{"id":"d","text":"Supportive counseling only, with no specific protocol","isCorrect":false,"weight":-1,"rationale":"Supportive work alone is insufficient for a treatable, protocol-driven condition.","explanation":{"approach":"Support is necessary but not sufficient.","rationale":"Panic disorder responds to a specific exposure-based protocol; generic support leaves the mechanism untreated.","keyIndicators":["Clear, treatable target"],"commonMistake":"Defaulting to nonspecific support for a condition with a clear evidence-based treatment."}}],"evidenceRef":["R2","R3"]},{"id":"q2","domain":"intake","question":"The three negative cardiac workups are clinically MOST useful for what purpose?","options":[{"id":"a","text":"To reframe his bodily sensations and provide psychoeducation about the panic cycle","isCorrect":true,"weight":3,"rationale":"Negative workups support psychoeducation that the sensations are panic, not danger.","explanation":{"approach":"Use the negative results therapeutically to recalibrate threat appraisal.","rationale":"Demonstrating that the body is not in danger is the foundation for interoceptive exposure.","keyIndicators":["Repeated catastrophic misinterpretation of sensations"],"commonMistake":"Treating the workups as merely \"ruling things out\" rather than as therapeutic data."}},{"id":"b","text":"To tell him the symptoms are \"all in his head\"","isCorrect":false,"weight":-2,"rationale":"Dismissive framing damages alliance and misrepresents panic as imaginary.","explanation":{"approach":"Validate that the sensations are real while reframing their meaning.","rationale":"Panic sensations are physiologically real; calling them imaginary alienates the client.","keyIndicators":["Client already embarrassed and fearful"],"commonMistake":"Invalidating the client, which erodes trust and engagement."}},{"id":"c","text":"To justify ordering additional medical tests for reassurance","isCorrect":false,"weight":-1,"rationale":"More testing feeds reassurance-seeking and reinforces the disorder.","explanation":{"approach":"Avoid reinforcing reassurance-seeking.","rationale":"Repeated testing maintains health anxiety and the panic cycle.","keyIndicators":["Pulse-checking and ER-seeking behavior"],"commonMistake":"Colluding with reassurance-seeking via unnecessary tests."}},{"id":"d","text":"To reassure him the symptoms are not real and will pass","isCorrect":false,"weight":-1,"rationale":"Blanket reassurance is a safety behavior that maintains panic.","explanation":{"approach":"Replace reassurance with skills and exposure.","rationale":"Reassurance briefly relieves anxiety but reinforces the need for it.","keyIndicators":["Seeks reassurance repeatedly"],"commonMistake":"Providing reassurance instead of building tolerance for uncertainty."}}],"evidenceRef":["R1","R3"]},{"id":"q3","domain":"counseling","question":"Marcus is starting to avoid driving and crowded stores. The BEST response is to:","options":[{"id":"a","text":"Begin graded, collaborative exposure to the avoided situations","isCorrect":true,"weight":3,"rationale":"Graded exposure reverses the developing agoraphobic avoidance.","explanation":{"approach":"Address avoidance early before it generalizes.","rationale":"Situational exposure prevents the consolidation of agoraphobia.","keyIndicators":["Avoidance is recent and limited"],"commonMistake":"Waiting until avoidance is entrenched before intervening."}},{"id":"b","text":"Advise him to avoid the triggering situations until he feels calmer","isCorrect":false,"weight":-2,"rationale":"Endorsing avoidance accelerates agoraphobia.","explanation":{"approach":"Do not sanction avoidance.","rationale":"Avoidance is negatively reinforced and expands over time.","keyIndicators":["Early agoraphobic pattern"],"commonMistake":"Advising avoidance, which worsens the disorder."}},{"id":"c","text":"Defer any exposure until the panic attacks stop on their own","isCorrect":false,"weight":-1,"rationale":"Attacks are unlikely to remit without intervention; waiting entrenches avoidance.","explanation":{"approach":"Intervene now rather than waiting for spontaneous remission.","rationale":"Untreated panic with avoidance tends to persist and broaden.","keyIndicators":["Functional impairment already present"],"commonMistake":"Passively waiting instead of treating."}},{"id":"d","text":"Refer him out without addressing the avoidance","isCorrect":false,"weight":0,"rationale":"Referral without action delays a manageable, in-scope intervention.","explanation":{"approach":"This is within an LPC scope; act on it.","rationale":"Graded exposure is core counseling work, not grounds for referral.","keyIndicators":["Standard panic presentation"],"commonMistake":"Reflexively referring treatable, in-scope cases."}}],"evidenceRef":["R3"]},{"id":"q4","domain":"core","question":"What MOST distinguishes Marcus’s presentation from Generalized Anxiety Disorder?","options":[{"id":"a","text":"Recurrent unexpected attacks plus fear of future attacks, rather than chronic diffuse worry","isCorrect":true,"weight":3,"rationale":"Panic = discrete uncued attacks + anticipatory fear; GAD = pervasive worry.","explanation":{"approach":"Differentiate by the focus and form of the anxiety.","rationale":"Panic centers on discrete attacks and fear of them; GAD is sustained multi-domain worry.","keyIndicators":["Attacks are unexpected and peak in minutes","Worry is about the attacks"],"commonMistake":"Collapsing all anxiety into GAD without checking attack structure."}},{"id":"b","text":"The presence of any physical symptoms at all","isCorrect":false,"weight":-1,"rationale":"Both disorders include physical symptoms.","explanation":{"approach":"Physical symptoms are nonspecific.","rationale":"GAD also produces somatic symptoms, so they do not separate the two.","keyIndicators":["Somatic overlap"],"commonMistake":"Using somatic symptoms as the differentiator."}},{"id":"c","text":"That he worries about many areas of life","isCorrect":false,"weight":-1,"rationale":"Multi-domain worry actually points toward GAD, not panic.","explanation":{"approach":"Check what the worry is about.","rationale":"Marcus worries specifically about attacks, not broadly, which fits panic.","keyIndicators":["Worry is attack-focused"],"commonMistake":"Mis-assigning attack-focused worry as generalized worry."}},{"id":"d","text":"The duration of symptoms being longer than six months","isCorrect":false,"weight":0,"rationale":"Duration is not the distinguishing feature here.","explanation":{"approach":"Form, not duration, separates these.","rationale":"Both can be chronic; the attack structure is the discriminator.","keyIndicators":["Discrete vs diffuse pattern"],"commonMistake":"Relying on duration to differentiate."}}],"evidenceRef":["R1"]},{"id":"q5","domain":"ethics","question":"Marcus asks you to support a request for daily lorazepam from his PCP. You should:","options":[{"id":"a","text":"Coordinate with the PCP, share concerns about daily benzodiazepine use, and prioritize CBT","isCorrect":true,"weight":3,"rationale":"Collaborative care plus advocating evidence-based treatment serves the client.","explanation":{"approach":"Stay in your lane while coordinating care.","rationale":"Counselors do not prescribe but can communicate concerns and champion exposure-based treatment.","keyIndicators":["Risk of dependence","Interferes with exposure learning"],"commonMistake":"Either rubber-stamping the request or ignoring the medication question entirely."}},{"id":"b","text":"Tell him counselors cannot discuss medication, so it is not your concern","isCorrect":false,"weight":-1,"rationale":"Medication coordination is within the counselor’s collaborative role.","explanation":{"approach":"Coordination is part of good care.","rationale":"Declining to engage abandons a relevant clinical issue.","keyIndicators":["Medication affects therapy outcome"],"commonMistake":"Treating medication as wholly outside the counselor’s purview."}},{"id":"c","text":"Write to the PCP endorsing daily lorazepam to relieve his distress","isCorrect":false,"weight":-2,"rationale":"Endorsing standing benzodiazepines exceeds scope and risks harm.","explanation":{"approach":"Do not advocate a treatment that conflicts with the evidence and your scope.","rationale":"Recommending daily sedatives is outside scope and clinically counterproductive.","keyIndicators":["Dependence risk"],"commonMistake":"Overstepping scope to relieve short-term distress."}},{"id":"d","text":"Refuse to communicate with the PCP about the case","isCorrect":false,"weight":-1,"rationale":"Refusing coordination undermines integrated care.","explanation":{"approach":"Communicate with consent.","rationale":"With a release, coordinating care improves outcomes.","keyIndicators":["Shared client"],"commonMistake":"Withholding appropriate, consented coordination."}}],"evidenceRef":["R4","R2"]}],"references":[{"id":"R1","source":"DSM-5-TR","detail":"Panic Disorder criteria: recurrent unexpected panic attacks + 1 month of worry/maladaptive change."},{"id":"R2","source":"NICE guidelines","detail":"Panic disorder: CBT is first-line; cautions on routine benzodiazepine use."},{"id":"R3","source":"Barlow PCT","detail":"Panic Control Treatment: interoceptive and situational exposure to the fear-of-fear cycle."},{"id":"R4","source":"ACA Code of Ethics","detail":"Coordination of care and consultation with other providers (with client consent)."}]}];
+let DATA_SOURCE = 'embedded';
+
+const app = document.getElementById('app');
+const modehint = document.getElementById('modehint');
+
+// ---- data layer (API with embedded fallback) ----
+// Attach the signed-in user's JWT (same key register.html sets) so paying
+// users get the full case bank instead of the 5-case free cap.
+function authHeaders(){
+  try{ const t = localStorage.getItem('prp_token'); return t ? { Authorization: 'Bearer ' + t } : {}; }
+  catch(_){ return {}; }
+}
+async function fetchList(){
+  try{
+    const r = await fetch('/api/content?exam=ncmhce', { headers: authHeaders() });
+    if(!r.ok) throw 0;
+    const j = await r.json();
+    if(!j.items || !j.items.length) throw 0;
+    DATA_SOURCE = 'api';
+    return j.items;
+  }catch(_){
+    DATA_SOURCE = 'embedded';
+    return EMBEDDED_CASES.map(c => ({externalId:c.id, title:c.title, category:c.category, difficulty:c.difficulty}));
+  }
+}
+async function fetchCase(externalId){
+  if(DATA_SOURCE === 'api'){
+    const r = await fetch('/api/content/' + encodeURIComponent(externalId), { headers: authHeaders() });
+    const j = await r.json();
+    CASE_EXAM_ID = (j.item && j.item.examId) || null;
+    CASE_ITEM_ID = (j.item && j.item._id) || null;
+    return j.item.caseSim;
+  }
+  CASE_EXAM_ID = null; CASE_ITEM_ID = null;
+  return EMBEDDED_CASES.find(c => c.id === externalId);
+}
+
+// ---- helpers ----
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const cap = s => s ? s.charAt(0).toUpperCase()+s.slice(1) : s;
+function refsFor(caseObj, ids){
+  const map = {}; (caseObj.references||[]).forEach(r => map[r.id]=r);
+  return (ids||[]).map(id => map[id]).filter(Boolean);
+}
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+const DOMAIN_B = {treatment:'b-emerald', counseling:'b-blue', ethics:'b-red', intake:'b-amber', core:'b-purple'};
+const DIFF_B = {easy:'b-emerald', medium:'b-amber', hard:'b-red'};
+const domBadgeClass = d => DOMAIN_B[d] || 'b-slate';
+const diffBadgeClass = d => DIFF_B[d] || 'b-slate';
+const weightClass = w => w>0?'w-pos':w<0?'w-neg':'w-zero';
+const weightText = w => (w>0?'+':'')+w;
+
+// ---- state ----
+let CASE=null, qi=0, answers=[], caseOpen=false;
+let CASE_EXAM_ID=null, CASE_ITEM_ID=null; // captured per case, for server-side progress sync
+let LIST_ITEMS=[], LIST_FILTER='all';
+let MODE='new';            // 'new' (diagnosis given) | 'classic' (diagnose first)
+let EXAM_FB=false;         // false = study (feedback each Q) | true = exam (held to end)
+let dxChoice=null;         // classic: chosen differential id
+let phase='answer';        // 'diagnose' | 'answer'
+const SESSION={correct:0, total:0};
+
+// ---- NCMHCE case sections (2022+ format: one case unfolds across 3 sections) ----
+const SECTIONS = [
+  { id:'assessment', title:'Assessment & Conceptualization', domains:['intake','core'] },
+  { id:'planning',   title:'Treatment Planning',             domains:['treatment'] },
+  { id:'process',    title:'Counseling & Ethics',            domains:['counseling','ethics'] },
+];
+const DOMAIN_SECTION = {};
+SECTIONS.forEach((s,i) => s.domains.forEach(d => { DOMAIN_SECTION[d] = i; }));
+function secIndex(d){ return (d in DOMAIN_SECTION) ? DOMAIN_SECTION[d] : SECTIONS.length-1; }
+function presentSections(){
+  const seen = [];
+  (CASE && CASE.questions || []).forEach(q => { const s = secIndex(q.domain); if(!seen.includes(s)) seen.push(s); });
+  return seen.sort((a,b) => a-b);
+}
+
+// ---- localStorage history & readiness ----
+const HISTORY_KEY = 'prp_history';
+function loadHistory(){ try{ return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }catch(_){ return []; } }
+function saveHistory(h){ localStorage.setItem(HISTORY_KEY, JSON.stringify(h)); }
+
+function saveToHistory(caseObj, answers, dxCorrect){
+  const h = loadHistory();
+  const domains = {};
+  caseObj.questions.forEach((q,i) => {
+    const a = answers[i];
+    const chosen = a && q.options.find(o=>o.id===a.chosenId);
+    const isOk = chosen && chosen.isCorrect;
+    const d = q.domain || 'general';
+    if(!domains[d]) domains[d] = {ok:0,total:0};
+    domains[d].total++;
+    if(isOk) domains[d].ok++;
+  });
+  const correct = Object.values(domains).reduce((s,d)=>s+d.ok,0);
+  const total = Object.values(domains).reduce((s,d)=>s+d.total,0);
+  h.push({
+    caseId: caseObj.id || caseObj.title,
+    date: Date.now(),
+    correct, total, domains,
+    dxCorrect: typeof dxCorrect === 'boolean' ? dxCorrect : null,
+    difficulty: caseObj.difficulty || 'medium',
+  });
+  // keep last 500 entries
+  if(h.length > 500) h.splice(0, h.length - 500);
+  saveHistory(h);
+}
+
+// ---- server-side progress sync (signed-in users) ----
+// Backend already exists: POST/GET /api/progress (routes/progress.js, Attempt model).
+// Logged out → localStorage only, exactly as before. Logged in → the account's
+// saved attempts are the source of truth, so readiness/study-plan follow you across devices.
+function attemptToEntry(att){
+  const db = att.domainBreakdown || {};
+  let correct = 0, total = 0; const domains = {};
+  Object.keys(db).forEach(d => {
+    const v = db[d] || {};
+    const ok = +v.ok || 0, tot = +v.total || 0;
+    domains[d] = { ok, total: tot };
+    correct += ok; total += tot;
+  });
+  return {
+    caseId: att.externalId || att.contentItemId || 'case',
+    date: +new Date(att.completedAt || att.createdAt || Date.now()),
+    correct, total, domains,
+    dxCorrect: null,
+    difficulty: 'medium',
+  };
+}
+
+async function hydrateFromServer(){
+  if(!authHeaders().Authorization) return false; // signed-in only
+  try{
+    const r = await fetch('/api/progress', { headers: authHeaders() });
+    if(!r.ok) return false;
+    const j = await r.json();
+    const entries = (j.attempts || []).map(attemptToEntry).filter(e => e.total > 0);
+    if(!entries.length) return false; // empty account: keep local, don't wipe it
+    entries.sort((a,b) => a.date - b.date);
+    saveHistory(entries.slice(-500));
+    return true;
+  }catch(_){ return false; }
+}
+
+function serverSaveAttempt(caseObj, ans, domainsObj, pct){
+  if(!authHeaders().Authorization || !CASE_EXAM_ID) return; // need login + a real exam id
+  const responses = (caseObj.questions || []).map((q,i) => {
+    const a = ans[i];
+    const chosen = a && q.options.find(o => o.id === a.chosenId);
+    return {
+      questionId: q.id,
+      selectedOptionId: a ? a.chosenId : null,
+      correct: !!(chosen && chosen.isCorrect),
+      weight: chosen && typeof chosen.weight === 'number' ? chosen.weight : 0,
+    };
+  });
+  // Fire-and-forget: local history is already saved, so the UI never waits on this.
+  fetch('/api/progress', {
+    method: 'POST',
+    headers: Object.assign({'Content-Type':'application/json'}, authHeaders()),
+    body: JSON.stringify({
+      examId: CASE_EXAM_ID,
+      contentItemId: CASE_ITEM_ID || undefined,
+      externalId: caseObj.id,
+      mode: EXAM_FB ? 'timed' : 'study',
+      responses,
+      score: pct,
+      domainBreakdown: domainsObj,
+      completedAt: new Date().toISOString(),
+    }),
+  }).catch(()=>{});
+}
+
+// NCMHCE domain weights (approximate from NBCC content outline)
+const DOMAIN_WEIGHTS = { counseling: 0.28, intake: 0.25, treatment: 0.22, ethics: 0.15, core: 0.10 };
+
+function computeReadiness(){
+  const h = loadHistory();
+  if(!h.length) return null;
+
+  // Aggregate domain stats across all history
+  const agg = {};
+  let totalCases = h.length;
+  let totalCorrect = 0, totalQs = 0;
+  let dxCorrectCount = 0, dxTotal = 0;
+
+  h.forEach(entry => {
+    totalCorrect += entry.correct || 0;
+    totalQs += entry.total || 0;
+    if(entry.dxCorrect !== null && entry.dxCorrect !== undefined){ dxTotal++; if(entry.dxCorrect) dxCorrectCount++; }
+    Object.entries(entry.domains || {}).forEach(([d, v]) => {
+      if(!agg[d]) agg[d] = {ok:0,total:0};
+      agg[d].ok += v.ok;
+      agg[d].total += v.total;
+    });
+  });
+
+  // Domain accuracy rates
+  const domainScores = {};
+  Object.entries(agg).forEach(([d, v]) => {
+    domainScores[d] = v.total ? Math.round(v.ok / v.total * 100) : 0;
+  });
+
+  // Weighted composite readiness
+  let weightedSum = 0, weightTotal = 0;
+  Object.entries(DOMAIN_WEIGHTS).forEach(([d, w]) => {
+    if(agg[d] && agg[d].total >= 1){
+      weightedSum += (agg[d].ok / agg[d].total) * w;
+      weightTotal += w;
+    }
+  });
+
+  // Volume factor: more cases = more confidence in the score
+  // 0 cases = 0 multiplier, 20+ cases = 1.0 multiplier
+  const volumeFactor = Math.min(1, totalCases / 20);
+
+  // Recency boost: if last 5 attempts average > overall, slight bump
+  const recent = h.slice(-5);
+  let recentPct = 0;
+  if(recent.length){
+    const rc = recent.reduce((s,e)=>s+e.correct,0);
+    const rt = recent.reduce((s,e)=>s+e.total,0);
+    recentPct = rt ? rc/rt*100 : 0;
+  }
+  const overallPct = totalQs ? totalCorrect/totalQs*100 : 0;
+  const recencyBoost = recentPct > overallPct ? Math.min(5, (recentPct - overallPct) * 0.3) : 0;
+
+  const rawReadiness = weightTotal ? (weightedSum / weightTotal) * 100 : overallPct;
+  const readiness = Math.min(99, Math.round(rawReadiness * volumeFactor + recencyBoost));
+
+  // Find weakest domains (below 60%)
+  const weakDomains = Object.entries(domainScores)
+    .filter(([d,s]) => agg[d].total >= 2 && s < 60)
+    .sort((a,b) => a[1] - b[1])
+    .map(([d,s]) => ({domain:d, score:s}));
+
+  // Readiness label
+  let label = 'Keep practicing';
+  if(readiness >= 85) label = 'Exam ready';
+  else if(readiness >= 70) label = 'Almost there';
+  else if(readiness >= 50) label = 'Building momentum';
+
+  return {
+    readiness, label, totalCases, totalCorrect, totalQs, overallPct: Math.round(overallPct),
+    domainScores, agg, weakDomains,
+    dxAccuracy: dxTotal ? Math.round(dxCorrectCount/dxTotal*100) : null,
+    recentTrend: recentPct > overallPct ? 'up' : recentPct < overallPct - 5 ? 'down' : 'steady',
+  };
+}
+
+// ---- dashboard ----
+async function showDashboard(){
+  app.innerHTML = '<p class="lead">Loading…</p>';
+  if(!LIST_ITEMS.length){ LIST_ITEMS = await fetchList(); }
+  modehint.textContent = DATA_SOURCE === 'embedded'
+    ? 'Preview mode — showing a sample case. Once connected to your API, every published case appears here.'
+    : '';
+  const total = LIST_ITEMS.length;
+  const acc = SESSION.total ? Math.round(SESSION.correct/SESSION.total*100) : 0;
+
+  let h = '';
+
+  // Free sample hero (shown when not connected to API or always as branding)
+  h += '<div class="hero">';
+  h += '<h2>Try a free clinical simulation</h2>';
+  h += '<p class="lead">Work through a full NCMHCE-format case — read the vignette, answer 5 clinical questions, and get evidence-based feedback with weighted scoring after each one. No signup required.</p>';
+  h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Start free case ›</button>';
+  h += '<br /><a href="/guarantee.html" class="guar-link">✓ Pass guarantee — pass and get a free CE course, or we extend your access</a>';
+  h += '</div>';
+
+  // Readiness predictor
+  const rd = computeReadiness();
+  if(rd){
+    h += '<div class="card" style="margin-bottom:16px">';
+    h += '<h2 style="margin-bottom:4px">Exam readiness</h2>';
+    h += '<div style="font-size:13px;color:var(--slate-400);margin-bottom:12px">Your readiness score is weighted by actual NCMHCE domain proportions — Counseling (28%), Intake (25%), Treatment (22%), Ethics (15%), Core (10%). It factors in how many cases you\'ve completed and whether your recent performance is trending up or down. Green (70%+) = exam ready. Amber (50–69%) = almost there. Red (&lt;50%) = keep building.</div>';
+    h += '<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">';
+
+    // Ring gauge
+    const circ = 2 * Math.PI * 50;
+    const offset = circ - (rd.readiness / 100) * circ;
+    const ringColor = rd.readiness >= 70 ? 'var(--emerald-400)' : rd.readiness >= 50 ? 'var(--amber-400)' : 'var(--red-400)';
+    h += '<div class="ready-ring">';
+    h += '<svg viewBox="0 0 120 120" width="120" height="120">';
+    h += '<circle cx="60" cy="60" r="50" fill="none" stroke="var(--slate-700)" stroke-width="8" />';
+    h += '<circle cx="60" cy="60" r="50" fill="none" stroke="'+ringColor+'" stroke-width="8" stroke-linecap="round"'
+       + ' stroke-dasharray="'+circ.toFixed(1)+'" stroke-dashoffset="'+offset.toFixed(1)+'" />';
+    h += '</svg>';
+    h += '<div class="rlabel"><span class="rnum">'+rd.readiness+'%</span><span class="rtag">'+esc(rd.label)+'</span></div>';
+    h += '</div>';
+
+    // Stats summary
+    h += '<div style="flex:1;min-width:200px">';
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">';
+    h += '<div style="text-align:center"><div class="stat-num" style="font-size:20px">'+rd.totalCases+'</div><div class="stat-lbl">Cases done</div></div>';
+    h += '<div style="text-align:center"><div class="stat-num" style="font-size:20px">'+rd.overallPct+'%</div><div class="stat-lbl">Overall accuracy</div></div>';
+    h += '</div>';
+
+    // Domain bars
+    const domOrder = ['counseling','intake','treatment','ethics','core'];
+    const domLabels = {counseling:'Counseling / Interventions',intake:'Assessment / Intake',treatment:'Treatment planning',ethics:'Professional ethics',core:'Core attributes'};
+    domOrder.forEach(d => {
+      const sc = rd.domainScores[d];
+      const a = rd.agg[d];
+      if(!a || !a.total) return;
+      const pctD = sc;
+      const barColor = pctD >= 70 ? 'var(--emerald)' : pctD >= 50 ? 'var(--amber)' : 'var(--red)';
+      h += '<div class="dom-bar-wrap">';
+      h += '<div class="dom-bar-label"><span>'+(domLabels[d]||cap(d))+'</span><span>'+pctD+'%</span></div>';
+      h += '<div class="dom-bar"><i style="width:'+pctD+'%;background:'+barColor+'"></i></div>';
+      h += '</div>';
+    });
+
+    // Weak area callout
+    if(rd.weakDomains.length){
+      h += '<div style="margin-top:10px;font-size:13px;color:var(--slate-400)">Focus areas: ';
+      rd.weakDomains.forEach(w => {
+        h += '<span class="weak-tag">'+(domLabels[w.domain]||cap(w.domain))+' '+w.score+'%</span>';
+      });
+      h += '</div>';
+    }
+
+    // Trend indicator
+    if(rd.totalCases >= 3){
+      const trendIcon = rd.recentTrend === 'up' ? '↑' : rd.recentTrend === 'down' ? '↓' : '→';
+      const trendColor = rd.recentTrend === 'up' ? 'var(--emerald-400)' : rd.recentTrend === 'down' ? 'var(--red-400)' : 'var(--slate-400)';
+      h += '<div style="margin-top:6px;font-size:13px"><span style="color:'+trendColor+';font-weight:700">'+trendIcon+'</span> '
+         + '<span style="color:var(--slate-400)">Recent trend: '+(rd.recentTrend==='up'?'improving':rd.recentTrend==='down'?'slipping':'steady')+'</span></div>';
+    }
+
+    h += '</div></div></div>';
+  }
+
+  h += '<h2>Practice mode</h2>';
+  h += '<div class="mode-grid" role="group" aria-label="Practice mode">';
+  h += modeCard('new','New format','Diagnosis is given — focus on treatment, counseling & ethics decisions.','Current exam');
+  h += modeCard('classic','Classic format','Work out the diagnosis yourself first, then answer. Extra diagnostic practice.','');
+  h += '<div class="mode-card" style="grid-column:1/-1;cursor:default">'
+     + '<span class="mc-head">Feedback timing</span>'
+     + '<span class="mc-desc">Study shows the answer after each question. Exam holds all feedback until you finish the case — like the real NCMHCE.</span>'
+     + '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">'
+     + '<button class="badge '+(!EXAM_FB?'b-emerald':'b-slate')+'" style="cursor:pointer;border:none;font:inherit" aria-pressed="'+(!EXAM_FB)+'" onclick="setExamFb(false)">Study — after each Q</button>'
+     + '<button class="badge '+(EXAM_FB?'b-amber':'b-slate')+'" style="cursor:pointer;border:none;font:inherit" aria-pressed="'+EXAM_FB+'" onclick="setExamFb(true)">Exam — held to the end</button>'
+     + '</div></div>';
+  h += '<a href="/exam.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">📝 Timed Mock Exam</span><span class="mc-desc">A full 11-case exam under the clock, blueprint-weighted like the real NCMHCE. No feedback until you finish — then a full domain breakdown and answer review.</span></a>';
+  h += '<a href="/intake.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">🎙️ Intake Interview Simulator</span><span class="mc-desc">Practice the clinical interview with an AI client who reveals their story the way a real one does — guarded until you earn trust. Five clients including a court-mandated and a returning-veteran case. Speak or type; get a supervisor debrief on rapport, questioning, and risk screening.</span></a>';
+  h += '</div>';
+
+  h += '<div class="card" style="margin-top:16px"><h2>This session</h2>';
+  h += '<div style="font-size:12px;color:var(--slate-500);margin-bottom:8px">Running score for this browser session. Your full history (readiness, flashcards, study plan) is saved locally in this browser — clearing browser data or switching devices will reset it. Create an account for cross-device sync.</div>';
+  if(SESSION.total){
+    h += '<div class="stats">'
+       + '<div class="stat"><div class="stat-num">'+SESSION.correct+'</div><div class="stat-lbl">Correct</div></div>'
+       + '<div class="stat"><div class="stat-num">'+SESSION.total+'</div><div class="stat-lbl">Answered</div></div>'
+       + '<div class="stat"><div class="stat-num">'+acc+'%</div><div class="stat-lbl">Accuracy</div></div></div>'
+       + '<div class="bar" style="margin-top:12px"><i style="width:'+acc+'%"></i></div>';
+  } else {
+    h += '<p class="lead" style="margin:0">No questions answered yet — your running score will show up here.</p>';
+  }
+  h += '</div>';
+
+  h += '<div class="row"><button class="btn" style="width:100%" onclick="goCases()">Start practicing — '
+     + total + ' case' + (total===1?'':'s') + ' ›</button></div>';
+
+  // Study tools nav
+  h += '<div class="card" style="margin-top:16px"><h2>Study tools</h2>';
+  h += '<div class="mode-grid">';
+  h += '<a href="/flashcards.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📇 Flashcards</span><span class="mc-desc">258 cards with spaced repetition. Covers ICD-10 codes, first-line treatments, differentials, ethics, and crisis. Cards you miss come back sooner.</span></a>';
+  h += '<a href="/decision-trees.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🌳 Decision Trees</span><span class="mc-desc">25 branching clinical scenarios — risk and safety, differential diagnosis, ethics, and treatment selection. Walk each one node by node to drill the reasoning the exam rewards.</span></a>';
+  h += '<a href="/dsm.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📖 DSM-5-TR Reference</span><span class="mc-desc">92 diagnoses with ICD-10 codes and first-line treatments. Search by name, code, or treatment keyword. Use alongside cases to look up unfamiliar disorders.</span></a>';
+  h += '<a href="/sheets/ncmhce-study-sheets.pdf" target="_blank" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📄 Study sheets (PDF)</span><span class="mc-desc">Printable one-pagers for all 18 categories. Download the combined 92-diagnosis reference or individual category sheets to study offline.</span></a>';
+  h += '</div></div>';
+
+  // Study plan generator
+  h += '<div class="card" style="margin-top:16px"><h2>Study plan</h2>';
+  h += '<div style="font-size:13px;color:var(--slate-400);margin-bottom:10px">Set your exam date and we\'ll build a 3-phase plan based on your actual domain performance: focused practice on weak areas first, then full-length timed exams, then light review before test day. Updates as your scores change.</div>';
+  if(!rd || rd.totalCases < 3){
+    h += '<p class="lead" style="margin:0">Complete at least 3 cases to unlock your personalized study plan.</p>';
+  } else {
+    const examDateKey = 'prp_exam_date';
+    const savedDate = localStorage.getItem(examDateKey) || '';
+    h += '<div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap">';
+    h += '<label style="font-size:13px;color:var(--slate-400)">Exam date:</label>';
+    h += '<input type="date" id="exam-date" value="'+esc(savedDate)+'" style="font:inherit;padding:8px 12px;border:1.5px solid rgba(51,65,85,.6);border-radius:10px;background:rgba(30,41,59,.6);color:var(--white)" onchange="genPlan()" />';
+    h += '</div>';
+    h += '<div id="study-plan"></div>';
+  }
+  h += '</div>';
+
+  app.innerHTML = h;
+  // Auto-render study plan if exam date is saved
+  var rd2 = computeReadiness();
+  if(rd2 && rd2.totalCases >= 3) setTimeout(genPlan, 50);
+}
+function modeCard(m, title, desc, tag){
+  const sel = MODE === m;
+  return '<button class="mode-card'+(sel?' sel':'')+'" aria-pressed="'+sel+'" onclick="setMode(\''+m+'\')">'
+       + '<span class="mc-head">'+title+(tag?' <span class="badge b-amber">'+tag+'</span>':'')+'</span>'
+       + '<span class="mc-desc">'+desc+'</span>'
+       + '<span class="mc-sel">'+(sel?'● Selected':'Tap to select')+'</span></button>';
+}
+function setMode(m){ MODE = m; showDashboard(); }
+function setExamFb(v){ EXAM_FB = !!v; showDashboard(); }
+function goCases(){ renderList(); window.scrollTo({top:0,behavior:'smooth'}); }
+
+// ---- case list ----
+function renderList(){
+  const items = LIST_FILTER==='all'
+    ? LIST_ITEMS
+    : LIST_ITEMS.filter(it => (it.difficulty||'').toLowerCase()===LIST_FILTER);
+  let h = '<button class="back" onclick="showDashboard()">‹ Dashboard</button>';
+  h += '<h1>Choose a case</h1>';
+  h += '<p class="lead">Mode: <strong style="color:var(--white)">'
+     + (MODE==='classic' ? 'Classic — you diagnose first' : 'New format — diagnosis given')
+     + '</strong></p>';
+  h += '<div class="filter"><span class="flabel">Difficulty</span>';
+  ['all','easy','medium','hard'].forEach(d => {
+    h += '<button class="fbtn" aria-pressed="'+(LIST_FILTER===d)+'" onclick="setFilter(\''+d+'\')">'+(d==='all'?'All':cap(d))+'</button>';
+  });
+  h += '</div>';
+  if(!items.length){ h += '<p class="lead">No cases at this level yet.</p>'; }
+  items.forEach(it => {
+    const diff = (it.difficulty||'').toLowerCase();
+    h += '<button class="case-btn" onclick="startCase(\''+esc(it.externalId)+'\')">'
+       + '<span class="row-top"><span class="chips">'
+       + '<span class="badge '+diffBadgeClass(diff)+'">'+esc(cap(it.difficulty||''))+'</span>'
+       + (it.category ? '<span class="badge b-slate">'+esc(it.category)+'</span>' : '')
+       + '</span><span class="chev" aria-hidden="true">›</span></span>'
+       + '<span class="t">'+esc(it.title)+'</span></button>';
+  });
+  app.innerHTML = h;
+}
+function setFilter(d){ LIST_FILTER=d; renderList(); }
+
+// ---- a case ----
+async function startCase(externalId){
+  app.innerHTML = '<p class="lead">Loading…</p>';
+  CASE = await fetchCase(externalId);
+  CASE.questions.forEach(q => { q._opts = shuffle(q.options.slice()); });
+  // Order the case into the three NCMHCE sections (stable within each section)
+  CASE.questions = CASE.questions
+    .map((q, idx) => ({ q, idx, s: secIndex(q.domain) }))
+    .sort((a, b) => a.s - b.s || a.idx - b.idx)
+    .map(x => x.q);
+  qi = 0; answers = []; dxChoice = null; caseOpen = false;
+  const hasDx = Array.isArray(CASE.differentialOptions) && CASE.differentialOptions.length > 0;
+  phase = (MODE==='classic' && hasDx) ? 'diagnose' : 'answer';
+  renderCase();
+}
+
+function renderCase(){
+  const c = CASE, n = c.questions.length;
+  const dx = c.diagnosis || c.primaryDiagnosis || {};
+  const hideDx = (MODE==='classic' && phase==='diagnose');
+  let h = '<button class="back" onclick="goCases()">‹ All cases</button>';
+  h += '<h1>'+esc(c.title)+'</h1>';
+  h += '<div class="chips" style="margin-bottom:16px">'
+     + '<span class="badge '+diffBadgeClass((c.difficulty||'').toLowerCase())+'">'+esc(cap(c.difficulty||''))+'</span>'
+     + (c.category ? '<span class="badge b-slate">'+esc(c.category)+'</span>' : '')
+     + '<span class="badge '+(MODE==='classic'?'b-blue':'b-emerald')+'">'+(MODE==='classic'?'Classic':'New format')+'</span></div>';
+
+  // case vignette (full-width when diagnosing; sticky/side pane when answering)
+  const seg = (cls,label,txt) => txt ? '<div class="seg"><div class="seg-label '+cls+'">'+label+'</div><div class="seg-text">'+esc(txt)+'</div></div>' : '';
+  let caseInner = '<div class="vignette">'
+    + seg('seg-intake','Intake', c.narrative && c.narrative.intake)
+    + seg('seg-s1','Session 1', c.narrative && c.narrative.session1)
+    + seg('seg-s2','Session 2', c.narrative && c.narrative.session2)
+    + '</div>';
+  if(dx.name && !hideDx){
+    caseInner += '<div class="dx"><div class="seg-label">Working diagnosis</div>'
+       + '<div class="dx-name">'+esc(dx.name)+(dx.code?' <span class="dx-code">('+esc(dx.code)+')</span>':'')+'</div></div>';
+  }
+
+  // classic: read the case, then diagnose (stacked)
+  if(MODE==='classic' && phase==='diagnose'){
+    h += '<div class="card stack">'+caseInner+'</div>';
+    h += '<div style="margin-top:14px">'+renderDiagnosis()+'</div>';
+    app.innerHTML = h;
+    return;
+  }
+
+  // answer phase — split layout so the case stays in view beside the questions
+  const answered = answers.filter(a=>a).length;
+  const qPane = '<div class="progress"><span>Question '+(qi+1)+' of '+n+'</span><span>'+answered+'/'+n+' answered</span></div>'
+    + '<div class="bar"><i style="width:'+Math.round((qi)/(n)*100)+'%"></i></div>'
+    + '<div class="card" style="margin-top:14px">'+renderQuestion(qi)+'</div>';
+  h += '<div class="case-layout">'
+    + '<aside class="case-pane'+(caseOpen?' open':'')+'">'
+    +   '<button type="button" class="case-toggle" onclick="toggleCase()" aria-expanded="'+(caseOpen?'true':'false')+'">'
+    +     '<span class="ct-label">Case details</span><span class="ct-chev" aria-hidden="true">'+(caseOpen?'\u25b4':'\u25be')+'</span>'
+    +   '</button>'
+    +   '<div class="case-body card stack">'+caseInner+'</div>'
+    + '</aside>'
+    + '<section class="q-pane">'+qPane+'</section>'
+    + '</div>';
+  app.innerHTML = h;
+}
+
+function toggleCase(){
+  caseOpen = !caseOpen;
+  const pane = app.querySelector('.case-pane');
+  if(!pane) return;
+  pane.classList.toggle('open', caseOpen);
+  const t = pane.querySelector('.case-toggle'); if(t) t.setAttribute('aria-expanded', caseOpen?'true':'false');
+  const ch = pane.querySelector('.ct-chev'); if(ch) ch.textContent = caseOpen?'\u25b4':'\u25be';
+}
+
+// ---- classic: diagnosis decision ----
+function renderDiagnosis(){
+  const c = CASE;
+  const opts = c.differentialOptions || [];
+  const letters = ['A','B','C','D','E','F'];
+  let h = '<div class="card"><div style="margin-bottom:8px"><span class="badge b-purple">Diagnosis</span></div>';
+  h += '<div class="qstem">Based on the presentation, what is the MOST likely primary diagnosis?</div>';
+  opts.forEach((o,idx) => {
+    let cls='opt', mark='', dis='';
+    if(dxChoice){
+      dis='disabled';
+      if(o.isCorrect){ cls+=' correct'; mark='<span class="mark" aria-hidden="true">✓</span>'; }
+      else if(o.id===dxChoice){ cls+=' incorrect'; mark='<span class="mark" aria-hidden="true">✗</span>'; }
+      else cls+=' dim';
+    }
+    h += '<button class="'+cls+'" '+dis+' onclick="chooseDx(\''+esc(o.id)+'\')">'
+       + '<span class="key" aria-hidden="true">'+letters[idx]+'</span>'
+       + '<span class="otext">'+esc(o.name)+'</span>'+mark+'</button>';
+  });
+  if(dxChoice){
+    const corr = opts.find(o=>o.isCorrect);
+    const ok = corr && dxChoice===corr.id;
+    h += '<div class="feedback" role="status">';
+    h += '<div class="verdict '+(ok?'ok':'no')+'">'+(ok?'✓ Correct':'✗ Not quite')+'</div>';
+    if(!ok && corr) h += '<div class="fb-block"><div class="fb-label">Most likely diagnosis</div><strong>'+esc(corr.name)+'</strong></div>';
+    if(c.diagnosticRationale) h += '<div class="fb-block"><div class="fb-label">Why</div>'+esc(c.diagnosticRationale)+'</div>';
+    h += '<div class="row"><button class="btn" onclick="toAnswers()">Continue to questions ›</button></div>';
+    h += '</div>';
+  }
+  h += '</div>';
+  return h;
+}
+function chooseDx(id){
+  if(dxChoice) return;
+  dxChoice = id;
+  const corr = (CASE.differentialOptions||[]).find(o=>o.isCorrect);
+  SESSION.total++; if(corr && id===corr.id) SESSION.correct++;
+  renderCase();
+  const fb = app.querySelector('.feedback');
+  if(fb){ fb.setAttribute('tabindex','-1'); fb.focus(); }
+}
+function toAnswers(){ phase='answer'; qi=0; renderCase(); window.scrollTo({top:0,behavior:'smooth'}); }
+
+// ---- questions ----
+function renderQuestion(i){
+  const q = CASE.questions[i];
+  const ans = answers[i]; // {chosenId}
+  const letters = ['A','B','C','D','E','F'];
+  const opts = q._opts || q.options;
+  let h = '';
+  const _present = presentSections();
+  const _sIdx = secIndex(q.domain);
+  const _sec = SECTIONS[_sIdx];
+  h += '<div class="sec-head">Section '+(_present.indexOf(_sIdx)+1)+' of '+_present.length+' · '+esc(_sec.title)+'</div>';
+  if(q.domain) h += '<div style="margin-bottom:8px"><span class="badge '+domBadgeClass(q.domain)+'">'+esc(q.domain)+'</span></div>';
+  h += '<div class="qstem">'+esc(q.question)+'</div>';
+
+  opts.forEach((o,idx) => {
+    let cls = 'opt';
+    let mark = '';
+    let disabled = '';
+    let weightHtml = '';
+    if(ans){
+      disabled = 'disabled';
+      if(EXAM_FB){
+        if(o.id === ans.chosenId){ cls += ' picked'; }
+        else { cls += ' dim'; }
+      } else {
+        if(o.isCorrect){ cls += ' correct'; mark = '<span class="mark" aria-hidden="true">✓</span>'; }
+        else if(o.id === ans.chosenId){ cls += ' incorrect'; mark = '<span class="mark" aria-hidden="true">✗</span>'; }
+        else { cls += ' dim'; }
+        if(typeof o.weight === 'number'){
+          weightHtml = '<div class="opt-weight '+weightClass(o.weight)+'">'+weightText(o.weight)+' pts</div>';
+        }
+      }
+    }
+    h += '<button class="'+cls+'" '+disabled+' onclick="choose(\''+esc(q.id)+'\',\''+esc(o.id)+'\')">'
+       + '<span class="key" aria-hidden="true">'+letters[idx]+'</span>'
+       + '<span class="otext">'+esc(o.text)+weightHtml+'</span>'+mark+'</button>';
+  });
+
+  if(ans) h += EXAM_FB ? renderExamLock() : renderFeedback(q, ans);
+  return h;
+}
+
+function renderExamLock(){
+  const last = qi === CASE.questions.length-1;
+  let h = '<div class="feedback" role="status">';
+  h += '<div style="color:var(--slate-400);font-size:14px">Answer locked. Feedback comes after you finish the case — like the real exam.</div>';
+  h += '<div class="row">';
+  if(last) h += '<button class="btn" onclick="finish()">See results</button>';
+  else h += '<button class="btn" onclick="next()">Next question ›</button>';
+  h += '</div></div>';
+  return h;
+}
+
+function renderFeedback(q, ans){
+  const chosen = q.options.find(o=>o.id===ans.chosenId);
+  const correct = q.options.find(o=>o.isCorrect);
+  const ok = chosen && chosen.isCorrect;
+  const ex = (ok ? chosen : correct).explanation || {};
+  const sources = refsFor(CASE, q.evidenceRef);
+
+  let h = '<div class="feedback" role="status">';
+  h += '<div class="verdict '+(ok?'ok':'no')+'">'+(ok?'✓ Correct':'✗ Not quite')+'</div>';
+
+  if(!ok && chosen){
+    h += '<div class="fb-block"><div class="fb-label">Why that one misleads</div>'+esc(chosen.rationale)+'</div>';
+    h += '<div class="fb-block"><div class="fb-label">The keyed answer</div><strong>'+esc(correct.text)+'</strong></div>';
+  }
+  if(ex.approach) h += '<div class="fb-block"><div class="fb-label">Approach</div>'+esc(ex.approach)+'</div>';
+  if(ex.rationale) h += '<div class="fb-block"><div class="fb-label">Why</div>'+esc(ex.rationale)+'</div>';
+  if(ex.keyIndicators && ex.keyIndicators.length){
+    h += '<div class="fb-block"><div class="fb-label">Key indicators</div><ul class="fb-list">'
+       + ex.keyIndicators.map(k=>'<li>'+esc(k)+'</li>').join('') + '</ul></div>';
+  }
+  if(ex.commonMistake) h += '<div class="fb-block"><div class="mistake"><div class="fb-label">Common mistake</div>'+esc(ex.commonMistake)+'</div></div>';
+
+  if(sources.length){
+    h += '<div class="sources"><div class="fb-label">Evidence</div>';
+    sources.forEach(s => {
+      h += '<div class="source"><span class="src-name">'+esc(s.source)+'</span><span class="src-detail">'+esc(s.detail)+'</span></div>';
+    });
+    h += '</div>';
+  }
+
+  const last = qi === CASE.questions.length-1;
+  h += '<div class="row">';
+  if(last) h += '<button class="btn" onclick="finish()">See results</button>';
+  else h += '<button class="btn" onclick="next()">Next question ›</button>';
+  h += '</div></div>';
+  return h;
+}
+
+function choose(qid, oid){
+  if(answers[qi]) return;
+  answers[qi] = {chosenId:oid};
+  const picked = CASE.questions[qi].options.find(o=>o.id===oid);
+  SESSION.total++; if(picked && picked.isCorrect) SESSION.correct++;
+  renderCase();
+  const fb = app.querySelector('.feedback');
+  if(fb){ fb.setAttribute('tabindex','-1'); fb.focus(); }
+}
+function next(){ qi++; renderCase(); window.scrollTo({top:0,behavior:'smooth'}); }
+
+function finish(){
+  const qs = CASE.questions;
+  let correct = 0, weighted = 0, possible = 0; const dom = {}; const rows = [];
+  qs.forEach((q,i) => {
+    const a = answers[i];
+    const chosen = a && q.options.find(o=>o.id===a.chosenId);
+    const isOk = chosen && chosen.isCorrect;
+    if(isOk) correct++;
+    if(chosen && typeof chosen.weight === 'number') weighted += chosen.weight;
+    possible += 3;
+    const d = q.domain || 'general';
+    dom[d] = dom[d] || {ok:0,total:0};
+    dom[d].total++; if(isOk) dom[d].ok++;
+    rows.push({i, domain:d, isOk, weight: chosen ? (chosen.weight||0) : 0});
+  });
+  const pct = Math.round(correct/qs.length*100);
+  const pass = pct >= 70;
+
+  // Save to localStorage history for readiness tracking
+  let dxOk = null;
+  if(MODE==='classic' && Array.isArray(CASE.differentialOptions) && CASE.differentialOptions.length){
+    const corr = CASE.differentialOptions.find(o=>o.isCorrect);
+    dxOk = !!(dxChoice && corr && dxChoice===corr.id);
+  }
+  saveToHistory(CASE, answers, dxOk);
+  serverSaveAttempt(CASE, answers, dom, pct); // sync to account (no-op if logged out)
+
+  // classic diagnosis result
+  let dxLine = '';
+  if(MODE==='classic' && dxOk !== null){
+    dxLine = '<div class="dom-row"><span>Diagnosis</span><span class="dom-score '+(dxOk?'w-pos':'w-neg')+'">'+(dxOk?'✓ Correct':'✗ Missed')+'</span></div>';
+  }
+
+  let h = '<button class="back" onclick="goCases()">‹ All cases</button>';
+  h += '<h1>'+esc(CASE.title)+'</h1>';
+  h += '<div class="score-card '+(pass?'pass':'partial')+'">'
+     + '<div class="score-icon" aria-hidden="true">'+(pass?'🏆':'📈')+'</div>'
+     + '<div class="score-big">'+pct+'%</div>'
+     + '<div class="score-sub">'+correct+' of '+qs.length+' correct · weighted '+weightText(weighted)+'/'+possible+'</div></div>';
+
+  h += '<div class="card" style="margin-top:14px"><h2>Question summary</h2>';
+  rows.forEach(r => {
+    h += '<div class="summary-row"><span class="sm-mark '+(r.isOk?'ok':'no')+'" aria-hidden="true">'+(r.isOk?'✓':'✗')+'</span>'
+       + '<span class="sm-dom">Q'+(r.i+1)+' · '+esc(cap(r.domain))+'</span>'
+       + '<span class="'+weightClass(r.weight)+'" style="font-weight:700; font-size:13px">'+weightText(r.weight)+'</span></div>';
+  });
+  h += '</div>';
+
+  if(EXAM_FB){
+    h += '<div class="card" style="margin-top:14px"><h2>Case review</h2>';
+    h += '<div style="font-size:12px;color:var(--slate-500);margin-bottom:6px">Feedback was held until the end, like the real exam.</div>';
+    qs.forEach((q,i) => {
+      const a = answers[i];
+      const chosen = a && q.options.find(o=>o.id===a.chosenId);
+      const correctOpt = q.options.find(o=>o.isCorrect);
+      const ok = !!(chosen && chosen.isCorrect);
+      const ex = ((ok?chosen:correctOpt) || {}).explanation || {};
+      h += '<div style="border-top:1px solid var(--card-border);padding:10px 0">';
+      h += '<div style="font-weight:600;color:var(--white);font-size:14px">Q'+(i+1)+'. '+esc(q.question)+'</div>';
+      h += '<div class="'+(ok?'w-pos':'w-neg')+'" style="font-weight:700;font-size:13px;margin-top:4px">'+(ok?'✓ Correct':'✗ Incorrect')+' <span style="font-weight:400;color:var(--slate-400)">— you chose: '+esc(chosen?chosen.text:'(no answer)')+'</span></div>';
+      if(!ok && correctOpt) h += '<div style="font-size:13px;color:var(--slate-300);margin-top:2px">Best answer: '+esc(correctOpt.text)+'</div>';
+      if(ex.rationale) h += '<div style="font-size:13px;color:var(--slate-400);margin-top:4px">'+esc(ex.rationale)+'</div>';
+      if(ex.commonMistake) h += '<div style="font-size:13px;color:var(--amber-400);margin-top:4px">Common mistake: '+esc(ex.commonMistake)+'</div>';
+      h += '</div>';
+    });
+    h += '</div>';
+  }
+
+  const secAgg = {};
+  Object.keys(dom).forEach(d => {
+    const si = secIndex(d);
+    if(!secAgg[si]) secAgg[si] = {ok:0, total:0};
+    secAgg[si].ok += dom[d].ok; secAgg[si].total += dom[d].total;
+  });
+  h += '<div class="card" style="margin-top:14px"><h2>By section</h2>';
+  Object.keys(secAgg).map(Number).sort((a,b) => a-b).forEach(si => {
+    const v = secAgg[si]; const p = v.total ? Math.round(v.ok/v.total*100) : 0;
+    h += '<div class="dom-row"><span>'+esc(SECTIONS[si].title)+'</span><span class="dom-score '+(p>=70?'w-pos':'w-neg')+'">'+v.ok+'/'+v.total+' · '+p+'%</span></div>';
+  });
+  h += '</div>';
+
+  h += '<div class="card" style="margin-top:14px"><h2>By area</h2>';
+  h += dxLine;
+  Object.keys(dom).forEach(d => {
+    h += '<div class="dom-row"><span>'+esc(cap(d))+'</span><span class="dom-score">'+dom[d].ok+'/'+dom[d].total+'</span></div>';
+  });
+  h += '</div>';
+
+  h += '<div class="card" style="margin-top:14px"><h2>AI clinical debrief</h2>'
+     + '<div style="font-size:12px;color:var(--slate-500);margin-bottom:10px">Dr. Claire Moreau reviews your answers — strengths, growth areas, and an NCMHCE exam tip for this case.</div>'
+     + '<button class="btn" id="debrief-btn" onclick="getDebrief()">Get debrief</button>'
+     + '<div id="debrief-out"></div></div>';
+
+  h += '<div class="row"><button class="btn" onclick="startCase(\''+esc(CASE.id)+'\')">Retry this case</button>'
+     + '<button class="btn secondary" onclick="goCases()">More cases</button></div>';
+  app.innerHTML = h;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function getDebrief(){
+  const btn = document.getElementById('debrief-btn');
+  const out = document.getElementById('debrief-out');
+  if(!btn || !out) return;
+  btn.disabled = true; btn.textContent = 'Analyzing…';
+  try{
+    const r = await fetch('/api/debrief', {
+      method:'POST',
+      headers: Object.assign({'Content-Type':'application/json'}, authHeaders()),
+      body: JSON.stringify({ caseData: CASE, answers, mode: MODE })
+    });
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j.error || 'Request failed');
+    out.innerHTML = '<div class="feedback" style="margin-top:12px">'
+      + '<div class="fb-label" style="color:var(--purple-400)">Dr. Claire Moreau — Clinical Debrief</div>'
+      + '<div style="white-space:pre-wrap;color:var(--slate-200);font-size:14px;line-height:1.6;margin-top:6px">'+esc(j.debrief)+'</div>'
+      + '<div style="font-size:11px;color:var(--slate-600);font-style:italic;margin-top:8px">AI-generated feedback for learning. Not a substitute for licensed supervision.</div></div>';
+    btn.style.display = 'none';
+  }catch(e){
+    out.innerHTML = '<div style="color:var(--red-400);font-size:13px;margin-top:10px">Debrief failed: '+esc(e.message)+'</div>';
+    btn.disabled = false; btn.textContent = 'Get debrief';
+  }
+}
+
+// ---- study plan generator ----
+function genPlan(){
+  var dateEl = document.getElementById('exam-date');
+  var planEl = document.getElementById('study-plan');
+  if(!dateEl || !planEl) return;
+  var dateVal = dateEl.value;
+  if(dateVal) localStorage.setItem('prp_exam_date', dateVal);
+  if(!dateVal){ planEl.innerHTML = '<p style="color:var(--slate-400);font-size:14px;margin:0">Set your exam date to generate a plan.</p>'; return; }
+
+  var rd = computeReadiness();
+  if(!rd){ planEl.innerHTML = ''; return; }
+
+  var examDate = new Date(dateVal + 'T12:00:00');
+  var now = new Date();
+  var daysLeft = Math.max(1, Math.ceil((examDate - now) / 86400000));
+
+  var domLabels = {counseling:'Counseling/Interventions',intake:'Assessment/Intake',treatment:'Treatment Planning',ethics:'Professional Ethics',core:'Core Attributes'};
+  var domOrder = ['counseling','intake','treatment','ethics','core'];
+
+  // Sort domains by weakness (lowest score first)
+  var ranked = domOrder.filter(function(d){ return rd.agg[d] && rd.agg[d].total >= 1; })
+    .map(function(d){ return {d:d, sc:rd.domainScores[d]||0}; })
+    .sort(function(a,b){ return a.sc - b.sc; });
+
+  var h = '<div style="font-size:14px;color:var(--slate-300)">';
+  h += '<div style="font-weight:700;color:var(--white);margin-bottom:8px">' + daysLeft + ' day' + (daysLeft===1?'':'s') + ' until exam</div>';
+
+  // Phase breakdown
+  var phase1 = Math.max(1, Math.floor(daysLeft * 0.5));
+  var phase2 = Math.max(1, Math.floor(daysLeft * 0.3));
+  var phase3 = Math.max(1, daysLeft - phase1 - phase2);
+
+  h += '<div style="margin:12px 0">';
+  // Phase 1
+  h += '<div style="display:flex;gap:10px;align-items:flex-start;margin:10px 0">';
+  h += '<div style="flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:rgba(59,130,246,.15);color:var(--blue-400);display:grid;place-items:center;font-weight:700;font-size:13px">1</div>';
+  h += '<div style="flex:1"><strong style="color:var(--white)">Days 1–' + phase1 + ': Build foundations</strong><br>';
+  h += 'Focus on your weakest areas: ';
+  var weak = ranked.slice(0, 2);
+  h += weak.map(function(w){ return '<strong style="color:var(--amber-400)">' + (domLabels[w.d]||w.d) + '</strong> (' + w.sc + '%)'; }).join(', ');
+  h += '. Do 2–3 cases per day in these domains + 15 min flashcards.';
+  h += '</div></div>';
+
+  // Phase 2
+  h += '<div style="display:flex;gap:10px;align-items:flex-start;margin:10px 0">';
+  h += '<div style="flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:rgba(139,92,246,.15);color:var(--purple-400);display:grid;place-items:center;font-weight:700;font-size:13px">2</div>';
+  h += '<div style="flex:1"><strong style="color:var(--white)">Days ' + (phase1+1) + '–' + (phase1+phase2) + ': Full-length practice</strong><br>';
+  h += 'Shift to timed full exams (10–11 cases). Simulate real conditions. Review every missed question. Continue flashcards for retention.';
+  h += '</div></div>';
+
+  // Phase 3
+  h += '<div style="display:flex;gap:10px;align-items:flex-start;margin:10px 0">';
+  h += '<div style="flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:rgba(16,185,129,.15);color:var(--emerald-400);display:grid;place-items:center;font-weight:700;font-size:13px">3</div>';
+  h += '<div style="flex:1"><strong style="color:var(--white)">Days ' + (phase1+phase2+1) + '–' + daysLeft + ': Sharpen and rest</strong><br>';
+  h += 'Light review of flagged weak spots. DSM reference for any lingering gaps. Day before exam: rest, no cramming.';
+  h += '</div></div>';
+  h += '</div>';
+
+  // Daily targets
+  var casesPerDay = Math.max(2, Math.min(5, Math.ceil((20 - rd.totalCases) / Math.max(1, phase1))));
+  h += '<div style="margin-top:12px;padding:12px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px">';
+  h += '<strong style="color:var(--emerald-400)">Daily targets:</strong> ' + casesPerDay + ' cases + 15 min flashcards + 10 min DSM review';
+  if(rd.totalCases < 20) h += '<br><span style="color:var(--amber-400);font-size:13px">You need ' + (20 - rd.totalCases) + ' more cases for pass guarantee eligibility</span>';
+  h += '</div>';
+
+  h += '</div>';
+  planEl.innerHTML = h;
+}
+
+// ---- account / login surface ----
+function currentUser(){ try{ return JSON.parse(localStorage.getItem('prp_user') || 'null'); }catch(_){ return null; } }
+
+function renderAccount(){
+  const el = document.getElementById('acct');
+  if(!el) return;
+  const u = currentUser();
+  if(u && authHeaders().Authorization){
+    const tier = (u.subscription && u.subscription.tier) || u.tier;
+    const badge = (tier && tier !== 'free') ? '<span class="exam-badge" style="font-size:11px;padding:3px 8px">'+esc(cap(tier))+'</span>' : '';
+    el.innerHTML = badge
+      + '<span class="acct-email" title="'+esc(u.email||'')+'">'+esc(u.email||'Signed in')+'</span>'
+      + '<button class="acct-btn" onclick="logout()">Log out</button>';
+  } else {
+    el.innerHTML = '<button class="acct-btn primary" onclick="openAuth()">Sign in</button>';
+  }
+}
+
+function openAuth(){
+  const m = document.getElementById('auth-modal');
+  document.getElementById('auth-err').textContent = '';
+  m.classList.add('open');
+  const e = document.getElementById('auth-email'); if(e) e.focus();
+}
+function closeAuth(){ document.getElementById('auth-modal').classList.remove('open'); }
+
+async function submitAuth(){
+  const email = (document.getElementById('auth-email').value || '').trim();
+  const pass = document.getElementById('auth-pass').value || '';
+  const errEl = document.getElementById('auth-err');
+  const btn = document.getElementById('auth-submit');
+  errEl.textContent = '';
+  if(!email || !pass){ errEl.textContent = 'Enter your email and password.'; return; }
+  btn.disabled = true; btn.textContent = 'Signing in…';
+  try{
+    const r = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pass }),
+    });
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j.error || 'Sign in failed');
+    localStorage.setItem('prp_token', j.token);
+    localStorage.setItem('prp_user', JSON.stringify(j.user || { email }));
+    closeAuth();
+    renderAccount();
+    await hydrateFromServer();   // pull this account's saved progress
+    showDashboard();
+  }catch(e){
+    errEl.textContent = e.message;
+    btn.disabled = false; btn.textContent = 'Sign in';
+  }
+}
+
+function logout(){
+  // Clear the session AND local history, so the next person on this browser
+  // starts clean — the account's real progress is safe on the server.
+  try{
+    localStorage.removeItem('prp_token');
+    localStorage.removeItem('prp_user');
+    localStorage.removeItem('prp_history');
+  }catch(_){}
+  location.reload();
+}
+
+// Submit auth on Enter from either field
+document.addEventListener('keydown', function(ev){
+  if(ev.key === 'Enter' && document.getElementById('auth-modal').classList.contains('open')){
+    const a = document.activeElement;
+    if(a && (a.id === 'auth-email' || a.id === 'auth-pass')) submitAuth();
+  }
+});
+
+// go
+(async function init(){
+  renderAccount();
+  await hydrateFromServer();   // pulls account history when signed in; no-op otherwise
+  showDashboard();
+})();
+</script>
 </body>
 </html>
