@@ -343,7 +343,11 @@ function weightedSelectItems(items){
     for(const [k,w] of bpArr){ r -= w; if(r <= 0){ cat = k; break; } }
     const pool = (pools[cat]||[]).filter(it => !usedIds.has(it.externalId));
     if(!pool.length) continue;
-    const pick = pool[Math.floor(Math.random()*pool.length)];
+    // Prefer deep cases (ncmhce-D###, 9-15 q) so the mock matches the real exam's
+    // question load; fall back to a shallow case only when no fresh deep exists.
+    const deepPool = pool.filter(it => /^ncmhce-D/i.test(it.externalId||''));
+    const choose = deepPool.length ? deepPool : pool;
+    const pick = choose[Math.floor(Math.random()*choose.length)];
     usedIds.add(pick.externalId);
     selected.push(pick);
   }
