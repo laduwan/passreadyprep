@@ -1,36 +1,38 @@
 // ============================================================================
-// deep-cases-batch-02.js — NCMHCE deep cases D105–D109 (2022+ format)
+// deep-cases-batch-02.js — NCMHCE deep cases, batch 02 (2022+ format)
 // NCMHCE Prep Platform | GA Integrated Therapeutic Perspectives LLC
 //
-// Five exam-deep clinical simulations. The diagnosis is GIVEN; the 13 items per
-// case test clinical decision-making across Assessment -> Planning -> Process
-// (derived from each item's `domain`; see caseSchema.SECTIONS / examDepth.js).
+// Five exam-deep clinical simulations (13 items each, sections [5,4,4]). The
+// diagnosis is GIVEN; items test clinical decision-making across the three
+// derived sections (Assessment -> Planning -> Process). Diagnoses are chosen to
+// fill the largest blueprint gaps WITHOUT overlapping batch-01 (D102 GAD,
+// D103 PTSD, D104 AUD-Moderate):
+//   ncmhce-D105  Major Depressive Disorder, Moderate (Depressive)
+//   ncmhce-D106  Panic Disorder (Anxiety)
+//   ncmhce-D107  Opioid Use Disorder, Severe (Substance)
+//   ncmhce-D108  Prolonged Grief Disorder (Trauma)
+//   ncmhce-D109  Borderline Personality Disorder (Personality)
 //
-// Standalone deliverable for SME review. Validate before import:
+// Authored to NCMHCE_DeepCase_Generation_Spec.md. Passes caseSchema
+// (strictItemQuality) AND examDepth with zero errors / zero warnings.
+//
+// Validate:
 //   node tools/cases/validateCases.js tools/cases/deep-cases-batch-02.js
-//   node -e "const{validateExamDepthSet}=require('./tools/cases/examDepth');\
-//     const{CASES}=require('./tools/cases/deep-cases-batch-02');\
-//     const r=validateExamDepthSet(CASES);console.log(r.ok?'DEPTH PASS':'DEPTH FAIL');\
-//     r.errors.forEach(e=>console.log(e));r.warnings.forEach(w=>console.log(w))"
+//   node -e "const{validateExamDepthSet}=require('./tools/cases/examDepth');const{CASES}=require('./tools/cases/deep-cases-batch-02');console.log(validateExamDepthSet(CASES))"
 //
-// Do NOT auto-import — importing into the live DB is a separate, human-run step.
+// Standalone deliverable for SME review. Do NOT auto-import — importing into the
+// live DB is a separate, human-run step.
 // ============================================================================
 
 // --- tiny builders so every option/question carries the full schema ---------
 // O(id, text, weight, { r, approach, why, keys, mistake })
-//   weight 3 => keyed answer; distractor weights from {0,-1,-2}.
 const O = (id, text, weight, ex) => ({
   id,
   text,
   isCorrect: weight === 3,
   weight,
   rationale: ex.r,
-  explanation: {
-    approach: ex.approach,
-    rationale: ex.why,
-    keyIndicators: ex.keys,
-    commonMistake: ex.mistake,
-  },
+  explanation: { approach: ex.approach, rationale: ex.why, keyIndicators: ex.keys, commonMistake: ex.mistake },
 });
 const Q = (id, domain, question, evidenceRef, options) => ({ id, domain, question, evidenceRef, options });
 
@@ -38,7 +40,7 @@ const Q = (id, domain, question, evidenceRef, options) => ({ id, domain, questio
 // D105 — Major Depressive Disorder, Moderate (F33.1) — Depressive — easy
 // ============================================================================
 const D105 = {
-  id: 'D105',
+  id: 'ncmhce-D105',
   title: 'Low mood and lost interest after a demotion',
   category: 'Depressive',
   difficulty: 'easy',
@@ -207,518 +209,518 @@ const D105 = {
 };
 
 // ============================================================================
-// D106 — Generalized Anxiety Disorder (F41.1) — Anxiety — medium
+// D106 — Panic Disorder (F41.0) — Anxiety — medium
 // ============================================================================
 const D106 = {
-  id: 'D106',
-  title: 'Uncontrollable worry across every domain of life',
+  id: 'ncmhce-D106',
+  title: 'Sudden surges of fear with a racing heart',
   category: 'Anxiety',
   difficulty: 'medium',
-  primaryDiagnosis: { name: 'Generalized Anxiety Disorder', code: 'F41.1' },
-  diagnosis: { name: 'Generalized Anxiety Disorder', code: 'F41.1' },
+  primaryDiagnosis: { name: 'Panic Disorder', code: 'F41.0' },
+  diagnosis: { name: 'Panic Disorder', code: 'F41.0' },
   differentialOptions: [
-    { id: 'do1', name: 'Generalized Anxiety Disorder', isCorrect: true },
-    { id: 'do2', name: 'Panic Disorder', isCorrect: false },
-    { id: 'do3', name: 'Illness Anxiety Disorder', isCorrect: false },
-    { id: 'do4', name: 'Adjustment Disorder, with Anxiety', isCorrect: false },
+    { id: 'do1', name: 'Panic Disorder', isCorrect: true },
+    { id: 'do2', name: 'Generalized Anxiety Disorder', isCorrect: false },
+    { id: 'do3', name: 'Specific Phobia, Situational', isCorrect: false },
+    { id: 'do4', name: 'Social Anxiety Disorder', isCorrect: false },
   ],
   narrative: {
     intake:
-      'Priya Raman, a 41-year-old accountant, presents with roughly a year of constant, hard-to-control worry about work, ' +
-      'her children’s safety, finances, and her health, accompanied by muscle tension, irritability, and trouble sleeping.',
+      'Renée Dubois, a 33-year-old nurse, presents after several sudden, unexpected surges of intense fear with a pounding heart, ' +
+      'chest tightness, dizziness, and a sense she might die or lose control; two emergency-department visits found nothing wrong.',
     session1:
-      'She describes lying awake rehearsing everything that could go wrong, feeling restless and on edge most days, ' +
-      'and finding it difficult to concentrate at work because her mind keeps jumping to the next potential problem.',
+      'She describes attacks that peak within minutes and arise without warning, even at rest, followed by a persistent dread of ' +
+      'the next one. She has started leaving work early and avoiding the gym for fear of triggering the frightening sensations.',
     session2:
-      'She denies discrete panic attacks and has had a recent normal physical exam, yet she still cannot stop the worry; ' +
-      'she says she has “always been a worrier” but that it became unmanageable over the past year.',
+      'She fears the racing heart signals a heart attack despite a normal cardiac workup, and she now carries water and sits near exits. ' +
+      'She denies stimulant use beyond one morning coffee and wants to understand what is happening to her body.',
   },
   diagnosticRationale:
-    'Excessive, difficult-to-control worry about multiple domains occurring more days than not for at least six months, ' +
-    'with restlessness, muscle tension, irritability, concentration difficulty, and sleep disturbance and clear impairment, ' +
-    'meets DSM-5-TR criteria for generalized anxiety disorder rather than a panic, illness-focused, or adjustment presentation.',
+    'Recurrent unexpected panic attacks that peak within minutes, followed by at least one month of persistent worry about further ' +
+    'attacks and maladaptive avoidance, with a normal medical workup, meet DSM-5-TR criteria for panic disorder. The attacks are ' +
+    'uncued rather than tied to a single feared object or social scrutiny, and they are discrete rather than chronic diffuse worry.',
   references: [
-    { id: 'R1', source: 'DSM-5-TR', detail: 'GAD criteria: excessive worry 6+ months plus 3 of 6 associated symptoms with impairment' },
-    { id: 'R2', source: 'NICE guidelines', detail: 'GAD stepped-care model from psychoeducation through high-intensity CBT' },
-    { id: 'R3', source: 'APA CPG', detail: 'Anxiety guideline supporting CBT with cognitive restructuring and exposure to worry' },
-    { id: 'R4', source: 'Hays (Assessment)', detail: 'Selecting and interpreting standardized anxiety measures such as the GAD-7' },
-    { id: 'R5', source: 'ACA Code of Ethics', detail: 'C.2.: practicing within competence and referring for specialized care' },
+    { id: 'R1', source: 'DSM-5-TR', detail: 'Panic disorder: recurrent unexpected attacks plus 1+ month of worry or maladaptive change' },
+    { id: 'R2', source: 'Barlow PCT', detail: 'Panic control treatment: interoceptive exposure to feared bodily sensations' },
+    { id: 'R3', source: 'APA CPG', detail: 'Anxiety guideline supporting CBT with exposure as first-line for panic disorder' },
+    { id: 'R4', source: 'C-SSRS', detail: 'Structured screening of ideation severity, intent, and plan' },
+    { id: 'R5', source: 'ACA Code of Ethics', detail: 'A.1. and C.2.: client welfare, scope of practice, and informed consent' },
   ],
   questions: [
-    Q('q1', 'intake', 'What is most important to establish to confirm generalized anxiety disorder at intake?', ['R1'], [
-      O('a', 'That the excessive, hard-to-control worry has spanned multiple domains more days than not for at least six months', 3,
-        { r: 'Duration and uncontrollability define GAD', approach: 'Confirm the core criterion', why: 'DSM-5-TR requires 6 months of uncontrollable worry', keys: ['about a year of worry', 'multiple domains'], mistake: 'Diagnosing GAD from short-term stress' }),
-      O('b', 'That she can point to the one specific situation or feared object that reliably sets off the bulk of her anxiety', -1,
-        { r: 'A single focus suggests phobia, not GAD', approach: 'Single-cue framing', why: 'GAD worry is diffuse, not cue-bound', keys: ['worry spans domains'], mistake: 'Looking for one phobic trigger' }),
-      O('c', 'That she has experienced at least several sudden surges of intense fear that peaked within a few minutes of onset', -1,
-        { r: 'Surges point toward panic disorder', approach: 'Panic framing', why: 'GAD lacks discrete panic attacks', keys: ['denies panic attacks'], mistake: 'Requiring panic for an anxiety diagnosis' }),
-      O('d', 'That her worries are focused mainly on having or acquiring a serious undiagnosed medical illness despite reassurance', 0,
-        { r: 'Illness focus suggests a different disorder', approach: 'Health-anxiety framing', why: 'This pattern fits illness anxiety disorder', keys: ['worry is broad'], mistake: 'Narrowing GAD to health worry' }),
+    Q('q1', 'intake', 'What is most important to confirm to establish panic disorder rather than isolated panic attacks?', ['R1'], [
+      O('a', 'That the unexpected attacks are recurrent and followed by a month or more of worry or avoidance about further attacks', 3,
+        { r: 'Recurrent attacks plus persistent worry define it', approach: 'Confirm the full criterion', why: 'DSM-5-TR requires recurrent uncued attacks plus a month of worry or change', keys: ['unexpected surges', 'dread of the next one'], mistake: 'Diagnosing from one attack alone' }),
+      O('b', 'That she can name the specific external situation that reliably brings on each one of her frightening panic episodes', -1,
+        { r: 'A reliable cue points away from panic disorder', approach: 'Cue-based framing', why: 'Panic disorder attacks are at least sometimes unexpected', keys: ['attacks at rest'], mistake: 'Requiring a consistent trigger' }),
+      O('c', 'That she has experienced a continuous, hard-to-control background of worry across many domains for the past six months', -1,
+        { r: 'Chronic diffuse worry suggests GAD', approach: 'Generalized-worry framing', why: 'That pattern fits GAD, not panic disorder', keys: ['discrete attacks'], mistake: 'Confusing panic with generalized worry' }),
+      O('d', 'That her physical sensations during the attacks are severe enough that they have twice prompted an emergency visit', 0,
+        { r: 'Severity does not establish the diagnosis', approach: 'Severity framing', why: 'ED visits show distress, not the diagnostic pattern', keys: ['normal workup'], mistake: 'Reading severity as the criterion' }),
     ]),
-    Q('q2', 'core', 'Which feature best differentiates her presentation from panic disorder?', ['R1'], [
-      O('a', 'Persistent anticipatory worry and tension without the discrete, abruptly peaking attacks that characterize panic', 3,
-        { r: 'Sustained worry versus discrete attacks', approach: 'Contrast the symptom course', why: 'GAD is chronic worry; panic is episodic surges', keys: ['on edge most days', 'no attacks'], mistake: 'Conflating chronic anxiety with panic' }),
-      O('b', 'The presence of physical sensations such as muscle tension and restlessness that she experiences on most ordinary days', -1,
-        { r: 'Somatic tension occurs in both', approach: 'Somatic framing', why: 'Physical symptoms do not separate the two', keys: ['tension is nonspecific'], mistake: 'Using shared symptoms to differentiate' }),
-      O('c', 'Her strong tendency to avoid specific crowded places where escape might be difficult if she became overwhelmed by fear', -1,
-        { r: 'Situational avoidance suggests agoraphobia', approach: 'Avoidance framing', why: 'That pattern points elsewhere', keys: ['no situational avoidance'], mistake: 'Reading agoraphobic avoidance into GAD' }),
-      O('d', 'The fact that her worry tends to feel a great deal worse during the evening and overnight hours than during the daytime', 0,
-        { r: 'Time-of-day pattern is not diagnostic', approach: 'Diurnal framing', why: 'Timing does not separate GAD from panic', keys: ['nighttime worry'], mistake: 'Over-reading a circadian pattern' }),
+    Q('q2', 'core', 'Which feature best distinguishes her presentation from generalized anxiety disorder?', ['R1'], [
+      O('a', 'Discrete attacks that peak within minutes rather than a persistent, free-floating background of multi-domain worry', 3,
+        { r: 'Discrete peaks versus chronic worry', approach: 'Contrast the symptom course', why: 'Panic is episodic and abrupt; GAD is sustained worry', keys: ['peaks within minutes', 'uncued'], mistake: 'Treating chronic worry as panic' }),
+      O('b', 'The presence of physical symptoms such as a racing heart, dizziness, and tension that she notices during the episodes', -1,
+        { r: 'Somatic symptoms occur in both', approach: 'Somatic framing', why: 'Physical arousal does not separate the two', keys: ['shared somatic features'], mistake: 'Using shared symptoms to differentiate' }),
+      O('c', 'Her worry about her job performance and whether her colleagues have noticed that she keeps leaving work early lately', -1,
+        { r: 'Performance worry is nonspecific', approach: 'Worry-content framing', why: 'Worry topic does not distinguish the disorders', keys: ['secondary worry'], mistake: 'Reading worry content as diagnostic' }),
+      O('d', 'The way her symptoms tend to feel noticeably worse on days that are especially busy and demanding at the hospital', 0,
+        { r: 'Stress reactivity is nonspecific', approach: 'Stress framing', why: 'Worsening under stress does not separate them', keys: ['stress sensitivity'], mistake: 'Using stress sensitivity to differentiate' }),
     ]),
-    Q('q3', 'core', 'What medical or substance-related contributor is most important to rule out given her symptoms?', ['R1'], [
-      O('a', 'Hyperthyroidism and excessive caffeine or stimulant use, which can closely mimic a generalized anxiety presentation', 3,
-        { r: 'Exclude physiological mimics', approach: 'Screen organic causes', why: 'DSM-5-TR requires excluding medical and substance causes', keys: ['restlessness', 'sleep disturbance'], mistake: 'Skipping the medical rule-out' }),
-      O('b', 'A previously undetected, slowly progressive neurocognitive decline that could account for her concentration difficulties', -1,
-        { r: 'Cognitive decline is unlikely here', approach: 'Neurocognitive framing', why: 'Her profile and age fit anxiety better', keys: ['anxiety-driven inattention'], mistake: 'Pursuing an improbable rule-out' }),
-      O('c', 'A long-standing pattern of restricting food intake that could be driving both her irritability and her trouble sleeping', -1,
-        { r: 'Eating pathology is not indicated', approach: 'Eating-disorder framing', why: 'No restriction or body concerns are reported', keys: ['no eating concerns'], mistake: 'Inventing an unsupported rule-out' }),
-      O('d', 'A pattern of heavy alcohol use late at night that she may be relying on specifically to help herself fall asleep faster', 0,
-        { r: 'Worth screening but secondary here', approach: 'Substance framing', why: 'Plausible but not the leading mimic', keys: ['no use reported yet'], mistake: 'Assuming substance use without data' }),
+    Q('q3', 'intake', 'Given her cardiac fears and normal workup, what is the most appropriate counselor action?', ['R5'], [
+      O('a', 'Confirm that a medical evaluation has ruled out cardiac causes and coordinate further workup if any new symptoms arise', 3,
+        { r: 'Verify medical rule-out, coordinate as needed', approach: 'Screen and coordinate medical causes', why: 'Cardiac and endocrine mimics must be excluded, not assumed', keys: ['chest tightness', 'two ED visits'], mistake: 'Assuming anxiety without a medical rule-out' }),
+      O('b', 'Order an electrocardiogram and thyroid panel yourself so that you can personally rule out any underlying medical condition', -1,
+        { r: 'Ordering tests exceeds counselor scope', approach: 'Order medical tests', why: 'Counselors coordinate but do not order labs', keys: ['scope limit'], mistake: 'Acting outside scope of practice' }),
+      O('c', 'Tell her with confidence that her heart is completely fine and that she should stop worrying about it from now on', -1,
+        { r: 'Flat reassurance feeds the cycle', approach: 'Blanket reassurance', why: 'Reassurance-seeking maintains panic about sensations', keys: ['reassurance dependence'], mistake: 'Reinforcing reassurance-seeking' }),
+      O('d', 'Disregard the physical symptoms entirely because the emergency department already determined that nothing was wrong', -2,
+        { r: 'Dismissing symptoms is unsafe and invalidating', approach: 'Dismiss the body', why: 'New or changing symptoms still warrant attention', keys: ['somatic focus'], mistake: 'Ignoring the medical differential outright' }),
     ]),
-    Q('q4', 'core', 'How can the counselor best obtain a baseline measure of her anxiety severity?', ['R4'], [
-      O('a', 'Administer a validated self-report measure such as the GAD-7 to quantify severity and track change over time', 3,
-        { r: 'Validated measure sets a baseline', approach: 'Use a standardized tool', why: 'The GAD-7 quantifies severity reliably', keys: ['need objective baseline'], mistake: 'Relying only on clinical impression' }),
-      O('b', 'Ask her to estimate, on a scale she invents herself in the moment, how anxious she generally feels on a typical day', -1,
-        { r: 'An ad hoc scale lacks validity', approach: 'Improvised rating', why: 'It is not standardized or comparable', keys: ['no benchmark'], mistake: 'Using an unvalidated rating' }),
-      O('c', 'Have her keep an open-ended daily journal describing in detail everything that made her feel anxious during the week', 0,
-        { r: 'Useful qualitatively, not a baseline metric', approach: 'Narrative logging', why: 'It does not yield a comparable score', keys: ['qualitative data'], mistake: 'Substituting narrative for measurement' }),
-      O('d', 'Rely on her partner’s outside description of how anxious she has appeared to him at home over the last several weeks', -1,
-        { r: 'Collateral alone is not a baseline', approach: 'Collateral report', why: 'It is secondhand and unstandardized', keys: ['indirect data'], mistake: 'Replacing self-report with collateral' }),
+    Q('q4', 'core', 'How does her presentation differ from a situational specific phobia?', ['R1'], [
+      O('a', 'Her attacks arise unexpectedly and at rest rather than only when she confronts one specific feared situation or object', 3,
+        { r: 'Uncued attacks separate panic from phobia', approach: 'Contrast cued and uncued attacks', why: 'Specific phobia attacks are cued by the feared stimulus', keys: ['attacks at rest', 'no single trigger'], mistake: 'Forcing uncued panic into a phobia frame' }),
+      O('b', 'The fact that she has now begun to avoid certain places and situations that she associates with having had an attack', -1,
+        { r: 'Avoidance appears in both', approach: 'Avoidance framing', why: 'Both can involve avoidance; the cue pattern differs', keys: ['shared avoidance'], mistake: 'Using avoidance alone to differentiate' }),
+      O('c', 'The intense physical fear response that she experiences, complete with a pounding heart and a strong urge to escape', -1,
+        { r: 'The fear response is shared', approach: 'Fear-response framing', why: 'Both produce an acute fear response', keys: ['shared arousal'], mistake: 'Reading the fear response as decisive' }),
+      O('d', 'Her belief during the episodes that something catastrophic, such as losing control, is about to happen to her right then', 0,
+        { r: 'Catastrophic appraisal occurs in both', approach: 'Appraisal framing', why: 'Catastrophic thoughts are not unique to panic disorder', keys: ['fear of losing control'], mistake: 'Using appraisal content to differentiate' }),
     ]),
-    Q('q5', 'intake', 'What does her statement that she has “always been a worrier” most importantly signal for assessment?', ['R1'], [
-      O('a', 'A possible long-standing trait that requires clarifying when the worry crossed into impairing, uncontrollable territory', 3,
-        { r: 'Distinguish trait from disorder onset', approach: 'Clarify the impairment threshold', why: 'GAD requires impairment beyond trait worry', keys: ['became unmanageable this year'], mistake: 'Treating trait worry as automatically disordered' }),
-      O('b', 'Clear confirmation that she has met full criteria for the disorder continuously since she was a young child or adolescent', -1,
-        { r: 'Lifelong worry is not full criteria', approach: 'Over-reading chronicity', why: 'Trait worry differs from a diagnosable course', keys: ['recent worsening'], mistake: 'Equating temperament with diagnosis' }),
-      O('c', 'Strong evidence that her current symptoms are simply her normal personality and therefore do not warrant any treatment', -2,
-        { r: 'Dismissing impairment is an error', approach: 'Normalize away the disorder', why: 'Current impairment warrants treatment', keys: ['functional impairment'], mistake: 'Minimizing a treatable condition' }),
-      O('d', 'A reliable indication that a co-occurring personality disorder is the most likely primary driver of all her presenting worry', -1,
-        { r: 'Personality pathology is not indicated', approach: 'Personality framing', why: 'Nothing supports a personality-disorder primary', keys: ['anxiety-focused picture'], mistake: 'Over-pathologizing temperament' }),
+    Q('q5', 'intake', 'What developing pattern is most important to assess to complete the clinical picture?', ['R1'], [
+      O('a', 'Whether agoraphobic avoidance is emerging as she increasingly avoids places where escape or help might be difficult', 3,
+        { r: 'Screen for emerging agoraphobia', approach: 'Assess avoidance breadth', why: 'Agoraphobia commonly co-occurs and shapes the plan', keys: ['leaving work early', 'sits near exits'], mistake: 'Missing spreading avoidance' }),
+      O('b', 'Whether she has a fixed and persistent preoccupation with the idea that she has a serious undiagnosed medical disease', -1,
+        { r: 'Illness preoccupation is a different focus', approach: 'Illness-anxiety framing', why: 'Her fear centers on attacks, not a disease conviction', keys: ['attack-focused fear'], mistake: 'Reframing panic as illness anxiety' }),
+      O('c', 'Whether she experiences clear stretches of elevated mood and reduced need for sleep lasting several consecutive days', -1,
+        { r: 'Hypomania screen is low yield here', approach: 'Mood-episode framing', why: 'Nothing suggests a bipolar pattern', keys: ['anxiety-focused picture'], mistake: 'Chasing an unsupported rule-out' }),
+      O('d', 'Whether her symptoms are generally more intense in the evenings than they tend to be earlier during the daytime hours', 0,
+        { r: 'Diurnal pattern is not central', approach: 'Time-of-day framing', why: 'Timing does not change the formulation', keys: ['nonspecific timing'], mistake: 'Over-reading a circadian pattern' }),
     ]),
     Q('q6', 'treatment', 'What is the most appropriate first-line psychotherapy recommendation?', ['R3'], [
-      O('a', 'Cognitive behavioral therapy combining cognitive restructuring with gradual exposure to feared worry-related outcomes', 3,
-        { r: 'CBT is first-line for GAD', approach: 'Apply the guideline', why: 'APA CPG supports CBT with exposure for GAD', keys: ['uncontrollable worry'], mistake: 'Choosing an unsupported approach' }),
-      O('b', 'Long-term, open-ended supportive counseling that focuses mainly on giving her a safe space to talk through her worries', -1,
-        { r: 'Unstructured support underperforms CBT', approach: 'Supportive-only therapy', why: 'It lacks the active CBT components', keys: ['needs skills, not venting'], mistake: 'Defaulting to nondirective support' }),
-      O('c', 'A primarily insight-oriented exploration aimed at uncovering the early childhood roots of her tendency toward worry', 0,
-        { r: 'Insight work is not first-line for GAD', approach: 'Depth exploration', why: 'Evidence favors CBT over insight-only work', keys: ['symptom-focused need'], mistake: 'Prioritizing origins over skills' }),
-      O('d', 'Brief reassurance paired with general advice to relax more, exercise regularly, and try her best to worry a little less', -1,
-        { r: 'Reassurance and advice are insufficient', approach: 'Advice-giving', why: 'It is not an evidence-based protocol', keys: ['needs structured care'], mistake: 'Offering platitudes as treatment' }),
+      O('a', 'Cognitive behavioral therapy with interoceptive exposure to the feared bodily sensations that drive her panic', 3,
+        { r: 'CBT with interoceptive exposure is first-line', approach: 'Apply the guideline', why: 'APA CPG and panic control treatment support exposure-based CBT', keys: ['fear of sensations'], mistake: 'Choosing an unsupported approach' }),
+      O('b', 'Long-term supportive counseling that gives her a calm space to talk through how frightening the attacks have been for her', -1,
+        { r: 'Unstructured support underperforms CBT', approach: 'Supportive-only therapy', why: 'It lacks the exposure component that treats panic', keys: ['needs exposure'], mistake: 'Defaulting to nondirective support' }),
+      O('c', 'Teaching her breathing and relaxation techniques to use the instant she notices any of the early signs of a panic attack', -1,
+        { r: 'Breathing as escape becomes a safety behavior', approach: 'Relaxation-as-escape', why: 'Used to avert attacks it can reinforce fear of sensations', keys: ['safety behavior risk'], mistake: 'Turning coping skills into avoidance' }),
+      O('d', 'A primarily insight-oriented exploration of her childhood to uncover the deeper origins of her current anxiety symptoms', 0,
+        { r: 'Insight work is not first-line for panic', approach: 'Depth exploration', why: 'Evidence favors exposure-based CBT', keys: ['symptom-focused need'], mistake: 'Prioritizing origins over exposure' }),
     ]),
-    Q('q7', 'treatment', 'Following a stepped-care model, what helps determine the intensity of intervention to offer first?', ['R2'], [
-      O('a', 'Matching the intensity to her symptom severity and impairment, stepping up if lower-intensity options prove insufficient', 3,
-        { r: 'Match intensity to severity, then step up', approach: 'Apply stepped care', why: 'NICE structures care by severity and response', keys: ['measure-guided'], mistake: 'Ignoring stepped-care logic' }),
-      O('b', 'Always beginning with the most intensive available option so that no time is lost before she gets the strongest treatment', -1,
-        { r: 'Maximal-first ignores stepped care', approach: 'Top-down intensity', why: 'Stepped care reserves intensity for non-response', keys: ['severity-matched care'], mistake: 'Over-treating mild presentations' }),
-      O('c', 'Selecting whichever specific intervention she personally finds the most appealing after reading about the various options', 0,
-        { r: 'Preference matters but is not the driver', approach: 'Preference-only', why: 'Severity, not appeal, sets the step', keys: ['shared decision input'], mistake: 'Letting preference override severity' }),
-      O('d', 'Choosing the least costly option available regardless of how severe her symptoms or functional impairment turn out to be', -1,
-        { r: 'Cost cannot override clinical need', approach: 'Cost-driven choice', why: 'Care must match severity, not just price', keys: ['clinical indication'], mistake: 'Letting cost dictate intensity' }),
+    Q('q7', 'treatment', 'What is the central rationale for interoceptive exposure in her treatment?', ['R2'], [
+      O('a', 'Repeatedly and deliberately bringing on the feared sensations so she learns they are not dangerous and her fear extinguishes', 3,
+        { r: 'Provoke sensations to extinguish the fear', approach: 'Target the feared sensations', why: 'Interoceptive exposure breaks the sensation-catastrophe link', keys: ['fears racing heart', 'avoids the gym'], mistake: 'Avoiding the sensations she fears' }),
+      O('b', 'Helping her become skilled at distracting herself away from the sensations as quickly as possible whenever they appear', -1,
+        { r: 'Distraction prevents new learning', approach: 'Distraction coping', why: 'Avoiding the sensation blocks extinction', keys: ['avoidance maintains fear'], mistake: 'Teaching distraction instead of exposure' }),
+      O('c', 'Teaching her to monitor her pulse and other bodily signs closely so she can catch the very earliest warning of an attack', -1,
+        { r: 'Hypervigilant monitoring fuels panic', approach: 'Body-checking', why: 'Vigilance to sensations heightens fear', keys: ['interoceptive vigilance'], mistake: 'Encouraging body-checking' }),
+      O('d', 'Encouraging her to steer clear of any exertion that raises her heart rate until she feels much calmer about the symptoms', -2,
+        { r: 'Avoiding exertion entrenches avoidance', approach: 'Activity avoidance', why: 'It strengthens the fear of normal arousal', keys: ['avoids the gym'], mistake: 'Sanctioning avoidance of arousal' }),
     ]),
-    Q('q8', 'treatment', 'A central CBT target for her chronic worry would most appropriately be:', ['R3'], [
-      O('a', 'Building tolerance for uncertainty so she can reduce the reassurance-seeking and mental checking that feed the worry', 3,
-        { r: 'Target intolerance of uncertainty', approach: 'Address the maintaining process', why: 'Uncertainty intolerance maintains GAD worry', keys: ['rehearsing what could go wrong'], mistake: 'Treating only surface content' }),
-      O('b', 'Helping her construct detailed, fully worked-out backup plans for each and every specific catastrophe she worries about', -1,
-        { r: 'Planning every fear feeds the worry', approach: 'Exhaustive contingency planning', why: 'It reinforces the need for certainty', keys: ['reassurance-seeking'], mistake: 'Accommodating the worry process' }),
-      O('c', 'Encouraging her to firmly suppress and push away anxious thoughts the moment that any of them happen to enter her mind', -2,
-        { r: 'Thought suppression backfires', approach: 'Thought suppression', why: 'Suppression increases intrusions', keys: ['rebound effect'], mistake: 'Teaching counterproductive control' }),
-      O('d', 'Teaching her to distract herself with absorbing activities whenever she notices that her worry is beginning to build up', -1,
-        { r: 'Distraction is avoidance, not exposure', approach: 'Distraction coping', why: 'It prevents new learning about worry', keys: ['avoidance maintains anxiety'], mistake: 'Relying on distraction as treatment' }),
+    Q('q8', 'treatment', 'Renée carries water and sits near exits during outings. How should the plan address these behaviors?', ['R3'], [
+      O('a', 'Identify them as safety behaviors and gradually drop them so she can learn the feared catastrophes do not occur', 3,
+        { r: 'Fade safety behaviors during exposure', approach: 'Eliminate safety behaviors', why: 'Safety behaviors prevent disconfirming the feared outcome', keys: ['carries water', 'sits near exits'], mistake: 'Leaving safety behaviors in place' }),
+      O('b', 'Encourage her to keep using whatever small rituals help her feel calmer so that she is able to keep going out in public', -1,
+        { r: 'Preserving rituals maintains the fear', approach: 'Accommodate rituals', why: 'They block the corrective learning of exposure', keys: ['safety behavior'], mistake: 'Reinforcing safety behaviors' }),
+      O('c', 'Treat these behaviors as harmless personal habits that have nothing to do with the maintenance of her panic symptoms', -1,
+        { r: 'They are not harmless in panic', approach: 'Minimize the behaviors', why: 'They actively maintain the panic cycle', keys: ['maintaining factor'], mistake: 'Overlooking safety behaviors' }),
+      O('d', 'Replace them with a different and more elaborate set of preventive routines she can carry out before she leaves the house', -2,
+        { r: 'New rituals are still avoidance', approach: 'Swap one ritual for another', why: 'It substitutes one safety behavior for another', keys: ['avoidance persists'], mistake: 'Trading rituals rather than dropping them' }),
     ]),
-    Q('q9', 'counseling', 'How should the counselor introduce psychoeducation about worry early in treatment?', ['R2'], [
-      O('a', 'Explain how the worry cycle is maintained and frame the planned skills as ways to interrupt that self-reinforcing loop', 3,
-        { r: 'Connect the model to the plan', approach: 'Educate and orient', why: 'Understanding the cycle motivates skill use', keys: ['needs a rationale'], mistake: 'Teaching skills without rationale' }),
-      O('b', 'Tell her plainly that worry is completely useless and that the goal of treatment is to stop her from ever worrying again', -1,
-        { r: 'Eliminating all worry is unrealistic', approach: 'Total eradication framing', why: 'The goal is manageable, not zero, worry', keys: ['adaptive vs excessive worry'], mistake: 'Setting an impossible standard' }),
-      O('c', 'Provide her with a stack of detailed reading on anxiety neurobiology and ask her to master it before the next session', 0,
-        { r: 'Heavy reading is not psychoeducation', approach: 'Information dump', why: 'Tailored explanation beats a reading load', keys: ['collaborative pacing'], mistake: 'Overloading instead of explaining' }),
-      O('d', 'Reassure her repeatedly that the specific things she is worried about are statistically very unlikely to actually occur', -1,
-        { r: 'Reassurance feeds the worry cycle', approach: 'Probability reassurance', why: 'It strengthens reassurance-seeking', keys: ['reassurance dependence'], mistake: 'Reinforcing the maintaining behavior' }),
+    Q('q9', 'treatment', 'Renée asks whether medication might help. The most appropriate counselor action is to:', ['R5'], [
+      O('a', 'Coordinate a referral to a prescriber for evaluation while continuing exposure-based therapy within her own scope', 3,
+        { r: 'Refer and coordinate within scope', approach: 'Coordinate care', why: 'Counselors refer for medication rather than prescribe', keys: ['asks about medication'], mistake: 'Giving prescriptive advice' }),
+      O('b', 'Recommend the specific anti-anxiety medication that tends to calm panic the fastest for patients with her symptom profile', -2,
+        { r: 'Naming a drug exceeds scope', approach: 'Prescriptive advice', why: 'Medication selection is outside counselor scope', keys: ['no prescriptive authority'], mistake: 'Overstepping professional limits' }),
+      O('c', 'Advise her that as-needed sedatives are the best option to keep on hand for whenever she feels an attack beginning to build', -2,
+        { r: 'PRN sedatives can become safety behaviors', approach: 'Endorse PRN sedation', why: 'As-needed use can undermine exposure and carries dependence risk', keys: ['safety behavior risk'], mistake: 'Recommending a specific PRN strategy' }),
+      O('d', 'Discourage medication entirely and tell her she should be able to manage the panic with the therapy techniques alone', -1,
+        { r: 'Discouraging meds overreaches', approach: 'Discourage medication', why: 'The decision belongs with a prescriber', keys: ['client autonomy'], mistake: 'Steering a medical decision' }),
     ]),
-    Q('q10', 'counseling', 'Priya completes little homework, saying she is “too busy worrying.” What is the best response?', ['R3'], [
-      O('a', 'Explore the barriers collaboratively and right-size the assignments so they fit realistically into her current week', 3,
-        { r: 'Problem-solve barriers collaboratively', approach: 'Adjust and engage', why: 'Tailoring homework improves adherence', keys: ['low completion', 'high worry load'], mistake: 'Blaming the client for non-adherence' }),
-      O('b', 'Warn her that treatment simply cannot succeed and is unlikely to help her at all unless she completes every assignment', -1,
-        { r: 'Threatening adherence harms alliance', approach: 'Pressure compliance', why: 'It damages collaboration', keys: ['engagement problem'], mistake: 'Using pressure instead of problem-solving' }),
-      O('c', 'Quietly drop homework from the treatment entirely and rely only on the in-session conversation to produce all the change', -1,
-        { r: 'Dropping practice weakens CBT', approach: 'Abandon between-session work', why: 'Practice is central to CBT gains', keys: ['skills need rehearsal'], mistake: 'Removing a core ingredient' }),
-      O('d', 'Assign her a noticeably larger and more demanding set of exercises so that she will feel obligated to finally complete them', -2,
-        { r: 'Increasing load worsens adherence', approach: 'Escalate demands', why: 'Bigger tasks reduce completion further', keys: ['overwhelmed client'], mistake: 'Responding to overload with more load' }),
+    Q('q10', 'counseling', 'What is the most useful psychoeducation to offer Renée early in treatment?', ['R3'], [
+      O('a', 'Explain the panic cycle: how catastrophic misreading of normal sensations escalates arousal into a full-blown attack', 3,
+        { r: 'Teach the panic cycle', approach: 'Explain the maintaining model', why: 'Understanding the cycle reduces catastrophic appraisal', keys: ['fears the racing heart'], mistake: 'Teaching skills without a rationale' }),
+      O('b', 'Reassure her in detail and repeatedly that panic attacks have never actually caused real physical harm to anyone at all', -1,
+        { r: 'Repeated reassurance feeds the cycle', approach: 'Reassurance', why: 'It reinforces reassurance-seeking', keys: ['reassurance dependence'], mistake: 'Reinforcing the maintaining behavior' }),
+      O('c', 'Give her a thorough overview of the autonomic nervous system so she can fully understand every physiological detail involved', 0,
+        { r: 'Excess detail is not the priority', approach: 'Information overload', why: 'A focused model beats exhaustive physiology', keys: ['tailored education'], mistake: 'Overloading instead of clarifying' }),
+      O('d', 'Tell her that the most important thing is simply to stay calm and to try her best not to let the attacks frighten her so much', -1,
+        { r: '“Just relax” is unhelpful', approach: 'Vague reassurance', why: 'It offers no mechanism or skill', keys: ['needs a model'], mistake: 'Giving platitudes instead of education' }),
     ]),
-    Q('q11', 'counseling', 'Priya worries aloud that needing therapy means she is fundamentally weak. Best response?', ['R3'], [
-      O('a', 'Validate the feeling and reframe seeking help as an active, courageous step toward managing a treatable condition', 3,
-        { r: 'Validate then reframe help-seeking', approach: 'Normalize and reframe', why: 'Reframing reduces shame and supports engagement', keys: ['shame about needing help'], mistake: 'Either dismissing or reinforcing the belief' }),
-      O('b', 'Agree that most people really do manage this kind of thing on their own and gently commend her for finally reaching out', -2,
-        { r: 'Endorsing weakness deepens shame', approach: 'Confirm the belief', why: 'It reinforces the stigma she fears', keys: ['self-stigma'], mistake: 'Colluding with the self-judgment' }),
-      O('c', 'Move past the comment quickly and steer the session back toward reviewing the cognitive worksheet she completed this week', -1,
-        { r: 'Bypassing the belief misses a target', approach: 'Redirect to task', why: 'Self-stigma is clinically relevant', keys: ['unaddressed cognition'], mistake: 'Avoiding emotionally salient material' }),
-      O('d', 'Present her with detailed statistics on how many millions of adults seek anxiety treatment every year across the country', -1,
-        { r: 'Facts alone rarely shift shame', approach: 'Statistical persuasion', why: 'Validation works better than data here', keys: ['emotional reasoning'], mistake: 'Answering emotion with numbers' }),
+    Q('q11', 'counseling', 'Renée begins having a panic attack during a session. What is the most therapeutic response?', ['R2'], [
+      O('a', 'Calmly coach her to stay with the sensations and notice them passing rather than fleeing or fighting the attack', 3,
+        { r: 'Coach staying with the sensations', approach: 'Model nonavoidant coping', why: 'Riding out the attack disconfirms the catastrophe', keys: ['attack in session', 'urge to escape'], mistake: 'Helping her escape the attack' }),
+      O('b', 'End the session early and let her step outside immediately so that she can get away from whatever set the attack off', -1,
+        { r: 'Escape reinforces avoidance', approach: 'Facilitate escape', why: 'Leaving teaches that escape was necessary', keys: ['avoidance trap'], mistake: 'Reinforcing escape behavior' }),
+      O('c', 'Direct her to breathe deeply and immediately use every relaxation technique she knows to make the attack stop right away', -1,
+        { r: 'Frantic control becomes a safety behavior', approach: 'Stop-the-attack framing', why: 'Trying to abort it reinforces fear of sensations', keys: ['control-seeking'], mistake: 'Using skills to suppress rather than tolerate' }),
+      O('d', 'Reassure her over and over that she is completely safe and that the attack is guaranteed to be over in just a moment', -1,
+        { r: 'Repeated reassurance maintains panic', approach: 'Reassurance', why: 'It feeds reassurance-seeking', keys: ['reassurance dependence'], mistake: 'Reinforcing the maintaining behavior' }),
     ]),
-    Q('q12', 'ethics', 'Priya asks the counselor to also begin treating her teenage son’s school anxiety. Best response?', ['R5'], [
-      O('a', 'Assess whether treating her son is within competence and avoid a dual relationship, referring out if either is a concern', 3,
-        { r: 'Weigh competence and dual roles', approach: 'Protect scope and boundaries', why: 'ACA C.2. and boundary standards govern this', keys: ['competence', 'role conflict'], mistake: 'Accepting work outside competence or role' }),
-      O('b', 'Agree right away since she already knows the family well and it would clearly be far more convenient for everyone involved', -2,
-        { r: 'Convenience ignores boundary risk', approach: 'Accept for convenience', why: 'It creates a dual relationship', keys: ['role conflict'], mistake: 'Letting convenience override ethics' }),
-      O('c', 'Decline flatly and explain that counselors are never permitted to provide any services to more than one family member', -1,
-        { r: 'A blanket ban overstates the rule', approach: 'Absolute refusal', why: 'The decision depends on competence and roles', keys: ['nuanced judgment'], mistake: 'Applying a rigid, inaccurate rule' }),
-      O('d', 'Offer to quietly give the son some informal advice between Priya’s sessions without opening a separate clinical record', -2,
-        { r: 'Informal treatment is unethical', approach: 'Off-the-record care', why: 'It bypasses consent and documentation', keys: ['no informed consent'], mistake: 'Providing undocumented services' }),
+    Q('q12', 'ethics', 'Renée asks the counselor to tell her physician to stop her beta blocker because she dislikes it. Best response?', ['R5'], [
+      O('a', 'Clarify that medication decisions rest with her prescriber and offer, with consent, to coordinate her concerns with them', 3,
+        { r: 'Stay in scope; coordinate with consent', approach: 'Respect scope and coordinate', why: 'ACA C.2. limits practice to one’s scope', keys: ['medical decision', 'wants a change'], mistake: 'Directing another provider’s medical care' }),
+      O('b', 'Advise her to go ahead and stop the beta blocker on her own, since it may well be contributing to how she has been feeling', -2,
+        { r: 'Directing medication changes exceeds scope', approach: 'Direct a medication change', why: 'It is outside scope and potentially unsafe', keys: ['scope violation'], mistake: 'Advising the client to stop a prescribed medication' }),
+      O('c', 'Call her physician yourself and recommend that the beta blocker be discontinued based on what she has told you in session', -2,
+        { r: 'Recommending discontinuation oversteps', approach: 'Override the prescriber', why: 'Medication management is the prescriber’s role', keys: ['role boundary'], mistake: 'Inserting yourself into medical management' }),
+      O('d', 'Tell her this is entirely a medical matter that has nothing to do with counseling and decline to discuss it any further', -1,
+        { r: 'Refusing to coordinate abandons the concern', approach: 'Flat refusal', why: 'Coordinating with consent is appropriate', keys: ['care coordination'], mistake: 'Declining to help her communicate concerns' }),
     ]),
-    Q('q13', 'ethics', 'Midway through treatment Priya’s worry now centers on intrusive, distressing contamination fears with rituals. Best step?', ['R5'], [
-      O('a', 'Reassess the diagnosis and, if obsessive-compulsive symptoms predominate, refer to or consult for specialized OCD care', 3,
-        { r: 'Reassess and match competence to need', approach: 'Re-evaluate and refer', why: 'ACA C.2. requires practicing within competence', keys: ['new rituals', 'shifting picture'], mistake: 'Continuing a now-mismatched plan' }),
-      O('b', 'Continue with the original generalized-anxiety plan unchanged because she is already established and engaged in the work', -1,
-        { r: 'Ignoring new symptoms is an error', approach: 'Stay the course', why: 'The clinical picture has changed materially', keys: ['emerging OCD features'], mistake: 'Failing to revisit the formulation' }),
-      O('c', 'Tell her the new symptoms are simply another expression of her worry and require no change at all to the treatment plan', -1,
-        { r: 'Collapsing OCD into worry is inaccurate', approach: 'Over-generalize the diagnosis', why: 'OCD warrants a distinct approach', keys: ['rituals present'], mistake: 'Forcing new data into the old frame' }),
-      O('d', 'Immediately terminate the counseling relationship and instruct her to find an entirely new provider on her own without help', -2,
-        { r: 'Abrupt abandonment is unethical', approach: 'Abandon the client', why: 'Referral must be coordinated, not abrupt', keys: ['continuity of care'], mistake: 'Abandoning rather than coordinating' }),
+    Q('q13', 'ethics', 'As exposure-based work is planned, what does informed consent most importantly require here?', ['R5'], [
+      O('a', 'Explaining the rationale, the temporary discomfort exposure can provoke, and that participation remains voluntary', 3,
+        { r: 'Disclose rationale, discomfort, and choice', approach: 'Obtain informed consent', why: 'Consent requires explaining the approach and its risks', keys: ['exposure planned', 'fears sensations'], mistake: 'Starting exposure without informed consent' }),
+      O('b', 'Assuring her in advance that the exposure exercises will be completely comfortable and will never provoke any real anxiety', -2,
+        { r: 'Misrepresenting exposure is dishonest', approach: 'Downplay the method', why: 'Exposure deliberately provokes manageable anxiety', keys: ['accurate disclosure'], mistake: 'Misstating what the treatment involves' }),
+      O('c', 'Having her agree in advance that she will complete every exposure exercise assigned no matter how distressing it becomes', -1,
+        { r: 'Consent is voluntary and revocable', approach: 'Mandate completion', why: 'She retains the right to pause or decline', keys: ['voluntary participation'], mistake: 'Treating consent as a binding commitment' }),
+      O('d', 'Postponing any explanation of the method until after the first exercise so that her anticipatory anxiety does not build up', -1,
+        { r: 'Withholding the method violates consent', approach: 'Delay disclosure', why: 'Consent must precede the intervention', keys: ['informed choice'], mistake: 'Intervening before explaining' }),
     ]),
   ],
 };
 
 // ============================================================================
-// D107 — Posttraumatic Stress Disorder (F43.10) — Trauma — medium
+// D107 — Opioid Use Disorder, Severe (F11.20) — Substance — medium
 // ============================================================================
 const D107 = {
-  id: 'D107',
-  title: 'Nightmares and hypervigilance after a highway collision',
-  category: 'Trauma',
+  id: 'ncmhce-D107',
+  title: 'From prescribed pain pills to daily opioid use',
+  category: 'Substance',
   difficulty: 'medium',
-  primaryDiagnosis: { name: 'Posttraumatic Stress Disorder', code: 'F43.10' },
-  diagnosis: { name: 'Posttraumatic Stress Disorder', code: 'F43.10' },
+  primaryDiagnosis: { name: 'Opioid Use Disorder, Severe', code: 'F11.20' },
+  diagnosis: { name: 'Opioid Use Disorder, Severe', code: 'F11.20' },
   differentialOptions: [
-    { id: 'do1', name: 'Posttraumatic Stress Disorder', isCorrect: true },
-    { id: 'do2', name: 'Acute Stress Disorder', isCorrect: false },
-    { id: 'do3', name: 'Adjustment Disorder, with Anxiety', isCorrect: false },
-    { id: 'do4', name: 'Major Depressive Disorder, Moderate', isCorrect: false },
+    { id: 'do1', name: 'Opioid Use Disorder, Severe', isCorrect: true },
+    { id: 'do2', name: 'Opioid Withdrawal', isCorrect: false },
+    { id: 'do3', name: 'Alcohol Use Disorder, Moderate', isCorrect: false },
+    { id: 'do4', name: 'Stimulant Use Disorder', isCorrect: false },
   ],
   narrative: {
     intake:
-      'Marcus Bell, a 29-year-old delivery driver, presents four months after surviving a highway collision in which a ' +
-      'passenger died, reporting nightmares, intrusive images of the crash, and intense fear whenever he must drive on a freeway.',
+      'Tyrone Jackson, a 38-year-old construction worker, presents after a back injury led to prescribed opioids and then to buying ' +
+      'pills and, recently, using heroin. He reports strong cravings, tolerance, failed attempts to stop, and use despite job loss.',
     session1:
-      'He avoids the highway entirely, feels emotionally numb with friends, startles at sudden sounds, and sleeps poorly; ' +
-      'he describes himself as constantly on guard and says he no longer believes the world is a safe place.',
+      'He identifies at least seven of the eleven criteria over the past year, including cravings, tolerance, withdrawal, and giving up ' +
+      'activities he valued. He describes flu-like sickness, aching, and sweating within a day of his last use when he tries to quit.',
     session2:
-      'He blames himself for the passenger’s death even though he was not at fault, and admits to occasional thoughts that ' +
-      'he would be better off dead, though he denies any plan or intent and wants help getting his life back.',
+      'He is exhausted by the cycle and afraid of overdose after a friend died last month; he is unsure whether medication could help. ' +
+      'He denies current suicidal intent but feels hopeless at times, and he has used alone, which raises his overdose risk.',
   },
   diagnosticRationale:
-    'Following exposure to actual death and threatened serious injury, intrusion symptoms, persistent avoidance, negative ' +
-    'alterations in cognition and mood, and marked arousal have lasted more than one month with significant impairment, ' +
-    'meeting DSM-5-TR criteria for posttraumatic stress disorder rather than acute stress disorder or an adjustment disorder.',
+    'A problematic pattern of opioid use meeting six or more of the eleven DSM-5-TR criteria over twelve months—craving, tolerance, ' +
+    'withdrawal, unsuccessful efforts to cut down, and continued use despite major role failure—indicates severe opioid use disorder. ' +
+    'The criteria count places severity in the severe (6+) range and the cessation sickness reflects physiologic withdrawal within the disorder.',
   references: [
-    { id: 'R1', source: 'DSM-5-TR', detail: 'PTSD criteria: Criterion A exposure plus intrusion, avoidance, cognition/mood, and arousal for 1+ month' },
-    { id: 'R2', source: 'VA/DoD CPG', detail: 'PTSD guideline: trauma-focused psychotherapies (CPT, PE) as first-line treatment' },
-    { id: 'R3', source: 'APA CPG', detail: 'PTSD guideline strongly recommending trauma-focused CBT approaches' },
-    { id: 'R4', source: 'C-SSRS', detail: 'Structured suicide-risk screening given elevated risk in PTSD' },
-    { id: 'R5', source: 'ACA Code of Ethics', detail: 'A.1. and C.2.: client welfare and practicing within competence' },
+    { id: 'R1', source: 'DSM-5-TR', detail: 'OUD criteria and severity: 2-3 mild, 4-5 moderate, 6+ severe over 12 months' },
+    { id: 'R2', source: 'SAMHSA TIP 63', detail: 'Medications for opioid use disorder (buprenorphine, methadone, naltrexone) as first-line' },
+    { id: 'R3', source: 'ASAM Criteria', detail: 'Multidimensional level-of-care and withdrawal-risk determination' },
+    { id: 'R4', source: 'Miller & Rollnick (MI)', detail: 'Roll with resistance, develop discrepancy, and evoke change talk' },
+    { id: 'R5', source: 'C-SSRS', detail: 'Structured suicide-risk screening of ideation, intent, and plan' },
+    { id: 'R6', source: 'ACA Code of Ethics', detail: 'B.1. heightened confidentiality of substance-use information and scope of practice' },
   ],
   questions: [
-    Q('q1', 'intake', 'What must the counselor confirm to establish Criterion A for posttraumatic stress disorder?', ['R1'], [
-      O('a', 'That he was directly exposed to actual or threatened death or serious injury during the collision he survived', 3,
-        { r: 'Confirm the qualifying exposure', approach: 'Establish Criterion A', why: 'PTSD requires a qualifying trauma exposure', keys: ['passenger died', 'survived the crash'], mistake: 'Assuming any stressor qualifies' }),
-      O('b', 'That the collision was objectively the single most frightening and overwhelming experience of his entire life so far', -1,
-        { r: 'Worst-ever is not the standard', approach: 'Severity-ranking framing', why: 'Criterion A is about exposure type, not ranking', keys: ['qualifying exposure'], mistake: 'Adding a threshold the criteria do not require' }),
-      O('c', 'That he has been unable to recall any of the specific details of the crash itself since the day it originally happened', -1,
-        { r: 'Amnesia is a possible symptom, not Criterion A', approach: 'Amnesia framing', why: 'Dissociative amnesia is a symptom, not the exposure test', keys: ['exposure confirmed'], mistake: 'Confusing a symptom with the stressor criterion' }),
-      O('d', 'That his most distressing symptoms specifically began on the very same calendar day that the collision took place', 0,
-        { r: 'Immediate onset is not required', approach: 'Onset-timing framing', why: 'Symptoms can emerge later; onset day is not Criterion A', keys: ['delayed expression possible'], mistake: 'Requiring same-day onset' }),
+    Q('q1', 'intake', 'What is most important to establish to confirm a severe opioid use disorder?', ['R1'], [
+      O('a', 'The number of DSM-5-TR criteria he meets over twelve months, since six or more place severity in the severe range', 3,
+        { r: 'Criterion count sets severity', approach: 'Apply the severity threshold', why: 'DSM-5-TR grades OUD by criterion count', keys: ['craving', 'tolerance and withdrawal'], mistake: 'Estimating severity by drug type alone' }),
+      O('b', 'The exact quantity of opioids he uses each day so that you can calculate precisely how physically dependent he has become', -1,
+        { r: 'Quantity alone does not set the diagnosis', approach: 'Dose framing', why: 'Severity rests on criteria, not amount used', keys: ['criteria-based'], mistake: 'Equating dose with severity' }),
+      O('c', 'Whether he first became addicted to opioids through a legitimate prescription rather than through buying them illegally', 0,
+        { r: 'Route of onset does not set the diagnosis', approach: 'Origin framing', why: 'How use began is not a diagnostic criterion', keys: ['prescription origin'], mistake: 'Using the origin story to diagnose' }),
+      O('d', 'Whether members of his immediate family have also struggled with opioids or with another substance-related condition', -1,
+        { r: 'Family history is risk, not diagnosis', approach: 'Heredity framing', why: 'History informs risk, not current criteria', keys: ['no family data'], mistake: 'Using family history to diagnose' }),
     ]),
-    Q('q2', 'core', 'Which feature most clearly supports PTSD rather than acute stress disorder at this point?', ['R1'], [
-      O('a', 'That the full symptom picture has now persisted for more than one month beyond the traumatic collision itself', 3,
-        { r: 'Duration over one month distinguishes PTSD', approach: 'Apply the duration rule', why: 'ASD is 3 days to 1 month; PTSD exceeds a month', keys: ['four months of symptoms'], mistake: 'Confusing PTSD with acute stress' }),
-      O('b', 'That he continues to experience vivid, distressing dreams replaying parts of the crash several nights every single week', -1,
-        { r: 'Nightmares occur in both disorders', approach: 'Symptom-presence framing', why: 'Intrusion symptoms do not separate ASD from PTSD', keys: ['shared symptom'], mistake: 'Using a shared symptom to differentiate' }),
-      O('c', 'That he reports feeling detached and emotionally numb when he is spending time around his close friends and family', -1,
-        { r: 'Numbing appears in both', approach: 'Dissociation framing', why: 'Numbing does not distinguish the two', keys: ['shared feature'], mistake: 'Relying on a nonspecific symptom' }),
-      O('d', 'That his level of avoidance of highways appears to be steadily worsening rather than gradually improving across the months', 0,
-        { r: 'Worsening course is not the criterion', approach: 'Trajectory framing', why: 'Duration, not trend, separates the disorders', keys: ['persistent avoidance'], mistake: 'Using trajectory instead of duration' }),
+    Q('q2', 'core', 'How should the counselor understand the sickness he feels within a day of stopping?', ['R1'], [
+      O('a', 'As opioid withdrawal—a physiologic cessation syndrome that is one criterion within his use disorder, not a separate problem', 3,
+        { r: 'Withdrawal is a criterion within OUD', approach: 'Place withdrawal in the disorder', why: 'Withdrawal is a cessation syndrome counting toward OUD', keys: ['flu-like sickness', 'aching and sweating'], mistake: 'Treating withdrawal as a separate diagnosis' }),
+      O('b', 'As evidence that he has simply been using opioids for too many years in a row without ever taking a meaningful break', -1,
+        { r: 'Duration is not what defines withdrawal', approach: 'Duration framing', why: 'Withdrawal is defined by the cessation syndrome', keys: ['cessation symptoms'], mistake: 'Equating withdrawal with chronicity' }),
+      O('c', 'As proof that he has developed a separate primary anxiety disorder that happens to flare whenever he stops using opioids', -1,
+        { r: 'It is withdrawal, not a primary anxiety disorder', approach: 'Anxiety framing', why: 'The timing ties it to cessation, not anxiety', keys: ['onset on stopping'], mistake: 'Mislabeling withdrawal as anxiety' }),
+      O('d', 'As an indication that he must immediately be admitted for inpatient detoxification before anything else can be considered', 0,
+        { r: 'Level of care follows assessment', approach: 'Reflexive admission', why: 'Placement should follow a multidimensional assessment', keys: ['needs assessment first'], mistake: 'Jumping to a level of care prematurely' }),
     ]),
-    Q('q3', 'core', 'Given his self-blame and statement that the world is unsafe, which symptom cluster is most evident?', ['R1'], [
-      O('a', 'Negative alterations in cognition and mood, including distorted self-blame and persistent negative beliefs about the world', 3,
-        { r: 'Identify the cognition/mood cluster', approach: 'Map symptoms to clusters', why: 'Self-blame and negative worldview define this cluster', keys: ['blames himself', 'world is unsafe'], mistake: 'Misfiling cognitions under arousal' }),
-      O('b', 'Marked alterations in arousal and reactivity, shown most clearly by his exaggerated startle and his disrupted sleep', -1,
-        { r: 'Arousal is present but not what is asked', approach: 'Arousal framing', why: 'Self-blame belongs to cognition/mood, not arousal', keys: ['startle is arousal'], mistake: 'Assigning cognitions to the wrong cluster' }),
-      O('c', 'Persistent and effortful avoidance of the external reminders that are most strongly associated with the original trauma', -1,
-        { r: 'Avoidance is a different cluster', approach: 'Avoidance framing', why: 'Beliefs are cognition/mood, not avoidance', keys: ['avoids highways'], mistake: 'Confusing belief content with avoidance' }),
-      O('d', 'Recurrent intrusion symptoms, most evident in the unwanted images of the crash that keep pushing into his awareness', -1,
-        { r: 'Intrusions are a separate cluster', approach: 'Intrusion framing', why: 'Self-blame is not an intrusion symptom', keys: ['intrusive images'], mistake: 'Mislabeling cognitions as intrusions' }),
+    Q('q3', 'intake', 'Given that he has used alone and a friend recently died of overdose, what is the priority assessment and response?', ['R3'], [
+      O('a', 'Assess overdose risk and withdrawal safety, and provide overdose-prevention education including naloxone access', 3,
+        { r: 'Address overdose risk and harm reduction', approach: 'Prioritize safety and harm reduction', why: 'Using alone and recent loss mark elevated overdose risk', keys: ['uses alone', 'friend died of overdose'], mistake: 'Overlooking overdose risk in the plan' }),
+      O('b', 'Focus the session on identifying the underlying emotional pain that you believe is the true root cause of all of his using', -1,
+        { r: 'Root-cause work is not the safety priority', approach: 'Insight-first framing', why: 'Overdose risk must be addressed before depth work', keys: ['acute risk'], mistake: 'Prioritizing insight over immediate safety' }),
+      O('c', 'Advise him to taper his opioid use down on his own at home over the next week so that he can avoid the worst of the sickness', -2,
+        { r: 'Unsupervised tapering can be dangerous', approach: 'Self-managed taper', why: 'Withdrawal and relapse-overdose risk require medical support', keys: ['withdrawal risk'], mistake: 'Recommending an unsupervised taper' }),
+      O('d', 'Reassure him that as long as he is motivated to quit, the risk of an accidental overdose is really quite low for him now', -2,
+        { r: 'Minimizing overdose risk is unsafe', approach: 'False reassurance', why: 'Motivation does not lower physiologic overdose risk', keys: ['high-risk pattern'], mistake: 'Downplaying a lethal risk' }),
     ]),
-    Q('q4', 'core', 'Given his passive thoughts of being better off dead, the most appropriate step is to:', ['R4'], [
-      O('a', 'Conduct a structured suicide-risk assessment, recognizing that PTSD elevates risk, and clarify intent and plan', 3,
-        { r: 'Assess elevated risk directly', approach: 'Screen risk with structure', why: 'PTSD raises suicide risk; structured screening is indicated', keys: ['passive ideation', 'self-blame'], mistake: 'Overlooking risk amid trauma symptoms' }),
-      O('b', 'Treat the comment as an understandable and ultimately harmless part of ordinary grief after losing someone in the crash', -2,
-        { r: 'Normalizing away ideation is unsafe', approach: 'Minimize as grief', why: 'It forecloses needed risk assessment', keys: ['unassessed ideation'], mistake: 'Dismissing ideation as grief' }),
-      O('c', 'Move ahead with planning exposure-based trauma work first, on the assumption that resolving the trauma will lift the thoughts', -1,
-        { r: 'Risk must be assessed before this', approach: 'Treatment-first framing', why: 'Safety assessment precedes exposure planning', keys: ['active disclosure'], mistake: 'Sequencing treatment ahead of safety' }),
-      O('d', 'Ask him to sign a brief agreement promising to stay safe and to call the office if the thoughts get any worse this week', -2,
-        { r: 'No-suicide contracts are not evidence-based', approach: 'No-harm contract', why: 'Contracts do not reduce risk or assess it', keys: ['needs safety planning'], mistake: 'Substituting a contract for assessment' }),
+    Q('q4', 'core', 'What distinguishes his severe opioid use disorder from a moderate one?', ['R1'], [
+      O('a', 'That he meets six or more of the eleven criteria, whereas four to five would indicate moderate severity instead', 3,
+        { r: 'Six or more criteria define severe', approach: 'Apply the severity bands', why: 'DSM-5-TR sets 2-3 mild, 4-5 moderate, 6+ severe', keys: ['at least seven criteria'], mistake: 'Under-rating a severe presentation' }),
+      O('b', 'That he has now progressed from using prescribed pills to using heroin that he buys from someone on the street', -1,
+        { r: 'Switching substances is not the severity test', approach: 'Substance-switch framing', why: 'Severity rests on the criterion count', keys: ['progression of use'], mistake: 'Grading severity by what he uses' }),
+      O('c', 'That his opioid use has already cost him his construction job and created serious financial strain for his household', -1,
+        { r: 'One consequence is not the severity test', approach: 'Consequence-count framing', why: 'Severity is the full criterion count, not one harm', keys: ['job loss'], mistake: 'Grading severity by a single consequence' }),
+      O('d', 'That he experiences strong cravings to use opioids during much of the day when he is trying his hardest to abstain', 0,
+        { r: 'Craving occurs across severities', approach: 'Single-symptom framing', why: 'Craving alone does not set severity', keys: ['nonspecific symptom'], mistake: 'Reading one symptom as the severity marker' }),
     ]),
-    Q('q5', 'intake', 'What co-occurring condition is most important to screen for to inform the treatment plan?', ['R1'], [
-      O('a', 'Co-occurring depression and substance use, which are common with PTSD and shape sequencing and safety planning', 3,
-        { r: 'Screen common PTSD comorbidities', approach: 'Assess co-occurring conditions', why: 'Depression and SUD frequently accompany PTSD', keys: ['numbing', 'self-blame'], mistake: 'Treating PTSD in isolation' }),
-      O('b', 'An underlying long-standing attention-deficit disorder that could account for the concentration problems he now reports', -1,
-        { r: 'ADHD is an unlikely priority here', approach: 'Neurodevelopmental framing', why: 'Concentration issues fit PTSD itself', keys: ['trauma-linked inattention'], mistake: 'Chasing an improbable comorbidity' }),
-      O('c', 'A previously undetected primary psychotic disorder that might better explain his sense that the world is now unsafe', -1,
-        { r: 'Psychosis is not indicated', approach: 'Psychosis framing', why: 'His beliefs are trauma-congruent, not delusional', keys: ['reality testing intact'], mistake: 'Over-reading trauma cognitions as psychosis' }),
-      O('d', 'An emerging personality disorder that could explain why he continues to blame himself for an accident that was not his fault', 0,
-        { r: 'Personality pathology is not indicated', approach: 'Personality framing', why: 'Self-blame here is a PTSD cognition', keys: ['trauma-related guilt'], mistake: 'Pathologizing a trauma symptom' }),
+    Q('q5', 'intake', 'What co-occurring concern is most important to screen for to inform the plan?', ['R5'], [
+      O('a', 'Suicide risk and co-occurring depression, screened with a structured tool given his hopelessness and recent loss', 3,
+        { r: 'Screen suicide risk and depression', approach: 'Assess co-occurring risk', why: 'Opioid use disorder elevates suicide risk', keys: ['feels hopeless', 'friend died'], mistake: 'Treating the OUD without screening risk' }),
+      O('b', 'A previously undetected primary psychotic disorder that could better explain the difficulties he has had holding a job', -1,
+        { r: 'Psychosis is not indicated', approach: 'Psychosis framing', why: 'Nothing suggests a psychotic process', keys: ['intact reality testing'], mistake: 'Pursuing an unsupported rule-out' }),
+      O('c', 'A long-standing eating disorder that might be contributing to both his low energy and his disrupted daily routine', -1,
+        { r: 'Eating pathology is not indicated', approach: 'Eating-disorder framing', why: 'No eating concerns are reported', keys: ['no eating data'], mistake: 'Inventing an unsupported comorbidity' }),
+      O('d', 'An emerging neurocognitive decline that could account for why he keeps forgetting commitments and appointments lately', 0,
+        { r: 'Cognitive decline is premature here', approach: 'Neurocognitive framing', why: 'Substance effects are a simpler explanation', keys: ['substance-linked'], mistake: 'Over-attributing to cognitive decline' }),
     ]),
-    Q('q6', 'treatment', 'What is the most appropriate first-line treatment recommendation for his PTSD?', ['R2'], [
-      O('a', 'A trauma-focused psychotherapy such as cognitive processing therapy or prolonged exposure delivered by a trained clinician', 3,
-        { r: 'Trauma-focused therapy is first-line', approach: 'Apply the guideline', why: 'VA/DoD CPG prioritizes CPT and PE', keys: ['PTSD diagnosis'], mistake: 'Choosing non-trauma-focused care' }),
-      O('b', 'Ongoing general supportive counseling that deliberately steers around the trauma so that he is never made to feel distress', -1,
-        { r: 'Avoiding the trauma underperforms', approach: 'Avoidant supportive care', why: 'Trauma-focused work outperforms avoidance', keys: ['needs processing'], mistake: 'Accommodating avoidance as treatment' }),
-      O('c', 'Immediate, intensive exposure to highway driving in the very first sessions before any stabilization or skill-building work', -2,
-        { r: 'Unprepared flooding can retraumatize', approach: 'Premature flooding', why: 'Exposure follows preparation and pacing', keys: ['no stabilization yet'], mistake: 'Skipping preparation before exposure' }),
-      O('d', 'A primarily psychodynamic exploration of his early childhood relationships as the main route to resolving the crash trauma', 0,
-        { r: 'Not first-line for PTSD', approach: 'Depth-only exploration', why: 'Evidence favors trauma-focused CBT', keys: ['index trauma is recent'], mistake: 'Prioritizing origins over trauma processing' }),
+    Q('q6', 'treatment', 'What is the most appropriate first-line treatment recommendation for severe opioid use disorder?', ['R2'], [
+      O('a', 'Coordinate a referral for medication for opioid use disorder, such as buprenorphine or methadone, alongside counseling', 3,
+        { r: 'MOUD is first-line; refer and coordinate', approach: 'Apply the guideline within scope', why: 'TIP 63 establishes MOUD as first-line for OUD', keys: ['severe OUD', 'withdrawal present'], mistake: 'Offering counseling alone for severe OUD' }),
+      O('b', 'Recommend an abstinence-only, medication-free program because relying on any medication merely substitutes one drug for another', -2,
+        { r: 'Withholding MOUD contradicts the evidence', approach: 'Abstinence-only framing', why: 'MOUD reduces overdose death and is first-line', keys: ['MAT stigma'], mistake: 'Repeating the substitution myth' }),
+      O('c', 'Suggest he first prove his commitment by staying completely abstinent on his own for thirty days before any referral is made', -2,
+        { r: 'Gatekeeping delays life-saving care', approach: 'Readiness-gating', why: 'Requiring abstinence before MOUD increases overdose risk', keys: ['high overdose risk'], mistake: 'Conditioning treatment on prior abstinence' }),
+      O('d', 'Recommend a course of weekly supportive counseling and self-help meetings as the complete treatment for his opioid use', -1,
+        { r: 'Psychosocial support alone is insufficient', approach: 'Counseling-only plan', why: 'Severe OUD warrants MOUD plus support', keys: ['under-treatment'], mistake: 'Omitting medication from the plan' }),
     ]),
-    Q('q7', 'treatment', 'Before beginning exposure-based work, what should the treatment plan prioritize?', ['R2'], [
-      O('a', 'Establishing safety, psychoeducation, and emotion-regulation skills so he can tolerate processing the trauma memories', 3,
-        { r: 'Stabilize before processing', approach: 'Sequence with stabilization', why: 'Preparation supports tolerating exposure', keys: ['hyperarousal', 'sleep disruption'], mistake: 'Beginning exposure without preparation' }),
-      O('b', 'Securing his firm written commitment that he will not drop out of treatment no matter how distressing it becomes for him', -1,
-        { r: 'Coerced commitment is not preparation', approach: 'Compliance contract', why: 'Stabilization, not a pledge, enables exposure', keys: ['needs skills'], mistake: 'Confusing a pledge with readiness' }),
-      O('c', 'Having him write out an extremely detailed minute-by-minute account of the crash to read aloud in the very next session', -1,
-        { r: 'Detailed account is the exposure, not the prep', approach: 'Premature narrative exposure', why: 'That step follows stabilization', keys: ['no regulation skills yet'], mistake: 'Starting exposure before readiness' }),
-      O('d', 'Scheduling him to drive on the highway between sessions right away so he can begin facing the fear as soon as possible', -2,
-        { r: 'Unstructured self-exposure can backfire', approach: 'Unsupported in-vivo exposure', why: 'Exposure must be planned and paced', keys: ['no preparation'], mistake: 'Assigning unsupported confrontation' }),
+    Q('q7', 'treatment', 'How should the counselor determine the appropriate level of care?', ['R3'], [
+      O('a', 'Use a multidimensional assessment of withdrawal risk, environment, and supports to match him to a safe level of care', 3,
+        { r: 'Use multidimensional placement', approach: 'Apply level-of-care criteria', why: 'ASAM matches care level across multiple dimensions', keys: ['withdrawal present', 'uses alone'], mistake: 'Defaulting to one fixed program' }),
+      O('b', 'Automatically place him in the longest available residential program so that he is kept away from drugs for as long as possible', -1,
+        { r: 'Maximal care ignores placement criteria', approach: 'Top-intensity default', why: 'Level of care should match assessed need', keys: ['individualized placement'], mistake: 'Over-placing without assessment' }),
+      O('c', 'Recommend only a weekly outpatient counseling slot on the assumption that talking through it regularly will be sufficient', -1,
+        { r: 'Under-placement ignores his risk', approach: 'Minimal-care default', why: 'Severe OUD with withdrawal often needs more', keys: ['severe OUD'], mistake: 'Under-treating a high-risk presentation' }),
+      O('d', 'Let him choose whichever program has the most convenient schedule for him regardless of his clinical needs or safety risks', 0,
+        { r: 'Preference cannot override clinical need', approach: 'Convenience framing', why: 'Placement must reflect assessed need', keys: ['shared decision input'], mistake: 'Letting convenience drive placement' }),
     ]),
-    Q('q8', 'treatment', 'Marcus asks whether medication could help. The most appropriate counselor action is to:', ['R5'], [
-      O('a', 'Coordinate a referral to a prescriber for evaluation while continuing the trauma-focused therapy within his own scope', 3,
-        { r: 'Refer and coordinate within scope', approach: 'Coordinate care', why: 'Counselors refer for medication rather than prescribe', keys: ['client asks about meds'], mistake: 'Giving prescriptive advice' }),
-      O('b', 'Recommend the specific class of medication that tends to work best for trauma survivors with his particular symptom mix', -2,
-        { r: 'Selecting a drug exceeds scope', approach: 'Prescriptive advice', why: 'Medication selection is outside counselor scope', keys: ['no prescriptive authority'], mistake: 'Overstepping professional limits' }),
-      O('c', 'Discourage medication firmly and explain that it will likely interfere with his ability to fully process the trauma in therapy', -1,
-        { r: 'Discouraging meds overreaches', approach: 'Discourage medication', why: 'That medical judgment belongs to a prescriber', keys: ['client autonomy'], mistake: 'Steering a medical decision' }),
-      O('d', 'Tell him medication is rarely needed and that he should be able to manage everything through the trauma-focused work alone', -1,
-        { r: 'Minimizing options is inappropriate', approach: 'Dismiss medication', why: 'The option deserves proper evaluation', keys: ['needs prescriber input'], mistake: 'Foreclosing a reasonable option' }),
+    Q('q8', 'treatment', 'What harm-reduction element is most important to build into the plan now?', ['R3'], [
+      O('a', 'Naloxone access and education plus never-use-alone guidance to reduce his risk of a fatal overdose during treatment', 3,
+        { r: 'Naloxone and overdose prevention', approach: 'Reduce overdose mortality', why: 'Naloxone access lowers overdose death risk', keys: ['uses alone', 'recent overdose death'], mistake: 'Omitting overdose prevention' }),
+      O('b', 'A firm rule that he will be discharged from treatment immediately if he uses opioids again at any point during the program', -2,
+        { r: 'Punitive discharge raises overdose risk', approach: 'Zero-tolerance discharge', why: 'Discharging on use removes protection and increases risk', keys: ['relapse expected'], mistake: 'Punishing relapse with discharge' }),
+      O('c', 'A detailed plan for which over-the-counter remedies he can take at home to manage the worst of his withdrawal symptoms', -1,
+        { r: 'OTC self-management is not the priority', approach: 'OTC framing', why: 'Overdose prevention outranks symptom self-care', keys: ['safety first'], mistake: 'Substituting comfort care for overdose prevention' }),
+      O('d', 'A requirement that he hand over any remaining pills to a family member who can then dole them out to him a little at a time', -1,
+        { r: 'Family-controlled dosing is unsafe and improper', approach: 'Family rationing', why: 'It is not an evidence-based harm-reduction step', keys: ['unsafe arrangement'], mistake: 'Improvising an unsound control plan' }),
     ]),
-    Q('q9', 'counseling', 'During a session Marcus becomes flooded and hyperaroused while describing the crash. Best response?', ['R3'], [
-      O('a', 'Pause the recounting and guide him through grounding to bring arousal down before deciding whether to continue', 3,
-        { r: 'Ground and titrate within the window', approach: 'Regulate arousal first', why: 'Staying within tolerance supports processing', keys: ['flooded', 'hyperaroused'], mistake: 'Pushing through overwhelming arousal' }),
-      O('b', 'Encourage him to keep pushing all the way through the full memory right now so that he does not reinforce his avoidance', -1,
-        { r: 'Pushing past tolerance can retraumatize', approach: 'Power through framing', why: 'Exceeding the window impairs learning', keys: ['outside tolerance'], mistake: 'Mistaking flooding for exposure' }),
-      O('c', 'End the session immediately and send him home early so that he has time to fully calm down on his own before next week', -1,
-        { r: 'Abruptly ending models avoidance', approach: 'Escape the distress', why: 'Co-regulating in session is preferable', keys: ['needs containment'], mistake: 'Reinforcing escape from affect' }),
-      O('d', 'Quickly change the subject to something pleasant and keep things light for the rest of the session to protect him from distress', -1,
-        { r: 'Total avoidance prevents new learning', approach: 'Distract and avoid', why: 'Grounding, not avoidance, is indicated', keys: ['avoidance trap'], mistake: 'Avoiding all affect rather than titrating' }),
+    Q('q9', 'counseling', 'Tyrone says part of him wants to quit and part of him is terrified of life without opioids. The MI-consistent response is to:', ['R4'], [
+      O('a', 'Reflect both sides of his ambivalence and gently explore the change talk he has already begun to voice', 3,
+        { r: 'Reflect ambivalence, evoke change talk', approach: 'Roll with ambivalence', why: 'MI develops discrepancy through reflection', keys: ['wants to quit yet afraid'], mistake: 'Arguing for one side' }),
+      O('b', 'Point out firmly that his fear is just an excuse and that he clearly needs to commit to stopping opioids completely today', -2,
+        { r: 'Arguing triggers resistance', approach: 'Righting reflex', why: 'It pushes against his autonomy', keys: ['discord risk'], mistake: 'Falling into the righting reflex' }),
+      O('c', 'Agree with the fearful side and suggest that perhaps this is simply not the right moment for him to try to make a change', -1,
+        { r: 'Siding with fear undercuts change talk', approach: 'Concede the fear', why: 'It abandons the emerging motivation', keys: ['ambivalence'], mistake: 'Reinforcing the status-quo side' }),
+      O('d', 'Lay out a detailed day-by-day quit schedule with firm rules and deadlines for him to begin following starting tomorrow morning', -1,
+        { r: 'Planning precedes resolved ambivalence', approach: 'Premature planning', why: 'Evoking should precede planning in MI', keys: ['not yet committed'], mistake: 'Jumping to planning too soon' }),
     ]),
-    Q('q10', 'counseling', 'Marcus says talking about the crash is pointless because “what happened can’t be undone.” Best response?', ['R3'], [
-      O('a', 'Validate the loss and clarify that the goal is to change how the memory affects him now, not to undo the event itself', 3,
-        { r: 'Validate and reframe the goal', approach: 'Reframe the aim of therapy', why: 'Processing changes the present impact of the memory', keys: ['hopeless about therapy', 'self-blame'], mistake: 'Arguing rather than reframing' }),
-      O('b', 'Agree that since the past cannot be changed the most realistic plan is simply to help him accept and live with the symptoms', -2,
-        { r: 'Conceding undercuts treatable change', approach: 'Concede the hopelessness', why: 'It abandons an effective intervention', keys: ['therapeutic pessimism'], mistake: 'Adopting the client’s hopeless framing' }),
-      O('c', 'Explain at length the neuroscience of memory reconsolidation to convince him on technical grounds that change is possible', -1,
-        { r: 'Lecturing rarely shifts hopelessness', approach: 'Didactic persuasion', why: 'Experiential evidence works better', keys: ['emotional reasoning'], mistake: 'Substituting explanation for engagement' }),
-      O('d', 'Redirect him toward concrete behavioral goals for the week and avoid revisiting the crash narrative for the time being', -1,
-        { r: 'Avoiding the memory stalls processing', approach: 'Behavioral redirection', why: 'The trauma narrative is a core target', keys: ['avoidance'], mistake: 'Sidestepping the central work' }),
+    Q('q10', 'counseling', 'Tyrone returns to use after ten days abstinent and is ashamed. The most therapeutic response is to:', ['R4'], [
+      O('a', 'Frame the return to use as common in recovery, review overdose risk after abstinence, and revisit the plan without shaming him', 3,
+        { r: 'Treat the lapse as learning and address risk', approach: 'Normalize and protect', why: 'Tolerance drops in abstinence, raising overdose risk', keys: ['shame after use', 'reduced tolerance'], mistake: 'Treating a lapse as total failure' }),
+      O('b', 'Warn him sternly that another slip like this one will prove that he is simply not serious about getting clean this time', -2,
+        { r: 'Shaming deepens the spiral', approach: 'Threat framing', why: 'It feeds the abstinence-violation effect', keys: ['shame spiral'], mistake: 'Amplifying shame after a lapse' }),
+      O('c', 'Reassure him that the slip really does not matter at all and encourage him to simply put it behind him and move forward', -1,
+        { r: 'Dismissing the lapse skips safety', approach: 'Minimize the lapse', why: 'Reduced tolerance makes this a high-risk moment', keys: ['overdose risk'], mistake: 'Glossing over a dangerous lapse' }),
+      O('d', 'Tell him that he clearly needs to be discharged to a higher level of care since the current plan has obviously failed him', -1,
+        { r: 'One lapse does not mandate escalation', approach: 'Reflexive escalation', why: 'A single return to use is not treatment failure', keys: ['expected setback'], mistake: 'Over-escalating after one slip' }),
     ]),
-    Q('q11', 'counseling', 'How should the counselor frame his avoidance of highways during early treatment?', ['R3'], [
-      O('a', 'Explain that avoidance reduces fear briefly but maintains the PTSD, and plan gradual, supported approach over time', 3,
-        { r: 'Name avoidance as a maintaining factor', approach: 'Educate on avoidance', why: 'Avoidance maintains trauma symptoms', keys: ['avoids the highway'], mistake: 'Endorsing avoidance as coping' }),
-      O('b', 'Reassure him that it is completely fine to keep avoiding all highways indefinitely as long as he can still get to his job', -1,
-        { r: 'Endorsing avoidance maintains PTSD', approach: 'Accommodate avoidance', why: 'It prevents corrective learning', keys: ['avoidance trap'], mistake: 'Reinforcing the maintaining behavior' }),
-      O('c', 'Insist that he immediately drive the exact stretch of highway where the original collision took place to confront the fear', -2,
-        { r: 'Premature flooding is harmful', approach: 'Force confrontation', why: 'Exposure must be graded and prepared', keys: ['no stabilization'], mistake: 'Skipping graded, prepared exposure' }),
-      O('d', 'Tell him the avoidance is not really a clinical problem and that it will most likely fade away on its own given enough time', -1,
-        { r: 'Avoidance rarely self-resolves', approach: 'Wait-it-out framing', why: 'Untreated avoidance tends to persist', keys: ['chronic avoidance'], mistake: 'Assuming spontaneous remission' }),
+    Q('q11', 'ethics', 'Tyrone’s former employer calls asking whether he is being treated for a drug problem. The best response is to:', ['R6'], [
+      O('a', 'Decline to confirm or deny without a valid release, explaining the heightened confidentiality of substance-use information', 3,
+        { r: 'Protect SUD records without a release', approach: 'Uphold heightened confidentiality', why: 'Substance-use information carries enhanced protection', keys: ['employer inquiry', 'no release'], mistake: 'Disclosing SUD treatment without consent' }),
+      O('b', 'Confirm that he is in treatment, since the employer already let him go and is now only trying to look out for his wellbeing', -2,
+        { r: 'Confirming breaches confidentiality', approach: 'Assume good intent permits it', why: 'Prior knowledge does not authorize disclosure', keys: ['no valid release'], mistake: 'Disclosing without authorization' }),
+      O('c', 'Share only that he is attending sessions, since merely confirming attendance seems like a fairly harmless detail to give out', -2,
+        { r: 'Confirming attendance is still disclosure', approach: 'Soft disclosure', why: 'Even attendance is protected information', keys: ['unauthorized disclosure'], mistake: 'Treating attendance as not protected' }),
+      O('d', 'Refuse to speak with the caller at all and hang up without explaining anything about confidentiality or the proper process', -1,
+        { r: 'Abrupt refusal misses a teachable moment', approach: 'Flat refusal', why: 'The confidentiality rationale can be explained appropriately', keys: ['professional courtesy'], mistake: 'Being needlessly obstructive' }),
     ]),
-    Q('q12', 'ethics', 'Marcus reveals the other driver has sued him and asks the counselor to testify that he is not to blame. Best response?', ['R5'], [
-      O('a', 'Clarify the boundary between a treating and a forensic role and explain why combining them could harm both his care and the case', 3,
-        { r: 'Avoid mixing treating and forensic roles', approach: 'Protect role boundaries', why: 'ACA standards caution against dual roles', keys: ['litigation', 'role conflict'], mistake: 'Blurring clinical and forensic roles' }),
-      O('b', 'Agree to testify that he was not at fault, since supporting his account is clearly in the best interest of his recovery', -2,
-        { r: 'Taking a forensic stance harms care', approach: 'Become an advocate witness', why: 'It compromises objectivity and the alliance', keys: ['dual-role harm'], mistake: 'Conflating support with forensic opinion' }),
-      O('c', 'Refuse any involvement at all and decline to even provide his existing records if his attorney later requests them with consent', -1,
-        { r: 'Blanket refusal overstates the limit', approach: 'Total refusal', why: 'Records may be released with proper consent', keys: ['consent process'], mistake: 'Withholding beyond what ethics require' }),
-      O('d', 'Offer to write a detailed letter to the court describing exactly what happened in the collision based on what he has told you', -2,
-        { r: 'A causation letter exceeds the role', approach: 'Forensic opinion-giving', why: 'It assumes a forensic role he should avoid', keys: ['not a forensic evaluator'], mistake: 'Issuing opinions outside the treating role' }),
+    Q('q12', 'ethics', 'Tyrone asks the counselor what dose of buprenorphine he should request from the prescriber. Best response?', ['R6'], [
+      O('a', 'Explain that dosing is the prescriber’s decision and offer, with consent, to coordinate his questions and progress with them', 3,
+        { r: 'Defer dosing; coordinate with consent', approach: 'Respect scope and coordinate', why: 'Medication dosing is outside counselor scope', keys: ['asks about dose', 'scope limit'], mistake: 'Advising on a specific medication dose' }),
+      O('b', 'Suggest a starting dose that usually works well for someone using the amount of opioids that he has described to you today', -2,
+        { r: 'Naming a dose exceeds scope', approach: 'Prescriptive advice', why: 'Counselors do not recommend doses', keys: ['no prescriptive authority'], mistake: 'Overstepping into medication management' }),
+      O('c', 'Tell him to ask for the highest dose available so that the medication will be sure to fully block his cravings right away', -2,
+        { r: 'Directing a dose is unsafe and out of scope', approach: 'Maximize-dose advice', why: 'Dose selection requires medical evaluation', keys: ['safety risk'], mistake: 'Giving specific pharmacologic direction' }),
+      O('d', 'Say that medication dosing is purely a medical matter and decline to help him prepare for the conversation in any way at all', -1,
+        { r: 'Refusing to coordinate abandons the need', approach: 'Flat refusal', why: 'Helping him frame questions is appropriate', keys: ['care coordination'], mistake: 'Declining to support communication with the prescriber' }),
     ]),
-    Q('q13', 'ethics', 'Marcus says he feels comfortable only with the counselor and asks to text at any hour when distressed. Best response?', ['R5'], [
-      O('a', 'Collaboratively set clear availability and crisis procedures, including emergency resources, while maintaining workable boundaries', 3,
-        { r: 'Set boundaries plus a crisis plan', approach: 'Structure availability and safety', why: 'Clear boundaries with crisis resources protect both parties', keys: ['risk history', 'dependence on counselor'], mistake: 'Either unlimited access or no safety net' }),
-      O('b', 'Agree to be personally available by text around the clock so that he always feels supported and never has to feel alone', -2,
-        { r: 'Unlimited access is unsustainable and unsafe', approach: 'Boundless availability', why: 'It fosters dependence and clinician burnout', keys: ['no boundaries'], mistake: 'Overextending personal availability' }),
-      O('c', 'Tell him that you cannot be reached between sessions for any reason and that he must simply wait until the next appointment', -1,
-        { r: 'No crisis plan ignores his risk', approach: 'Rigid unavailability', why: 'His risk profile requires crisis resources', keys: ['suicidal ideation history'], mistake: 'Leaving a high-risk client without resources' }),
-      O('d', 'Give him your personal cell number and encourage him to reach out directly whenever he feels he really needs to talk it through', -1,
-        { r: 'Personal access blurs boundaries', approach: 'Personal-number access', why: 'It erodes professional boundaries', keys: ['boundary diffusion'], mistake: 'Replacing structure with personal access' }),
+    Q('q13', 'ethics', 'Tyrone wants the counselor to coordinate with his prescriber and his probation officer. What must come first?', ['R6'], [
+      O('a', 'Obtain his specific, informed written consent for each party before sharing any of his protected information', 3,
+        { r: 'Get a valid release for each party', approach: 'Secure informed consent first', why: 'Disclosure of SUD information requires a valid release', keys: ['multiple parties', 'protected information'], mistake: 'Coordinating before obtaining consent' }),
+      O('b', 'Begin coordinating with both parties right away, since he has clearly already told you that he wants you to work with them', -2,
+        { r: 'Verbal interest is not a valid release', approach: 'Assume consent', why: 'Each disclosure needs a specific written release', keys: ['no signed release'], mistake: 'Disclosing before consent is documented' }),
+      O('c', 'Share information freely with the probation officer because the criminal-justice context overrides his usual confidentiality', -2,
+        { r: 'Justice involvement does not erase protections', approach: 'Assume justice exception', why: 'SUD information retains protection absent a valid release', keys: ['heightened protection'], mistake: 'Assuming probation negates confidentiality' }),
+      O('d', 'Coordinate only with the prescriber for now and decide about the probation officer later without discussing it further with him', -1,
+        { r: 'Each disclosure should be his informed choice', approach: 'Selective unilateral disclosure', why: 'The client decides each release, not the counselor alone', keys: ['client autonomy'], mistake: 'Making release decisions for the client' }),
     ]),
   ],
 };
 
 // ============================================================================
-// D108 — Alcohol Use Disorder, Moderate (F10.20) — Substance — medium
+// D108 — Prolonged Grief Disorder (F43.81) — Trauma — medium
 // ============================================================================
 const D108 = {
-  id: 'D108',
-  title: 'Ambivalence about drinking after a workplace warning',
-  category: 'Substance',
+  id: 'ncmhce-D108',
+  title: 'Unrelenting yearning more than a year after a loss',
+  category: 'Trauma',
   difficulty: 'medium',
-  primaryDiagnosis: { name: 'Alcohol Use Disorder, Moderate', code: 'F10.20' },
-  diagnosis: { name: 'Alcohol Use Disorder, Moderate', code: 'F10.20' },
+  primaryDiagnosis: { name: 'Prolonged Grief Disorder', code: 'F43.81' },
+  diagnosis: { name: 'Prolonged Grief Disorder', code: 'F43.81' },
   differentialOptions: [
-    { id: 'do1', name: 'Alcohol Use Disorder, Moderate', isCorrect: true },
-    { id: 'do2', name: 'Alcohol Use Disorder, Severe', isCorrect: false },
-    { id: 'do3', name: 'Major Depressive Disorder, Moderate', isCorrect: false },
+    { id: 'do1', name: 'Prolonged Grief Disorder', isCorrect: true },
+    { id: 'do2', name: 'Major Depressive Disorder, Moderate', isCorrect: false },
+    { id: 'do3', name: 'Posttraumatic Stress Disorder', isCorrect: false },
     { id: 'do4', name: 'Adjustment Disorder, with Depressed Mood', isCorrect: false },
   ],
   narrative: {
     intake:
-      'Linda Garcia, a 52-year-old high school teacher, presents after a formal warning at work for the smell of alcohol, ' +
-      'reporting that she drinks most evenings to unwind, has tried to cut back several times, and feels she may have a problem.',
+      'Mei Lin, a 58-year-old librarian, presents fourteen months after her husband’s death with intense daily yearning for him, ' +
+      'preoccupation with memories, and a sense that part of herself has died; she avoids their shared bedroom and his belongings.',
     session1:
-      'She describes needing more drinks than before to feel relaxed, drinking more than she intends, and giving up evening ' +
-      'activities she used to enjoy; she has had morning shakiness on a few occasions but no seizures or confusion.',
+      'She describes disbelief that he is gone, emotional pain that has not eased, difficulty re-engaging with friends, and a feeling ' +
+      'that life is meaningless without him. She has kept his voicemail to listen to and cannot bring herself to give away his clothes.',
     session2:
-      'She is ambivalent, alternating between wanting to quit for her job and her grandchildren and doubting she can manage ' +
-      'evenings without alcohol; she denies daily morning drinking and has never required medical detoxification before.',
+      'She reports guilt over a missed early symptom and occasional thoughts that she would rather be with him, without plan or intent. ' +
+      'Her grief remains as raw as the first month and now keeps her from returning fully to work and her community.',
   },
   diagnosticRationale:
-    'Four to five DSM-5-TR alcohol use disorder criteria are present—tolerance, drinking more than intended, repeated ' +
-    'unsuccessful attempts to cut down, giving up activities, and continued use despite occupational consequences—placing ' +
-    'severity in the moderate range, with mild withdrawal signs but no history of complicated withdrawal or detoxification.',
+    'More than twelve months after the death of a loved one, persistent intense yearning and preoccupation accompanied by identity ' +
+    'disruption, disbelief, avoidance of reminders, intense emotional pain, and a sense that life is meaningless—beyond cultural norms ' +
+    'and causing impairment—meet DSM-5-TR criteria for prolonged grief disorder rather than uncomplicated grief, depression, or PTSD.',
   references: [
-    { id: 'R1', source: 'DSM-5-TR', detail: 'AUD criteria and severity thresholds: 2-3 mild, 4-5 moderate, 6+ severe' },
-    { id: 'R2', source: 'ASAM Criteria', detail: 'Multidimensional level-of-care and withdrawal-risk determination' },
-    { id: 'R3', source: 'SAMHSA TIP 35', detail: 'Enhancing motivation and stage-matched intervention for substance use' },
-    { id: 'R4', source: 'Miller & Rollnick (MI)', detail: 'Motivational interviewing spirit: rolling with resistance, developing discrepancy' },
-    { id: 'R5', source: 'Transtheoretical Model', detail: 'Stages of change guiding stage-matched intervention' },
-    { id: 'R6', source: 'ACA Code of Ethics', detail: 'B.1. confidentiality and its limits in employment-related contexts' },
+    { id: 'R1', source: 'DSM-5-TR', detail: 'Prolonged grief disorder: death 12+ months ago, persistent yearning/preoccupation plus 3+ symptoms with impairment' },
+    { id: 'R2', source: 'C-SSRS', detail: 'Structured suicide-risk screening given elevated risk in prolonged grief' },
+    { id: 'R3', source: 'Corey (Theory & Practice)', detail: 'Selecting a grief-focused therapeutic approach and processing avoided reminders' },
+    { id: 'R4', source: 'Hays (Assessment)', detail: 'Culturally responsive assessment of mourning practices and norms' },
+    { id: 'R5', source: 'ACA Code of Ethics', detail: 'A.1. and C.2.: client welfare, cultural competence, and scope of practice' },
   ],
   questions: [
-    Q('q1', 'intake', 'What is most important for the counselor to establish to confirm a moderate alcohol use disorder?', ['R1'], [
-      O('a', 'The specific number of DSM-5-TR criteria she meets, since four to five place severity in the moderate range', 3,
-        { r: 'Criterion count sets severity', approach: 'Apply the severity threshold', why: 'DSM-5-TR grades AUD by criterion count', keys: ['tolerance', 'drinks more than intended'], mistake: 'Estimating severity by volume alone' }),
-      O('b', 'The exact total number of standard alcoholic drinks that she typically consumes over the course of an average week', -1,
-        { r: 'Quantity alone does not set the diagnosis', approach: 'Volume framing', why: 'Severity rests on criteria, not amount', keys: ['criteria-based'], mistake: 'Equating quantity with severity' }),
-      O('c', 'Whether she personally believes and is willing to openly admit that her current drinking has truly become a real problem', 0,
-        { r: 'Insight aids treatment, not the diagnosis', approach: 'Insight framing', why: 'Self-labeling is not a diagnostic criterion', keys: ['ambivalence'], mistake: 'Requiring the client to self-diagnose' }),
-      O('d', 'Whether anyone else in her immediate family has previously struggled with alcohol or another substance-related condition', -1,
-        { r: 'Family history is risk, not diagnosis', approach: 'Heredity framing', why: 'History informs risk, not current criteria', keys: ['no family data'], mistake: 'Using family history to diagnose' }),
+    Q('q1', 'intake', 'What is most important to confirm to support a prolonged grief disorder diagnosis?', ['R1'], [
+      O('a', 'That the death occurred at least twelve months ago and that intense yearning and preoccupation persist nearly every day', 3,
+        { r: 'Duration plus persistent yearning anchor it', approach: 'Confirm the core criterion', why: 'DSM-5-TR requires 12+ months with persistent yearning or preoccupation', keys: ['fourteen months', 'daily yearning'], mistake: 'Diagnosing PGD before the time threshold' }),
+      O('b', 'That she can describe in detail the specific circumstances and the exact sequence of events surrounding her husband’s death', -1,
+        { r: 'Event detail is not the criterion', approach: 'Event-recounting framing', why: 'The diagnosis rests on persistent grief, not event detail', keys: ['preoccupation present'], mistake: 'Confusing the death narrative with the criteria' }),
+      O('c', 'That her low mood and loss of interest have been present nearly every day for at least the past two consecutive weeks', -1,
+        { r: 'That threshold describes MDD, not PGD', approach: 'Depression framing', why: 'PGD centers on yearning, not a two-week mood episode', keys: ['yearning-focused'], mistake: 'Applying MDD criteria to grief' }),
+      O('d', 'That she experiences intrusive memories and a heightened startle response whenever she is reminded of his final days', 0,
+        { r: 'That pattern points toward PTSD', approach: 'Trauma framing', why: 'Re-experiencing and arousal are PTSD features', keys: ['grief, not threat'], mistake: 'Reading grief as a trauma disorder' }),
     ]),
-    Q('q2', 'core', 'Which finding most clearly supports a moderate rather than severe alcohol use disorder?', ['R1'], [
-      O('a', 'That she meets roughly four to five criteria with mild withdrawal signs but no history of complicated withdrawal', 3,
-        { r: 'Four to five criteria define moderate', approach: 'Count and grade severity', why: 'Six or more criteria would indicate severe', keys: ['mild morning shakiness'], mistake: 'Over- or under-rating severity' }),
-      O('b', 'That she clearly experiences a strong craving for alcohol on most evenings when she first arrives home from work', -1,
-        { r: 'Craving occurs across severity levels', approach: 'Single-symptom framing', why: 'Craving alone does not set severity', keys: ['nonspecific symptom'], mistake: 'Reading one symptom as the severity marker' }),
-      O('c', 'That her drinking has now led to a single formal disciplinary warning from her employer over the course of this year', -1,
-        { r: 'One consequence is not the severity test', approach: 'Consequence-count framing', why: 'Severity rests on the full criterion count', keys: ['occupational consequence'], mistake: 'Grading severity by one event' }),
-      O('d', 'That she still manages to maintain her full-time teaching job and most of her important everyday family responsibilities', 0,
-        { r: 'Preserved function does not define moderate', approach: 'Functioning framing', why: 'Function is not the DSM severity criterion', keys: ['still working'], mistake: 'Substituting functioning for criterion count' }),
+    Q('q2', 'core', 'Which feature best distinguishes her presentation from major depressive disorder?', ['R1'], [
+      O('a', 'Her distress centers on yearning and preoccupation with her husband rather than pervasive low mood across all areas of life', 3,
+        { r: 'Yearning focus separates PGD from MDD', approach: 'Contrast the focus of distress', why: 'PGD centers on the deceased; MDD is pervasive low mood', keys: ['yearning for him', 'preoccupation'], mistake: 'Collapsing grief into depression' }),
+      O('b', 'The fact that she has felt persistently sad and has cried frequently during the many months since her husband passed away', -1,
+        { r: 'Sadness occurs in both', approach: 'Sadness framing', why: 'Sadness alone does not separate the two', keys: ['shared affect'], mistake: 'Using sadness to differentiate' }),
+      O('c', 'The presence of disrupted sleep and reduced appetite that she has been experiencing across most days for a long while now', -1,
+        { r: 'Neurovegetative signs occur in both', approach: 'Somatic framing', why: 'These features are nonspecific between PGD and MDD', keys: ['shared symptoms'], mistake: 'Reading somatic signs as decisive' }),
+      O('d', 'The way her distress tends to intensify noticeably around anniversaries, holidays, and other reminders of her late husband', 0,
+        { r: 'Reminder-linked surges are nonspecific', approach: 'Cue framing', why: 'Both conditions can worsen around reminders', keys: ['anniversary reactions'], mistake: 'Using reminder reactivity to differentiate' }),
     ]),
-    Q('q3', 'core', 'Given her morning shakiness, what assessment is most important before planning treatment?', ['R2'], [
-      O('a', 'Assess withdrawal risk and medical safety to determine whether supervised detoxification or medical evaluation is needed', 3,
-        { r: 'Screen withdrawal and medical safety', approach: 'Assess level of care', why: 'ASAM guides withdrawal-risk and care-level decisions', keys: ['morning shakiness'], mistake: 'Planning psychosocial care without a safety screen' }),
-      O('b', 'Determine the precise brand and proof of the alcoholic beverages that she most commonly chooses to drink in the evenings', -1,
-        { r: 'Beverage type is low yield', approach: 'Product-detail framing', why: 'It does not assess withdrawal risk', keys: ['safety unassessed'], mistake: 'Collecting irrelevant detail' }),
-      O('c', 'Explore in depth the early family-of-origin experiences that she believes first shaped her current relationship with alcohol', 0,
-        { r: 'History is secondary to safety now', approach: 'Origins framing', why: 'Medical safety takes priority first', keys: ['withdrawal signs'], mistake: 'Prioritizing depth over safety' }),
-      O('d', 'Identify the particular emotional triggers and stressful situations that tend to prompt her heaviest drinking episodes', -1,
-        { r: 'Trigger work is for later planning', approach: 'Trigger framing', why: 'It does not address withdrawal risk', keys: ['safety first'], mistake: 'Skipping the medical rule-out' }),
+    Q('q3', 'core', 'How does prolonged grief disorder differ from an expected, uncomplicated grief reaction?', ['R1'], [
+      O('a', 'Its symptoms are persistent, pervasive, and impairing well beyond the timeframe and intensity expected within her cultural context', 3,
+        { r: 'Persistence and impairment beyond norms', approach: 'Compare against cultural norms', why: 'PGD exceeds expected grief in duration and impairment', keys: ['raw as the first month', 'cannot return to work'], mistake: 'Pathologizing normal grief' }),
+      O('b', 'The fact that she still feels sad and misses her husband deeply more than a year after he died and left her on her own', -1,
+        { r: 'Ongoing missing is normal grief', approach: 'Normal-grief framing', why: 'Missing a spouse is expected, not by itself disordered', keys: ['expected longing'], mistake: 'Treating normal longing as the disorder' }),
+      O('c', 'That she has chosen to keep some of her late husband’s belongings and personal mementos rather than giving them all away', -1,
+        { r: 'Keeping mementos is normal', approach: 'Memento framing', why: 'Holding keepsakes is a common, healthy practice', keys: ['normal mourning'], mistake: 'Reading ordinary keepsakes as pathology' }),
+      O('d', 'That her grief tends to come in waves, with some days feeling notably more difficult for her to manage than other days do', 0,
+        { r: 'Wave-like grief is normal', approach: 'Course framing', why: 'Fluctuating grief is expected, not diagnostic', keys: ['normal variability'], mistake: 'Misreading normal waves as disorder' }),
     ]),
-    Q('q4', 'core', 'How should the counselor best understand Linda’s back-and-forth about quitting?', ['R5'], [
-      O('a', 'As normal ambivalence consistent with the contemplation stage of change rather than a lack of genuine motivation', 3,
-        { r: 'Frame ambivalence as a stage', approach: 'Stage the readiness', why: 'The Transtheoretical Model frames this as contemplation', keys: ['wants to quit yet doubts'], mistake: 'Reading ambivalence as resistance' }),
-      O('b', 'As a clear sign that she is firmly in denial and is not yet truly ready to engage in any meaningful treatment at all', -2,
-        { r: 'Labeling denial misreads the stage', approach: 'Denial framing', why: 'Ambivalence is expected, not denial', keys: ['contemplation'], mistake: 'Pathologizing normal ambivalence' }),
-      O('c', 'As evidence that she is already firmly in the action stage and is therefore ready to commit to complete abstinence today', -1,
-        { r: 'Overestimating readiness misfires', approach: 'Over-staging framing', why: 'She has not resolved ambivalence yet', keys: ['still deciding'], mistake: 'Pushing action prematurely' }),
-      O('d', 'As proof that an untreated underlying depressive disorder, rather than the drinking itself, is the real core of the problem', -1,
-        { r: 'Premature reattribution is an error', approach: 'Reattribution framing', why: 'Ambivalence does not establish depression as primary', keys: ['no mood workup'], mistake: 'Explaining away the substance problem' }),
+    Q('q4', 'core', 'Given her thought that she would rather be with her husband, the most appropriate step is to:', ['R2'], [
+      O('a', 'Conduct a structured suicide-risk assessment to clarify ideation, intent, and plan, recognizing grief elevates risk', 3,
+        { r: 'Assess elevated risk with structure', approach: 'Screen risk directly', why: 'Prolonged grief raises suicide risk; structured screening is indicated', keys: ['wishes to be with him', 'no plan reported'], mistake: 'Overlooking risk within grief' }),
+      O('b', 'Treat the thought as an entirely understandable and ultimately harmless expression of how much she misses her late husband', -2,
+        { r: 'Normalizing away ideation is unsafe', approach: 'Minimize as longing', why: 'It forecloses needed risk assessment', keys: ['unassessed ideation'], mistake: 'Dismissing ideation as longing' }),
+      O('c', 'Move ahead with grief-processing work first, assuming that easing the grief itself will naturally take care of the thoughts', -1,
+        { r: 'Risk must be assessed before this', approach: 'Treatment-first framing', why: 'Safety assessment precedes processing work', keys: ['active disclosure'], mistake: 'Sequencing treatment ahead of safety' }),
+      O('d', 'Ask her to sign a brief written promise that she will stay safe and call the office if the thoughts get worse this week', -2,
+        { r: 'No-suicide contracts are not evidence-based', approach: 'No-harm contract', why: 'Contracts do not reduce risk or assess it', keys: ['needs safety planning'], mistake: 'Substituting a contract for assessment' }),
     ]),
-    Q('q5', 'intake', 'What co-occurring issue is most important to screen for to inform her plan?', ['R1'], [
-      O('a', 'A co-occurring depressive disorder, since mood symptoms commonly accompany alcohol use and shape treatment sequencing', 3,
-        { r: 'Screen for co-occurring depression', approach: 'Assess comorbidity', why: 'Mood disorders frequently co-occur with AUD', keys: ['drinks to unwind', 'gave up activities'], mistake: 'Treating AUD without screening mood' }),
-      O('b', 'A previously undetected primary psychotic disorder that might better account for her difficulties at work and at home', -1,
-        { r: 'Psychosis is not indicated', approach: 'Psychosis framing', why: 'Nothing in the picture suggests psychosis', keys: ['intact reality testing'], mistake: 'Pursuing an unsupported rule-out' }),
-      O('c', 'A long-standing eating disorder that could be contributing to both her evening drinking and her disrupted daily routine', -1,
-        { r: 'Eating pathology is not indicated', approach: 'Eating-disorder framing', why: 'No eating concerns are reported', keys: ['no eating data'], mistake: 'Inventing an unsupported comorbidity' }),
-      O('d', 'An emerging neurocognitive decline that could explain why she has been forgetting her responsibilities at the school lately', 0,
-        { r: 'Cognitive decline is premature here', approach: 'Neurocognitive framing', why: 'Alcohol effects are a simpler explanation', keys: ['substance-linked'], mistake: 'Over-attributing to cognitive decline' }),
+    Q('q5', 'intake', 'How does her presentation differ from posttraumatic stress disorder?', ['R1'], [
+      O('a', 'Her core experience is yearning and preoccupation with the deceased rather than re-experiencing a threatening traumatic event', 3,
+        { r: 'Yearning versus threat re-experiencing', approach: 'Contrast grief with trauma', why: 'PTSD centers on a threat memory; PGD centers on the loss', keys: ['yearning for him', 'no threat re-experiencing'], mistake: 'Forcing grief into a trauma frame' }),
+      O('b', 'The fact that she goes out of her way to avoid certain reminders, such as their shared bedroom and his clothing and effects', -1,
+        { r: 'Avoidance appears in both', approach: 'Avoidance framing', why: 'Both involve avoidance; the content differs', keys: ['shared avoidance'], mistake: 'Using avoidance alone to differentiate' }),
+      O('c', 'The intense emotional pain and distress that she feels welling up whenever something unexpectedly brings her husband to mind', -1,
+        { r: 'Distress on reminders occurs in both', approach: 'Distress framing', why: 'Emotional pain on cues is nonspecific', keys: ['shared reactivity'], mistake: 'Reading distress as decisive' }),
+      O('d', 'The trouble she has had concentrating and staying engaged at her job during the long months since her husband’s death', 0,
+        { r: 'Concentration problems occur in both', approach: 'Cognitive framing', why: 'Impaired focus does not separate the two', keys: ['nonspecific symptom'], mistake: 'Using concentration to differentiate' }),
     ]),
-    Q('q6', 'treatment', 'What is the most appropriate framework for determining her level of care?', ['R2'], [
-      O('a', 'A multidimensional assessment of withdrawal risk, environment, and readiness to match her to the least intensive safe setting', 3,
-        { r: 'Use multidimensional placement', approach: 'Apply level-of-care criteria', why: 'ASAM matches care level to multiple dimensions', keys: ['mild withdrawal', 'ambivalence'], mistake: 'Defaulting to one fixed program' }),
-      O('b', 'Automatically referring her to the most intensive residential inpatient program available so she gets the strongest help possible', -1,
-        { r: 'Maximal care ignores placement criteria', approach: 'Top-intensity default', why: 'Level of care should match assessed need', keys: ['no complicated withdrawal'], mistake: 'Over-placing without assessment' }),
-      O('c', 'Recommending only a weekly mutual-help meeting, on the assumption that peer support by itself will be sufficient for her needs', -1,
-        { r: 'Under-placement ignores her criteria', approach: 'Minimal-care default', why: 'Support groups alone may under-treat', keys: ['moderate AUD'], mistake: 'Under-treating moderate severity' }),
-      O('d', 'Letting her choose whichever specific program sounds the most convenient to her schedule regardless of her clinical needs', 0,
-        { r: 'Preference cannot override clinical need', approach: 'Convenience framing', why: 'Placement must reflect assessed need', keys: ['shared decision input'], mistake: 'Letting convenience drive placement' }),
+    Q('q6', 'treatment', 'What is the most appropriate first-line treatment approach?', ['R3'], [
+      O('a', 'A grief-focused psychotherapy that helps her process the loss and gradually approach the reminders she has been avoiding', 3,
+        { r: 'Grief-focused processing is indicated', approach: 'Match approach to the disorder', why: 'Targeted grief work addresses avoidance and integration', keys: ['avoids his belongings', 'unintegrated loss'], mistake: 'Offering generic support without grief focus' }),
+      O('b', 'Open-ended supportive counseling that mainly offers her a warm space to reminisce about her husband whenever she wishes to', -1,
+        { r: 'Unstructured support underperforms grief work', approach: 'Supportive-only therapy', why: 'It lacks the processing and approach components', keys: ['needs structured work'], mistake: 'Defaulting to nondirective support' }),
+      O('c', 'Encouraging her to keep avoiding the most painful reminders for now so that she does not have to feel the distress they bring', -2,
+        { r: 'Sanctioning avoidance maintains PGD', approach: 'Accommodate avoidance', why: 'Avoidance blocks integration of the loss', keys: ['avoidance maintains grief'], mistake: 'Reinforcing avoidance as coping' }),
+      O('d', 'A primarily insight-oriented exploration of her early attachments as the main route to relieving her current grief symptoms', 0,
+        { r: 'Insight-only is not first-line here', approach: 'Depth-only framing', why: 'Grief-focused processing is the indicated approach', keys: ['loss-focused need'], mistake: 'Prioritizing origins over grief work' }),
     ]),
-    Q('q7', 'treatment', 'Given her ambivalence, what is the most appropriate primary counseling approach?', ['R3'], [
-      O('a', 'Motivational interviewing to explore ambivalence and strengthen her own reasons for change at her current stage', 3,
-        { r: 'MI fits ambivalence and stage', approach: 'Match method to stage', why: 'TIP 35 endorses MI for ambivalent clients', keys: ['contemplation', 'mixed feelings'], mistake: 'Pushing action before readiness' }),
-      O('b', 'A firm, direct confrontation about the serious damage her drinking is doing so that she finally sees the full reality of it', -2,
-        { r: 'Confrontation raises resistance', approach: 'Confrontational framing', why: 'Confrontation tends to harden ambivalence', keys: ['ambivalent client'], mistake: 'Using confrontation to force insight' }),
-      O('c', 'A structured relapse-prevention program built entirely around her committing right now to a firm date for complete abstinence', -1,
-        { r: 'Action-stage tools precede her readiness', approach: 'Action-first framing', why: 'She has not yet resolved ambivalence', keys: ['not in action stage'], mistake: 'Applying action tools too early' }),
-      O('d', 'Primarily educational lectures detailing the medical consequences of alcohol so that the facts alone will convince her to stop', -1,
-        { r: 'Education alone rarely resolves ambivalence', approach: 'Didactic framing', why: 'Evoking her own motivation works better', keys: ['needs to voice change talk'], mistake: 'Relying on information to motivate' }),
+    Q('q7', 'treatment', 'Her avoidance of his belongings and their bedroom should be addressed by:', ['R3'], [
+      O('a', 'Gradually and collaboratively approaching the avoided reminders so the associated pain can be tolerated and processed', 3,
+        { r: 'Graded approach to avoided reminders', approach: 'Reduce avoidance gradually', why: 'Approaching reminders supports integration of the loss', keys: ['avoids the bedroom', 'cannot sort his clothes'], mistake: 'Leaving the avoidance untouched' }),
+      O('b', 'Insisting that she clear out and give away all of her late husband’s belongings right away in order to help her finally move on', -2,
+        { r: 'Forcing disposal can deepen distress', approach: 'Force the purge', why: 'Abrupt, coerced disposal is not graded processing', keys: ['no collaboration'], mistake: 'Pushing premature, forced action' }),
+      O('c', 'Reassuring her that it is perfectly fine to keep avoiding the bedroom and his things for as long as that feels easier for her', -1,
+        { r: 'Endorsing avoidance maintains the grief', approach: 'Accommodate avoidance', why: 'It blocks the corrective experience of approaching', keys: ['avoidance trap'], mistake: 'Reinforcing the maintaining behavior' }),
+      O('d', 'Waiting until she no longer feels any pain about the reminders before she begins to approach the bedroom or sort his clothes', -1,
+        { r: 'Waiting for no pain reverses the logic', approach: 'Pain-free-first framing', why: 'Approach precedes, and produces, reduced distress', keys: ['avoidance persists'], mistake: 'Letting distress gate the work' }),
     ]),
-    Q('q8', 'treatment', 'Linda asks whether medication could help her cut back. The most appropriate action is to:', ['R6'], [
-      O('a', 'Coordinate a referral to a prescriber to evaluate medication options while continuing motivational counseling within scope', 3,
-        { r: 'Refer and coordinate within scope', approach: 'Coordinate care', why: 'Counselors refer for medication rather than prescribe', keys: ['asks about medication'], mistake: 'Giving prescriptive advice' }),
-      O('b', 'Recommend the particular anti-craving medication that she should specifically request from her primary care physician next week', -2,
-        { r: 'Naming a drug exceeds scope', approach: 'Prescriptive advice', why: 'Medication selection is outside counselor scope', keys: ['no prescriptive authority'], mistake: 'Overstepping professional limits' }),
-      O('c', 'Discourage any medication and explain that relying on a pill would only undermine the personal willpower she needs to recover', -1,
-        { r: 'Discouraging meds reflects stigma', approach: 'Willpower framing', why: 'Medication is an evidence-based option', keys: ['client autonomy'], mistake: 'Moralizing about medication' }),
-      O('d', 'Tell her that medication is only ever appropriate for people whose alcohol problems have already reached the most severe level', -1,
-        { r: 'Inaccurate gatekeeping forecloses care', approach: 'Severity-gating framing', why: 'Medication can help across severity levels', keys: ['needs evaluation'], mistake: 'Stating an inaccurate restriction' }),
+    Q('q8', 'treatment', 'Mei Lin shows possible co-occurring depression. The most appropriate within-scope action is to:', ['R5'], [
+      O('a', 'Screen for a co-occurring depressive disorder and coordinate a prescriber referral if criteria are met, with her consent', 3,
+        { r: 'Assess comorbidity and refer if indicated', approach: 'Coordinate care within scope', why: 'Comorbid MDD may warrant a medication evaluation', keys: ['life feels meaningless', 'sleep and appetite changes'], mistake: 'Ignoring a treatable comorbidity' }),
+      O('b', 'Start her on an antidepressant regimen yourself and adjust the dose over the coming weeks based on how she responds to it', -2,
+        { r: 'Prescribing is outside counselor scope', approach: 'Prescribe medication', why: 'Counselors do not prescribe or titrate', keys: ['no prescriptive authority'], mistake: 'Acting outside scope of practice' }),
+      O('c', 'Assume the low mood is simply part of normal grieving and therefore does not require any further assessment at this point', -1,
+        { r: 'Dismissing possible MDD misses it', approach: 'Normalize away comorbidity', why: 'Comorbid depression still warrants screening', keys: ['possible MDD'], mistake: 'Attributing everything to grief' }),
+      O('d', 'Tell her that grief and depression are essentially the same thing and that there is no real need to distinguish between them', -1,
+        { r: 'Conflating the two is inaccurate', approach: 'Over-generalize', why: 'PGD and MDD are distinct and may co-occur', keys: ['distinct conditions'], mistake: 'Erasing a clinically meaningful distinction' }),
     ]),
-    Q('q9', 'counseling', 'During a session Linda voices both wanting to quit and doubting she can. The MI-consistent response is to:', ['R4'], [
-      O('a', 'Reflect both sides of her ambivalence and selectively explore the change talk she has already begun to express', 3,
-        { r: 'Reflect ambivalence, evoke change talk', approach: 'Roll with ambivalence', why: 'MI develops discrepancy through reflection', keys: ['wants to quit yet doubts'], mistake: 'Arguing for one side' }),
-      O('b', 'Point out firmly that her doubts are really just excuses and that she clearly needs to commit to quitting completely today', -2,
-        { r: 'Arguing triggers resistance', approach: 'Righting reflex', why: 'It pushes against her autonomy', keys: ['discord risk'], mistake: 'Falling into the righting reflex' }),
-      O('c', 'Quickly agree with her doubts and suggest that perhaps now is simply not the right time for her to try to change anything', -1,
-        { r: 'Siding with doubt undercuts change talk', approach: 'Concede the doubt', why: 'It abandons the emerging motivation', keys: ['ambivalence'], mistake: 'Reinforcing the status-quo side' }),
-      O('d', 'Lay out a detailed step-by-step quit plan with specific dates and rules for her to begin following starting this very evening', -1,
-        { r: 'Planning precedes resolved ambivalence', approach: 'Premature planning', why: 'Evoking should precede planning in MI', keys: ['not yet committed'], mistake: 'Jumping to planning too soon' }),
+    Q('q9', 'counseling', 'Mei Lin says she should have caught her husband’s illness sooner. The most therapeutic response is to:', ['R3'], [
+      O('a', 'Validate her pain and gently explore the guilt, examining what she could realistically have known at the time', 3,
+        { r: 'Validate, then examine the guilt', approach: 'Process grief-related guilt', why: 'Exploring realistic appraisal eases unwarranted self-blame', keys: ['guilt over a missed symptom'], mistake: 'Leaving the guilt cognition unexamined' }),
+      O('b', 'Agree that she probably could have done more at the time so that she is able to learn something useful from the experience', -2,
+        { r: 'Endorsing the self-blame deepens guilt', approach: 'Validate the distortion', why: 'It intensifies grief-related guilt', keys: ['reinforced guilt'], mistake: 'Colluding with the self-blame' }),
+      O('c', 'Tell her quickly that none of it was her fault at all and that she really needs to stop blaming herself and move forward', -1,
+        { r: 'Premature reassurance can invalidate', approach: 'Dismissive reassurance', why: 'It skips the validation and exploration she needs', keys: ['guilt dismissed'], mistake: 'Reassuring without processing' }),
+      O('d', 'Steer the conversation away from the guilt so that the session does not become too painful or overwhelming for her today', -1,
+        { r: 'Avoiding the guilt leaves it intact', approach: 'Topic avoidance', why: 'Guilt is a central grief target to address', keys: ['avoided cognition'], mistake: 'Sidestepping emotionally central material' }),
     ]),
-    Q('q10', 'counseling', 'Linda relapses after two sober weeks and is ashamed. The most therapeutic response is to:', ['R3'], [
-      O('a', 'Frame the lapse as a common part of change, explore what it taught her, and revisit the plan without shaming her', 3,
-        { r: 'Treat the lapse as learning', approach: 'Normalize and problem-solve', why: 'Lapses are common and informative in recovery', keys: ['shame after relapse'], mistake: 'Treating a lapse as total failure' }),
-      O('b', 'Warn her seriously that another slip like this one will likely undo all of her progress and prove that she cannot really do this', -2,
-        { r: 'Catastrophizing deepens shame', approach: 'Threat framing', why: 'It feeds the abstinence-violation effect', keys: ['shame spiral'], mistake: 'Amplifying shame after a lapse' }),
-      O('c', 'Recommend that she immediately step up to a far more restrictive level of care since the outpatient plan has clearly failed her', -1,
-        { r: 'One lapse does not mandate escalation', approach: 'Reflexive escalation', why: 'A single lapse is not treatment failure', keys: ['expected setback'], mistake: 'Over-escalating after one slip' }),
-      O('d', 'Reassure her that the lapse really does not matter at all and encourage her to simply forget about it and move on quickly', -1,
-        { r: 'Dismissing the lapse skips learning', approach: 'Minimize the lapse', why: 'Exploring the lapse yields useful data', keys: ['learning opportunity'], mistake: 'Glossing over a teachable moment' }),
+    Q('q10', 'counseling', 'Mei Lin worries that processing the loss means she is being asked to “forget” her husband. Best response?', ['R3'], [
+      O('a', 'Clarify that the goal is to carry a continuing bond with him while re-engaging with life, not to forget or let go of him', 3,
+        { r: 'Reframe the goal as a continuing bond', approach: 'Reframe the aim of grief work', why: 'Integration preserves the bond while restoring living', keys: ['fears forgetting him', 'kept his voicemail'], mistake: 'Implying she must sever the bond' }),
+      O('b', 'Explain that the central purpose of the work really is to help her gradually let go of her husband and detach from his memory', -2,
+        { r: 'Severing the bond is not the goal', approach: 'Detachment framing', why: 'Modern grief work supports a continuing bond', keys: ['continuing bond'], mistake: 'Framing grief work as forgetting' }),
+      O('c', 'Reassure her that she will be able to keep every single memory exactly as vivid and intense as it is for her right now forever', -1,
+        { r: 'Overpromising about memory is unrealistic', approach: 'False guarantee', why: 'Memories naturally change; the bond can endure', keys: ['unrealistic promise'], mistake: 'Making promises you cannot keep' }),
+      O('d', 'Avoid the concern and redirect her toward setting concrete behavioral goals for re-engaging with her work and her community', -1,
+        { r: 'Bypassing the fear misses a key target', approach: 'Redirect to tasks', why: 'Her fear about forgetting is central to engagement', keys: ['unaddressed concern'], mistake: 'Avoiding emotionally salient material' }),
     ]),
-    Q('q11', 'counseling', 'How should the counselor best support Linda’s self-efficacy at this stage?', ['R3'], [
-      O('a', 'Highlight her past successes at cutting back and her existing strengths to build her confidence that change is achievable', 3,
-        { r: 'Affirm strengths and prior successes', approach: 'Build self-efficacy', why: 'Affirming past success raises confidence', keys: ['tried to cut back before'], mistake: 'Focusing only on deficits' }),
-      O('b', 'Emphasize repeatedly just how serious and entrenched her problem has become so that she takes the situation seriously enough', -1,
-        { r: 'Emphasizing severity lowers efficacy', approach: 'Severity emphasis', why: 'It can undermine her confidence', keys: ['needs hope'], mistake: 'Undercutting self-efficacy' }),
-      O('c', 'Compare her progress directly with that of other clients who have already succeeded so she has a clear standard to aim for', -1,
-        { r: 'Comparisons can be discouraging', approach: 'Social comparison', why: 'It can erode rather than build confidence', keys: ['individualized care'], mistake: 'Measuring her against others' }),
-      O('d', 'Set a single ambitious long-term abstinence goal right away so that she always has the larger target firmly in front of her', -1,
-        { r: 'A distant-only goal can overwhelm', approach: 'Big-goal framing', why: 'Graded goals build efficacy better', keys: ['confidence-building'], mistake: 'Setting an overwhelming target' }),
+    Q('q11', 'ethics', 'Mei Lin’s mourning includes specific cultural and religious practices the counselor is unfamiliar with. Best response?', ['R4'], [
+      O('a', 'Approach her practices with cultural humility, learn their meaning to her, and incorporate them respectfully into the work', 3,
+        { r: 'Practice cultural humility', approach: 'Center her cultural context', why: 'ACA and Hays call for culturally responsive assessment', keys: ['specific mourning practices'], mistake: 'Imposing a single timeline or norm' }),
+      O('b', 'Gently encourage her to set aside those particular practices so that they do not end up slowing down her grief recovery', -2,
+        { r: 'Dismissing practices is culturally insensitive', approach: 'Pathologize the practices', why: 'Cultural mourning practices can be protective', keys: ['cultural rituals'], mistake: 'Treating cultural norms as obstacles' }),
+      O('c', 'Apply the standard expected grief timeline to her case and judge her progress strictly against those usual benchmarks', -1,
+        { r: 'Norms vary across cultures', approach: 'One-size-fits-all timeline', why: 'Grief norms are culturally bound', keys: ['cultural variation'], mistake: 'Ignoring cultural context in assessment' }),
+      O('d', 'Refer her elsewhere immediately on the assumption that you cannot possibly work with someone from her cultural background', -1,
+        { r: 'Reflexive referral is not required', approach: 'Premature referral', why: 'Cultural humility and learning are expected first', keys: ['competence with humility'], mistake: 'Equating unfamiliarity with incompetence' }),
     ]),
-    Q('q12', 'ethics', 'Linda’s principal calls the counselor asking whether she is “in treatment for drinking.” Best response?', ['R6'], [
-      O('a', 'Decline to confirm or deny without a valid release, explaining confidentiality protections even to a concerned employer', 3,
-        { r: 'Protect confidentiality without a release', approach: 'Uphold confidentiality', why: 'ACA B.1. protects information absent valid consent', keys: ['employer inquiry', 'no release'], mistake: 'Disclosing to an employer without consent' }),
-      O('b', 'Confirm that she is in treatment, since the employer already clearly knows about the warning and is only trying to help her', -2,
-        { r: 'Confirming breaches confidentiality', approach: 'Assume implied consent', why: 'Prior awareness does not authorize disclosure', keys: ['no valid release'], mistake: 'Disclosing without authorization' }),
-      O('c', 'Refuse to speak with the principal at all and hang up immediately without offering any general information about the process', -1,
-        { r: 'Abrupt refusal misses a teachable moment', approach: 'Flat refusal', why: 'General process information can be shared appropriately', keys: ['professional courtesy'], mistake: 'Being needlessly obstructive' }),
-      O('d', 'Tell the principal you will need to ask Linda for permission first and then quietly share the gist of her progress afterward', -2,
-        { r: 'Sharing the gist still breaches privacy', approach: 'Soft disclosure', why: 'Only a valid release permits disclosure', keys: ['confidentiality'], mistake: 'Leaking details under the guise of an update' }),
+    Q('q12', 'ethics', 'Mei Lin asks the counselor to attend her husband’s memorial anniversary gathering as her guest. Best response?', ['R5'], [
+      O('a', 'Warmly explore the meaning of the request and maintain the professional boundary, explaining its protective purpose', 3,
+        { r: 'Hold the boundary, explore the meaning', approach: 'Maintain a caring boundary', why: 'Boundaries protect the therapeutic relationship', keys: ['boundary request', 'longing for connection'], mistake: 'Either attending or coldly refusing' }),
+      O('b', 'Agree to attend the gathering as her guest, since being there would clearly mean a great deal to her during a painful time', -2,
+        { r: 'Attending creates a boundary crossing', approach: 'Cross the boundary', why: 'It risks a harmful dual relationship', keys: ['role confusion'], mistake: 'Trading the clinical role for a social one' }),
+      O('c', 'Decline quickly and move on without acknowledging the feelings or the significance behind her invitation to the gathering', -1,
+        { r: 'A cold refusal can feel like rejection', approach: 'Dismissive refusal', why: 'The longing deserves exploration, not dismissal', keys: ['grief sensitivity'], mistake: 'Enforcing limits without warmth' }),
+      O('d', 'Offer to attend just briefly and only to quietly pay your respects, as long as you do not stay for the rest of the gathering', -2,
+        { r: 'A brief visit is still a boundary crossing', approach: 'Partial attendance', why: 'Any attendance blurs the professional role', keys: ['boundary integrity'], mistake: 'Rationalizing a limited crossing' }),
     ]),
-    Q('q13', 'ethics', 'Linda asks the counselor to write a letter to her employer minimizing her drinking to protect her job. Best response?', ['R6'], [
-      O('a', 'Explain you can document treatment engagement accurately with her consent but cannot misrepresent her clinical picture', 3,
-        { r: 'Document honestly with consent', approach: 'Maintain honest records', why: 'ACA standards require accurate representation', keys: ['wants the truth softened'], mistake: 'Falsifying clinical information' }),
-      O('b', 'Agree to write the letter as she has requested it, since protecting her livelihood is clearly in her overall best interest', -2,
-        { r: 'Misrepresentation is unethical', approach: 'Misrepresent to help', why: 'Beneficence cannot justify falsification', keys: ['accuracy required'], mistake: 'Falsifying to protect the client' }),
-      O('c', 'Refuse outright and tell her you will not provide any documentation of any kind to her employer under any circumstances', -1,
-        { r: 'A blanket refusal overstates the limit', approach: 'Total refusal', why: 'Accurate documentation with consent is permissible', keys: ['consent process'], mistake: 'Withholding even appropriate documentation' }),
-      O('d', 'Offer to leave out the alcohol use entirely and instead write only about the unrelated work stress she has been experiencing', -2,
-        { r: 'Selective omission still misleads', approach: 'Misleading by omission', why: 'A deliberately incomplete record deceives', keys: ['integrity of records'], mistake: 'Omitting key facts to mislead' }),
+    Q('q13', 'ethics', 'After several months Mei Lin’s grief has not shifted and may need a specialized grief protocol. Best step?', ['R5'], [
+      O('a', 'Reassess progress and seek consultation or refer to a clinician trained in a specialized grief protocol if indicated', 3,
+        { r: 'Reassess and match competence to need', approach: 'Consult or refer within competence', why: 'ACA C.2. requires practicing within competence', keys: ['little change', 'possible specialized need'], mistake: 'Continuing a stalled plan without review' }),
+      O('b', 'Continue the same approach indefinitely because she is already comfortable and well established in the work with you', -1,
+        { r: 'Ignoring non-response is an error', approach: 'Stay the course', why: 'A stalled course warrants reassessment', keys: ['no progress'], mistake: 'Failing to revisit a non-responding plan' }),
+      O('c', 'Tell her that grief simply takes as long as it takes and that there is no real need to change anything about the treatment', -1,
+        { r: 'Using normal-grief framing to avoid action', approach: 'Over-normalize', why: 'Persistent impairing grief warrants reassessment', keys: ['ongoing impairment'], mistake: 'Excusing non-response as normal' }),
+      O('d', 'Terminate the counseling relationship at once and instruct her to find a grief specialist entirely on her own without help', -2,
+        { r: 'Abrupt abandonment is unethical', approach: 'Abandon the client', why: 'Referral must be coordinated, not abrupt', keys: ['continuity of care'], mistake: 'Abandoning rather than coordinating' }),
     ]),
   ],
 };
@@ -727,7 +729,7 @@ const D108 = {
 // D109 — Borderline Personality Disorder (F60.3) — Personality — medium
 // ============================================================================
 const D109 = {
-  id: 'D109',
+  id: 'ncmhce-D109',
   title: 'Intense relationships and recurrent self-harm in a graduate student',
   category: 'Personality',
   difficulty: 'medium',
@@ -864,7 +866,7 @@ const D109 = {
     ]),
     Q('q11', 'counseling', 'Aisha asks the counselor to be her friend outside of sessions because she trusts no one else. Best response?', ['R5'], [
       O('a', 'Warmly maintain the professional boundary, explain its protective purpose, and explore the longing for connection in therapy', 3,
-        { r: 'Hold the boundary, explore the need', why: 'Boundaries protect the work while the need is processed', approach: 'Maintain a caring boundary', keys: ['boundary request', 'fear of being alone'], mistake: 'Either crossing the line or rejecting coldly' }),
+        { r: 'Hold the boundary, explore the need', approach: 'Maintain a caring boundary', why: 'Boundaries protect the work while the need is processed', keys: ['boundary request', 'fear of being alone'], mistake: 'Either crossing the line or rejecting coldly' }),
       O('b', 'Agree to occasional friendly contact outside of sessions because the therapeutic relationship is clearly so important to her', -2,
         { r: 'A dual relationship harms the work', approach: 'Cross the boundary', why: 'It creates a harmful dual relationship', keys: ['role confusion'], mistake: 'Trading the clinical role for friendship' }),
       O('c', 'Decline curtly and move on quickly without acknowledging the feelings or the meaning behind her request for closeness', -1,
