@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Custom Domain | Partner Portal | CounselorReady</title>
+<meta name="robots" content="noindex,nofollow"/>
+<meta property="og:image" content="https://www.counselorready.com/og.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?v=3.4.17"></script>
+<script src="/js/tailwind-config.js"></script>
+<style>
+  body{background:#F8F7F4;font-family:'Lato',sans-serif;}
+  .font-display{font-family:'Cormorant Garamond',serif;}
+  .step-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;}
+  .step-dot.active{background:#6B1D34;color:#fff;}
+  .step-dot.done{background:#4A7C59;color:#fff;}
+  .step-dot.idle{background:#E5E7EB;color:#6B7280;}
+</style>
+</head>
+<body class="min-h-screen bg-stone">
+
+<!-- Header -->
+<header class="bg-white border-b border-gray-200 px-6 py-4">
+  <div class="max-w-3xl mx-auto flex items-center justify-between">
+    <div>
+      <span class="font-display text-2xl font-bold text-burgundy">CounselorReady</span>
+      <span class="ml-3 text-sm text-gray-500">Partner Portal</span>
+    </div>
+    <a href="/partner/dashboard" class="text-sm text-hunter hover:underline font-bold">&larr; Back to Dashboard</a>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="max-w-3xl mx-auto px-6 py-10">
+  <h1 class="font-display text-4xl font-bold text-burgundy mb-1">Custom Domain</h1>
+  <p class="text-gray-500 mb-8">Point your own domain to your CounselorReady portal.</p>
+
+  <!-- Upsell card (hidden by default) -->
+  <div id="upsellCard" class="hidden mb-6 bg-honey-50 border border-honey rounded-xl px-6 py-5">
+    <p class="font-bold text-gray-800 text-lg mb-1">Custom Domains Require an Upgrade</p>
+    <p id="upsellDetail" class="text-gray-600 text-sm mb-3"></p>
+    <p id="upsellUpgrade" class="text-burgundy font-bold text-sm"></p>
+    <a href="/partner/billing" class="mt-3 inline-block bg-burgundy text-white font-bold text-sm px-5 py-2 rounded-lg hover:bg-burgundy-600 transition-colors">View Plans</a>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="hidden mb-4 rounded-xl px-5 py-3 text-sm font-bold"></div>
+
+  <!-- Loading -->
+  <div id="loadingState" class="text-center py-16 text-gray-400">Loading domain settings…</div>
+
+  <!-- Steps (hidden until loaded) -->
+  <div id="stepsWrap" class="hidden space-y-6">
+
+    <!-- Step 1: Set Domain -->
+    <div class="bg-white border border-gray-200 rounded-xl px-6 py-5">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="step-dot active" id="dot1">1</div>
+        <div>
+          <p class="font-bold text-gray-800">Set Your Domain</p>
+          <p class="text-sm text-gray-500">Enter the domain you want to use (e.g. <code class="bg-gray-100 px-1 rounded">learn.example.com</code>).</p>
+        </div>
+      </div>
+      <div class="flex gap-3">
+        <input id="domainInput" type="text" placeholder="learn.example.com"
+          class="flex-1 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-burgundy focus:ring-1 focus:ring-burgundy"/>
+        <button onclick="saveDomain()" id="saveDomainBtn"
+          class="bg-burgundy text-white font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-burgundy-600 transition-colors whitespace-nowrap">
+          Save Domain
+        </button>
+      </div>
+      <div id="domainSaved" class="hidden mt-3 text-sm text-hunter font-bold flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+        </svg>
+        Domain saved.
+      </div>
+    </div>
+
+    <!-- Step 2: Get TXT record -->
+    <div class="bg-white border border-gray-200 rounded-xl px-6 py-5">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="step-dot idle" id="dot2">2</div>
+        <div>
+          <p class="font-bold text-gray-800">Get Verification Record</p>
+          <p class="text-sm text-gray-500">Generate the DNS TXT record to add to your domain's DNS settings.</p>
+        </div>
+      </div>
+      <button onclick="startVerification()" id="verifyInitBtn"
+        class="bg-navy text-white font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-navy-600 transition-colors disabled:opacity-50">
+        Start Verification
+      </button>
+      <div id="txtRecord" class="hidden mt-5 space-y-4">
+        <p class="text-sm text-gray-600" id="txtInstructions"></p>
+        <div>
+          <p class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Record Name</p>
+          <div class="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5">
+            <code class="flex-1 text-sm text-gray-800 break-all" id="txtName"></code>
+            <button onclick="copy('txtName')" class="text-xs font-bold text-burgundy hover:underline whitespace-nowrap">Copy</button>
+          </div>
+        </div>
+        <div>
+          <p class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Record Value</p>
+          <div class="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5">
+            <code class="flex-1 text-sm text-gray-800 break-all" id="txtValue"></code>
+            <button onclick="copy('txtValue')" class="text-xs font-bold text-burgundy hover:underline whitespace-nowrap">Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Check verification -->
+    <div class="bg-white border border-gray-200 rounded-xl px-6 py-5">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="step-dot idle" id="dot3">3</div>
+        <div>
+          <p class="font-bold text-gray-800">Verify DNS</p>
+          <p class="text-sm text-gray-500">After adding the TXT record, check if DNS has propagated. This can take up to 48 hours.</p>
+        </div>
+      </div>
+      <button onclick="checkVerification()" id="verifyCheckBtn"
+        class="bg-hunter text-white font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-hunter-600 transition-colors">
+        Check Verification
+      </button>
+      <div id="verifyResult" class="hidden mt-4"></div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const API = location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://api.counselorready.com';
+const T = localStorage.getItem('token');
+if (!T) location.href = '/login.html';
+const AUTH = { 'Authorization': `Bearer ${T}`, 'Content-Type': 'application/json' };
+
+let currentDomain = null;
+let verificationStarted = false;
+
+function showUpsell(json) {
+  document.getElementById('upsellCard').classList.remove('hidden');
+  document.getElementById('upsellDetail').textContent = json.detail || json.error || '';
+  document.getElementById('upsellUpgrade').textContent = json.upgrade || '';
+  document.getElementById('stepsWrap').classList.add('hidden');
+}
+
+function showToast(msg, ok) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `mb-4 rounded-xl px-5 py-3 text-sm font-bold ${ok ? 'bg-hunter-50 text-hunter-700 border border-hunter-200' : 'bg-red-50 text-red-700 border border-red-200'}`;
+  el.classList.remove('hidden');
+  setTimeout(() => el.classList.add('hidden'), 5000);
+}
+
+function copy(elId) {
+  const text = document.getElementById(elId).textContent;
+  navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard.', true));
+}
+
+async function load() {
+  try {
+    const res = await fetch(`${API}/api/partners/me`, { headers: AUTH });
+    if (res.status === 401) { location.href = '/login.html'; return; }
+    const json = await res.json();
+    document.getElementById('loadingState').classList.add('hidden');
+    document.getElementById('stepsWrap').classList.remove('hidden');
+
+    const existing = json.partner?.branding?.customDomain || json.branding?.customDomain || '';
+    if (existing) {
+      currentDomain = existing;
+      document.getElementById('domainInput').value = existing;
+      document.getElementById('domainSaved').classList.remove('hidden');
+      document.getElementById('dot1').className = 'step-dot done';
+      document.getElementById('dot2').className = 'step-dot active';
+    }
+  } catch (e) {
+    document.getElementById('loadingState').textContent = 'Failed to load: ' + e.message;
+  }
+}
+
+async function saveDomain() {
+  const val = document.getElementById('domainInput').value.trim();
+  if (!val) { showToast('Enter a domain first.', false); return; }
+  const btn = document.getElementById('saveDomainBtn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  try {
+    const res = await fetch(`${API}/api/partners/my-branding`, {
+      method: 'PUT', headers: AUTH, body: JSON.stringify({ customDomain: val })
+    });
+    const json = await res.json();
+    if (res.status === 403 && json.code === 'FEATURE_NOT_AVAILABLE') { showUpsell(json); return; }
+    if (!res.ok) throw new Error(json.error || 'Save failed');
+    currentDomain = val;
+    document.getElementById('domainSaved').classList.remove('hidden');
+    document.getElementById('dot1').className = 'step-dot done';
+    document.getElementById('dot2').className = 'step-dot active';
+    showToast('Domain saved.', true);
+  } catch (e) {
+    showToast(e.message, false);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Save Domain';
+  }
+}
+
+async function startVerification() {
+  const btn = document.getElementById('verifyInitBtn');
+  btn.disabled = true; btn.textContent = 'Requesting…';
+  try {
+    const res = await fetch(`${API}/api/partners/my/domain/verify-init`, {
+      method: 'POST', headers: AUTH
+    });
+    const json = await res.json();
+    if (res.status === 403 && json.code === 'FEATURE_NOT_AVAILABLE') { showUpsell(json); return; }
+    if (!res.ok) throw new Error(json.error || 'Verification init failed');
+
+    document.getElementById('txtName').textContent = json.recordName;
+    document.getElementById('txtValue').textContent = json.recordValue;
+    document.getElementById('txtInstructions').textContent = json.instructions || '';
+    document.getElementById('txtRecord').classList.remove('hidden');
+    document.getElementById('dot2').className = 'step-dot done';
+    document.getElementById('dot3').className = 'step-dot active';
+    verificationStarted = true;
+  } catch (e) {
+    showToast(e.message, false);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Start Verification';
+  }
+}
+
+async function checkVerification() {
+  const btn = document.getElementById('verifyCheckBtn');
+  btn.disabled = true; btn.textContent = 'Checking…';
+  try {
+    const res = await fetch(`${API}/api/partners/my/domain/verify-check`, {
+      method: 'POST', headers: AUTH
+    });
+    const json = await res.json();
+    if (res.status === 403 && json.code === 'FEATURE_NOT_AVAILABLE') { showUpsell(json); return; }
+    if (!res.ok) throw new Error(json.error || 'Check failed');
+
+    const result = document.getElementById('verifyResult');
+    result.classList.remove('hidden');
+    if (json.verified) {
+      document.getElementById('dot3').className = 'step-dot done';
+      result.innerHTML = `
+        <div class="flex items-center gap-3 bg-hunter-50 border border-hunter-200 rounded-xl px-5 py-4">
+          <svg class="w-6 h-6 text-hunter flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+          <div>
+            <p class="font-bold text-hunter-700">Domain Verified!</p>
+            <p class="text-sm text-hunter-600"><strong>${json.domain}</strong> is now live.</p>
+          </div>
+        </div>`;
+    } else {
+      result.innerHTML = `
+        <div class="bg-yellow-50 border border-yellow-200 rounded-xl px-5 py-4 text-sm text-yellow-800">
+          <p class="font-bold mb-1">Not verified yet</p>
+          <p>${json.message || 'DNS propagation can take up to 48 hours. Try again later.'}</p>
+        </div>`;
+    }
+  } catch (e) {
+    showToast(e.message, false);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Check Verification';
+  }
+}
+
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Email Templates | Partner Portal | CounselorReady</title>
+<meta name="robots" content="noindex,nofollow"/>
+<meta property="og:image" content="https://www.counselorready.com/og.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?v=3.4.17"></script>
+<script src="/js/tailwind-config.js"></script>
+<style>
+  body{background:#F8F7F4;font-family:'Lato',sans-serif;}
+  .font-display{font-family:'Cormorant Garamond',serif;}
+  .tab-btn.active{border-bottom:2px solid #6B1D34;color:#6B1D34;font-weight:700;}
+  .tab-btn{border-bottom:2px solid transparent;color:#6B7280;padding:10px 16px;font-size:15px;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit;}
+  .tab-btn:hover{color:#6B1D34;}
+  .char-counter{font-size:11px;color:#9CA3AF;text-align:right;margin-top:2px;}
+  .char-counter.over{color:#EF4444;}
+</style>
+</head>
+<body class="min-h-screen bg-stone">
+
+<!-- Header -->
+<header class="bg-white border-b border-gray-200 px-6 py-4">
+  <div class="max-w-3xl mx-auto flex items-center justify-between">
+    <div>
+      <span class="font-display text-2xl font-bold text-burgundy">CounselorReady</span>
+      <span class="ml-3 text-sm text-gray-500">Partner Portal</span>
+    </div>
+    <a href="/partner/dashboard" class="text-sm text-hunter hover:underline font-bold">&larr; Back to Dashboard</a>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="max-w-3xl mx-auto px-6 py-10">
+  <h1 class="font-display text-4xl font-bold text-burgundy mb-1">Email Templates</h1>
+  <p class="text-gray-500 mb-8">Customize the automated emails sent to your users.</p>
+
+  <!-- Toast -->
+  <div id="toast" class="hidden mb-4 rounded-xl px-5 py-3 text-sm font-bold"></div>
+
+  <!-- Loading / Error -->
+  <div id="loadingState" class="text-center py-16 text-gray-400">Loading templates…</div>
+  <div id="errorState" class="hidden bg-red-50 border border-red-200 text-red-700 rounded-xl px-5 py-3 mb-4"></div>
+
+  <!-- Editor -->
+  <div id="editorWrap" class="hidden">
+    <!-- Tabs -->
+    <div class="border-b border-gray-200 mb-6 flex">
+      <button class="tab-btn active" id="tabWelcome" onclick="switchTab('welcome')">Welcome Email</button>
+      <button class="tab-btn" id="tabInvitation" onclick="switchTab('invitation')">Invitation Email</button>
+    </div>
+
+    <!-- Welcome form -->
+    <div id="panelWelcome">
+      <p class="text-xs text-gray-500 mb-4 bg-gray-50 border border-gray-200 rounded-lg px-4 py-2">
+        <strong>Variables:</strong> <code class="bg-white border border-gray-200 px-1 rounded">&#123;&#123;firstName&#125;&#125;</code> — recipient's first name.
+      </p>
+      <div class="space-y-5">
+        <div id="fWelcomeSubjectWrap"></div>
+        <div id="fWelcomeHeadingWrap"></div>
+        <div id="fWelcomeBodyWrap"></div>
+        <div id="fWelcomeButtonTextWrap"></div>
+        <div id="fWelcomeFooterTextWrap"></div>
+      </div>
+    </div>
+
+    <!-- Invitation form -->
+    <div id="panelInvitation" class="hidden">
+      <p class="text-xs text-gray-500 mb-4 bg-gray-50 border border-gray-200 rounded-lg px-4 py-2">
+        <strong>Variables:</strong> <code class="bg-white border border-gray-200 px-1 rounded">&#123;&#123;inviterName&#125;&#125;</code> — name of the person who sent the invite.
+      </p>
+      <div class="space-y-5">
+        <div id="fInvitationSubjectWrap"></div>
+        <div id="fInvitationHeadingWrap"></div>
+        <div id="fInvitationBodyWrap"></div>
+        <div id="fInvitationButtonTextWrap"></div>
+        <div id="fInvitationFooterTextWrap"></div>
+      </div>
+    </div>
+
+    <!-- Save -->
+    <div class="mt-8 flex items-center gap-4">
+      <button id="saveBtn" onclick="save()" class="bg-burgundy text-white font-bold px-6 py-2.5 rounded-xl hover:bg-burgundy-600 transition-colors">
+        Save Templates
+      </button>
+    </div>
+  </div>
+</main>
+
+<script>
+const API = location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://api.counselorready.com';
+const T = localStorage.getItem('token');
+if (!T) location.href = '/login.html';
+const AUTH = { 'Authorization': `Bearer ${T}`, 'Content-Type': 'application/json' };
+
+const LIMITS = { subject: 200, heading: 200, body: 1000, buttonText: 50, footerText: 500 };
+const FIELDS = [
+  { key: 'subject',     label: 'Subject',      tag: 'input',    max: LIMITS.subject },
+  { key: 'heading',     label: 'Heading',      tag: 'input',    max: LIMITS.heading },
+  { key: 'body',        label: 'Body',         tag: 'textarea', max: LIMITS.body, rows: 6 },
+  { key: 'buttonText',  label: 'Button Text',  tag: 'input',    max: LIMITS.buttonText },
+  { key: 'footerText',  label: 'Footer Text',  tag: 'textarea', max: LIMITS.footerText, rows: 3 },
+];
+
+let data = {};
+
+function buildField(type, key, limit, rows) {
+  const id = `f_${type}_${key}`;
+  const wrap = document.getElementById(`f${capitalize(type)}${capitalize(key)}Wrap`);
+  const label = FIELDS.find(f => f.key === key).label;
+  const isTextarea = FIELDS.find(f => f.key === key).tag === 'textarea';
+  const elTag = isTextarea ? 'textarea' : 'input';
+  wrap.innerHTML = `
+    <label class="block text-sm font-bold text-gray-700 mb-1">${label}</label>
+    ${isTextarea
+      ? `<textarea id="${id}" rows="${rows || 4}" maxlength="${limit}"
+           class="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm font-body resize-y focus:outline-none focus:border-burgundy focus:ring-1 focus:ring-burgundy"
+           oninput="updateCounter('${id}','${id}_cnt',${limit})"></textarea>`
+      : `<input id="${id}" type="text" maxlength="${limit}"
+           class="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm font-body focus:outline-none focus:border-burgundy focus:ring-1 focus:ring-burgundy"
+           oninput="updateCounter('${id}','${id}_cnt',${limit})"/>`
+    }
+    <div class="char-counter" id="${id}_cnt">0 / ${limit}</div>
+  `;
+}
+
+function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+function updateCounter(inputId, counterId, max) {
+  const el = document.getElementById(inputId);
+  const cnt = document.getElementById(counterId);
+  const len = el.value.length;
+  cnt.textContent = `${len} / ${max}`;
+  cnt.classList.toggle('over', len > max);
+}
+
+function populate(type, obj) {
+  FIELDS.forEach(f => {
+    const el = document.getElementById(`f_${type}_${f.key}`);
+    if (!el) return;
+    el.value = obj[f.key] || '';
+    updateCounter(`f_${type}_${f.key}`, `f_${type}_${f.key}_cnt`, f.max);
+  });
+}
+
+function collect(type) {
+  const obj = {};
+  FIELDS.forEach(f => {
+    obj[f.key] = (document.getElementById(`f_${type}_${f.key}`)?.value || '').slice(0, f.max);
+  });
+  return obj;
+}
+
+function switchTab(tab) {
+  ['welcome','invitation'].forEach(t => {
+    document.getElementById(`tab${capitalize(t)}`).classList.toggle('active', t === tab);
+    document.getElementById(`panel${capitalize(t)}`).classList.toggle('hidden', t !== tab);
+  });
+}
+
+function showToast(msg, ok) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `mb-4 rounded-xl px-5 py-3 text-sm font-bold ${ok ? 'bg-hunter-50 text-hunter-700 border border-hunter-200' : 'bg-red-50 text-red-700 border border-red-200'}`;
+  el.classList.remove('hidden');
+  setTimeout(() => el.classList.add('hidden'), 4000);
+}
+
+async function load() {
+  try {
+    const res = await fetch(`${API}/api/partners/my/email-templates`, { headers: AUTH });
+    if (res.status === 401) { location.href = '/login.html'; return; }
+    data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to load templates');
+
+    // Build fields
+    FIELDS.forEach(f => {
+      buildField('welcome', f.key, f.max, f.rows);
+      buildField('invitation', f.key, f.max, f.rows);
+    });
+
+    populate('welcome', data.templates?.welcome || {});
+    populate('invitation', data.templates?.invitation || {});
+
+    document.getElementById('loadingState').classList.add('hidden');
+    document.getElementById('editorWrap').classList.remove('hidden');
+  } catch (e) {
+    document.getElementById('loadingState').classList.add('hidden');
+    const el = document.getElementById('errorState');
+    el.textContent = e.message;
+    el.classList.remove('hidden');
+  }
+}
+
+async function save() {
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+  try {
+    const body = { welcome: collect('welcome'), invitation: collect('invitation') };
+    const res = await fetch(`${API}/api/partners/my/email-templates`, {
+      method: 'PUT', headers: AUTH, body: JSON.stringify(body)
+    });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || 'Save failed');
+    showToast('Templates saved successfully.', true);
+  } catch (e) {
+    showToast(e.message, false);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Save Templates';
+  }
+}
+
+load();
+</script>
+</body>
+</html>
