@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Bulk Upload | Partner Portal | CounselorReady</title>
+<meta name="robots" content="noindex,nofollow"/>
+<meta property="og:image" content="https://www.counselorready.com/og.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?v=3.4.17"></script>
+<script src="/js/tailwind-config.js"></script>
+<style>
+  body{background:#F8F7F4;font-family:'Lato',sans-serif;}
+  .font-display{font-family:'Cormorant Garamond',serif;}
+</style>
+</head>
+<body class="min-h-screen bg-stone">
+
+<!-- Header -->
+<header class="bg-white border-b border-gray-200 px-6 py-4">
+  <div class="max-w-3xl mx-auto flex items-center justify-between">
+    <div>
+      <span class="font-display text-2xl font-bold text-burgundy">CounselorReady</span>
+      <span class="ml-3 text-sm text-gray-500">Partner Portal</span>
+    </div>
+    <a href="/partner/dashboard" class="text-sm text-hunter hover:underline font-bold">&larr; Back to Dashboard</a>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="max-w-3xl mx-auto px-6 py-10">
+  <h1 class="font-display text-4xl font-bold text-burgundy mb-1">Bulk Course Upload</h1>
+  <p class="text-gray-500 mb-8">Paste a JSON array of courses to create up to 50 at once. <!-- CSV→JSON conversion is a possible future enhancement, not missing functionality. --></p>
+
+  <!-- Upsell card (hidden by default) -->
+  <div id="upsellCard" class="hidden mb-6 bg-honey-50 border border-honey rounded-xl px-6 py-5">
+    <p class="font-bold text-gray-800 text-lg mb-1">Bulk Upload Requires an Upgrade</p>
+    <p id="upsellDetail" class="text-gray-600 text-sm mb-3"></p>
+    <p id="upsellUpgrade" class="text-burgundy font-bold text-sm"></p>
+    <a href="/partner/billing" class="mt-3 inline-block bg-burgundy text-white font-bold text-sm px-5 py-2 rounded-lg hover:bg-burgundy-600 transition-colors">View Plans</a>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="hidden mb-4 rounded-xl px-5 py-3 text-sm font-bold"></div>
+
+  <!-- Template example -->
+  <div class="mb-6 bg-white border border-gray-200 rounded-xl px-6 py-5">
+    <p class="text-sm font-bold text-gray-700 mb-2">JSON Format (minimum required fields — up to 50 courses per upload):</p>
+    <pre class="bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-xs text-gray-700 overflow-x-auto leading-relaxed">[
+  {
+    "title": "Introduction to CBT",
+    "description": "A foundational overview of Cognitive Behavioral Therapy techniques.",
+    "ceHours": 1.5
+  },
+  {
+    "title": "Trauma-Informed Care",
+    "description": "Evidence-based approaches to working with trauma survivors.",
+    "ceHours": 3,
+    "objectives": ["Identify trauma responses", "Apply grounding techniques"],
+    "categories": ["Trauma"],
+    "tags": ["TIC", "PTSD"],
+    "status": "draft"
+  }
+]</pre>
+    <p class="text-xs text-gray-400 mt-2">Only <code>title</code>, <code>description</code>, and <code>ceHours</code> are required. All other fields are optional.</p>
+  </div>
+
+  <!-- Input -->
+  <div class="mb-4">
+    <label class="block text-sm font-bold text-gray-700 mb-2">Paste JSON Array</label>
+    <textarea id="jsonInput" rows="14" placeholder='[{"title":"...","description":"...","ceHours":1}]'
+      class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-burgundy focus:ring-1 focus:ring-burgundy resize-y"></textarea>
+  </div>
+
+  <!-- Syntax error -->
+  <div id="syntaxError" class="hidden mb-4 bg-red-50 border border-red-200 text-red-700 rounded-xl px-5 py-3 text-sm"></div>
+
+  <button onclick="upload()" id="uploadBtn"
+    class="bg-burgundy text-white font-bold px-6 py-2.5 rounded-xl hover:bg-burgundy-600 transition-colors">
+    Validate &amp; Upload
+  </button>
+
+  <!-- Results -->
+  <div id="results" class="hidden mt-8">
+    <h2 class="font-display text-2xl font-semibold text-gray-800 mb-4">Upload Results</h2>
+
+    <div id="createdSection" class="hidden mb-4">
+      <p class="text-sm font-bold text-hunter mb-2" id="createdHeading"></p>
+      <div id="createdList" class="space-y-2"></div>
+    </div>
+
+    <div id="errorsSection" class="hidden">
+      <p class="text-sm font-bold text-red-600 mb-2" id="errorsHeading"></p>
+      <div id="errorsList" class="space-y-2"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+const API = location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://api.counselorready.com';
+const T = localStorage.getItem('token');
+if (!T) location.href = '/login.html';
+const AUTH = { 'Authorization': `Bearer ${T}`, 'Content-Type': 'application/json' };
+
+function showUpsell(json) {
+  document.getElementById('upsellCard').classList.remove('hidden');
+  document.getElementById('upsellDetail').textContent = json.detail || json.error || '';
+  document.getElementById('upsellUpgrade').textContent = json.upgrade || '';
+}
+
+function showToast(msg, ok) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `mb-4 rounded-xl px-5 py-3 text-sm font-bold ${ok ? 'bg-hunter-50 text-hunter-700 border border-hunter-200' : 'bg-red-50 text-red-700 border border-red-200'}`;
+  el.classList.remove('hidden');
+  setTimeout(() => el.classList.add('hidden'), 5000);
+}
+
+async function upload() {
+  const btn = document.getElementById('uploadBtn');
+  const syntaxEl = document.getElementById('syntaxError');
+  syntaxEl.classList.add('hidden');
+  document.getElementById('results').classList.add('hidden');
+
+  const raw = document.getElementById('jsonInput').value.trim();
+  if (!raw) { syntaxEl.textContent = 'Paste a JSON array first.'; syntaxEl.classList.remove('hidden'); return; }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (e) {
+    syntaxEl.textContent = 'Invalid JSON: ' + e.message;
+    syntaxEl.classList.remove('hidden');
+    return;
+  }
+
+  if (!Array.isArray(parsed)) {
+    syntaxEl.textContent = 'Expected a JSON array (starting with "[").';
+    syntaxEl.classList.remove('hidden');
+    return;
+  }
+
+  if (parsed.length > 50) {
+    syntaxEl.textContent = `Too many courses: ${parsed.length} provided, max is 50.`;
+    syntaxEl.classList.remove('hidden');
+    return;
+  }
+
+  btn.disabled = true; btn.textContent = 'Uploading…';
+  try {
+    const res = await fetch(`${API}/api/partners/my/courses/bulk`, {
+      method: 'POST', headers: AUTH, body: JSON.stringify({ courses: parsed })
+    });
+    const json = await res.json();
+
+    if (res.status === 403 && json.code === 'FEATURE_NOT_AVAILABLE') { showUpsell(json); return; }
+    if (!res.ok && res.status !== 201) throw new Error(json.error || 'Upload failed');
+
+    renderResults(json);
+    showToast(json.message || 'Upload complete.', true);
+  } catch (e) {
+    showToast(e.message, false);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Validate & Upload';
+  }
+}
+
+function renderResults({ created = [], errors = [] }) {
+  const results = document.getElementById('results');
+  results.classList.remove('hidden');
+
+  const createdSection = document.getElementById('createdSection');
+  const errorsSection = document.getElementById('errorsSection');
+
+  if (created.length > 0) {
+    createdSection.classList.remove('hidden');
+    document.getElementById('createdHeading').textContent = `${created.length} course${created.length !== 1 ? 's' : ''} created successfully:`;
+    const list = document.getElementById('createdList');
+    list.innerHTML = '';
+    created.forEach(c => {
+      const row = document.createElement('div');
+      row.className = 'bg-hunter-50 border border-hunter-200 rounded-lg px-4 py-2.5 flex items-center gap-3';
+      row.innerHTML = `
+        <svg class="w-4 h-4 text-hunter flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span class="text-sm font-bold text-hunter-700">${escHtml(c.title)}</span>
+        <code class="text-xs text-hunter-500 ml-auto">${escHtml(c.slug || '')}</code>
+      `;
+      list.appendChild(row);
+    });
+  } else {
+    createdSection.classList.add('hidden');
+  }
+
+  if (errors.length > 0) {
+    errorsSection.classList.remove('hidden');
+    document.getElementById('errorsHeading').textContent = `${errors.length} course${errors.length !== 1 ? 's' : ''} failed:`;
+    const list = document.getElementById('errorsList');
+    list.innerHTML = '';
+    errors.forEach(e => {
+      const row = document.createElement('div');
+      row.className = 'bg-red-50 border border-red-200 rounded-lg px-4 py-2.5';
+      row.innerHTML = `
+        <div class="flex items-center gap-2 mb-0.5">
+          <span class="text-xs font-bold text-red-500 uppercase">Row ${e.index + 1}</span>
+          <span class="text-sm font-bold text-red-700">${escHtml(e.title || '(untitled)')}</span>
+        </div>
+        <p class="text-xs text-red-600">${escHtml(e.error || 'Unknown error')}</p>
+      `;
+      list.appendChild(row);
+    });
+  } else {
+    errorsSection.classList.add('hidden');
+  }
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
