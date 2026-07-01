@@ -5,7 +5,7 @@ const User = require('../models/User');
 
 const router = express.Router();
 
-const FREE_CASE_LIMIT = 5;
+const FREE_CASE_LIMIT = 10;
 
 // Middleware: resolves subscription tier and attaches req.accessLevel.
 // 'free'  — no token, or expired paid tier
