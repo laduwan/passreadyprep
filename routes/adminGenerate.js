@@ -9,6 +9,7 @@ const { validateCase } = require('../tools/cases/caseSchema');
 const { ALLOWED_SOURCES } = require('../tools/cases/references');
 const { SEED_CASES } = require('../tools/cases/seed-cases');
 const dedup = require('../tools/cases/dedup');
+const { validateExamDepth } = require('../tools/cases/examDepth');
 
 const router = express.Router();
 router.use(requireAdmin);
@@ -105,6 +106,39 @@ async function nextExternalId() {
   return 'ncmhce-G' + String(max + 1).padStart(3, '0');
 }
 
+// ── Deep-case helpers (13 questions, 3 sections) ────────────────────
+const DEEP_DOMAIN_PLAN = ['intake','intake','intake','core','core','treatment','treatment','treatment','treatment','counseling','counseling','ethics','ethics'];
+
+// Next D-id from the DB max (numeric, not lexical) + 1. Safer than the CLI's
+// in-memory snapshot because it reads live state at allocation time.
+async function nextDeepExternalId() {
+  const docs = await ContentItem.find({ externalId: /^ncmhce-D/ }).select('externalId').lean();
+  let max = 100;
+  docs.forEach((d) => { const m = /ncmhce-D(\d+)/.exec(d.externalId || ''); if (m) max = Math.max(max, parseInt(m[1], 10)); });
+  return 'ncmhce-D' + (max + 1);
+}
+
+function buildDeepPrompt(category, diagnosisName, diagnosisCode, difficulty, exemplar) {
+  const schema = `Return ONE JSON object only (no markdown, no prose) shaped exactly like the EXAMPLE deep case below: keys id,title,category,difficulty,primaryDiagnosis{name,code},narrative{intake,session1,session2},diagnosticRationale,questions[],references[].
+HARD REQUIREMENTS:
+- EXACTLY 13 questions. Their "domain" values, in order q1..q13, MUST be: ${DEEP_DOMAIN_PLAN.join(', ')}.
+- Each question: 4 options; exactly ONE isCorrect:true with weight 3; the other three weight 0, -1, or -2 by how clinically wrong they are.
+- The correct option must NOT be the longest of the four; keep all four options parallel, plausible, and similar in length.
+- Each option has a one-line "rationale". The keyed correct option also has "explanation":{approach,rationale,keyIndicators:[..],commonMistake}.
+- Each question carries a non-empty "evidenceRef":["R1",..] pointing at references[].id.
+- "references" entries use only these source names: ${ALLOWED_SOURCES.join('; ')}.
+- narrative.intake + session1 + session2 are three escalating clinical sections (intake, then two sessions).
+- Reflect client diversity and culturally responsive practice; never stereotype. Output ONLY the JSON object.`;
+  return `Write a deep NCMHCE case: category "${category}", primary diagnosis "${diagnosisName}" (${diagnosisCode}), difficulty ${difficulty}. The diagnosis is GIVEN to the test-taker; the 13 questions test what a competent clinician does next across assessment, treatment planning, counseling skill, and ethics. Make the client demographically specific and the scenario distinct.
+
+${schema}
+
+EXAMPLE (different diagnosis — match this structure and depth exactly):
+${JSON.stringify(exemplar, null, 1)}
+
+Now output ONLY the JSON for the requested case.`;
+}
+
 function parseCase(text) {
   let t = text.trim().replace(/^```(json)?/i, '').replace(/```$/, '').trim();
   const first = t.indexOf('{');
@@ -157,6 +191,74 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ error: 'Diagnosis name and code are required' });
 
   try {
+    // ── DEEP-CASE PATH (13 questions, 3 sections) ─────────────────────
+    if (req.body && req.body.depth === 'deep') {
+      let dexam = await Exam.findOne({ key: 'ncmhce' });
+      const exDoc = dexam
+        ? await ContentItem.findOne({ examId: dexam._id, format: 'case_sim', 'caseSim.questions.10': { $exists: true } }).select('caseSim').lean()
+        : null;
+      let deepExemplar = (exDoc && exDoc.caseSim) || null;
+      if (!deepExemplar) {
+        try { deepExemplar = require('../tools/cases/exemplar-deep-mdd').CASES[0]; } catch (e) { deepExemplar = pickExemplar(category); }
+      }
+
+      const deepPrompt = buildDeepPrompt(category, diagnosisName, diagnosisCode, difficulty, deepExemplar);
+      const dRes = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
+        body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 16000, messages: [{ role: 'user', content: deepPrompt }] }),
+      });
+      if (!dRes.ok) {
+        const t = await dRes.text().catch(() => '');
+        return res.status(502).json({ error: 'Anthropic API error (' + dRes.status + ')', detail: t.slice(0, 500) });
+      }
+      const dData = await dRes.json();
+      const dRaw = (dData.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('\n');
+      let deepCase;
+      try { deepCase = parseCase(dRaw); } catch (e) {
+        return res.status(422).json({ error: 'Could not parse JSON from model response', raw: dRaw.slice(0, 1000) });
+      }
+      deepCase.category = category;
+      deepCase.id = await nextDeepExternalId();
+
+      const dv = validateExamDepth(deepCase);
+      if (!dv.ok) {
+        return res.status(422).json({
+          error: 'Generated deep case failed depth validation',
+          validationErrors: (dv.errors || []).slice(0, 10),
+          warnings: (dv.warnings || []).slice(0, 5),
+          casePreview: { title: deepCase.title, category: deepCase.category, questionCount: (deepCase.questions || []).length },
+        });
+      }
+
+      let dexam2 = dexam || await Exam.findOne({ key: 'ncmhce' });
+      if (!dexam2) dexam2 = await Exam.create({ key: 'ncmhce', name: 'NCMHCE', profession: 'counseling', board: 'NBCC', formatsSupported: ['case_sim'], status: 'live' });
+
+      // Insert-only with collision guard so a concurrent cron run can't be overwritten.
+      let saved = null;
+      for (let attempt = 0; attempt < 5 && !saved; attempt++) {
+        if (await ContentItem.exists({ externalId: deepCase.id })) { deepCase.id = await nextDeepExternalId(); continue; }
+        try {
+          saved = await ContentItem.create({
+            examId: dexam2._id, externalId: deepCase.id, format: 'case_sim',
+            title: deepCase.title, category: deepCase.category, difficulty: deepCase.difficulty,
+            references: deepCase.references || [], status: 'sme_review', caseSim: deepCase,
+          });
+        } catch (e) {
+          if (e && e.code === 11000) { deepCase.id = await nextDeepExternalId(); continue; }
+          throw e;
+        }
+      }
+      if (!saved) return res.status(409).json({ error: 'Could not allocate a unique deep-case id (collision). Try again.' });
+
+      return res.json({
+        externalId: saved.externalId, title: saved.title, category: saved.category,
+        difficulty: saved.difficulty, status: saved.status, depth: 'deep',
+        questionCount: (deepCase.questions || []).length, warnings: dv.warnings || [],
+      });
+    }
+    // ── end deep path ─────────────────────────────────────────────────
+
     // Assemble context
     const seed = Date.now();
     const domainPlan = domainPlanFor(seed);
