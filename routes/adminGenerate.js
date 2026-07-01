@@ -180,9 +180,10 @@ router.get('/coverage', async (_req, res) => {
 
 // ── POST /api/admin/generate — generate a new case via Anthropic API
 router.post('/', async (req, res) => {
-  const { category, difficulty, diagnosisName, diagnosisCode, apiKey } = req.body || {};
+  const { category, difficulty, diagnosisName, diagnosisCode, apiKey: pastedKey } = req.body || {};
+  const apiKey = process.env.ANTHROPIC_API_KEY || pastedKey;  // server key wins; paste is fallback
 
-  if (!apiKey) return res.status(400).json({ error: 'Anthropic API key is required' });
+  if (!apiKey) return res.status(400).json({ error: 'No Anthropic API key available. Set ANTHROPIC_API_KEY on the server, or paste a key.' });
   if (!category || !bp.CATEGORY_NAMES.includes(category))
     return res.status(400).json({ error: 'Invalid category' });
   if (!['easy', 'medium', 'hard'].includes(difficulty))

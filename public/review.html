@@ -252,7 +252,7 @@ async function showGenerate(){
   });
   h += '</select>';
 
-  h += '<label for="gen-key">Anthropic API Key</label>';
+  h += '<label for="gen-key">Anthropic API Key <span style="opacity:.6;font-weight:400">(optional \u2014 uses server key if blank)</span></label>';
   h += '<input type="password" id="gen-key" placeholder="sk-ant-api03-…" value="'+esc(getApiKey())+'" />';
   h += '<div class="key-note">Stored in this browser tab only. Sent to your server for the API call — never logged or saved.</div>';
 
@@ -312,8 +312,7 @@ function genDepth(){ var el=document.getElementById('gen-depth'); return (el && 
 async function runGenerate(){
   const mode = document.getElementById('gen-mode').value;
   const apiKey = document.getElementById('gen-key').value.trim();
-  if(!apiKey){ alert('Enter your Anthropic API key.'); return; }
-  setApiKey(apiKey);
+  if(apiKey){ setApiKey(apiKey); }  // blank is fine \u2014 server falls back to ANTHROPIC_API_KEY
 
   if(mode === 'single') return runSingle();
   if(mode === 'batch') return runBatch();
