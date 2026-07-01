@@ -123,7 +123,7 @@ function buildDeepPrompt(category, diagnosisName, diagnosisCode, difficulty, exe
 HARD REQUIREMENTS:
 - EXACTLY 13 questions. Their "domain" values, in order q1..q13, MUST be: ${DEEP_DOMAIN_PLAN.join(', ')}.
 - Each question: 4 options; exactly ONE isCorrect:true with weight 3; the other three weight 0, -1, or -2 by how clinically wrong they are.
-- The correct option must NOT be the longest of the four; keep all four options parallel, plausible, and similar in length.
+- CRITICAL LENGTH RULE: on EVERY question, make one INCORRECT option the longest of the four. The keyed correct answer must be mid-length or shorter and must NEVER be the longest option. Before finalizing each question, compare the four option lengths; if the correct one is longest, lengthen a distractor with plausible clinical detail until a distractor is clearly the longest. Keep all four options parallel, plausible, and clinically realistic.
 - Each option has a one-line "rationale". The keyed correct option also has "explanation":{approach,rationale,keyIndicators:[..],commonMistake}.
 - Each question carries a non-empty "evidenceRef":["R1",..] pointing at references[].id.
 - "references" entries use only these source names: ${ALLOWED_SOURCES.join('; ')}.
