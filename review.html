@@ -1,4 +1,4 @@
-<!doctype html>
+review.html<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -242,8 +242,6 @@ async function showGenerate(){
   h += '<option value="easy">Easy</option><option value="medium" selected>Medium</option><option value="hard">Hard</option>';
   h += '</select></div></div>';
 
-  h += '<label for="gen-depth">Depth</label>';
-  h += '<select id="gen-depth"><option value="shallow">Standard \u2014 5 questions</option><option value="deep">Deep \u2014 13 questions, 3 sections</option></select>';
   h += '<label for="gen-dx">Diagnosis</label>';
   h += '<select id="gen-dx">';
   const firstCat = bp.categories[0];
@@ -307,8 +305,6 @@ let BATCH_STOP = false;
 
 function stopBatch(){ BATCH_STOP = true; }
 
-function genDepth(){ var el=document.getElementById('gen-depth'); return (el && el.value)||'shallow'; }
-
 async function runGenerate(){
   const mode = document.getElementById('gen-mode').value;
   const apiKey = document.getElementById('gen-key').value.trim();
@@ -341,7 +337,7 @@ async function runSingle(){
   try{
     const data = await api('/api/admin/generate', {
       method: 'POST',
-      body: JSON.stringify({ category: cat, difficulty: diff, diagnosisName, diagnosisCode, apiKey, depth: genDepth() }),
+      body: JSON.stringify({ category: cat, difficulty: diff, diagnosisName, diagnosisCode, apiKey }),
     });
     result.innerHTML = successCard(data);
     status.innerHTML = '';
@@ -363,7 +359,7 @@ async function runBatch(){
   const count = Math.min(50, Math.max(1, parseInt(document.getElementById('gen-count').value)||5));
   const [diagnosisName, diagnosisCode] = dxVal.split('|');
 
-  await runLoop(count, ()=>({category:cat, difficulty:diff, diagnosisName, diagnosisCode, apiKey, depth: genDepth()}));
+  await runLoop(count, ()=>({category:cat, difficulty:diff, diagnosisName, diagnosisCode, apiKey}));
 }
 
 // ── Auto-fill: read coverage gaps, pick targets ─────────────────────
@@ -397,7 +393,7 @@ async function runAutoFill(){
       const dx = catObj.diagnoses[(round + filled) % catObj.diagnoses.length];
       const diffs = ['easy','medium','hard'];
       const diff = diffs[(round + filled) % 3] || 'medium';
-      targets.push({ category:g.category, difficulty:diff, diagnosisName:dx.name, diagnosisCode:dx.code, apiKey, depth: genDepth() });
+      targets.push({ category:g.category, difficulty:diff, diagnosisName:dx.name, diagnosisCode:dx.code, apiKey });
       added = true;
     }
     round++;
