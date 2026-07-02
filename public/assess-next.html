@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — What to Assess Next</title>
+<meta name="description" content="Assessment-selection practice for the NCMHCE: read a vignette and choose what to administer, screen, gather, or rule out next — with the right instrument and the right sequence.">
+<link rel="canonical" href="https://www.passreadyprep.com/assess-next.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PassReady Prep">
+<meta property="og:title" content="PassReady Prep — What to Assess Next">
+<meta property="og:description" content="Vignette-based NCMHCE assessment drill: pick the right instrument or assessment step next, and learn the sequencing rule.">
+<meta property="og:url" content="https://www.passreadyprep.com/assess-next.html">
+<meta property="og:image" content="https://www.passreadyprep.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PassReady Prep — What to Assess Next">
+<meta name="twitter:description" content="Vignette-based NCMHCE assessment drill: pick the right assessment step next.">
+<meta name="twitter:image" content="https://www.passreadyprep.com/og.png">
+<style>
+  :root{
+    --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+    --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
+    --emerald:#10B981; --emerald-400:#34D399; --blue-400:#60A5FA; --amber-400:#FBBF24;
+    --red-400:#F87171; --purple-400:#A78BFA;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --r-xl:16px; --r-lg:12px;
+    --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:linear-gradient(160deg,#0F172A,#1E293B 50%,#0F172A);background-attachment:fixed;
+    color:var(--slate-200);font-family:var(--sans);font-size:16px;line-height:1.55}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 64px}
+  a{color:var(--emerald-400)}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 20px}
+  .bw{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+  .bc{width:38px;height:38px;border-radius:11px;background:rgba(16,185,129,.16);display:grid;place-items:center}
+  .bc svg{width:21px;height:21px;color:var(--emerald-400)}
+  .bn{font-weight:700;font-size:18px;color:var(--white)}.bn .p{color:var(--emerald-400)}
+  h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700}
+  .lead{color:var(--slate-400);margin:0 0 16px}
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-xl);padding:18px 20px;margin-bottom:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font:inherit;font-weight:700;
+    background:var(--emerald);color:#04261C;border:none;border-radius:10px;padding:12px 20px}
+  .btn:hover{background:var(--emerald-400)}
+  .btn-s{background:rgba(51,65,85,.5);color:var(--slate-200)}.btn-s:hover{background:rgba(51,65,85,.8)}
+  .badge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:4px 10px;border-radius:999px;text-transform:uppercase}
+  .b-em{color:var(--emerald-400);background:rgba(16,185,129,.15)}
+  .b-sl{color:var(--slate-300);background:rgba(51,65,85,.5)}
+  .flt{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+  .fb{cursor:pointer;font:inherit;font-size:12px;font-weight:600;border-radius:999px;padding:5px 12px;
+    border:1px solid var(--card-border);background:rgba(51,65,85,.4);color:var(--slate-300)}
+  .fb:hover{background:rgba(51,65,85,.7)}
+  .fb[aria-pressed="true"]{background:var(--emerald);color:#04261C;border-color:var(--emerald)}
+  .scoreline{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--slate-400);margin:0 2px 10px}
+  .scenario{background:linear-gradient(135deg,rgba(59,130,246,.10),rgba(139,92,246,.06));
+    border:1px solid var(--card-border);border-radius:var(--r-lg);padding:16px 18px;margin:2px 0 14px;color:var(--slate-200)}
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{text-align:left;cursor:pointer;font:inherit;color:var(--slate-200);background:rgba(51,65,85,.35);
+    border:1.5px solid var(--card-border);border-radius:10px;padding:13px 15px;transition:background .12s,border-color .12s}
+  .opt:hover:not(:disabled){background:rgba(51,65,85,.6)}
+  .opt:disabled{cursor:default}
+  .opt.correct{background:rgba(16,185,129,.14);border-color:rgba(16,185,129,.55)}
+  .opt.wrong{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.5)}
+  .opt .mk{font-weight:700;margin-right:6px}
+  .why{margin-top:8px;font-size:13.5px;color:var(--slate-300);padding-left:2px}
+  .why.ok{color:var(--emerald-400)}
+  .why.no{color:var(--red-400)}
+  .rulebox{margin-top:14px;border-left:3px solid var(--emerald);background:rgba(16,185,129,.08);
+    border-radius:8px;padding:11px 14px;font-size:14px;color:var(--slate-200)}
+  .rulebox .rl{font-weight:700;color:var(--emerald-400);display:block;margin-bottom:3px;font-size:12px;letter-spacing:.03em;text-transform:uppercase}
+  .ref{font-size:12px;color:var(--slate-500);margin-top:8px}
+  .row{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap}
+  .done{text-align:center;padding:28px 18px}
+  .done .big{font-size:34px;font-weight:800;color:var(--white)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="bw" href="/study">
+      <span class="bc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l-6-6 6-6"/><path d="M3 12h18"/></svg></span>
+      <span class="bn">PassReady<span class="p"> Prep</span></span>
+    </a>
+    <span class="badge b-em">What to Assess Next</span>
+  </header>
+
+  <h1>What to Assess Next</h1>
+  <p class="lead">Read the vignette and choose what to <strong>administer, screen, gather, or rule out</strong> next &mdash; the right instrument and the right order. Each answer shows why it fits, why the others are premature or wrong-tool, and the sequencing rule the exam rewards.</p>
+
+  <div class="flt" id="filters"></div>
+  <div class="scoreline"><span id="progress"></span><span id="score"></span></div>
+  <div id="stage"></div>
+</div>
+
+<script src="/assess-data.js"></script>
+<script>
+(function(){
+  var ITEMS = (typeof ASSESS_ITEMS !== 'undefined') ? ASSESS_ITEMS : [];
+  var cats = ['All'].concat(Array.from(new Set(ITEMS.map(function(i){return i.cat;}))).sort());
+  var filter = 'All', queue = [], idx = 0, answered = false, correct = 0, total = 0;
+
+  function shuffle(a){ a = a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+  function build(){ queue = shuffle(ITEMS.filter(function(i){return filter==='All'||i.cat===filter;})); idx=0; answered=false; correct=0; total=0; render(); }
+
+  function renderFilters(){
+    var f = document.getElementById('filters'); f.innerHTML='';
+    cats.forEach(function(c){
+      var b=document.createElement('button'); b.className='fb'; b.textContent=c;
+      b.setAttribute('aria-pressed', c===filter ? 'true':'false');
+      b.onclick=function(){ filter=c; build(); };
+      f.appendChild(b);
+    });
+  }
+
+  function render(){
+    renderFilters();
+    var stage=document.getElementById('stage');
+    var prog=document.getElementById('progress'), sc=document.getElementById('score');
+    if(idx>=queue.length){
+      prog.textContent=''; sc.textContent='';
+      var pct = total? Math.round(correct/total*100):0;
+      stage.innerHTML='<div class="card done"><div class="big">'+correct+' / '+total+'</div>'+
+        '<p class="lead" style="margin:8px 0 16px">'+pct+'% correct on this set.</p>'+
+        '<button class="btn" id="again">Restart set</button></div>';
+      document.getElementById('again').onclick=build;
+      return;
+    }
+    var it=queue[idx];
+    prog.textContent='Item '+(idx+1)+' of '+queue.length;
+    sc.textContent = total? (correct+'/'+total+' correct') : '';
+    var opts = shuffle(it.options);
+    var h='<div class="card">';
+    h+='<span class="badge b-sl">'+it.cat+'</span>';
+    h+='<div class="scenario">'+it.scenario+'</div>';
+    h+='<div class="opts" id="opts"></div>';
+    h+='<div id="fb"></div>';
+    h+='</div>';
+    stage.innerHTML=h;
+    var wrap=document.getElementById('opts');
+    opts.forEach(function(o,k){
+      var b=document.createElement('button'); b.className='opt'; b.type='button';
+      b.innerHTML='<span class="mk">'+String.fromCharCode(65+k)+'.</span>'+o.t;
+      b.onclick=function(){ choose(it, o, opts, wrap); };
+      wrap.appendChild(b);
+    });
+    answered=false;
+  }
+
+  function choose(it, chosen, opts, wrap){
+    if(answered) return; answered=true; total++;
+    if(chosen.ok) correct++;
+    var buttons=wrap.querySelectorAll('.opt');
+    buttons.forEach(function(b,k){
+      b.disabled=true;
+      var o=opts[k];
+      if(o.ok) b.classList.add('correct');
+      else if(o===chosen) b.classList.add('wrong');
+    });
+    var fb=document.getElementById('fb');
+    var chWhy = chosen.ok
+      ? '<div class="why ok">\u2713 Correct \u2014 '+chosen.why+'</div>'
+      : '<div class="why no">\u2717 '+chosen.why+'</div>';
+    var corr = opts.filter(function(o){return o.ok;})[0];
+    var corrWhy = chosen.ok ? '' : '<div class="why ok">Correct step: '+corr.t+' \u2014 '+corr.why+'</div>';
+    var rule='<div class="rulebox"><span class="rl">Assessment rule</span>'+it.rule+'<div class="ref">Basis: '+(it.ref||'')+'</div></div>';
+    fb.innerHTML=chWhy+corrWhy+rule+
+      '<div class="row"><button class="btn" id="next">'+(idx+1>=queue.length?'See results':'Next')+'</button>'+
+      '<span style="font-size:13px;color:var(--slate-500)">'+(correct)+'/'+total+' correct</span></div>';
+    document.getElementById('next').onclick=function(){ idx++; render(); };
+    document.getElementById('score').textContent=correct+'/'+total+' correct';
+  }
+
+  if(!ITEMS.length){ document.getElementById('stage').innerHTML='<div class="card">Items failed to load.</div>'; return; }
+  build();
+})();
+</script>
+</body>
+</html>
