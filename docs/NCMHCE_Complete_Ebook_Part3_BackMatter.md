@@ -446,6 +446,21 @@ Yalom, I. D., & Leszcz, M. (2020). *The theory and practice of group psychothera
 
 ---
 
+## Take Your Prep Further — Save 10%
+
+**Ready to practice the way the exam actually tests you?**
+
+This guide taught you the reasoning. **PassReadyPrep** puts it under exam conditions — full-length case simulations, adaptive practice questions, and voice-driven examiner sessions built for the NCMHCE's 2022+ format.
+
+> ### 🎓 Readers save 10%
+> Use code **PASSREADY10** at checkout
+>
+> **www.passreadyprep.com**
+
+*One code per customer. Discount applies to your first purchase or subscription term.*
+
+---
+
 *The Complete NCMHCE Study Guide — CounselorReady™ Exam Prep Series*
 *GA Integrated Therapeutic Perspectives LLC · Copyright © 2026 · All rights reserved.*
 
