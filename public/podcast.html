@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — Clinical Podcast</title>
+<meta name="description" content="Short clinical audio deep-dives for NCMHCE prep — diagnostic reasoning, the mood, anxiety, trauma, substance, personality, psychotic, OCD, eating, neurodevelopmental and somatic families, plus crisis protocols and the MSE.">
+<link rel="canonical" href="https://www.passreadyprep.com/podcast.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PassReady Prep">
+<meta property="og:title" content="PassReady Prep — Clinical Podcast">
+<meta property="og:description" content="Short clinical audio deep-dives for NCMHCE prep. Listen on the go and pair each with the matching cases, decision trees, and DSM reference.">
+<meta property="og:url" content="https://www.passreadyprep.com/podcast.html">
+<meta property="og:image" content="https://www.passreadyprep.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PassReady Prep — Clinical Podcast">
+<meta name="twitter:description" content="Short clinical audio deep-dives for NCMHCE prep. Listen on the go.">
+<meta name="twitter:image" content="https://www.passreadyprep.com/og.png">
+<style>
+  :root{--slate-900:#0F172A;--slate-800:#1E293B;--slate-700:#334155;--slate-600:#475569;--slate-500:#64748B;--slate-400:#94A3B8;--slate-300:#CBD5E1;--slate-200:#E2E8F0;--white:#F8FAFC;--emerald:#10B981;--emerald-400:#34D399;--blue-400:#60A5FA;--amber-400:#FBBF24;--purple-400:#A78BFA;--sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--r-lg:12px;--card:rgba(30,41,59,.55);--card-border:rgba(51,65,85,.6)}
+  *{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(160deg,#0F172A,#1E293B 50%,#0F172A);background-attachment:fixed;color:var(--slate-200);font-family:var(--sans);font-size:16px;line-height:1.55}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 64px}a{color:var(--emerald-400)}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 20px}
+  .bw{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+  .bc{width:38px;height:38px;border-radius:11px;background:rgba(16,185,129,.16);display:grid;place-items:center}
+  .bc svg{width:21px;height:21px;color:var(--emerald-400)}
+  .bn{font-weight:700;font-size:18px;color:var(--white)}.bn .p{color:var(--emerald-400)}
+  h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700}
+  .lead{color:var(--slate-400);margin:0 0 16px}
+  .note{background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:14px;color:var(--slate-300)}
+  .note strong{color:var(--purple-400)}
+  .search{width:100%;font:inherit;font-size:16px;padding:12px 16px;border:1.5px solid var(--card-border);border-radius:var(--r-lg);background:rgba(30,41,59,.6);color:var(--white);margin-bottom:14px}
+  .search:focus{outline:none;border-color:var(--emerald);box-shadow:0 0 0 3px rgba(16,185,129,.2)}
+  .search::placeholder{color:var(--slate-500)}
+  .flt{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px}
+  .fb{cursor:pointer;font:inherit;font-size:12px;font-weight:600;border-radius:999px;padding:5px 12px;border:1px solid var(--card-border);background:rgba(51,65,85,.4);color:var(--slate-300)}
+  .fb:hover{background:rgba(51,65,85,.7)}.fb[aria-pressed="true"]{background:var(--emerald);color:#04261C;border-color:var(--emerald)}
+  .count{color:var(--slate-400);font-size:14px;margin:10px 0 12px}
+  .cat-hd{font-size:14px;font-weight:700;color:var(--emerald-400);text-transform:uppercase;letter-spacing:.05em;margin:22px 0 8px;padding:0 2px}
+  .ep{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-lg);padding:15px 16px;margin-bottom:11px;transition:border-color .15s}
+  .ep:hover{border-color:rgba(16,185,129,.4)}
+  .ep-top{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+  .ep-num{color:var(--slate-500);font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
+  .slot{font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--blue-400);background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.25);border-radius:6px;padding:1px 7px;white-space:nowrap}
+  .ep-title{font-weight:700;color:var(--white);font-size:16px}
+  .ep-dur{margin-left:auto;color:var(--slate-400);font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .ep-desc{margin-top:7px;font-size:14px;color:var(--slate-300);line-height:1.5}
+  .ep-pairs{margin-top:7px;font-size:13px;color:var(--slate-400)}
+  .ep-pairs strong{color:var(--emerald-400);font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-right:6px}
+  audio{width:100%;margin-top:11px;height:38px}
+  .ep-missing{margin-top:11px;font-size:13px;color:var(--amber-400);background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);border-radius:10px;padding:8px 12px}
+  .empty{text-align:center;padding:40px;color:var(--slate-400)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="bw" href="/">
+      <span class="bc" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
+      <span class="bn">PassReady <span class="p">Prep</span></span>
+    </a>
+    <a href="/" style="font-size:13px;font-weight:600;color:var(--slate-400);text-decoration:none">&lsaquo; Back to cases</a>
+  </header>
+  <main>
+    <h1>Clinical podcast</h1>
+    <p class="lead" id="lead">Short clinical deep-dives across the diagnostic families the NCMHCE tests. Listen on the go, then drill the same material in the cases, decision trees, and DSM reference.</p>
+    <div class="note"><strong>How to use this</strong> &mdash; Each episode maps to a slot in the NCMHCE curriculum (shown on its badge). Listen before or after the matching case simulations to hear the reasoning out loud, then use flashcards for recall. The <em>Diagnostic reasoning &amp; skills</em> episodes are the foundation &mdash; start there.</div>
+    <input class="search" id="q" type="search" placeholder="Search by title, topic, slot, or category&hellip;" autocomplete="off" />
+    <div class="flt" id="flt"></div>
+    <div class="count" id="count"></div>
+    <div id="list"></div>
+  </main>
+</div>
+<script src="/podcast-data.js"></script>
+<script>
+(function(){
+  var esc=function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
+  var BASE=(typeof PODCAST_AUDIO_BASE==='string')?PODCAST_AUDIO_BASE:'/audio/';
+  var EPS=(typeof PODCAST_EPISODES!=='undefined')?PODCAST_EPISODES:[];
+  var CATS=[]; EPS.forEach(function(e){ if(CATS.indexOf(e.cat)<0) CATS.push(e.cat); });
+  var activeCat='', query='';
+
+  // lead runtime summary
+  var totSec=EPS.reduce(function(a,e){return a+(e.secs||0);},0);
+  var hrs=Math.floor(totSec/3600), mins=Math.round((totSec%3600)/60);
+  var lead=document.getElementById('lead');
+  lead.textContent=EPS.length+' clinical deep-dives'+(totSec? ' \u2014 about '+(hrs?hrs+' hr ':'')+mins+' min total':'')+
+    '. Listen on the go, then drill the same material in the cases, decision trees, and DSM reference.';
+
+  var flt=document.getElementById('flt');
+  var fbtns='<button class="fb" aria-pressed="true" data-cat="">All</button>';
+  CATS.forEach(function(c){ fbtns+='<button class="fb" aria-pressed="false" data-cat="'+esc(c)+'">'+esc(c)+'</button>'; });
+  flt.innerHTML=fbtns;
+  flt.addEventListener('click',function(ev){
+    var b=ev.target.closest('.fb'); if(!b) return;
+    activeCat=b.getAttribute('data-cat');
+    [].forEach.call(flt.querySelectorAll('.fb'),function(x){ x.setAttribute('aria-pressed', x===b?'true':'false'); });
+    render();
+  });
+  document.getElementById('q').addEventListener('input',function(e){ query=e.target.value.toLowerCase().trim(); render(); });
+
+  function matches(e){
+    if(activeCat && e.cat!==activeCat) return false;
+    if(!query) return true;
+    return (e.title+' '+e.desc+' '+e.cat+' '+e.pairs+' '+e.slot).toLowerCase().indexOf(query)>=0;
+  }
+  function epHtml(e){
+    var src=BASE+encodeURIComponent(e.file);
+    var h='<div class="ep"><div class="ep-top">';
+    h+='<span class="ep-num">'+(e.num<10?'0'+e.num:e.num)+'</span>';
+    if(e.slot) h+='<span class="slot">'+esc(e.slot)+'</span>';
+    h+='<span class="ep-title">'+esc(e.title)+'</span>';
+    h+='<span class="ep-dur">'+esc(e.dur)+'</span></div>';
+    h+='<div class="ep-desc">'+esc(e.desc)+'</div>';
+    if(e.pairs) h+='<div class="ep-pairs"><strong>Pairs with</strong>'+esc(e.pairs)+'</div>';
+    h+='<audio controls preload="none" src="'+src+'" '
+      +'onerror="this.style.display=\'none\';var m=document.createElement(\'div\');m.className=\'ep-missing\';m.textContent=\'Audio not loaded yet \\u2014 set PODCAST_AUDIO_BASE in podcast-data.js to where these files are hosted.\';this.parentNode.appendChild(m);"></audio>';
+    h+='</div>';
+    return h;
+  }
+  function render(){
+    var list=document.getElementById('list');
+    var shown=EPS.filter(matches);
+    document.getElementById('count').textContent=shown.length+' of '+EPS.length+' episode'+(EPS.length===1?'':'s');
+    if(!shown.length){ list.innerHTML='<div class="empty">No episodes match that search.</div>'; return; }
+    var html='';
+    CATS.forEach(function(c){
+      var inCat=shown.filter(function(e){return e.cat===c;});
+      if(!inCat.length) return;
+      html+='<div class="cat-hd">'+esc(c)+'</div>';
+      inCat.forEach(function(e){ html+=epHtml(e); });
+    });
+    list.innerHTML=html;
+  }
+  render();
+})();
+</script>
+</body>
+</html>
