@@ -40,13 +40,13 @@
 
   <!-- constellation: abstract head/mind motif -->
   <g stroke="#059669" stroke-width="2.5" opacity="0.75" fill="none">
-    <polyline points="380,560 470,470 600,430 730,470 820,560 840,680 780,790 660,850 540,850 420,790 360,680 380,560"/>
-    <polyline points="470,470 540,600 600,430"/>
-    <polyline points="540,600 660,600 730,470"/>
-    <polyline points="540,600 500,720 660,600 700,720"/>
-    <polyline points="500,720 600,780 700,720"/>
-    <polyline points="420,790 500,720"/>
-    <polyline points="700,720 780,790"/>
+    <polyline fill="none" points="380,560 470,470 600,430 730,470 820,560 840,680 780,790 660,850 540,850 420,790 360,680 380,560"/>
+    <polyline fill="none" points="470,470 540,600 600,430"/>
+    <polyline fill="none" points="540,600 660,600 730,470"/>
+    <polyline fill="none" points="540,600 500,720 660,600 700,720"/>
+    <polyline fill="none" points="500,720 600,780 700,720"/>
+    <polyline fill="none" points="420,790 500,720"/>
+    <polyline fill="none" points="700,720 780,790"/>
   </g>
   <g fill="#059669">
     <circle cx="380" cy="560" r="6"/>
@@ -83,7 +83,8 @@
   <text x="600" y="1508" text-anchor="middle" fill="#334155" font-size="40" font-weight="400">for the Case-Simulation Exam</text>
 
   <!-- feature line -->
-  <text x="600" y="1610" text-anchor="middle" fill="#0f766e" font-size="34" font-weight="600" letter-spacing="2">92 DIAGNOSES &#183; 18 FAMILIES &#183; WORKED CASES &#183; 60 PRACTICE QUESTIONS</text>
+  <text x="600" y="1596" text-anchor="middle" fill="#0f766e" font-size="30" font-weight="600">92 DIAGNOSES &#183; 18 DIAGNOSTIC FAMILIES</text>
+  <text x="600" y="1644" text-anchor="middle" fill="#0f766e" font-size="30" font-weight="600">WORKED CASES &#183; 60 PRACTICE QUESTIONS</text>
 
   <!-- publisher -->
   <text x="600" y="1730" text-anchor="middle" fill="#64748b" font-size="30" letter-spacing="3">GA INTEGRATED THERAPEUTIC PERSPECTIVES LLC</text>
