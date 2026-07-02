@@ -159,6 +159,7 @@
 
   /* feedback */
   .opt.picked{border-color:var(--blue-400); background:rgba(96,165,250,.10)}
+  .sec-head{font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--emerald-400); margin-bottom:10px}
   .feedback{margin-top:8px}
   .verdict{font-weight:700; font-size:16px; margin-bottom:6px}
   .verdict.ok{color:var(--emerald-400)} .verdict.no{color:var(--red-400)}
@@ -658,6 +659,7 @@ async function showDashboard(){
   // Study tools nav
   h += '<div class="card" style="margin-top:16px"><h2>Study tools</h2>';
   h += '<div class="mode-grid">';
+  h += '<a href="/podcast.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🎧 Clinical Podcast</span><span class="mc-desc">13 audio deep-dives (~4 hrs) on the diagnoses and decisions the exam tests — anxiety, mood, psychotic-spectrum timing, the personality clusters, OCD, addictions, eating disorders, and how clinicians tell look-alikes apart. Listen on the go.</span></a>';
   h += '<a href="/flashcards.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📇 Flashcards</span><span class="mc-desc">258 cards with spaced repetition. Covers ICD-10 codes, first-line treatments, differentials, ethics, and crisis. Cards you miss come back sooner.</span></a>';
   h += '<a href="/decision-trees.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🌳 Decision Trees</span><span class="mc-desc">25 branching clinical scenarios — risk and safety, differential diagnosis, ethics, and treatment selection. Walk each one node by node to drill the reasoning the exam rewards.</span></a>';
   h += '<a href="/dsm.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📖 DSM-5-TR Reference</span><span class="mc-desc">92 diagnoses with ICD-10 codes and first-line treatments. Search by name, code, or treatment keyword. Use alongside cases to look up unfamiliar disorders.</span></a>';
@@ -992,6 +994,19 @@ function finish(){
     });
     h += '</div>';
   }
+
+  const secAgg = {};
+  Object.keys(dom).forEach(d => {
+    const si = secIndex(d);
+    if(!secAgg[si]) secAgg[si] = {ok:0, total:0};
+    secAgg[si].ok += dom[d].ok; secAgg[si].total += dom[d].total;
+  });
+  h += '<div class="card" style="margin-top:14px"><h2>By section</h2>';
+  Object.keys(secAgg).map(Number).sort((a,b) => a-b).forEach(si => {
+    const v = secAgg[si]; const p = v.total ? Math.round(v.ok/v.total*100) : 0;
+    h += '<div class="dom-row"><span>'+esc(SECTIONS[si].title)+'</span><span class="dom-score '+(p>=70?'w-pos':'w-neg')+'">'+v.ok+'/'+v.total+' · '+p+'%</span></div>';
+  });
+  h += '</div>';
 
   h += '<div class="card" style="margin-top:14px"><h2>By area</h2>';
   h += dxLine;
