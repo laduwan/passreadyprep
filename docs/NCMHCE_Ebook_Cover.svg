@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1800" viewBox="0 0 1200 1800" font-family="'Open Sans', 'Segoe UI', Arial, sans-serif">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0.4" y2="1">
-      <stop offset="0" stop-color="#0f2027"/>
-      <stop offset="0.45" stop-color="#1b3a3f"/>
-      <stop offset="1" stop-color="#0b1e23"/>
+      <stop offset="0" stop-color="#f8fefb"/>
+      <stop offset="0.5" stop-color="#e9f7f1"/>
+      <stop offset="1" stop-color="#d8efe6"/>
     </linearGradient>
     <radialGradient id="glow" cx="0.5" cy="0.38" r="0.55">
-      <stop offset="0" stop-color="#2dd4a7" stop-opacity="0.18"/>
-      <stop offset="1" stop-color="#2dd4a7" stop-opacity="0"/>
+      <stop offset="0" stop-color="#10b981" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#10b981" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="band" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#10b981"/>
-      <stop offset="1" stop-color="#2dd4a7"/>
+      <stop offset="0" stop-color="#059669"/>
+      <stop offset="1" stop-color="#10b981"/>
     </linearGradient>
   </defs>
 
@@ -20,26 +20,26 @@
   <rect width="1200" height="1800" fill="url(#glow)"/>
 
   <!-- scattered stars -->
-  <g fill="#e2e8f0">
-    <circle cx="120" cy="160" r="2.2" opacity="0.7"/>
-    <circle cx="310" cy="90" r="1.6" opacity="0.5"/>
-    <circle cx="530" cy="140" r="2.6" opacity="0.8"/>
-    <circle cx="760" cy="80" r="1.8" opacity="0.5"/>
-    <circle cx="980" cy="150" r="2.4" opacity="0.7"/>
-    <circle cx="1100" cy="300" r="1.7" opacity="0.5"/>
-    <circle cx="90" cy="420" r="1.9" opacity="0.6"/>
-    <circle cx="1120" cy="620" r="2.1" opacity="0.6"/>
-    <circle cx="70" cy="760" r="1.6" opacity="0.5"/>
-    <circle cx="180" cy="1050" r="1.8" opacity="0.45"/>
-    <circle cx="1050" cy="980" r="2" opacity="0.5"/>
-    <circle cx="240" cy="260" r="1.4" opacity="0.4"/>
-    <circle cx="880" cy="330" r="1.5" opacity="0.45"/>
-    <circle cx="420" cy="60" r="1.3" opacity="0.4"/>
-    <circle cx="650" cy="200" r="1.5" opacity="0.5"/>
+  <g fill="#0f766e">
+    <circle cx="120" cy="160" r="2.2" opacity="0.35"/>
+    <circle cx="310" cy="90" r="1.6" opacity="0.25"/>
+    <circle cx="530" cy="140" r="2.6" opacity="0.4"/>
+    <circle cx="760" cy="80" r="1.8" opacity="0.25"/>
+    <circle cx="980" cy="150" r="2.4" opacity="0.35"/>
+    <circle cx="1100" cy="300" r="1.7" opacity="0.25"/>
+    <circle cx="90" cy="420" r="1.9" opacity="0.3"/>
+    <circle cx="1120" cy="620" r="2.1" opacity="0.3"/>
+    <circle cx="70" cy="760" r="1.6" opacity="0.25"/>
+    <circle cx="180" cy="1050" r="1.8" opacity="0.2"/>
+    <circle cx="1050" cy="980" r="2" opacity="0.25"/>
+    <circle cx="240" cy="260" r="1.4" opacity="0.2"/>
+    <circle cx="880" cy="330" r="1.5" opacity="0.22"/>
+    <circle cx="420" cy="60" r="1.3" opacity="0.2"/>
+    <circle cx="650" cy="200" r="1.5" opacity="0.25"/>
   </g>
 
   <!-- constellation: abstract head/mind motif -->
-  <g stroke="#2dd4a7" stroke-width="2" opacity="0.85" fill="none">
+  <g stroke="#059669" stroke-width="2.5" opacity="0.75" fill="none">
     <polyline points="380,560 470,470 600,430 730,470 820,560 840,680 780,790 660,850 540,850 420,790 360,680 380,560"/>
     <polyline points="470,470 540,600 600,430"/>
     <polyline points="540,600 660,600 730,470"/>
@@ -48,7 +48,7 @@
     <polyline points="420,790 500,720"/>
     <polyline points="700,720 780,790"/>
   </g>
-  <g fill="#7df3cf">
+  <g fill="#059669">
     <circle cx="380" cy="560" r="6"/>
     <circle cx="470" cy="470" r="7"/>
     <circle cx="600" cy="430" r="8"/>
@@ -68,22 +68,22 @@
   </g>
 
   <!-- series tag -->
-  <text x="600" y="220" text-anchor="middle" fill="#94a3b8" font-size="34" letter-spacing="10" font-weight="600">COUNSELORREADY&#8482; EXAM PREP SERIES</text>
+  <text x="600" y="220" text-anchor="middle" fill="#475569" font-size="34" letter-spacing="10" font-weight="600">COUNSELORREADY&#8482; EXAM PREP SERIES</text>
 
   <!-- title block -->
-  <text x="600" y="1060" text-anchor="middle" fill="#f8fafc" font-size="112" font-weight="800" letter-spacing="2">THE COMPLETE</text>
-  <text x="600" y="1200" text-anchor="middle" fill="#2dd4a7" font-size="148" font-weight="800" letter-spacing="4">NCMHCE</text>
-  <text x="600" y="1310" text-anchor="middle" fill="#f8fafc" font-size="96" font-weight="700" letter-spacing="3">STUDY GUIDE</text>
+  <text x="600" y="1060" text-anchor="middle" fill="#1e293b" font-size="112" font-weight="800" letter-spacing="2">THE COMPLETE</text>
+  <text x="600" y="1200" text-anchor="middle" fill="#059669" font-size="148" font-weight="800" letter-spacing="4">NCMHCE</text>
+  <text x="600" y="1310" text-anchor="middle" fill="#1e293b" font-size="96" font-weight="700" letter-spacing="3">STUDY GUIDE</text>
 
   <!-- accent band -->
   <rect x="420" y="1370" width="360" height="6" rx="3" fill="url(#band)"/>
 
   <!-- subtitle -->
-  <text x="600" y="1450" text-anchor="middle" fill="#cbd5e1" font-size="40" font-weight="400">Clinical Reasoning, Diagnostic Reference &amp; Practice</text>
-  <text x="600" y="1508" text-anchor="middle" fill="#cbd5e1" font-size="40" font-weight="400">for the Case-Simulation Exam</text>
+  <text x="600" y="1450" text-anchor="middle" fill="#334155" font-size="40" font-weight="400">Clinical Reasoning, Diagnostic Reference &amp; Practice</text>
+  <text x="600" y="1508" text-anchor="middle" fill="#334155" font-size="40" font-weight="400">for the Case-Simulation Exam</text>
 
   <!-- feature line -->
-  <text x="600" y="1610" text-anchor="middle" fill="#7df3cf" font-size="34" font-weight="600" letter-spacing="2">92 DIAGNOSES &#183; 18 FAMILIES &#183; WORKED CASES &#183; 60 PRACTICE QUESTIONS</text>
+  <text x="600" y="1610" text-anchor="middle" fill="#0f766e" font-size="34" font-weight="600" letter-spacing="2">92 DIAGNOSES &#183; 18 FAMILIES &#183; WORKED CASES &#183; 60 PRACTICE QUESTIONS</text>
 
   <!-- publisher -->
   <text x="600" y="1730" text-anchor="middle" fill="#64748b" font-size="30" letter-spacing="3">GA INTEGRATED THERAPEUTIC PERSPECTIVES LLC</text>
