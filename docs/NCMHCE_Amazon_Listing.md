@@ -59,6 +59,26 @@ Your license is waiting on the other side of this exam. Prepare like a clinician
 - **Ebook:** $9.99 captures the top of the 70% royalty band (~$6.90/sale). Above $9.99 royalty drops to 35% — you'd need to price above ~$19.99 to beat the $9.99 net.
 - **Paperback:** price = printing cost + margin; 6×9 B&W at ~150 pp prints around $2.65, so $24.99–$34.99 is typical for professional exam guides.
 
+## Back-Cover Copy (print edition, ~140 words)
+
+> **The exam doesn't ask what you know. It asks what you'd do first.**
+>
+> In the NCMHCE's case-simulation format, the diagnosis is usually given. What's scored is the clinical reasoning that follows — what you assess, what you rule out, what you say next. This guide teaches that reasoning.
+>
+> - The **Universal Priority Ladder**: the seven-rung framework that resolves every "two answers look right" dilemma
+> - **92 diagnoses across 18 families** — reference tables framed by the clinical picture, key differentials, and first-line treatments
+> - **What the exam rewards — and what it punishes** — in every chapter, with the reason why
+> - **Worked cases** with full reasoning chains and **60 practice questions** with expanded rationales
+>
+> Prepare like a clinician, not a memorizer. Your license is on the other side.
+>
+> **CounselorReady™ Exam Prep Series**
+> GA Integrated Therapeutic Perspectives LLC
+
+*(Back cover also needs: ISBN barcode block bottom-right — KDP overlays this automatically on its free ISBN, leave a 2×1.2" white space — plus the category line "Study Aids / Counseling" top-left, and the price if you want it printed.)*
+
+---
+
 ## Trademark / Compliance Checklist
 
 - [ ] Description references NCMHCE descriptively only; NBCC disclaimer included (done above)
