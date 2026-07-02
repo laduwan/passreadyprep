@@ -121,6 +121,10 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
       customer: customerId,
       mode: tierConfig.mode,
       line_items: [{ price: priceId, quantity: 1 }],
+      // Show a promo-code field at checkout so ebook readers can redeem
+      // PASSREADY10 (and any future codes). The coupon + promotion code
+      // themselves live in the Stripe dashboard, not in this repo.
+      allow_promotion_codes: true,
       success_url: `${process.env.CLIENT_URL}/payment-success.html?tier=${tier}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.CLIENT_URL}/landing.html#pricing`,
       metadata: {
