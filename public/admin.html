@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>PassReady Prep — Admin</title>
+<style>
+  :root{
+    --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+    --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
+    --emerald:#10B981; --emerald-400:#34D399;
+    --amber-400:#FBBF24; --red-400:#F87171; --blue-400:#60A5FA;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:linear-gradient(160deg,#0F172A,#1E293B 50%,#0F172A);
+    color:var(--slate-200);font-family:var(--sans);font-size:15px;line-height:1.55}
+  a{color:var(--emerald-400)}
+  .wrap{max-width:1080px;margin:0 auto;padding:20px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+  .brand{font-weight:700;font-size:19px;color:var(--white)}
+  .brand .p{color:var(--emerald-400)}
+  .muted{color:var(--slate-400)}
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:16px}
+  button{font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:9px;
+    border:1px solid var(--slate-600);background:var(--slate-700);color:var(--white);padding:8px 13px}
+  button:hover{border-color:var(--emerald)}
+  button.primary{background:var(--emerald);border-color:var(--emerald);color:#04120c}
+  button.danger{background:transparent;border-color:var(--red-400);color:var(--red-400)}
+  button.ghost{background:transparent}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  input,select,textarea{font-family:inherit;font-size:14px;background:var(--slate-800);color:var(--white);
+    border:1px solid var(--slate-600);border-radius:8px;padding:8px 10px;width:100%}
+  input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--emerald-400);outline-offset:1px}
+  textarea{font-family:var(--mono);font-size:13px;line-height:1.5;resize:vertical}
+  label{display:block;font-size:12px;font-weight:600;color:var(--slate-300);margin:0 0 4px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+  .row > div{flex:1;min-width:140px}
+  .tabs{display:flex;gap:6px;margin-bottom:16px;border-bottom:1px solid var(--card-border)}
+  .tab{background:none;border:none;border-bottom:2px solid transparent;border-radius:0;padding:9px 4px;margin-right:14px;color:var(--slate-400)}
+  .tab.active{color:var(--white);border-bottom-color:var(--emerald)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .stat{background:var(--slate-800);border:1px solid var(--card-border);border-radius:10px;padding:14px}
+  .stat .n{font-size:26px;font-weight:800;color:var(--white);letter-spacing:-.02em}
+  .stat .l{font-size:12px;color:var(--slate-400);margin-top:2px}
+  .breakdown{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .chip{font-size:12px;background:var(--slate-800);border:1px solid var(--card-border);border-radius:999px;padding:3px 10px}
+  .chip b{color:var(--white)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--card-border);vertical-align:middle}
+  th{color:var(--slate-400);font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+  .badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.02em}
+  .b-published{background:rgba(16,185,129,.15);color:var(--emerald-400)}
+  .b-sme_review{background:rgba(251,191,36,.15);color:var(--amber-400)}
+  .b-draft{background:rgba(148,163,184,.15);color:var(--slate-300)}
+  .b-needswork{background:rgba(248,113,113,.15);color:var(--red-400)}
+  .actions{display:flex;gap:6px;flex-wrap:wrap}
+  .actions button{padding:5px 9px;font-size:12.5px}
+  .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--slate-800);
+    border:1px solid var(--emerald);color:var(--white);padding:11px 16px;border-radius:10px;font-size:14px;
+    box-shadow:0 8px 30px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .2s;z-index:60;max-width:90vw}
+  .toast.show{opacity:1}
+  .toast.err{border-color:var(--red-400)}
+  .hidden{display:none !important}
+  .modal-bg{position:fixed;inset:0;background:rgba(2,6,23,.7);display:grid;place-items:center;padding:16px;z-index:50}
+  .modal{background:var(--slate-900);border:1px solid var(--card-border);border-radius:14px;
+    width:min(760px,100%);max-height:90vh;overflow:auto;padding:20px}
+  .modal h2{margin:0 0 4px;color:var(--white);font-size:18px}
+  .err-line{color:var(--red-400);font-size:13px;margin-top:6px;min-height:16px}
+  .spacer{height:14px}
+  @media (max-width:560px){ th.hide-sm,td.hide-sm{display:none} }
+</style>
+</head>
+<body>
+
+<!-- ── Token gate ─────────────────────────────────────────────────── -->
+<div id="gate" class="wrap">
+  <div class="card" style="max-width:420px;margin:12vh auto 0">
+    <div class="brand" style="margin-bottom:6px">PassReady <span class="p">Admin</span></div>
+    <p class="muted" style="margin:0 0 14px">Enter the admin token to continue.</p>
+    <label for="tok">Admin token</label>
+    <input id="tok" type="password" autocomplete="off" placeholder="ADMIN_TOKEN" />
+    <div class="err-line" id="gateErr"></div>
+    <div class="spacer"></div>
+    <button class="primary" id="gateBtn" style="width:100%">Sign in</button>
+  </div>
+</div>
+
+<!-- ── App ────────────────────────────────────────────────────────── -->
+<div id="app" class="wrap hidden">
+  <header>
+    <div class="brand">PassReady <span class="p">Admin</span></div>
+    <div class="actions">
+      <button class="ghost" id="refreshBtn">Refresh</button>
+      <button class="ghost" id="signOut">Sign out</button>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="overview">Overview</button>
+    <button class="tab" data-tab="cases">Cases</button>
+  </div>
+
+  <!-- Overview -->
+  <section id="overview">
+    <div class="grid" id="statCards"></div>
+    <div class="spacer"></div>
+    <div class="card">
+      <div class="muted" style="font-weight:600;color:var(--slate-300);margin-bottom:6px">Content by status</div>
+      <div class="breakdown" id="bStatus"></div>
+      <div class="muted" style="font-weight:600;color:var(--slate-300);margin:14px 0 6px">Content by category</div>
+      <div class="breakdown" id="bCategory"></div>
+      <div class="muted" style="font-weight:600;color:var(--slate-300);margin:14px 0 6px">Users by tier</div>
+      <div class="breakdown" id="bTier"></div>
+      <div class="muted" style="font-weight:600;color:var(--slate-300);margin:14px 0 6px">Attempts by mode</div>
+      <div class="breakdown" id="bMode"></div>
+    </div>
+    <p class="muted" style="font-size:12px" id="genAt"></p>
+  </section>
+
+  <!-- Cases -->
+  <section id="cases" class="hidden">
+    <div class="card" style="margin-bottom:14px">
+      <div class="row">
+        <div><label for="fStatus">Status</label>
+          <select id="fStatus"><option value="">Any</option><option value="published">Published</option>
+          <option value="sme_review">In review</option><option value="draft">Draft</option></select></div>
+        <div><label for="fSearch">Search</label><input id="fSearch" placeholder="title, id, category" /></div>
+        <div style="flex:0 0 auto;min-width:0">
+          <button id="applyFilters">Filter</button>
+          <button class="primary" id="addBtn">+ Add case</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div id="caseCount" class="muted" style="font-size:13px;margin-bottom:8px"></div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>ID</th><th>Title</th><th class="hide-sm">Category</th><th class="hide-sm">Diff</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="caseRows"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Editor modal -->
+<div id="editorBg" class="modal-bg hidden">
+  <div class="modal">
+    <h2 id="editorTitle">Add case</h2>
+    <p class="muted" id="editorId" style="margin:0 0 12px;font-size:13px"></p>
+    <div class="row">
+      <div><label for="eTitle">Title</label><input id="eTitle" /></div>
+      <div><label for="eCategory">Category</label><input id="eCategory" /></div>
+    </div>
+    <div class="spacer"></div>
+    <div class="row">
+      <div><label for="eDifficulty">Difficulty</label>
+        <select id="eDifficulty"><option>easy</option><option selected>medium</option><option>hard</option></select></div>
+      <div><label for="eStatus">Status</label>
+        <select id="eStatus"><option value="draft" selected>draft</option><option value="sme_review">sme_review</option><option value="published">published</option></select></div>
+    </div>
+    <div class="spacer"></div>
+    <label for="eJson">Case payload (JSON) — questions, options, narrative, references, etc.</label>
+    <textarea id="eJson" rows="16" spellcheck="false"></textarea>
+    <div class="err-line" id="eErr"></div>
+    <div class="spacer"></div>
+    <div class="actions" style="justify-content:space-between">
+      <button class="ghost" id="eValidate">Validate JSON</button>
+      <div class="actions">
+        <button class="ghost" id="eCancel">Cancel</button>
+        <button class="primary" id="eSave">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var TOKEN = sessionStorage.getItem('prp_admin_token') || '';
+  var editing = null; // externalId when editing, null when adding
+
+  function api(path, opts){
+    opts = opts || {};
+    opts.headers = Object.assign({ 'x-admin-token': TOKEN }, opts.headers || {});
+    if (opts.body && typeof opts.body !== 'string'){ opts.headers['content-type']='application/json'; opts.body = JSON.stringify(opts.body); }
+    return fetch('/api/admin' + path, opts).then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(j){
+        if (!r.ok) throw new Error(j.error || ('Request failed ('+r.status+')'));
+        return j;
+      });
+    });
+  }
+  function $(id){ return document.getElementById(id); }
+  function toast(msg, isErr){
+    var t=$('toast'); t.textContent=msg; t.className='toast show'+(isErr?' err':'');
+    setTimeout(function(){ t.className='toast'; }, 2600);
+  }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+  // ── Gate ──────────────────────────────────────────────────────────
+  function showApp(){ $('gate').classList.add('hidden'); $('app').classList.remove('hidden'); loadOverview(); loadCases(); }
+  function tryToken(t){
+    return fetch('/api/admin/stats',{headers:{'x-admin-token':t}}).then(function(r){
+      if (r.status===401) throw new Error('Invalid token');
+      if (!r.ok) throw new Error('Server error ('+r.status+')');
+      return true;
+    });
+  }
+  $('gateBtn').onclick = function(){
+    var t = $('tok').value.trim(); $('gateErr').textContent='';
+    if (!t){ $('gateErr').textContent='Enter a token.'; return; }
+    tryToken(t).then(function(){ TOKEN=t; sessionStorage.setItem('prp_admin_token',t); showApp(); })
+      .catch(function(e){ $('gateErr').textContent=e.message; });
+  };
+  $('tok').addEventListener('keydown', function(e){ if(e.key==='Enter') $('gateBtn').click(); });
+  $('signOut').onclick = function(){ sessionStorage.removeItem('prp_admin_token'); location.reload(); };
+
+  // ── Tabs ──────────────────────────────────────────────────────────
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'), function(btn){
+    btn.onclick = function(){
+      document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var tab = btn.getAttribute('data-tab');
+      $('overview').classList.toggle('hidden', tab!=='overview');
+      $('cases').classList.toggle('hidden', tab!=='cases');
+    };
+  });
+  $('refreshBtn').onclick = function(){ loadOverview(); loadCases(); toast('Refreshed'); };
+
+  // ── Overview ──────────────────────────────────────────────────────
+  function breakdown(el, obj){
+    el.innerHTML='';
+    var keys=Object.keys(obj||{}).sort();
+    if(!keys.length){ el.innerHTML='<span class="muted" style="font-size:12px">none</span>'; return; }
+    keys.forEach(function(k){
+      var c=document.createElement('span'); c.className='chip';
+      c.innerHTML=esc(k)+' <b>'+obj[k]+'</b>'; el.appendChild(c);
+    });
+  }
+  function stat(n,l){ return '<div class="stat"><div class="n">'+n+'</div><div class="l">'+esc(l)+'</div></div>'; }
+  function loadOverview(){
+    api('/stats').then(function(s){
+      $('statCards').innerHTML =
+        stat(s.content.total,'Total items') +
+        stat((s.content.byStatus.published||0),'Published') +
+        stat(s.content.deep,'Deep cases') +
+        stat(s.content.manual,'Manual cases') +
+        stat(s.users.total,'Users') +
+        stat(s.users.signups7d,'Signups · 7d') +
+        stat(s.users.signups30d,'Signups · 30d') +
+        stat(s.users.guaranteeAccepted,'Guarantee') +
+        stat(s.attempts.total,'Attempts') +
+        stat(s.attempts.avgScore==null?'—':s.attempts.avgScore,'Avg score') +
+        stat(s.attempts.last30d,'Attempts · 30d');
+      breakdown($('bStatus'), s.content.byStatus);
+      breakdown($('bCategory'), s.content.byCategory);
+      breakdown($('bTier'), s.users.byTier);
+      breakdown($('bMode'), s.attempts.byMode);
+      $('genAt').textContent='Generated '+new Date(s.generatedAt).toLocaleString();
+    }).catch(function(e){ toast(e.message, true); });
+  }
+
+  // ── Cases table ───────────────────────────────────────────────────
+  function statusBadge(st, needsWork){
+    var cls = needsWork ? 'b-needswork' : ('b-'+st);
+    var label = needsWork ? 'needs work' : st.replace('_',' ');
+    return '<span class="badge '+cls+'">'+esc(label)+'</span>';
+  }
+  function loadCases(){
+    var qs=[]; var st=$('fStatus').value, q=$('fSearch').value.trim();
+    if(st) qs.push('status='+encodeURIComponent(st));
+    if(q) qs.push('q='+encodeURIComponent(q));
+    api('/content/all'+(qs.length?('?'+qs.join('&')):'')).then(function(d){
+      $('caseCount').textContent = d.count+' item'+(d.count===1?'':'s');
+      var rows = d.items.map(function(it){
+        return '<tr>'+
+          '<td><code style="font-size:12px">'+esc(it.externalId)+'</code></td>'+
+          '<td>'+esc(it.title||'(untitled)')+'</td>'+
+          '<td class="hide-sm">'+esc(it.category||'')+'</td>'+
+          '<td class="hide-sm">'+esc(it.difficulty||'')+'</td>'+
+          '<td>'+statusBadge(it.status,it.needsWork)+'</td>'+
+          '<td><div class="actions">'+
+            '<button data-edit="'+esc(it.externalId)+'">Edit</button>'+
+            (it.status==='published'
+              ? '<button data-unpub="'+esc(it.externalId)+'">Unpublish</button>'
+              : '<button data-pub="'+esc(it.externalId)+'">Publish</button>')+
+            '<button class="danger" data-del="'+esc(it.externalId)+'">Delete</button>'+
+          '</div></td>'+
+        '</tr>';
+      }).join('');
+      $('caseRows').innerHTML = rows || '<tr><td colspan="6" class="muted" style="padding:18px">No items.</td></tr>';
+    }).catch(function(e){ toast(e.message, true); });
+  }
+  $('applyFilters').onclick = loadCases;
+  $('fSearch').addEventListener('keydown', function(e){ if(e.key==='Enter') loadCases(); });
+
+  // Delegated row actions
+  $('caseRows').addEventListener('click', function(e){
+    var t=e.target; if(t.tagName!=='BUTTON') return;
+    var id;
+    if((id=t.getAttribute('data-edit'))) return openEditor(id);
+    if((id=t.getAttribute('data-pub'))) return act('/content/'+encodeURIComponent(id)+'/publish','POST','Published');
+    if((id=t.getAttribute('data-unpub'))) return act('/content/'+encodeURIComponent(id)+'/unpublish','POST','Sent to review');
+    if((id=t.getAttribute('data-del'))){
+      if(!confirm('Delete '+id+'? This cannot be undone.')) return;
+      return act('/content/'+encodeURIComponent(id),'DELETE','Deleted');
+    }
+  });
+  function act(path, method, okMsg){
+    api(path,{method:method}).then(function(){ toast(okMsg); loadCases(); loadOverview(); })
+      .catch(function(e){ toast(e.message,true); });
+  }
+
+  // ── Editor ────────────────────────────────────────────────────────
+  function openEditor(id){
+    $('eErr').textContent='';
+    if(id){
+      editing=id; $('editorTitle').textContent='Edit case'; $('editorId').textContent=id;
+      api('/content/'+encodeURIComponent(id)).then(function(d){
+        var it=d.item;
+        $('eTitle').value=it.title||''; $('eCategory').value=it.category||'';
+        $('eDifficulty').value=it.difficulty||'medium'; $('eStatus').value=it.status||'draft';
+        $('eJson').value=JSON.stringify(it.caseSim||{}, null, 2);
+        $('editorBg').classList.remove('hidden');
+      }).catch(function(e){ toast(e.message,true); });
+    } else {
+      editing=null; $('editorTitle').textContent='Add case';
+      $('editorId').textContent='A new id (ncmhce-M###) is assigned on save.';
+      $('eTitle').value=''; $('eCategory').value=''; $('eDifficulty').value='medium'; $('eStatus').value='draft';
+      $('eJson').value=JSON.stringify(skeleton(), null, 2);
+      $('editorBg').classList.remove('hidden');
+    }
+  }
+  function skeleton(){
+    return {
+      title:'', category:'', difficulty:'medium',
+      primaryDiagnosis:{name:'',code:''},
+      differentialOptions:[{id:'opt1',name:'',isCorrect:true}],
+      narrative:{intake:'',session1:'',session2:''},
+      diagnosticRationale:'',
+      references:[{id:'R1',source:'',detail:''}],
+      questions:[{id:'q1',domain:'treatment',question:'',options:[
+        {id:'a',text:'',isCorrect:true,weight:3},{id:'b',text:'',isCorrect:false,weight:0},
+        {id:'c',text:'',isCorrect:false,weight:-1},{id:'d',text:'',isCorrect:false,weight:-2}],rationale:''}]
+    };
+  }
+  function parseJson(){
+    try { return { ok:true, val: JSON.parse($('eJson').value) }; }
+    catch(e){ return { ok:false, err:e.message }; }
+  }
+  $('eValidate').onclick = function(){
+    var p=parseJson();
+    if(p.ok){ $('eErr').style.color='var(--emerald-400)'; $('eErr').textContent='Valid JSON.'; }
+    else { $('eErr').style.color='var(--red-400)'; $('eErr').textContent='JSON error: '+p.err; }
+  };
+  $('eCancel').onclick = function(){ $('editorBg').classList.add('hidden'); };
+  $('editorBg').addEventListener('click', function(e){ if(e.target===$('editorBg')) $('editorBg').classList.add('hidden'); });
+  $('eSave').onclick = function(){
+    $('eErr').style.color='var(--red-400)'; $('eErr').textContent='';
+    var p=parseJson();
+    if(!p.ok){ $('eErr').textContent='Fix the JSON first: '+p.err; return; }
+    var payload = {
+      title:$('eTitle').value, category:$('eCategory').value,
+      difficulty:$('eDifficulty').value, status:$('eStatus').value,
+      caseSim:p.val
+    };
+    // mirror top fields into the payload so the stored case stays consistent
+    payload.caseSim.title=payload.title; payload.caseSim.category=payload.category;
+    payload.caseSim.difficulty=payload.difficulty;
+    if(Array.isArray(p.val.references)) payload.references=p.val.references;
+
+    var req = editing
+      ? api('/content/'+encodeURIComponent(editing),{method:'PUT',body:payload})
+      : api('/content',{method:'POST',body:payload});
+    $('eSave').disabled=true;
+    req.then(function(r){
+      $('editorBg').classList.add('hidden');
+      toast(editing ? 'Saved '+editing : 'Created '+r.externalId);
+      loadCases(); loadOverview();
+    }).catch(function(e){ $('eErr').textContent=e.message; })
+      .then(function(){ $('eSave').disabled=false; });
+  };
+  $('addBtn').onclick = function(){ openEditor(null); };
+
+  // ── Boot ──────────────────────────────────────────────────────────
+  if (TOKEN){ tryToken(TOKEN).then(showApp).catch(function(){ sessionStorage.removeItem('prp_admin_token'); }); }
+})();
+</script>
+</body>
+</html>
