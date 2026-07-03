@@ -31,13 +31,18 @@ app.use('/api/skills', require('./routes/skills'));
 app.use('/api/intake', require('./routes/intake'));
 app.use('/api/guide', require('./routes/guide'));
 
-// ── Accessibility widget injection ──────────────────────────────────
-// Every HTML page gets the shared accessibility widget (a11y.css + a11y.js)
-// and a "skip to main content" link, injected at serve time. This means the
-// ~18 static pages and the React shell don't each need a manual <script> edit.
-// Only HTML is touched — JS, CSS, images, data files, and the API pass through
-// untouched via express.static / the API routers.
-const A11Y_HEAD = '<link rel="stylesheet" href="/a11y.css"><script src="/a11y.js" defer></script>';
+// ── Accessibility + translation widget injection ────────────────────
+// Every HTML page gets the shared accessibility widget (a11y.css + a11y.js),
+// the translation widget (translate.css + translate.js), and a "skip to main
+// content" link, injected at serve time. This means the ~18 static pages and
+// the React shell don't each need a manual <script> edit. Only HTML is touched
+// — JS, CSS, images, data files, and the API pass through untouched via
+// express.static / the API routers.
+const A11Y_HEAD =
+  '<link rel="stylesheet" href="/a11y.css">' +
+  '<link rel="stylesheet" href="/translate.css">' +
+  '<script src="/a11y.js" defer></script>' +
+  '<script src="/translate.js" defer></script>';
 const A11Y_SKIP = '<a href="#" class="a11y-skip-link" data-a11y-skip>Skip to main content</a>';
 
 function injectA11y(html) {
