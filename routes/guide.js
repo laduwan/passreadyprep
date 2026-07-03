@@ -1,138 +1,93 @@
-/**
- * routes/guide.js
- *
- * The Complete NCMHCE Study Guide — one-time $25 purchase, delivered as a
- * per-buyer watermarked PDF. Purchase is handled by routes/payment.js
- * (tier "guide"); the webhook sets guidePurchasedAt / guideOrderId on the
- * user. This route only checks that entitlement and serves the file.
- *
- * The master PDF lives OUTSIDE the repo (it's the paid product):
- *   GUIDE_PDF_PATH — absolute path to the master PDF (env var), or the
- *   default assets/ncmhce-study-guide.pdf next to server.js.
- * Until the file exists, /status reports available:false and downloads
- * return a clean "not available yet" message.
- *
- * Endpoints (all JSON):
- *   GET /api/guide/status    — { owned, purchasedAt, available }   (auth)
- *   GET /api/guide/link      — { url } short-lived download link   (auth)
- *   GET /api/guide/download  — streams the watermarked PDF (?t= link token)
- */
-
+// routes/guide.js — gated delivery of the purchased NCMHCE Study Guide.
+// Access model: the user must own the entitlement (user.guidePurchasedAt, set by
+// the Stripe webhook on a `guide` purchase). Delivery is a short-lived signed link
+// that streams a PER-BUYER WATERMARKED copy of the master PDF — so any leaked file
+// is traceable to the purchaser, and the link itself expires and can't be shared.
+//
+// Env:
+//   GUIDE_PDF_PATH  — absolute path to the master PDF (default: <root>/assets/ncmhce-study-guide.pdf)
+//   JWT_SECRET      — same secret used by auth (already set)
 const express = require('express');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const { PDFDocument, StandardFonts, rgb, degrees } = require('pdf-lib');
 const requireAuth = require('../middleware/auth');
+const User = require('../models/User');
 
 const router = express.Router();
 
-const GUIDE_PDF_PATH =
-  process.env.GUIDE_PDF_PATH || path.join(__dirname, '..', 'assets', 'ncmhce-study-guide.pdf');
+const MASTER = process.env.GUIDE_PDF_PATH || path.join(__dirname, '..', 'assets', 'ncmhce-study-guide.pdf');
+const LINK_TTL = 300; // seconds a download link is valid
 
-// Download links are personalized and expire quickly so they can't be shared.
-const LINK_TTL_SECONDS = 10 * 60;
-
-function guideAvailable() {
-  try { return fs.existsSync(GUIDE_PDF_PATH); } catch { return false; }
-}
-
-// ── GET /api/guide/status ─────────────────────────────────────────────────────
-// Does the signed-in user own the guide, and is the master PDF on disk yet?
+// GET /api/guide/status — does the signed-in user own the guide?
 router.get('/status', requireAuth, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select('guidePurchasedAt');
-    if (!user) return res.status(404).json({ error: 'User not found' });
-
-    res.json({
-      owned: !!user.guidePurchasedAt,
-      purchasedAt: user.guidePurchasedAt || null,
-      available: guideAvailable(),
-    });
-  } catch (err) {
-    console.error('guide status error:', err);
-    res.status(500).json({ error: 'Could not check your guide status' });
+    res.json({ owned: !!(user && user.guidePurchasedAt), available: fs.existsSync(MASTER) });
+  } catch (e) {
+    res.status(500).json({ error: 'status check failed' });
   }
 });
 
-// ── GET /api/guide/link ───────────────────────────────────────────────────────
-// Mints a short-lived, single-user download URL. The frontend navigates the
-// browser to it, so /download authenticates via the ?t= token, not a header.
+// GET /api/guide/link — mint a short-lived, single-purpose download URL
 router.get('/link', requireAuth, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select('guidePurchasedAt');
-    if (!user) return res.status(404).json({ error: 'User not found' });
-
-    if (!user.guidePurchasedAt) {
-      return res.status(403).json({ error: 'You have not purchased the study guide yet.' });
-    }
-    if (!guideAvailable()) {
-      return res.status(503).json({
-        error: 'The study guide download isn\'t available yet — check back shortly, or contact support.',
-      });
-    }
-
+    if (!user || !user.guidePurchasedAt) return res.status(403).json({ error: 'Guide not purchased' });
     const token = jwt.sign(
-      { sub: req.userId, purpose: 'guide-download' },
+      { sub: String(req.userId), purpose: 'guide-download' },
       process.env.JWT_SECRET,
-      { expiresIn: LINK_TTL_SECONDS }
+      { expiresIn: LINK_TTL }
     );
-    res.json({ url: `/api/guide/download?t=${token}`, expiresIn: LINK_TTL_SECONDS });
-  } catch (err) {
-    console.error('guide link error:', err);
-    res.status(500).json({ error: 'Could not create the download link' });
+    res.json({ url: `/api/guide/file?t=${encodeURIComponent(token)}`, expiresIn: LINK_TTL });
+  } catch (e) {
+    res.status(500).json({ error: 'could not create download link' });
   }
 });
 
-// ── GET /api/guide/download?t=… ───────────────────────────────────────────────
-// Verifies the link token, stamps every page with the buyer's identity, and
-// streams the PDF. pdf-lib is required lazily so a missing dependency can't
-// take the whole server down at boot (same reasoning as Stripe in payment.js).
-router.get('/download', async (req, res) => {
+// GET /api/guide/file?t=… — verify the link, watermark per-buyer, stream the PDF
+router.get('/file', async (req, res) => {
+  let payload;
   try {
-    let payload;
-    try {
-      payload = jwt.verify(String(req.query.t || ''), process.env.JWT_SECRET);
-    } catch {
-      return res.status(410).json({
-        error: 'This download link has expired — generate a fresh one from the study guide page.',
-      });
-    }
-    if (payload.purpose !== 'guide-download') {
-      return res.status(401).json({ error: 'Invalid download link' });
-    }
-
+    payload = jwt.verify(String(req.query.t || ''), process.env.JWT_SECRET);
+  } catch (e) {
+    return res.status(403).send('This download link has expired. Please generate a new one.');
+  }
+  try {
+    if (payload.purpose !== 'guide-download') return res.status(403).send('Invalid link.');
     const user = await User.findById(payload.sub).select('email guidePurchasedAt guideOrderId');
-    if (!user || !user.guidePurchasedAt) {
-      return res.status(403).json({ error: 'You have not purchased the study guide yet.' });
-    }
-    if (!guideAvailable()) {
-      return res.status(503).json({
-        error: 'The study guide download isn\'t available yet — check back shortly, or contact support.',
-      });
-    }
+    if (!user || !user.guidePurchasedAt) return res.status(403).send('Guide not purchased.');
+    if (!fs.existsSync(MASTER)) return res.status(503).send('The study guide file is not available yet.');
 
-    const { PDFDocument, StandardFonts, rgb } = require('pdf-lib');
-    const doc = await PDFDocument.load(fs.readFileSync(GUIDE_PDF_PATH));
-    const font = await doc.embedFont(StandardFonts.Helvetica);
-    const stamp = `Licensed to ${user.email} · Order ${user.guideOrderId || 'n/a'} · passreadyprep.com`;
-    for (const page of doc.getPages()) {
-      page.drawText(stamp, {
-        x: 36,
-        y: 14,
-        size: 7.5,
-        font,
-        color: rgb(0.45, 0.5, 0.55),
-      });
-    }
-    const bytes = await doc.save();
+    const pdf = await PDFDocument.load(fs.readFileSync(MASTER));
+    const font = await pdf.embedFont(StandardFonts.Helvetica);
+    const email = user.email || 'licensed user';
+    const footer = `Licensed to ${email}  \u00b7  order ${user.guideOrderId || ''}  \u00b7  \u00a9 GA Integrated Therapeutic Perspectives LLC \u2014 not for redistribution`;
 
+    pdf.getPages().forEach((p) => {
+      const { width, height } = p.getSize();
+      // faint diagonal buyer watermark across each page
+      p.drawText(email, {
+        x: width / 2 - Math.min(width * 0.35, email.length * 8),
+        y: height / 2 - 20,
+        size: 28, font, color: rgb(0.92, 0.92, 0.92),
+        rotate: degrees(45), opacity: 0.45,
+      });
+      // per-page license footer
+      p.drawText(footer.length > 130 ? footer.slice(0, 127) + '\u2026' : footer, {
+        x: 22, y: 12, size: 6.5, font, color: rgb(0.5, 0.5, 0.5),
+      });
+    });
+
+    const out = await pdf.save();
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename="ncmhce-study-guide.pdf"');
-    res.send(Buffer.from(bytes));
-  } catch (err) {
-    console.error('guide download error:', err);
-    res.status(500).json({ error: 'Could not prepare your download — please try again' });
+    res.setHeader('Content-Disposition', 'attachment; filename="NCMHCE-Study-Guide.pdf"');
+    res.setHeader('Cache-Control', 'no-store');
+    res.send(Buffer.from(out));
+  } catch (e) {
+    console.error('guide file error:', e);
+    res.status(500).send('Could not prepare the guide. Please try again.');
   }
 });
 

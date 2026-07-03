@@ -21,11 +21,8 @@ const UserSchema = new Schema(
     termsAcceptedAt: Date,
     termsVersion: { type: String },          // e.g. 'june-2026'
     guaranteeTermsAcceptedAt: Date,          // set only for Pass Guarantee purchasers
-
-    // Study-guide ebook — one-time purchase entitlement (separate from the
-    // subscription; owning the guide never unlocks the app).
-    guidePurchasedAt: Date,                  // set by the Stripe webhook on purchase
-    guideOrderId: String,                    // Stripe payment intent / session id, for support
+    guidePurchasedAt: Date,                  // set when the standalone study guide is purchased
+    guideOrderId: String,                    // Stripe checkout session id for the guide purchase
 
     subscription: {
       tier: { type: String, default: 'free' },      // free | monthly | pass3 | guarantee

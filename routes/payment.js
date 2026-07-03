@@ -9,7 +9,6 @@
  *   monthly    — $29/mo recurring (Stripe subscription)
  *   pass3      — $79 one-time, 3 months access
  *   guarantee  — $149 one-time, access until passing
- *   guide      — $25 one-time, study-guide PDF only (entitlement, NOT app access)
  *
  * ENV vars required (add to .env and Render dashboard):
  *   STRIPE_SECRET_KEY       — sk_live_xxx  (or sk_test_xxx for dev)
@@ -17,7 +16,6 @@
  *   STRIPE_PRICE_MONTHLY    — price_xxx  (monthly $29 recurring price ID)
  *   STRIPE_PRICE_PASS3      — price_xxx  (3-month $79 one-time price ID)
  *   STRIPE_PRICE_GUARANTEE  — price_xxx  ($149 one-time price ID)
- *   STRIPE_PRICE_GUIDE      — price_xxx  ($25 one-time study-guide price ID)
  *   CLIENT_URL              — https://passreadyprep-server.onrender.com (no trailing slash)
  */
 
@@ -72,9 +70,7 @@ const TIERS = {
     priceId: () => process.env.STRIPE_PRICE_GUIDE,
     mode: 'payment',
     tierName: 'guide',
-    // Entitlement only: buying the guide grants the PDF download, never a
-    // subscription tier — it must not unlock the app.
-    entitlementOnly: true,
+    entitlementOnly: true, // one-time PRODUCT (the study guide), NOT an access tier.
   },
 };
 
@@ -215,7 +211,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
   try {
     switch (event.type) {
 
-      // ── One-time payment completed (pass3, guarantee, or guide) ──────────
+      // ── One-time payment completed (pass3 or guarantee) ──────────────────
       case 'checkout.session.completed': {
         const session = event.data.object;
         if (session.mode !== 'payment') break; // subscriptions handled below
@@ -226,15 +222,13 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
 
         const tierConfig = TIERS[tier];
 
-        // Entitlement-only products (the study guide): grant the product flag
-        // and stop — never touch the subscription, so buying the guide can't
-        // unlock the app.
+        // One-time PRODUCT (e.g. the study guide): grant an entitlement, never a tier.
         if (tierConfig.entitlementOnly) {
           await User.findByIdAndUpdate(userId, {
             guidePurchasedAt: new Date(),
-            guideOrderId: session.payment_intent || session.id,
+            guideOrderId: session.id,
           });
-          console.log(`✓ Guide purchase: user ${userId}, order ${session.payment_intent || session.id}`);
+          console.log(`✓ One-time product: user ${userId} → entitlement "${tier}"`);
           break;
         }
 
