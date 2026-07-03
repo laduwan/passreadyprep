@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const requireAuth = require('../middleware/auth');
 const { sendMail } = require('../utils/mailer');
+const { logActivity } = require('../utils/activity');
 
 const router = express.Router();
 
@@ -64,6 +65,7 @@ router.post('/register', async (req, res) => {
       termsVersion: 'june-2026',
     });
 
+    logActivity({ type: 'user.registered', severity: 'info', email: user.email, userId: user._id, message: 'New account created', req });
     return res.status(201).json({ token: signToken(user), user: publicUser(user) });
   } catch (err) {
     console.error('register error', err);
@@ -79,16 +81,23 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Email and password are required' });
 
     const user = await User.findOne({ email: email.toLowerCase() });
-    if (!user) return res.status(401).json({ error: 'Email or password is incorrect' });
+    if (!user) {
+      logActivity({ type: 'user.login_failed', severity: 'warn', email: (email || '').toLowerCase(), message: 'No account for that email', req });
+      return res.status(401).json({ error: 'Email or password is incorrect' });
+    }
 
     const ok = await bcrypt.compare(password, user.passwordHash);
-    if (!ok) return res.status(401).json({ error: 'Email or password is incorrect' });
+    if (!ok) {
+      logActivity({ type: 'user.login_failed', severity: 'warn', email: user.email, userId: user._id, message: 'Wrong password', req });
+      return res.status(401).json({ error: 'Email or password is incorrect' });
+    }
 
     // Bump session version — invalidates any tokens issued before this login.
     // Anyone sharing credentials gets kicked out the moment the real user signs in.
     user.sessionVersion = (user.sessionVersion || 0) + 1;
     await user.save();
 
+    logActivity({ type: 'user.login', severity: 'info', email: user.email, userId: user._id, message: 'Signed in', req });
     return res.json({ token: signToken(user), user: publicUser(user) });
   } catch (err) {
     console.error('login error', err);
@@ -145,6 +154,7 @@ router.post('/forgot-password', async (req, res) => {
       user.resetPasswordTokenHash = hashToken(rawToken);
       user.resetPasswordExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
       await user.save();
+      logActivity({ type: 'password.reset_requested', severity: 'info', email: user.email, userId: user._id, message: 'Reset link requested', req });
 
       const link = baseUrl(req) + '/reset-password.html?token=' + rawToken;
       const text =
@@ -195,6 +205,7 @@ router.post('/reset-password', async (req, res) => {
     user.sessionVersion = (user.sessionVersion || 0) + 1; // sign out all sessions
     await user.save();
 
+    logActivity({ type: 'password.reset_completed', severity: 'warn', email: user.email, userId: user._id, message: 'Password was reset', req });
     return res.json({ ok: true, message: 'Your password has been reset. You can now sign in.' });
   } catch (err) {
     console.error('reset-password error', err);

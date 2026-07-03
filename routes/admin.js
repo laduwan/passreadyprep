@@ -4,6 +4,8 @@ const ContentItem = require('../models/ContentItem');
 const Exam = require('../models/Exam');
 const User = require('../models/User');
 const Attempt = require('../models/Attempt');
+const ActivityEvent = require('../models/ActivityEvent');
+const { logActivity } = require('../utils/activity');
 
 const router = express.Router();
 router.use(requireAdmin);
@@ -321,6 +323,84 @@ router.get('/stats', async (_req, res) => {
   } catch (e) { console.error('stats/attempts', e.message); }
 
   return res.json(out);
+});
+
+// ── Activity tracking ────────────────────────────────────────────────
+
+// GET /api/admin/activity?type=&severity=&q=&limit= — recent events, newest first
+router.get('/activity', async (req, res) => {
+  try {
+    const { type, severity, q } = req.query;
+    const limit = Math.min(parseInt(req.query.limit, 10) || 100, 500);
+    const filter = {};
+    if (type) filter.type = type;
+    if (severity) filter.severity = severity;
+    if (q) {
+      const rx = new RegExp(String(q).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+      filter.$or = [{ message: rx }, { email: rx }, { type: rx }, { path: rx }];
+    }
+    const items = await ActivityEvent.find(filter)
+      .select('type severity message email path ip notified createdAt')
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .lean();
+    return res.json({ count: items.length, items });
+  } catch (err) {
+    console.error('admin activity list error', err);
+    return res.status(500).json({ error: 'Could not load activity' });
+  }
+});
+
+// GET /api/admin/activity/stats — counts for the last 24h / 7d + top types
+router.get('/activity/stats', async (_req, res) => {
+  const out = {
+    last24h: { total: 0, info: 0, warn: 0, error: 0 },
+    last7d: { total: 0, info: 0, warn: 0, error: 0 },
+    topTypes7d: [],
+    generatedAt: new Date().toISOString(),
+  };
+  try {
+    const now = Date.now();
+    const d1 = new Date(now - 24 * 3600 * 1000);
+    const d7 = new Date(now - 7 * 86400 * 1000);
+    const rows = await ActivityEvent.find({ createdAt: { $gte: d7 } })
+      .select('type severity createdAt')
+      .lean();
+    const typeCounts = {};
+    for (const r of rows) {
+      const sev = ['info', 'warn', 'error'].includes(r.severity) ? r.severity : 'info';
+      out.last7d.total += 1;
+      out.last7d[sev] += 1;
+      if (r.createdAt && r.createdAt >= d1) { out.last24h.total += 1; out.last24h[sev] += 1; }
+      typeCounts[r.type] = (typeCounts[r.type] || 0) + 1;
+    }
+    out.topTypes7d = Object.keys(typeCounts)
+      .map((t) => ({ type: t, count: typeCounts[t] }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 10);
+    return res.json(out);
+  } catch (err) {
+    console.error('admin activity stats error', err);
+    return res.json(out); // return zeros rather than 500 so the panel still loads
+  }
+});
+
+// POST /api/admin/activity/test — log a test event and force an admin alert,
+// so you can confirm email/SMS delivery end to end.
+router.post('/activity/test', async (req, res) => {
+  try {
+    await logActivity({
+      type: 'admin.test_alert',
+      severity: 'warn',
+      message: 'Test alert triggered from the admin panel.',
+      notify: true,
+      req,
+    });
+    return res.json({ ok: true, message: 'Test event logged. If alerts are configured, check your email/SMS.' });
+  } catch (err) {
+    console.error('admin activity test error', err);
+    return res.status(500).json({ error: 'Could not send test alert' });
+  }
 });
 
 module.exports = router;

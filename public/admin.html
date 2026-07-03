@@ -102,6 +102,7 @@
   <div class="tabs">
     <button class="tab active" data-tab="overview">Overview</button>
     <button class="tab" data-tab="cases">Cases</button>
+    <button class="tab" data-tab="activity">Activity</button>
   </div>
 
   <!-- Overview -->
@@ -144,6 +145,34 @@
         </table>
       </div>
     </div>
+  </section>
+
+  <!-- Activity -->
+  <section id="activity" class="hidden">
+    <div class="grid" id="actStatCards"></div>
+    <div class="spacer"></div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="row">
+        <div><label for="aSeverity">Severity</label>
+          <select id="aSeverity"><option value="">Any</option><option value="error">Error</option><option value="warn">Warn</option><option value="info">Info</option></select></div>
+        <div><label for="aType">Type</label><input id="aType" placeholder="e.g. user.registered" /></div>
+        <div><label for="aSearch">Search</label><input id="aSearch" placeholder="email, message, path" /></div>
+        <div style="flex:0 0 auto;min-width:0">
+          <button id="aApply">Filter</button>
+          <button class="ghost" id="aTest">Send test alert</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div id="actCount" class="muted" style="font-size:13px;margin-bottom:8px"></div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>When</th><th>Severity</th><th>Type</th><th>Detail</th><th class="hide-sm">User</th></tr></thead>
+          <tbody id="actRows"></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="muted" style="font-size:12px" id="actGenAt"></p>
   </section>
 </div>
 
@@ -229,9 +258,15 @@
       var tab = btn.getAttribute('data-tab');
       $('overview').classList.toggle('hidden', tab!=='overview');
       $('cases').classList.toggle('hidden', tab!=='cases');
+      $('activity').classList.toggle('hidden', tab!=='activity');
+      if(tab==='activity'){ loadActivity(); loadActivityStats(); }
     };
   });
-  $('refreshBtn').onclick = function(){ loadOverview(); loadCases(); toast('Refreshed'); };
+  $('refreshBtn').onclick = function(){
+    loadOverview(); loadCases();
+    if(!$('activity').classList.contains('hidden')){ loadActivity(); loadActivityStats(); }
+    toast('Refreshed');
+  };
 
   // ── Overview ──────────────────────────────────────────────────────
   function breakdown(el, obj){
@@ -387,6 +422,57 @@
       .then(function(){ $('eSave').disabled=false; });
   };
   $('addBtn').onclick = function(){ openEditor(null); };
+
+  // ── Activity ──────────────────────────────────────────────────────
+  function sevChip(sev){
+    var color = sev==='error' ? 'var(--red-400)' : (sev==='warn' ? 'var(--amber-400)' : 'var(--slate-300)');
+    var bg = sev==='error' ? 'rgba(248,113,113,.15)' : (sev==='warn' ? 'rgba(251,191,36,.15)' : 'rgba(148,163,184,.12)');
+    return '<span class="badge" style="color:'+color+';background:'+bg+'">'+esc(sev)+'</span>';
+  }
+  function fmtTime(iso){ try { return new Date(iso).toLocaleString(); } catch(e){ return esc(iso); } }
+
+  function loadActivityStats(){
+    api('/activity/stats').then(function(s){
+      $('actStatCards').innerHTML =
+        stat(s.last24h.total,'Events · 24h') +
+        stat(s.last24h.error,'Errors · 24h') +
+        stat(s.last7d.total,'Events · 7d') +
+        stat(s.last7d.error,'Errors · 7d') +
+        stat(s.last7d.warn,'Warnings · 7d');
+      $('actGenAt').textContent = (s.topTypes7d && s.topTypes7d.length)
+        ? 'Top types (7d): ' + s.topTypes7d.map(function(t){ return t.type+' ('+t.count+')'; }).join(', ')
+        : '';
+    }).catch(function(e){ toast(e.message, true); });
+  }
+
+  function loadActivity(){
+    var qs=[]; var sev=$('aSeverity').value, ty=$('aType').value.trim(), q=$('aSearch').value.trim();
+    if(sev) qs.push('severity='+encodeURIComponent(sev));
+    if(ty) qs.push('type='+encodeURIComponent(ty));
+    if(q) qs.push('q='+encodeURIComponent(q));
+    qs.push('limit=200');
+    api('/activity?'+qs.join('&')).then(function(d){
+      $('actCount').textContent = d.count+' event'+(d.count===1?'':'s')+' (most recent first)';
+      var rows = d.items.map(function(it){
+        var detail = esc(it.message||'') + (it.path ? ' <span class="muted" style="font-size:12px">'+esc(it.path)+'</span>' : '');
+        return '<tr>'+
+          '<td style="white-space:nowrap;font-size:12.5px">'+fmtTime(it.createdAt)+'</td>'+
+          '<td>'+sevChip(it.severity)+(it.notified?' <span class="muted" style="font-size:11px">alerted</span>':'')+'</td>'+
+          '<td><code style="font-size:12px">'+esc(it.type)+'</code></td>'+
+          '<td>'+(detail||'<span class="muted">—</span>')+'</td>'+
+          '<td class="hide-sm">'+esc(it.email||'')+'</td>'+
+        '</tr>';
+      }).join('');
+      $('actRows').innerHTML = rows || '<tr><td colspan="5" class="muted" style="padding:18px">No events yet.</td></tr>';
+    }).catch(function(e){ toast(e.message, true); });
+  }
+  $('aApply').onclick = loadActivity;
+  $('aSearch').addEventListener('keydown', function(e){ if(e.key==='Enter') loadActivity(); });
+  $('aTest').onclick = function(){
+    api('/activity/test',{method:'POST'}).then(function(r){
+      toast(r.message || 'Test event logged'); loadActivity(); loadActivityStats();
+    }).catch(function(e){ toast(e.message, true); });
+  };
 
   // ── Boot ──────────────────────────────────────────────────────────
   if (TOKEN){ tryToken(TOKEN).then(showApp).catch(function(){ sessionStorage.removeItem('prp_admin_token'); }); }
