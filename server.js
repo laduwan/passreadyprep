@@ -27,6 +27,7 @@ app.use('/api/admin/generate', require('./routes/adminGenerate'));
 app.use('/api/debrief', require('./routes/debrief'));
 app.use('/api/skills', require('./routes/skills'));
 app.use('/api/intake', require('./routes/intake'));
+app.use('/api/guide', require('./routes/guide'));
 
 // Explicit page routes — must come BEFORE express.static so the landing page
 // wins at / instead of public/index.html.

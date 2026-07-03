@@ -6,11 +6,14 @@ const User = require('../models/User');
 const router = express.Router();
 
 const FREE_CASE_LIMIT = 5;
+const TRIAL_DAYS = 3;
 
 // Middleware: resolves subscription tier and attaches req.accessLevel.
-// 'free'  — no token, or expired paid tier
-// 'paid'  — active monthly, pass3, or guarantee with valid access
-// 'gated' — guarantee tier past 6 months, score report not yet approved
+// 'free'    — no token (anonymous visitor): 5-case teaser
+// 'trial'   — registered account within TRIAL_DAYS of signup: full access
+// 'expired' — registered account past the trial with no active paid tier
+// 'paid'    — active monthly, pass3, or guarantee with valid access
+// 'gated'   — guarantee tier past 6 months, score report not yet approved
 async function resolveAccess(req, res, next) {
   const header = req.headers.authorization || '';
   const token = header.startsWith('Bearer ') ? header.slice(7) : null;
@@ -21,7 +24,7 @@ async function resolveAccess(req, res, next) {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = payload.sub;
 
-    const user = await User.findById(req.userId).select('subscription');
+    const user = await User.findById(req.userId).select('subscription createdAt');
     if (!user) { req.accessLevel = 'free'; return next(); }
 
     const sub = user.subscription || {};
@@ -41,18 +44,25 @@ async function resolveAccess(req, res, next) {
       }
     }
 
-    // Monthly / pass3: if expired, drop to free
+    // Monthly / pass3: if expired, fall back to the trial clock (long past → 'expired')
     if (['monthly', 'pass3'].includes(tier) && expired) {
-      req.accessLevel = 'free';
+      req.accessLevel = trialLevel(user);
       return next();
     }
 
-    req.accessLevel = tier === 'free' ? 'free' : 'paid';
+    req.accessLevel = tier === 'free' ? trialLevel(user) : 'paid';
     next();
   } catch (err) {
     req.accessLevel = 'free';
     next();
   }
+}
+
+// Registered accounts get full access for TRIAL_DAYS from signup, then hit the paywall.
+function trialLevel(user) {
+  const created = user.createdAt ? new Date(user.createdAt) : new Date(0);
+  const trialEnd = new Date(created.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
+  return trialEnd > new Date() ? 'trial' : 'expired';
 }
 
 // GET /api/content?exam=ncmhce — list published cases
@@ -68,13 +78,15 @@ router.get('/', resolveAccess, async (req, res) => {
       .select('externalId title category difficulty format')
       .sort({ category: 1, externalId: 1 });
 
-    const limited = req.accessLevel === 'free' ? items.slice(0, FREE_CASE_LIMIT) : items;
+    const teaser = ['free', 'expired'].includes(req.accessLevel);
+    const limited = teaser ? items.slice(0, FREE_CASE_LIMIT) : items;
     return res.json({
       count: limited.length,
       total: items.length,
       items: limited,
       accessLevel: req.accessLevel,
       freeLimit: FREE_CASE_LIMIT,
+      trialDays: TRIAL_DAYS,
     });
   } catch (err) {
     console.error('list content error', err);
@@ -96,13 +108,22 @@ router.get('/:externalId', resolveAccess, async (req, res) => {
       });
     }
 
+    // Trial over and no paid plan → paywall
+    if (req.accessLevel === 'expired') {
+      return res.status(402).json({
+        error: 'Trial ended',
+        gateReason: 'trial_expired',
+        message: `Your ${TRIAL_DAYS}-day free trial has ended. Pick a plan to keep studying.`,
+      });
+    }
+
     const item = await ContentItem.findOne({
       externalId: req.params.externalId,
       status: 'published',
     });
     if (!item) return res.status(404).json({ error: 'Case not found' });
 
-    // Free users: enforce case limit
+    // Anonymous visitors: enforce the teaser case limit
     if (req.accessLevel === 'free') {
       const freeCases = await ContentItem.find({ status: 'published' })
         .select('externalId')
@@ -113,7 +134,7 @@ router.get('/:externalId', resolveAccess, async (req, res) => {
         return res.status(402).json({
           error: 'Free limit reached',
           gateReason: 'upgrade_required',
-          message: `Free access includes ${FREE_CASE_LIMIT} cases. Upgrade to unlock all 270+.`,
+          message: `Free access includes ${FREE_CASE_LIMIT} cases. Create an account for a ${TRIAL_DAYS}-day trial of all 270+.`,
         });
       }
     }

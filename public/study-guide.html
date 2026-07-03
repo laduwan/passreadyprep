@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — The Complete NCMHCE Study Guide</title>
+<meta name="description" content="The Complete NCMHCE Study Guide — a readable, exam-focused companion covering all 18 diagnostic families with worked cases, traps, and practice questions. One-time purchase.">
+<style>
+  :root{--slate-900:#0F172A;--slate-800:#1E293B;--slate-700:#334155;--slate-500:#64748B;--slate-400:#94A3B8;--slate-300:#CBD5E1;--slate-200:#E2E8F0;--white:#F8FAFC;--emerald:#10B981;--emerald-400:#34D399;--sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  *{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(160deg,#0F172A,#1E293B 50%,#0F172A);background-attachment:fixed;color:var(--slate-200);font-family:var(--sans);line-height:1.55}
+  .wrap{max-width:640px;margin:0 auto;padding:24px 18px 64px}
+  a{color:var(--emerald-400)}
+  header{display:flex;align-items:center;gap:11px;padding:2px 0 22px}
+  .bc{width:38px;height:38px;border-radius:11px;background:rgba(16,185,129,.16);display:grid;place-items:center}
+  .bc svg{width:21px;height:21px;color:var(--emerald-400)}
+  .bn{font-weight:700;font-size:18px;color:var(--white)}.bn .p{color:var(--emerald-400)}
+  h1{font-size:26px;color:var(--white);margin:0 0 8px}
+  .lead{color:var(--slate-400);margin:0 0 18px}
+  .card{background:rgba(30,41,59,.55);border:1px solid rgba(51,65,85,.6);border-radius:16px;padding:22px;margin-bottom:16px}
+  .price{font-size:34px;font-weight:800;color:var(--white)}.price small{font-size:14px;color:var(--slate-400);font-weight:500}
+  ul{margin:12px 0 0;padding-left:18px;color:var(--slate-300)}li{margin:5px 0}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font:inherit;font-weight:700;font-size:16px;
+    background:var(--emerald);color:#04261C;border:none;border-radius:10px;padding:14px 24px;width:100%;margin-top:16px}
+  .btn:hover{background:var(--emerald-400)}.btn[disabled]{opacity:.6;cursor:default}
+  .btn-alt{background:rgba(51,65,85,.5);color:var(--white)}
+  .msg{margin-top:12px;font-size:14px;color:var(--slate-400)}
+  .owned{border-color:rgba(16,185,129,.5);background:rgba(16,185,129,.08)}
+  .note{font-size:12.5px;color:var(--slate-500);margin-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="bc" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+    <span class="bn">PassReady<span class="p"> Prep</span></span>
+  </header>
+
+  <h1>The Complete NCMHCE Study Guide</h1>
+  <p class="lead">Learn how to <strong>approach every NCMHCE vignette</strong> — a repeatable way to read a case, rule in the diagnosis, decide what to assess, and choose the next best step. Across all 18 diagnostic families, with the traps the exam plants and worked cases that walk the reasoning to the answer.</p>
+
+  <div class="card" id="buyCard">
+    <div class="price">$25 <small>· one-time · lifetime access to your copy</small></div>
+    <ul>
+      <li>Learn how to approach each vignette — a repeatable way to work any case</li>
+      <li>Rule in the diagnosis, decide what to assess, choose the next best step</li>
+      <li>"What the exam rewards / what it punishes" for every family</li>
+      <li>Worked cases that walk the reasoning to the answer</li>
+      <li>All 18 DSM families + full practice set with expanded rationales</li>
+      <li>Instant PDF download after purchase</li>
+    </ul>
+    <button class="btn" id="buyBtn">Buy the study guide — $25</button>
+    <div class="msg" id="msg"></div>
+    <p class="note">Your download is personalized and licensed to your account. Also available on Amazon Kindle.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var token = localStorage.getItem('prp_token');
+  var buyCard = document.getElementById('buyCard');
+  var buyBtn = document.getElementById('buyBtn');
+  var msg = document.getElementById('msg');
+
+  function authHeaders(){ return token ? { Authorization: 'Bearer ' + token } : {}; }
+
+  // If signed in, check whether they already own it → show a download button instead.
+  if (token){
+    fetch('/api/guide/status', { headers: authHeaders() })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){ if (d && d.owned) showOwned(); })
+      .catch(function(){});
+  }
+
+  function showOwned(){
+    buyCard.classList.add('owned');
+    buyCard.innerHTML = '<div class="price" style="font-size:20px">\u2713 You own the study guide</div>'
+      + '<p class="lead" style="margin:10px 0 0">Your copy is licensed to your account. Download links are personalized and expire after a few minutes for security \u2014 generate a fresh one anytime.</p>'
+      + '<button class="btn" id="dlBtn">Download my guide (PDF)</button><div class="msg" id="msg2"></div>';
+    document.getElementById('dlBtn').onclick = function(){
+      var m = document.getElementById('msg2'); m.textContent = 'Preparing your personalized copy\u2026';
+      fetch('/api/guide/link', { headers: authHeaders() })
+        .then(function(r){ return r.json(); })
+        .then(function(d){ if (d.url){ m.textContent=''; window.location.href = d.url; } else { m.textContent = d.error || 'Could not create the download link.'; } })
+        .catch(function(){ m.textContent = 'Something went wrong. Please try again.'; });
+    };
+  }
+
+  buyBtn.onclick = function(){
+    if (!token){ msg.innerHTML = 'Please <a href="/register.html">sign in or create an account</a> first \u2014 your guide is tied to your account.'; return; }
+    buyBtn.disabled = true; msg.textContent = 'Redirecting to secure checkout\u2026';
+    fetch('/api/payment/create-checkout-session', {
+      method: 'POST',
+      headers: Object.assign({ 'Content-Type':'application/json' }, authHeaders()),
+      body: JSON.stringify({ tier: 'guide' })
+    })
+      .then(function(r){
+        if (r.status === 401){ localStorage.removeItem('prp_token'); msg.innerHTML='Your session expired \u2014 please <a href="/register.html">sign in</a> again.'; buyBtn.disabled=false; return null; }
+        return r.json();
+      })
+      .then(function(d){ if (d && d.url){ window.location.href = d.url; } else if (d){ msg.textContent = d.error || 'Could not start checkout.'; buyBtn.disabled=false; } })
+      .catch(function(){ msg.textContent = 'Something went wrong. Please try again.'; buyBtn.disabled=false; });
+  };
+})();
+</script>
+</body>
+</html>
