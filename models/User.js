@@ -17,6 +17,12 @@ const UserSchema = new Schema(
     // session per account, which blocks credential sharing.
     sessionVersion: { type: Number, default: 0 },
 
+    // Password reset — a one-time link. We store ONLY the SHA-256 hash of the
+    // token, never the raw token, so a database leak can't be used to reset
+    // anyone's password. Cleared once used; expires one hour after issue.
+    resetPasswordTokenHash: { type: String, index: true },
+    resetPasswordExpires: Date,
+
     // Policy acceptance — legal record of when and what version the user agreed to.
     termsAcceptedAt: Date,
     termsVersion: { type: String },          // e.g. 'june-2026'
