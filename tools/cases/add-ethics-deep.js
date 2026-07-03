@@ -12,13 +12,12 @@
 // MONGO_URI is read from env, same as every other tool here.
 // ============================================================================
 require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
 const mongoose = require('mongoose');
 const Exam = require('../../models/Exam');
 const ContentItem = require('../../models/ContentItem');
 const { validateExamDepth } = require('./examDepth');
 const dedup = require('./dedup');
+const idAllocator = require('./idAllocator');
 
 const APPLY = process.argv.includes('--apply');
 const STATUS = process.argv.includes('--publish') ? 'published' : 'sme_review';
@@ -273,37 +272,19 @@ async function main() {
   if (!exam) { console.error('No ncmhce exam found.'); process.exit(1); }
 
   const existing = await ContentItem.find({ examId: exam._id, format: 'case_sim' }).select('externalId status caseSim').lean();
-  const taken = new Set(existing.map((d) => d.externalId));
   const live = existing.filter((d) => d.status !== 'draft' && d.caseSim).map((d) => d.caseSim);
 
-  // Reserve every D-id defined in the deep-cases-batch files too — even ones not
-  // imported into the DB yet. Without this we'd allocate an id the batch pipeline
-  // already owns (e.g. D168 = Substance), and a later import-deep-cases run would
-  // silently overwrite one of the two. Scanning the files pushes allocation above
-  // the whole D101–D189 batch range.
-  try {
-    fs.readdirSync(__dirname)
-      .filter((f) => /^deep-cases-batch-.*\.js$/.test(f) || f === 'exemplar-deep-mdd.js')
-      .forEach((f) => {
-        try {
-          const mod = require(path.join(__dirname, f));
-          const arr = mod.CASES || mod.cases || mod.default || [];
-          if (Array.isArray(arr)) arr.forEach((c) => { if (c && c.id) taken.add(c.id); });
-        } catch (e) { /* unreadable batch file — skip */ }
-      });
-  } catch (e) { /* dir unreadable — fall back to DB ids only */ }
-
-  let maxNum = 100;
-  taken.forEach((id) => { const m = /D(\d+)/.exec(id || ''); if (m) maxNum = Math.max(maxNum, parseInt(m[1], 10)); });
+  // One shared, batch-aware allocator: reserves DB ids + every D-id hardcoded in
+  // the batch files, so these land above the whole D101–D189 range (D190/D191)
+  // instead of clobbering an unimported batch case (e.g. D168 = Substance).
+  const ids = idAllocator.allocate(existing.map((d) => d.externalId), CASES.length, { prefix: 'D' });
 
   const plan = [];
-  for (const c of CASES) {
+  CASES.forEach((c, i) => {
     const near = dedup.isNearDuplicate(c, live, { threshold: 0.55 });
     if (near.dup) console.log('NOTE: "' + c.title + '" looks similar to an existing case — inserting anyway (requested).');
-    do { maxNum += 1; } while (taken.has('ncmhce-D' + maxNum));
-    const id = 'ncmhce-D' + maxNum; taken.add(id);
-    plan.push({ id, c }); live.push(c);
-  }
+    plan.push({ id: ids[i], c }); live.push(c);
+  });
 
   console.log('\nWould insert ' + plan.length + ' case(s) as "' + STATUS + '":');
   plan.forEach((p) => console.log('  ' + p.id + '  [' + p.c.category + ']  ' + p.c.title));
