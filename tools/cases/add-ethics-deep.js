@@ -12,6 +12,8 @@
 // MONGO_URI is read from env, same as every other tool here.
 // ============================================================================
 require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
 const mongoose = require('mongoose');
 const Exam = require('../../models/Exam');
 const ContentItem = require('../../models/ContentItem');
@@ -273,6 +275,24 @@ async function main() {
   const existing = await ContentItem.find({ examId: exam._id, format: 'case_sim' }).select('externalId status caseSim').lean();
   const taken = new Set(existing.map((d) => d.externalId));
   const live = existing.filter((d) => d.status !== 'draft' && d.caseSim).map((d) => d.caseSim);
+
+  // Reserve every D-id defined in the deep-cases-batch files too — even ones not
+  // imported into the DB yet. Without this we'd allocate an id the batch pipeline
+  // already owns (e.g. D168 = Substance), and a later import-deep-cases run would
+  // silently overwrite one of the two. Scanning the files pushes allocation above
+  // the whole D101–D189 batch range.
+  try {
+    fs.readdirSync(__dirname)
+      .filter((f) => /^deep-cases-batch-.*\.js$/.test(f) || f === 'exemplar-deep-mdd.js')
+      .forEach((f) => {
+        try {
+          const mod = require(path.join(__dirname, f));
+          const arr = mod.CASES || mod.cases || mod.default || [];
+          if (Array.isArray(arr)) arr.forEach((c) => { if (c && c.id) taken.add(c.id); });
+        } catch (e) { /* unreadable batch file — skip */ }
+      });
+  } catch (e) { /* dir unreadable — fall back to DB ids only */ }
+
   let maxNum = 100;
   taken.forEach((id) => { const m = /D(\d+)/.exec(id || ''); if (m) maxNum = Math.max(maxNum, parseInt(m[1], 10)); });
 
