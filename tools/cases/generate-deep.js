@@ -24,6 +24,7 @@ const { validateExamDepth, QUESTION_TARGET } = require('./examDepth');
 const { ALLOWED_SOURCES } = require('./references');
 const bp = require('./blueprint');
 const dedup = require('./dedup');
+const idAllocator = require('./idAllocator');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
 const COUNT = parseInt(flag('count', '2'), 10);
@@ -94,9 +95,10 @@ async function callAnthropic(prompt) {
 function parseCase(text) { let t = text.trim(); const a = t.indexOf('{'), b = t.lastIndexOf('}'); if (a > 0 || b < t.length - 1) t = t.slice(a, b + 1); return JSON.parse(t); }
 
 function nextDeepId(deepCases) {
-  let max = 100;
-  deepCases.forEach((c) => { const m = /D(\d+)/.exec(c.id || c.externalId || ''); if (m) max = Math.max(max, parseInt(m[1], 10)); });
-  return 'ncmhce-D' + (max + 1);
+  // Shared allocator: reserves these DB ids + every D-id hardcoded in the batch
+  // files, so a not-yet-imported batch id (e.g. D168) can never be reissued.
+  const existing = deepCases.map((c) => c.id || c.externalId).filter(Boolean);
+  return idAllocator.next(existing, { prefix: 'D' });
 }
 
 async function main() {
