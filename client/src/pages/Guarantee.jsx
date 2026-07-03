@@ -21,7 +21,7 @@ const FAQ = [
   { q: 'Can I get a refund instead of extended access?', a: 'The guarantee covers extended access, not a refund. We want to keep helping you pass.' },
   { q: 'How long is the extension if I don\'t pass?', a: 'Equal to your original subscription. 3-month plan = 3 more months.' },
   { q: 'What counts as a completed case?', a: 'A case where you answered all questions and saw the results screen.' },
-  { q: 'What is CounselorReady?', a: 'Our NBCC-accredited CE platform (ACEP #7760). Once licensed, you\'ll need CE credits — your free course gets you started.' },
+  { q: 'What is CounselorReady?', a: 'Our board-approved CE platform. Once licensed, you\'ll need CE credits — your free course gets you started.' },
 ];
 
 export default function Guarantee() {
@@ -36,7 +36,7 @@ export default function Guarantee() {
       {/* Pass reward */}
       <div className="bg-gradient-to-br from-emerald-500/10 to-blue-500/5 border border-emerald-500/25 rounded-2xl p-5">
         <h2 className="text-lg font-bold text-emerald-400 mb-2">When you pass</h2>
-        <p className="text-slate-300 text-sm mb-4">Every subscriber who passes gets a free CE course on CounselorReady (NBCC ACEP #7760). Your choice:</p>
+        <p className="text-slate-300 text-sm mb-4">Every subscriber who passes gets a free CE course on CounselorReady, our board-approved CE platform. Your choice:</p>
         <div className="grid sm:grid-cols-2 gap-3 mb-4">
           {[
             { icon: FileText, title: 'TMH 601', desc: 'Telemental Health Foundations' },
