@@ -88,4 +88,31 @@ router.get('/me', requireAuth, async (req, res) => {
   return res.json({ user: publicUser(user) });
 });
 
+// PATCH /api/auth/prefs — save the signed-in user's accessibility preferences.
+// Only the three fields the User model defines are accepted; anything else is
+// ignored. Saving prefs never touches sessionVersion, so the token stays valid.
+router.patch('/prefs', requireAuth, async (req, res) => {
+  try {
+    const a = req.body && req.body.accessibility;
+    if (!a || typeof a !== 'object')
+      return res.status(400).json({ error: 'No preferences provided' });
+
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ error: 'Account not found' });
+
+    if (!user.prefs) user.prefs = {};
+    if (!user.prefs.accessibility) user.prefs.accessibility = {};
+    if (typeof a.highContrast === 'boolean') user.prefs.accessibility.highContrast = a.highContrast;
+    if (typeof a.dyslexiaFont === 'boolean') user.prefs.accessibility.dyslexiaFont = a.dyslexiaFont;
+    if (typeof a.reducedMotion === 'boolean') user.prefs.accessibility.reducedMotion = a.reducedMotion;
+    user.markModified('prefs.accessibility');
+    await user.save();
+
+    return res.json({ user: publicUser(user) });
+  } catch (err) {
+    console.error('prefs update error', err);
+    return res.status(500).json({ error: 'Could not save preferences' });
+  }
+});
+
 module.exports = router;

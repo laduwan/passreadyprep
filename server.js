@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const path = require('path');
+const fs = require('fs');
 
 const app = express();
 
@@ -29,24 +31,69 @@ app.use('/api/skills', require('./routes/skills'));
 app.use('/api/intake', require('./routes/intake'));
 app.use('/api/guide', require('./routes/guide'));
 
+// ── Accessibility widget injection ──────────────────────────────────
+// Every HTML page gets the shared accessibility widget (a11y.css + a11y.js)
+// and a "skip to main content" link, injected at serve time. This means the
+// ~18 static pages and the React shell don't each need a manual <script> edit.
+// Only HTML is touched — JS, CSS, images, data files, and the API pass through
+// untouched via express.static / the API routers.
+const A11Y_HEAD = '<link rel="stylesheet" href="/a11y.css"><script src="/a11y.js" defer></script>';
+const A11Y_SKIP = '<a href="#" class="a11y-skip-link" data-a11y-skip>Skip to main content</a>';
+
+function injectA11y(html) {
+  if (typeof html !== 'string') return html;
+  if (html.indexOf('/a11y.js') !== -1) return html; // already present — don't double up
+  let out = html;
+  out = out.indexOf('</head>') !== -1 ? out.replace('</head>', A11Y_HEAD + '</head>') : (A11Y_HEAD + out);
+  if (/<body[^>]*>/i.test(out)) out = out.replace(/(<body[^>]*>)/i, '$1' + A11Y_SKIP);
+  return out;
+}
+
+function sendHtml(res, filePath) {
+  fs.readFile(filePath, 'utf8', (err, html) => {
+    if (err) return res.status(404).type('txt').send('Not found');
+    res.type('html').send(injectA11y(html));
+  });
+}
+
 // Explicit page routes — must come BEFORE express.static so the landing page
 // wins at / instead of public/index.html.
-const path = require('path');
-const fs   = require('fs');
-app.get('/', (_req, res) => res.sendFile(path.join(__dirname, 'public', 'landing.html')));
-app.get('/study', (_req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
-app.get('/skills', (_req, res) => res.sendFile(path.join(__dirname, 'public', 'skills.html')));
+app.get('/', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'landing.html')));
+app.get('/study', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'index.html')));
+app.get('/skills', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'skills.html')));
 
-// Serve the React SPA (built by Vite to client/dist/) and legacy static pages from /public.
-// React app takes priority; /public has admin review page, standalone tools, and data files.
+// Any other .html(.htm) request: read the file ourselves (client/dist first,
+// then public — matching the static-serving priority below) so the widget is
+// injected. Anything not found falls through to the handlers below.
+app.get(/\.html?$/i, (req, res, next) => {
+  if (req.path.startsWith('/api/')) return next();
+  let rel;
+  try { rel = decodeURIComponent(req.path).replace(/^\/+/, ''); }
+  catch (e) { return next(); }
+  if (!rel || rel.indexOf('..') !== -1) return next(); // no path traversal
+  const bases = [path.join(__dirname, 'client/dist'), path.join(__dirname, 'public')];
+  let found = null;
+  for (const base of bases) {
+    const p = path.join(base, rel);
+    try { if (p.startsWith(base) && fs.existsSync(p) && fs.statSync(p).isFile()) { found = p; break; } }
+    catch (e) { /* keep looking */ }
+  }
+  if (!found) return next();
+  return sendHtml(res, found);
+});
+
+// Serve the React SPA (built by Vite to client/dist/) and legacy static pages
+// from /public. React app takes priority; /public has admin/review pages,
+// standalone tools, data files, and a11y.css / a11y.js.
 app.use(express.static(path.join(__dirname, 'client/dist')));
 app.use(express.static('public'));
 
 // SPA fallback — any non-API, non-file route serves the React app's index.html
+// (with the accessibility widget injected).
 app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api/')) return next();
   const spaIndex = path.join(__dirname, 'client/dist/index.html');
-  if (fs.existsSync(spaIndex)) return res.sendFile(spaIndex);
+  if (fs.existsSync(spaIndex)) return sendHtml(res, spaIndex);
   next();
 });
 

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Accessibility — PassReady Prep</title>
+<meta name="description" content="PassReady Prep's accessibility statement: the display options we offer, the standards we work toward, keyboard and assistive-technology support, known limitations, and how to give feedback." />
+<meta name="robots" content="index,follow" />
+<link rel="canonical" href="https://www.passreadyprep.com/accessibility.html" />
+<style>
+  :root{
+    --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+    --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0;
+    --slate-100:#F1F5F9; --white:#F8FAFC;
+    --emerald:#10B981; --emerald-400:#34D399;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --r-xl:16px; --r-lg:12px; --r-md:10px;
+    --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:84px}
+  body{
+    margin:0; background:linear-gradient(160deg,#0F172A 0%,#1E293B 50%,#0F172A 100%); background-attachment:fixed;
+    color:var(--slate-200); font-family:var(--sans); font-size:16px; line-height:1.65;
+  }
+  a{color:var(--emerald-400); text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  header.site{position:sticky; top:0; z-index:20; backdrop-filter:blur(10px);
+    background:rgba(15,23,42,.72); border-bottom:1px solid rgba(51,65,85,.4)}
+  .nav{max-width:980px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px}
+  .brand-wrap{display:flex; align-items:center; gap:10px}
+  .brand-chip{width:38px; height:38px; border-radius:11px; background:rgba(16,185,129,.16); display:grid; place-items:center; flex:0 0 auto}
+  .brand-chip svg{width:21px; height:21px; color:var(--emerald-400)}
+  .brand{font-weight:800; font-size:18px; color:var(--white); line-height:1.05}
+  .brand .prep{color:var(--emerald-400)}
+  .brand small{display:block; font-weight:600; font-size:11px; color:var(--emerald-400); letter-spacing:.02em; margin-top:1px}
+  .nav-links{display:flex; align-items:center; gap:18px}
+  .nav-links a.navlink{color:var(--slate-300); font-weight:600; font-size:14.5px}
+  .btn{background:var(--emerald); color:#04261C; border:none; border-radius:var(--r-md); padding:10px 18px; font-size:14.5px; font-weight:700; transition:background .15s, transform .12s}
+  .btn:hover{background:var(--emerald-400); transform:translateY(-1px); text-decoration:none}
+  @media(max-width:680px){ .nav-links .navlink{display:none} }
+
+  .wrap{max-width:980px; margin:0 auto; padding:0 20px}
+  .hero{padding:48px 0 8px}
+  .hero h1{color:var(--white); font-size:32px; margin:0 0 6px; letter-spacing:-.01em}
+  .hero .upd{color:var(--slate-400); font-size:13.5px}
+  .hero p.lead{color:var(--slate-300); max-width:680px; margin:14px 0 0}
+
+  .toc{display:flex; flex-wrap:wrap; gap:8px; margin:24px 0 8px}
+  .toc a{background:var(--card); border:1px solid var(--card-border); border-radius:999px;
+    padding:7px 14px; font-size:13.5px; font-weight:600; color:var(--slate-200)}
+  .toc a:hover{border-color:var(--emerald); color:var(--white); text-decoration:none}
+
+  section.policy{background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-xl);
+    padding:26px 28px; margin:18px 0}
+  section.policy h2{color:var(--white); font-size:22px; margin:0 0 12px; letter-spacing:-.01em}
+  section.policy h3{color:var(--emerald-400); font-size:15.5px; margin:22px 0 6px}
+  section.policy p, section.policy li{color:var(--slate-300); font-size:15px}
+  section.policy ul{padding-left:20px; margin:8px 0}
+  section.policy li{margin:6px 0}
+  section.policy strong{color:var(--slate-100)}
+  .callout{background:rgba(16,185,129,.10); border:1px solid rgba(16,185,129,.35); border-radius:var(--r-lg);
+    padding:14px 16px; margin:16px 0}
+  .callout p{margin:0; color:var(--slate-200); font-size:14.5px}
+  .top{display:inline-block; margin-top:14px; font-size:13px; color:var(--slate-500)}
+
+  footer.site{border-top:1px solid rgba(51,65,85,.4); margin-top:40px; padding:30px 0}
+  .foot-legal{display:flex; flex-direction:column; gap:6px; color:var(--slate-500); font-size:13px}
+  .foot-legal .prov{color:var(--slate-400)}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <a class="brand-wrap" href="/" aria-label="PassReady Prep home">
+      <span class="brand-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
+      <span class="brand">PassReady <span class="prep">Prep</span><small>NCMHCE clinical simulations</small></span>
+    </a>
+    <nav class="nav-links">
+      <a class="navlink" href="/policies.html">Policies</a>
+      <a class="navlink" href="/study">Study</a>
+      <a class="btn" href="/">Home</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <main id="main">
+  <div class="hero">
+    <h1>Accessibility</h1>
+    <div class="upd">Last updated: July 3, 2026</div>
+    <p class="lead">PassReady Prep is committed to making NCMHCE preparation usable by everyone, including people who rely on assistive technology or need to adjust how the site looks. This statement explains the options we offer, the standards we work toward, and how to reach us if something isn't working for you.</p>
+
+    <nav class="toc" aria-label="Jump to section">
+      <a href="#options">Display options</a>
+      <a href="#standards">Standards</a>
+      <a href="#assistive">Keyboard &amp; screen readers</a>
+      <a href="#limitations">Known limitations</a>
+      <a href="#feedback">Feedback</a>
+    </nav>
+  </div>
+
+  <section class="policy" id="options">
+    <h2>Adjusting your experience</h2>
+    <p>Every page has an <strong>accessibility button</strong> in the lower-left corner. Selecting it opens a panel where you can turn on any combination of the following. Your choices apply immediately, are remembered on your device, and — when you're signed in — are saved to your account so they follow you across devices.</p>
+    <ul>
+      <li><strong>Text size</strong> — enlarge everything on the page in two steps (A+, A++).</li>
+      <li><strong>High contrast</strong> — switch to a black background with bright text, underlined links, and stronger borders.</li>
+      <li><strong>Readable font</strong> — apply a dyslexia-friendly typeface with wider letter, word, and line spacing.</li>
+      <li><strong>Reduce motion</strong> — minimise animations and transitions. If your device or browser already requests reduced motion, we honour that automatically on your first visit.</li>
+    </ul>
+    <div class="callout"><p>A <strong>“Skip to main content”</strong> link is the first thing keyboard and screen-reader users reach on every page, so you can bypass the navigation and jump straight to the content.</p></div>
+  </section>
+
+  <section class="policy" id="standards">
+    <h2>Standards we work toward</h2>
+    <p>We aim to meet the <strong>Web Content Accessibility Guidelines (WCAG) 2.1, Level AA</strong>, and to align with the expectations of the Americans with Disabilities Act (ADA) for digital services. Accessibility is an ongoing effort rather than a one-time task: as we add features and content, we test against these guidelines and correct issues we find.</p>
+    <p>This is a statement of our goals and current practices, not a legal guarantee of full conformance. Where we fall short, we want to know.</p>
+  </section>
+
+  <section class="policy" id="assistive">
+    <h2>Keyboard and screen-reader support</h2>
+    <ul>
+      <li>The site can be operated with a keyboard alone. Interactive elements are reachable with <strong>Tab</strong>, activated with <strong>Enter</strong> or <strong>Space</strong>, and the accessibility panel closes with <strong>Escape</strong>.</li>
+      <li>A visible focus outline shows where you are on the page as you move through it.</li>
+      <li>Controls use standard roles and labels so screen readers can announce them (for example, the display toggles are announced as on/off switches).</li>
+      <li>Page language is set to English, and headings are structured so assistive technology can navigate by heading.</li>
+    </ul>
+  </section>
+
+  <section class="policy" id="limitations">
+    <h2>Known limitations</h2>
+    <p>We're being upfront about areas still in progress:</p>
+    <ul>
+      <li><strong>Audio and video lessons</strong> — full transcripts and captions are being added across the podcast and video library.</li>
+      <li><strong>Downloadable study sheets (PDF)</strong> — some older PDFs are not yet fully tagged for screen readers. If you need an accessible version of a specific document, contact us and we'll provide one.</li>
+      <li><strong>Complex interactive exercises</strong> — a few case-simulation and drill interactions are still being refined for the smoothest possible screen-reader experience.</li>
+    </ul>
+    <p>If any of these blocks you from studying, reach out — we'll help directly while we keep improving.</p>
+  </section>
+
+  <section class="policy" id="feedback">
+    <h2>Giving feedback</h2>
+    <p>If you run into an accessibility barrier, or you have a suggestion, please email <a href="mailto:support@counselorready.com">support@counselorready.com</a>. Tell us the page, what you were trying to do, and the assistive technology or settings you use if relevant. We aim to respond within a few business days and to fix confirmed issues as quickly as we can.</p>
+    <a class="top" href="#main">↑ Back to top</a>
+  </section>
+  </main>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-legal">
+      <span>© 2026 PassReady Prep. All rights reserved.</span>
+      <span class="prov">Operated by GA Integrated Therapeutic Perspectives LLC · <a href="/policies.html">Policies &amp; Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
