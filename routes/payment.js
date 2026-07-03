@@ -24,6 +24,7 @@ const router = express.Router();
 const Stripe = require('stripe');
 const User = require('../models/User');
 const requireAuth = require('../middleware/auth');
+const { logActivity } = require('../utils/activity');
 
 // Lazy init: construct the Stripe client on first use, not at module load.
 // Building it at require-time meant a missing STRIPE_SECRET_KEY crashed the
@@ -229,6 +230,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
             guideOrderId: session.id,
           });
           console.log(`✓ One-time product: user ${userId} → entitlement "${tier}"`);
+          logActivity({ type: 'payment.succeeded', severity: 'info', userId, email: session.customer_details?.email, message: `One-time product purchased: ${tier}`, meta: { tier, amount: session.amount_total, currency: session.currency }, req });
           break;
         }
 
@@ -244,6 +246,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         });
 
         console.log(`✓ One-time payment: user ${userId} → tier "${tier}", expires ${periodEnd || 'never'}`);
+        logActivity({ type: 'payment.succeeded', severity: 'info', userId, email: session.customer_details?.email, message: `Purchased ${tier}`, meta: { tier, expires: periodEnd, amount: session.amount_total, currency: session.currency }, req });
         break;
       }
 
@@ -261,6 +264,11 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         });
 
         console.log(`✓ Subscription ${event.type}: user ${userId}, status ${sub.status}`);
+        if (event.type === 'customer.subscription.created') {
+          logActivity({ type: 'payment.succeeded', severity: 'info', userId, message: 'Monthly subscription started', meta: { status: sub.status }, req });
+        } else if (sub.status === 'past_due') {
+          logActivity({ type: 'subscription.past_due', severity: 'warn', userId, message: 'Monthly subscription is past due', meta: { status: sub.status }, req });
+        }
         break;
       }
 
@@ -277,6 +285,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         });
 
         console.log(`✓ Subscription cancelled: user ${userId}`);
+        logActivity({ type: 'subscription.canceled', severity: 'info', userId, message: 'Monthly subscription cancelled', meta: { periodEnd: sub.current_period_end }, req });
         break;
       }
 
@@ -292,6 +301,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         });
 
         console.log(`✓ Payment failed: user ${user._id}`);
+        logActivity({ type: 'payment.failed', severity: 'warn', userId: user._id, email: user.email, message: 'Monthly payment failed', meta: { customerId }, req });
         break;
       }
 

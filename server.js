@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
+const activity = require('./utils/activity');
 
 const app = express();
 
@@ -13,6 +14,9 @@ const app = express();
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || '*' }));
 app.use('/api/payment/webhook', express.raw({ type: 'application/json' }));
 app.use(express.json());
+
+// Watch every response and record 5xx failures as error events (see utils/activity).
+app.use(activity.monitor);
 
 // A simple heartbeat so you can confirm the server is alive.
 app.get('/api/health', (req, res) =>
@@ -102,9 +106,13 @@ app.get('*', (req, res, next) => {
   next();
 });
 
+// Final error handler — records thrown/next(err) errors, then responds 500.
+app.use(activity.errorHandler);
+
 const PORT = process.env.PORT || 4000;
 
 async function start() {
+  activity.installProcessHandlers();
   if (!process.env.MONGO_URI) {
     console.warn('MONGO_URI is not set — add it to your .env before using accounts for real.');
   } else {
