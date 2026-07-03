@@ -1,0 +1,126 @@
+/* ============================================================================
+   PassReady Prep — Accessibility (a11y) styles
+   Loaded site-wide (injected by server.js). Two parts:
+     1. The widget chrome (skip link, floating button, panel).
+     2. The accessibility "mode" classes applied to <html> when a user opts in.
+   Everything is namespaced under .a11y-* / html.a11y-* so it can't clash with
+   page styles, and mode rules use !important because they must win over the
+   per-page palettes already in the codebase.
+   ============================================================================ */
+
+/* ---- Skip link ---------------------------------------------------------- */
+.a11y-skip-link{
+  position:fixed; top:-60px; left:12px; z-index:100000;
+  background:#10B981; color:#04120c; font-weight:700;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; font-size:15px;
+  padding:10px 16px; border-radius:8px; text-decoration:none;
+  transition:top .15s ease;
+}
+.a11y-skip-link:focus{ top:12px; outline:3px solid #04120c; outline-offset:2px; }
+
+/* ---- Floating button ---------------------------------------------------- */
+.a11y-fab{
+  position:fixed; left:16px; bottom:16px; z-index:99998;
+  width:52px; height:52px; border-radius:50%;
+  background:#10B981; color:#04120c; border:2px solid rgba(255,255,255,.25);
+  display:grid; place-items:center; cursor:pointer;
+  box-shadow:0 6px 20px rgba(0,0,0,.35);
+  font-family:system-ui,sans-serif;
+}
+.a11y-fab:hover{ background:#34D399; }
+.a11y-fab:focus-visible{ outline:3px solid #ffffff; outline-offset:2px; }
+.a11y-fab svg{ width:26px; height:26px; }
+
+/* ---- Panel -------------------------------------------------------------- */
+.a11y-panel{
+  position:fixed; left:16px; bottom:78px; z-index:99999;
+  width:300px; max-width:calc(100vw - 32px);
+  background:#0F172A; color:#E2E8F0; border:1px solid #334155; border-radius:14px;
+  box-shadow:0 12px 40px rgba(0,0,0,.5); padding:16px;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; font-size:14px; line-height:1.5;
+}
+.a11y-panel[hidden]{ display:none; }
+.a11y-panel h2{ margin:0 0 2px; font-size:16px; color:#F8FAFC; }
+.a11y-panel .a11y-sub{ margin:0 0 12px; font-size:12.5px; color:#94A3B8; }
+.a11y-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:9px 0; border-top:1px solid rgba(51,65,85,.6); }
+.a11y-row:first-of-type{ border-top:0; }
+.a11y-row .a11y-label{ font-weight:600; color:#E2E8F0; }
+.a11y-row .a11y-hint{ display:block; font-weight:400; font-size:12px; color:#94A3B8; margin-top:1px; }
+
+/* toggle switch (real button with role=switch) */
+.a11y-switch{
+  flex:0 0 auto; width:46px; height:26px; border-radius:999px; border:1px solid #475569;
+  background:#334155; position:relative; cursor:pointer; padding:0;
+}
+.a11y-switch::after{
+  content:""; position:absolute; top:2px; left:2px; width:20px; height:20px; border-radius:50%;
+  background:#F8FAFC; transition:left .15s ease;
+}
+.a11y-switch[aria-checked="true"]{ background:#10B981; border-color:#10B981; }
+.a11y-switch[aria-checked="true"]::after{ left:22px; background:#04120c; }
+.a11y-switch:focus-visible{ outline:2px solid #34D399; outline-offset:2px; }
+
+/* text-size segmented control */
+.a11y-seg{ display:flex; gap:0; border:1px solid #475569; border-radius:8px; overflow:hidden; }
+.a11y-seg button{
+  border:0; background:#1E293B; color:#CBD5E1; cursor:pointer; padding:6px 10px; font-family:inherit;
+  border-left:1px solid #475569;
+}
+.a11y-seg button:first-child{ border-left:0; }
+.a11y-seg button[aria-pressed="true"]{ background:#10B981; color:#04120c; font-weight:700; }
+.a11y-seg button:focus-visible{ outline:2px solid #34D399; outline-offset:-2px; }
+
+.a11y-foot{ display:flex; align-items:center; justify-content:space-between; margin-top:12px; padding-top:10px; border-top:1px solid rgba(51,65,85,.6); }
+.a11y-foot a{ color:#34D399; font-size:12.5px; }
+.a11y-reset{ background:none; border:0; color:#94A3B8; cursor:pointer; font-family:inherit; font-size:12.5px; text-decoration:underline; padding:0; }
+.a11y-reset:hover{ color:#E2E8F0; }
+.a11y-sync-note{ font-size:11.5px; color:#64748B; margin:8px 0 0; }
+
+/* ============================================================================
+   MODE CLASSES (applied to <html>)
+   ============================================================================ */
+
+/* Text size — uses zoom so px-based page text scales too (not just rem). */
+html.a11y-font-lg{ zoom:1.12; }
+html.a11y-font-xl{ zoom:1.25; }
+
+/* Reduced motion */
+html.a11y-reduce-motion *,
+html.a11y-reduce-motion *::before,
+html.a11y-reduce-motion *::after{
+  animation-duration:0.001ms !important; animation-iteration-count:1 !important;
+  transition-duration:0.001ms !important; scroll-behavior:auto !important;
+}
+
+/* Readable / dyslexia-friendly font — legible stack + generous spacing,
+   no external font load so it never fails to apply. */
+html.a11y-readable, html.a11y-readable *{
+  font-family:"Comic Sans MS","Comic Neue","Trebuchet MS",Verdana,system-ui,sans-serif !important;
+  letter-spacing:0.03em !important; word-spacing:0.08em !important; line-height:1.7 !important;
+}
+/* keep code/monospace readable but still spaced */
+html.a11y-readable code, html.a11y-readable pre, html.a11y-readable kbd, html.a11y-readable samp{
+  font-family:ui-monospace,Menlo,Consolas,monospace !important; letter-spacing:normal !important;
+}
+
+/* High contrast — force a strong dark theme with bright text, underlined links,
+   and visible borders. Scoped so it only fires when opted in. */
+html.a11y-contrast, html.a11y-contrast body{ background:#000 !important; color:#fff !important; }
+html.a11y-contrast h1, html.a11y-contrast h2, html.a11y-contrast h3,
+html.a11y-contrast h4, html.a11y-contrast p, html.a11y-contrast li,
+html.a11y-contrast span, html.a11y-contrast td, html.a11y-contrast th,
+html.a11y-contrast label, html.a11y-contrast div{ color:#fff !important; }
+html.a11y-contrast .muted, html.a11y-contrast small{ color:#e6e6e6 !important; }
+html.a11y-contrast a{ color:#ffff33 !important; text-decoration:underline !important; }
+html.a11y-contrast button:not(.a11y-switch):not(.a11y-seg button){
+  background:#000 !important; color:#fff !important; border:2px solid #fff !important;
+}
+html.a11y-contrast input, html.a11y-contrast select, html.a11y-contrast textarea{
+  background:#000 !important; color:#fff !important; border:2px solid #fff !important;
+}
+html.a11y-contrast .card,
+html.a11y-contrast [class*="card"]{ background:#0a0a0a !important; border:1px solid #fff !important; }
+html.a11y-contrast :focus-visible{ outline:3px solid #ffff33 !important; outline-offset:2px !important; }
+/* keep the widget itself readable in contrast mode */
+html.a11y-contrast .a11y-panel{ background:#000 !important; border:2px solid #fff !important; }
+html.a11y-contrast .a11y-panel *{ color:#fff !important; }
