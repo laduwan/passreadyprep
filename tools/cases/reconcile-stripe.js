@@ -1,3 +1,4 @@
+
 /*
  * reconcile-stripe.js — find (and optionally fix) purchases that were paid in
  * Stripe but never fulfilled in Mongo because the webhook endpoint was down.
@@ -27,17 +28,17 @@
  *   window, or when you'd rather confirm against the DB than trust the replay.
  *
  * USAGE
- *   node tools/reconcile-stripe.js                       # dry run, default window
- *   node tools/reconcile-stripe.js --apply               # write the missed grants
- *   node tools/reconcile-stripe.js --since 2026-07-01T00:00:00Z
- *   node tools/reconcile-stripe.js --apply --limit 50
+ *   node tools/cases/reconcile-stripe.js                       # dry run, default window
+ *   node tools/cases/reconcile-stripe.js --apply               # write the missed grants
+ *   node tools/cases/reconcile-stripe.js --since 2026-07-01T00:00:00Z
+ *   node tools/cases/reconcile-stripe.js --apply --limit 50
  *
  * Requires the same env the server uses: STRIPE_SECRET_KEY and MONGO_URI.
  */
 
 require('dotenv').config();
 const mongoose = require('mongoose');
-const User = require('../models/User');
+const User = require('../../models/User');
 
 // First webhook failure per Stripe's email: 2026-07-02 20:01:39 UTC.
 // We look a little before it to be safe.
