@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /checkout.html
 Disallow: /score-report.html
+Disallow: /review.html
+Disallow: /admin.html
 
 Sitemap: https://www.passreadyprep.com/sitemap.xml
