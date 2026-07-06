@@ -14,6 +14,10 @@ const { validateExamDepth } = require('../tools/cases/examDepth');
 const router = express.Router();
 router.use(requireAdmin);
 
+// Near-duplicate gate settings — mirror the offline generator (generateCases.js)
+const MAX_RETRIES = 2;        // 3 attempts total
+const DUP_THRESHOLD = 0.55;   // same threshold as the CLI generator
+
 // ── Schema spec (identical to generateCases.js) ─────────────────────
 const SCHEMA_SPEC = `Return ONE JSON object (no markdown, no prose) with EXACTLY this shape:
 {
@@ -266,19 +270,34 @@ router.post('/', async (req, res) => {
     const diversityHint = DIVERSITY_HINTS[seed % DIVERSITY_HINTS.length];
     const exemplar = pickExemplar(category);
 
-    // Gather existing same-dx cases to avoid duplication
+    // Same-diagnosis cases for prompt steering (the soft "avoid these" hint).
     const dbSameDx = await ContentItem.find({ 'caseSim.diagnosis.name': diagnosisName })
       .select('caseSim')
       .lean();
     const sameDxCases = dbSameDx.map((d) => d.caseSim).filter(Boolean);
     const angle = dedup.angleForCount(sameDxCases.length);
-    const avoidSummaries = sameDxCases.slice(-6).map(dedup.scenarioSummary);
+    const baseAvoid = sameDxCases.slice(-6).map(dedup.scenarioSummary);
 
-    const avoidBlock = avoidSummaries.length
-      ? `\n- AVOID duplicating these existing "${diagnosisName}" scenarios already in the bank. Make the client profile (age, gender, setting) AND the decision focus clearly different from each:\n${avoidSummaries.map((s) => '    • ' + s).join('\n')}`
-      : '';
+    // Full case bank for the HARD near-duplicate gate (not just the 6 steered ones).
+    const dbAll = await ContentItem.find({ format: 'case_sim' }).select('caseSim').lean();
+    const corpus = [...SEED_CASES, ...dbAll.map((d) => d.caseSim).filter(Boolean)];
 
-    const userPrompt = `Write one NCMHCE case for:
+    // Allocate the id once; only the accepted candidate is saved with it.
+    const externalId = await nextExternalId();
+
+    const dynamicAvoid = [];       // grows each time a near-duplicate is rejected
+    let caseObj = null;            // the accepted case
+    let acceptedWarnings = [];     // validation warnings for the accepted case
+    let lastError = null;          // { status, body } from the last non-dup failure
+    let lastDup = null;            // last near-duplicate hit, for a 409
+
+    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+      const avoidSummaries = [...baseAvoid, ...dynamicAvoid];
+      const avoidBlock = avoidSummaries.length
+        ? `\n- AVOID duplicating these existing "${diagnosisName}" scenarios already in the bank. Make the client profile (age, gender, setting) AND the decision focus clearly different from each:\n${avoidSummaries.map((s) => '    \u2022 ' + s).join('\n')}`
+        : '';
+
+      const userPrompt = `Write one NCMHCE case for:
 - category: ${category}
 - diagnosis (GIVEN): ${diagnosisName} (${diagnosisCode})
 - difficulty: ${difficulty}
@@ -293,56 +312,83 @@ ${JSON.stringify(exemplar, null, 1)}
 
 Now produce the JSON for the requested case. Make it a distinct scenario. Output ONLY the JSON object.`;
 
-    // Call Anthropic
-    const apiRes = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 16000,
-        system: SYSTEM,
-        messages: [{ role: 'user', content: userPrompt }],
-      }),
-    });
-
-    if (!apiRes.ok) {
-      const errText = await apiRes.text().catch(() => '');
-      return res.status(502).json({
-        error: 'Anthropic API error (' + apiRes.status + ')',
-        detail: errText.slice(0, 500),
+      // Call Anthropic
+      const apiRes = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 16000,
+          system: SYSTEM,
+          messages: [{ role: 'user', content: userPrompt }],
+        }),
       });
+
+      if (!apiRes.ok) {
+        const errText = await apiRes.text().catch(() => '');
+        console.warn(`generate attempt ${attempt + 1}: Anthropic ${apiRes.status}`);
+        lastError = { status: 502, body: { error: 'Anthropic API error (' + apiRes.status + ')', detail: errText.slice(0, 500) } };
+        continue;
+      }
+
+      const apiData = await apiRes.json();
+      const rawText = (apiData.content || [])
+        .filter((b) => b.type === 'text')
+        .map((b) => b.text)
+        .join('\n');
+
+      let candidate;
+      try {
+        candidate = parseCase(rawText);
+      } catch (parseErr) {
+        console.warn(`generate attempt ${attempt + 1}: JSON parse failed`);
+        lastError = { status: 422, body: { error: 'Could not parse JSON from model response', raw: rawText.slice(0, 1000) } };
+        continue;
+      }
+
+      candidate.id = externalId;
+      candidate.category = category; // enforce blueprint category
+
+      const v = validateCase(candidate, { categories: bp.CATEGORY_NAMES, allowedSources: ALLOWED_SOURCES, strictItemQuality: false });
+      if (!v.ok) {
+        console.warn(`generate attempt ${attempt + 1}: failed validation (${(v.errors || []).length} errors)`);
+        lastError = { status: 422, body: { error: 'Generated case failed validation', validationErrors: v.errors.slice(0, 10), warnings: v.warnings.slice(0, 5), casePreview: { title: candidate.title, category: candidate.category } } };
+        continue;
+      }
+
+      // HARD near-duplicate gate — the check that was missing from the live route.
+      const dup = dedup.isNearDuplicate(candidate, corpus, { threshold: DUP_THRESHOLD });
+      if (dup && dup.dup) {
+        const score = Number(dup.textScore || 0).toFixed(2);
+        console.warn(`generate attempt ${attempt + 1}: near-duplicate of ${dup.against} (text ${score}); regenerating`);
+        lastDup = dup;
+        const match = corpus.find((c) => c && c.id === dup.against);
+        if (match) dynamicAvoid.push(dedup.scenarioSummary(match));
+        continue;
+      }
+
+      // Accepted.
+      caseObj = candidate;
+      acceptedWarnings = v.warnings || [];
+      break;
     }
 
-    const apiData = await apiRes.json();
-    const rawText = (apiData.content || [])
-      .filter((b) => b.type === 'text')
-      .map((b) => b.text)
-      .join('\n');
-
-    // Parse + validate
-    let caseObj;
-    try {
-      caseObj = parseCase(rawText);
-    } catch (parseErr) {
-      return res.status(422).json({ error: 'Could not parse JSON from model response', raw: rawText.slice(0, 1000) });
-    }
-
-    const externalId = await nextExternalId();
-    caseObj.id = externalId;
-    caseObj.category = category; // enforce blueprint category
-
-    const v = validateCase(caseObj, { categories: bp.CATEGORY_NAMES, allowedSources: ALLOWED_SOURCES, strictItemQuality: false });
-    if (!v.ok) {
-      return res.status(422).json({
-        error: 'Generated case failed validation',
-        validationErrors: v.errors.slice(0, 10),
-        warnings: v.warnings.slice(0, 5),
-        casePreview: { title: caseObj.title, category: caseObj.category },
-      });
+    if (!caseObj) {
+      if (lastDup) {
+        return res.status(409).json({
+          error: `Bank is saturated for "${diagnosisName}" \u2014 every attempt (${MAX_RETRIES + 1}) produced a near-duplicate.`,
+          duplicateOf: lastDup.against,
+          similarity: Number(lastDup.textScore || 0).toFixed(2),
+          hint: 'Pick a different diagnosis/category, or raise the target for this one.',
+        });
+      }
+      return res
+        .status(lastError ? lastError.status : 500)
+        .json(lastError ? lastError.body : { error: 'Generation failed after retries' });
     }
 
     // Get or create NCMHCE exam
@@ -377,7 +423,7 @@ Now produce the JSON for the requested case. Make it a distinct scenario. Output
       difficulty: doc.difficulty,
       status: doc.status,
       questionCount: (caseObj.questions || []).length,
-      warnings: v.warnings,
+      warnings: acceptedWarnings,
     });
   } catch (err) {
     console.error('generate error', err);
