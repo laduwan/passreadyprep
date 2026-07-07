@@ -1,0 +1,79 @@
+# render.yaml — Render Blueprint for PassReady Prep
+# ---------------------------------------------------------------------------
+# Version-controls how the production web service is built, started, and
+# configured, so a deploy is reproducible instead of living only in the Render
+# dashboard. Secrets are marked `sync: false`: Render keeps their values in the
+# dashboard and never reads them from this file, so nothing sensitive is
+# committed to the repo.
+#
+# IMPORTANT — existing service: a Blueprint manages its own services. If you
+# already created this web service by hand in the Render dashboard, adding this
+# file does NOT automatically reconfigure that service, and applying it as a new
+# Blueprint could create a SECOND service. Use this as the source of truth for
+# config/env (and for standing up a fresh environment); when you connect the
+# Blueprint, link it to the existing service or rename to match so you don't get
+# a duplicate.
+#
+# Optional env vars not listed here (add in the dashboard if you use them):
+#   ELEVENLABS_API_KEY, EL_VOICE_CHAD/DANIEL/JAMES/MAYA/PRIYA (voice/podcast),
+#   ADMIN_ALERT_SMS_TO, SMS_SENDER, ADMIN_ALERT_EVENTS, ADMIN_ALERT_DISABLE,
+#   ADMIN_ALERT_THROTTLE_MIN, ACTIVITY_TTL_DAYS, CLIENT_URL, ADMIN_EMAIL.
+# See .env.example for the full documented list.
+# ---------------------------------------------------------------------------
+
+services:
+  - type: web
+    name: passreadyprep-server
+    runtime: node
+    plan: starter            # keep the service always-on; free tier sleeps and would drop Stripe webhooks
+    region: oregon           # change to match your existing service's region if different
+    branch: main
+    buildCommand: npm install # no client build needed — the live site is served from public/
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true          # merges to main deploy automatically
+
+    envVars:
+      # ── Core ──────────────────────────────────────────────────────────
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET          # keep your EXISTING value — changing it logs out every user
+        sync: false
+      - key: APP_URL
+        value: https://www.passreadyprep.com
+      - key: CLIENT_ORIGIN
+        value: https://www.passreadyprep.com
+
+      # ── Admin panel + alerts ──────────────────────────────────────────
+      - key: ADMIN_TOKEN         # keep your EXISTING value — changing it changes your admin login
+        sync: false
+      - key: ADMIN_ALERT_EMAIL   # where activity/error alerts go (falls back to MAIL_FROM_EMAIL if unset)
+        sync: false
+
+      # ── Email (Brevo) ─────────────────────────────────────────────────
+      - key: BREVO_API_KEY
+        sync: false
+      - key: MAIL_FROM_EMAIL
+        value: noreply@passreadyprep.com
+      - key: MAIL_FROM_NAME
+        value: PassReady Prep
+
+      # ── Stripe ────────────────────────────────────────────────────────
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET   # from the /api/payment/webhook destination in your PassReady Stripe account
+        sync: false
+      - key: STRIPE_PRICE_MONTHLY
+        sync: false
+      - key: STRIPE_PRICE_PASS
+        sync: false
+      - key: STRIPE_PRICE_GUARANTEE
+        sync: false
+      - key: STRIPE_PRICE_GUIDE
+        sync: false
+
+      # ── AI features (optional) ────────────────────────────────────────
+      - key: ANTHROPIC_API_KEY   # AI debrief (Dr. Claire Moreau) + case generation
+        sync: false
+      - key: GUIDE_PDF_PATH      # source PDF for the watermarked study-guide delivery
+        sync: false
