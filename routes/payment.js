@@ -8,14 +8,14 @@
  *   free       — default, no payment required
  *   monthly    — $29/mo recurring (Stripe subscription)
  *   pass3      — $79 one-time, 3 months access
- *   guarantee  — $149 one-time, access until passing
+ *   guarantee  — $179 one-time, access until passing
  *
  * ENV vars required (add to .env and Render dashboard):
  *   STRIPE_SECRET_KEY       — sk_live_xxx  (or sk_test_xxx for dev)
  *   STRIPE_WEBHOOK_SECRET   — whsec_xxx  (from Stripe dashboard → Webhooks)
  *   STRIPE_PRICE_MONTHLY    — price_xxx  (monthly $29 recurring price ID)
  *   STRIPE_PRICE_PASS3      — price_xxx  (3-month $79 one-time price ID)
- *   STRIPE_PRICE_GUARANTEE  — price_xxx  ($149 one-time price ID)
+ *   STRIPE_PRICE_GUARANTEE  — price_xxx  ($179 one-time price ID)
  *   CLIENT_URL              — https://passreadyprep-server.onrender.com (no trailing slash)
  */
 
