@@ -54,6 +54,30 @@ throwaways.
   safety-plan, don't use no-suicide contracts.
 - Person-first, demographically diverse, realistic presentations.
 
+## Difficulty
+
+`difficulty` is not about how rare the diagnosis is — it's about how much the
+case HIDES. Assign (and write to) the difficulty a slot actually calls for:
+
+- **easy** — one clear presentation, textbook differential, no comorbidity, no
+  medical rule-out, no treatment-sequencing trap, unambiguous safety picture.
+  Roughly 1 in 4 cases in the bank should be this.
+- **medium** — one or two complications: a comorbidity that changes the plan,
+  a differential needing a specific discriminator, or a sequencing decision.
+- **hard** — the case buries its decisive facts (a medical cause presented as
+  psychiatric, a safety disclosure inside a reassurance, a treatment that's
+  right for the diagnosis but wrong for this client right now), often two or
+  more of these interacting.
+
+Do not escalate an easy case by adding a twist to make it "interesting" — an
+easy case made interesting is no longer easy, and the bank needs easy cases.
+`generate-deep.js` bakes this definition into its prompt and pulls each
+slot's difficulty from `blueprint.js`'s per-category mix rather than a fixed
+default; `examDepth.js`'s `validateDifficultyMix(cases, CATEGORIES)` warns
+(does not fail) when a category's actual mix drifts from the blueprint's
+intent by more than 1 case in any band — check it after a batch that's meant
+to fill a difficulty gap.
+
 ## Workflow
 1. Load corpus, call `blueprint.nextTargets` / `blueprint.gaps`; fill largest gaps first.
 2. Assign a contiguous, collision-free `D###` id range (D101–D104 reserved).
