@@ -569,7 +569,7 @@ const D173 = {
   ],
   narrative: {
     intake:
-      'Marcus Bell, a 28-year-old warehouse worker, is referred after a road-rage incident. He describes recurrent, impulsive verbal and physical ' +
+      'Terrence Wade, a 28-year-old warehouse worker, is referred after a road-rage incident. He describes recurrent, impulsive verbal and physical ' +
       'outbursts that are grossly out of proportion to the provocation, followed by genuine remorse and embarrassment once the anger passes.',
     session1:
       'The outbursts are impulsive and anger-based rather than premeditated for gain, and they occur between periods of relatively normal mood. ' +
@@ -640,7 +640,7 @@ const D173 = {
       O('d', 'Focus only on anger-management techniques for now and return to any safety questions at a much later date', -1,
         { r: 'Sequencing safety behind techniques is unsafe', approach: 'Single-issue framing', why: 'Anger techniques do not displace assessing current safety', keys: ['safety first'], mistake: 'Sequencing safety behind other needs' }),
     ]),
-    Q('q6', 'treatment', 'What is the most appropriate first-line treatment framework for Marcus?', ['R2'], [
+    Q('q6', 'treatment', 'What is the most appropriate first-line treatment framework for Terrence?', ['R2'], [
       O('a', 'Cognitive behavioral anger management targeting triggers, arousal, and impulse control, with skills practice', 3,
         { r: 'CBT-based anger management', approach: 'Apply the guideline', why: 'CBT-based anger management targeting triggers, arousal, and impulse control is first-line for IED', keys: ['impulsive outbursts', 'wants to control the anger'], mistake: 'Offering vague support without structured anger-management skills' }),
       O('b', 'Telling him to simply use more willpower and stop the outbursts on his own since it is just about self-control', -2,
@@ -680,7 +680,7 @@ const D173 = {
       O('d', 'Ignore the medication question and simply redirect him back to the anger skills every time he raises it', -1,
         { r: 'Dismissing the question is unhelpful', approach: 'Avoidant framing', why: 'A referral, not avoidance, is the appropriate response', keys: ['coordinated care'], mistake: 'Failing to address a legitimate question' }),
     ]),
-    Q('q10', 'counseling', 'Marcus becomes angry in session when the counselor gently challenges him. The most therapeutic response is to:', ['R5'], [
+    Q('q10', 'counseling', 'Terrence becomes angry in session when the counselor gently challenges him. The most therapeutic response is to:', ['R5'], [
       O('a', 'Stay calm, model regulation, and use the moment to practice recognizing and de-escalating his rising anger', 3,
         { r: 'Model regulation and practice de-escalation', approach: 'Use the moment to build skills', why: 'A calm, regulated response that turns the moment into de-escalation practice models and teaches control', keys: ['angry when challenged', 'wants to control it'], mistake: 'Reacting with alarm or escalating the confrontation' }),
       O('b', 'Match his anger and confront him forcefully so that he learns he cannot intimidate you in the session', -2,
@@ -690,7 +690,7 @@ const D173 = {
       O('d', 'Back down entirely and avoid ever challenging him again so that he never becomes upset during a session', -1,
         { r: 'Total avoidance undermines the work', approach: 'Avoidant framing', why: 'The work involves engaging his anger skillfully, not avoiding all challenge', keys: ['engage the anger'], mistake: 'Avoiding necessary therapeutic work' }),
     ]),
-    Q('q11', 'counseling', 'How can the counselor best strengthen Marcus’s engagement and motivation?', ['R5'], [
+    Q('q11', 'counseling', 'How can the counselor best strengthen Terrence’s engagement and motivation?', ['R5'], [
       O('a', 'Anchor the work in his own goals, such as saving relationships and his job, and reinforce his remorse and effort', 3,
         { r: 'Anchor in his goals, reinforce effort', approach: 'Build motivation from his values', why: 'Linking the work to his own goals and reinforcing his remorse and effort builds motivation', keys: ['outbursts cost relationships and a job', 'genuine remorse'], mistake: 'Shaming him for the outbursts, which undermines engagement' }),
       O('b', 'Warn him that he is beyond help and that he will inevitably end up in serious legal trouble no matter what', -2,
@@ -700,7 +700,7 @@ const D173 = {
       O('d', 'Tell him counseling cannot help him at all unless he first agrees to take medication exactly as a prescriber directs', -1,
         { r: 'Conditioning care is inappropriate', approach: 'Conditioning framing', why: 'Anger-management work can proceed alongside any coordinated medication decision', keys: ['engagement matters'], mistake: 'Making counseling contingent on medication' }),
     ]),
-    Q('q12', 'ethics', 'Marcus makes a specific, credible threat to seriously harm an identifiable coworker. The most appropriate action is to:', ['R4'], [
+    Q('q12', 'ethics', 'Terrence makes a specific, credible threat to seriously harm an identifiable coworker. The most appropriate action is to:', ['R4'], [
       O('a', 'Assess the risk and follow duty-to-protect obligations, which may require warning or other protective steps', 3,
         { r: 'Assess and act on duty to protect', approach: 'Apply duty-to-protect', why: 'A serious, specific, identifiable threat triggers assessment and protective duties', keys: ['specific threat', 'identifiable coworker'], mistake: 'Treating an identifiable threat as fully confidential' }),
       O('b', 'Keep the threat entirely confidential, since everything shared in counseling must always stay completely private', -2,
