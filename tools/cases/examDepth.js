@@ -170,9 +170,42 @@ function validateExamDepthSet(cases) {
   return { ok: errors.length === 0, count: (cases || []).length, errors, warnings };
 }
 
+// Compare the bank's difficulty distribution against the blueprint's intent
+// per category. Warn (do not fail) when a category is off by more than 1 in
+// any difficulty band — a per-case gate would be wrong here, since the check
+// is a property of the bank, not of any single case.
+function validateDifficultyMix(cases, CATEGORIES) {
+  const warnings = [];
+  const byCat = {};
+  (cases || []).forEach((c) => {
+    const cat = c && c.category;
+    if (!cat) return;
+    const diff = (c && c.difficulty) || 'medium';
+    byCat[cat] = byCat[cat] || {};
+    byCat[cat][diff] = (byCat[cat][diff] || 0) + 1;
+  });
+  (CATEGORIES || []).forEach((cfg) => {
+    const have = byCat[cfg.category] || {};
+    const haveTotal = Object.values(have).reduce((a, b) => a + b, 0);
+    if (!haveTotal) return; // nothing generated yet for this category
+    const target = cfg.difficulty || {};
+    const targetTotal = Object.values(target).reduce((a, b) => a + b, 0) || 1;
+    Object.keys(target).forEach((band) => {
+      const expected = (target[band] / targetTotal) * haveTotal;
+      const actual = have[band] || 0;
+      if (Math.abs(actual - expected) > 1) {
+        warnings.push(`[${cfg.category}] ${band}: have ${actual} of ${haveTotal} generated, blueprint mix ` +
+          `${JSON.stringify(target)} expects ~${expected.toFixed(1)}`);
+      }
+    });
+  });
+  return { ok: warnings.length === 0, warnings };
+}
+
 module.exports = {
   validateExamDepth,
   validateExamDepthSet,
+  validateDifficultyMix,
   QUESTION_FLOOR,
   QUESTION_TARGET,
   SECTION_MINIMUMS,
