@@ -569,7 +569,7 @@ const D193 = {
   ],
   narrative: {
     intake:
-      'Sofia Reyes, a 17-year-old, is referred by her school counselor after cuts were noticed on her arms. She describes repeatedly cutting to ' +
+      'Camila Duarte, a 17-year-old, is referred by her school counselor after cuts were noticed on her arms. She describes repeatedly cutting to ' +
       'relieve overwhelming emotional distress and tension, with relief afterward, and she is clear that she does not intend to die when she does it.',
     session1:
       'Her self-injury functions to regulate emotion rather than to end her life, distinguishing it from a suicide attempt, and it is a specific ' +
@@ -640,7 +640,7 @@ const D193 = {
       O('d', 'Focus only on getting her to stop cutting for now and return to any suicide-risk questions at a later date', -1,
         { r: 'Sequencing risk behind stopping is unsafe', approach: 'Single-issue framing', why: 'Stopping the behavior does not displace assessing and monitoring suicide risk', keys: ['safety first'], mistake: 'Sequencing risk assessment behind other goals' }),
     ]),
-    Q('q6', 'treatment', 'What is the most appropriate treatment approach for Sofia?', ['R2'], [
+    Q('q6', 'treatment', 'What is the most appropriate treatment approach for Camila?', ['R2'], [
       O('a', 'Compassionate, evidence-based therapy building emotion-regulation and coping skills with harm reduction', 3,
         { r: 'Skills-based, compassionate, harm-reduction therapy', approach: 'Apply the guideline', why: 'Self-harm is treated with compassionate, evidence-based therapy that builds emotion-regulation and coping skills with harm reduction', keys: ['cuts to regulate emotion', 'expects episodes to continue'], mistake: 'Reacting punitively or focusing only on stopping the behavior without building skills' }),
       O('b', 'Reacting with alarm and shaming her so that she is frightened enough to stop the behavior right away', -2,
@@ -680,7 +680,7 @@ const D193 = {
       O('d', 'Avoid involving the family entirely so that the counseling stays completely separate from her home life', -1,
         { r: 'Excluding the family misses key support and safety', approach: 'Siloed framing', why: 'Appropriate family involvement supports safety and the plan for a minor', keys: ['appropriate involvement'], mistake: 'Excluding the family entirely' }),
     ]),
-    Q('q10', 'counseling', 'Sofia is ashamed and expects the counselor to react with alarm or judgment. The most therapeutic response is to:', ['R5'], [
+    Q('q10', 'counseling', 'Camila is ashamed and expects the counselor to react with alarm or judgment. The most therapeutic response is to:', ['R5'], [
       O('a', 'Respond calmly and compassionately, without alarm or judgment, and focus on understanding and safety', 3,
         { r: 'Calm, compassionate, non-judgmental stance', approach: 'Reduce shame and build safety', why: 'A calm, compassionate, non-judgmental stance reduces shame and builds the safety needed to engage', keys: ['ashamed', 'expects alarm or judgment'], mistake: 'Reacting with alarm or judgment, which increases shame and secrecy' }),
       O('b', 'React with visible alarm and tell her how dangerous and frightening her behavior is so she grasps the seriousness', -1,
@@ -690,7 +690,7 @@ const D193 = {
       O('d', 'Change the subject away from the self-injury so that she does not have to feel embarrassed about it at all', -1,
         { r: 'Avoiding the topic misses the work', approach: 'Avoidant framing', why: 'The self-injury and her shame are engaged compassionately, not avoided', keys: ['engage compassionately'], mistake: 'Sidestepping the central issue' }),
     ]),
-    Q('q11', 'counseling', 'How can the counselor best support Sofia’s engagement and skill-building?', ['R5'], [
+    Q('q11', 'counseling', 'How can the counselor best support Camila’s engagement and skill-building?', ['R5'], [
       O('a', 'Collaborate on coping alternatives she can use instead of self-injury, tied to her own goals, and reinforce successes', 3,
         { r: 'Collaborative coping alternatives, goal-linked', approach: 'Build skills on her terms', why: 'Collaborating on coping alternatives tied to her goals and reinforcing successes builds engagement and skills', keys: ['injures to cope', 'wants help'], mistake: 'Imposing prohibitions without building alternative coping skills' }),
       O('b', 'Insist she stop all self-injury immediately and treat any lapse as a complete and total failure', -1,
@@ -700,7 +700,7 @@ const D193 = {
       O('d', 'Tell her counseling cannot help her at all unless she first promises to never self-injure again', -1,
         { r: 'Conditioning care on a promise is inappropriate', approach: 'Conditioning framing', why: 'Skills-based work proceeds without extracting an all-or-nothing promise', keys: ['engagement matters'], mistake: 'Making care contingent on a promise' }),
     ]),
-    Q('q12', 'ethics', 'Sofia begs the counselor not to tell her parents about the self-injury. The most appropriate action is to:', ['R4'], [
+    Q('q12', 'ethics', 'Camila begs the counselor not to tell her parents about the self-injury. The most appropriate action is to:', ['R4'], [
       O('a', 'Explain confidentiality and its safety limits and involve the parents appropriately given the safety concern', 3,
         { r: 'Explain limits; involve parents for safety', approach: 'Balance the minor’s trust and safety duties', why: 'For a self-injuring minor, the counselor explains confidentiality limits and involves the parents appropriately for safety', keys: ['minor', 'begs for secrecy', 'safety concern'], mistake: 'Promising absolute secrecy that safety and minor-consent rules do not allow' }),
       O('b', 'Promise her complete secrecy and agree that her parents will never be told anything about the self-injury', -2,
