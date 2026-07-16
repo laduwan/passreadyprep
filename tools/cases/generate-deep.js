@@ -41,19 +41,29 @@ function deepTargets(deepCases, n) {
   const have = {};
   bp.CATEGORY_NAMES.forEach((c) => (have[c] = 0));
   deepCases.forEach((c) => { if (c.category in have) have[c.category] += 1; });
+  const cfgOf = (cat) => bp.CATEGORIES ? bp.CATEGORIES.find((x) => x.category === cat) : null;
+  // Per-category difficulty pool, built from the blueprint's own mix (mirrors
+  // blueprint.js's nextTargets()) — so a slot's difficulty tracks that
+  // category's intended easy/medium/hard ratio instead of a fixed default.
+  const diffPools = {};
+  bp.CATEGORY_NAMES.forEach((c) => {
+    const cfg = cfgOf(c);
+    const pool = [];
+    for (const [d, k] of Object.entries((cfg && cfg.difficulty) || { medium: 1 })) for (let i = 0; i < k; i++) pool.push(d);
+    diffPools[c] = pool.length ? pool : ['medium'];
+  });
   const order = bp.CATEGORY_NAMES
-    .map((c) => ({ category: c, have: have[c], need: Math.max(0, PER_CAT - have[c]) }))
+    .map((c) => ({ category: c, have: have[c], need: Math.max(0, PER_CAT - have[c]), difficulty: diffPools[c][have[c] % diffPools[c].length] }))
     .filter((x) => x.need > 0)
     .sort((a, b) => a.have - b.have);          // 0-coverage categories first
   const out = [];
-  const cfgOf = (cat) => bp.CATEGORIES ? bp.CATEGORIES.find((x) => x.category === cat) : null;
   let i = 0;
   while (out.length < n && order.length) {
     const slot = order[i % order.length];
     const cfg = cfgOf(slot.category) || { diagnoses: [{ name: slot.category, code: '' }], difficulty: { medium: 1 } };
     const usedDx = deepCases.filter((c) => c.category === slot.category).map((c) => (c.primaryDiagnosis || {}).name);
     const dx = (cfg.diagnoses || []).find((d) => !usedDx.includes(d.name)) || (cfg.diagnoses || [])[0];
-    out.push({ category: slot.category, diagnosis: dx, difficulty: 'medium' });
+    out.push({ category: slot.category, diagnosis: dx, difficulty: slot.difficulty });
     i += 1;
     if (i > n + order.length) break;
   }
@@ -71,8 +81,36 @@ HARD REQUIREMENTS:
 - narrative.intake + session1 + session2 are three escalating clinical sections (intake, then two sessions).
 - Output ONLY the JSON object.`;
 
+const DIFFICULTY_GUIDE = `DIFFICULTY — this is not about how rare the diagnosis is. It is about how much
+the case HIDES.
+
+EASY
+  One clear presentation. The diagnosis is the obvious read and the differential
+  is textbook. No comorbidity. No medical rule-out. No treatment-sequencing trap.
+  The safety picture is unambiguous. A competent counselor gets every item right
+  on a first read. Distractors are plausible but clearly inferior.
+  Roughly 1 in 4 cases should be this. They exist so a candidate can find her
+  footing, and so a practice score means something.
+
+MEDIUM
+  One or two complications. A comorbidity that changes the treatment plan, OR a
+  differential requiring a specific discriminator, OR a sequencing decision.
+  A competent counselor gets most items right but has to slow down on two or three.
+
+HARD
+  The case buries its decisive facts. A medical cause presented as a psychiatric
+  one. A safety disclosure inside a reassurance. A treatment that is correct for
+  the diagnosis and wrong for this client at this point. Two or more of these,
+  interacting. The candidate must sequence correctly, not just identify correctly.
+
+Write the case AT THE ASSIGNED DIFFICULTY. Do not escalate. An easy case that you
+have made "interesting" by adding a comorbidity is no longer an easy case, and the
+bank needs easy cases.`;
+
 function buildPrompt(target, exemplar) {
   return `Write a deep NCMHCE case: category "${target.category}", primary diagnosis "${target.diagnosis.name}"${target.diagnosis.code ? ' (' + target.diagnosis.code + ')' : ''}, difficulty ${target.difficulty}. The diagnosis is GIVEN to the test-taker; questions test what a competent clinician does next across assessment, treatment planning, counseling skill, and ethics. Make the client demographically specific and the scenario distinct.
+
+${DIFFICULTY_GUIDE}
 
 ${SCHEMA}
 

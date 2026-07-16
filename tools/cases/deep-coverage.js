@@ -19,16 +19,19 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const Exam = require('../../models/Exam');
 const ContentItem = require('../../models/ContentItem');
+const { validateDifficultyMix } = require('./examDepth');
 
 const DEEP_MIN = 11; // matches bank-shape.js's deep threshold
 const ti = process.argv.indexOf('--target');
 const TARGET = ti !== -1 ? (parseInt(process.argv[ti + 1], 10) || 2) : 2;
 
 let CATS = [];
-try { CATS = require('./blueprint').CATEGORY_NAMES || []; } catch (e) { /* no blueprint — fall back to observed */ }
+let CATEGORIES = [];
+try { const bp = require('./blueprint'); CATS = bp.CATEGORY_NAMES || []; CATEGORIES = bp.CATEGORIES || []; } catch (e) { /* no blueprint — fall back to observed */ }
 
 function tally(docs) {
   const byCat = {};
+  const deepCases = [];
   let deepTotal = 0;
   for (const d of docs) {
     const q = d.caseSim && Array.isArray(d.caseSim.questions) ? d.caseSim.questions.length : 0;
@@ -36,9 +39,10 @@ function tally(docs) {
       const cat = d.category || '(uncategorized)';
       byCat[cat] = (byCat[cat] || 0) + 1;
       deepTotal++;
+      deepCases.push({ category: cat, difficulty: d.difficulty || (d.caseSim && d.caseSim.difficulty) });
     }
   }
-  return { byCat, deepTotal };
+  return { byCat, deepTotal, deepCases };
 }
 
 async function main() {
@@ -49,9 +53,9 @@ async function main() {
   const exam = await Exam.findOne({ key: 'ncmhce' });
   const filter = { format: 'case_sim', status: 'published' };
   if (exam) filter.examId = exam._id;
-  const docs = await ContentItem.find(filter).select('category caseSim.questions').lean();
+  const docs = await ContentItem.find(filter).select('category difficulty caseSim.questions caseSim.difficulty').lean();
 
-  const { byCat, deepTotal } = tally(docs);
+  const { byCat, deepTotal, deepCases } = tally(docs);
   console.log('LIVE published deep cases (>=' + DEEP_MIN + 'q): ' + deepTotal + '   target: ' + TARGET + '/category');
   console.log('(published case sims scanned: ' + docs.length + ')\n');
 
@@ -76,6 +80,17 @@ async function main() {
     (drift.length ? ', ' + drift.length + ' mislabelled bucket(s)' : ''));
   if (zero.length)  console.log('  zero : ' + zero.join(', '));
   if (short.length) console.log('  short: ' + short.join(', '));
+
+  // difficulty mix should now be visible
+  if (CATEGORIES.length) {
+    const dm = validateDifficultyMix(deepCases, CATEGORIES);
+    console.log('\n--- Difficulty mix vs. blueprint intent ---');
+    if (dm.ok) {
+      console.log('  in line with blueprint mix (within tolerance) for every category with cases.');
+    } else {
+      dm.warnings.forEach((w) => console.log('  warn ' + w));
+    }
+  }
 
   await mongoose.disconnect();
 }
