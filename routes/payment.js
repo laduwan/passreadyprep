@@ -41,6 +41,34 @@ function getStripe(){
   return _stripe;
 }
 
+// Reads a subscription's current period end, working across Stripe API versions.
+//
+// Stripe's Basil release (API version 2025-03-31) REMOVED current_period_start /
+// current_period_end from the Subscription object and moved them onto each
+// subscription item. On newer API versions sub.current_period_end is undefined,
+// which produced `new Date(NaN)` — an Invalid Date that Mongoose then rejected,
+// throwing and turning every subscription webhook into a 500.
+//
+// Item-level is checked first (current versions), then the old top-level field
+// (pre-Basil), so this keeps working whichever API version Stripe delivers.
+// Returns a valid Date, or null when no usable value is present.
+function subPeriodEnd(sub) {
+  if (!sub) return null;
+  const items = sub.items && Array.isArray(sub.items.data) ? sub.items.data : [];
+  let raw = null;
+  for (const item of items) {
+    if (item && typeof item.current_period_end === 'number') {
+      // If items ever bill on different cycles, keep the furthest-out date so
+      // we never cut a paying user's access short.
+      if (raw === null || item.current_period_end > raw) raw = item.current_period_end;
+    }
+  }
+  if (raw === null && typeof sub.current_period_end === 'number') raw = sub.current_period_end;
+  if (raw === null) return null;
+  const d = new Date(raw * 1000);
+  return isNaN(d.getTime()) ? null : d;
+}
+
 // ── Tier config ──────────────────────────────────────────────────────────────
 // Maps the tier name the frontend sends to the Stripe price ID and access rules.
 const TIERS = {
@@ -257,11 +285,16 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         const userId = sub.metadata?.userId;
         if (!userId) break;
 
-        await User.findByIdAndUpdate(userId, {
+        const update = {
           'subscription.tier': 'monthly',
           'subscription.status': sub.status, // 'active', 'past_due', etc.
-          'subscription.currentPeriodEnd': new Date(sub.current_period_end * 1000),
-        });
+        };
+        // Only write the date when Stripe actually gave us one — never
+        // overwrite a good value with null, and never write an Invalid Date.
+        const periodEnd = subPeriodEnd(sub);
+        if (periodEnd) update['subscription.currentPeriodEnd'] = periodEnd;
+
+        await User.findByIdAndUpdate(userId, update);
 
         console.log(`✓ Subscription ${event.type}: user ${userId}, status ${sub.status}`);
         if (event.type === 'customer.subscription.created') {
@@ -279,13 +312,14 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         if (!userId) break;
 
         // Don't immediately drop to free — let them use through period end
-        await User.findByIdAndUpdate(userId, {
-          'subscription.status': 'canceled',
-          'subscription.currentPeriodEnd': new Date(sub.current_period_end * 1000),
-        });
+        const cancelUpdate = { 'subscription.status': 'canceled' };
+        const cancelPeriodEnd = subPeriodEnd(sub);
+        if (cancelPeriodEnd) cancelUpdate['subscription.currentPeriodEnd'] = cancelPeriodEnd;
+
+        await User.findByIdAndUpdate(userId, cancelUpdate);
 
         console.log(`✓ Subscription cancelled: user ${userId}`);
-        logActivity({ type: 'subscription.canceled', severity: 'info', userId, message: 'Monthly subscription cancelled', meta: { periodEnd: sub.current_period_end }, req });
+        logActivity({ type: 'subscription.canceled', severity: 'info', userId, message: 'Monthly subscription cancelled', meta: { periodEnd: cancelPeriodEnd }, req });
         break;
       }
 
