@@ -73,6 +73,7 @@ const D105 = {
     { id: 'R3', source: 'C-SSRS', detail: 'Structured screening of ideation severity, intent, plan, and behavior' },
     { id: 'R4', source: 'VA/DoD CPG', detail: 'MDD measurement-based stepped care using repeated PHQ-9 administration' },
     { id: 'R5', source: 'ACA Code of Ethics', detail: 'A.1., A.2., and B.1.: informed consent, referral, and confidentiality limits' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What should the counselor confirm first to anchor the major depressive episode diagnosis at intake?', ['R1'], [
@@ -175,7 +176,7 @@ const D105 = {
       O('d', 'Redirect him away from the topic entirely and refocus the conversation on practical goal-setting for the coming week', -1,
         { r: 'Avoidance leaves the belief intact', approach: 'Topic redirection', why: 'It bypasses a core treatment target', keys: ['unaddressed cognition'], mistake: 'Avoiding emotionally central material' }),
     ]),
-    Q('q11', 'counseling', 'Daniel says he doubts anything will help. What is the most therapeutic response?', ['R2'], [
+    Q('q11', 'counseling', 'Daniel says he doubts anything will help. What is the most therapeutic response?', ['R6'], [
       O('a', 'Acknowledge the hopelessness as a symptom and collaboratively set one small, achievable goal to test it against', 3,
         { r: 'Name hopelessness and test it behaviorally', approach: 'Instill hope collaboratively', why: 'Small successes counter hopelessness as a symptom', keys: ['expressed hopelessness', 'anhedonia'], mistake: 'Arguing him out of hopelessness' }),
       O('b', 'Promise him with confidence that therapy is guaranteed to work as long as he fully commits to attending every session', -1,
@@ -245,6 +246,7 @@ const D106 = {
     { id: 'R3', source: 'APA CPG', detail: 'Anxiety guideline supporting CBT with exposure as first-line for panic disorder' },
     { id: 'R4', source: 'C-SSRS', detail: 'Structured screening of ideation severity, intent, and plan' },
     { id: 'R5', source: 'ACA Code of Ethics', detail: 'A.1. and C.2.: client welfare, scope of practice, and informed consent' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to confirm to establish panic disorder rather than isolated panic attacks?', ['R1'], [
@@ -347,7 +349,7 @@ const D106 = {
       O('d', 'Tell her that the most important thing is simply to stay calm and to try her best not to let the attacks frighten her so much', -1,
         { r: '“Just relax” is unhelpful', approach: 'Vague reassurance', why: 'It offers no mechanism or skill', keys: ['needs a model'], mistake: 'Giving platitudes instead of education' }),
     ]),
-    Q('q11', 'counseling', 'Renée begins having a panic attack during a session. What is the most therapeutic response?', ['R2'], [
+    Q('q11', 'counseling', 'Renée begins having a panic attack during a session. What is the most therapeutic response?', ['R6'], [
       O('a', 'Calmly coach her to stay with the sensations and notice them passing rather than fleeing or fighting the attack', 3,
         { r: 'Coach staying with the sensations', approach: 'Model nonavoidant coping', why: 'Riding out the attack disconfirms the catastrophe', keys: ['attack in session', 'urge to escape'], mistake: 'Helping her escape the attack' }),
       O('b', 'End the session early and let her step outside immediately so that she can get away from whatever set the attack off', -1,
@@ -440,7 +442,7 @@ const D107 = {
       O('d', 'As an indication that he must immediately be admitted for inpatient detoxification before anything else can be considered', 0,
         { r: 'Level of care follows assessment', approach: 'Reflexive admission', why: 'Placement should follow a multidimensional assessment', keys: ['needs assessment first'], mistake: 'Jumping to a level of care prematurely' }),
     ]),
-    Q('q3', 'intake', 'Given that he has used alone and a friend recently died of overdose, what is the priority assessment and response?', ['R3'], [
+    Q('q3', 'intake', 'Given that he has used alone and a friend recently died of overdose, what is the priority assessment and response?', ['R2'], [
       O('a', 'Assess overdose risk and withdrawal safety, and provide overdose-prevention education including naloxone access', 3,
         { r: 'Address overdose risk and harm reduction', approach: 'Prioritize safety and harm reduction', why: 'Using alone and recent loss mark elevated overdose risk', keys: ['uses alone', 'friend died of overdose'], mistake: 'Overlooking overdose risk in the plan' }),
       O('b', 'Focus the session on identifying the underlying emotional pain that you believe is the true root cause of all of his using', -1,
@@ -460,7 +462,7 @@ const D107 = {
       O('d', 'That he experiences strong cravings to use opioids during much of the day when he is trying his hardest to abstain', 0,
         { r: 'Craving occurs across severities', approach: 'Single-symptom framing', why: 'Craving alone does not set severity', keys: ['nonspecific symptom'], mistake: 'Reading one symptom as the severity marker' }),
     ]),
-    Q('q5', 'intake', 'What co-occurring concern is most important to screen for to inform the plan?', ['R5'], [
+    Q('q5', 'intake', 'What co-occurring concern is most important to screen for to inform the plan?', ['R4'], [
       O('a', 'Suicide risk and co-occurring depression, screened with a structured tool given his hopelessness and recent loss', 3,
         { r: 'Screen suicide risk and depression', approach: 'Assess co-occurring risk', why: 'Opioid use disorder elevates suicide risk', keys: ['feels hopeless', 'friend died'], mistake: 'Treating the OUD without screening risk' }),
       O('b', 'A previously undetected primary psychotic disorder that could better explain the difficulties he has had holding a job', -1,
@@ -490,7 +492,7 @@ const D107 = {
       O('d', 'Let him choose whichever program has the most convenient schedule for him regardless of his clinical needs or safety risks', 0,
         { r: 'Preference cannot override clinical need', approach: 'Convenience framing', why: 'Placement must reflect assessed need', keys: ['shared decision input'], mistake: 'Letting convenience drive placement' }),
     ]),
-    Q('q8', 'treatment', 'What harm-reduction element is most important to build into the plan now?', ['R3'], [
+    Q('q8', 'treatment', 'What harm-reduction element is most important to build into the plan now?', ['R2'], [
       O('a', 'Naloxone access and education plus never-use-alone guidance to reduce his risk of a fatal overdose during treatment', 3,
         { r: 'Naloxone and overdose prevention', approach: 'Reduce overdose mortality', why: 'Naloxone access lowers overdose death risk', keys: ['uses alone', 'recent overdose death'], mistake: 'Omitting overdose prevention' }),
       O('b', 'A firm rule that he will be discharged from treatment immediately if he uses opioids again at any point during the program', -2,
@@ -762,6 +764,7 @@ const D109 = {
     { id: 'R3', source: 'C-SSRS', detail: 'Structured assessment of recurrent suicidal ideation and prior behavior' },
     { id: 'R4', source: 'Stanley-Brown SPI', detail: 'Collaborative safety planning rather than no-suicide contracts' },
     { id: 'R5', source: 'ACA Code of Ethics', detail: 'A.6. and C.2.: managing boundaries and practicing within competence' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important for the counselor to establish to support a borderline personality disorder diagnosis?', ['R1'], [
@@ -844,7 +847,7 @@ const D109 = {
       O('d', 'Refer her out of your practice entirely so that an on-call crisis line can take over all of the between-session contact instead', -1,
         { r: 'Offloading all contact is premature', approach: 'Wholesale referral', why: 'A consistent therapeutic frame is preferable', keys: ['continuity matters'], mistake: 'Abandoning the therapeutic relationship' }),
     ]),
-    Q('q9', 'counseling', 'When Aisha alternates between idealizing and devaluing the counselor, the most therapeutic response is to:', ['R2'], [
+    Q('q9', 'counseling', 'When Aisha alternates between idealizing and devaluing the counselor, the most therapeutic response is to:', ['R6'], [
       O('a', 'Maintain a steady, nonreactive stance and a consistent frame while validating the feelings underneath the shifts', 3,
         { r: 'Consistency plus validation', approach: 'Hold a steady frame', why: 'A consistent stance contains splitting', keys: ['idealize-devalue swings'], mistake: 'Reacting personally to the shifts' }),
       O('b', 'Point out to her directly that she is splitting and explain in detail how this same pattern is damaging all of her relationships', -1,
@@ -854,7 +857,7 @@ const D109 = {
       O('d', 'Take the devaluation as accurate feedback about your work and substantially change your whole approach each time it happens', -1,
         { r: 'Overcorrecting destabilizes the frame', approach: 'Reactive overcorrection', why: 'A steady frame, not constant change, is therapeutic', keys: ['boundary stability'], mistake: 'Abandoning the frame under pressure' }),
     ]),
-    Q('q10', 'counseling', 'Aisha becomes intensely angry when the counselor mentions an upcoming vacation. The best response is to:', ['R2'], [
+    Q('q10', 'counseling', 'Aisha becomes intensely angry when the counselor mentions an upcoming vacation. The best response is to:', ['R6'], [
       O('a', 'Validate the abandonment fear, prepare for the break in advance, and arrange clear coverage and supports during the absence', 3,
         { r: 'Validate and plan for the break', approach: 'Prepare for separations', why: 'Planned coverage addresses abandonment fears', keys: ['fear of abandonment', 'anger at separation'], mistake: 'Dismissing or avoiding the reaction' }),
       O('b', 'Reassure her firmly that her anger is unwarranted because the vacation is brief and she will be completely fine without you', -1,
@@ -874,7 +877,7 @@ const D109 = {
       O('d', 'Promise her that once the formal therapy has fully ended the two of you can certainly become close personal friends afterward', -2,
         { r: 'Future-friendship promises are improper', approach: 'Post-termination promise', why: 'It compromises current treatment and boundaries', keys: ['boundary integrity'], mistake: 'Dangling a personal relationship' }),
     ]),
-    Q('q12', 'ethics', 'The counselor notices unusually strong frustration with Aisha’s frequent crises. The most appropriate step is to:', ['R5'], [
+    Q('q12', 'ethics', 'The counselor notices unusually strong frustration with Aisha’s frequent crises. The most appropriate step is to:', ['R6'], [
       O('a', 'Seek clinical supervision or consultation to manage the countertransference and protect the quality of her care', 3,
         { r: 'Use consultation for countertransference', approach: 'Seek consultation', why: 'ACA C.2. supports consultation to maintain competence', keys: ['strong frustration', 'complex case'], mistake: 'Letting reactions silently shape care' }),
       O('b', 'Address the frustration by setting noticeably firmer and more rigid limits with her in order to reduce the demands on yourself', -1,
@@ -884,7 +887,7 @@ const D109 = {
       O('d', 'Begin the process of transferring her to another provider right away, since your frustration clearly means you can no longer help her', -1,
         { r: 'Premature transfer abandons the client', approach: 'Reflexive transfer', why: 'Consultation should precede any transfer', keys: ['continuity of care'], mistake: 'Transferring instead of addressing the reaction' }),
     ]),
-    Q('q13', 'ethics', 'Aisha discloses an urge to overdose tonight after a breakup but pleads with the counselor to keep it secret. Best response?', ['R3'], [
+    Q('q13', 'ethics', 'Aisha discloses an urge to overdose tonight after a breakup but pleads with the counselor to keep it secret. Best response?', ['R5'], [
       O('a', 'Explain the limits of confidentiality, assess imminent risk fully, and act to protect her safety as the situation requires', 3,
         { r: 'Confidentiality yields to imminent risk', approach: 'Prioritize safety and limits', why: 'Duty to protect overrides confidentiality at imminent risk', keys: ['urge to overdose tonight', 'recent breakup'], mistake: 'Promising secrecy when risk is imminent' }),
       O('b', 'Agree to keep the disclosure completely confidential so that she continues to feel safe being fully honest with you in the future', -2,

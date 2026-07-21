@@ -614,6 +614,7 @@ const CASES = [
       { id: 'R5', source: 'C-SSRS', detail: 'Structured suicide-risk screening of ideation, intent, and plan.' },
       { id: 'R6', source: 'ACA Code of Ethics', detail: 'Confidentiality protections for substance-use information, consent, and scope of practice.' },
       { id: 'R7', source: 'NBCC Content Outline', detail: 'Measurement-based care and clinical decision-making across the counseling process.' },
+      { id: 'R8', source: 'APA CPG', detail: 'Pharmacotherapy for alcohol use disorder: naltrexone and acamprosate as first-line medications; the counselor role is psychoeducation and referral to a prescriber.' },
     ],
     questions: [
       // ---- Section 1: Assessment & Conceptualization ----
@@ -754,7 +755,7 @@ const CASES = [
       {
         id: 'q8', domain: 'treatment',
         question: 'Connor asks whether medications could help him cut back. What is the most appropriate response?',
-        evidenceRef: ['R3'],
+        evidenceRef: ['R8'],
         options: [
           { id: 'a', text: 'Explain that medications like naltrexone or acamprosate are evidence-based, and refer for evaluation', isCorrect: true, weight: 3,
             rationale: 'MAT is evidence-based; refer to a prescriber.',

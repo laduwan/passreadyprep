@@ -588,6 +588,7 @@ const D193 = {
     { id: 'R3', source: 'C-SSRS', detail: 'Structured suicide-risk assessment; self-injury elevates future suicide risk and is monitored' },
     { id: 'R4', source: 'ACA Code of Ethics', detail: 'A.1., B.5., and C.2.: welfare of minor clients, confidentiality limits, safety, and competence' },
     { id: 'R5', source: 'Stanley-Brown SPI', detail: 'Collaborative safety planning and coping strategies for self-harm and suicide risk' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to confirm to support a nonsuicidal self-injury focus?', ['R1'], [
@@ -680,7 +681,7 @@ const D193 = {
       O('d', 'Avoid involving the family entirely so that the counseling stays completely separate from her home life', -1,
         { r: 'Excluding the family misses key support and safety', approach: 'Siloed framing', why: 'Appropriate family involvement supports safety and the plan for a minor', keys: ['appropriate involvement'], mistake: 'Excluding the family entirely' }),
     ]),
-    Q('q10', 'counseling', 'Camila is ashamed and expects the counselor to react with alarm or judgment. The most therapeutic response is to:', ['R5'], [
+    Q('q10', 'counseling', 'Camila is ashamed and expects the counselor to react with alarm or judgment. The most therapeutic response is to:', ['R6'], [
       O('a', 'Respond calmly and compassionately, without alarm or judgment, and focus on understanding and safety', 3,
         { r: 'Calm, compassionate, non-judgmental stance', approach: 'Reduce shame and build safety', why: 'A calm, compassionate, non-judgmental stance reduces shame and builds the safety needed to engage', keys: ['ashamed', 'expects alarm or judgment'], mistake: 'Reacting with alarm or judgment, which increases shame and secrecy' }),
       O('b', 'React with visible alarm and tell her how dangerous and frightening her behavior is so she grasps the seriousness', -1,
@@ -690,7 +691,7 @@ const D193 = {
       O('d', 'Change the subject away from the self-injury so that she does not have to feel embarrassed about it at all', -1,
         { r: 'Avoiding the topic misses the work', approach: 'Avoidant framing', why: 'The self-injury and her shame are engaged compassionately, not avoided', keys: ['engage compassionately'], mistake: 'Sidestepping the central issue' }),
     ]),
-    Q('q11', 'counseling', 'How can the counselor best support Camila’s engagement and skill-building?', ['R5'], [
+    Q('q11', 'counseling', 'How can the counselor best support Camila’s engagement and skill-building?', ['R6'], [
       O('a', 'Collaborate on coping alternatives she can use instead of self-injury, tied to her own goals, and reinforce successes', 3,
         { r: 'Collaborative coping alternatives, goal-linked', approach: 'Build skills on her terms', why: 'Collaborating on coping alternatives tied to her goals and reinforcing successes builds engagement and skills', keys: ['injures to cope', 'wants help'], mistake: 'Imposing prohibitions without building alternative coping skills' }),
       O('b', 'Insist she stop all self-injury immediately and treat any lapse as a complete and total failure', -1,

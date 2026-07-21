@@ -416,6 +416,7 @@ const D182 = {
     { id: 'R3', source: 'C-SSRS', detail: 'Structured suicide-risk screening when distress and relationship strain co-occur' },
     { id: 'R4', source: 'ACA Code of Ethics', detail: 'A.1. and C.2.: client welfare, coordination of care, and practicing within competence' },
     { id: 'R5', source: 'Corey (Theory & Practice)', detail: 'Working alliance, collaborative goal setting, and culturally sensitive practice' },
+    { id: 'R6', source: 'NBCC Content Outline', detail: 'Measurement-based care and clinical decision-making across the counseling process' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to confirm to support an erectile disorder diagnosis?', ['R1'], [
@@ -488,7 +489,7 @@ const D182 = {
       O('d', 'Avoid discussing his anxiety about sex entirely so that the sessions never touch on anything uncomfortable', -1,
         { r: 'Avoiding the anxiety misses the work', approach: 'Avoidant framing', why: 'His performance anxiety is central to address, not avoid', keys: ['engage the anxiety'], mistake: 'Sidestepping the central issue' }),
     ]),
-    Q('q8', 'treatment', 'How should progress be tracked over the course of treatment?', ['R5'], [
+    Q('q8', 'treatment', 'How should progress be tracked over the course of treatment?', ['R6'], [
       O('a', 'Track sexual function, performance anxiety, relationship satisfaction, and distress over time to guide the plan', 3,
         { r: 'Measurement-based tracking of function and relationship', approach: 'Monitor the relevant outcomes', why: 'Tracking sexual function, anxiety, relationship satisfaction, and distress steers the plan', keys: ['relationship strain', 'performance anxiety'], mistake: 'Proceeding without tracking the relevant outcomes' }),
       O('b', 'Rely only on whether he happens to mention in session that things feel a little better than they did before', -1,

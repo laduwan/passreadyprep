@@ -277,7 +277,7 @@ const D131 = {
       O('d', 'The way her symptoms seem to ease somewhat when she is busy and distracted at work or with friends', 0,
         { r: 'Distraction relief is nonspecific', approach: 'Distraction framing', why: 'Temporary relief with distraction occurs broadly', keys: ['distraction effect'], mistake: 'Reading meaning into distraction relief' }),
     ]),
-    Q('q4', 'intake', 'How should the counselor approach the medical side of her presentation?', ['R3'], [
+    Q('q4', 'intake', 'How should the counselor approach the medical side of her presentation?', ['R2'], [
       O('a', 'Validate that her symptoms are real and distressing and coordinate with one consistent medical provider rather than dismissing them', 3,
         { r: 'Validate symptoms; coordinate care', approach: 'Partner with medical care', why: 'Validating real distress and coordinating care is the appropriate counselor role', keys: ['feels dismissed by providers', 'repeated workups'], mistake: 'Telling her the symptoms are not real' }),
       O('b', 'Order a fresh round of laboratory and imaging tests yourself so that you can personally rule out any missed medical condition', -2,
@@ -307,7 +307,7 @@ const D131 = {
       O('d', 'Encouraging her to rest and to avoid activity whenever her symptoms flare so that she does not make the symptoms any worse', -2,
         { r: 'Activity avoidance worsens function', approach: 'Avoidance framing', why: 'Avoidance reinforces disability and the symptom focus', keys: ['activity reduction'], mistake: 'Sanctioning avoidance as coping' }),
     ]),
-    Q('q7', 'treatment', 'How should care with her medical providers best be structured?', ['R3'], [
+    Q('q7', 'treatment', 'How should care with her medical providers best be structured?', ['R2'], [
       O('a', 'Coordinate regular, scheduled visits with one primary provider rather than visits driven by each new symptom or crisis', 3,
         { r: 'Scheduled visits with one coordinator', approach: 'Structure collaborative care', why: 'Scheduled rather than symptom-driven visits reduce reinforcement of the cycle', keys: ['many physicians', 'repeated workups'], mistake: 'Leaving care fragmented and symptom-driven' }),
       O('b', 'Encourage her to go to urgent care or the emergency department each time a symptom feels especially severe or frightening to her', -2,
@@ -589,6 +589,7 @@ const D133 = {
     { id: 'R3', source: 'Hays (Assessment)', detail: 'Multi-informant assessment using parent and teacher reports and rating scales' },
     { id: 'R4', source: 'ACA Code of Ethics', detail: 'A.1., B.5., and C.2.: welfare, confidentiality with minors, and scope of practice' },
     { id: 'R5', source: 'NBCC Content Outline', detail: 'Clinical decision-making and measurement-based care across the counseling process' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to confirm to support an oppositional defiant disorder diagnosis?', ['R1'], [
@@ -605,7 +606,7 @@ const D133 = {
       O('a', 'His behavior is defiant and argumentative without the serious violations of others’ rights, aggression, or theft seen in conduct disorder', 3,
         { r: 'Defiance without rights violations', approach: 'Contrast defiance with rights violations', why: 'Conduct disorder involves aggression and rights violations that he lacks', keys: ['no aggression to people or animals', 'no theft or property destruction'], mistake: 'Calling defiance without rights violations conduct disorder' }),
       O('b', 'The fact that he frequently argues with the adults in his life and refuses to follow the rules they set for him, which on its own does not establish the more serious conduct-disorder diagnosis', -1,
-        { r: 'Arguing and rule refusal define ODD itself', approach: 'Symptom-presence framing', why: 'These features are ODD criteria, not what separates it from conduct disorder', keys: ['core ODD features'], mistake: 'Using ODD features to distinguish from conduct disorder' }),
+        { r: 'Arguing and rule refusal appear in both disorders', approach: 'Shared-feature framing', why: 'Children with conduct disorder also argue and refuse rules, so this feature is present in both and cannot separate them; the key differentiates by what is absent - aggression, theft, and violations of others rights', keys: ['feature shared by ODD and conduct disorder', 'does not discriminate between them'], mistake: 'Choosing a feature both disorders share instead of one that separates them' }),
       O('c', 'The irritability and the angry, resentful mood that he displays during many of his conflicts with adults', -1,
         { r: 'Irritability occurs in both', approach: 'Irritability framing', why: 'Irritability is nonspecific between them', keys: ['shared affect'], mistake: 'Reading irritability as decisive' }),
       O('d', 'The way his behavior tends to be worse on the busiest and most stressful days for the family at home', 0,
@@ -681,7 +682,7 @@ const D133 = {
       O('d', 'Provide her with detailed statistics on how common oppositional behavior is so she can see that she should not feel responsible', -1,
         { r: 'Facts alone rarely shift the feeling', approach: 'Statistical persuasion', why: 'Validation and reframing work better here', keys: ['emotional reasoning'], mistake: 'Answering emotion with numbers' }),
     ]),
-    Q('q10', 'counseling', 'How can the counselor best engage Jamal himself in the work?', ['R2'], [
+    Q('q10', 'counseling', 'How can the counselor best engage Jamal himself in the work?', ['R6'], [
       O('a', 'Build rapport, find his strengths and goals, and involve him in age-appropriate problem-solving rather than only correcting him', 3,
         { r: 'Strengths-based, collaborative engagement', approach: 'Engage the child collaboratively', why: 'Rapport and collaborative problem-solving engage a defiant child', keys: ['warm when not in conflict'], mistake: 'Approaching the child only as a problem to correct' }),
       O('b', 'Confront him firmly about every instance of his misbehavior so that he clearly understands just how serious the situation is', -1,
@@ -761,6 +762,7 @@ const D134 = {
     { id: 'R3', source: 'APA CPG', detail: 'Trauma guideline supporting trauma-focused cognitive-behavioral approaches' },
     { id: 'R4', source: 'C-SSRS', detail: 'Structured suicide-risk screening following trauma' },
     { id: 'R5', source: 'ACA Code of Ethics', detail: 'A.1. and C.2.: client welfare, scope of practice, and informed consent' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What must the counselor confirm to establish the trauma exposure for acute stress disorder?', ['R1'], [
@@ -843,7 +845,7 @@ const D134 = {
       O('d', 'Whether she keeps attending her sessions, treating consistent attendance as the main indicator of her recovery', 0,
         { r: 'Attendance is not an outcome measure', approach: 'Adherence proxy', why: 'Attendance does not measure symptom change', keys: ['process vs outcome'], mistake: 'Mistaking attendance for recovery' }),
     ]),
-    Q('q9', 'counseling', 'During a session Rosa becomes dazed and detached while describing the crash. The most therapeutic response is to:', ['R3'], [
+    Q('q9', 'counseling', 'During a session Rosa becomes dazed and detached while describing the crash. The most therapeutic response is to:', ['R6'], [
       O('a', 'Pause the recounting and guide her through grounding to reorient her before deciding whether to continue', 3,
         { r: 'Ground and reorient within tolerance', approach: 'Regulate before continuing', why: 'Grounding returns a dissociating client to the present and a workable arousal level', keys: ['dazed and detached', 'dissociation'], mistake: 'Pushing the recounting while she is dissociated' }),
       O('b', 'Continue having her describe the crash in detail so that the emotional processing is not interrupted in the middle of it', -2,

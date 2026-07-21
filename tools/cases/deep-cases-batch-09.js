@@ -114,7 +114,7 @@ const D145 = {
       O('d', 'An emerging neurodevelopmental disorder that could explain why he has become so focused on the actions of his neighbor', 0,
         { r: 'Neurodevelopmental framing is implausible here', approach: 'Developmental framing', why: 'The adult-onset fixed delusion fits delusional disorder', keys: ['adult onset'], mistake: 'Pursuing an improbable rule-out' }),
     ]),
-    Q('q5', 'intake', 'Given his hint that he may "handle it himself," what is the most important assessment step?', ['R3'], [
+    Q('q5', 'intake', 'Given his hint that he may "handle it himself," what is the most important assessment step?', ['R4'], [
       O('a', 'Assess risk to the neighbor and to himself, including intent and means, and prepare to act on duty-to-protect obligations', 3,
         { r: 'Assess risk to others and self', approach: 'Screen risk and duty to protect', why: 'A delusion-driven hint of harm requires careful risk assessment and possible protective duties', keys: ['"handle it himself"', 'named neighbor'], mistake: 'Letting a possible threat pass without assessment' }),
       O('b', 'Focus only on whether he has a specific plan to harm himself and disregard any risk to the neighbor for the time being', -1,
@@ -588,6 +588,7 @@ const D148 = {
     { id: 'R3', source: 'C-SSRS', detail: 'Structured suicide-risk screening given elevated risk in eating disorders' },
     { id: 'R4', source: 'Hays (Assessment)', detail: 'Clinical assessment and coordinating medical evaluation' },
     { id: 'R5', source: 'ACA Code of Ethics', detail: 'A.1. and C.2.: client welfare, scope of practice, and coordination of care' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to confirm to support a binge-eating disorder diagnosis?', ['R1'], [
@@ -630,7 +631,7 @@ const D148 = {
       O('d', 'An emerging neurocognitive decline that could explain why she keeps forgetting how much she has eaten lately', 0,
         { r: 'Cognitive decline is improbable here', approach: 'Neurocognitive framing', why: 'The binge pattern fits BED, not decline', keys: ['eating-focused'], mistake: 'Pursuing an improbable rule-out' }),
     ]),
-    Q('q5', 'intake', 'What is the most appropriate counselor action regarding the medical aspects of her care?', ['R4'], [
+    Q('q5', 'intake', 'What is the most appropriate counselor action regarding the medical aspects of her care?', ['R6'], [
       O('a', 'Coordinate a medical evaluation and ongoing monitoring as part of a team while she engages in psychotherapy', 3,
         { r: 'Coordinate medical evaluation and monitoring', approach: 'Partner with medical care', why: 'BED care includes coordinated medical evaluation and monitoring within a team', keys: ['higher weight', 'eating-disorder care'], mistake: 'Providing solo therapy without medical coordination' }),
       O('b', 'Order laboratory tests and a metabolic panel yourself so that you can personally evaluate her medical status before treatment', -1,
@@ -670,7 +671,7 @@ const D148 = {
       O('d', 'Discourage any medication and tell her she should overcome the binge eating through willpower and discipline alone', -1,
         { r: 'Willpower framing is inaccurate', approach: 'Willpower framing', why: 'It dismisses evidence-based options and the decision belongs with a prescriber', keys: ['client autonomy'], mistake: 'Moralizing about a clinical disorder' }),
     ]),
-    Q('q9', 'counseling', 'Renee is deeply ashamed and eats alone to hide her binges. The most therapeutic response is to:', ['R2'], [
+    Q('q9', 'counseling', 'Renee is deeply ashamed and eats alone to hide her binges. The most therapeutic response is to:', ['R6'], [
       O('a', 'Respond with a nonjudgmental, validating stance that reduces shame and supports her engaging openly in treatment', 3,
         { r: 'Reduce shame with a nonjudgmental stance', approach: 'Validate and destigmatize', why: 'Reducing shame supports disclosure and engagement', keys: ['eats alone out of shame', 'fears being told to diet'], mistake: 'Responding with judgment or diet advice that deepens shame' }),
       O('b', 'Tell her plainly that she simply needs more self-control and that the solution is to eat less and exercise more', -2,
@@ -680,7 +681,7 @@ const D148 = {
       O('d', 'Provide detailed statistics on how common binge eating is to logically prove to her that she should not feel ashamed', -1,
         { r: 'Facts alone rarely shift shame', approach: 'Statistical persuasion', why: 'A validating stance works better than data here', keys: ['emotional reasoning'], mistake: 'Answering shame with numbers' }),
     ]),
-    Q('q10', 'counseling', 'Renee fears the counselor will just put her on a diet. The most therapeutic response is to:', ['R2'], [
+    Q('q10', 'counseling', 'Renee fears the counselor will just put her on a diet. The most therapeutic response is to:', ['R6'], [
       O('a', 'Clarify that the focus is on interrupting the binge cycle and the distress, not on prescribing another restrictive diet', 3,
         { r: 'Reframe the aim away from dieting', approach: 'Reframe the treatment focus', why: 'Clarifying the non-diet, binge-focused aim builds trust and fits the evidence', keys: ['fears being told to diet', 'wants to understand the binges'], mistake: 'Confirming her fear by centering the plan on dieting' }),
       O('b', 'Reassure her that the very first step will be to put her on a strict calorie-controlled diet to get her eating under control', -2,
