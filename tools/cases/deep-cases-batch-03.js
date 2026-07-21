@@ -73,6 +73,7 @@ const D110 = {
     { id: 'R3', source: 'C-SSRS', detail: 'Structured screening of ideation severity, intent, plan, and behavior' },
     { id: 'R4', source: 'VA/DoD CPG', detail: 'Measurement-based stepped care for chronic depressive presentations' },
     { id: 'R5', source: 'ACA Code of Ethics', detail: 'A.1. and B.1.: client welfare, informed consent, and confidentiality limits' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to confirm to support a persistent depressive disorder diagnosis?', ['R1'], [
@@ -155,7 +156,7 @@ const D110 = {
       O('d', 'Suggest he look into antidepressants himself online and bring whichever one he prefers to a future appointment with you', -1,
         { r: 'Outsourcing to self-research is poor care', approach: 'Defer to self-research', why: 'It abandons proper coordination', keys: ['needs professional evaluation'], mistake: 'Replacing referral with self-directed search' }),
     ]),
-    Q('q9', 'treatment', 'A central treatment target given the chronicity of his depression would most appropriately be:', ['R2'], [
+    Q('q9', 'treatment', 'A central treatment target given the chronicity of his depression would most appropriately be:', ['R6'], [
       O('a', 'The entrenched belief that this is simply his fixed personality, paired with graded re-engagement in valued activity', 3,
         { r: 'Target chronic hopeless self-view and activity', approach: 'Address chronic cognition and behavior', why: 'Chronic PDD is maintained by hopeless identity beliefs and withdrawal', keys: ['this is just who I am', 'social withdrawal'], mistake: 'Treating only acute symptoms' }),
       O('b', 'A detailed reconstruction of the earliest childhood memory he can recall as the single key to unlocking his depression', 0,
@@ -165,7 +166,7 @@ const D110 = {
       O('d', 'Focusing primarily on relaxation skills so that he feels physically calmer during his most stressful days at the office', -1,
         { r: 'Relaxation alone misses the core', approach: 'Arousal-only framing', why: 'It does not address the chronic cognitive pattern', keys: ['core beliefs untreated'], mistake: 'Treating arousal while ignoring cognition' }),
     ]),
-    Q('q10', 'counseling', 'Robert says he doubts therapy can change something that has defined his whole life. Best response?', ['R2'], [
+    Q('q10', 'counseling', 'Robert says he doubts therapy can change something that has defined his whole life. Best response?', ['R6'], [
       O('a', 'Validate how entrenched it feels and collaboratively test the belief by setting one small, achievable goal to start', 3,
         { r: 'Validate, then test the belief behaviorally', approach: 'Instill hope collaboratively', why: 'Small successes counter entrenched hopelessness', keys: ['lifelong hopelessness'], mistake: 'Arguing him out of hopelessness' }),
       O('b', 'Promise him confidently that therapy is certain to change everything as long as he fully commits to the entire process', -1,
@@ -245,6 +246,7 @@ const D111 = {
     { id: 'R3', source: 'APA CPG', detail: 'Anxiety guideline supporting cognitive-behavioral therapy with exposure' },
     { id: 'R4', source: 'Hays (Assessment)', detail: 'Selecting and interpreting standardized anxiety measures and clinical interview' },
     { id: 'R5', source: 'ACA Code of Ethics', detail: 'A.1. and C.2.: client welfare, scope of practice, and informed consent' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to confirm to support a social anxiety disorder diagnosis?', ['R1'], [
@@ -337,7 +339,7 @@ const D111 = {
       O('d', 'Discourage medication and tell her she should be able to manage her social anxiety entirely through the therapy techniques', -1,
         { r: 'Discouraging meds overreaches', approach: 'Discourage medication', why: 'The decision belongs with a prescriber', keys: ['client autonomy'], mistake: 'Steering a medical decision' }),
     ]),
-    Q('q10', 'counseling', 'During an in-session role-play, Sofia freezes and says she cannot do it. The most therapeutic response is to:', ['R3'], [
+    Q('q10', 'counseling', 'During an in-session role-play, Sofia freezes and says she cannot do it. The most therapeutic response is to:', ['R6'], [
       O('a', 'Break the task into a smaller, more manageable step and coach her through it so she experiences a tolerable success', 3,
         { r: 'Grade the exposure to a tolerable step', approach: 'Titrate the difficulty', why: 'A graded step keeps exposure within tolerance and builds mastery', keys: ['freezes in role-play'], mistake: 'Either pushing too hard or abandoning the task' }),
       O('b', 'End the role-play right away and reassure her that she does not have to do anything that makes her feel uncomfortable', -1,
@@ -347,7 +349,7 @@ const D111 = {
       O('d', 'Tell her that her fear is unfounded and that there is really no logical reason for her to feel so nervous about a role-play', -1,
         { r: 'Dismissing the fear invalidates her', approach: 'Rational dismissal', why: 'It overlooks the experiential nature of the fear', keys: ['emotional reasoning'], mistake: 'Arguing rather than guiding exposure' }),
     ]),
-    Q('q11', 'counseling', 'Sofia worries that needing help with this means she is fundamentally weak. Best response?', ['R3'], [
+    Q('q11', 'counseling', 'Sofia worries that needing help with this means she is fundamentally weak. Best response?', ['R6'], [
       O('a', 'Validate the feeling and reframe seeking treatment as a courageous, active step toward a treatable, common condition', 3,
         { r: 'Validate then reframe help-seeking', approach: 'Normalize and reframe', why: 'Reframing reduces shame and supports engagement', keys: ['shame about needing help'], mistake: 'Either dismissing or reinforcing the belief' }),
       O('b', 'Agree that most people really do handle this kind of thing on their own and commend her for finally coming in for help', -2,
@@ -417,6 +419,7 @@ const D112 = {
     { id: 'R3', source: 'IPSRT', detail: 'Interpersonal and social rhythm therapy to stabilize sleep-wake rhythms in maintenance' },
     { id: 'R4', source: 'C-SSRS', detail: 'Structured suicide-risk screening across mood states' },
     { id: 'R5', source: 'ACA Code of Ethics', detail: 'A.1., B.2., and C.2.: welfare, danger exceptions to confidentiality, and scope of practice' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to confirm to establish a manic episode?', ['R1'], [
@@ -459,7 +462,7 @@ const D112 = {
       O('d', 'As a defensive personality style he uses to cope whenever his family members start to criticize the choices he has made', -1,
         { r: 'It is a manic symptom, not a defense', approach: 'Defense framing', why: 'The grandiosity is part of the manic syndrome', keys: ['episodic grandiosity'], mistake: 'Reframing a symptom as a coping style' }),
     ]),
-    Q('q5', 'intake', 'Given his risky behavior and irritability, what safety assessment is most important now?', ['R4'], [
+    Q('q5', 'intake', 'Given his risky behavior and irritability, what safety assessment is most important now?', ['R6'], [
       O('a', 'Assess danger to self and others, including suicide risk and the impulsive, high-risk behaviors he is currently engaging in', 3,
         { r: 'Assess risk across mood states', approach: 'Screen safety comprehensively', why: 'Mania carries elevated risk from impulsivity and shifting mood', keys: ['risky spending and driving', 'irritability'], mistake: 'Overlooking risk during an elevated mood' }),
       O('b', 'Focus only on whether he currently has a specific, detailed plan to end his own life and disregard the other risks for now', -1,
@@ -499,7 +502,7 @@ const D112 = {
       O('d', 'Say that medication dosing has nothing to do with counseling and decline to help him prepare for the conversation in any way', -1,
         { r: 'Refusing to coordinate abandons the need', approach: 'Flat refusal', why: 'Helping him frame questions is appropriate', keys: ['care coordination'], mistake: 'Declining to support communication with the prescriber' }),
     ]),
-    Q('q9', 'counseling', 'Darnell insists nothing is wrong and that his family is overreacting. The most therapeutic stance is to:', ['R5'], [
+    Q('q9', 'counseling', 'Darnell insists nothing is wrong and that his family is overreacting. The most therapeutic stance is to:', ['R6'], [
       O('a', 'Engage him respectfully, find shared goals such as protecting his business, and link safety steps to what he values', 3,
         { r: 'Engage via shared goals despite low insight', approach: 'Build collaboration on his terms', why: 'Linking care to his goals improves engagement when insight is limited', keys: ['minimizes concern', 'values his ventures'], mistake: 'Arguing with him to force insight' }),
       O('b', 'Confront him directly with all the evidence that he is manic until he is finally forced to admit that something is wrong', -1,
@@ -661,7 +664,7 @@ const D113 = {
       O('d', 'A long course of psychodynamic exploration of her early childhood as the primary route to resolving her current psychosis', -1,
         { r: 'Depth-only work is not first-line', approach: 'Depth-only framing', why: 'Evidence favors CBTp and family intervention', keys: ['active symptoms'], mistake: 'Prioritizing origins over indicated care' }),
     ]),
-    Q('q8', 'treatment', 'What additional support is most appropriate to coordinate given her functional decline?', ['R2'], [
+    Q('q8', 'treatment', 'What additional support is most appropriate to coordinate given her functional decline?', ['R5'], [
       O('a', 'Case management and supported education or employment services to help her re-engage with her studies and daily roles', 3,
         { r: 'Coordinate functional supports', approach: 'Address functional recovery', why: 'Supported education/employment aids recovery in psychosis', keys: ['grades collapsed', 'stopped attending'], mistake: 'Ignoring functional and role recovery' }),
       O('b', 'A recommendation that she withdraw from school indefinitely and simply rest at home until all of her symptoms fully resolve', -1,

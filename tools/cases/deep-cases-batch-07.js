@@ -72,6 +72,7 @@ const D135 = {
     { id: 'R3', source: 'C-SSRS', detail: 'Structured suicide-risk screening when distress or depression is present' },
     { id: 'R4', source: 'ACA Code of Ethics', detail: 'A.1., A.2., and B.5.: welfare, informed consent, capacity, and surrogate decision-making' },
     { id: 'R5', source: 'NBCC Content Outline', detail: 'Clinical decision-making and coordinated, measurement-based care across the counseling process' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to confirm to support a major neurocognitive disorder diagnosis?', ['R1'], [
@@ -154,7 +155,7 @@ const D135 = {
       O('d', 'Encourage the daughter to avoid telling her mother anything about the diagnosis so that her mother never feels any distress', -1,
         { r: 'Concealment undermines autonomy', approach: 'Concealment framing', why: 'Honest, sensitive disclosure generally respects the client’s rights', keys: ['client dignity'], mistake: 'Defaulting to concealment' }),
     ]),
-    Q('q9', 'counseling', 'Margaret becomes tearful about losing her independence. The most therapeutic response is to:', ['R3'], [
+    Q('q9', 'counseling', 'Margaret becomes tearful about losing her independence. The most therapeutic response is to:', ['R6'], [
       O('a', 'Validate her grief and preserve her dignity and personhood while supporting the abilities and choices she still retains', 3,
         { r: 'Validate grief; preserve dignity and choice', approach: 'Person-centered, dignity-preserving support', why: 'Supporting personhood and remaining agency is central to NCD care', keys: ['tearful about lost independence', 'aware of decline'], mistake: 'Talking past her or treating her as incapable' }),
       O('b', 'Reassure her quickly that everything is completely fine and that she has absolutely nothing at all to feel upset about today', -1,
@@ -174,7 +175,7 @@ const D135 = {
       O('d', 'Reduce contact with her and work mainly through her daughter, since Margaret can no longer benefit from any direct engagement', -2,
         { r: 'Writing her off disregards personhood', approach: 'Bypass framing', why: 'She can still benefit from adapted, direct engagement', keys: ['retained personhood'], mistake: 'Prematurely excluding the client' }),
     ]),
-    Q('q11', 'ethics', 'Margaret’s capacity to make some decisions is now in question. The most appropriate approach is to:', ['R4'], [
+    Q('q11', 'ethics', 'Margaret’s capacity to make some decisions is now in question. The most appropriate approach is to:', ['R6'], [
       O('a', 'Assess her capacity for specific decisions, involve her to the fullest extent possible, and engage surrogates as appropriate', 3,
         { r: 'Decision-specific capacity; involve her and surrogates', approach: 'Address capacity and surrogate roles', why: 'Capacity is decision-specific; she is involved as able with surrogates as needed', keys: ['questionable capacity', 'family involved'], mistake: 'Either ignoring capacity or removing her voice entirely' }),
       O('b', 'Assume she completely lacks capacity for all decisions and have her daughter decide everything without involving Margaret at all', -2,
@@ -244,6 +245,7 @@ const D136 = {
     { id: 'R3', source: 'Hays (Assessment)', detail: 'Use of a sleep diary and screening for sleep apnea and contributing factors' },
     { id: 'R4', source: 'ACA Code of Ethics', detail: 'A.1. and C.2.: client welfare, scope of practice, and coordination of care' },
     { id: 'R5', source: 'NBCC Content Outline', detail: 'Measurement-based care and clinical decision-making across the counseling process' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to confirm to support a chronic insomnia disorder diagnosis?', ['R1'], [
@@ -336,7 +338,7 @@ const D136 = {
       O('d', 'Track mainly whether he attends his sessions and treat consistent attendance as the main sign that he is improving', 0,
         { r: 'Attendance is not an outcome measure', approach: 'Adherence proxy', why: 'Attendance does not measure sleep change', keys: ['process vs outcome'], mistake: 'Mistaking adherence for outcome' }),
     ]),
-    Q('q10', 'counseling', 'Hank says he is convinced one bad night will ruin his entire next day. The most therapeutic response is to:', ['R2'], [
+    Q('q10', 'counseling', 'Hank says he is convinced one bad night will ruin his entire next day. The most therapeutic response is to:', ['R6'], [
       O('a', 'Address the catastrophic sleep beliefs with cognitive work, since such beliefs heighten arousal and maintain the insomnia', 3,
         { r: 'Target catastrophic sleep beliefs', approach: 'Cognitive work on sleep beliefs', why: 'Catastrophic beliefs about sleep increase arousal and maintain insomnia', keys: ['one bad night will ruin the day'], mistake: 'Leaving the maintaining beliefs unaddressed' }),
       O('b', 'Agree that a single poor night really will likely ruin his day and help him plan how to clear his schedule for those days', -2,
@@ -588,6 +590,7 @@ const D138 = {
     { id: 'R3', source: 'IPSRT', detail: 'Interpersonal and social rhythm therapy to stabilize sleep-wake rhythms and prevent relapse' },
     { id: 'R4', source: 'C-SSRS', detail: 'Structured suicide-risk screening, important in bipolar depression' },
     { id: 'R5', source: 'ACA Code of Ethics', detail: 'A.1. and C.2.: client welfare, scope of practice, and coordination of care' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to establish to support a bipolar II diagnosis?', ['R1'], [
@@ -680,7 +683,7 @@ const D138 = {
       O('d', 'Explain the detailed neurobiology of bipolar disorder at length to convince her on technical grounds not to worry about it', -1,
         { r: 'Lecturing rarely addresses the worry', approach: 'Didactic framing', why: 'Validation and tailored psychoeducation work better', keys: ['emotional reasoning'], mistake: 'Substituting dense facts for engagement' }),
     ]),
-    Q('q10', 'counseling', 'How can the counselor best help Elena recognize early signs of a hypomanic episode?', ['R3'], [
+    Q('q10', 'counseling', 'How can the counselor best help Elena recognize early signs of a hypomanic episode?', ['R6'], [
       O('a', 'Collaboratively identify her personal early warning signs, such as reduced sleep need and racing thoughts, and a plan to respond', 3,
         { r: 'Identify personal early warning signs and a plan', approach: 'Build a relapse-detection plan', why: 'Personalized warning signs and a response plan support early intervention', keys: ['decreased sleep need', 'rapid thoughts'], mistake: 'Leaving her without a way to detect early episodes' }),
       O('b', 'Tell her not to worry about watching for any warning signs and to simply wait until a full episode is clearly underway', -1,

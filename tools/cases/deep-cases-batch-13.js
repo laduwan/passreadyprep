@@ -759,6 +759,7 @@ const D169 = {
     { id: 'R3', source: 'C-SSRS', detail: 'Developmentally appropriate screening when teasing and low self-esteem affect a child' },
     { id: 'R4', source: 'ACA Code of Ethics', detail: 'A.1., B.5., and C.2.: welfare of minor clients, consent, and practicing within competence' },
     { id: 'R5', source: 'Corey (Theory & Practice)', detail: 'Working alliance with the child and family and collaborative goal setting' },
+    { id: 'R6', source: 'NBCC Content Outline', detail: 'Measurement-based care and clinical decision-making across the counseling process' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to confirm to support a Tourette’s disorder diagnosis?', ['R1'], [
@@ -801,7 +802,7 @@ const D169 = {
       O('d', 'An emerging neurocognitive decline that could explain why his tics have continued over the past few years', 0,
         { r: 'Cognitive decline is implausible in a child', approach: 'Neurocognitive framing', why: 'The childhood tic pattern fits Tourette’s, not decline', keys: ['developmental pattern'], mistake: 'Pursuing an implausible rule-out' }),
     ]),
-    Q('q5', 'intake', 'Given the teasing and his remark that he feels bad about himself, what is most important to assess?', ['R3'], [
+    Q('q5', 'intake', 'Given the teasing and his remark that he feels bad about himself, what is most important to assess?', ['R5'], [
       O('a', 'The emotional impact on his self-esteem and mood, with developmentally appropriate screening for safety', 3,
         { r: 'Assess self-esteem, mood, and safety', approach: 'Assess emotional impact and safety', why: 'Teasing and low self-esteem warrant assessing the emotional impact and developmentally appropriate safety screening', keys: ['teased at school', 'feels bad about himself'], mistake: 'Addressing the tics while ignoring the emotional and self-esteem impact' }),
       O('b', 'A previously undetected primary psychotic disorder that might better account for his low self-esteem', -1,
@@ -831,7 +832,7 @@ const D169 = {
       O('d', 'Focus only on reducing the tics and leave the teasing and school environment entirely out of the plan', -1,
         { r: 'Ignoring the environment narrows the plan', approach: 'Single-factor framing', why: 'The school environment and teasing are central, not just the tics', keys: ['environment matters'], mistake: 'Omitting a key part of the plan' }),
     ]),
-    Q('q8', 'treatment', 'How should progress be tracked over the course of treatment?', ['R5'], [
+    Q('q8', 'treatment', 'How should progress be tracked over the course of treatment?', ['R6'], [
       O('a', 'Track tic frequency, distress, school participation, and self-esteem over time to guide the plan', 3,
         { r: 'Measurement-based tracking of tics and function', approach: 'Monitor the relevant outcomes', why: 'Tracking tics, distress, participation, and self-esteem steers the behavioral and support plan', keys: ['avoiding participation', 'self-esteem concerns'], mistake: 'Proceeding without tracking the relevant outcomes' }),
       O('b', 'Rely only on whether his parents happen to mention that he seems a little happier at home lately', -1,

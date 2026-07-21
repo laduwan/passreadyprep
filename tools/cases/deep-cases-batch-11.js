@@ -488,7 +488,7 @@ const D157 = {
       O('d', 'Focus the sessions mainly on testing her reading repeatedly so you can see exactly how far behind she really is', -1,
         { r: 'Repeated testing is not counseling', approach: 'Testing-focus framing', why: 'Repeated skill testing is not the counseling role and can heighten shame', keys: ['support focus'], mistake: 'Turning sessions into skill testing' }),
     ]),
-    Q('q8', 'treatment', 'How should progress be tracked in the counseling work?', ['R5'], [
+    Q('q8', 'treatment', 'How should progress be tracked in the counseling work?', ['R2'], [
       O('a', 'Track confidence, school avoidance, mood, and the use of accommodations over time to guide the support plan', 3,
         { r: 'Track confidence, avoidance, mood, accommodations', approach: 'Measure the counseling-relevant outcomes', why: 'Tracking confidence, avoidance, mood, and accommodation use guides the counselor’s support role', keys: ['avoidant about school', 'confidence affected'], mistake: 'Proceeding without tracking the counseling-relevant outcomes' }),
       O('b', 'Track only her raw reading scores and base every counseling decision solely on whether those numbers improve', -1,
@@ -498,7 +498,7 @@ const D157 = {
       O('d', 'Wait until the end of the school year to review whether anything has changed at all since the first session', -1,
         { r: 'End-only review misses steering data', approach: 'Delayed-review framing', why: 'Ongoing tracking is needed to steer the support', keys: ['continuous monitoring'], mistake: 'Deferring all measurement to the end' }),
     ]),
-    Q('q9', 'treatment', 'How should the counselor coordinate with the school regarding accommodations?', ['R4'], [
+    Q('q9', 'treatment', 'How should the counselor coordinate with the school regarding accommodations?', ['R5'], [
       O('a', 'With the parents’ consent and a release, collaborate with the school team on appropriate accommodations and supports', 3,
         { r: 'Consent and release before school coordination', approach: 'Coordinate with consent', why: 'School coordination for accommodations requires parental consent and a release', keys: ['teacher referral', 'needs accommodations'], mistake: 'Contacting the school without parental consent' }),
       O('b', 'Contact the school directly with her clinical details right away, since the school plainly needs all of the information', -2,

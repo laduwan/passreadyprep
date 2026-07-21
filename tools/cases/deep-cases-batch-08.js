@@ -461,7 +461,7 @@ const D142 = {
       O('d', 'An emerging neurocognitive decline that could explain why he keeps getting into legal and interpersonal trouble lately', 0,
         { r: 'Cognitive decline is improbable here', approach: 'Neurocognitive framing', why: 'The lifelong pattern fits ASPD, not decline', keys: ['lifelong pattern'], mistake: 'Pursuing an improbable rule-out' }),
     ]),
-    Q('q5', 'intake', 'His comment that someone "had it coming" is most important to address by:', ['R3'], [
+    Q('q5', 'intake', 'His comment that someone "had it coming" is most important to address by:', ['R4'], [
       O('a', 'Assessing carefully for any specific threat or risk to an identifiable person and following duty-to-protect obligations as indicated', 3,
         { r: 'Assess threat and duty to protect', approach: 'Screen risk to others', why: 'A hint of harm to others requires careful risk assessment and possible protective duties', keys: ['"had it coming" comment', 'aggression history'], mistake: 'Letting an ambiguous threat pass without assessment' }),
       O('b', 'Ignoring the comment entirely, since clients often make dramatic statements that they do not really mean anything by at all', -2,
@@ -511,7 +511,7 @@ const D142 = {
       O('d', 'Avoid giving him a clear answer about the rule so that you do not have to risk a confrontation with him in the session', -1,
         { r: 'Vagueness invites repeated testing', approach: 'Evade framing', why: 'A clear, consistent boundary is needed', keys: ['frame stability'], mistake: 'Leaving the boundary ambiguous' }),
     ]),
-    Q('q10', 'counseling', 'The counselor notices feeling intimidated and also strangely charmed by Derek. The most appropriate step is to:', ['R4'], [
+    Q('q10', 'counseling', 'The counselor notices feeling intimidated and also strangely charmed by Derek. The most appropriate step is to:', ['R2'], [
       O('a', 'Seek consultation or supervision to manage the countertransference and protect the integrity of the treatment', 3,
         { r: 'Use consultation for countertransference', approach: 'Seek consultation', why: 'ACA supports consultation to manage reactions and maintain competence', keys: ['feeling intimidated and charmed'], mistake: 'Letting the reaction silently shape care' }),
       O('b', 'Act on the intimidation by quietly relaxing the rules so that the sessions feel less tense and confrontational for you', -2,
@@ -531,7 +531,7 @@ const D142 = {
       O('d', 'Avoid discussing confidentiality at all so that the issue does not complicate the start of his mandated treatment', -1,
         { r: 'Skipping the discussion undermines consent', approach: 'Evade framing', why: 'Confidentiality terms are part of informed consent', keys: ['informed consent'], mistake: 'Failing to set expectations' }),
     ]),
-    Q('q12', 'ethics', 'Derek makes a clear, specific threat against an identifiable former associate during a session. The most appropriate action is to:', ['R3'], [
+    Q('q12', 'ethics', 'Derek makes a clear, specific threat against an identifiable former associate during a session. The most appropriate action is to:', ['R4'], [
       O('a', 'Assess the risk and follow duty-to-protect obligations, which may require warning or other protective steps', 3,
         { r: 'Assess and act on duty to protect', approach: 'Apply duty-to-protect', why: 'A serious, specific, identifiable threat triggers assessment and protective duties', keys: ['specific threat', 'identifiable target'], mistake: 'Treating an identifiable threat as fully confidential' }),
       O('b', 'Keep the threat entirely confidential, since anything a client shares in counseling must always remain completely private', -2,
@@ -592,6 +592,7 @@ const D143 = {
     { id: 'R3', source: 'C-SSRS', detail: 'Structured suicide-risk screening when distress is significant' },
     { id: 'R4', source: 'ACA Code of Ethics', detail: 'A.1. and C.2.: client welfare, scope of practice, and informed consent' },
     { id: 'R5', source: 'NBCC Content Outline', detail: 'Measurement-based care and clinical decision-making across the counseling process' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to confirm to support an adjustment disorder diagnosis?', ['R1'], [
@@ -684,7 +685,7 @@ const D143 = {
       O('d', 'Tell her medication is entirely outside the counseling role and decline to discuss her question about it any further', -1,
         { r: 'Refusing to engage abandons the question', approach: 'Flat refusal', why: 'Discussing options and coordinating referral is appropriate', keys: ['care coordination'], mistake: 'Declining to engage a relevant question' }),
     ]),
-    Q('q10', 'counseling', 'Priya says she feels weak for not handling the divorce and layoff better. The most therapeutic response is to:', ['R2'], [
+    Q('q10', 'counseling', 'Priya says she feels weak for not handling the divorce and layoff better. The most therapeutic response is to:', ['R6'], [
       O('a', 'Validate how hard the changes are and normalize her reaction while building on her existing strengths and supports', 3,
         { r: 'Validate and normalize; build on strengths', approach: 'Normalize and reframe', why: 'Validating and normalizing the reaction reduces self-blame and supports coping', keys: ['feels weak', 'supportive friends'], mistake: 'Either dismissing the feeling or reinforcing the self-judgment' }),
       O('b', 'Agree that she probably should be coping much better by now and encourage her to simply push through the distress on her own', -2,
@@ -694,7 +695,7 @@ const D143 = {
       O('d', 'Provide detailed statistics on how stressful divorce and job loss are to logically prove she should not feel weak', -1,
         { r: 'Facts alone rarely shift the feeling', approach: 'Statistical persuasion', why: 'Validation works better than data here', keys: ['emotional reasoning'], mistake: 'Answering emotion with numbers' }),
     ]),
-    Q('q11', 'counseling', 'How can the counselor best mobilize Priya’s existing resources?', ['R2'], [
+    Q('q11', 'counseling', 'How can the counselor best mobilize Priya’s existing resources?', ['R6'], [
       O('a', 'Help her draw on her supportive friends and her strengths and build a concrete plan for the practical challenges she faces', 3,
         { r: 'Mobilize supports and strengths with a plan', approach: 'Build on existing resources', why: 'Engaging supports and strengths fits a resilient client adjusting to stressors', keys: ['supportive friends', 'motivated to cope'], mistake: 'Overlooking the resources she already has' }),
       O('b', 'Encourage her to handle the entire situation entirely on her own so that she proves to herself that she is fully independent', -1,

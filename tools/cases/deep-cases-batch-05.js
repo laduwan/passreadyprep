@@ -74,6 +74,7 @@ const D116 = {
     { id: 'R3', source: 'VA/DoD CPG', detail: 'Suicide-risk management: risk stratification, means safety, and level-of-care decisions' },
     { id: 'R4', source: 'ACA Code of Ethics', detail: 'B.2.: disclosure to protect from serious and foreseeable harm; informed consent' },
     { id: 'R5', source: 'DSM-5-TR', detail: 'Assessment of co-occurring depressive and substance-use conditions' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is the most appropriate first step in assessing Jordan’s presentation?', ['R1'], [
@@ -166,7 +167,7 @@ const D116 = {
       O('d', 'A suggestion that his ex-partner check in on him regularly, since reconnecting with her would clearly help him feel better', -1,
         { r: 'Outsourcing to the ex is inappropriate', approach: 'Informal-monitor framing', why: 'Clinical follow-up should not hinge on the ex-partner', keys: ['professional follow-up'], mistake: 'Delegating safety to an unsuitable contact' }),
     ]),
-    Q('q10', 'counseling', 'Jordan says he is not sure he wants to live but is not sure he wants to die either. Best response?', ['R2'], [
+    Q('q10', 'counseling', 'Jordan says he is not sure he wants to live but is not sure he wants to die either. Best response?', ['R6'], [
       O('a', 'Explore his ambivalence with empathy and build on his stated reasons for living to strengthen his motivation to stay safe', 3,
         { r: 'Work with ambivalence and reasons to live', approach: 'Engage ambivalence collaboratively', why: 'Reinforcing reasons for living strengthens safety', keys: ['mentions sister and dog', 'ambivalence'], mistake: 'Treating ambivalence as either fully safe or hopeless' }),
       O('b', 'Tell him firmly that he has so much to live for and that he should not be thinking this way after only one difficult week', -1,
@@ -176,7 +177,7 @@ const D116 = {
       O('d', 'Explain the statistics on how most people who feel suicidal go on to recover so that he sees that his odds are quite good', -1,
         { r: 'Statistics rarely shift acute despair', approach: 'Didactic persuasion', why: 'Engagement, not data, addresses ambivalence', keys: ['emotional reasoning'], mistake: 'Answering despair with numbers' }),
     ]),
-    Q('q11', 'counseling', 'How can the counselor best instill hope without dismissing Jordan’s pain?', ['R2'], [
+    Q('q11', 'counseling', 'How can the counselor best instill hope without dismissing Jordan’s pain?', ['R6'], [
       O('a', 'Validate how unbearable things feel right now while helping him see the crisis and his options as changeable over time', 3,
         { r: 'Validate pain, frame the crisis as time-limited', approach: 'Balance validation with hope', why: 'Framing the crisis as changeable supports safety without dismissing pain', keys: ['acute hopelessness'], mistake: 'Either only sympathizing or only reassuring' }),
       O('b', 'Promise him confidently that everything is definitely going to work out fine for him as long as he sticks with the treatment', -1,
@@ -247,6 +248,7 @@ const D117 = {
     { id: 'R3', source: 'Hays (Assessment)', detail: 'Use of validated rating scales and collateral/developmental history in assessment' },
     { id: 'R4', source: 'ACA Code of Ethics', detail: 'A.1. and C.2.: client welfare, scope of practice, and coordination of care' },
     { id: 'R5', source: 'NBCC Content Outline', detail: 'Measurement-based care and clinical decision-making across the counseling process' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to establish to support an adult ADHD diagnosis?', ['R1'], [
@@ -329,7 +331,7 @@ const D117 = {
       O('d', 'Say medication is purely a medical matter and decline to help him prepare any questions at all for his upcoming appointment', -1,
         { r: 'Refusing to coordinate abandons the need', approach: 'Flat refusal', why: 'Helping him frame questions is appropriate', keys: ['care coordination'], mistake: 'Declining to support communication with the prescriber' }),
     ]),
-    Q('q9', 'counseling', 'Diego calls himself “lazy” and feels demoralized about his difficulties. The most therapeutic response is to:', ['R2'], [
+    Q('q9', 'counseling', 'Diego calls himself “lazy” and feels demoralized about his difficulties. The most therapeutic response is to:', ['R6'], [
       O('a', 'Reframe the difficulties as a treatable neurodevelopmental condition and highlight his real efforts to compensate', 3,
         { r: 'Reframe shame; affirm effort', approach: 'Normalize and reframe', why: 'Reframing reduces shame and supports engagement', keys: ['self-labels as lazy', 'works long hours'], mistake: 'Either reinforcing or ignoring the self-blame' }),
       O('b', 'Agree that he does seem to lack discipline and encourage him to simply hold himself to a much higher standard going forward', -2,
@@ -349,7 +351,7 @@ const D117 = {
       O('d', 'Track only whether he attends his sessions and treat consistent attendance as the main sign that he is making progress', 0,
         { r: 'Attendance is not an outcome measure', approach: 'Adherence proxy', why: 'Attendance does not measure functional change', keys: ['process vs outcome'], mistake: 'Mistaking attendance for progress' }),
     ]),
-    Q('q11', 'counseling', 'Diego worries that an ADHD diagnosis just gives him an “excuse” to fail. Best response?', ['R2'], [
+    Q('q11', 'counseling', 'Diego worries that an ADHD diagnosis just gives him an “excuse” to fail. Best response?', ['R1'], [
       O('a', 'Validate the worry and reframe the diagnosis as an explanation that guides effective strategies, not an excuse to give up', 3,
         { r: 'Reframe diagnosis as a guide, not an excuse', approach: 'Normalize and reframe', why: 'Framing the diagnosis as actionable supports responsibility and hope', keys: ['fears it is an excuse'], mistake: 'Either dismissing or reinforcing the belief' }),
       O('b', 'Agree that a diagnosis can indeed become a convenient excuse and warn him not to rely on it to justify any future mistakes', -2,
@@ -461,7 +463,7 @@ const D118 = {
       O('d', 'Ask him to sign a brief written promise that he will stay safe and call the office if the thoughts get worse this week', -2,
         { r: 'No-suicide contracts are not evidence-based', approach: 'No-harm contract', why: 'Contracts do not reduce risk or assess it', keys: ['needs safety planning'], mistake: 'Substituting a contract for assessment' }),
     ]),
-    Q('q5', 'intake', 'What is most important to understand about the demotion in his clinical picture?', ['R1'], [
+    Q('q5', 'intake', 'What is most important to understand about the demotion in his clinical picture?', ['R3'], [
       O('a', 'That it functioned as a narcissistic injury, triggering shame and depressed mood beneath his outward disdain', 3,
         { r: 'Frame the demotion as a narcissistic injury', approach: 'Identify the precipitating injury', why: 'Threats to grandiosity commonly trigger shame and depression in NPD', keys: ['intense shame and anger', 'hides depressed mood'], mistake: 'Taking his disdain at face value and missing the injury' }),
       O('b', 'That it is the underlying root cause of his personality pattern, which only truly began after he lost the promotion', -1,
@@ -521,7 +523,7 @@ const D118 = {
       O('d', 'Focus only on his concrete work problems and avoid any discussion of emotions so that the sessions never become confrontational', -1,
         { r: 'Avoiding affect limits the work', approach: 'Affect-avoidant framing', why: 'The underlying vulnerability is central to engagement', keys: ['avoided affect'], mistake: 'Sidestepping the emotional core' }),
     ]),
-    Q('q11', 'ethics', 'The counselor notices strong irritation and a wish to “take him down a peg.” The most appropriate step is to:', ['R4'], [
+    Q('q11', 'ethics', 'The counselor notices strong irritation and a wish to “take him down a peg.” The most appropriate step is to:', ['R3'], [
       O('a', 'Seek consultation or supervision to manage the countertransference and protect the quality of his care', 3,
         { r: 'Use consultation for countertransference', approach: 'Seek consultation', why: 'ACA C.2. supports consultation to maintain competence', keys: ['strong irritation', 'urge to retaliate'], mistake: 'Letting the reaction silently shape care' }),
       O('b', 'Let the irritation come through subtly in session so that he begins to grasp how his behavior affects the people around him', -2,
@@ -684,7 +686,7 @@ const D119 = {
       O('d', 'Quickly change the subject to avoid any disagreement with her about exactly how serious her cocaine use really is right now', -1,
         { r: 'Avoiding the moment wastes an opening', approach: 'Topic avoidance', why: 'It loses a key motivational opening', keys: ['missed opening'], mistake: 'Avoiding the topic to dodge conflict' }),
     ]),
-    Q('q10', 'counseling', 'Tara returns to use after a week of abstinence and is discouraged. The most therapeutic response is to:', ['R3'], [
+    Q('q10', 'counseling', 'Tara returns to use after a week of abstinence and is discouraged. The most therapeutic response is to:', ['R4'], [
       O('a', 'Frame the return to use as common in recovery, explore what it taught her, and revisit the plan without shaming her', 3,
         { r: 'Treat the lapse as learning', approach: 'Normalize and problem-solve', why: 'Lapses are common and informative in recovery', keys: ['discouraged after a slip'], mistake: 'Treating a lapse as total failure' }),
       O('b', 'Warn her seriously that another slip like this one will likely undo all of her progress and prove she cannot really do this', -2,
@@ -765,6 +767,7 @@ const D120 = {
     { id: 'R3', source: 'C-SSRS', detail: 'Structured suicide-risk screening given elevated perinatal risk' },
     { id: 'R4', source: 'Hays (Assessment)', detail: 'Use of validated perinatal screening such as the Edinburgh Postnatal Depression Scale' },
     { id: 'R5', source: 'ACA Code of Ethics', detail: 'A.1., B.2., and C.2.: welfare, danger exceptions and reporting, and scope of practice' },
+    { id: 'R6', source: 'Corey (Theory & Practice)', detail: 'Working alliance, therapeutic stance, and client engagement across theoretical approaches' },
   ],
   questions: [
     Q('q1', 'intake', 'What is most important to confirm to support major depressive disorder with peripartum onset?', ['R1'], [
@@ -857,7 +860,7 @@ const D120 = {
       O('d', 'Steer the conversation away from the bonding concern so that the session does not become too distressing for her today', -1,
         { r: 'Avoiding the guilt leaves it intact', approach: 'Topic avoidance', why: 'The bonding guilt is a central treatment target', keys: ['avoided cognition'], mistake: 'Sidestepping emotionally central material' }),
     ]),
-    Q('q10', 'counseling', 'How can the counselor best support Nadia’s engagement given her shame about her symptoms?', ['R2'], [
+    Q('q10', 'counseling', 'How can the counselor best support Nadia’s engagement given her shame about her symptoms?', ['R6'], [
       O('a', 'Normalize perinatal depression as a common, treatable condition and frame seeking help as a strength, not a failing', 3,
         { r: 'Normalize and reframe help-seeking', approach: 'Reduce shame to support engagement', why: 'Normalizing reduces shame and supports engagement', keys: ['shame about symptoms'], mistake: 'Either minimizing or reinforcing the shame' }),
       O('b', 'Emphasize repeatedly how serious her condition is so that she understands she truly cannot manage this situation on her own', -1,
