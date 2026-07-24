@@ -260,6 +260,9 @@
   ]
 }
 </script>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#10B981">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 </head>
 <body>
 <div class="wrap">
@@ -1201,5 +1204,6 @@ document.addEventListener('keydown', function(ev){
   showDashboard();
 })();
 </script>
+<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js');</script>
 </body>
 </html>
