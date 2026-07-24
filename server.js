@@ -49,11 +49,20 @@ const A11Y_HEAD =
   '<script src="/translate.js" defer></script>';
 const A11Y_SKIP = '<a href="#" class="a11y-skip-link" data-a11y-skip>Skip to main content</a>';
 
+// PWA head tags, injected the same serve-time way as the a11y widget so every
+// static page and the React shell advertise the web app manifest + register the
+// service worker (needed to install as an app / package for Google Play as a TWA).
+const PWA_HEAD =
+  '<link rel="manifest" href="/manifest.webmanifest">' +
+  '<meta name="theme-color" content="#1E3A5F">' +
+  '<link rel="apple-touch-icon" href="/icons/icon-192.png">' +
+  '<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js");});}</script>';
+
 function injectA11y(html) {
   if (typeof html !== 'string') return html;
   if (html.indexOf('/a11y.js') !== -1) return html; // already present — don't double up
   let out = html;
-  out = out.indexOf('</head>') !== -1 ? out.replace('</head>', A11Y_HEAD + '</head>') : (A11Y_HEAD + out);
+  out = out.indexOf('</head>') !== -1 ? out.replace('</head>', A11Y_HEAD + PWA_HEAD + '</head>') : (A11Y_HEAD + PWA_HEAD + out);
   if (/<body[^>]*>/i.test(out)) out = out.replace(/(<body[^>]*>)/i, '$1' + A11Y_SKIP);
   return out;
 }
@@ -70,6 +79,14 @@ function sendHtml(res, filePath) {
 app.get('/', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'landing.html')));
 app.get('/study', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'index.html')));
 app.get('/skills', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'skills.html')));
+
+// Digital Asset Links for the Android TWA (Google Play). express.static ignores
+// dotfiles by default, so /.well-known/* would 404 and fall through to the SPA
+// (returning HTML, not JSON) — serve this file explicitly and as JSON.
+app.get('/.well-known/assetlinks.json', (_req, res) => {
+  res.type('application/json');
+  res.sendFile(path.join(__dirname, 'public', '.well-known', 'assetlinks.json'));
+});
 
 // Any other .html(.htm) request: read the file ourselves (client/dist first,
 // then public — matching the static-serving priority below) so the widget is
