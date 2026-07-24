@@ -3,9 +3,9 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.passreadyprep.twa",
+      "package_name": "com.passreadyprep.www.twa",
       "sha256_cert_fingerprints": [
-        "REPLACE_WITH_YOUR_PLAY_APP_SIGNING_SHA256_FINGERPRINT"
+        "A6:3F:EE:A4:43:B0:B9:02:36:3E:FA:03:DC:C5:94:A4:18:BA:16:72:30:5A:85:62:87:7D:AF:E6:CF:21:58:10"
       ]
     }
   }
