@@ -54,7 +54,7 @@ const A11Y_SKIP = '<a href="#" class="a11y-skip-link" data-a11y-skip>Skip to mai
 // service worker (needed to install as an app / package for Google Play as a TWA).
 const PWA_HEAD =
   '<link rel="manifest" href="/manifest.webmanifest">' +
-  '<meta name="theme-color" content="#1E3A5F">' +
+  '<meta name="theme-color" content="#0F172A">' +
   '<link rel="apple-touch-icon" href="/icons/icon-192.png">' +
   '<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js");});}</script>';
 
