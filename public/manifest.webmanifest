@@ -20,6 +20,11 @@
     { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
+  "screenshots": [
+    { "src": "/screenshots/screenshot-case-simulation.png", "sizes": "897x842", "type": "image/png", "form_factor": "wide", "label": "Work realistic NCMHCE clinical case simulations" },
+    { "src": "/screenshots/screenshot-case-list.png", "sizes": "967x837", "type": "image/png", "form_factor": "wide", "label": "Choose from blueprint-weighted practice cases" },
+    { "src": "/screenshots/screenshot-mock-exam.png", "sizes": "1080x715", "type": "image/png", "form_factor": "wide", "label": "Take a timed, full-length mock exam" }
+  ],
   "shortcuts": [
     {
       "name": "Start studying",
