@@ -152,6 +152,16 @@
     <div class="grid" id="actStatCards"></div>
     <div class="spacer"></div>
     <div class="card" style="margin-bottom:14px">
+      <div style="font-weight:700;margin-bottom:8px">Learner study time · last 7 days</div>
+      <div id="studySummary" class="muted" style="font-size:13px;margin-bottom:8px">Loading…</div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>Learner</th><th>Study time</th><th>Active days</th></tr></thead>
+          <tbody id="studyRows"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:14px">
       <div class="row">
         <div><label for="aSeverity">Severity</label>
           <select id="aSeverity"><option value="">Any</option><option value="error">Error</option><option value="warn">Warn</option><option value="info">Info</option></select></div>
@@ -259,12 +269,12 @@
       $('overview').classList.toggle('hidden', tab!=='overview');
       $('cases').classList.toggle('hidden', tab!=='cases');
       $('activity').classList.toggle('hidden', tab!=='activity');
-      if(tab==='activity'){ loadActivity(); loadActivityStats(); }
+      if(tab==='activity'){ loadActivity(); loadActivityStats(); loadStudyActivity(); }
     };
   });
   $('refreshBtn').onclick = function(){
     loadOverview(); loadCases();
-    if(!$('activity').classList.contains('hidden')){ loadActivity(); loadActivityStats(); }
+    if(!$('activity').classList.contains('hidden')){ loadActivity(); loadActivityStats(); loadStudyActivity(); }
     toast('Refreshed');
   };
 
@@ -443,6 +453,21 @@
         ? 'Top types (7d): ' + s.topTypes7d.map(function(t){ return t.type+' ('+t.count+')'; }).join(', ')
         : '';
     }).catch(function(e){ toast(e.message, true); });
+  }
+
+  function fmtStudy(sec){
+    var m = Math.round((sec||0)/60);
+    return m < 60 ? m+'m' : Math.floor(m/60)+'h '+(m%60)+'m';
+  }
+  function loadStudyActivity(){
+    api('/activity/study?days=7').then(function(s){
+      $('studySummary').textContent = s.activeLearners+' active learner'+(s.activeLearners===1?'':'s')+
+        ' · '+fmtStudy(s.totalSeconds)+' total study time';
+      var rows = (s.topLearners||[]).map(function(t){
+        return '<tr><td>'+esc(t.email)+'</td><td>'+fmtStudy(t.seconds)+'</td><td>'+t.activeDays+'</td></tr>';
+      }).join('');
+      $('studyRows').innerHTML = rows || '<tr><td colspan="3" class="muted" style="padding:18px">No study activity yet.</td></tr>';
+    }).catch(function(e){ $('studySummary').textContent = e.message; });
   }
 
   function loadActivity(){

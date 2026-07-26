@@ -27,6 +27,7 @@ app.get('/api/health', (req, res) =>
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/payment', require('./routes/payment'));
 app.use('/api/progress', require('./routes/progress'));
+app.use('/api/activity', require('./routes/activity'));
 app.use('/api/content', require('./routes/content'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/admin/generate', require('./routes/adminGenerate'));
