@@ -89,6 +89,15 @@ app.get('/.well-known/assetlinks.json', (_req, res) => {
   res.sendFile(path.join(__dirname, 'public', '.well-known', 'assetlinks.json'));
 });
 
+// /manifest.json — the conventional path installability checkers and crawlers
+// probe by default. The <link rel="manifest"> tag points at manifest.webmanifest
+// (its real filename), so this alias serves the same file at the expected path
+// instead of falling through to the SPA/404.
+app.get('/manifest.json', (_req, res) => {
+  res.type('application/manifest+json');
+  res.sendFile(path.join(__dirname, 'public', 'manifest.webmanifest'));
+});
+
 // Any other .html(.htm) request: read the file ourselves (client/dist first,
 // then public — matching the static-serving priority below) so the widget is
 // injected. Anything not found falls through to the handlers below.
