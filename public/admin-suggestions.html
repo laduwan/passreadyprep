@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — Suggestions</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+  :root{
+    --ink:#1B2A3A; --muted:#5B6B7A;
+    --primary:#0E7C7B; --primary-dark:#0A5E5D;
+    --bg:#F7F5F1; --card:#FFFFFF; --border:#E5E0D8;
+    --new:#9A6614; --new-bg:#F6EEDD;
+    --done:#1E7F4E; --done-bg:#E7F3EC;
+    --serif:Georgia,"Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 64px}
+  header.site{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 2px 14px}
+  .brand{font-weight:700;font-size:19px}
+  .brand .prep{color:var(--primary);font-weight:600}
+  .tag{font-size:12px;font-weight:600;color:var(--new);background:var(--new-bg);border:1px solid #E8D9B8;padding:4px 10px;border-radius:999px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:12px}
+  h1{font-family:var(--serif);font-size:24px;margin:0 0 4px}
+  .lead{color:var(--muted);margin:0 0 16px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  input[type=password]{font:inherit;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;flex:1;min-width:200px}
+  select{font:inherit;font-size:13px;padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;background:#fff}
+  .btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font:inherit;font-weight:600;background:var(--primary);color:#fff;border:none;border-radius:10px;padding:11px 18px}
+  .btn:hover{background:var(--primary-dark)}
+  .btn.small{padding:6px 12px;font-size:12.5px;border-radius:8px}
+  .btn.ghost{background:transparent;color:#B02A37;border:1.5px solid var(--border)}
+  .err{color:#B02A37;font-size:13px;margin-top:8px}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700}
+  .pill-new{background:var(--new-bg);color:var(--new)}
+  .pill-reviewed{background:#E5F0EF;color:var(--primary-dark)}
+  .pill-in-progress{background:#FDF0DC;color:#9A5E14}
+  .pill-done{background:var(--done-bg);color:var(--done)}
+  .pill-dismissed{background:#EFEDE8;color:var(--muted)}
+  .msg{white-space:pre-wrap;font-size:14px;margin:10px 0}
+  .meta{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <div class="brand">PassReady <span class="prep">Prep</span></div>
+    <span class="tag">Suggestions</span>
+  </header>
+  <main id="app"></main>
+</div>
+
+<script>
+let TOKEN = '';
+let PLATFORM_FILTER = '';
+let STATUS_FILTER = '';
+const app = document.getElementById('app');
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const PLATFORM_LABEL = { counselorready: 'CounselorReady', passreadyprep: 'PassReady Prep', gaitp: 'GAITP' };
+
+async function api(path, opts){
+  opts = opts || {};
+  opts.headers = Object.assign({'x-admin-token':TOKEN,'Content-Type':'application/json'}, opts.headers||{});
+  const r = await fetch(path, opts);
+  if(r.status===401) throw new Error('Invalid admin token');
+  if(!r.ok){ const j=await r.json().catch(()=>({})); throw new Error(j.error||('Error '+r.status)); }
+  return r.json();
+}
+
+function gate(msg){
+  app.innerHTML =
+    '<div class="card"><h1>Reviewer sign-in</h1>'
+    + '<p class="lead">Enter your admin token to view suggestions.</p>'
+    + '<div class="row"><input id="tok" type="password" placeholder="Admin token" />'
+    + '<button class="btn" onclick="signIn()">Continue</button></div>'
+    + (msg?'<p class="err">'+esc(msg)+'</p>':'') + '</div>';
+  const i=document.getElementById('tok'); i.focus();
+  i.addEventListener('keydown',e=>{ if(e.key==='Enter') signIn(); });
+}
+async function signIn(){
+  TOKEN = document.getElementById('tok').value.trim();
+  if(!TOKEN) return gate('Enter your token.');
+  try{ await load(); }
+  catch(e){ gate(e.message); }
+}
+
+async function load(){
+  const params = new URLSearchParams();
+  if (PLATFORM_FILTER) params.set('platform', PLATFORM_FILTER);
+  if (STATUS_FILTER) params.set('status', STATUS_FILTER);
+  const data = await api('/api/suggestions?' + params.toString());
+  render(data);
+}
+
+function render(data){
+  const counts = data.counts || {};
+  let h = '<div class="card"><h1>Suggestion box</h1>';
+  h += '<p class="lead">Submissions from CounselorReady, PassReady Prep, and the GAITP site.</p>';
+  h += '<div class="row" style="margin-bottom:10px">';
+  h += '<select id="fp"><option value="">All platforms</option>'
+     + '<option value="counselorready">CounselorReady</option>'
+     + '<option value="passreadyprep">PassReady Prep</option>'
+     + '<option value="gaitp">GAITP</option></select>';
+  h += '<select id="fs"><option value="">All statuses</option>'
+     + ['new','reviewed','in-progress','done','dismissed'].map(v=>'<option value="'+v+'">'+v+'</option>').join('')
+     + '</select>';
+  h += '</div>';
+  h += '<div class="meta">New: '+(counts.new||0)+' · Reviewed: '+(counts.reviewed||0)+' · In progress: '+(counts['in-progress']||0)+' · Done: '+(counts.done||0)+'</div>';
+  h += '</div>';
+
+  if (!data.suggestions.length) {
+    h += '<div class="card"><p class="lead" style="margin:0">No suggestions match this filter.</p></div>';
+  } else {
+    data.suggestions.forEach(s => {
+      h += '<div class="card" data-id="'+s._id+'">';
+      h += '<div class="row" style="justify-content:space-between">';
+      h += '<div><span class="pill pill-'+s.status+'">'+s.status+'</span> <span class="meta">'+(PLATFORM_LABEL[s.platform]||s.platform)+' · '+s.category+'</span></div>';
+      h += '<span class="meta">'+new Date(s.createdAt).toLocaleString()+'</span>';
+      h += '</div>';
+      h += '<div class="msg">'+esc(s.message)+'</div>';
+      if (s.name || s.email) h += '<div class="meta">'+esc(s.name||'')+(s.email?' · '+esc(s.email):'')+'</div>';
+      if (s.pageUrl) h += '<div class="meta" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(s.pageUrl)+'</div>';
+      h += '<div class="row" style="margin-top:10px">';
+      h += '<select class="status-select">'
+         + ['new','reviewed','in-progress','done','dismissed'].map(v=>'<option value="'+v+'"'+(v===s.status?' selected':'')+'>'+v+'</option>').join('')
+         + '</select>';
+      h += '<button class="btn small save-btn">Save</button>';
+      h += '<button class="btn small ghost del-btn" style="margin-left:auto">Delete</button>';
+      h += '</div></div>';
+    });
+  }
+  app.innerHTML = h;
+
+  document.getElementById('fp').value = PLATFORM_FILTER;
+  document.getElementById('fs').value = STATUS_FILTER;
+  document.getElementById('fp').addEventListener('change', e => { PLATFORM_FILTER = e.target.value; load(); });
+  document.getElementById('fs').addEventListener('change', e => { STATUS_FILTER = e.target.value; load(); });
+
+  document.querySelectorAll('.card[data-id]').forEach(card => {
+    const id = card.dataset.id;
+    card.querySelector('.save-btn').addEventListener('click', () => {
+      const status = card.querySelector('.status-select').value;
+      api('/api/suggestions/'+id, { method:'PATCH', body: JSON.stringify({ status }) }).then(load);
+    });
+    card.querySelector('.del-btn').addEventListener('click', () => {
+      if (!confirm('Delete this suggestion?')) return;
+      api('/api/suggestions/'+id, { method:'DELETE' }).then(load);
+    });
+  });
+}
+
+gate();
+</script>
+</body>
+</html>

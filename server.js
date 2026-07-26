@@ -34,6 +34,7 @@ app.use('/api/debrief', require('./routes/debrief'));
 app.use('/api/skills', require('./routes/skills'));
 app.use('/api/intake', require('./routes/intake'));
 app.use('/api/guide', require('./routes/guide'));
+app.use('/api/suggestions', require('./routes/suggestions'));
 
 // ── Accessibility + translation widget injection ────────────────────
 // Every HTML page gets the shared accessibility widget (a11y.css + a11y.js),
