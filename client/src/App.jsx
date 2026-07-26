@@ -11,6 +11,7 @@ import DecisionTrees from './pages/DecisionTrees';
 import DsmReference from './pages/DsmReference';
 import Guarantee from './pages/Guarantee';
 import ExamStrategy from './pages/ExamStrategy';
+import SuggestionBox from './components/SuggestionBox';
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Dashboard', icon: Home },
@@ -152,6 +153,7 @@ export default function App() {
           </div>
         </main>
       </div>
+      <SuggestionBox />
     </div>
   );
 }
