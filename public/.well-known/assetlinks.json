@@ -3,6 +3,6 @@
   "target": {
     "namespace": "android_app",
     "package_name": "com.passreadyprep.app",
-    "sha256_cert_fingerprints": ["DC:03:55:10:F9:1F:9D:87:6E:A7:8E:D9:3B:85:FA:D6:45:EF:81:35:69:64:3F:3A:54:DD:52:B9:B4:4A:31:D0"]
+    "sha256_cert_fingerprints": ["48:71:7E:0E:A9:6E:F5:BB:86:6E:53:F9:44:64:CF:9E:49:04:E9:39:5C:66:32:95:03:21:B0:0E:CE:83:16:F9"]
   }
 }]
