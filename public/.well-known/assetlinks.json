@@ -1,12 +1,8 @@
-[
-  {
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "com.passreadyprep.www.twa",
-      "sha256_cert_fingerprints": [
-        "A6:3F:EE:A4:43:B0:B9:02:36:3E:FA:03:DC:C5:94:A4:18:BA:16:72:30:5A:85:62:87:7D:AF:E6:CF:21:58:10"
-      ]
-    }
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.passreadyprep.app",
+    "sha256_cert_fingerprints": ["DC:03:55:10:F9:1F:9D:87:6E:A7:8E:D9:3B:85:FA:D6:45:EF:81:35:69:64:3F:3A:54:DD:52:B9:B4:4A:31:D0"]
   }
-]
+}]
