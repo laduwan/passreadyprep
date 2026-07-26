@@ -5,6 +5,7 @@ const Exam = require('../models/Exam');
 const User = require('../models/User');
 const Attempt = require('../models/Attempt');
 const ActivityEvent = require('../models/ActivityEvent');
+const StudyActivity = require('../models/StudyActivity');
 const { logActivity } = require('../utils/activity');
 
 const router = express.Router();
@@ -382,6 +383,45 @@ router.get('/activity/stats', async (_req, res) => {
   } catch (err) {
     console.error('admin activity stats error', err);
     return res.json(out); // return zeros rather than 500 so the panel still loads
+  }
+});
+
+// GET /api/admin/activity/study?days=7 — learner study time: totals, active
+// learner count, and the most active learners over the window.
+router.get('/activity/study', async (req, res) => {
+  try {
+    const days = Math.min(Math.max(parseInt(req.query.days, 10) || 7, 1), 90);
+    // Days are learner-local 'YYYY-MM-DD' strings; comparing against the UTC
+    // day is at most one day fuzzy at the window edge, which is fine for a
+    // dashboard.
+    const since = new Date(Date.now() - (days - 1) * 86400 * 1000).toISOString().slice(0, 10);
+
+    const rows = await StudyActivity.aggregate([
+      { $match: { day: { $gte: since } } },
+      { $group: { _id: '$userId', seconds: { $sum: '$seconds' }, days: { $sum: 1 } } },
+      { $sort: { seconds: -1 } },
+    ]);
+
+    const totalSeconds = rows.reduce((sum, r) => sum + (r.seconds || 0), 0);
+    const top = rows.slice(0, 20);
+    const users = await User.find({ _id: { $in: top.map((r) => r._id) } })
+      .select('email').lean();
+    const emailById = new Map(users.map((u) => [String(u._id), u.email]));
+
+    return res.json({
+      days,
+      activeLearners: rows.length,
+      totalSeconds,
+      topLearners: top.map((r) => ({
+        email: emailById.get(String(r._id)) || '(deleted account)',
+        seconds: r.seconds,
+        activeDays: r.days,
+      })),
+      generatedAt: new Date().toISOString(),
+    });
+  } catch (err) {
+    console.error('admin study activity error', err);
+    return res.status(500).json({ error: 'Could not load study activity' });
   }
 });
 
