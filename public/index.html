@@ -286,6 +286,7 @@
     <input id="auth-pass" type="password" autocomplete="current-password" placeholder="Password" />
     <div class="auth-err" id="auth-err" role="alert"></div>
     <button class="btn" id="auth-submit" onclick="submitAuth()">Sign in</button>
+    <p class="modal-foot"><a href="/forgot-password.html">Forgot your password?</a></p>
     <p class="modal-foot">New here? <a href="/register.html?next=/study">Create an account &rsaquo;</a></p>
   </div>
 </div>
@@ -639,6 +640,9 @@ async function showDashboard(){
   h += '<a href="/exam.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">📝 Timed Mock Exam</span><span class="mc-desc">A full 11-case exam under the clock, blueprint-weighted like the real NCMHCE. No feedback until you finish — then a full domain breakdown and answer review.</span></a>';
   h += '<a href="/intake.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">🎙️ Intake Interview Simulator</span><span class="mc-desc">Practice the clinical interview with an AI client who reveals their story the way a real one does — guarded until you earn trust. Five clients including a court-mandated and a returning-veteran case. Speak or type; get a supervisor debrief on rapport, questioning, and risk screening.</span></a>';
   h += '</div>';
+
+  h += '<div class="row" style="margin-top:14px"><button class="btn" style="width:100%" onclick="goCases()">Start practicing — '
+     + (MODE==='classic' ? 'Classic format' : 'New format') + ' ›</button></div>';
 
   h += '<div class="card" style="margin-top:16px"><h2>This session</h2>';
   h += '<div style="font-size:12px;color:var(--slate-500);margin-bottom:8px">Running score for this browser session. Your full history (readiness, flashcards, study plan) is saved locally in this browser — clearing browser data or switching devices will reset it. Create an account for cross-device sync.</div>';
