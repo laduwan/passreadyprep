@@ -2,7 +2,7 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "com.passreadyprep.app",
-    "sha256_cert_fingerprints": ["BA:06:80:23:2A:DB:89:30:2A:48:D6:69:CE:C2:6F:A3:4F:0C:F4:1C:1B:AF:6A:54:6F:9F:DC:E2:50:AB:42:5A"]
+    "package_name": "com.gaitp.passreadyprep",
+    "sha256_cert_fingerprints": ["EC:2E:3F:C4:04:F5:FE:CB:28:B0:A4:D0:65:60:EF:9E:20:12:0E:B8:B0:24:18:48:8F:BC:10:F5:08:B8:38:64"]
   }
 }]
