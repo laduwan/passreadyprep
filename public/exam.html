@@ -730,6 +730,14 @@ function renderResults(){
   h += '<button class="btn secondary" onclick="startNewExam()">New Exam</button>';
   h += '</div>';
 
+  // Guarantee score-report link — tier is not knowable here without a fetch
+  // (prp_user is a login-time snapshot), so show to all signed-in users.
+  let signedIn = false;
+  try { signedIn = !!localStorage.getItem('prp_token'); } catch(_){}
+  if(signedIn){
+    h += '<p style="font-size:13.5px;color:var(--slate-400);margin-top:14px">On the Guarantee plan? <a href="/score-report.html">Submit your score report →</a></p>';
+  }
+
   // Review section (hidden until toggled)
   h += '<div id="review-section" style="display:none;margin-top:20px">';
   h += buildReview(caseResults);

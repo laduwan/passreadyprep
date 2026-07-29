@@ -141,6 +141,21 @@
       <a id="auth-link" href="/register.html">Create account or sign in →</a>
     </div>
   </div>
+
+  <!-- Post-payment success state — shown when Stripe redirects back with ?session_id= -->
+  <div id="success-view" style="display:none">
+    <div class="tier-box pass3" style="text-align:center">
+      <div class="tier-name">Payment confirmed ✓</div>
+      <div class="tier-desc">Your purchase is complete and your access is active.</div>
+    </div>
+    <div class="guar-ack" id="guar-success">
+      <div class="guar-ack-head">🛡️ Your Pass Guarantee is active</div>
+      <p>Study, take the NCMHCE, and come back here if you don't pass the first time.</p>
+      <p>If you need an extension, submit your official score report at <a href="/score-report.html">passreadyprep.com/score-report</a>.</p>
+      <p>We'll review it within 48 hours and extend your access — no questions asked.</p>
+    </div>
+    <a class="btn emerald" href="/study" style="text-decoration:none;margin-top:20px">Start studying ›</a>
+  </div>
 </div>
 
 <script>
@@ -174,6 +189,16 @@
   const token   = localStorage.getItem('prp_token');
 
   function init() {
+    // Post-payment success — Stripe redirected back with ?session_id=.
+    // The tier comes from the same ?tier= param this page already reads
+    // (payment's success_url includes both). Guarantee gets its onboarding.
+    if (params.get('session_id')) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('success-view').style.display = 'block';
+      if (tier === 'guarantee') document.getElementById('guar-success').classList.add('show');
+      return;
+    }
+
     // Build tier summary box
     const box = document.getElementById('tier-box');
     box.className = `tier-box ${tierCfg.cls}`;
