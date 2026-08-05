@@ -125,7 +125,7 @@ app.get(/\.html?$/i, (req, res, next) => {
 // from /public. React app takes priority; /public has admin/review pages,
 // standalone tools, data files, and a11y.css / a11y.js.
 app.use(express.static(path.join(__dirname, 'client/dist')));
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // SPA fallback — any non-API, non-file route serves the React app's index.html
 // (with the accessibility widget injected).
