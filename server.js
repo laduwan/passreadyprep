@@ -37,6 +37,7 @@ app.use('/api/admin/course',  require('./routes/adminCourse'));
 app.use('/api/ncmhce-cases',  require('./routes/ncmhceCases'));
 app.use('/api/debrief', require('./routes/debrief'));
 app.use('/api/skills', require('./routes/skills'));
+app.use('/api/core-tutor', require('./routes/coreTutor'));
 app.use('/api/intake', require('./routes/intake'));
 app.use('/api/guide', require('./routes/guide'));
 app.use('/api/suggestions', require('./routes/suggestions'));
