@@ -180,4 +180,82 @@ router.post('/:userId/refund', async (req, res) => {
   }
 });
 
+// POST /api/admin-subscriptions/ — manually create an account (comp signup,
+// support-created account, etc). Body: { email, name, password, tier }
+router.post('/', async (req, res) => {
+  try {
+    const bcrypt = require('bcryptjs');
+    const { email, name, password, tier } = req.body || {};
+    if (!email || !password) return res.status(400).json({ error: 'email and password are required' });
+    if (password.length < 8) return res.status(400).json({ error: 'Password must be at least 8 characters' });
+
+    const existing = await User.findOne({ email: email.toLowerCase() });
+    if (existing) return res.status(409).json({ error: 'An account with that email already exists' });
+
+    const passwordHash = await bcrypt.hash(password, 12);
+    const user = await User.create({
+      email, passwordHash, name,
+      termsAcceptedAt: new Date(),
+      termsVersion: 'admin-created',
+      'subscription.tier': tier || 'free',
+    });
+
+    logActivity({ type: 'admin.user_created', severity: 'info', userId: user._id, email: user.email, message: 'Admin manually created account', req });
+    res.status(201).json({ ok: true, user: { id: user._id, email: user.email, name: user.name, subscription: user.subscription } });
+  } catch (err) {
+    console.error('admin-subscriptions create error', err);
+    res.status(500).json({ error: 'Could not create account' });
+  }
+});
+
+// DELETE /api/admin-subscriptions/:userId — permanently delete an account
+// and their study data. Does NOT touch ActivityEvent (kept as an audit
+// trail even after account deletion) or cancel any live Stripe
+// subscription first — caller should cancel via /:userId/cancel first if
+// the subscription is still active.
+router.delete('/:userId', async (req, res) => {
+  try {
+    const Attempt = require('../models/Attempt');
+    const StudyActivity = require('../models/StudyActivity');
+
+    const user = await User.findById(req.params.userId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    const email = user.email;
+    await Attempt.deleteMany({ userId: user._id });
+    await StudyActivity.deleteMany({ userId: user._id });
+    await User.findByIdAndDelete(user._id);
+
+    logActivity({ type: 'admin.user_deleted', severity: 'warn', email, message: `Admin deleted account ${email}`, req });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('admin-subscriptions delete error', err);
+    res.status(500).json({ error: 'Could not delete account' });
+  }
+});
+
+// POST /api/admin-subscriptions/:userId/reset-progress — clears server-side
+// study history (case attempts, study-time/streak data) but leaves the
+// account, login, and subscription/billing untouched. NOTE: flashcard
+// spaced-repetition state and the readiness-history ring live in the
+// learner's own browser localStorage — this endpoint cannot reach those.
+router.post('/:userId/reset-progress', async (req, res) => {
+  try {
+    const Attempt = require('../models/Attempt');
+    const StudyActivity = require('../models/StudyActivity');
+
+    const user = await User.findById(req.params.userId).select('email');
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    const attemptResult = await Attempt.deleteMany({ userId: user._id });
+    const activityResult = await StudyActivity.deleteMany({ userId: user._id });
+
+    logActivity({ type: 'admin.progress_reset', severity: 'info', userId: user._id, email: user.email, message: 'Admin reset study progress', meta: { attemptsDeleted: attemptResult.deletedCount, studyDaysDeleted: activityResult.deletedCount }, req });
+    res.json({ ok: true, attemptsDeleted: attemptResult.deletedCount, studyDaysDeleted: activityResult.deletedCount });
+  } catch (err) {
+    console.error('admin-subscriptions reset-progress error', err);
+    res.status(500).json({ error: 'Could not reset progress' });
+  }
+});
+
 module.exports = router;
