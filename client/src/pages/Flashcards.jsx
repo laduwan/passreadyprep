@@ -2,6 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import { Layers, RotateCcw, CheckCircle2, X as XIcon, Zap } from 'lucide-react';
 import { FC_CARDS, FC_CATS } from '../lib/flashcardData';
+import { useStudyPing } from '../lib/useStudyPing';
 
 const SR_KEY = 'prp_sr';
 function ldSR() { try { return JSON.parse(localStorage.getItem(SR_KEY)) || {}; } catch { return {}; } }
@@ -24,6 +25,7 @@ const TYPE_LABEL = { code: 'Code', tx: 'Treatment', diff: 'Differential', ethics
 function shuffle(arr) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 
 export default function Flashcards() {
+  useStudyPing('flashcards');
   const [filter, setFilter] = useState('all');
   const [view, setView] = useState('home'); // home | study | results
   const [deck, setDeck] = useState([]);

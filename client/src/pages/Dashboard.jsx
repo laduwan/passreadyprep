@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BookOpen, Layers, GitBranch, Brain, FileText, Award, TrendingUp, TrendingDown, Minus, Target, Clock } from 'lucide-react';
 import { computeReadiness, DOMAIN_ORDER, DOMAIN_LABELS } from '../lib/readiness';
+import { useStudyPing } from '../lib/useStudyPing';
+import StreakBadge from '../components/StreakBadge';
 
 function ReadinessRing({ value, label }) {
   const circ = 2 * Math.PI * 50;
@@ -40,6 +42,8 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
   const rd = computeReadiness();
   const [examDate, setExamDate] = useState(() => localStorage.getItem('prp_exam_date') || '');
 
+  useStudyPing('dashboard');
+
   useEffect(() => {
     if (examDate) localStorage.setItem('prp_exam_date', examDate);
   }, [examDate]);
@@ -51,6 +55,9 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
     <div className="space-y-6">
       {/* Hero */}
       <div className="rounded-2xl bg-gradient-to-br from-emerald-500/10 to-blue-500/5 border border-emerald-500/20 p-6 text-center">
+        <div className="flex justify-center mb-2">
+          <StreakBadge />
+        </div>
         <h2 className="text-xl font-bold text-emerald-400 mb-1">Try a free clinical simulation</h2>
         <p className="text-slate-400 text-sm mb-4 max-w-md mx-auto">
           Work through a full NCMHCE-format case — read the vignette, answer 5 clinical questions, and get evidence-based feedback with weighted scoring. No signup required.
