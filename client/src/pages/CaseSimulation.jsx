@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { ArrowLeft, MessageSquare, Loader2 } from 'lucide-react';
 import { saveToHistory } from '../lib/readiness';
 import { authFetch } from '../lib/api';
+import { useStudyPing } from '../lib/useStudyPing';
 
 export default function CaseSimulation({ caseId, mode, examMode = false, onBack, navigate }) {
+  useStudyPing('cases');
   const [caseData, setCaseData] = useState(null);
   const [qi, setQi] = useState(0);
   const [answers, setAnswers] = useState([]);
