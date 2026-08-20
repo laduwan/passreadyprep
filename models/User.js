@@ -35,6 +35,8 @@ const UserSchema = new Schema(
       tier: { type: String, default: 'free' },      // free | monthly | pass3 | guarantee
       status: { type: String, default: 'active' },  // active | past_due | canceled
       stripeCustomerId: String,
+      stripeSubscriptionId: String,
+      lastPaymentIntentId: String,
       currentPeriodEnd: Date,
 
       // Score report gate — only used for the 'guarantee' tier.

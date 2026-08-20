@@ -271,6 +271,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
           'subscription.tier': tier,
           'subscription.status': 'active',
           'subscription.currentPeriodEnd': periodEnd,
+          'subscription.lastPaymentIntentId': session.payment_intent,
         });
 
         console.log(`✓ One-time payment: user ${userId} → tier "${tier}", expires ${periodEnd || 'never'}`);
@@ -288,6 +289,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         const update = {
           'subscription.tier': 'monthly',
           'subscription.status': sub.status, // 'active', 'past_due', etc.
+          'subscription.stripeSubscriptionId': sub.id,
         };
         // Only write the date when Stripe actually gave us one — never
         // overwrite a good value with null, and never write an Invalid Date.
@@ -425,9 +427,8 @@ router.get('/score-report-status', requireAuth, async (req, res) => {
 // Protected by admin token check — add your admin middleware here.
 router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
   try {
-    // Simple admin check — replace with your real admin middleware
     const reviewer = await User.findById(req.userId);
-    if (!reviewer || reviewer.email !== process.env.ADMIN_EMAIL) {
+    if (!reviewer || reviewer.role !== 'admin') {
       return res.status(403).json({ error: 'Admin only' });
     }
 
