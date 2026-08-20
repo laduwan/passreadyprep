@@ -17,7 +17,7 @@
 const express = require('express');
 const NcmhceCase = require('../models/NcmhceCase');
 const { runNcmhceCaseGen } = require('../jobs/ncmhceCaseGen');
-const requireAdmin = require('../middleware/adminAuth');
+const requireAdmin = require('../middleware/adminOrAdminUser');
 
 const router = express.Router();
 router.use(requireAdmin);
