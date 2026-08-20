@@ -44,7 +44,7 @@
 </div>
 
 <script>
-let TOKEN = '';
+let TOKEN = sessionStorage.getItem('prp_admin_token') || '';
 const app = document.getElementById('app');
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
@@ -70,7 +70,7 @@ function gate(msg){
 async function signIn(){
   TOKEN = document.getElementById('tok').value.trim();
   if(!TOKEN) return gate('Enter your token.');
-  try{ await load(); }
+  try{ await load(); sessionStorage.setItem('prp_admin_token', TOKEN); }
   catch(e){ gate(e.message); }
 }
 
