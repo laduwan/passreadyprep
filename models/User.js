@@ -7,6 +7,7 @@ const UserSchema = new Schema(
   {
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     passwordHash: { type: String, required: true },
+    role: { type: String, enum: ['user', 'admin'], default: 'user' },
     name: { type: String, trim: true },
     profession: { type: String }, // e.g. 'counseling'
 
