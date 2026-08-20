@@ -226,7 +226,12 @@
 
   function api(path, opts){
     opts = opts || {};
-    opts.headers = Object.assign({ 'x-admin-token': TOKEN }, opts.headers || {});
+    var ADMIN_JWT = sessionStorage.getItem('prp_admin_jwt');
+    if (ADMIN_JWT) {
+      opts.headers = Object.assign({ 'Authorization': 'Bearer ' + ADMIN_JWT }, opts.headers || {});
+    } else {
+      opts.headers = Object.assign({ 'x-admin-token': TOKEN }, opts.headers || {});
+    }
     if (opts.body && typeof opts.body !== 'string'){ opts.headers['content-type']='application/json'; opts.body = JSON.stringify(opts.body); }
     return fetch('/api/admin' + path, opts).then(function(r){
       return r.json().catch(function(){ return {}; }).then(function(j){
