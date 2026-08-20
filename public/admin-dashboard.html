@@ -24,6 +24,20 @@
   .brand{font-weight:700;font-size:19px;color:var(--white)}
   .brand .p{color:var(--emerald-400)}
   .muted{color:var(--slate-400)}
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:16px}
+  button{font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:9px;
+    border:1px solid var(--slate-600);background:var(--slate-700);color:var(--white);padding:8px 13px}
+  button:hover{border-color:var(--emerald)}
+  button.primary{background:var(--emerald);border-color:var(--emerald);color:#04120c}
+  button.ghost{background:transparent}
+  input{font-family:inherit;font-size:14px;background:var(--slate-800);color:var(--white);
+    border:1px solid var(--slate-600);border-radius:8px;padding:8px 10px;width:100%}
+  input:focus,button:focus-visible{outline:2px solid var(--emerald-400);outline-offset:1px}
+  label{display:block;font-size:12px;font-weight:600;color:var(--slate-300);margin:0 0 4px}
+  .spacer{height:14px}
+  .err-line{color:var(--red-400);font-size:13px;margin-top:6px;min-height:16px}
+  .who{font-size:13px;color:var(--slate-400)}
+  .actions{display:flex;gap:8px;align-items:center}
   .tabs{display:flex;gap:6px;border-bottom:1px solid var(--card-border);flex-wrap:wrap}
   .tab{font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;background:none;border:none;
     border-bottom:2px solid transparent;border-radius:0;padding:9px 4px;margin-right:18px;color:var(--slate-400)}
@@ -32,13 +46,35 @@
   .frames{flex:1;min-height:0;position:relative;background:var(--slate-900)}
   .frames iframe{position:absolute;inset:0;width:100%;height:100%;border:none;display:none}
   .frames iframe.active{display:block}
+  .hidden{display:none !important}
 </style>
 </head>
 <body>
 
-<div class="wrap">
+<!-- ── Sign-in ────────────────────────────────────────────────────── -->
+<div id="gate" class="wrap">
+  <div class="card" style="max-width:380px;margin:12vh auto 0">
+    <div class="brand" style="margin-bottom:6px">PassReady <span class="p">Admin</span></div>
+    <p class="muted" style="margin:0 0 14px">Sign in with your admin account.</p>
+    <label for="email">Email</label>
+    <input id="email" type="email" autocomplete="username" placeholder="you@example.com" />
+    <div class="spacer"></div>
+    <label for="password">Password</label>
+    <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" />
+    <div class="err-line" id="gateErr"></div>
+    <div class="spacer"></div>
+    <button class="primary" id="gateBtn" style="width:100%">Sign in</button>
+  </div>
+</div>
+
+<!-- ── App ────────────────────────────────────────────────────────── -->
+<div id="app" class="wrap hidden">
   <header>
     <div class="brand">PassReady <span class="p">Admin</span></div>
+    <div class="actions">
+      <span class="who" id="whoami"></span>
+      <button class="ghost" id="signOut">Sign out</button>
+    </div>
   </header>
   <div class="tabs" id="tabs">
     <button class="tab active" data-tab="overview" data-src="/admin.html">Overview &amp; Cases</button>
@@ -48,7 +84,7 @@
   </div>
 </div>
 
-<div class="frames" id="frames">
+<div class="frames hidden" id="frames">
   <iframe data-tab="overview" title="Overview & Cases"></iframe>
   <iframe data-tab="review" title="Case Review"></iframe>
   <iframe data-tab="suggestions" title="Suggestions"></iframe>
@@ -56,6 +92,8 @@
 </div>
 
 <script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
   var frames = Array.prototype.slice.call(document.querySelectorAll('.frames iframe'));
 
@@ -67,13 +105,79 @@
       f.classList.toggle('active', isActive);
     });
   }
-
   tabs.forEach(function(btn){
     btn.addEventListener('click', function(){ activate(btn.getAttribute('data-tab'), btn); });
   });
 
-  // Load the first tab's iframe on initial page load.
-  activate('overview', tabs[0]);
+  function showApp(email){
+    $('gate').classList.add('hidden');
+    $('app').classList.remove('hidden');
+    $('frames').classList.remove('hidden');
+    $('whoami').textContent = 'Signed in as ' + email;
+    activate('overview', tabs[0]);
+  }
+
+  function clearSession(){
+    sessionStorage.removeItem('prp_admin_jwt');
+    sessionStorage.removeItem('prp_admin_email');
+  }
+
+  function showGate(msg){
+    $('app').classList.add('hidden');
+    $('frames').classList.add('hidden');
+    $('gate').classList.remove('hidden');
+    $('gateErr').textContent = msg || '';
+    $('email').focus();
+  }
+
+  async function signIn(){
+    var email = $('email').value.trim();
+    var password = $('password').value;
+    $('gateErr').textContent = '';
+    if (!email || !password) { $('gateErr').textContent = 'Enter your email and password.'; return; }
+
+    try {
+      var loginRes = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      var loginData = await loginRes.json().catch(function(){ return {}; });
+      if (!loginRes.ok) throw new Error(loginData.error || 'Could not sign in');
+
+      var token = loginData.token;
+      var userEmail = (loginData.user && loginData.user.email) || email;
+
+      var adminsRes = await fetch('/api/admin-users', {
+        headers: { 'Authorization': 'Bearer ' + token },
+      });
+      var adminsData = await adminsRes.json().catch(function(){ return {}; });
+      var admins = (adminsRes.ok && adminsData.admins) || [];
+      var isAdmin = admins.some(function(a){ return (a.email || '').toLowerCase() === userEmail.toLowerCase(); });
+
+      if (!isAdmin) {
+        clearSession();
+        showGate("This account isn't an admin.");
+        return;
+      }
+
+      sessionStorage.setItem('prp_admin_jwt', token);
+      sessionStorage.setItem('prp_admin_email', userEmail);
+      showApp(userEmail);
+    } catch (e) {
+      clearSession();
+      showGate(e.message || 'Could not sign in');
+    }
+  }
+
+  $('gateBtn').addEventListener('click', signIn);
+  $('password').addEventListener('keydown', function(e){ if (e.key === 'Enter') signIn(); });
+  $('signOut').addEventListener('click', function(){ clearSession(); location.reload(); });
+
+  var savedJwt = sessionStorage.getItem('prp_admin_jwt');
+  var savedEmail = sessionStorage.getItem('prp_admin_email');
+  if (savedJwt && savedEmail) showApp(savedEmail);
+})();
 </script>
 </body>
 </html>

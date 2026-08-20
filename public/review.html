@@ -137,7 +137,12 @@ function setApiKey(k){ sessionStorage.setItem('prp_api_key',k); }
 
 async function api(path, opts){
   opts = opts || {};
-  opts.headers = Object.assign({'x-admin-token':TOKEN,'Content-Type':'application/json'}, opts.headers||{});
+  const ADMIN_JWT = sessionStorage.getItem('prp_admin_jwt');
+  if (ADMIN_JWT) {
+    opts.headers = Object.assign({'Authorization':'Bearer '+ADMIN_JWT,'Content-Type':'application/json'}, opts.headers||{});
+  } else {
+    opts.headers = Object.assign({'x-admin-token':TOKEN,'Content-Type':'application/json'}, opts.headers||{});
+  }
   const r = await fetch(path, opts);
   if(r.status===401) throw new Error('Invalid admin token');
   if(!r.ok){ const j=await r.json().catch(()=>({})); throw new Error(j.error||('Error '+r.status)); }
