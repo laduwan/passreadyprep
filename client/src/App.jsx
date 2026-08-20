@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   BookOpen, Brain, GitBranch, Layers, GraduationCap,
-  BarChart3, FileText, Award, Home, ChevronRight, Menu, X, MessageSquare, Clock,
+  BarChart3, FileText, Award, Home, ChevronRight, Menu, X, MessageSquare, Clock, Zap,
 } from 'lucide-react';
 import Dashboard from './pages/Dashboard';
 import CaseList from './pages/CaseList';
@@ -11,6 +11,8 @@ import DecisionTrees from './pages/DecisionTrees';
 import DsmReference from './pages/DsmReference';
 import Guarantee from './pages/Guarantee';
 import ExamStrategy from './pages/ExamStrategy';
+import CoreAttributes from './pages/CoreAttributes';
+import CoreTutor from './pages/CoreTutor';
 import SuggestionBox from './components/SuggestionBox';
 
 const NAV_ITEMS = [
@@ -21,6 +23,8 @@ const NAV_ITEMS = [
   { id: 'flashcards', label: 'Flashcards', icon: Layers },
   { id: 'trees', label: 'Decision Trees', icon: GitBranch },
   { id: 'dsm', label: 'DSM-5-TR Reference', icon: Brain },
+  { id: 'core', label: 'Core Attributes', icon: FileText },
+  { id: 'coretutor', label: 'Core Tutor', icon: Zap },
   { id: 'strategy', label: 'Exam Strategy', icon: BarChart3 },
   { id: 'guarantee', label: 'Pass Guarantee', icon: Award },
 ];
@@ -54,6 +58,10 @@ export default function App() {
         return <DecisionTrees />;
       case 'dsm':
         return <DsmReference />;
+      case 'core':
+        return <CoreAttributes />;
+      case 'coretutor':
+        return <CoreTutor />;
       case 'strategy':
         return <ExamStrategy />;
       case 'guarantee':
