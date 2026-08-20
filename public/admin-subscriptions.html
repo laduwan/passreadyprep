@@ -112,6 +112,29 @@
   </div>
 
   <div class="card">
+    <div class="actions" style="justify-content:flex-end;margin-bottom:12px">
+      <button class="primary" id="newAccountBtn">+ New account</button>
+    </div>
+    <div id="newAccountForm" class="hidden" style="margin-bottom:16px;padding:14px;border:1px solid var(--card-border);border-radius:10px">
+      <div class="field"><label for="naEmail">Email</label><input id="naEmail" type="email" placeholder="person@example.com" /></div>
+      <div class="field"><label for="naName">Name</label><input id="naName" type="text" placeholder="Optional" /></div>
+      <div class="field"><label for="naPassword">Password</label><input id="naPassword" type="password" placeholder="At least 8 characters" /></div>
+      <div class="field"><label for="naTier">Tier</label>
+        <select id="naTier">
+          <option value="free">free</option>
+          <option value="monthly">monthly</option>
+          <option value="pass3">pass3</option>
+          <option value="guarantee">guarantee</option>
+          <option value="guide">guide</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button class="primary" id="naSubmit">Create account</button>
+        <button class="ghost" id="naCancel">Cancel</button>
+      </div>
+      <div class="err-line" id="naErr"></div>
+      <div class="ok-line" id="naOk"></div>
+    </div>
     <div class="filter-row">
       <input id="searchQ" type="text" placeholder="Search by email…" />
       <select id="filterTier">
@@ -308,6 +331,41 @@
   $('filterTier').addEventListener('change', loadList);
   $('filterStatus').addEventListener('change', loadList);
 
+  // ── new account ────────────────────────────────────────────────
+  $('newAccountBtn').addEventListener('click', function(){
+    $('newAccountForm').classList.toggle('hidden');
+  });
+  $('naCancel').addEventListener('click', function(){
+    $('newAccountForm').classList.add('hidden');
+    $('naErr').textContent = '';
+    $('naOk').textContent = '';
+  });
+  $('naSubmit').addEventListener('click', createAccount);
+
+  async function createAccount(){
+    var email = $('naEmail').value.trim();
+    var name = $('naName').value.trim();
+    var password = $('naPassword').value;
+    var tier = $('naTier').value;
+    $('naErr').textContent = '';
+    $('naOk').textContent = '';
+    if (!email || !password) { $('naErr').textContent = 'Email and password are required.'; return; }
+
+    try {
+      await api('/api/admin-subscriptions/', {
+        method: 'POST',
+        body: JSON.stringify({ email, name, password, tier }),
+      });
+      $('naOk').textContent = 'Account created.';
+      $('naEmail').value = '';
+      $('naName').value = '';
+      $('naPassword').value = '';
+      await loadList();
+    } catch (e) {
+      $('naErr').textContent = e.message || 'Could not create account';
+    }
+  }
+
   // ── detail panel ───────────────────────────────────────────────
   function closeDetail(){
     $('detailOverlay').classList.add('hidden');
@@ -370,11 +428,32 @@
       '<div class="field"><label for="dAmount">Amount in dollars (blank = full refund)</label><input id="dAmount" type="number" min="0" step="0.01" placeholder="e.g. 29.00" /></div>' +
       '<button class="danger" id="dRefund" style="width:100%">Issue refund</button>' +
       '<div class="err-line" id="dRefundErr"></div>' +
-      '<div class="ok-line" id="dRefundOk"></div>';
+      '<div class="ok-line" id="dRefundOk"></div>' +
+
+      '<div class="section-title">Reset progress</div>' +
+      '<p class="muted" style="margin:0 0 8px;font-size:13px">Clears case-attempt history and study streak. Does not reset flashcard progress or readiness score, which live on the learner\'s own device.</p>' +
+      '<button class="ghost" id="dResetProgress" style="width:100%">Reset progress</button>' +
+      '<div class="err-line" id="dResetErr"></div>' +
+      '<div class="ok-line" id="dResetOk"></div>' +
+
+      '<div class="section-title" style="color:var(--red-400)">Danger zone</div>' +
+      '<p class="muted" style="margin:0 0 8px;font-size:13px">Permanently deletes the account and all study data. This cannot be undone.</p>' +
+      '<div class="field"><label for="dDeleteConfirm">Type ' + esc(u.email || '') + ' to confirm</label>' +
+      '<input id="dDeleteConfirm" type="text" placeholder="' + esc(u.email || '') + '" /></div>' +
+      '<button class="danger" id="dDeleteAccount" style="width:100%" disabled>Delete account</button>' +
+      '<div class="err-line" id="dDeleteErr"></div>';
 
     $('dSaveTier').addEventListener('click', function(){ saveTier(userId); });
     $('dCancel').addEventListener('click', function(){ cancelSub(userId); });
     $('dRefund').addEventListener('click', function(){ refundSub(userId); });
+    $('dResetProgress').addEventListener('click', function(){ resetProgress(userId); });
+
+    var deleteInput = $('dDeleteConfirm');
+    var deleteBtn = $('dDeleteAccount');
+    deleteInput.addEventListener('input', function(){
+      deleteBtn.disabled = deleteInput.value !== (u.email || '');
+    });
+    deleteBtn.addEventListener('click', function(){ deleteAccount(userId, u.email); });
   }
 
   async function openDetail(userId){
@@ -458,6 +537,35 @@
     } catch (e) {
       var errEl = $('dRefundErr');
       if (errEl) errEl.textContent = e.message || 'Could not process refund';
+    }
+  }
+
+  async function resetProgress(userId){
+    if (!confirm('This clears their case-attempt history and study streak. It does NOT reset flashcard progress or their readiness score, which are stored on their own device.')) return;
+
+    $('dResetErr').textContent = '';
+    $('dResetOk').textContent = '';
+    try {
+      var res = await api('/api/admin-subscriptions/' + userId + '/reset-progress', { method: 'POST' });
+      var okEl = $('dResetOk');
+      if (okEl) okEl.textContent = 'Cleared ' + res.attemptsDeleted + ' attempt(s) and ' + res.studyDaysDeleted + ' study day(s).';
+    } catch (e) {
+      var errEl = $('dResetErr');
+      if (errEl) errEl.textContent = e.message || 'Could not reset progress';
+    }
+  }
+
+  async function deleteAccount(userId, email){
+    if (!confirm('This permanently deletes the account and all study data. This cannot be undone.')) return;
+
+    $('dDeleteErr').textContent = '';
+    try {
+      await api('/api/admin-subscriptions/' + userId, { method: 'DELETE' });
+      closeDetail();
+      await loadList();
+    } catch (e) {
+      var errEl = $('dDeleteErr');
+      if (errEl) errEl.textContent = e.message || 'Could not delete account';
     }
   }
 
