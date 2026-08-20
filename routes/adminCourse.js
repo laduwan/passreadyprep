@@ -1,6 +1,6 @@
 const express = require('express');
 const crypto = require('crypto');
-const requireAdmin = require('../middleware/adminAuth');
+const requireAdmin = require('../middleware/adminOrAdminUser');
 
 const router = express.Router();
 router.use(requireAdmin);

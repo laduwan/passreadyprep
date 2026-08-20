@@ -1,5 +1,5 @@
 const express = require('express');
-const requireAdmin = require('../middleware/adminAuth');
+const requireAdmin = require('../middleware/adminOrAdminUser');
 const ContentItem = require('../models/ContentItem');
 const Exam = require('../models/Exam');
 
