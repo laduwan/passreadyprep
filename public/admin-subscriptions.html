@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>PassReady Prep — Subscribers</title>
+<style>
+  :root{
+    --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+    --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
+    --emerald:#10B981; --emerald-400:#34D399;
+    --amber-400:#FBBF24; --red-400:#F87171; --blue-400:#60A5FA;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;display:flex;flex-direction:column;background:linear-gradient(160deg,#0F172A,#1E293B 50%,#0F172A);
+    color:var(--slate-200);font-family:var(--sans);font-size:15px;line-height:1.55}
+  a{color:var(--emerald-400)}
+  .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 40px;width:100%}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .brand{font-weight:700;font-size:19px;color:var(--white)}
+  .brand .p{color:var(--emerald-400)}
+  .muted{color:var(--slate-400)}
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:16px}
+  button{font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:9px;
+    border:1px solid var(--slate-600);background:var(--slate-700);color:var(--white);padding:8px 13px}
+  button:hover{border-color:var(--emerald)}
+  button.primary{background:var(--emerald);border-color:var(--emerald);color:#04120c}
+  button.ghost{background:transparent}
+  button.danger{background:transparent;border-color:var(--red-400);color:var(--red-400)}
+  button:disabled{opacity:.5;cursor:default}
+  input,select{font-family:inherit;font-size:14px;background:var(--slate-800);color:var(--white);
+    border:1px solid var(--slate-600);border-radius:8px;padding:8px 10px;width:100%}
+  input:focus,select:focus,button:focus-visible{outline:2px solid var(--emerald-400);outline-offset:1px}
+  label{display:block;font-size:12px;font-weight:600;color:var(--slate-300);margin:0 0 4px}
+  .spacer{height:14px}
+  .err-line{color:var(--red-400);font-size:13px;margin-top:6px;min-height:16px}
+  .ok-line{color:var(--emerald-400);font-size:13px;margin-top:6px;min-height:16px}
+  .who{font-size:13px;color:var(--slate-400)}
+  .actions{display:flex;gap:8px;align-items:center}
+  .hidden{display:none !important}
+
+  /* ── page-specific ─────────────────────────────────────────────── */
+  .stat-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  .stat-card{flex:1;min-width:160px}
+  .stat-label{font-size:12px;color:var(--slate-400);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+  .stat-value{font-size:24px;font-weight:700;color:var(--white);margin-top:4px}
+  .stat-value.warn{color:var(--amber-400)}
+
+  .filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .filter-row input{flex:2;min-width:200px}
+  .filter-row select{flex:1;min-width:130px}
+
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--card-border);font-size:14px}
+  th{font-size:12px;color:var(--slate-400);text-transform:uppercase;letter-spacing:.03em;font-weight:600}
+  tbody tr{cursor:pointer}
+  tbody tr:hover{background:rgba(148,163,184,.08)}
+  .badge{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid transparent}
+  .badge.active{color:var(--emerald-400);border-color:var(--emerald-400);background:rgba(16,185,129,.12)}
+  .badge.past_due{color:var(--amber-400);border-color:var(--amber-400);background:rgba(251,191,36,.12)}
+  .badge.canceled{color:var(--slate-400);border-color:var(--slate-500);background:rgba(100,116,139,.12)}
+
+  .overlay{position:fixed;inset:0;background:rgba(2,6,14,.6);display:flex;justify-content:flex-end;z-index:20}
+  .panel{width:min(420px,100%);height:100%;background:var(--slate-900);border-left:1px solid var(--card-border);
+    overflow-y:auto;padding:20px}
+  .panel h2{margin:0 0 2px;font-size:18px;color:var(--white)}
+  .panel .close{position:absolute;top:14px;right:16px}
+  .field{margin-bottom:10px}
+  .kv{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:4px 0;border-bottom:1px dashed var(--card-border)}
+  .kv span:first-child{color:var(--slate-400)}
+  .section-title{font-size:13px;font-weight:700;color:var(--slate-300);text-transform:uppercase;letter-spacing:.03em;
+    margin:18px 0 8px}
+  .empty{padding:20px;text-align:center;color:var(--slate-400)}
+</style>
+</head>
+<body>
+
+<!-- ── Sign-in ────────────────────────────────────────────────────── -->
+<div id="gate" class="wrap">
+  <div class="card" style="max-width:380px;margin:12vh auto 0">
+    <div class="brand" style="margin-bottom:6px">PassReady <span class="p">Admin</span></div>
+    <p class="muted" style="margin:0 0 14px">Sign in with your admin account.</p>
+    <label for="email">Email</label>
+    <input id="email" type="email" autocomplete="username" placeholder="you@example.com" />
+    <div class="spacer"></div>
+    <label for="password">Password</label>
+    <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" />
+    <div class="err-line" id="gateErr"></div>
+    <div class="spacer"></div>
+    <button class="primary" id="gateBtn" style="width:100%">Sign in</button>
+  </div>
+</div>
+
+<!-- ── App ────────────────────────────────────────────────────────── -->
+<div id="app" class="wrap hidden">
+  <header>
+    <div class="brand">Subscribers</div>
+    <div class="actions">
+      <span class="who" id="whoami"></span>
+    </div>
+  </header>
+
+  <div class="stat-row" id="statRow">
+    <div class="card stat-card"><div class="stat-label">MRR estimate</div><div class="stat-value" id="statMrr">—</div></div>
+    <div class="card stat-card"><div class="stat-label">Active monthly</div><div class="stat-value" id="statActive">—</div></div>
+    <div class="card stat-card"><div class="stat-label">Past due</div><div class="stat-value" id="statPastDue">—</div></div>
+    <div class="card stat-card"><div class="stat-label">Last 30 days gross</div><div class="stat-value" id="statGross">—</div></div>
+  </div>
+
+  <div class="card">
+    <div class="filter-row">
+      <input id="searchQ" type="text" placeholder="Search by email…" />
+      <select id="filterTier">
+        <option value="">All tiers</option>
+        <option value="free">free</option>
+        <option value="monthly">monthly</option>
+        <option value="pass3">pass3</option>
+        <option value="guarantee">guarantee</option>
+        <option value="guide">guide</option>
+      </select>
+      <select id="filterStatus">
+        <option value="">All statuses</option>
+        <option value="active">active</option>
+        <option value="past_due">past_due</option>
+        <option value="canceled">canceled</option>
+      </select>
+    </div>
+    <div id="listErr" class="err-line"></div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr><th>Email</th><th>Name</th><th>Tier</th><th>Status</th><th>Period end</th></tr>
+        </thead>
+        <tbody id="listBody"></tbody>
+      </table>
+    </div>
+    <div id="listEmpty" class="empty hidden">No subscribers match.</div>
+  </div>
+</div>
+
+<div id="detailOverlay" class="overlay hidden"></div>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var esc = function(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+
+  var currency = function(n){
+    if (n == null || isNaN(n)) return '—';
+    return '$' + Number(n).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  };
+  var dateStr = function(d){
+    if (!d) return 'never expires';
+    var dt = new Date(d);
+    return isNaN(dt.getTime()) ? '—' : dt.toLocaleDateString();
+  };
+
+  // ── auth ───────────────────────────────────────────────────────
+  function clearSession(){
+    sessionStorage.removeItem('prp_admin_jwt');
+    sessionStorage.removeItem('prp_admin_email');
+  }
+
+  function showGate(msg){
+    $('app').classList.add('hidden');
+    $('gate').classList.remove('hidden');
+    $('gateErr').textContent = msg || '';
+  }
+
+  function showApp(email){
+    $('gate').classList.add('hidden');
+    $('app').classList.remove('hidden');
+    $('whoami').textContent = 'Signed in as ' + email;
+    loadRevenue();
+    loadList();
+  }
+
+  async function api(path, opts){
+    opts = opts || {};
+    var token = sessionStorage.getItem('prp_admin_jwt');
+    opts.headers = Object.assign({ 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' }, opts.headers || {});
+    var r = await fetch(path, opts);
+    var data = await r.json().catch(function(){ return {}; });
+    if (!r.ok) throw new Error(data.error || ('Error ' + r.status));
+    return data;
+  }
+
+  async function checkAdmin(token, email){
+    var r = await fetch('/api/admin-users', { headers: { 'Authorization': 'Bearer ' + token } });
+    var data = await r.json().catch(function(){ return {}; });
+    var admins = (r.ok && data.admins) || [];
+    return admins.some(function(a){ return (a.email || '').toLowerCase() === email.toLowerCase(); });
+  }
+
+  async function signIn(){
+    var email = $('email').value.trim();
+    var password = $('password').value;
+    $('gateErr').textContent = '';
+    if (!email || !password) { $('gateErr').textContent = 'Enter your email and password.'; return; }
+
+    try {
+      var loginRes = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      var loginData = await loginRes.json().catch(function(){ return {}; });
+      if (!loginRes.ok) throw new Error(loginData.error || 'Could not sign in');
+
+      var token = loginData.token;
+      var userEmail = (loginData.user && loginData.user.email) || email;
+
+      var isAdmin = await checkAdmin(token, userEmail);
+      if (!isAdmin) {
+        clearSession();
+        showGate("This account isn't an admin.");
+        return;
+      }
+
+      sessionStorage.setItem('prp_admin_jwt', token);
+      sessionStorage.setItem('prp_admin_email', userEmail);
+      showApp(userEmail);
+    } catch (e) {
+      clearSession();
+      showGate(e.message || 'Could not sign in');
+    }
+  }
+
+  $('gateBtn').addEventListener('click', signIn);
+  $('password').addEventListener('keydown', function(e){ if (e.key === 'Enter') signIn(); });
+
+  async function boot(){
+    var savedJwt = sessionStorage.getItem('prp_admin_jwt');
+    var savedEmail = sessionStorage.getItem('prp_admin_email');
+    if (savedJwt && savedEmail) {
+      try {
+        var stillAdmin = await checkAdmin(savedJwt, savedEmail);
+        if (stillAdmin) { showApp(savedEmail); return; }
+      } catch (e) { /* fall through to gate */ }
+      clearSession();
+    }
+    showGate();
+  }
+
+  // ── revenue ────────────────────────────────────────────────────
+  async function loadRevenue(){
+    try {
+      var data = await api('/api/admin-subscriptions/revenue');
+      $('statMrr').textContent = currency(data.mrrEstimate);
+      $('statActive').textContent = data.activeMonthlyCount != null ? data.activeMonthlyCount : '—';
+      var pastDueEl = $('statPastDue');
+      pastDueEl.textContent = data.pastDueCount != null ? data.pastDueCount : '—';
+      pastDueEl.classList.toggle('warn', !!data.pastDueCount);
+      $('statGross').textContent = currency(data.last30dGross);
+    } catch (e) {
+      // Revenue is a nice-to-have; don't block the rest of the page on it.
+    }
+  }
+
+  // ── list ───────────────────────────────────────────────────────
+  var searchTimer = null;
+
+  function renderList(users){
+    var body = $('listBody');
+    body.innerHTML = '';
+    $('listEmpty').classList.toggle('hidden', !!users.length);
+    users.forEach(function(u){
+      var sub = u.subscription || {};
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td>' + esc(u.email) + '</td>' +
+        '<td>' + esc(u.name || '—') + '</td>' +
+        '<td>' + esc(sub.tier || 'free') + '</td>' +
+        '<td><span class="badge ' + esc(sub.status || 'active') + '">' + esc(sub.status || 'active') + '</span></td>' +
+        '<td>' + esc((sub.tier === 'guarantee' || !sub.currentPeriodEnd) ? 'never expires' : dateStr(sub.currentPeriodEnd)) + '</td>';
+      tr.addEventListener('click', function(){ openDetail(u._id); });
+      body.appendChild(tr);
+    });
+  }
+
+  async function loadList(){
+    $('listErr').textContent = '';
+    try {
+      var params = new URLSearchParams();
+      var q = $('searchQ').value.trim();
+      var tier = $('filterTier').value;
+      var status = $('filterStatus').value;
+      if (q) params.set('q', q);
+      if (tier) params.set('tier', tier);
+      if (status) params.set('status', status);
+      var data = await api('/api/admin-subscriptions?' + params.toString());
+      renderList(data.users || []);
+    } catch (e) {
+      $('listErr').textContent = e.message || 'Could not load subscribers';
+      renderList([]);
+    }
+  }
+
+  $('searchQ').addEventListener('input', function(){
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(loadList, 350);
+  });
+  $('searchQ').addEventListener('keydown', function(e){ if (e.key === 'Enter') { clearTimeout(searchTimer); loadList(); } });
+  $('filterTier').addEventListener('change', loadList);
+  $('filterStatus').addEventListener('change', loadList);
+
+  // ── detail panel ───────────────────────────────────────────────
+  function closeDetail(){
+    $('detailOverlay').classList.add('hidden');
+    $('detailOverlay').innerHTML = '';
+  }
+
+  function panelSkeleton(){
+    $('detailOverlay').innerHTML =
+      '<div class="panel" style="position:relative">' +
+        '<button class="ghost close" id="detailClose">✕</button>' +
+        '<div id="detailBody">Loading…</div>' +
+      '</div>';
+    $('detailOverlay').classList.remove('hidden');
+    $('detailOverlay').addEventListener('click', function(e){ if (e.target === $('detailOverlay')) closeDetail(); });
+    $('detailClose').addEventListener('click', closeDetail);
+  }
+
+  function renderDetail(userId, data){
+    var u = data.user || {};
+    var sub = u.subscription || {};
+    var body = $('detailBody');
+    if (!body) return; // panel was closed mid-fetch
+
+    var tierOptions = ['free','monthly','pass3','guarantee','guide'].map(function(t){
+      return '<option value="' + t + '"' + (t === (sub.tier || 'free') ? ' selected' : '') + '>' + t + '</option>';
+    }).join('');
+    var statusOptions = ['active','past_due','canceled'].map(function(s){
+      return '<option value="' + s + '"' + (s === (sub.status || 'active') ? ' selected' : '') + '>' + s + '</option>';
+    }).join('');
+    var periodEndValue = sub.currentPeriodEnd ? new Date(sub.currentPeriodEnd).toISOString().slice(0,10) : '';
+
+    body.innerHTML =
+      '<h2>' + esc(u.email || '') + '</h2>' +
+      '<p class="muted" style="margin:0 0 12px">' + esc(u.name || '') + '</p>' +
+
+      '<div class="kv"><span>Tier</span><span>' + esc(sub.tier || 'free') + '</span></div>' +
+      '<div class="kv"><span>Status</span><span>' + esc(sub.status || 'active') + '</span></div>' +
+      '<div class="kv"><span>Period end</span><span>' + esc(dateStr(sub.currentPeriodEnd)) + '</span></div>' +
+      '<div class="kv"><span>Stripe customer</span><span>' + esc(sub.stripeCustomerId || '—') + '</span></div>' +
+      '<div class="kv"><span>Stripe subscription</span><span>' + esc(sub.stripeSubscriptionId || '—') + '</span></div>' +
+      '<div class="kv"><span>Last payment intent</span><span>' + esc(sub.lastPaymentIntentId || '—') + '</span></div>' +
+      '<div class="kv"><span>Attempts</span><span>' + esc(data.attemptCount != null ? data.attemptCount : '—') + '</span></div>' +
+      '<div class="kv"><span>Joined</span><span>' + esc(dateStr(u.createdAt)) + '</span></div>' +
+
+      '<div class="section-title">Change tier</div>' +
+      '<div class="field"><label for="dTier">Tier</label><select id="dTier">' + tierOptions + '</select></div>' +
+      '<div class="field"><label for="dStatus">Status</label><select id="dStatus">' + statusOptions + '</select></div>' +
+      '<div class="field"><label for="dPeriodEnd">Period end (blank = never expires)</label><input id="dPeriodEnd" type="date" value="' + periodEndValue + '" /></div>' +
+      '<button class="primary" id="dSaveTier" style="width:100%">Save tier</button>' +
+      '<div class="err-line" id="dTierErr"></div>' +
+      '<div class="ok-line" id="dTierOk"></div>' +
+
+      '<div class="section-title">Cancel subscription</div>' +
+      '<div class="field"><label><input type="checkbox" id="dImmediate" style="width:auto;display:inline-block;vertical-align:middle;margin-right:6px" />Cancel immediately (default: at period end)</label></div>' +
+      '<button class="danger" id="dCancel" style="width:100%">Cancel subscription</button>' +
+      '<div class="err-line" id="dCancelErr"></div>' +
+      '<div class="ok-line" id="dCancelOk"></div>' +
+
+      '<div class="section-title">Refund</div>' +
+      '<div class="field"><label for="dAmount">Amount in dollars (blank = full refund)</label><input id="dAmount" type="number" min="0" step="0.01" placeholder="e.g. 29.00" /></div>' +
+      '<button class="danger" id="dRefund" style="width:100%">Issue refund</button>' +
+      '<div class="err-line" id="dRefundErr"></div>' +
+      '<div class="ok-line" id="dRefundOk"></div>';
+
+    $('dSaveTier').addEventListener('click', function(){ saveTier(userId); });
+    $('dCancel').addEventListener('click', function(){ cancelSub(userId); });
+    $('dRefund').addEventListener('click', function(){ refundSub(userId); });
+  }
+
+  async function openDetail(userId){
+    panelSkeleton();
+    try {
+      var data = await api('/api/admin-subscriptions/' + userId);
+      renderDetail(userId, data);
+    } catch (e) {
+      var body = $('detailBody');
+      if (body) body.innerHTML = '<div class="err-line">' + esc(e.message || 'Could not load subscriber') + '</div>';
+    }
+  }
+
+  async function refreshDetail(userId){
+    try {
+      var data = await api('/api/admin-subscriptions/' + userId);
+      renderDetail(userId, data);
+    } catch (e) { /* keep whatever is currently shown */ }
+  }
+
+  async function saveTier(userId){
+    var tier = $('dTier').value;
+    var status = $('dStatus').value;
+    var periodEndInput = $('dPeriodEnd').value;
+    if (!confirm('This bypasses Stripe entirely and directly sets the subscription. Continue?')) return;
+
+    $('dTierErr').textContent = '';
+    $('dTierOk').textContent = '';
+    try {
+      await api('/api/admin-subscriptions/' + userId + '/tier', {
+        method: 'PUT',
+        body: JSON.stringify({ tier, status, currentPeriodEnd: periodEndInput ? periodEndInput : null }),
+      });
+      await refreshDetail(userId);
+      await loadList();
+      var okEl = $('dTierOk');
+      if (okEl) okEl.textContent = 'Tier updated.';
+    } catch (e) {
+      var errEl = $('dTierErr');
+      if (errEl) errEl.textContent = e.message || 'Could not update tier';
+    }
+  }
+
+  async function cancelSub(userId){
+    var immediate = $('dImmediate').checked;
+    if (!confirm(immediate ? 'Cancel this subscription immediately?' : 'Cancel this subscription at period end?')) return;
+
+    $('dCancelErr').textContent = '';
+    $('dCancelOk').textContent = '';
+    try {
+      var res = await api('/api/admin-subscriptions/' + userId + '/cancel', {
+        method: 'POST',
+        body: JSON.stringify({ immediate }),
+      });
+      await refreshDetail(userId);
+      await loadList();
+      var okEl = $('dCancelOk');
+      if (okEl) okEl.textContent = res.immediate ? 'Canceled immediately.' : 'Will cancel at period end.';
+    } catch (e) {
+      var errEl = $('dCancelErr');
+      if (errEl) errEl.textContent = e.message || 'Could not cancel subscription';
+    }
+  }
+
+  async function refundSub(userId){
+    var amount = $('dAmount').value.trim();
+    if (!confirm(amount ? ('Refund $' + amount + '?') : 'Issue a full refund?')) return;
+
+    $('dRefundErr').textContent = '';
+    $('dRefundOk').textContent = '';
+    try {
+      var body = {};
+      if (amount) body.amount = Number(amount);
+      var res = await api('/api/admin-subscriptions/' + userId + '/refund', {
+        method: 'POST',
+        body: JSON.stringify(body),
+      });
+      var okEl = $('dRefundOk');
+      if (okEl && res.refund) okEl.textContent = 'Refunded ' + currency(res.refund.amount) + ' (' + res.refund.status + ').';
+      await refreshDetail(userId);
+    } catch (e) {
+      var errEl = $('dRefundErr');
+      if (errEl) errEl.textContent = e.message || 'Could not process refund';
+    }
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>
