@@ -469,9 +469,17 @@ router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
       // Keep currentPeriodEnd as-is (they don't need more prep time)
       await user.save();
 
-      // TODO: trigger free CE course on CounselorReady
-      // e.g. send an email or POST to counselorready.com/api/grant-free-course
-      console.log(`🎉 PASSED: user ${user._id} (${user.email}) — trigger CounselorReady CE benefit`);
+      // Free CE benefit on CounselorReady is not yet automated (no grant
+      // endpoint exists there yet) — email the admin so it's actioned
+      // manually instead of getting lost in server logs.
+      const { sendMail } = require('../utils/mailer');
+      const adminEmail = process.env.ADMIN_ALERT_EMAIL || process.env.MAIL_FROM_EMAIL;
+      sendMail({
+        to: adminEmail,
+        subject: `[PRP] Exam passed — grant CE benefit for ${user.email}`,
+        text: `${user.email} (user ${user._id}) just passed their NCMHCE score report review.\n\nManually grant their free CounselorReady CE course benefit.\n\nReviewed at: ${new Date().toISOString()}`,
+      }).catch(err => console.error('CE benefit alert email failed:', err.message));
+      console.log(`🎉 PASSED: user ${user._id} (${user.email}) — CE benefit alert emailed to ${adminEmail}`);
 
       return res.json({ ok: true, message: `Marked as passed. CE benefit trigger logged for ${user.email}.` });
     }
