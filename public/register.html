@@ -118,6 +118,11 @@
     <label for="reg-password">Password <span style="color:var(--slate-600);text-transform:none;letter-spacing:0;font-weight:400">(8+ characters)</span></label>
     <input type="password" id="reg-password" placeholder="••••••••" autocomplete="new-password"/>
 
+    <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true">
+      <label for="reg-website">Leave this field blank</label>
+      <input type="text" id="reg-website" name="website" tabindex="-1" autocomplete="off"/>
+    </div>
+
     <div class="terms-row">
       <input type="checkbox" id="reg-terms"/>
       <label for="reg-terms">
@@ -173,6 +178,7 @@
     const name     = document.getElementById('reg-name').value.trim();
     const email    = document.getElementById('reg-email').value.trim();
     const password = document.getElementById('reg-password').value;
+    const website  = document.getElementById('reg-website').value;
     const terms    = document.getElementById('reg-terms').checked;
     const btn      = document.getElementById('reg-btn');
 
@@ -188,7 +194,7 @@
       const r = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, termsAccepted: true }),
+        body: JSON.stringify({ name, email, password, termsAccepted: true, website }),
       });
       const data = await r.json();
       if (!r.ok) {
