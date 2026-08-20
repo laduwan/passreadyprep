@@ -124,7 +124,7 @@
 </div>
 
 <script>
-let TOKEN = '';
+let TOKEN = sessionStorage.getItem('prp_admin_token') || '';
 let TAB = 'sme_review';
 let BLUEPRINT = null; // loaded once from server
 const app = document.getElementById('app');
@@ -157,7 +157,7 @@ function gate(msg){
 async function signIn(){
   TOKEN = document.getElementById('tok').value.trim();
   if(!TOKEN) return gate('Enter your token.');
-  try{ await api('/api/admin/content?status=sme_review'); showList(); }
+  try{ await api('/api/admin/content?status=sme_review'); sessionStorage.setItem('prp_admin_token', TOKEN); showList(); }
   catch(e){ gate(e.message); }
 }
 

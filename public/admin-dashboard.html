@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>PassReady Prep — Admin</title>
+<style>
+  :root{
+    --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+    --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
+    --emerald:#10B981; --emerald-400:#34D399;
+    --amber-400:#FBBF24; --red-400:#F87171; --blue-400:#60A5FA;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;display:flex;flex-direction:column;background:linear-gradient(160deg,#0F172A,#1E293B 50%,#0F172A);
+    color:var(--slate-200);font-family:var(--sans);font-size:15px;line-height:1.55}
+  a{color:var(--emerald-400)}
+  .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 0;width:100%}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .brand{font-weight:700;font-size:19px;color:var(--white)}
+  .brand .p{color:var(--emerald-400)}
+  .muted{color:var(--slate-400)}
+  .tabs{display:flex;gap:6px;border-bottom:1px solid var(--card-border);flex-wrap:wrap}
+  .tab{font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;background:none;border:none;
+    border-bottom:2px solid transparent;border-radius:0;padding:9px 4px;margin-right:18px;color:var(--slate-400)}
+  .tab:hover{color:var(--slate-200)}
+  .tab.active{color:var(--white);border-bottom-color:var(--emerald)}
+  .frames{flex:1;min-height:0;position:relative;background:var(--slate-900)}
+  .frames iframe{position:absolute;inset:0;width:100%;height:100%;border:none;display:none}
+  .frames iframe.active{display:block}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand">PassReady <span class="p">Admin</span></div>
+  </header>
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-tab="overview" data-src="/admin.html">Overview &amp; Cases</button>
+    <button class="tab" data-tab="review" data-src="/review.html">Case Review</button>
+    <button class="tab" data-tab="suggestions" data-src="/admin-suggestions.html">Suggestions</button>
+    <button class="tab" data-tab="users" data-src="/admin-users.html">Admin Users</button>
+  </div>
+</div>
+
+<div class="frames" id="frames">
+  <iframe data-tab="overview" title="Overview & Cases"></iframe>
+  <iframe data-tab="review" title="Case Review"></iframe>
+  <iframe data-tab="suggestions" title="Suggestions"></iframe>
+  <iframe data-tab="users" title="Admin Users"></iframe>
+</div>
+
+<script>
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var frames = Array.prototype.slice.call(document.querySelectorAll('.frames iframe'));
+
+  function activate(tab, btn){
+    tabs.forEach(function(b){ b.classList.toggle('active', b === btn); });
+    frames.forEach(function(f){
+      var isActive = f.getAttribute('data-tab') === tab;
+      if (isActive && !f.getAttribute('src')) f.setAttribute('src', btn.getAttribute('data-src'));
+      f.classList.toggle('active', isActive);
+    });
+  }
+
+  tabs.forEach(function(btn){
+    btn.addEventListener('click', function(){ activate(btn.getAttribute('data-tab'), btn); });
+  });
+
+  // Load the first tab's iframe on initial page load.
+  activate('overview', tabs[0]);
+</script>
+</body>
+</html>

@@ -54,7 +54,7 @@
 </div>
 
 <script>
-let TOKEN = '';
+let TOKEN = sessionStorage.getItem('prp_admin_token') || '';
 let PLATFORM_FILTER = '';
 let STATUS_FILTER = '';
 const app = document.getElementById('app');
@@ -83,7 +83,7 @@ function gate(msg){
 async function signIn(){
   TOKEN = document.getElementById('tok').value.trim();
   if(!TOKEN) return gate('Enter your token.');
-  try{ await load(); }
+  try{ await load(); sessionStorage.setItem('prp_admin_token', TOKEN); }
   catch(e){ gate(e.message); }
 }
 
