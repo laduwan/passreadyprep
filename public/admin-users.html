@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — Admin Users</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+  :root{
+    --ink:#1B2A3A; --muted:#5B6B7A;
+    --primary:#0E7C7B; --primary-dark:#0A5E5D;
+    --bg:#F7F5F1; --card:#FFFFFF; --border:#E5E0D8;
+    --serif:Georgia,"Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 64px}
+  header.site{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 2px 14px}
+  .brand{font-weight:700;font-size:19px}
+  .brand .prep{color:var(--primary);font-weight:600}
+  .tag{font-size:12px;font-weight:600;color:var(--primary-dark);background:#E5F0EF;border:1px solid var(--border);padding:4px 10px;border-radius:999px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:12px}
+  h1{font-family:var(--serif);font-size:24px;margin:0 0 4px}
+  .lead{color:var(--muted);margin:0 0 16px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  input[type=password],input[type=email]{font:inherit;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;flex:1;min-width:200px}
+  .btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font:inherit;font-weight:600;background:var(--primary);color:#fff;border:none;border-radius:10px;padding:11px 18px}
+  .btn:hover{background:var(--primary-dark)}
+  .btn.small{padding:6px 12px;font-size:12.5px;border-radius:8px}
+  .btn.ghost{background:transparent;color:#B02A37;border:1.5px solid var(--border)}
+  .err{color:#B02A37;font-size:13px;margin-top:8px}
+  .meta{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <div class="brand">PassReady <span class="prep">Prep</span></div>
+    <span class="tag">Admin Users</span>
+  </header>
+  <main id="app"></main>
+</div>
+
+<script>
+let TOKEN = '';
+const app = document.getElementById('app');
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+async function api(path, opts){
+  opts = opts || {};
+  opts.headers = Object.assign({'x-admin-token':TOKEN,'Content-Type':'application/json'}, opts.headers||{});
+  const r = await fetch(path, opts);
+  if(r.status===401) throw new Error('Invalid admin token');
+  if(!r.ok){ const j=await r.json().catch(()=>({})); throw new Error(j.error||('Error '+r.status)); }
+  return r.json();
+}
+
+function gate(msg){
+  app.innerHTML =
+    '<div class="card"><h1>Reviewer sign-in</h1>'
+    + '<p class="lead">Enter your admin token to manage admin users.</p>'
+    + '<div class="row"><input id="tok" type="password" placeholder="Admin token" />'
+    + '<button class="btn" onclick="signIn()">Continue</button></div>'
+    + (msg?'<p class="err">'+esc(msg)+'</p>':'') + '</div>';
+  const i=document.getElementById('tok'); i.focus();
+  i.addEventListener('keydown',e=>{ if(e.key==='Enter') signIn(); });
+}
+async function signIn(){
+  TOKEN = document.getElementById('tok').value.trim();
+  if(!TOKEN) return gate('Enter your token.');
+  try{ await load(); }
+  catch(e){ gate(e.message); }
+}
+
+async function load(){
+  const data = await api('/api/admin-users');
+  render(data);
+}
+
+function render(data, err){
+  let h = '<div class="card"><h1>Admin users</h1>';
+  h += '<p class="lead">Promote or demote accounts by email. Promoted users can sign in with their own account instead of the shared admin token.</p>';
+  h += '<div class="row">';
+  h += '<input id="email" type="email" placeholder="person@example.com" />';
+  h += '<button class="btn small" id="promote-btn">Promote to admin</button>';
+  h += '<button class="btn small ghost" id="demote-btn">Demote to user</button>';
+  h += '</div>';
+  if (err) h += '<p class="err">'+esc(err)+'</p>';
+  h += '</div>';
+
+  const admins = data.admins || [];
+  if (!admins.length) {
+    h += '<div class="card"><p class="lead" style="margin:0">No admin accounts yet.</p></div>';
+  } else {
+    admins.forEach(a => {
+      h += '<div class="card" data-email="'+esc(a.email)+'">';
+      h += '<div class="row" style="justify-content:space-between">';
+      h += '<div><strong>'+esc(a.name||a.email)+'</strong> <span class="meta">'+esc(a.email)+'</span></div>';
+      h += '<button class="btn small ghost demote-row-btn">Demote</button>';
+      h += '</div></div>';
+    });
+  }
+  app.innerHTML = h;
+
+  document.getElementById('promote-btn').addEventListener('click', () => setRole('admin'));
+  document.getElementById('demote-btn').addEventListener('click', () => setRole('user'));
+  document.querySelectorAll('.demote-row-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const email = btn.closest('.card[data-email]').dataset.email;
+      api('/api/admin-users/role', { method:'PUT', body: JSON.stringify({ email, role: 'user' }) })
+        .then(load)
+        .catch(e => load().then(d => render(d, e.message)));
+    });
+  });
+}
+
+async function setRole(role){
+  const email = document.getElementById('email').value.trim();
+  if (!email) return;
+  try {
+    await api('/api/admin-users/role', { method:'PUT', body: JSON.stringify({ email, role }) });
+    await load();
+  } catch (e) {
+    const data = await api('/api/admin-users').catch(() => ({ admins: [] }));
+    render(data, e.message);
+  }
+}
+
+gate();
+</script>
+</body>
+</html>
