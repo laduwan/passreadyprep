@@ -9,6 +9,22 @@ const { logActivity } = require('../utils/activity');
 
 const router = express.Router();
 
+// ═══════════════════════════════════════════
+// IN-MEMORY RATE LIMITER — 8 registration attempts / IP / hour
+// ═══════════════════════════════════════════
+const registerRateLimitStore = new Map();
+const REGISTER_HOURLY_LIMIT = 8;
+
+function checkRegisterRateLimit(ip) {
+  const hourBucket = Math.floor(Date.now() / (60 * 60 * 1000));
+  const key = `${ip}:${hourBucket}`;
+  if (registerRateLimitStore.size > 10000) registerRateLimitStore.clear();
+  const count = registerRateLimitStore.get(key) || 0;
+  if (count >= REGISTER_HOURLY_LIMIT) return false;
+  registerRateLimitStore.set(key, count + 1);
+  return true;
+}
+
 // Makes the signed token a new account/sign-in hands back to the browser.
 // Embeds sessionVersion (sv) so the middleware can detect stale sessions.
 function signToken(user) {
@@ -46,7 +62,23 @@ function baseUrl(req) {
 // POST /api/auth/register — create an account
 router.post('/register', async (req, res) => {
   try {
-    const { email, password, name, termsAccepted } = req.body || {};
+    const { email, password, name, termsAccepted, website } = req.body || {};
+
+    // Honeypot: "website" is a hidden field real users never see or fill.
+    // Bots that auto-fill every input populate it, so we quietly pretend to
+    // succeed without creating an account or sending anything.
+    if (website) {
+      return res.status(201).json({
+        token: 'noop',
+        user: { id: null, email, name, prefs: {}, subscription: {} },
+      });
+    }
+
+    const ip = req.ip || req.headers['x-forwarded-for'] || 'unknown';
+    if (!checkRegisterRateLimit(ip)) {
+      return res.status(429).json({ error: 'Too many attempts. Please try again in a bit.' });
+    }
+
     if (!email || !password)
       return res.status(400).json({ error: 'Email and password are required' });
     if (password.length < 8)
