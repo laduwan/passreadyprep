@@ -59,9 +59,9 @@ export default function App() {
       case 'dsm':
         return <DsmReference />;
       case 'core':
-        return <CoreAttributes />;
+        return <CoreAttributes navigate={navigate} />;
       case 'coretutor':
-        return <CoreTutor />;
+        return <CoreTutor navigate={navigate} />;
       case 'strategy':
         return <ExamStrategy />;
       case 'guarantee':

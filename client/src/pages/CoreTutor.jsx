@@ -1,6 +1,7 @@
 // client/src/pages/CoreTutor.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import { Mic, MicOff, Send, RefreshCw, BookOpen, ChevronDown } from 'lucide-react';
+import { useStudyPing } from '../lib/useStudyPing';
 
 const DOMAINS = [
   { id: '', label: 'All Domains' },
@@ -9,6 +10,8 @@ const DOMAINS = [
   { id: 'skills', label: 'Microskills' },
   { id: 'group', label: 'Group' },
   { id: 'priority', label: 'Priority Ladder' },
+  { id: 'defenses', label: 'Defenses' },
+  { id: 'distortions', label: 'Distortions' },
 ];
 
 const DOMAIN_COLORS = {
@@ -17,11 +20,14 @@ const DOMAIN_COLORS = {
   skills: 'text-emerald-400 bg-emerald-500/15 border-emerald-500/25',
   group: 'text-amber-400 bg-amber-500/15 border-amber-500/25',
   priority: 'text-purple-400 bg-purple-500/15 border-purple-500/25',
+  defenses: 'text-cyan-400 bg-cyan-500/15 border-cyan-500/25',
+  distortions: 'text-teal-400 bg-teal-500/15 border-teal-500/25',
 };
 
 const SR = typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition);
 
 export default function CoreTutor() {
+  useStudyPing('core-tutor');
   const [domain, setDomain] = useState('');
   const [scenario, setScenario] = useState(null);
   const [response, setResponse] = useState('');

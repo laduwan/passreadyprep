@@ -1,19 +1,22 @@
 // client/src/pages/CoreAttributes.jsx
 import React, { useState } from 'react';
 import {
-  Heart, Lightbulb, MessageCircle, Users, Shield,
-  Search, ChevronDown, ChevronRight, Sparkles, AlertTriangle, MessageSquare,
+  Heart, Lightbulb, MessageCircle, Users, Shield, ShieldAlert, BrainCircuit,
+  Search, ChevronDown, ChevronRight, Sparkles, AlertTriangle, MessageSquare, Zap,
 } from 'lucide-react';
+import { useStudyPing } from '../lib/useStudyPing';
 
 import { CA_SECTIONS } from '../lib/coreAttributesData';
 
-const ICONS = { Heart, Lightbulb, MessageCircle, Users, Shield };
+const ICONS = { Heart, Lightbulb, MessageCircle, Users, Shield, ShieldAlert, BrainCircuit };
 const COLORS = {
   rose:    { badge: 'text-rose-400 bg-rose-500/15 border-rose-500/25',   accent: 'text-rose-400',   bg: 'bg-rose-500/8',  border: 'border-rose-500/20',  glow: 'hover:border-rose-500/30' },
   blue:    { badge: 'text-blue-400 bg-blue-500/15 border-blue-500/25',   accent: 'text-blue-400',   bg: 'bg-blue-500/8',  border: 'border-blue-500/20',  glow: 'hover:border-blue-500/30' },
   emerald: { badge: 'text-emerald-400 bg-emerald-500/15 border-emerald-500/25', accent: 'text-emerald-400', bg: 'bg-emerald-500/8', border: 'border-emerald-500/20', glow: 'hover:border-emerald-500/30' },
   amber:   { badge: 'text-amber-400 bg-amber-500/15 border-amber-500/25', accent: 'text-amber-400', bg: 'bg-amber-500/8', border: 'border-amber-500/20', glow: 'hover:border-amber-500/30' },
   purple:  { badge: 'text-purple-400 bg-purple-500/15 border-purple-500/25', accent: 'text-purple-400', bg: 'bg-purple-500/8', border: 'border-purple-500/20', glow: 'hover:border-purple-500/30' },
+  cyan:    { badge: 'text-cyan-400 bg-cyan-500/15 border-cyan-500/25',   accent: 'text-cyan-400',   bg: 'bg-cyan-500/8',  border: 'border-cyan-500/20',  glow: 'hover:border-cyan-500/30' },
+  teal:    { badge: 'text-teal-400 bg-teal-500/15 border-teal-500/25',   accent: 'text-teal-400',   bg: 'bg-teal-500/8',  border: 'border-teal-500/20',  glow: 'hover:border-teal-500/30' },
 };
 
 function TopicCard({ topic, color }) {
@@ -97,7 +100,8 @@ function TopicCard({ topic, color }) {
   );
 }
 
-export default function CoreAttributes() {
+export default function CoreAttributes({ navigate }) {
+  useStudyPing('core-attributes');
   const [query, setQuery] = useState('');
   const [activeSection, setActiveSection] = useState(null);
 
@@ -134,8 +138,18 @@ export default function CoreAttributes() {
       </div>
 
       {/* How to use */}
-      <div className="bg-purple-500/8 border border-purple-500/20 rounded-xl p-3.5 text-sm text-slate-300">
-        <span className="font-bold text-purple-400">How to use</span> — Review foundational counseling concepts the NCMHCE tests through case simulations. Tap any topic to expand key concepts, exam tips, and clinical examples. Search by keyword to find specific skills or theories.
+      <div className="bg-purple-500/8 border border-purple-500/20 rounded-xl p-3.5 text-sm text-slate-300 flex items-start justify-between gap-3 flex-wrap">
+        <div>
+          <span className="font-bold text-purple-400">How to use</span> — Review foundational counseling concepts the NCMHCE tests through case simulations. Tap any topic to expand key concepts, exam tips, and clinical examples. Search by keyword to find specific skills or theories.
+        </div>
+        {navigate && (
+          <button
+            onClick={() => navigate('coretutor')}
+            className="shrink-0 flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold text-sm px-4 py-2 rounded-lg transition-colors"
+          >
+            <Zap className="w-3.5 h-3.5" /> Practice with AI tutor
+          </button>
+        )}
       </div>
 
       {/* Search */}
