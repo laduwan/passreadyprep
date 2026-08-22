@@ -18,6 +18,12 @@ const SCENARIOS = [
   { id: 'ts13', domain: 'theories', prompt: 'The counselor asks: "On a scale of 1 to 10, how important is it to you to stop drinking? You said 6 — why a 6 and not a 3?" What approach is this?', targetConcepts: ['motivational interviewing', 'readiness ruler', 'change talk'] },
   { id: 'ts14', domain: 'theories', prompt: 'A family therapist asks the parents to re-enact an argument they had last week while the therapist observes. Name the technique and the theoretical school.', targetConcepts: ['enactment', 'structural family therapy', 'Minuchin'] },
   { id: 'ts15', domain: 'priority', prompt: 'A client with depression has been stable for months. She arrives and tells you she just discovered her husband is having an affair. She is sobbing and says: "I want to die." What do you do FIRST, SECOND, and THIRD?', targetConcepts: ['safety first', 'stabilization', 'validation before processing', 'priority ladder sequence'] },
+  { id: 'ts16', domain: 'defenses', prompt: 'A client describes her childhood abuse in vivid, graphic detail — every event, every date — but shows zero emotion. Her voice is flat, her face is blank. Name the defense mechanism and explain how it differs from intellectualization.', targetConcepts: ['isolation of affect', 'intellectualization', 'defense discrimination'] },
+  { id: 'ts17', domain: 'defenses', prompt: 'A BPD client tells you: "You\'re the only therapist who has ever truly understood me. The last three were terrible — they didn\'t care at all." What defense mechanism is operating, and how should you respond therapeutically?', targetConcepts: ['splitting', 'idealization', 'BPD', 'alliance management'] },
+  { id: 'ts18', domain: 'defenses', prompt: 'After a session discussing his father\'s emotional absence, a client goes to a bar that night and gets into a physical fight. Name the defense mechanism and explain why this behavior connects to the session content.', targetConcepts: ['acting out', 'defense mechanisms', 'session material expressed through behavior'] },
+  { id: 'ts19', domain: 'distortions', prompt: 'A client says: "I got one negative comment on my performance review. The rest was positive, but that one comment proves I\'m not cut out for this job." Identify the cognitive distortion(s) and write a Socratic question to address them.', targetConcepts: ['mental filter', 'all-or-nothing thinking', 'Socratic questioning'] },
+  { id: 'ts20', domain: 'distortions', prompt: 'A client says: "I feel like a failure, so I must be a failure." Name the distortion and explain why "think more positively" is NOT the correct CBT intervention.', targetConcepts: ['emotional reasoning', 'cognitive restructuring', 'accuracy vs positivity'] },
+  { id: 'ts21', domain: 'distortions', prompt: 'A client says: "My coworker didn\'t say hello this morning. She definitely hates me. I\'m going to get fired." Identify each distortion in this sequence and explain the Socratic questioning sequence you would use.', targetConcepts: ['mind reading', 'catastrophizing', 'fortune telling', 'Socratic questioning sequence'] },
 ];
 
 const DOMAIN_LABELS = {
@@ -26,6 +32,8 @@ const DOMAIN_LABELS = {
   skills: 'Microskills & Techniques',
   group: 'Group Counseling',
   priority: 'Clinical Priority Ladder',
+  defenses: 'Defense Mechanisms',
+  distortions: 'Cognitive Distortions',
 };
 
 async function callAnthropic(system, messages, maxTokens) {

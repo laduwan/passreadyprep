@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Layers, GitBranch, Brain, FileText, Award, TrendingUp, TrendingDown, Minus, Target, Clock } from 'lucide-react';
+import { BookOpen, Layers, GitBranch, Brain, FileText, Award, TrendingUp, TrendingDown, Minus, Target, Clock, Zap } from 'lucide-react';
 import { computeReadiness, DOMAIN_ORDER, DOMAIN_LABELS } from '../lib/readiness';
 import { useStudyPing } from '../lib/useStudyPing';
 import StreakBadge from '../components/StreakBadge';
@@ -189,6 +189,8 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
             { id: 'flashcards', icon: Layers, label: 'Flashcards', desc: '258 cards with spaced repetition — codes, treatments, differentials, ethics, crisis.' },
             { id: 'trees', icon: GitBranch, label: 'Decision Trees', desc: '25 clinical reasoning walkthroughs — safety triage, differential diagnosis, treatment selection, ethics.' },
             { id: 'dsm', icon: Brain, label: 'DSM-5-TR Reference', desc: '92 diagnoses with ICD-10 codes and first-line treatments. Searchable.' },
+            { id: 'core', icon: FileText, label: 'Core Attributes', desc: 'Alliance, theories, microskills, group work, defenses, distortions — the foundational concepts the exam tests.' },
+            { id: 'coretutor', icon: Zap, label: 'Core Tutor', desc: 'AI-scored scenario practice — type or speak your response and get clinical reasoning feedback from Dr. Moreau.' },
             { id: 'strategy', icon: Target, label: 'Exam Strategy', desc: 'Timeline-based study plan, the IG scoring rules, the Golden Formula, and common mistakes by domain.' },
             { id: 'guarantee', icon: Award, label: 'Pass Guarantee', desc: 'Pass and get a free CE course. Don\'t pass and we extend your access.' },
           ].map((tool) => (
