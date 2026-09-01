@@ -409,6 +409,22 @@
       '<div class="kv"><span>Last payment intent</span><span>' + esc(sub.lastPaymentIntentId || '—') + '</span></div>' +
       '<div class="kv"><span>Attempts</span><span>' + esc(data.attemptCount != null ? data.attemptCount : '—') + '</span></div>' +
       '<div class="kv"><span>Joined</span><span>' + esc(dateStr(u.createdAt)) + '</span></div>' +
+      '<div class="kv"><span>Trial granted until</span><span>' +
+        (u.trialEndsAt
+          ? esc(dateStr(u.trialEndsAt)) + (new Date(u.trialEndsAt) > new Date() ? '' : ' (over)')
+          : '— standard trial') + '</span></div>' +
+      (u.trialNote ? '<div class="kv"><span>Trial note</span><span>' + esc(u.trialNote) + '</span></div>' : '') +
+
+      '<div class="section-title">Extend free trial</div>' +
+      '<p class="muted" style="margin:0 0 10px;font-size:12.5px">Gives this one account a longer trial than the ' +
+        'standard one — for a review swap or a comp. Days count from today. Leave 0 to drop them back to the standard trial.</p>' +
+      '<div class="field"><label for="dTrialDays">Days from today</label>' +
+        '<input id="dTrialDays" type="number" min="0" max="365" step="1" value="14" /></div>' +
+      '<div class="field"><label for="dTrialNote">Note (why — e.g. \'review swap\')</label>' +
+        '<input id="dTrialNote" type="text" maxlength="300" value="' + esc(u.trialNote || '') + '" /></div>' +
+      '<button class="primary" id="dSaveTrial" style="width:100%">Grant trial</button>' +
+      '<div class="err-line" id="dTrialErr"></div>' +
+      '<div class="ok-line" id="dTrialOk"></div>' +
 
       '<div class="section-title">Change tier</div>' +
       '<div class="field"><label for="dTier">Tier</label><select id="dTier">' + tierOptions + '</select></div>' +
@@ -443,6 +459,7 @@
       '<button class="danger" id="dDeleteAccount" style="width:100%" disabled>Delete account</button>' +
       '<div class="err-line" id="dDeleteErr"></div>';
 
+    $('dSaveTrial').addEventListener('click', function(){ saveTrial(userId); });
     $('dSaveTier').addEventListener('click', function(){ saveTier(userId); });
     $('dCancel').addEventListener('click', function(){ cancelSub(userId); });
     $('dRefund').addEventListener('click', function(){ refundSub(userId); });
@@ -472,6 +489,31 @@
       var data = await api('/api/admin-subscriptions/' + userId);
       renderDetail(userId, data);
     } catch (e) { /* keep whatever is currently shown */ }
+  }
+
+  async function saveTrial(userId){
+    var days = $('dTrialDays').value;
+    var note = $('dTrialNote').value;
+    var n = Number(days);
+    if (!Number.isFinite(n) || n < 0 || n > 365) {
+      $('dTrialErr').textContent = 'Enter a number of days between 0 and 365.';
+      return;
+    }
+
+    $('dTrialErr').textContent = '';
+    $('dTrialOk').textContent = '';
+    try {
+      await api('/api/admin-subscriptions/' + userId + '/trial', {
+        method: 'PUT',
+        body: JSON.stringify({ days: n, note: note }),
+      });
+      await refreshDetail(userId);
+      var okEl = $('dTrialOk');
+      if (okEl) okEl.textContent = n > 0 ? 'Trial extended ' + n + ' days from today.' : 'Granted trial cleared.';
+    } catch (e) {
+      var errEl = $('dTrialErr');
+      if (errEl) errEl.textContent = e.message || 'Could not update the trial';
+    }
   }
 
   async function saveTier(userId){

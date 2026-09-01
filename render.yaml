@@ -55,6 +55,10 @@ services:
       - key: VISIT_HASH_SALT     # any long random string; salts the one-way visitor hash (no raw IPs stored)
         sync: false
 
+      # ── Free trial ────────────────────────────────────────────────────
+      - key: TRIAL_DAYS          # STANDARD trial length in days (default 3); per-person
+        value: "3"               # extensions are granted in Admin → Subscribers
+
       # ── Email (Brevo) ─────────────────────────────────────────────────
       - key: BREVO_API_KEY
         sync: false

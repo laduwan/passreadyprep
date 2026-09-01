@@ -109,6 +109,50 @@ router.put('/:userId/tier', async (req, res) => {
   }
 });
 
+// PUT /api/admin-subscriptions/:userId/trial — grant this one account a longer
+// free trial than the standard TRIAL_DAYS (a review swap, a comp, a support
+// gesture). Body: { days, note } — days counts from NOW, so a 14-day grant on
+// day 30 gives a full 14 days, not 14 from signup. Send days: 0 or null to
+// clear the grant and drop the account back to the standard trial.
+router.put('/:userId/trial', async (req, res) => {
+  try {
+    const { days, note } = req.body || {};
+
+    let trialEndsAt = null;
+    if (days !== null && days !== undefined && days !== 0 && days !== '0') {
+      const n = Number(days);
+      if (!Number.isFinite(n) || n <= 0 || n > 365) {
+        return res.status(400).json({ error: 'days must be a number between 1 and 365, or 0 to clear' });
+      }
+      trialEndsAt = new Date(Date.now() + n * 24 * 60 * 60 * 1000);
+    }
+
+    const update = { trialEndsAt };
+    if (typeof note === 'string') update.trialNote = note.trim().slice(0, 300);
+    if (!trialEndsAt) update.trialNote = '';
+
+    const user = await User.findByIdAndUpdate(req.params.userId, update, { new: true })
+      .select('email trialEndsAt trialNote');
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    logActivity({
+      type: trialEndsAt ? 'admin.trial_granted' : 'admin.trial_cleared',
+      severity: 'info',
+      userId: user._id,
+      email: user.email,
+      message: trialEndsAt
+        ? `Admin granted a ${days}-day trial (until ${trialEndsAt.toISOString().slice(0, 10)})`
+        : 'Admin cleared the granted trial',
+      meta: { days: trialEndsAt ? Number(days) : 0, note: user.trialNote || '' },
+      req,
+    });
+    res.json({ ok: true, user });
+  } catch (err) {
+    console.error('admin-subscriptions trial update error', err);
+    res.status(500).json({ error: 'Could not update the trial' });
+  }
+});
+
 // POST /api/admin-subscriptions/:userId/cancel — cancels the Stripe subscription
 // Body: { immediate: boolean } — default false (cancels at period end)
 router.post('/:userId/cancel', async (req, res) => {
