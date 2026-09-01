@@ -56,8 +56,8 @@ services:
         sync: false
 
       # ── Free trial ────────────────────────────────────────────────────
-      - key: TRIAL_DAYS          # days of full access from signup before the paywall (default 14)
-        value: "14"
+      - key: TRIAL_DAYS          # STANDARD trial length in days (default 3); per-person
+        value: "3"               # extensions are granted in Admin → Subscribers
 
       # ── Email (Brevo) ─────────────────────────────────────────────────
       - key: BREVO_API_KEY

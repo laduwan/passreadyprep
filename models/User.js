@@ -31,6 +31,14 @@ const UserSchema = new Schema(
     guidePurchasedAt: Date,                  // set when the standalone study guide is purchased
     guideOrderId: String,                    // Stripe checkout session id for the guide purchase
 
+    // Extended free trial granted to this one account by an admin — used for
+    // review swaps and comps. While trialEndsAt is in the future the account
+    // has full access regardless of the standard TRIAL_DAYS window; once it
+    // passes, the normal rule applies again. trialNote records why it was
+    // given, so an unfulfilled swap is easy to spot later.
+    trialEndsAt: Date,
+    trialNote: { type: String, trim: true, maxlength: 300 },
+
     subscription: {
       tier: { type: String, default: 'free' },      // free | monthly | pass3 | guarantee
       status: { type: String, default: 'active' },  // active | past_due | canceled

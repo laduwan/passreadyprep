@@ -6,9 +6,11 @@ const User = require('../models/User');
 const router = express.Router();
 
 const FREE_CASE_LIMIT = 5;
-// Length of the free trial a registered account gets from signup. Set
-// TRIAL_DAYS in the environment to change it without a code deploy.
-const TRIAL_DAYS = Math.max(1, parseInt(process.env.TRIAL_DAYS || '14', 10) || 14);
+// The standard free trial every registered account gets from signup.
+// Individual accounts can be granted a longer one (see trialEndsAt below);
+// this is the default that applies to everyone else. TRIAL_DAYS in the
+// environment overrides it without a code deploy.
+const TRIAL_DAYS = Math.max(1, parseInt(process.env.TRIAL_DAYS || '3', 10) || 3);
 
 // Middleware: resolves subscription tier and attaches req.accessLevel.
 // 'free'    — no token (anonymous visitor): 5-case teaser
@@ -26,7 +28,7 @@ async function resolveAccess(req, res, next) {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = payload.sub;
 
-    const user = await User.findById(req.userId).select('subscription createdAt');
+    const user = await User.findById(req.userId).select('subscription createdAt trialEndsAt');
     if (!user) { req.accessLevel = 'free'; return next(); }
 
     const sub = user.subscription || {};
@@ -48,10 +50,12 @@ async function resolveAccess(req, res, next) {
 
     // Monthly / pass3: if expired, fall back to the trial clock (long past → 'expired')
     if (['monthly', 'pass3'].includes(tier) && expired) {
+      req.trialEndsAt = trialEndFor(user);
       req.accessLevel = trialLevel(user);
       return next();
     }
 
+    req.trialEndsAt = trialEndFor(user);
     req.accessLevel = tier === 'free' ? trialLevel(user) : 'paid';
     next();
   } catch (err) {
@@ -60,11 +64,18 @@ async function resolveAccess(req, res, next) {
   }
 }
 
-// Registered accounts get full access for TRIAL_DAYS from signup, then hit the paywall.
-function trialLevel(user) {
+// Registered accounts get full access for TRIAL_DAYS from signup, then hit the
+// paywall — unless an admin granted this one account a longer trial, which wins
+// for as long as it lasts and then falls back to the standard rule.
+function trialEndFor(user) {
+  const granted = user.trialEndsAt ? new Date(user.trialEndsAt) : null;
   const created = user.createdAt ? new Date(user.createdAt) : new Date(0);
-  const trialEnd = new Date(created.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
-  return trialEnd > new Date() ? 'trial' : 'expired';
+  const standard = new Date(created.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
+  return granted && granted > standard ? granted : standard;
+}
+
+function trialLevel(user) {
+  return trialEndFor(user) > new Date() ? 'trial' : 'expired';
 }
 
 // GET /api/content?exam=ncmhce — list published cases
@@ -89,6 +100,9 @@ router.get('/', resolveAccess, async (req, res) => {
       accessLevel: req.accessLevel,
       freeLimit: FREE_CASE_LIMIT,
       trialDays: TRIAL_DAYS,
+      // The end of THIS account's trial, which may be an admin-granted
+      // extension rather than the standard TRIAL_DAYS from signup.
+      trialEndsAt: req.trialEndsAt || null,
     });
   } catch (err) {
     console.error('list content error', err);
