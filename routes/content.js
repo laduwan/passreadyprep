@@ -6,7 +6,9 @@ const User = require('../models/User');
 const router = express.Router();
 
 const FREE_CASE_LIMIT = 5;
-const TRIAL_DAYS = 3;
+// Length of the free trial a registered account gets from signup. Set
+// TRIAL_DAYS in the environment to change it without a code deploy.
+const TRIAL_DAYS = Math.max(1, parseInt(process.env.TRIAL_DAYS || '14', 10) || 14);
 
 // Middleware: resolves subscription tier and attaches req.accessLevel.
 // 'free'    — no token (anonymous visitor): 5-case teaser
