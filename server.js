@@ -41,6 +41,7 @@ app.use('/api/core-tutor', require('./routes/coreTutor'));
 app.use('/api/intake', require('./routes/intake'));
 app.use('/api/guide', require('./routes/guide'));
 app.use('/api/suggestions', require('./routes/suggestions'));
+app.use('/api/visits', require('./routes/visits'));
 
 // ── Accessibility + translation widget injection ────────────────────
 // Every HTML page gets the shared accessibility widget (a11y.css + a11y.js),
@@ -56,6 +57,12 @@ const A11Y_HEAD =
   '<script src="/translate.js" defer></script>';
 const A11Y_SKIP = '<a href="#" class="a11y-skip-link" data-a11y-skip>Skip to main content</a>';
 
+// Anonymous pageview beacon, injected the same serve-time way so every static
+// page and the React shell report traffic without 20 hand-edited <script> tags.
+// The script itself skips /admin* and /review* — those are operator screens,
+// not visitor traffic.
+const VISIT_HEAD = '<script src="/visit-beacon.js" defer></script>';
+
 // PWA head tags, injected the same serve-time way as the a11y widget so every
 // static page and the React shell advertise the web app manifest + register the
 // service worker (needed to install as an app / package for Google Play as a TWA).
@@ -69,7 +76,7 @@ function injectA11y(html) {
   if (typeof html !== 'string') return html;
   if (html.indexOf('/a11y.js') !== -1) return html; // already present — don't double up
   let out = html;
-  out = out.indexOf('</head>') !== -1 ? out.replace('</head>', A11Y_HEAD + PWA_HEAD + '</head>') : (A11Y_HEAD + PWA_HEAD + out);
+  out = out.indexOf('</head>') !== -1 ? out.replace('</head>', A11Y_HEAD + PWA_HEAD + VISIT_HEAD + '</head>') : (A11Y_HEAD + PWA_HEAD + VISIT_HEAD + out);
   if (/<body[^>]*>/i.test(out)) out = out.replace(/(<body[^>]*>)/i, '$1' + A11Y_SKIP);
   return out;
 }
