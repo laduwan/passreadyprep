@@ -47,6 +47,43 @@
   .frames iframe{position:absolute;inset:0;width:100%;height:100%;border:none;display:none}
   .frames iframe.active{display:block}
   .hidden{display:none !important}
+
+  /* ── Visits panel (rendered in-page, not in an iframe) ─────────── */
+  .inline-panel{position:absolute;inset:0;overflow:auto;display:none}
+  .inline-panel.active{display:block}
+  .panel-body{max-width:1080px;margin:0 auto;padding:20px 20px 40px;width:100%}
+  .panel-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+  .panel-title{font-weight:700;font-size:17px;color:var(--white)}
+  select{font-family:inherit;font-size:14px;background:var(--slate-800);color:var(--white);
+    border:1px solid var(--slate-600);border-radius:8px;padding:8px 10px}
+  select:focus-visible{outline:2px solid var(--emerald-400);outline-offset:1px}
+  .stat-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .stat-card{flex:1;min-width:150px}
+  .stat-label{font-size:12px;color:var(--slate-400);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+  .stat-value{font-size:24px;font-weight:700;color:var(--white);margin-top:4px;font-variant-numeric:tabular-nums}
+  .stat-sub{font-size:12px;color:var(--slate-500);margin-top:2px}
+  .legend{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--slate-300)}
+  .swatch{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:0}
+  .swatch.line{height:3px;width:15px;border-radius:2px;vertical-align:3px}
+  .chart-scroll{overflow-x:auto;margin-top:10px}
+  .chart-wrap{position:relative;min-width:520px}
+  .chart-wrap svg{display:block;width:100%;height:auto}
+  .grid-line{stroke:var(--card-border);stroke-width:1}
+  .axis-text{fill:var(--slate-500);font-size:10px;font-family:var(--sans)}
+  .hit:hover{fill:rgba(148,163,184,.09)}
+  .tip{position:absolute;pointer-events:none;background:var(--slate-900);border:1px solid var(--slate-600);
+    border-radius:8px;padding:7px 9px;font-size:12px;color:var(--slate-300);white-space:nowrap;
+    box-shadow:0 6px 18px rgba(0,0,0,.45);opacity:0;transition:opacity .1s;z-index:5}
+  .tip.on{opacity:1}
+  .tip b{color:var(--white)}
+  .two-col{display:flex;gap:12px;flex-wrap:wrap}
+  .two-col > .card{flex:1;min-width:280px}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--card-border);font-size:13.5px}
+  th{font-size:11.5px;color:var(--slate-400);text-transform:uppercase;letter-spacing:.03em;font-weight:600}
+  th.num,td.num{text-align:right;font-variant-numeric:tabular-nums}
+  td.path{word-break:break-all}
+  .empty{color:var(--slate-400);font-size:14px;margin:0;padding:6px 0}
 </style>
 </head>
 <body>
@@ -82,6 +119,7 @@
     <button class="tab" data-tab="suggestions" data-src="/admin-suggestions.html">Suggestions</button>
     <button class="tab" data-tab="users" data-src="/admin-users.html">Admin Users</button>
     <button class="tab" data-tab="subscribers" data-src="/admin-subscriptions.html">Subscribers</button>
+    <button class="tab" data-tab="visits">Visits</button>
   </div>
 </div>
 
@@ -91,6 +129,51 @@
   <iframe data-tab="suggestions" title="Suggestions"></iframe>
   <iframe data-tab="users" title="Admin Users"></iframe>
   <iframe data-tab="subscribers" title="Subscribers"></iframe>
+
+  <!-- Visits lives on this page rather than in an iframe: it is the one tab
+       with no standalone admin page behind it, and it reuses the dashboard's
+       own session instead of asking for a second sign-in. -->
+  <div class="inline-panel" data-tab="visits" id="visitsPanel">
+    <div class="panel-body">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Site visits</div>
+          <p class="muted" style="margin:2px 0 0;font-size:13px">Anonymous pageviews — no cookies, no IP addresses stored.</p>
+        </div>
+        <div class="actions">
+          <select id="visitRange" aria-label="Date range">
+            <option value="7">Last 7 days</option>
+            <option value="30" selected>Last 30 days</option>
+            <option value="90">Last 90 days</option>
+          </select>
+          <button class="ghost" id="visitRefresh">Refresh</button>
+        </div>
+      </div>
+
+      <div class="err-line" id="visitErr"></div>
+
+      <div class="stat-row">
+        <div class="card stat-card"><div class="stat-label">Total views</div><div class="stat-value" id="statViews">—</div></div>
+        <div class="card stat-card"><div class="stat-label">Unique visitors</div><div class="stat-value" id="statUniques">—</div><div class="stat-sub">counted once per day</div></div>
+        <div class="card stat-card"><div class="stat-label">Avg views / day</div><div class="stat-value" id="statAvg">—</div></div>
+        <div class="card stat-card"><div class="stat-label">Busiest day</div><div class="stat-value" id="statBusiest">—</div><div class="stat-sub" id="statBusiestSub">&nbsp;</div></div>
+      </div>
+
+      <div class="card" id="chartCard"><p class="empty">Loading…</p></div>
+
+      <div class="spacer"></div>
+      <div class="two-col">
+        <div class="card"><div class="stat-label" style="margin-bottom:6px">Top pages</div><div id="topPages"></div></div>
+        <div class="card"><div class="stat-label" style="margin-bottom:6px">Top referrers</div><div id="topRefs"></div></div>
+      </div>
+
+      <div class="spacer"></div>
+      <div class="card">
+        <button class="ghost" id="dailyToggle" aria-expanded="false">Show daily numbers</button>
+        <div id="dailyTableWrap" class="hidden" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -98,6 +181,7 @@
   var $ = function(id){ return document.getElementById(id); };
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
   var frames = Array.prototype.slice.call(document.querySelectorAll('.frames iframe'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.inline-panel'));
 
   function activate(tab, btn){
     tabs.forEach(function(b){ b.classList.toggle('active', b === btn); });
@@ -105,6 +189,15 @@
       var isActive = f.getAttribute('data-tab') === tab;
       if (isActive && !f.getAttribute('src')) f.setAttribute('src', btn.getAttribute('data-src'));
       f.classList.toggle('active', isActive);
+    });
+    panels.forEach(function(p){
+      var isActive = p.getAttribute('data-tab') === tab;
+      p.classList.toggle('active', isActive);
+      // Load on first open, then only on demand — same lazy rule the iframes use.
+      if (isActive && !p.getAttribute('data-loaded')) {
+        p.setAttribute('data-loaded', '1');
+        loadVisits();
+      }
     });
   }
   tabs.forEach(function(btn){
@@ -175,6 +268,193 @@
   $('gateBtn').addEventListener('click', signIn);
   $('password').addEventListener('keydown', function(e){ if (e.key === 'Enter') signIn(); });
   $('signOut').addEventListener('click', function(){ clearSession(); location.reload(); });
+
+  // ── Visits panel ────────────────────────────────────────────────────
+  // Reads GET /api/visits/stats with the dashboard's own admin JWT. The two
+  // series share one axis because both are plain counts of the same thing;
+  // they're told apart by shape (bars vs line) as well as hue, so the chart
+  // still reads without color.
+  var VIEWS_COLOR = '#059669';   // bars — views that day
+  var UNIQUES_COLOR = '#8B5CF6'; // line — distinct visitors that day
+
+  function esc(str){
+    return String(str == null ? '' : str).replace(/[&<>"]/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c];
+    });
+  }
+  function num(n){ return (n || 0).toLocaleString(); }
+
+  async function loadVisits(){
+    var days = $('visitRange').value;
+    $('visitErr').textContent = '';
+    try {
+      var token = sessionStorage.getItem('prp_admin_jwt');
+      var res = await fetch('/api/visits/stats?days=' + encodeURIComponent(days), {
+        headers: { 'Authorization': 'Bearer ' + token },
+      });
+      if (res.status === 401) { clearSession(); showGate('Session expired — sign in again.'); return; }
+      if (!res.ok) {
+        var err = await res.json().catch(function(){ return {}; });
+        throw new Error(err.error || ('Error ' + res.status));
+      }
+      renderVisits(await res.json());
+    } catch (e) {
+      $('visitErr').textContent = e.message || 'Could not load visit stats';
+    }
+  }
+
+  function renderVisits(data){
+    var daily = data.daily || [];
+    var busiest = daily.reduce(function(best, d){
+      return (!best || d.views > best.views) ? d : best;
+    }, null);
+
+    $('statViews').textContent = num(data.totalViews);
+    $('statUniques').textContent = num(data.uniqueVisitorDays);
+    $('statAvg').textContent = num(Math.round((data.totalViews || 0) / (data.days || 1)));
+    $('statBusiest').textContent = (busiest && busiest.views) ? num(busiest.views) : '—';
+    $('statBusiestSub').textContent = (busiest && busiest.views) ? busiest.day : 'nothing recorded yet';
+
+    if (!data.totalViews) {
+      $('chartCard').innerHTML = '<p class="empty">No pageviews recorded between ' + esc(data.from) +
+        ' and ' + esc(data.to) + '.</p>';
+    } else {
+      $('chartCard').innerHTML = chartMarkup(daily);
+      wireChartHover(daily);
+    }
+
+    $('topPages').innerHTML = rankTable(data.topPages || [], 'path', 'Page');
+    $('topRefs').innerHTML = rankTable(data.topReferrers || [], 'host', 'Referrer');
+    $('dailyTableWrap').innerHTML = dailyTable(daily);
+  }
+
+  function rankTable(rows, key, label){
+    if (!rows.length) return '<p class="empty">Nothing recorded yet.</p>';
+    var h = '<table><thead><tr><th>' + label + '</th><th class="num">Views</th></tr></thead><tbody>';
+    rows.forEach(function(r){
+      h += '<tr><td class="path">' + esc(r[key]) + '</td><td class="num">' + num(r.views) + '</td></tr>';
+    });
+    return h + '</tbody></table>';
+  }
+
+  // The chart's numbers in readable form — the accessible counterpart to hover.
+  function dailyTable(daily){
+    var h = '<table><thead><tr><th>Day</th><th class="num">Views</th><th class="num">Unique visitors</th></tr></thead><tbody>';
+    daily.forEach(function(d){
+      h += '<tr><td>' + esc(d.day) + '</td><td class="num">' + num(d.views) +
+           '</td><td class="num">' + num(d.uniques) + '</td></tr>';
+    });
+    return h + '</tbody></table>';
+  }
+
+  // Round the axis top up to a 1/2/5 × 10ⁿ value so the gridline labels are readable.
+  function niceMax(v){
+    if (v <= 5) return 5;
+    var mag = Math.pow(10, Math.floor(Math.log10(v)));
+    var n = v / mag;
+    var ladder = [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10];
+    for (var i = 0; i < ladder.length; i++) {
+      if (n <= ladder[i]) return ladder[i] * mag;
+    }
+    return 10 * mag;
+  }
+
+  // A bar with rounded top corners, anchored flat on the baseline.
+  function barPath(x, top, w, h, r){
+    r = Math.min(r, w / 2, h);
+    var base = top + h;
+    return 'M' + x + ',' + base + 'V' + (top + r) +
+      'A' + r + ',' + r + ' 0 0 1 ' + (x + r) + ',' + top +
+      'H' + (x + w - r) +
+      'A' + r + ',' + r + ' 0 0 1 ' + (x + w) + ',' + (top + r) +
+      'V' + base + 'Z';
+  }
+
+  function chartMarkup(daily){
+    var W = 720, H = 200, padL = 44, padR = 8, padT = 12, padB = 26;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var n = daily.length || 1;
+    var peak = daily.reduce(function(m, d){ return Math.max(m, d.views); }, 0);
+    var top = niceMax(peak);
+    var slot = plotW / n;
+    var barW = Math.max(2, Math.min(30, slot - 2)); // 2px of surface between bars
+    var y = function(v){ return padT + plotH * (1 - v / top); };
+    var cx = function(i){ return padL + slot * (i + 0.5); };
+    var r2 = function(v){ return Math.round(v * 10) / 10; };
+
+    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" ' +
+      'aria-label="Daily views and unique visitors over the selected range">';
+
+    [0, 0.5, 1].forEach(function(f){
+      var val = top * f, gy = r2(y(val));
+      svg += '<line class="grid-line" x1="' + padL + '" y1="' + gy + '" x2="' + (W - padR) + '" y2="' + gy + '" />';
+      svg += '<text class="axis-text" x="' + (padL - 8) + '" y="' + (gy + 3.5) +
+             '" text-anchor="end">' + num(Math.round(val)) + '</text>';
+    });
+
+    daily.forEach(function(d, i){
+      if (!d.views) return;
+      var bx = r2(cx(i) - barW / 2), by = r2(y(d.views));
+      svg += '<path d="' + barPath(bx, by, r2(barW), r2(padT + plotH - by), 4) +
+             '" fill="' + VIEWS_COLOR + '" />';
+    });
+
+    var pts = daily.map(function(d, i){ return r2(cx(i)) + ',' + r2(y(d.uniques)); }).join(' ');
+    svg += '<polyline points="' + pts + '" fill="none" stroke="' + UNIQUES_COLOR +
+           '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />';
+
+    // Roughly six date labels, never crowding the last one.
+    var step = Math.max(1, Math.ceil(n / 6));
+    var marks = [];
+    for (var i = 0; i < n; i += step) marks.push(i);
+    if (n - 1 - marks[marks.length - 1] >= step / 2) marks.push(n - 1);
+    marks.forEach(function(i){
+      svg += '<text class="axis-text" x="' + r2(cx(i)) + '" y="' + (H - 8) +
+             '" text-anchor="middle">' + esc(daily[i].day.slice(5)) + '</text>';
+    });
+
+    // Full-height hit targets, so hovering never depends on aiming at a thin bar.
+    daily.forEach(function(d, i){
+      svg += '<rect class="hit" data-i="' + i + '" x="' + r2(padL + slot * i) + '" y="' + padT +
+             '" width="' + r2(slot) + '" height="' + plotH + '" fill="transparent" />';
+    });
+
+    svg += '</svg>';
+
+    return '<div class="legend">' +
+      '<span><span class="swatch" style="background:' + VIEWS_COLOR + '"></span>Views</span>' +
+      '<span><span class="swatch line" style="background:' + UNIQUES_COLOR + '"></span>Unique visitors</span>' +
+      '</div><div class="chart-scroll"><div class="chart-wrap" id="chartWrap">' + svg +
+      '<div class="tip" id="chartTip"></div></div></div>';
+  }
+
+  function wireChartHover(daily){
+    var wrap = $('chartWrap'), tip = $('chartTip');
+    if (!wrap || !tip) return;
+    Array.prototype.slice.call(wrap.querySelectorAll('.hit')).forEach(function(rect){
+      rect.addEventListener('mouseenter', function(){
+        var d = daily[Number(rect.getAttribute('data-i'))];
+        tip.innerHTML = '<b>' + esc(d.day) + '</b><br>' + num(d.views) + ' views · ' +
+                        num(d.uniques) + ' unique';
+        tip.classList.add('on');
+      });
+      rect.addEventListener('mousemove', function(ev){
+        var box = wrap.getBoundingClientRect();
+        var x = ev.clientX - box.left, ty = ev.clientY - box.top;
+        tip.style.left = Math.max(0, Math.min(x + 12, box.width - tip.offsetWidth - 4)) + 'px';
+        tip.style.top = Math.max(0, ty - tip.offsetHeight - 10) + 'px';
+      });
+      rect.addEventListener('mouseleave', function(){ tip.classList.remove('on'); });
+    });
+  }
+
+  $('visitRange').addEventListener('change', loadVisits);
+  $('visitRefresh').addEventListener('click', loadVisits);
+  $('dailyToggle').addEventListener('click', function(){
+    var open = !$('dailyTableWrap').classList.toggle('hidden');
+    this.setAttribute('aria-expanded', String(open));
+    this.textContent = open ? 'Hide daily numbers' : 'Show daily numbers';
+  });
 
   var savedJwt = sessionStorage.getItem('prp_admin_jwt');
   var savedEmail = sessionStorage.getItem('prp_admin_email');
