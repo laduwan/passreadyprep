@@ -17,7 +17,8 @@
 # Optional env vars not listed here (add in the dashboard if you use them):
 #   ELEVENLABS_API_KEY, EL_VOICE_CHAD/DANIEL/JAMES/MAYA/PRIYA (voice/podcast),
 #   ADMIN_ALERT_SMS_TO, SMS_SENDER, ADMIN_ALERT_EVENTS, ADMIN_ALERT_DISABLE,
-#   ADMIN_ALERT_THROTTLE_MIN, ACTIVITY_TTL_DAYS, CLIENT_URL, ADMIN_EMAIL.
+#   ADMIN_ALERT_THROTTLE_MIN, ACTIVITY_TTL_DAYS, VISIT_TTL_DAYS, CLIENT_URL,
+#   ADMIN_EMAIL.
 # See .env.example for the full documented list.
 # ---------------------------------------------------------------------------
 
@@ -48,6 +49,10 @@ services:
       - key: ADMIN_TOKEN         # keep your EXISTING value — changing it changes your admin login
         sync: false
       - key: ADMIN_ALERT_EMAIL   # where activity/error alerts go (falls back to MAIL_FROM_EMAIL if unset)
+        sync: false
+
+      # ── Anonymous pageview counting ───────────────────────────────────
+      - key: VISIT_HASH_SALT     # any long random string; salts the one-way visitor hash (no raw IPs stored)
         sync: false
 
       # ── Email (Brevo) ─────────────────────────────────────────────────
