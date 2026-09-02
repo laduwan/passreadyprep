@@ -164,6 +164,9 @@ async function start() {
     }
   }
 
+  // Proactive trial "ending soon" / "ended" emails (hourly, in-process).
+  require('./jobs/trialReminders').start();
+
   app.listen(PORT, () => console.log(`PassReady Prep API listening on port ${PORT}`));
 }
 
