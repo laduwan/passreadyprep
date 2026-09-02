@@ -39,6 +39,12 @@ const UserSchema = new Schema(
     trialEndsAt: Date,
     trialNote: { type: String, trim: true, maxlength: 300 },
 
+    // Which trial reminder emails have already gone out — 'ending_soon' |
+    // 'ended'. Prevents re-sending the same email on every hourly check
+    // (see jobs/trialReminders.js). Cleared whenever an admin grants, changes,
+    // or clears a trial, so a renewed trial can earn a fresh reminder.
+    trialEmailsSent: { type: [String], default: [] },
+
     subscription: {
       tier: { type: String, default: 'free' },      // free | monthly | pass3 | guarantee
       status: { type: String, default: 'active' },  // active | past_due | canceled

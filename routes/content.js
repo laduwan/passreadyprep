@@ -2,15 +2,11 @@ const express = require('express');
 const ContentItem = require('../models/ContentItem');
 const Exam = require('../models/Exam');
 const User = require('../models/User');
+const { TRIAL_DAYS, trialEndFor, trialLevel } = require('../utils/trial');
 
 const router = express.Router();
 
 const FREE_CASE_LIMIT = 5;
-// The standard free trial every registered account gets from signup.
-// Individual accounts can be granted a longer one (see trialEndsAt below);
-// this is the default that applies to everyone else. TRIAL_DAYS in the
-// environment overrides it without a code deploy.
-const TRIAL_DAYS = Math.max(1, parseInt(process.env.TRIAL_DAYS || '3', 10) || 3);
 
 // Middleware: resolves subscription tier and attaches req.accessLevel.
 // 'free'    — no token (anonymous visitor): 5-case teaser
@@ -62,20 +58,6 @@ async function resolveAccess(req, res, next) {
     req.accessLevel = 'free';
     next();
   }
-}
-
-// Registered accounts get full access for TRIAL_DAYS from signup, then hit the
-// paywall — unless an admin granted this one account a longer trial, which wins
-// for as long as it lasts and then falls back to the standard rule.
-function trialEndFor(user) {
-  const granted = user.trialEndsAt ? new Date(user.trialEndsAt) : null;
-  const created = user.createdAt ? new Date(user.createdAt) : new Date(0);
-  const standard = new Date(created.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
-  return granted && granted > standard ? granted : standard;
-}
-
-function trialLevel(user) {
-  return trialEndFor(user) > new Date() ? 'trial' : 'expired';
 }
 
 // GET /api/content?exam=ncmhce — list published cases

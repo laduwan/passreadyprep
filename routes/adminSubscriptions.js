@@ -130,6 +130,10 @@ router.put('/:userId/trial', async (req, res) => {
     const update = { trialEndsAt };
     if (typeof note === 'string') update.trialNote = note.trim().slice(0, 300);
     if (!trialEndsAt) update.trialNote = '';
+    // A newly granted/extended trial should be able to earn its own reminder
+    // emails rather than being silently skipped as "already sent" from the
+    // account's original trial window (see jobs/trialReminders.js).
+    update.trialEmailsSent = [];
 
     const user = await User.findByIdAndUpdate(req.params.userId, update, { new: true })
       .select('email trialEndsAt trialNote');
