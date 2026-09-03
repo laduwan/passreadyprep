@@ -452,6 +452,14 @@
       '<div class="err-line" id="dResetErr"></div>' +
       '<div class="ok-line" id="dResetOk"></div>' +
 
+      '<div class="section-title">Set a new password</div>' +
+      '<p class="muted" style="margin:0 0 8px;font-size:13px">For the support case where the emailed reset link never arrives. Signs them out everywhere and invalidates any pending reset link — tell them the new password over a channel you trust.</p>' +
+      '<div class="field"><label for="dNewPassword">New password</label>' +
+      '<input id="dNewPassword" type="password" autocomplete="new-password" placeholder="At least 8 characters" /></div>' +
+      '<button class="ghost" id="dSetPassword" style="width:100%">Set password</button>' +
+      '<div class="err-line" id="dPwErr"></div>' +
+      '<div class="ok-line" id="dPwOk"></div>' +
+
       '<div class="section-title" style="color:var(--red-400)">Danger zone</div>' +
       '<p class="muted" style="margin:0 0 8px;font-size:13px">Permanently deletes the account and all study data. This cannot be undone.</p>' +
       '<div class="field"><label for="dDeleteConfirm">Type ' + esc(u.email || '') + ' to confirm</label>' +
@@ -464,6 +472,7 @@
     $('dCancel').addEventListener('click', function(){ cancelSub(userId); });
     $('dRefund').addEventListener('click', function(){ refundSub(userId); });
     $('dResetProgress').addEventListener('click', function(){ resetProgress(userId); });
+    $('dSetPassword').addEventListener('click', function(){ setPassword(userId); });
 
     var deleteInput = $('dDeleteConfirm');
     var deleteBtn = $('dDeleteAccount');
@@ -594,6 +603,27 @@
     } catch (e) {
       var errEl = $('dResetErr');
       if (errEl) errEl.textContent = e.message || 'Could not reset progress';
+    }
+  }
+
+  async function setPassword(userId){
+    var password = $('dNewPassword').value;
+    $('dPwErr').textContent = '';
+    $('dPwOk').textContent = '';
+    if (password.length < 8) { $('dPwErr').textContent = 'Password must be at least 8 characters.'; return; }
+    if (!confirm('Set a new password for this account? They will be signed out on every device.')) return;
+
+    try {
+      var res = await api('/api/admin-subscriptions/' + userId + '/reset-password', {
+        method: 'POST',
+        body: JSON.stringify({ password: password }),
+      });
+      $('dNewPassword').value = '';
+      var okEl = $('dPwOk');
+      if (okEl) okEl.textContent = 'Password set for ' + (res.email || 'this account') + '. They have been signed out everywhere.';
+    } catch (e) {
+      var errEl = $('dPwErr');
+      if (errEl) errEl.textContent = e.message || 'Could not reset the password';
     }
   }
 

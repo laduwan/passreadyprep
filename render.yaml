@@ -47,7 +47,7 @@ services:
         value: https://www.passreadyprep.com
 
       # ── Admin panel + alerts ──────────────────────────────────────────
-      - key: ADMIN_TOKEN         # keep your EXISTING value — changing it changes your admin login
+      - key: ADMIN_TOKEN         # x-admin-token fallback for scripts; admins sign in with their own accounts
         sync: false
       - key: ADMIN_ALERT_EMAIL   # where activity/error alerts go (falls back to MAIL_FROM_EMAIL if unset)
         sync: false

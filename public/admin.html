@@ -76,13 +76,16 @@
 </head>
 <body>
 
-<!-- ── Token gate ─────────────────────────────────────────────────── -->
+<!-- ── Sign-in gate ───────────────────────────────────────────────── -->
 <div id="gate" class="wrap">
   <div class="card" style="max-width:420px;margin:12vh auto 0">
     <div class="brand" style="margin-bottom:6px">PassReady <span class="p">Admin</span></div>
-    <p class="muted" style="margin:0 0 14px">Enter the admin token to continue.</p>
-    <label for="tok">Admin token</label>
-    <input id="tok" type="password" autocomplete="off" placeholder="ADMIN_TOKEN" />
+    <p class="muted" style="margin:0 0 14px">Sign in with your admin account.</p>
+    <label for="email">Email</label>
+    <input id="email" type="email" autocomplete="username" placeholder="you@example.com" />
+    <div class="spacer"></div>
+    <label for="password">Password</label>
+    <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" />
     <div class="err-line" id="gateErr"></div>
     <div class="spacer"></div>
     <button class="primary" id="gateBtn" style="width:100%">Sign in</button>
@@ -94,6 +97,7 @@
   <header>
     <div class="brand">PassReady <span class="p">Admin</span></div>
     <div class="actions">
+      <span class="muted" id="whoami" style="font-size:13px"></span>
       <button class="ghost" id="refreshBtn">Refresh</button>
       <button class="ghost" id="signOut">Sign out</button>
     </div>
@@ -221,20 +225,18 @@
 
 <script>
 (function(){
-  var TOKEN = sessionStorage.getItem('prp_admin_token') || '';
   var editing = null; // externalId when editing, null when adding
 
+  // Every admin call carries the signed-in admin's own JWT. The shared
+  // ADMIN_TOKEN prompt this page used to show is gone — admins are real
+  // accounts now (promote one on the Admin Users page).
   function api(path, opts){
     opts = opts || {};
-    var ADMIN_JWT = sessionStorage.getItem('prp_admin_jwt');
-    if (ADMIN_JWT) {
-      opts.headers = Object.assign({ 'Authorization': 'Bearer ' + ADMIN_JWT }, opts.headers || {});
-    } else {
-      opts.headers = Object.assign({ 'x-admin-token': TOKEN }, opts.headers || {});
-    }
+    opts.headers = Object.assign({ 'Authorization': 'Bearer ' + (sessionStorage.getItem('prp_admin_jwt') || '') }, opts.headers || {});
     if (opts.body && typeof opts.body !== 'string'){ opts.headers['content-type']='application/json'; opts.body = JSON.stringify(opts.body); }
     return fetch('/api/admin' + path, opts).then(function(r){
       return r.json().catch(function(){ return {}; }).then(function(j){
+        if (r.status === 401){ clearSession(); showGate('Your admin session has expired — sign in again.'); }
         if (!r.ok) throw new Error(j.error || ('Request failed ('+r.status+')'));
         return j;
       });
@@ -247,23 +249,62 @@
   }
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 
-  // ── Gate ──────────────────────────────────────────────────────────
-  function showApp(){ $('gate').classList.add('hidden'); $('app').classList.remove('hidden'); loadOverview(); loadCases(); }
-  function tryToken(t){
-    return fetch('/api/admin/stats',{headers:{'x-admin-token':t}}).then(function(r){
-      if (r.status===401) throw new Error('Invalid token');
-      if (!r.ok) throw new Error('Server error ('+r.status+')');
-      return true;
+  // ── Sign-in ───────────────────────────────────────────────────────
+  // Per-person admin accounts: sign in with your own email and password, and
+  // the tab holds the resulting JWT. Opened inside admin-dashboard.html, the
+  // dashboard has already stored that JWT in sessionStorage — boot() picks it
+  // up so the tab loads without asking for a second sign-in.
+  function clearSession(){
+    sessionStorage.removeItem('prp_admin_jwt');
+    sessionStorage.removeItem('prp_admin_email');
+  }
+  function showApp(email){
+    $('gate').classList.add('hidden'); $('app').classList.remove('hidden');
+    $('whoami').textContent = email ? 'Signed in as ' + email : '';
+    loadOverview(); loadCases();
+  }
+  function showGate(msg){
+    $('app').classList.add('hidden'); $('gate').classList.remove('hidden');
+    $('gateErr').textContent = msg || '';
+  }
+  // A successful login only proves the account exists — every learner can do
+  // that. Confirm the account actually carries the admin role before letting
+  // the page through.
+  function isAdminAccount(token, email){
+    return fetch('/api/admin-users', { headers: { 'Authorization': 'Bearer ' + token } }).then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(d){
+        var admins = (r.ok && d.admins) || [];
+        return admins.some(function(a){ return (a.email||'').toLowerCase() === String(email||'').toLowerCase(); });
+      });
     });
   }
-  $('gateBtn').onclick = function(){
-    var t = $('tok').value.trim(); $('gateErr').textContent='';
-    if (!t){ $('gateErr').textContent='Enter a token.'; return; }
-    tryToken(t).then(function(){ TOKEN=t; sessionStorage.setItem('prp_admin_token',t); showApp(); })
-      .catch(function(e){ $('gateErr').textContent=e.message; });
-  };
-  $('tok').addEventListener('keydown', function(e){ if(e.key==='Enter') $('gateBtn').click(); });
-  $('signOut').onclick = function(){ sessionStorage.removeItem('prp_admin_token'); location.reload(); };
+  function signIn(){
+    var email = $('email').value.trim();
+    var password = $('password').value;
+    $('gateErr').textContent = '';
+    if (!email || !password){ $('gateErr').textContent = 'Enter your email and password.'; return; }
+
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, password: password }),
+    }).then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(d){
+        if (!r.ok) throw new Error(d.error || 'Could not sign in');
+        var userEmail = (d.user && d.user.email) || email;
+        return isAdminAccount(d.token, userEmail).then(function(ok){
+          if (!ok){ clearSession(); showGate("This account isn't an admin."); return; }
+          sessionStorage.setItem('prp_admin_jwt', d.token);
+          sessionStorage.setItem('prp_admin_email', userEmail);
+          showApp(userEmail);
+        });
+      });
+    }).catch(function(e){ clearSession(); showGate(e.message || 'Could not sign in'); });
+  }
+  $('gateBtn').onclick = signIn;
+  $('email').addEventListener('keydown', function(e){ if(e.key==='Enter') signIn(); });
+  $('password').addEventListener('keydown', function(e){ if(e.key==='Enter') signIn(); });
+  $('signOut').onclick = function(){ clearSession(); location.reload(); };
 
   // ── Tabs ──────────────────────────────────────────────────────────
   Array.prototype.forEach.call(document.querySelectorAll('.tab'), function(btn){
@@ -505,7 +546,16 @@
   };
 
   // ── Boot ──────────────────────────────────────────────────────────
-  if (TOKEN){ tryToken(TOKEN).then(showApp).catch(function(){ sessionStorage.removeItem('prp_admin_token'); }); }
+  // Reuse a session already signed in on this tab — including the one the
+  // dashboard created before loading this page in its iframe.
+  (function boot(){
+    var token = sessionStorage.getItem('prp_admin_jwt');
+    var email = sessionStorage.getItem('prp_admin_email');
+    if (!token || !email) return showGate();
+    isAdminAccount(token, email)
+      .then(function(ok){ if (ok) { showApp(email); } else { clearSession(); showGate(); } })
+      .catch(function(){ clearSession(); showGate(); });
+  })();
 })();
 </script>
 </body>
