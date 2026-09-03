@@ -306,4 +306,34 @@ router.post('/:userId/reset-progress', async (req, res) => {
   }
 });
 
+// POST /api/admin-subscriptions/:userId/reset-password — set a new password
+// for an account directly, for the support case where the emailed reset link
+// never arrives (spam filter, dead mailbox, typo'd address). Bumps
+// sessionVersion so every existing session is signed out, and clears any
+// outstanding reset-link token so an old email can't be replayed afterwards.
+// Body: { password }
+router.post('/:userId/reset-password', async (req, res) => {
+  try {
+    const bcrypt = require('bcryptjs');
+    const { password } = req.body || {};
+    if (!password) return res.status(400).json({ error: 'A new password is required' });
+    if (password.length < 8) return res.status(400).json({ error: 'Password must be at least 8 characters' });
+
+    const user = await User.findById(req.params.userId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    user.passwordHash = await bcrypt.hash(password, 12);
+    user.resetPasswordTokenHash = undefined;
+    user.resetPasswordExpires = undefined;
+    user.sessionVersion = (user.sessionVersion || 0) + 1; // sign out every device
+    await user.save();
+
+    logActivity({ type: 'admin.password_reset', severity: 'warn', userId: user._id, email: user.email, message: 'Admin set a new password for this account', req });
+    res.json({ ok: true, email: user.email });
+  } catch (err) {
+    console.error('admin-subscriptions reset-password error', err);
+    res.status(500).json({ error: 'Could not reset the password' });
+  }
+});
+
 module.exports = router;

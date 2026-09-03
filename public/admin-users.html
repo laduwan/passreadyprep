@@ -44,39 +44,97 @@
 </div>
 
 <script>
-let TOKEN = sessionStorage.getItem('prp_admin_token') || '';
 const app = document.getElementById('app');
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+// Every admin call carries the signed-in admin's own JWT. The shared
+// ADMIN_TOKEN prompt this page used to show is gone — admins are real
+// accounts now (promote one on the Admin Users page).
 async function api(path, opts){
   opts = opts || {};
-  const ADMIN_JWT = sessionStorage.getItem('prp_admin_jwt');
-  if (ADMIN_JWT) {
-    opts.headers = Object.assign({'Authorization':'Bearer '+ADMIN_JWT,'Content-Type':'application/json'}, opts.headers||{});
-  } else {
-    opts.headers = Object.assign({'x-admin-token':TOKEN,'Content-Type':'application/json'}, opts.headers||{});
-  }
+  const token = sessionStorage.getItem('prp_admin_jwt') || '';
+  opts.headers = Object.assign({'Authorization':'Bearer '+token,'Content-Type':'application/json'}, opts.headers||{});
   const r = await fetch(path, opts);
-  if(r.status===401) throw new Error('Invalid admin token');
+  if(r.status===401){ clearSession(); throw new Error('Your admin session has expired — sign in again.'); }
   if(!r.ok){ const j=await r.json().catch(()=>({})); throw new Error(j.error||('Error '+r.status)); }
   return r.json();
 }
 
+// ── Sign-in ────────────────────────────────────────────────────────
+// Per-person admin accounts: sign in with your own email and password, and
+// the tab holds the resulting JWT. Opened inside admin-dashboard.html, the
+// dashboard has already stored that JWT in sessionStorage — boot() picks it
+// up so the tab loads without asking for a second sign-in.
+function clearSession(){
+  sessionStorage.removeItem('prp_admin_jwt');
+  sessionStorage.removeItem('prp_admin_email');
+}
+
 function gate(msg){
   app.innerHTML =
-    '<div class="card"><h1>Reviewer sign-in</h1>'
-    + '<p class="lead">Enter your admin token to manage admin users.</p>'
-    + '<div class="row"><input id="tok" type="password" placeholder="Admin token" />'
-    + '<button class="btn" onclick="signIn()">Continue</button></div>'
+    '<div class="card"><h1>Admin sign-in</h1>'
+    + '<p class="lead">Sign in with your admin account to manage admin users.</p>'
+    + '<div class="row"><input id="admEmail" type="email" autocomplete="username" placeholder="you@example.com" />'
+    + '<input id="admPassword" type="password" autocomplete="current-password" placeholder="Password" />'
+    + '<button class="btn" onclick="signIn()">Sign in</button></div>'
     + (msg?'<p class="err">'+esc(msg)+'</p>':'') + '</div>';
-  const i=document.getElementById('tok'); i.focus();
-  i.addEventListener('keydown',e=>{ if(e.key==='Enter') signIn(); });
+  const email=document.getElementById('admEmail');
+  const password=document.getElementById('admPassword');
+  email.focus();
+  [email, password].forEach(i => i.addEventListener('keydown', e => { if(e.key==='Enter') signIn(); }));
 }
+
+// A successful login only proves the account exists — every learner can do
+// that. Confirm the account actually carries the admin role before letting
+// the page through.
+async function isAdminAccount(token, email){
+  const r = await fetch('/api/admin-users', { headers:{ 'Authorization':'Bearer '+token } });
+  const data = await r.json().catch(()=>({}));
+  const admins = (r.ok && data.admins) || [];
+  return admins.some(a => (a.email||'').toLowerCase() === String(email||'').toLowerCase());
+}
+
 async function signIn(){
-  TOKEN = document.getElementById('tok').value.trim();
-  if(!TOKEN) return gate('Enter your token.');
-  try{ await load(); sessionStorage.setItem('prp_admin_token', TOKEN); }
-  catch(e){ gate(e.message); }
+  const email = document.getElementById('admEmail').value.trim();
+  const password = document.getElementById('admPassword').value;
+  if(!email || !password) return gate('Enter your email and password.');
+  try{
+    const r = await fetch('/api/auth/login', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(data.error || 'Could not sign in');
+
+    const userEmail = (data.user && data.user.email) || email;
+    if(!(await isAdminAccount(data.token, userEmail))){
+      clearSession();
+      return gate("This account isn't an admin.");
+    }
+    sessionStorage.setItem('prp_admin_jwt', data.token);
+    sessionStorage.setItem('prp_admin_email', userEmail);
+  }catch(e){
+    clearSession();
+    return gate(e.message);
+  }
+  // Signed in. A failure past this point is the page's problem, not the
+  // credentials' — show it without throwing the session away.
+  try{ await load(); } catch(e){ gate(e.message); }
+}
+
+// Reuse a session already signed in on this tab — including the one the
+// dashboard created before loading this page in its iframe.
+async function boot(){
+  const token = sessionStorage.getItem('prp_admin_jwt');
+  const email = sessionStorage.getItem('prp_admin_email');
+  let signedIn = false;
+  if (token && email) {
+    try { signedIn = await isAdminAccount(token, email); }
+    catch(e){ signedIn = false; } // network trouble — ask for the password again
+  }
+  if (!signedIn) { clearSession(); return gate(); }
+  try{ await load(); } catch(e){ gate(e.message); }
 }
 
 async function load(){
@@ -86,7 +144,7 @@ async function load(){
 
 function render(data, err){
   let h = '<div class="card"><h1>Admin users</h1>';
-  h += '<p class="lead">Promote or demote accounts by email. Promoted users can sign in with their own account instead of the shared admin token.</p>';
+  h += '<p class="lead">Promote or demote accounts by email. Every admin screen signs in with the person\'s own account — promoting someone here is what gives them the way in.</p>';
   h += '<div class="row">';
   h += '<input id="email" type="email" placeholder="person@example.com" />';
   h += '<button class="btn small" id="promote-btn">Promote to admin</button>';
@@ -133,7 +191,7 @@ async function setRole(role){
   }
 }
 
-gate();
+boot();
 </script>
 </body>
 </html>
