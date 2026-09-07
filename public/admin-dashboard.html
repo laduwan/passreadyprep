@@ -120,6 +120,7 @@
     <button class="tab" data-tab="users" data-src="/admin-users.html">Admin Users</button>
     <button class="tab" data-tab="subscribers" data-src="/admin-subscriptions.html">Subscribers</button>
     <button class="tab" data-tab="visits">Visits</button>
+    <button class="tab" data-tab="broadcast">Broadcast</button>
   </div>
 </div>
 
@@ -174,8 +175,66 @@
       </div>
     </div>
   </div>
-</div>
 
+  <!-- Broadcast panel — compose and send emails to user segments -->
+  <div class="inline-panel" data-tab="broadcast" id="broadcastPanel">
+    <div class="panel-body">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Broadcast message</div>
+          <p class="muted" style="margin:2px 0 0;font-size:13px">Compose and send emails to user segments via Brevo. Respects digest opt-out. Idempotent by broadcast key.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:14px">
+        <div style="display:grid;gap:12px">
+          <div>
+            <label for="bc-segment">Audience</label>
+            <select id="bc-segment" style="width:100%">
+              <option value="all">All users</option>
+              <option value="paid">Paid subscribers</option>
+              <option value="trial">Active trial</option>
+              <option value="expired">Expired / free</option>
+            </select>
+            <div style="margin-top:6px;font-size:13px;color:var(--slate-400)">
+              Audience size: <strong id="bc-audience-count" style="color:var(--white)">…</strong>
+            </div>
+          </div>
+
+          <div>
+            <label for="bc-key">Broadcast key <span style="color:var(--slate-500)">(idempotency — users who already got this key are skipped)</span></label>
+            <input id="bc-key" placeholder="e.g. sept2026-features" />
+          </div>
+
+          <div>
+            <label for="bc-subject">Subject line</label>
+            <input id="bc-subject" placeholder="e.g. Your study plan just got smarter" />
+          </div>
+
+          <div>
+            <label for="bc-body">Email body <span style="color:var(--slate-500)">(HTML — use {{firstName}} for personalization)</span></label>
+            <textarea id="bc-body" rows="14" style="font-family:monospace;font-size:13px;background:var(--slate-800);color:var(--white);border:1px solid var(--slate-600);border-radius:8px;padding:10px;width:100%;resize:vertical"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <button class="primary" id="bc-preview-btn">Preview</button>
+        <button class="primary" id="bc-send-btn" style="background:var(--amber-400);border-color:var(--amber-400);color:#0F172A">Send to audience</button>
+        <span id="bc-status" style="font-size:13px;color:var(--slate-400)"></span>
+      </div>
+
+      <div class="err-line" id="bc-err"></div>
+
+      <!-- Preview frame -->
+      <div id="bc-preview-wrap" class="hidden" style="margin-top:16px">
+        <div style="font-size:12px;font-weight:600;color:var(--slate-300);margin-bottom:6px">Preview</div>
+        <iframe id="bc-preview-frame" style="width:100%;height:600px;border:1px solid var(--card-border);border-radius:8px;background:#0F172A"></iframe>
+      </div>
+    </div>
+  </div>
+
+</div>
 <script>
 (function(){
   var $ = function(id){ return document.getElementById(id); };
@@ -454,6 +513,84 @@
     var open = !$('dailyTableWrap').classList.toggle('hidden');
     this.setAttribute('aria-expanded', String(open));
     this.textContent = open ? 'Hide daily numbers' : 'Show daily numbers';
+  });
+
+  // ── Broadcast panel ──────────────────────────────────────────────────
+  var bcSegment = $('bc-segment');
+  var bcKey = $('bc-key');
+  var bcSubject = $('bc-subject');
+  var bcBody = $('bc-body');
+  var bcStatus = $('bc-status');
+  var bcErr = $('bc-err');
+
+  function bcHeaders(){
+    var jwt = sessionStorage.getItem('prp_admin_jwt');
+    return { 'Content-Type':'application/json', 'Authorization':'Bearer ' + jwt };
+  }
+
+  function bcUpdateAudience(){
+    bcStatus.textContent = 'Counting…';
+    fetch('/api/admin/broadcast/audience?segment=' + bcSegment.value, { headers: bcHeaders() })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        $('bc-audience-count').textContent = d.count != null ? d.count : '?';
+        bcStatus.textContent = '';
+      })
+      .catch(function(){ $('bc-audience-count').textContent = '?'; bcStatus.textContent = ''; });
+  }
+
+  if (bcSegment) {
+    bcSegment.addEventListener('change', bcUpdateAudience);
+    // Load audience count when the broadcast tab first opens
+    var bcLoaded = false;
+    var origActivate = activate;
+    activate = function(tab, btn){
+      origActivate(tab, btn);
+      if (tab === 'broadcast' && !bcLoaded) { bcLoaded = true; bcUpdateAudience(); }
+    };
+  }
+
+  if ($('bc-preview-btn')) $('bc-preview-btn').addEventListener('click', function(){
+    var html = bcBody.value;
+    if (!html.trim()) { bcErr.textContent = 'Write something first.'; return; }
+    bcErr.textContent = '';
+    var preview = html.replace(/\{\{firstName\}\}/g, 'Jamie');
+    var frame = $('bc-preview-frame');
+    $('bc-preview-wrap').classList.remove('hidden');
+    frame.srcdoc = preview;
+  });
+
+  if ($('bc-send-btn')) $('bc-send-btn').addEventListener('click', function(){
+    var key = bcKey.value.trim();
+    var subject = bcSubject.value.trim();
+    var html = bcBody.value.trim();
+    bcErr.textContent = '';
+
+    if (!key) { bcErr.textContent = 'Broadcast key is required.'; return; }
+    if (!subject) { bcErr.textContent = 'Subject line is required.'; return; }
+    if (!html) { bcErr.textContent = 'Email body is required.'; return; }
+
+    var count = ($('bc-audience-count').textContent || '0').replace(/\D/g, '');
+    if (!confirm('Send "' + subject + '" to ' + count + ' users (' + bcSegment.value + ' segment)?')) return;
+
+    bcStatus.textContent = 'Sending…';
+    $('bc-send-btn').disabled = true;
+
+    fetch('/api/admin/broadcast/send', {
+      method: 'POST',
+      headers: bcHeaders(),
+      body: JSON.stringify({ subject: subject, html: html, segment: bcSegment.value, broadcastKey: key }),
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d.error) { bcErr.textContent = d.error; }
+      else { bcStatus.textContent = 'Done — sent: ' + d.sent + ', failed: ' + d.failed; }
+      $('bc-send-btn').disabled = false;
+    })
+    .catch(function(e){
+      bcErr.textContent = 'Network error: ' + e.message;
+      $('bc-send-btn').disabled = false;
+    });
   });
 
   var savedJwt = sessionStorage.getItem('prp_admin_jwt');
