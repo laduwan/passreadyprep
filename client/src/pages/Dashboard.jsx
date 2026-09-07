@@ -40,7 +40,18 @@ function DomainBar({ name, score }) {
 
 export default function Dashboard({ navigate, mode, setMode, examMode, setExamMode }) {
   const rd = computeReadiness();
-  const [examDate, setExamDate] = useState(() => localStorage.getItem('prp_exam_date') || '');
+  const [examDate, setExamDate] = useState(() => {
+    // Prefer server-synced date from user object, fall back to localStorage
+    try {
+      const user = JSON.parse(localStorage.getItem('prp_user') || '{}');
+      if (user.examDate) {
+        const d = new Date(user.examDate).toISOString().slice(0, 10);
+        localStorage.setItem('prp_exam_date', d);
+        return d;
+      }
+    } catch {}
+    return localStorage.getItem('prp_exam_date') || '';
+  });
 
   useStudyPing('dashboard');
 
@@ -246,11 +257,11 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
       </div>
 
       {/* Study plan */}
-      {rd && rd.totalCases >= 3 && (
+      {examDate && (
         <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
           <h2 className="text-lg font-bold text-white mb-1">Study plan</h2>
           <p className="text-xs text-slate-500 mb-3">
-            3-phase plan based on your domain performance. Updates as your scores change.
+            3-phase plan based on your exam date{rd && rd.totalCases >= 3 ? ' and domain performance' : ''}. Updates as your scores change.
           </p>
           <div className="flex items-center gap-3 mb-4">
             <label className="text-sm text-slate-400">Exam date:</label>
@@ -276,17 +287,21 @@ function StudyPlan({ rd, examDate }) {
   const p2 = Math.max(1, Math.floor(daysLeft * 0.3));
   const p3 = Math.max(1, daysLeft - p1 - p2);
 
-  const ranked = DOMAIN_ORDER
+  const totalCases = rd?.totalCases || 0;
+  const ranked = rd ? DOMAIN_ORDER
     .filter((d) => rd.agg[d]?.total >= 1)
     .map((d) => ({ d, sc: rd.domainScores[d] || 0 }))
-    .sort((a, b) => a.sc - b.sc);
+    .sort((a, b) => a.sc - b.sc) : [];
 
   const weak = ranked.slice(0, 2);
-  const casesPerDay = Math.max(2, Math.min(5, Math.ceil((20 - rd.totalCases) / Math.max(1, p1))));
+  const casesPerDay = Math.max(2, Math.min(5, Math.ceil((20 - totalCases) / Math.max(1, p1))));
+
+  const p1Body = weak.length > 0
+    ? <>Focus on: {weak.map((w, i) => <><span key={w.d} className="font-bold text-amber-400">{DOMAIN_LABELS[w.d]}</span>{i < weak.length - 1 ? ', ' : ''}</>)}. {casesPerDay} cases/day + 15 min flashcards.</>
+    : <>{casesPerDay} cases/day across all domains + 15 min flashcards. Your weak areas will appear after a few cases.</>;
 
   const phases = [
-    { n: 1, range: `Days 1–${p1}`, title: 'Build foundations', color: 'text-blue-400 bg-blue-500/15',
-      body: <>Focus on: {weak.map((w, i) => <><span key={w.d} className="font-bold text-amber-400">{DOMAIN_LABELS[w.d]}</span>{i < weak.length - 1 ? ', ' : ''}</>)}. 2–3 cases/day + 15 min flashcards.</> },
+    { n: 1, range: `Days 1–${p1}`, title: 'Build foundations', color: 'text-blue-400 bg-blue-500/15', body: p1Body },
     { n: 2, range: `Days ${p1+1}–${p1+p2}`, title: 'Full-length practice', color: 'text-purple-400 bg-purple-500/15',
       body: 'Shift to timed full exams (10–11 cases). Simulate real conditions. Review every miss.' },
     { n: 3, range: `Days ${p1+p2+1}–${daysLeft}`, title: 'Sharpen and rest', color: 'text-emerald-400 bg-emerald-500/15',
@@ -308,9 +323,9 @@ function StudyPlan({ rd, examDate }) {
       <div className="bg-emerald-500/8 border border-emerald-500/20 rounded-xl p-3 text-sm">
         <span className="font-bold text-emerald-400">Daily targets:</span>
         <span className="text-slate-300"> {casesPerDay} cases + 15 min flashcards + 10 min DSM</span>
-        {rd.totalCases < 20 && (
+        {totalCases < 20 && (
           <div className="text-xs text-amber-400 mt-1">
-            {20 - rd.totalCases} more cases needed for pass guarantee eligibility
+            {20 - totalCases} more cases needed for pass guarantee eligibility
           </div>
         )}
       </div>

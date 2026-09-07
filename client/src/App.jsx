@@ -14,6 +14,7 @@ import ExamStrategy from './pages/ExamStrategy';
 import CoreAttributes from './pages/CoreAttributes';
 import CoreTutor from './pages/CoreTutor';
 import Analytics from './pages/Analytics';
+import Onboarding from './pages/Onboarding';
 import SuggestionBox from './components/SuggestionBox';
 
 const NAV_ITEMS = [
@@ -37,6 +38,19 @@ export default function App() {
   const [mode, setMode] = useState('new'); // 'new' | 'classic'
   const [examMode, setExamMode] = useState(false); // false = study (feedback each Q), true = exam (held to end)
   const [mobileNav, setMobileNav] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Check if signed-in user needs onboarding (no exam date set).
+  useEffect(() => {
+    try {
+      const token = localStorage.getItem('prp_token');
+      if (!token) return;
+      const user = JSON.parse(localStorage.getItem('prp_user') || '{}');
+      const localDate = localStorage.getItem('prp_exam_date');
+      // Show onboarding if signed in but has no exam date anywhere
+      if (!user.examDate && !localDate) setShowOnboarding(true);
+    } catch {}
+  }, []);
 
   const navigate = (v, opts) => {
     setView(v);
@@ -74,6 +88,23 @@ export default function App() {
         return <Dashboard navigate={navigate} mode={mode} setMode={setMode} examMode={examMode} setExamMode={setExamMode} />;
     }
   };
+
+  // Show onboarding overlay when needed (signed in, no exam date)
+  if (showOnboarding) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+        <div className="flex items-center justify-center px-4 py-4">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/15 flex items-center justify-center">
+              <GraduationCap className="w-4.5 h-4.5 text-emerald-400" />
+            </div>
+            <span className="text-white font-bold text-lg">PassReady <span className="text-emerald-400">Prep</span></span>
+          </div>
+        </div>
+        <Onboarding onComplete={() => setShowOnboarding(false)} navigate={navigate} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">

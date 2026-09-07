@@ -49,6 +49,10 @@ const UserSchema = new Schema(
     // doesn't re-send within the same week.
     weeklyDigestSentAt: Date,
 
+    // The user's target NCMHCE exam date. Set during onboarding and used
+    // for pacing calculations on the dashboard and in weekly digest emails.
+    examDate: Date,
+
     subscription: {
       tier: { type: String, default: 'free' },      // free | monthly | pass3 | guarantee
       status: { type: String, default: 'active' },  // active | past_due | canceled
