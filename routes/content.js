@@ -24,8 +24,17 @@ async function resolveAccess(req, res, next) {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = payload.sub;
 
-    const user = await User.findById(req.userId).select('subscription createdAt trialEndsAt');
+    const user = await User.findById(req.userId).select('subscription createdAt trialEndsAt sessionVersion');
     if (!user) { req.accessLevel = 'free'; return next(); }
+
+    // Session-version gate: if another device logged in since this token
+    // was issued, the sv in the JWT won't match the DB — reject the stale session.
+    if (user.sessionVersion != null && user.sessionVersion !== payload.sv) {
+      return res.status(401).json({
+        error: 'Session invalidated — your account was signed in on another device. Please sign in again.',
+        code: 'SESSION_INVALIDATED',
+      });
+    }
 
     const sub = user.subscription || {};
     const tier = sub.tier || 'free';
