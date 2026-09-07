@@ -1,8 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, ChevronRight } from 'lucide-react';
+import { BookOpen, ChevronRight, Target } from 'lucide-react';
 import { authFetch } from '../lib/api';
+import { computeReadiness, DOMAIN_LABELS } from '../lib/readiness';
 
 const DIFF_COLORS = { easy: 'text-emerald-400 bg-emerald-500/15', medium: 'text-amber-400 bg-amber-500/15', hard: 'text-red-400 bg-red-500/15' };
+
+// Map weak domains to diagnostic categories most likely to test that domain.
+const DOMAIN_CATEGORY_MAP = {
+  intake: ['Anxiety', 'Depressive', 'Trauma', 'Substance', 'Personality', 'Dissociative', 'Psychotic', 'OCD-Related'],
+  counseling: ['Depressive', 'Anxiety', 'Personality', 'Trauma', 'Sleep'],
+  treatment: ['Substance', 'Trauma', 'Depressive', 'Anxiety', 'Disruptive', 'OCD-Related'],
+  ethics: ['Personality', 'Substance', 'OCD-Related'],
+  core: ['Psychotic', 'Dissociative', 'Personality', 'Anxiety'],
+};
+
+function getRecommended(cases, weakDomains) {
+  if (!weakDomains || weakDomains.length === 0 || cases.length === 0) return [];
+  const targetCats = new Set();
+  weakDomains.slice(0, 2).forEach((w) => {
+    (DOMAIN_CATEGORY_MAP[w.domain] || []).forEach((c) => targetCats.add(c));
+  });
+  const matches = cases.filter((c) => targetCats.has(c.category));
+  // Shuffle and pick up to 4
+  const shuffled = matches.sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, 4);
+}
 
 export default function CaseList({ mode, examMode = false, onSelect, navigate }) {
   const [cases, setCases] = useState([]);
@@ -16,6 +38,8 @@ export default function CaseList({ mode, examMode = false, onSelect, navigate })
       .catch(() => setLoading(false));
   }, []);
 
+  const rd = computeReadiness();
+  const recommended = rd ? getRecommended(cases, rd.weakDomains) : [];
   const filtered = filter === 'all' ? cases : cases.filter((c) => c.difficulty === filter);
 
   return (
@@ -28,6 +52,30 @@ export default function CaseList({ mode, examMode = false, onSelect, navigate })
           <span className={`font-semibold ${examMode ? 'text-amber-400' : 'text-emerald-400'}`}>{examMode ? 'Exam — feedback at the end' : 'Study — feedback each question'}</span>
         </p>
       </div>
+
+      {/* Recommended for weak areas */}
+      {recommended.length > 0 && (
+        <div className="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Target className="w-4 h-4 text-amber-400" />
+            <span className="text-sm font-bold text-amber-400">Recommended for you</span>
+            <span className="text-xs text-slate-500">— targets your weakest domains: {rd.weakDomains.slice(0, 2).map((w) => DOMAIN_LABELS[w.domain]?.split(' ')[0]).join(', ')}</span>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-2">
+            {recommended.map((c) => (
+              <button key={c.externalId} onClick={() => onSelect(c.externalId)}
+                className="text-left bg-slate-800/60 border border-amber-500/15 hover:border-amber-500/40 rounded-xl p-3 transition-colors">
+                <div className="flex gap-2 mb-1">
+                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full uppercase ${DIFF_COLORS[c.difficulty] || 'text-slate-300 bg-slate-700'}`}>{c.difficulty}</span>
+                  {c.category && <span className="text-xs text-slate-500">{c.category}</span>}
+                </div>
+                <p className="text-white font-semibold text-sm">{c.title}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="flex gap-2 flex-wrap">
         {['all', 'easy', 'medium', 'hard'].map((d) => (
           <button key={d} onClick={() => setFilter(d)} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${

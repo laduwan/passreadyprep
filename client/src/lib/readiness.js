@@ -16,7 +16,7 @@ export function loadHistory() {
   try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch { return []; }
 }
 
-export function saveToHistory(caseObj, answers, dxCorrect) {
+export function saveToHistory(caseObj, answers, dxCorrect, category) {
   const h = loadHistory();
   const domains = {};
   (caseObj.questions || []).forEach((q, i) => {
@@ -32,6 +32,7 @@ export function saveToHistory(caseObj, answers, dxCorrect) {
   const total = Object.values(domains).reduce((s, d) => s + d.total, 0);
   h.push({
     caseId: caseObj.id || caseObj.title,
+    category: category || caseObj.category || null,
     date: Date.now(), correct, total, domains,
     dxCorrect: typeof dxCorrect === 'boolean' ? dxCorrect : null,
     difficulty: caseObj.difficulty || 'medium',
@@ -97,5 +98,125 @@ export function computeReadiness() {
     readiness, label, totalCases, totalCorrect, totalQs, overallPct: Math.round(overallPct),
     domainScores, agg, weakDomains,
     recentTrend: recentPct > overallPct ? 'up' : recentPct < overallPct - 5 ? 'down' : 'steady',
+  };
+}
+
+// ── Extended analytics for the performance page ──────────────────────
+export function computeAnalytics() {
+  const h = loadHistory();
+  if (!h.length) return null;
+
+  const now = Date.now();
+  const day = 86400000;
+
+  // ── Domain accuracy: all-time vs last 7 days ──
+  const domainAll = {};
+  const domain7 = {};
+  const domain14 = {};
+  h.forEach((e) => {
+    Object.entries(e.domains || {}).forEach(([d, v]) => {
+      if (!domainAll[d]) domainAll[d] = { ok: 0, total: 0 };
+      domainAll[d].ok += v.ok; domainAll[d].total += v.total;
+      if (e.date > now - 7 * day) {
+        if (!domain7[d]) domain7[d] = { ok: 0, total: 0 };
+        domain7[d].ok += v.ok; domain7[d].total += v.total;
+      }
+      if (e.date > now - 14 * day) {
+        if (!domain14[d]) domain14[d] = { ok: 0, total: 0 };
+        domain14[d].ok += v.ok; domain14[d].total += v.total;
+      }
+    });
+  });
+
+  const pct = (a) => a && a.total ? Math.round((a.ok / a.total) * 100) : null;
+  const domainStats = DOMAIN_ORDER.map((d) => ({
+    domain: d, label: DOMAIN_LABELS[d],
+    allTime: pct(domainAll[d]), recent7: pct(domain7[d]), recent14: pct(domain14[d]),
+    questionsAnswered: domainAll[d]?.total || 0,
+  }));
+
+  // ── Category accuracy ──
+  const catMap = {};
+  h.forEach((e) => {
+    const cat = e.category || 'Uncategorized';
+    if (!catMap[cat]) catMap[cat] = { ok: 0, total: 0, cases: 0 };
+    catMap[cat].ok += e.correct || 0;
+    catMap[cat].total += e.total || 0;
+    catMap[cat].cases++;
+  });
+  const categoryStats = Object.entries(catMap)
+    .map(([cat, v]) => ({ category: cat, accuracy: pct(v), cases: v.cases, questions: v.total }))
+    .sort((a, b) => (a.accuracy ?? 0) - (b.accuracy ?? 0));
+
+  // ── Daily case counts (last 30 days) ──
+  const dailyCounts = {};
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(now - i * day);
+    const key = d.toISOString().slice(0, 10);
+    dailyCounts[key] = 0;
+  }
+  h.forEach((e) => {
+    const key = new Date(e.date).toISOString().slice(0, 10);
+    if (key in dailyCounts) dailyCounts[key]++;
+  });
+  const dailySeries = Object.entries(dailyCounts).map(([date, count]) => ({ date, count }));
+
+  // ── Streak (consecutive days ending today with ≥1 case) ──
+  let streak = 0;
+  for (let i = 0; i < 365; i++) {
+    const key = new Date(now - i * day).toISOString().slice(0, 10);
+    const hasCase = h.some((e) => new Date(e.date).toISOString().slice(0, 10) === key);
+    if (hasCase) streak++;
+    else if (i === 0) continue; // today might not have a case yet
+    else break;
+  }
+
+  // ── Difficulty breakdown ──
+  const diffMap = { easy: { ok: 0, total: 0, cases: 0 }, medium: { ok: 0, total: 0, cases: 0 }, hard: { ok: 0, total: 0, cases: 0 } };
+  h.forEach((e) => {
+    const d = diffMap[e.difficulty] || diffMap.medium;
+    d.ok += e.correct || 0; d.total += e.total || 0; d.cases++;
+  });
+  const diffStats = ['easy', 'medium', 'hard'].map((d) => ({
+    difficulty: d, accuracy: pct(diffMap[d]), cases: diffMap[d].cases,
+  }));
+
+  // ── Weakest areas (domains + categories combined, sorted) ──
+  const weakAreas = [];
+  domainStats.forEach((d) => {
+    if (d.questionsAnswered >= 3 && d.allTime !== null && d.allTime < 65) {
+      weakAreas.push({ type: 'domain', key: d.domain, label: d.label, score: d.allTime, questions: d.questionsAnswered });
+    }
+  });
+  categoryStats.forEach((c) => {
+    if (c.questions >= 3 && c.accuracy !== null && c.accuracy < 65) {
+      weakAreas.push({ type: 'category', key: c.category, label: c.category, score: c.accuracy, questions: c.questions });
+    }
+  });
+  weakAreas.sort((a, b) => a.score - b.score);
+
+  // ── Pacing (if exam date set) ──
+  const examDate = localStorage.getItem('prp_exam_date') || '';
+  let pacing = null;
+  if (examDate) {
+    const examMs = new Date(examDate + 'T12:00:00').getTime();
+    const daysLeft = Math.max(0, Math.ceil((examMs - now) / day));
+    const last7Cases = h.filter((e) => e.date > now - 7 * day).length;
+    const avgPerDay = last7Cases / 7;
+    const projected = Math.round(avgPerDay * daysLeft);
+    const totalDone = h.length;
+    const target = Math.max(20, totalDone + daysLeft * 2); // at least 2/day recommended
+    pacing = {
+      daysLeft, avgPerDay: Math.round(avgPerDay * 10) / 10,
+      totalDone, projected, target,
+      onTrack: avgPerDay >= 1.5 && totalDone >= 10,
+      recommendedPerDay: daysLeft > 0 ? Math.max(2, Math.ceil((Math.max(0, 20 - totalDone)) / daysLeft)) : 0,
+    };
+  }
+
+  return {
+    totalCases: h.length,
+    overallAccuracy: h.reduce((s, e) => s + (e.correct || 0), 0) / Math.max(1, h.reduce((s, e) => s + (e.total || 0), 0)) * 100 | 0,
+    streak, domainStats, categoryStats, dailySeries, diffStats, weakAreas, pacing,
   };
 }
