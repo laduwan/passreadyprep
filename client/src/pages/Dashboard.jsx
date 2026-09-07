@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BookOpen, Layers, GitBranch, Brain, FileText, Award, TrendingUp, TrendingDown, Minus, Target, Clock, Zap, BarChart3 } from 'lucide-react';
-import { computeReadiness, computeAnalytics, DOMAIN_ORDER, DOMAIN_LABELS } from '../lib/readiness';
+import { computeReadiness, computeAnalytics, syncHistory, DOMAIN_ORDER, DOMAIN_LABELS } from '../lib/readiness';
 import { useStudyPing } from '../lib/useStudyPing';
 import StreakBadge from '../components/StreakBadge';
 
@@ -43,6 +43,9 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
   const [examDate, setExamDate] = useState(() => localStorage.getItem('prp_exam_date') || '');
 
   useStudyPing('dashboard');
+
+  // Sync study history from server on first load (cross-device persistence).
+  useEffect(() => { syncHistory(); }, []);
 
   useEffect(() => {
     if (examDate) localStorage.setItem('prp_exam_date', examDate);

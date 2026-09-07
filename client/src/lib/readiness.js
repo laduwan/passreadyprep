@@ -1,3 +1,5 @@
+import { authFetch, getToken } from './api';
+
 // NCMHCE domain weights (from NBCC Content Outline, revised Oct 2025)
 // Source: https://nbcc.org/assets/exam/ncmhce_content_outline.pdf
 export const DOMAIN_WEIGHTS = { counseling: 0.30, intake: 0.25, treatment: 0.15, ethics: 0.15, core: 0.15 };
@@ -11,9 +13,42 @@ export const DOMAIN_LABELS = {
 export const DOMAIN_ORDER = ['counseling', 'intake', 'treatment', 'ethics', 'core'];
 
 const HISTORY_KEY = 'prp_history';
+const HISTORY_TS_KEY = 'prp_history_t';
 
 export function loadHistory() {
   try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch { return []; }
+}
+
+function setHistoryTS() { const t = Date.now(); localStorage.setItem(HISTORY_TS_KEY, String(t)); return t; }
+
+// Fire-and-forget push to server. Never throws.
+function pushHistory(entries, t) {
+  if (!getToken()) return;
+  authFetch('/api/study-history', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ entries, t }),
+  }).catch(() => {});
+}
+
+// Pull from server + merge into localStorage. Call once on app load.
+export async function syncHistory() {
+  if (!getToken()) return;
+  try {
+    const res = await authFetch('/api/study-history');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data.entries || data.entries.length === 0) return;
+    const local = loadHistory();
+    // Deduplicate by caseId+date
+    const map = new Map();
+    local.forEach((e) => map.set(`${e.caseId}|${e.date}`, e));
+    data.entries.forEach((e) => map.set(`${e.caseId}|${e.date}`, e));
+    const merged = [...map.values()].sort((a, b) => (a.date || 0) - (b.date || 0)).slice(-500);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(merged));
+    const t = setHistoryTS();
+    pushHistory(merged, t);
+  } catch {}
 }
 
 export function saveToHistory(caseObj, answers, dxCorrect, category) {
@@ -39,6 +74,8 @@ export function saveToHistory(caseObj, answers, dxCorrect, category) {
   });
   if (h.length > 500) h.splice(0, h.length - 500);
   localStorage.setItem(HISTORY_KEY, JSON.stringify(h));
+  const t = setHistoryTS();
+  pushHistory(h, t);
 }
 
 export function computeReadiness() {

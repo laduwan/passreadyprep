@@ -42,6 +42,7 @@ app.use('/api/intake', require('./routes/intake'));
 app.use('/api/guide', require('./routes/guide'));
 app.use('/api/suggestions', require('./routes/suggestions'));
 app.use('/api/flashcard-progress', require('./routes/flashcardProgress'));
+app.use('/api/study-history', require('./routes/studyHistory'));
 app.use('/api/visits', require('./routes/visits'));
 
 // ── Accessibility + translation widget injection ────────────────────
@@ -167,6 +168,9 @@ async function start() {
 
   // Proactive trial "ending soon" / "ended" emails (hourly, in-process).
   require('./jobs/trialReminders').start();
+
+  // Weekly study digest — sends Monday, 12h check cycle.
+  require('./jobs/weeklyDigest').start();
 
   app.listen(PORT, () => console.log(`PassReady Prep API listening on port ${PORT}`));
 }

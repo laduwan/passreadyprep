@@ -29,6 +29,7 @@ function getRecommended(cases, weakDomains) {
 export default function CaseList({ mode, examMode = false, onSelect, navigate }) {
   const [cases, setCases] = useState([]);
   const [filter, setFilter] = useState('all');
+  const [catFilter, setCatFilter] = useState('all');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -40,7 +41,12 @@ export default function CaseList({ mode, examMode = false, onSelect, navigate })
 
   const rd = computeReadiness();
   const recommended = rd ? getRecommended(cases, rd.weakDomains) : [];
-  const filtered = filter === 'all' ? cases : cases.filter((c) => c.difficulty === filter);
+  const categories = [...new Set(cases.map((c) => c.category).filter(Boolean))].sort();
+  const filtered = cases.filter((c) => {
+    if (filter !== 'all' && c.difficulty !== filter) return false;
+    if (catFilter !== 'all' && c.category !== catFilter) return false;
+    return true;
+  });
 
   return (
     <div className="space-y-4">
@@ -80,10 +86,24 @@ export default function CaseList({ mode, examMode = false, onSelect, navigate })
         {['all', 'easy', 'medium', 'hard'].map((d) => (
           <button key={d} onClick={() => setFilter(d)} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
             filter === d ? 'bg-emerald-500 text-slate-900 border-emerald-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
-            {d === 'all' ? 'All' : d.charAt(0).toUpperCase() + d.slice(1)}
+            {d === 'all' ? 'All levels' : d.charAt(0).toUpperCase() + d.slice(1)}
           </button>
         ))}
       </div>
+      {categories.length > 1 && (
+        <div className="flex gap-2 flex-wrap">
+          <button onClick={() => setCatFilter('all')} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+            catFilter === 'all' ? 'bg-blue-500 text-white border-blue-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
+            All categories
+          </button>
+          {categories.map((cat) => (
+            <button key={cat} onClick={() => setCatFilter(cat)} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+              catFilter === cat ? 'bg-blue-500 text-white border-blue-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
+              {cat}
+            </button>
+          ))}
+        </div>
+      )}
       {loading ? <p className="text-slate-400">Loading cases…</p> :
         filtered.length === 0 ? <p className="text-slate-400">No cases at this level yet.</p> :
         filtered.map((c) => (
