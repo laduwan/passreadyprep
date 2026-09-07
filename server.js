@@ -41,6 +41,7 @@ app.use('/api/core-tutor', require('./routes/coreTutor'));
 app.use('/api/intake', require('./routes/intake'));
 app.use('/api/guide', require('./routes/guide'));
 app.use('/api/suggestions', require('./routes/suggestions'));
+app.use('/api/flashcard-progress', require('./routes/flashcardProgress'));
 app.use('/api/visits', require('./routes/visits'));
 
 // ── Accessibility + translation widget injection ────────────────────

@@ -1,12 +1,40 @@
 // client/src/pages/Flashcards.jsx
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Layers, RotateCcw, CheckCircle2, X as XIcon, Zap } from 'lucide-react';
 import { FC_CARDS, FC_CATS } from '../lib/flashcardData';
 import { useStudyPing } from '../lib/useStudyPing';
+import { authFetch, getToken } from '../lib/api';
 
 const SR_KEY = 'prp_sr';
+const SR_TS_KEY = 'prp_sr_t'; // epoch-ms of last local write
 function ldSR() { try { return JSON.parse(localStorage.getItem(SR_KEY)) || {}; } catch { return {}; } }
-function svSR(sr) { localStorage.setItem(SR_KEY, JSON.stringify(sr)); }
+function ldTS() { return parseInt(localStorage.getItem(SR_TS_KEY), 10) || 0; }
+function svSR(sr) {
+  const t = Date.now();
+  localStorage.setItem(SR_KEY, JSON.stringify(sr));
+  localStorage.setItem(SR_TS_KEY, String(t));
+  return t;
+}
+
+// Merge local and server SR maps — per-card, highest `du` wins (most recent review).
+function mergeSR(local, server) {
+  const merged = { ...local };
+  for (const [id, sc] of Object.entries(server)) {
+    const lc = merged[id];
+    if (!lc || (sc.du || 0) > (lc.du || 0)) merged[id] = sc;
+  }
+  return merged;
+}
+
+// Fire-and-forget push to server. Never throws.
+function pushToServer(sr, t) {
+  if (!getToken()) return;
+  authFetch('/api/flashcard-progress', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ cards: sr, t }),
+  }).catch(() => {});
+}
 
 function updCard(id, quality) {
   const sr = ldSR();
@@ -16,7 +44,8 @@ function updCard(id, quality) {
   s.ef = Math.max(1.3, s.ef + 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
   s.du = Date.now() + s.iv * 86400000;
   sr[id] = s;
-  svSR(sr);
+  const t = svSR(sr);
+  pushToServer(sr, t);
 }
 
 const TYPE_BADGE = { code: 'text-blue-400 bg-blue-500/15', tx: 'text-emerald-400 bg-emerald-500/15', diff: 'text-amber-400 bg-amber-500/15', ethics: 'text-red-400 bg-red-500/15', crisis: 'text-red-400 bg-red-500/15', concept: 'text-purple-400 bg-purple-500/15' };
@@ -34,6 +63,22 @@ export default function Flashcards() {
   const [, forceUpdate] = useState(0);
 
   const refresh = () => forceUpdate((n) => n + 1);
+
+  // Sync with server on mount — merge server + local, newest per-card wins.
+  useEffect(() => {
+    if (!getToken()) return;
+    authFetch('/api/flashcard-progress')
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (!data || !data.cards) return;
+        const local = ldSR();
+        const merged = mergeSR(local, data.cards);
+        const t = svSR(merged);
+        pushToServer(merged, t);
+        refresh();
+      })
+      .catch(() => {});
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getDue = useCallback(() => {
     const now = Date.now(), sr = ldSR();
@@ -60,6 +105,10 @@ export default function Flashcards() {
   function resetSR() {
     if (!confirm('Reset all flashcard progress?')) return;
     localStorage.removeItem(SR_KEY);
+    localStorage.removeItem(SR_TS_KEY);
+    if (getToken()) {
+      authFetch('/api/flashcard-progress', { method: 'DELETE' }).catch(() => {});
+    }
     refresh();
   }
 
@@ -154,7 +203,7 @@ export default function Flashcards() {
           <span className="font-bold text-blue-400">How it works</span> — Tap a card to flip it, then rate yourself:
           <span className="text-red-400 font-bold"> Again</span> (comes back today),
           <span className="text-amber-400 font-bold"> Hard</span> (1–3 days),
-          <span className="text-emerald-400 font-bold"> Easy</span> (pushed out further). Cards you master leave your queue. Progress saved in this browser.
+          <span className="text-emerald-400 font-bold"> Easy</span> (pushed out further). Cards you master leave your queue. Progress syncs across devices when signed in.
         </div>
       )}
 
