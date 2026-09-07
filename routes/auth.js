@@ -41,6 +41,7 @@ function publicUser(user) {
     id: user._id,
     email: user.email,
     name: user.name,
+    examDate: user.examDate || null,
     prefs: user.prefs,
     subscription: user.subscription,
   };
@@ -168,6 +169,30 @@ router.patch('/prefs', requireAuth, async (req, res) => {
   } catch (err) {
     console.error('prefs update error', err);
     return res.status(500).json({ error: 'Could not save preferences' });
+  }
+});
+
+// PATCH /api/auth/exam-date — save the user's target NCMHCE exam date.
+// Accepts { examDate: "YYYY-MM-DD" } or { examDate: null } to clear.
+// Also syncs to localStorage key on the client side for the readiness module.
+router.patch('/exam-date', requireAuth, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ error: 'Account not found' });
+
+    const raw = req.body && req.body.examDate;
+    if (raw === null || raw === '') {
+      user.examDate = null;
+    } else {
+      const parsed = new Date(raw);
+      if (isNaN(parsed.getTime())) return res.status(400).json({ error: 'Invalid date' });
+      user.examDate = parsed;
+    }
+    await user.save();
+    return res.json({ user: publicUser(user) });
+  } catch (err) {
+    console.error('exam-date update error', err);
+    return res.status(500).json({ error: 'Could not save exam date' });
   }
 });
 
