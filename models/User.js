@@ -53,6 +53,12 @@ const UserSchema = new Schema(
     // for pacing calculations on the dashboard and in weekly digest emails.
     examDate: Date,
 
+    // One-time broadcast emails already sent to this account, keyed by an
+    // idempotency key (e.g. 'sept2026_features') to the Date it was sent.
+    // Lets a one-off broadcast script (see jobs/broadcast-sept2026.js) be
+    // re-run safely without double-emailing anyone.
+    broadcastsSent: { type: Schema.Types.Mixed, default: {} },
+
     subscription: {
       tier: { type: String, default: 'free' },      // free | monthly | pass3 | guarantee
       status: { type: String, default: 'active' },  // active | past_due | canceled
