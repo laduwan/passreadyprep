@@ -45,6 +45,10 @@ const UserSchema = new Schema(
     // or clears a trial, so a renewed trial can earn a fresh reminder.
     trialEmailsSent: { type: [String], default: [] },
 
+    // Tracks when the last weekly digest email was sent, so the job
+    // doesn't re-send within the same week.
+    weeklyDigestSentAt: Date,
+
     subscription: {
       tier: { type: String, default: 'free' },      // free | monthly | pass3 | guarantee
       status: { type: String, default: 'active' },  // active | past_due | canceled
@@ -72,6 +76,7 @@ const UserSchema = new Schema(
     },
 
     prefs: {
+      digestOptOut: { type: Boolean, default: false },
       voice: {
         enabled: { type: Boolean, default: false },
         voiceId: String,
