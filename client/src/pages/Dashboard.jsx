@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Layers, GitBranch, Brain, FileText, Award, TrendingUp, TrendingDown, Minus, Target, Clock, Zap } from 'lucide-react';
-import { computeReadiness, DOMAIN_ORDER, DOMAIN_LABELS } from '../lib/readiness';
+import { BookOpen, Layers, GitBranch, Brain, FileText, Award, TrendingUp, TrendingDown, Minus, Target, Clock, Zap, BarChart3 } from 'lucide-react';
+import { computeReadiness, computeAnalytics, DOMAIN_ORDER, DOMAIN_LABELS } from '../lib/readiness';
 import { useStudyPing } from '../lib/useStudyPing';
 import StreakBadge from '../components/StreakBadge';
 
@@ -78,7 +78,12 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
       {/* Readiness predictor */}
       {rd && (
         <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
-          <h2 className="text-lg font-bold text-white mb-1">Exam readiness</h2>
+          <div className="flex items-center justify-between mb-1">
+            <h2 className="text-lg font-bold text-white">Exam readiness</h2>
+            <button onClick={() => navigate('analytics')} className="text-xs text-emerald-400 hover:underline font-semibold flex items-center gap-1">
+              <BarChart3 className="w-3.5 h-3.5" /> Full analytics
+            </button>
+          </div>
           <p className="text-xs text-slate-500 mb-4">
             Weighted by NCMHCE domain proportions — Counseling (28%), Intake (25%), Treatment (22%), Ethics (15%), Core (10%).
             Factors in volume and recent trend. Green (70%+) = exam ready. Amber (50–69%) = almost there.
@@ -119,6 +124,34 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
           </div>
         </div>
       )}
+
+      {/* Pacing alert (when exam date is set) */}
+      {(() => {
+        const a = computeAnalytics();
+        if (!a?.pacing) return null;
+        const p = a.pacing;
+        return (
+          <div className={`rounded-xl border p-4 text-sm ${p.onTrack
+            ? 'bg-emerald-500/8 border-emerald-500/20'
+            : 'bg-amber-500/8 border-amber-500/20'}`}>
+            <div className="flex items-center justify-between mb-1">
+              <span className={`font-bold ${p.onTrack ? 'text-emerald-400' : 'text-amber-400'}`}>
+                {p.daysLeft} day{p.daysLeft === 1 ? '' : 's'} until exam
+              </span>
+              <span className="text-xs text-slate-500">{p.avgPerDay}/day avg</span>
+            </div>
+            <div className="h-2 bg-slate-700 rounded-full overflow-hidden mb-2">
+              <div className={`h-full rounded-full ${p.onTrack ? 'bg-emerald-500' : 'bg-amber-500'}`}
+                style={{ width: `${Math.min(100, (p.totalDone / Math.max(1, p.target)) * 100)}%` }} />
+            </div>
+            <span className="text-slate-300">
+              {p.totalDone} cases done.
+              {!p.onTrack && <> Aim for {p.recommendedPerDay}+ cases/day to reach 20 before your exam.</>}
+              {p.onTrack && <> You're on track — keep it up.</>}
+            </span>
+          </div>
+        );
+      })()}
 
       {/* Practice mode */}
       <div>

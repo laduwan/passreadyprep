@@ -15,11 +15,12 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
   const [debrief, setDebrief] = useState(null);
   const [debriefLoading, setDebriefLoading] = useState(false);
   const [debriefError, setDebriefError] = useState(null);
+  const [caseCategory, setCaseCategory] = useState(null);
 
   useEffect(() => {
     authFetch('/api/content/' + encodeURIComponent(caseId))
       .then((r) => r.json())
-      .then((d) => { const c = d.item?.caseSim || d.item; setCaseData(c); setAnswers(new Array((c.questions || []).length).fill(null)); })
+      .then((d) => { const item = d.item || {}; const c = item.caseSim || item; setCaseData(c); setCaseCategory(item.category || c.category || null); setAnswers(new Array((c.questions || []).length).fill(null)); })
       .catch(() => {});
   }, [caseId]);
 
@@ -41,7 +42,7 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
     if (qi < qs.length - 1) { setQi(qi + 1); window.scrollTo({ top: 0, behavior: 'smooth' }); }
     else {
       setDone(true);
-      saveToHistory(caseData, answers, dxChoice != null ? !!(caseData.differentialOptions || []).find(o => o.isCorrect && o.id === dxChoice) : null);
+      saveToHistory(caseData, answers, dxChoice != null ? !!(caseData.differentialOptions || []).find(o => o.isCorrect && o.id === dxChoice) : null, caseCategory);
     }
   }
 

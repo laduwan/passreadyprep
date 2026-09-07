@@ -13,11 +13,13 @@ import Guarantee from './pages/Guarantee';
 import ExamStrategy from './pages/ExamStrategy';
 import CoreAttributes from './pages/CoreAttributes';
 import CoreTutor from './pages/CoreTutor';
+import Analytics from './pages/Analytics';
 import SuggestionBox from './components/SuggestionBox';
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Dashboard', icon: Home },
   { id: 'cases', label: 'Case Practice', icon: BookOpen },
+  { id: 'analytics', label: 'Performance', icon: BarChart3 },
   { id: 'microskills', label: 'Microskills', icon: MessageSquare, external: '/skills.html' },
   { id: 'mock', label: 'Timed Mock Exam', icon: Clock, external: '/exam.html' },
   { id: 'flashcards', label: 'Flashcards', icon: Layers },
@@ -54,6 +56,8 @@ export default function App() {
           : <CaseList mode={mode} examMode={examMode} onSelect={(id) => { setCaseId(id); }} navigate={navigate} />;
       case 'flashcards':
         return <Flashcards />;
+      case 'analytics':
+        return <Analytics navigate={navigate} />;
       case 'trees':
         return <DecisionTrees />;
       case 'dsm':
