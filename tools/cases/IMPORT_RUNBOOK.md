@@ -74,6 +74,28 @@ mop up stragglers.
 Retire exact duplicate cases first (`dedup-retire.js --exact`, then `--apply`)
 so you don't pay to repair both copies.
 
+**Whole-question rewrite (the exam-standard mandate).** `rewrite-questions.js`
+rewrites EVERY question of a case from scratch — stem, all four options
+designed together, tiers, explanations, evidence citations — while keeping the
+narrative, diagnosis, references, the question count, and each question's
+domain and clinical decision point (the old stem and key are passed to the
+model as the content-area anchor). A 5-question case stays 5 questions on the
+same five topics; a 13-question case stays 13. It is the better tool when the
+keys themselves were written to the old standard (padded, always longest):
+designing all four options together gives parity for free instead of padding
+distractors up to a padded key. Same flags and the same review round-trip as
+`fix-distractors.js` below, with 4 sheet rows per question (the key is new
+too; `weight_override` may move it) and a `stem_override` column.
+
+```bash
+node tools/cases/rewrite-questions.js                                              # plan
+node tools/cases/rewrite-questions.js --generate --ids ncmhce-D160                 # 1 call, print rewrites
+node tools/cases/rewrite-questions.js --generate --count 30 --save tools/cases/review/rw1
+node tools/cases/rewrite-questions.js --generate --skip 30 --count 30 --save tools/cases/review/rw2
+node tools/cases/rewrite-questions.js --from tools/cases/review/rw1.json --review tools/cases/review/rw1.csv
+node tools/cases/rewrite-questions.js --from tools/cases/review/rw1.json --review tools/cases/review/rw1.csv --apply --keep-status
+```
+
 **Reviewed flow (recommended at bank scale).** `--generate --save NAME` writes
 the proposals out for an SME instead of touching the database:
 
@@ -94,7 +116,9 @@ node tools/cases/dedup-retire.js --threshold 0.7         # retire narrative-vari
 node tools/cases/fix-distractors.js                      # free plan: per-case flag counts + failure mix
 
 # reviewed: generate -> SME evaluates/weights -> apply what was approved
+# (cases stay flagged until applied, so cut later batches with --skip)
 node tools/cases/fix-distractors.js --generate --count 30 --save tools/cases/review/batch1
+node tools/cases/fix-distractors.js --generate --skip 30 --count 30 --save tools/cases/review/batch2
 #   ...send batch1.html + batch1.csv to the reviewer; get batch1.csv back...
 node tools/cases/fix-distractors.js --from tools/cases/review/batch1.json --review tools/cases/review/batch1.csv
 node tools/cases/fix-distractors.js --from tools/cases/review/batch1.json --review tools/cases/review/batch1.csv --apply --keep-status

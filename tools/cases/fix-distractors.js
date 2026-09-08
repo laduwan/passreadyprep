@@ -53,6 +53,9 @@
 //
 //   --all      include sme_review/draft cases (default: published only)
 //   --count N  cases per run in --generate/--apply (default 5; ignored with --from)
+//   --skip N   skip the first N flagged cases — cases stay flagged until a batch
+//              is applied, so cut sequential review batches with
+//              --count 30 --save batch1, --skip 30 --count 30 --save batch2, ...
 // MONGO_URI / ANTHROPIC_API_KEY from env / .env, same as generate-deep.js.
 // ============================================================================
 
@@ -65,9 +68,11 @@ const ContentItem = require('../../models/ContentItem');
 const { validateCase } = require('./caseSchema');
 const { checkQuestionQuality, checkCaseQuality, classifyReason, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK } = require('./qualityGate');
 const { callAnthropic, extractJson, MODEL } = require('./anthropic');
+const { AUTO_NOTE_PREFIX, TIER_LABEL, CSV_HEADER, toCsv, parseCsv, readReviewSheet, composeNote, esc, writeRepairs, loadLiveCases } = require('./reviewRoundTrip');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
 const COUNT = parseInt(flag('count', '5'), 10);
+const SKIP = parseInt(flag('skip', '0'), 10);
 const ALL = process.argv.includes('--all');
 const APPLY = process.argv.includes('--apply');
 const KEEP_STATUS = process.argv.includes('--keep-status');
@@ -78,9 +83,7 @@ const GENERATE = !FROM && (process.argv.includes('--generate') || APPLY || !!SAV
 const idi = process.argv.indexOf('--ids');
 const EXPLICIT = idi >= 0 ? (process.argv[idi + 1] || '').split(',').map((s) => s.trim()).filter(Boolean) : null;
 
-const AUTO_NOTE_PREFIX = 'Auto-repair:';
 const DISTRACTOR_WEIGHTS = '0,-1,-2';
-const TIER_LABEL = { 0: 'near-miss (0)', '-1': 'novice error (-1)', '-2': 'harmful error (-2)' };
 
 // ---------------------------------------------------------------------------
 // Pure helpers (exported for tests)
@@ -214,8 +217,8 @@ ${lines}`;
 
 ${blocks}
 
-Return ONE JSON object only (no markdown, no prose), one entry per question, "q" echoing the question number, every distractor present with its ORIGINAL id and weight and its existing rationale/explanation:
-{ "questions": [ { "q": ${retries[0].it.qi + 1}, "options": [ { "id": "...", "weight": 0, "text": "...", "rationale": "...", "explanation": { "approach": "...", "rationale": "...", "keyIndicators": ["..."], "commonMistake": "..." } }, { "id": "...", "weight": -1, "text": "...", "rationale": "...", "explanation": { } }, { "id": "...", "weight": -2, "text": "...", "rationale": "...", "explanation": { } } ] } ] }
+Return ONE JSON object only (no markdown, no prose), one entry per question, "q" echoing the question number, every distractor present with its ORIGINAL id and its new text. Return ONLY id and text per option — the weight, rationale and explanation are kept from before and must not be re-sent:
+{ "questions": [ { "q": ${retries[0].it.qi + 1}, "options": [ { "id": "...", "text": "..." }, { "id": "...", "text": "..." }, { "id": "...", "text": "..." } ] } ] }
 Output ONLY the JSON object.`;
 }
 
@@ -240,6 +243,22 @@ function mergeRewrite(question, replyOptions) {
   return Object.assign({}, question, { options });
 }
 
+// Merge a length-pass reply: ONLY text changes. Weight, rationale and
+// explanation stay exactly as they were on the candidate, whatever the reply
+// carries (a follow-up that re-sent empty explanations used to wipe the good
+// ones). Returns null unless the reply covers exactly the distractor ids with
+// non-empty text.
+function mergeLengthFix(candidate, replyOptions) {
+  const distractorIds = candidate.options.filter((o) => !o.isCorrect).map((o) => String(o.id)).sort();
+  const got = (replyOptions || []).filter((o) => o && o.id != null && typeof o.text === 'string' && o.text.trim().length > 0);
+  const gotIds = got.map((o) => String(o.id)).sort();
+  if (gotIds.join('|') !== distractorIds.join('|')) return null;
+  const textById = {};
+  got.forEach((o) => { textById[String(o.id)] = o.text.trim(); });
+  const options = candidate.options.map((o) => (o.isCorrect ? o : Object.assign({}, o, { text: textById[String(o.id)] })));
+  return Object.assign({}, candidate, { options });
+}
+
 // Errors validateCase reports on the case WITH the candidate question that it
 // did not report before — i.e. regressions the rewrite itself introduced.
 // Pre-existing, unrelated schema errors do not block a good distractor fix.
@@ -248,12 +267,6 @@ function newSchemaErrors(caseObj, qi, candidate) {
   const questions = caseObj.questions.slice();
   questions[qi] = candidate;
   return validateCase(Object.assign({}, caseObj, { questions })).errors.filter((e) => !before.has(e));
-}
-
-// Keep any human-written review note; replace only our own earlier auto line.
-function composeNote(existing, autoLine) {
-  const kept = String(existing || '').split('\n').filter((l) => l.trim() && !l.startsWith(AUTO_NOTE_PREFIX));
-  return kept.concat(autoLine).join('\n');
 }
 
 // A candidate is accepted only if it passes the item-quality gate and adds
@@ -266,69 +279,14 @@ function rejectReason(caseObj, qi, candidate) {
   return null;
 }
 
-// --- review round-trip -------------------------------------------------------
-
-const CSV_HEADER = ['case_id', 'title', 'q', 'question_id', 'option_id', 'proposed_weight', 'proposed_tier', 'proposed_text', 'proposed_commonMistake', 'approve', 'weight_override', 'text_override', 'comment'];
-
-function csvCell(v) {
-  const s = v == null ? '' : String(v);
-  return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
-}
-function toCsv(rows) { return rows.map((r) => r.map(csvCell).join(',')).join('\r\n') + '\r\n'; }
-
-// Minimal RFC 4180 reader: quoted fields, doubled quotes, embedded newlines.
-function parseCsv(text) {
-  const rows = [];
-  let row = [];
-  let cell = '';
-  let inQ = false;
-  const s = String(text).replace(/^﻿/, '');
-  for (let i = 0; i < s.length; i++) {
-    const ch = s[i];
-    if (inQ) {
-      if (ch === '"') { if (s[i + 1] === '"') { cell += '"'; i++; } else inQ = false; }
-      else cell += ch;
-    } else if (ch === '"') inQ = true;
-    else if (ch === ',') { row.push(cell); cell = ''; }
-    else if (ch === '\r') { /* handled by \n */ }
-    else if (ch === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; }
-    else cell += ch;
-  }
-  if (cell.length || row.length) { row.push(cell); rows.push(row); }
-  return rows.filter((r) => r.some((c) => c.trim() !== ''));
-}
+// --- review round-trip (CSV / sheet / notes / write path live in reviewRoundTrip.js) ---
 
 // Rows for the review sheet: one per distractor of one proposed question.
 function proposalCsvRows(p, q) {
   return q.after.filter((o) => !o.isCorrect).map((o) => [
     p.externalId, p.title, q.qi + 1, q.questionId, o.id, o.weight, TIER_LABEL[o.weight] || o.weight,
-    o.text, (o.explanation && o.explanation.commonMistake) || '', '', '', '', '',
+    o.text, (o.explanation && o.explanation.commonMistake) || '', '', '', '', '', '', '',
   ]);
-}
-
-// Read a filled review sheet -> { "<case>|<qi>": { rejected, overrides: { optId: { weight, text } } } }
-function readReviewSheet(text) {
-  const rows = parseCsv(text);
-  if (!rows.length) return {};
-  const header = rows[0].map((h) => h.trim());
-  const col = (name) => header.indexOf(name);
-  const need = ['case_id', 'q', 'option_id', 'approve', 'weight_override', 'text_override'];
-  const missing = need.filter((n) => col(n) < 0);
-  if (missing.length) throw new Error('review sheet is missing column(s): ' + missing.join(', '));
-  const out = {};
-  rows.slice(1).forEach((r) => {
-    const key = r[col('case_id')] + '|' + (parseInt(r[col('q')], 10) - 1);
-    const entry = out[key] = out[key] || { rejected: false, overrides: {} };
-    if (/^\s*(n|no|reject|rejected|x)\s*$/i.test(r[col('approve')] || '')) entry.rejected = true;
-    const w = (r[col('weight_override')] || '').trim();
-    const t = (r[col('text_override')] || '').trim();
-    if (w !== '' || t !== '') {
-      const o = entry.overrides[r[col('option_id')]] = entry.overrides[r[col('option_id')]] || {};
-      if (w !== '') o.weight = Number(w);
-      if (t !== '') o.text = t;
-    }
-  });
-  return out;
 }
 
 // Apply reviewer overrides to a proposed question. Returns { options } or an
@@ -359,8 +317,6 @@ function liveMatchesProposal(liveQ, q) {
   const propKey = q.before.find((o) => o.isCorrect);
   return !!liveKey && !!propKey && liveKey.text === propKey.text;
 }
-
-const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 function renderReviewHtml(proposals) {
   const nQ = proposals.cases.reduce((n, c) => n + c.questions.length, 0);
@@ -427,41 +383,6 @@ ${caseHtml}
 // Main
 // ---------------------------------------------------------------------------
 
-async function loadLiveCases() {
-  const exam = await Exam.findOne({ key: 'ncmhce' });
-  const filter = { format: 'case_sim' };
-  if (exam) filter.examId = exam._id;
-  if (EXPLICIT) filter.externalId = { $in: EXPLICIT };
-  else if (!ALL && !FROM) filter.status = 'published';
-  const docs = await ContentItem.find(filter).select('externalId status reviewNote caseSim').lean();
-  return docs.map((d) => {
-    const c = Object.assign({}, d.caseSim || {});
-    c.id = c.id || d.externalId;
-    c.questions = (c.questions || []).slice();
-    return { _id: d._id, externalId: d.externalId, status: d.status, reviewNote: d.reviewNote, caseObj: c, items: [], repairedQis: [] };
-  });
-}
-
-async function writeRepairs(touched) {
-  let saved = 0;
-  for (const entry of touched) {
-    const remaining = checkCaseQuality(entry.caseObj).errors;
-    const qList = entry.repairedQis.map((qi) => 'q' + (qi + 1)).join(', ');
-    const autoLine = remaining.length
-      ? `${AUTO_NOTE_PREFIX} rewrote distractors on ${qList}; ${remaining.length} gate issue(s) remain — needs manual review.`
-      : `${AUTO_NOTE_PREFIX} rewrote distractors on ${qList}; case now passes the quality gate${KEEP_STATUS ? '.' : ' — please re-review before publishing.'}`;
-    // $set only the repaired question paths, so a concurrent edit to the
-    // narrative, references, or any other question is never clobbered.
-    const set = { needsWork: remaining.length > 0, reviewNote: composeNote(entry.reviewNote, autoLine) };
-    if (!KEEP_STATUS) set.status = 'sme_review';
-    entry.repairedQis.forEach((qi) => { set['caseSim.questions.' + qi] = entry.caseObj.questions[qi]; });
-    await ContentItem.updateOne({ _id: entry._id }, { $set: set });
-    saved += 1;
-    console.log('  saved ' + entry.externalId + ' (' + qList + ')' + (remaining.length ? ' — still needsWork: ' + remaining.length + ' issue(s) left' : ''));
-  }
-  console.log('Saved ' + saved + ' case(s)' + (KEEP_STATUS ? ' (status unchanged).' : ', set to sme_review for re-review.'));
-}
-
 async function runFromProposals(entries) {
   const proposals = JSON.parse(fs.readFileSync(FROM, 'utf8'));
   const review = REVIEW ? readReviewSheet(fs.readFileSync(REVIEW, 'utf8')) : null;
@@ -494,7 +415,7 @@ async function runFromProposals(entries) {
   const touched = entries.filter((e) => e.repairedQis.length);
   console.log('\n' + accepted + ' question(s) ready across ' + touched.length + ' case(s); ' + rejected + ' rejected/invalid, ' + stale + ' stale.');
   if (!APPLY) { console.log('Plan only — nothing written. Add --apply to save these' + (KEEP_STATUS ? '.' : ' (add --keep-status to leave published cases live).')); return; }
-  await writeRepairs(touched);
+  await writeRepairs(ContentItem, touched, { keepStatus: KEEP_STATUS });
 }
 
 async function main() {
@@ -503,7 +424,7 @@ async function main() {
   await mongoose.connect(process.env.MONGO_URI, { dbName: 'passreadyprep' });
   console.log('Connected to MongoDB (db: passreadyprep)\n');
 
-  const entries = await loadLiveCases();
+  const entries = await loadLiveCases(Exam, ContentItem, { explicit: EXPLICIT, all: ALL, from: FROM });
   if (FROM) { await runFromProposals(entries); await mongoose.disconnect(); return; }
   console.log('Loaded ' + entries.length + ' case(s) (' + (EXPLICIT ? 'explicit ids' : ALL ? 'all statuses' : 'published only') + ')\n');
 
@@ -539,8 +460,9 @@ async function main() {
   }
   if (!process.env.ANTHROPIC_API_KEY) { console.error('\nANTHROPIC_API_KEY not set.'); process.exit(1); }
 
-  const batch = cases.slice(0, COUNT);
-  console.log('Generating rewrites for ' + batch.length + ' of ' + cases.length + ' case(s) (--count ' + COUNT + ', one API call each)...\n');
+  const batch = cases.slice(SKIP, SKIP + COUNT);
+  if (!batch.length) { console.log('--skip ' + SKIP + ' is past the end of the ' + cases.length + ' flagged case(s); nothing to do.'); await mongoose.disconnect(); return; }
+  console.log('Generating rewrites for ' + batch.length + ' of ' + cases.length + ' case(s) (' + (SKIP ? 'skipping the first ' + SKIP + ', ' : '') + '--count ' + COUNT + ', one API call each: ' + batch[0].externalId + ' … ' + batch[batch.length - 1].externalId + ')...\n');
 
   const proposals = { generatedAt: new Date().toISOString(), model: MODEL, cases: [] };
   let fixed = 0;
@@ -602,7 +524,7 @@ async function main() {
       for (const r of retry) {
         const tag = 'q' + (r.it.qi + 1);
         const returned = byQ2[r.it.qi + 1];
-        const cand2 = returned ? mergeRewrite(r.candidate, returned) : null;
+        const cand2 = returned ? mergeLengthFix(r.candidate, returned) : null;
         if (!cand2) { console.log('    ' + tag + ': length pass reply unusable — ' + r.reasons.join(' | ') + ' — left unchanged'); continue; }
         judge(r.it, cand2, pass < LENGTH_PASSES ? next : null, ' (after length pass ' + pass + ')');
       }
@@ -635,13 +557,13 @@ async function main() {
     await mongoose.disconnect();
     return;
   }
-  await writeRepairs(entries.filter((e) => e.repairedQis.length));
+  await writeRepairs(ContentItem, entries.filter((e) => e.repairedQis.length), { keepStatus: KEEP_STATUS });
   await mongoose.disconnect();
 }
 if (require.main === module) main().catch((e) => { console.error(e); process.exit(1); });
 
 module.exports = {
   isRewriteSafe, mergeRewrite, newSchemaErrors, composeNote, buildCaseRepairPrompt, rejectReason,
-  lengthTargets, isLengthOnly, buildLengthFixPrompt, words, LENGTH_BAND,
+  lengthTargets, isLengthOnly, buildLengthFixPrompt, mergeLengthFix, words, LENGTH_BAND,
   toCsv, parseCsv, proposalCsvRows, readReviewSheet, applyOverrides, liveMatchesProposal, renderReviewHtml, CSV_HEADER,
 };
