@@ -74,21 +74,42 @@ mop up stragglers.
 Retire exact duplicate cases first (`dedup-retire.js --exact`, then `--apply`)
 so you don't pay to repair both copies.
 
-**At bank scale, decide the status question before `--apply`:** the default
-sends every repaired case to `sme_review`, which un-publishes it until a human
-re-publishes. Repairing most of the bank that way empties the app. Use
-`--keep-status` to leave published cases live (the `Auto-repair:` review note
-and the `/review.html` "Needs work" badge still show what changed), then
-spot-check.
+**Reviewed flow (recommended at bank scale).** `--generate --save NAME` writes
+the proposals out for an SME instead of touching the database:
+
+| File | What it is |
+|---|---|
+| `NAME.html` | The review document: every proposed question with the key, each distractor before → after, its tier (near-miss 0 / novice error -1 / harmful error -2), and the "why a candidate picks it" line. Opens in a browser or Word; print to PDF. |
+| `NAME.csv` | The decision sheet, one row per distractor. Reviewers fill `approve` (N rejects the whole question), `weight_override` (0 / -1 / -2; the three must stay one of each), `text_override`, `comment` in Excel or Sheets. Blank = accept as proposed. |
+| `NAME.json` | The exact proposals. `--from NAME.json` applies *these*, not a fresh API roll, so what goes live is what was reviewed. |
+
+`--from` re-checks each live question is unchanged since the proposals were
+made (question id, option ids, key text), applies the sheet's decisions, and
+re-runs the gate before writing. A question the reviewer rejected, or whose
+overrides no longer form {0,-1,-2}, is skipped and reported.
 
 ```bash
-node tools/cases/audit-quality.js --all                 # see what's broken, all statuses
-node tools/cases/dedup-retire.js --exact                 # exact duplicates (D166/D190, D167/D191 ...)
+node tools/cases/audit-quality.js --all --summary        # one line per case + bank-wide failure mix
+node tools/cases/dedup-retire.js --threshold 0.7         # retire narrative-variant copies (then --apply)
 node tools/cases/fix-distractors.js                      # free plan: per-case flag counts + failure mix
-node tools/cases/fix-distractors.js --generate --ids D160 # see one case's proposed rewrites (1 API call)
-node tools/cases/fix-distractors.js --apply --count 20    # repair 20 cases -> sme_review
+
+# reviewed: generate -> SME evaluates/weights -> apply what was approved
+node tools/cases/fix-distractors.js --generate --count 30 --save tools/cases/review/batch1
+#   ...send batch1.html + batch1.csv to the reviewer; get batch1.csv back...
+node tools/cases/fix-distractors.js --from tools/cases/review/batch1.json --review tools/cases/review/batch1.csv
+node tools/cases/fix-distractors.js --from tools/cases/review/batch1.json --review tools/cases/review/batch1.csv --apply --keep-status
+
+# direct (small batches you eyeball yourself)
+node tools/cases/fix-distractors.js --generate --ids ncmhce-D160   # 1 API call, print the rewrites
+node tools/cases/fix-distractors.js --apply --count 20             # repair 20 cases -> sme_review
 node tools/cases/fix-distractors.js --apply --count 20 --keep-status   # ...or keep them published
 ```
+
+**Status after `--apply`:** the default sends every repaired case to
+`sme_review`, which un-publishes it until a human re-publishes. After a
+reviewed apply that is redundant and, at bank scale, empties the app — pass
+`--keep-status`. The `Auto-repair:` review note and the `/review.html`
+"Needs work" badge still record what changed.
 
 ## Who sees the cases afterward
 
