@@ -438,14 +438,18 @@ async function main() {
     // question that fails ONLY on length, from either pass, goes to the
     // text-only length passes instead of being regenerated.
     let lengthQueue = [];
+    let aborted = false;
     let pending = entry.items.map((it) => Object.assign({}, it));
     for (let pass = 1; pass <= 2 && pending.length; pass++) {
       if (pass > 1) console.log('    retry: ' + pending.length + ' question(s) — ' + pending.map((r) => 'q' + (r.qi + 1)).join(', '));
       let reply;
       try {
-        reply = extractJson(await callAnthropic(buildRewritePrompt(entry.caseObj, pending), { maxTokens: 16000 }));
+        // Opus thinks before it answers and that counts against max_tokens;
+        // 13 questions of JSON alone run ~10k tokens. Ceiling, not a charge.
+        reply = extractJson(await callAnthropic(buildRewritePrompt(entry.caseObj, pending), { maxTokens: 48000 }));
       } catch (e) {
         console.log('    ERROR: ' + e.message.slice(0, 150));
+        aborted = true;
         break;
       }
       const byQ = {};
@@ -463,13 +467,14 @@ async function main() {
       }
       pending = next;
     }
-    pending.forEach((it) => console.log('    q' + (it.qi + 1) + ': still failing after retry — left unchanged'));
+    if (aborted) console.log('    ' + pending.length + ' question(s) not attempted because of the error above — left unchanged (re-run picks them up)');
+    else pending.forEach((it) => console.log('    q' + (it.qi + 1) + ': still failing after retry — left unchanged'));
 
     for (let lp = 1; lp <= LENGTH_PASSES && lengthQueue.length; lp++) {
       console.log('    length pass ' + lp + ': ' + lengthQueue.length + ' question(s) — ' + lengthQueue.map((r) => 'q' + (r.it.qi + 1)).join(', '));
       let reply2;
       try {
-        reply2 = extractJson(await callAnthropic(buildRewriteLengthPrompt(entry.caseObj, lengthQueue), { maxTokens: 12000 }));
+        reply2 = extractJson(await callAnthropic(buildRewriteLengthPrompt(entry.caseObj, lengthQueue), { maxTokens: 16000 }));
       } catch (e) {
         console.log('    ERROR (length pass): ' + e.message.slice(0, 150));
         break;

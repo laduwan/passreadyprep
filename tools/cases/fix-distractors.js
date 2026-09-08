@@ -470,7 +470,7 @@ async function main() {
     console.log('  ' + entry.externalId + ' (' + entry.items.length + ' question(s))...');
     let reply;
     try {
-      reply = extractJson(await callAnthropic(buildCaseRepairPrompt(entry.caseObj, entry.items), { maxTokens: 12000 }));
+      reply = extractJson(await callAnthropic(buildCaseRepairPrompt(entry.caseObj, entry.items), { maxTokens: 32000 }));
     } catch (e) {
       console.log('    ERROR: ' + e.message.slice(0, 150));
       continue;
@@ -513,7 +513,7 @@ async function main() {
       console.log('    length pass ' + pass + ': ' + retry.length + ' question(s) off-length — ' + retry.map((r) => 'q' + (r.it.qi + 1)).join(', '));
       let reply2;
       try {
-        reply2 = extractJson(await callAnthropic(buildLengthFixPrompt(entry.caseObj, retry), { maxTokens: 12000 }));
+        reply2 = extractJson(await callAnthropic(buildLengthFixPrompt(entry.caseObj, retry), { maxTokens: 16000 }));
       } catch (e) {
         console.log('    ERROR (length pass): ' + e.message.slice(0, 150));
         break;
