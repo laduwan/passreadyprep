@@ -98,14 +98,38 @@ too; `weight_override` may move it) and a `stem_override` column.
 ```bash
 node tools/cases/rewrite-questions.js                                              # plan
 node tools/cases/rewrite-questions.js --generate --ids ncmhce-D160                 # 1 call, print rewrites
-node tools/cases/rewrite-questions.js --generate --count 15 --save tools/cases/review/rw1
+node tools/cases/rewrite-questions.js --generate --count 15 --save tools/cases/review/rw1          # one batch
 node tools/cases/rewrite-questions.js --generate --skip 15 --count 15 --save tools/cases/review/rw2
+node tools/cases/rewrite-questions.js --series tools/cases/review/rw --count 15 --parallel 3      # every batch, unattended
 node tools/cases/rewrite-questions.js --batches                                    # what is stored, and its review state
 node tools/cases/rewrite-questions.js --from rw1                                   # plan from the stored batch + uploaded sheet
 node tools/cases/rewrite-questions.js --from rw1 --apply --keep-status
 # file-based equivalent (no database round-trip):
 node tools/cases/rewrite-questions.js --from tools/cases/review/rw1.json --review tools/cases/review/rw1.csv --apply --keep-status
 ```
+
+**Unattended, whole-bank run (recommended).** One command walks every
+published case in 15-case batches named `rw1`, `rw2`, … and stores each
+one as it finishes, several cases at a time:
+
+```bash
+nohup node tools/cases/rewrite-questions.js --series tools/cases/review/rw --count 15 --parallel 3 > rewrite.log 2>&1 &
+tail -f rewrite.log            # watch; Ctrl-C stops watching, not the run
+node tools/cases/rewrite-questions.js --batches   # what is stored so far
+```
+
+`nohup … &` keeps it running after the shell tab closes. Every finished case
+is stored immediately (the batch card in `/review.html` reads "Generating
+n / 15" until the batch is complete), so a dropped shell or a redeploy loses
+at most the cases in flight. **Re-running the exact same command continues
+where it stopped**: complete batches are skipped, a partial batch resumes
+with only its missing cases, and a batch whose sheet has already been
+uploaded is never regenerated. A case that produced nothing (API error) is
+listed at the end of its batch and picked up by the same re-run.
+`--parallel` is cases in flight at once (default 3; each is one long Opus
+call, so 3 is roughly 3× faster than one at a time — go higher only if the
+API is not returning 429s). `--skip N` starts the series at case N+1 (the
+batch numbering still starts at 1, so use it only with a different prefix).
 
 **Getting the batch to the reviewer.** `--save NAME` writes the three files on
 the box that ran it (a Render shell, usually — where you cannot download

@@ -47,6 +47,15 @@
 //   --count N       cases per run (default 5)   --skip N  skip the first N
 //   --flagged-only  rewrite only questions that currently fail the gate
 //                   (default: every question, per the exam-standard mandate)
+//   --parallel N    cases in flight at once (default 3; each is one long
+//                   Opus call, so wall-clock time drops almost linearly)
+//   --fresh         with --save NAME: regenerate cases the stored batch NAME
+//                   already has (default: resume — skip them)
+//   --series PREFIX unattended: walk the whole bank in --count-sized batches
+//                   named PREFIX1, PREFIX2, … (from --skip), storing each;
+//                   reviewed/complete batches are skipped, a partial one
+//                   resumes, so re-running the same command continues it:
+//     nohup node tools/cases/rewrite-questions.js --series tools/cases/review/rw --count 15 --parallel 3 > rewrite.log 2>&1 &
 // MONGO_URI / ANTHROPIC_API_KEY from env / .env.
 // ============================================================================
 
@@ -60,7 +69,7 @@ const ReviewBatch = require('../../models/ReviewBatch');
 const { validateCase } = require('./caseSchema');
 const { checkQuestionQuality, classifyReason, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK } = require('./qualityGate');
 const { callAnthropic, extractJson, MODEL } = require('./anthropic');
-const { TIER_LABEL, CSV_HEADER, toCsv, readReviewSheet, reviewSheetSummary, esc, writeRepairs, loadLiveCases, batchName, buildBatchDoc, storeBatch, loadBatch } = require('./reviewRoundTrip');
+const { TIER_LABEL, CSV_HEADER, BATCH_NAME_RX, toCsv, readReviewSheet, reviewSheetSummary, esc, writeRepairs, loadLiveCases, batchName, buildBatchDoc, storeBatch, loadBatch } = require('./reviewRoundTrip');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
 const COUNT = parseInt(flag('count', '5'), 10);
@@ -75,7 +84,10 @@ const REVIEW = flag('review', null);
 const PUSH_DB = flag('push-db', null);
 const LIST_BATCHES = process.argv.includes('--batches');
 const FORCE = process.argv.includes('--force');
-const GENERATE = !FROM && !PUSH_DB && !LIST_BATCHES && (process.argv.includes('--generate') || APPLY || !!SAVE);
+const FRESH = process.argv.includes('--fresh');
+const SERIES = flag('series', null);
+const PARALLEL = Math.max(1, parseInt(flag('parallel', '3'), 10) || 1);
+const GENERATE = !FROM && !PUSH_DB && !LIST_BATCHES && (process.argv.includes('--generate') || APPLY || !!SAVE || !!SERIES);
 const idi = process.argv.indexOf('--ids');
 const EXPLICIT = idi >= 0 ? (process.argv[idi + 1] || '').split(',').map((s) => s.trim()).filter(Boolean) : null;
 
@@ -424,12 +436,12 @@ async function runFromProposals(entries) {
 }
 
 // Render + store a batch. Returns the stored doc's summary line.
-async function pushBatch(proposals, name) {
+async function pushBatch(proposals, name, { progress } = {}) {
   const rows = [CSV_HEADER];
   proposals.cases.forEach((p) => p.questions.forEach((q) => rows.push(...proposalCsvRows(p, q))));
-  const doc = buildBatchDoc(proposals, { name, tool: 'rewrite-questions', html: renderRewriteHtml(proposals), csv: toCsv(rows) });
+  const doc = buildBatchDoc(proposals, { name, tool: 'rewrite-questions', html: renderRewriteHtml(proposals), csv: toCsv(rows), progress });
   const replaced = await storeBatch(ReviewBatch, doc, { force: FORCE });
-  return (replaced ? 'Replaced' : 'Stored') + ' batch "' + name + '" in the database (' + doc.caseCount + ' case(s), ' + doc.questionCount + ' question(s)). Download it from /review.html → Review batches, or GET /api/admin/review-batches/' + name + '/html and /csv.';
+  return (replaced && !progress ? 'Replaced' : 'Stored') + ' batch "' + name + '" in the database (' + doc.caseCount + ' case(s), ' + doc.questionCount + ' question(s)). Download it from /review.html → Review batches, or GET /api/admin/review-batches/' + name + '/html and /csv.';
 }
 
 async function listBatches() {
@@ -447,9 +459,176 @@ async function listBatches() {
   });
 }
 
+// Generate one batch of cases (PARALLEL at a time). With saveName: resume
+// from the stored batch of that name, store progress after every case,
+// write NAME.json/.html/.csv at the end. Without: mutate entries in place
+// for --apply.
+async function generateBatch(cases, batch, saveName) {
+  console.log('Rewriting ' + batch.length + ' of ' + cases.length + ' case(s) with model ' + MODEL + (saveName ? ' -> batch "' + batchName(saveName) + '"' : '') + ' (' + PARALLEL + ' at a time: ' + batch[0].externalId + ' … ' + batch[batch.length - 1].externalId + ')...\n');
+
+  // Resume: a --save run that stopped (dropped shell, error) has already
+  // stored the cases it finished; a re-run with the same name skips those.
+  const proposals = { generatedAt: new Date().toISOString(), model: MODEL, mode: 'rewrite', cases: [] };
+  let resumed = 0;
+  if (saveName && !FRESH) {
+    const prior = await ReviewBatch.findOne({ name: batchName(saveName) }).select('proposals generatedAt model').lean();
+    const priorCases = prior && prior.proposals && Array.isArray(prior.proposals.cases) ? prior.proposals.cases : [];
+    const wanted = new Set(batch.map((e) => e.externalId));
+    priorCases.filter((p) => wanted.has(p.externalId)).forEach((p) => { proposals.cases.push(p); wanted.delete(p.externalId); });
+    resumed = proposals.cases.length;
+    if (resumed) {
+      proposals.generatedAt = prior.generatedAt ? new Date(prior.generatedAt).toISOString() : proposals.generatedAt;
+      console.log('Resuming stored batch "' + batchName(saveName) + '": ' + resumed + ' case(s) already done, ' + (batch.length - resumed) + ' to go (--fresh to regenerate all).\n');
+    }
+  }
+  const doneIds = new Set(proposals.cases.map((p) => p.externalId));
+  const todo = batch.filter((e) => !doneIds.has(e.externalId));
+  if (!todo.length) { console.log('Batch "' + batchName(saveName) + '" is already complete in the database — nothing to generate.\n'); return proposals; }
+  const order = {};
+  batch.forEach((e, i) => { order[e.externalId] = i; });
+
+  let done = 0;
+  let stored = null; // last store error, if any
+
+  // Store what is finished so far (proposals sorted back into batch order).
+  async function storeProgress(finished) {
+    if (!saveName || !proposals.cases.length) return;
+    proposals.cases.sort((a, b) => (order[a.externalId] || 0) - (order[b.externalId] || 0));
+    try { await pushBatch(proposals, batchName(saveName), { progress: { done: finished, total: batch.length } }); stored = null; }
+    catch (e) { stored = e.message; }
+  }
+
+  // One case: pass 1 generates every question; a question that fails for a
+  // reason other than length is regenerated once (pass 2) with its reasons.
+  // Any question that fails ONLY on length, from either pass, goes to the
+  // text-only length passes instead of being regenerated. Output is buffered
+  // per case so parallel cases don't interleave.
+  async function rewriteCase(entry) {
+    const out = [];
+    const log = (l) => out.push(l);
+    log('  ' + entry.externalId + ' (' + entry.items.length + ' question(s))...');
+    const proposed = [];
+    const accept = (it, candidate, note) => {
+      log('    q' + (it.qi + 1) + ': OK' + (note || ''));
+      log('      ' + candidate.question);
+      candidate.options.slice().sort((a, b) => b.weight - a.weight).forEach((o) => log('      [' + (o.weight >= 0 ? ' ' : '') + o.weight + '] ' + o.id + ': ' + o.text + '  (' + o.text.length + ')'));
+      proposed.push({ qi: it.qi, questionId: it.question.id, domain: it.question.domain, before: { question: it.question.question, evidenceRef: it.question.evidenceRef || [], options: it.question.options }, after: { question: candidate.question, evidenceRef: candidate.evidenceRef, options: candidate.options } });
+      if (!saveName) { entry.caseObj.questions[it.qi] = candidate; entry.repairedQis.push(it.qi); }
+      done += 1;
+    };
+
+    let lengthQueue = [];
+    let aborted = false;
+    let pending = entry.items.map((it) => Object.assign({}, it));
+    for (let pass = 1; pass <= 2 && pending.length; pass++) {
+      if (pass > 1) log('    retry: ' + pending.length + ' question(s) — ' + pending.map((r) => 'q' + (r.qi + 1)).join(', '));
+      let reply;
+      try {
+        // Opus thinks before it answers and that counts against max_tokens;
+        // 13 questions of JSON alone run ~10k tokens. Ceiling, not a charge.
+        reply = extractJson(await callAnthropic(buildRewritePrompt(entry.caseObj, pending), { maxTokens: 48000 }));
+      } catch (e) {
+        log('    ERROR: ' + e.message.slice(0, 150));
+        aborted = true;
+        break;
+      }
+      const byQ = {};
+      (reply.questions || []).forEach((r) => { if (r && r.q != null) byQ[Number(r.q)] = r; });
+      const next = [];
+      for (const it of pending) {
+        const tag = 'q' + (it.qi + 1);
+        const n = normalizeReply(it.question, byQ[it.qi + 1]);
+        if (n.error) { log('    ' + tag + ': ' + n.error); next.push(Object.assign({}, it, { reasons: [n.error] })); continue; }
+        const why = rejectReasons(entry.caseObj, it.qi, n.candidate);
+        if (!why) { accept(it, n.candidate, pass > 1 ? ' (after retry)' : ''); continue; }
+        if (isLengthOnly(why)) { log('    ' + tag + ': off-length — ' + why.join(' | ')); lengthQueue.push({ it, candidate: n.candidate, reasons: why }); continue; }
+        log('    ' + tag + ': ' + why.join(' | '));
+        next.push(Object.assign({}, it, { reasons: why.concat(isLengthOnly(why.filter((r) => /longest|ratio/.test(r))) ? [lengthNote(n.candidate)] : []) }));
+      }
+      pending = next;
+    }
+    if (aborted) log('    ' + pending.length + ' question(s) not attempted because of the error above — left unchanged (re-run picks them up)');
+    else pending.forEach((it) => log('    q' + (it.qi + 1) + ': still failing after retry — left unchanged'));
+
+    for (let lp = 1; lp <= LENGTH_PASSES && lengthQueue.length; lp++) {
+      log('    length pass ' + lp + ': ' + lengthQueue.length + ' question(s) — ' + lengthQueue.map((r) => 'q' + (r.it.qi + 1)).join(', '));
+      let reply2;
+      try {
+        reply2 = extractJson(await callAnthropic(buildRewriteLengthPrompt(entry.caseObj, lengthQueue), { maxTokens: 16000 }));
+      } catch (e) {
+        log('    ERROR (length pass): ' + e.message.slice(0, 150));
+        break;
+      }
+      const byQ2 = {};
+      (reply2.questions || []).forEach((r) => { if (r && r.q != null) byQ2[Number(r.q)] = r.options; });
+      const next = [];
+      for (const r of lengthQueue) {
+        const tag = 'q' + (r.it.qi + 1);
+        const cand2 = mergeTextOnly(r.candidate, byQ2[r.it.qi + 1]);
+        if (!cand2) { log('    ' + tag + ': length pass reply unusable — left unchanged'); continue; }
+        const why = rejectReasons(entry.caseObj, r.it.qi, cand2);
+        if (!why) { accept(r.it, cand2, ' (after length pass ' + lp + ')'); continue; }
+        if (isLengthOnly(why) && lp < LENGTH_PASSES) { next.push({ it: r.it, candidate: cand2, reasons: why }); continue; }
+        log('    ' + tag + ': ' + why.join(' | ') + ' — left unchanged');
+      }
+      lengthQueue = next;
+    }
+    lengthQueue.forEach((r) => log('    q' + (r.it.qi + 1) + ': still off-length after ' + LENGTH_PASSES + ' passes — left unchanged'));
+
+    if (proposed.length) {
+      const c = entry.caseObj;
+      proposals.cases.push({ externalId: entry.externalId, status: entry.status, title: c.title, dx: (c.diagnosis && c.diagnosis.name) || (c.primaryDiagnosis && c.primaryDiagnosis.name) || '', difficulty: c.difficulty, questionCount: c.questions.length, questions: proposed });
+    }
+    return { out, complete: !aborted && proposed.length === entry.items.length };
+  }
+
+  // Run up to PARALLEL cases at once; print each case's buffered output as
+  // it finishes and store progress after every case.
+  let finished = resumed;
+  let next = 0;
+  const startedAt = Date.now();
+  async function worker() {
+    while (next < todo.length) {
+      const entry = todo[next++];
+      const r = await rewriteCase(entry);
+      finished += 1;
+      console.log(r.out.join('\n'));
+      await storeProgress(finished);
+      const mins = ((Date.now() - startedAt) / 60000).toFixed(1);
+      console.log('    -- ' + finished + '/' + batch.length + ' case(s) done after ' + mins + ' min' + (saveName ? (stored ? ' (store FAILED: ' + stored + ')' : ' — stored') : '') + '\n');
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(PARALLEL, todo.length) }, worker));
+  proposals.cases.sort((a, b) => (order[a.externalId] || 0) - (order[b.externalId] || 0));
+  const got = new Set(proposals.cases.map((p) => p.externalId));
+  const missing = batch.filter((e) => !got.has(e.externalId)).map((e) => e.externalId);
+  if (missing.length) console.log('\n' + missing.length + ' case(s) produced no accepted question (see errors above): ' + missing.join(', ') + (saveName ? ' — re-run the same command to retry just those.' : ''));
+
+  const totalDone = proposals.cases.reduce((n, p) => n + p.questions.length, 0);
+  console.log('\n' + done + ' question(s) rewritten this run' + (resumed ? ' (+ ' + (totalDone - done) + ' resumed)' : '') + ' across ' + proposals.cases.length + ' case(s).');
+
+  if (saveName) {
+    fs.mkdirSync(path.dirname(path.resolve(saveName)), { recursive: true });
+    fs.writeFileSync(saveName + '.json', JSON.stringify(proposals, null, 1));
+    fs.writeFileSync(saveName + '.html', renderRewriteHtml(proposals));
+    const rows = [CSV_HEADER];
+    proposals.cases.forEach((p) => p.questions.forEach((q) => rows.push(...proposalCsvRows(p, q))));
+    fs.writeFileSync(saveName + '.csv', toCsv(rows));
+    console.log('Wrote ' + saveName + '.json (proposals), ' + saveName + '.html (review document), ' + saveName + '.csv (review sheet, ' + (rows.length - 1) + ' option rows).');
+    if (proposals.cases.length) {
+      try { console.log(await pushBatch(proposals, batchName(saveName), { progress: { done: batch.length, total: batch.length } })); }
+      catch (e) { console.log('Could not store the batch in the database: ' + e.message + ' (the files above are intact; --push-db ' + saveName + '.json to retry)'); }
+    }
+    console.log('No case was changed. After review: --from ' + batchName(saveName) + ' [--apply --keep-status] (or --from ' + saveName + '.json --review ' + saveName + '.csv)');
+  }
+  return proposals;
+}
+
 async function main() {
   if (!process.env.MONGO_URI) { console.error('MONGO_URI is not set. Add it to your .env first.'); process.exit(1); }
-  if (SAVE && APPLY) { console.error('--save writes proposals for review instead of the database; drop --apply (apply later with --from).'); process.exit(1); }
+  if ((SAVE || SERIES) && APPLY) { console.error('--save/--series write proposals for review instead of the database; drop --apply (apply later with --from).'); process.exit(1); }
+  if (SAVE && SERIES) { console.error('use either --save NAME (one batch) or --series PREFIX (numbered batches until the bank is done), not both.'); process.exit(1); }
+  if (SERIES && !BATCH_NAME_RX.test(batchName(SERIES) + '1')) { console.error('--series prefix must be letters/digits/_/- (got "' + batchName(SERIES) + '")'); process.exit(1); }
   await mongoose.connect(process.env.MONGO_URI, { dbName: 'passreadyprep' });
   console.log('Connected to MongoDB (db: passreadyprep)\n');
 
@@ -492,110 +671,29 @@ async function main() {
   }
   if (!process.env.ANTHROPIC_API_KEY) { console.error('\nANTHROPIC_API_KEY not set.'); process.exit(1); }
 
-  const batch = cases.slice(SKIP, SKIP + COUNT);
-  if (!batch.length) { console.log('--skip ' + SKIP + ' is past the end of the ' + cases.length + ' case(s); nothing to do.'); await mongoose.disconnect(); return; }
-  console.log('Rewriting ' + batch.length + ' of ' + cases.length + ' case(s) with model ' + MODEL + ' (' + (SKIP ? 'skipping the first ' + SKIP + ', ' : '') + '--count ' + COUNT + ', one API call each: ' + batch[0].externalId + ' … ' + batch[batch.length - 1].externalId + ')...\n');
-
-  const proposals = { generatedAt: new Date().toISOString(), model: MODEL, mode: 'rewrite', cases: [] };
-  let done = 0;
-  for (const entry of batch) {
-    console.log('  ' + entry.externalId + ' (' + entry.items.length + ' question(s))...');
-    const proposed = [];
-    const accept = (it, candidate, note) => {
-      console.log('    q' + (it.qi + 1) + ': OK' + (note || ''));
-      console.log('      ' + candidate.question);
-      candidate.options.slice().sort((a, b) => b.weight - a.weight).forEach((o) => console.log('      [' + (o.weight >= 0 ? ' ' : '') + o.weight + '] ' + o.id + ': ' + o.text + '  (' + o.text.length + ')'));
-      proposed.push({ qi: it.qi, questionId: it.question.id, domain: it.question.domain, before: { question: it.question.question, evidenceRef: it.question.evidenceRef || [], options: it.question.options }, after: { question: candidate.question, evidenceRef: candidate.evidenceRef, options: candidate.options } });
-      if (!SAVE) { entry.caseObj.questions[it.qi] = candidate; entry.repairedQis.push(it.qi); }
-      done += 1;
-    };
-
-    // Pass 1 generates every question; a question that fails for a reason
-    // other than length is regenerated once (pass 2) with its reasons. Any
-    // question that fails ONLY on length, from either pass, goes to the
-    // text-only length passes instead of being regenerated.
-    let lengthQueue = [];
-    let aborted = false;
-    let pending = entry.items.map((it) => Object.assign({}, it));
-    for (let pass = 1; pass <= 2 && pending.length; pass++) {
-      if (pass > 1) console.log('    retry: ' + pending.length + ' question(s) — ' + pending.map((r) => 'q' + (r.qi + 1)).join(', '));
-      let reply;
-      try {
-        // Opus thinks before it answers and that counts against max_tokens;
-        // 13 questions of JSON alone run ~10k tokens. Ceiling, not a charge.
-        reply = extractJson(await callAnthropic(buildRewritePrompt(entry.caseObj, pending), { maxTokens: 48000 }));
-      } catch (e) {
-        console.log('    ERROR: ' + e.message.slice(0, 150));
-        aborted = true;
-        break;
-      }
-      const byQ = {};
-      (reply.questions || []).forEach((r) => { if (r && r.q != null) byQ[Number(r.q)] = r; });
-      const next = [];
-      for (const it of pending) {
-        const tag = 'q' + (it.qi + 1);
-        const n = normalizeReply(it.question, byQ[it.qi + 1]);
-        if (n.error) { console.log('    ' + tag + ': ' + n.error); next.push(Object.assign({}, it, { reasons: [n.error] })); continue; }
-        const why = rejectReasons(entry.caseObj, it.qi, n.candidate);
-        if (!why) { accept(it, n.candidate, pass > 1 ? ' (after retry)' : ''); continue; }
-        if (isLengthOnly(why)) { console.log('    ' + tag + ': off-length — ' + why.join(' | ')); lengthQueue.push({ it, candidate: n.candidate, reasons: why }); continue; }
-        console.log('    ' + tag + ': ' + why.join(' | '));
-        next.push(Object.assign({}, it, { reasons: why.concat(isLengthOnly(why.filter((r) => /longest|ratio/.test(r))) ? [lengthNote(n.candidate)] : []) }));
-      }
-      pending = next;
+  const seriesDir = SERIES ? SERIES : null;
+  if (SERIES) {
+    // Walk the whole bank in COUNT-sized batches named SERIES1, SERIES2, …
+    // starting at --skip. Batches already reviewed or complete are skipped,
+    // a partial one resumes, so the same command can be re-run until done.
+    let k = 1;
+    for (let off = SKIP; off < cases.length; off += COUNT, k++) {
+      const saveName = seriesDir + k;
+      const batch = cases.slice(off, off + COUNT);
+      const prior = await ReviewBatch.findOne({ name: batchName(saveName) }).select('reviewCsv appliedAt').lean();
+      if (prior && (prior.reviewCsv || prior.appliedAt) && !FORCE) { console.log('Batch "' + batchName(saveName) + '" already has a review sheet' + (prior.appliedAt ? ' and was applied' : '') + ' — skipped.\n'); continue; }
+      console.log('=== Batch ' + k + ': cases ' + (off + 1) + '–' + (off + batch.length) + ' of ' + cases.length + ' ===');
+      await generateBatch(cases, batch, saveName);
     }
-    if (aborted) console.log('    ' + pending.length + ' question(s) not attempted because of the error above — left unchanged (re-run picks them up)');
-    else pending.forEach((it) => console.log('    q' + (it.qi + 1) + ': still failing after retry — left unchanged'));
-
-    for (let lp = 1; lp <= LENGTH_PASSES && lengthQueue.length; lp++) {
-      console.log('    length pass ' + lp + ': ' + lengthQueue.length + ' question(s) — ' + lengthQueue.map((r) => 'q' + (r.it.qi + 1)).join(', '));
-      let reply2;
-      try {
-        reply2 = extractJson(await callAnthropic(buildRewriteLengthPrompt(entry.caseObj, lengthQueue), { maxTokens: 16000 }));
-      } catch (e) {
-        console.log('    ERROR (length pass): ' + e.message.slice(0, 150));
-        break;
-      }
-      const byQ2 = {};
-      (reply2.questions || []).forEach((r) => { if (r && r.q != null) byQ2[Number(r.q)] = r.options; });
-      const next = [];
-      for (const r of lengthQueue) {
-        const tag = 'q' + (r.it.qi + 1);
-        const cand2 = mergeTextOnly(r.candidate, byQ2[r.it.qi + 1]);
-        if (!cand2) { console.log('    ' + tag + ': length pass reply unusable — left unchanged'); continue; }
-        const why = rejectReasons(entry.caseObj, r.it.qi, cand2);
-        if (!why) { accept(r.it, cand2, ' (after length pass ' + lp + ')'); continue; }
-        if (isLengthOnly(why) && lp < LENGTH_PASSES) { next.push({ it: r.it, candidate: cand2, reasons: why }); continue; }
-        console.log('    ' + tag + ': ' + why.join(' | ') + ' — left unchanged');
-      }
-      lengthQueue = next;
-    }
-    lengthQueue.forEach((r) => console.log('    q' + (r.it.qi + 1) + ': still off-length after ' + LENGTH_PASSES + ' passes — left unchanged'));
-
-    if (proposed.length) {
-      const c = entry.caseObj;
-      proposals.cases.push({ externalId: entry.externalId, status: entry.status, title: c.title, dx: (c.diagnosis && c.diagnosis.name) || (c.primaryDiagnosis && c.primaryDiagnosis.name) || '', difficulty: c.difficulty, questionCount: c.questions.length, questions: proposed });
-    }
-  }
-
-  console.log('\n' + done + ' question(s) rewritten across ' + proposals.cases.length + ' case(s).');
-
-  if (SAVE) {
-    fs.mkdirSync(path.dirname(path.resolve(SAVE)), { recursive: true });
-    fs.writeFileSync(SAVE + '.json', JSON.stringify(proposals, null, 1));
-    fs.writeFileSync(SAVE + '.html', renderRewriteHtml(proposals));
-    const rows = [CSV_HEADER];
-    proposals.cases.forEach((p) => p.questions.forEach((q) => rows.push(...proposalCsvRows(p, q))));
-    fs.writeFileSync(SAVE + '.csv', toCsv(rows));
-    console.log('Wrote ' + SAVE + '.json (proposals), ' + SAVE + '.html (review document), ' + SAVE + '.csv (review sheet, ' + (rows.length - 1) + ' option rows).');
-    if (proposals.cases.length) {
-      try { console.log(await pushBatch(proposals, batchName(SAVE))); }
-      catch (e) { console.log('Could not store the batch in the database: ' + e.message + ' (the files above are intact; --push-db ' + SAVE + '.json to retry)'); }
-    }
-    console.log('No case was changed. After review: --from ' + batchName(SAVE) + ' [--apply --keep-status] (or --from ' + SAVE + '.json --review ' + SAVE + '.csv)');
+    console.log('Series done: ' + (k - 1) + ' batch(es) covering ' + cases.length + ' case(s). --batches lists them.');
     await mongoose.disconnect();
     return;
   }
+
+  const batch = cases.slice(SKIP, SKIP + COUNT);
+  if (!batch.length) { console.log('--skip ' + SKIP + ' is past the end of the ' + cases.length + ' case(s); nothing to do.'); await mongoose.disconnect(); return; }
+  await generateBatch(cases, batch, SAVE);
+  if (SAVE) { await mongoose.disconnect(); return; }
 
   if (!APPLY) {
     console.log('Dry run — nothing written. Re-run with --apply to save these' + (KEEP_STATUS ? '.' : ' and send the case(s) back to sme_review.'));
