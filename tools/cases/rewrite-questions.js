@@ -489,6 +489,8 @@ async function generateBatch(cases, batch, saveName) {
 
   let done = 0;
   let stored = null; // last store error, if any
+  let fatal = null;  // an API error that will hit every case (billing, auth)
+  const isFatal = (msg) => /credit balance|billing|API 401|API 403|ANTHROPIC_API_KEY/i.test(msg);
 
   // Store what is finished so far (proposals sorted back into batch order).
   async function storeProgress(finished) {
@@ -529,6 +531,7 @@ async function generateBatch(cases, batch, saveName) {
         reply = extractJson(await callAnthropic(buildRewritePrompt(entry.caseObj, pending), { maxTokens: 48000 }));
       } catch (e) {
         log('    ERROR: ' + e.message.slice(0, 150));
+        if (isFatal(e.message)) fatal = e.message.slice(0, 150);
         aborted = true;
         break;
       }
@@ -588,18 +591,23 @@ async function generateBatch(cases, batch, saveName) {
   let next = 0;
   const startedAt = Date.now();
   async function worker() {
-    while (next < todo.length) {
+    while (next < todo.length && !fatal) {
       const entry = todo[next++];
       const r = await rewriteCase(entry);
       finished += 1;
       console.log(r.out.join('\n'));
       await storeProgress(finished);
       const mins = ((Date.now() - startedAt) / 60000).toFixed(1);
-      console.log('    -- ' + finished + '/' + batch.length + ' case(s) done after ' + mins + ' min' + (saveName ? (stored ? ' (store FAILED: ' + stored + ')' : ' — stored') : '') + '\n');
+      console.log('    -- ' + finished + '/' + batch.length + ' case(s) done after ' + mins + ' min' + (saveName && proposals.cases.length ? (stored ? ' (store FAILED: ' + stored + ')' : ' — stored') : '') + '\n');
     }
   }
   await Promise.all(Array.from({ length: Math.min(PARALLEL, todo.length) }, worker));
   proposals.cases.sort((a, b) => (order[a.externalId] || 0) - (order[b.externalId] || 0));
+  if (fatal) {
+    console.log('\nSTOPPED: the API is rejecting every request — ' + fatal + '\nFix that (credits, key), then re-run the same command; it resumes from here.');
+    process.exitCode = 2;
+    return proposals;
+  }
   const got = new Set(proposals.cases.map((p) => p.externalId));
   const missing = batch.filter((e) => !got.has(e.externalId)).map((e) => e.externalId);
   if (missing.length) console.log('\n' + missing.length + ' case(s) produced no accepted question (see errors above): ' + missing.join(', ') + (saveName ? ' — re-run the same command to retry just those.' : ''));
@@ -684,6 +692,7 @@ async function main() {
       if (prior && (prior.reviewCsv || prior.appliedAt) && !FORCE) { console.log('Batch "' + batchName(saveName) + '" already has a review sheet' + (prior.appliedAt ? ' and was applied' : '') + ' — skipped.\n'); continue; }
       console.log('=== Batch ' + k + ': cases ' + (off + 1) + '–' + (off + batch.length) + ' of ' + cases.length + ' ===');
       await generateBatch(cases, batch, saveName);
+      if (process.exitCode === 2) { await mongoose.disconnect(); return; }
     }
     console.log('Series done: ' + (k - 1) + ' batch(es) covering ' + cases.length + ' case(s). --batches lists them.');
     await mongoose.disconnect();
