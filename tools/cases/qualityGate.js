@@ -98,6 +98,17 @@ function checkQuestionQuality(q, tag) {
   return errors;
 }
 
+// Bucket a gate message for summaries (audit-quality --summary, fix-distractors plan).
+function classifyReason(msg) {
+  if (/weights \[/.test(msg)) return 'weights';
+  if (/longest option/.test(msg)) return 'key-longest';
+  if (/length ratio/.test(msg)) return 'ratio';
+  if (/absolute language/.test(msg)) return 'absolutes';
+  if (/commonMistake/.test(msg)) return 'mistake';
+  if (/empty option/.test(msg)) return 'empty';
+  return 'other';
+}
+
 // Check every question in a case. Returns { ok, errors }.
 function checkCaseQuality(c) {
   const errors = [];
@@ -110,4 +121,4 @@ function checkCaseQuality(c) {
   return { ok: errors.length === 0, errors };
 }
 
-module.exports = { checkQuestionQuality, checkCaseQuality, ABSOLUTES, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK };
+module.exports = { checkQuestionQuality, checkCaseQuality, classifyReason, ABSOLUTES, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK };
