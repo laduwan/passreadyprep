@@ -229,11 +229,13 @@ function tabsHtml(){
     + '<button class="'+(TAB==='sme_review'?'on':'')+'" onclick="setTab(\'sme_review\')">Pending review</button>'
     + '<button class="'+(TAB==='published'?'on':'')+'" onclick="setTab(\'published\')">Published</button>'
     + '<button class="'+(TAB==='generate'?'on':'')+'" onclick="setTab(\'generate\')" style="border-color:'+(TAB==='generate'?'var(--primary)':'var(--border)')+'">⚡ Cases</button>'
+    + '<button class="'+(TAB==='batches'?'on':'')+'" onclick="setTab(\'batches\')">📋 Review batches</button>'
     + '</div>';
 }
 
 async function showList(){
   if(TAB==='generate') return showGenerate();
+  if(TAB==='batches') return showBatches();
   app.innerHTML = '<p class="lead">Loading…</p>';
   let data;
   try{ data = await api('/api/admin/content?status='+TAB); }
@@ -255,6 +257,81 @@ async function showList(){
   app.innerHTML = h;
 }
 function setTab(t){ TAB=t; showList(); }
+
+// ── Review batches tab ──────────────────────────────────────────────
+// Batches stored by tools/cases/rewrite-questions.js --save NAME. The SME
+// downloads the HTML document + CSV decision sheet, fills the sheet in Excel
+// or Sheets, and uploads it here; the tool applies it with --from NAME.
+function fmtWhen(d){ if(!d) return ''; try{ return new Date(d).toLocaleString(); }catch(e){ return String(d); } }
+
+async function showBatches(){
+  app.innerHTML = tabsHtml() + '<p class="lead">Loading…</p>';
+  let data;
+  try{ data = await api('/api/admin/review-batches'); }
+  catch(e){ return gate(e.message); }
+  let h = tabsHtml();
+  h += '<h1>Review batches <span style="color:var(--muted);font-weight:400">('+data.count+')</span></h1>';
+  h += '<p class="lead">Each batch is a set of rewritten questions waiting for SME sign-off. Download the <b>HTML</b> (the review document: every question before and after) and the <b>CSV</b> (the decision sheet). Fill the sheet — <code>approve</code> N rejects a question; <code>weight_override</code>, <code>text_override</code>, <code>stem_override</code> change a proposal; blank accepts it — then upload it here. Nothing goes live until the batch is applied from the server shell.</p>';
+  if(!data.count) h += '<div class="card"><p class="lead" style="margin:0">No batches stored yet. In the Render shell: <code>node tools/cases/rewrite-questions.js --generate --count 15 --save tools/cases/review/rw1</code></p></div>';
+  data.items.forEach(b=>{
+    let state, cls;
+    if(b.appliedAt){ state='Applied '+fmtWhen(b.appliedAt); cls='published'; }
+    else if(b.hasReview){ state='Sheet uploaded '+fmtWhen(b.reviewedAt)+(b.reviewedBy?' by '+esc(b.reviewedBy):''); cls='sme_review'; }
+    else { state='Awaiting review sheet'; cls='needs'; }
+    h += '<div class="card" id="batch-'+esc(b.name)+'">';
+    h += '<div class="row" style="justify-content:space-between"><h2 style="margin:0">'+esc(b.name)+'</h2><span class="status '+cls+'">'+state+'</span></div>';
+    h += '<div class="chips"><span class="chip">'+b.caseCount+' case'+(b.caseCount===1?'':'s')+'</span><span class="chip">'+b.questionCount+' question'+(b.questionCount===1?'':'s')+'</span><span class="chip">'+esc(b.model||'model ?')+'</span><span class="chip">generated '+esc(fmtWhen(b.generatedAt))+'</span></div>';
+    if(b.review && !b.review.error) h += '<div class="key-note" style="margin-top:8px">Decisions on file: '+b.review.questions+' question rows · '+b.review.rejected+' rejected · '+b.review.overridden+' with option overrides · '+b.review.stems+' stem edits.</div>';
+    h += '<div class="row" style="margin-top:12px">';
+    h += '<button class="btn" onclick="downloadBatch(\''+esc(b.name)+'\',\'html\')">⬇ HTML document</button>';
+    h += '<button class="btn" onclick="downloadBatch(\''+esc(b.name)+'\',\'csv\')">⬇ CSV decision sheet</button>';
+    if(b.hasReview) h += '<button class="btn ghost" onclick="downloadBatch(\''+esc(b.name)+'\',\'review\')">⬇ Uploaded sheet</button>';
+    h += '<button class="btn ghost" onclick="downloadBatch(\''+esc(b.name)+'\',\'json\')">⬇ JSON</button>';
+    h += '</div>';
+    h += '<div class="row" style="margin-top:10px"><label class="btn ghost" style="cursor:pointer">'+(b.hasReview?'⬆ Replace filled sheet':'⬆ Upload filled sheet')+'<input type="file" accept=".csv,text/csv" style="display:none" onchange="uploadReview(\''+esc(b.name)+'\',this)" /></label>';
+    if(!b.appliedAt) h += '<button class="btn ghost" onclick="deleteBatch(\''+esc(b.name)+'\')">Discard batch</button>';
+    h += '<span id="batch-msg-'+esc(b.name)+'" class="key-note"></span></div>';
+    if(b.hasReview && !b.appliedAt) h += '<div class="key-note" style="margin-top:8px">To apply: <code>node tools/cases/rewrite-questions.js --from '+esc(b.name)+'</code> (plan), then <code>--from '+esc(b.name)+' --apply --keep-status</code>.</div>';
+    h += '</div>';
+  });
+  app.innerHTML = h;
+}
+
+// Downloads carry the admin JWT, so they go through fetch + a blob URL
+// rather than a plain link.
+async function downloadBatch(name, part){
+  const token = sessionStorage.getItem('prp_admin_jwt') || '';
+  const r = await fetch('/api/admin/review-batches/'+encodeURIComponent(name)+'/'+part, { headers:{ 'Authorization':'Bearer '+token } });
+  if(r.status===401){ clearSession(); return gate('Your admin session has expired — sign in again.'); }
+  if(!r.ok){ const j=await r.json().catch(()=>({})); return alert(j.error||('Error '+r.status)); }
+  const blob = await r.blob();
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name + (part==='review'?'.reviewed.csv':'.'+part);
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+}
+
+async function uploadReview(name, input){
+  const file = input.files && input.files[0];
+  if(!file) return;
+  const msg = document.getElementById('batch-msg-'+name);
+  msg.textContent = 'Uploading '+file.name+'…';
+  try{
+    const text = await file.text();
+    const by = sessionStorage.getItem('prp_admin_email') || '';
+    const data = await api('/api/admin/review-batches/'+encodeURIComponent(name)+'/review?by='+encodeURIComponent(by), { method:'POST', headers:{'Content-Type':'text/csv'}, body:text });
+    msg.textContent = 'Stored: '+data.review.questions+' question rows, '+data.review.rejected+' rejected, '+data.review.overridden+' with overrides.'+(data.warning?' Warning: '+data.warning:'');
+    setTimeout(showBatches, 1200);
+  }catch(e){ msg.textContent = 'Upload failed: '+e.message; }
+  input.value = '';
+}
+
+async function deleteBatch(name){
+  if(!confirm('Discard batch "'+name+'"? This removes its proposals and any uploaded sheet. Cases are not changed.')) return;
+  try{ await api('/api/admin/review-batches/'+encodeURIComponent(name), { method:'DELETE' }); showBatches(); }
+  catch(e){ alert(e.message); }
+}
 
 // ── Generate tab ────────────────────────────────────────────────────
 

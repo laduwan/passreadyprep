@@ -6,7 +6,9 @@ const User = require('../models/User');
 const Attempt = require('../models/Attempt');
 const ActivityEvent = require('../models/ActivityEvent');
 const StudyActivity = require('../models/StudyActivity');
+const ReviewBatch = require('../models/ReviewBatch');
 const { logActivity } = require('../utils/activity');
+const { BATCH_NAME_RX, reviewSheetSummary } = require('../tools/cases/reviewRoundTrip');
 
 const router = express.Router();
 router.use(requireAdmin);
@@ -255,6 +257,103 @@ router.post('/content/:externalId/note', async (req, res) => {
   } catch (err) {
     console.error('admin note error', err);
     return res.status(500).json({ error: 'Could not save the note' });
+  }
+});
+
+// ── SME review batches ──────────────────────────────────────────────
+// Stored by tools/cases/rewrite-questions.js --save NAME (or --push-db).
+// The reviewer downloads the HTML document + CSV decision sheet here, fills
+// the sheet, and uploads it back; `--from NAME --apply` then applies it.
+
+function batchParam(req, res) {
+  const name = String(req.params.name || '');
+  if (!BATCH_NAME_RX.test(name)) { res.status(400).json({ error: 'Bad batch name' }); return null; }
+  return name;
+}
+
+// GET /api/admin/review-batches — every stored batch, oldest first.
+router.get('/review-batches', async (_req, res) => {
+  try {
+    const rows = await ReviewBatch.find({})
+      .select('name tool mode model generatedAt caseCount questionCount reviewedAt reviewedBy appliedAt reviewCsv updatedAt')
+      .sort({ generatedAt: 1 })
+      .lean();
+    const items = rows.map((b) => {
+      let review = null;
+      if (b.reviewCsv) { try { review = reviewSheetSummary(b.reviewCsv); } catch (_) { review = { error: 'unreadable' }; } }
+      return {
+        name: b.name, tool: b.tool, mode: b.mode, model: b.model, generatedAt: b.generatedAt,
+        caseCount: b.caseCount, questionCount: b.questionCount,
+        hasReview: !!b.reviewCsv, reviewedAt: b.reviewedAt || null, reviewedBy: b.reviewedBy || null, review,
+        appliedAt: b.appliedAt || null, updatedAt: b.updatedAt,
+      };
+    });
+    return res.json({ count: items.length, items });
+  } catch (err) {
+    console.error('admin review-batches list error', err);
+    return res.status(500).json({ error: 'Could not load review batches' });
+  }
+});
+
+// GET /api/admin/review-batches/:name/html|csv|json|review — one stored file.
+//   html   the review document          csv     the blank decision sheet
+//   json   the exact proposals          review  the uploaded (filled) sheet
+router.get('/review-batches/:name/:part(html|csv|json|review)', async (req, res) => {
+  const name = batchParam(req, res);
+  if (!name) return undefined;
+  try {
+    const field = { html: 'html', csv: 'csv', json: 'proposals', review: 'reviewCsv' }[req.params.part];
+    const b = await ReviewBatch.findOne({ name }).select(field).lean();
+    if (!b) return res.status(404).json({ error: 'Batch not found' });
+    if (b[field] == null || b[field] === '') return res.status(404).json({ error: 'That batch has no ' + req.params.part + ' yet' });
+    const filename = name + (req.params.part === 'review' ? '.reviewed.csv' : '.' + req.params.part);
+    res.set('Content-Disposition', 'attachment; filename="' + filename + '"');
+    if (field === 'proposals') return res.json(b.proposals);
+    res.type(req.params.part === 'html' ? 'text/html' : 'text/csv');
+    return res.send(b[field]);
+  } catch (err) {
+    console.error('admin review-batch get error', err);
+    return res.status(500).json({ error: 'Could not load that batch file' });
+  }
+});
+
+// POST /api/admin/review-batches/:name/review — upload the filled decision
+// sheet. Body is the CSV text (Content-Type text/csv or text/plain). The
+// sheet must still carry the decision columns; a partially filled sheet is
+// fine (blank = accept as proposed). Re-uploading replaces the earlier one.
+router.post('/review-batches/:name/review', express.text({ type: ['text/csv', 'text/plain', 'application/csv'], limit: '10mb' }), async (req, res) => {
+  const name = batchParam(req, res);
+  if (!name) return undefined;
+  try {
+    const text = typeof req.body === 'string' ? req.body : '';
+    if (!text.trim()) return res.status(400).json({ error: 'Empty sheet — send the CSV text as the request body (Content-Type: text/csv)' });
+    let summary;
+    try { summary = reviewSheetSummary(text); }
+    catch (e) { return res.status(400).json({ error: 'Not a review sheet: ' + e.message }); }
+    if (!summary.questions) return res.status(400).json({ error: 'The sheet has a header but no rows' });
+    const b = await ReviewBatch.findOne({ name }).select('questionCount appliedAt').lean();
+    if (!b) return res.status(404).json({ error: 'Batch not found' });
+    const reviewedBy = req.query.by || '';
+    await ReviewBatch.updateOne({ _id: b._id }, { $set: { reviewCsv: text, reviewedAt: new Date(), reviewedBy: String(reviewedBy).slice(0, 120) } });
+    return res.json({ name, review: summary, questionCount: b.questionCount, warning: summary.questions !== b.questionCount ? 'the sheet covers ' + summary.questions + ' question(s) but the batch has ' + b.questionCount : null });
+  } catch (err) {
+    console.error('admin review-batch upload error', err);
+    return res.status(500).json({ error: 'Could not store the review sheet' });
+  }
+});
+
+// DELETE /api/admin/review-batches/:name — discard a batch (its proposals,
+// files and any uploaded sheet). Does not touch cases.
+router.delete('/review-batches/:name', async (req, res) => {
+  const name = batchParam(req, res);
+  if (!name) return undefined;
+  try {
+    const r = await ReviewBatch.deleteOne({ name });
+    if (!r.deletedCount) return res.status(404).json({ error: 'Batch not found' });
+    return res.json({ name, deleted: true });
+  } catch (err) {
+    console.error('admin review-batch delete error', err);
+    return res.status(500).json({ error: 'Could not delete that batch' });
   }
 });
 

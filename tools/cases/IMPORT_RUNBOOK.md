@@ -98,14 +98,42 @@ too; `weight_override` may move it) and a `stem_override` column.
 ```bash
 node tools/cases/rewrite-questions.js                                              # plan
 node tools/cases/rewrite-questions.js --generate --ids ncmhce-D160                 # 1 call, print rewrites
-node tools/cases/rewrite-questions.js --generate --count 30 --save tools/cases/review/rw1
-node tools/cases/rewrite-questions.js --generate --skip 30 --count 30 --save tools/cases/review/rw2
-node tools/cases/rewrite-questions.js --from tools/cases/review/rw1.json --review tools/cases/review/rw1.csv
+node tools/cases/rewrite-questions.js --generate --count 15 --save tools/cases/review/rw1
+node tools/cases/rewrite-questions.js --generate --skip 15 --count 15 --save tools/cases/review/rw2
+node tools/cases/rewrite-questions.js --batches                                    # what is stored, and its review state
+node tools/cases/rewrite-questions.js --from rw1                                   # plan from the stored batch + uploaded sheet
+node tools/cases/rewrite-questions.js --from rw1 --apply --keep-status
+# file-based equivalent (no database round-trip):
 node tools/cases/rewrite-questions.js --from tools/cases/review/rw1.json --review tools/cases/review/rw1.csv --apply --keep-status
 ```
 
+**Getting the batch to the reviewer.** `--save NAME` writes the three files on
+the box that ran it (a Render shell, usually — where you cannot download
+them) **and stores the batch in MongoDB** (`models/ReviewBatch.js`: the
+proposals, the rendered HTML and the blank CSV). From there:
+
+1. Open `/review.html` → **📋 Review batches**. Each batch has **⬇ HTML
+   document** and **⬇ CSV decision sheet** buttons; send both to the SME.
+2. The SME fills the CSV (Excel / Sheets), you upload it on the same card
+   (**⬆ Upload filled sheet**). The card then shows how many questions were
+   rejected / overridden. Re-uploading replaces the earlier sheet.
+3. In the Render shell: `--from NAME` (plan) then `--from NAME --apply
+   --keep-status`. With no `--review` file it uses the uploaded sheet; with
+   none uploaded every proposal counts as approved. A batch that was applied
+   is marked so on the card and by `--batches`.
+
+A batch generated before this existed (files on disk only) is stored with
+`node tools/cases/rewrite-questions.js --push-db tools/cases/review/rw1.json`.
+`--save`/`--push-db` refuse to overwrite a batch whose sheet is already
+uploaded (use a new name, or `--force`). The same files are also served raw at
+`GET /api/admin/review-batches/NAME/html|csv|json|review` (admin JWT or
+`x-admin-token`), and the sheet is uploaded with
+`POST /api/admin/review-batches/NAME/review` (body = CSV text,
+`Content-Type: text/csv`). Discarding a batch (card button, or `DELETE`) never
+touches cases.
+
 **Reviewed flow (recommended at bank scale).** `--generate --save NAME` writes
-the proposals out for an SME instead of touching the database:
+the proposals out for an SME instead of changing any case:
 
 | File | What it is |
 |---|---|

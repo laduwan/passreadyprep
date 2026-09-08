@@ -126,4 +126,56 @@ async function loadLiveCases(Exam, ContentItem, { explicit, all, from } = {}) {
   });
 }
 
-module.exports = { AUTO_NOTE_PREFIX, TIER_LABEL, CSV_HEADER, toCsv, parseCsv, readReviewSheet, composeNote, esc, writeRepairs, loadLiveCases };
+// ---------------------------------------------------------------------------
+// Batch store (models/ReviewBatch.js). A batch generated in a Render shell
+// only exists on that box's disk; storing it lets /review.html serve the
+// HTML + CSV to the reviewer and take the filled sheet back, and lets
+// `--from NAME` apply it without the files.
+// ---------------------------------------------------------------------------
+
+// 'tools/cases/review/rw1.json' -> 'rw1'; 'rw1' -> 'rw1'.
+function batchName(p) {
+  return String(p || '').split(/[\\/]/).pop().replace(/\.(json|html|csv)$/i, '');
+}
+const BATCH_NAME_RX = /^[A-Za-z0-9][A-Za-z0-9_-]{0,39}$/;
+
+// Tally a filled sheet the way readReviewSheet reads it, for a summary line.
+function reviewSheetSummary(text) {
+  const decisions = readReviewSheet(text);
+  const keys = Object.keys(decisions);
+  let rejected = 0, overridden = 0, stems = 0;
+  keys.forEach((k) => {
+    const d = decisions[k];
+    if (d.rejected) rejected += 1;
+    if (Object.keys(d.overrides).length) overridden += 1;
+    if (d.stem) stems += 1;
+  });
+  return { questions: keys.length, rejected, overridden, stems };
+}
+
+function buildBatchDoc(proposals, { name, tool, html, csv }) {
+  if (!BATCH_NAME_RX.test(name)) throw new Error('batch name must be 1-40 letters, digits, _ or - (got "' + name + '")');
+  const cases = (proposals && proposals.cases) || [];
+  return {
+    name, tool: tool || 'rewrite-questions', mode: proposals.mode, model: proposals.model,
+    generatedAt: proposals.generatedAt ? new Date(proposals.generatedAt) : new Date(),
+    caseCount: cases.length,
+    questionCount: cases.reduce((n, c) => n + ((c.questions || []).length), 0),
+    proposals, html, csv,
+  };
+}
+
+// Upsert by name. Refuses to replace a batch whose review sheet has already
+// been uploaded (that is the reviewer's work) unless force is set.
+async function storeBatch(ReviewBatch, doc, { force } = {}) {
+  const existing = await ReviewBatch.findOne({ name: doc.name }).select('reviewCsv appliedAt').lean();
+  if (existing && existing.reviewCsv && !force) throw new Error('batch "' + doc.name + '" already has a filled review sheet in the database — pick a new name (or --force to overwrite it)');
+  await ReviewBatch.updateOne({ name: doc.name }, { $set: doc, $unset: { reviewCsv: 1, reviewedAt: 1, reviewedBy: 1, appliedAt: 1 } }, { upsert: true });
+  return !!existing;
+}
+
+async function loadBatch(ReviewBatch, name) {
+  return ReviewBatch.findOne({ name }).lean();
+}
+
+module.exports = { AUTO_NOTE_PREFIX, TIER_LABEL, CSV_HEADER, BATCH_NAME_RX, toCsv, parseCsv, readReviewSheet, reviewSheetSummary, composeNote, esc, writeRepairs, loadLiveCases, batchName, buildBatchDoc, storeBatch, loadBatch };
