@@ -195,6 +195,31 @@ reviewed apply that is redundant and, at bank scale, empties the app — pass
 `--keep-status`. The `Auto-repair:` review note and the `/review.html`
 "Needs work" badge still record what changed.
 
+## Growing the bank (new deep cases)
+
+`tools/cases/generate-deep.js` writes new 13-question cases straight into
+the database, one Opus call each, gated by `examDepth.js`, `qualityGate.js`
+and the dedup check against every case already stored (drafts included, so a
+retired story is never regenerated). Only **published** cases count toward
+the per-category targets. Its 13 questions follow the NCMHCE domain weights
+(3 intake, 2 core, 2 treatment, 4 counseling, 2 ethics).
+
+```bash
+node tools/cases/generate-deep.js --count 63 --per-cat 7 --dry-run      # what it would target, no cost
+nohup node tools/cases/generate-deep.js --count 63 --per-cat 7 --parallel 3 > gen.log 2>&1 &
+tail -f gen.log
+```
+
+`--per-cat N` is the deep-case target per blueprint category; the run fills
+the categories with the fewest deep cases first and rotates diagnoses within
+a category. `--parallel N` is cases in flight at once (default 3). Each
+accepted case is imported the moment it passes the gates as `sme_review`
+(`--publish` to go live directly), so a dropped shell loses only the cases
+in flight and **re-running the same command continues** from what is
+already stored. A billing or auth error stops the run with a STOPPED line.
+Run a small `--count` first and check the Console usage page before
+committing to the full number.
+
 ## Who sees the cases afterward
 
 Access tiers live in `routes/content.js` (`resolveAccess`):

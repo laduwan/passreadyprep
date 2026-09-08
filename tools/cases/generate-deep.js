@@ -12,8 +12,15 @@
 //   ANTHROPIC_API_KEY=... MONGO_URI=... node tools/cases/generate-deep.js --count 2
 //     --count N    cases to attempt this run (default 2)
 //     --per-cat N  target deep cases per category (default 2)
+//     --parallel N cases in flight at once (default 3; one long Opus call each)
 //     --dry-run    no API, no DB — just show what it would target
 //     --publish    import as published instead of sme_review
+//
+// Each accepted case is imported the moment it passes the gates, so a
+// dropped shell loses only the cases in flight; re-running the same command
+// continues (targets are recomputed from what is already in the database).
+// A billing/auth error stops the run instead of failing every target.
+//   nohup node tools/cases/generate-deep.js --count 63 --per-cat 7 --parallel 3 > gen.log 2>&1 &
 // ============================================================================
 
 try { require('dotenv').config(); } catch (_) {}
@@ -33,10 +40,13 @@ const COUNT = parseInt(flag('count', '2'), 10);
 const PER_CAT = parseInt(flag('per-cat', '2'), 10);
 const DRY = process.argv.includes('--dry-run');
 const STATUS = process.argv.includes('--publish') ? 'published' : 'sme_review';
+const PARALLEL = Math.max(1, parseInt(flag('parallel', '3'), 10) || 1);
 const API_KEY = process.env.ANTHROPIC_API_KEY;
 
-// 13 questions -> section split [5,4,4]: Assessment(intake/core), Planning(treatment), Process(counseling/ethics)
-const DOMAIN_PLAN = ['intake', 'intake', 'intake', 'core', 'core', 'treatment', 'treatment', 'treatment', 'treatment', 'counseling', 'counseling', 'ethics', 'ethics'];
+// 13 questions on the NCMHCE domain weights (intake 25 / core 15 / treatment 15 /
+// counseling 30 / ethics 15 percent of scored items): 3 / 2 / 2 / 4 / 2.
+// Sections: Assessment(intake+core)=5, Planning(treatment)=2, Process(counseling+ethics)=6.
+const DOMAIN_PLAN = ['intake', 'intake', 'intake', 'core', 'core', 'treatment', 'treatment', 'counseling', 'counseling', 'counseling', 'counseling', 'ethics', 'ethics'];
 
 function deepTargets(deepCases, n) {
   const have = {};
@@ -55,15 +65,21 @@ function deepTargets(deepCases, n) {
     .filter((x) => x.need > 0)
     .sort((a, b) => a.have - b.have);
   const out = [];
+  const plannedDx = {};
   let i = 0;
   while (out.length < n && order.length) {
     const slot = order[i % order.length];
-    const cfg = cfgOf(slot.category) || { diagnoses: [{ name: slot.category, code: '' }], difficulty: { medium: 1 } };
-    const usedDx = deepCases.filter((c) => c.category === slot.category).map((c) => (c.primaryDiagnosis || {}).name);
-    const dx = (cfg.diagnoses || []).find((d) => !usedDx.includes(d.name)) || (cfg.diagnoses || [])[0];
-    out.push({ category: slot.category, diagnosis: dx, difficulty: slot.difficulty });
     i += 1;
-    if (i > n + order.length) break;
+    if (i > n + order.length * 2) break;
+    if (out.filter((t) => t.category === slot.category).length >= slot.need) continue;
+    const cfg = cfgOf(slot.category) || { diagnoses: [{ name: slot.category, code: '' }], difficulty: { medium: 1 } };
+    const usedDx = deepCases.filter((c) => c.category === slot.category).map((c) => (c.primaryDiagnosis || {}).name).concat(plannedDx[slot.category] || []);
+    const dxs = cfg.diagnoses || [];
+    // Prefer a diagnosis this category has no deep case on; then the one used least.
+    const dx = dxs.find((d) => !usedDx.includes(d.name)) || dxs.slice().sort((a, b) => usedDx.filter((x) => x === a.name).length - usedDx.filter((x) => x === b.name).length)[0];
+    (plannedDx[slot.category] = plannedDx[slot.category] || []).push(dx && dx.name);
+    const k = out.filter((t) => t.category === slot.category).length;
+    out.push({ category: slot.category, diagnosis: dx, difficulty: diffPools[slot.category][(have[slot.category] + k) % diffPools[slot.category].length] });
   }
   return out;
 }
@@ -148,12 +164,15 @@ async function main() {
   await mongoose.connect(process.env.MONGO_URI, { dbName: 'passreadyprep' });
   const exam = await Exam.findOneAndUpdate({ key: 'ncmhce' }, { $setOnInsert: { key: 'ncmhce', name: 'National Clinical Mental Health Counseling Examination', profession: 'counseling', board: 'NBCC', formatsSupported: ['case_sim'], status: 'live' } }, { upsert: true, new: true });
 
-  const docs = await ContentItem.find({ examId: exam._id, format: 'case_sim' }).select('externalId caseSim').lean();
-  const all = docs.map((d) => Object.assign({ id: d.externalId }, d.caseSim || {}));
+  // Every case (any status) feeds dedup and id allocation; only published
+  // cases count toward the per-category targets (drafts are retired copies).
+  const docs = await ContentItem.find({ examId: exam._id, format: 'case_sim' }).select('externalId status caseSim').lean();
+  const all = docs.map((d) => Object.assign({ id: d.externalId, _status: d.status }, d.caseSim || {}));
   const deep = all.filter((c) => (c.questions || []).length >= 11);
-  console.log('Live: ' + all.length + ' cases, ' + deep.length + ' deep. Target ' + PER_CAT + ' deep/category.\n');
+  const deepLive = deep.filter((c) => c._status === 'published');
+  console.log('Live: ' + all.filter((c) => c._status === 'published').length + ' published cases, ' + deepLive.length + ' deep (' + deep.length + ' deep incl. drafts). Target ' + PER_CAT + ' deep/category.\n');
 
-  const targets = deepTargets(deep, COUNT);
+  const targets = deepTargets(deepLive, COUNT);
   if (!targets.length) { console.log('All categories have ' + PER_CAT + '+ deep cases. Nothing to generate.'); await mongoose.disconnect(); return; }
   console.log('Will attempt ' + targets.length + ' deep case(s) with model ' + MODEL + ':');
   targets.forEach((t, i) => console.log('  ' + (i + 1) + '. ' + t.category + ' / ' + (t.diagnosis && t.diagnosis.name) + ' [' + t.difficulty + ']'));
@@ -162,39 +181,75 @@ async function main() {
 
   const exemplar = (deep[0] || all[0]);
   let made = 0;
+  let finished = 0;
+  let fatal = null; // an API error that will hit every target (billing, auth)
+  const isFatal = (msg) => /credit balance|billing|API 401|API 403|ANTHROPIC_API_KEY/i.test(msg);
   const livePool = all.slice();
-  for (const t of targets) {
+  const startedAt = Date.now();
+
+  // One target: up to 3 attempts. Output is buffered per target so parallel
+  // targets don't interleave. Id allocation and the pool/deep pushes happen
+  // synchronously after the gates, before the DB write, so two in-flight
+  // targets can never take the same id or miss each other in dedup.
+  async function generateOne(t, idx) {
+    const out = [];
+    const log = (l) => out.push(l);
     let ok = false;
-    for (let attempt = 0; attempt < 3 && !ok; attempt++) {
+    for (let attempt = 0; attempt < 3 && !ok && !fatal; attempt++) {
       try {
-        console.log('  Generating ' + t.category + ' / ' + t.diagnosis.name + ' (attempt ' + (attempt + 1) + ')...');
+        log('  [' + (idx + 1) + '/' + targets.length + '] ' + t.category + ' / ' + t.diagnosis.name + ' [' + t.difficulty + '] (attempt ' + (attempt + 1) + ')...');
         const c = extractJson(await callAnthropic(buildPrompt(t, exemplar), { maxTokens: 48000 }));
         c.category = t.category;
-        c.id = nextDeepId(deep);
+        c.difficulty = c.difficulty || t.difficulty;
 
         // Gate 1: examDepth structural validation
         const v = validateExamDepth(c);
-        if (!v.ok) { console.log('    FAIL examDepth: ' + v.errors.slice(0, 2).join(' | ')); continue; }
+        if (!v.ok) { log('    FAIL examDepth: ' + v.errors.slice(0, 2).join(' | ')); continue; }
 
         // Gate 2: gold-standard quality checks (weights, parity, absolutes, mistakes)
         const q = checkCaseQuality(c);
-        if (!q.ok) { console.log('    FAIL quality: ' + q.errors.slice(0, 3).join(' | ')); continue; }
+        if (!q.ok) { log('    FAIL quality: ' + q.errors.slice(0, 3).join(' | ')); continue; }
 
-        // Gate 3: dedup
-        if (dedup.isNearDuplicate(c, livePool, { threshold: 0.55 }).dup) { console.log('    FAIL dedup'); continue; }
+        // Gate 3: dedup against everything live plus cases accepted this run
+        const d = dedup.isNearDuplicate(c, livePool, { threshold: 0.55 });
+        if (d.dup) { log('    FAIL dedup (too close to ' + d.against + ')'); continue; }
 
+        c.id = nextDeepId(deep);
+        deep.push(c); livePool.push(c);
         await ContentItem.updateOne(
           { examId: exam._id, externalId: c.id },
           { $set: { examId: exam._id, format: 'case_sim', externalId: c.id, title: c.title, category: c.category, difficulty: c.difficulty, references: c.references || [], caseSim: c }, $setOnInsert: { status: STATUS } },
           { upsert: true }
         );
-        deep.push(c); livePool.push(c); made += 1; ok = true;
-        console.log('    ADD ' + c.id + ' [' + c.category + '] "' + (c.title || '').slice(0, 50) + '" -> ' + STATUS);
-      } catch (e) { console.log('    ERROR ' + t.category + ': ' + e.message.slice(0, 100)); }
+        made += 1; ok = true;
+        log('    ADD ' + c.id + ' [' + c.category + '] "' + (c.title || '').slice(0, 50) + '" -> ' + STATUS);
+      } catch (e) {
+        log('    ERROR ' + t.category + ': ' + e.message.slice(0, 150));
+        if (isFatal(e.message)) fatal = e.message.slice(0, 150);
+      }
     }
-    if (!ok) console.log('    SKIP ' + t.category + ' (3 attempts failed)');
+    if (!ok && !fatal) log('    SKIP ' + t.category + ' / ' + t.diagnosis.name + ' (3 attempts failed)');
+    return out;
   }
-  console.log('\nDone. Imported ' + made + ' deep case(s).');
+
+  let next = 0;
+  async function worker() {
+    while (next < targets.length && !fatal) {
+      const idx = next++;
+      const out = await generateOne(targets[idx], idx);
+      finished += 1;
+      console.log(out.join('\n'));
+      console.log('    -- ' + finished + '/' + targets.length + ' target(s) done, ' + made + ' imported, after ' + ((Date.now() - startedAt) / 60000).toFixed(1) + ' min\n');
+    }
+  }
+  console.log('Generating ' + PARALLEL + ' at a time.\n');
+  await Promise.all(Array.from({ length: Math.min(PARALLEL, targets.length) }, worker));
+
+  if (fatal) {
+    console.log('\nSTOPPED: the API is rejecting every request — ' + fatal + '\nFix that (credits, key), then re-run the same command; it continues from what is already imported.');
+    process.exitCode = 2;
+  }
+  console.log('\nDone. Imported ' + made + ' deep case(s) as ' + STATUS + '.');
   await mongoose.disconnect();
 }
 main().catch((e) => { console.error(e); process.exit(1); });
