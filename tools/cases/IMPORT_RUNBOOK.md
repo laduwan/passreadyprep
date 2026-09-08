@@ -64,16 +64,30 @@ constraint as above (need `MONGO_URI` + Atlas access):
 | Script | Purpose |
 |---|---|
 | `tools/cases/audit-quality.js` | Read-only report of every live case that fails `caseSchema.js` + `examDepth.js` + `qualityGate.js`. `--flag` writes `needsWork`/`reviewNote` so failures surface in `/review.html`. |
-| `tools/cases/fix-distractors.js` | AI-assisted repair for the *quality* subset of failures (structural parity, absolutes, thin `commonMistake`) — rewrites only the 3 non-correct options per flagged question via the Anthropic API, re-validates, and (with `--apply`) writes just those questions' paths and sets the case back to `sme_review` for a human re-check. `needsWork` is cleared only if the whole case then passes the gate. Questions with a broken weight/`isCorrect` set or an empty option are skipped for manual review — a wording rewrite can't safely guess a corrupted correct answer. Published only by default; `--all` includes `sme_review`/`draft`. |
+| `tools/cases/fix-distractors.js` | AI-assisted repair of flagged questions — one Anthropic API call per **case** covering all its flagged questions. Rewrites **and re-tiers** the 3 non-correct options (the bank was written when any weights from {0,-1,-2} were allowed; the current gate needs exactly one 0 / -1 / -2, so the model decides which distractor is the near-miss, the novice error, the harmful one). The keyed answer is never changed. Each returned question must re-pass the gate and add no new schema error, or it is left as-is. With `--apply`, writes just the repaired questions' paths and sets the case back to `sme_review` (`--keep-status` leaves published cases live). `needsWork` is cleared only if the whole case then passes. Only a question with an *ambiguous key* (not exactly one weight-3 that is the sole `isCorrect`, or an empty option) is skipped for manual review. Published only by default; `--all` includes `sme_review`/`draft`; `--count` is cases per run (default 5). |
 
 Both preserve any human-written `reviewNote` and replace only their own earlier
-line in it, so re-running is safe.
+line in it, so re-running is safe. A question the model's reply omits or
+mangles is simply still flagged on the next run, so re-running is also how you
+mop up stragglers.
+
+Retire exact duplicate cases first (`dedup-retire.js --exact`, then `--apply`)
+so you don't pay to repair both copies.
+
+**At bank scale, decide the status question before `--apply`:** the default
+sends every repaired case to `sme_review`, which un-publishes it until a human
+re-publishes. Repairing most of the bank that way empties the app. Use
+`--keep-status` to leave published cases live (the `Auto-repair:` review note
+and the `/review.html` "Needs work" badge still show what changed), then
+spot-check.
 
 ```bash
-node tools/cases/audit-quality.js --all              # see what's broken, all statuses
-node tools/cases/fix-distractors.js                   # free plan of what's repairable (published)
-node tools/cases/fix-distractors.js --generate         # show proposed rewrites (API calls, no writes)
-node tools/cases/fix-distractors.js --apply --count 10 # write repairs, send back to sme_review
+node tools/cases/audit-quality.js --all                 # see what's broken, all statuses
+node tools/cases/dedup-retire.js --exact                 # exact duplicates (D166/D190, D167/D191 ...)
+node tools/cases/fix-distractors.js                      # free plan: per-case flag counts + failure mix
+node tools/cases/fix-distractors.js --generate --ids D160 # see one case's proposed rewrites (1 API call)
+node tools/cases/fix-distractors.js --apply --count 20    # repair 20 cases -> sme_review
+node tools/cases/fix-distractors.js --apply --count 20 --keep-status   # ...or keep them published
 ```
 
 ## Who sees the cases afterward
