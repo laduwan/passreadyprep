@@ -94,7 +94,9 @@ node tools/cases/dedup-retire.js --threshold 0.7         # retire narrative-vari
 node tools/cases/fix-distractors.js                      # free plan: per-case flag counts + failure mix
 
 # reviewed: generate -> SME evaluates/weights -> apply what was approved
+# (cases stay flagged until applied, so cut later batches with --skip)
 node tools/cases/fix-distractors.js --generate --count 30 --save tools/cases/review/batch1
+node tools/cases/fix-distractors.js --generate --skip 30 --count 30 --save tools/cases/review/batch2
 #   ...send batch1.html + batch1.csv to the reviewer; get batch1.csv back...
 node tools/cases/fix-distractors.js --from tools/cases/review/batch1.json --review tools/cases/review/batch1.csv
 node tools/cases/fix-distractors.js --from tools/cases/review/batch1.json --review tools/cases/review/batch1.csv --apply --keep-status

@@ -53,6 +53,9 @@
 //
 //   --all      include sme_review/draft cases (default: published only)
 //   --count N  cases per run in --generate/--apply (default 5; ignored with --from)
+//   --skip N   skip the first N flagged cases — cases stay flagged until a batch
+//              is applied, so cut sequential review batches with
+//              --count 30 --save batch1, --skip 30 --count 30 --save batch2, ...
 // MONGO_URI / ANTHROPIC_API_KEY from env / .env, same as generate-deep.js.
 // ============================================================================
 
@@ -68,6 +71,7 @@ const { callAnthropic, extractJson, MODEL } = require('./anthropic');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
 const COUNT = parseInt(flag('count', '5'), 10);
+const SKIP = parseInt(flag('skip', '0'), 10);
 const ALL = process.argv.includes('--all');
 const APPLY = process.argv.includes('--apply');
 const KEEP_STATUS = process.argv.includes('--keep-status');
@@ -555,8 +559,9 @@ async function main() {
   }
   if (!process.env.ANTHROPIC_API_KEY) { console.error('\nANTHROPIC_API_KEY not set.'); process.exit(1); }
 
-  const batch = cases.slice(0, COUNT);
-  console.log('Generating rewrites for ' + batch.length + ' of ' + cases.length + ' case(s) (--count ' + COUNT + ', one API call each)...\n');
+  const batch = cases.slice(SKIP, SKIP + COUNT);
+  if (!batch.length) { console.log('--skip ' + SKIP + ' is past the end of the ' + cases.length + ' flagged case(s); nothing to do.'); await mongoose.disconnect(); return; }
+  console.log('Generating rewrites for ' + batch.length + ' of ' + cases.length + ' case(s) (' + (SKIP ? 'skipping the first ' + SKIP + ', ' : '') + '--count ' + COUNT + ', one API call each: ' + batch[0].externalId + ' … ' + batch[batch.length - 1].externalId + ')...\n');
 
   const proposals = { generatedAt: new Date().toISOString(), model: MODEL, cases: [] };
   let fixed = 0;
