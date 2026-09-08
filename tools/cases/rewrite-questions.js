@@ -34,6 +34,15 @@
 //   node tools/cases/rewrite-questions.js --from tools/cases/review/rw1.json --review tools/cases/review/rw1.csv
 //   node tools/cases/rewrite-questions.js --from ... --review ... --apply --keep-status
 //
+// --save NAME also stores the batch (proposals + html + csv) in MongoDB
+// (models/ReviewBatch.js), so the reviewer downloads it from /review.html and
+// uploads the filled sheet there. Then `--from rw1` (no file needed) applies
+// the stored proposals with the stored sheet:
+//   node tools/cases/rewrite-questions.js --push-db tools/cases/review/rw1.json   (store an existing batch)
+//   node tools/cases/rewrite-questions.js --batches                              (list stored batches)
+//   node tools/cases/rewrite-questions.js --from rw1                             (plan from the stored batch + sheet)
+//   node tools/cases/rewrite-questions.js --from rw1 --apply --keep-status
+//
 //   --all           include sme_review/draft cases (default: published only)
 //   --count N       cases per run (default 5)   --skip N  skip the first N
 //   --flagged-only  rewrite only questions that currently fail the gate
@@ -47,10 +56,11 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Exam = require('../../models/Exam');
 const ContentItem = require('../../models/ContentItem');
+const ReviewBatch = require('../../models/ReviewBatch');
 const { validateCase } = require('./caseSchema');
 const { checkQuestionQuality, classifyReason, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK } = require('./qualityGate');
 const { callAnthropic, extractJson, MODEL } = require('./anthropic');
-const { TIER_LABEL, CSV_HEADER, toCsv, readReviewSheet, esc, writeRepairs, loadLiveCases } = require('./reviewRoundTrip');
+const { TIER_LABEL, CSV_HEADER, toCsv, readReviewSheet, reviewSheetSummary, esc, writeRepairs, loadLiveCases, batchName, buildBatchDoc, storeBatch, loadBatch } = require('./reviewRoundTrip');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
 const COUNT = parseInt(flag('count', '5'), 10);
@@ -62,7 +72,10 @@ const FLAGGED_ONLY = process.argv.includes('--flagged-only');
 const SAVE = flag('save', null);
 const FROM = flag('from', null);
 const REVIEW = flag('review', null);
-const GENERATE = !FROM && (process.argv.includes('--generate') || APPLY || !!SAVE);
+const PUSH_DB = flag('push-db', null);
+const LIST_BATCHES = process.argv.includes('--batches');
+const FORCE = process.argv.includes('--force');
+const GENERATE = !FROM && !PUSH_DB && !LIST_BATCHES && (process.argv.includes('--generate') || APPLY || !!SAVE);
 const idi = process.argv.indexOf('--ids');
 const EXPLICIT = idi >= 0 ? (process.argv[idi + 1] || '').split(',').map((s) => s.trim()).filter(Boolean) : null;
 
@@ -349,12 +362,37 @@ ${caseHtml}
 // Main
 // ---------------------------------------------------------------------------
 
+// --from FILE reads the proposals file; --from NAME (no such file) reads the
+// stored batch. The review sheet comes from --review FILE, else from the
+// stored batch's uploaded sheet, else every proposal counts as approved.
+async function resolveProposals() {
+  if (fs.existsSync(FROM)) {
+    const proposals = JSON.parse(fs.readFileSync(FROM, 'utf8'));
+    const review = REVIEW ? readReviewSheet(fs.readFileSync(REVIEW, 'utf8')) : null;
+    return { proposals, review, source: FROM, reviewSource: REVIEW ? 'review sheet ' + REVIEW : null, batch: null };
+  }
+  const name = batchName(FROM);
+  const batch = await loadBatch(ReviewBatch, name);
+  if (!batch) throw new Error('--from ' + FROM + ': no such file, and no stored batch named "' + name + '" (see --batches)');
+  if (!batch.proposals || !Array.isArray(batch.proposals.cases)) throw new Error('stored batch "' + name + '" has no proposals');
+  let review = null, reviewSource = null;
+  if (REVIEW) {
+    if (!fs.existsSync(REVIEW)) throw new Error('--review ' + REVIEW + ': no such file');
+    review = readReviewSheet(fs.readFileSync(REVIEW, 'utf8'));
+    reviewSource = 'review sheet ' + REVIEW;
+  } else if (batch.reviewCsv) {
+    review = readReviewSheet(batch.reviewCsv);
+    reviewSource = 'the sheet uploaded ' + (batch.reviewedAt ? new Date(batch.reviewedAt).toISOString() : '') + (batch.reviewedBy ? ' by ' + batch.reviewedBy : '');
+  }
+  return { proposals: batch.proposals, review, source: 'stored batch "' + name + '"', reviewSource, batch };
+}
+
 async function runFromProposals(entries) {
-  const proposals = JSON.parse(fs.readFileSync(FROM, 'utf8'));
-  const review = REVIEW ? readReviewSheet(fs.readFileSync(REVIEW, 'utf8')) : null;
+  const { proposals, review, source, reviewSource, batch } = await resolveProposals();
   const byId = {};
   entries.forEach((e) => { byId[e.externalId] = e; });
-  console.log('Loaded ' + proposals.cases.length + ' proposed case(s) from ' + FROM + (REVIEW ? ' with review sheet ' + REVIEW : ' (no review sheet — every proposal counts as approved)') + '\n');
+  console.log('Loaded ' + proposals.cases.length + ' proposed case(s) from ' + source + (reviewSource ? ' with ' + reviewSource : ' (no review sheet — every proposal counts as approved)') + '\n');
+  if (batch && batch.appliedAt && !FORCE) console.log('NOTE: this batch was already applied ' + new Date(batch.appliedAt).toISOString() + '; questions applied then will show as "live question changed" below.\n');
 
   let accepted = 0, rejected = 0, stale = 0;
   for (const p of proposals.cases) {
@@ -382,6 +420,31 @@ async function runFromProposals(entries) {
   console.log('\n' + accepted + ' question(s) ready across ' + touched.length + ' case(s); ' + rejected + ' rejected/invalid, ' + stale + ' stale.');
   if (!APPLY) { console.log('Plan only — nothing written. Add --apply to save these' + (KEEP_STATUS ? '.' : ' (add --keep-status to leave published cases live).')); return; }
   await writeRepairs(ContentItem, touched, { keepStatus: KEEP_STATUS, verb: 'rewrote questions' });
+  if (batch) await ReviewBatch.updateOne({ _id: batch._id }, { $set: { appliedAt: new Date() } });
+}
+
+// Render + store a batch. Returns the stored doc's summary line.
+async function pushBatch(proposals, name) {
+  const rows = [CSV_HEADER];
+  proposals.cases.forEach((p) => p.questions.forEach((q) => rows.push(...proposalCsvRows(p, q))));
+  const doc = buildBatchDoc(proposals, { name, tool: 'rewrite-questions', html: renderRewriteHtml(proposals), csv: toCsv(rows) });
+  const replaced = await storeBatch(ReviewBatch, doc, { force: FORCE });
+  return (replaced ? 'Replaced' : 'Stored') + ' batch "' + name + '" in the database (' + doc.caseCount + ' case(s), ' + doc.questionCount + ' question(s)). Download it from /review.html → Review batches, or GET /api/admin/review-batches/' + name + '/html and /csv.';
+}
+
+async function listBatches() {
+  const rows = await ReviewBatch.find({}).select('name tool model generatedAt caseCount questionCount reviewedAt reviewedBy appliedAt reviewCsv').sort({ generatedAt: 1 }).lean();
+  if (!rows.length) { console.log('No stored review batches.'); return; }
+  rows.forEach((b) => {
+    let state = 'awaiting review sheet';
+    if (b.appliedAt) state = 'applied ' + new Date(b.appliedAt).toISOString();
+    else if (b.reviewCsv) {
+      let sum = null;
+      try { sum = reviewSheetSummary(b.reviewCsv); } catch (_) {}
+      state = 'sheet uploaded ' + (b.reviewedAt ? new Date(b.reviewedAt).toISOString() : '') + (b.reviewedBy ? ' by ' + b.reviewedBy : '') + (sum ? ' — ' + sum.rejected + ' rejected, ' + sum.overridden + ' with overrides, ' + sum.stems + ' stem edits' : '');
+    }
+    console.log('  ' + b.name + ': ' + b.caseCount + ' case(s), ' + b.questionCount + ' question(s), ' + (b.model || '?') + ', generated ' + (b.generatedAt ? new Date(b.generatedAt).toISOString() : '?') + ' — ' + state);
+  });
 }
 
 async function main() {
@@ -389,6 +452,20 @@ async function main() {
   if (SAVE && APPLY) { console.error('--save writes proposals for review instead of the database; drop --apply (apply later with --from).'); process.exit(1); }
   await mongoose.connect(process.env.MONGO_URI, { dbName: 'passreadyprep' });
   console.log('Connected to MongoDB (db: passreadyprep)\n');
+
+  if (LIST_BATCHES) { await listBatches(); await mongoose.disconnect(); return; }
+  if (PUSH_DB) {
+    const proposals = JSON.parse(fs.readFileSync(PUSH_DB, 'utf8'));
+    if (!Array.isArray(proposals.cases)) { console.error(PUSH_DB + ' is not a proposals file (no cases[])'); process.exit(1); }
+    console.log(await pushBatch(proposals, batchName(PUSH_DB)));
+    await mongoose.disconnect();
+    return;
+  }
+  if (SAVE) {
+    // Fail before spending on the API if this name would clobber a reviewed batch.
+    const prior = await ReviewBatch.findOne({ name: batchName(SAVE) }).select('reviewCsv').lean();
+    if (prior && prior.reviewCsv && !FORCE) { console.error('A stored batch named "' + batchName(SAVE) + '" already has a filled review sheet. Use a new --save name.'); process.exit(1); }
+  }
 
   const entries = await loadLiveCases(Exam, ContentItem, { explicit: EXPLICIT, all: ALL, from: FROM });
   if (FROM) { await runFromProposals(entries); await mongoose.disconnect(); return; }
@@ -511,7 +588,11 @@ async function main() {
     proposals.cases.forEach((p) => p.questions.forEach((q) => rows.push(...proposalCsvRows(p, q))));
     fs.writeFileSync(SAVE + '.csv', toCsv(rows));
     console.log('Wrote ' + SAVE + '.json (proposals), ' + SAVE + '.html (review document), ' + SAVE + '.csv (review sheet, ' + (rows.length - 1) + ' option rows).');
-    console.log('Nothing written to the database. After review: --from ' + SAVE + '.json --review ' + SAVE + '.csv [--apply --keep-status]');
+    if (proposals.cases.length) {
+      try { console.log(await pushBatch(proposals, batchName(SAVE))); }
+      catch (e) { console.log('Could not store the batch in the database: ' + e.message + ' (the files above are intact; --push-db ' + SAVE + '.json to retry)'); }
+    }
+    console.log('No case was changed. After review: --from ' + batchName(SAVE) + ' [--apply --keep-status] (or --from ' + SAVE + '.json --review ' + SAVE + '.csv)');
     await mongoose.disconnect();
     return;
   }

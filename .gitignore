@@ -9,7 +9,7 @@ client/dist/
 # Dependencies
 node_modules/
 
-# fix-distractors.js --save output (proposals under SME review; never commit)
+# fix-distractors.js / rewrite-questions.js --save output (proposals under SME review; never commit)
 tools/cases/review/
 
 # Logs
