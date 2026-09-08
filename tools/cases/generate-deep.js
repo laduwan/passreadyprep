@@ -26,7 +26,7 @@ const bp = require('./blueprint');
 const dedup = require('./dedup');
 const idAllocator = require('./idAllocator');
 const { checkCaseQuality, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK } = require('./qualityGate');
-const { callAnthropic, extractJson } = require('./anthropic');
+const { callAnthropic, extractJson, MODEL } = require('./anthropic');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
 const COUNT = parseInt(flag('count', '2'), 10);
@@ -155,7 +155,7 @@ async function main() {
 
   const targets = deepTargets(deep, COUNT);
   if (!targets.length) { console.log('All categories have ' + PER_CAT + '+ deep cases. Nothing to generate.'); await mongoose.disconnect(); return; }
-  console.log('Will attempt ' + targets.length + ' deep case(s):');
+  console.log('Will attempt ' + targets.length + ' deep case(s) with model ' + MODEL + ':');
   targets.forEach((t, i) => console.log('  ' + (i + 1) + '. ' + t.category + ' / ' + (t.diagnosis && t.diagnosis.name) + ' [' + t.difficulty + ']'));
   if (DRY) { console.log('\n--dry-run: no API calls, no writes.'); await mongoose.disconnect(); return; }
   if (!API_KEY) { console.error('\nANTHROPIC_API_KEY not set.'); process.exit(1); }

@@ -100,7 +100,7 @@ ${ITEM_CONSTRUCTION_RULES}
 
 ${STRUCTURAL_PARITY_CHECK}
 
-DESIGN THE FOUR OPTIONS TOGETHER. Write the key first, tightly (no padding, no extra qualifiers that a distractor would not carry), then write three distractors of the same length, grammar, and specificity. Aim for all four within about 10% of each other in character count; the key must NOT be the longest. Put the key at a different option id on different questions — never always the first.
+DESIGN THE FOUR OPTIONS TOGETHER. Write the key first, tightly (no padding, no extra qualifiers that a distractor would not carry), then write three distractors of the same length, grammar, and specificity. Aim for all four within about 10% of each other in character count, typically 80–140 characters each; the key must NOT be the longest — make at least one distractor a few words longer than the key. Put the key at a different option id on different questions — never always the first.
 
 STEMS: specific to this client and this moment in the narrative (use the client's name and the session detail), 12+ characters, a single clear question. Do not reuse the old stem's wording.
 
@@ -167,6 +167,90 @@ function rejectReasons(caseObj, qi, candidate) {
   candidate.evidenceRef.forEach((rid) => { if (refIds.size && !refIds.has(rid)) reasons.push(tag + ': evidenceRef "' + rid + '" is not a case reference id'); });
   newSchemaErrors(caseObj, qi, candidate).forEach((e) => reasons.push(e));
   return reasons.length ? reasons : null;
+}
+
+// ---------------------------------------------------------------------------
+// Length pass — for questions that fail ONLY on length (ratio / key-longest)
+// ---------------------------------------------------------------------------
+// Models over-elaborate the key even when writing all four options together.
+// A regeneration retry with no numbers is a coin flip; a text-only pass with
+// exact per-option deltas is not. Because the key is freshly written here it
+// may be SHORTENED, which is the better lever: cut the key's padding rather
+// than pad three distractors.
+//
+// Plan: T = mean length of the three distractors. Every option must land in
+// [T/1.1, T*1.1] (max/min ratio <= 1.21, under the gate's 1.25); the key must
+// end at most T-2 and the currently-longest distractor at least T, so the
+// key is never the longest.
+
+const LENGTH_PASSES = 2;
+const words = (s) => String(s || '').trim().split(/\s+/).filter(Boolean).length;
+
+function isLengthOnly(reasons) {
+  return reasons.length > 0 && reasons.every((r) => ['ratio', 'key-longest'].includes(classifyReason(r)));
+}
+
+function lengthPlan(candidate) {
+  const opts = candidate.options;
+  const key = opts.find((o) => o.isCorrect);
+  const ds = opts.filter((o) => !o.isCorrect);
+  const T = Math.round(ds.reduce((n, o) => n + o.text.length, 0) / ds.length);
+  const lo = Math.ceil(T / 1.1);
+  const hi = Math.floor(T * 1.1);
+  const longestId = String(ds.reduce((a, b) => (b.text.length > a.text.length ? b : a)).id);
+  const cpw = key.text.length / Math.max(1, words(key.text));
+  const w = (n) => Math.max(1, Math.round(n / cpw));
+  return opts.map((o) => {
+    let min = lo, max = hi, role = 'distractor';
+    if (o.isCorrect) { max = Math.max(lo, T - 2); role = 'key'; }
+    else if (String(o.id) === longestId) { min = Math.max(lo, T); role = 'longest distractor'; }
+    if (min > max) min = max;
+    return { id: o.id, role, minChars: min, maxChars: max, minWords: w(min), maxWords: w(max) };
+  });
+}
+
+function buildRewriteLengthPrompt(caseObj, retries) {
+  const blocks = retries.map(({ it, candidate }) => {
+    const plan = {};
+    lengthPlan(candidate).forEach((p) => { plan[String(p.id)] = p; });
+    const lines = candidate.options.map((o) => {
+      const p = plan[String(o.id)];
+      const n = o.text.length;
+      let action;
+      if (n < p.minChars) action = `TOO SHORT by ${p.minChars - n}+ characters — ADD about ${Math.max(1, p.minWords - words(o.text))}–${Math.max(2, p.maxWords - words(o.text))} words of plausible clinical detail`;
+      else if (n > p.maxChars) action = `TOO LONG by ${n - p.maxChars}+ characters — CUT about ${Math.max(1, words(o.text) - p.maxWords)}–${Math.max(2, words(o.text) - p.minWords)} words` + (o.isCorrect ? ' (drop padding and redundant qualifiers; keep exactly what makes it the correct answer)' : '');
+      else action = 'length is fine — return it UNCHANGED';
+      return `    id "${o.id}" [${p.role}, weight ${o.weight}] (${n} chars / ${words(o.text)} words): "${o.text}"\n      ${action}. Target: ${p.minChars}–${p.maxChars} characters (about ${p.minWords}–${p.maxWords} words)`;
+    }).join('\n');
+    return `--- Q${it.qi + 1} ---\n  STEM (do not change): "${candidate.question}"\n  OPTIONS:\n${lines}`;
+  }).join('\n\n');
+
+  return `You are an NCMHCE item writer fixing ONLY the LENGTH of answer options on ${retries.length} question(s) from one case ("${caseObj.title}"). The clinical meaning, tier (weight), id, rationale and explanation of every option stay as they are; you only add or remove wording to hit the stated length. The KEY must end up shorter than the longest distractor. Count words first, then characters.
+
+${blocks}
+
+Return ONE JSON object only (no markdown, no prose), one entry per question, "q" echoing the question number, every option present with its ORIGINAL id and its new text. Return ONLY id and text per option — weight, rationale and explanation are kept from before and must not be re-sent:
+{ "questions": [ { "q": ${retries[0].it.qi + 1}, "options": [ { "id": "...", "text": "..." }, { "id": "...", "text": "..." }, { "id": "...", "text": "..." }, { "id": "...", "text": "..." } ] } ] }
+Output ONLY the JSON object.`;
+}
+
+// Text-only merge for all four options. Returns null unless the reply covers
+// exactly the option ids with non-empty text.
+function mergeTextOnly(candidate, replyOptions) {
+  const ids = candidate.options.map((o) => String(o.id)).sort();
+  const got = (replyOptions || []).filter((o) => o && o.id != null && typeof o.text === 'string' && o.text.trim().length > 0);
+  if (got.map((o) => String(o.id)).sort().join('|') !== ids.join('|')) return null;
+  const textById = {};
+  got.forEach((o) => { textById[String(o.id)] = o.text.trim(); });
+  return Object.assign({}, candidate, { options: candidate.options.map((o) => Object.assign({}, o, { text: textById[String(o.id)] })) });
+}
+
+// Numbers for the regeneration retry, so "key is the longest" comes with the
+// lengths that caused it.
+function lengthNote(candidate) {
+  const key = candidate.options.find((o) => o.isCorrect);
+  const ds = candidate.options.filter((o) => !o.isCorrect);
+  return 'attempt lengths: key ' + key.text.length + ' chars; distractors ' + ds.map((o) => o.text.length).join(', ') + ' — the key must be shorter than at least one distractor and all four within a 1.25 ratio';
 }
 
 // ---------------------------------------------------------------------------
@@ -333,7 +417,7 @@ async function main() {
 
   const batch = cases.slice(SKIP, SKIP + COUNT);
   if (!batch.length) { console.log('--skip ' + SKIP + ' is past the end of the ' + cases.length + ' case(s); nothing to do.'); await mongoose.disconnect(); return; }
-  console.log('Rewriting ' + batch.length + ' of ' + cases.length + ' case(s) (' + (SKIP ? 'skipping the first ' + SKIP + ', ' : '') + '--count ' + COUNT + ', one API call each: ' + batch[0].externalId + ' … ' + batch[batch.length - 1].externalId + ')...\n');
+  console.log('Rewriting ' + batch.length + ' of ' + cases.length + ' case(s) with model ' + MODEL + ' (' + (SKIP ? 'skipping the first ' + SKIP + ', ' : '') + '--count ' + COUNT + ', one API call each: ' + batch[0].externalId + ' … ' + batch[batch.length - 1].externalId + ')...\n');
 
   const proposals = { generatedAt: new Date().toISOString(), model: MODEL, mode: 'rewrite', cases: [] };
   let done = 0;
@@ -349,6 +433,11 @@ async function main() {
       done += 1;
     };
 
+    // Pass 1 generates every question; a question that fails for a reason
+    // other than length is regenerated once (pass 2) with its reasons. Any
+    // question that fails ONLY on length, from either pass, goes to the
+    // text-only length passes instead of being regenerated.
+    let lengthQueue = [];
     let pending = entry.items.map((it) => Object.assign({}, it));
     for (let pass = 1; pass <= 2 && pending.length; pass++) {
       if (pass > 1) console.log('    retry: ' + pending.length + ' question(s) — ' + pending.map((r) => 'q' + (r.qi + 1)).join(', '));
@@ -367,12 +456,39 @@ async function main() {
         const n = normalizeReply(it.question, byQ[it.qi + 1]);
         if (n.error) { console.log('    ' + tag + ': ' + n.error); next.push(Object.assign({}, it, { reasons: [n.error] })); continue; }
         const why = rejectReasons(entry.caseObj, it.qi, n.candidate);
-        if (why) { console.log('    ' + tag + ': ' + why.join(' | ')); next.push(Object.assign({}, it, { reasons: why })); continue; }
-        accept(it, n.candidate, pass > 1 ? ' (after retry)' : '');
+        if (!why) { accept(it, n.candidate, pass > 1 ? ' (after retry)' : ''); continue; }
+        if (isLengthOnly(why)) { console.log('    ' + tag + ': off-length — ' + why.join(' | ')); lengthQueue.push({ it, candidate: n.candidate, reasons: why }); continue; }
+        console.log('    ' + tag + ': ' + why.join(' | '));
+        next.push(Object.assign({}, it, { reasons: why.concat(isLengthOnly(why.filter((r) => /longest|ratio/.test(r))) ? [lengthNote(n.candidate)] : []) }));
       }
       pending = next;
     }
     pending.forEach((it) => console.log('    q' + (it.qi + 1) + ': still failing after retry — left unchanged'));
+
+    for (let lp = 1; lp <= LENGTH_PASSES && lengthQueue.length; lp++) {
+      console.log('    length pass ' + lp + ': ' + lengthQueue.length + ' question(s) — ' + lengthQueue.map((r) => 'q' + (r.it.qi + 1)).join(', '));
+      let reply2;
+      try {
+        reply2 = extractJson(await callAnthropic(buildRewriteLengthPrompt(entry.caseObj, lengthQueue), { maxTokens: 12000 }));
+      } catch (e) {
+        console.log('    ERROR (length pass): ' + e.message.slice(0, 150));
+        break;
+      }
+      const byQ2 = {};
+      (reply2.questions || []).forEach((r) => { if (r && r.q != null) byQ2[Number(r.q)] = r.options; });
+      const next = [];
+      for (const r of lengthQueue) {
+        const tag = 'q' + (r.it.qi + 1);
+        const cand2 = mergeTextOnly(r.candidate, byQ2[r.it.qi + 1]);
+        if (!cand2) { console.log('    ' + tag + ': length pass reply unusable — left unchanged'); continue; }
+        const why = rejectReasons(entry.caseObj, r.it.qi, cand2);
+        if (!why) { accept(r.it, cand2, ' (after length pass ' + lp + ')'); continue; }
+        if (isLengthOnly(why) && lp < LENGTH_PASSES) { next.push({ it: r.it, candidate: cand2, reasons: why }); continue; }
+        console.log('    ' + tag + ': ' + why.join(' | ') + ' — left unchanged');
+      }
+      lengthQueue = next;
+    }
+    lengthQueue.forEach((r) => console.log('    q' + (r.it.qi + 1) + ': still off-length after ' + LENGTH_PASSES + ' passes — left unchanged'));
 
     if (proposed.length) {
       const c = entry.caseObj;
@@ -405,4 +521,4 @@ async function main() {
 }
 if (require.main === module) main().catch((e) => { console.error(e); process.exit(1); });
 
-module.exports = { buildRewritePrompt, normalizeReply, rejectReasons, applyQuestionOverrides, liveMatchesProposal, proposalCsvRows, renderRewriteHtml };
+module.exports = { buildRewritePrompt, normalizeReply, rejectReasons, applyQuestionOverrides, liveMatchesProposal, proposalCsvRows, renderRewriteHtml, isLengthOnly, lengthPlan, buildRewriteLengthPrompt, mergeTextOnly, lengthNote };
