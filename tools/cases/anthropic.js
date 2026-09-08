@@ -65,16 +65,24 @@ async function readSseText(res) {
   return text;
 }
 
+// max_tokens is a ceiling, not a charge: only tokens actually generated are
+// billed. On Opus the model's extended thinking counts against it, so the
+// ceiling must leave room for thinking AND the JSON. A response that still
+// hits the ceiling is retried once with double the budget (up to MAX_TOKENS_CAP).
+const MAX_TOKENS_CAP = 64000;
+
 async function callAnthropic(prompt, opts = {}) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY not set');
+  let maxTokens = opts.maxTokens || 4000;
+  let grew = false;
   let lastErr;
   for (let attempt = 0; attempt <= RETRY_DELAYS_MS.length; attempt++) {
     try {
       const res = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
-        body: JSON.stringify({ model: MODEL, max_tokens: opts.maxTokens || 4000, stream: true, messages: [{ role: 'user', content: prompt }] }),
+        body: JSON.stringify({ model: MODEL, max_tokens: maxTokens, stream: true, messages: [{ role: 'user', content: prompt }] }),
       });
       if (res.ok) return await readSseText(res);
       const body = (await res.text()).slice(0, 200);
@@ -84,7 +92,14 @@ async function callAnthropic(prompt, opts = {}) {
       if (res.status !== 429 && res.status < 500) throw lastErr;
     } catch (e) {
       if (/^API [45]\d\d/.test(e.message) && !/^API (429|5\d\d)/.test(e.message)) throw e;
-      if (/refused the request|truncated at max_tokens/.test(e.message)) throw e;
+      if (/refused the request/.test(e.message)) throw e;
+      if (/truncated at max_tokens/.test(e.message)) {
+        if (grew || maxTokens >= MAX_TOKENS_CAP) throw e;
+        maxTokens = Math.min(MAX_TOKENS_CAP, maxTokens * 2);
+        grew = true;
+        console.log('    (response hit max_tokens; retrying once with max_tokens ' + maxTokens + ')');
+        continue;
+      }
       lastErr = e;
     }
     if (attempt < RETRY_DELAYS_MS.length) await sleep(RETRY_DELAYS_MS[attempt]);

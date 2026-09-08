@@ -168,7 +168,7 @@ async function main() {
     for (let attempt = 0; attempt < 3 && !ok; attempt++) {
       try {
         console.log('  Generating ' + t.category + ' / ' + t.diagnosis.name + ' (attempt ' + (attempt + 1) + ')...');
-        const c = extractJson(await callAnthropic(buildPrompt(t, exemplar), { maxTokens: 16000 }));
+        const c = extractJson(await callAnthropic(buildPrompt(t, exemplar), { maxTokens: 48000 }));
         c.category = t.category;
         c.id = nextDeepId(deep);
 
