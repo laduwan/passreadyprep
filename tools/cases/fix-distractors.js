@@ -48,7 +48,7 @@ const mongoose = require('mongoose');
 const Exam = require('../../models/Exam');
 const ContentItem = require('../../models/ContentItem');
 const { validateCase } = require('./caseSchema');
-const { checkQuestionQuality, checkCaseQuality, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK } = require('./qualityGate');
+const { checkQuestionQuality, checkCaseQuality, classifyReason, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK } = require('./qualityGate');
 const { callAnthropic, extractJson } = require('./anthropic');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
@@ -73,17 +73,6 @@ function isRewriteSafe(q) {
   const correct = opts.filter((o) => o && o.isCorrect === true);
   if (keyed.length !== 1 || correct.length !== 1 || keyed[0] !== correct[0]) return false;
   return opts.every((o) => o && typeof o.text === 'string' && o.text.trim().length > 0);
-}
-
-// Bucket a qualityGate message for the plan summary.
-function classifyReason(msg) {
-  if (/weights \[/.test(msg)) return 'weights';
-  if (/longest option/.test(msg)) return 'key-longest';
-  if (/length ratio/.test(msg)) return 'ratio';
-  if (/absolute language/.test(msg)) return 'absolutes';
-  if (/commonMistake/.test(msg)) return 'mistake';
-  if (/empty option/.test(msg)) return 'empty';
-  return 'other';
 }
 
 function buildCaseRepairPrompt(caseObj, items) {
