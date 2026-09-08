@@ -34,6 +34,8 @@ const FLAG = process.argv.includes('--flag');
 const idi = process.argv.indexOf('--ids');
 const EXPLICIT = idi >= 0 ? (process.argv[idi + 1] || '').split(',').map((s) => s.trim()).filter(Boolean) : null;
 
+const NOTE_PREFIX = 'Quality gate:';
+
 async function main() {
   if (!process.env.MONGO_URI) { console.error('MONGO_URI is not set. Add it to your .env first.'); process.exit(1); }
   await mongoose.connect(process.env.MONGO_URI, { dbName: 'passreadyprep' });
@@ -45,10 +47,13 @@ async function main() {
   if (EXPLICIT) filter.externalId = { $in: EXPLICIT };
   else if (!ALL) filter.status = 'published';
 
-  const docs = await ContentItem.find(filter).select('externalId status caseSim').lean();
+  const docs = await ContentItem.find(filter).select('externalId status reviewNote caseSim').lean();
   console.log('Loaded ' + docs.length + ' case(s) (' + (EXPLICIT ? 'explicit ids' : ALL ? 'all statuses' : 'published only') + ')\n');
 
-  const opts = { categories: bp.CATEGORY_NAMES, allowedSources: ALLOWED_SOURCES, strictItemQuality: true };
+  // caseSchema's length-cue check stays a warning here: qualityGate reports the
+  // same condition as an error, and reporting it twice would crowd out other
+  // findings in the (capped) reviewNote.
+  const opts = { categories: bp.CATEGORY_NAMES, allowedSources: ALLOWED_SOURCES };
   const failing = [];
 
   for (const d of docs) {
@@ -58,7 +63,7 @@ async function main() {
     const depthResult = (c.questions || []).length >= 11 ? validateExamDepth(c) : { ok: true, errors: [] };
     const qualityResult = checkCaseQuality(c);
     const errors = [...schemaResult.errors, ...depthResult.errors, ...qualityResult.errors];
-    if (errors.length) failing.push({ id: d.externalId, status: d.status, title: c.title, errors });
+    if (errors.length) failing.push({ _id: d._id, id: d.externalId, status: d.status, title: c.title, reviewNote: d.reviewNote, errors });
   }
 
   console.log('=== ' + failing.length + ' of ' + docs.length + ' case(s) fail one or more gates ===\n');
@@ -78,8 +83,11 @@ async function main() {
 
   let flagged = 0;
   for (const f of failing) {
-    const note = 'Quality gate: ' + f.errors.slice(0, 5).join(' | ') + (f.errors.length > 5 ? ` (+${f.errors.length - 5} more)` : '');
-    const r = await ContentItem.updateOne({ externalId: f.id }, { $set: { reviewNote: note, needsWork: true } });
+    const gateLine = NOTE_PREFIX + ' ' + f.errors.slice(0, 8).join(' | ') + (f.errors.length > 8 ? ` (+${f.errors.length - 8} more)` : '');
+    // Keep any human-written note; replace only our own earlier gate line.
+    const kept = String(f.reviewNote || '').split('\n').filter((l) => l.trim() && !l.startsWith(NOTE_PREFIX));
+    const note = kept.concat(gateLine).join('\n');
+    const r = await ContentItem.updateOne({ _id: f._id }, { $set: { reviewNote: note, needsWork: true } });
     if (r.modifiedCount) flagged += 1;
   }
   console.log('Flagged ' + flagged + ' case(s) with needsWork + reviewNote.');

@@ -28,8 +28,9 @@ WEIGHT GRADIENT — every question has exactly 4 options scored on a clinical-ha
   Every question MUST have exactly one of each weight: 3, 0, -1, -2.
 
 STRUCTURAL PARITY — all 4 options in every question MUST be:
-  • Within 20% of each other in character length. If the correct answer is 120 chars,
-    every distractor must be 96-144 chars. Check before finalizing each question.
+  • Close in character length: the longest option may be at most 25% longer than the
+    shortest (max/min length ratio <= 1.25). If the shortest option is 100 chars, the
+    longest must be 125 or fewer. Count characters before finalizing each question.
   • Same grammatical structure (all start the same way, all complete sentences or all phrases).
   • Same level of clinical jargon and specificity.
   • The correct answer must NOT be the longest option. If it is, shorten it or lengthen a distractor.
@@ -50,10 +51,10 @@ CATEGORY HOMOGENEITY — if the correct answer is an action, all distractors are
 const STRUCTURAL_PARITY_CHECK = `
 BEFORE OUTPUTTING: For each question, verify:
 1. Count the character length of each option's "text" field.
-2. Compute max/min ratio. If ratio > 1.25, rewrite until all 4 are within 20%.
+2. Compute max/min ratio. If ratio > 1.25, rewrite until it is 1.25 or lower.
 3. Confirm the correct answer (weight 3) is NOT the longest option.
 4. Confirm weights are exactly {3, 0, -1, -2} with one of each.
-5. Confirm no option text contains "always", "never", "absolutely", "categorically".
+5. Confirm no option text contains "always", "never", "absolutely", "categorically", "universally".
 If any check fails, fix it before outputting.`;
 
 // Check one question's 4 options. Returns string[] of error messages (empty = clean).

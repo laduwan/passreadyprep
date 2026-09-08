@@ -26,6 +26,7 @@ const bp = require('./blueprint');
 const dedup = require('./dedup');
 const idAllocator = require('./idAllocator');
 const { checkCaseQuality, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK } = require('./qualityGate');
+const { callAnthropic, extractJson } = require('./anthropic');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
 const COUNT = parseInt(flag('count', '2'), 10);
@@ -33,7 +34,6 @@ const PER_CAT = parseInt(flag('per-cat', '2'), 10);
 const DRY = process.argv.includes('--dry-run');
 const STATUS = process.argv.includes('--publish') ? 'published' : 'sme_review';
 const API_KEY = process.env.ANTHROPIC_API_KEY;
-const MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-6';
 
 // 13 questions -> section split [5,4,4]: Assessment(intake/core), Planning(treatment), Process(counseling/ethics)
 const DOMAIN_PLAN = ['intake', 'intake', 'intake', 'core', 'core', 'treatment', 'treatment', 'treatment', 'treatment', 'counseling', 'counseling', 'ethics', 'ethics'];
@@ -138,18 +138,6 @@ Now output ONLY the JSON for the requested case.`;
 // API + MAIN
 // ============================================================================
 
-async function callAnthropic(prompt) {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'content-type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' },
-    body: JSON.stringify({ model: MODEL, max_tokens: 16000, messages: [{ role: 'user', content: prompt }] }),
-  });
-  if (!res.ok) throw new Error('API ' + res.status + ': ' + (await res.text()).slice(0, 200));
-  const j = await res.json();
-  return (j.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('');
-}
-function parseCase(text) { let t = text.trim(); const a = t.indexOf('{'), b = t.lastIndexOf('}'); if (a > 0 || b < t.length - 1) t = t.slice(a, b + 1); return JSON.parse(t); }
-
 function nextDeepId(deepCases) {
   const existing = deepCases.map((c) => c.id || c.externalId).filter(Boolean);
   return idAllocator.next(existing, { prefix: 'D' });
@@ -180,7 +168,7 @@ async function main() {
     for (let attempt = 0; attempt < 3 && !ok; attempt++) {
       try {
         console.log('  Generating ' + t.category + ' / ' + t.diagnosis.name + ' (attempt ' + (attempt + 1) + ')...');
-        const c = parseCase(await callAnthropic(buildPrompt(t, exemplar)));
+        const c = extractJson(await callAnthropic(buildPrompt(t, exemplar), { maxTokens: 16000 }));
         c.category = t.category;
         c.id = nextDeepId(deep);
 

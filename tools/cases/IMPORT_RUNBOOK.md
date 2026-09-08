@@ -64,11 +64,14 @@ constraint as above (need `MONGO_URI` + Atlas access):
 | Script | Purpose |
 |---|---|
 | `tools/cases/audit-quality.js` | Read-only report of every live case that fails `caseSchema.js` + `examDepth.js` + `qualityGate.js`. `--flag` writes `needsWork`/`reviewNote` so failures surface in `/review.html`. |
-| `tools/cases/fix-distractors.js` | AI-assisted repair for the *quality* subset of failures (structural parity, absolutes, thin `commonMistake`) — rewrites only the 3 non-correct options per flagged question via the Anthropic API, re-validates, and (with `--apply`) saves the case back as `sme_review` for a human re-check. Questions with a broken weight set or an empty option are skipped for manual review — a wording rewrite can't safely guess a corrupted correct answer. |
+| `tools/cases/fix-distractors.js` | AI-assisted repair for the *quality* subset of failures (structural parity, absolutes, thin `commonMistake`) — rewrites only the 3 non-correct options per flagged question via the Anthropic API, re-validates, and (with `--apply`) writes just those questions' paths and sets the case back to `sme_review` for a human re-check. `needsWork` is cleared only if the whole case then passes the gate. Questions with a broken weight/`isCorrect` set or an empty option are skipped for manual review — a wording rewrite can't safely guess a corrupted correct answer. Published only by default; `--all` includes `sme_review`/`draft`. |
+
+Both preserve any human-written `reviewNote` and replace only their own earlier
+line in it, so re-running is safe.
 
 ```bash
 node tools/cases/audit-quality.js --all              # see what's broken, all statuses
-node tools/cases/fix-distractors.js                   # free plan of what's repairable
+node tools/cases/fix-distractors.js                   # free plan of what's repairable (published)
 node tools/cases/fix-distractors.js --generate         # show proposed rewrites (API calls, no writes)
 node tools/cases/fix-distractors.js --apply --count 10 # write repairs, send back to sme_review
 ```
