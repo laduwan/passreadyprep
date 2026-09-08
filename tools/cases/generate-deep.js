@@ -25,6 +25,7 @@ const { ALLOWED_SOURCES } = require('./references');
 const bp = require('./blueprint');
 const dedup = require('./dedup');
 const idAllocator = require('./idAllocator');
+const { checkCaseQuality, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK } = require('./qualityGate');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
 const COUNT = parseInt(flag('count', '2'), 10);
@@ -71,40 +72,6 @@ function deepTargets(deepCases, n) {
 // GOLD-STANDARD GENERATION PROMPT
 // ============================================================================
 
-const ITEM_CONSTRUCTION_RULES = `
-ITEM CONSTRUCTION RULES (non-negotiable — the validator will reject violations):
-
-WEIGHT GRADIENT — every question has exactly 4 options scored on a clinical-harm gradient:
-  weight 3  → The one correct answer. Evidence-based, ethically sound, clinically optimal.
-  weight 0  → Near-miss. Clinically justifiable but less effective. A student who picks this
-               knows the diagnosis but not the optimal approach. NOT penalized.
-  weight -1 → Common novice error. Plausible mistake an unprepared intern would make.
-               Wrong, but understandable. Mild penalty.
-  weight -2 → Harmful error. Dangerous, unethical, or based on fundamentally wrong reasoning.
-               A student who picks this missed a critical safety, ethics, or diagnostic concept.
-               Heavy penalty.
-  Every question MUST have exactly one of each weight: 3, 0, -1, -2.
-
-STRUCTURAL PARITY — all 4 options in every question MUST be:
-  • Within 20% of each other in character length. If the correct answer is 120 chars,
-    every distractor must be 96-144 chars. Check before finalizing each question.
-  • Same grammatical structure (all start the same way, all complete sentences or all phrases).
-  • Same level of clinical jargon and specificity.
-  • The correct answer must NOT be the longest option. If it is, shorten it or lengthen a distractor.
-  • No option may use absolutes: "always", "never", "absolutely", "categorically", "universally".
-
-NOVICE TRAP DESIGN — every distractor (weight 0, -1, -2) MUST target a specific cognitive error:
-  • The "commonMistake" field must name the exact reasoning flaw a student would use to pick it.
-  • Weight 0: the student knows the diagnosis but confuses optimal timing, sequencing, or priority.
-  • Weight -1: the student applies a wrong framework (e.g., uses an anxiety protocol for depression).
-  • Weight -2: the student makes a dangerous error (scope violation, client abandonment, criterion reversal).
-  All 3 distractors must be clinically plausible — a real clinician might consider each one.
-  No joke answers, no absurd options, no obviously wrong choices.
-
-CATEGORY HOMOGENEITY — if the correct answer is an action, all distractors are actions.
-  If it is a diagnosis, all are diagnoses. If it is a clinical rationale, all are rationales.
-  All 4 options must belong to the same logical category.`;
-
 const SCHEMA = `Return ONE JSON object only (no markdown, no prose) shaped exactly like the EXAMPLE.
 Keys: id, title, category, difficulty, primaryDiagnosis{name,code}, diagnosis{name,code},
 differentialOptions[{id,name,isCorrect}], narrative{intake,session1,session2},
@@ -143,15 +110,6 @@ HARD
 Write the case AT THE ASSIGNED DIFFICULTY. Do not escalate. An easy case that you
 have made "interesting" by adding a comorbidity is no longer an easy case.`;
 
-const STRUCTURAL_PARITY_CHECK = `
-BEFORE OUTPUTTING: For each of the 13 questions, verify:
-1. Count the character length of each option's "text" field.
-2. Compute max/min ratio. If ratio > 1.25, rewrite until all 4 are within 20%.
-3. Confirm the correct answer (weight 3) is NOT the longest option.
-4. Confirm weights are exactly {3, 0, -1, -2} with one of each.
-5. Confirm no option text contains "always", "never", "absolutely", "categorically".
-If any check fails, fix it before outputting.`;
-
 function buildPrompt(target, exemplar) {
   return `You are an expert psychometrician and NCMHCE item writer. Write a gold-standard deep NCMHCE case simulation.
 
@@ -174,60 +132,6 @@ EXAMPLE (different diagnosis — match this structure, depth, and item quality e
 ${JSON.stringify(exemplar, null, 1)}
 
 Now output ONLY the JSON for the requested case.`;
-}
-
-// ============================================================================
-// POST-GENERATION QUALITY CHECKS (run before import)
-// ============================================================================
-
-function postGenQualityCheck(c) {
-  const errors = [];
-  const tag = c.id || c.title || '<unknown>';
-
-  for (let qi = 0; qi < (c.questions || []).length; qi++) {
-    const q = c.questions[qi];
-    const opts = q.options || [];
-    const qp = `[${tag}] q${qi + 1}: `;
-
-    // Weight gradient check: must have exactly {3, 0, -1, -2}
-    const weights = opts.map(o => o.weight).sort((a, b) => b - a);
-    if (weights.join(',') !== '3,0,-1,-2') {
-      errors.push(qp + `weights [${weights}] must be exactly [3,0,-1,-2]`);
-    }
-
-    // Structural parity: max/min ratio <= 1.25
-    const lens = opts.map(o => (o.text || '').length);
-    if (lens.some(l => l === 0)) {
-      errors.push(qp + 'empty option text');
-    } else {
-      const ratio = Math.max(...lens) / Math.min(...lens);
-      if (ratio > 1.25) {
-        errors.push(qp + `length ratio ${ratio.toFixed(2)} exceeds 1.25 (${lens.join(',')})`);
-      }
-    }
-
-    // Correct-is-longest check
-    const ci = opts.findIndex(o => o.isCorrect);
-    if (ci >= 0 && lens[ci] === Math.max(...lens) && lens[ci] > Math.min(...lens) * 1.1) {
-      errors.push(qp + 'correct answer is the longest option');
-    }
-
-    // Absolutes check
-    opts.forEach((o, oi) => {
-      if (!o.isCorrect && /\b(always|never|absolutely|categorically|universally)\b/i.test(o.text || '')) {
-        errors.push(qp + `opt ${o.id}: contains absolute language`);
-      }
-    });
-
-    // commonMistake filled
-    opts.forEach((o) => {
-      if (!o.isCorrect && (!o.explanation || !o.explanation.commonMistake || o.explanation.commonMistake.length < 15)) {
-        errors.push(qp + `opt ${o.id}: commonMistake missing or too short`);
-      }
-    });
-  }
-
-  return { ok: errors.length === 0, errors };
 }
 
 // ============================================================================
@@ -285,7 +189,7 @@ async function main() {
         if (!v.ok) { console.log('    FAIL examDepth: ' + v.errors.slice(0, 2).join(' | ')); continue; }
 
         // Gate 2: gold-standard quality checks (weights, parity, absolutes, mistakes)
-        const q = postGenQualityCheck(c);
+        const q = checkCaseQuality(c);
         if (!q.ok) { console.log('    FAIL quality: ' + q.errors.slice(0, 3).join(' | ')); continue; }
 
         // Gate 3: dedup

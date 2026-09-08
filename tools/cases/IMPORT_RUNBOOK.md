@@ -54,6 +54,25 @@ content and inserts genuinely new ids.
    node tools/cases/import-deep-cases.js --dry-run
    ```
 
+## Correcting cases already live
+
+Cases imported before the gold-standard item-quality gate (`qualityGate.js` —
+weight gradient, structural parity, no absolutes, novice-trap depth) existed
+can still be live with weaker distractors. Two scripts, same Render-shell
+constraint as above (need `MONGO_URI` + Atlas access):
+
+| Script | Purpose |
+|---|---|
+| `tools/cases/audit-quality.js` | Read-only report of every live case that fails `caseSchema.js` + `examDepth.js` + `qualityGate.js`. `--flag` writes `needsWork`/`reviewNote` so failures surface in `/review.html`. |
+| `tools/cases/fix-distractors.js` | AI-assisted repair for the *quality* subset of failures (structural parity, absolutes, thin `commonMistake`) — rewrites only the 3 non-correct options per flagged question via the Anthropic API, re-validates, and (with `--apply`) saves the case back as `sme_review` for a human re-check. Questions with a broken weight set or an empty option are skipped for manual review — a wording rewrite can't safely guess a corrupted correct answer. |
+
+```bash
+node tools/cases/audit-quality.js --all              # see what's broken, all statuses
+node tools/cases/fix-distractors.js                   # free plan of what's repairable
+node tools/cases/fix-distractors.js --generate         # show proposed rewrites (API calls, no writes)
+node tools/cases/fix-distractors.js --apply --count 10 # write repairs, send back to sme_review
+```
+
 ## Who sees the cases afterward
 
 Access tiers live in `routes/content.js` (`resolveAccess`):
