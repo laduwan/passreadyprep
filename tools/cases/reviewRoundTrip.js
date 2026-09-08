@@ -153,7 +153,7 @@ function reviewSheetSummary(text) {
   return { questions: keys.length, rejected, overridden, stems };
 }
 
-function buildBatchDoc(proposals, { name, tool, html, csv }) {
+function buildBatchDoc(proposals, { name, tool, html, csv, progress }) {
   if (!BATCH_NAME_RX.test(name)) throw new Error('batch name must be 1-40 letters, digits, _ or - (got "' + name + '")');
   const cases = (proposals && proposals.cases) || [];
   return {
@@ -162,6 +162,7 @@ function buildBatchDoc(proposals, { name, tool, html, csv }) {
     caseCount: cases.length,
     questionCount: cases.reduce((n, c) => n + ((c.questions || []).length), 0),
     proposals, html, csv,
+    progress: progress && progress.total ? { done: progress.done, total: progress.total } : { done: cases.length, total: cases.length },
   };
 }
 

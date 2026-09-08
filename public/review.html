@@ -275,12 +275,15 @@ async function showBatches(){
   if(!data.count) h += '<div class="card"><p class="lead" style="margin:0">No batches stored yet. In the Render shell: <code>node tools/cases/rewrite-questions.js --generate --count 15 --save tools/cases/review/rw1</code></p></div>';
   data.items.forEach(b=>{
     let state, cls;
+    const generating = b.progress && b.progress.done < b.progress.total && !b.hasReview && !b.appliedAt;
     if(b.appliedAt){ state='Applied '+fmtWhen(b.appliedAt); cls='published'; }
+    else if(generating){ state='Generating '+b.progress.done+' / '+b.progress.total+' cases'; cls='needs'; }
     else if(b.hasReview){ state='Sheet uploaded '+fmtWhen(b.reviewedAt)+(b.reviewedBy?' by '+esc(b.reviewedBy):''); cls='sme_review'; }
     else { state='Awaiting review sheet'; cls='needs'; }
     h += '<div class="card" id="batch-'+esc(b.name)+'">';
     h += '<div class="row" style="justify-content:space-between"><h2 style="margin:0">'+esc(b.name)+'</h2><span class="status '+cls+'">'+state+'</span></div>';
     h += '<div class="chips"><span class="chip">'+b.caseCount+' case'+(b.caseCount===1?'':'s')+'</span><span class="chip">'+b.questionCount+' question'+(b.questionCount===1?'':'s')+'</span><span class="chip">'+esc(b.model||'model ?')+'</span><span class="chip">generated '+esc(fmtWhen(b.generatedAt))+'</span></div>';
+    if(generating) h += '<div class="key-note" style="margin-top:8px">Still being generated (updated '+esc(fmtWhen(b.updatedAt))+'). The files below hold the cases finished so far; download again once it reads complete.</div>';
     if(b.review && !b.review.error) h += '<div class="key-note" style="margin-top:8px">Decisions on file: '+b.review.questions+' question rows · '+b.review.rejected+' rejected · '+b.review.overridden+' with option overrides · '+b.review.stems+' stem edits.</div>';
     h += '<div class="row" style="margin-top:12px">';
     h += '<button class="btn" onclick="downloadBatch(\''+esc(b.name)+'\',\'html\')">⬇ HTML document</button>';

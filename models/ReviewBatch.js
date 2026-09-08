@@ -16,6 +16,8 @@ const ReviewBatchSchema = new Schema(
     generatedAt: Date,
     caseCount: { type: Number, default: 0 },
     questionCount: { type: Number, default: 0 },
+    // While a --save/--series run is generating: cases finished / planned.
+    progress: { done: Number, total: Number },
 
     proposals: Schema.Types.Mixed, // the NAME.json object, verbatim
     html: String,                  // NAME.html — the review document

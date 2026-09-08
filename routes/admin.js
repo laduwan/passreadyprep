@@ -275,7 +275,7 @@ function batchParam(req, res) {
 router.get('/review-batches', async (_req, res) => {
   try {
     const rows = await ReviewBatch.find({})
-      .select('name tool mode model generatedAt caseCount questionCount reviewedAt reviewedBy appliedAt reviewCsv updatedAt')
+      .select('name tool mode model generatedAt caseCount questionCount progress reviewedAt reviewedBy appliedAt reviewCsv updatedAt')
       .sort({ generatedAt: 1 })
       .lean();
     const items = rows.map((b) => {
@@ -284,6 +284,7 @@ router.get('/review-batches', async (_req, res) => {
       return {
         name: b.name, tool: b.tool, mode: b.mode, model: b.model, generatedAt: b.generatedAt,
         caseCount: b.caseCount, questionCount: b.questionCount,
+        progress: b.progress && b.progress.total ? { done: b.progress.done, total: b.progress.total } : null,
         hasReview: !!b.reviewCsv, reviewedAt: b.reviewedAt || null, reviewedBy: b.reviewedBy || null, review,
         appliedAt: b.appliedAt || null, updatedAt: b.updatedAt,
       };
