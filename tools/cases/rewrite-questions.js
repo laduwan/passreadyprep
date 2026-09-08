@@ -417,7 +417,7 @@ async function main() {
 
   const batch = cases.slice(SKIP, SKIP + COUNT);
   if (!batch.length) { console.log('--skip ' + SKIP + ' is past the end of the ' + cases.length + ' case(s); nothing to do.'); await mongoose.disconnect(); return; }
-  console.log('Rewriting ' + batch.length + ' of ' + cases.length + ' case(s) (' + (SKIP ? 'skipping the first ' + SKIP + ', ' : '') + '--count ' + COUNT + ', one API call each: ' + batch[0].externalId + ' … ' + batch[batch.length - 1].externalId + ')...\n');
+  console.log('Rewriting ' + batch.length + ' of ' + cases.length + ' case(s) with model ' + MODEL + ' (' + (SKIP ? 'skipping the first ' + SKIP + ', ' : '') + '--count ' + COUNT + ', one API call each: ' + batch[0].externalId + ' … ' + batch[batch.length - 1].externalId + ')...\n');
 
   const proposals = { generatedAt: new Date().toISOString(), model: MODEL, mode: 'rewrite', cases: [] };
   let done = 0;

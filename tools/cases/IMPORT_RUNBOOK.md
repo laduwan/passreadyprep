@@ -74,6 +74,14 @@ mop up stragglers.
 Retire exact duplicate cases first (`dedup-retire.js --exact`, then `--apply`)
 so you don't pay to repair both copies.
 
+**Which model.** All three generation tools (`generate-deep.js`,
+`fix-distractors.js`, `rewrite-questions.js`) call the API through
+`tools/cases/anthropic.js`, which uses `ANTHROPIC_MODEL` if that env var is set
+on the host and otherwise `claude-opus-5`. Every run prints `with model …` in
+its header — check it before trusting a batch; item quality differs noticeably
+between Opus and Sonnet. Responses are streamed so a long Opus rewrite cannot
+trip Node's 5-minute fetch headers timeout.
+
 **Whole-question rewrite (the exam-standard mandate).** `rewrite-questions.js`
 rewrites EVERY question of a case from scratch — stem, all four options
 designed together, tiers, explanations, evidence citations — while keeping the
