@@ -214,8 +214,8 @@ ${lines}`;
 
 ${blocks}
 
-Return ONE JSON object only (no markdown, no prose), one entry per question, "q" echoing the question number, every distractor present with its ORIGINAL id and weight and its existing rationale/explanation:
-{ "questions": [ { "q": ${retries[0].it.qi + 1}, "options": [ { "id": "...", "weight": 0, "text": "...", "rationale": "...", "explanation": { "approach": "...", "rationale": "...", "keyIndicators": ["..."], "commonMistake": "..." } }, { "id": "...", "weight": -1, "text": "...", "rationale": "...", "explanation": { } }, { "id": "...", "weight": -2, "text": "...", "rationale": "...", "explanation": { } } ] } ] }
+Return ONE JSON object only (no markdown, no prose), one entry per question, "q" echoing the question number, every distractor present with its ORIGINAL id and its new text. Return ONLY id and text per option — the weight, rationale and explanation are kept from before and must not be re-sent:
+{ "questions": [ { "q": ${retries[0].it.qi + 1}, "options": [ { "id": "...", "text": "..." }, { "id": "...", "text": "..." }, { "id": "...", "text": "..." } ] } ] }
 Output ONLY the JSON object.`;
 }
 
@@ -238,6 +238,22 @@ function mergeRewrite(question, replyOptions) {
     return Object.assign({}, o, { weight: Number(r.weight), text: r.text, rationale: r.rationale, explanation: r.explanation });
   });
   return Object.assign({}, question, { options });
+}
+
+// Merge a length-pass reply: ONLY text changes. Weight, rationale and
+// explanation stay exactly as they were on the candidate, whatever the reply
+// carries (a follow-up that re-sent empty explanations used to wipe the good
+// ones). Returns null unless the reply covers exactly the distractor ids with
+// non-empty text.
+function mergeLengthFix(candidate, replyOptions) {
+  const distractorIds = candidate.options.filter((o) => !o.isCorrect).map((o) => String(o.id)).sort();
+  const got = (replyOptions || []).filter((o) => o && o.id != null && typeof o.text === 'string' && o.text.trim().length > 0);
+  const gotIds = got.map((o) => String(o.id)).sort();
+  if (gotIds.join('|') !== distractorIds.join('|')) return null;
+  const textById = {};
+  got.forEach((o) => { textById[String(o.id)] = o.text.trim(); });
+  const options = candidate.options.map((o) => (o.isCorrect ? o : Object.assign({}, o, { text: textById[String(o.id)] })));
+  return Object.assign({}, candidate, { options });
 }
 
 // Errors validateCase reports on the case WITH the candidate question that it
@@ -602,7 +618,7 @@ async function main() {
       for (const r of retry) {
         const tag = 'q' + (r.it.qi + 1);
         const returned = byQ2[r.it.qi + 1];
-        const cand2 = returned ? mergeRewrite(r.candidate, returned) : null;
+        const cand2 = returned ? mergeLengthFix(r.candidate, returned) : null;
         if (!cand2) { console.log('    ' + tag + ': length pass reply unusable — ' + r.reasons.join(' | ') + ' — left unchanged'); continue; }
         judge(r.it, cand2, pass < LENGTH_PASSES ? next : null, ' (after length pass ' + pass + ')');
       }
@@ -642,6 +658,6 @@ if (require.main === module) main().catch((e) => { console.error(e); process.exi
 
 module.exports = {
   isRewriteSafe, mergeRewrite, newSchemaErrors, composeNote, buildCaseRepairPrompt, rejectReason,
-  lengthTargets, isLengthOnly, buildLengthFixPrompt, words, LENGTH_BAND,
+  lengthTargets, isLengthOnly, buildLengthFixPrompt, mergeLengthFix, words, LENGTH_BAND,
   toCsv, parseCsv, proposalCsvRows, readReviewSheet, applyOverrides, liveMatchesProposal, renderReviewHtml, CSV_HEADER,
 };
