@@ -98,16 +98,60 @@ function isRewriteSafe(q) {
   return opts.every((o) => o && typeof o.text === 'string' && o.text.trim().length > 0);
 }
 
+// --- length targets ----------------------------------------------------------
+// Models are poor at counting characters, so "match the key's length" comes
+// back a little short and the key stays the longest option. Instead each
+// distractor gets an explicit numeric window, in characters AND words, and
+// one distractor is told it must end up strictly longer than the key.
+//
+// Window: K/1.11 .. K*1.11 around the key length K. Any four lengths inside
+// it have a max/min ratio <= 1.23, under the gate's 1.25, so a reply that
+// lands anywhere in its window passes.
+
+const LENGTH_PASSES = 2;       // targeted follow-up calls per case for length-only failures
+const LENGTH_BAND = 1.11;
+
+const words = (s) => String(s || '').trim().split(/\s+/).filter(Boolean).length;
+
+function lengthTargets(question) {
+  const key = question.options.find((o) => o.isCorrect);
+  const K = key.text.length;
+  const cpw = K / Math.max(1, words(key.text));       // chars per word, measured on the key itself
+  const toWords = (n) => Math.max(1, Math.round(n / cpw));
+  const lo = Math.ceil(K / LENGTH_BAND);
+  const hi = Math.floor(K * LENGTH_BAND);
+  const distractors = question.options.filter((o) => !o.isCorrect);
+  // The distractor that is already longest is the natural one to push past the key.
+  const longestId = String(distractors.reduce((a, b) => (b.text.length > a.text.length ? b : a)).id);
+  return distractors.map((o) => {
+    const mustExceed = String(o.id) === longestId;
+    const minChars = mustExceed ? Math.min(hi - 2, Math.max(lo, K + Math.max(3, Math.round(K * 0.04)))) : lo;
+    return { id: o.id, mustExceed, minChars, maxChars: hi, minWords: toWords(minChars), maxWords: toWords(hi), keyChars: K, keyWords: words(key.text) };
+  });
+}
+
+function targetLine(t) {
+  return `${t.minChars}–${t.maxChars} characters (about ${t.minWords}–${t.maxWords} words)` +
+    (t.mustExceed ? ` — this one MUST be strictly longer than the key (key is ${t.keyChars} chars)` : '');
+}
+
+// Is every remaining gate failure a length one (ratio / key-longest)?
+function isLengthOnly(reasons) {
+  return reasons.length > 0 && reasons.every((r) => ['ratio', 'key-longest'].includes(classifyReason(r)));
+}
+
 function buildCaseRepairPrompt(caseObj, items) {
   const blocks = items.map(({ qi, question, reasons }) => {
     const correct = question.options.find((o) => o.isCorrect);
     const distractors = question.options.filter((o) => !o.isCorrect);
+    const targets = {};
+    lengthTargets(question).forEach((t) => { targets[String(t.id)] = t; });
     const dLines = distractors.map((o) =>
-      `    id "${o.id}" (currently weight ${o.weight}, ${o.text.length} chars): "${o.text}"\n      current commonMistake: "${(o.explanation && o.explanation.commonMistake) || ''}"`
+      `    id "${o.id}" (currently weight ${o.weight}, ${o.text.length} chars / ${words(o.text)} words): "${o.text}"\n      current commonMistake: "${(o.explanation && o.explanation.commonMistake) || ''}"\n      TARGET LENGTH for id "${o.id}": ${targetLine(targets[String(o.id)])}`
     ).join('\n');
     return `--- Q${qi + 1} (domain: ${question.domain}) ---
   QUESTION: "${question.question}"
-  KEY (weight 3, id "${correct.id}", ${correct.text.length} chars — do not change): "${correct.text}"
+  KEY (weight 3, id "${correct.id}", ${correct.text.length} chars / ${words(correct.text)} words — do not change): "${correct.text}"
   DISTRACTORS:
 ${dLines}
   FLAGGED FOR:
@@ -128,7 +172,7 @@ ${STRUCTURAL_PARITY_CHECK}
 
 RE-TIERING: the current distractor weights are provisional and usually wrong (for example two -1s and no 0). For every question, assign the three distractors EXACTLY one weight 0, one weight -1, and one weight -2. Re-tier an existing distractor where its clinical content already fits the tier; otherwise rewrite it so it does. Every distractor keeps its ORIGINAL id.
 
-LENGTH: each key is fixed at the character count shown. Every distractor must land close to its key's length — all four options within a 1.25 max/min ratio — and at least one distractor must be as long as or longer than the key. Never make one distractor much longer than the others.
+LENGTH: each key is fixed at the length shown. Every distractor has a TARGET LENGTH window above, in characters and words — write to the WORD count, then check the character count. Landing inside the window is a hard requirement: too short and the key stays the longest option; too long and the ratio breaks. The distractor marked "MUST be strictly longer than the key" has to exceed the key by at least a few words of plausible clinical detail. Never make one distractor much longer than the others.
 
 Return ONE JSON object only (no markdown, no prose), shaped exactly like this — one entry per question above, "q" echoing the question number:
 {
@@ -140,6 +184,38 @@ Return ONE JSON object only (no markdown, no prose), shaped exactly like this �
     ] }
   ]
 }
+Output ONLY the JSON object.`;
+}
+
+// Follow-up prompt for questions whose rewrite failed ONLY on length. Each
+// distractor gets an exact delta ("add about 4–6 words") rather than a
+// target, which models follow far more reliably than absolute counts.
+function buildLengthFixPrompt(caseObj, retries) {
+  const blocks = retries.map(({ it, candidate }) => {
+    const key = candidate.options.find((o) => o.isCorrect);
+    const targets = {};
+    lengthTargets(candidate).forEach((t) => { targets[String(t.id)] = t; });
+    const lines = candidate.options.filter((o) => !o.isCorrect).map((o) => {
+      const t = targets[String(o.id)];
+      const n = o.text.length;
+      let action;
+      if (n < t.minChars) action = `TOO SHORT by ${t.minChars - n}+ characters — ADD about ${Math.max(1, t.minWords - words(o.text))}–${Math.max(2, t.maxWords - words(o.text))} words of plausible clinical detail`;
+      else if (n > t.maxChars) action = `TOO LONG by ${n - t.maxChars}+ characters — CUT about ${Math.max(1, words(o.text) - t.maxWords)}–${Math.max(2, words(o.text) - t.minWords)} words`;
+      else action = 'length is fine — return it UNCHANGED';
+      return `    id "${o.id}" (weight ${o.weight}, ${n} chars / ${words(o.text)} words): "${o.text}"\n      ${action}. Target: ${targetLine(t)}`;
+    }).join('\n');
+    return `--- Q${it.qi + 1} ---
+  KEY (${key.text.length} chars / ${words(key.text)} words — do not change): "${key.text}"
+  DISTRACTORS:
+${lines}`;
+  }).join('\n\n');
+
+  return `You are an NCMHCE item writer fixing ONLY the LENGTH of distractors on ${retries.length} question(s) from one case ("${caseObj.title}"). The wording, clinical meaning, tier (weight), id, rationale and explanation of each distractor stay as they are; you only add or remove plausible clinical detail to hit the stated length. Count words first, then characters.
+
+${blocks}
+
+Return ONE JSON object only (no markdown, no prose), one entry per question, "q" echoing the question number, every distractor present with its ORIGINAL id and weight and its existing rationale/explanation:
+{ "questions": [ { "q": ${retries[0].it.qi + 1}, "options": [ { "id": "...", "weight": 0, "text": "...", "rationale": "...", "explanation": { "approach": "...", "rationale": "...", "keyIndicators": ["..."], "commonMistake": "..." } }, { "id": "...", "weight": -1, "text": "...", "rationale": "...", "explanation": { } }, { "id": "...", "weight": -2, "text": "...", "rationale": "...", "explanation": { } } ] } ] }
 Output ONLY the JSON object.`;
 }
 
@@ -481,21 +557,58 @@ async function main() {
     (reply.questions || []).forEach((r) => { if (r && r.q != null) byQ[Number(r.q)] = r.options; });
 
     const proposed = [];
+    const accept = (it, candidate, note) => {
+      const tag = 'q' + (it.qi + 1);
+      console.log('    ' + tag + ': OK' + (note || ''));
+      candidate.options.forEach((o) => { if (!o.isCorrect) console.log('      [' + (o.weight >= 0 ? ' ' : '') + o.weight + '] ' + o.text + '  (' + o.text.length + ')'); });
+      proposed.push({ qi: it.qi, questionId: it.question.id, domain: it.question.domain, question: it.question.question, reasons: it.reasons, before: it.question.options, after: candidate.options });
+      if (!SAVE) { entry.caseObj.questions[it.qi] = candidate; entry.repairedQis.push(it.qi); }
+      fixed += 1;
+    };
+    // Decide a candidate: accept, park for a length-only retry, or drop.
+    const judge = (it, candidate, retryList, note) => {
+      const tag = 'q' + (it.qi + 1);
+      const failing = checkQuestionQuality(candidate, tag);
+      if (failing.length && isLengthOnly(failing) && retryList) { retryList.push({ it, candidate, reasons: failing }); return; }
+      const why = rejectReason(entry.caseObj, it.qi, candidate);
+      if (why) { console.log('    ' + tag + ': ' + why + ' — left unchanged'); return; }
+      accept(it, candidate, note);
+    };
+
+    let retry = [];
     for (const it of entry.items) {
       const tag = 'q' + (it.qi + 1);
       const returned = byQ[it.qi + 1];
       if (!returned) { console.log('    ' + tag + ': not in reply — left unchanged'); continue; }
       const candidate = mergeRewrite(it.question, returned);
       if (!candidate) { console.log('    ' + tag + ': reply ids/weights do not match the distractor set — left unchanged'); continue; }
-      const why = rejectReason(entry.caseObj, it.qi, candidate);
-      if (why) { console.log('    ' + tag + ': ' + why + ' — left unchanged'); continue; }
-
-      console.log('    ' + tag + ': OK');
-      candidate.options.forEach((o) => { if (!o.isCorrect) console.log('      [' + (o.weight >= 0 ? ' ' : '') + o.weight + '] ' + o.text); });
-      proposed.push({ qi: it.qi, questionId: it.question.id, domain: it.question.domain, question: it.question.question, reasons: it.reasons, before: it.question.options, after: candidate.options });
-      if (!SAVE) { entry.caseObj.questions[it.qi] = candidate; entry.repairedQis.push(it.qi); }
-      fixed += 1;
+      judge(it, candidate, retry);
     }
+
+    // Length-only failures get up to LENGTH_PASSES targeted follow-ups, one
+    // call per case per pass, with exact add/cut deltas per distractor.
+    for (let pass = 1; pass <= LENGTH_PASSES && retry.length; pass++) {
+      console.log('    length pass ' + pass + ': ' + retry.length + ' question(s) off-length — ' + retry.map((r) => 'q' + (r.it.qi + 1)).join(', '));
+      let reply2;
+      try {
+        reply2 = extractJson(await callAnthropic(buildLengthFixPrompt(entry.caseObj, retry), { maxTokens: 12000 }));
+      } catch (e) {
+        console.log('    ERROR (length pass): ' + e.message.slice(0, 150));
+        break;
+      }
+      const byQ2 = {};
+      (reply2.questions || []).forEach((r) => { if (r && r.q != null) byQ2[Number(r.q)] = r.options; });
+      const next = [];
+      for (const r of retry) {
+        const tag = 'q' + (r.it.qi + 1);
+        const returned = byQ2[r.it.qi + 1];
+        const cand2 = returned ? mergeRewrite(r.candidate, returned) : null;
+        if (!cand2) { console.log('    ' + tag + ': length pass reply unusable — ' + r.reasons.join(' | ') + ' — left unchanged'); continue; }
+        judge(r.it, cand2, pass < LENGTH_PASSES ? next : null, ' (after length pass ' + pass + ')');
+      }
+      retry = next;
+    }
+    retry.forEach((r) => console.log('    q' + (r.it.qi + 1) + ': still off-length after ' + LENGTH_PASSES + ' passes: ' + r.reasons.join(' | ') + ' — left unchanged'));
     if (proposed.length) {
       const c = entry.caseObj;
       proposals.cases.push({ externalId: entry.externalId, status: entry.status, title: c.title, dx: (c.diagnosis && c.diagnosis.name) || (c.primaryDiagnosis && c.primaryDiagnosis.name) || '', difficulty: c.difficulty, questionCount: c.questions.length, questions: proposed });
@@ -529,5 +642,6 @@ if (require.main === module) main().catch((e) => { console.error(e); process.exi
 
 module.exports = {
   isRewriteSafe, mergeRewrite, newSchemaErrors, composeNote, buildCaseRepairPrompt, rejectReason,
+  lengthTargets, isLengthOnly, buildLengthFixPrompt, words, LENGTH_BAND,
   toCsv, parseCsv, proposalCsvRows, readReviewSheet, applyOverrides, liveMatchesProposal, renderReviewHtml, CSV_HEADER,
 };
