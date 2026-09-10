@@ -9,6 +9,14 @@
 // one it used — item quality differs noticeably between Opus and Sonnet, so
 // the model must never be a guess.
 //
+// KEY: ANTHROPIC_API_KEY_CASE_TOOLS if set, else ANTHROPIC_API_KEY. These are
+// developer-run, unattended, Opus-heavy bulk jobs (a rewrite series can be
+// hundreds of calls) — separate from the live server's ANTHROPIC_API_KEY,
+// which the debrief tutor and the scheduled/admin case-gen job depend on.
+// Pointing this at its own Console key (its own workspace/spend limit) means
+// a long tools/cases/ run can never exhaust the production key's allowance.
+// Falls back to ANTHROPIC_API_KEY so existing setups keep working unchanged.
+//
 // STREAMING: responses are streamed (SSE) and the text deltas concatenated.
 // A 13-question rewrite on Opus can take minutes; a non-streamed request
 // sends no bytes until generation finishes and can trip Node's fetch
@@ -71,9 +79,17 @@ async function readSseText(res) {
 // hits the ceiling is retried once with double the budget (up to MAX_TOKENS_CAP).
 const MAX_TOKENS_CAP = 64000;
 
+// Exported so each tool's own pre-flight "is a key set?" check looks at the
+// same source this module actually calls with — a tool gated only on
+// ANTHROPIC_API_KEY would refuse to start even when ANTHROPIC_API_KEY_CASE_TOOLS
+// is the one that's set.
+function resolveApiKey() {
+  return process.env.ANTHROPIC_API_KEY_CASE_TOOLS || process.env.ANTHROPIC_API_KEY;
+}
+
 async function callAnthropic(prompt, opts = {}) {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) throw new Error('ANTHROPIC_API_KEY not set');
+  const apiKey = resolveApiKey();
+  if (!apiKey) throw new Error('ANTHROPIC_API_KEY_CASE_TOOLS / ANTHROPIC_API_KEY not set');
   let maxTokens = opts.maxTokens || 4000;
   let grew = false;
   let lastErr;
@@ -116,4 +132,4 @@ function extractJson(text) {
   return JSON.parse(t);
 }
 
-module.exports = { callAnthropic, extractJson, readSseText, MODEL };
+module.exports = { callAnthropic, extractJson, readSseText, MODEL, resolveApiKey };
