@@ -85,5 +85,12 @@ services:
       # ── AI features (optional) ────────────────────────────────────────
       - key: ANTHROPIC_API_KEY   # AI debrief (Dr. Claire Moreau) + case generation
         sync: false
+      # Optional: separate key/workspace for the developer-run tools/cases/
+      # bulk-generation scripts (generate-deep.js, fix-distractors.js,
+      # rewrite-questions.js), so a long Render-shell run bills its own
+      # Console spend limit instead of the production ANTHROPIC_API_KEY above.
+      # Unset here means those scripts fall back to ANTHROPIC_API_KEY.
+      - key: ANTHROPIC_API_KEY_CASE_TOOLS
+        sync: false
       - key: GUIDE_PDF_PATH      # source PDF for the watermarked study-guide delivery
         sync: false

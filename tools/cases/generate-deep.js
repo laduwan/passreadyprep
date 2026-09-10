@@ -10,6 +10,9 @@
 // nothing and exits cheaply.
 //
 //   ANTHROPIC_API_KEY=... MONGO_URI=... node tools/cases/generate-deep.js --count 2
+//     (or set ANTHROPIC_API_KEY_CASE_TOOLS instead, to bill this to a separate
+//     Console key/workspace from the live server's ANTHROPIC_API_KEY — see
+//     tools/cases/anthropic.js)
 //     --count N    cases to attempt this run (default 2)
 //     --per-cat N  target deep cases per category (default 2)
 //     --parallel N cases in flight at once (default 3; one long Opus call each)
@@ -33,7 +36,7 @@ const bp = require('./blueprint');
 const dedup = require('./dedup');
 const idAllocator = require('./idAllocator');
 const { checkCaseQuality, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK } = require('./qualityGate');
-const { callAnthropic, extractJson, MODEL } = require('./anthropic');
+const { callAnthropic, extractJson, MODEL, resolveApiKey } = require('./anthropic');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
 const COUNT = parseInt(flag('count', '2'), 10);
@@ -41,7 +44,7 @@ const PER_CAT = parseInt(flag('per-cat', '2'), 10);
 const DRY = process.argv.includes('--dry-run');
 const STATUS = process.argv.includes('--publish') ? 'published' : 'sme_review';
 const PARALLEL = Math.max(1, parseInt(flag('parallel', '3'), 10) || 1);
-const API_KEY = process.env.ANTHROPIC_API_KEY;
+const API_KEY = resolveApiKey(); // ANTHROPIC_API_KEY_CASE_TOOLS if set, else ANTHROPIC_API_KEY
 
 // 13 questions on the NCMHCE domain weights (intake 25 / core 15 / treatment 15 /
 // counseling 30 / ethics 15 percent of scored items): 3 / 2 / 2 / 4 / 2.
@@ -177,7 +180,7 @@ async function main() {
   console.log('Will attempt ' + targets.length + ' deep case(s) with model ' + MODEL + ':');
   targets.forEach((t, i) => console.log('  ' + (i + 1) + '. ' + t.category + ' / ' + (t.diagnosis && t.diagnosis.name) + ' [' + t.difficulty + ']'));
   if (DRY) { console.log('\n--dry-run: no API calls, no writes.'); await mongoose.disconnect(); return; }
-  if (!API_KEY) { console.error('\nANTHROPIC_API_KEY not set.'); process.exit(1); }
+  if (!API_KEY) { console.error('\nANTHROPIC_API_KEY_CASE_TOOLS / ANTHROPIC_API_KEY not set.'); process.exit(1); }
 
   const exemplar = (deep[0] || all[0]);
   let made = 0;

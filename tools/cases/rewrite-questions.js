@@ -56,7 +56,8 @@
 //                   reviewed/complete batches are skipped, a partial one
 //                   resumes, so re-running the same command continues it:
 //     nohup node tools/cases/rewrite-questions.js --series tools/cases/review/rw --count 15 --parallel 3 > rewrite.log 2>&1 &
-// MONGO_URI / ANTHROPIC_API_KEY from env / .env.
+// MONGO_URI / ANTHROPIC_API_KEY from env / .env
+// (ANTHROPIC_API_KEY_CASE_TOOLS also works — see tools/cases/anthropic.js).
 // ============================================================================
 
 require('dotenv').config();
@@ -68,7 +69,7 @@ const ContentItem = require('../../models/ContentItem');
 const ReviewBatch = require('../../models/ReviewBatch');
 const { validateCase } = require('./caseSchema');
 const { checkQuestionQuality, classifyReason, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK } = require('./qualityGate');
-const { callAnthropic, extractJson, MODEL } = require('./anthropic');
+const { callAnthropic, extractJson, MODEL, resolveApiKey } = require('./anthropic');
 const { TIER_LABEL, CSV_HEADER, BATCH_NAME_RX, toCsv, readReviewSheet, reviewSheetSummary, esc, writeRepairs, loadLiveCases, batchName, buildBatchDoc, storeBatch, loadBatch } = require('./reviewRoundTrip');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
@@ -677,7 +678,7 @@ async function main() {
     await mongoose.disconnect();
     return;
   }
-  if (!process.env.ANTHROPIC_API_KEY) { console.error('\nANTHROPIC_API_KEY not set.'); process.exit(1); }
+  if (!resolveApiKey()) { console.error('\nANTHROPIC_API_KEY_CASE_TOOLS / ANTHROPIC_API_KEY not set.'); process.exit(1); }
 
   const seriesDir = SERIES ? SERIES : null;
   if (SERIES) {

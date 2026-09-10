@@ -56,7 +56,8 @@
 //   --skip N   skip the first N flagged cases — cases stay flagged until a batch
 //              is applied, so cut sequential review batches with
 //              --count 30 --save batch1, --skip 30 --count 30 --save batch2, ...
-// MONGO_URI / ANTHROPIC_API_KEY from env / .env, same as generate-deep.js.
+// MONGO_URI / ANTHROPIC_API_KEY from env / .env, same as generate-deep.js
+// (ANTHROPIC_API_KEY_CASE_TOOLS also works — see tools/cases/anthropic.js).
 // ============================================================================
 
 require('dotenv').config();
@@ -67,7 +68,7 @@ const Exam = require('../../models/Exam');
 const ContentItem = require('../../models/ContentItem');
 const { validateCase } = require('./caseSchema');
 const { checkQuestionQuality, checkCaseQuality, classifyReason, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK } = require('./qualityGate');
-const { callAnthropic, extractJson, MODEL } = require('./anthropic');
+const { callAnthropic, extractJson, MODEL, resolveApiKey } = require('./anthropic');
 const { AUTO_NOTE_PREFIX, TIER_LABEL, CSV_HEADER, toCsv, parseCsv, readReviewSheet, composeNote, esc, writeRepairs, loadLiveCases } = require('./reviewRoundTrip');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
@@ -458,7 +459,7 @@ async function main() {
     await mongoose.disconnect();
     return;
   }
-  if (!process.env.ANTHROPIC_API_KEY) { console.error('\nANTHROPIC_API_KEY not set.'); process.exit(1); }
+  if (!resolveApiKey()) { console.error('\nANTHROPIC_API_KEY_CASE_TOOLS / ANTHROPIC_API_KEY not set.'); process.exit(1); }
 
   const batch = cases.slice(SKIP, SKIP + COUNT);
   if (!batch.length) { console.log('--skip ' + SKIP + ' is past the end of the ' + cases.length + ' flagged case(s); nothing to do.'); await mongoose.disconnect(); return; }
