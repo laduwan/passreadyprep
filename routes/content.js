@@ -24,7 +24,7 @@ async function resolveAccess(req, res, next) {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = payload.sub;
 
-    const user = await User.findById(req.userId).select('subscription createdAt trialEndsAt sessionVersion');
+    const user = await User.findById(req.userId).select('subscription createdAt trialEndsAt sessionVersion bookAccess');
     if (!user) { req.accessLevel = 'free'; return next(); }
 
     // Session-version gate: if another device logged in since this token
@@ -59,6 +59,9 @@ async function resolveAccess(req, res, next) {
       req.accessLevel = trialLevel(user);
       return next();
     }
+
+    // Book-buyer bonus: approved receipt grants access to tagged cases + flashcards
+    req.bookAccess = user.bookAccess?.status === 'approved';
 
     req.trialEndsAt = trialEndFor(user);
     req.accessLevel = tier === 'free' ? trialLevel(user) : 'paid';
@@ -115,13 +118,19 @@ router.get('/:externalId', resolveAccess, async (req, res) => {
       });
     }
 
-    // Trial over and no paid plan → paywall
+    // Trial over and no paid plan → paywall (unless book-access case)
     if (req.accessLevel === 'expired') {
-      return res.status(402).json({
-        error: 'Trial ended',
-        gateReason: 'trial_expired',
-        message: `Your ${TRIAL_DAYS}-day free trial has ended. Pick a plan to keep studying.`,
-      });
+      // Book buyers can still access their 4 tagged cases
+      const { BOOK_CASE_IDS } = require('./book');
+      if (req.bookAccess && BOOK_CASE_IDS.includes(req.params.externalId)) {
+        // Fall through — book access grants these specific cases
+      } else {
+        return res.status(402).json({
+          error: 'Trial ended',
+          gateReason: 'trial_expired',
+          message: `Your ${TRIAL_DAYS}-day free trial has ended. Pick a plan to keep studying.`,
+        });
+      }
     }
 
     const item = await ContentItem.findOne({

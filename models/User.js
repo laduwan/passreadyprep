@@ -59,6 +59,16 @@ const UserSchema = new Schema(
     // re-run safely without double-emailing anyone.
     broadcastsSent: { type: Schema.Types.Mixed, default: {} },
 
+    // Book-buyer bonus access — receipt upload grants flashcards + 4 tagged cases.
+    // Admin reviews the receipt image, flips status to 'approved'.
+    bookAccess: {
+      status: { type: String, enum: ['none', 'pending', 'approved', 'rejected'], default: 'none' },
+      receiptUrl: String,          // base64 data URI or external URL
+      submittedAt: Date,
+      reviewedAt: Date,
+      adminNote: String,
+    },
+
     // In-app announcements this member has closed (see models/Announcement.js).
     // An announcement is shown once per member — dismissing it adds its id here.
     announcementsDismissed: { type: [Schema.Types.ObjectId], default: [] },

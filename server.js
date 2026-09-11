@@ -13,6 +13,9 @@ const app = express();
 // so it must be registered BEFORE express.json() consumes the body.
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || '*' }));
 app.use('/api/payment/webhook', express.raw({ type: 'application/json' }));
+// Book receipt photos are base64 data URIs (up to ~7 MB) — bigger than the
+// app-wide JSON limit below, so this path gets its own parser first.
+app.use('/api/book/submit-receipt', express.json({ limit: '8mb' }));
 app.use(express.json());
 
 // Watch every response and record 5xx failures as error events (see utils/activity).
@@ -29,6 +32,7 @@ app.use('/api/payment', require('./routes/payment'));
 app.use('/api/progress', require('./routes/progress'));
 app.use('/api/activity', require('./routes/activity'));
 app.use('/api/content', require('./routes/content'));
+app.use('/api/book', require('./routes/book'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/admin-users', require('./routes/adminUsers'));
 app.use('/api/admin-subscriptions', require('./routes/adminSubscriptions'));

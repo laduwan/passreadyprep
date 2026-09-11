@@ -15,6 +15,7 @@ import CoreAttributes from './pages/CoreAttributes';
 import CoreTutor from './pages/CoreTutor';
 import Analytics from './pages/Analytics';
 import Onboarding from './pages/Onboarding';
+import BookAccess from './pages/BookAccess';
 import SuggestionBox from './components/SuggestionBox';
 
 const NAV_ITEMS = [
@@ -33,6 +34,12 @@ const NAV_ITEMS = [
 ];
 
 export default function App() {
+  // /book is a standalone landing page for book buyers (receipt upload for
+  // bonus access) — served outside the normal dashboard chrome/nav.
+  if (typeof window !== 'undefined' && window.location.pathname === '/book') {
+    return <BookAccess />;
+  }
+
   const [view, setView] = useState('home');
   const [caseId, setCaseId] = useState(null);
   const [mode, setMode] = useState('new'); // 'new' | 'classic'
