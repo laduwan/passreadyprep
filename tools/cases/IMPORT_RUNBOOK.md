@@ -205,11 +205,15 @@ the per-category targets. Its 13 questions follow the NCMHCE domain weights
 (3 intake, 2 core, 2 treatment, 4 counseling, 2 ethics).
 
 ```bash
-node tools/cases/generate-deep.js --count 63 --per-cat 7 --dry-run      # what it would target, no cost
-nohup node tools/cases/generate-deep.js --count 63 --per-cat 7 --parallel 3 > gen.log 2>&1 &
+node tools/cases/generate-deep.js --count 20 --per-cat 7 --dry-run      # what the first round would target, no cost
+nohup node tools/cases/generate-deep.js --total 250 --count 20 --per-cat 7 --parallel 3 --publish > gen.log 2>&1 &
 tail -f gen.log
 ```
 
+`--total N` keeps going, round after round of `--count`, until the bank has N
+cases (published plus what this run imported), raising the per-category
+target on its own once every category is at `--per-cat`; a round that imports
+nothing stops the run rather than loop. Without `--total` one round runs.
 `--per-cat N` is the deep-case target per blueprint category; the run fills
 the categories with the fewest deep cases first and rotates diagnoses within
 a category. `--parallel N` is cases in flight at once (default 3). Each

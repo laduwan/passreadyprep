@@ -16,6 +16,9 @@
 //     --count N    cases to attempt this run (default 2)
 //     --per-cat N  target deep cases per category (default 2)
 //     --parallel N cases in flight at once (default 3; one long Opus call each)
+//     --total N    keep going, round after round (--count per round), until the
+//                  bank has N cases (published + imported this run); raises
+//                  --per-cat on its own when every category is already at target
 //     --dry-run    no API, no DB — just show what it would target
 //     --publish    import as published instead of sme_review
 //
@@ -23,7 +26,7 @@
 // dropped shell loses only the cases in flight; re-running the same command
 // continues (targets are recomputed from what is already in the database).
 // A billing/auth error stops the run instead of failing every target.
-//   nohup node tools/cases/generate-deep.js --count 63 --per-cat 7 --parallel 3 > gen.log 2>&1 &
+//   nohup node tools/cases/generate-deep.js --total 250 --count 20 --per-cat 7 --parallel 3 --publish > gen.log 2>&1 &
 // ============================================================================
 
 try { require('dotenv').config(); } catch (_) {}
@@ -44,6 +47,7 @@ const PER_CAT = parseInt(flag('per-cat', '2'), 10);
 const DRY = process.argv.includes('--dry-run');
 const STATUS = process.argv.includes('--publish') ? 'published' : 'sme_review';
 const PARALLEL = Math.max(1, parseInt(flag('parallel', '3'), 10) || 1);
+const TOTAL = parseInt(flag('total', '0'), 10) || 0;
 const API_KEY = resolveApiKey(); // ANTHROPIC_API_KEY_CASE_TOOLS if set, else ANTHROPIC_API_KEY
 
 // 13 questions on the NCMHCE domain weights (intake 25 / core 15 / treatment 15 /
@@ -51,7 +55,7 @@ const API_KEY = resolveApiKey(); // ANTHROPIC_API_KEY_CASE_TOOLS if set, else AN
 // Sections: Assessment(intake+core)=5, Planning(treatment)=2, Process(counseling+ethics)=6.
 const DOMAIN_PLAN = ['intake', 'intake', 'intake', 'core', 'core', 'treatment', 'treatment', 'counseling', 'counseling', 'counseling', 'counseling', 'ethics', 'ethics'];
 
-function deepTargets(deepCases, n) {
+function deepTargets(deepCases, n, perCat = PER_CAT) {
   const have = {};
   bp.CATEGORY_NAMES.forEach((c) => (have[c] = 0));
   deepCases.forEach((c) => { if (c.category in have) have[c.category] += 1; });
@@ -64,7 +68,7 @@ function deepTargets(deepCases, n) {
     diffPools[c] = pool.length ? pool : ['medium'];
   });
   const order = bp.CATEGORY_NAMES
-    .map((c) => ({ category: c, have: have[c], need: Math.max(0, PER_CAT - have[c]), difficulty: diffPools[c][have[c] % diffPools[c].length] }))
+    .map((c) => ({ category: c, have: have[c], need: Math.max(0, perCat - have[c]), difficulty: diffPools[c][have[c] % diffPools[c].length] }))
     .filter((x) => x.need > 0)
     .sort((a, b) => a.have - b.have);
   const out = [];
@@ -172,18 +176,34 @@ async function main() {
   const docs = await ContentItem.find({ examId: exam._id, format: 'case_sim' }).select('externalId status caseSim').lean();
   const all = docs.map((d) => Object.assign({ id: d.externalId, _status: d.status }, d.caseSim || {}));
   const deep = all.filter((c) => (c.questions || []).length >= 11);
+  // deepLive: published deep cases plus everything imported this run (any
+  // status), so a round never re-targets a category/diagnosis it just filled.
   const deepLive = deep.filter((c) => c._status === 'published');
-  console.log('Live: ' + all.filter((c) => c._status === 'published').length + ' published cases, ' + deepLive.length + ' deep (' + deep.length + ' deep incl. drafts). Target ' + PER_CAT + ' deep/category.\n');
+  const publishedAtStart = all.filter((c) => c._status === 'published').length;
+  console.log('Live: ' + publishedAtStart + ' published cases, ' + deepLive.length + ' deep (' + deep.length + ' deep incl. drafts). Target ' + PER_CAT + ' deep/category' + (TOTAL ? ', ' + TOTAL + ' cases in total' : '') + '.\n');
 
-  const targets = deepTargets(deepLive, COUNT);
-  if (!targets.length) { console.log('All categories have ' + PER_CAT + '+ deep cases. Nothing to generate.'); await mongoose.disconnect(); return; }
-  console.log('Will attempt ' + targets.length + ' deep case(s) with model ' + MODEL + ':');
+  let made = 0;
+  let perCat = PER_CAT;
+  // With --total, each round is at most COUNT and never overshoots the total.
+  const roundSize = () => (TOTAL ? Math.max(0, Math.min(COUNT, TOTAL - (publishedAtStart + made))) : COUNT);
+  function planRound() {
+    let t = deepTargets(deepLive, roundSize(), perCat);
+    // Every category at target but the bank is still short: raise the bar.
+    while (TOTAL && !t.length && roundSize() > 0 && perCat < PER_CAT + 50) { perCat += 1; t = deepTargets(deepLive, roundSize(), perCat); }
+    return t;
+  }
+  let targets = planRound();
+  if (!targets.length) {
+    console.log(TOTAL && roundSize() <= 0 ? 'The bank already has ' + (publishedAtStart + made) + ' cases (target ' + TOTAL + '). Nothing to generate.' : 'All categories have ' + perCat + '+ deep cases. Nothing to generate.');
+    await mongoose.disconnect(); return;
+  }
+  if (perCat !== PER_CAT) console.log('(every category already has ' + PER_CAT + '+ deep cases; using ' + perCat + ' per category to reach ' + TOTAL + ')');
+  console.log('Will attempt ' + targets.length + ' deep case(s) with model ' + MODEL + (TOTAL ? ' this round' : '') + ':');
   targets.forEach((t, i) => console.log('  ' + (i + 1) + '. ' + t.category + ' / ' + (t.diagnosis && t.diagnosis.name) + ' [' + t.difficulty + ']'));
   if (DRY) { console.log('\n--dry-run: no API calls, no writes.'); await mongoose.disconnect(); return; }
   if (!API_KEY) { console.error('\nANTHROPIC_API_KEY_CASE_TOOLS / ANTHROPIC_API_KEY not set.'); process.exit(1); }
 
   const exemplar = (deep[0] || all[0]);
-  let made = 0;
   let finished = 0;
   let fatal = null; // an API error that will hit every target (billing, auth)
   const isFatal = (msg) => /credit balance|billing|API 401|API 403|ANTHROPIC_API_KEY/i.test(msg);
@@ -218,7 +238,8 @@ async function main() {
         if (d.dup) { log('    FAIL dedup (too close to ' + d.against + ')'); continue; }
 
         c.id = nextDeepId(deep);
-        deep.push(c); livePool.push(c);
+        c._status = STATUS;
+        deep.push(c); livePool.push(c); deepLive.push(c);
         await ContentItem.updateOne(
           { examId: exam._id, externalId: c.id },
           { $set: { examId: exam._id, format: 'case_sim', externalId: c.id, title: c.title, category: c.category, difficulty: c.difficulty, references: c.references || [], caseSim: c }, $setOnInsert: { status: STATUS } },
@@ -246,13 +267,26 @@ async function main() {
     }
   }
   console.log('Generating ' + PARALLEL + ' at a time.\n');
-  await Promise.all(Array.from({ length: Math.min(PARALLEL, targets.length) }, worker));
+  for (let round = 1; ; round++) {
+    if (round > 1) {
+      targets = planRound();
+      if (!targets.length) { console.log(roundSize() <= 0 ? '\nReached ' + TOTAL + ' cases.' : '\nNo categories left to fill.'); break; }
+      if (perCat !== PER_CAT) console.log('(using ' + perCat + ' deep per category to reach ' + TOTAL + ')');
+      console.log('=== Round ' + round + ': ' + targets.length + ' target(s); bank at ' + (publishedAtStart + made) + '/' + TOTAL + ' ===');
+      targets.forEach((t, i) => console.log('  ' + (i + 1) + '. ' + t.category + ' / ' + (t.diagnosis && t.diagnosis.name) + ' [' + t.difficulty + ']'));
+    }
+    next = 0; finished = 0;
+    const madeBefore = made;
+    await Promise.all(Array.from({ length: Math.min(PARALLEL, targets.length) }, worker));
+    if (fatal || !TOTAL) break;
+    if (made === madeBefore) { console.log('\nThis round imported nothing (every target failed its 3 attempts) — stopping rather than loop. Re-run the same command to try again.'); break; }
+  }
 
   if (fatal) {
     console.log('\nSTOPPED: the API is rejecting every request — ' + fatal + '\nFix that (credits, key), then re-run the same command; it continues from what is already imported.');
     process.exitCode = 2;
   }
-  console.log('\nDone. Imported ' + made + ' deep case(s) as ' + STATUS + '.');
+  console.log('\nDone. Imported ' + made + ' deep case(s) as ' + STATUS + '.' + (TOTAL ? ' Bank: ' + (publishedAtStart + made) + ' cases (target ' + TOTAL + ').' : ''));
   await mongoose.disconnect();
 }
 main().catch((e) => { console.error(e); process.exit(1); });
