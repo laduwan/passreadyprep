@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, MessageSquare, Loader2 } from 'lucide-react';
-import { saveToHistory } from '../lib/readiness';
+import { saveToHistory, loadHistory } from '../lib/readiness';
 import { authFetch } from '../lib/api';
 import { useStudyPing } from '../lib/useStudyPing';
+import SimDisclaimer from '../components/SimDisclaimer';
 
 export default function CaseSimulation({ caseId, mode, examMode = false, onBack, navigate }) {
   useStudyPing('cases');
@@ -16,6 +17,7 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
   const [debriefLoading, setDebriefLoading] = useState(false);
   const [debriefError, setDebriefError] = useState(null);
   const [caseCategory, setCaseCategory] = useState(null);
+  const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
 
   useEffect(() => {
     authFetch('/api/content/' + encodeURIComponent(caseId))
@@ -25,6 +27,14 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
   }, [caseId]);
 
   if (!caseData) return <p className="text-slate-400">Loading case…</p>;
+
+  // Simulation disclaimer — shown before the case starts
+  // Simulation number = total completed cases + 1
+  if (!disclaimerAccepted) {
+    const history = loadHistory();
+    const simNumber = (history.length % 20) + 1;
+    return <SimDisclaimer simNumber={simNumber} onAccept={() => setDisclaimerAccepted(true)} />;
+  }
 
   const dx = caseData.diagnosis || caseData.primaryDiagnosis || {};
   const qs = caseData.questions || [];
