@@ -63,6 +63,18 @@ const UserSchema = new Schema(
     // An announcement is shown once per member — dismissing it adds its id here.
     announcementsDismissed: { type: [Schema.Types.ObjectId], default: [] },
 
+    // Free flashcards + book-bonus cases for print/ebook buyers (see
+    // routes/book.js). Unlocked by an admin after reviewing an uploaded
+    // purchase receipt — status flows none -> pending -> approved | rejected,
+    // and a rejected buyer can resubmit (see routes/book.js submit-receipt).
+    bookAccess: {
+      status: { type: String, enum: ['none', 'pending', 'approved', 'rejected'], default: 'none' },
+      receiptUrl: String,        // base64 data URI of the uploaded receipt photo
+      submittedAt: Date,
+      reviewedAt: Date,
+      adminNote: { type: String, trim: true, maxlength: 300 },
+    },
+
     subscription: {
       tier: { type: String, default: 'free' },      // free | monthly | pass3 | guarantee
       status: { type: String, default: 'active' },  // active | past_due | canceled

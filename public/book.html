@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Unlock Your Study Guide Bonuses — PassReady Prep</title>
+<meta name="description" content="Bought the PassReady Prep NCMHCE study guide? Upload your receipt to unlock free flashcards and 4 interactive practice cases from the book.">
+<link rel="canonical" href="https://www.passreadyprep.com/book"/>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PassReady Prep">
+<meta property="og:title" content="Unlock Your Study Guide Bonuses — PassReady Prep">
+<meta property="og:description" content="Bought the PassReady Prep NCMHCE study guide? Upload your receipt to unlock free flashcards and 4 interactive practice cases from the book.">
+<meta property="og:url" content="https://www.passreadyprep.com/book">
+<meta property="og:image" content="https://www.passreadyprep.com/og.png">
+<style>
+  :root{
+    --emerald:#10B981;--emerald-400:#34D399;--amber:#F59E0B;--amber-400:#FBBF24;
+    --red:#EF4444;--red-400:#F87171;
+    --slate-900:#0F172A;--slate-800:#1E293B;--slate-700:#334155;--slate-600:#475569;
+    --slate-500:#64748B;--slate-400:#94A3B8;--slate-300:#CBD5E1;--white:#F8FAFC;
+    --card:rgba(30,41,59,.6);--card-border:rgba(51,65,85,.6);
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;
+    background:linear-gradient(160deg,#0F172A 0%,#1E293B 50%,#0F172A 100%);
+    background-attachment:fixed;font-family:var(--sans);color:var(--slate-300);
+    padding:40px 20px 60px}
+
+  .wrap{max-width:560px;margin:0 auto}
+
+  .brand-wrap{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;
+    justify-content:center;margin-bottom:28px}
+  .brand-chip{width:36px;height:36px;border-radius:10px;background:rgba(16,185,129,.16);
+    display:grid;place-items:center;flex:0 0 auto}
+  .brand-chip svg{width:20px;height:20px;color:var(--emerald-400)}
+  .brand{font-weight:700;font-size:17px;color:var(--white);letter-spacing:-.01em}
+  .brand .prep{color:var(--emerald-400)}
+
+  .hero{text-align:center;margin-bottom:28px}
+  .hero-icon{font-size:40px;margin-bottom:10px}
+  h1{font-size:26px;font-weight:800;color:var(--white);letter-spacing:-.02em;margin:0 0 8px;line-height:1.2}
+  .hero p{color:var(--slate-400);font-size:15px;margin:0;line-height:1.55}
+
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:20px;
+    padding:28px;margin-bottom:16px;box-shadow:0 24px 60px -20px rgba(0,0,0,.5)}
+
+  .card h2{font-size:15px;font-weight:700;color:var(--emerald-400);margin:0 0 16px}
+  .feature{display:flex;gap:12px;margin-bottom:14px}
+  .feature:last-child{margin-bottom:0}
+  .feature .check{color:var(--emerald-400);flex:0 0 auto;font-size:16px;line-height:1.4}
+  .feature .ftitle{font-weight:600;color:var(--white);font-size:14.5px;margin:0 0 2px}
+  .feature .fdesc{color:var(--slate-400);font-size:13.5px;line-height:1.5;margin:0}
+
+  .state{display:none}
+  .state.active{display:block}
+
+  .status-box{border-radius:16px;padding:26px;text-align:center}
+  .status-box.approved{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3)}
+  .status-box.pending{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)}
+  .status-box.rejected{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);margin-bottom:16px}
+  .status-icon{font-size:36px;margin-bottom:10px}
+  .status-h{font-size:19px;font-weight:800;margin:0 0 8px}
+  .status-h.approved{color:var(--emerald-400)}
+  .status-h.pending{color:var(--amber-400)}
+  .status-p{color:var(--slate-300);font-size:14.5px;line-height:1.6;margin:0}
+
+  .btn-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px}
+  .btn{display:inline-flex;align-items:center;gap:6px;border:none;border-radius:12px;
+    padding:12px 24px;font:700 14.5px/1 var(--sans);cursor:pointer;text-decoration:none;transition:background .15s}
+  .btn-primary{background:var(--emerald);color:#04261C}
+  .btn-primary:hover{background:var(--emerald-400)}
+  .btn-secondary{background:var(--slate-700);color:var(--white)}
+  .btn-secondary:hover{background:var(--slate-600)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.full{width:100%;justify-content:center}
+
+  .login-box{background:rgba(15,23,42,.5);border-radius:12px;padding:18px;text-align:center;margin-bottom:20px}
+  .login-box p{margin:0 0 12px;color:var(--slate-300);font-size:14px}
+
+  .drop{border:2px dashed var(--slate-700);border-radius:14px;padding:32px 16px;
+    text-align:center;cursor:pointer;transition:border-color .15s}
+  .drop:hover{border-color:var(--emerald)}
+  .drop-icon{font-size:26px;margin-bottom:8px;color:var(--slate-500)}
+  .drop p{margin:0;color:var(--slate-400);font-size:14px}
+  .drop .hint{font-size:12px;color:var(--slate-600);margin-top:4px}
+  .drop img{max-height:180px;border-radius:10px;display:block;margin:0 auto}
+
+  .msg{margin-top:12px;text-align:center;font-size:13.5px;color:var(--slate-400)}
+  .msg.err{color:var(--red-400)}
+
+  .promo{text-align:center;font-size:13px;color:var(--slate-500);margin-top:24px;line-height:1.6}
+  .promo code{color:var(--emerald-400);font-weight:700;font-family:ui-monospace,monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="brand-wrap" href="/landing.html" aria-label="PassReady Prep home">
+    <span class="brand-chip" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+        <path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+      </svg>
+    </span>
+    <span class="brand">PassReady <span class="prep">Prep</span></span>
+  </a>
+
+  <div class="hero">
+    <div class="hero-icon">📖</div>
+    <h1>Unlock Your Digital Study Tools</h1>
+    <p>Your book purchase includes free flashcards and 4 interactive cases</p>
+  </div>
+
+  <div class="card">
+    <h2>WHAT YOU GET</h2>
+    <div class="feature">
+      <span class="check">✓</span>
+      <div>
+        <p class="ftitle">200+ Digital Flashcards</p>
+        <p class="fdesc">Spaced repetition across all 18 diagnostic families. Syncs across devices.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <span class="check">✓</span>
+      <div>
+        <p class="ftitle">4 Book Cases — Interactive</p>
+        <p class="fdesc">Same cases from the book, with timed scoring and AI debrief analysis.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="state active" id="state-loading">
+    <p class="msg">Loading…</p>
+  </div>
+
+  <!-- NO TOKEN -->
+  <div class="state" id="state-anon">
+    <div class="card login-box">
+      <p>Create a free account first, then come back to upload your receipt.</p>
+      <a class="btn btn-primary full" href="/register.html?next=/book">Create Account →</a>
+    </div>
+  </div>
+
+  <!-- UPLOAD FORM (none / rejected) -->
+  <div class="state" id="state-form">
+    <div class="status-box rejected" id="rejected-note" style="display:none">
+      <p class="status-p"><strong style="color:var(--red-400)">Receipt could not be verified.</strong><br>Please try again with a clearer photo of your purchase receipt.</p>
+    </div>
+    <div class="card">
+      <h2>UPLOAD YOUR PURCHASE RECEIPT</h2>
+      <p style="color:var(--slate-400);font-size:13.5px;margin:0 0 16px">
+        A photo of your Amazon order confirmation, bookstore receipt, or ebook purchase email works.
+      </p>
+      <div class="drop" id="drop" onclick="document.getElementById('fileInput').click()">
+        <div id="dropInner">
+          <div class="drop-icon">⬆</div>
+          <p>Tap to upload receipt photo</p>
+          <p class="hint">JPG or PNG, under 5 MB</p>
+        </div>
+      </div>
+      <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFile(event)"/>
+      <button class="btn btn-primary full" id="submitBtn" style="display:none;margin-top:16px" onclick="submitReceipt()">Submit Receipt</button>
+      <p class="msg" id="formMsg" style="display:none"></p>
+    </div>
+  </div>
+
+  <!-- PENDING -->
+  <div class="state" id="state-pending">
+    <div class="status-box pending">
+      <div class="status-icon">⏳</div>
+      <p class="status-h pending">Receipt Under Review</p>
+      <p class="status-p">We'll verify your receipt and activate access within 24 hours.</p>
+    </div>
+  </div>
+
+  <!-- APPROVED -->
+  <div class="state" id="state-approved">
+    <div class="status-box approved">
+      <div class="status-icon">✅</div>
+      <p class="status-h approved">Access Active</p>
+      <p class="status-p">Your flashcards and 4 book cases are unlocked.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/flashcards.html">Flashcards →</a>
+        <a class="btn btn-secondary" href="/study">Practice Cases →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="promo">
+    Want the full platform? 200+ cases, adaptive study tools, AI debrief.<br>
+    Use code <code>STUDYGUIDE</code> for 10% off.
+  </div>
+</div>
+
+<script>
+  const token = localStorage.getItem('prp_token');
+  let pendingImage = null;
+
+  function show(id) {
+    document.querySelectorAll('.state').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  async function init() {
+    if (!token) { show('state-anon'); return; }
+    try {
+      const r = await fetch('/api/book/status', { headers: { Authorization: `Bearer ${token}` } });
+      const data = await r.json();
+      const status = data.bookAccess?.status || 'none';
+      if (status === 'approved') show('state-approved');
+      else if (status === 'pending') show('state-pending');
+      else {
+        if (status === 'rejected') document.getElementById('rejected-note').style.display = 'block';
+        show('state-form');
+      }
+    } catch (e) {
+      show('state-form');
+    }
+  }
+
+  function handleFile(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const msgEl = document.getElementById('formMsg');
+    msgEl.style.display = 'none';
+    if (file.size > 5_000_000) {
+      msgEl.textContent = 'Image must be under 5 MB';
+      msgEl.className = 'msg err';
+      msgEl.style.display = 'block';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      pendingImage = reader.result;
+      document.getElementById('dropInner').innerHTML =
+        '<img src="' + reader.result + '" alt="Receipt preview"/>';
+      document.getElementById('submitBtn').style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  async function submitReceipt() {
+    if (!pendingImage || !token) return;
+    const btn = document.getElementById('submitBtn');
+    const msgEl = document.getElementById('formMsg');
+    msgEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    try {
+      const r = await fetch('/api/book/submit-receipt', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ receiptImage: pendingImage }),
+      });
+      const data = await r.json();
+      if (r.ok) {
+        show('state-pending');
+      } else {
+        msgEl.textContent = data.error || 'Something went wrong';
+        msgEl.className = 'msg err';
+        msgEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Submit Receipt';
+      }
+    } catch (e) {
+      msgEl.textContent = 'Network error — please try again';
+      msgEl.className = 'msg err';
+      msgEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Submit Receipt';
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>

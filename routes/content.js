@@ -3,6 +3,7 @@ const ContentItem = require('../models/ContentItem');
 const Exam = require('../models/Exam');
 const User = require('../models/User');
 const { TRIAL_DAYS, trialEndFor, trialLevel } = require('../utils/trial');
+const { BOOK_CASE_IDS } = require('./book');
 
 const router = express.Router();
 
@@ -24,8 +25,10 @@ async function resolveAccess(req, res, next) {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = payload.sub;
 
-    const user = await User.findById(req.userId).select('subscription createdAt trialEndsAt sessionVersion');
+    const user = await User.findById(req.userId).select('subscription createdAt trialEndsAt sessionVersion bookAccess.status');
     if (!user) { req.accessLevel = 'free'; return next(); }
+
+    req.bookAccess = user.bookAccess?.status || 'none';
 
     // Session-version gate: if another device logged in since this token
     // was issued, the sv in the JWT won't match the DB — reject the stale session.
@@ -115,8 +118,11 @@ router.get('/:externalId', resolveAccess, async (req, res) => {
       });
     }
 
-    // Trial over and no paid plan → paywall
-    if (req.accessLevel === 'expired') {
+    // Trial over and no paid plan → paywall, unless this is one of the 4
+    // book-bonus cases and an admin has approved this account's purchase
+    // receipt (see routes/book.js) — those stay accessible permanently.
+    const bookCaseUnlocked = req.bookAccess === 'approved' && BOOK_CASE_IDS.includes(req.params.externalId);
+    if (req.accessLevel === 'expired' && !bookCaseUnlocked) {
       return res.status(402).json({
         error: 'Trial ended',
         gateReason: 'trial_expired',
