@@ -59,6 +59,10 @@ const UserSchema = new Schema(
     // re-run safely without double-emailing anyone.
     broadcastsSent: { type: Schema.Types.Mixed, default: {} },
 
+    // In-app announcements this member has closed (see models/Announcement.js).
+    // An announcement is shown once per member — dismissing it adds its id here.
+    announcementsDismissed: { type: [Schema.Types.ObjectId], default: [] },
+
     subscription: {
       tier: { type: String, default: 'free' },      // free | monthly | pass3 | guarantee
       status: { type: String, default: 'active' },  // active | past_due | canceled

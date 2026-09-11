@@ -45,6 +45,7 @@ app.use('/api/suggestions', require('./routes/suggestions'));
 app.use('/api/flashcard-progress', require('./routes/flashcardProgress'));
 app.use('/api/study-history', require('./routes/studyHistory'));
 app.use('/api/visits', require('./routes/visits'));
+app.use('/api/announcements', require('./routes/announcements'));
 
 // ── Accessibility + translation widget injection ────────────────────
 // Every HTML page gets the shared accessibility widget (a11y.css + a11y.js),
@@ -66,6 +67,11 @@ const A11Y_SKIP = '<a href="#" class="a11y-skip-link" data-a11y-skip>Skip to mai
 // not visitor traffic.
 const VISIT_HEAD = '<script src="/visit-beacon.js" defer></script>';
 
+// Member announcement pop-up, injected the same serve-time way. The script
+// only does anything when a member is signed in (prp_token present), and skips
+// admin/review screens and the sign-in/checkout flow.
+const ANNOUNCE_HEAD = '<script src="/announcement-modal.js" defer></script>';
+
 // PWA head tags, injected the same serve-time way as the a11y widget so every
 // static page and the React shell advertise the web app manifest + register the
 // service worker (needed to install as an app / package for Google Play as a TWA).
@@ -79,7 +85,7 @@ function injectA11y(html) {
   if (typeof html !== 'string') return html;
   if (html.indexOf('/a11y.js') !== -1) return html; // already present — don't double up
   let out = html;
-  out = out.indexOf('</head>') !== -1 ? out.replace('</head>', A11Y_HEAD + PWA_HEAD + VISIT_HEAD + '</head>') : (A11Y_HEAD + PWA_HEAD + VISIT_HEAD + out);
+  out = out.indexOf('</head>') !== -1 ? out.replace('</head>', A11Y_HEAD + PWA_HEAD + VISIT_HEAD + ANNOUNCE_HEAD + '</head>') : (A11Y_HEAD + PWA_HEAD + VISIT_HEAD + ANNOUNCE_HEAD + out);
   if (/<body[^>]*>/i.test(out)) out = out.replace(/(<body[^>]*>)/i, '$1' + A11Y_SKIP);
   return out;
 }
