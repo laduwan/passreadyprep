@@ -195,10 +195,16 @@
               <option value="paid">Paid subscribers</option>
               <option value="trial">Active trial</option>
               <option value="expired">Expired / free</option>
+              <option value="emails">Specific users (paste emails)</option>
             </select>
             <div style="margin-top:6px;font-size:13px;color:var(--slate-400)">
               Audience size: <strong id="bc-audience-count" style="color:var(--white)">…</strong>
             </div>
+          </div>
+
+          <div id="bc-emails-wrap" class="hidden">
+            <label for="bc-emails">Email addresses <span style="color:var(--slate-500)">(comma, space, or one per line — registered accounts only)</span></label>
+            <textarea id="bc-emails" rows="4" placeholder="jamie@example.com, alex@example.com" style="font-family:monospace;font-size:13px;background:var(--slate-800);color:var(--white);border:1px solid var(--slate-600);border-radius:8px;padding:10px;width:100%;resize:vertical"></textarea>
           </div>
 
           <div>
@@ -230,6 +236,63 @@
       <div id="bc-preview-wrap" class="hidden" style="margin-top:16px">
         <div style="font-size:12px;font-weight:600;color:var(--slate-300);margin-bottom:6px">Preview</div>
         <iframe id="bc-preview-frame" style="width:100%;height:600px;border:1px solid var(--card-border);border-radius:8px;background:#0F172A"></iframe>
+      </div>
+
+      <!-- In-app announcement — pop-up members see when they next open the app -->
+      <div class="panel-head" style="margin-top:28px">
+        <div>
+          <div class="panel-title">In-app announcement</div>
+          <p class="muted" style="margin:2px 0 0;font-size:13px">Shows as a pop-up the next time a signed-in member opens any page. Each member sees it once — closing it marks it read. Not affected by email opt-out.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:14px">
+        <div style="display:grid;gap:12px">
+          <div>
+            <label for="an-title">Title</label>
+            <input id="an-title" maxlength="120" placeholder="e.g. New: Timed mock exams" />
+          </div>
+          <div>
+            <label for="an-message">Message <span style="color:var(--slate-500)">(plain text — line breaks are kept)</span></label>
+            <textarea id="an-message" rows="5" maxlength="2000" style="font-family:inherit;font-size:14px;background:var(--slate-800);color:var(--white);border:1px solid var(--slate-600);border-radius:8px;padding:10px;width:100%;resize:vertical"></textarea>
+          </div>
+          <div class="two-col" style="gap:12px">
+            <div style="flex:1;min-width:200px">
+              <label for="an-cta-label">Button label <span style="color:var(--slate-500)">(optional)</span></label>
+              <input id="an-cta-label" maxlength="40" placeholder="e.g. Try it now" />
+            </div>
+            <div style="flex:2;min-width:240px">
+              <label for="an-cta-url">Button link <span style="color:var(--slate-500)">(https://… or /page)</span></label>
+              <input id="an-cta-url" maxlength="500" placeholder="/exam.html" />
+            </div>
+          </div>
+          <div class="two-col" style="gap:12px">
+            <div style="flex:1;min-width:200px">
+              <label for="an-segment">Audience</label>
+              <select id="an-segment" style="width:100%">
+                <option value="all">All members</option>
+                <option value="paid">Paid subscribers</option>
+                <option value="trial">Active trial</option>
+                <option value="expired">Expired / free</option>
+              </select>
+            </div>
+            <div style="flex:1;min-width:200px">
+              <label for="an-ends">Stop showing after <span style="color:var(--slate-500)">(optional)</span></label>
+              <input id="an-ends" type="date" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <button class="primary" id="an-post-btn">Post announcement</button>
+        <span id="an-status" style="font-size:13px;color:var(--slate-400)"></span>
+      </div>
+      <div class="err-line" id="an-err"></div>
+
+      <div class="card" style="margin-top:10px">
+        <div class="stat-label" style="margin-bottom:6px">Announcements</div>
+        <div id="an-list"><p class="empty">Loading…</p></div>
       </div>
     </div>
   </div>
@@ -528,7 +591,21 @@
     return { 'Content-Type':'application/json', 'Authorization':'Bearer ' + jwt };
   }
 
+  function bcParseEmails(){
+    var seen = {};
+    return ($('bc-emails').value || '').split(/[\s,;]+/).map(function(e){ return e.trim().toLowerCase(); })
+      .filter(function(e){ if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e) || seen[e]) return false; seen[e] = 1; return true; });
+  }
+
   function bcUpdateAudience(){
+    var isList = bcSegment.value === 'emails';
+    $('bc-emails-wrap').classList.toggle('hidden', !isList);
+    if (isList) {
+      var n = bcParseEmails().length;
+      $('bc-audience-count').textContent = n + (n === 1 ? ' address' : ' addresses');
+      bcStatus.textContent = '';
+      return;
+    }
     bcStatus.textContent = 'Counting…';
     fetch('/api/admin/broadcast/audience?segment=' + bcSegment.value, { headers: bcHeaders() })
       .then(function(r){ return r.json(); })
@@ -541,12 +618,13 @@
 
   if (bcSegment) {
     bcSegment.addEventListener('change', bcUpdateAudience);
+    $('bc-emails').addEventListener('input', bcUpdateAudience);
     // Load audience count when the broadcast tab first opens
     var bcLoaded = false;
     var origActivate = activate;
     activate = function(tab, btn){
       origActivate(tab, btn);
-      if (tab === 'broadcast' && !bcLoaded) { bcLoaded = true; bcUpdateAudience(); }
+      if (tab === 'broadcast' && !bcLoaded) { bcLoaded = true; bcUpdateAudience(); anLoad(); }
     };
   }
 
@@ -570,7 +648,10 @@
     if (!subject) { bcErr.textContent = 'Subject line is required.'; return; }
     if (!html) { bcErr.textContent = 'Email body is required.'; return; }
 
-    var count = ($('bc-audience-count').textContent || '0').replace(/\D/g, '');
+    var emails = bcSegment.value === 'emails' ? bcParseEmails() : null;
+    if (emails && !emails.length) { bcErr.textContent = 'Paste at least one email address.'; return; }
+
+    var count = emails ? emails.length : ($('bc-audience-count').textContent || '0').replace(/\D/g, '');
     if (!confirm('Send "' + subject + '" to ' + count + ' users (' + bcSegment.value + ' segment)?')) return;
 
     bcStatus.textContent = 'Sending…';
@@ -579,17 +660,108 @@
     fetch('/api/admin/broadcast/send', {
       method: 'POST',
       headers: bcHeaders(),
-      body: JSON.stringify({ subject: subject, html: html, segment: bcSegment.value, broadcastKey: key }),
+      body: JSON.stringify({ subject: subject, html: html, segment: bcSegment.value, broadcastKey: key, emails: emails || undefined }),
     })
     .then(function(r){ return r.json(); })
     .then(function(d){
       if (d.error) { bcErr.textContent = d.error; }
-      else { bcStatus.textContent = 'Done — sent: ' + d.sent + ', failed: ' + d.failed; }
+      else {
+        bcStatus.textContent = 'Done — sent: ' + d.sent + ', failed: ' + d.failed;
+        if (d.skipped && d.skipped.length) {
+          bcErr.textContent = 'Skipped ' + d.skipped.length + ' (no account, opted out, or already got this key): ' + d.skipped.join(', ');
+        }
+      }
       $('bc-send-btn').disabled = false;
     })
     .catch(function(e){
       bcErr.textContent = 'Network error: ' + e.message;
       $('bc-send-btn').disabled = false;
+    });
+  });
+
+  // ── In-app announcements ─────────────────────────────────────────────
+  var SEG_LABEL = { all:'All members', paid:'Paid', trial:'Active trial', expired:'Expired / free' };
+
+  function anLoad(){
+    fetch('/api/admin/broadcast/announcements', { headers: bcHeaders() })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var list = (d && d.announcements) || [];
+        if (!list.length) { $('an-list').innerHTML = '<p class="empty">No announcements yet.</p>'; return; }
+        var now = new Date();
+        $('an-list').innerHTML = '<table><thead><tr><th>Title</th><th>Audience</th><th>Posted</th><th>Ends</th>' +
+          '<th class="num">Seen by</th><th>Status</th><th></th></tr></thead><tbody>' +
+          list.map(function(a){
+            var expired = a.endsAt && new Date(a.endsAt) <= now;
+            var status = expired ? 'Ended' : (a.active ? 'Live' : 'Paused');
+            var color = status === 'Live' ? 'var(--emerald-400)' : 'var(--slate-400)';
+            return '<tr><td>' + esc(a.title) + '</td><td>' + esc(SEG_LABEL[a.segment] || a.segment) + '</td>' +
+              '<td>' + esc(new Date(a.createdAt).toLocaleDateString()) + '</td>' +
+              '<td>' + (a.endsAt ? esc(new Date(a.endsAt).toLocaleDateString()) : '—') + '</td>' +
+              '<td class="num">' + num(a.dismissedCount) + '</td>' +
+              '<td style="color:' + color + '">' + status + '</td>' +
+              '<td style="white-space:nowrap">' +
+                (expired ? '' : '<button class="ghost" data-an-toggle="' + esc(a._id) + '" data-active="' + (a.active ? '1' : '0') + '">' + (a.active ? 'Pause' : 'Resume') + '</button> ') +
+                '<button class="ghost" data-an-del="' + esc(a._id) + '" style="color:var(--red-400);border-color:var(--red-400)">Delete</button>' +
+              '</td></tr>';
+          }).join('') + '</tbody></table>';
+      })
+      .catch(function(){ $('an-list').innerHTML = '<p class="empty">Could not load announcements.</p>'; });
+  }
+
+  if ($('an-list')) $('an-list').addEventListener('click', function(e){
+    var t = e.target.closest('button');
+    if (!t) return;
+    var id = t.getAttribute('data-an-toggle') || t.getAttribute('data-an-del');
+    if (!id) return;
+    var isDel = t.hasAttribute('data-an-del');
+    if (isDel && !confirm('Delete this announcement? Members who haven\'t seen it yet won\'t get it.')) return;
+    fetch('/api/admin/broadcast/announcements/' + id, {
+      method: isDel ? 'DELETE' : 'PATCH',
+      headers: bcHeaders(),
+      body: isDel ? undefined : JSON.stringify({ active: t.getAttribute('data-active') !== '1' }),
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){ if (d.error) $('an-err').textContent = d.error; anLoad(); })
+    .catch(function(err){ $('an-err').textContent = 'Network error: ' + err.message; });
+  });
+
+  if ($('an-post-btn')) $('an-post-btn').addEventListener('click', function(){
+    var title = $('an-title').value.trim();
+    var message = $('an-message').value.trim();
+    var ctaLabel = $('an-cta-label').value.trim();
+    var ctaUrl = $('an-cta-url').value.trim();
+    var ends = $('an-ends').value;
+    $('an-err').textContent = '';
+    if (!title || !message) { $('an-err').textContent = 'Title and message are required.'; return; }
+    if (ctaUrl && !ctaLabel) { $('an-err').textContent = 'Add a button label for the link.'; return; }
+    var seg = $('an-segment').value;
+    if (!confirm('Post "' + title + '" to ' + (SEG_LABEL[seg] || seg) + '? It goes live immediately.')) return;
+
+    $('an-post-btn').disabled = true;
+    $('an-status').textContent = 'Posting…';
+    fetch('/api/admin/broadcast/announcements', {
+      method: 'POST',
+      headers: bcHeaders(),
+      body: JSON.stringify({
+        title: title, message: message, segment: seg,
+        ctaLabel: ctaLabel || undefined, ctaUrl: ctaUrl || undefined,
+        // End of the chosen day, local time
+        endsAt: ends ? new Date(ends + 'T23:59:59').toISOString() : undefined,
+      }),
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      $('an-post-btn').disabled = false;
+      if (d.error) { $('an-err').textContent = d.error; $('an-status').textContent = ''; return; }
+      $('an-status').textContent = 'Posted — live now.';
+      ['an-title','an-message','an-cta-label','an-cta-url','an-ends'].forEach(function(id){ $(id).value = ''; });
+      anLoad();
+    })
+    .catch(function(err){
+      $('an-post-btn').disabled = false;
+      $('an-status').textContent = '';
+      $('an-err').textContent = 'Network error: ' + err.message;
     });
   });
 
