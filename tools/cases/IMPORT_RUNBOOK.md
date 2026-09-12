@@ -74,6 +74,30 @@ mop up stragglers.
 Retire exact duplicate cases first (`dedup-retire.js --exact`, then `--apply`)
 so you don't pay to repair both copies.
 
+**A retired case's questions do not have to go to waste.** Retiring takes the
+story out of the bank, but its questions were written to the same exam standard
+as every other question, and each one is already the shape the "Next Best Step"
+drill renders: a self-contained scenario, four options with one key, per-option
+feedback, and the evidence behind it. `nbs-harvest.js` flags a case so
+`routes/nbs.js` serves those questions as drill items on
+`public/next-best-step.html`, which merges them with its own static bank
+(`public/nbs-data.js`) and still works if the call fails. The case stays
+retired; only the questions get reused.
+
+```bash
+node tools/cases/nbs-harvest.js                                   # what is flagged today
+node tools/cases/nbs-harvest.js --ids ncmhce-G139,ncmhce-G140     # plan: how many convert
+node tools/cases/nbs-harvest.js --ids ncmhce-G139 --apply         # flag it
+node tools/cases/nbs-harvest.js --ids ncmhce-G139 --off --apply   # un-flag it
+```
+
+A question converts only when it has four options, exactly one keyed
+(`weight 3` + `isCorrect`), feedback on all four, and the key's
+`commonMistake` for the rule box; anything else is skipped rather than shipped
+half-formed, and the tool prints the count. The drill caches for five minutes.
+Flag a case that is still published and its questions show up in both places —
+the tool warns when that is what you are about to do.
+
 **Which model.** All three generation tools (`generate-deep.js`,
 `fix-distractors.js`, `rewrite-questions.js`) call the API through
 `tools/cases/anthropic.js`, which uses `ANTHROPIC_MODEL` if that env var is set

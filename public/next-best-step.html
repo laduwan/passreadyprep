@@ -98,8 +98,11 @@
 <script>
 (function(){
   var ITEMS = (typeof NBS_ITEMS !== 'undefined') ? NBS_ITEMS : [];
-  var cats = ['All'].concat(Array.from(new Set(ITEMS.map(function(i){return i.cat;}))).sort());
+  var cats = ['All'];
   var filter = 'All', queue = [], idx = 0, answered = false, correct = 0, total = 0;
+
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
 
   function shuffle(a){ a = a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t;} return a; }
   function build(){ queue = shuffle(ITEMS.filter(function(i){return filter==='All'||i.cat===filter;})); idx=0; answered=false; correct=0; total=0; render(); }
@@ -132,8 +135,8 @@
     sc.textContent = total? (correct+'/'+total+' correct') : '';
     var opts = shuffle(it.options);
     var h='<div class="card">';
-    h+='<span class="badge b-sl">'+it.cat+'</span>';
-    h+='<div class="scenario">'+it.scenario+'</div>';
+    h+='<span class="badge b-sl">'+esc(it.cat)+'</span>';
+    h+='<div class="scenario">'+esc(it.scenario)+'</div>';
     h+='<div class="opts" id="opts"></div>';
     h+='<div id="fb"></div>';
     h+='</div>';
@@ -141,7 +144,7 @@
     var wrap=document.getElementById('opts');
     opts.forEach(function(o,k){
       var b=document.createElement('button'); b.className='opt'; b.type='button';
-      b.innerHTML='<span class="mk">'+String.fromCharCode(65+k)+'.</span>'+o.t;
+      b.innerHTML='<span class="mk">'+String.fromCharCode(65+k)+'.</span>'+esc(o.t);
       b.onclick=function(){ choose(it, o, opts, wrap); };
       wrap.appendChild(b);
     });
@@ -160,11 +163,11 @@
     });
     var fb=document.getElementById('fb');
     var chWhy = chosen.ok
-      ? '<div class="why ok">\u2713 Correct \u2014 '+chosen.why+'</div>'
-      : '<div class="why no">\u2717 '+chosen.why+'</div>';
+      ? '<div class="why ok">\u2713 Correct \u2014 '+esc(chosen.why)+'</div>'
+      : '<div class="why no">\u2717 '+esc(chosen.why)+'</div>';
     var corr = opts.filter(function(o){return o.ok;})[0];
-    var corrWhy = chosen.ok ? '' : '<div class="why ok">Correct answer: '+corr.t+' \u2014 '+corr.why+'</div>';
-    var rule='<div class="rulebox"><span class="rl">The rule</span>'+it.rule+'<div class="ref">Basis: '+(it.ref||'')+'</div></div>';
+    var corrWhy = chosen.ok ? '' : '<div class="why ok">Correct answer: '+esc(corr.t)+' \u2014 '+esc(corr.why)+'</div>';
+    var rule='<div class="rulebox"><span class="rl">The rule</span>'+esc(it.rule)+'<div class="ref">Basis: '+esc(it.ref||'')+'</div></div>';
     fb.innerHTML=chWhy+corrWhy+rule+
       '<div class="row"><button class="btn" id="next">'+(idx+1>=queue.length?'See results':'Next')+'</button>'+
       '<span style="font-size:13px;color:var(--slate-500)">'+(correct)+'/'+total+' correct</span></div>';
@@ -172,8 +175,19 @@
     document.getElementById('score').textContent=correct+'/'+total+' correct';
   }
 
-  if(!ITEMS.length){ document.getElementById('stage').innerHTML='<div class="card">Items failed to load.</div>'; return; }
-  build();
+  function start(){
+    cats = ['All'].concat(Array.from(new Set(ITEMS.map(function(i){return i.cat;}))).sort());
+    if(!ITEMS.length){ document.getElementById('stage').innerHTML='<div class="card">Items failed to load.</div>'; return; }
+    build();
+  }
+
+  // Extra items harvested from retired cases (/api/nbs/items). The static bank
+  // above stands on its own, so a failed or empty call just means fewer items.
+  fetch('/api/nbs/items')
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){ if(d && d.items && d.items.length) ITEMS = ITEMS.concat(d.items); })
+    .catch(function(){})
+    .then(start);
 })();
 </script>
 <script src="/activity-tracker.js" defer></script>

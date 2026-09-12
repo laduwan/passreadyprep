@@ -38,6 +38,11 @@ const ContentItemSchema = new Schema(
     reviewNote: String,
     needsWork: { type: Boolean, default: false },
 
+    // Retired duplicate whose questions feed the "Next Best Step" drill
+    // (routes/nbs.js). Set by tools/cases/nbs-harvest.js; independent of
+    // `status`, so a retired case keeps earning without being served as a case.
+    nbsHarvest: { type: Boolean, default: false, index: true },
+
     // format-specific payload (exactly one present)
     caseSim: Schema.Types.Mixed,
     mcq: Schema.Types.Mixed,
