@@ -231,6 +231,16 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
 
   let event;
   try {
+    // ── TEMP DEBUG — remove after fixing ──
+    console.log('webhook debug:', {
+      bodyType: typeof req.body,
+      isBuffer: Buffer.isBuffer(req.body),
+      bodyLen: req.body?.length,
+      sigHeader: sig?.substring(0, 30) + '...',
+      secretLen: process.env.STRIPE_WEBHOOK_SECRET?.length,
+      secretStart: process.env.STRIPE_WEBHOOK_SECRET?.substring(0, 10),
+      secretEnd: process.env.STRIPE_WEBHOOK_SECRET?.slice(-5),
+    });
     event = getStripe().webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
     console.error('Webhook signature verification failed:', err.message);
