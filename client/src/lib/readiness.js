@@ -257,3 +257,31 @@ export function computeAnalytics() {
     streak, domainStats, categoryStats, dailySeries, diffStats, weakAreas, pacing,
   };
 }
+
+// ── Mock exam history ─────────────────────────────────────────────────────────
+// Separate from per-case study history. Each entry = one full 11-case timed exam.
+const EXAM_HISTORY_KEY = 'prp_exam_history';
+
+export function loadExamHistory() {
+  try { return JSON.parse(localStorage.getItem(EXAM_HISTORY_KEY)) || []; } catch { return []; }
+}
+
+export function saveExamToHistory(record) {
+  const h = loadExamHistory();
+  record.examNumber = h.length + 1;
+  h.push(record);
+  if (h.length > 50) h.splice(0, h.length - 50);
+  localStorage.setItem(EXAM_HISTORY_KEY, JSON.stringify(h));
+}
+
+// Batch-save multiple case entries at once (used by MockExam at submit time
+// so we only push to the server once instead of 11 separate calls).
+export function saveBatchToHistory(entries) {
+  const h = loadHistory();
+  entries.forEach((e) => h.push(e));
+  if (h.length > 500) h.splice(0, h.length - 500);
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(h));
+  const t = Date.now();
+  localStorage.setItem(HISTORY_TS_KEY, String(t));
+  pushHistory(h, t);
+}

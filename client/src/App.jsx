@@ -15,6 +15,7 @@ import CoreAttributes from './pages/CoreAttributes';
 import CoreTutor from './pages/CoreTutor';
 import Analytics from './pages/Analytics';
 import Onboarding from './pages/Onboarding';
+import MockExam from './pages/MockExam';
 import SuggestionBox from './components/SuggestionBox';
 
 const NAV_ITEMS = [
@@ -22,7 +23,7 @@ const NAV_ITEMS = [
   { id: 'cases', label: 'Case Practice', icon: BookOpen },
   { id: 'analytics', label: 'Performance', icon: BarChart3 },
   { id: 'microskills', label: 'Microskills', icon: MessageSquare, external: '/skills.html' },
-  { id: 'mock', label: 'Timed Mock Exam', icon: Clock, external: '/exam.html' },
+  { id: 'mockexam', label: 'Timed Mock Exam', icon: Clock },
   { id: 'flashcards', label: 'Flashcards', icon: Layers },
   { id: 'trees', label: 'Decision Trees', icon: GitBranch },
   { id: 'dsm', label: 'DSM-5-TR Reference', icon: Brain },
@@ -80,6 +81,8 @@ export default function App() {
         return <CoreAttributes navigate={navigate} />;
       case 'coretutor':
         return <CoreTutor navigate={navigate} />;
+      case 'mockexam':
+        return <MockExam navigate={navigate} />;
       case 'strategy':
         return <ExamStrategy />;
       case 'guarantee':

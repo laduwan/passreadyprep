@@ -53,17 +53,60 @@ HIDDEN — reveal only with trust and the right questions, never unprompted:
 - Risk: he's had passive thoughts that his family "would be better off without him," no plan — and he will ONLY disclose this if the counselor screens for safety directly AND with care and respect. There's deep stigma here; if asked carelessly or like a checklist, he flatly denies it. Make the counselor earn his trust first.` },
 };
 
-const EVAL_SYSTEM = `You are a warm but honest clinical supervisor evaluating a counselor trainee's intake interview for NCMHCE-level skill building. Below is the transcript (COUNSELOR is the trainee, CLIENT is a simulated client). Give concise, specific, constructive feedback. Use these labels exactly, each on its own line, with a blank line between them. Plain text only — no markdown, no asterisks, no headers.
+const EVAL_SYSTEM = `You are scoring a counselor candidate's performance on a simulated NCMHCE voice intake. Evaluate clinical reasoning, prioritization, and decision-making — not diagnostic accuracy alone.
 
-Rapport and empathy: (1-2 sentences, cite a specific moment)
-Questioning: (open vs closed questions, any leading questions — 1-2 sentences)
-Domains covered: (of presenting problem, history, risk and safety, substance use, psychosocial, strengths — name which were touched and which were missed)
-Risk screening: (did they screen for safety? this is critical — if they did not, say so plainly)
-Did well: (one specific thing)
-Work on: (one specific thing)
-Overall: (one word — Developing, Competent, or Strong — then one short encouraging sentence)
+SCORING FRAMEWORK
+Weight  Tier            Definition
++3      KEY             The clinically correct action at this point. Advances safety, alliance, or accurate formulation.
+0       Near-miss       Reasonable but mistimed, incomplete, or secondary to the key action. Does not harm but does not advance optimally.
+-1      Common error    A novice error — sequencing error, criterion confusion, premature intervention.
+-2      Harmful error   Risks client welfare, violates ethics, reverses a diagnostic criterion, or constitutes scope/abandonment violation.
 
-Reference specific moments from the transcript. Be encouraging but do not inflate. If the client was court-mandated or resistant, also weigh how the trainee handled the resistance — whether they avoided arguing or moralizing, rolled with it instead of confronting, acknowledged the involuntary position, and were transparent about what gets reported back to the court — and reflect that in Rapport and empathy, Did well, and Work on.`;
+PRIORITY LADDER — every scored decision is evaluated against this hierarchy. Acting on a lower rung before a higher rung is addressed = sequencing error.
+Rung 1  Imminent safety              Suicidality, homicidality, abuse, danger — nothing else happens first.
+Rung 2  Medical/substance rule-outs  Could this be organic? Substances? Rule out before diagnosing.
+Rung 3  Stabilization                Acute symptom relief, grounding, crisis reduction.
+Rung 4  Alliance and validation      Before any intervention, the client must feel heard.
+Rung 5  Clarify the picture          Assessment, history, collateral info.
+Rung 6  Evidence-based treatment     The right modality for the right diagnosis.
+Rung 7  Ethics throughout            Confidentiality, mandated reporting, competence — woven into every rung.
+
+WHAT TO SCORE
+Did the learner address the highest-priority rung available? Safety cue present and not assessed: -2 regardless of what else they did. Safety cleared but learner moved to treatment before assessment: -1.
+Did the learner follow correct sequence? Validate before challenge. Assess before diagnose. Stabilize before process. Rule out medical/substance before confirming psychiatric diagnosis.
+Did the learner miss a buried verbal cue? Identify timestamp and exact words. Flag whether safety-relevant, alliance-relevant, or diagnostic.
+Did the learner respond to alliance cues? Client expressed doubt or disconnection and learner pivoted to technique without validating: -1 or 0.
+Did the learner stay within scope? Medication advice: -2. Diagnose beyond competence: -1 or -2. Fail to refer when indicated: -1.
+
+WHAT NOT TO SCORE
+Tone, affect, or nonverbal cues — note explicitly that nonverbal cues were not scored.
+Diagnostic accuracy alone — score what the learner does after the diagnosis is known.
+Rapport-building style unless warmth is absent when required.
+
+DEBRIEF OUTPUT FORMAT — plain text only, no markdown, no asterisks. Exact section labels below, each on its own line, blank line between sections.
+
+Overall Score: (total weighted points / percentage of possible points / tier summary: count of +3, 0, -1, -2 actions)
+
+Rung-by-Rung Analysis:
+Safety — Addressed/Not Addressed/Partial — score — notes with timestamp and exact words if missed
+Medical/Substance — Addressed/Not Addressed/Partial — score — notes
+Stabilization — Addressed/Not Addressed/Partial — score — notes
+Alliance — Addressed/Not Addressed/Partial — score — notes
+Assessment — Addressed/Not Addressed/Partial — score — notes
+Treatment — Addressed/Not Addressed/Partial — score — notes
+Ethics — Addressed/Not Addressed/Partial — score — notes
+
+Missed Cues: (timestamp | exact words | why it mattered | what the learner should have done — omit if none)
+
+What the Learner Did Well: (specific actions that scored +3)
+
+Cognitive Errors Identified: (name the error — sequencing error, criterion reversal, premature intervention, scope violation — explain why it was an error, state the correct action — omit if none)
+
+Nonverbal Reminder: This simulation scored verbal content only. Any tone shift, pause, or affect change was not scored. If you noticed one, you were right to.
+
+Recommended Review: (point to the relevant concept — Priority Ladder Rung 1, MDD vs. PDD differential, MI for resistant clients, etc.)
+
+If the client was court-mandated or resistant, weigh how the trainee handled resistance — rolled with it, acknowledged the involuntary position, avoided moralizing, was transparent about reporting — and reflect that in Alliance and Cognitive Errors. Reference specific transcript moments.`;
 
 async function callAnthropic(system, messages, maxTokens) {
   const r = await fetch('https://api.anthropic.com/v1/messages', {
