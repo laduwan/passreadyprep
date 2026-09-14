@@ -213,5 +213,127 @@ const ASSESS_ITEMS = [
       { t:'Assume everything is cultural and diagnose nothing', why:'Over-attributing to culture can miss genuine pathology.' },
       { t:'Administer a personality inventory', why:'A trait inventory doesn\u2019t address the cultural-context question.' },
     ], rule:'Use the Cultural Formulation Interview to weigh cultural context in assessment.', ref:'Cultural assessment' },
+
+// ---- Assess-next items 27-41 (added batch 2) ----
+
+  ,{ id:'as27', cat:'Safety', scenario:'A client discloses passive suicidal ideation but says they would "never actually do it" because of their children. The counselor should next:',
+    options:[
+      { t:'Conduct a full structured risk assessment to evaluate ideation, plan, intent, means, and protective factors', ok:true, why:'Protective factors are relevant but do not eliminate assessment; plan, intent, and means must still be evaluated.' },
+      { t:'Accept the protective factor as sufficient and move on', why:'Trap: protective factors reduce risk but never eliminate the need for full assessment.' },
+      { t:'Schedule a follow-up in two weeks to monitor', why:'An SI disclosure requires full assessment before the session ends, not monitoring at distance.' },
+      { t:'Immediately hospitalize due to the SI disclosure', why:'Passive SI without plan or intent typically does not warrant hospitalization; but full assessment comes first.' },
+    ], rule:'Any SI disclosure → full structured risk assessment; protective factors inform but do not replace it.', ref:'Suicide risk assessment' },
+
+  { id:'as28', cat:'Safety', scenario:'A client with known PTSD is referred after a traumatic incident two days ago. They are acutely distressed and struggling to function. What do you assess first?',
+    options:[
+      { t:'Safety, stabilization, and acute functional capacity before any trauma exploration', ok:true, why:'Acute trauma within 48–72 hours: safety and stabilization. Trauma processing is contraindicated in the acute period.' },
+      { t:'Full PTSD symptom checklist (PCL-5)', why:'PCL-5 requires 30 days post-trauma; symptoms at 48 hours are expected acute stress, not PTSD.' },
+      { t:'Dive into the trauma narrative to facilitate processing', why:'Trauma processing in the acute phase increases risk of ASD/PTSD rather than reducing it.' },
+      { t:'Refer to EMDR immediately', why:'EMDR is contraindicated in the acute phase; stabilization comes first.' },
+    ], rule:'Acute trauma (< 72 hrs) → safety and stabilization first; no trauma processing or PCL-5 yet.', ref:'Acute trauma / Psychological First Aid' },
+
+  { id:'as29', cat:'Intake', scenario:'A new client arrives appearing disheveled, speaking rapidly, and making grand statements about being chosen to solve climate change. What do you assess first?',
+    options:[
+      { t:'Mental Status Examination to characterize appearance, speech, thought process, thought content, and insight', ok:true, why:'Potential psychotic or manic presentation requires an MSE before any other assessment or formulation.' },
+      { t:'Depression screening (PHQ-9)', why:'The presentation suggests elevated mood or psychosis, not depression; PHQ-9 is the wrong tool here.' },
+      { t:'Trauma history to understand the beliefs in context', why:'Cultural and trauma context are relevant but the MSE characterizes the acute presentation first.' },
+      { t:'Substance use history to rule out intoxication', why:'Substance screening is important but follows the MSE; you need to characterize what you are observing first.' },
+    ], rule:'Possible psychosis or mania → MSE first; characterize the presentation before screening for cause.', ref:'MSE / psychosis evaluation' },
+
+  { id:'as30', cat:'Intake', scenario:'A 16-year-old is brought in by a parent for "attitude problems." The teen refuses to talk in front of the parent. How do you structure the intake?',
+    options:[
+      { t:'Meet separately with the teen first after explaining confidentiality and its limits, then meet with the parent', ok:true, why:'Adolescent engagement requires private time; explains confidentiality to both; gathers data from both.' },
+      { t:'See only the parent to get the full history before meeting the teen', why:'Trap: excluding the adolescent from their own intake damages alliance from the first contact.' },
+      { t:'Conduct the full intake with both present — parents have the right to all information', why:'Minors in therapy retain confidentiality rights within age and safety limits; this structure silences the teen.' },
+      { t:'Decline to see the teen until they agree to talk in front of the parent', why:'Coercive pre-conditions fail to engage the actual client.' },
+    ], rule:'Adolescent intake → structure separate teen time with confidentiality discussion; also meet with parent.', ref:'Adolescent intake structure' },
+
+  { id:'as31', cat:'Intake', scenario:'During the first session, a client discloses they have previously attempted suicide twice. What do you assess next?',
+    options:[
+      { t:'Detailed history of each attempt (method, intent, circumstances, rescue) and current ideation and means access', ok:true, why:'Prior attempts are the strongest predictor of future suicide. Detailed attempt history is required for accurate risk stratification.' },
+      { t:'Administer the PHQ-9 and score for depression severity', why:'PHQ-9 is a depression screen; it does not characterize prior attempt history or current suicide risk.' },
+      { t:'Note the history and proceed with the standard intake', why:'Trap: treating prior attempts as background data rather than primary risk information is a clinical error.' },
+      { t:'Immediately initiate hospitalization paperwork', why:'Prior history alone does not mandate hospitalization; current assessment drives level-of-care decisions.' },
+    ], rule:'Prior attempt disclosure → detailed attempt history (method, intent, rescue) + current ideation/means; this is the highest-risk clinical indicator.', ref:'Suicide risk / attempt history' },
+
+  { id:'as32', cat:'Ethics & scope', scenario:'A supervisee tells you they have been seeing clients independently without supervision for the past month due to "scheduling issues." What do you assess first?',
+    options:[
+      { t:'Whether any clients were harmed and whether the supervisee has the competence level for the cases they carried', ok:true, why:'Client welfare is the primary concern; the scope violation must be assessed for harm before any administrative response.' },
+      { t:'The supervisee\'s schedule and why supervision was missed', why:'Scheduling is secondary; client safety is the immediate concern.' },
+      { t:'Whether to terminate the supervisory relationship', why:'Terminating supervision does not protect clients currently at risk.' },
+      { t:'File a licensing board complaint immediately', why:'A licensing board complaint may follow but the first obligation is to assess client welfare right now.' },
+    ], rule:'Supervisee practicing without supervision → assess client welfare first; administrative and licensing responses come after.', ref:'Supervisor liability / client protection' },
+
+  { id:'as33', cat:'Ethics & scope', scenario:'A managed care company requests your client\'s full therapy notes to approve continued sessions. What is the appropriate response?',
+    options:[
+      { t:'Release only the minimum information necessary for utilization review — typically a treatment summary, not the full psychotherapy notes', ok:true, why:'HIPAA: psychotherapy notes (process notes) have heightened protection; minimum necessary standard applies to all disclosures.' },
+      { t:'Release the full file — they are paying for the treatment', why:'Trap: payer status does not override HIPAA minimum necessary or psychotherapy note protections.' },
+      { t:'Refuse all disclosure to protect client privacy', why:'Total refusal jeopardizes coverage and is not required; minimum necessary disclosure is permitted and appropriate.' },
+      { t:'Ask the client to send the records themselves', why:'Having the client transmit their own clinical records is not standard practice and may not satisfy the insurer.' },
+    ], rule:'Insurer requests records → minimum necessary disclosure; psychotherapy notes require separate authorization; do not release the full file.', ref:'HIPAA minimum necessary / psychotherapy notes' },
+
+  { id:'as34', cat:'Ethics & scope', scenario:'A client presents with a possible traumatic brain injury following an accident and is describing significant cognitive changes. What is the first step?',
+    options:[
+      { t:'Refer for neuropsychological evaluation and medical assessment before proceeding with psychotherapy', ok:true, why:'Cognitive changes post-injury require medical/neuropsychological evaluation to characterize deficits and rule out treatable causes before psychotherapy begins.' },
+      { t:'Administer the MoCA in session to screen for cognitive impairment', why:'MoCA is a brief screen, not a diagnostic tool for TBI; specialized neuropsychological evaluation is needed.' },
+      { t:'Begin trauma-focused therapy for the accident', why:'Beginning trauma processing before characterizing cognitive deficits post-TBI is premature and could be contraindicated.' },
+      { t:'Diagnose adjustment disorder and begin CBT', why:'Attributing cognitive changes to emotional adjustment without ruling out neurological cause is a diagnostic error.' },
+    ], rule:'Post-accident cognitive changes → medical/neuropsychological evaluation before psychotherapy; do not attribute to emotional causes without ruling out organic etiology.', ref:'TBI assessment / medical referral' },
+
+  { id:'as35', cat:'Mood', scenario:'A client reporting depression also mentions significant weight gain, cold intolerance, fatigue, and constipation over the past 6 months. Next assessment step?',
+    options:[
+      { t:'Refer for thyroid function testing before treating as primary depression', ok:true, why:'Hypothyroidism produces a complete depressive syndrome. Medical causes must be ruled out before diagnosing MDD.' },
+      { t:'Begin CBT for depression immediately', why:'Treating a potential hypothyroid depression with CBT alone while the medical cause is untreated is clinically insufficient.' },
+      { t:'Administer the PHQ-9 and treat per the score', why:'PHQ-9 measures depressive symptoms but does not distinguish medical from primary psychiatric causes.' },
+      { t:'Diagnose MDD with vegetative features and refer for antidepressants', why:'Trap: antidepressants may be ineffective and medical cause remains unaddressed.' },
+    ], rule:'Depression + somatic symptoms (weight gain, cold intolerance, fatigue, constipation) → rule out hypothyroidism before treating as primary MDD.', ref:'Medical causes of depression' },
+
+  { id:'as36', cat:'Mood', scenario:'A client being treated for MDD tells you they feel better since starting antidepressants but now has 4 days of barely sleeping, unusual energy, and is spending money impulsively. What do you assess next?',
+    options:[
+      { t:'Screen for a manic/hypomanic switch and contact the prescriber urgently', ok:true, why:'Antidepressant-induced hypomania/mania is a known adverse event in undetected bipolar disorder. Urgent prescriber contact is required.' },
+      { t:'Celebrate the improvement in mood and energy', why:'Trap: the symptom cluster (decreased sleep, energy, impulsivity) after antidepressant initiation is a red flag, not improvement.' },
+      { t:'Continue current treatment — the energy may normalize', why:'Waiting when a possible manic switch is occurring delays necessary clinical action.' },
+      { t:'Reduce the therapy session frequency since the client is improving', why:'Reducing contact when a potential adverse medication event is occurring is clinically dangerous.' },
+    ], rule:'Decreased sleep + energy + impulsivity after antidepressant initiation → screen for manic switch; contact prescriber urgently.', ref:'Bipolar misdiagnosis / antidepressant-induced mania' },
+
+  { id:'as37', cat:'Neurodevelopmental', scenario:'A parent reports their 10-year-old has dramatic, episodic behavioral outbursts daily that don\'t fit the child\'s baseline and began 6 months ago after a strep infection. What do you assess next?',
+    options:[
+      { t:'Ask about medical history and refer for pediatric evaluation to rule out PANDAS/PANS before a behavioral diagnosis', ok:true, why:'Sudden onset OCD-like or behavioral symptoms post-strep in a child may indicate PANDAS — a medical (not primarily psychiatric) condition requiring pediatric evaluation.' },
+      { t:'Diagnose ODD and begin parent management training', why:'Trap: diagnosing a sudden-onset, episodic behavioral change without ruling out medical etiology is premature.' },
+      { t:'Screen for ADHD using Conners scales', why:'ADHD is developmental (onset before 12, chronic, not episodic); this presentation is acute-onset and episodic.' },
+      { t:'Assess for trauma that might explain the behavior change', why:'Trauma history is worth assessing but does not explain the sudden post-infection onset; medical workup is the first step.' },
+    ], rule:'Sudden behavioral onset post-strep in a child → consider PANDAS/PANS; refer for pediatric evaluation before behavioral diagnosis.', ref:'PANDAS / medical causes in children' },
+
+  { id:'as38', cat:'Neurocognitive', scenario:'A 78-year-old client has a 2-year history of gradual memory decline, word-finding difficulty, and is now repeating questions. What do you assess next?',
+    options:[
+      { t:'Administer a cognitive screening tool (MoCA or MMSE) and refer for neuropsychological evaluation and medical work-up', ok:true, why:'Gradual progressive cognitive decline in an older adult requires structured screening and specialist referral to characterize type, severity, and reversible causes.' },
+      { t:'Diagnose Alzheimer\'s Disease and begin supportive therapy', why:'Counselors do not diagnose neurocognitive disorders without neuropsychological evaluation; treatable causes must be ruled out.' },
+      { t:'Administer a depression screen — this could be pseudodementia', why:'Pseudodementia is a valid consideration but 2 years of progressive decline is more likely neurocognitive than depressive; cognitive evaluation comes first.' },
+      { t:'Ask the family to observe and report back — diagnosis is premature', why:'Two-year progressive decline is sufficient to warrant structured assessment now rather than continued observation.' },
+    ], rule:'2-year progressive cognitive decline in older adult → structured cognitive screen + specialist referral; do not diagnose or defer without evaluation.', ref:'Neurocognitive disorder assessment' },
+
+  { id:'as39', cat:'Substance', scenario:'A client in an opioid treatment program on methadone presents to their counseling session slurring words and appearing sedated. Next assessment step?',
+    options:[
+      { t:'Assess for overdose risk and contact medical staff immediately — do not conduct the session', ok:true, why:'Sedation and slurring in a methadone patient may indicate overdose or polysubstance interaction — a medical emergency that takes priority over counseling.' },
+      { t:'Conduct the session and document the observation for the prescriber', why:'Trap: conducting a session when overdose risk is present delays life-saving intervention.' },
+      { t:'Administer a brief substance use screener', why:'Screening is not appropriate when the client may be in acute medical danger.' },
+      { t:'End the session and reschedule', why:'Rescheduling leaves the client potentially in medical danger without any intervention.' },
+    ], rule:'Sedated/slurring client on methadone → possible overdose; medical staff immediately before any clinical activity.', ref:'Opioid overdose recognition' },
+
+  { id:'as40', cat:'Assessment skills', scenario:'A counselor has been using the same standardized tool for all clients regardless of their cultural background. What is the primary psychometric concern?',
+    options:[
+      { t:'Cultural bias — the normative sample may not represent the client\'s group, producing invalid comparisons', ok:true, why:'An instrument normed on a population that doesn\'t represent the client produces scores compared to the wrong reference group — inflating apparent pathology.' },
+      { t:'Test-retest reliability — different clients will score differently on different days', why:'Test-retest reliability is a property of the instrument itself, not affected by cultural group alone.' },
+      { t:'Construct validity — the tool may be measuring different constructs altogether', why:'Construct validity is relevant but the primary concern when applying across cultures is the normative reference group (cultural bias).' },
+      { t:'Inter-rater reliability — different counselors will score the tool differently', why:'Inter-rater reliability concerns examiner agreement, not cultural applicability.' },
+    ], rule:'Using standardized tools across cultural groups → primary concern is cultural bias in the normative sample; check whether the client\'s group is represented.', ref:'Cultural bias in assessment' },
+
+  { id:'as41', cat:'Assessment skills', scenario:'A counselor completes an intake and notes three possible diagnoses that could explain the client\'s presentation. What is the correct next step?',
+    options:[
+      { t:'Conduct differential diagnosis: use additional history, screening tools, and collateral information to rule in or rule out each option', ok:true, why:'Differential diagnosis is the systematic process of distinguishing between competing diagnostic possibilities using evidence — not guessing or defaulting to the most common.' },
+      { t:'Pick the most common of the three diagnoses as a starting point', why:'Frequency does not determine accuracy; each diagnosis must be evaluated against the evidence.' },
+      { t:'List all three as diagnoses and begin treating each simultaneously', why:'Multiple untested diagnoses driving simultaneous treatment creates disorganized, ineffective care.' },
+      { t:'Refer to a psychiatrist since multiple diagnoses exceed counselor scope', why:'Differential diagnosis is within counselor scope; refer when medical evaluation is needed to distinguish, not to avoid the diagnostic process.' },
+    ], rule:'Multiple possible diagnoses → conduct differential diagnosis; evaluate each against history, screening tools, and collateral — do not default to frequency or refer to avoid the work.', ref:'Differential diagnosis process' },
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = { ASSESS_ITEMS }; }
