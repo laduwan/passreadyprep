@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const mongoose = require('mongoose');
 const requireAdmin = require('../middleware/adminOrAdminUser');
@@ -28,9 +30,9 @@ router.get('/audience', async (req, res) => {
 // segment 'emails' targets only the registered accounts listed in `emails`.
 router.post('/send', async (req, res) => {
   try {
-    const { subject, html, segment, broadcastKey } = req.body || {};
+    const { subject, html, segment } = req.body || {};
+    const broadcastKey = req.body.broadcastKey || `auto_${Date.now()}`;
     if (!subject || !html) return res.status(400).json({ error: 'subject and html required' });
-    if (!broadcastKey) return res.status(400).json({ error: 'broadcastKey required for idempotency' });
 
     let filter;
     let listed = null;
