@@ -86,20 +86,50 @@ async function callClaude(systemPrompt, userPrompt, maxTokens = 8000) {
 // ── Prompts ──────────────────────────────────────────────────────────────────
 
 function buildSystemPrompt() {
-  return `You are a clinical content author creating ORIGINAL practice simulations for CounselorReady, in the style of the NCMHCE (clinical mental health counseling case simulations). The author of record is Kejuiana Johnson, LPC, NCC, CPCS, BC-TMH.
+  return `You are a clinical content author creating ORIGINAL practice simulations for PassReady Prep, in the style of the NCMHCE (clinical mental health counseling case simulations). The author of record is Kejuiana Johnson, LPC, NCC, CPCS, BC-TMH.
 
 These are practice materials only — NOT real exam items. Do not reproduce or paraphrase any actual exam content. NCMHCE is a registered trademark of the National Board for Certified Counselors (NBCC); never imply affiliation with or endorsement by NBCC.
 
+PSYCHOMETRIC SCORING FRAMEWORK — every case and every question must be built against this framework. This is the standard the platform scores candidates against.
+
+WEIGHT GRADIENT — each question must have exactly one option at each tier:
++3  KEY           The clinically correct action at this point. Advances safety, alliance, or accurate formulation.
+0   Near-miss     Reasonable but mistimed, incomplete, or secondary. Does not harm but does not advance optimally.
+-1  Common error  A novice error — sequencing error, criterion confusion, premature intervention.
+-2  Harmful error Risks client welfare, violates ethics, reverses a diagnostic criterion, or constitutes scope/abandonment violation.
+
+PRIORITY LADDER — the case narrative must embed cues at multiple rungs. Questions must test the candidate's ability to identify and respond to the highest-priority rung available.
+Rung 1  Imminent safety              Suicidality, homicidality, abuse, danger — nothing else happens first.
+Rung 2  Medical/substance rule-outs  Could this be organic? Substances? Rule out before diagnosing.
+Rung 3  Stabilization                Acute symptom relief, grounding, crisis reduction.
+Rung 4  Alliance and validation      Before any intervention, the client must feel heard.
+Rung 5  Clarify the picture          Assessment, history, collateral info.
+Rung 6  Evidence-based treatment     The right modality for the right diagnosis.
+Rung 7  Ethics throughout            Confidentiality, mandated reporting, competence — woven into every rung.
+
+QUESTION CONSTRUCTION RULES (derived from the framework above):
+- Each question must test exactly one rung of the Priority Ladder.
+- The KEY option (+3) is the action that correctly addresses the highest-priority rung available at that moment in the case.
+- The near-miss (0) is a correct-domain action that is mistimed — it would be appropriate at a different rung or later in the sequence.
+- The common error (-1) is a predictable novice mistake: most often a sequencing error (treating before assessing), a criterion confusion, or a premature intervention.
+- The harmful error (-2) must represent a genuine risk: a safety rung violation, an ethical breach, a scope-of-practice violation, or an action that actively harms the client.
+- A test-taker must NOT be able to identify the correct answer by its length, detail, or hedging. All four options must be similar in length and specificity.
+- For self-harm, suicide, or eating-disorder content: model safe, responsible practice. Never include specific methods, weights, or calorie figures in any option.
+
+WHAT QUESTIONS MUST TEST (score against these behaviors — not diagnostic accuracy alone):
+- Response to the highest-priority rung available
+- Correct clinical sequence (validate before challenge, assess before diagnose, stabilize before process, rule out medical/substance before confirming psychiatric diagnosis)
+- Detection of buried verbal cues (safety-relevant, alliance-relevant, or diagnostic)
+- Scope-of-practice boundaries
+
+WHAT QUESTIONS MUST NOT TEST:
+- Diagnostic accuracy alone — the diagnosis is provided in the working diagnosis field
+- Tone, affect, or nonverbal style
+- Rapport-building style unless warmth is absent when required
+
 Clinical standards:
 - Use DSM-5-TR terminology and accurate, current clinical reasoning.
-- Build a realistic, internally consistent case. Information-gathering options should reflect sound assessment practice; decision-making options should reflect defensible clinical judgment, ethics, and risk management.
-- For self-harm, suicide, or eating-disorder content, model safe, responsible practice and avoid specific methods, weights, or calorie figures.
-
-CRITICAL — answer-option length balance (this is the most important rule):
-- Within every question, write ALL options to a similar length and level of specificity.
-- Do NOT make correct options longer, more detailed, more hedged, or more qualified than the incorrect ones.
-- A test-taker must not be able to identify the correct answer by its length or extra detail.
-- Distractors must be clinically plausible and comparable in length to the correct options.
+- Build a realistic, internally consistent case.
 
 Output format:
 - Return ONLY valid JSON. No prose, no explanation, no Markdown, no code fences.
@@ -125,7 +155,8 @@ Output format:
 }
 - Provide 4 to 6 sections, alternating between "information_gathering" and "decision_making".
 - Each section must have 5 or 6 options, of which 2 or 3 are correct (isCorrect:true) and the rest are plausible distractors.
-- Every option must include a brief rationale explaining why it is or is not appropriate.`;
+- Every option must include a brief rationale explaining why it is or is not appropriate.
+- CRITICAL — vary correct option position: do NOT consistently place isCorrect:true on the first or second option. Distribute the correct option(s) across all positions within each section.`;
 }
 
 function buildUserPrompt(spec) {
@@ -150,6 +181,27 @@ ${section.options.map((o, i) => `${i + 1}. [${o.isCorrect ? 'CORRECT' : 'distrac
 
 Return ONLY valid JSON (no prose, no code fences) of the form:
 { "options": [ { "text": string, "isCorrect": boolean, "rationale": string } ] }`;
+}
+
+// ── Position variance ─────────────────────────────────────────────────────────
+// LLMs tend to place isCorrect:true options near the top without explicit
+// instruction. This rotates the correct option to a deterministic position
+// based on question index so correct answers are evenly distributed across
+// positions A/B/C/D across the full question set.
+function shuffleOptionPositions(sections) {
+  if (!Array.isArray(sections)) return sections;
+  let qGlobal = 0;
+  return sections.map(section => {
+    const opts = [...(section.options || [])];
+    const correctIdx = opts.findIndex(o => o.isCorrect);
+    if (correctIdx === -1 || opts.length < 2) { qGlobal++; return section; }
+    const targetPos = qGlobal % opts.length;
+    qGlobal++;
+    if (targetPos === correctIdx) return section;
+    const newOpts = [...opts];
+    [newOpts[correctIdx], newOpts[targetPos]] = [newOpts[targetPos], newOpts[correctIdx]];
+    return { ...section, options: newOpts };
+  });
 }
 
 // ── Parsing ──────────────────────────────────────────────────────────────────
@@ -279,7 +331,7 @@ function normalizeCase(parsed, spec) {
       primary: String(parsed.diagnosis?.primary || spec.diagnosisHint).trim(),
       differentials: Array.isArray(parsed.diagnosis?.differentials) ? parsed.diagnosis.differentials.map(String) : []
     },
-    sections,
+    sections: shuffleOptionPositions(sections),
     references: Array.isArray(parsed.references) ? parsed.references.map(String) : []
   };
 }

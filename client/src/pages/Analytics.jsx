@@ -1,7 +1,7 @@
 // client/src/pages/Analytics.jsx
 import React, { useState } from 'react';
-import { BarChart3, TrendingUp, TrendingDown, Minus, Target, Calendar, AlertTriangle, Flame, CheckCircle2 } from 'lucide-react';
-import { computeAnalytics, DOMAIN_LABELS } from '../lib/readiness';
+import { BarChart3, TrendingUp, TrendingDown, Minus, Target, Calendar, AlertTriangle, Flame, CheckCircle2, Clock, Trophy } from 'lucide-react';
+import { computeAnalytics, DOMAIN_LABELS, loadExamHistory } from '../lib/readiness';
 import { useStudyPing } from '../lib/useStudyPing';
 
 const DIFF_COLOR = { easy: 'text-emerald-400', medium: 'text-amber-400', hard: 'text-red-400' };
@@ -124,6 +124,100 @@ function KnowledgeDrillStats() {
   );
 }
 
+function fmtTime(s) {
+  const m = Math.floor(s / 60), ss = s % 60;
+  return `${m}m ${String(ss).padStart(2, '0')}s`;
+}
+
+function MockExamHistory({ navigate }) {
+  const history = loadExamHistory();
+  if (history.length === 0) {
+    return (
+      <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-8 text-center space-y-3">
+        <Clock className="w-8 h-8 mx-auto text-slate-600" />
+        <div className="text-white font-bold">No mock exams yet</div>
+        <p className="text-slate-400 text-sm">Take a full-length timed exam and your scores will appear here.</p>
+        <button
+          onClick={() => navigate('mockexam')}
+          className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-5 py-2.5 rounded-xl text-sm"
+        >
+          Take mock exam ›
+        </button>
+      </div>
+    );
+  }
+
+  const avg = Math.round(history.reduce((s, e) => s + e.pct, 0) / history.length);
+  const best = Math.max(...history.map((e) => e.pct));
+  const trend = history.length >= 2
+    ? history[history.length - 1].pct >= history[history.length - 2].pct ? 'up' : 'down'
+    : null;
+
+  return (
+    <div className="space-y-4">
+      {/* Summary */}
+      <div className="grid grid-cols-3 gap-3">
+        {[
+          { label: 'Exams taken', value: history.length, color: 'text-blue-400', icon: Clock },
+          { label: 'Average score', value: `${avg}%`, color: avg >= 70 ? 'text-emerald-400' : 'text-amber-400', icon: BarChart3 },
+          { label: 'Best score', value: `${best}%`, color: best >= 70 ? 'text-emerald-400' : 'text-amber-400', icon: Trophy },
+        ].map((s) => (
+          <div key={s.label} className="bg-slate-800/50 border border-slate-700/60 rounded-xl p-3 text-center">
+            <s.icon className={`w-4 h-4 mx-auto mb-1 ${s.color}`} />
+            <div className={`text-xl font-extrabold ${s.color}`}>{s.value}</div>
+            <div className="text-xs text-slate-500">{s.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Attempt list */}
+      <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-bold text-white">Exam attempts</h2>
+          {trend && (
+            <div className={`flex items-center gap-1 text-xs font-semibold ${trend === 'up' ? 'text-emerald-400' : 'text-red-400'}`}>
+              {trend === 'up' ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
+              {trend === 'up' ? 'Improving' : 'Declining'}
+            </div>
+          )}
+        </div>
+        <div className="space-y-2">
+          {[...history].reverse().map((e, i) => {
+            const scoreColor = e.pct >= 70 ? 'text-emerald-400' : e.pct >= 55 ? 'text-amber-400' : 'text-red-400';
+            const barColor = e.pct >= 70 ? 'bg-emerald-500' : e.pct >= 55 ? 'bg-amber-500' : 'bg-red-500';
+            const dateStr = new Date(e.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            return (
+              <div key={i} className="py-2.5 border-b border-slate-700/40 last:border-0">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div>
+                    <span className="text-sm font-bold text-white">Practice Exam #{e.examNumber}</span>
+                    <span className="text-xs text-slate-500 ml-2">{dateStr}</span>
+                    {e.timeUsedSecs && (
+                      <span className="text-xs text-slate-600 ml-2">{fmtTime(e.timeUsedSecs)}</span>
+                    )}
+                  </div>
+                  <span className={`text-sm font-extrabold ${scoreColor}`}>{e.pct}%</span>
+                </div>
+                <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                  <div className={`h-full rounded-full ${barColor}`} style={{ width: `${e.pct}%` }} />
+                </div>
+                <div className="text-xs text-slate-600 mt-1">{e.totalCorrect}/{e.totalQuestions} correct · {e.caseCount} cases</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <button
+        onClick={() => navigate('mockexam')}
+        className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-2.5 rounded-xl text-sm transition-colors"
+      >
+        Take another exam ›
+      </button>
+    </div>
+  );
+}
+
 export default function Analytics({ navigate }) {
   useStudyPing('analytics');
   const [tab, setTab] = useState('domains');
@@ -174,11 +268,12 @@ export default function Analytics({ navigate }) {
       )}
 
       {/* Tab bar */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap">
         {[
           { id: 'domains', label: 'By Domain' },
           { id: 'categories', label: 'By Category' },
           { id: 'difficulty', label: 'By Difficulty' },
+          { id: 'exams', label: 'Mock Exams' },
         ].map((t) => (
           <button key={t.id} onClick={() => setTab(t.id)}
             className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
@@ -245,6 +340,9 @@ export default function Analytics({ navigate }) {
           </div>
         </div>
       )}
+
+      {/* Mock exams tab */}
+      {tab === 'exams' && <MockExamHistory navigate={navigate} />}
 
       {/* Activity chart */}
       <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">

@@ -182,6 +182,9 @@ async function start() {
   // Weekly study digest — sends Monday, 12h check cycle.
   require('./jobs/weeklyDigest').start();
 
+  // Biweekly item quality + IRR digest — sends every other Monday.
+  require('./jobs/qualityDigest').start();
+
   app.listen(PORT, () => console.log(`PassReady Prep API listening on port ${PORT}`));
 }
 

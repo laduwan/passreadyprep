@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BookOpen, Layers, GitBranch, Brain, FileText, Award, TrendingUp, TrendingDown, Minus, Target, Clock, Zap, BarChart3 } from 'lucide-react';
 import { computeReadiness, computeAnalytics, syncHistory, DOMAIN_ORDER, DOMAIN_LABELS } from '../lib/readiness';
+import { authFetch } from '../lib/api';
 import { useStudyPing } from '../lib/useStudyPing';
 import StreakBadge from '../components/StreakBadge';
 
@@ -55,8 +56,22 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
 
   useStudyPing('dashboard');
 
-  // Sync study history from server on first load (cross-device persistence).
-  useEffect(() => { syncHistory(); }, []);
+  const [catalogMeta, setCatalogMeta] = useState(null);
+
+  // Sync study history + fetch catalog meta (trial status, case count) on mount.
+  useEffect(() => {
+    syncHistory();
+    authFetch('/api/content?exam=ncmhce')
+      .then((r) => r.json())
+      .then((d) => setCatalogMeta({
+        total: d.total || null,
+        accessLevel: d.accessLevel,
+        trialEndsAt: d.trialEndsAt || null,
+        trialDays: d.trialDays || 3,
+        freeLimit: d.freeLimit || 5,
+      }))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     if (examDate) localStorage.setItem('prp_exam_date', examDate);
@@ -65,8 +80,64 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
   const TrendIcon = rd?.recentTrend === 'up' ? TrendingUp : rd?.recentTrend === 'down' ? TrendingDown : Minus;
   const trendColor = rd?.recentTrend === 'up' ? 'text-emerald-400' : rd?.recentTrend === 'down' ? 'text-red-400' : 'text-slate-400';
 
+  // Trial banner computation
+  const trialBanner = (() => {
+    if (!catalogMeta) return null;
+    const { accessLevel, trialEndsAt, total, freeLimit } = catalogMeta;
+    if (accessLevel === 'expired') {
+      return { type: 'expired', total };
+    }
+    if (accessLevel === 'trial' && trialEndsAt) {
+      const msLeft = new Date(trialEndsAt) - Date.now();
+      const daysLeft = Math.max(0, Math.ceil(msLeft / 86400000));
+      if (daysLeft <= 2) return { type: 'trial', daysLeft, total };
+    }
+    if (accessLevel === 'free') {
+      return { type: 'free', freeLimit, total };
+    }
+    return null;
+  })();
+
   return (
     <div className="space-y-6">
+
+      {/* Trial / upgrade banner */}
+      {trialBanner?.type === 'expired' && (
+        <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 flex items-center justify-between gap-3">
+          <div>
+            <div className="font-bold text-red-400 text-sm">Your free trial has ended</div>
+            <div className="text-xs text-slate-400 mt-0.5">Upgrade to keep studying all {trialBanner.total ? `${trialBanner.total}+` : '270+'} cases.</div>
+          </div>
+          <a href="/checkout.html?tier=monthly" className="shrink-0 bg-red-500 hover:bg-red-400 text-white font-bold px-4 py-2 rounded-xl text-sm transition-colors">
+            Upgrade →
+          </a>
+        </div>
+      )}
+      {trialBanner?.type === 'trial' && (
+        <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 flex items-center justify-between gap-3">
+          <div>
+            <div className="font-bold text-amber-400 text-sm">
+              {trialBanner.daysLeft === 0 ? 'Trial ends today' : `${trialBanner.daysLeft} day${trialBanner.daysLeft === 1 ? '' : 's'} left in your trial`}
+            </div>
+            <div className="text-xs text-slate-400 mt-0.5">Upgrade to keep access to all {trialBanner.total ? `${trialBanner.total}+` : '270+'} cases.</div>
+          </div>
+          <a href="/checkout.html?tier=monthly" className="shrink-0 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold px-4 py-2 rounded-xl text-sm transition-colors">
+            Upgrade →
+          </a>
+        </div>
+      )}
+      {trialBanner?.type === 'free' && (
+        <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 flex items-center justify-between gap-3">
+          <div>
+            <div className="font-bold text-white text-sm">{trialBanner.freeLimit} free cases available</div>
+            <div className="text-xs text-slate-400 mt-0.5">Create an account for a 3-day trial of all {trialBanner.total ? `${trialBanner.total}+` : '270+'} cases.</div>
+          </div>
+          <a href="/register.html" className="shrink-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-4 py-2 rounded-xl text-sm transition-colors">
+            Sign up free →
+          </a>
+        </div>
+      )}
+
       {/* Hero */}
       <div className="rounded-2xl bg-gradient-to-br from-emerald-500/10 to-blue-500/5 border border-emerald-500/20 p-6 text-center">
         <div className="flex justify-center mb-2">
@@ -76,12 +147,19 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
         <p className="text-slate-400 text-sm mb-4 max-w-md mx-auto">
           Work through a full NCMHCE-format case — read the vignette, answer 5 clinical questions, and get evidence-based feedback with weighted scoring. No signup required.
         </p>
-        <button
-          onClick={() => navigate('cases')}
-          className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-6 py-3 rounded-xl transition-colors"
-        >
-          Start free case ›
-        </button>
+        {catalogMeta?.total && (
+          <div className="inline-flex items-center gap-1.5 text-xs text-slate-500 bg-slate-800/60 px-3 py-1.5 rounded-full mb-4">
+            <span className="text-emerald-400 font-bold">{catalogMeta.total}+</span> clinical cases in the bank
+          </div>
+        )}
+        <div className="block">
+          <button
+            onClick={() => navigate('cases')}
+            className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-6 py-3 rounded-xl transition-colors"
+          >
+            Start free case ›
+          </button>
+        </div>
         <div className="mt-3">
           <button onClick={() => navigate('guarantee')} className="text-emerald-400 text-sm hover:underline">
             ✓ Pass guarantee — pass and get a free CE course, or we extend your access
@@ -232,7 +310,7 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
         <h2 className="text-lg font-bold text-white mb-3">Study tools</h2>
         <div className="grid sm:grid-cols-2 gap-3">
           {[
-            { id: 'mock', icon: Clock, label: 'Timed Mock Exam', desc: 'Full-length, clock-running NCMHCE simulation — multiple cases scored by domain. The closest thing to exam day.', external: '/exam.html' },
+            { id: 'mockexam', icon: Clock, label: 'Timed Mock Exam', desc: 'Full-length, clock-running NCMHCE simulation — 11 cases, blueprint-weighted, 225 min. The closest thing to exam day.' },
             { id: 'flashcards', icon: Layers, label: 'Flashcards', desc: '258 cards with spaced repetition — codes, treatments, differentials, ethics, crisis.' },
             { id: 'trees', icon: GitBranch, label: 'Decision Trees', desc: '25 clinical reasoning walkthroughs — safety triage, differential diagnosis, treatment selection, ethics.' },
             { id: 'dsm', icon: Brain, label: 'DSM-5-TR Reference', desc: '92 diagnoses with ICD-10 codes and first-line treatments. Searchable.' },
