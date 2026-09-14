@@ -67,6 +67,7 @@ async function sendDigests() {
   const users = await User.find({
     _id: { $in: activeUserIds },
     'prefs.digestOptOut': { $ne: true },
+    email: { $regex: /@/ },
     // Already sent this week? Check weeklyDigestSentAt
   }).select('email name subscription createdAt trialEndsAt weeklyDigestSentAt');
 

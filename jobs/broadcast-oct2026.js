@@ -111,6 +111,7 @@ async function run() {
   const users = await User.find({
     'prefs.digestOptOut': { $ne: true },
     [`broadcastsSent.${BROADCAST_KEY}`]: { $exists: false },
+    email: { $regex: /@/ },
   }).select('email name').lean();
 
   console.log(`Audience: ${users.length} users${DRY_RUN ? ' (DRY RUN — not sending)' : ''}`);
