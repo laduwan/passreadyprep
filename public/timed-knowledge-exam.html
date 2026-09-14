@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — Timed Knowledge Exam</title>
+<meta name="description" content="Timed standalone MCQ exam for NCMHCE prep — 25, 50, or 100 questions across all knowledge domains with a full domain breakdown on completion.">
+<link rel="canonical" href="https://www.passreadyprep.com/timed-knowledge-exam.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PassReady Prep">
+<meta property="og:title" content="PassReady Prep — Timed Knowledge Exam">
+<meta property="og:description" content="Timed MCQ practice across all NCMHCE knowledge domains. No feedback until you submit — then a full domain breakdown and answer review.">
+<meta property="og:url" content="https://www.passreadyprep.com/timed-knowledge-exam.html">
+<meta property="og:image" content="https://www.passreadyprep.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{
+  --slate-900:#0F172A;--slate-800:#1E293B;--slate-700:#334155;--slate-600:#475569;
+  --slate-500:#64748B;--slate-400:#94A3B8;--slate-300:#CBD5E1;--slate-200:#E2E8F0;--white:#F8FAFC;
+  --emerald:#10B981;--emerald-400:#34D399;--blue-400:#60A5FA;--blue:#3B82F6;
+  --amber:#F59E0B;--amber-400:#FBBF24;--red:#EF4444;--red-400:#F87171;--purple-400:#A78BFA;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --r-xl:16px;--r-lg:12px;--r-md:10px;
+  --card:rgba(30,41,59,.55);--card-border:rgba(51,65,85,.6);
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:linear-gradient(160deg,#0F172A,#1E293B 50%,#0F172A);
+  background-attachment:fixed;color:var(--slate-200);font-family:var(--sans);font-size:16px;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px}
+a{color:var(--emerald-400)}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 20px}
+.bw{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+.bc{width:38px;height:38px;border-radius:11px;background:rgba(16,185,129,.16);display:grid;place-items:center}
+.bc svg{width:21px;height:21px;color:var(--emerald-400)}
+.bn{font-weight:700;font-size:18px;color:var(--white)}.bn .p{color:var(--emerald-400)}
+h1{font-size:24px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spacing:-.01em}
+.lead{color:var(--slate-400);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-xl);padding:18px 20px;margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font:inherit;font-weight:700;
+  background:var(--emerald);color:#04261C;border:none;border-radius:var(--r-md);padding:12px 22px;transition:background .15s}
+.btn:hover{background:var(--emerald-400)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn-s{background:rgba(51,65,85,.5);color:var(--slate-200)}.btn-s:hover{background:rgba(51,65,85,.8)}
+.btn-sm{padding:8px 14px;font-size:14px}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:4px 10px;border-radius:999px;text-transform:uppercase}
+.b-blue{color:var(--blue-400);background:rgba(59,130,246,.15)}
+.b-sl{color:var(--slate-300);background:rgba(51,65,85,.5)}
+.b-em{color:var(--emerald-400);background:rgba(16,185,129,.15)}
+
+/* sticky timer */
+.timer-bar{position:sticky;top:0;z-index:50;background:rgba(15,23,42,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--card-border);padding:10px 16px;display:none}
+.timer-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.timer-display{font-size:22px;font-weight:800;color:var(--white);letter-spacing:.02em;font-variant-numeric:tabular-nums;min-width:70px}
+.timer-display.warn{color:var(--amber-400)}
+.timer-display.danger{color:var(--red-400)}
+.timer-sub{font-size:11px;color:var(--slate-500);margin-top:1px}
+.timer-prog{font-size:13px;color:var(--slate-400);text-align:right;line-height:1.4}
+.timer-prog strong{color:var(--white);display:block}
+
+/* setup screen */
+.setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.count-btn{cursor:pointer;font:inherit;font-weight:700;font-size:15px;border-radius:var(--r-lg);
+  padding:16px;text-align:center;border:2px solid var(--card-border);background:rgba(51,65,85,.3);
+  color:var(--slate-300);transition:.15s}
+.count-btn:hover{border-color:rgba(16,185,129,.4);color:var(--white)}
+.count-btn.selected{border-color:var(--emerald);background:rgba(16,185,129,.12);color:var(--emerald-400)}
+.count-btn .cb-n{font-size:28px;font-weight:800;color:var(--white);display:block;line-height:1.1}
+.count-btn.selected .cb-n{color:var(--emerald-400)}
+.count-btn .cb-t{font-size:12px;color:var(--slate-400);margin-top:2px;display:block}
+
+.dom-select{width:100%;font:inherit;font-size:15px;padding:10px 13px;border:1.5px solid var(--card-border);
+  border-radius:var(--r-md);background:rgba(30,41,59,.6);color:var(--white);margin:12px 0 16px;
+  appearance:none;cursor:pointer}
+.dom-select:focus{outline:none;border-color:var(--emerald)}
+.dom-select option{background:#1E293B;color:var(--white)}
+
+/* question navigator */
+.nav-grid{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0}
+.ag-cell{cursor:pointer;width:34px;height:34px;border-radius:7px;font-size:12px;font-weight:700;
+  display:grid;place-items:center;border:1.5px solid var(--card-border);
+  background:rgba(51,65,85,.3);color:var(--slate-400);transition:.12s}
+.ag-cell:hover{border-color:rgba(16,185,129,.4);color:var(--white)}
+.ag-cell.current{border-color:var(--blue-400);color:var(--blue-400);background:rgba(59,130,246,.1)}
+.ag-cell.answered{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.4);color:var(--emerald-400)}
+.ag-cell.flagged{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.4);color:var(--amber-400)}
+.ag-cell.answered.flagged{background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.5)}
+
+/* question */
+.q-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.q-num{font-size:12px;font-weight:700;color:var(--slate-500);letter-spacing:.04em;text-transform:uppercase}
+.qstem{font-size:17px;font-weight:600;color:var(--white);line-height:1.45;margin:0 0 16px}
+
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{text-align:left;cursor:pointer;font:inherit;font-size:15px;color:var(--slate-200);
+  background:rgba(51,65,85,.35);border:1.5px solid var(--card-border);border-radius:10px;
+  padding:13px 15px;transition:background .12s,border-color .12s;display:flex;align-items:flex-start;gap:10px}
+.opt:hover:not(:disabled){background:rgba(51,65,85,.6);border-color:rgba(100,116,139,.7)}
+.opt:disabled{cursor:default}
+.opt.selected{background:rgba(59,130,246,.12);border-color:rgba(59,130,246,.55)}
+.opt .mk{font-weight:800;font-size:13px;min-width:20px;margin-top:1px;color:var(--slate-400)}
+.opt.selected .mk{color:var(--blue-400)}
+
+/* results */
+.opt.correct{background:rgba(16,185,129,.14);border-color:rgba(16,185,129,.55)}
+.opt.wrong{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.5)}
+.opt.correct .mk{color:var(--emerald-400)}
+.opt.wrong .mk{color:var(--red-400)}
+.rationale{margin-top:12px;border-left:3px solid var(--emerald);background:rgba(16,185,129,.07);
+  border-radius:0 8px 8px 0;padding:10px 13px;font-size:13.5px;color:var(--slate-200);line-height:1.55}
+.rat-label{font-weight:700;color:var(--emerald-400);font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;display:block;margin-bottom:4px}
+
+.score-card{text-align:center;border-radius:var(--r-xl);padding:24px 20px;border:1px solid}
+.score-card.pass{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3)}
+.score-card.fail{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.3)}
+.score-big{font-size:44px;font-weight:800;color:var(--white);line-height:1}
+.score-pct{font-size:22px;font-weight:700;margin-top:4px}
+.score-grade{font-size:14px;color:var(--slate-400);margin-top:6px}
+
+.domain-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+.domain-table th{text-align:left;color:var(--slate-400);font-weight:700;font-size:11.5px;
+  letter-spacing:.05em;text-transform:uppercase;padding:6px 8px;border-bottom:1px solid var(--card-border)}
+.domain-table td{padding:8px 8px;border-bottom:1px solid rgba(51,65,85,.4);color:var(--slate-200)}
+.domain-table td:last-child{text-align:right;font-weight:700}
+.pct-bar{height:5px;border-radius:3px;background:rgba(51,65,85,.5);margin-top:4px;min-width:80px}
+.pct-fill{height:5px;border-radius:3px;background:var(--emerald)}
+.pct-fill.mid{background:var(--amber)}
+.pct-fill.low{background:var(--red-400)}
+
+/* nav row */
+.nav-row{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap}
+.flag-btn{background:none;border:1.5px solid var(--card-border);border-radius:var(--r-md);cursor:pointer;
+  font:inherit;font-size:13px;font-weight:600;color:var(--slate-400);padding:8px 14px;transition:.12s}
+.flag-btn:hover{border-color:var(--amber);color:var(--amber-400)}
+.flag-btn.flagged{border-color:var(--amber);color:var(--amber-400);background:rgba(245,158,11,.1)}
+
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--slate-400);margin-bottom:8px}
+.leg{display:flex;align-items:center;gap:5px}
+.leg-dot{width:10px;height:10px;border-radius:3px;border:1.5px solid}
+
+@media(max-width:520px){
+  h1{font-size:20px}.qstem{font-size:15px}.opt{font-size:14px}
+  .setup-grid{grid-template-columns:1fr 1fr}.timer-display{font-size:18px}
+}
+</style>
+</head>
+<body>
+
+<div class="timer-bar" id="timer-bar" role="timer" aria-live="off">
+  <div class="timer-inner">
+    <div>
+      <div class="timer-display" id="timer-display">00:00</div>
+      <div class="timer-sub">remaining</div>
+    </div>
+    <div class="timer-prog" id="timer-prog"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <header>
+    <a class="bw" href="/study">
+      <span class="bc">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l-6-6 6-6"/><path d="M3 12h18"/>
+        </svg>
+      </span>
+      <span class="bn">PassReady<span class="p"> Prep</span></span>
+    </a>
+    <span class="badge b-blue">Timed Knowledge Exam</span>
+  </header>
+
+  <div id="stage"></div>
+</div>
+
+<script src="/knowledge-data.js"></script>
+<script>
+(function(){
+  var ITEMS = (typeof KNOWLEDGE_ITEMS !== 'undefined') ? KNOWLEDGE_ITEMS : [];
+
+  var DOMAIN_LABELS = {
+    theories:'Theories', pioneers:'Pioneers', skills:'Counseling Skills', ethics:'Ethics',
+    skills_interventions:'Skills & Interventions', professional_ethics:'Professional Ethics',
+    intake:'Intake', assessment:'Assessment', diagnosis:'Diagnosis', treatment_planning:'Treatment Planning'
+  };
+
+  // mins per question count
+  var TIME_MAP = { 25:30, 50:60, 75:90, 100:120 };
+
+  var state = 'setup'; // setup | exam | results
+  var examQ = [], answers = [], flags = [], qIdx = 0;
+  var timerSecs = 0, timerIv = null;
+  var selectedCount = 50, selectedDomain = 'All';
+
+  var timerBar = document.getElementById('timer-bar');
+  var timerDisplay = document.getElementById('timer-display');
+  var timerProg = document.getElementById('timer-prog');
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+
+  /* ---- TIMER ---- */
+  function startTimer(){
+    clearInterval(timerIv);
+    timerBar.style.display='block';
+    timerIv = setInterval(function(){
+      timerSecs--;
+      updateTimerDisplay();
+      if(timerSecs<=0){ clearInterval(timerIv); submitExam(true); }
+    }, 1000);
+    updateTimerDisplay();
+  }
+
+  function updateTimerDisplay(){
+    var m = Math.floor(timerSecs/60), s = timerSecs%60;
+    timerDisplay.textContent = (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+    timerDisplay.className = 'timer-display'+(timerSecs<300?' danger':timerSecs<600?' warn':'');
+    var ans = answers.filter(function(a){return a!==null;}).length;
+    timerProg.innerHTML='<strong>'+ans+' / '+examQ.length+' answered</strong>Q '+(qIdx+1)+' of '+examQ.length;
+  }
+
+  /* ---- SETUP SCREEN ---- */
+  function renderSetup(){
+    state='setup';
+    timerBar.style.display='none';
+    clearInterval(timerIv);
+
+    var domOpts = '<option value="All">All domains (mixed)</option>';
+    Object.keys(DOMAIN_LABELS).forEach(function(d){
+      var n = ITEMS.filter(function(q){return q.domain===d;}).length;
+      domOpts += '<option value="'+d+'">'+DOMAIN_LABELS[d]+' ('+n+' questions)</option>';
+    });
+
+    var h = '<h1>Timed Knowledge Exam</h1>';
+    h += '<p class="lead">Blueprint-weighted MCQs with no feedback until you submit &mdash; then a full domain breakdown and answer review. Select a length and optional domain focus.</p>';
+    h += '<div class="card">';
+    h += '<div style="font-size:13px;font-weight:700;color:var(--slate-400);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">Number of Questions</div>';
+    h += '<div class="setup-grid">';
+    [25,50,75,100].forEach(function(n){
+      var mins = TIME_MAP[n];
+      h += '<button class="count-btn'+(n===selectedCount?' selected':'__')+'" onclick="selectCount('+n+')">'+
+        '<span class="cb-n">'+n+'</span><span class="cb-t">'+mins+' min</span></button>';
+    });
+    h += '</div>';
+    h += '<div style="font-size:13px;font-weight:700;color:var(--slate-400);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Domain Focus</div>';
+    h += '<select class="dom-select" id="dom-select" onchange="selectedDomain=this.value">'+domOpts+'</select>';
+    h += '<div style="background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:11px 14px;font-size:13.5px;color:var(--slate-300);margin-bottom:16px">';
+    h += '<strong style="color:var(--blue-400)">Exam mode</strong> &mdash; No feedback during the exam. Answer all questions, flag any you want to revisit, then submit for your full score and answer review.';
+    h += '</div>';
+    h += '<button class="btn" onclick="beginExam()" id="begin-btn">Begin Exam</button>';
+    h += '</div>';
+
+    document.getElementById('stage').innerHTML = h;
+    // Set select to current domain
+    document.getElementById('dom-select').value = selectedDomain;
+  }
+
+  window.selectCount = function(n){
+    selectedCount = n;
+    document.querySelectorAll('.count-btn').forEach(function(b){
+      b.className = 'count-btn'+(parseInt(b.querySelector('.cb-n').textContent)===n?' selected':'');
+    });
+  };
+
+  /* ---- BEGIN EXAM ---- */
+  window.beginExam = function(){
+    var pool = ITEMS.filter(function(q){
+      return selectedDomain==='All' || q.domain===selectedDomain;
+    });
+    if(pool.length < selectedCount){
+      alert('Only '+pool.length+' questions available for this filter. Select fewer questions or a broader domain.');
+      return;
+    }
+    // Shuffle options per question
+    examQ = shuffle(pool).slice(0, selectedCount).map(function(q){
+      return { id:q.id, domain:q.domain, subdomain:q.subdomain, difficulty:q.difficulty,
+        question:q.question, options:shuffle(q.options), rationale:q.rationale };
+    });
+    answers = examQ.map(function(){ return null; }); // null = unanswered, option id when answered
+    flags   = examQ.map(function(){ return false; });
+    qIdx = 0;
+    timerSecs = TIME_MAP[selectedCount] * 60;
+    state = 'exam';
+    startTimer();
+    renderExam();
+  };
+
+  /* ---- EXAM SCREEN ---- */
+  function renderExam(){
+    var q = examQ[qIdx];
+    var domLabel = DOMAIN_LABELS[q.domain]||q.domain;
+
+    var h = '';
+
+    // Navigator
+    h += '<div class="legend">';
+    h += '<span class="leg"><span class="leg-dot" style="border-color:rgba(51,65,85,.6);background:rgba(51,65,85,.3)"></span>Unanswered</span>';
+    h += '<span class="leg"><span class="leg-dot" style="border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.12)"></span>Answered</span>';
+    h += '<span class="leg"><span class="leg-dot" style="border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.1)"></span>Flagged</span>';
+    h += '</div>';
+    h += '<div class="nav-grid" id="nav-grid">';
+    examQ.forEach(function(_,i){
+      var cls = 'ag-cell';
+      if(i===qIdx) cls+=' current';
+      else if(answers[i]!==null && flags[i]) cls+=' answered flagged';
+      else if(answers[i]!==null) cls+=' answered';
+      else if(flags[i]) cls+=' flagged';
+      h += '<button class="'+cls+'" onclick="jumpTo('+i+')">'+(i+1)+'</button>';
+    });
+    h += '</div>';
+
+    // Question card
+    h += '<div class="card">';
+    h += '<div class="q-meta">';
+    h += '<span class="q-num">Question '+(qIdx+1)+' of '+examQ.length+'</span>';
+    h += '<span class="badge b-sl">'+esc(domLabel)+'</span>';
+    if(q.subdomain) h += '<span class="badge b-sl" style="opacity:.5;font-size:10px">'+esc(q.subdomain)+'</span>';
+    h += '</div>';
+    h += '<div class="qstem">'+esc(q.question)+'</div>';
+    h += '<div class="opts" id="opts">';
+    q.options.forEach(function(o,k){
+      var sel = answers[qIdx]===o.id;
+      h += '<button class="opt'+(sel?' selected':'__')+'" onclick="selectOpt(\''+o.id+'\')">';
+      h += '<span class="mk">'+String.fromCharCode(65+k)+'.</span><span>'+esc(o.text)+'</span>';
+      h += '</button>';
+    });
+    h += '</div>';
+
+    // Nav row
+    h += '<div class="nav-row">';
+    h += '<button class="btn btn-s btn-sm" onclick="prevQ()" '+(qIdx===0?'disabled':'')+'>&#8592; Prev</button>';
+    h += '<button class="btn btn-sm" onclick="nextQ()" '+(qIdx===examQ.length-1?'disabled':'')+'>Next &#8594;</button>';
+    h += '<button class="flag-btn'+(flags[qIdx]?' flagged':'')+'" id="flag-btn" onclick="toggleFlag()">&#9873; '+(flags[qIdx]?'Flagged':'Flag')+'</button>';
+    var unans = answers.filter(function(a){return a===null;}).length;
+    if(qIdx===examQ.length-1 || unans===0){
+      h += '<button class="btn" style="margin-left:auto;background:var(--blue)" onclick="confirmSubmit()">Submit Exam</button>';
+    }
+    h += '</div>';
+    h += '</div>';
+
+    // Floating submit when not on last Q
+    if(qIdx < examQ.length-1){
+      h += '<div style="text-align:right;margin-top:4px">';
+      h += '<button class="btn btn-s btn-sm" onclick="confirmSubmit()">Submit Exam</button>';
+      h += '</div>';
+    }
+
+    document.getElementById('stage').innerHTML = h;
+    updateTimerDisplay();
+  }
+
+  window.selectOpt = function(id){
+    answers[qIdx] = id;
+    renderExam();
+  };
+
+  window.toggleFlag = function(){
+    flags[qIdx] = !flags[qIdx];
+    renderExam();
+  };
+
+  window.jumpTo = function(i){ qIdx=i; renderExam(); };
+  window.prevQ  = function(){ if(qIdx>0){ qIdx--; renderExam(); } };
+  window.nextQ  = function(){ if(qIdx<examQ.length-1){ qIdx++; renderExam(); } };
+
+  window.confirmSubmit = function(){
+    var unans = answers.filter(function(a){return a===null;}).length;
+    if(unans>0){
+      if(!confirm(unans+' question'+(unans>1?'s are':' is')+' unanswered. Submit anyway? Unanswered questions will be marked incorrect.')) return;
+    }
+    submitExam(false);
+  };
+
+  /* ---- SUBMIT ---- */
+  function submitExam(timedOut){
+    clearInterval(timerIv);
+    timerBar.style.display='none';
+    state='results';
+    renderResults(timedOut);
+  }
+
+  /* ---- RESULTS ---- */
+  function renderResults(timedOut){
+    var correct=0, total=examQ.length;
+    var byDomain={};
+
+    examQ.forEach(function(q,i){
+      var ans = answers[i];
+      var correctOpt = q.options.find(function(o){return o.isCorrect;});
+      var isOk = ans!==null && ans===correctOpt.id;
+      if(isOk) correct++;
+      var d = q.domain;
+      if(!byDomain[d]) byDomain[d]={ok:0,total:0};
+      byDomain[d].total++;
+      if(isOk) byDomain[d].ok++;
+    });
+
+    var pct = Math.round(correct/total*100);
+    var pass = pct>=70;
+    var grade = pct>=85?'Excellent':pct>=70?'Passing':pct>=55?'Getting there':'Keep drilling';
+
+    var h='';
+
+    if(timedOut){
+      h+='<div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:10px 14px;font-size:13.5px;color:var(--red-400);margin-bottom:14px">Time expired &mdash; exam auto-submitted.</div>';
+    }
+
+    // Score card
+    h+='<div class="score-card '+(pass?'pass':'fail')+'">';
+    h+='<div class="score-big">'+correct+' / '+total+'</div>';
+    h+='<div class="score-pct" style="color:'+(pass?'var(--emerald-400)':'var(--red-400)')+'">'+pct+'%</div>';
+    h+='<div class="score-grade">'+grade+' &mdash; '+(pass?'Above the 70% passing threshold':'Below the 70% passing threshold')+'</div>';
+    h+='</div>';
+
+    // Domain table
+    h+='<div class="card" style="margin-top:14px">';
+    h+='<div style="font-weight:700;color:var(--white);margin-bottom:12px">Score by Domain</div>';
+    h+='<table class="domain-table"><thead><tr><th>Domain</th><th>Score</th><th style="min-width:90px">Accuracy</th></tr></thead><tbody>';
+    Object.keys(byDomain).sort().forEach(function(d){
+      var s=byDomain[d];
+      var dp=s.total?Math.round(s.ok/s.total*100):0;
+      var fillCls = dp>=70?'':'dp>=55?\'mid\':\'low\'';
+      var fc = dp>=70?'':'dp>=55?\'var(--amber)\':\' var(--red-400)\'';
+      var fillColor = dp>=70?'var(--emerald)':dp>=55?'var(--amber)':'var(--red-400)';
+      h+='<tr><td>'+esc(DOMAIN_LABELS[d]||d)+'</td>';
+      h+='<td>'+s.ok+'/'+s.total+'</td>';
+      h+='<td><span style="font-weight:700;color:'+fillColor+'">'+dp+'%</span>';
+      h+='<div class="pct-bar"><div class="pct-fill" style="width:'+dp+'%;background:'+fillColor+'"></div></div></td></tr>';
+    });
+    h+='</tbody></table>';
+    h+='<div class="nav-row"><button class="btn" onclick="renderSetup()">New Exam</button>'+
+      '<button class="btn btn-s" onclick="renderReview()">Review Answers</button></div>';
+    h+='</div>';
+
+    document.getElementById('stage').innerHTML=h;
+  }
+
+  /* ---- REVIEW ---- */
+  window.renderReview = function(){
+    var h='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">';
+    h+='<h1 style="margin:0">Answer Review</h1>';
+    h+='<button class="btn btn-s btn-sm" onclick="renderSetup()">New Exam</button>';
+    h+='</div>';
+
+    examQ.forEach(function(q,i){
+      var ans = answers[i];
+      var correctOpt = q.options.find(function(o){return o.isCorrect;});
+      var isOk = ans!==null && ans===correctOpt.id;
+      var domLabel = DOMAIN_LABELS[q.domain]||q.domain;
+
+      h+='<div class="card" style="border-color:'+(isOk?'rgba(16,185,129,.3)':'rgba(239,68,68,.3)')+'">';
+      h+='<div class="q-meta">';
+      h+='<span class="q-num">Q'+(i+1)+'</span>';
+      h+='<span class="badge b-sl">'+esc(domLabel)+'</span>';
+      h+='<span style="font-size:12px;font-weight:700;color:'+(isOk?'var(--emerald-400)':'var(--red-400)')+'">'+
+        (isOk?'\u2713 Correct':ans===null?'\u2014 Unanswered':'\u2717 Incorrect')+'</span>';
+      h+='</div>';
+      h+='<div class="qstem" style="font-size:15px">'+esc(q.question)+'</div>';
+      h+='<div class="opts">';
+      q.options.forEach(function(o,k){
+        var cls='opt';
+        if(o.isCorrect) cls+=' correct';
+        else if(o.id===ans) cls+=' wrong';
+        h+='<button class="'+cls+'" disabled>';
+        h+='<span class="mk">'+String.fromCharCode(65+k)+'.</span><span>'+esc(o.text)+'</span>';
+        h+='</button>';
+      });
+      h+='</div>';
+      h+='<div class="rationale"><span class="rat-label">Rationale</span>'+esc(q.rationale)+'</div>';
+      h+='</div>';
+    });
+
+    document.getElementById('stage').innerHTML=h;
+    window.scrollTo(0,0);
+  };
+
+  /* ---- boot ---- */
+  if(!ITEMS.length){
+    document.getElementById('stage').innerHTML='<div class="card" style="text-align:center;padding:24px;color:var(--slate-400)">Question bank failed to load.</div>';
+  } else {
+    renderSetup();
+  }
+
+})();
+</script>
+<script src="/activity-tracker.js" defer></script>
+</body>
+</html>
