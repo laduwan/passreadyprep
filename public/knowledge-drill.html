@@ -137,6 +137,11 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
     <div class="flt-label">Difficulty</div>
     <div class="flt" id="diff-filters"></div>
   </div>
+  <div class="flt-group">
+    <div class="flt-label">Mode</div>
+    <div class="flt" id="mode-filters"></div>
+  </div>
+  <div style="font-size:12px;color:var(--slate-500);margin-bottom:8px" id="sr-stats"></div>
 
   <div class="scoreline"><span id="progress"></span><span id="score"></span></div>
   <div id="stage"></div>
@@ -162,6 +167,7 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
 
   var domainFilter = 'All';
   var diffFilter   = 'All';
+  var srMode = 'all'; // all | due | mastered_off (not used, future)
   var queue = [], idx = 0, answered = false, correct = 0, total = 0;
   var domainStats = {}; // { domain: { ok, total } }
 
@@ -171,7 +177,13 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
   function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
 
   function filtered(){
-    return ITEMS.filter(function(q){
+    var base;
+    if(srMode==='due'){
+      base = getKQDue();
+    } else {
+      base = ITEMS;
+    }
+    return base.filter(function(q){
       var domOk = domainFilter==='All' || q.domain===domainFilter;
       var difOk = diffFilter==='All'   || q.difficulty===diffFilter;
       return domOk && difOk;
@@ -212,6 +224,24 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
       b.onclick=function(){ diffFilter=d; build(); renderFilters(); };
       ef.appendChild(b);
     });
+      // SR mode row
+    var mf = document.getElementById('mode-filters'); mf.innerHTML='';
+    var due = getKQDue().length, mast = getKQMastered(), ns = getKQNeverSeen();
+    var modes = [
+      {id:'all',   label:'All ('+ITEMS.length+')'},
+      {id:'due',   label:'Due for Review ('+due+')'},
+    ];
+    modes.forEach(function(m){
+      var b=document.createElement('button'); b.className='fb';
+      b.textContent=m.label;
+      b.setAttribute('aria-pressed', m.id===srMode?'true':'false');
+      b.onclick=function(){ srMode=m.id; build(); renderFilters(); };
+      mf.appendChild(b);
+    });
+    // SR stats line
+    var sl = document.getElementById('sr-stats');
+    if(sl) sl.textContent = mast+' mastered · '+ns+' never seen';
+
   }
 
   /* ---- render question ---- */
@@ -307,6 +337,7 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
 
     document.getElementById('next').onclick = function(){ idx++; render(); };
     document.getElementById('score').textContent = correct+'/'+total+' correct';
+    updKQ(q.id, isOk ? 4 : 1);
   }
 
   /* ---- summary ---- */
@@ -354,6 +385,67 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
       build();
     };
   }
+
+
+  // ---- SM-2 spaced repetition for knowledge questions ----
+  var KQ_SK = 'prp_kq';
+  function ldKQ(){ try{ return JSON.parse(localStorage.getItem(KQ_SK))||{}; }catch(e){ return {}; } }
+  function svKQ(d){ try{ localStorage.setItem(KQ_SK, JSON.stringify(d)); }catch(e){} }
+
+  function updKQ(id, quality){
+    var kq=ldKQ(), s=kq[id]||{ef:2.5,iv:0,rp:0,du:0};
+    if(quality<3){ s.rp=0; s.iv=0; }
+    else{
+      if(s.rp===0) s.iv=1;
+      else if(s.rp===1) s.iv=3;
+      else s.iv=Math.round(s.iv*s.ef);
+      s.rp++;
+    }
+    s.ef=Math.max(1.3, s.ef+0.1-(5-quality)*(0.08+(5-quality)*0.02));
+    s.du=Date.now()+s.iv*86400000;
+    kq[id]=s; svKQ(kq); syncKQ(kq);
+  }
+
+  function getKQDue(){
+    var now=Date.now(), kq=ldKQ();
+    return ITEMS.filter(function(q){ var s=kq[q.id]; return !s||s.du<=now; });
+  }
+  function getKQMastered(){
+    var now=Date.now(), kq=ldKQ();
+    return ITEMS.filter(function(q){ var s=kq[q.id]; return s&&s.rp>=3&&s.du>now; }).length;
+  }
+  function getKQNeverSeen(){
+    var kq=ldKQ();
+    return ITEMS.filter(function(q){ return !kq[q.id]; }).length;
+  }
+
+  function syncKQ(kq){
+    try{
+      var tok=localStorage.getItem('prp_token'); if(!tok) return;
+      var p={}; Object.keys(kq).forEach(function(k){ p['kq_'+k]=kq[k]; });
+      fetch('/api/flashcard-progress',{method:'PUT',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer '+tok},
+        body:JSON.stringify({cards:p,t:Date.now()})}).catch(function(){});
+    }catch(e){}
+  }
+
+  // Pull kq_ prefixed keys from the server into localStorage on load
+  function loadKQFromServer(){
+    try{
+      var tok=localStorage.getItem('prp_token'); if(!tok) return;
+      fetch('/api/flashcard-progress',{headers:{'Authorization':'Bearer '+tok}})
+        .then(function(r){ return r.ok?r.json():null; })
+        .then(function(d){
+          if(!d||!d.cards) return;
+          var kq=ldKQ();
+          Object.keys(d.cards).forEach(function(k){
+            if(k.startsWith('kq_')) kq[k.slice(3)]=d.cards[k];
+          });
+          svKQ(kq);
+        }).catch(function(){});
+    }catch(e){}
+  }
+  loadKQFromServer();
 
   /* ---- boot ---- */
   function start(){
