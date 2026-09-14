@@ -78,6 +78,52 @@ function ActivityChart({ dailySeries }) {
   );
 }
 
+const KQ_DOMAIN_LABELS = {
+  theories: 'Theories', pioneers: 'Pioneers', skills: 'Counseling Skills', ethics: 'Ethics',
+  skills_interventions: 'Skills & Interventions', professional_ethics: 'Professional Ethics',
+  intake: 'Intake', assessment: 'Assessment', diagnosis: 'Diagnosis', treatment_planning: 'Treatment Planning',
+};
+
+function KnowledgeDrillStats() {
+  let stats = {};
+  try { stats = JSON.parse(localStorage.getItem('prp_kq_stats') || '{}'); } catch (_) {}
+  const total = stats._total;
+  if (!total || total.seen === 0) return null;
+
+  const pct = total.seen ? Math.round(total.correct / total.seen * 100) : 0;
+  const domains = Object.entries(stats)
+    .filter(([k]) => k !== '_total' && stats[k].seen > 0)
+    .sort((a, b) => (a[1].correct / a[1].seen) - (b[1].correct / b[1].seen));
+
+  return (
+    <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
+      <div className="flex items-center justify-between mb-1">
+        <h2 className="text-sm font-bold text-white">Knowledge Drill</h2>
+        <span className={`text-sm font-bold ${pct >= 70 ? 'text-emerald-400' : pct >= 55 ? 'text-amber-400' : 'text-red-400'}`}>
+          {pct}% overall
+        </span>
+      </div>
+      <p className="text-xs text-slate-500 mb-3">{total.correct} / {total.seen} correct across all standalone MCQs.</p>
+      <div className="space-y-2">
+        {domains.map(([domain, s]) => {
+          const dp = s.seen ? Math.round(s.correct / s.seen * 100) : 0;
+          const barColor = dp >= 70 ? 'bg-emerald-500' : dp >= 55 ? 'bg-amber-500' : 'bg-red-500';
+          return (
+            <div key={domain} className="flex items-center gap-3">
+              <span className="text-sm text-slate-300 w-36 shrink-0 truncate">{KQ_DOMAIN_LABELS[domain] || domain}</span>
+              <div className="flex-1 h-2 bg-slate-700 rounded-full overflow-hidden">
+                <div className={`h-full rounded-full ${barColor}`} style={{ width: `${dp}%` }} />
+              </div>
+              <span className="text-sm font-bold text-white w-10 text-right">{dp}%</span>
+              <span className="text-xs text-slate-500 w-12 text-right">{s.seen}q</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function Analytics({ navigate }) {
   useStudyPing('analytics');
   const [tab, setTab] = useState('domains');
@@ -210,6 +256,9 @@ export default function Analytics({ navigate }) {
           <span>Today</span>
         </div>
       </div>
+
+      {/* Knowledge Drill stats */}
+      <KnowledgeDrillStats />
 
       {/* Weak areas */}
       {data.weakAreas.length > 0 && (

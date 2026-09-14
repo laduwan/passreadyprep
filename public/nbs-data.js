@@ -227,5 +227,187 @@ const NBS_ITEMS = [
       { t:'Insist they attempt abstinence-only treatment first', why:'Abstinence-only first increases overdose risk versus MAT.' },
       { t:'Require residential treatment before any medication', why:'Mandating residential is not required and delays effective care.' },
     ], rule:'OUD \u2192 support MAT (evidence-based) + counseling; don\u2019t reinforce "substitution" stigma.', ref:'MAT for OUD' },
+
+// ---- NBS items 29-48 (added batch 2) ----
+
+  ,{ id:'nbs29', cat:'Skills',
+    scenario:'A client shares painful news and the counselor responds, "I hear that — you sound devastated and completely blindsided." The client says, "Exactly." What did the counselor do correctly first?',
+    options:[
+      { t:'Reflected the feeling before moving to any intervention', ok:true, why:'Accurate empathy communicated first builds alliance and earns the right to intervene.' },
+      { t:'Asked a clarifying question to gather more facts', why:'Trap: facts-first before the client feels heard is premature.' },
+      { t:'Validated and then immediately offered a reframe', why:'A reframe before full reflection minimizes the experience.' },
+      { t:'Summarized the session content to close the topic', why:'A summary here would terminate exploration prematurely.' },
+    ], rule:'Distress → reflect feeling first; gather facts and intervene only after the client feels heard.', ref:'Microskills hierarchy' },
+
+  { id:'nbs30', cat:'Skills',
+    scenario:'A client repeatedly answers questions with one word and looks at the floor. The counselor has tried open questions without success. Next best step?',
+    options:[
+      { t:'Name the observation tentatively and invite the client to help you understand', ok:true, why:'Naming the pattern without blame opens a door; it addresses the process directly.' },
+      { t:'Switch to closed questions to get at least some data', why:'Trap: closed questions deepen withdrawal rather than opening it.' },
+      { t:'Interpret the silence as resistance and confront it directly', why:'Labeling resistance early damages rapport before trust is established.' },
+      { t:'End the session and reschedule for when the client is ready to talk', why:'Premature termination abandons a workable clinical moment.' },
+    ], rule:'Client withdrawal → tentatively name what you observe and invite their perspective before shifting technique.', ref:'Alliance repair / immediacy' },
+
+  { id:'nbs31', cat:'Ethics',
+    scenario:'A counselor realizes mid-session that a new client is the estranged sibling of a current client. Next best step?',
+    options:[
+      { t:'Pause, disclose the potential conflict, and consult before proceeding', ok:true, why:'Dual-relationship risk requires disclosure and consultation; proceeding without addressing it is an ethical violation.' },
+      { t:'Continue the session — both clients get equal treatment', why:'Trap: the conflict is real regardless of intent to treat equally.' },
+      { t:'Immediately terminate one client without explanation', why:'Abrupt termination without transition constitutes abandonment.' },
+      { t:'Tell the new client about the sibling\'s therapy', why:'Disclosing the other client\'s information violates confidentiality.' },
+    ], rule:'Dual-relationship discovery mid-session → disclose, pause, consult; do not continue or terminate without a plan.', ref:'ACA A.5 / dual relationships' },
+
+  { id:'nbs32', cat:'Ethics',
+    scenario:'A client asks the counselor to write a letter exaggerating their symptoms to support a disability claim. Next best step?',
+    options:[
+      { t:'Decline to falsify the documentation; offer to write an accurate letter instead', ok:true, why:'Falsifying documentation is insurance fraud and an ethics violation; offer honest documentation as an alternative.' },
+      { t:'Write the letter as requested — advocacy for the client is part of the role', why:'Trap: advocacy does not extend to fraud, regardless of good intent.' },
+      { t:'Refuse any letter to avoid involvement in the claim', why:'Refusing all documentation is unnecessarily restrictive; an accurate letter is appropriate.' },
+      { t:'Suggest the client ask their psychiatrist to write it instead', why:'Delegating to deflect doesn\'t resolve the ethical issue the counselor is facing.' },
+    ], rule:'Request to falsify records → decline fraud; offer accurate documentation; do not simply refer away.', ref:'ACA C.6.b / documentation ethics' },
+
+  { id:'nbs33', cat:'Trauma',
+    scenario:'A client with PTSD begins flooding with trauma material in the second session before any stabilization work has been done. Next best step?',
+    options:[
+      { t:'Slow the pace, use grounding, and redirect to stabilization before any trauma processing', ok:true, why:'Phase-oriented trauma care: stabilization must precede processing. Flooding early without resources causes retraumatization.' },
+      { t:'Allow the narrative to continue — the client is ready to process', why:'Trap: client willingness does not equal clinical readiness. Pacing is the counselor\'s responsibility.' },
+      { t:'Redirect to a different topic entirely to avoid the trauma content', why:'Avoiding avoids the clinical opportunity; grounding and redirect is more skillful.' },
+      { t:'Refer immediately for EMDR since trauma processing is needed', why:'Referral before stabilization shifts the problem but doesn\'t solve it.' },
+    ], rule:'Trauma flooding before stabilization → ground, slow, redirect; never process before the client has coping resources.', ref:'Phase-oriented trauma care' },
+
+  { id:'nbs34', cat:'Trauma',
+    scenario:'A veteran client with PTSD refuses to discuss the trauma directly and says, "I just need to move on." Next best step?',
+    options:[
+      { t:'Respect the current position, explore functional goals, and build alliance before revisiting trauma processing', ok:true, why:'Forcing trauma processing without alliance or consent replicates the helplessness of trauma. Stabilization and goals first.' },
+      { t:'Confront the avoidance directly — avoidance maintains PTSD', why:'Confrontation without alliance triggers defensive entrenchment, not engagement.' },
+      { t:'Agree to never discuss the trauma and focus only on symptoms', why:'Over-accommodating avoidance removes any path to trauma resolution.' },
+      { t:'Refer out because PTSD requires a trauma-focused specialist', why:'PTSD is within counselor scope; premature referral abandons a workable case.' },
+    ], rule:'Client refusing trauma processing → honor current readiness; build alliance and functional goals; revisit when trust is established.', ref:'Trauma-informed care / client autonomy' },
+
+  { id:'nbs35', cat:'Cultural',
+    scenario:'A client from a collectivist background says their family disagrees with the counselor\'s recommendation that they live independently. Next best step?',
+    options:[
+      { t:'Explore what independence means within the client\'s cultural context before recommending it', ok:true, why:'Western individualism is not universally appropriate; explore cultural meaning before imposing a framework.' },
+      { t:'Explain to the family why independence is clinically indicated', why:'Trap: imposing a culturally specific goal to family members doubles down on the error.' },
+      { t:'Continue the goal — the client is the identified client, not the family', why:'Ignoring the cultural and systemic context undermines culturally competent care.' },
+      { t:'Refer to a counselor from the same cultural background', why:'Deflecting responsibility does not resolve the immediate clinical error.' },
+    ], rule:'Western goal conflicts with collectivist values → explore cultural meaning first; never impose independence as the default good.', ref:'Cultural competence / MSJCC' },
+
+  { id:'nbs36', cat:'Cultural',
+    scenario:'A client who is undocumented expresses fear about their status and asks whether therapy records could be used against them. Next best step?',
+    options:[
+      { t:'Explain confidentiality and its limits honestly, and clarify what a subpoena or law enforcement request would require', ok:true, why:'Clients have a right to accurate information about their records. Honest disclosure supports informed participation in therapy.' },
+      { t:'Reassure them that records are totally private with no exceptions', why:'Trap: false assurance about absolute confidentiality is dishonest and may create harm if records are ever subpoenaed.' },
+      { t:'Decline to discuss legal matters — refer to an attorney', why:'While legal referral may be part of the response, it does not resolve the client\'s immediate need for accurate information about their records.' },
+      { t:'Avoid documenting anything to protect the client', why:'Failing to document appropriately creates liability and is not a sanctioned clinical response.' },
+    ], rule:'Undocumented client asks about records → give accurate, honest information about confidentiality limits; do not falsely reassure.', ref:'ACA B.1 / informed consent' },
+
+  { id:'nbs37', cat:'Depressive',
+    scenario:'A client with MDD has responded well to CBT but tells you they have run out of medication and cannot afford to refill it. Next best step?',
+    options:[
+      { t:'Help the client access medication assistance (PAP, community health, sliding-scale psychiatry) while continuing therapy', ok:true, why:'Advocacy and resource navigation are within scope; abrupt medication discontinuation is a real clinical risk.' },
+      { t:'Focus only on therapy — medication is the psychiatrist\'s domain', why:'Trap: dismissing an urgent practical barrier undermines effective care.' },
+      { t:'Increase session frequency to compensate for the missing medication', why:'More therapy does not substitute for medication in moderate-severe MDD; this delays addressing the real issue.' },
+      { t:'Discharge and refer to a community mental health center', why:'Discharging a stable client over an access barrier is unnecessarily disruptive.' },
+    ], rule:'Client cannot afford medication → advocate for access (PAP, sliding scale); don\'t ignore a real clinical risk by staying in your lane too narrowly.', ref:'Advocacy / integrated care' },
+
+  { id:'nbs38', cat:'Anxiety',
+    scenario:'A client with social anxiety says their goal is to "feel less anxious at work." As written, this goal is not adequate for treatment planning. Next best step?',
+    options:[
+      { t:'Collaboratively restate it as a specific, measurable, behavioral goal', ok:true, why:'Vague goals cannot be tracked or evaluated. A SMART goal (e.g., "initiate one conversation with a coworker weekly") is actionable.' },
+      { t:'Accept the goal and begin exposure without further refinement', why:'Proceeding with a vague goal means no way to measure progress or know when therapy is complete.' },
+      { t:'Tell the client the goal is not good enough and ask them to try again', why:'Criticizing the client\'s goal damages alliance; collaborative refinement is more skillful.' },
+      { t:'Set a symptom reduction goal based on GAD-7 scores instead', why:'While tracking GAD-7 is useful, replacing the client\'s own goal with a clinician measure is not collaborative goal-setting.' },
+    ], rule:'Vague goal → collaboratively make it specific, measurable, behavioral, and time-bound before beginning treatment.', ref:'SMART goals / treatment planning' },
+
+  { id:'nbs39', cat:'Personality',
+    scenario:'A client with BPD calls between sessions in distress saying they are thinking about cutting. This is the third call this week. Next best step?',
+    options:[
+      { t:'Assess current safety, use DBT phone coaching skills, and address the between-session call pattern in the next session', ok:true, why:'DBT phone coaching is a legitimate component of treatment; assess safety then use skills; then address the pattern therapeutically, not punitively.' },
+      { t:'Refuse the call to reinforce that between-session contact is not allowed', why:'Trap: refusing during a safety situation constitutes abandonment; the clinical response comes first.' },
+      { t:'Hospitalize immediately since cutting is mentioned', why:'The mention of thinking about cutting requires safety assessment, not automatic hospitalization.' },
+      { t:'Terminate treatment because the client is non-compliant with session boundaries', why:'Terminating a client in distress for boundary-testing behavior is abandonment and clinically harmful.' },
+    ], rule:'BPD between-session crisis call → safety first, DBT skills; address the pattern in-session, not by refusing the call.', ref:'DBT phone coaching' },
+
+  { id:'nbs40', cat:'Crisis',
+    scenario:'After a client makes a credible threat to hurt a named coworker, the client leaves before the session ends. Next best step?',
+    options:[
+      { t:'Notify the identifiable potential victim and law enforcement per your state\'s duty-to-protect statute, and document all actions', ok:true, why:'Once the client has left, the counselor\'s duty to protect the third party is unchanged. Warn/notify per Tarasoff and state law.' },
+      { t:'Wait until the next session to discuss the threat with the client', why:'Trap: waiting when a credible, specific threat was made delays legally required protective action.' },
+      { t:'Call the client and ask them not to follow through', why:'Calling the client first is not the legal protective action the statute requires.' },
+      { t:'Document the threat and take no action since it might not happen', why:'Reasonable belief of serious threat triggers the duty; probability of harm is not required to be certain.' },
+    ], rule:'Credible specific threat + client has left → Tarasoff duty activates; warn identifiable victim and/or notify law enforcement now.', ref:'Tarasoff / duty to protect' },
+
+  { id:'nbs41', cat:'Neurodevelopmental',
+    scenario:'Parents bring a 7-year-old for "not listening" and failing to complete homework. The counselor suspects ADHD but also sees signs of anxiety. Next best step?',
+    options:[
+      { t:'Conduct a comprehensive evaluation including ADHD rating scales, anxiety screener, developmental history, and teacher report', ok:true, why:'ADHD and anxiety overlap significantly; differential diagnosis requires multiple informants and multiple instruments.' },
+      { t:'Diagnose ADHD and recommend stimulant medication', why:'Trap: diagnosing and recommending medication without a full evaluation is premature and potentially harmful.' },
+      { t:'Start anxiety treatment first since anxiety is easier to treat', why:'Sequencing without a diagnosis is guessing; a full evaluation guides the sequencing.' },
+      { t:'Attribute the behavior to poor parenting and begin parent training', why:'Jumping to parenting intervention before ruling out a neurodevelopmental condition misses the primary driver.' },
+    ], rule:'Inattention + possible anxiety in a child → comprehensive multi-informant evaluation first; do not diagnose from parent report alone.', ref:'ADHD/anxiety differential' },
+
+  { id:'nbs42', cat:'Substance',
+    scenario:'A client in early recovery from alcohol use disorder mentions they have been drinking NyQuil each night to sleep. Next best step?',
+    options:[
+      { t:'Identify the alcohol content in OTC cold medications as a relapse risk and explore non-alcohol sleep alternatives', ok:true, why:'Many OTC medications contain alcohol; this is a common relapse vector in early recovery. Address it directly and problem-solve.' },
+      { t:'Tell the client NyQuil is fine since it\'s a medicine, not alcohol', why:'Trap: any alcohol intake in early recovery is clinically significant and potentially relapse-triggering.' },
+      { t:'Refer to a sleep specialist without addressing the NyQuil', why:'Referring without addressing the immediate substance issue leaves a relapse risk unmanaged.' },
+      { t:'Require the client to stop taking NyQuil or face discharge', why:'Ultimatums without psychoeducation and alternatives are coercive and clinically counterproductive.' },
+    ], rule:'Early recovery + OTC alcohol-containing products → psychoeducate on alcohol content, explore non-alcohol alternatives; don\'t dismiss it.', ref:'Relapse prevention / recovery' },
+
+  { id:'nbs43', cat:'Eating',
+    scenario:'A client with bulimia nervosa describes a new pattern of fasting for 3 days after each binge-purge cycle. Next best step?',
+    options:[
+      { t:'Assess for medical complications, increase session frequency, and evaluate whether a higher level of care is indicated', ok:true, why:'Extended fasting after purging escalates medical risk (electrolytes, cardiac) and signals treatment intensification is needed.' },
+      { t:'Continue the current plan and note the new pattern', why:'Trap: noting without responding to an escalating medical risk is inadequate.' },
+      { t:'Focus cognitive work on the shame that drives fasting', why:'Cognitive work is part of treatment but medical safety is the first concern given extended fasting.' },
+      { t:'Praise the client for reducing binge frequency', why:'Reframing fasting as progress ignores the medical danger and reinforces restriction.' },
+    ], rule:'Escalating restriction in bulimia → medical risk assessment first; consider higher LOC; do not frame restriction as improvement.', ref:'Eating disorder level of care' },
+
+  { id:'nbs44', cat:'Psychotic',
+    scenario:'A client with schizophrenia, who has been stable on antipsychotics, reports they stopped their medication two weeks ago because "I feel fine." Next best step?',
+    options:[
+      { t:'Explore the decision without shaming, provide psychoeducation on discontinuation risk, and coordinate with the prescriber urgently', ok:true, why:'Non-adherence is the primary driver of relapse in schizophrenia. A non-judgmental response + urgent prescriber contact prevents a deterioration cycle.' },
+      { t:'Tell them they must restart medication or you will hospitalize them', why:'Coercive ultimatum before exploring the decision and offering education damages alliance and is not the first step.' },
+      { t:'Accept the decision since they feel fine and are competent', why:'Trap: feeling fine 2 weeks post-discontinuation is the prodromal window for relapse; not addressing it is clinically negligent.' },
+      { t:'Discharge them to a psychiatrist and close the case', why:'Discharging at the moment of medication non-adherence removes the therapeutic relationship precisely when it is most needed.' },
+    ], rule:'Medication non-adherence in schizophrenia → explore, psychoeducate, contact prescriber urgently; feeling fine ≠ safe to discontinue.', ref:'Schizophrenia relapse prevention' },
+
+  { id:'nbs45', cat:'Sleep',
+    scenario:'A client with chronic insomnia asks for a sleep aid prescription. As a counselor (not a prescriber), next best step?',
+    options:[
+      { t:'Introduce CBT-I (the evidence-based first-line treatment) and explain why it outperforms medication long-term', ok:true, why:'CBT-I has stronger long-term outcomes than sleep medications for chronic insomnia; counselors can and should offer it and explain why it is preferred.' },
+      { t:'Refer to a physician for the prescription they requested without offering any counseling approach', why:'Trap: referring without offering CBT-I means the client gets medication but not the evidence-based counseling treatment.' },
+      { t:'Tell the client their request is outside your scope and end the conversation', why:'Sleep treatment is within scope; CBT-I is a counseling intervention, not a prescription.' },
+      { t:'Agree that medication is the best approach and support the referral', why:'Agreeing medication is best is clinically inaccurate for chronic insomnia; CBT-I is first-line.' },
+    ], rule:'Chronic insomnia + prescription request → offer CBT-I first and explain the evidence; refer for medication evaluation only as augmentation.', ref:'CBT-I / insomnia first-line treatment' },
+
+  { id:'nbs46', cat:'Bipolar',
+    scenario:'A client with known Bipolar I returns saying they feel "amazing" — sleeping only 4 hours, started two businesses, and "everything is coming together." Next best step?',
+    options:[
+      { t:'Screen for manic/hypomanic episode; contact prescriber immediately; assess safety', ok:true, why:'Racing energy, decreased sleep, and grandiosity in a client with Bipolar I is a manic episode until proven otherwise. This is urgent.' },
+      { t:'Validate the positive mood — the client has worked hard to feel good', why:'Trap: validating a manic episode as recovery delays urgent intervention.' },
+      { t:'Increase therapy frequency to support the client\'s new ventures', why:'Supporting a manic episode\'s projects is clinically harmful; urgent prescriber contact is the priority.' },
+      { t:'Wait and monitor — decreased sleep alone is not diagnostic', why:'Decreased sleep + grandiosity + elevated energy in Bipolar I history = urgent evaluation, not watchful waiting.' },
+    ], rule:'Bipolar I + decreased sleep + grandiosity + elevated energy → presume mania; prescriber contact urgently; do not validate as wellness.', ref:'Mania recognition / Bipolar I' },
+
+  { id:'nbs47', cat:'Scope',
+    scenario:'A client asks the counselor to diagnose their adult child who has never been seen by the counselor, based on the client\'s description of the child\'s behavior. Next best step?',
+    options:[
+      { t:'Decline to diagnose the absent person; focus on the client\'s experience and relationship with the child', ok:true, why:'Diagnosing third parties who have never been assessed violates diagnostic integrity and professional ethics. Redirect to the client\'s own experience.' },
+      { t:'Offer a tentative diagnosis to help the client understand the child better', why:'Trap: "tentative" diagnoses of absent third parties still cause harm and are outside ethical scope.' },
+      { t:'Diagnose with a disclaimer that it\'s just your opinion', why:'Adding a disclaimer does not make a third-party diagnosis ethical or clinically sound.' },
+      { t:'Refer the client to a psychiatrist who can give a better diagnosis of the child', why:'Delegating the same ethical violation to another professional does not resolve it.' },
+    ], rule:'Request to diagnose an absent third party → decline; focus on the client\'s own experience of the relationship.', ref:'Diagnostic ethics / scope of practice' },
+
+  { id:'nbs48', cat:'Skills',
+    scenario:'During a session, a client\'s affect suddenly shifts from engaged to flat, and they give one-word answers mid-topic. The counselor notices feeling a subtle heaviness in the room. Next best step?',
+    options:[
+      { t:'Use immediacy — name what you notice in the room right now and invite the client to explore it', ok:true, why:'Immediacy brings the here-and-now shift into the open as therapeutic data. Continuing the agenda ignores a live clinical signal.' },
+      { t:'Continue with the planned agenda — the client may just be tired', why:'Trap: ignoring an affect shift and blaming fatigue misses an alliance or trauma signal.' },
+      { t:'Ask the client directly, "Are you angry at me?"', why:'A direct accusatory question escalates rather than opens; tentative naming is more skillful.' },
+      { t:'Summarize the session and end early to give the client space', why:'Ending early avoids the relational moment rather than working with it.' },
+    ], rule:'Mid-session affect shift → use immediacy; name the shift tentatively and invite exploration before continuing.', ref:'Immediacy / here-and-now' },
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = { NBS_ITEMS }; }

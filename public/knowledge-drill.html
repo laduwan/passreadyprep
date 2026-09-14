@@ -338,6 +338,7 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
     document.getElementById('next').onclick = function(){ idx++; render(); };
     document.getElementById('score').textContent = correct+'/'+total+' correct';
     updKQ(q.id, isOk ? 4 : 1);
+    recordKQStat(q.domain, isOk);
   }
 
   /* ---- summary ---- */
@@ -446,6 +447,23 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
     }catch(e){}
   }
   loadKQFromServer();
+
+
+  // ---- Per-domain accuracy tracking (feeds Analytics) ----
+  var KQ_STATS_SK = 'prp_kq_stats';
+  function ldKQStats(){ try{ return JSON.parse(localStorage.getItem(KQ_STATS_SK))||{}; }catch(e){ return {}; } }
+  function svKQStats(d){ try{ localStorage.setItem(KQ_STATS_SK, JSON.stringify(d)); }catch(e){} }
+
+  function recordKQStat(domain, isOk){
+    var s = ldKQStats();
+    if(!s[domain]) s[domain] = { correct:0, seen:0 };
+    s[domain].seen++;
+    if(isOk) s[domain].correct++;
+    if(!s._total) s._total = { correct:0, seen:0 };
+    s._total.seen++;
+    if(isOk) s._total.correct++;
+    svKQStats(s);
+  }
 
   /* ---- boot ---- */
   function start(){
