@@ -4,5 +4,12 @@ Disallow: /checkout.html
 Disallow: /score-report.html
 Disallow: /review.html
 Disallow: /admin.html
+Disallow: /admin-dashboard.html
+Disallow: /admin-subscriptions.html
+Disallow: /admin-suggestions.html
+Disallow: /admin-users.html
+Disallow: /register.html
+Disallow: /forgot-password.html
+Disallow: /reset-password.html
 
 Sitemap: https://www.passreadyprep.com/sitemap.xml
