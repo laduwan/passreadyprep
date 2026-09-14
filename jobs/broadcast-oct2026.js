@@ -17,7 +17,6 @@ const User = require('../models/User');
 const { sendMail } = require('../utils/mailer');
 
 const DRY_RUN = !process.argv.includes('--send');
-const BROADCAST_KEY = 'oct2026_knowledge_tools';
 const BATCH_DELAY_MS = 200;
 
 const SUBJECT = "1,600+ questions — and five new study tools — just dropped";
@@ -110,8 +109,6 @@ async function run() {
 
   const users = await User.find({
     'prefs.digestOptOut': { $ne: true },
-    [`broadcastsSent.${BROADCAST_KEY}`]: { $exists: false },
-    email: { $regex: /@/ },
   }).select('email name').lean();
 
   console.log(`Audience: ${users.length} users${DRY_RUN ? ' (DRY RUN — not sending)' : ''}`);
@@ -132,10 +129,6 @@ async function run() {
     try {
       const result = await sendMail({ to: user.email, subject: SUBJECT, html: buildEmail(firstName) });
       if (result.ok) {
-        await User.updateOne(
-          { _id: user._id },
-          { $set: { [`broadcastsSent.${BROADCAST_KEY}`]: new Date() } }
-        );
         sent++;
       } else {
         failed++;
