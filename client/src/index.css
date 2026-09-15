@@ -4,29 +4,8 @@
    Dark theme = Tailwind's stock slate values (no override needed).
    .theme-light remaps the slate scale and key accent-400 shades so
    every existing Tailwind utility adapts automatically via CSS vars.
-   prefers-color-scheme is respected when no explicit class is set.  */
-
-@media (prefers-color-scheme: light) {
-  :root:not(.theme-dark) {
-    --color-white: #0f172a;
-    --color-slate-50:  #0f172a;
-    --color-slate-100: #1e293b;
-    --color-slate-200: #334155;
-    --color-slate-300: #475569;
-    --color-slate-400: #64748b;
-    --color-slate-500: #64748b;
-    --color-slate-600: #94a3b8;
-    --color-slate-700: #cbd5e1;
-    --color-slate-800: #e2e8f0;
-    --color-slate-900: #f1f5f9;
-    --color-slate-950: #ffffff;
-    --color-emerald-400: #059669;
-    --color-amber-400: #b45309;
-    --color-red-400: #dc2626;
-    --color-blue-400: #2563eb;
-    --color-purple-400: #7c3aed;
-  }
-}
+   The class is toggled by ThemeToggle.jsx / a11y.js — JS handles
+   prefers-color-scheme detection so the dark theme is never broken. */
 
 .theme-light {
   --color-white: #0f172a;
