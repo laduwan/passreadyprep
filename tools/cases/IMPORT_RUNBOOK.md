@@ -54,6 +54,31 @@ content and inserts genuinely new ids.
    node tools/cases/import-deep-cases.js --dry-run
    ```
 
+## Fixing imported cases that bypassed the quality gate
+
+The importer now enforces `qualityGate.js` (weight gradient, structural
+parity, no absolutes, novice-trap depth) in addition to `examDepth.js`.
+Cases imported before this check was added may be live with old-standard
+questions. One command rewrites every published case that has gate failures:
+
+```bash
+nohup node tools/cases/rewrite-questions.js \
+  --gate-failures --series tools/cases/review/fix --count 10 --parallel 3 \
+  > fix-imported.log 2>&1 &
+tail -f fix-imported.log
+```
+
+`--gate-failures` loads only cases where at least one question fails
+`qualityGate.js`, so the run skips the already-clean bank. The `--series`
+mode stores each batch for optional SME review before applying. To apply
+all batches without review:
+
+```bash
+for b in fix1 fix2 fix3 fix4 fix5; do
+  node tools/cases/rewrite-questions.js --from $b --apply --keep-status
+done
+```
+
 ## Correcting cases already live
 
 Cases imported before the gold-standard item-quality gate (`qualityGate.js` —

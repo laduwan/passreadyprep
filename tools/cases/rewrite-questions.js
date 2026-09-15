@@ -46,6 +46,7 @@
 //   --all           include sme_review/draft cases (default: published only)
 //   --count N       cases per run (default 5)   --skip N  skip the first N
 //   --flagged-only  rewrite only questions that currently fail the gate
+//   --gate-failures only load cases that have at least one gate violation
 //                   (default: every question, per the exam-standard mandate)
 //   --parallel N    cases in flight at once (default 3; each is one long
 //                   Opus call, so wall-clock time drops almost linearly)
@@ -79,6 +80,7 @@ const ALL = process.argv.includes('--all');
 const APPLY = process.argv.includes('--apply');
 const KEEP_STATUS = process.argv.includes('--keep-status');
 const FLAGGED_ONLY = process.argv.includes('--flagged-only');
+const GATE_FAILURES = process.argv.includes('--gate-failures');
 const SAVE = flag('save', null);
 const FROM = flag('from', null);
 const REVIEW = flag('review', null);
@@ -655,9 +657,18 @@ async function main() {
     if (prior && prior.reviewCsv && !FORCE) { console.error('A stored batch named "' + batchName(SAVE) + '" already has a filled review sheet. Use a new --save name.'); process.exit(1); }
   }
 
-  const entries = await loadLiveCases(Exam, ContentItem, { explicit: EXPLICIT, all: ALL, from: FROM });
+  let entries = await loadLiveCases(Exam, ContentItem, { explicit: EXPLICIT, all: ALL, from: FROM });
   if (FROM) { await runFromProposals(entries); await mongoose.disconnect(); return; }
-  console.log('Loaded ' + entries.length + ' case(s) (' + (EXPLICIT ? 'explicit ids' : ALL ? 'all statuses' : 'published only') + ')\n');
+
+  if (GATE_FAILURES) {
+    const before = entries.length;
+    entries = entries.filter((e) => {
+      return (e.caseObj.questions || []).some((q, qi) => checkQuestionQuality(q, 'q' + (qi + 1)).length > 0);
+    });
+    console.log('--gate-failures: ' + entries.length + ' case(s) have quality-gate violations (of ' + before + ' loaded)\n');
+  } else {
+    console.log('Loaded ' + entries.length + ' case(s) (' + (EXPLICIT ? 'explicit ids' : ALL ? 'all statuses' : 'published only') + ')\n');
+  }
 
   // Every question is an item unless --flagged-only.
   let flaggedQ = 0;
