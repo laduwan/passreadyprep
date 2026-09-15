@@ -6,7 +6,7 @@ function getInitial() {
     const stored = localStorage.getItem('prp_theme');
     if (stored === 'light' || stored === 'dark') return stored;
   } catch {}
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  return 'dark';
 }
 
 function apply(theme) {

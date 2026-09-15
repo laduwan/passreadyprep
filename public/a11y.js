@@ -256,14 +256,12 @@
       // First visit with no stored choice: honour the OS reduced-motion setting.
       try { state.reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
     }
-    // Sync theme from the shared prp_theme key (React ThemeToggle writes here too)
+    // Sync theme from the shared prp_theme key (React ThemeToggle writes here too).
+    // Default to dark — light only activates when the user explicitly toggles it.
     try {
       var themeVal = localStorage.getItem(THEME_KEY);
       if (themeVal === 'light') state.lightTheme = true;
-      else if (themeVal === 'dark') state.lightTheme = false;
-      else if (!themeVal) {
-        try { state.lightTheme = window.matchMedia('(prefers-color-scheme: light)').matches; } catch (e) {}
-      }
+      else state.lightTheme = false;
     } catch (e) {}
     apply();
     wireSkipLink();
