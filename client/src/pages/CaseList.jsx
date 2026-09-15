@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { BookOpen, ChevronRight, Target } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { BookOpen, ChevronRight, Target, CheckCircle } from 'lucide-react';
 import { authFetch } from '../lib/api';
-import { computeReadiness, DOMAIN_LABELS } from '../lib/readiness';
+import { computeReadiness, loadHistory, DOMAIN_LABELS } from '../lib/readiness';
 
 const DIFF_COLORS = { easy: 'text-emerald-400 bg-emerald-500/15', medium: 'text-amber-400 bg-amber-500/15', hard: 'text-red-400 bg-red-500/15' };
 
@@ -30,6 +30,8 @@ export default function CaseList({ mode, examMode = false, onSelect, navigate })
   const [cases, setCases] = useState([]);
   const [filter, setFilter] = useState('all');
   const [catFilter, setCatFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [popFilter, setPopFilter] = useState('all');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -39,12 +41,32 @@ export default function CaseList({ mode, examMode = false, onSelect, navigate })
       .catch(() => setLoading(false));
   }, []);
 
+  const completionMap = useMemo(() => {
+    const history = loadHistory();
+    const map = {};
+    history.forEach((entry) => {
+      const key = entry.caseId;
+      if (!key) return;
+      const prev = map[key];
+      if (!prev || (entry.correct / entry.total) > (prev.correct / prev.total)) {
+        map[key] = { correct: entry.correct, total: entry.total, date: entry.date };
+      }
+    });
+    return map;
+  }, [cases]);
+
+  const POPULATION_LABELS = { adult: 'Adult', child: 'Child/Adolescent', older_adult: 'Older Adult', couple_family: 'Couple/Family' };
+
   const rd = computeReadiness();
   const recommended = rd ? getRecommended(cases, rd.weakDomains) : [];
   const categories = [...new Set(cases.map((c) => c.category).filter(Boolean))].sort();
+  const populations = [...new Set(cases.map((c) => c.population).filter(Boolean))].sort();
   const filtered = cases.filter((c) => {
     if (filter !== 'all' && c.difficulty !== filter) return false;
     if (catFilter !== 'all' && c.category !== catFilter) return false;
+    if (popFilter !== 'all' && (c.population || 'adult') !== popFilter) return false;
+    if (statusFilter === 'completed' && !completionMap[c.externalId] && !completionMap[c.title]) return false;
+    if (statusFilter === 'not_started' && (completionMap[c.externalId] || completionMap[c.title])) return false;
     return true;
   });
 
@@ -83,6 +105,14 @@ export default function CaseList({ mode, examMode = false, onSelect, navigate })
       )}
 
       <div className="flex gap-2 flex-wrap">
+        {[{ key: 'all', label: 'All' }, { key: 'not_started', label: 'Not Started' }, { key: 'completed', label: 'Completed' }].map((s) => (
+          <button key={s.key} onClick={() => setStatusFilter(s.key)} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+            statusFilter === s.key ? 'bg-purple-500 text-white border-purple-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
+            {s.label}
+          </button>
+        ))}
+      </div>
+      <div className="flex gap-2 flex-wrap">
         {['all', 'easy', 'medium', 'hard'].map((d) => (
           <button key={d} onClick={() => setFilter(d)} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
             filter === d ? 'bg-emerald-500 text-slate-900 border-emerald-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
@@ -94,33 +124,65 @@ export default function CaseList({ mode, examMode = false, onSelect, navigate })
         <div className="flex gap-2 flex-wrap">
           <button onClick={() => setCatFilter('all')} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
             catFilter === 'all' ? 'bg-blue-500 text-white border-blue-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
-            All categories
+            All categories ({cases.length})
           </button>
-          {categories.map((cat) => (
+          {categories.map((cat) => {
+            const count = cases.filter((c) => c.category === cat).length;
+            return (
             <button key={cat} onClick={() => setCatFilter(cat)} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
               catFilter === cat ? 'bg-blue-500 text-white border-blue-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
-              {cat}
+              {cat} ({count})
             </button>
-          ))}
+            );
+          })}
         </div>
+      )}
+      {populations.length > 1 && (
+        <div className="flex gap-2 flex-wrap">
+          <button onClick={() => setPopFilter('all')} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+            popFilter === 'all' ? 'bg-amber-500 text-slate-900 border-amber-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
+            All populations
+          </button>
+          {populations.map((pop) => {
+            const count = cases.filter((c) => (c.population || 'adult') === pop).length;
+            return (
+            <button key={pop} onClick={() => setPopFilter(pop)} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+              popFilter === pop ? 'bg-amber-500 text-slate-900 border-amber-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
+              {POPULATION_LABELS[pop] || pop} ({count})
+            </button>
+            );
+          })}
+        </div>
+      )}
+      {!loading && filtered.length !== cases.length && (
+        <p className="text-xs text-slate-500">{filtered.length} of {cases.length} cases match your filters</p>
       )}
       {loading ? <p className="text-slate-400">Loading cases…</p> :
         filtered.length === 0 ? <p className="text-slate-400">No cases at this level yet.</p> :
-        filtered.map((c) => (
+        filtered.map((c) => {
+          const comp = completionMap[c.externalId] || completionMap[c.title];
+          return (
           <button key={c.externalId} onClick={() => onSelect(c.externalId)}
             className="w-full text-left bg-slate-800/50 border border-slate-700/60 hover:border-emerald-500/40 rounded-xl p-4 transition-colors group">
             <div className="flex items-center justify-between">
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center flex-wrap">
                 <span className={`text-xs font-bold px-2 py-0.5 rounded-full uppercase ${DIFF_COLORS[c.difficulty] || 'text-slate-300 bg-slate-700'}`}>
                   {c.difficulty}
                 </span>
                 {c.category && <span className="text-xs font-semibold text-slate-400 bg-slate-700/50 px-2 py-0.5 rounded-full">{c.category}</span>}
+                {comp && (
+                  <span className="flex items-center gap-1 text-xs font-semibold text-emerald-400 bg-emerald-500/15 px-2 py-0.5 rounded-full">
+                    <CheckCircle className="w-3 h-3" />
+                    {comp.correct}/{comp.total}
+                  </span>
+                )}
               </div>
               <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-emerald-400" />
             </div>
             <p className="text-white font-semibold mt-2">{c.title}</p>
           </button>
-        ))
+          );
+        })
       }
     </div>
   );

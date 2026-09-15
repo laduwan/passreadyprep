@@ -17,6 +17,7 @@ import Analytics from './pages/Analytics';
 import Onboarding from './pages/Onboarding';
 import MockExam from './pages/MockExam';
 import SuggestionBox from './components/SuggestionBox';
+import ThemeToggle from './components/ThemeToggle';
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Dashboard', icon: Home },
@@ -119,9 +120,12 @@ export default function App() {
           </div>
           <span className="text-white font-bold text-lg">PassReady <span className="text-emerald-400">Prep</span></span>
         </div>
-        <button onClick={() => setMobileNav(!mobileNav)} className="text-slate-400 hover:text-white p-1">
-          {mobileNav ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
+          <button onClick={() => setMobileNav(!mobileNav)} className="text-slate-400 hover:text-white p-1">
+            {mobileNav ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile nav overlay */}
@@ -185,7 +189,8 @@ export default function App() {
             })}
           </nav>
 
-          <div className="mt-auto pt-4 border-t border-slate-700/60 px-2">
+          <div className="mt-auto pt-4 border-t border-slate-700/60 px-2 space-y-2">
+            <ThemeToggle />
             <p className="text-xs text-slate-600 leading-relaxed">
               © 2025 GA Integrated Therapeutic Perspectives LLC
             </p>

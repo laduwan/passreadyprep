@@ -70,7 +70,7 @@ h1{font-size:25px; line-height:1.15; margin:0 0 6px; color:var(--white); font-we
 
 /* response area */
 textarea#inp{width:100%; font:inherit; font-size:15px; color:var(--white); background:rgba(30,41,59,.6);
-  border:1.5px solid var(--card-border); border-radius:var(--r-md); padding:12px 14px; outline:none; resize:vertical; min-height:84px}
+  border:1.5px solid var(--card-border); border-radius:var(--r-md); padding:12px 14px; outline:none; resize:none; min-height:84px; max-height:300px; overflow-y:auto}
 textarea#inp:focus{border-color:var(--emerald)}
 .controls{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; align-items:center}
 
@@ -103,16 +103,33 @@ textarea#inp:focus{border-color:var(--emerald)}
 
 <script>
 let round = null, voiceOn = true, audioEl = null;
+let attemptCount = 0;
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+function getAttemptKey() {
+  return round ? 'prp_skill_attempt_' + round.skillKey + '_' + (round.statement || '').slice(0, 30) : null;
+}
+function loadAttemptCount() {
+  try { const k = getAttemptKey(); return k ? parseInt(localStorage.getItem(k) || '0', 10) : 0; } catch { return 0; }
+}
+function saveAttemptCount(n) {
+  try { const k = getAttemptKey(); if (k) localStorage.setItem(k, String(n)); } catch {}
+}
 
 const app = document.getElementById('app');
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 300) + 'px';
+}
+
 async function nextRound() {
   const r = await fetch('/api/skills/round');
   round = await r.json();
+  attemptCount = loadAttemptCount();
   const inp = document.getElementById('inp'); if (inp) inp.value = '';
-  renderRound();                       // show round.statement + round.skillLabel + round.skillDef
+  renderRound();
   if (voiceOn) speak(round.statement, round.voice);
 }
 
@@ -131,10 +148,12 @@ async function speak(text, voice) {
 async function scoreResponse() {
   const resp = (document.getElementById('inp').value || '').trim();
   if (!resp || !round) return;
+  attemptCount++;
+  saveAttemptCount(attemptCount);
   showFeedback('Scoring…');
   try {
     const r = await fetch('/api/skills/evaluate', { method:'POST', headers:{'content-type':'application/json'},
-      body: JSON.stringify({ skillKey: round.skillKey, statement: round.statement, response: resp }) });
+      body: JSON.stringify({ skillKey: round.skillKey, statement: round.statement, response: resp, attemptNumber: attemptCount }) });
     const d = await r.json();
     showFeedback(d.feedback || '[no feedback returned]');
   } catch (e) { showFeedback('[connection error — try again]'); }
@@ -170,7 +189,7 @@ function renderRound() {
   h += '</div>';
   h += '<div class="skill-def">' + esc(round.skillDef) + '</div>';
   h += '<div class="msg"><div class="bub"><div class="who">' + esc(name || 'Client') + '</div>' + esc(round.statement) + '</div></div>';
-  h += '<textarea id="inp" placeholder="' + (SR ? 'Type your response, or tap Mic to speak…' : 'Type your response…') + '"></textarea>';
+  h += '<textarea id="inp" placeholder="' + (SR ? 'Type your response, or tap Mic to speak…' : 'Type your response…') + '" oninput="autoResize(this)"></textarea>';
   h += '<div class="controls">';
   if (SR) h += '<button class="btn secondary sm" onclick="startMic()" title="Speak your response">🎤 Mic</button>';
   h += '<button class="btn" onclick="scoreResponse()">Score my response</button>';
