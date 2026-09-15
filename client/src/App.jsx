@@ -16,6 +16,7 @@ import CoreTutor from './pages/CoreTutor';
 import Analytics from './pages/Analytics';
 import Onboarding from './pages/Onboarding';
 import MockExam from './pages/MockExam';
+import VoicePrivacy from './pages/VoicePrivacy';
 import SuggestionBox from './components/SuggestionBox';
 import ThemeToggle from './components/ThemeToggle';
 
@@ -41,6 +42,17 @@ export default function App() {
   const [examMode, setExamMode] = useState(false); // false = study (feedback each Q), true = exam (held to end)
   const [mobileNav, setMobileNav] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Handle deep-link URL params (e.g. /?voiceprivacy=1 from skills.html)
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('voiceprivacy') === '1') {
+        setView('voiceprivacy');
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+    } catch {}
+  }, []);
 
   // Check if signed-in user needs onboarding (no exam date set).
   useEffect(() => {
@@ -88,6 +100,8 @@ export default function App() {
         return <ExamStrategy />;
       case 'guarantee':
         return <Guarantee />;
+      case 'voiceprivacy':
+        return <VoicePrivacy navigate={navigate} />;
       default:
         return <Dashboard navigate={navigate} mode={mode} setMode={setMode} examMode={examMode} setExamMode={setExamMode} />;
     }

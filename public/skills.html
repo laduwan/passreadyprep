@@ -78,12 +78,42 @@ textarea#inp:focus{border-color:var(--emerald)}
 .feedback-text{font-size:15px; color:var(--slate-200); line-height:1.65; white-space:pre-wrap}
 .nohint{font-size:13px; opacity:.75; margin-top:10px}
 
+/* voice info disclosure */
+.voice-info{margin-top:8px}
+.voice-info summary{list-style:none; cursor:pointer; font-size:12px; color:var(--slate-500); display:inline-flex; align-items:center; gap:4px; user-select:none}
+.voice-info summary::-webkit-details-marker{display:none}
+.voice-info summary:hover{color:var(--slate-400)}
+.voice-info p{margin:6px 0 0; font-size:12px; color:var(--slate-500); line-height:1.6; max-width:480px}
+.voice-info a{color:var(--emerald-400); font-size:12px}
+
+/* first-time voice modal */
+.voice-modal-overlay{position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,.6); backdrop-filter:blur(4px); padding:16px}
+.voice-modal{background:var(--slate-900); border:1px solid var(--slate-700); border-radius:16px;
+  max-width:360px; width:100%; padding:20px; box-shadow:0 25px 50px rgba(0,0,0,.5)}
+.voice-modal p{margin:0 0 16px; font-size:14px; color:var(--slate-300); line-height:1.6}
+.voice-modal .voice-modal-link{font-size:12px; color:var(--slate-500); margin:0 0 16px}
+.voice-modal .voice-modal-link a{color:var(--emerald-400)}
+.voice-modal button{width:100%; padding:10px; background:var(--emerald); color:#04261C; font:inherit; font-weight:700;
+  border:none; border-radius:10px; cursor:pointer; transition:background .15s}
+.voice-modal button:hover{background:var(--emerald-400)}
+
 :focus-visible{outline:2.5px solid var(--emerald-400); outline-offset:2px; border-radius:6px}
 @media(prefers-reduced-motion:reduce){*{transition:none !important}}
 @media(max-width:520px){h1{font-size:22px} .wrap{padding:16px 14px 56px} .card{padding:16px}}
 </style>
 </head>
 <body>
+
+<!-- First-time voice notice modal (hidden until first mic tap) -->
+<div id="voice-modal-overlay" class="voice-modal-overlay" style="display:none" role="dialog" aria-modal="true" aria-labelledby="voice-modal-title">
+  <div class="voice-modal">
+    <p id="voice-modal-title">PassReady Prep does not record or store your voice. Your browser converts speech to text — we receive only the text.</p>
+    <p class="voice-modal-link"><a href="/?voiceprivacy=1">See our data practices</a> for details.</p>
+    <button onclick="dismissVoiceModal()">Got it</button>
+  </div>
+</div>
+
 <div class="wrap">
   <header class="site">
     <div class="brand-wrap">
@@ -159,8 +189,27 @@ async function scoreResponse() {
   } catch (e) { showFeedback('[connection error — try again]'); }
 }
 
-// Robust mic: toggle start/stop, fills the box live from interim results.
+// Mic: check first-time notice before starting, then delegate to doStartMic.
 function startMic() {
+  if (!SR) return;
+  if (window._micRec) { doStartMic(); return; } // stop path skips notice
+  try {
+    if (!localStorage.getItem('prp_voice_notice_seen')) {
+      document.getElementById('voice-modal-overlay').style.display = 'flex';
+      return;
+    }
+  } catch {}
+  doStartMic();
+}
+
+function dismissVoiceModal() {
+  try { localStorage.setItem('prp_voice_notice_seen', '1'); } catch {}
+  document.getElementById('voice-modal-overlay').style.display = 'none';
+  doStartMic();
+}
+
+// Robust mic toggle: start/stop, fills the box live from interim results.
+function doStartMic() {
   if (!SR) return;
   const btn = document.querySelector('button[onclick="startMic()"]');
   if (window._micRec) { try { window._micRec.stop(); } catch (e) {} window._micRec = null; if (btn) btn.textContent = '🎤 Mic'; return; }
@@ -195,6 +244,11 @@ function renderRound() {
   h += '<button class="btn" onclick="scoreResponse()">Score my response</button>';
   h += '<button class="btn secondary" onclick="nextRound()">Next ›</button>';
   h += '</div>';
+  if (SR) {
+    h += '<details class="voice-info"><summary>ℹ️ About voice input</summary>';
+    h += '<p>🎤 Voice input uses your browser\'s built-in speech recognition (e.g., Google for Chrome, Apple for Safari). Your voice is converted to text by your browser provider — PassReady Prep receives only the typed text. No audio recordings or voiceprints are stored on our servers. <a href="/?voiceprivacy=1">Learn more</a></p>';
+    h += '</details>';
+  }
   if (!SR) h += '<div class="nohint">🎤 Voice input needs Chrome (desktop or Android). You can type here instead — and the client still speaks aloud in any browser. For the mic, open this page in Chrome.</div>';
   h += '<div id="feedback" style="margin-top:16px"></div>';
   h += '</div>';
