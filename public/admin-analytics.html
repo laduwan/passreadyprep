@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>PassReady Prep — Live Analytics</title>
+<style>
+  :root{
+    --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+    --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
+    --emerald:#10B981; --emerald-400:#34D399;
+    --amber-400:#FBBF24; --red-400:#F87171; --blue-400:#60A5FA; --purple-400:#A78BFA;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--slate-900);color:var(--slate-200);font-family:var(--sans);font-size:14px;line-height:1.5}
+  .wrap{max-width:1120px;margin:0 auto;padding:20px}
+  h1{font-size:20px;color:var(--white);margin:0 0 4px}
+  h2{font-size:16px;color:var(--white);margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--card-border)}
+  .sub{color:var(--slate-400);font-size:13px;margin:0 0 16px}
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:16px;margin-bottom:14px}
+  .grid{display:grid;gap:12px}
+  .grid-4{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+  .grid-3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .grid-2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .stat-label{font-size:11px;color:var(--slate-400);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+  .stat-value{font-size:26px;font-weight:700;color:var(--white);margin-top:2px;font-variant-numeric:tabular-nums}
+  .stat-sub{font-size:12px;color:var(--slate-500);margin-top:2px}
+  .good{color:var(--emerald-400)} .warn{color:var(--amber-400)} .bad{color:var(--red-400)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--card-border)}
+  th{font-size:11px;color:var(--slate-400);text-transform:uppercase;letter-spacing:.03em;font-weight:600}
+  .num{text-align:right;font-variant-numeric:tabular-nums}
+  .bar-bg{background:var(--slate-700);border-radius:3px;height:14px;overflow:hidden;min-width:80px}
+  .bar-fill{height:100%;border-radius:3px;transition:width .3s}
+  .empty{color:var(--slate-400);font-size:14px;padding:20px 0;text-align:center}
+  .pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+  .pill-green{background:rgba(16,185,129,.15);color:var(--emerald-400)}
+  .pill-amber{background:rgba(251,191,36,.12);color:var(--amber-400)}
+  .pill-red{background:rgba(248,113,113,.12);color:var(--red-400)}
+  .refresh-bar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+  button{font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border-radius:8px;
+    border:1px solid var(--slate-600);background:var(--slate-700);color:var(--white);padding:6px 14px}
+  button:hover{border-color:var(--emerald)}
+  .auto-label{font-size:12px;color:var(--slate-400)}
+  .spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--slate-600);
+    border-top-color:var(--emerald);border-radius:50%;animation:spin .6s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .hist{display:flex;align-items:flex-end;gap:2px;height:100px;padding:8px 0}
+  .hist-bar{flex:1;background:var(--emerald);border-radius:3px 3px 0 0;min-width:8px;position:relative;transition:height .3s}
+  .hist-bar:hover{opacity:.8}
+  .hist-bar .ht{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--slate-300);white-space:nowrap;display:none}
+  .hist-bar:hover .ht{display:block}
+  .hist-labels{display:flex;gap:2px;font-size:10px;color:var(--slate-500)}
+  .hist-labels span{flex:1;text-align:center}
+  .section-note{font-size:12px;color:var(--slate-500);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="refresh-bar">
+    <div style="flex:1">
+      <h1>Live Psychometrics</h1>
+      <p class="sub" id="genAt">Loading...</p>
+    </div>
+    <span class="auto-label" id="autoLabel">Auto-refresh: 5 min</span>
+    <button id="refreshBtn">Refresh now</button>
+  </div>
+
+  <div id="loading" class="card empty"><span class="spinner"></span> Computing metrics from live data...</div>
+  <div id="nodata" class="card empty" style="display:none">No completed attempts yet. Analytics appear once users complete simulations.</div>
+  <div id="content" style="display:none">
+
+    <!-- Overview cards -->
+    <div class="grid grid-4">
+      <div class="card"><div class="stat-label">Total Attempts</div><div class="stat-value" id="sTotalAttempts">-</div></div>
+      <div class="card"><div class="stat-label">Pass Rate</div><div class="stat-value" id="sPassRate">-</div><div class="stat-sub" id="sPassSub"></div></div>
+      <div class="card"><div class="stat-label">Mean Score</div><div class="stat-value" id="sMean">-</div><div class="stat-sub" id="sRange"></div></div>
+      <div class="card"><div class="stat-label">Cronbach's &alpha;</div><div class="stat-value" id="sAlpha">-</div><div class="stat-sub" id="sAlphaSub"></div></div>
+    </div>
+
+    <!-- Domain Performance -->
+    <h2>Domain Performance</h2>
+    <div class="card" id="domainCard"></div>
+
+    <!-- Score Distribution -->
+    <h2>Score Distribution</h2>
+    <div class="card" id="distCard"></div>
+
+    <!-- Item Analysis Summary -->
+    <h2>Item Analysis</h2>
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="stat-label">Difficulty Spread</div>
+        <div id="diffSpread"></div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Discrimination Quality</div>
+        <div id="discQuality"></div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Distractor Health</div>
+        <div id="distHealth"></div>
+      </div>
+    </div>
+
+    <!-- Flagged Items -->
+    <h2>Flagged Items</h2>
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="stat-label" style="margin-bottom:8px">Negative Discrimination (high scorers pick wrong)</div>
+        <div id="negDiscTable"></div>
+      </div>
+      <div class="card">
+        <div class="stat-label" style="margin-bottom:8px">Dead Distractors (options nobody chose)</div>
+        <div id="deadDistTable"></div>
+      </div>
+    </div>
+
+    <!-- Case Performance -->
+    <h2>Case Performance</h2>
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="stat-label" style="margin-bottom:8px">Hardest Cases (min 2 attempts)</div>
+        <div id="hardestTable"></div>
+      </div>
+      <div class="card">
+        <div class="stat-label" style="margin-bottom:8px">Easiest Cases (min 2 attempts)</div>
+        <div id="easiestTable"></div>
+      </div>
+    </div>
+
+    <!-- IRR -->
+    <h2>Interrater Reliability</h2>
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="stat-label">SME Reviewer Agreement</div>
+        <div id="irrReviewer"></div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Test-Retest Consistency</div>
+        <div id="irrRetest"></div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Inter-User Agreement</div>
+        <div id="irrInterUser"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function num(n){ return n==null?'-':Number(n).toLocaleString(); }
+  function pct(n){ return n==null?'-':n+'%'; }
+
+  function getToken(){
+    try { return window.parent.sessionStorage.getItem('prp_admin_jwt'); } catch(e){}
+    return sessionStorage.getItem('prp_admin_jwt');
+  }
+
+  function alphaClass(v){
+    if(v==null) return '';
+    return v>=0.7?'good':v>=0.6?'warn':'bad';
+  }
+
+  function pillFor(label, cls){ return '<span class="pill pill-'+cls+'">'+esc(label)+'</span>'; }
+
+  function renderDomain(domPerf){
+    if(!domPerf || !Object.keys(domPerf).length){ $('domainCard').innerHTML='<p class="empty">No domain data yet.</p>'; return; }
+    var examTargets = {intake:25,core:15,treatment:15,counseling:30,ethics:15};
+    var h = '<table><tr><th>Domain</th><th class="num">Mean %</th><th class="num">Responses</th><th>Performance</th></tr>';
+    for(var dom in domPerf){
+      var d = domPerf[dom];
+      var cls = d.mean>=70?'good':d.mean>=50?'warn':'bad';
+      var barW = Math.min(100,Math.max(2,d.mean));
+      var barColor = d.mean>=70?'var(--emerald)':d.mean>=50?'var(--amber-400)':'var(--red-400)';
+      h += '<tr><td>'+esc(d.label)+'</td><td class="num '+cls+'">'+d.mean+'%</td><td class="num">'+num(d.n)+'</td>';
+      h += '<td><div class="bar-bg"><div class="bar-fill" style="width:'+barW+'%;background:'+barColor+'"></div></div></td></tr>';
+    }
+    h += '</table>';
+    $('domainCard').innerHTML = h;
+  }
+
+  function renderDist(dist){
+    if(!dist){ $('distCard').innerHTML='<p class="empty">Need 5+ attempts for distribution.</p>'; return; }
+    var max = dist.bins.reduce(function(m,b){return Math.max(m,b.count);},1);
+    var h = '<div style="font-size:13px;color:var(--slate-300);margin-bottom:4px">n='+dist.n+' &nbsp; mean='+dist.mean+'% &nbsp; sd='+dist.sd+' &nbsp; skew='+dist.skew+'</div>';
+    h += '<div class="hist">';
+    dist.bins.forEach(function(b){
+      var pctH = Math.max(2,(b.count/max)*100);
+      h += '<div class="hist-bar" style="height:'+pctH+'%"><span class="ht">'+b.count+'</span></div>';
+    });
+    h += '</div><div class="hist-labels">';
+    dist.bins.forEach(function(b){ h += '<span>'+esc(b.label)+'</span>'; });
+    h += '</div>';
+    $('distCard').innerHTML = h;
+  }
+
+  function renderItemSummary(s){
+    if(!s || !s.total){
+      $('diffSpread').innerHTML='<p class="empty">Need 3+ responses per item.</p>';
+      $('discQuality').innerHTML='<p class="empty">Need 5+ responses per item.</p>';
+      $('distHealth').innerHTML='<p class="empty">Need 5+ responses per item.</p>';
+      return;
+    }
+    var diff = '<table style="font-size:12px">';
+    diff += '<tr><td>Very hard (p&lt;0.30)</td><td class="num bad">'+s.veryHard+'</td></tr>';
+    diff += '<tr><td>Hard (0.30-0.49)</td><td class="num warn">'+s.hard+'</td></tr>';
+    diff += '<tr><td>Moderate (0.50-0.69)</td><td class="num good">'+s.moderate+'</td></tr>';
+    diff += '<tr><td>Easy (0.70-0.89)</td><td class="num">'+s.easy+'</td></tr>';
+    diff += '<tr><td>Very easy (p&ge;0.90)</td><td class="num warn">'+s.veryEasy+'</td></tr>';
+    diff += '</table><div class="section-note">'+s.total+' items with 3+ responses</div>';
+    $('diffSpread').innerHTML = diff;
+
+    var disc = '<div style="margin:8px 0">';
+    disc += '<div style="margin-bottom:4px">'+pillFor(s.negativeDisc+' negative','red')+' ';
+    disc += pillFor(s.poorDisc+' poor','amber')+'</div>';
+    disc += '</div><div class="section-note">Negative = high scorers pick wrong answer more often. Review these items.</div>';
+    $('discQuality').innerHTML = disc;
+
+    var dead = '<div style="font-size:22px;font-weight:700;color:'+(s.deadDistractors>0?'var(--amber-400)':'var(--emerald-400)')+'">'+s.deadDistractors+'</div>';
+    dead += '<div class="section-note">Items with options nobody chose. These distractors need rewriting.</div>';
+    $('distHealth').innerHTML = dead;
+  }
+
+  function caseTable(cases){
+    if(!cases||!cases.length) return '<p class="empty">Need 2+ attempts per case.</p>';
+    var h = '<table><tr><th>Case</th><th class="num">Attempts</th><th class="num">Avg Score</th></tr>';
+    cases.forEach(function(c){
+      var cls = c.avgScore>=70?'good':c.avgScore>=50?'warn':'bad';
+      h += '<tr><td>'+esc(c.id)+'</td><td class="num">'+c.attempts+'</td><td class="num '+cls+'">'+c.avgScore+'%</td></tr>';
+    });
+    return h+'</table>';
+  }
+
+  function flagTable(items, type){
+    if(!items||!items.length) return '<p class="empty">None flagged.</p>';
+    var h = '<table><tr><th>Item</th>';
+    if(type==='disc') h += '<th class="num">rpb</th><th class="num">p</th><th class="num">n</th>';
+    else h += '<th>Dead</th><th class="num">n</th>';
+    h += '</tr>';
+    items.slice(0,15).forEach(function(i){
+      h += '<tr><td style="font-size:12px">'+esc(i.qid)+'</td>';
+      if(type==='disc') h += '<td class="num bad">'+i.rpb+'</td><td class="num">'+i.pValue+'</td><td class="num">'+i.n+'</td>';
+      else h += '<td class="warn">'+esc((i.deadOptions||[]).join(', '))+'</td><td class="num">'+i.n+'</td>';
+      h += '</tr>';
+    });
+    return h+'</table>';
+  }
+
+  function renderIrr(irr){
+    if(!irr){ $('irrReviewer').innerHTML=$('irrRetest').innerHTML=$('irrInterUser').innerHTML='<p class="empty">Insufficient data.</p>'; return; }
+
+    if(irr.reviewerAgreement && irr.reviewerAgreement.length){
+      var h = '<table style="font-size:12px"><tr><th>Pair</th><th class="num">Items</th><th class="num">Agree</th><th class="num">Kappa</th></tr>';
+      irr.reviewerAgreement.forEach(function(p){
+        var cls = p.kappa>=0.61?'good':p.kappa>=0.41?'warn':'bad';
+        h += '<tr><td>'+esc(p.raterA)+' vs '+esc(p.raterB)+'</td><td class="num">'+p.n+'</td><td class="num">'+p.pctAgree+'%</td><td class="num '+cls+'">'+p.kappa+'</td></tr>';
+      });
+      h += '</table><div class="section-note">&lt;0.20 poor | 0.21-0.40 fair | 0.41-0.60 moderate | 0.61-0.80 substantial | 0.81+ almost perfect</div>';
+      $('irrReviewer').innerHTML = h;
+    } else {
+      $('irrReviewer').innerHTML = '<p class="empty">Need 2+ review batches with overlapping questions and filled decision sheets.</p>';
+    }
+
+    if(irr.testRetest){
+      var t = irr.testRetest;
+      var cls = t.rate>=80?'good':t.rate>=60?'warn':'bad';
+      $('irrRetest').innerHTML = '<div class="stat-value '+cls+'">'+t.rate+'%</div><div class="stat-sub">'+t.consistent+' / '+t.pairs+' response pairs consistent</div><div class="section-note">Same user, same question, different attempts.</div>';
+    } else {
+      $('irrRetest').innerHTML = '<p class="empty">Need users who retook the same case 2+ times (10+ pairs).</p>';
+    }
+
+    if(irr.interUser){
+      var u = irr.interUser;
+      $('irrInterUser').innerHTML = '<div class="stat-value">'+u.avgModalPct+'%</div><div class="stat-sub">avg modal agreement across '+u.items+' items</div>'+
+        '<div style="margin-top:6px;font-size:12px">'+pillFor(u.highAgreement+' high (&ge;80%)','green')+' '+pillFor(u.lowAgreement+' low (&lt;50%)','red')+'</div>'+
+        '<div class="section-note">How often users converge on the same answer. Low items may be ambiguous.</div>';
+    } else {
+      $('irrInterUser').innerHTML = '<p class="empty">Need 10+ items with 5+ user responses each.</p>';
+    }
+  }
+
+  function render(data){
+    $('loading').style.display = 'none';
+
+    if(!data.overview){
+      $('nodata').style.display = '';
+      $('content').style.display = 'none';
+      return;
+    }
+    $('nodata').style.display = 'none';
+    $('content').style.display = '';
+
+    $('genAt').textContent = 'Last computed: ' + new Date(data.generatedAt).toLocaleString();
+
+    var o = data.overview;
+    $('sTotalAttempts').textContent = num(o.totalAttempts);
+    $('sTotalAttempts').parentElement.querySelector('.stat-sub');
+
+    $('sPassRate').textContent = pct(o.passRate);
+    $('sPassRate').className = 'stat-value ' + (o.passRate>=70?'good':o.passRate>=50?'warn':'bad');
+    $('sPassSub').textContent = o.passingCount + '/' + o.totalAttempts + ' (>=' + o.passThreshold + '%)';
+
+    $('sMean').textContent = o.scores.mean + '%';
+    $('sRange').textContent = 'Median ' + o.scores.median + '% | Range ' + o.scores.min + '-' + o.scores.max + '%';
+
+    if(data.cronbachAlpha){
+      var a = data.cronbachAlpha;
+      $('sAlpha').textContent = a.value;
+      $('sAlpha').className = 'stat-value ' + alphaClass(a.value);
+      $('sAlphaSub').textContent = a.interpretation + ' (' + a.items + ' items, ' + a.attempts + ' attempts)';
+    } else {
+      $('sAlpha').textContent = '-';
+      $('sAlphaSub').textContent = 'Need 10+ attempts with 5+ items';
+    }
+
+    renderDomain(data.domainPerformance);
+    renderDist(data.distribution);
+    renderItemSummary(data.itemSummary);
+    $('hardestTable').innerHTML = caseTable(data.hardestCases);
+    $('easiestTable').innerHTML = caseTable(data.easiestCases);
+    $('negDiscTable').innerHTML = flagTable(data.flaggedItems.negativeDiscrimination, 'disc');
+    $('deadDistTable').innerHTML = flagTable(data.flaggedItems.deadDistractors, 'dead');
+    renderIrr(data.irr);
+  }
+
+  function load(){
+    $('loading').style.display = '';
+    $('refreshBtn').disabled = true;
+    var token = getToken();
+    fetch('/api/admin/analytics', {
+      headers: token ? {'Authorization':'Bearer '+token} : {},
+    })
+    .then(function(r){
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    })
+    .then(function(d){
+      render(d);
+      $('refreshBtn').disabled = false;
+    })
+    .catch(function(e){
+      $('loading').innerHTML = '<span class="bad">Error loading analytics: '+esc(e.message)+'</span>';
+      $('refreshBtn').disabled = false;
+    });
+  }
+
+  $('refreshBtn').addEventListener('click', load);
+  setInterval(load, 5*60*1000);
+  load();
+})();
+</script>
+</body>
+</html>
