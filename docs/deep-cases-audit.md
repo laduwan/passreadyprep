@@ -1,4 +1,11 @@
-# Deep-case bank — quality audit
+# Deep-case bank — SEED-SOURCE audit (pre-repair)
+
+> ⚠️ **This audits the git-tracked `.js` seed files in `tools/cases/`, not the live corpus.**
+>
+> `rewrite-questions.js` and `fix-distractors.js` write directly to MongoDB `ContentItem` documents — they never edit the seed files. Any Opus rewrite spend applied against the live corpus is reflected in Atlas and served to paid users, but is NOT visible in the numbers below.
+>
+> To audit the actual live corpus, run `tools/banks/audit-live-cases.js` on a host with `MONGO_URI` set (Render shell).
+
 
 **Generated:** 2026-09-15
 **Cases scanned:** 228
