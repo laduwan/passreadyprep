@@ -48,23 +48,34 @@ router.get('/round', (req, res) => {
   res.json({ statement: s.text, voice: s.voice, skillKey: k, skillLabel: SKILLS[k].label, skillDef: SKILLS[k].def });
 });
 
-// POST /api/skills/evaluate { skillKey, statement, response } -> { feedback }
+// POST /api/skills/evaluate { skillKey, statement, response, attemptNumber } -> { feedback }
 router.post('/evaluate', async (req, res) => {
   try {
-    const { skillKey, statement, response } = req.body || {};
+    const { skillKey, statement, response, attemptNumber } = req.body || {};
     const skill = SKILLS[skillKey];
     if (!skill) return res.status(400).json({ error: 'unknown skill' });
     if (!response || !response.trim()) return res.status(400).json({ error: 'response required' });
-    const system = `You are a warm but honest counseling-skills coach for NCMHCE-level trainees. The trainee was asked to respond to a client using ${skill.label}, defined as: ${skill.def}
+
+    const attemptNum = parseInt(attemptNumber, 10) || 1;
+    const attemptContext = attemptNum > 1
+      ? `\n\nThis is the trainee's attempt #${attemptNum} at this prompt. Acknowledge improvement across attempts and be progressively more encouraging. If their response demonstrates the skill adequately (even if not perfectly), say so clearly — not every response needs to be flawless.`
+      : '';
+
+    const system = `You are a warm, supportive counseling-skills coach for NCMHCE-level trainees. The trainee was asked to respond to a client using ${skill.label}, defined as: ${skill.def}
 
 Evaluate ONLY their use of that target skill. Use these labels exactly, each on its own line, with a blank line between them, plain text only (no markdown, no asterisks):
 
-Verdict: (one of — Strong example, Partial, or Off-target — then a 4 to 8 word reason)
-Why: (1-2 sentences, specific to what they actually wrote)
-Tighten it: (one concrete suggestion to make it a better ${skill.label})
+Rating: (one of — Strong / Competent / Developing — a 4 to 8 word reason)
+What you did well: (1-2 sentences identifying specific strengths in their response — what they got right, even partially. Always find something genuine to name.)
+To sharpen: (one concrete, specific suggestion to strengthen their use of ${skill.label} — name the exact element to adjust and why. If the response is already strong, say so and offer only a minor polish or say "Nothing major — this lands well.")
 Model: (one strong example of ${skill.label} for this client, in quotation marks)
 
-Be encouraging but accurate. If they wrote a question when a reflection was asked for (or the reverse), say so plainly.`;
+SCORING RUBRIC:
+- Strong: The response clearly and accurately demonstrates the target skill. It would be appropriate in a real session. The trainee has it.
+- Competent: The response shows understanding of the skill but has a notable gap — a question where a statement was needed, partial rather than full reflection, or similar. Workable but could be tighter.
+- Developing: The response misses the target skill or uses a different skill entirely. Name what they actually used and redirect.
+
+Lead with strengths. Be specific about what to adjust. If they wrote a question when a reflection was asked for (or the reverse), name it directly but without judgment. A "Competent" or "Strong" rating means they are succeeding — make sure they feel that.${attemptContext}`;
     const user = `Client said: "${statement}"\n\nTrainee's attempted ${skill.label}: "${response}"`;
     const feedback = await callAnthropic(system, [{ role: 'user', content: user }], 500);
     res.json({ feedback });

@@ -15,6 +15,7 @@ const ContentItemSchema = new Schema(
     title: String,
     category: String,
     difficulty: { type: String, enum: ['easy', 'medium', 'hard'] },
+    population: { type: String, enum: ['adult', 'child', 'older_adult', 'couple_family'], default: 'adult' },
 
     // documentary evidence — all formats
     references: [{ id: String, source: String, detail: String }],

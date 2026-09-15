@@ -82,7 +82,7 @@ router.get('/', resolveAccess, async (req, res) => {
       filter.examId = exam._id;
     }
     const items = await ContentItem.find(filter)
-      .select('externalId title category difficulty format')
+      .select('externalId title category difficulty format population')
       .sort({ category: 1, externalId: 1 });
 
     const teaser = ['free', 'expired'].includes(req.accessLevel);
