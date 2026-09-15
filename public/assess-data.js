@@ -216,7 +216,7 @@ const ASSESS_ITEMS = [
 
 // ---- Assess-next items 27-41 (added batch 2) ----
 
-  ,{ id:'as27', cat:'Safety', scenario:'A client discloses passive suicidal ideation but says they would "never actually do it" because of their children. The counselor should next:',
+  { id:'as27', cat:'Safety', scenario:'A client discloses passive suicidal ideation but says they would "never actually do it" because of their children. The counselor should next:',
     options:[
       { t:'Conduct a full structured risk assessment to evaluate ideation, plan, intent, means, and protective factors', ok:true, why:'Protective factors are relevant but do not eliminate assessment; plan, intent, and means must still be evaluated.' },
       { t:'Accept the protective factor as sufficient and move on', why:'Trap: protective factors reduce risk but never eliminate the need for full assessment.' },

@@ -230,7 +230,7 @@ const NBS_ITEMS = [
 
 // ---- NBS items 29-48 (added batch 2) ----
 
-  ,{ id:'nbs29', cat:'Skills',
+  { id:'nbs29', cat:'Skills',
     scenario:'A client shares painful news and the counselor responds, "I hear that — you sound devastated and completely blindsided." The client says, "Exactly." What did the counselor do correctly first?',
     options:[
       { t:'Reflected the feeling before moving to any intervention', ok:true, why:'Accurate empathy communicated first builds alliance and earns the right to intervene.' },
