@@ -9,6 +9,7 @@ const StudyActivity = require('../models/StudyActivity');
 const ReviewBatch = require('../models/ReviewBatch');
 const { logActivity } = require('../utils/activity');
 const { BATCH_NAME_RX, reviewSheetSummary } = require('../tools/cases/reviewRoundTrip');
+const { computePassRates, computeIrr, DOMAIN_LABELS } = require('../lib/psychometrics');
 
 const router = express.Router();
 router.use(requireAdmin);
@@ -424,6 +425,152 @@ router.get('/stats', async (_req, res) => {
   } catch (e) { console.error('stats/attempts', e.message); }
 
   return res.json(out);
+});
+
+// ── Live psychometrics ───────────────────────────────────────────────
+
+let _analyticsCache = { data: null, ts: 0 };
+const ANALYTICS_TTL = 5 * 60 * 1000; // 5 min cache
+
+router.get('/analytics', async (_req, res) => {
+  try {
+    const now = Date.now();
+    if (_analyticsCache.data && now - _analyticsCache.ts < ANALYTICS_TTL) {
+      return res.json(_analyticsCache.data);
+    }
+
+    const exam = await Exam.findOne({ key: 'ncmhce' });
+    if (!exam) return res.json({ error: null, passRates: null, irr: null, generatedAt: new Date().toISOString(), message: 'No exam configured yet.' });
+
+    const [passRates, irr] = await Promise.all([
+      computePassRates(exam._id),
+      computeIrr(exam._id),
+    ]);
+
+    const domainPerf = {};
+    if (passRates && passRates.domainAll) {
+      for (const [dom, scores] of Object.entries(passRates.domainAll)) {
+        const avg = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 0;
+        domainPerf[dom] = { label: DOMAIN_LABELS[dom] || dom, mean: Math.round(avg * 1000) / 10, n: scores.length };
+      }
+    }
+
+    const casePerf = [];
+    if (passRates && passRates.byCase) {
+      for (const [id, d] of Object.entries(passRates.byCase)) {
+        const avg = d.scores.length ? d.scores.reduce((a, b) => a + b, 0) / d.scores.length : null;
+        if (avg != null && d.attempts >= 2) {
+          casePerf.push({ id, attempts: d.attempts, avgScore: Math.round(avg * 10) / 10 });
+        }
+      }
+      casePerf.sort((a, b) => a.avgScore - b.avgScore);
+    }
+
+    const itemSummary = { total: 0, veryHard: 0, hard: 0, moderate: 0, easy: 0, veryEasy: 0, negativeDisc: 0, poorDisc: 0, deadDistractors: 0 };
+    if (passRates && passRates.questionStats) {
+      const items = Object.entries(passRates.questionStats)
+        .map(([, d]) => ({ pValue: d.total ? d.correct / d.total : null, total: d.total }))
+        .filter((i) => i.total >= 3);
+      itemSummary.total = items.length;
+      items.forEach((i) => {
+        if (i.pValue < 0.3) itemSummary.veryHard++;
+        else if (i.pValue < 0.5) itemSummary.hard++;
+        else if (i.pValue < 0.7) itemSummary.moderate++;
+        else if (i.pValue < 0.9) itemSummary.easy++;
+        else itemSummary.veryEasy++;
+      });
+    }
+    if (passRates && passRates.discrimination) {
+      itemSummary.negativeDisc = passRates.discrimination.filter((d) => d.rpb < 0).length;
+      itemSummary.poorDisc = passRates.discrimination.filter((d) => d.rpb >= 0 && d.rpb < 0.15).length;
+    }
+    if (passRates && passRates.distractorAnalysis) {
+      itemSummary.deadDistractors = passRates.distractorAnalysis.filter((d) => d.deadDistractors > 0).length;
+    }
+
+    const alphaInterp = (a) => a >= 0.9 ? 'excellent' : a >= 0.8 ? 'good' : a >= 0.7 ? 'acceptable' : a >= 0.6 ? 'questionable' : a >= 0.5 ? 'poor' : 'unacceptable';
+
+    const out = {
+      generatedAt: new Date().toISOString(),
+      cacheTtlMs: ANALYTICS_TTL,
+      overview: passRates ? {
+        totalAttempts: passRates.totalAttempts,
+        uniqueCases: passRates.uniqueCases,
+        scores: passRates.scores,
+        passRate: passRates.passRate,
+        passingCount: passRates.passingCount,
+        passThreshold: passRates.passThreshold,
+      } : null,
+      cronbachAlpha: passRates && passRates.cronbachAlpha != null ? {
+        value: passRates.cronbachAlpha,
+        interpretation: alphaInterp(passRates.cronbachAlpha),
+        items: passRates.alphaItemCount,
+        attempts: passRates.alphaAttemptCount,
+      } : null,
+      domainPerformance: domainPerf,
+      distribution: passRates ? passRates.distribution : null,
+      itemSummary,
+      hardestCases: casePerf.slice(0, 10),
+      easiestCases: casePerf.slice(-10).reverse(),
+      flaggedItems: {
+        negativeDiscrimination: passRates ? passRates.discrimination.filter((d) => d.rpb < 0).slice(0, 20) : [],
+        deadDistractors: passRates ? passRates.distractorAnalysis.filter((d) => d.deadDistractors > 0).slice(0, 20) : [],
+      },
+      irr: {
+        reviewerAgreement: irr.reviewerAgreement,
+        testRetest: irr.userResponseConsistency,
+        interUser: irr.interUserAgreement,
+      },
+    };
+
+    _analyticsCache = { data: out, ts: now };
+    return res.json(out);
+  } catch (err) {
+    console.error('admin analytics error', err);
+    return res.status(500).json({ error: 'Could not compute analytics' });
+  }
+});
+
+router.get('/analytics/items', async (req, res) => {
+  try {
+    const exam = await Exam.findOne({ key: 'ncmhce' });
+    if (!exam) return res.json({ items: [] });
+
+    const passRates = await computePassRates(exam._id);
+    if (!passRates) return res.json({ items: [], message: 'No attempt data yet.' });
+
+    const sort = req.query.sort || 'pValue';
+    const order = req.query.order === 'desc' ? -1 : 1;
+    const limit = Math.min(parseInt(req.query.limit, 10) || 100, 500);
+
+    const items = Object.entries(passRates.questionStats)
+      .map(([qid, d]) => {
+        const disc = passRates.discrimination.find((x) => x.qid === qid);
+        const dist = passRates.distractorAnalysis.find((x) => x.qid === qid);
+        return {
+          qid,
+          pValue: d.total ? Math.round((d.correct / d.total) * 100) / 100 : null,
+          n: d.total,
+          avgWeight: d.weights.length ? Math.round((d.weights.reduce((a, b) => a + b, 0) / d.weights.length) * 10) / 10 : null,
+          rpb: disc ? disc.rpb : null,
+          deadDistractors: dist ? dist.deadDistractors : 0,
+          deadOptions: dist ? dist.deadOptions : [],
+          optionFreq: dist ? dist.optionFreq : null,
+        };
+      })
+      .filter((i) => i.n >= 3)
+      .sort((a, b) => {
+        const av = a[sort] != null ? a[sort] : 999;
+        const bv = b[sort] != null ? b[sort] : 999;
+        return (av - bv) * order;
+      })
+      .slice(0, limit);
+
+    return res.json({ total: items.length, items, generatedAt: new Date().toISOString() });
+  } catch (err) {
+    console.error('admin analytics/items error', err);
+    return res.status(500).json({ error: 'Could not compute item analytics' });
+  }
 });
 
 // ── Activity tracking ────────────────────────────────────────────────
