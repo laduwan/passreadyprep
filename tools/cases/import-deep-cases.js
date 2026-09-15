@@ -8,9 +8,10 @@
 // collection; that was wrong and is fixed here.)
 //
 // Auto-discovers every tools/cases/deep-cases-batch-*.js (+ the D101 exemplar),
-// re-validates each case against the depth gate, and upserts idempotently by
-// {examId, externalId}. Status is set only on INSERT, so re-running never
-// clobbers a case you have already published via the admin panel.
+// re-validates each case against the depth gate AND the item quality gate
+// (qualityGate.js), and upserts idempotently by {examId, externalId}.
+// Status is set only on INSERT, so re-running never clobbers a case you
+// have already published via the admin panel.
 //
 //   Preview (no DB):       node tools/cases/import-deep-cases.js --dry-run
 //   Import (sme_review):   node tools/cases/import-deep-cases.js
@@ -21,8 +22,10 @@
 const fs = require('fs');
 const path = require('path');
 const { validateExamDepth } = require('./examDepth');
+const { checkCaseQuality } = require('./qualityGate');
 const { ALLOWED_SOURCES } = require('./references');
 const bp = require('./blueprint');
+const SKIP_QUALITY = process.argv.includes('--skip-quality-gate');
 
 const SEC_OF = { intake: 0, core: 0, treatment: 1, counseling: 2, ethics: 2 };
 function secCounts(c) {
@@ -65,10 +68,19 @@ for (const c of allCases) {
     console.log('  FAIL ' + (c.id || c.title));
     r.errors.forEach((e) => console.log('       ' + e));
   } else {
+    if (!SKIP_QUALITY) {
+      const qr = checkCaseQuality(c);
+      if (!qr.ok) {
+        bad++;
+        console.log('  FAIL ' + c.id + ' (quality gate)');
+        qr.errors.forEach((e) => console.log('       ' + e));
+        continue;
+      }
+    }
     console.log('  OK   ' + c.id + ' — ' + c.questions.length + ' q, sections ' + JSON.stringify(secCounts(c)) + ' [' + c.category + ']');
   }
 }
-if (bad > 0) { console.error('\nAborting: ' + bad + ' case(s) failed validation. Nothing imported.'); process.exit(1); }
+if (bad > 0) { console.error('\nAborting: ' + bad + ' case(s) failed validation. Nothing imported.' + (SKIP_QUALITY ? '' : ' (use --skip-quality-gate to bypass item checks)')); process.exit(1); }
 
 const cov = {};
 allCases.forEach((c) => { cov[c.category] = (cov[c.category] || 0) + 1; });
