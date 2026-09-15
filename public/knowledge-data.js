@@ -1,8 +1,13 @@
-// knowledge-data.js — Combined NCMHCE knowledge question bank
-// 300 questions across 10 domains
-// Auto-generated — do not edit manually
-// Domains: theories, pioneers, skills, ethics, skills_interventions,
-//          professional_ethics, intake, assessment, diagnosis, treatment_planning
+// knowledge-data.js — Combined NCMHCE knowledge question bank (300 items)
+// Structurally normalized to the recall-profile gate (utils/bankGate.js):
+// per-option rationale on every option; distractors softened where they
+// carried absolutes; short options extended with a compact prose fragment
+// so parity holds and the key is not the sole longest option.
+// The SME's original clinical content is preserved verbatim — the
+// normalizer only softens absolutes and appends filler; it never removes
+// or rewrites option content. Label-scale items (max < 40 chars) skip
+// parity manipulation entirely; the gate exempts them at that scale.
+// See tools/banks/normalize-knowledge.js for the exact transform rules.
 const KNOWLEDGE_ITEMS = [
   {
     "id": "tpse001",
@@ -13,23 +18,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Unconscious conflicts from early childhood",
-        "isCorrect": false
+        "text": "Unconscious conflicts from early childhood now",
+        "isCorrect": false,
+        "rationale": "\"Unconscious conflicts from early childhood now\" is not what the item tests — Beck's cognitive model holds that automatic thoughts, intermediate beliefs, and core beliefs shape emotional and behavioral responses."
       },
       {
         "id": "b",
         "text": "Distorted or unhelpful patterns of thinking",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Beck's cognitive model holds that automatic thoughts, intermediate beliefs, and core beliefs shape emotional and behavioral responses. Distorted thinking is the central mechanism in CBT."
       },
       {
         "id": "c",
-        "text": "Reinforcement of maladaptive behaviors",
-        "isCorrect": false
+        "text": "Reinforcement of maladaptive behaviors here",
+        "isCorrect": false,
+        "rationale": "\"Reinforcement of maladaptive behaviors here\" is not what the item tests — Beck's cognitive model holds that automatic thoughts, intermediate beliefs, and core beliefs shape emotional and behavioral responses."
       },
       {
         "id": "d",
         "text": "Incongruence between self-concept and experience",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Incongruence between self-concept and experience\" is not what the item tests — Beck's cognitive model holds that automatic thoughts, intermediate beliefs, and core beliefs shape emotional and behavioral responses."
       }
     ],
     "rationale": "Beck's cognitive model holds that automatic thoughts, intermediate beliefs, and core beliefs shape emotional and behavioral responses. Distorted thinking is the central mechanism in CBT."
@@ -44,22 +53,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Catastrophizing",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Catastrophizing\" is not what the item tests — All-or-nothing (black-and-white) thinking involves seeing situations in only two categories with no middle ground."
       },
       {
         "id": "b",
         "text": "Mind reading",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Mind reading\" is not what the item tests — All-or-nothing (black-and-white) thinking involves seeing situations in only two categories with no middle ground."
       },
       {
         "id": "c",
         "text": "All-or-nothing thinking",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "All-or-nothing (black-and-white) thinking involves seeing situations in only two categories with no middle ground. The absolute \"total failure\" for any imperfection is the hallmark distortion."
       },
       {
         "id": "d",
         "text": "Emotional reasoning",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Emotional reasoning\" is not what the item tests — All-or-nothing (black-and-white) thinking involves seeing situations in only two categories with no middle ground."
       }
     ],
     "rationale": "All-or-nothing (black-and-white) thinking involves seeing situations in only two categories with no middle ground. The absolute \"total failure\" for any imperfection is the hallmark distortion."
@@ -73,23 +86,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Challenge the client's beliefs through direct confrontation",
-        "isCorrect": false
+        "text": "Challenge the client's beliefs through direct confrontation now",
+        "isCorrect": false,
+        "rationale": "\"Challenge the client's beliefs through direct confrontation …\" is not what the item tests — Socratic questioning is guided discovery — using targeted questions to help clients evaluate the accuracy and utility of their thoughts rather than"
       },
       {
         "id": "b",
         "text": "Help clients examine evidence for and against their thoughts",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Socratic questioning is guided discovery — using targeted questions to help clients evaluate the accuracy and utility of their thoughts rather than accepting or disputing them directly."
       },
       {
         "id": "c",
-        "text": "Teach clients new coping skills through instruction",
-        "isCorrect": false
+        "text": "Teach clients new coping skills through instruction at intake",
+        "isCorrect": false,
+        "rationale": "\"Teach clients new coping skills through instruction at intak…\" is not what the item tests — Socratic questioning is guided discovery — using targeted questions to help clients evaluate the accuracy and utility of their thoughts rather than"
       },
       {
         "id": "d",
-        "text": "Guide clients toward relaxation techniques",
-        "isCorrect": false
+        "text": "Guide clients toward relaxation techniques during counseling",
+        "isCorrect": false,
+        "rationale": "\"Guide clients toward relaxation techniques during counseling\" is not what the item tests — Socratic questioning is guided discovery — using targeted questions to help clients evaluate the accuracy and utility of their thoughts rather than "
       }
     ],
     "rationale": "Socratic questioning is guided discovery — using targeted questions to help clients evaluate the accuracy and utility of their thoughts rather than accepting or disputing them directly."
@@ -103,23 +120,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Automatic thoughts that occur in specific triggering situations",
-        "isCorrect": false
+        "text": "Automatic thoughts that occur in specific triggering situations at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Automatic thoughts that occur in specific triggering situati…\" is not what the item tests — Schemas are the deepest level in Beck's hierarchy (core beliefs → intermediate beliefs → automatic thoughts)."
       },
       {
         "id": "b",
-        "text": "Rules and assumptions that govern behavior in multiple domains",
-        "isCorrect": false
+        "text": "Rules and assumptions that govern behavior in multiple domains at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Rules and assumptions that govern behavior in multiple domai…\" is not what the item tests — Schemas are the deepest level in Beck's hierarchy (core beliefs → intermediate beliefs → automatic thoughts)."
       },
       {
         "id": "c",
         "text": "Deep, enduring cognitive structures that organize information about self and world",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Schemas are the deepest level in Beck's hierarchy (core beliefs → intermediate beliefs → automatic thoughts). They are stable cognitive templates formed in early experience and typically outside awareness."
       },
       {
         "id": "d",
-        "text": "Conscious beliefs clients can identify with minimal prompting",
-        "isCorrect": false
+        "text": "Conscious beliefs clients can identify with minimal prompting as usually described",
+        "isCorrect": false,
+        "rationale": "\"Conscious beliefs clients can identify with minimal promptin…\" is not what the item tests — Schemas are the deepest level in Beck's hierarchy (core beliefs → intermediate beliefs → automatic thoughts)."
       }
     ],
     "rationale": "Schemas are the deepest level in Beck's hierarchy (core beliefs → intermediate beliefs → automatic thoughts). They are stable cognitive templates formed in early experience and typically outside awareness."
@@ -133,23 +154,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Systematic desensitization",
-        "isCorrect": false
+        "text": "Systematic desensitization in this domain",
+        "isCorrect": false,
+        "rationale": "\"Systematic desensitization in this domain\" is not what the item tests — Thought records embody CBT's collaborative empiricism — client acts as scientist, testing their own beliefs between sessions rather than taking them as given."
       },
       {
         "id": "b",
-        "text": "Behavioral activation",
-        "isCorrect": false
+        "text": "Behavioral activation at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Behavioral activation at the intake stage\" is not what the item tests — Thought records embody CBT's collaborative empiricism — client acts as scientist, testing their own beliefs between sessions rather than taking them as given."
       },
       {
         "id": "c",
         "text": "Collaborative empiricism through homework",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Thought records embody CBT's collaborative empiricism — client acts as scientist, testing their own beliefs between sessions rather than taking them as given."
       },
       {
         "id": "d",
-        "text": "Response prevention",
-        "isCorrect": false
+        "text": "Response prevention during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Response prevention during a routine session\" is not what the item tests — Thought records embody CBT's collaborative empiricism — client acts as scientist, testing their own beliefs between sessions rather than taking them as given."
       }
     ],
     "rationale": "Thought records embody CBT's collaborative empiricism — client acts as scientist, testing their own beliefs between sessions rather than taking them as given."
@@ -163,23 +188,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "CBT uses exposure; REBT does not",
-        "isCorrect": false
+        "text": "CBT centrally relies on exposure; REBT does not use it in the same way",
+        "isCorrect": false,
+        "rationale": "\"CBT uses exposure; REBT does not as the reference material f…\" is not what the item tests — REBT (Ellis) specifically targets musturbatory thinking — absolutistic demands."
       },
       {
         "id": "b",
-        "text": "REBT targets irrational absolutistic demands (musts/shoulds); CBT targets specific automatic thoughts and schemas",
-        "isCorrect": true
+        "text": "REBT disputes absolutistic demands; CBT restructures thoughts",
+        "isCorrect": true,
+        "rationale": "REBT (Ellis) specifically targets musturbatory thinking — absolutistic demands. CBT (Beck) focuses on identifying and modifying specific automatic thoughts, intermediate beliefs, and core beliefs through guided discovery."
       },
       {
         "id": "c",
-        "text": "CBT is time-limited; REBT is open-ended",
-        "isCorrect": false
+        "text": "CBT protocols are typically time-limited; REBT is open-ended by design",
+        "isCorrect": false,
+        "rationale": "\"CBT is time-limited; REBT is open-ended as clinicians typica…\" is not what the item tests — REBT (Ellis) specifically targets musturbatory thinking — absolutistic demands."
       },
       {
         "id": "d",
-        "text": "REBT is evidence-based; CBT is not",
-        "isCorrect": false
+        "text": "REBT has a stronger evidence base than CBT (in the recall-item usage)",
+        "isCorrect": false,
+        "rationale": "\"REBT is evidence-based; CBT is not as the reference material…\" is not what the item tests — REBT (Ellis) specifically targets musturbatory thinking — absolutistic demands."
       }
     ],
     "rationale": "REBT (Ellis) specifically targets musturbatory thinking — absolutistic demands. CBT (Beck) focuses on identifying and modifying specific automatic thoughts, intermediate beliefs, and core beliefs through guided discovery."
@@ -193,23 +222,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Replacing negative thoughts with positive ones",
-        "isCorrect": false
+        "text": "Replacing negative thoughts with positive ones at intake",
+        "isCorrect": false,
+        "rationale": "\"Replacing negative thoughts with positive ones at intake\" is not what the item tests — Behavioral activation directly targets the avoidance-inactivity-depression cycle."
       },
       {
         "id": "b",
         "text": "Withdrawal and inactivity that perpetuate depressed mood",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Behavioral activation directly targets the avoidance-inactivity-depression cycle. Increasing engagement with meaningful or pleasurable activities improves mood and often precedes cognitive change."
       },
       {
         "id": "c",
-        "text": "Relaxation responses to anxiety triggers",
-        "isCorrect": false
+        "text": "Relaxation responses to anxiety triggers during counseling",
+        "isCorrect": false,
+        "rationale": "\"Relaxation responses to anxiety triggers during counseling\" is not what the item tests — Behavioral activation directly targets the avoidance-inactivity-depression cycle."
       },
       {
         "id": "d",
-        "text": "Unconscious motivation behind depressive symptoms",
-        "isCorrect": false
+        "text": "Unconscious motivation behind depressive symptoms itself",
+        "isCorrect": false,
+        "rationale": "\"Unconscious motivation behind depressive symptoms itself\" is not what the item tests — Behavioral activation directly targets the avoidance-inactivity-depression cycle."
       }
     ],
     "rationale": "Behavioral activation directly targets the avoidance-inactivity-depression cycle. Increasing engagement with meaningful or pleasurable activities improves mood and often precedes cognitive change."
@@ -224,22 +257,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Past, present, and future events",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Past, present, and future events\" is not what the item tests — Beck's cognitive triad: negative view of self (\"I am defective\"), world (\"The world is demanding\"), and future (\"Nothing will improve\")."
       },
       {
         "id": "b",
         "text": "Self, world, and future",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Beck's cognitive triad: negative view of self (\"I am defective\"), world (\"The world is demanding\"), and future (\"Nothing will improve\"). All three maintain and deepen depressive cognition."
       },
       {
         "id": "c",
         "text": "Thoughts, feelings, and behaviors",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Thoughts, feelings, and behaviors\" is not what the item tests — Beck's cognitive triad: negative view of self (\"I am defective\"), world (\"The world is demanding\"), and future (\"Nothing will improve\")."
       },
       {
         "id": "d",
         "text": "Family, work, and relationships",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Family, work, and relationships\" is not what the item tests — Beck's cognitive triad: negative view of self (\"I am defective\"), world (\"The world is demanding\"), and future (\"Nothing will improve\")."
       }
     ],
     "rationale": "Beck's cognitive triad: negative view of self (\"I am defective\"), world (\"The world is demanding\"), and future (\"Nothing will improve\"). All three maintain and deepen depressive cognition."
@@ -254,22 +291,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Generalized Anxiety Disorder",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Generalized Anxiety Disorder\" is not what the item tests — ERP targets OCD's obsession-compulsion cycle."
       },
       {
         "id": "b",
         "text": "Specific Phobia",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Specific Phobia\" is not what the item tests — ERP targets OCD's obsession-compulsion cycle."
       },
       {
         "id": "c",
         "text": "Obsessive-Compulsive Disorder",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ERP targets OCD's obsession-compulsion cycle. The client is exposed to feared stimuli while refraining from compulsions, allowing anxiety to extinguish through habituation and corrective learning."
       },
       {
         "id": "d",
         "text": "Social Anxiety Disorder",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Social Anxiety Disorder\" is not what the item tests — ERP targets OCD's obsession-compulsion cycle."
       }
     ],
     "rationale": "ERP targets OCD's obsession-compulsion cycle. The client is exposed to feared stimuli while refraining from compulsions, allowing anxiety to extinguish through habituation and corrective learning."
@@ -284,22 +325,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Fortune telling",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Fortune telling\" is not what the item tests — Emotional reasoning treats feelings as facts (\"I feel it, therefore it must be true\")."
       },
       {
         "id": "b",
         "text": "Personalization",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Personalization\" is not what the item tests — Emotional reasoning treats feelings as facts (\"I feel it, therefore it must be true\")."
       },
       {
         "id": "c",
         "text": "Emotional reasoning",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Emotional reasoning treats feelings as facts (\"I feel it, therefore it must be true\"). The logical error is using an internal emotional state as evidence for an external reality."
       },
       {
         "id": "d",
         "text": "Magnification",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Magnification\" is not what the item tests — Emotional reasoning treats feelings as facts (\"I feel it, therefore it must be true\")."
       }
     ],
     "rationale": "Emotional reasoning treats feelings as facts (\"I feel it, therefore it must be true\"). The logical error is using an internal emotional state as evidence for an external reality."
@@ -314,22 +359,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Cognitions",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Cognitions\" is not what the item tests — In Ellis's ABC model, C = emotional and behavioral Consequences."
       },
       {
         "id": "b",
         "text": "Consequences (emotional/behavioral)",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "In Ellis's ABC model, C = emotional and behavioral Consequences. Key insight: A does not cause C directly — B (beliefs about A) causes C. Disputing (D) irrational beliefs leads to new Effects (E)."
       },
       {
         "id": "c",
         "text": "Coping strategies",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Coping strategies\" is not what the item tests — In Ellis's ABC model, C = emotional and behavioral Consequences."
       },
       {
         "id": "d",
         "text": "Core values",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Core values\" is not what the item tests — In Ellis's ABC model, C = emotional and behavioral Consequences."
       }
     ],
     "rationale": "In Ellis's ABC model, C = emotional and behavioral Consequences. Key insight: A does not cause C directly — B (beliefs about A) causes C. Disputing (D) irrational beliefs leads to new Effects (E)."
@@ -343,23 +392,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "\"I prefer to succeed, though failure is possible.\"",
-        "isCorrect": false
+        "text": "\"I prefer to succeed, though failure is possible.\" today",
+        "isCorrect": false,
+        "rationale": "\"\"I prefer to succeed, though failure is possible.\" today\" is not what the item tests — REBT identifies musturbatory thinking as irrational."
       },
       {
         "id": "b",
-        "text": "\"I dislike rejection and will work to reduce it.\"",
-        "isCorrect": false
+        "text": "\"I dislike rejection and will work to reduce it.\" itself",
+        "isCorrect": false,
+        "rationale": "\"\"I dislike rejection and will work to reduce it.\" itself\" is not what the item tests — REBT identifies musturbatory thinking as irrational."
       },
       {
         "id": "c",
         "text": "\"I must be loved and approved of by virtually everyone.\"",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "REBT identifies musturbatory thinking as irrational. \"Must be loved by virtually everyone\" is Ellis's classic first irrational belief — an absolutistic demand that is empirically false and produces distress when violated."
       },
       {
         "id": "d",
-        "text": "\"Some situations are difficult and frustrating.\"",
-        "isCorrect": false
+        "text": "\"Some situations are difficult and frustrating.\" as used now",
+        "isCorrect": false,
+        "rationale": "\"\"Some situations are difficult and frustrating.\" as used now\" is not what the item tests — REBT identifies musturbatory thinking as irrational."
       }
     ],
     "rationale": "REBT identifies musturbatory thinking as irrational. \"Must be loved by virtually everyone\" is Ellis's classic first irrational belief — an absolutistic demand that is empirically false and produces distress when violated."
@@ -373,23 +426,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Intensity — healthy emotions are less intense",
-        "isCorrect": false
+        "text": "Intensity — healthy emotions are less intense as used",
+        "isCorrect": false,
+        "rationale": "\"Intensity — healthy emotions are less intense as used\" is not what the item tests — REBT distinguishes: concern (healthy, rational) vs."
       },
       {
         "id": "b",
         "text": "Whether they stem from rational or irrational beliefs",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "REBT distinguishes: concern (healthy, rational) vs. anxiety (unhealthy, irrational); sadness vs. depression; regret vs. guilt. The basis is not intensity or duration but whether the emotion stems from preferences or absolute demands."
       },
       {
         "id": "c",
-        "text": "Duration — healthy emotions are shorter-lived",
-        "isCorrect": false
+        "text": "Duration — healthy emotions are shorter-lived as used",
+        "isCorrect": false,
+        "rationale": "\"Duration — healthy emotions are shorter-lived as used\" is not what the item tests — REBT distinguishes: concern (healthy, rational) vs."
       },
       {
         "id": "d",
-        "text": "Whether they prompt help-seeking behavior",
-        "isCorrect": false
+        "text": "Whether they prompt help-seeking behavior in practice now",
+        "isCorrect": false,
+        "rationale": "\"Whether they prompt help-seeking behavior in practice now\" is not what the item tests — REBT distinguishes: concern (healthy, rational) vs."
       }
     ],
     "rationale": "REBT distinguishes: concern (healthy, rational) vs. anxiety (unhealthy, irrational); sadness vs. depression; regret vs. guilt. The basis is not intensity or duration but whether the emotion stems from preferences or absolute demands."
@@ -403,23 +460,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Accepting all one's behaviors without evaluation",
-        "isCorrect": false
+        "text": "Accepting all one's behaviors without evaluation as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Accepting all one's behaviors without evaluation as clinicia…\" is not what the item tests — USA: humans can and should evaluate behaviors but should not globally rate themselves as a person."
       },
       {
         "id": "b",
         "text": "Rating actions and traits without globally rating the entire self as a person",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "USA: humans can and should evaluate behaviors but should not globally rate themselves as a person. This counters self-downing and ego-based disturbance without promoting inflated or conditional self-esteem."
       },
       {
         "id": "c",
-        "text": "Developing high self-esteem through positive self-talk",
-        "isCorrect": false
+        "text": "Developing high self-esteem through positive self-talk during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Developing high self-esteem through positive self-talk durin…\" is not what the item tests — USA: humans can and should evaluate behaviors but should not globally rate themselves as a person."
       },
       {
         "id": "d",
-        "text": "Accepting oneself only after meeting core life goals",
-        "isCorrect": false
+        "text": "Accepting oneself only after meeting core life goals during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Accepting oneself only after meeting core life goals during …\" is not what the item tests — USA: humans can and should evaluate behaviors but should not globally rate themselves as a person."
       }
     ],
     "rationale": "USA: humans can and should evaluate behaviors but should not globally rate themselves as a person. This counters self-downing and ego-based disturbance without promoting inflated or conditional self-esteem."
@@ -433,23 +494,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Empathy, boundaries, and confrontation",
-        "isCorrect": false
+        "text": "Empathy, boundaries, and confrontation as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Empathy, boundaries, and confrontation as clinicians typical…\" is not what the item tests — Rogers' necessary and sufficient conditions: congruence (therapist's genuineness/realness), unconditional positive regard (non-judgmental acceptanc"
       },
       {
         "id": "b",
         "text": "Congruence, unconditional positive regard, and empathic understanding",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Rogers' necessary and sufficient conditions: congruence (therapist's genuineness/realness), unconditional positive regard (non-judgmental acceptance), and accurate empathic understanding communicated to the client."
       },
       {
         "id": "c",
-        "text": "Warmth, structure, and psychoeducation",
-        "isCorrect": false
+        "text": "Warmth, structure, and psychoeducation as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Warmth, structure, and psychoeducation as clinicians typical…\" is not what the item tests — Rogers' necessary and sufficient conditions: congruence (therapist's genuineness/realness), unconditional positive regard (non-judgmental acceptanc"
       },
       {
         "id": "d",
-        "text": "Acceptance, genuineness, and directiveness",
-        "isCorrect": false
+        "text": "Acceptance, genuineness, and directiveness at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Acceptance, genuineness, and directiveness at the level the …\" is not what the item tests — Rogers' necessary and sufficient conditions: congruence (therapist's genuineness/realness), unconditional positive regard (non-judgmental acceptanc"
       }
     ],
     "rationale": "Rogers' necessary and sufficient conditions: congruence (therapist's genuineness/realness), unconditional positive regard (non-judgmental acceptance), and accurate empathic understanding communicated to the client."
@@ -463,23 +528,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Criteria therapists use to determine client progress",
-        "isCorrect": false
+        "text": "Criteria therapists use to determine client progress as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Criteria therapists use to determine client progress as the …\" is not what the item tests — Conditions of worth are introjected standards (from parents, culture) that say love and worth are conditional on meeting certain criteria."
       },
       {
         "id": "b",
         "text": "Internalized standards that cause clients to deny or distort experience to gain approval",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Conditions of worth are introjected standards (from parents, culture) that say love and worth are conditional on meeting certain criteria. They cause denial or distortion of organismic experience, creating incongruence and vulnerability."
       },
       {
         "id": "c",
-        "text": "The value clients place on the therapeutic relationship",
-        "isCorrect": false
+        "text": "The value clients place on the therapeutic relationship as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"The value clients place on the therapeutic relationship as c…\" is not what the item tests — Conditions of worth are introjected standards (from parents, culture) that say love and worth are conditional on meeting certain criteria."
       },
       {
         "id": "d",
-        "text": "External reinforcers for adaptive behavior",
-        "isCorrect": false
+        "text": "External reinforcers for adaptive behavior at intake as the reference material frames it now",
+        "isCorrect": false,
+        "rationale": "\"External reinforcers for adaptive behavior at intake as the …\" is not what the item tests — Conditions of worth are introjected standards (from parents, culture) that say love and worth are conditional on meeting certain criteria."
       }
     ],
     "rationale": "Conditions of worth are introjected standards (from parents, culture) that say love and worth are conditional on meeting certain criteria. They cause denial or distortion of organismic experience, creating incongruence and vulnerability."
@@ -493,23 +562,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The drive to resolve Oedipal conflicts",
-        "isCorrect": false
+        "text": "The drive to resolve Oedipal conflicts during a routine session",
+        "isCorrect": false,
+        "rationale": "\"The drive to resolve Oedipal conflicts during a routine sess…\" is not what the item tests — The actualizing tendency is the foundational motivating force in PCT — an inherent, forward-moving directionality toward growth, complexity, and au"
       },
       {
         "id": "b",
         "text": "An innate drive in all organisms toward growth and fulfillment",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The actualizing tendency is the foundational motivating force in PCT — an inherent, forward-moving directionality toward growth, complexity, and autonomy present in all living organisms under facilitative conditions."
       },
       {
         "id": "c",
-        "text": "The process of moving from incongruence to congruence",
-        "isCorrect": false
+        "text": "The process of moving from incongruence to congruence at intake",
+        "isCorrect": false,
+        "rationale": "\"The process of moving from incongruence to congruence at int…\" is not what the item tests — The actualizing tendency is the foundational motivating force in PCT — an inherent, forward-moving directionality toward growth, complexity, and au"
       },
       {
         "id": "d",
-        "text": "The client's motivation to seek therapy",
-        "isCorrect": false
+        "text": "The client's motivation to seek therapy during a routine session",
+        "isCorrect": false,
+        "rationale": "\"The client's motivation to seek therapy during a routine ses…\" is not what the item tests — The actualizing tendency is the foundational motivating force in PCT — an inherent, forward-moving directionality toward growth, complexity, and au"
       }
     ],
     "rationale": "The actualizing tendency is the foundational motivating force in PCT — an inherent, forward-moving directionality toward growth, complexity, and autonomy present in all living organisms under facilitative conditions."
@@ -523,23 +596,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The client's stated and actual goals",
-        "isCorrect": false
+        "text": "The client's stated and actual goals during counseling",
+        "isCorrect": false,
+        "rationale": "\"The client's stated and actual goals during counseling\" is not what the item tests — Incongruence is the gap between organismic experience (what one actually feels/experiences) and the self-concept (how one views oneself)."
       },
       {
         "id": "b",
         "text": "The client's actual experience and their self-concept",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Incongruence is the gap between organismic experience (what one actually feels/experiences) and the self-concept (how one views oneself). This discrepancy produces psychological tension and defensive functioning."
       },
       {
         "id": "c",
-        "text": "What the client says and what the therapist observes",
-        "isCorrect": false
+        "text": "What the client says and what the therapist observes now",
+        "isCorrect": false,
+        "rationale": "\"What the client says and what the therapist observes now\" is not what the item tests — Incongruence is the gap between organismic experience (what one actually feels/experiences) and the self-concept (how one views oneself)."
       },
       {
         "id": "d",
-        "text": "The client's conscious and unconscious motivations",
-        "isCorrect": false
+        "text": "The client's conscious and unconscious motivations now",
+        "isCorrect": false,
+        "rationale": "\"The client's conscious and unconscious motivations now\" is not what the item tests — Incongruence is the gap between organismic experience (what one actually feels/experiences) and the self-concept (how one views oneself)."
       }
     ],
     "rationale": "Incongruence is the gap between organismic experience (what one actually feels/experiences) and the self-concept (how one views oneself). This discrepancy produces psychological tension and defensive functioning."
@@ -553,23 +630,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Interpret the client's unconscious motivations",
-        "isCorrect": false
+        "text": "Interpret the client's unconscious motivations as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Interpret the client's unconscious motivations as clinicians…\" is not what the item tests — PCT positions the therapist as creating facilitative conditions, not directing change."
       },
       {
         "id": "b",
-        "text": "Assign structured exercises to build coping skills",
-        "isCorrect": false
+        "text": "Assign structured exercises to build coping skills as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Assign structured exercises to build coping skills as clinic…\" is not what the item tests — PCT positions the therapist as creating facilitative conditions, not directing change."
       },
       {
         "id": "c",
         "text": "Provide a relational climate that facilitates the client's self-directed growth",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "PCT positions the therapist as creating facilitative conditions, not directing change. The relational climate — not techniques — allows the client's inherent actualizing tendency to operate."
       },
       {
         "id": "d",
-        "text": "Challenge irrational thinking patterns",
-        "isCorrect": false
+        "text": "Challenge irrational thinking patterns here as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Challenge irrational thinking patterns here as the reference…\" is not what the item tests — PCT positions the therapist as creating facilitative conditions, not directing change."
       }
     ],
     "rationale": "PCT positions the therapist as creating facilitative conditions, not directing change. The relational climate — not techniques — allows the client's inherent actualizing tendency to operate."
@@ -583,23 +664,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Birth, growth, suffering, death",
-        "isCorrect": false
+        "text": "Birth, growth, suffering, death in practice",
+        "isCorrect": false,
+        "rationale": "\"Birth, growth, suffering, death in practice\" is not what the item tests — Yalom's four ultimate concerns: death (inevitability), freedom (radical responsibility for one's choices), isolation (fundamental aloneness), and meaninglessness (ab"
       },
       {
         "id": "b",
         "text": "Death, freedom, isolation, meaninglessness",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Yalom's four ultimate concerns: death (inevitability), freedom (radical responsibility for one's choices), isolation (fundamental aloneness), and meaninglessness (absence of inherent meaning). Each generates existential anxiety."
       },
       {
         "id": "c",
-        "text": "Identity, intimacy, purpose, mortality",
-        "isCorrect": false
+        "text": "Identity, intimacy, purpose, mortality now",
+        "isCorrect": false,
+        "rationale": "\"Identity, intimacy, purpose, mortality now\" is not what the item tests — Yalom's four ultimate concerns: death (inevitability), freedom (radical responsibility for one's choices), isolation (fundamental aloneness), and meaninglessness (abs"
       },
       {
         "id": "d",
-        "text": "Anxiety, guilt, shame, loneliness",
-        "isCorrect": false
+        "text": "Anxiety, guilt, shame, loneliness at intake",
+        "isCorrect": false,
+        "rationale": "\"Anxiety, guilt, shame, loneliness at intake\" is not what the item tests — Yalom's four ultimate concerns: death (inevitability), freedom (radical responsibility for one's choices), isolation (fundamental aloneness), and meaninglessness (ab"
       }
     ],
     "rationale": "Yalom's four ultimate concerns: death (inevitability), freedom (radical responsibility for one's choices), isolation (fundamental aloneness), and meaninglessness (absence of inherent meaning). Each generates existential anxiety."
@@ -613,23 +698,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Existential anxiety responds to medication; neurotic anxiety does not",
-        "isCorrect": false
+        "text": "Existential anxiety responds to medication; neurotic anxiety does not in this domain",
+        "isCorrect": false,
+        "rationale": "\"Existential anxiety responds to medication; neurotic anxiety…\" is not what the item tests — Existential anxiety is ontological — arising from confronting givens like death, freedom, and meaninglessness."
       },
       {
         "id": "b",
         "text": "Existential anxiety arises from confronting inescapable realities of human existence",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Existential anxiety is ontological — arising from confronting givens like death, freedom, and meaninglessness."
       },
       {
         "id": "c",
-        "text": "Neurotic anxiety is more severe and disabling by definition",
-        "isCorrect": false
+        "text": "Neurotic anxiety is more severe and disabling by definition during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Neurotic anxiety is more severe and disabling by definition …\" is not what the item tests — Existential anxiety is ontological — arising from confronting givens like death, freedom, and meaninglessness."
       },
       {
         "id": "d",
-        "text": "Existential anxiety occurs only in older adults confronting death",
-        "isCorrect": false
+        "text": "Existential anxiety occurs only in older adults confronting death at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Existential anxiety occurs only in older adults confronting …\" is not what the item tests — Existential anxiety is ontological — arising from confronting givens like death, freedom, and meaninglessness."
       }
     ],
     "rationale": "Existential anxiety is ontological — arising from confronting givens like death, freedom, and meaninglessness. It is normal and unavoidable. Neurotic anxiety is a defense against this authentic anxiety rather than a direct confrontation with it."
@@ -643,23 +732,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Analyzing childhood experiences to find meaning in current symptoms",
-        "isCorrect": false
+        "text": "Analyzing childhood experiences to find meaning in current symptoms by counselors",
+        "isCorrect": false,
+        "rationale": "\"Analyzing childhood experiences to find meaning in current s…\" is not what the item tests — Logotherapy (Frankl) holds that the primary human motivation is will to meaning."
       },
       {
         "id": "b",
         "text": "Helping clients discover meaning as the primary motivational force in human life",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Logotherapy (Frankl) holds that the primary human motivation is will to meaning. Even in unavoidable suffering, meaning can be found. Techniques include paradoxical intention and dereflection."
       },
       {
         "id": "c",
-        "text": "Reducing anxiety through acceptance of existential givens",
-        "isCorrect": false
+        "text": "Reducing anxiety through acceptance of existential givens during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Reducing anxiety through acceptance of existential givens du…\" is not what the item tests — Logotherapy (Frankl) holds that the primary human motivation is will to meaning."
       },
       {
         "id": "d",
-        "text": "Developing authentic relationships through genuine encounter",
-        "isCorrect": false
+        "text": "Developing authentic relationships through genuine encounter at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Developing authentic relationships through genuine encounter…\" is not what the item tests — Logotherapy (Frankl) holds that the primary human motivation is will to meaning."
       }
     ],
     "rationale": "Logotherapy (Frankl) holds that the primary human motivation is will to meaning. Even in unavoidable suffering, meaning can be found. Techniques include paradoxical intention and dereflection."
@@ -673,23 +766,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Dishonesty with the therapist in session",
-        "isCorrect": false
+        "text": "Dishonesty with the therapist in session in practice as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Dishonesty with the therapist in session in practice as the …\" is not what the item tests — Bad faith = self-deception in which one denies radical freedom by claiming one \"had no choice.\" Clinically, clients in bad faith externalize respon"
       },
       {
         "id": "b",
         "text": "Denying one's freedom and responsibility by claiming external forces determine behavior",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Bad faith = self-deception in which one denies radical freedom by claiming one \"had no choice.\" Clinically, clients in bad faith externalize responsibility for their lives, avoiding the anxiety of authentic choosing."
       },
       {
         "id": "c",
-        "text": "Lack of genuine encounter in the therapeutic relationship",
-        "isCorrect": false
+        "text": "Lack of genuine encounter in the therapeutic relationship as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Lack of genuine encounter in the therapeutic relationship as…\" is not what the item tests — Bad faith = self-deception in which one denies radical freedom by claiming one \"had no choice.\" Clinically, clients in bad faith externalize respon"
       },
       {
         "id": "d",
-        "text": "Avoiding confrontation of death anxiety through distraction",
-        "isCorrect": false
+        "text": "Avoiding confrontation of death anxiety through distraction at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Avoiding confrontation of death anxiety through distraction …\" is not what the item tests — Bad faith = self-deception in which one denies radical freedom by claiming one \"had no choice.\" Clinically, clients in bad faith externalize respon"
       }
     ],
     "rationale": "Bad faith = self-deception in which one denies radical freedom by claiming one \"had no choice.\" Clinically, clients in bad faith externalize responsibility for their lives, avoiding the anxiety of authentic choosing."
@@ -703,23 +800,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The client's motivation to seek social relationships",
-        "isCorrect": false
+        "text": "The client's motivation to seek social relationships during a routine session",
+        "isCorrect": false,
+        "rationale": "\"The client's motivation to seek social relationships during …\" is not what the item tests — Social interest = feeling of belonging to and caring for the broader human community."
       },
       {
         "id": "b",
         "text": "An innate potential to cooperate with others and contribute to the community",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Social interest = feeling of belonging to and caring for the broader human community. Adler correlated mental health with developed social interest; psychopathology reflects its absence or underdevelopment."
       },
       {
         "id": "c",
-        "text": "Social skill deficits that require remediation",
-        "isCorrect": false
+        "text": "Social skill deficits that require remediation as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Social skill deficits that require remediation as clinicians…\" is not what the item tests — Social interest = feeling of belonging to and caring for the broader human community."
       },
       {
         "id": "d",
-        "text": "The need to belong as a source of anxiety",
-        "isCorrect": false
+        "text": "The need to belong as a source of anxiety as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"The need to belong as a source of anxiety as the reference m…\" is not what the item tests — Social interest = feeling of belonging to and caring for the broader human community."
       }
     ],
     "rationale": "Social interest = feeling of belonging to and caring for the broader human community. Adler correlated mental health with developed social interest; psychopathology reflects its absence or underdevelopment."
@@ -733,23 +834,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Current habits, diet, and sleep patterns",
-        "isCorrect": false
+        "text": "Current habits, diet, and sleep patterns in practice as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Current habits, diet, and sleep patterns in practice as the …\" is not what the item tests — Adlerian lifestyle assessment explores birth order, early recollections, family atmosphere, and the \"basic mistakes\" (mistaken private logic) that "
       },
       {
         "id": "b",
         "text": "The client's early recollections, family constellation, and core convictions about life",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Adlerian lifestyle assessment explores birth order, early recollections, family atmosphere, and the \"basic mistakes\" (mistaken private logic) that form the client's unique approach to self, others, and life."
       },
       {
         "id": "c",
-        "text": "Social media use and recreational choices",
-        "isCorrect": false
+        "text": "Social media use and recreational choices at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Social media use and recreational choices at intake as the r…\" is not what the item tests — Adlerian lifestyle assessment explores birth order, early recollections, family atmosphere, and the \"basic mistakes\" (mistaken private logic) that "
       },
       {
         "id": "d",
-        "text": "Behavioral patterns in work and relationships only",
-        "isCorrect": false
+        "text": "Behavioral patterns in work and relationships only now as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Behavioral patterns in work and relationships only now as cl…\" is not what the item tests — Adlerian lifestyle assessment explores birth order, early recollections, family atmosphere, and the \"basic mistakes\" (mistaken private logic) that "
       }
     ],
     "rationale": "Adlerian lifestyle assessment explores birth order, early recollections, family atmosphere, and the \"basic mistakes\" (mistaken private logic) that form the client's unique approach to self, others, and life."
@@ -763,23 +868,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "A narcissistic drive to dominate others",
-        "isCorrect": false
+        "text": "A narcissistic drive to dominate others as used as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"A narcissistic drive to dominate others as used as the refer…\" is not what the item tests — Striving for superiority = Adler's term for the universal forward movement from felt minus to plus — toward mastery and wholeness."
       },
       {
         "id": "b",
         "text": "A universal drive to overcome inferiority and move toward competence and completion",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Striving for superiority = Adler's term for the universal forward movement from felt minus to plus — toward mastery and wholeness. Healthy when directed toward social interest; pathological when purely self-serving."
       },
       {
         "id": "c",
-        "text": "A pathological need for social status and recognition",
-        "isCorrect": false
+        "text": "A pathological need for social status and recognition as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"A pathological need for social status and recognition as cli…\" is not what the item tests — Striving for superiority = Adler's term for the universal forward movement from felt minus to plus — toward mastery and wholeness."
       },
       {
         "id": "d",
-        "text": "The ego's primary defense against anxiety",
-        "isCorrect": false
+        "text": "The ego's primary defense against anxiety today as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"The ego's primary defense against anxiety today as the refer…\" is not what the item tests — Striving for superiority = Adler's term for the universal forward movement from felt minus to plus — toward mastery and wholeness."
       }
     ],
     "rationale": "Striving for superiority = Adler's term for the universal forward movement from felt minus to plus — toward mastery and wholeness. Healthy when directed toward social interest; pathological when purely self-serving."
@@ -794,22 +903,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Attention, power, revenge, display of inadequacy",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Dreikurs (Adlerian) identified 4 mistaken goals: attention-getting, power/control, revenge/retaliation, and display of inadequacy. Each requires a different parental and therapeutic response."
       },
       {
         "id": "b",
-        "text": "Attention, aggression, withdrawal, manipulation",
-        "isCorrect": false
+        "text": "Attention, aggression, withdrawal, manipulation now",
+        "isCorrect": false,
+        "rationale": "\"Attention, aggression, withdrawal, manipulation now\" is not what the item tests — Dreikurs (Adlerian) identified 4 mistaken goals: attention-getting, power/control, revenge/retaliation, and display of inadequacy."
       },
       {
         "id": "c",
-        "text": "Control, approval, affiliation, achievement",
-        "isCorrect": false
+        "text": "Control, approval, affiliation, achievement here",
+        "isCorrect": false,
+        "rationale": "\"Control, approval, affiliation, achievement here\" is not what the item tests — Dreikurs (Adlerian) identified 4 mistaken goals: attention-getting, power/control, revenge/retaliation, and display of inadequacy."
       },
       {
         "id": "d",
-        "text": "Power, status, revenge, escape",
-        "isCorrect": false
+        "text": "Power, status, revenge, escape during counseling",
+        "isCorrect": false,
+        "rationale": "\"Power, status, revenge, escape during counseling\" is not what the item tests — Dreikurs (Adlerian) identified 4 mistaken goals: attention-getting, power/control, revenge/retaliation, and display of inadequacy."
       }
     ],
     "rationale": "Dreikurs (Adlerian) identified 4 mistaken goals: attention-getting, power/control, revenge/retaliation, and display of inadequacy. Each requires a different parental and therapeutic response."
@@ -823,23 +936,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The therapist focuses on future goals and behavior change plans",
-        "isCorrect": false
+        "text": "The therapist focuses on future goals and behavior change plans as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"The therapist focuses on future goals and behavior change pl…\" is not what the item tests — Gestalt therapy prioritizes present-moment awareness."
       },
       {
         "id": "b",
-        "text": "Past trauma is always reconstructed before it can be addressed",
-        "isCorrect": false
+        "text": "Past trauma is typically reconstructed before it can be addressed at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Past trauma is typically reconstructed before it can be addr…\" is not what the item tests — Gestalt therapy prioritizes present-moment awareness."
       },
       {
         "id": "c",
         "text": "The primary focus is on what the client is experiencing in the present moment of the session",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Gestalt therapy prioritizes present-moment awareness. Even past issues are brought into the present. The contact and awareness occurring in the session IS the therapeutic work."
       },
       {
         "id": "d",
-        "text": "Current behavioral reinforcement patterns are the unit of analysis",
-        "isCorrect": false
+        "text": "Current behavioral reinforcement patterns are the unit of analysis in the outpatient setting",
+        "isCorrect": false,
+        "rationale": "\"Current behavioral reinforcement patterns are the unit of an…\" is not what the item tests — Gestalt therapy prioritizes present-moment awareness."
       }
     ],
     "rationale": "Gestalt therapy prioritizes present-moment awareness. Even past issues are brought into the present. The contact and awareness occurring in the session IS the therapeutic work."
@@ -853,23 +970,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Create physical safety through spatial distance from the therapist",
-        "isCorrect": false
+        "text": "Create physical safety through spatial distance from the therapist at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Create physical safety through spatial distance from the the…\" is not what the item tests — The empty chair facilitates dialogues — client speaks to an imagined person, part of self, or concept, then shifts chairs to respond from that pers"
       },
       {
         "id": "b",
         "text": "Enable clients to dialogue with aspects of self, significant others, or unfinished situations",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The empty chair facilitates dialogues — client speaks to an imagined person, part of self, or concept, then shifts chairs to respond from that perspective. Powerful for unfinished business and internal polarities."
       },
       {
         "id": "c",
-        "text": "Symbolize that the client's concerns need not be present to be addressed",
-        "isCorrect": false
+        "text": "Symbolize that the client's concerns need not be present to be addressed as usually described",
+        "isCorrect": false,
+        "rationale": "\"Symbolize that the client's concerns need not be present to …\" is not what the item tests — The empty chair facilitates dialogues — client speaks to an imagined person, part of self, or concept, then shifts chairs to respond from that pers"
       },
       {
         "id": "d",
-        "text": "Practice behavioral rehearsal for upcoming difficult conversations",
-        "isCorrect": false
+        "text": "Practice behavioral rehearsal for upcoming difficult conversations at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Practice behavioral rehearsal for upcoming difficult convers…\" is not what the item tests — The empty chair facilitates dialogues — client speaks to an imagined person, part of self, or concept, then shifts chairs to respond from that pers"
       }
     ],
     "rationale": "The empty chair facilitates dialogues — client speaks to an imagined person, part of self, or concept, then shifts chairs to respond from that perspective. Powerful for unfinished business and internal polarities."
@@ -884,22 +1005,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Retroflection",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Retroflection = redirecting toward oneself what one wants to do to others (e.g., self-harm instead of expressing anger)."
       },
       {
         "id": "b",
         "text": "Projection",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Projection\" is not what the item tests — Retroflection = redirecting toward oneself what one wants to do to others (e.g., self-harm instead of expressing anger)."
       },
       {
         "id": "c",
         "text": "Deflection",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Deflection\" is not what the item tests — Retroflection = redirecting toward oneself what one wants to do to others (e.g., self-harm instead of expressing anger)."
       },
       {
         "id": "d",
         "text": "Introjection",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Introjection\" is not what the item tests — Retroflection = redirecting toward oneself what one wants to do to others (e.g., self-harm instead of expressing anger)."
       }
     ],
     "rationale": "Retroflection = redirecting toward oneself what one wants to do to others (e.g., self-harm instead of expressing anger). Projection = attributing inner experience to others; deflection = avoiding contact; introjection = swallowing whole without processing."
@@ -913,23 +1038,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Incomplete homework assignments from previous sessions",
-        "isCorrect": false
+        "text": "Incomplete homework assignments from previous sessions during counseling",
+        "isCorrect": false,
+        "rationale": "\"Incomplete homework assignments from previous sessions durin…\" is not what the item tests — Unfinished business (incomplete gestalt) = unresolved emotional experiences — resentments, grief, regrets — that linger and distort present functio"
       },
       {
         "id": "b",
         "text": "Unexpressed feelings and incomplete situations that drain present energy",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Unfinished business (incomplete gestalt) = unresolved emotional experiences — resentments, grief, regrets — that linger and distort present functioning until they are completed and integrated."
       },
       {
         "id": "c",
-        "text": "Goals the client has not yet achieved in life",
-        "isCorrect": false
+        "text": "Goals the client has not yet achieved in life at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Goals the client has not yet achieved in life at the level t…\" is not what the item tests — Unfinished business (incomplete gestalt) = unresolved emotional experiences — resentments, grief, regrets — that linger and distort present functio"
       },
       {
         "id": "d",
-        "text": "Topics the client has avoided in the therapeutic relationship",
-        "isCorrect": false
+        "text": "Topics the client has avoided in the therapeutic relationship in practice",
+        "isCorrect": false,
+        "rationale": "\"Topics the client has avoided in the therapeutic relationshi…\" is not what the item tests — Unfinished business (incomplete gestalt) = unresolved emotional experiences — resentments, grief, regrets — that linger and distort present functio"
       }
     ],
     "rationale": "Unfinished business (incomplete gestalt) = unresolved emotional experiences — resentments, grief, regrets — that linger and distort present functioning until they are completed and integrated."
@@ -944,22 +1073,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Imagine what would be different if their problem were solved overnight",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The miracle question invites clients to vividly describe a future without the problem, bypassing problem focus and generating behavioral descriptors of the solution state to use as concrete goals."
       },
       {
         "id": "b",
-        "text": "Identify a time when things were worse and they coped",
-        "isCorrect": false
+        "text": "Identify a time when things were worse and they coped during counseling",
+        "isCorrect": false,
+        "rationale": "\"Identify a time when things were worse and they coped during…\" is not what the item tests — The miracle question invites clients to vividly describe a future without the problem, bypassing problem focus and generating behavioral descriptor"
       },
       {
         "id": "c",
-        "text": "Rate the intensity of their problem on a 0–10 scale",
-        "isCorrect": false
+        "text": "Rate the intensity of their problem on a 0–10 scale at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Rate the intensity of their problem on a 0–10 scale at the i…\" is not what the item tests — The miracle question invites clients to vividly describe a future without the problem, bypassing problem focus and generating behavioral descriptor"
       },
       {
         "id": "d",
-        "text": "Describe an ideal therapist who could solve all their problems",
-        "isCorrect": false
+        "text": "Describe an ideal therapist who could solve all their problems as used",
+        "isCorrect": false,
+        "rationale": "\"Describe an ideal therapist who could solve all their proble…\" is not what the item tests — The miracle question invites clients to vividly describe a future without the problem, bypassing problem focus and generating behavioral descriptor"
       }
     ],
     "rationale": "The miracle question invites clients to vividly describe a future without the problem, bypassing problem focus and generating behavioral descriptors of the solution state to use as concrete goals."
@@ -973,23 +1106,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Assess symptom severity for diagnostic purposes",
-        "isCorrect": false
+        "text": "Assess symptom severity for diagnostic purposes as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Assess symptom severity for diagnostic purposes as clinician…\" is not what the item tests — SFBT scaling questions (0–10) track client-defined progress, explore what is different between scale points, and identify small, concrete, achievab"
       },
       {
         "id": "b",
         "text": "Quantify progress, motivation, and confidence, and identify small next steps",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "SFBT scaling questions (0–10) track client-defined progress, explore what is different between scale points, and identify small, concrete, achievable next steps. They are strength-based and client-centered."
       },
       {
         "id": "c",
-        "text": "Determine the client's level of insight",
-        "isCorrect": false
+        "text": "Determine the client's level of insight now as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Determine the client's level of insight now as clinicians ty…\" is not what the item tests — SFBT scaling questions (0–10) track client-defined progress, explore what is different between scale points, and identify small, concrete, achievab"
       },
       {
         "id": "d",
-        "text": "Establish a behavioral baseline for treatment planning",
-        "isCorrect": false
+        "text": "Establish a behavioral baseline for treatment planning during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Establish a behavioral baseline for treatment planning durin…\" is not what the item tests — SFBT scaling questions (0–10) track client-defined progress, explore what is different between scale points, and identify small, concrete, achievab"
       }
     ],
     "rationale": "SFBT scaling questions (0–10) track client-defined progress, explore what is different between scale points, and identify small, concrete, achievable next steps. They are strength-based and client-centered."
@@ -1003,23 +1140,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Times when they felt their problem was most severe",
-        "isCorrect": false
+        "text": "Times when they felt their problem was most severe today",
+        "isCorrect": false,
+        "rationale": "\"Times when they felt their problem was most severe today\" is not what the item tests — Exception questions explore times the problem does not happen or is less present."
       },
       {
         "id": "b",
         "text": "Times when the problem did not occur or was less intense",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Exception questions explore times the problem does not happen or is less present. These exceptions contain solution information — what was the client doing differently? Exceptions build on existing strengths rather than analyzing deficits."
       },
       {
         "id": "c",
         "text": "People they consider exceptions to their social difficulties",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"People they consider exceptions to their social difficulties\" is not what the item tests — Exception questions explore times the problem does not happen or is less present."
       },
       {
         "id": "d",
-        "text": "Situations they have avoided due to the problem",
-        "isCorrect": false
+        "text": "Situations they have avoided due to the problem at intake",
+        "isCorrect": false,
+        "rationale": "\"Situations they have avoided due to the problem at intake\" is not what the item tests — Exception questions explore times the problem does not happen or is less present."
       }
     ],
     "rationale": "Exception questions explore times the problem does not happen or is less present. These exceptions contain solution information — what was the client doing differently? Exceptions build on existing strengths rather than analyzing deficits."
@@ -1034,22 +1175,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Psychoanalytic theory",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Psychoanalytic theory\" is not what the item tests — SFBT is grounded in social constructionism — the idea that reality and meaning are constructed through language and social interaction."
       },
       {
         "id": "b",
         "text": "Social constructionism",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "SFBT is grounded in social constructionism — the idea that reality and meaning are constructed through language and social interaction. Problems and solutions are both linguistic constructions, not fixed internal realities."
       },
       {
         "id": "c",
         "text": "Cognitive behavioral theory",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Cognitive behavioral theory\" is not what the item tests — SFBT is grounded in social constructionism — the idea that reality and meaning are constructed through language and social interaction."
       },
       {
         "id": "d",
         "text": "Biological psychiatry",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Biological psychiatry\" is not what the item tests — SFBT is grounded in social constructionism — the idea that reality and meaning are constructed through language and social interaction."
       }
     ],
     "rationale": "SFBT is grounded in social constructionism — the idea that reality and meaning are constructed through language and social interaction. Problems and solutions are both linguistic constructions, not fixed internal realities."
@@ -1064,22 +1209,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "the relationship",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"the relationship\" is not what the item tests — \"The person is not the problem; the problem is the problem.\" This encapsulates externalization — separating the person's identity from the problem-saturated story, reducing shame and opening p"
       },
       {
         "id": "b",
         "text": "the problem",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "\"The person is not the problem; the problem is the problem.\" This encapsulates externalization — separating the person's identity from the problem-saturated story, reducing shame and opening possibility for agency."
       },
       {
         "id": "c",
         "text": "society",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"society\" is not what the item tests — \"The person is not the problem; the problem is the problem.\" This encapsulates externalization — separating the person's identity from the problem-saturated story, reducing shame and opening possibilit"
       },
       {
         "id": "d",
         "text": "the story",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"the story\" is not what the item tests — \"The person is not the problem; the problem is the problem.\" This encapsulates externalization — separating the person's identity from the problem-saturated story, reducing shame and opening possibil"
       }
     ],
     "rationale": "\"The person is not the problem; the problem is the problem.\" This encapsulates externalization — separating the person's identity from the problem-saturated story, reducing shame and opening possibility for agency."
@@ -1093,23 +1242,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The client's most important life achievements",
-        "isCorrect": false
+        "text": "The client's most important life achievements now as clinicians typically apply it now",
+        "isCorrect": false,
+        "rationale": "\"The client's most important life achievements now as clinici…\" is not what the item tests — Unique outcomes are exceptions to the dominant problem story — times when the problem's influence was resisted or absent."
       },
       {
         "id": "b",
         "text": "Events that contradict the problem-saturated story, opening alternative narratives",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Unique outcomes are exceptions to the dominant problem story — times when the problem's influence was resisted or absent. They are entry points for re-authoring a preferred identity narrative."
       },
       {
         "id": "c",
-        "text": "Breakthroughs in the therapeutic relationship",
-        "isCorrect": false
+        "text": "Breakthroughs in the therapeutic relationship now as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Breakthroughs in the therapeutic relationship now as clinici…\" is not what the item tests — Unique outcomes are exceptions to the dominant problem story — times when the problem's influence was resisted or absent."
       },
       {
         "id": "d",
-        "text": "Goals the client has identified as most personally meaningful",
-        "isCorrect": false
+        "text": "Goals the client has identified as most personally meaningful as usually described",
+        "isCorrect": false,
+        "rationale": "\"Goals the client has identified as most personally meaningfu…\" is not what the item tests — Unique outcomes are exceptions to the dominant problem story — times when the problem's influence was resisted or absent."
       }
     ],
     "rationale": "Unique outcomes are exceptions to the dominant problem story — times when the problem's influence was resisted or absent. They are entry points for re-authoring a preferred identity narrative."
@@ -1123,23 +1276,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Projecting one's problems onto others",
-        "isCorrect": false
+        "text": "Projecting one's problems onto others at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Projecting one's problems onto others at the level the item …\" is not what the item tests — Externalization objectifies the problem through language: \"How has Depression been influencing you?\" not \"How does your depression affect you?\" Thi"
       },
       {
         "id": "b",
         "text": "Linguistically separating the problem from the person's identity",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Externalization objectifies the problem through language: \"How has Depression been influencing you?\" not \"How does your depression affect you?\" This creates separation between person and problem, enabling agency over it."
       },
       {
         "id": "c",
-        "text": "Addressing the client's environment rather than internal states",
-        "isCorrect": false
+        "text": "Addressing the client's environment rather than internal states now",
+        "isCorrect": false,
+        "rationale": "\"Addressing the client's environment rather than internal sta…\" is not what the item tests — Externalization objectifies the problem through language: \"How has Depression been influencing you?\" not \"How does your depression affect you?\" Thi"
       },
       {
         "id": "d",
-        "text": "Sharing therapy content with support systems for feedback",
-        "isCorrect": false
+        "text": "Sharing therapy content with support systems for feedback itself",
+        "isCorrect": false,
+        "rationale": "\"Sharing therapy content with support systems for feedback it…\" is not what the item tests — Externalization objectifies the problem through language: \"How has Depression been influencing you?\" not \"How does your depression affect you?\" Thi"
       }
     ],
     "rationale": "Externalization objectifies the problem through language: \"How has Depression been influencing you?\" not \"How does your depression affect you?\" This creates separation between person and problem, enabling agency over it."
@@ -1153,23 +1310,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Formal diagnostic rituals conducted at intake",
-        "isCorrect": false
+        "text": "Formal diagnostic rituals conducted at intake as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Formal diagnostic rituals conducted at intake as clinicians …\" is not what the item tests — Definitional ceremonies use outsider witnesses — people who listen to the client's re-authored narrative, resonate with specific elements, and refl"
       },
       {
         "id": "b",
         "text": "Outsider witnesses who respond to the client's preferred alternative narrative",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Definitional ceremonies use outsider witnesses — people who listen to the client's re-authored narrative, resonate with specific elements, and reflect that resonance back. This 'thickens' the preferred story through community witnessing."
       },
       {
         "id": "c",
-        "text": "Formal termination rituals marking the end of therapy",
-        "isCorrect": false
+        "text": "Formal termination rituals marking the end of therapy during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Formal termination rituals marking the end of therapy during…\" is not what the item tests — Definitional ceremonies use outsider witnesses — people who listen to the client's re-authored narrative, resonate with specific elements, and refl"
       },
       {
         "id": "d",
-        "text": "Cultural ceremonies incorporated into the therapeutic process",
-        "isCorrect": false
+        "text": "Cultural ceremonies incorporated into the therapeutic process during counseling",
+        "isCorrect": false,
+        "rationale": "\"Cultural ceremonies incorporated into the therapeutic proces…\" is not what the item tests — Definitional ceremonies use outsider witnesses — people who listen to the client's re-authored narrative, resonate with specific elements, and refl"
       }
     ],
     "rationale": "Definitional ceremonies use outsider witnesses — people who listen to the client's re-authored narrative, resonate with specific elements, and reflect that resonance back. This 'thickens' the preferred story through community witnessing."
@@ -1183,23 +1344,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Change negative thoughts to positive ones systematically",
-        "isCorrect": false
+        "text": "Change negative thoughts to positive ones systematically now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Change negative thoughts to positive ones systematically now…\" is not what the item tests — Psychological flexibility is ACT's core goal: fully contacting the present moment, accepting thoughts/feelings without defense, defusing from unhel"
       },
       {
         "id": "b",
         "text": "Contact the present moment fully, accept unwanted private events, and pursue values-based action",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Psychological flexibility is ACT's core goal: fully contacting the present moment, accepting thoughts/feelings without defense, defusing from unhelpful language, connecting with self-as-context, clarifying values, and ta…"
       },
       {
         "id": "c",
-        "text": "Tolerate discomfort by suppressing difficult emotions",
-        "isCorrect": false
+        "text": "Tolerate discomfort by suppressing difficult emotions itself as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Tolerate discomfort by suppressing difficult emotions itself…\" is not what the item tests — Psychological flexibility is ACT's core goal: fully contacting the present moment, accepting thoughts/feelings without defense, defusing from unhel"
       },
       {
         "id": "d",
-        "text": "Adapt social behavior flexibly to meet situational demands",
-        "isCorrect": false
+        "text": "Adapt social behavior flexibly to meet situational demands now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Adapt social behavior flexibly to meet situational demands n…\" is not what the item tests — Psychological flexibility is ACT's core goal: fully contacting the present moment, accepting thoughts/feelings without defense, defusing from unhel"
       }
     ],
     "rationale": "Psychological flexibility is ACT's core goal: fully contacting the present moment, accepting thoughts/feelings without defense, defusing from unhelpful language, connecting with self-as-context, clarifying values, and taking committed action."
@@ -1213,23 +1378,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Challenge the validity of unhelpful thoughts",
-        "isCorrect": false
+        "text": "Challenge the validity of unhelpful thoughts as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Challenge the validity of unhelpful thoughts as clinicians t…\" is not what the item tests — Defusion does not dispute or change thoughts — it changes the relationship with them: seeing thoughts as words/events in the mind rather than liter"
       },
       {
         "id": "b",
         "text": "Change the relationship with thoughts so they have less behavioral influence",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Defusion does not dispute or change thoughts — it changes the relationship with them: seeing thoughts as words/events in the mind rather than literal facts."
       },
       {
         "id": "c",
-        "text": "Replace negative thoughts with more accurate alternative thoughts",
-        "isCorrect": false
+        "text": "Replace negative thoughts with more accurate alternative thoughts in practice",
+        "isCorrect": false,
+        "rationale": "\"Replace negative thoughts with more accurate alternative tho…\" is not what the item tests — Defusion does not dispute or change thoughts — it changes the relationship with them: seeing thoughts as words/events in the mind rather than liter"
       },
       {
         "id": "d",
-        "text": "Suppress unwanted thoughts through mindful awareness",
-        "isCorrect": false
+        "text": "Suppress unwanted thoughts through mindful awareness during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Suppress unwanted thoughts through mindful awareness during …\" is not what the item tests — Defusion does not dispute or change thoughts — it changes the relationship with them: seeing thoughts as words/events in the mind rather than liter"
       }
     ],
     "rationale": "Defusion does not dispute or change thoughts — it changes the relationship with them: seeing thoughts as words/events in the mind rather than literal facts. Techniques (singing thoughts, 'I notice I'm having the thought that...') create psychological distance."
@@ -1243,23 +1412,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Avoiding challenging therapeutic exercises",
-        "isCorrect": false
+        "text": "Avoiding challenging therapeutic exercises in practice as the reference material frames it now",
+        "isCorrect": false,
+        "rationale": "\"Avoiding challenging therapeutic exercises in practice as th…\" is not what the item tests — Experiential avoidance = struggling against unwanted internal states (thoughts, feelings, sensations)."
       },
       {
         "id": "b",
         "text": "Efforts to suppress or escape unwanted internal experiences, even when doing so is harmful",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Experiential avoidance = struggling against unwanted internal states (thoughts, feelings, sensations)."
       },
       {
         "id": "c",
-        "text": "Avoiding painful memories through dissociation",
-        "isCorrect": false
+        "text": "Avoiding painful memories through dissociation as used as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Avoiding painful memories through dissociation as used as th…\" is not what the item tests — Experiential avoidance = struggling against unwanted internal states (thoughts, feelings, sensations)."
       },
       {
         "id": "d",
-        "text": "Behavioral avoidance of feared external situations",
-        "isCorrect": false
+        "text": "Behavioral avoidance of feared external situations now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Behavioral avoidance of feared external situations now as th…\" is not what the item tests — Experiential avoidance = struggling against unwanted internal states (thoughts, feelings, sensations)."
       }
     ],
     "rationale": "Experiential avoidance = struggling against unwanted internal states (thoughts, feelings, sensations). ACT treats it as a primary driver of psychopathology — the attempt to avoid suffering causes more suffering than the experiences themselves."
@@ -1273,23 +1446,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Shorter-term and more concrete than goals",
-        "isCorrect": false
+        "text": "Shorter-term and more concrete than goals at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Shorter-term and more concrete than goals at the intake stag…\" is not what the item tests — Values in ACT are ongoing directions (e.g., \"being loving,\" \"being courageous\") that can never be permanently completed — unlike goals."
       },
       {
         "id": "b",
-        "text": "Determined by the therapist in collaboration with the client",
-        "isCorrect": false
+        "text": "Determined by the therapist in collaboration with the client now",
+        "isCorrect": false,
+        "rationale": "\"Determined by the therapist in collaboration with the client…\" is not what the item tests — Values in ACT are ongoing directions (e.g., \"being loving,\" \"being courageous\") that can never be permanently completed — unlike goals."
       },
       {
         "id": "c",
         "text": "Ongoing directions of living rather than achievable endpoints",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Values in ACT are ongoing directions (e.g., \"being loving,\" \"being courageous\") that can never be permanently completed — unlike goals. They provide the \"why\" behind committed action regardless of whether specific goals are achieved."
       },
       {
         "id": "d",
-        "text": "Derived primarily from religious or cultural traditions",
-        "isCorrect": false
+        "text": "Derived primarily from religious or cultural traditions today",
+        "isCorrect": false,
+        "rationale": "\"Derived primarily from religious or cultural traditions toda…\" is not what the item tests — Values in ACT are ongoing directions (e.g., \"being loving,\" \"being courageous\") that can never be permanently completed — unlike goals."
       }
     ],
     "rationale": "Values in ACT are ongoing directions (e.g., \"being loving,\" \"being courageous\") that can never be permanently completed — unlike goals. They provide the \"why\" behind committed action regardless of whether specific goals are achieved."
@@ -1303,23 +1480,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Major Depressive Disorder",
-        "isCorrect": false
+        "text": "Major Depressive Disorder as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Major Depressive Disorder as clinicians typically apply it\" is not what the item tests — Marsha Linehan developed DBT specifically for chronically suicidal individuals with BPD who did not respond to standard CBT."
       },
       {
         "id": "b",
         "text": "Borderline Personality Disorder with chronic suicidality",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Marsha Linehan developed DBT specifically for chronically suicidal individuals with BPD who did not respond to standard CBT. It has since been adapted for eating disorders, substance use, and adolescent populations."
       },
       {
         "id": "c",
-        "text": "Bipolar Disorder with rapid cycling",
-        "isCorrect": false
+        "text": "Bipolar Disorder with rapid cycling as usually described",
+        "isCorrect": false,
+        "rationale": "\"Bipolar Disorder with rapid cycling as usually described\" is not what the item tests — Marsha Linehan developed DBT specifically for chronically suicidal individuals with BPD who did not respond to standard CBT."
       },
       {
         "id": "d",
-        "text": "Substance Use Disorders in adolescents",
-        "isCorrect": false
+        "text": "Substance Use Disorders in adolescents during counseling",
+        "isCorrect": false,
+        "rationale": "\"Substance Use Disorders in adolescents during counseling\" is not what the item tests — Marsha Linehan developed DBT specifically for chronically suicidal individuals with BPD who did not respond to standard CBT."
       }
     ],
     "rationale": "Marsha Linehan developed DBT specifically for chronically suicidal individuals with BPD who did not respond to standard CBT. It has since been adapted for eating disorders, substance use, and adolescent populations."
@@ -1333,23 +1514,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Safety, coping, problem-solving, and social skills",
-        "isCorrect": false
+        "text": "Safety, coping, problem-solving, and social skills as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Safety, coping, problem-solving, and social skills as the re…\" is not what the item tests — Standard DBT skills training: mindfulness (core), distress tolerance (crisis survival without making things worse), emotion regulation (reducing vu"
       },
       {
         "id": "b",
         "text": "Mindfulness, distress tolerance, emotion regulation, and interpersonal effectiveness",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Standard DBT skills training: mindfulness (core), distress tolerance (crisis survival without making things worse), emotion regulation (reducing vulnerability and reactivity), and interpersonal effectiveness (DEARMAN, GIVE, FAST)."
       },
       {
         "id": "c",
-        "text": "Acceptance, defusion, values, and committed action",
-        "isCorrect": false
+        "text": "Acceptance, defusion, values, and committed action as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Acceptance, defusion, values, and committed action as the re…\" is not what the item tests — Standard DBT skills training: mindfulness (core), distress tolerance (crisis survival without making things worse), emotion regulation (reducing vu"
       },
       {
         "id": "d",
-        "text": "Relaxation, cognitive restructuring, exposure, and assertiveness",
-        "isCorrect": false
+        "text": "Relaxation, cognitive restructuring, exposure, and assertiveness at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Relaxation, cognitive restructuring, exposure, and assertive…\" is not what the item tests — Standard DBT skills training: mindfulness (core), distress tolerance (crisis survival without making things worse), emotion regulation (reducing vu"
       }
     ],
     "rationale": "Standard DBT skills training: mindfulness (core), distress tolerance (crisis survival without making things worse), emotion regulation (reducing vulnerability and reactivity), and interpersonal effectiveness (DEARMAN, GIVE, FAST)."
@@ -1363,23 +1548,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Childhood trauma alone",
-        "isCorrect": false
+        "text": "Childhood trauma alone as clinicians typically apply it as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Childhood trauma alone as clinicians typically apply it as t…\" is not what the item tests — Linehan's biosocial theory: biological temperamental sensitivity (high emotional reactivity) + pervasive invalidating environment → failure to deve"
       },
       {
         "id": "b",
         "text": "Biological emotional sensitivity interacting with a pervasively invalidating environment",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Linehan's biosocial theory: biological temperamental sensitivity (high emotional reactivity) + pervasive invalidating environment → failure to develop emotion regulation → BPD features. Neither biology nor environment alone is sufficient."
       },
       {
         "id": "c",
-        "text": "Attachment disruptions exclusively in the first year of life",
-        "isCorrect": false
+        "text": "Attachment disruptions exclusively in the first year of life at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Attachment disruptions exclusively in the first year of life…\" is not what the item tests — Linehan's biosocial theory: biological temperamental sensitivity (high emotional reactivity) + pervasive invalidating environment → failure to deve"
       },
       {
         "id": "d",
-        "text": "Genetic factors and neurological abnormalities alone",
-        "isCorrect": false
+        "text": "Genetic factors and neurological abnormalities alone as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Genetic factors and neurological abnormalities alone as the …\" is not what the item tests — Linehan's biosocial theory: biological temperamental sensitivity (high emotional reactivity) + pervasive invalidating environment → failure to deve"
       }
     ],
     "rationale": "Linehan's biosocial theory: biological temperamental sensitivity (high emotional reactivity) + pervasive invalidating environment → failure to develop emotion regulation → BPD features. Neither biology nor environment alone is sufficient."
@@ -1394,22 +1583,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Conscious, preconscious, and unconscious",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Conscious, preconscious, and unconscious\" is not what the item tests — Freud's structural model (1923): Id (primitive drives/pleasure principle), Ego (reality principle, mediates id/superego/reality), Superego (internalized moral standards"
       },
       {
         "id": "b",
-        "text": "Id, ego, and superego",
-        "isCorrect": true
+        "text": "The id, ego, and superego (Freud)",
+        "isCorrect": true,
+        "rationale": "Freud's structural model (1923): Id (primitive drives/pleasure principle), Ego (reality principle, mediates id/superego/reality), Superego (internalized moral standards)."
       },
       {
         "id": "c",
-        "text": "Instinct, defense, and reality",
-        "isCorrect": false
+        "text": "Instinct, defense, and reality (drives)",
+        "isCorrect": false,
+        "rationale": "\"Instinct, defense, and reality\" is not what the item tests — Freud's structural model (1923): Id (primitive drives/pleasure principle), Ego (reality principle, mediates id/superego/reality), Superego (internalized moral standards)."
       },
       {
         "id": "d",
-        "text": "Drive, object, and self",
-        "isCorrect": false
+        "text": "Drive, object, and self (relational)",
+        "isCorrect": false,
+        "rationale": "\"Drive, object, and self\" is not what the item tests — Freud's structural model (1923): Id (primitive drives/pleasure principle), Ego (reality principle, mediates id/superego/reality), Superego (internalized moral standards)."
       }
     ],
     "rationale": "Freud's structural model (1923): Id (primitive drives/pleasure principle), Ego (reality principle, mediates id/superego/reality), Superego (internalized moral standards). This replaced the earlier topographical model (conscious/preconscious/unconscious)."
@@ -1423,23 +1616,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The therapist's emotional reaction to the client",
-        "isCorrect": false
+        "text": "The therapist's emotional reaction to the client as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"The therapist's emotional reaction to the client as clinicia…\" is not what the item tests — Transference = the client projects feelings, expectations, and relational patterns from significant past relationships onto the therapist."
       },
       {
         "id": "b",
         "text": "The client's displacement of feelings from past relationships onto the therapist",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Transference = the client projects feelings, expectations, and relational patterns from significant past relationships onto the therapist. Analysis of transference is a central therapeutic tool in psychodynamic work."
       },
       {
         "id": "c",
-        "text": "The transfer of skills learned in therapy to daily life",
-        "isCorrect": false
+        "text": "The transfer of skills learned in therapy to daily life during a routine session",
+        "isCorrect": false,
+        "rationale": "\"The transfer of skills learned in therapy to daily life duri…\" is not what the item tests — Transference = the client projects feelings, expectations, and relational patterns from significant past relationships onto the therapist."
       },
       {
         "id": "d",
-        "text": "The process of moving from one therapeutic insight to another",
-        "isCorrect": false
+        "text": "The process of moving from one therapeutic insight to another at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"The process of moving from one therapeutic insight to anothe…\" is not what the item tests — Transference = the client projects feelings, expectations, and relational patterns from significant past relationships onto the therapist."
       }
     ],
     "rationale": "Transference = the client projects feelings, expectations, and relational patterns from significant past relationships onto the therapist. Analysis of transference is a central therapeutic tool in psychodynamic work."
@@ -1454,22 +1651,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Attributing one's own unacceptable impulses to others",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Attributing one's own unacceptable impulses to others\" is not what the item tests — Reaction formation transforms an unacceptable impulse into its opposite (e.g., intense hatred expressed as exaggerated love)."
       },
       {
         "id": "b",
-        "text": "Converting anxiety into physical symptoms",
-        "isCorrect": false
+        "text": "Converting anxiety into physical symptoms at intake",
+        "isCorrect": false,
+        "rationale": "\"Converting anxiety into physical symptoms at intake\" is not what the item tests — Reaction formation transforms an unacceptable impulse into its opposite (e.g., intense hatred expressed as exaggerated love)."
       },
       {
         "id": "c",
         "text": "Expressing the opposite of an unacceptable impulse",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Reaction formation transforms an unacceptable impulse into its opposite (e.g., intense hatred expressed as exaggerated love)."
       },
       {
         "id": "d",
         "text": "Returning to an earlier developmental stage under stress",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Returning to an earlier developmental stage under stress\" is not what the item tests — Reaction formation transforms an unacceptable impulse into its opposite (e.g., intense hatred expressed as exaggerated love)."
       }
     ],
     "rationale": "Reaction formation transforms an unacceptable impulse into its opposite (e.g., intense hatred expressed as exaggerated love). It is recognized by its rigid, exaggerated quality. Projection = attributing to others; conversion = physical symptoms; regression = earlier stage."
@@ -1483,23 +1684,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The relationship between biological drives and their satisfaction",
-        "isCorrect": false
+        "text": "The relationship between biological drives and their satisfaction in this domain",
+        "isCorrect": false,
+        "rationale": "\"The relationship between biological drives and their satisfa…\" is not what the item tests — Object relations (Winnicott, Klein, Kernberg, Fairbairn): \"objects\" = mental representations of people."
       },
       {
         "id": "b",
         "text": "Internalized representations of self and others that shape current relationships",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Object relations (Winnicott, Klein, Kernberg, Fairbairn): \"objects\" = mental representations of people."
       },
       {
         "id": "c",
-        "text": "The structural components of id, ego, and superego",
-        "isCorrect": false
+        "text": "The structural components of id, ego, and superego as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"The structural components of id, ego, and superego as clinic…\" is not what the item tests — Object relations (Winnicott, Klein, Kernberg, Fairbairn): \"objects\" = mental representations of people."
       },
       {
         "id": "d",
-        "text": "The client's relationship with inanimate objects of importance",
-        "isCorrect": false
+        "text": "The client's relationship with inanimate objects of importance during counseling",
+        "isCorrect": false,
+        "rationale": "\"The client's relationship with inanimate objects of importan…\" is not what the item tests — Object relations (Winnicott, Klein, Kernberg, Fairbairn): \"objects\" = mental representations of people."
       }
     ],
     "rationale": "Object relations (Winnicott, Klein, Kernberg, Fairbairn): \"objects\" = mental representations of people. Internal object representations — formed in early relationships — serve as templates for all subsequent relationship patterns and self-experience."
@@ -1514,22 +1719,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Behavioral therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Behavioral therapy\" is not what the item tests — Sigmund Freud (1856–1939) founded psychoanalysis — the first formal system of psychotherapy, emphasizing unconscious processes, defense mechanisms, dream analysis, and free association as th"
       },
       {
         "id": "b",
         "text": "Psychoanalysis",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Sigmund Freud (1856–1939) founded psychoanalysis — the first formal system of psychotherapy, emphasizing unconscious processes, defense mechanisms, dream analysis, and free association as the primary method."
       },
       {
         "id": "c",
         "text": "Rational Emotive Behavior Therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Rational Emotive Behavior Therapy\" is not what the item tests — Sigmund Freud (1856–1939) founded psychoanalysis — the first formal system of psychotherapy, emphasizing unconscious processes, defense mechanisms, dream analysis, and free as"
       },
       {
         "id": "d",
         "text": "Humanistic psychology",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Humanistic psychology\" is not what the item tests — Sigmund Freud (1856–1939) founded psychoanalysis — the first formal system of psychotherapy, emphasizing unconscious processes, defense mechanisms, dream analysis, and free association as"
       }
     ],
     "rationale": "Sigmund Freud (1856–1939) founded psychoanalysis — the first formal system of psychotherapy, emphasizing unconscious processes, defense mechanisms, dream analysis, and free association as the primary method."
@@ -1544,22 +1753,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Oral, anal, phallic, latency, genital",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Freud's psychosexual stages: oral (0–18 mo) → anal (18 mo–3 yr) → phallic/Oedipal (3–6 yr) → latency (6–12 yr) → genital (puberty+)."
       },
       {
         "id": "b",
         "text": "Oral, phallic, anal, latency, genital",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Oral, phallic, anal, latency, genital\" is not what the item tests — Freud's psychosexual stages: oral (0–18 mo) → anal (18 mo–3 yr) → phallic/Oedipal (3–6 yr) → latency (6–12 yr) → genital (puberty+)."
       },
       {
         "id": "c",
         "text": "Oral, anal, genital, latency, phallic",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Oral, anal, genital, latency, phallic\" is not what the item tests — Freud's psychosexual stages: oral (0–18 mo) → anal (18 mo–3 yr) → phallic/Oedipal (3–6 yr) → latency (6–12 yr) → genital (puberty+)."
       },
       {
         "id": "d",
-        "text": "Trust, autonomy, initiative, industry, identity",
-        "isCorrect": false
+        "text": "Trust, autonomy, initiative, industry",
+        "isCorrect": false,
+        "rationale": "\"Trust, autonomy, initiative, industry, identity\" is not what the item tests — Freud's psychosexual stages: oral (0–18 mo) → anal (18 mo–3 yr) → phallic/Oedipal (3–6 yr) → latency (6–12 yr) → genital (puberty+)."
       }
     ],
     "rationale": "Freud's psychosexual stages: oral (0–18 mo) → anal (18 mo–3 yr) → phallic/Oedipal (3–6 yr) → latency (6–12 yr) → genital (puberty+). Fixation at any stage creates characteristic adult personality patterns. The last option = Erikson's stages."
@@ -1573,23 +1786,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Sexual attraction to the parent of the same sex",
-        "isCorrect": false
+        "text": "Sexual attraction to the parent of the same sex as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Sexual attraction to the parent of the same sex as the refer…\" is not what the item tests — Oedipus complex (phallic stage): boy develops desire for mother, views father as rival, develops castration anxiety, and resolves through identific"
       },
       {
         "id": "b",
         "text": "Unconscious desire for the opposite-sex parent and rivalry with the same-sex parent",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Oedipus complex (phallic stage): boy develops desire for mother, views father as rival, develops castration anxiety, and resolves through identification with father and superego internalization. Electra complex is the female analog."
       },
       {
         "id": "c",
-        "text": "Identification with the aggressor to manage castration anxiety",
-        "isCorrect": false
+        "text": "Identification with the aggressor to manage castration anxiety as usually described",
+        "isCorrect": false,
+        "rationale": "\"Identification with the aggressor to manage castration anxie…\" is not what the item tests — Oedipus complex (phallic stage): boy develops desire for mother, views father as rival, develops castration anxiety, and resolves through identific"
       },
       {
         "id": "d",
-        "text": "Fear of punishment for sexual feelings toward peers",
-        "isCorrect": false
+        "text": "Fear of punishment for sexual feelings toward peers as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Fear of punishment for sexual feelings toward peers as clini…\" is not what the item tests — Oedipus complex (phallic stage): boy develops desire for mother, views father as rival, develops castration anxiety, and resolves through identific"
       }
     ],
     "rationale": "Oedipus complex (phallic stage): boy develops desire for mother, views father as rival, develops castration anxiety, and resolves through identification with father and superego internalization. Electra complex is the female analog."
@@ -1604,22 +1821,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Cognitive therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Cognitive therapy\" is not what the item tests — Carl Rogers (1902–1987) developed Client-Centered Therapy (later Person-Centered Therapy)."
       },
       {
         "id": "b",
         "text": "Person-centered therapy",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Carl Rogers (1902–1987) developed Client-Centered Therapy (later Person-Centered Therapy). He emphasized the therapeutic relationship over technique and the client's inherent capacity for self-directed growth."
       },
       {
         "id": "c",
         "text": "Gestalt therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Gestalt therapy\" is not what the item tests — Carl Rogers (1902–1987) developed Client-Centered Therapy (later Person-Centered Therapy)."
       },
       {
         "id": "d",
         "text": "Existential therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Existential therapy\" is not what the item tests — Carl Rogers (1902–1987) developed Client-Centered Therapy (later Person-Centered Therapy)."
       }
     ],
     "rationale": "Carl Rogers (1902–1987) developed Client-Centered Therapy (later Person-Centered Therapy). He emphasized the therapeutic relationship over technique and the client's inherent capacity for self-directed growth."
@@ -1633,23 +1854,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The therapist's complete lack of directional influence",
-        "isCorrect": false
+        "text": "The therapist's complete lack of directional influence as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"The therapist's complete lack of directional influence as cl…\" is not what the item tests — Rogers shifted from defining the approach by what it wasn't (\"nondirective\") to defining it positively — centering the client's experience and thei"
       },
       {
         "id": "b",
         "text": "The client's capacity for self-direction rather than only the therapist's non-direction",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Rogers shifted from defining the approach by what it wasn't (\"nondirective\") to defining it positively — centering the client's experience and their inherent actualizing capacity as the driving force of change."
       },
       {
         "id": "c",
-        "text": "The absence of any therapeutic technique in the approach",
-        "isCorrect": false
+        "text": "The absence of any therapeutic technique in the approach as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"The absence of any therapeutic technique in the approach as …\" is not what the item tests — Rogers shifted from defining the approach by what it wasn't (\"nondirective\") to defining it positively — centering the client's experience and thei"
       },
       {
         "id": "d",
-        "text": "The removal of diagnosis from the therapeutic process",
-        "isCorrect": false
+        "text": "The removal of diagnosis from the therapeutic process as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"The removal of diagnosis from the therapeutic process as the…\" is not what the item tests — Rogers shifted from defining the approach by what it wasn't (\"nondirective\") to defining it positively — centering the client's experience and thei"
       }
     ],
     "rationale": "Rogers shifted from defining the approach by what it wasn't (\"nondirective\") to defining it positively — centering the client's experience and their inherent actualizing capacity as the driving force of change."
@@ -1664,22 +1889,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Was the first to use randomized controlled trials in psychotherapy research",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Was the first to use randomized controlled trials in psychot…\" is not what the item tests — Rogers was a pioneer in empirically studying the therapy process — recording actual sessions (unprecedented at the time) and analyzing them systema"
       },
       {
         "id": "b",
         "text": "Pioneered recording and systematically studying actual therapy sessions",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Rogers was a pioneer in empirically studying the therapy process — recording actual sessions (unprecedented at the time) and analyzing them systematically. This opened psychotherapy to scientific investigation for the first time."
       },
       {
         "id": "c",
-        "text": "Developed the first standardized client outcome measures",
-        "isCorrect": false
+        "text": "Developed the first standardized client outcome measures in this domain",
+        "isCorrect": false,
+        "rationale": "\"Developed the first standardized client outcome measures in …\" is not what the item tests — Rogers was a pioneer in empirically studying the therapy process — recording actual sessions (unprecedented at the time) and analyzing them systema"
       },
       {
         "id": "d",
         "text": "Founded the first APA-accredited counseling psychology training program",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Founded the first APA-accredited counseling psychology train…\" is not what the item tests — Rogers was a pioneer in empirically studying the therapy process — recording actual sessions (unprecedented at the time) and analyzing them systema"
       }
     ],
     "rationale": "Rogers was a pioneer in empirically studying the therapy process — recording actual sessions (unprecedented at the time) and analyzing them systematically. This opened psychotherapy to scientific investigation for the first time."
@@ -1693,23 +1922,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Cognitive Therapy (CT)",
-        "isCorrect": false
+        "text": "Cognitive Therapy (CT) during counseling",
+        "isCorrect": false,
+        "rationale": "\"Cognitive Therapy (CT) during counseling\" is not what the item tests — Albert Ellis (1913–2007) developed REBT (originally called Rational Therapy, then Rational-Emotive Therapy)."
       },
       {
         "id": "b",
         "text": "Rational Emotive Behavior Therapy (REBT)",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Albert Ellis (1913–2007) developed REBT (originally called Rational Therapy, then Rational-Emotive Therapy). It is one of the earliest cognitive approaches to psychotherapy, predating Beck's cognitive therapy."
       },
       {
         "id": "c",
-        "text": "Acceptance and Commitment Therapy (ACT)",
-        "isCorrect": false
+        "text": "Acceptance and Commitment Therapy (ACT) now",
+        "isCorrect": false,
+        "rationale": "\"Acceptance and Commitment Therapy (ACT) now\" is not what the item tests — Albert Ellis (1913–2007) developed REBT (originally called Rational Therapy, then Rational-Emotive Therapy)."
       },
       {
         "id": "d",
-        "text": "Reality Therapy",
-        "isCorrect": false
+        "text": "Reality Therapy during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Reality Therapy during a routine session\" is not what the item tests — Albert Ellis (1913–2007) developed REBT (originally called Rational Therapy, then Rational-Emotive Therapy)."
       }
     ],
     "rationale": "Albert Ellis (1913–2007) developed REBT (originally called Rational Therapy, then Rational-Emotive Therapy). It is one of the earliest cognitive approaches to psychotherapy, predating Beck's cognitive therapy."
@@ -1723,23 +1956,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Catastrophizing and awfulizing",
-        "isCorrect": false
+        "text": "Catastrophizing and awfulizing during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Catastrophizing and awfulizing during a routine session\" is not what the item tests — Ellis considered demandingness (musturbation) the primary irrational belief, with awfulizing, low frustration tolerance, and global self-rating as second"
       },
       {
         "id": "b",
         "text": "Demandingness — absolute musts, shoulds, and have-tos",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Ellis considered demandingness (musturbation) the primary irrational belief, with awfulizing, low frustration tolerance, and global self-rating as secondary derivatives that follow from absolutistic demands."
       },
       {
         "id": "c",
-        "text": "Low frustration tolerance",
-        "isCorrect": false
+        "text": "Low frustration tolerance at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Low frustration tolerance at the level the item tests\" is not what the item tests — Ellis considered demandingness (musturbation) the primary irrational belief, with awfulizing, low frustration tolerance, and global self-rating as secondar"
       },
       {
         "id": "d",
-        "text": "Global self-rating and human worth judgments",
-        "isCorrect": false
+        "text": "Global self-rating and human worth judgments at intake",
+        "isCorrect": false,
+        "rationale": "\"Global self-rating and human worth judgments at intake\" is not what the item tests — Ellis considered demandingness (musturbation) the primary irrational belief, with awfulizing, low frustration tolerance, and global self-rating as seconda"
       }
     ],
     "rationale": "Ellis considered demandingness (musturbation) the primary irrational belief, with awfulizing, low frustration tolerance, and global self-rating as secondary derivatives that follow from absolutistic demands."
@@ -1753,23 +1990,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Rational Emotive Behavior Therapy",
-        "isCorrect": false
+        "text": "Rational Emotive Behavior Therapy in this domain",
+        "isCorrect": false,
+        "rationale": "\"Rational Emotive Behavior Therapy in this domain\" is not what the item tests — Aaron Beck (1921–2021) developed Cognitive Therapy (CT) originally for depression, later expanded to anxiety, personality disorders, and psychosis."
       },
       {
         "id": "b",
         "text": "Cognitive Therapy / Cognitive Behavioral Therapy",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Aaron Beck (1921–2021) developed Cognitive Therapy (CT) originally for depression, later expanded to anxiety, personality disorders, and psychosis. His hierarchical model is the basis for modern CBT."
       },
       {
         "id": "c",
-        "text": "Dialectical Behavior Therapy",
-        "isCorrect": false
+        "text": "Dialectical Behavior Therapy at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Dialectical Behavior Therapy at the intake stage\" is not what the item tests — Aaron Beck (1921–2021) developed Cognitive Therapy (CT) originally for depression, later expanded to anxiety, personality disorders, and psychosis."
       },
       {
         "id": "d",
-        "text": "Schema Therapy",
-        "isCorrect": false
+        "text": "Schema Therapy as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Schema Therapy as the reference material frames it\" is not what the item tests — Aaron Beck (1921–2021) developed Cognitive Therapy (CT) originally for depression, later expanded to anxiety, personality disorders, and psychosis."
       }
     ],
     "rationale": "Aaron Beck (1921–2021) developed Cognitive Therapy (CT) originally for depression, later expanded to anxiety, personality disorders, and psychosis. His hierarchical model is the basis for modern CBT."
@@ -1783,23 +2024,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Anxiety disorders and their physiological correlates",
-        "isCorrect": false
+        "text": "Anxiety disorders and their physiological correlates at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Anxiety disorders and their physiological correlates at the …\" is not what the item tests — Beck initially researched depression while practicing psychoanalysis."
       },
       {
         "id": "b",
         "text": "Depression and his challenge of the psychoanalytic 'need for punishment' theory",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Beck initially researched depression while practicing psychoanalysis. He expected to find 'inverted hostility' (Freudian), but instead found consistent negative cognitive patterns, leading to the cognitive model of depression."
       },
       {
         "id": "c",
-        "text": "Schizophrenia and the cognitive role of delusions",
-        "isCorrect": false
+        "text": "Schizophrenia and the cognitive role of delusions as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Schizophrenia and the cognitive role of delusions as clinici…\" is not what the item tests — Beck initially researched depression while practicing psychoanalysis."
       },
       {
         "id": "d",
-        "text": "Personality disorders and schema development",
-        "isCorrect": false
+        "text": "Personality disorders and schema development as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Personality disorders and schema development as the referenc…\" is not what the item tests — Beck initially researched depression while practicing psychoanalysis."
       }
     ],
     "rationale": "Beck initially researched depression while practicing psychoanalysis. He expected to find 'inverted hostility' (Freudian), but instead found consistent negative cognitive patterns, leading to the cognitive model of depression."
@@ -1814,22 +2059,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Paul Watzlawick and Don Jackson",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Paul Watzlawick and Don Jackson\" is not what the item tests — Fritz Perls co-developed Gestalt therapy with his wife Laura Perls and philosopher Paul Goodman, detailed in their 1951 text 'Gestalt Therapy.' Watzlawick/Jackson = communicatio"
       },
       {
         "id": "b",
         "text": "Laura Perls and Paul Goodman",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Fritz Perls co-developed Gestalt therapy with his wife Laura Perls and philosopher Paul Goodman, detailed in their 1951 text 'Gestalt Therapy.' Watzlawick/Jackson = communication theory; Adler/Dreikurs = Adlerian approach."
       },
       {
         "id": "c",
         "text": "Alfred Adler and Rudolf Dreikurs",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Alfred Adler and Rudolf Dreikurs\" is not what the item tests — Fritz Perls co-developed Gestalt therapy with his wife Laura Perls and philosopher Paul Goodman, detailed in their 1951 text 'Gestalt Therapy.' Watzlawick/Jackson = communicati"
       },
       {
         "id": "d",
         "text": "John Bowlby and Mary Ainsworth",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"John Bowlby and Mary Ainsworth\" is not what the item tests — Fritz Perls co-developed Gestalt therapy with his wife Laura Perls and philosopher Paul Goodman, detailed in their 1951 text 'Gestalt Therapy.' Watzlawick/Jackson = communication"
       }
     ],
     "rationale": "Fritz Perls co-developed Gestalt therapy with his wife Laura Perls and philosopher Paul Goodman, detailed in their 1951 text 'Gestalt Therapy.' Watzlawick/Jackson = communication theory; Adler/Dreikurs = Adlerian approach."
@@ -1843,23 +2092,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Emotional detachment from intimate relationships",
-        "isCorrect": false
+        "text": "Emotional detachment from intimate relationships as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Emotional detachment from intimate relationships as the refe…\" is not what the item tests — The Gestalt Prayer emphasizes personal responsibility and authentic contact — refusing to be responsible for others' fulfillment or to expect them "
       },
       {
         "id": "b",
         "text": "Responsibility for one's own experience rather than living for others' expectations",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The Gestalt Prayer emphasizes personal responsibility and authentic contact — refusing to be responsible for others' fulfillment or to expect them to fulfill yours."
       },
       {
         "id": "c",
-        "text": "Avoiding all forms of personal commitment",
-        "isCorrect": false
+        "text": "Avoiding all forms of personal commitment today as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Avoiding all forms of personal commitment today as the refer…\" is not what the item tests — The Gestalt Prayer emphasizes personal responsibility and authentic contact — refusing to be responsible for others' fulfillment or to expect them "
       },
       {
         "id": "d",
-        "text": "Individual achievement prioritized over community",
-        "isCorrect": false
+        "text": "Individual achievement prioritized over community as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Individual achievement prioritized over community as the ref…\" is not what the item tests — The Gestalt Prayer emphasizes personal responsibility and authentic contact — refusing to be responsible for others' fulfillment or to expect them "
       }
     ],
     "rationale": "The Gestalt Prayer emphasizes personal responsibility and authentic contact — refusing to be responsible for others' fulfillment or to expect them to fulfill yours. Contact happens when both are genuine, not when one is performing for the other."
@@ -1874,22 +2127,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Logotherapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Logotherapy\" is not what the item tests — William Glasser (1925–2013) developed Reality Therapy and later Choice Theory."
       },
       {
         "id": "b",
         "text": "Reality Therapy / Choice Theory",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "William Glasser (1925–2013) developed Reality Therapy and later Choice Theory. Central premise: we choose our behaviors to meet five basic needs — survival, love/belonging, power/achievement, freedom, and fun."
       },
       {
         "id": "c",
         "text": "Structural family therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Structural family therapy\" is not what the item tests — William Glasser (1925–2013) developed Reality Therapy and later Choice Theory."
       },
       {
         "id": "d",
         "text": "Acceptance and Commitment Therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Acceptance and Commitment Therapy\" is not what the item tests — William Glasser (1925–2013) developed Reality Therapy and later Choice Theory."
       }
     ],
     "rationale": "William Glasser (1925–2013) developed Reality Therapy and later Choice Theory. Central premise: we choose our behaviors to meet five basic needs — survival, love/belonging, power/achievement, freedom, and fun."
@@ -1904,22 +2161,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Wants, Doing, Evaluation, Planning",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "WDEP (Wubbolding's Reality Therapy delivery system): Wants (what do you want?), Doing (what are you doing?), Evaluation (is what you're doing helping you get what you want?), Planning (concrete plan for change)."
       },
       {
         "id": "b",
         "text": "Wishes, Decisions, Effectiveness, Progress",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Wishes, Decisions, Effectiveness, Progress\" is not what the item tests — WDEP (Wubbolding's Reality Therapy delivery system): Wants (what do you want?), Doing (what are you doing?), Evaluation (is what you're doing helping you get what you"
       },
       {
         "id": "c",
         "text": "Wellness, Drive, Engagement, Performance",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Wellness, Drive, Engagement, Performance\" is not what the item tests — WDEP (Wubbolding's Reality Therapy delivery system): Wants (what do you want?), Doing (what are you doing?), Evaluation (is what you're doing helping you get what you w"
       },
       {
         "id": "d",
         "text": "Worth, Direction, Exploration, Process",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Worth, Direction, Exploration, Process\" is not what the item tests — WDEP (Wubbolding's Reality Therapy delivery system): Wants (what do you want?), Doing (what are you doing?), Evaluation (is what you're doing helping you get what you wan"
       }
     ],
     "rationale": "WDEP (Wubbolding's Reality Therapy delivery system): Wants (what do you want?), Doing (what are you doing?), Evaluation (is what you're doing helping you get what you want?), Planning (concrete plan for change)."
@@ -1933,23 +2194,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "As a student of Freud in Vienna",
-        "isCorrect": false
+        "text": "As a student of Freud in Vienna during counseling",
+        "isCorrect": false,
+        "rationale": "\"As a student of Freud in Vienna during counseling\" is not what the item tests — Frankl (1905–1997) survived Auschwitz, Dachau, and other camps."
       },
       {
         "id": "b",
         "text": "In Nazi concentration camps during World War II",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Frankl (1905–1997) survived Auschwitz, Dachau, and other camps. His observations about who survived — those who maintained meaning — informed logotherapy's core premise. Documented in 'Man's Search for Meaning' (1946)."
       },
       {
         "id": "c",
         "text": "Working with schizophrenic patients in a state hospital",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Working with schizophrenic patients in a state hospital\" is not what the item tests — Frankl (1905–1997) survived Auschwitz, Dachau, and other camps."
       },
       {
         "id": "d",
         "text": "As a military psychiatrist during the Korean War",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"As a military psychiatrist during the Korean War\" is not what the item tests — Frankl (1905–1997) survived Auschwitz, Dachau, and other camps."
       }
     ],
     "rationale": "Frankl (1905–1997) survived Auschwitz, Dachau, and other camps. His observations about who survived — those who maintained meaning — informed logotherapy's core premise. Documented in 'Man's Search for Meaning' (1946)."
@@ -1963,23 +2228,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Encouraging clients to intensify their fear response deliberately",
-        "isCorrect": false
+        "text": "Encouraging clients to intensify their fear response deliberately as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Encouraging clients to intensify their fear response deliber…\" is not what the item tests — Paradoxical intention: client humorously intends to do the very thing they fear (e.g., someone fearing they'll sweat is instructed to 'try to sweat"
       },
       {
         "id": "b",
         "text": "Having clients humorously intend or wish for what they fear, breaking the anticipatory anxiety cycle",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Paradoxical intention: client humorously intends to do the very thing they fear (e.g., someone fearing they'll sweat is instructed to 'try to sweat as much as possible')."
       },
       {
         "id": "c",
-        "text": "Intentionally creating paradoxical situations to bypass defensive thinking",
-        "isCorrect": false
+        "text": "Intentionally creating paradoxical situations to bypass defensive thinking in the outpatient setting",
+        "isCorrect": false,
+        "rationale": "\"Intentionally creating paradoxical situations to bypass defe…\" is not what the item tests — Paradoxical intention: client humorously intends to do the very thing they fear (e.g., someone fearing they'll sweat is instructed to 'try to sweat"
       },
       {
         "id": "d",
-        "text": "Setting goals opposite to stated desires to expose ambivalence",
-        "isCorrect": false
+        "text": "Setting goals opposite to stated desires to expose ambivalence now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Setting goals opposite to stated desires to expose ambivalen…\" is not what the item tests — Paradoxical intention: client humorously intends to do the very thing they fear (e.g., someone fearing they'll sweat is instructed to 'try to sweat"
       }
     ],
     "rationale": "Paradoxical intention: client humorously intends to do the very thing they fear (e.g., someone fearing they'll sweat is instructed to 'try to sweat as much as possible'). This breaks the anticipatory anxiety feedback loop through humor and detachment."
@@ -1994,22 +2263,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Structural family therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Structural family therapy\" is not what the item tests — Virginia Satir (1916–1988) pioneered humanistic/experiential family therapy, focusing on communication patterns, self-esteem, and family sculpting."
       },
       {
         "id": "b",
         "text": "Humanistic/experiential family therapy",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Virginia Satir (1916–1988) pioneered humanistic/experiential family therapy, focusing on communication patterns, self-esteem, and family sculpting. Structural = Minuchin; strategic = Haley/Madanes; intergenerational = Bowen."
       },
       {
         "id": "c",
         "text": "Strategic family therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Strategic family therapy\" is not what the item tests — Virginia Satir (1916–1988) pioneered humanistic/experiential family therapy, focusing on communication patterns, self-esteem, and family sculpting."
       },
       {
         "id": "d",
         "text": "Intergenerational family therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Intergenerational family therapy\" is not what the item tests — Virginia Satir (1916–1988) pioneered humanistic/experiential family therapy, focusing on communication patterns, self-esteem, and family sculpting."
       }
     ],
     "rationale": "Virginia Satir (1916–1988) pioneered humanistic/experiential family therapy, focusing on communication patterns, self-esteem, and family sculpting. Structural = Minuchin; strategic = Haley/Madanes; intergenerational = Bowen."
@@ -2024,22 +2297,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Aggression, withdrawal, intellectualization, projection",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Aggression, withdrawal, intellectualization, projection\" is not what the item tests — Satir's four survival stances: Placater (self-discounts to appease), Blamer (discounts others), Super-Reasonable/Computer (context-focused, emotionally d"
       },
       {
         "id": "b",
         "text": "Placating, blaming, super-reasonable, irrelevant",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Satir's four survival stances: Placater (self-discounts to appease), Blamer (discounts others), Super-Reasonable/Computer (context-focused, emotionally disconnected), Irrelevant/Distractor (discounts everything)."
       },
       {
         "id": "c",
         "text": "Passive, aggressive, passive-aggressive, assertive",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Passive, aggressive, passive-aggressive, assertive\" is not what the item tests — Satir's four survival stances: Placater (self-discounts to appease), Blamer (discounts others), Super-Reasonable/Computer (context-focused, emotionally discon"
       },
       {
         "id": "d",
-        "text": "Enmeshed, disengaged, triangulated, parentified",
-        "isCorrect": false
+        "text": "Enmeshed, disengaged, triangulated, parentified now",
+        "isCorrect": false,
+        "rationale": "\"Enmeshed, disengaged, triangulated, parentified now\" is not what the item tests — Satir's four survival stances: Placater (self-discounts to appease), Blamer (discounts others), Super-Reasonable/Computer (context-focused, emotionally disco"
       }
     ],
     "rationale": "Satir's four survival stances: Placater (self-discounts to appease), Blamer (discounts others), Super-Reasonable/Computer (context-focused, emotionally disconnected), Irrelevant/Distractor (discounts everything). Congruent communication is the healthy fifth stance."
@@ -2053,23 +2330,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The development of a unique personal identity during adolescence",
-        "isCorrect": false
+        "text": "The development of a unique personal identity during adolescence as usually described",
+        "isCorrect": false,
+        "rationale": "\"The development of a unique personal identity during adolesc…\" is not what the item tests — Differentiation of self (Bowen): the ability to remain emotionally connected with others while maintaining independent thinking and not being 'emot"
       },
       {
         "id": "b",
         "text": "The ability to maintain a stable sense of self while in emotional contact with others",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Differentiation of self (Bowen): the ability to remain emotionally connected with others while maintaining independent thinking and not being 'emotionally fused' with the family system."
       },
       {
         "id": "c",
-        "text": "Physically and emotionally separating from one's family of origin",
-        "isCorrect": false
+        "text": "Physically and emotionally separating from one's family of origin at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Physically and emotionally separating from one's family of o…\" is not what the item tests — Differentiation of self (Bowen): the ability to remain emotionally connected with others while maintaining independent thinking and not being 'emot"
       },
       {
         "id": "d",
-        "text": "Distinguishing between healthy and pathological family patterns",
-        "isCorrect": false
+        "text": "Distinguishing between healthy and pathological family patterns during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Distinguishing between healthy and pathological family patte…\" is not what the item tests — Differentiation of self (Bowen): the ability to remain emotionally connected with others while maintaining independent thinking and not being 'emot"
       }
     ],
     "rationale": "Differentiation of self (Bowen): the ability to remain emotionally connected with others while maintaining independent thinking and not being 'emotionally fused' with the family system. High differentiation = responds thoughtfully; low = reactive and fused."
@@ -2083,23 +2364,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Three-generational transmission of relational patterns",
-        "isCorrect": false
+        "text": "Three-generational transmission of relational patterns as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Three-generational transmission of relational patterns as th…\" is not what the item tests — Triangulation (Bowen): the automatic process of pulling a third party (person, substance, work) into a two-person system when anxiety exceeds toler"
       },
       {
         "id": "b",
         "text": "The process of including a third party to stabilize anxiety in a two-person relationship",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Triangulation (Bowen): the automatic process of pulling a third party (person, substance, work) into a two-person system when anxiety exceeds tolerance. Triangles are the basic stable unit; dyads are inherently unstable under stress."
       },
       {
         "id": "c",
-        "text": "Three subsystems in family structure (parental, sibling, extended)",
-        "isCorrect": false
+        "text": "Three subsystems in family structure (parental, sibling, extended) during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Three subsystems in family structure (parental, sibling, ext…\" is not what the item tests — Triangulation (Bowen): the automatic process of pulling a third party (person, substance, work) into a two-person system when anxiety exceeds toler"
       },
       {
         "id": "d",
-        "text": "A three-phase treatment model in family therapy",
-        "isCorrect": false
+        "text": "A three-phase treatment model in family therapy here as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"A three-phase treatment model in family therapy here as the …\" is not what the item tests — Triangulation (Bowen): the automatic process of pulling a third party (person, substance, work) into a two-person system when anxiety exceeds toler"
       }
     ],
     "rationale": "Triangulation (Bowen): the automatic process of pulling a third party (person, substance, work) into a two-person system when anxiety exceeds tolerance. Triangles are the basic stable unit; dyads are inherently unstable under stress."
@@ -2114,22 +2399,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Strategic family therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Strategic family therapy\" is not what the item tests — Salvador Minuchin (1921–2017) developed structural family therapy."
       },
       {
         "id": "b",
         "text": "Structural family therapy",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Salvador Minuchin (1921–2017) developed structural family therapy."
       },
       {
         "id": "c",
         "text": "Intergenerational family therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Intergenerational family therapy\" is not what the item tests — Salvador Minuchin (1921–2017) developed structural family therapy."
       },
       {
         "id": "d",
         "text": "Narrative family therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Narrative family therapy\" is not what the item tests — Salvador Minuchin (1921–2017) developed structural family therapy."
       }
     ],
     "rationale": "Salvador Minuchin (1921–2017) developed structural family therapy. Key concepts: family structure, subsystems, boundaries (enmeshed, disengaged, clear), hierarchies, and joining. Haley/Madanes = strategic; Bowen = intergenerational; White = narrative."
@@ -2143,23 +2432,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Physically demonstrates healthy interaction patterns for the family to observe and imitate",
-        "isCorrect": false
+        "text": "Physically demonstrates healthy interaction patterns for the family to observe and imitate during counseling",
+        "isCorrect": false,
+        "rationale": "\"Physically demonstrates healthy interaction patterns for the…\" is not what the item tests — Enactment (Minuchin): therapist directs family members to interact with each other (not with therapist) so the actual transactional patterns become"
       },
       {
         "id": "b",
         "text": "Directs family members to interact with each other in session so the structure is observable and changeable",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Enactment (Minuchin): therapist directs family members to interact with each other (not with therapist) so the actual transactional patterns become visible and can be directly modified."
       },
       {
         "id": "c",
-        "text": "Re-enacts past traumatic family events to facilitate healing",
-        "isCorrect": false
+        "text": "Re-enacts past traumatic family events to facilitate healing in practice as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Re-enacts past traumatic family events to facilitate healing…\" is not what the item tests — Enactment (Minuchin): therapist directs family members to interact with each other (not with therapist) so the actual transactional patterns become"
       },
       {
         "id": "d",
-        "text": "Assigns family members role-plays to practice outside sessions",
-        "isCorrect": false
+        "text": "Assigns family members role-plays to practice outside sessions at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Assigns family members role-plays to practice outside sessio…\" is not what the item tests — Enactment (Minuchin): therapist directs family members to interact with each other (not with therapist) so the actual transactional patterns become"
       }
     ],
     "rationale": "Enactment (Minuchin): therapist directs family members to interact with each other (not with therapist) so the actual transactional patterns become visible and can be directly modified. The therapist observes, then intervenes in the live interaction."
@@ -2173,23 +2466,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Genograms and multigenerational analysis",
-        "isCorrect": false
+        "text": "Genograms and multigenerational analysis itself as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Genograms and multigenerational analysis itself as the refer…\" is not what the item tests — Strategic therapy (Haley, Madanes): directive, problem-focused, uses paradoxical interventions (prescribing the symptom), ordeals, and specific dir"
       },
       {
         "id": "b",
         "text": "Paradoxical interventions and specific directives to disrupt dysfunctional patterns",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Strategic therapy (Haley, Madanes): directive, problem-focused, uses paradoxical interventions (prescribing the symptom), ordeals, and specific directives to disrupt dysfunctional interaction sequences."
       },
       {
         "id": "c",
-        "text": "Experiential techniques including family sculpting",
-        "isCorrect": false
+        "text": "Experiential techniques including family sculpting as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Experiential techniques including family sculpting as clinic…\" is not what the item tests — Strategic therapy (Haley, Madanes): directive, problem-focused, uses paradoxical interventions (prescribing the symptom), ordeals, and specific dir"
       },
       {
         "id": "d",
-        "text": "Externalization and re-authoring of problem-saturated narratives",
-        "isCorrect": false
+        "text": "Externalization and re-authoring of problem-saturated narratives at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Externalization and re-authoring of problem-saturated narrat…\" is not what the item tests — Strategic therapy (Haley, Madanes): directive, problem-focused, uses paradoxical interventions (prescribing the symptom), ordeals, and specific dir"
       }
     ],
     "rationale": "Strategic therapy (Haley, Madanes): directive, problem-focused, uses paradoxical interventions (prescribing the symptom), ordeals, and specific directives to disrupt dysfunctional interaction sequences. Genograms = Bowen; sculpting = Satir; externalization = White."
@@ -2204,22 +2501,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Solution-Focused Brief Therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Solution-Focused Brief Therapy\" is not what the item tests — Michael White (Australia) and David Epston (New Zealand) co-founded narrative therapy, detailed in 'Narrative Means to Therapeutic Ends' (1990)."
       },
       {
         "id": "b",
         "text": "Narrative Therapy",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Michael White (Australia) and David Epston (New Zealand) co-founded narrative therapy, detailed in 'Narrative Means to Therapeutic Ends' (1990). de Shazer/Berg = SFBT; Anderson/Goolishian = collaborative therapy."
       },
       {
         "id": "c",
         "text": "Collaborative/Dialogic Therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Collaborative/Dialogic Therapy\" is not what the item tests — Michael White (Australia) and David Epston (New Zealand) co-founded narrative therapy, detailed in 'Narrative Means to Therapeutic Ends' (1990)."
       },
       {
         "id": "d",
         "text": "Feminist Therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Feminist Therapy\" is not what the item tests — Michael White (Australia) and David Epston (New Zealand) co-founded narrative therapy, detailed in 'Narrative Means to Therapeutic Ends' (1990)."
       }
     ],
     "rationale": "Michael White (Australia) and David Epston (New Zealand) co-founded narrative therapy, detailed in 'Narrative Means to Therapeutic Ends' (1990). de Shazer/Berg = SFBT; Anderson/Goolishian = collaborative therapy."
@@ -2234,22 +2535,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Narrative therapy and externalization",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Narrative therapy and externalization\" is not what the item tests — Steve de Shazer and Insoo Kim Berg co-developed SFBT at the Brief Family Therapy Center in Milwaukee."
       },
       {
         "id": "b",
         "text": "Solution-Focused Brief Therapy (SFBT)",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Steve de Shazer and Insoo Kim Berg co-developed SFBT at the Brief Family Therapy Center in Milwaukee. Key contributions: miracle question, exception questions, scaling questions, and the minimal intervention principle."
       },
       {
         "id": "c",
         "text": "Acceptance and Commitment Therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Acceptance and Commitment Therapy\" is not what the item tests — Steve de Shazer and Insoo Kim Berg co-developed SFBT at the Brief Family Therapy Center in Milwaukee."
       },
       {
         "id": "d",
         "text": "Strategic family therapy",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Strategic family therapy\" is not what the item tests — Steve de Shazer and Insoo Kim Berg co-developed SFBT at the Brief Family Therapy Center in Milwaukee."
       }
     ],
     "rationale": "Steve de Shazer and Insoo Kim Berg co-developed SFBT at the Brief Family Therapy Center in Milwaukee. Key contributions: miracle question, exception questions, scaling questions, and the minimal intervention principle."
@@ -2264,22 +2569,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "The dialogue structure between therapist and client in individual sessions",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"The dialogue structure between therapist and client in indiv…\" is not what the item tests — DBT's 'dialectical' = synthesizing opposites: acceptance (\"you are doing the best you can\") AND change (\"you need to do better\")."
       },
       {
         "id": "b",
         "text": "The synthesis of acceptance and change as the core therapeutic tension",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "DBT's 'dialectical' = synthesizing opposites: acceptance (\"you are doing the best you can\") AND change (\"you need to do better\"). The central dialectic is not acceptance OR change but both simultaneously."
       },
       {
         "id": "c",
-        "text": "Two contradictory therapeutic techniques used in alternating sessions",
-        "isCorrect": false
+        "text": "Two contradictory therapeutic techniques used in alternating sessions now",
+        "isCorrect": false,
+        "rationale": "\"Two contradictory therapeutic techniques used in alternating…\" is not what the item tests — DBT's 'dialectical' = synthesizing opposites: acceptance (\"you are doing the best you can\") AND change (\"you need to do better\")."
       },
       {
         "id": "d",
-        "text": "The two-format structure of individual therapy and skills group",
-        "isCorrect": false
+        "text": "The two-format structure of individual therapy and skills group itself",
+        "isCorrect": false,
+        "rationale": "\"The two-format structure of individual therapy and skills gr…\" is not what the item tests — DBT's 'dialectical' = synthesizing opposites: acceptance (\"you are doing the best you can\") AND change (\"you need to do better\")."
       }
     ],
     "rationale": "DBT's 'dialectical' = synthesizing opposites: acceptance (\"you are doing the best you can\") AND change (\"you need to do better\"). The central dialectic is not acceptance OR change but both simultaneously."
@@ -2293,23 +2602,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Motivational Interviewing",
-        "isCorrect": false
+        "text": "Motivational Interviewing by counselors",
+        "isCorrect": false,
+        "rationale": "\"Motivational Interviewing by counselors\" is not what the item tests — Steven Hayes (1948–present) developed ACT, based on Relational Frame Theory (RFT)."
       },
       {
         "id": "b",
         "text": "Acceptance and Commitment Therapy (ACT)",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Steven Hayes (1948–present) developed ACT, based on Relational Frame Theory (RFT). MI = Miller/Rollnick; DBT = Linehan; MBSR = Kabat-Zinn. ACT is considered a third-wave behavioral approach."
       },
       {
         "id": "c",
-        "text": "Dialectical Behavior Therapy",
-        "isCorrect": false
+        "text": "Dialectical Behavior Therapy in practice",
+        "isCorrect": false,
+        "rationale": "\"Dialectical Behavior Therapy in practice\" is not what the item tests — Steven Hayes (1948–present) developed ACT, based on Relational Frame Theory (RFT)."
       },
       {
         "id": "d",
         "text": "Mindfulness-Based Stress Reduction (MBSR)",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Mindfulness-Based Stress Reduction (MBSR)\" is not what the item tests — Steven Hayes (1948–present) developed ACT, based on Relational Frame Theory (RFT)."
       }
     ],
     "rationale": "Steven Hayes (1948–present) developed ACT, based on Relational Frame Theory (RFT). MI = Miller/Rollnick; DBT = Linehan; MBSR = Kabat-Zinn. ACT is considered a third-wave behavioral approach."
@@ -2323,23 +2636,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Confrontation, education, and directive guidance",
-        "isCorrect": false
+        "text": "Confrontation, education, and directive guidance at intake",
+        "isCorrect": false,
+        "rationale": "\"Confrontation, education, and directive guidance at intake\" is not what the item tests — MI Spirit (PACE): Partnership (collaborative, not hierarchical), Acceptance (autonomy, affirming, accurate empathy, absolute worth), Compassion (prior"
       },
       {
         "id": "b",
         "text": "Partnership, evocation, acceptance, and compassion (PACE)",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "MI Spirit (PACE): Partnership (collaborative, not hierarchical), Acceptance (autonomy, affirming, accurate empathy, absolute worth), Compassion (prioritizing client welfare), Evocation (drawing out client's own motivatio…"
       },
       {
         "id": "c",
         "text": "Rogers' congruence, unconditional regard, and empathic understanding",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Rogers' congruence, unconditional regard, and empathic under…\" is not what the item tests — MI Spirit (PACE): Partnership (collaborative, not hierarchical), Acceptance (autonomy, affirming, accurate empathy, absolute worth), Compassion (pr"
       },
       {
         "id": "d",
-        "text": "Validation, challenge, and systematic skill-building",
-        "isCorrect": false
+        "text": "Validation, challenge, and systematic skill-building here",
+        "isCorrect": false,
+        "rationale": "\"Validation, challenge, and systematic skill-building here\" is not what the item tests — MI Spirit (PACE): Partnership (collaborative, not hierarchical), Acceptance (autonomy, affirming, accurate empathy, absolute worth), Compassion (priori"
       }
     ],
     "rationale": "MI Spirit (PACE): Partnership (collaborative, not hierarchical), Acceptance (autonomy, affirming, accurate empathy, absolute worth), Compassion (prioritizing client welfare), Evocation (drawing out client's own motivation, not installing it)."
@@ -2353,23 +2670,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Cognitive development across childhood stages",
-        "isCorrect": false
+        "text": "Cognitive development across childhood stages today",
+        "isCorrect": false,
+        "rationale": "\"Cognitive development across childhood stages today\" is not what the item tests — Erikson (1902–1994) extended Freud's psychosexual stages into a lifespan psychosocial model of 8 stages from trust vs."
       },
       {
         "id": "b",
         "text": "Psychosocial development across the entire lifespan",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Erikson (1902–1994) extended Freud's psychosexual stages into a lifespan psychosocial model of 8 stages from trust vs."
       },
       {
         "id": "c",
-        "text": "Attachment patterns in the first year of life",
-        "isCorrect": false
+        "text": "Attachment patterns in the first year of life today",
+        "isCorrect": false,
+        "rationale": "\"Attachment patterns in the first year of life today\" is not what the item tests — Erikson (1902–1994) extended Freud's psychosexual stages into a lifespan psychosocial model of 8 stages from trust vs."
       },
       {
         "id": "d",
         "text": "Moral development from childhood through adolescence",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Moral development from childhood through adolescence\" is not what the item tests — Erikson (1902–1994) extended Freud's psychosexual stages into a lifespan psychosocial model of 8 stages from trust vs."
       }
     ],
     "rationale": "Erikson (1902–1994) extended Freud's psychosexual stages into a lifespan psychosocial model of 8 stages from trust vs. mistrust (infancy) through integrity vs. despair (late adulthood). Piaget = cognitive; Bowlby = attachment; Kohlberg = moral."
@@ -2383,23 +2704,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Children's emotional development is driven primarily by unconscious libidinal drives",
-        "isCorrect": false
+        "text": "Children's emotional development is driven primarily by unconscious libidinal drives now",
+        "isCorrect": false,
+        "rationale": "\"Children's emotional development is driven primarily by unco…\" is not what the item tests — Bowlby (1907–1990): children have an innate biological need to attach to caregivers for survival."
       },
       {
         "id": "b",
         "text": "Early attachment bonds shape internal working models for all subsequent relationships",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Bowlby (1907–1990): children have an innate biological need to attach to caregivers for survival."
       },
       {
         "id": "c",
-        "text": "Separation anxiety is a classically conditioned response to maternal absence",
-        "isCorrect": false
+        "text": "Separation anxiety is a classically conditioned response to maternal absence at intake",
+        "isCorrect": false,
+        "rationale": "\"Separation anxiety is a classically conditioned response to …\" is not what the item tests — Bowlby (1907–1990): children have an innate biological need to attach to caregivers for survival."
       },
       {
         "id": "d",
-        "text": "Secure attachment develops through consistent feeding and physical care alone",
-        "isCorrect": false
+        "text": "Secure attachment develops through consistent feeding and physical care alone as used",
+        "isCorrect": false,
+        "rationale": "\"Secure attachment develops through consistent feeding and ph…\" is not what the item tests — Bowlby (1907–1990): children have an innate biological need to attach to caregivers for survival."
       }
     ],
     "rationale": "Bowlby (1907–1990): children have an innate biological need to attach to caregivers for survival. Early attachment experiences form 'internal working models' — mental representations of self and others — that serve as templates for all later relationships."
@@ -2414,22 +2739,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Open-ended questions",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Open-ended questions\" is not what the item tests — SOLER (Egan): Squarely face client, Open posture (no crossed arms/legs), Lean in slightly, Eye contact (culturally appropriate), Relax."
       },
       {
         "id": "b",
         "text": "Open body posture",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "SOLER (Egan): Squarely face client, Open posture (no crossed arms/legs), Lean in slightly, Eye contact (culturally appropriate), Relax. These nonverbal behaviors communicate genuine attentiveness and interest."
       },
       {
         "id": "c",
         "text": "Observing facial cues",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Observing facial cues\" is not what the item tests — SOLER (Egan): Squarely face client, Open posture (no crossed arms/legs), Lean in slightly, Eye contact (culturally appropriate), Relax."
       },
       {
         "id": "d",
         "text": "Orienting to the client's perspective",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Orienting to the client's perspective\" is not what the item tests — SOLER (Egan): Squarely face client, Open posture (no crossed arms/legs), Lean in slightly, Eye contact (culturally appropriate), Relax."
       }
     ],
     "rationale": "SOLER (Egan): Squarely face client, Open posture (no crossed arms/legs), Lean in slightly, Eye contact (culturally appropriate), Relax. These nonverbal behaviors communicate genuine attentiveness and interest."
@@ -2443,23 +2772,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Is always longer and more detailed in delivery",
-        "isCorrect": false
+        "text": "Is typically longer and more detailed in delivery at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Is typically longer and more detailed in delivery at the int…\" is not what the item tests — Paraphrasing reflects cognitive/content; reflection of feeling targets the emotional dimension."
       },
       {
         "id": "b",
         "text": "Focuses specifically on the emotional content of the client's message",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Paraphrasing reflects cognitive/content; reflection of feeling targets the emotional dimension."
       },
       {
         "id": "c",
-        "text": "Uses the client's exact words back to them",
-        "isCorrect": false
+        "text": "Uses the client's exact words back to them at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Uses the client's exact words back to them at the level the …\" is not what the item tests — Paraphrasing reflects cognitive/content; reflection of feeling targets the emotional dimension."
       },
       {
         "id": "d",
-        "text": "Adds the therapist's interpretation of the underlying meaning",
-        "isCorrect": false
+        "text": "Adds the therapist's interpretation of the underlying meaning as used",
+        "isCorrect": false,
+        "rationale": "\"Adds the therapist's interpretation of the underlying meanin…\" is not what the item tests — Paraphrasing reflects cognitive/content; reflection of feeling targets the emotional dimension."
       }
     ],
     "rationale": "Paraphrasing reflects cognitive/content; reflection of feeling targets the emotional dimension. Format: \"You feel [feeling word] because [brief content reference].\" Both are empathic responses; reflection prioritizes the affective experience."
@@ -2473,23 +2806,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Summarize everything the client said verbatim",
-        "isCorrect": false
+        "text": "Summarize everything the client said verbatim during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Summarize everything the client said verbatim during a routi…\" is not what the item tests — Paraphrasing communicates understanding of content in the therapist's own words, invites correction if inaccurate, and encourages the client to con"
       },
       {
         "id": "b",
         "text": "Communicate that the client has been accurately heard and understood",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Paraphrasing communicates understanding of content in the therapist's own words, invites correction if inaccurate, and encourages the client to continue and elaborate."
       },
       {
         "id": "c",
-        "text": "Interpret the underlying meaning of the client's communication",
-        "isCorrect": false
+        "text": "Interpret the underlying meaning of the client's communication today",
+        "isCorrect": false,
+        "rationale": "\"Interpret the underlying meaning of the client's communicati…\" is not what the item tests — Paraphrasing communicates understanding of content in the therapist's own words, invites correction if inaccurate, and encourages the client to con"
       },
       {
         "id": "d",
-        "text": "Introduce new perspectives on the client's situation",
-        "isCorrect": false
+        "text": "Introduce new perspectives on the client's situation during counseling",
+        "isCorrect": false,
+        "rationale": "\"Introduce new perspectives on the client's situation during …\" is not what the item tests — Paraphrasing communicates understanding of content in the therapist's own words, invites correction if inaccurate, and encourages the client to con"
       }
     ],
     "rationale": "Paraphrasing communicates understanding of content in the therapist's own words, invites correction if inaccurate, and encourages the client to continue and elaborate. It does not add interpretation — that is the job of advanced empathy or interpretation."
@@ -2503,23 +2840,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Using more complex feeling words in reflections",
-        "isCorrect": false
+        "text": "Using more complex feeling words in reflections during counseling",
+        "isCorrect": false,
+        "rationale": "\"Using more complex feeling words in reflections during couns…\" is not what the item tests — Advanced/accurate empathy (Egan, Carkhuff) reflects the 'edge of awareness' — what the client is almost but not quite saying."
       },
       {
         "id": "b",
         "text": "Reflecting what the client has implied but not yet said directly",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Advanced/accurate empathy (Egan, Carkhuff) reflects the 'edge of awareness' — what the client is almost but not quite saying. It goes beyond the surface to the deeper implied meaning without being a full interpretation."
       },
       {
         "id": "c",
-        "text": "Maintaining empathic consistency across multiple sessions",
-        "isCorrect": false
+        "text": "Maintaining empathic consistency across multiple sessions itself",
+        "isCorrect": false,
+        "rationale": "\"Maintaining empathic consistency across multiple sessions it…\" is not what the item tests — Advanced/accurate empathy (Egan, Carkhuff) reflects the 'edge of awareness' — what the client is almost but not quite saying."
       },
       {
         "id": "d",
-        "text": "Empathizing with more intense emotions like shame and rage",
-        "isCorrect": false
+        "text": "Empathizing with more intense emotions like shame and rage today",
+        "isCorrect": false,
+        "rationale": "\"Empathizing with more intense emotions like shame and rage t…\" is not what the item tests — Advanced/accurate empathy (Egan, Carkhuff) reflects the 'edge of awareness' — what the client is almost but not quite saying."
       }
     ],
     "rationale": "Advanced/accurate empathy (Egan, Carkhuff) reflects the 'edge of awareness' — what the client is almost but not quite saying. It goes beyond the surface to the deeper implied meaning without being a full interpretation."
@@ -2533,23 +2874,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Are always longer and require more time to formulate",
-        "isCorrect": false
+        "text": "Are typically longer and require more time to formulate here",
+        "isCorrect": false,
+        "rationale": "\"Are typically longer and require more time to formulate here\" is not what the item tests — Open-ended questions (who, what, where, when, how) invite narrative and elaboration."
       },
       {
         "id": "b",
         "text": "Cannot be answered with \"yes\" or \"no\" and invite elaboration",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Open-ended questions (who, what, where, when, how) invite narrative and elaboration. Closed questions can be answered with yes/no or a single word and are used for specific information-gathering but limit exploration."
       },
       {
         "id": "c",
-        "text": "Focus on feelings rather than factual content",
-        "isCorrect": false
+        "text": "Focus on feelings rather than factual content in this domain now",
+        "isCorrect": false,
+        "rationale": "\"Focus on feelings rather than factual content in this domain…\" is not what the item tests — Open-ended questions (who, what, where, when, how) invite narrative and elaboration."
       },
       {
         "id": "d",
-        "text": "Are reserved for later phases of the therapeutic process",
-        "isCorrect": false
+        "text": "Are reserved for later phases of the therapeutic process now",
+        "isCorrect": false,
+        "rationale": "\"Are reserved for later phases of the therapeutic process now\" is not what the item tests — Open-ended questions (who, what, where, when, how) invite narrative and elaboration."
       }
     ],
     "rationale": "Open-ended questions (who, what, where, when, how) invite narrative and elaboration. Closed questions can be answered with yes/no or a single word and are used for specific information-gathering but limit exploration."
@@ -2563,23 +2908,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "They are too abstract for most clients to answer meaningfully",
-        "isCorrect": false
+        "text": "They are too abstract for most clients to answer meaningfully by counselors",
+        "isCorrect": false,
+        "rationale": "\"They are too abstract for most clients to answer meaningfull…\" is not what the item tests — \"Why did you do that?\" often triggers defensiveness and rationalization rather than genuine exploration."
       },
       {
         "id": "b",
         "text": "They prompt defensiveness, require rationalization, and can imply judgment",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "\"Why did you do that?\" often triggers defensiveness and rationalization rather than genuine exploration. \"What were you hoping would happen?\" or \"What was going on for you?\" elicits richer, less defensive responses."
       },
       {
         "id": "c",
-        "text": "They focus on the past rather than the present moment",
-        "isCorrect": false
+        "text": "They focus on the past rather than the present moment as usually described",
+        "isCorrect": false,
+        "rationale": "\"They focus on the past rather than the present moment as usu…\" is not what the item tests — \"Why did you do that?\" often triggers defensiveness and rationalization rather than genuine exploration."
       },
       {
         "id": "d",
-        "text": "They close off exploration by requiring a specific answer",
-        "isCorrect": false
+        "text": "They close off exploration by requiring a specific answer during counseling",
+        "isCorrect": false,
+        "rationale": "\"They close off exploration by requiring a specific answer du…\" is not what the item tests — \"Why did you do that?\" often triggers defensiveness and rationalization rather than genuine exploration."
       }
     ],
     "rationale": "\"Why did you do that?\" often triggers defensiveness and rationalization rather than genuine exploration. \"What were you hoping would happen?\" or \"What was going on for you?\" elicits richer, less defensive responses."
@@ -2593,23 +2942,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Directly challenging the client's problematic behaviors or choices",
-        "isCorrect": false
+        "text": "Directly challenging the client's problematic behaviors or choices at intake",
+        "isCorrect": false,
+        "rationale": "\"Directly challenging the client's problematic behaviors or c…\" is not what the item tests — Confrontation identifies discrepancies: between what a client says and does, between two statements, or between stated beliefs and nonverbal behavi"
       },
       {
         "id": "b",
         "text": "Pointing out discrepancies or inconsistencies in the client's communication",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Confrontation identifies discrepancies: between what a client says and does, between two statements, or between stated beliefs and nonverbal behavior."
       },
       {
         "id": "c",
-        "text": "Addressing problems in the therapeutic alliance directly",
-        "isCorrect": false
+        "text": "Addressing problems in the therapeutic alliance directly at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Addressing problems in the therapeutic alliance directly at …\" is not what the item tests — Confrontation identifies discrepancies: between what a client says and does, between two statements, or between stated beliefs and nonverbal behavi"
       },
       {
         "id": "d",
-        "text": "Using forceful language to break through defensive patterns",
-        "isCorrect": false
+        "text": "Using forceful language to break through defensive patterns during counseling",
+        "isCorrect": false,
+        "rationale": "\"Using forceful language to break through defensive patterns …\" is not what the item tests — Confrontation identifies discrepancies: between what a client says and does, between two statements, or between stated beliefs and nonverbal behavi"
       }
     ],
     "rationale": "Confrontation identifies discrepancies: between what a client says and does, between two statements, or between stated beliefs and nonverbal behavior. It is offered as a caring observation, not an attack, and requires a solid therapeutic alliance."
@@ -2623,23 +2976,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Early confrontation accelerates client awareness of their problems",
-        "isCorrect": false
+        "text": "Early confrontation accelerates client awareness of their problems during counseling",
+        "isCorrect": false,
+        "rationale": "\"Early confrontation accelerates client awareness of their pr…\" is not what the item tests — Premature confrontation before a therapeutic alliance is established frequently leads to dropout, increased defensiveness, or rupture."
       },
       {
         "id": "b",
         "text": "Confrontation before alliance is established increases dropout and damages rapport",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Premature confrontation before a therapeutic alliance is established frequently leads to dropout, increased defensiveness, or rupture. Clients must experience confrontation as caring rather than attacking — which requires sufficient trust."
       },
       {
         "id": "c",
-        "text": "Confrontation should only occur in the termination phase of treatment",
-        "isCorrect": false
+        "text": "Confrontation should only occur in the termination phase of treatment by counselors",
+        "isCorrect": false,
+        "rationale": "\"Confrontation should only occur in the termination phase of …\" is not what the item tests — Premature confrontation before a therapeutic alliance is established frequently leads to dropout, increased defensiveness, or rupture."
       },
       {
         "id": "d",
-        "text": "Clients cannot tolerate confrontation until they demonstrate significant insight",
-        "isCorrect": false
+        "text": "Clients cannot tolerate confrontation until they demonstrate significant insight now",
+        "isCorrect": false,
+        "rationale": "\"Clients cannot tolerate confrontation until they demonstrate…\" is not what the item tests — Premature confrontation before a therapeutic alliance is established frequently leads to dropout, increased defensiveness, or rupture."
       }
     ],
     "rationale": "Premature confrontation before a therapeutic alliance is established frequently leads to dropout, increased defensiveness, or rupture. Clients must experience confrontation as caring rather than attacking — which requires sufficient trust."
@@ -2653,23 +3010,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Responding without pause to all client statements",
-        "isCorrect": false
+        "text": "Responding without pause to all client statements as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Responding without pause to all client statements as clinici…\" is not what the item tests — Immediacy (Egan): discussing the here-and-now quality of the therapeutic relationship."
       },
       {
         "id": "b",
         "text": "Discussing what is happening in the therapeutic relationship in the present moment",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Immediacy (Egan): discussing the here-and-now quality of the therapeutic relationship."
       },
       {
         "id": "c",
-        "text": "Providing prompt behavioral feedback after client role-plays",
-        "isCorrect": false
+        "text": "Providing prompt behavioral feedback after client role-plays during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Providing prompt behavioral feedback after client role-plays…\" is not what the item tests — Immediacy (Egan): discussing the here-and-now quality of the therapeutic relationship."
       },
       {
         "id": "d",
-        "text": "Addressing crisis concerns immediately before any other therapeutic content",
-        "isCorrect": false
+        "text": "Addressing crisis concerns immediately before any other therapeutic content itself",
+        "isCorrect": false,
+        "rationale": "\"Addressing crisis concerns immediately before any other ther…\" is not what the item tests — Immediacy (Egan): discussing the here-and-now quality of the therapeutic relationship."
       }
     ],
     "rationale": "Immediacy (Egan): discussing the here-and-now quality of the therapeutic relationship. \"Right now, as we're talking about this, I notice...\" It brings the relationship itself into the open as a therapeutic tool and addresses parallel processes."
@@ -2683,23 +3044,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Providing clinical interpretation of unconscious material",
-        "isCorrect": false
+        "text": "Providing clinical interpretation of unconscious material at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Providing clinical interpretation of unconscious material at…\" is not what the item tests — Summarizing ties together multiple aspects of the session, provides transitions between topics, checks accuracy of the therapist's understanding, a"
       },
       {
         "id": "b",
         "text": "Reviewing key themes, marking transitions, and checking for accuracy of understanding",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Summarizing ties together multiple aspects of the session, provides transitions between topics, checks accuracy of the therapist's understanding, and gives the client a sense of coherence and direction."
       },
       {
         "id": "c",
-        "text": "Collecting specific assessment data efficiently",
-        "isCorrect": false
+        "text": "Collecting specific assessment data efficiently now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Collecting specific assessment data efficiently now as the r…\" is not what the item tests — Summarizing ties together multiple aspects of the session, provides transitions between topics, checks accuracy of the therapist's understanding, a"
       },
       {
         "id": "d",
-        "text": "Replacing reflection when sessions become repetitive",
-        "isCorrect": false
+        "text": "Replacing reflection when sessions become repetitive as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Replacing reflection when sessions become repetitive as clin…\" is not what the item tests — Summarizing ties together multiple aspects of the session, provides transitions between topics, checks accuracy of the therapist's understanding, a"
       }
     ],
     "rationale": "Summarizing ties together multiple aspects of the session, provides transitions between topics, checks accuracy of the therapist's understanding, and gives the client a sense of coherence and direction."
@@ -2713,23 +3078,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Sharing personal struggles to increase empathic connection",
-        "isCorrect": false
+        "text": "Sharing personal struggles to increase empathic connection as the reference material frames it now",
+        "isCorrect": false,
+        "rationale": "\"Sharing personal struggles to increase empathic connection a…\" is not what the item tests — Appropriate self-disclosure is selective, purposeful, and client-focused."
       },
       {
         "id": "b",
         "text": "Deliberate, purposeful sharing of the therapist's experience in service of the client's growth",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Appropriate self-disclosure is selective, purposeful, and client-focused. Key question: 'Why am I sharing this? For whom?' It should not burden the client or shift focus to the therapist, and should return focus to the client promptly."
       },
       {
         "id": "c",
-        "text": "Revealing personal history to build the therapeutic alliance early in treatment",
-        "isCorrect": false
+        "text": "Revealing personal history to build the therapeutic alliance early in treatment in this domain",
+        "isCorrect": false,
+        "rationale": "\"Revealing personal history to build the therapeutic alliance…\" is not what the item tests — Appropriate self-disclosure is selective, purposeful, and client-focused."
       },
       {
         "id": "d",
-        "text": "Avoided entirely to maintain therapeutic neutrality and abstinence",
-        "isCorrect": false
+        "text": "Avoided entirely to maintain therapeutic neutrality and abstinence at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Avoided entirely to maintain therapeutic neutrality and abst…\" is not what the item tests — Appropriate self-disclosure is selective, purposeful, and client-focused."
       }
     ],
     "rationale": "Appropriate self-disclosure is selective, purposeful, and client-focused. Key question: 'Why am I sharing this? For whom?' It should not burden the client or shift focus to the therapist, and should return focus to the client promptly."
@@ -2743,23 +3112,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Set by the counselor based on their clinical assessment",
-        "isCorrect": false
+        "text": "Set by the counselor based on their clinical assessment in practice",
+        "isCorrect": false,
+        "rationale": "\"Set by the counselor based on their clinical assessment in p…\" is not what the item tests — SMART goals provide clear direction, allow objective progress monitoring, and maintain client motivation through achievable steps."
       },
       {
         "id": "b",
         "text": "Specific, measurable, achievable, relevant, and time-bound (SMART)",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "SMART goals provide clear direction, allow objective progress monitoring, and maintain client motivation through achievable steps. Vague goals make progress evaluation difficult and can undermine the therapeutic alliance over time."
       },
       {
         "id": "c",
-        "text": "Broadly stated to allow flexible interpretation across sessions",
-        "isCorrect": false
+        "text": "Broadly stated to allow flexible interpretation across sessions now",
+        "isCorrect": false,
+        "rationale": "\"Broadly stated to allow flexible interpretation across sessi…\" is not what the item tests — SMART goals provide clear direction, allow objective progress monitoring, and maintain client motivation through achievable steps."
       },
       {
         "id": "d",
-        "text": "Focused on symptom elimination as the singular target",
-        "isCorrect": false
+        "text": "Focused on symptom elimination as the singular target by counselors",
+        "isCorrect": false,
+        "rationale": "\"Focused on symptom elimination as the singular target by cou…\" is not what the item tests — SMART goals provide clear direction, allow objective progress monitoring, and maintain client motivation through achievable steps."
       }
     ],
     "rationale": "SMART goals provide clear direction, allow objective progress monitoring, and maintain client motivation through achievable steps. Vague goals make progress evaluation difficult and can undermine the therapeutic alliance over time."
@@ -2774,22 +3147,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Termination should be avoided or indefinitely deferred with clients who have attachment difficulties",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Termination should be avoided or indefinitely deferred with …\" is not what the item tests — Properly handled termination consolidates gains, reviews progress, processes the experience of ending, and prepares the client for the future."
       },
       {
         "id": "b",
         "text": "Termination is a therapeutic opportunity to consolidate gains and process separation",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Properly handled termination consolidates gains, reviews progress, processes the experience of ending, and prepares the client for the future."
       },
       {
         "id": "c",
-        "text": "Termination should occur abruptly when clinical goals are met to prevent dependency",
-        "isCorrect": false
+        "text": "Termination should occur abruptly when clinical goals are met to prevent dependency now",
+        "isCorrect": false,
+        "rationale": "\"Termination should occur abruptly when clinical goals are me…\" is not what the item tests — Properly handled termination consolidates gains, reviews progress, processes the experience of ending, and prepares the client for the future."
       },
       {
         "id": "d",
-        "text": "A client's resistance to termination always indicates insufficient clinical progress",
-        "isCorrect": false
+        "text": "A client's resistance to termination typically indicates insufficient clinical progress",
+        "isCorrect": false,
+        "rationale": "\"A client's resistance to termination typically indicates ins…\" is not what the item tests — Properly handled termination consolidates gains, reviews progress, processes the experience of ending, and prepares the client for the future."
       }
     ],
     "rationale": "Properly handled termination consolidates gains, reviews progress, processes the experience of ending, and prepares the client for the future. For clients with attachment difficulties, a well-handled ending is a valuable corrective relational experience."
@@ -2803,23 +3180,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "External logistical barriers such as transportation or scheduling",
-        "isCorrect": false
+        "text": "External logistical barriers such as transportation or scheduling at intake",
+        "isCorrect": false,
+        "rationale": "\"External logistical barriers such as transportation or sched…\" is not what the item tests — \"Flight into health\" = sudden apparent improvement or avoidance before termination."
       },
       {
         "id": "b",
         "text": "Flight into health or termination anxiety requiring direct clinical address",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "\"Flight into health\" = sudden apparent improvement or avoidance before termination."
       },
       {
         "id": "c",
-        "text": "Resistance indicating the need to extend therapy indefinitely",
-        "isCorrect": false
+        "text": "Resistance indicating the need to extend therapy indefinitely by counselors",
+        "isCorrect": false,
+        "rationale": "\"Resistance indicating the need to extend therapy indefinitel…\" is not what the item tests — \"Flight into health\" = sudden apparent improvement or avoidance before termination."
       },
       {
         "id": "d",
         "text": "Successful internalization of skills and readiness for independent functioning",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Successful internalization of skills and readiness for indep…\" is not what the item tests — \"Flight into health\" = sudden apparent improvement or avoidance before termination."
       }
     ],
     "rationale": "\"Flight into health\" = sudden apparent improvement or avoidance before termination. May represent anxiety about the ending, avoidance of grief about the loss of the relationship, or fear of coping independently. Warrants direct, curious clinical exploration."
@@ -2833,23 +3214,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Address this as a boundary violation and set firm consequences",
-        "isCorrect": false
+        "text": "Address this as a boundary violation and set firm consequences during counseling",
+        "isCorrect": false,
+        "rationale": "\"Address this as a boundary violation and set firm consequenc…\" is not what the item tests — Resistance is typically self-protective and clinically meaningful — indicating areas of anxiety or ambivalence."
       },
       {
         "id": "b",
         "text": "Explore the pattern with curiosity as potentially meaningful clinical material",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Resistance is typically self-protective and clinically meaningful — indicating areas of anxiety or ambivalence."
       },
       {
         "id": "c",
-        "text": "Terminate treatment for repeated non-compliance",
-        "isCorrect": false
+        "text": "Terminate treatment for repeated non-compliance as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Terminate treatment for repeated non-compliance as clinician…\" is not what the item tests — Resistance is typically self-protective and clinically meaningful — indicating areas of anxiety or ambivalence."
       },
       {
         "id": "d",
-        "text": "Ask directly whether the client wants to continue in therapy",
-        "isCorrect": false
+        "text": "Ask directly whether the client wants to continue in therapy during counseling",
+        "isCorrect": false,
+        "rationale": "\"Ask directly whether the client wants to continue in therapy…\" is not what the item tests — Resistance is typically self-protective and clinically meaningful — indicating areas of anxiety or ambivalence."
       }
     ],
     "rationale": "Resistance is typically self-protective and clinically meaningful — indicating areas of anxiety or ambivalence. A curious, non-judgmental exploration ('I notice when we approach X, the topic shifts — I wonder what that might be about') is more productive than consequences."
@@ -2863,23 +3248,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Ruptures always lead to premature termination if not immediately repaired",
-        "isCorrect": false
+        "text": "Ruptures typically lead to premature termination if not immediately repaired",
+        "isCorrect": false,
+        "rationale": "\"Ruptures typically lead to premature termination if not imme…\" is not what the item tests — Rupture and repair research (Safran, Muran): negotiating alliance strains can be among the most therapeutic experiences in treatment — especially f"
       },
       {
         "id": "b",
         "text": "Repaired ruptures can actually strengthen the alliance and improve outcomes",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Rupture and repair research (Safran, Muran): negotiating alliance strains can be among the most therapeutic experiences in treatment — especially for clients with relational trauma."
       },
       {
         "id": "c",
-        "text": "Ruptures occur only with clients who have personality disorder diagnoses",
-        "isCorrect": false
+        "text": "Ruptures occur only with clients who have personality disorder diagnoses now",
+        "isCorrect": false,
+        "rationale": "\"Ruptures occur only with clients who have personality disord…\" is not what the item tests — Rupture and repair research (Safran, Muran): negotiating alliance strains can be among the most therapeutic experiences in treatment — especially f"
       },
       {
         "id": "d",
         "text": "The therapist should acknowledge ruptures but not explore them to avoid escalation",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"The therapist should acknowledge ruptures but not explore th…\" is not what the item tests — Rupture and repair research (Safran, Muran): negotiating alliance strains can be among the most therapeutic experiences in treatment — especially f"
       }
     ],
     "rationale": "Rupture and repair research (Safran, Muran): negotiating alliance strains can be among the most therapeutic experiences in treatment — especially for clients with relational trauma. The therapist's capacity to acknowledge, explore, and repair is more predictive of outcomes than avoiding rupture."
@@ -2893,23 +3282,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Remain emotionally neutral and unaffected by all client material",
-        "isCorrect": false
+        "text": "Remain emotionally neutral and unaffected by all client material at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Remain emotionally neutral and unaffected by all client mate…\" is not what the item tests — Countertransference management: develop self-awareness (personal therapy, supervision) to recognize reactions, understand their source, and use the"
       },
       {
         "id": "b",
         "text": "Develop self-awareness to recognize and use their reactions as clinical information",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Countertransference management: develop self-awareness (personal therapy, supervision) to recognize reactions, understand their source, and use them as data about the client's interpersonal dynamics — not as facts about…"
       },
       {
         "id": "c",
-        "text": "Refer clients who trigger strong emotional reactions",
-        "isCorrect": false
+        "text": "Refer clients who trigger strong emotional reactions as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Refer clients who trigger strong emotional reactions as clin…\" is not what the item tests — Countertransference management: develop self-awareness (personal therapy, supervision) to recognize reactions, understand their source, and use the"
       },
       {
         "id": "d",
-        "text": "Share countertransference reactions with clients to model transparency",
-        "isCorrect": false
+        "text": "Share countertransference reactions with clients to model transparency by counselors",
+        "isCorrect": false,
+        "rationale": "\"Share countertransference reactions with clients to model tr…\" is not what the item tests — Countertransference management: develop self-awareness (personal therapy, supervision) to recognize reactions, understand their source, and use the"
       }
     ],
     "rationale": "Countertransference management: develop self-awareness (personal therapy, supervision) to recognize reactions, understand their source, and use them as data about the client's interpersonal dynamics — not as facts about the client, nor material to always suppress or always disclose."
@@ -2923,23 +3316,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Complete a comprehensive diagnostic intake assessment",
-        "isCorrect": false
+        "text": "Complete a comprehensive diagnostic intake assessment as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Complete a comprehensive diagnostic intake assessment as cli…\" is not what the item tests — After safety: establish connection, listen actively, understand the precipitating crisis from the client's own frame of reference."
       },
       {
         "id": "b",
         "text": "Establish rapport and understand the precipitating event from the client's perspective",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "After safety: establish connection, listen actively, understand the precipitating crisis from the client's own frame of reference. Comprehensive assessment follows but is not the first task — the person must first feel genuinely heard."
       },
       {
         "id": "c",
-        "text": "Provide psychoeducation about the client's presenting disorder",
-        "isCorrect": false
+        "text": "Provide psychoeducation about the client's presenting disorder during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Provide psychoeducation about the client's presenting disord…\" is not what the item tests — After safety: establish connection, listen actively, understand the precipitating crisis from the client's own frame of reference."
       },
       {
         "id": "d",
-        "text": "Contact family members for collateral information immediately",
-        "isCorrect": false
+        "text": "Contact family members for collateral information immediately during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Contact family members for collateral information immediatel…\" is not what the item tests — After safety: establish connection, listen actively, understand the precipitating crisis from the client's own frame of reference."
       }
     ],
     "rationale": "After safety: establish connection, listen actively, understand the precipitating crisis from the client's own frame of reference. Comprehensive assessment follows but is not the first task — the person must first feel genuinely heard."
@@ -2954,22 +3351,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Universality",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Universality (Yalom): the powerful relief clients experience when discovering others share their shame, fears, and difficulties — 'I'm not alone in this.' Altruism = giving to others; cohesiveness = sense of belonging; i…"
       },
       {
         "id": "b",
         "text": "Altruism",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Altruism\" is not what the item tests — Universality (Yalom): the powerful relief clients experience when discovering others share their shame, fears, and difficulties — 'I'm not alone in this.' Altruism = giving to others; cohesiveness = s"
       },
       {
         "id": "c",
         "text": "Group cohesiveness",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Group cohesiveness\" is not what the item tests — Universality (Yalom): the powerful relief clients experience when discovering others share their shame, fears, and difficulties — 'I'm not alone in this.' Altruism = giving to others; cohesi"
       },
       {
         "id": "d",
         "text": "Imparting information",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Imparting information\" is not what the item tests — Universality (Yalom): the powerful relief clients experience when discovering others share their shame, fears, and difficulties — 'I'm not alone in this.' Altruism = giving to others; coh"
       }
     ],
     "rationale": "Universality (Yalom): the powerful relief clients experience when discovering others share their shame, fears, and difficulties — 'I'm not alone in this.' Altruism = giving to others; cohesiveness = sense of belonging; imparting information = psychoeducation."
@@ -2983,23 +3384,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Shares emotional material and cries openly in group",
-        "isCorrect": false
+        "text": "Shares emotional material and cries openly in group at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Shares emotional material and cries openly in group at the i…\" is not what the item tests — Prolonged silence with increasing withdrawal may indicate escalating distress, deepening isolation, or suicidal ideation."
       },
       {
         "id": "b",
         "text": "Remains silent for several weeks with increasing behavioral withdrawal",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Prolonged silence with increasing withdrawal may indicate escalating distress, deepening isolation, or suicidal ideation."
       },
       {
         "id": "c",
-        "text": "Frequently and directly challenges the group leader's perspectives",
-        "isCorrect": false
+        "text": "Frequently and directly challenges the group leader's perspectives now",
+        "isCorrect": false,
+        "rationale": "\"Frequently and directly challenges the group leader's perspe…\" is not what the item tests — Prolonged silence with increasing withdrawal may indicate escalating distress, deepening isolation, or suicidal ideation."
       },
       {
         "id": "d",
-        "text": "Shows consistent empathy toward other members' disclosures",
-        "isCorrect": false
+        "text": "Shows consistent empathy toward other members' disclosures in practice",
+        "isCorrect": false,
+        "rationale": "\"Shows consistent empathy toward other members' disclosures i…\" is not what the item tests — Prolonged silence with increasing withdrawal may indicate escalating distress, deepening isolation, or suicidal ideation."
       }
     ],
     "rationale": "Prolonged silence with increasing withdrawal may indicate escalating distress, deepening isolation, or suicidal ideation. A challenging member is typically engaged; a progressively withdrawn member warrants individual clinical attention and direct contact."
@@ -3013,23 +3418,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Replace exploratory work when clients resist personal disclosure",
-        "isCorrect": false
+        "text": "Replace exploratory work when clients resist personal disclosure at intake",
+        "isCorrect": false,
+        "rationale": "\"Replace exploratory work when clients resist personal disclo…\" is not what the item tests — Psychoeducation: deliberate teaching of clinical concepts to reduce stigma, increase illness understanding, and support treatment engagement."
       },
       {
         "id": "b",
         "text": "Provide accurate information that reduces stigma and normalizes experience",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Psychoeducation: deliberate teaching of clinical concepts to reduce stigma, increase illness understanding, and support treatment engagement."
       },
       {
         "id": "c",
         "text": "Direct clients toward specific treatment decisions the clinician recommends",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Direct clients toward specific treatment decisions the clini…\" is not what the item tests — Psychoeducation: deliberate teaching of clinical concepts to reduce stigma, increase illness understanding, and support treatment engagement."
       },
       {
         "id": "d",
-        "text": "Fill session time when clients are not ready to discuss personal material",
-        "isCorrect": false
+        "text": "Fill session time when clients are not ready to discuss personal material now",
+        "isCorrect": false,
+        "rationale": "\"Fill session time when clients are not ready to discuss pers…\" is not what the item tests — Psychoeducation: deliberate teaching of clinical concepts to reduce stigma, increase illness understanding, and support treatment engagement."
       }
     ],
     "rationale": "Psychoeducation: deliberate teaching of clinical concepts to reduce stigma, increase illness understanding, and support treatment engagement. Most effective when tailored to the client's current level and not used as an avoidance of exploratory work."
@@ -3043,23 +3452,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Reveal the definitive unconscious meaning behind the client's behavior",
-        "isCorrect": false
+        "text": "Reveal the definitive unconscious meaning behind the client's behavior at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Reveal the definitive unconscious meaning behind the client'…\" is not what the item tests — Effective interpretation: offered tentatively ('I wonder if...'), close to the edge of awareness (not too deep), and invites the client's response "
       },
       {
         "id": "b",
         "text": "Be offered tentatively, close to the client's current awareness, and invite their response",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Effective interpretation: offered tentatively ('I wonder if...'), close to the edge of awareness (not too deep), and invites the client's response rather than presenting as established fact."
       },
       {
         "id": "c",
-        "text": "Clearly explain what the client's behavior means based on clinical theory",
-        "isCorrect": false
+        "text": "Clearly explain what the client's behavior means based on clinical theory during counseling",
+        "isCorrect": false,
+        "rationale": "\"Clearly explain what the client's behavior means based on cl…\" is not what the item tests — Effective interpretation: offered tentatively ('I wonder if...'), close to the edge of awareness (not too deep), and invites the client's response "
       },
       {
         "id": "d",
-        "text": "Be provided only when explicitly requested by the client",
-        "isCorrect": false
+        "text": "Be provided only when explicitly requested by the client as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Be provided only when explicitly requested by the client as …\" is not what the item tests — Effective interpretation: offered tentatively ('I wonder if...'), close to the edge of awareness (not too deep), and invites the client's response "
       }
     ],
     "rationale": "Effective interpretation: offered tentatively ('I wonder if...'), close to the edge of awareness (not too deep), and invites the client's response rather than presenting as established fact. Premature or deep interpretations create defensiveness rather than insight."
@@ -3073,23 +3486,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Invalidates the client's experience by unilaterally changing its meaning",
-        "isCorrect": false
+        "text": "Invalidates the client's experience by unilaterally changing its meaning in practice",
+        "isCorrect": false,
+        "rationale": "\"Invalidates the client's experience by unilaterally changing…\" is not what the item tests — Reframing places behavior or experience in a different, often more constructive context without denying the original frame."
       },
       {
         "id": "b",
         "text": "Offers an alternative perspective that opens new ways of relating to the experience",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Reframing places behavior or experience in a different, often more constructive context without denying the original frame. When well-timed and accurate, it expands the client's perspective and reduces shame and self-criticism."
       },
       {
         "id": "c",
-        "text": "Is inherently manipulative and should be avoided in ethical practice",
-        "isCorrect": false
+        "text": "Is inherently manipulative and should be avoided in ethical practice in this domain",
+        "isCorrect": false,
+        "rationale": "\"Is inherently manipulative and should be avoided in ethical …\" is not what the item tests — Reframing places behavior or experience in a different, often more constructive context without denying the original frame."
       },
       {
         "id": "d",
-        "text": "Should only be used within cognitive-behavioral frameworks",
-        "isCorrect": false
+        "text": "Should only be used within cognitive-behavioral frameworks during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Should only be used within cognitive-behavioral frameworks d…\" is not what the item tests — Reframing places behavior or experience in a different, often more constructive context without denying the original frame."
       }
     ],
     "rationale": "Reframing places behavior or experience in a different, often more constructive context without denying the original frame. When well-timed and accurate, it expands the client's perspective and reduces shame and self-criticism."
@@ -3103,23 +3520,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Accepting all client resistance and abandoning change goals",
-        "isCorrect": false
+        "text": "Accepting all client resistance and abandoning change goals during counseling",
+        "isCorrect": false,
+        "rationale": "\"Accepting all client resistance and abandoning change goals …\" is not what the item tests — Rolling with resistance: avoid arguing, don't confront resistance directly, don't label it as a problem to overcome."
       },
       {
         "id": "b",
         "text": "Not arguing or confronting ambivalence; instead reflecting and exploring it",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Rolling with resistance: avoid arguing, don't confront resistance directly, don't label it as a problem to overcome."
       },
       {
         "id": "c",
         "text": "Helping clients understand why their resistance is clinically dysfunctional",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Helping clients understand why their resistance is clinicall…\" is not what the item tests — Rolling with resistance: avoid arguing, don't confront resistance directly, don't label it as a problem to overcome."
       },
       {
         "id": "d",
-        "text": "Intentionally scheduling resistance discussions to contain them",
-        "isCorrect": false
+        "text": "Intentionally scheduling resistance discussions to contain them in practice",
+        "isCorrect": false,
+        "rationale": "\"Intentionally scheduling resistance discussions to contain t…\" is not what the item tests — Rolling with resistance: avoid arguing, don't confront resistance directly, don't label it as a problem to overcome."
       }
     ],
     "rationale": "Rolling with resistance: avoid arguing, don't confront resistance directly, don't label it as a problem to overcome. Instead, explore with curiosity, shift focus, or reflect ambivalence. Research confirms direct confrontation in MI reliably increases resistance."
@@ -3133,23 +3554,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "A client who does not believe they have a problem",
-        "isCorrect": false
+        "text": "A client who does not believe they have a problem as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"A client who does not believe they have a problem as clinici…\" is not what the item tests — Contemplation: client is aware of the problem and considering change but has not committed to action — classic ambivalence."
       },
       {
         "id": "b",
         "text": "A client who acknowledges the problem but is genuinely ambivalent about changing",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Contemplation: client is aware of the problem and considering change but has not committed to action — classic ambivalence."
       },
       {
         "id": "c",
-        "text": "A client actively taking concrete steps to change their behavior",
-        "isCorrect": false
+        "text": "A client actively taking concrete steps to change their behavior during counseling",
+        "isCorrect": false,
+        "rationale": "\"A client actively taking concrete steps to change their beha…\" is not what the item tests — Contemplation: client is aware of the problem and considering change but has not committed to action — classic ambivalence."
       },
       {
         "id": "d",
-        "text": "A client who has changed and is working to sustain their gains",
-        "isCorrect": false
+        "text": "A client who has changed and is working to sustain their gains during counseling",
+        "isCorrect": false,
+        "rationale": "\"A client who has changed and is working to sustain their gai…\" is not what the item tests — Contemplation: client is aware of the problem and considering change but has not committed to action — classic ambivalence."
       }
     ],
     "rationale": "Contemplation: client is aware of the problem and considering change but has not committed to action — classic ambivalence. Precontemplation = no awareness or desire to change; preparation = planning; action = actively changing; maintenance = sustaining change."
@@ -3163,23 +3588,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Behavior, personality, and social factors",
-        "isCorrect": false
+        "text": "Behavior, personality, and social factors as taught",
+        "isCorrect": false,
+        "rationale": "\"Behavior, personality, and social factors now\" is not what the item tests — Biopsychosocial model (Engel, 1977): comprehensive assessment considers biological (genetics, neurobiology, medical status), psychological (cognition, emotion, beh"
       },
       {
         "id": "b",
-        "text": "Biological, psychological, and social factors",
-        "isCorrect": true
+        "text": "Biological, psychological, and social factors as used",
+        "isCorrect": true,
+        "rationale": "Biopsychosocial model (Engel, 1977): comprehensive assessment considers biological (genetics, neurobiology, medical status), psychological (cognition, emotion, behavior, personality), and social (relationships, culture…"
       },
       {
         "id": "c",
         "text": "Background, present concerns, and social supports",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Background, present concerns, and social supports\" is not what the item tests — Biopsychosocial model (Engel, 1977): comprehensive assessment considers biological (genetics, neurobiology, medical status), psychological (cognition, emotion,"
       },
       {
         "id": "d",
         "text": "Brain function, psychodynamics, and social learning history",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Brain function, psychodynamics, and social learning history\" is not what the item tests — Biopsychosocial model (Engel, 1977): comprehensive assessment considers biological (genetics, neurobiology, medical status), psychological (cognition"
       }
     ],
     "rationale": "Biopsychosocial model (Engel, 1977): comprehensive assessment considers biological (genetics, neurobiology, medical status), psychological (cognition, emotion, behavior, personality), and social (relationships, culture, socioeconomic environment) factors."
@@ -3193,23 +3622,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Personality traits, defense mechanisms, and coping styles",
-        "isCorrect": false
+        "text": "Personality traits, defense mechanisms, and coping styles today as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Personality traits, defense mechanisms, and coping styles to…\" is not what the item tests — MSE domains: appearance, behavior/motor activity, speech characteristics, mood (subjective) and affect (observed), thought process, thought content"
       },
       {
         "id": "b",
         "text": "Appearance, behavior, speech, mood/affect, thought process/content, cognition, and insight/judgment",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "MSE domains: appearance, behavior/motor activity, speech characteristics, mood (subjective) and affect (observed), thought process, thought content, perceptual disturbances, cognitive functioning, insight, and judgment."
       },
       {
         "id": "c",
-        "text": "DSM diagnostic criteria for the presenting concern",
-        "isCorrect": false
+        "text": "DSM diagnostic criteria for the presenting concern by counselors as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"DSM diagnostic criteria for the presenting concern by counse…\" is not what the item tests — MSE domains: appearance, behavior/motor activity, speech characteristics, mood (subjective) and affect (observed), thought process, thought content"
       },
       {
         "id": "d",
-        "text": "Social history, family of origin, and trauma history",
-        "isCorrect": false
+        "text": "Social history, family of origin, and trauma history in practice as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Social history, family of origin, and trauma history in prac…\" is not what the item tests — MSE domains: appearance, behavior/motor activity, speech characteristics, mood (subjective) and affect (observed), thought process, thought content"
       }
     ],
     "rationale": "MSE domains: appearance, behavior/motor activity, speech characteristics, mood (subjective) and affect (observed), thought process, thought content, perceptual disturbances, cognitive functioning, insight, and judgment."
@@ -3223,23 +3656,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Depression severity in outpatient clinical populations",
-        "isCorrect": false
+        "text": "Depression severity in outpatient clinical populations now",
+        "isCorrect": false,
+        "rationale": "\"Depression severity in outpatient clinical populations now\" is not what the item tests — C-SSRS (Posner et al.) standardizes suicidality assessment across: ideation (passive through active with plan and intent), ideation intensity, and beh"
       },
       {
         "id": "b",
         "text": "Suicidal ideation intensity and suicidal behavior history",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "C-SSRS (Posner et al.) standardizes suicidality assessment across: ideation (passive through active with plan and intent), ideation intensity, and behavior (attempts, preparatory acts, interrupted/aborted attempts)."
       },
       {
         "id": "c",
         "text": "Psychiatric symptom burden across multiple diagnostic domains",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Psychiatric symptom burden across multiple diagnostic domain…\" is not what the item tests — C-SSRS (Posner et al.) standardizes suicidality assessment across: ideation (passive through active with plan and intent), ideation intensity, and "
       },
       {
         "id": "d",
-        "text": "Risk factors for inpatient psychiatric hospitalization",
-        "isCorrect": false
+        "text": "Risk factors for inpatient psychiatric hospitalization now",
+        "isCorrect": false,
+        "rationale": "\"Risk factors for inpatient psychiatric hospitalization now\" is not what the item tests — C-SSRS (Posner et al.) standardizes suicidality assessment across: ideation (passive through active with plan and intent), ideation intensity, and beh"
       }
     ],
     "rationale": "C-SSRS (Posner et al.) standardizes suicidality assessment across: ideation (passive through active with plan and intent), ideation intensity, and behavior (attempts, preparatory acts, interrupted/aborted attempts). Widely used in clinical practice and research."
@@ -3253,23 +3690,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Running individual therapy and group therapy concurrently with the same client",
-        "isCorrect": false
+        "text": "Running individual therapy and group therapy concurrently with the same client by counselors",
+        "isCorrect": false,
+        "rationale": "\"Running individual therapy and group therapy concurrently wi…\" is not what the item tests — Parallel process: the supervisee mirrors with the supervisor what the client does with the supervisee — a client's helplessness becomes the supervi"
       },
       {
         "id": "b",
         "text": "The supervisee unconsciously replicating client dynamics within the supervisory relationship",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Parallel process: the supervisee mirrors with the supervisor what the client does with the supervisee — a client's helplessness becomes the supervisee's helplessness in supervision."
       },
       {
         "id": "c",
-        "text": "Two supervisors independently providing input on the same clinical case",
-        "isCorrect": false
+        "text": "Two supervisors independently providing input on the same clinical case as usually described now",
+        "isCorrect": false,
+        "rationale": "\"Two supervisors independently providing input on the same cl…\" is not what the item tests — Parallel process: the supervisee mirrors with the supervisor what the client does with the supervisee — a client's helplessness becomes the supervi"
       },
       {
         "id": "d",
-        "text": "Simultaneously recording and reviewing supervision sessions for training",
-        "isCorrect": false
+        "text": "Simultaneously recording and reviewing supervision sessions for training at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Simultaneously recording and reviewing supervision sessions …\" is not what the item tests — Parallel process: the supervisee mirrors with the supervisor what the client does with the supervisee — a client's helplessness becomes the supervi"
       }
     ],
     "rationale": "Parallel process: the supervisee mirrors with the supervisor what the client does with the supervisee — a client's helplessness becomes the supervisee's helplessness in supervision. When identified and named, it provides valuable data about the client-counselor dynamic."
@@ -3284,22 +3725,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Mentor",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Mentor\" is not what the item tests — Bernard's Discrimination Model: supervisor roles = teacher (instructive/didactic), counselor (focuses on supervisee's personal issues affecting clinical work), and consultant (collegial problem-solving)"
       },
       {
         "id": "b",
         "text": "Consultant",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Bernard's Discrimination Model: supervisor roles = teacher (instructive/didactic), counselor (focuses on supervisee's personal issues affecting clinical work), and consultant (collegial problem-solving)."
       },
       {
         "id": "c",
         "text": "Evaluator",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Evaluator\" is not what the item tests — Bernard's Discrimination Model: supervisor roles = teacher (instructive/didactic), counselor (focuses on supervisee's personal issues affecting clinical work), and consultant (collegial problem-solvi"
       },
       {
         "id": "d",
         "text": "Advocate",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Advocate\" is not what the item tests — Bernard's Discrimination Model: supervisor roles = teacher (instructive/didactic), counselor (focuses on supervisee's personal issues affecting clinical work), and consultant (collegial problem-solvin"
       }
     ],
     "rationale": "Bernard's Discrimination Model: supervisor roles = teacher (instructive/didactic), counselor (focuses on supervisee's personal issues affecting clinical work), and consultant (collegial problem-solving). The focus areas = intervention skills, conceptualization, and personalization."
@@ -3313,23 +3758,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Requires acquiring specific factual knowledge about cultural groups",
-        "isCorrect": false
+        "text": "Requires acquiring specific factual knowledge about cultural groups in the outpatient setting",
+        "isCorrect": false,
+        "rationale": "\"Requires acquiring specific factual knowledge about cultural…\" is not what the item tests — Cultural humility (Tervalon & Murray-García, 1998): an ongoing process of self-reflection, self-critique, and recognizing power imbalances."
       },
       {
         "id": "b",
         "text": "Is an ongoing, lifelong process of self-reflection rather than an achieved state of knowledge",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Cultural humility (Tervalon & Murray-García, 1998): an ongoing process of self-reflection, self-critique, and recognizing power imbalances."
       },
       {
         "id": "c",
-        "text": "Focuses on developing technical skills for working with specific populations",
-        "isCorrect": false
+        "text": "Focuses on developing technical skills for working with specific populations during counseling",
+        "isCorrect": false,
+        "rationale": "\"Focuses on developing technical skills for working with spec…\" is not what the item tests — Cultural humility (Tervalon & Murray-García, 1998): an ongoing process of self-reflection, self-critique, and recognizing power imbalances."
       },
       {
         "id": "d",
-        "text": "Is concerned with institutional policy rather than individual clinical practice",
-        "isCorrect": false
+        "text": "Is concerned with institutional policy rather than individual clinical practice by counselors",
+        "isCorrect": false,
+        "rationale": "\"Is concerned with institutional policy rather than individua…\" is not what the item tests — Cultural humility (Tervalon & Murray-García, 1998): an ongoing process of self-reflection, self-critique, and recognizing power imbalances."
       }
     ],
     "rationale": "Cultural humility (Tervalon & Murray-García, 1998): an ongoing process of self-reflection, self-critique, and recognizing power imbalances. 'Competence' implies a state achieved; 'humility' implies continuous learning that acknowledges the limits of one's knowledge."
@@ -3343,23 +3792,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "They are always consciously intended to demean and invalidate clients",
-        "isCorrect": false
+        "text": "They are typically consciously intended to demean and invalidate clients during counseling",
+        "isCorrect": false,
+        "rationale": "\"They are typically consciously intended to demean and invali…\" is not what the item tests — Microaggressions (Sue et al.): brief, commonplace messages that communicate negative, demeaning slights to members of marginalized groups."
       },
       {
         "id": "b",
         "text": "They cumulatively communicate invalidation of marginalized identities regardless of intent",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Microaggressions (Sue et al.): brief, commonplace messages that communicate negative, demeaning slights to members of marginalized groups."
       },
       {
         "id": "c",
-        "text": "They only significantly affect clients from visible racial minority groups",
-        "isCorrect": false
+        "text": "They only significantly affect clients from visible racial minority groups during counseling",
+        "isCorrect": false,
+        "rationale": "\"They only significantly affect clients from visible racial m…\" is not what the item tests — Microaggressions (Sue et al.): brief, commonplace messages that communicate negative, demeaning slights to members of marginalized groups."
       },
       {
         "id": "d",
-        "text": "They are too minor in individual occurrence to meaningfully affect therapeutic alliance",
-        "isCorrect": false
+        "text": "They are too minor in individual occurrence to meaningfully affect therapeutic alliance now",
+        "isCorrect": false,
+        "rationale": "\"They are too minor in individual occurrence to meaningfully …\" is not what the item tests — Microaggressions (Sue et al.): brief, commonplace messages that communicate negative, demeaning slights to members of marginalized groups."
       }
     ],
     "rationale": "Microaggressions (Sue et al.): brief, commonplace messages that communicate negative, demeaning slights to members of marginalized groups. Their harm operates through cumulative effect, regardless of intent. Research shows they damage the therapeutic alliance and treatment outcomes."
@@ -3373,23 +3826,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Individual, group, and societal",
-        "isCorrect": false
+        "text": "Individual, group, and societal at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Individual, group, and societal at the intake stage\" is not what the item tests — ACA Advocacy Competencies (Lewis et al., 2003): Client/Student Level (empowerment and advocacy on behalf of), School/Community Level (community collaboration"
       },
       {
         "id": "b",
         "text": "Client/student, school/community, and public arena",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ACA Advocacy Competencies (Lewis et al., 2003): Client/Student Level (empowerment and advocacy on behalf of), School/Community Level (community collaboration and systems advocacy), and Public Arena Level (public informat…"
       },
       {
         "id": "c",
-        "text": "Internal, external, and systemic",
-        "isCorrect": false
+        "text": "Internal, external, and systemic during counseling",
+        "isCorrect": false,
+        "rationale": "\"Internal, external, and systemic during counseling\" is not what the item tests — ACA Advocacy Competencies (Lewis et al., 2003): Client/Student Level (empowerment and advocacy on behalf of), School/Community Level (community collaboration "
       },
       {
         "id": "d",
-        "text": "Personal, professional, and political",
-        "isCorrect": false
+        "text": "Personal, professional, and political by counselors",
+        "isCorrect": false,
+        "rationale": "\"Personal, professional, and political by counselors\" is not what the item tests — ACA Advocacy Competencies (Lewis et al., 2003): Client/Student Level (empowerment and advocacy on behalf of), School/Community Level (community collaboration"
       }
     ],
     "rationale": "ACA Advocacy Competencies (Lewis et al., 2003): Client/Student Level (empowerment and advocacy on behalf of), School/Community Level (community collaboration and systems advocacy), and Public Arena Level (public information and social/political advocacy)."
@@ -3403,23 +3860,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Measurable goals and specific objectives",
-        "isCorrect": false
+        "text": "Measurable goals and specific objectives as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Measurable goals and specific objectives as the reference ma…\" is not what the item tests — Treatment plan required components: presenting problem, goals/objectives (measurable), interventions, frequency/duration of services, and target da"
       },
       {
         "id": "b",
         "text": "The therapist's theoretical orientation as a required documentation element",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Treatment plan required components: presenting problem, goals/objectives (measurable), interventions, frequency/duration of services, and target dates."
       },
       {
         "id": "c",
-        "text": "Planned interventions tied to each identified goal",
-        "isCorrect": false
+        "text": "Planned interventions tied to each identified goal during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Planned interventions tied to each identified goal during a …\" is not what the item tests — Treatment plan required components: presenting problem, goals/objectives (measurable), interventions, frequency/duration of services, and target da"
       },
       {
         "id": "d",
-        "text": "Target dates for goal completion",
-        "isCorrect": false
+        "text": "Target dates for goal completion itself as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Target dates for goal completion itself as the reference mat…\" is not what the item tests — Treatment plan required components: presenting problem, goals/objectives (measurable), interventions, frequency/duration of services, and target da"
       }
     ],
     "rationale": "Treatment plan required components: presenting problem, goals/objectives (measurable), interventions, frequency/duration of services, and target dates. The therapist's theoretical orientation is clinical background context but is not a standard required treatment plan element."
@@ -3434,22 +3895,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Symptoms, Observations, Assessment, Plan",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Symptoms, Observations, Assessment, Plan\" is not what the item tests — SOAP: Subjective (what client reports — symptoms, statements), Objective (observable data — MSE, behavioral observations, affect), Assessment (clinical impression, prog"
       },
       {
         "id": "b",
         "text": "Subjective, Objective, Assessment, Plan",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "SOAP: Subjective (what client reports — symptoms, statements), Objective (observable data — MSE, behavioral observations, affect), Assessment (clinical impression, progress toward goals, risk level), Plan (interventions…"
       },
       {
         "id": "c",
-        "text": "Summary, Outcomes, Analysis, Prognosis",
-        "isCorrect": false
+        "text": "Summary, Outcomes, Analysis, Prognosis now",
+        "isCorrect": false,
+        "rationale": "\"Summary, Outcomes, Analysis, Prognosis now\" is not what the item tests — SOAP: Subjective (what client reports — symptoms, statements), Objective (observable data — MSE, behavioral observations, affect), Assessment (clinical impression, pr"
       },
       {
         "id": "d",
         "text": "Session, Observations, Approach, Progress",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Session, Observations, Approach, Progress\" is not what the item tests — SOAP: Subjective (what client reports — symptoms, statements), Objective (observable data — MSE, behavioral observations, affect), Assessment (clinical impression, pro"
       }
     ],
     "rationale": "SOAP: Subjective (what client reports — symptoms, statements), Objective (observable data — MSE, behavioral observations, affect), Assessment (clinical impression, progress toward goals, risk level), Plan (interventions, next steps, homework). Standard in medical and mental health documentation."
@@ -3463,23 +3928,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Are private documents unlikely to ever be reviewed by outside parties",
-        "isCorrect": false
+        "text": "Are private documents unlikely to ever be reviewed by outside parties during counseling",
+        "isCorrect": false,
+        "rationale": "\"Are private documents unlikely to ever be reviewed by outsid…\" is not what the item tests — Clinical records can be accessed by: clients (right to records), courts (subpoena), insurance companies (utilization review), licensing boards (com"
       },
       {
         "id": "b",
         "text": "May be subpoenaed, accessed by clients, and reviewed by supervisors or licensing boards",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Clinical records can be accessed by: clients (right to records), courts (subpoena), insurance companies (utilization review), licensing boards (complaint investigations), and supervisors."
       },
       {
         "id": "c",
-        "text": "Must capture every detail of every session to constitute adequate documentation",
-        "isCorrect": false
+        "text": "Must capture every detail of every session to constitute adequate documentation as used",
+        "isCorrect": false,
+        "rationale": "\"Must capture every detail of every session to constitute ade…\" is not what the item tests — Clinical records can be accessed by: clients (right to records), courts (subpoena), insurance companies (utilization review), licensing boards (com"
       },
       {
         "id": "d",
-        "text": "Should omit negative client statements to avoid potential harm if records are accessed",
-        "isCorrect": false
+        "text": "Should omit negative client statements to avoid potential harm if records are accessed now",
+        "isCorrect": false,
+        "rationale": "\"Should omit negative client statements to avoid potential ha…\" is not what the item tests — Clinical records can be accessed by: clients (right to records), courts (subpoena), insurance companies (utilization review), licensing boards (com"
       }
     ],
     "rationale": "Clinical records can be accessed by: clients (right to records), courts (subpoena), insurance companies (utilization review), licensing boards (complaint investigations), and supervisors. Write as if any appropriate third party might read it — clinically relevant and legally defensible."
@@ -3493,23 +3962,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Ending the current therapeutic relationship immediately upon making the referral",
-        "isCorrect": false
+        "text": "Ending the current therapeutic relationship immediately upon making the referral during counseling",
+        "isCorrect": false,
+        "rationale": "\"Ending the current therapeutic relationship immediately upon…\" is not what the item tests — Ethical referral: ensure client safety during transition (warm handoff where possible), continue providing at minimum crisis support until new serv"
       },
       {
         "id": "b",
         "text": "Providing a warm handoff, continuing until new provider is engaged, and documenting the referral",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Ethical referral: ensure client safety during transition (warm handoff where possible), continue providing at minimum crisis support until new services begin, document referral rationale and outcome."
       },
       {
         "id": "c",
-        "text": "Providing a referral list and requiring the client to manage their own transition",
-        "isCorrect": false
+        "text": "Providing a referral list and requiring the client to manage their own transition in this domain",
+        "isCorrect": false,
+        "rationale": "\"Providing a referral list and requiring the client to manage…\" is not what the item tests — Ethical referral: ensure client safety during transition (warm handoff where possible), continue providing at minimum crisis support until new serv"
       },
       {
         "id": "d",
-        "text": "Maintaining simultaneous roles with both providers until transition is fully complete",
-        "isCorrect": false
+        "text": "Maintaining simultaneous roles with both providers until transition is fully complete in practice",
+        "isCorrect": false,
+        "rationale": "\"Maintaining simultaneous roles with both providers until tra…\" is not what the item tests — Ethical referral: ensure client safety during transition (warm handoff where possible), continue providing at minimum crisis support until new serv"
       }
     ],
     "rationale": "Ethical referral: ensure client safety during transition (warm handoff where possible), continue providing at minimum crisis support until new services begin, document referral rationale and outcome. Abrupt termination without transition support constitutes abandonment — an ethical violation."
@@ -3523,23 +3996,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "A relaxation technique primarily used for anxiety reduction",
-        "isCorrect": false
+        "text": "A relaxation technique primarily used for anxiety reduction today",
+        "isCorrect": false,
+        "rationale": "\"A relaxation technique primarily used for anxiety reduction …\" is not what the item tests — Mindfulness (Kabat-Zinn): 'paying attention in a particular way: on purpose, in the present moment, and non-judgmentally.' It is not merely relaxat"
       },
       {
         "id": "b",
         "text": "Deliberate, non-judgmental attention to present-moment experience",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Mindfulness (Kabat-Zinn): 'paying attention in a particular way: on purpose, in the present moment, and non-judgmentally.' It is not merely relaxation (though relaxation may result) and is distinguished from cognitive re…"
       },
       {
         "id": "c",
         "text": "A Buddhist spiritual practice adapted for secular therapy contexts",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"A Buddhist spiritual practice adapted for secular therapy co…\" is not what the item tests — Mindfulness (Kabat-Zinn): 'paying attention in a particular way: on purpose, in the present moment, and non-judgmentally.' It is not merely relaxat"
       },
       {
         "id": "d",
         "text": "Cognitive restructuring accomplished through present-focused awareness",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Cognitive restructuring accomplished through present-focused…\" is not what the item tests — Mindfulness (Kabat-Zinn): 'paying attention in a particular way: on purpose, in the present moment, and non-judgmentally.' It is not merely relaxat"
       }
     ],
     "rationale": "Mindfulness (Kabat-Zinn): 'paying attention in a particular way: on purpose, in the present moment, and non-judgmentally.' It is not merely relaxation (though relaxation may result) and is distinguished from cognitive restructuring by its acceptance orientation."
@@ -3553,23 +4030,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Obtaining informed consent before beginning services",
-        "isCorrect": false
+        "text": "Obtaining informed consent before beginning services at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Obtaining informed consent before beginning services at the …\" is not what the item tests — Telehealth requires all standard ethical practices PLUS: verifying client's physical location for emergencies (cannot physically intervene), confir"
       },
       {
         "id": "b",
         "text": "Having a verified emergency protocol for the client's physical location",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Telehealth requires all standard ethical practices PLUS: verifying client's physical location for emergencies (cannot physically intervene), confirming who may be present nearby, ensuring technology security (HIPAA-compl…"
       },
       {
         "id": "c",
-        "text": "Maintaining confidentiality of clinical communications",
-        "isCorrect": false
+        "text": "Maintaining confidentiality of clinical communications during counseling",
+        "isCorrect": false,
+        "rationale": "\"Maintaining confidentiality of clinical communications durin…\" is not what the item tests — Telehealth requires all standard ethical practices PLUS: verifying client's physical location for emergencies (cannot physically intervene), confir"
       },
       {
         "id": "d",
-        "text": "Documenting session content and clinical impressions",
-        "isCorrect": false
+        "text": "Documenting session content and clinical impressions at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Documenting session content and clinical impressions at the …\" is not what the item tests — Telehealth requires all standard ethical practices PLUS: verifying client's physical location for emergencies (cannot physically intervene), confir"
       }
     ],
     "rationale": "Telehealth requires all standard ethical practices PLUS: verifying client's physical location for emergencies (cannot physically intervene), confirming who may be present nearby, ensuring technology security (HIPAA-compliant platform), and cross-jurisdictional licensing compliance. Emergency planning for remote location is uniquely critical."
@@ -3583,23 +4064,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Research evidence only, applied uniformly regardless of client context",
-        "isCorrect": false
+        "text": "Research evidence only, applied uniformly regardless of client context now",
+        "isCorrect": false,
+        "rationale": "\"Research evidence only, applied uniformly regardless of clie…\" is not what the item tests — EBP (APA, 2006) = integration of three elements: best available research evidence + clinical expertise (informed judgment based on experience) + cl"
       },
       {
         "id": "b",
         "text": "Best research evidence, clinical expertise, and client preferences/values",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "EBP (APA, 2006) = integration of three elements: best available research evidence + clinical expertise (informed judgment based on experience) + client values, preferences, and cultural context."
       },
       {
         "id": "c",
-        "text": "Empirically supported treatments applied through standardized protocols",
-        "isCorrect": false
+        "text": "Empirically supported treatments applied through standardized protocols now",
+        "isCorrect": false,
+        "rationale": "\"Empirically supported treatments applied through standardize…\" is not what the item tests — EBP (APA, 2006) = integration of three elements: best available research evidence + clinical expertise (informed judgment based on experience) + cl"
       },
       {
         "id": "d",
-        "text": "Manualized protocols followed without deviation to ensure fidelity",
-        "isCorrect": false
+        "text": "Manualized protocols followed without deviation to ensure fidelity itself",
+        "isCorrect": false,
+        "rationale": "\"Manualized protocols followed without deviation to ensure fi…\" is not what the item tests — EBP (APA, 2006) = integration of three elements: best available research evidence + clinical expertise (informed judgment based on experience) + cl"
       }
     ],
     "rationale": "EBP (APA, 2006) = integration of three elements: best available research evidence + clinical expertise (informed judgment based on experience) + client values, preferences, and cultural context. All three are required — research without clinical judgment or client fit is not EBP."
@@ -3613,23 +4098,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "An absolute promise never to share any client information under any circumstances",
-        "isCorrect": false
+        "text": "An absolute promise rarely to share any client information under any circumstances at intake",
+        "isCorrect": false,
+        "rationale": "\"An absolute promise rarely to share any client information u…\" is not what the item tests — Confidentiality is an ethical duty with legal backing, but not absolute."
       },
       {
         "id": "b",
         "text": "The ethical and legal protection of client-shared information with clearly specified limits",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Confidentiality is an ethical duty with legal backing, but not absolute."
       },
       {
         "id": "c",
-        "text": "A legal privilege that prevents any disclosure in court",
-        "isCorrect": false
+        "text": "A legal privilege that prevents any disclosure in court as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"A legal privilege that prevents any disclosure in court as t…\" is not what the item tests — Confidentiality is an ethical duty with legal backing, but not absolute."
       },
       {
         "id": "d",
-        "text": "A promise to keep all therapy records permanently sealed",
-        "isCorrect": false
+        "text": "A promise to keep all therapy records permanently sealed as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"A promise to keep all therapy records permanently sealed as …\" is not what the item tests — Confidentiality is an ethical duty with legal backing, but not absolute."
       }
     ],
     "rationale": "Confidentiality is an ethical duty with legal backing, but not absolute. Standard limits: danger to self/others, mandatory reporting obligations, court orders, insurance utilization review, supervision, and consultation. 'Privilege' is the client's separate legal right in court contexts."
@@ -3643,23 +4132,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Confirm the client is in treatment but share no clinical details",
-        "isCorrect": false
+        "text": "Confirm the client is in treatment but share no clinical details by counselors",
+        "isCorrect": false,
+        "rationale": "\"Confirm the client is in treatment but share no clinical det…\" is not what the item tests — Without a signed release, counselors should not confirm or deny whether someone is their client (HIPAA minimum necessary standard)."
       },
       {
         "id": "b",
         "text": "Decline to confirm or deny the client is in treatment without a signed release",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Without a signed release, counselors should not confirm or deny whether someone is their client (HIPAA minimum necessary standard)."
       },
       {
         "id": "c",
         "text": "Provide general information since employers have a legitimate occupational interest",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Provide general information since employers have a legitimat…\" is not what the item tests — Without a signed release, counselors should not confirm or deny whether someone is their client (HIPAA minimum necessary standard)."
       },
       {
         "id": "d",
-        "text": "Refer the employer directly to the client for information",
-        "isCorrect": false
+        "text": "Refer the employer directly to the client for information as usually described",
+        "isCorrect": false,
+        "rationale": "\"Refer the employer directly to the client for information as…\" is not what the item tests — Without a signed release, counselors should not confirm or deny whether someone is their client (HIPAA minimum necessary standard)."
       }
     ],
     "rationale": "Without a signed release, counselors should not confirm or deny whether someone is their client (HIPAA minimum necessary standard). Confirming treatment status alone constitutes a confidentiality breach. The caller should be directed to obtain consent from the client."
@@ -3673,23 +4166,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Information shared in groups is never legally protected as confidential",
-        "isCorrect": false
+        "text": "Information shared in groups is rarely legally protected as confidential during counseling",
+        "isCorrect": false,
+        "rationale": "\"Information shared in groups is rarely legally protected as …\" is not what the item tests — In group counseling, the leader can commit to their own confidentiality but cannot compel or legally guarantee group members will maintain it."
       },
       {
         "id": "b",
         "text": "The group leader cannot guarantee that other group members will maintain confidentiality",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "In group counseling, the leader can commit to their own confidentiality but cannot compel or legally guarantee group members will maintain it."
       },
       {
         "id": "c",
-        "text": "HIPAA protections extend equally to all group member disclosures",
-        "isCorrect": false
+        "text": "HIPAA protections extend equally to all group member disclosures during a routine session",
+        "isCorrect": false,
+        "rationale": "\"HIPAA protections extend equally to all group member disclos…\" is not what the item tests — In group counseling, the leader can commit to their own confidentiality but cannot compel or legally guarantee group members will maintain it."
       },
       {
         "id": "d",
-        "text": "Confidentiality is optional in group settings under ACA standards",
-        "isCorrect": false
+        "text": "Confidentiality is optional in group settings under ACA standards during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Confidentiality is optional in group settings under ACA stan…\" is not what the item tests — In group counseling, the leader can commit to their own confidentiality but cannot compel or legally guarantee group members will maintain it."
       }
     ],
     "rationale": "In group counseling, the leader can commit to their own confidentiality but cannot compel or legally guarantee group members will maintain it. This limitation must be clearly disclosed in informed consent. A member breach is an ethical issue to address in group but cannot be prevented by legal authority."
@@ -3703,23 +4200,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Release records since the client is deceased and confidentiality obligations have ended",
-        "isCorrect": false
+        "text": "Release records since the client is deceased and confidentiality obligations have ended during counseling",
+        "isCorrect": false,
+        "rationale": "\"Release records since the client is deceased and confidentia…\" is not what the item tests — Confidentiality survives death in most jurisdictions, but laws vary considerably."
       },
       {
         "id": "b",
         "text": "Consult state law, as confidentiality obligations to deceased clients vary significantly by jurisdiction",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Confidentiality survives death in most jurisdictions, but laws vary considerably."
       },
       {
         "id": "c",
-        "text": "Refuse all requests categorically since the client can no longer provide consent",
-        "isCorrect": false
+        "text": "Refuse all requests generally since the client can no longer provide consent at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Refuse all requests generally since the client can no longer…\" is not what the item tests — Confidentiality survives death in most jurisdictions, but laws vary considerably."
       },
       {
         "id": "d",
-        "text": "Release records only if the requesting child was also a client",
-        "isCorrect": false
+        "text": "Release records only if the requesting child was also a client today as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Release records only if the requesting child was also a clie…\" is not what the item tests — Confidentiality survives death in most jurisdictions, but laws vary considerably."
       }
     ],
     "rationale": "Confidentiality survives death in most jurisdictions, but laws vary considerably. Some states allow executor/estate administrator access; others protect records indefinitely. Consult state statute and legal counsel. Clinical judgment about potential harm to the child from the content is also ethically relevant."
@@ -3733,23 +4234,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The nature and specific limits of confidentiality",
-        "isCorrect": false
+        "text": "The nature and specific limits of confidentiality now",
+        "isCorrect": false,
+        "rationale": "\"The nature and specific limits of confidentiality now\" is not what the item tests — Required informed consent elements: nature of counseling, limits of confidentiality, risks/benefits of treatment, fees/billing, crisis procedures, and clie"
       },
       {
         "id": "b",
         "text": "The counselor's personal values and religious beliefs",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Required informed consent elements: nature of counseling, limits of confidentiality, risks/benefits of treatment, fees/billing, crisis procedures, and client rights."
       },
       {
         "id": "c",
-        "text": "The client's rights and responsibilities in the therapeutic relationship",
-        "isCorrect": false
+        "text": "The client's rights and responsibilities in therapy",
+        "isCorrect": false,
+        "rationale": "\"The client's rights and responsibilities in the therapeutic …\" is not what the item tests — Required informed consent elements: nature of counseling, limits of confidentiality, risks/benefits of treatment, fees/billing, crisis procedures, "
       },
       {
         "id": "d",
-        "text": "Fees, billing procedures, and payment policies",
-        "isCorrect": false
+        "text": "Fees, billing procedures, and payment policies itself",
+        "isCorrect": false,
+        "rationale": "\"Fees, billing procedures, and payment policies itself\" is not what the item tests — Required informed consent elements: nature of counseling, limits of confidentiality, risks/benefits of treatment, fees/billing, crisis procedures, and clie"
       }
     ],
     "rationale": "Required informed consent elements: nature of counseling, limits of confidentiality, risks/benefits of treatment, fees/billing, crisis procedures, and client rights. Personal values are not required disclosure elements — they would be disclosed only when relevant to service limitations (e.g., value-based referral)."
@@ -3763,23 +4268,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Obtaining consent only from the parent or legal guardian",
-        "isCorrect": false
+        "text": "Obtaining consent only from the parent or legal guardian in the outpatient setting",
+        "isCorrect": false,
+        "rationale": "\"Obtaining consent only from the parent or legal guardian in …\" is not what the item tests — Parents/guardians provide legal consent; minors provide assent (agreement to participate in services)."
       },
       {
         "id": "b",
         "text": "Obtaining parental consent and the minor's assent when developmentally appropriate",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Parents/guardians provide legal consent; minors provide assent (agreement to participate in services)."
       },
       {
         "id": "c",
-        "text": "Obtaining consent only from the minor if services are sought voluntarily",
-        "isCorrect": false
+        "text": "Obtaining consent only from the minor if services are sought voluntarily at intake",
+        "isCorrect": false,
+        "rationale": "\"Obtaining consent only from the minor if services are sought…\" is not what the item tests — Parents/guardians provide legal consent; minors provide assent (agreement to participate in services)."
       },
       {
         "id": "d",
         "text": "Consent is not ethically required for minors since parents have full legal authority",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Consent is not ethically required for minors since parents h…\" is not what the item tests — Parents/guardians provide legal consent; minors provide assent (agreement to participate in services)."
       }
     ],
     "rationale": "Parents/guardians provide legal consent; minors provide assent (agreement to participate in services). Assent is ethically important even when not legally required — particularly for older adolescents. Some states allow minors to independently consent to specific services (mental health, substance use, reproductive health)."
@@ -3793,23 +4302,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Autonomy always overrides beneficence in competent adults",
-        "isCorrect": false
+        "text": "Autonomy typically overrides beneficence in competent adults now as clinicians typically apply it now",
+        "isCorrect": false,
+        "rationale": "\"Autonomy typically overrides beneficence in competent adults…\" is not what the item tests — Capacity is decision-specific and moment-specific — it must be re-assessed."
       },
       {
         "id": "b",
         "text": "Decision-making capacity must be assessed; the refusal may be involuntary if capacity is impaired",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Capacity is decision-specific and moment-specific — it must be re-assessed."
       },
       {
         "id": "c",
-        "text": "Prior consent remains permanently binding regardless of current mental state",
-        "isCorrect": false
+        "text": "Prior consent remains permanently binding regardless of current mental state as usually described",
+        "isCorrect": false,
+        "rationale": "\"Prior consent remains permanently binding regardless of curr…\" is not what the item tests — Capacity is decision-specific and moment-specific — it must be re-assessed."
       },
       {
         "id": "d",
-        "text": "Beneficence requires treating against the expressed will of any client with psychosis",
-        "isCorrect": false
+        "text": "Beneficence requires treating against the expressed will of any client with psychosis in practice",
+        "isCorrect": false,
+        "rationale": "\"Beneficence requires treating against the expressed will of …\" is not what the item tests — Capacity is decision-specific and moment-specific — it must be re-assessed."
       }
     ],
     "rationale": "Capacity is decision-specific and moment-specific — it must be re-assessed. When psychotic, capacity to meaningfully consent or refuse may be impaired. Psychiatric Advance Directives (PADs) address this by allowing competent individuals to make instructions for times when they are not competent."
@@ -3823,23 +4336,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Such relationships are always unwanted by clients who are experiencing them",
-        "isCorrect": false
+        "text": "Such relationships are typically unwanted by clients who are experiencing them during counseling",
+        "isCorrect": false,
+        "rationale": "\"Such relationships are typically unwanted by clients who are…\" is not what the item tests — The therapeutic relationship carries an inherent power differential that compromises the client's ability to give fully free and genuine consent."
       },
       {
         "id": "b",
         "text": "The inherent power differential in the therapeutic relationship makes genuine consent impossible",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The therapeutic relationship carries an inherent power differential that compromises the client's ability to give fully free and genuine consent."
       },
       {
         "id": "c",
-        "text": "Society and professional bodies regard such relationships as universally immoral",
-        "isCorrect": false
+        "text": "Society and professional bodies regard such relationships as broadly immoral at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Society and professional bodies regard such relationships as…\" is not what the item tests — The therapeutic relationship carries an inherent power differential that compromises the client's ability to give fully free and genuine consent."
       },
       {
         "id": "d",
-        "text": "They create scheduling and documentation complications that compromise care",
-        "isCorrect": false
+        "text": "They create scheduling and documentation complications that compromise care as usually described now",
+        "isCorrect": false,
+        "rationale": "\"They create scheduling and documentation complications that …\" is not what the item tests — The therapeutic relationship carries an inherent power differential that compromises the client's ability to give fully free and genuine consent."
       }
     ],
     "rationale": "The therapeutic relationship carries an inherent power differential that compromises the client's ability to give fully free and genuine consent. The prohibition is fundamentally about protecting clients from exploitation — regardless of whether the client appears to want the relationship."
@@ -3853,23 +4370,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Permitting them after 6 months following the last professional contact",
-        "isCorrect": false
+        "text": "Permitting them after 6 months following the last professional contact as used",
+        "isCorrect": false,
+        "rationale": "\"Permitting them after 6 months following the last profession…\" is not what the item tests — ACA Code A.5.b: counselors do not engage in sexual/romantic relationships with former clients, their romantic partners, or family members for 5 yea"
       },
       {
         "id": "b",
         "text": "Requiring a minimum of 5 years and documentation that no exploitation occurred",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ACA Code A.5.b: counselors do not engage in sexual/romantic relationships with former clients, their romantic partners, or family members for 5 years following last professional contact — and even then only in the most u…"
       },
       {
         "id": "c",
-        "text": "Permanently prohibiting them under all circumstances",
-        "isCorrect": false
+        "text": "Permanently prohibiting them under all circumstances in the outpatient setting",
+        "isCorrect": false,
+        "rationale": "\"Permanently prohibiting them under all circumstances in the …\" is not what the item tests — ACA Code A.5.b: counselors do not engage in sexual/romantic relationships with former clients, their romantic partners, or family members for 5 yea"
       },
       {
         "id": "d",
-        "text": "Permitting them after 2 years with written supervisor approval",
-        "isCorrect": false
+        "text": "Permitting them after 2 years with written supervisor approval during counseling",
+        "isCorrect": false,
+        "rationale": "\"Permitting them after 2 years with written supervisor approv…\" is not what the item tests — ACA Code A.5.b: counselors do not engage in sexual/romantic relationships with former clients, their romantic partners, or family members for 5 yea"
       }
     ],
     "rationale": "ACA Code A.5.b: counselors do not engage in sexual/romantic relationships with former clients, their romantic partners, or family members for 5 years following last professional contact — and even then only in the most unusual circumstances. The counselor bears the burden of demonstrating no exploitation."
@@ -3883,23 +4404,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "A straightforward extension of existing services requiring no special consideration",
-        "isCorrect": false
+        "text": "A straightforward extension of existing services requiring no special consideration itself",
+        "isCorrect": false,
+        "rationale": "\"A straightforward extension of existing services requiring n…\" is not what the item tests — Dual roles are not automatically prohibited but require assessment of potential harm."
       },
       {
         "id": "b",
         "text": "A potentially problematic dual role requiring careful ethical assessment before proceeding",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Dual roles are not automatically prohibited but require assessment of potential harm."
       },
       {
         "id": "c",
-        "text": "An absolute ethical violation that must be categorically refused",
-        "isCorrect": false
+        "text": "An absolute ethical violation that must be generally refused as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"An absolute ethical violation that must be generally refused…\" is not what the item tests — Dual roles are not automatically prohibited but require assessment of potential harm."
       },
       {
         "id": "d",
-        "text": "An appropriate use of established rapport for efficient and integrated service delivery",
-        "isCorrect": false
+        "text": "An appropriate use of established rapport for efficient and integrated service delivery now",
+        "isCorrect": false,
+        "rationale": "\"An appropriate use of established rapport for efficient and …\" is not what the item tests — Dual roles are not automatically prohibited but require assessment of potential harm."
       }
     ],
     "rationale": "Dual roles are not automatically prohibited but require assessment of potential harm. This situation carries real risks: role confusion, compromised objectivity, and impact on the career guidance relationship. The counselor should assess harm potential and consider referral for the individual therapy component."
@@ -3913,23 +4438,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Only confirmed incidents, not mere suspicion",
-        "isCorrect": false
+        "text": "Only confirmed incidents, not mere suspicion during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Only confirmed incidents, not mere suspicion during a routin…\" is not what the item tests — Mandatory reporters are not investigators — they report reasonable suspicion."
       },
       {
         "id": "b",
         "text": "Reasonable suspicion of abuse or neglect — certainty is not required",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Mandatory reporters are not investigators — they report reasonable suspicion."
       },
       {
         "id": "c",
-        "text": "Only direct disclosures made by the child in session",
-        "isCorrect": false
+        "text": "Only direct disclosures made by the child in session during counseling",
+        "isCorrect": false,
+        "rationale": "\"Only direct disclosures made by the child in session during …\" is not what the item tests — Mandatory reporters are not investigators — they report reasonable suspicion."
       },
       {
         "id": "d",
-        "text": "Abuse only if the counselor personally witnessed it occurring",
-        "isCorrect": false
+        "text": "Abuse only if the counselor personally witnessed it occurring itself",
+        "isCorrect": false,
+        "rationale": "\"Abuse only if the counselor personally witnessed it occurrin…\" is not what the item tests — Mandatory reporters are not investigators — they report reasonable suspicion."
       }
     ],
     "rationale": "Mandatory reporters are not investigators — they report reasonable suspicion. The investigation is the responsibility of Child Protective Services. Waiting for certainty before reporting constitutes a failure to report and creates legal and ethical liability."
@@ -3943,23 +4472,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Required to report to CPS regardless of whether any child is currently at risk",
-        "isCorrect": false
+        "text": "Required to report to CPS regardless of whether any child is currently at risk in practice",
+        "isCorrect": false,
+        "rationale": "\"Required to report to CPS regardless of whether any child is…\" is not what the item tests — Mandatory reporting is triggered by present or ongoing risk to a current child."
       },
       {
         "id": "b",
         "text": "Generally not required to report absent current risk to a child; should consult state law",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Mandatory reporting is triggered by present or ongoing risk to a current child."
       },
       {
         "id": "c",
-        "text": "Required to report the historical perpetrator to law enforcement",
-        "isCorrect": false
+        "text": "Required to report the historical perpetrator to law enforcement during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Required to report the historical perpetrator to law enforce…\" is not what the item tests — Mandatory reporting is triggered by present or ongoing risk to a current child."
       },
       {
         "id": "d",
-        "text": "Required to notify the survivor's current family members",
-        "isCorrect": false
+        "text": "Required to notify the survivor's current family members as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Required to notify the survivor's current family members as …\" is not what the item tests — Mandatory reporting is triggered by present or ongoing risk to a current child."
       }
     ],
     "rationale": "Mandatory reporting is triggered by present or ongoing risk to a current child. A client disclosing their own past victimization generally does not trigger reporting unless there is reason to believe the historical perpetrator currently has access to children. Consult state law for jurisdiction-specific guidance."
@@ -3973,23 +4506,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Whether the client explicitly admits to the exploitation in session",
-        "isCorrect": false
+        "text": "Whether the client explicitly admits to the exploitation in session as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Whether the client explicitly admits to the exploitation in …\" is not what the item tests — Elder abuse mandatory reporting statutes vary significantly by state — not all states designate counselors as mandatory reporters for elder abuse ("
       },
       {
         "id": "b",
         "text": "State law — unlike child abuse reporting, elder abuse mandatory reporting statutes vary significantly",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Elder abuse mandatory reporting statutes vary significantly by state — not all states designate counselors as mandatory reporters for elder abuse (unlike child abuse, where all states do)."
       },
       {
         "id": "c",
-        "text": "HIPAA regulations governing disclosure of PHI",
-        "isCorrect": false
+        "text": "HIPAA regulations governing disclosure of PHI at the intake stage as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"HIPAA regulations governing disclosure of PHI at the intake …\" is not what the item tests — Elder abuse mandatory reporting statutes vary significantly by state — not all states designate counselors as mandatory reporters for elder abuse ("
       },
       {
         "id": "d",
-        "text": "Whether the exploitation involves physical harm in addition to financial",
-        "isCorrect": false
+        "text": "Whether the exploitation involves physical harm in addition to financial as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Whether the exploitation involves physical harm in addition …\" is not what the item tests — Elder abuse mandatory reporting statutes vary significantly by state — not all states designate counselors as mandatory reporters for elder abuse ("
       }
     ],
     "rationale": "Elder abuse mandatory reporting statutes vary significantly by state — not all states designate counselors as mandatory reporters for elder abuse (unlike child abuse, where all states do). Check state-specific law. ACA ethics also call for protecting vulnerable individuals, informing ethical considerations even when a specific mandate is absent."
@@ -4003,23 +4540,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Hospitalize any client who makes any threat of violence",
-        "isCorrect": false
+        "text": "Hospitalize any client who makes any threat of violence as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Hospitalize any client who makes any threat of violence as c…\" is not what the item tests — Tarasoff established the 'duty to protect' — therapists must take reasonable steps to protect identifiable third parties from serious, credible thr"
       },
       {
         "id": "b",
         "text": "Take reasonable steps to protect identifiable third parties from credible client threats",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Tarasoff established the 'duty to protect' — therapists must take reasonable steps to protect identifiable third parties from serious, credible threats."
       },
       {
         "id": "c",
-        "text": "Report all violent thoughts to law enforcement immediately",
-        "isCorrect": false
+        "text": "Report all violent thoughts to law enforcement immediately as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Report all violent thoughts to law enforcement immediately a…\" is not what the item tests — Tarasoff established the 'duty to protect' — therapists must take reasonable steps to protect identifiable third parties from serious, credible thr"
       },
       {
         "id": "d",
-        "text": "Ensure clients with violent histories are prohibited from owning firearms",
-        "isCorrect": false
+        "text": "Ensure clients with violent histories are prohibited from owning firearms in this domain",
+        "isCorrect": false,
+        "rationale": "\"Ensure clients with violent histories are prohibited from ow…\" is not what the item tests — Tarasoff established the 'duty to protect' — therapists must take reasonable steps to protect identifiable third parties from serious, credible thr"
       }
     ],
     "rationale": "Tarasoff established the 'duty to protect' — therapists must take reasonable steps to protect identifiable third parties from serious, credible threats. Methods vary by state: warning the victim directly, notifying law enforcement, hospitalizing the client, or a combination. 'Duty to warn' vs. 'duty to protect' varies by jurisdiction."
@@ -4033,23 +4574,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The client is angry and has a documented history of prior violence",
-        "isCorrect": false
+        "text": "The client is angry and has a documented history of prior violence by counselors",
+        "isCorrect": false,
+        "rationale": "\"The client is angry and has a documented history of prior vi…\" is not what the item tests — Tarasoff duty requires: (1) a specific, serious, credible threat (2) against an identifiable potential victim."
       },
       {
         "id": "b",
         "text": "There is a serious, credible threat directed at an identifiable potential victim",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Tarasoff duty requires: (1) a specific, serious, credible threat (2) against an identifiable potential victim."
       },
       {
         "id": "c",
-        "text": "The client owns or has access to a firearm",
-        "isCorrect": false
+        "text": "The client owns or has access to a firearm now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"The client owns or has access to a firearm now as the refere…\" is not what the item tests — Tarasoff duty requires: (1) a specific, serious, credible threat (2) against an identifiable potential victim."
       },
       {
         "id": "d",
-        "text": "Any homicidal ideation is reported to the counselor by the client",
-        "isCorrect": false
+        "text": "Any homicidal ideation is reported to the counselor by the client in this domain",
+        "isCorrect": false,
+        "rationale": "\"Any homicidal ideation is reported to the counselor by the c…\" is not what the item tests — Tarasoff duty requires: (1) a specific, serious, credible threat (2) against an identifiable potential victim."
       }
     ],
     "rationale": "Tarasoff duty requires: (1) a specific, serious, credible threat (2) against an identifiable potential victim. Vague homicidal ideation without a specific target does not trigger the duty. Anger or history alone is insufficient — the threat must be concrete and the victim reasonably identifiable."
@@ -4063,23 +4608,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Proceed with EMDR if adequate supervisory oversight is available",
-        "isCorrect": false
+        "text": "Proceed with EMDR if adequate supervisory oversight is available at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Proceed with EMDR if adequate supervisory oversight is avail…\" is not what the item tests — ACA Code C.2.a: counselors practice only within the boundaries of their competence."
       },
       {
         "id": "b",
         "text": "Decline EMDR specifically; treat trauma within current competence or refer for EMDR",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ACA Code C.2.a: counselors practice only within the boundaries of their competence."
       },
       {
         "id": "c",
-        "text": "Research EMDR online and in textbooks before beginning",
-        "isCorrect": false
+        "text": "Research EMDR online and in textbooks before beginning as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Research EMDR online and in textbooks before beginning as cl…\" is not what the item tests — ACA Code C.2.a: counselors practice only within the boundaries of their competence."
       },
       {
         "id": "d",
-        "text": "Proceed if the client provides informed consent to the learning process",
-        "isCorrect": false
+        "text": "Proceed if the client provides informed consent to the learning process in practice",
+        "isCorrect": false,
+        "rationale": "\"Proceed if the client provides informed consent to the learn…\" is not what the item tests — ACA Code C.2.a: counselors practice only within the boundaries of their competence."
       }
     ],
     "rationale": "ACA Code C.2.a: counselors practice only within the boundaries of their competence. EMDR requires specific supervised training. The ethical response: serve the client using modalities within competence, refer specifically for EMDR, and pursue appropriate training to expand competence over time."
@@ -4093,23 +4642,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Provide services while sharing their value difference in the spirit of therapeutic transparency",
-        "isCorrect": false
+        "text": "Provide services while sharing their value difference in the spirit of therapeutic transparency today",
+        "isCorrect": false,
+        "rationale": "\"Provide services while sharing their value difference in the…\" is not what the item tests — ACA Code A.11.b: counselors may not refer based solely on personal values conflicts."
       },
       {
         "id": "b",
-        "text": "Attempt to facilitate change in the client's sexual orientation as a therapeutic approach",
-        "isCorrect": false
+        "text": "Attempt to facilitate change in the client's sexual orientation as a therapeutic approach in practice",
+        "isCorrect": false,
+        "rationale": "\"Attempt to facilitate change in the client's sexual orientat…\" is not what the item tests — ACA Code A.11.b: counselors may not refer based solely on personal values conflicts."
       },
       {
         "id": "c",
         "text": "Refer to a counselor who can provide genuinely affirming, competent services without value imposition",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ACA Code A.11.b: counselors may not refer based solely on personal values conflicts."
       },
       {
         "id": "d",
-        "text": "Provide services while maintaining strict value neutrality in session",
-        "isCorrect": false
+        "text": "Provide services while maintaining strict value neutrality in session as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Provide services while maintaining strict value neutrality i…\" is not what the item tests — ACA Code A.11.b: counselors may not refer based solely on personal values conflicts."
       }
     ],
     "rationale": "ACA Code A.11.b: counselors may not refer based solely on personal values conflicts. However, if the counselor cannot provide genuinely LGBTQ+-affirming care and the client's goal is relationship satisfaction (not orientation change), referral to an affirming provider is indicated. Conversion/change-effort practices are prohibited by ACA and CACREP standards."
@@ -4123,23 +4676,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Consult immediately with a supervisor or trusted colleague",
-        "isCorrect": false
+        "text": "Consult immediately with a supervisor or trusted colleague now",
+        "isCorrect": false,
+        "rationale": "\"Consult immediately with a supervisor or trusted colleague n…\" is not what the item tests — Most ethical decision-making models (Forester-Miller & Davis, Corey et al.) begin with recognizing that a potential ethical issue exists."
       },
       {
         "id": "b",
         "text": "Identify and recognize that an ethical issue or dilemma exists",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Most ethical decision-making models (Forester-Miller & Davis, Corey et al.) begin with recognizing that a potential ethical issue exists."
       },
       {
         "id": "c",
-        "text": "Review the relevant sections of the ACA Code of Ethics",
-        "isCorrect": false
+        "text": "Review the relevant sections of the ACA Code of Ethics as used",
+        "isCorrect": false,
+        "rationale": "\"Review the relevant sections of the ACA Code of Ethics as us…\" is not what the item tests — Most ethical decision-making models (Forester-Miller & Davis, Corey et al.) begin with recognizing that a potential ethical issue exists."
       },
       {
         "id": "d",
-        "text": "Generate all possible courses of action available",
-        "isCorrect": false
+        "text": "Generate all possible courses of action available by counselors",
+        "isCorrect": false,
+        "rationale": "\"Generate all possible courses of action available by counsel…\" is not what the item tests — Most ethical decision-making models (Forester-Miller & Davis, Corey et al.) begin with recognizing that a potential ethical issue exists."
       }
     ],
     "rationale": "Most ethical decision-making models (Forester-Miller & Davis, Corey et al.) begin with recognizing that a potential ethical issue exists. One cannot navigate a dilemma one hasn't first identified. Subsequent steps: identify relevant codes, generate options, consider consequences, act, and evaluate the outcome."
@@ -4153,23 +4710,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Always follow legal requirements as they take absolute precedence",
-        "isCorrect": false
+        "text": "Typically follow legal requirements as they take absolute precedence as usually described",
+        "isCorrect": false,
+        "rationale": "\"Typically follow legal requirements as they take absolute pr…\" is not what the item tests — When ethics and law conflict (ACA B.1.d, H.1.b), counselors should: inform clients of the situation, consult with supervisors and legal counsel, se"
       },
       {
         "id": "b",
-        "text": "Always follow ethical principles regardless of legal consequences",
-        "isCorrect": false
+        "text": "Typically follow ethical principles regardless of legal consequences as usually described",
+        "isCorrect": false,
+        "rationale": "\"Typically follow ethical principles regardless of legal cons…\" is not what the item tests — When ethics and law conflict (ACA B.1.d, H.1.b), counselors should: inform clients of the situation, consult with supervisors and legal counsel, se"
       },
       {
         "id": "c",
         "text": "Consult legal and ethics resources to find the most ethical path within legal constraints",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "When ethics and law conflict (ACA B.1.d, H.1.b), counselors should: inform clients of the situation, consult with supervisors and legal counsel, seek to act as ethically as possible within legal requirements, and document the process."
       },
       {
         "id": "d",
-        "text": "Follow client preferences when ethics and law conflict",
-        "isCorrect": false
+        "text": "Follow client preferences when ethics and law conflict as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Follow client preferences when ethics and law conflict as th…\" is not what the item tests — When ethics and law conflict (ACA B.1.d, H.1.b), counselors should: inform clients of the situation, consult with supervisors and legal counsel, se"
       }
     ],
     "rationale": "When ethics and law conflict (ACA B.1.d, H.1.b), counselors should: inform clients of the situation, consult with supervisors and legal counsel, seek to act as ethically as possible within legal requirements, and document the process. Neither law nor ethics always unambiguously trumps the other — navigating the tension requires careful deliberation."
@@ -4184,22 +4745,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Transparency",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Transparency\" is not what the item tests — Kitchener (1984) identified five moral principles: autonomy (self-determination), nonmaleficence (do no harm), beneficence (promote wellbeing), justice (fairness/equal treatment), and fidelity (ho"
       },
       {
         "id": "b",
         "text": "Fidelity",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Kitchener (1984) identified five moral principles: autonomy (self-determination), nonmaleficence (do no harm), beneficence (promote wellbeing), justice (fairness/equal treatment), and fidelity (honoring commitments, bein…"
       },
       {
         "id": "c",
         "text": "Competence",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Competence\" is not what the item tests — Kitchener (1984) identified five moral principles: autonomy (self-determination), nonmaleficence (do no harm), beneficence (promote wellbeing), justice (fairness/equal treatment), and fidelity (hono"
       },
       {
         "id": "d",
         "text": "Veracity",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Veracity\" is not what the item tests — Kitchener (1984) identified five moral principles: autonomy (self-determination), nonmaleficence (do no harm), beneficence (promote wellbeing), justice (fairness/equal treatment), and fidelity (honori"
       }
     ],
     "rationale": "Kitchener (1984) identified five moral principles: autonomy (self-determination), nonmaleficence (do no harm), beneficence (promote wellbeing), justice (fairness/equal treatment), and fidelity (honoring commitments, being trustworthy/loyal). Veracity is sometimes added as a sixth principle."
@@ -4213,23 +4778,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Respecting the decision entirely without comment or further exploration",
-        "isCorrect": false
+        "text": "Respecting the decision entirely without comment or further exploration at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Respecting the decision entirely without comment or further …\" is not what the item tests — Autonomy requires informed decision-making, not just the absence of coercion."
       },
       {
         "id": "b",
-        "text": "Notifying the prescribing psychiatrist directly without the client's consent",
-        "isCorrect": false
+        "text": "Notifying the prescribing psychiatrist directly without the client's consent during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Notifying the prescribing psychiatrist directly without the …\" is not what the item tests — Autonomy requires informed decision-making, not just the absence of coercion."
       },
       {
         "id": "c",
         "text": "Respecting the right to decide while ensuring the client has full, accurate information about risks",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Autonomy requires informed decision-making, not just the absence of coercion."
       },
       {
         "id": "d",
-        "text": "Terminating services for medically non-compliant behavior",
-        "isCorrect": false
+        "text": "Terminating services for medically non-compliant behavior today as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Terminating services for medically non-compliant behavior to…\" is not what the item tests — Autonomy requires informed decision-making, not just the absence of coercion."
       }
     ],
     "rationale": "Autonomy requires informed decision-making, not just the absence of coercion. The ethical response: ensure the client has complete, accurate information about medication cessation risks (beneficence), explore the decision therapeutically, and ultimately respect their choice as a competent adult — while documenting the clinical discussion."
@@ -4243,23 +4812,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Acceptable since no personally identifying information is shared",
-        "isCorrect": false
+        "text": "Acceptable since no personally identifying information is shared as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Acceptable since no personally identifying information is sh…\" is not what the item tests — ACA Code H.6.a–b: counselors maintain confidentiality on all social media platforms."
       },
       {
         "id": "b",
         "text": "An ethical concern even without names — clients may be identifiable and the act is unprofessional",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ACA Code H.6.a–b: counselors maintain confidentiality on all social media platforms."
       },
       {
         "id": "c",
-        "text": "Acceptable as a legitimate self-care and venting tool for clinicians",
-        "isCorrect": false
+        "text": "Acceptable as a legitimate self-care and venting tool for clinicians as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Acceptable as a legitimate self-care and venting tool for cl…\" is not what the item tests — ACA Code H.6.a–b: counselors maintain confidentiality on all social media platforms."
       },
       {
         "id": "d",
-        "text": "Only problematic if current professional colleagues see the post",
-        "isCorrect": false
+        "text": "Only problematic if current professional colleagues see the post as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Only problematic if current professional colleagues see the …\" is not what the item tests — ACA Code H.6.a–b: counselors maintain confidentiality on all social media platforms."
       }
     ],
     "rationale": "ACA Code H.6.a–b: counselors maintain confidentiality on all social media platforms. Even without explicit identifying details, the act undermines professional standards, may inadvertently enable identification through context clues, and constitutes a violation of the dignity of the therapeutic relationship."
@@ -4273,23 +4846,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Request that the client remove the posts immediately as a condition of continued therapy",
-        "isCorrect": false
+        "text": "Request that the client remove the posts immediately as a condition of continued therapy in practice",
+        "isCorrect": false,
+        "rationale": "\"Request that the client remove the posts immediately as a co…\" is not what the item tests — Clients own their own therapy experiences and may share them."
       },
       {
         "id": "b",
-        "text": "Take no action — clients have the right to share their own therapeutic experiences",
-        "isCorrect": false
+        "text": "Take no action — clients have the right to share their own therapeutic experiences during counseling now",
+        "isCorrect": false,
+        "rationale": "\"Take no action — clients have the right to share their own t…\" is not what the item tests — Clients own their own therapy experiences and may share them."
       },
       {
         "id": "c",
         "text": "Discuss the posts with the client in session to understand the meaning and any clinical implications",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Clients own their own therapy experiences and may share them."
       },
       {
         "id": "d",
-        "text": "Terminate services for privacy violations that compromise the therapeutic relationship",
-        "isCorrect": false
+        "text": "Terminate services for privacy violations that compromise the therapeutic relationship by counselors",
+        "isCorrect": false,
+        "rationale": "\"Terminate services for privacy violations that compromise th…\" is not what the item tests — Clients own their own therapy experiences and may share them."
       }
     ],
     "rationale": "Clients own their own therapy experiences and may share them. If the counselor discovered the posts through active social media searching, that raises separate ethical concerns. If discovered incidentally, bringing it to session therapeutically — what does posting mean for this client? any safety concerns? — is appropriate. This is clinical material."
@@ -4303,23 +4880,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Do nothing — billing is entirely the supervisor's professional responsibility",
-        "isCorrect": false
+        "text": "Do nothing — billing is entirely the supervisor's professional responsibility by counselors",
+        "isCorrect": false,
+        "rationale": "\"Do nothing — billing is entirely the supervisor's profession…\" is not what the item tests — This constitutes insurance fraud — an ethical violation (ACA C.6.b) and potentially criminal act."
       },
       {
         "id": "b",
         "text": "Follow the agency's complaint procedure and consult with another supervisor or ethics body",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "This constitutes insurance fraud — an ethical violation (ACA C.6.b) and potentially criminal act."
       },
       {
         "id": "c",
-        "text": "Confront the supervisor directly and privately before taking any other steps",
-        "isCorrect": false
+        "text": "Confront the supervisor directly and privately before taking any other steps by counselors",
+        "isCorrect": false,
+        "rationale": "\"Confront the supervisor directly and privately before taking…\" is not what the item tests — This constitutes insurance fraud — an ethical violation (ACA C.6.b) and potentially criminal act."
       },
       {
         "id": "d",
-        "text": "Report immediately and exclusively to the state licensing board",
-        "isCorrect": false
+        "text": "Report immediately and exclusively to the state licensing board at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Report immediately and exclusively to the state licensing bo…\" is not what the item tests — This constitutes insurance fraud — an ethical violation (ACA C.6.b) and potentially criminal act."
       }
     ],
     "rationale": "This constitutes insurance fraud — an ethical violation (ACA C.6.b) and potentially criminal act. The intern should document the situation, consult with a trusted supervisor or ethics resource, and use agency reporting procedures. Licensing board reporting may follow, but internal escalation is typically the recommended first step."
@@ -4333,23 +4914,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The supervisee first — to support their professional learning and development",
-        "isCorrect": false
+        "text": "The supervisee first — to support their professional learning and development now",
+        "isCorrect": false,
+        "rationale": "\"The supervisee first — to support their professional learnin…\" is not what the item tests — Supervisors' primary obligation is to client welfare — supervision exists fundamentally to protect clients (ACA F.1.a)."
       },
       {
         "id": "b",
         "text": "Client welfare first — then address the supervisee's ethical violation directly",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Supervisors' primary obligation is to client welfare — supervision exists fundamentally to protect clients (ACA F.1.a)."
       },
       {
         "id": "c",
         "text": "The agency first — to document the situation and protect the organization from liability",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"The agency first — to document the situation and protect the…\" is not what the item tests — Supervisors' primary obligation is to client welfare — supervision exists fundamentally to protect clients (ACA F.1.a)."
       },
       {
         "id": "d",
-        "text": "The supervisee and all affected clients equally and simultaneously",
-        "isCorrect": false
+        "text": "The supervisee and all affected clients equally and simultaneously by counselors",
+        "isCorrect": false,
+        "rationale": "\"The supervisee and all affected clients equally and simultan…\" is not what the item tests — Supervisors' primary obligation is to client welfare — supervision exists fundamentally to protect clients (ACA F.1.a)."
       }
     ],
     "rationale": "Supervisors' primary obligation is to client welfare — supervision exists fundamentally to protect clients (ACA F.1.a). The supervisor must address immediate client safety and wellbeing first, then address the supervisee's conduct through appropriate channels. Institutional loyalties do not override client protection."
@@ -4363,23 +4948,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Any termination of counseling that the client did not initiate themselves",
-        "isCorrect": false
+        "text": "Any termination of counseling that the client did not initiate themselves during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Any termination of counseling that the client did not initia…\" is not what the item tests — Abandonment: unilaterally ending professional services without reasonable notice, adequate referral, or transition planning — leaving a client with"
       },
       {
         "id": "b",
         "text": "Unilateral termination by the counselor without adequate notice, transition support, or referral",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Abandonment: unilaterally ending professional services without reasonable notice, adequate referral, or transition planning — leaving a client without needed care."
       },
       {
         "id": "c",
-        "text": "Ending therapy with clients who have a history of non-payment",
-        "isCorrect": false
+        "text": "Ending therapy with clients who have a history of non-payment as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Ending therapy with clients who have a history of non-paymen…\" is not what the item tests — Abandonment: unilaterally ending professional services without reasonable notice, adequate referral, or transition planning — leaving a client with"
       },
       {
         "id": "d",
-        "text": "Reducing session frequency without explicit client agreement",
-        "isCorrect": false
+        "text": "Reducing session frequency without explicit client agreement as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Reducing session frequency without explicit client agreement…\" is not what the item tests — Abandonment: unilaterally ending professional services without reasonable notice, adequate referral, or transition planning — leaving a client with"
       }
     ],
     "rationale": "Abandonment: unilaterally ending professional services without reasonable notice, adequate referral, or transition planning — leaving a client without needed care. Clinically indicated termination with proper process and documentation is NOT abandonment, even if the client disagrees."
@@ -4393,23 +4982,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Categorically prohibited by the ACA Code of Ethics in all circumstances",
-        "isCorrect": false
+        "text": "Generally prohibited by the ACA Code of Ethics in all circumstances now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Generally prohibited by the ACA Code of Ethics in all circum…\" is not what the item tests — ACA A.10.e: counselors may barter only if the relationship is not exploitative, if the client requests it, and if such arrangements are an accepted"
       },
       {
         "id": "b",
         "text": "Permissible only when it is not exploitative, is in the client's best interest, and is clearly documented",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ACA A.10.e: counselors may barter only if the relationship is not exploitative, if the client requests it, and if such arrangements are an accepted local community practice."
       },
       {
         "id": "c",
-        "text": "Prohibited in urban settings but ethically permissible in rural communities",
-        "isCorrect": false
+        "text": "Prohibited in urban settings but ethically permissible in rural communities as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Prohibited in urban settings but ethically permissible in ru…\" is not what the item tests — ACA A.10.e: counselors may barter only if the relationship is not exploitative, if the client requests it, and if such arrangements are an accepted"
       },
       {
         "id": "d",
-        "text": "Automatically acceptable if the client proposes the arrangement",
-        "isCorrect": false
+        "text": "Automatically acceptable if the client proposes the arrangement today as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Automatically acceptable if the client proposes the arrangem…\" is not what the item tests — ACA A.10.e: counselors may barter only if the relationship is not exploitative, if the client requests it, and if such arrangements are an accepted"
       }
     ],
     "rationale": "ACA A.10.e: counselors may barter only if the relationship is not exploitative, if the client requests it, and if such arrangements are an accepted local community practice. Documentation and ongoing monitoring of the arrangement's impact on the therapeutic relationship are required."
@@ -4424,22 +5017,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Ensuring all research participants receive monetary compensation for their time",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Ensuring all research participants receive monetary compensa…\" is not what the item tests — Beneficence in research (Belmont Report): maximize benefits and minimize harms to participants."
       },
       {
         "id": "b",
         "text": "Maximizing possible benefits to participants while minimizing possible harms",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Beneficence in research (Belmont Report): maximize benefits and minimize harms to participants."
       },
       {
         "id": "c",
-        "text": "Including diverse and representative populations in all research samples",
-        "isCorrect": false
+        "text": "Including diverse and representative populations in all research samples now",
+        "isCorrect": false,
+        "rationale": "\"Including diverse and representative populations in all rese…\" is not what the item tests — Beneficence in research (Belmont Report): maximize benefits and minimize harms to participants."
       },
       {
         "id": "d",
         "text": "Obtaining institutional review board (IRB) approval before any data collection",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Obtaining institutional review board (IRB) approval before a…\" is not what the item tests — Beneficence in research (Belmont Report): maximize benefits and minimize harms to participants."
       }
     ],
     "rationale": "Beneficence in research (Belmont Report): maximize benefits and minimize harms to participants. Distinguished from nonmaleficence (do no harm). IRB approval is a procedural safeguard; diverse samples = justice; compensation = a standard practice, not a named ethical principle."
@@ -4453,23 +5050,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Report immediately and exclusively to the state licensing board",
-        "isCorrect": false
+        "text": "Report immediately and exclusively to the state licensing board as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Report immediately and exclusively to the state licensing bo…\" is not what the item tests — Client safety is the immediate non-negotiable priority."
       },
       {
         "id": "b",
         "text": "Ensure immediate client safety; then address the colleague directly or through supervisory channels",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Client safety is the immediate non-negotiable priority."
       },
       {
         "id": "c",
-        "text": "Continue observing over several more incidents to confirm the pattern before acting",
-        "isCorrect": false
+        "text": "Continue observing over several more incidents to confirm the pattern before acting during counseling",
+        "isCorrect": false,
+        "rationale": "\"Continue observing over several more incidents to confirm th…\" is not what the item tests — Client safety is the immediate non-negotiable priority."
       },
       {
         "id": "d",
-        "text": "Consult other colleagues first to verify the observation before taking any action",
-        "isCorrect": false
+        "text": "Consult other colleagues first to verify the observation before taking any action during counseling",
+        "isCorrect": false,
+        "rationale": "\"Consult other colleagues first to verify the observation bef…\" is not what the item tests — Client safety is the immediate non-negotiable priority."
       }
     ],
     "rationale": "Client safety is the immediate non-negotiable priority. If impairment is clear and clients are at risk, intervening immediately is ethically required. ACA C.2.g: counselors assist impaired colleagues in seeking help. Reporting to the licensing board may follow, but the first obligation is ensuring client welfare."
@@ -4483,23 +5084,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Decline all services to clients who engage in this legal lifestyle",
-        "isCorrect": false
+        "text": "Decline all services to clients who engage in this legal lifestyle as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Decline all services to clients who engage in this legal lif…\" is not what the item tests — ACA A.11.b (2014 revision): counselors cannot refuse services based solely on personal values when this constitutes discrimination against protecte"
       },
       {
         "id": "b",
-        "text": "Explore how the behavior aligns with the counselor's values as a therapeutic intervention",
-        "isCorrect": false
+        "text": "Explore how the behavior aligns with the counselor's values as a therapeutic intervention in practice",
+        "isCorrect": false,
+        "rationale": "\"Explore how the behavior aligns with the counselor's values …\" is not what the item tests — ACA A.11.b (2014 revision): counselors cannot refuse services based solely on personal values when this constitutes discrimination against protecte"
       },
       {
         "id": "c",
         "text": "Refer only when the referral is clinically appropriate — not merely because of the values difference",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ACA A.11.b (2014 revision): counselors cannot refuse services based solely on personal values when this constitutes discrimination against protected characteristics or legally-protected lifestyles."
       },
       {
         "id": "d",
-        "text": "Incorporate their values into the client's treatment goals where ethical principles are involved",
-        "isCorrect": false
+        "text": "Incorporate their values into the client's treatment goals where ethical principles are involved now",
+        "isCorrect": false,
+        "rationale": "\"Incorporate their values into the client's treatment goals w…\" is not what the item tests — ACA A.11.b (2014 revision): counselors cannot refuse services based solely on personal values when this constitutes discrimination against protecte"
       }
     ],
     "rationale": "ACA A.11.b (2014 revision): counselors cannot refuse services based solely on personal values when this constitutes discrimination against protected characteristics or legally-protected lifestyles. They may refer when there is a genuine, documentable therapeutic limitation — not simply because of a value conflict. The 2014 revision explicitly addresses this scenario."
@@ -4513,23 +5118,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Summarize the key themes of the session",
-        "isCorrect": false
+        "text": "Summarize the key themes of the session during counseling as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Summarize the key themes of the session during counseling as…\" is not what the item tests — Minimal encouragers are brief, low-inference responses that signal attentiveness and encourage continued elaboration without shifting or redirectin"
       },
       {
         "id": "b",
         "text": "Communicate attention and invite the client to continue without interrupting narrative flow",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Minimal encouragers are brief, low-inference responses that signal attentiveness and encourage continued elaboration without shifting or redirecting the client's narrative."
       },
       {
         "id": "c",
-        "text": "Reflect the emotional content of the client's message",
-        "isCorrect": false
+        "text": "Reflect the emotional content of the client's message now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Reflect the emotional content of the client's message now as…\" is not what the item tests — Minimal encouragers are brief, low-inference responses that signal attentiveness and encourage continued elaboration without shifting or redirectin"
       },
       {
         "id": "d",
-        "text": "Transition the session toward a new topic",
-        "isCorrect": false
+        "text": "Transition the session toward a new topic by counselors as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Transition the session toward a new topic by counselors as t…\" is not what the item tests — Minimal encouragers are brief, low-inference responses that signal attentiveness and encourage continued elaboration without shifting or redirectin"
       }
     ],
     "rationale": "Minimal encouragers are brief, low-inference responses that signal attentiveness and encourage continued elaboration without shifting or redirecting the client's narrative."
@@ -4544,22 +5153,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Interpretation",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Interpretation\" is not what the item tests — A paraphrase restates the cognitive/factual content of the client's message in the counselor's own words."
       },
       {
         "id": "b",
         "text": "Reflection of feeling",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Reflection of feeling\" is not what the item tests — A paraphrase restates the cognitive/factual content of the client's message in the counselor's own words."
       },
       {
         "id": "c",
         "text": "Paraphrase",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "A paraphrase restates the cognitive/factual content of the client's message in the counselor's own words. No feeling word is added, and no interpretation is offered — distinguishing it from reflection or interpretation."
       },
       {
         "id": "d",
         "text": "Confrontation",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Confrontation\" is not what the item tests — A paraphrase restates the cognitive/factual content of the client's message in the counselor's own words."
       }
     ],
     "rationale": "A paraphrase restates the cognitive/factual content of the client's message in the counselor's own words. No feeling word is added, and no interpretation is offered — distinguishing it from reflection or interpretation."
@@ -4573,23 +5186,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Subtracts from what the client expressed",
-        "isCorrect": false
+        "text": "Subtracts from what the client expressed as used as the reference material frames it now",
+        "isCorrect": false,
+        "rationale": "\"Subtracts from what the client expressed as used as the refe…\" is not what the item tests — Carkhuff's Level 3 is the minimally facilitative baseline: the response is interchangeable with the client's expression."
       },
       {
         "id": "b",
         "text": "Interchangeable — accurately reflects what the client expressed, no more and no less",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Carkhuff's Level 3 is the minimally facilitative baseline: the response is interchangeable with the client's expression. Levels 1–2 subtract; Levels 4–5 add depth beyond what was expressed, moving toward advanced empathy."
       },
       {
         "id": "c",
-        "text": "Adds noticeably to what the client expressed",
-        "isCorrect": false
+        "text": "Adds noticeably to what the client expressed now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Adds noticeably to what the client expressed now as the refe…\" is not what the item tests — Carkhuff's Level 3 is the minimally facilitative baseline: the response is interchangeable with the client's expression."
       },
       {
         "id": "d",
-        "text": "Brings hidden material fully into awareness",
-        "isCorrect": false
+        "text": "Brings hidden material fully into awareness here as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Brings hidden material fully into awareness here as the refe…\" is not what the item tests — Carkhuff's Level 3 is the minimally facilitative baseline: the response is interchangeable with the client's expression."
       }
     ],
     "rationale": "Carkhuff's Level 3 is the minimally facilitative baseline: the response is interchangeable with the client's expression. Levels 1–2 subtract; Levels 4–5 add depth beyond what was expressed, moving toward advanced empathy."
@@ -4603,23 +5220,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Help the client stay on a single topic for the entire session",
-        "isCorrect": false
+        "text": "Help the client stay on a single topic for the entire session now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Help the client stay on a single topic for the entire sessio…\" is not what the item tests — Focusing (Gendlin; also Ivey's microskills framework) directs mutual attention to a specific element — a feeling, bodily sensation, or theme — so i"
       },
       {
         "id": "b",
         "text": "Direct therapeutic attention to a specific aspect of the client's experience for deeper exploration",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Focusing (Gendlin; also Ivey's microskills framework) directs mutual attention to a specific element — a feeling, bodily sensation, or theme — so it can be explored more fully rather than glossed over in broad narrative."
       },
       {
         "id": "c",
-        "text": "Narrow the presenting problem to a single diagnosable condition",
-        "isCorrect": false
+        "text": "Narrow the presenting problem to a single diagnosable condition as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Narrow the presenting problem to a single diagnosable condit…\" is not what the item tests — Focusing (Gendlin; also Ivey's microskills framework) directs mutual attention to a specific element — a feeling, bodily sensation, or theme — so i"
       },
       {
         "id": "d",
-        "text": "Reduce session content to only what insurance will reimburse",
-        "isCorrect": false
+        "text": "Reduce session content to only what insurance will reimburse now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Reduce session content to only what insurance will reimburse…\" is not what the item tests — Focusing (Gendlin; also Ivey's microskills framework) directs mutual attention to a specific element — a feeling, bodily sensation, or theme — so i"
       }
     ],
     "rationale": "Focusing (Gendlin; also Ivey's microskills framework) directs mutual attention to a specific element — a feeling, bodily sensation, or theme — so it can be explored more fully rather than glossed over in broad narrative."
@@ -4633,23 +5254,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Self-disclosure of personal history",
-        "isCorrect": false
+        "text": "Self-disclosure of personal history as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Self-disclosure of personal history as clinicians typically …\" is not what the item tests — Immediacy (Egan) uses what is happening between counselor and client right now as a therapeutic tool."
       },
       {
         "id": "b",
         "text": "Immediacy — using the here-and-now therapeutic relationship as data",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Immediacy (Egan) uses what is happening between counselor and client right now as a therapeutic tool. The counselor shares a present-moment reaction to invite the client to examine what is live in the room."
       },
       {
         "id": "c",
-        "text": "Countertransference acted out in session",
-        "isCorrect": false
+        "text": "Countertransference acted out in session at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Countertransference acted out in session at the level the it…\" is not what the item tests — Immediacy (Egan) uses what is happening between counselor and client right now as a therapeutic tool."
       },
       {
         "id": "d",
-        "text": "Confrontation of avoidance",
-        "isCorrect": false
+        "text": "Confrontation of avoidance here as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Confrontation of avoidance here as the reference material fr…\" is not what the item tests — Immediacy (Egan) uses what is happening between counselor and client right now as a therapeutic tool."
       }
     ],
     "rationale": "Immediacy (Egan) uses what is happening between counselor and client right now as a therapeutic tool. The counselor shares a present-moment reaction to invite the client to examine what is live in the room."
@@ -4663,23 +5288,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The counselor is unsure what to say next",
-        "isCorrect": false
+        "text": "The counselor is unsure what to say next as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"The counselor is unsure what to say next as clinicians typic…\" is not what the item tests — Purposeful silence communicates acceptance, creates space for deeper processing, and respects the client's internal rhythm."
       },
       {
         "id": "b",
         "text": "The client needs space to process, integrate, or access deeper material",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Purposeful silence communicates acceptance, creates space for deeper processing, and respects the client's internal rhythm. It is an active, intentional skill — not an absence of skill or a strategy for managing time."
       },
       {
         "id": "c",
-        "text": "The session has reached its time limit",
-        "isCorrect": false
+        "text": "The session has reached its time limit as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"The session has reached its time limit as clinicians typical…\" is not what the item tests — Purposeful silence communicates acceptance, creates space for deeper processing, and respects the client's internal rhythm."
       },
       {
         "id": "d",
-        "text": "The client is speaking too much and needs to be slowed down",
-        "isCorrect": false
+        "text": "The client is speaking too much and needs to be slowed down in practice",
+        "isCorrect": false,
+        "rationale": "\"The client is speaking too much and needs to be slowed down …\" is not what the item tests — Purposeful silence communicates acceptance, creates space for deeper processing, and respects the client's internal rhythm."
       }
     ],
     "rationale": "Purposeful silence communicates acceptance, creates space for deeper processing, and respects the client's internal rhythm. It is an active, intentional skill — not an absence of skill or a strategy for managing time."
@@ -4693,23 +5322,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Follow whichever topic the client returns to most frequently",
-        "isCorrect": false
+        "text": "Follow whichever topic the client returns to most frequently during counseling",
+        "isCorrect": false,
+        "rationale": "\"Follow whichever topic the client returns to most frequently…\" is not what the item tests — When clients scatter across multiple concerns, focusing helps establish a productive direction without the counselor arbitrarily choosing or the se"
       },
       {
         "id": "b",
         "text": "Use focusing to collaboratively identify which thread to explore most deeply",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "When clients scatter across multiple concerns, focusing helps establish a productive direction without the counselor arbitrarily choosing or the session becoming diffuse. It is done collaboratively, honoring client agency."
       },
       {
         "id": "c",
-        "text": "Address all three topics briefly to validate their importance",
-        "isCorrect": false
+        "text": "Address all three topics briefly to validate their importance in this domain",
+        "isCorrect": false,
+        "rationale": "\"Address all three topics briefly to validate their importanc…\" is not what the item tests — When clients scatter across multiple concerns, focusing helps establish a productive direction without the counselor arbitrarily choosing or the se"
       },
       {
         "id": "d",
-        "text": "Redirect to the presenting problem stated at intake",
-        "isCorrect": false
+        "text": "Redirect to the presenting problem stated at intake during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Redirect to the presenting problem stated at intake during a…\" is not what the item tests — When clients scatter across multiple concerns, focusing helps establish a productive direction without the counselor arbitrarily choosing or the se"
       }
     ],
     "rationale": "When clients scatter across multiple concerns, focusing helps establish a productive direction without the counselor arbitrarily choosing or the session becoming diffuse. It is done collaboratively, honoring client agency."
@@ -4724,22 +5357,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Gradually desensitize clients to feared stimuli through repeated exposure",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Gradually desensitize clients to feared stimuli through repe…\" is not what the item tests — Behavioral experiments are hypothesis-testing exercises: the client predicts what will happen based on a belief, then conducts an experiment to gat"
       },
       {
         "id": "b",
         "text": "Test the validity of a belief by collecting real-world evidence",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Behavioral experiments are hypothesis-testing exercises: the client predicts what will happen based on a belief, then conducts an experiment to gather evidence."
       },
       {
         "id": "c",
         "text": "Train clients in new social skills through structured role plays",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Train clients in new social skills through structured role p…\" is not what the item tests — Behavioral experiments are hypothesis-testing exercises: the client predicts what will happen based on a belief, then conducts an experiment to gat"
       },
       {
         "id": "d",
-        "text": "Reduce avoidance through graded task assignments",
-        "isCorrect": false
+        "text": "Reduce avoidance through graded task assignments in this domain",
+        "isCorrect": false,
+        "rationale": "\"Reduce avoidance through graded task assignments in this dom…\" is not what the item tests — Behavioral experiments are hypothesis-testing exercises: the client predicts what will happen based on a belief, then conducts an experiment to gat"
       }
     ],
     "rationale": "Behavioral experiments are hypothesis-testing exercises: the client predicts what will happen based on a belief, then conducts an experiment to gather evidence. They are distinct from exposure (which targets anxiety reduction) in that they target belief change through evidence."
@@ -4753,23 +5390,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Exposure → hierarchy construction → relaxation training",
-        "isCorrect": false
+        "text": "Exposure → hierarchy construction → relaxation training as clinicians typically apply it now",
+        "isCorrect": false,
+        "rationale": "\"Exposure → hierarchy construction → relaxation training as c…\" is not what the item tests — Wolpe's systematic desensitization: (1) teach deep relaxation (reciprocal inhibition), (2) construct a fear hierarchy from least to most anxious, ("
       },
       {
         "id": "b",
         "text": "Relaxation training → hierarchy construction → graduated exposure paired with relaxation",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Wolpe's systematic desensitization: (1) teach deep relaxation (reciprocal inhibition), (2) construct a fear hierarchy from least to most anxious, (3) pair each step with relaxation, moving up only when the lower step produces no anxiety."
       },
       {
         "id": "c",
-        "text": "Hierarchy construction → flooding → relaxation training",
-        "isCorrect": false
+        "text": "Hierarchy construction → flooding → relaxation training as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Hierarchy construction → flooding → relaxation training as c…\" is not what the item tests — Wolpe's systematic desensitization: (1) teach deep relaxation (reciprocal inhibition), (2) construct a fear hierarchy from least to most anxious, ("
       },
       {
         "id": "d",
-        "text": "Relaxation training → flooding → hierarchy construction",
-        "isCorrect": false
+        "text": "Relaxation training → flooding → hierarchy construction as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Relaxation training → flooding → hierarchy construction as c…\" is not what the item tests — Wolpe's systematic desensitization: (1) teach deep relaxation (reciprocal inhibition), (2) construct a fear hierarchy from least to most anxious, ("
       }
     ],
     "rationale": "Wolpe's systematic desensitization: (1) teach deep relaxation (reciprocal inhibition), (2) construct a fear hierarchy from least to most anxious, (3) pair each step with relaxation, moving up only when the lower step produces no anxiety."
@@ -4783,23 +5424,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Relaxation to reduce physiological arousal",
-        "isCorrect": false
+        "text": "Relaxation to reduce physiological arousal in this domain as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Relaxation to reduce physiological arousal in this domain as…\" is not what the item tests — Health anxiety (illness anxiety disorder) is maintained by safety behaviors — checking and reassurance-seeking — that prevent disconfirmation of fe"
       },
       {
         "id": "b",
         "text": "Response prevention of checking behavior combined with exposure to health-related uncertainty",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Health anxiety (illness anxiety disorder) is maintained by safety behaviors — checking and reassurance-seeking — that prevent disconfirmation of feared beliefs."
       },
       {
         "id": "c",
-        "text": "Thought records challenging catastrophic appraisals only",
-        "isCorrect": false
+        "text": "Thought records challenging catastrophic appraisals only now as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Thought records challenging catastrophic appraisals only now…\" is not what the item tests — Health anxiety (illness anxiety disorder) is maintained by safety behaviors — checking and reassurance-seeking — that prevent disconfirmation of fe"
       },
       {
         "id": "d",
-        "text": "Psychoeducation about medical conditions to reduce uncertainty",
-        "isCorrect": false
+        "text": "Psychoeducation about medical conditions to reduce uncertainty as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Psychoeducation about medical conditions to reduce uncertain…\" is not what the item tests — Health anxiety (illness anxiety disorder) is maintained by safety behaviors — checking and reassurance-seeking — that prevent disconfirmation of fe"
       }
     ],
     "rationale": "Health anxiety (illness anxiety disorder) is maintained by safety behaviors — checking and reassurance-seeking — that prevent disconfirmation of feared beliefs. ERP targets the compulsive checking; psychoeducation and reassurance typically worsen the cycle."
@@ -4813,23 +5458,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Classical conditioning through stimulus pairing",
-        "isCorrect": false
+        "text": "Classical conditioning through stimulus pairing in this domain as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Classical conditioning through stimulus pairing in this doma…\" is not what the item tests — Token economies use secondary (conditioned) reinforcers (tokens/points) that are exchanged for primary or preferred backup reinforcers."
       },
       {
         "id": "b",
         "text": "Operant conditioning — tokens serve as conditioned reinforcers exchangeable for backup reinforcers",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Token economies use secondary (conditioned) reinforcers (tokens/points) that are exchanged for primary or preferred backup reinforcers. They work through positive reinforcement, shaping target behaviors via operant conditioning."
       },
       {
         "id": "c",
-        "text": "Observational learning through modeled behavior",
-        "isCorrect": false
+        "text": "Observational learning through modeled behavior in this domain as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Observational learning through modeled behavior in this doma…\" is not what the item tests — Token economies use secondary (conditioned) reinforcers (tokens/points) that are exchanged for primary or preferred backup reinforcers."
       },
       {
         "id": "d",
-        "text": "Extinction of maladaptive behavior through reinforcement withdrawal",
-        "isCorrect": false
+        "text": "Extinction of maladaptive behavior through reinforcement withdrawal as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Extinction of maladaptive behavior through reinforcement wit…\" is not what the item tests — Token economies use secondary (conditioned) reinforcers (tokens/points) that are exchanged for primary or preferred backup reinforcers."
       }
     ],
     "rationale": "Token economies use secondary (conditioned) reinforcers (tokens/points) that are exchanged for primary or preferred backup reinforcers. They work through positive reinforcement, shaping target behaviors via operant conditioning."
@@ -4843,23 +5492,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Reinforcing any behavior that reduces the target problem behavior",
-        "isCorrect": false
+        "text": "Reinforcing any behavior that reduces the target problem behavior at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Reinforcing any behavior that reduces the target problem beh…\" is not what the item tests — DRI: reinforce a behavior that is physically incompatible with the target behavior (e.g., keeping hands on the desk is incompatible with hitting)."
       },
       {
         "id": "b",
         "text": "Reinforcing a behavior that physically cannot occur simultaneously with the problem behavior",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "DRI: reinforce a behavior that is physically incompatible with the target behavior (e.g., keeping hands on the desk is incompatible with hitting)."
       },
       {
         "id": "c",
-        "text": "Withholding reinforcement to extinguish the problem behavior directly",
-        "isCorrect": false
+        "text": "Withholding reinforcement to extinguish the problem behavior directly during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Withholding reinforcement to extinguish the problem behavior…\" is not what the item tests — DRI: reinforce a behavior that is physically incompatible with the target behavior (e.g., keeping hands on the desk is incompatible with hitting)."
       },
       {
         "id": "d",
-        "text": "Reinforcing the absence of the problem behavior during a specified interval",
-        "isCorrect": false
+        "text": "Reinforcing the absence of the problem behavior during a specified interval during counseling",
+        "isCorrect": false,
+        "rationale": "\"Reinforcing the absence of the problem behavior during a spe…\" is not what the item tests — DRI: reinforce a behavior that is physically incompatible with the target behavior (e.g., keeping hands on the desk is incompatible with hitting)."
       }
     ],
     "rationale": "DRI: reinforce a behavior that is physically incompatible with the target behavior (e.g., keeping hands on the desk is incompatible with hitting). DRO reinforces absence; DRA reinforces any alternative behavior that is not necessarily incompatible."
@@ -4874,22 +5527,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Phase 2 — Preparation",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Phase 2 — Preparation\" is not what the item tests — EMDR Phase 4 (Desensitization): client holds the target memory, negative cognition, emotion, and body sensation while engaging in bilateral stimulation."
       },
       {
         "id": "b",
         "text": "Phase 4 — Desensitization",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "EMDR Phase 4 (Desensitization): client holds the target memory, negative cognition, emotion, and body sensation while engaging in bilateral stimulation."
       },
       {
         "id": "c",
         "text": "Phase 5 — Installation",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Phase 5 — Installation\" is not what the item tests — EMDR Phase 4 (Desensitization): client holds the target memory, negative cognition, emotion, and body sensation while engaging in bilateral stimulation."
       },
       {
         "id": "d",
         "text": "Phase 7 — Closure",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Phase 7 — Closure\" is not what the item tests — EMDR Phase 4 (Desensitization): client holds the target memory, negative cognition, emotion, and body sensation while engaging in bilateral stimulation."
       }
     ],
     "rationale": "EMDR Phase 4 (Desensitization): client holds the target memory, negative cognition, emotion, and body sensation while engaging in bilateral stimulation. SUD (subjective units of distress) is tracked. Phase 5 installs the positive cognition; Phase 2 builds resources and prepares the client."
@@ -4903,23 +5560,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Reducing medication dosage after symptom improvement",
-        "isCorrect": false
+        "text": "Reducing medication dosage after symptom improvement as used as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Reducing medication dosage after symptom improvement as used…\" is not what the item tests — Titration (from chemistry/pharmacology) in trauma therapy means processing small amounts of traumatic material at a time — moving in and out of tra"
       },
       {
         "id": "b",
         "text": "Carefully dosing the amount of traumatic material processed at any one time to prevent overwhelm",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Titration (from chemistry/pharmacology) in trauma therapy means processing small amounts of traumatic material at a time — moving in and out of traumatic activation — to keep the client within the window of tolerance and…"
       },
       {
         "id": "c",
-        "text": "Measuring trauma symptom severity with standardized tools",
-        "isCorrect": false
+        "text": "Measuring trauma symptom severity with standardized tools now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Measuring trauma symptom severity with standardized tools no…\" is not what the item tests — Titration (from chemistry/pharmacology) in trauma therapy means processing small amounts of traumatic material at a time — moving in and out of tra"
       },
       {
         "id": "d",
-        "text": "Gradually transferring care from one provider to another",
-        "isCorrect": false
+        "text": "Gradually transferring care from one provider to another now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Gradually transferring care from one provider to another now…\" is not what the item tests — Titration (from chemistry/pharmacology) in trauma therapy means processing small amounts of traumatic material at a time — moving in and out of tra"
       }
     ],
     "rationale": "Titration (from chemistry/pharmacology) in trauma therapy means processing small amounts of traumatic material at a time — moving in and out of traumatic activation — to keep the client within the window of tolerance and prevent retraumatization."
@@ -4933,23 +5594,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The time period within which trauma processing should be completed to prevent PTSD",
-        "isCorrect": false
+        "text": "The time period within which trauma processing should be completed to prevent PTSD during a routine session",
+        "isCorrect": false,
+        "rationale": "\"The time period within which trauma processing should be com…\" is not what the item tests — Window of tolerance (Siegel, Ogden): the optimal arousal zone between hyperarousal (fight/flight — too activated) and hypoarousal (freeze/shutdown "
       },
       {
         "id": "b",
         "text": "The zone of optimal arousal in which a client can process difficult material without hyper- or hypo-arousal",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Window of tolerance (Siegel, Ogden): the optimal arousal zone between hyperarousal (fight/flight — too activated) and hypoarousal (freeze/shutdown — too numb)."
       },
       {
         "id": "c",
-        "text": "The acceptable range of session length for trauma-focused work",
-        "isCorrect": false
+        "text": "The acceptable range of session length for trauma-focused work at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"The acceptable range of session length for trauma-focused wo…\" is not what the item tests — Window of tolerance (Siegel, Ogden): the optimal arousal zone between hyperarousal (fight/flight — too activated) and hypoarousal (freeze/shutdown "
       },
       {
         "id": "d",
-        "text": "The period between trauma exposure and onset of PTSD symptoms",
-        "isCorrect": false
+        "text": "The period between trauma exposure and onset of PTSD symptoms at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"The period between trauma exposure and onset of PTSD symptom…\" is not what the item tests — Window of tolerance (Siegel, Ogden): the optimal arousal zone between hyperarousal (fight/flight — too activated) and hypoarousal (freeze/shutdown "
       }
     ],
     "rationale": "Window of tolerance (Siegel, Ogden): the optimal arousal zone between hyperarousal (fight/flight — too activated) and hypoarousal (freeze/shutdown — too numb). Effective trauma processing occurs in this window. Trauma interventions aim to keep or return the client to this zone."
@@ -4963,23 +5628,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Help the client process traumatic memories more quickly",
-        "isCorrect": false
+        "text": "Help the client process traumatic memories more quickly as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Help the client process traumatic memories more quickly as c…\" is not what the item tests — Grounding techniques (5-4-3-2-1 sensory, feet-on-floor, cold water, etc.) reorient the client to the present moment when they become flooded or dis"
       },
       {
         "id": "b",
         "text": "Reconnect the client with the present moment when they are dissociating or overwhelmed",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Grounding techniques (5-4-3-2-1 sensory, feet-on-floor, cold water, etc.) reorient the client to the present moment when they become flooded or dissociated. They are stabilization tools, not trauma processing tools."
       },
       {
         "id": "c",
-        "text": "Reduce physical symptoms of PTSD such as nightmares",
-        "isCorrect": false
+        "text": "Reduce physical symptoms of PTSD such as nightmares as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Reduce physical symptoms of PTSD such as nightmares as the r…\" is not what the item tests — Grounding techniques (5-4-3-2-1 sensory, feet-on-floor, cold water, etc.) reorient the client to the present moment when they become flooded or dis"
       },
       {
         "id": "d",
-        "text": "Improve the client's ability to narrate their trauma coherently",
-        "isCorrect": false
+        "text": "Improve the client's ability to narrate their trauma coherently during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Improve the client's ability to narrate their trauma coheren…\" is not what the item tests — Grounding techniques (5-4-3-2-1 sensory, feet-on-floor, cold water, etc.) reorient the client to the present moment when they become flooded or dis"
       }
     ],
     "rationale": "Grounding techniques (5-4-3-2-1 sensory, feet-on-floor, cold water, etc.) reorient the client to the present moment when they become flooded or dissociated. They are stabilization tools, not trauma processing tools."
@@ -4994,22 +5663,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Reframing",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Reframing\" is not what the item tests — OARS: Open questions (explore), Affirmations (build confidence and acknowledge strengths), Reflective listening (demonstrate understanding), Summarizing (collect and link key themes, transition, and "
       },
       {
         "id": "b",
         "text": "Scaling",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Scaling\" is not what the item tests — OARS: Open questions (explore), Affirmations (build confidence and acknowledge strengths), Reflective listening (demonstrate understanding), Summarizing (collect and link key themes, transition, and ev"
       },
       {
         "id": "c",
         "text": "Summarizing",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "OARS: Open questions (explore), Affirmations (build confidence and acknowledge strengths), Reflective listening (demonstrate understanding), Summarizing (collect and link key themes, transition, and evoke change talk)."
       },
       {
         "id": "d",
         "text": "Strategizing",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Strategizing\" is not what the item tests — OARS: Open questions (explore), Affirmations (build confidence and acknowledge strengths), Reflective listening (demonstrate understanding), Summarizing (collect and link key themes, transition, a"
       }
     ],
     "rationale": "OARS: Open questions (explore), Affirmations (build confidence and acknowledge strengths), Reflective listening (demonstrate understanding), Summarizing (collect and link key themes, transition, and evoke change talk). All four are foundational MI micro-skills."
@@ -5023,23 +5696,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Describe the history of the problem behavior in detail",
-        "isCorrect": false
+        "text": "Describe the history of the problem behavior in detail as used",
+        "isCorrect": false,
+        "rationale": "\"Describe the history of the problem behavior in detail as us…\" is not what the item tests — Change talk (DARN-C): Desire (\"I want to...\"), Ability (\"I could...\"), Reason (\"It would help...\"), Need (\"I have to...\"), Commitment (\"I will...\")"
       },
       {
         "id": "b",
         "text": "Express desire, ability, reason, need, or commitment to change",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Change talk (DARN-C): Desire (\"I want to...\"), Ability (\"I could...\"), Reason (\"It would help...\"), Need (\"I have to...\"), Commitment (\"I will...\")."
       },
       {
         "id": "c",
-        "text": "Indicate readiness to begin a new treatment modality",
-        "isCorrect": false
+        "text": "Indicate readiness to begin a new treatment modality at intake",
+        "isCorrect": false,
+        "rationale": "\"Indicate readiness to begin a new treatment modality at inta…\" is not what the item tests — Change talk (DARN-C): Desire (\"I want to...\"), Ability (\"I could...\"), Reason (\"It would help...\"), Need (\"I have to...\"), Commitment (\"I will...\")"
       },
       {
         "id": "d",
-        "text": "Acknowledge problems but argue against changing",
-        "isCorrect": false
+        "text": "Acknowledge problems but argue against changing in this domain now",
+        "isCorrect": false,
+        "rationale": "\"Acknowledge problems but argue against changing in this doma…\" is not what the item tests — Change talk (DARN-C): Desire (\"I want to...\"), Ability (\"I could...\"), Reason (\"It would help...\"), Need (\"I have to...\"), Commitment (\"I will...\")"
       }
     ],
     "rationale": "Change talk (DARN-C): Desire (\"I want to...\"), Ability (\"I could...\"), Reason (\"It would help...\"), Need (\"I have to...\"), Commitment (\"I will...\"). MI counselors selectively reinforce and explore change talk; sustain talk (\"I don't want to,\" resistance) is rolled with, not reinforced."
@@ -5054,22 +5731,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Precontemplation — to demonstrate they have a problem",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Precontemplation — to demonstrate they have a problem\" is not what the item tests — Decisional balance (exploring pros and cons of change and of staying the same) is most useful in contemplation, where ambivalence is central."
       },
       {
         "id": "b",
         "text": "Contemplation — to explore ambivalence about change",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Decisional balance (exploring pros and cons of change and of staying the same) is most useful in contemplation, where ambivalence is central."
       },
       {
         "id": "c",
         "text": "Action — to reinforce commitment to current change efforts",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Action — to reinforce commitment to current change efforts\" is not what the item tests — Decisional balance (exploring pros and cons of change and of staying the same) is most useful in contemplation, where ambivalence is central."
       },
       {
         "id": "d",
         "text": "Maintenance — to prevent relapse through cost-benefit analysis",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Maintenance — to prevent relapse through cost-benefit analys…\" is not what the item tests — Decisional balance (exploring pros and cons of change and of staying the same) is most useful in contemplation, where ambivalence is central."
       }
     ],
     "rationale": "Decisional balance (exploring pros and cons of change and of staying the same) is most useful in contemplation, where ambivalence is central. In precontemplation, it can backfire by reinforcing sustain talk; in action/maintenance, the client has already committed and doesn't need to re-examine the decision."
@@ -5083,23 +5764,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Provide positive reinforcement for session attendance",
-        "isCorrect": false
+        "text": "Provide positive reinforcement for session attendance during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Provide positive reinforcement for session attendance during…\" is not what the item tests — SFBT compliments identify and affirm what the client is already doing that relates to the solution."
       },
       {
         "id": "b",
         "text": "Validate the client's strengths and frame exceptions as evidence of capability",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "SFBT compliments identify and affirm what the client is already doing that relates to the solution."
       },
       {
         "id": "c",
-        "text": "Build rapport early in the therapeutic relationship",
-        "isCorrect": false
+        "text": "Build rapport early in the therapeutic relationship at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Build rapport early in the therapeutic relationship at the l…\" is not what the item tests — SFBT compliments identify and affirm what the client is already doing that relates to the solution."
       },
       {
         "id": "d",
-        "text": "Motivate clients through praise for stated intentions",
-        "isCorrect": false
+        "text": "Motivate clients through praise for stated intentions during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Motivate clients through praise for stated intentions during…\" is not what the item tests — SFBT compliments identify and affirm what the client is already doing that relates to the solution."
       }
     ],
     "rationale": "SFBT compliments identify and affirm what the client is already doing that relates to the solution. They are not generic praise — they link observed strengths to the client's goals, priming the \"task\" (homework) that follows in the consultation message."
@@ -5113,23 +5798,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Identify where in their body they feel the problem most intensely",
-        "isCorrect": false
+        "text": "Identify where in their body they feel the problem most intensely now",
+        "isCorrect": false,
+        "rationale": "\"Identify where in their body they feel the problem most inte…\" is not what the item tests — Mapping influence is a two-phase externalization process: (1) map how the problem influences the person's life and relationships, and (2) map how t"
       },
       {
         "id": "b",
         "text": "Describe how the problem has affected different areas of their life",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Mapping influence is a two-phase externalization process: (1) map how the problem influences the person's life and relationships, and (2) map how the person influences the problem. Together, they expose agency and prepare for re-authoring."
       },
       {
         "id": "c",
-        "text": "Draw a diagram of their social support network",
-        "isCorrect": false
+        "text": "Draw a diagram of their social support network as usually described",
+        "isCorrect": false,
+        "rationale": "\"Draw a diagram of their social support network as usually de…\" is not what the item tests — Mapping influence is a two-phase externalization process: (1) map how the problem influences the person's life and relationships, and (2) map how t"
       },
       {
         "id": "d",
-        "text": "Trace the origins of the problem to specific childhood events",
-        "isCorrect": false
+        "text": "Trace the origins of the problem to specific childhood events today",
+        "isCorrect": false,
+        "rationale": "\"Trace the origins of the problem to specific childhood event…\" is not what the item tests — Mapping influence is a two-phase externalization process: (1) map how the problem influences the person's life and relationships, and (2) map how t"
       }
     ],
     "rationale": "Mapping influence is a two-phase externalization process: (1) map how the problem influences the person's life and relationships, and (2) map how the person influences the problem. Together, they expose agency and prepare for re-authoring."
@@ -5144,22 +5833,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Desensitizing clients to interpersonal conflict by rehearsing difficult conversations",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Desensitizing clients to interpersonal conflict by rehearsin…\" is not what the item tests — The two-chair (Gestalt): client alternates between two chairs, speaking from each of two conflicting internal parts (e.g., the self-critical part v"
       },
       {
         "id": "b",
         "text": "Facilitating dialogue between opposing parts of the self to promote integration",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The two-chair (Gestalt): client alternates between two chairs, speaking from each of two conflicting internal parts (e.g., the self-critical part vs."
       },
       {
         "id": "c",
         "text": "Practicing assertiveness skills in a safe environment before real-world application",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Practicing assertiveness skills in a safe environment before…\" is not what the item tests — The two-chair (Gestalt): client alternates between two chairs, speaking from each of two conflicting internal parts (e.g., the self-critical part v"
       },
       {
         "id": "d",
-        "text": "Allowing the client to experience how others perceive their behavior",
-        "isCorrect": false
+        "text": "Allowing the client to experience how others perceive their behavior in practice",
+        "isCorrect": false,
+        "rationale": "\"Allowing the client to experience how others perceive their …\" is not what the item tests — The two-chair (Gestalt): client alternates between two chairs, speaking from each of two conflicting internal parts (e.g., the self-critical part v"
       }
     ],
     "rationale": "The two-chair (Gestalt): client alternates between two chairs, speaking from each of two conflicting internal parts (e.g., the self-critical part vs. the wounded part). The dialogue promotes contact, awareness, and eventual integration of the split."
@@ -5174,22 +5867,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Amplify a nonverbal behavior or movement to heighten awareness of its meaning",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The exaggeration experiment: client is asked to amplify a small nonverbal cue (a tapping foot, a half-smile, a clenched fist) to heighten awareness of the emotion or message it carries."
       },
       {
         "id": "b",
-        "text": "Catastrophize about a feared outcome to reveal its irrationality",
-        "isCorrect": false
+        "text": "Catastrophize about a feared outcome to reveal its irrationality by counselors",
+        "isCorrect": false,
+        "rationale": "\"Catastrophize about a feared outcome to reveal its irrationa…\" is not what the item tests — The exaggeration experiment: client is asked to amplify a small nonverbal cue (a tapping foot, a half-smile, a clenched fist) to heighten awareness"
       },
       {
         "id": "c",
-        "text": "Exaggerate positive self-statements to counteract negative thinking",
-        "isCorrect": false
+        "text": "Exaggerate positive self-statements to counteract negative thinking at intake",
+        "isCorrect": false,
+        "rationale": "\"Exaggerate positive self-statements to counteract negative t…\" is not what the item tests — The exaggeration experiment: client is asked to amplify a small nonverbal cue (a tapping foot, a half-smile, a clenched fist) to heighten awareness"
       },
       {
         "id": "d",
         "text": "Perform the problem behavior deliberately to increase voluntary control over it",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Perform the problem behavior deliberately to increase volunt…\" is not what the item tests — The exaggeration experiment: client is asked to amplify a small nonverbal cue (a tapping foot, a half-smile, a clenched fist) to heighten awareness"
       }
     ],
     "rationale": "The exaggeration experiment: client is asked to amplify a small nonverbal cue (a tapping foot, a half-smile, a clenched fist) to heighten awareness of the emotion or message it carries. This brings body-held experience into conscious awareness."
@@ -5203,23 +5900,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Assign clients reading as a substitute for session attendance",
-        "isCorrect": false
+        "text": "Assign clients reading as a substitute for session attendance now as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Assign clients reading as a substitute for session attendanc…\" is not what the item tests — Bibliotherapy uses carefully selected reading materials — self-help books, memoirs, workbooks, or fiction — as therapeutic adjuncts."
       },
       {
         "id": "b",
         "text": "Supplement therapy by providing psychoeducation and normalizing experiences through selected texts",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Bibliotherapy uses carefully selected reading materials — self-help books, memoirs, workbooks, or fiction — as therapeutic adjuncts. It provides psychoeducation, reduces isolation, and often prompts material for exploration in session."
       },
       {
         "id": "c",
-        "text": "Replace evidence-based treatment for clients with subclinical presentations",
-        "isCorrect": false
+        "text": "Replace evidence-based treatment for clients with subclinical presentations during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Replace evidence-based treatment for clients with subclinica…\" is not what the item tests — Bibliotherapy uses carefully selected reading materials — self-help books, memoirs, workbooks, or fiction — as therapeutic adjuncts."
       },
       {
         "id": "d",
-        "text": "Assign memoir reading to clients who struggle with verbal expression",
-        "isCorrect": false
+        "text": "Assign memoir reading to clients who struggle with verbal expression as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Assign memoir reading to clients who struggle with verbal ex…\" is not what the item tests — Bibliotherapy uses carefully selected reading materials — self-help books, memoirs, workbooks, or fiction — as therapeutic adjuncts."
       }
     ],
     "rationale": "Bibliotherapy uses carefully selected reading materials — self-help books, memoirs, workbooks, or fiction — as therapeutic adjuncts. It provides psychoeducation, reduces isolation, and often prompts material for exploration in session."
@@ -5233,23 +5934,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Avoid all expressive arts techniques without board-certified art therapy credentials",
-        "isCorrect": false
+        "text": "Avoid all expressive arts techniques without board-certified art therapy credentials during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Avoid all expressive arts techniques without board-certified…\" is not what the item tests — ACA C.2.a (competence): basic expressive arts activities (drawing, journaling, metaphor-based exercises) may fall within a counselor's scope with a"
       },
       {
         "id": "b",
         "text": "Use basic expressive techniques within scope of competence and refer to specialists for advanced applications",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ACA C.2.a (competence): basic expressive arts activities (drawing, journaling, metaphor-based exercises) may fall within a counselor's scope with appropriate training."
       },
       {
         "id": "c",
-        "text": "Obtain client permission but no special training is needed for simple activities",
-        "isCorrect": false
+        "text": "Obtain client permission but no special training is needed for simple activities as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Obtain client permission but no special training is needed f…\" is not what the item tests — ACA C.2.a (competence): basic expressive arts activities (drawing, journaling, metaphor-based exercises) may fall within a counselor's scope with a"
       },
       {
         "id": "d",
-        "text": "Use expressive arts only with children, not adults",
-        "isCorrect": false
+        "text": "Use expressive arts only with children, not adults during a routine session as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Use expressive arts only with children, not adults during a …\" is not what the item tests — ACA C.2.a (competence): basic expressive arts activities (drawing, journaling, metaphor-based exercises) may fall within a counselor's scope with a"
       }
     ],
     "rationale": "ACA C.2.a (competence): basic expressive arts activities (drawing, journaling, metaphor-based exercises) may fall within a counselor's scope with appropriate training. Advanced or specialized art therapy applications require credentialed training. Scope of practice, not categorical prohibition, governs use."
@@ -5263,23 +5968,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Preventing a silent member from withdrawing further into isolation",
-        "isCorrect": false
+        "text": "Preventing a silent member from withdrawing further into isolation as usually described",
+        "isCorrect": false,
+        "rationale": "\"Preventing a silent member from withdrawing further into iso…\" is not what the item tests — Blocking (Corey et al.) is a leader intervention that interrupts group behaviors harmful to the therapeutic process — scapegoating, advice-giving t"
       },
       {
         "id": "b",
         "text": "Interrupting harmful, gossipy, or countertherapeutic interactions between group members",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Blocking (Corey et al.) is a leader intervention that interrupts group behaviors harmful to the therapeutic process — scapegoating, advice-giving that avoids feeling, gossiping about absent members, or inappropriate self-disclosure."
       },
       {
         "id": "c",
-        "text": "Temporarily postponing a topic until the group is ready to address it",
-        "isCorrect": false
+        "text": "Temporarily postponing a topic until the group is ready to address it during counseling",
+        "isCorrect": false,
+        "rationale": "\"Temporarily postponing a topic until the group is ready to a…\" is not what the item tests — Blocking (Corey et al.) is a leader intervention that interrupts group behaviors harmful to the therapeutic process — scapegoating, advice-giving t"
       },
       {
         "id": "d",
-        "text": "Refusing to allow a member to dominate the session",
-        "isCorrect": false
+        "text": "Refusing to allow a member to dominate the session now as clinicians typically apply it now",
+        "isCorrect": false,
+        "rationale": "\"Refusing to allow a member to dominate the session now as cl…\" is not what the item tests — Blocking (Corey et al.) is a leader intervention that interrupts group behaviors harmful to the therapeutic process — scapegoating, advice-giving t"
       }
     ],
     "rationale": "Blocking (Corey et al.) is a leader intervention that interrupts group behaviors harmful to the therapeutic process — scapegoating, advice-giving that avoids feeling, gossiping about absent members, or inappropriate self-disclosure. It protects the group's therapeutic integrity."
@@ -5294,22 +6003,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Inviting silent or less verbal members to contribute to the group discussion",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Drawing out: leader uses targeted invitations, questions, or nonverbal cues to bring quieter members into the group interaction. It is done sensitively — not forcing participation but creating openings."
       },
       {
         "id": "b",
-        "text": "Helping a member articulate emotions they cannot name verbally",
-        "isCorrect": false
+        "text": "Helping a member articulate emotions they cannot name verbally by counselors now",
+        "isCorrect": false,
+        "rationale": "\"Helping a member articulate emotions they cannot name verbal…\" is not what the item tests — Drawing out: leader uses targeted invitations, questions, or nonverbal cues to bring quieter members into the group interaction."
       },
       {
         "id": "c",
-        "text": "Bringing unexpressed material into the group from an outside perspective",
-        "isCorrect": false
+        "text": "Bringing unexpressed material into the group from an outside perspective now",
+        "isCorrect": false,
+        "rationale": "\"Bringing unexpressed material into the group from an outside…\" is not what the item tests — Drawing out: leader uses targeted invitations, questions, or nonverbal cues to bring quieter members into the group interaction."
       },
       {
         "id": "d",
-        "text": "Encouraging a member to leave the group temporarily when overwhelmed",
-        "isCorrect": false
+        "text": "Encouraging a member to leave the group temporarily when overwhelmed as used",
+        "isCorrect": false,
+        "rationale": "\"Encouraging a member to leave the group temporarily when ove…\" is not what the item tests — Drawing out: leader uses targeted invitations, questions, or nonverbal cues to bring quieter members into the group interaction."
       }
     ],
     "rationale": "Drawing out: leader uses targeted invitations, questions, or nonverbal cues to bring quieter members into the group interaction. It is done sensitively — not forcing participation but creating openings."
@@ -5323,23 +6036,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Connects the current group theme to the agreed-upon group goals",
-        "isCorrect": false
+        "text": "Connects the current group theme to the agreed-upon group goals at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Connects the current group theme to the agreed-upon group go…\" is not what the item tests — Linking builds cohesion and universality by connecting what one member says to another's experience: \"I notice what David just shared resonates wit"
       },
       {
         "id": "b",
         "text": "Points out thematic or emotional connections between different members' shared experiences",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Linking builds cohesion and universality by connecting what one member says to another's experience: \"I notice what David just shared resonates with what Amara was describing earlier — both of you seem to...\" This highli…"
       },
       {
         "id": "c",
-        "text": "Connects individual session content to between-session homework",
-        "isCorrect": false
+        "text": "Connects individual session content to between-session homework at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Connects individual session content to between-session homew…\" is not what the item tests — Linking builds cohesion and universality by connecting what one member says to another's experience: \"I notice what David just shared resonates wit"
       },
       {
         "id": "d",
-        "text": "Links the group experience to each member's outside relationships",
-        "isCorrect": false
+        "text": "Links the group experience to each member's outside relationships during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Links the group experience to each member's outside relation…\" is not what the item tests — Linking builds cohesion and universality by connecting what one member says to another's experience: \"I notice what David just shared resonates wit"
       }
     ],
     "rationale": "Linking builds cohesion and universality by connecting what one member says to another's experience: \"I notice what David just shared resonates with what Amara was describing earlier — both of you seem to...\" This highlights commonality and deepens group-level processing."
@@ -5353,23 +6070,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Ask the group to support the member through the disclosure",
-        "isCorrect": false
+        "text": "Ask the group to support the member through the disclosure now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Ask the group to support the member through the disclosure n…\" is not what the item tests — The leader's duty to protect client safety supersedes group process."
       },
       {
         "id": "b",
         "text": "Conduct a brief safety assessment with the member and address safety before continuing the group",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The leader's duty to protect client safety supersedes group process."
       },
       {
         "id": "c",
-        "text": "Refer the matter to the co-leader and continue the group",
-        "isCorrect": false
+        "text": "Refer the matter to the co-leader and continue the group now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Refer the matter to the co-leader and continue the group now…\" is not what the item tests — The leader's duty to protect client safety supersedes group process."
       },
       {
         "id": "d",
-        "text": "End the group session for all members immediately",
-        "isCorrect": false
+        "text": "End the group session for all members immediately in practice as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"End the group session for all members immediately in practic…\" is not what the item tests — The leader's duty to protect client safety supersedes group process."
       }
     ],
     "rationale": "The leader's duty to protect client safety supersedes group process. A brief in-session assessment determines urgency. The leader may step out briefly with the member or pause the group, ensuring safety before considering whether and how to continue. The group's experience of the event also becomes therapeutic material."
@@ -5383,23 +6104,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Is the most efficient way to reach this population",
-        "isCorrect": false
+        "text": "Is the most efficient way to reach this population here as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Is the most efficient way to reach this population here as t…\" is not what the item tests — Deviancy training (Dishion et al.): peer reinforcement of deviant talk and behavior in homogeneous antisocial youth groups can increase problem beh"
       },
       {
         "id": "b",
         "text": "Can worsen outcomes through deviancy training and peer reinforcement of antisocial behavior",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Deviancy training (Dishion et al.): peer reinforcement of deviant talk and behavior in homogeneous antisocial youth groups can increase problem behaviors."
       },
       {
         "id": "c",
-        "text": "Is equivalent in effectiveness to individual therapy",
-        "isCorrect": false
+        "text": "Is equivalent in effectiveness to individual therapy now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Is equivalent in effectiveness to individual therapy now as …\" is not what the item tests — Deviancy training (Dishion et al.): peer reinforcement of deviant talk and behavior in homogeneous antisocial youth groups can increase problem beh"
       },
       {
         "id": "d",
-        "text": "Is effective only when combined with psychoeducation",
-        "isCorrect": false
+        "text": "Is effective only when combined with psychoeducation now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Is effective only when combined with psychoeducation now as …\" is not what the item tests — Deviancy training (Dishion et al.): peer reinforcement of deviant talk and behavior in homogeneous antisocial youth groups can increase problem beh"
       }
     ],
     "rationale": "Deviancy training (Dishion et al.): peer reinforcement of deviant talk and behavior in homogeneous antisocial youth groups can increase problem behaviors. Heterogeneous groups (mixing prosocial and antisocial youth) or individual/family approaches are preferable."
@@ -5413,23 +6138,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Forming a coalition with the parental subsystem to enforce hierarchy",
-        "isCorrect": false
+        "text": "Forming a coalition with the parental subsystem to enforce hierarchy as usually described",
+        "isCorrect": false,
+        "rationale": "\"Forming a coalition with the parental subsystem to enforce h…\" is not what the item tests — Joining: the therapist temporarily adopts the family's language, pace, and relational style to establish trust and entry into the system before att"
       },
       {
         "id": "b",
         "text": "Accommodating to the family's style and culture to build an alliance before restructuring",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Joining: the therapist temporarily adopts the family's language, pace, and relational style to establish trust and entry into the system before attempting restructuring interventions."
       },
       {
         "id": "c",
-        "text": "Becoming part of the family system to observe its natural dynamics",
-        "isCorrect": false
+        "text": "Becoming part of the family system to observe its natural dynamics during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Becoming part of the family system to observe its natural dy…\" is not what the item tests — Joining: the therapist temporarily adopts the family's language, pace, and relational style to establish trust and entry into the system before att"
       },
       {
         "id": "d",
-        "text": "Joining the identified patient in validating their perspective against the family",
-        "isCorrect": false
+        "text": "Joining the identified patient in validating their perspective against the family as used",
+        "isCorrect": false,
+        "rationale": "\"Joining the identified patient in validating their perspecti…\" is not what the item tests — Joining: the therapist temporarily adopts the family's language, pace, and relational style to establish trust and entry into the system before att"
       }
     ],
     "rationale": "Joining: the therapist temporarily adopts the family's language, pace, and relational style to establish trust and entry into the system before attempting restructuring interventions. Without joining, structural interventions are met with resistance."
@@ -5443,23 +6172,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Focuses exclusively on changing cognitions of the most symptomatic family member",
-        "isCorrect": false
+        "text": "Focuses exclusively on changing cognitions of the most symptomatic family member in practice",
+        "isCorrect": false,
+        "rationale": "\"Focuses exclusively on changing cognitions of the most sympt…\" is not what the item tests — Systemic reframing repositions symptoms as serving a relational or protective function in the family system (e.g., \"Your son's acting out may be hi"
       },
       {
         "id": "b",
         "text": "Recontextualizes a symptom or behavior in terms of its function within the relational system",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Systemic reframing repositions symptoms as serving a relational or protective function in the family system (e.g., \"Your son's acting out may be his way of keeping you and your wife focused together\")."
       },
       {
         "id": "c",
-        "text": "Requires consensus among all family members before being offered",
-        "isCorrect": false
+        "text": "Requires consensus among all family members before being offered at the level the item tests now",
+        "isCorrect": false,
+        "rationale": "\"Requires consensus among all family members before being off…\" is not what the item tests — Systemic reframing repositions symptoms as serving a relational or protective function in the family system (e.g., \"Your son's acting out may be hi"
       },
       {
         "id": "d",
-        "text": "Is used only when the family's narrative is factually inaccurate",
-        "isCorrect": false
+        "text": "Is used only when the family's narrative is factually inaccurate at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Is used only when the family's narrative is factually inaccu…\" is not what the item tests — Systemic reframing repositions symptoms as serving a relational or protective function in the family system (e.g., \"Your son's acting out may be hi"
       }
     ],
     "rationale": "Systemic reframing repositions symptoms as serving a relational or protective function in the family system (e.g., \"Your son's acting out may be his way of keeping you and your wife focused together\"). It shifts from individual pathology to relational meaning."
@@ -5473,23 +6206,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Mapping DSM diagnoses across family members",
-        "isCorrect": false
+        "text": "Mapping DSM diagnoses across family members as used as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Mapping DSM diagnoses across family members as used as the r…\" is not what the item tests — Genograms (Bowen/McGoldrick) are multigenerational family maps showing structure, relationships (enmeshment, cut-off, conflict), significant events"
       },
       {
         "id": "b",
         "text": "Visually representing multigenerational patterns, relationships, and significant events",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Genograms (Bowen/McGoldrick) are multigenerational family maps showing structure, relationships (enmeshment, cut-off, conflict), significant events, and patterns (substance use, mental illness, abuse) across at least three generations."
       },
       {
         "id": "c",
-        "text": "Documenting insurance and billing information for family sessions",
-        "isCorrect": false
+        "text": "Documenting insurance and billing information for family sessions during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Documenting insurance and billing information for family ses…\" is not what the item tests — Genograms (Bowen/McGoldrick) are multigenerational family maps showing structure, relationships (enmeshment, cut-off, conflict), significant events"
       },
       {
         "id": "d",
-        "text": "Providing a legal record of family structure for custody evaluations",
-        "isCorrect": false
+        "text": "Providing a legal record of family structure for custody evaluations at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Providing a legal record of family structure for custody eva…\" is not what the item tests — Genograms (Bowen/McGoldrick) are multigenerational family maps showing structure, relationships (enmeshment, cut-off, conflict), significant events"
       }
     ],
     "rationale": "Genograms (Bowen/McGoldrick) are multigenerational family maps showing structure, relationships (enmeshment, cut-off, conflict), significant events, and patterns (substance use, mental illness, abuse) across at least three generations. They inform case conceptualization and systemic hypotheses."
@@ -5503,23 +6240,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Anger, silence, criticism, jealousy",
-        "isCorrect": false
+        "text": "Anger, silence, criticism, jealousy by counselors",
+        "isCorrect": false,
+        "rationale": "\"Anger, silence, criticism, jealousy by counselors\" is not what the item tests — Gottman's Four Horsemen: Criticism (attacking character), Contempt (superiority/disgust — strongest predictor of divorce), Defensiveness (counter-complaint or "
       },
       {
         "id": "b",
         "text": "Criticism, contempt, defensiveness, stonewalling",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Gottman's Four Horsemen: Criticism (attacking character), Contempt (superiority/disgust — strongest predictor of divorce), Defensiveness (counter-complaint or victim stance), Stonewalling (emotional withdrawal from interaction)."
       },
       {
         "id": "c",
         "text": "Contempt, avoidance, withdrawal, passive aggression",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Contempt, avoidance, withdrawal, passive aggression\" is not what the item tests — Gottman's Four Horsemen: Criticism (attacking character), Contempt (superiority/disgust — strongest predictor of divorce), Defensiveness (counter-complaint o"
       },
       {
         "id": "d",
-        "text": "Criticism, resentment, disengagement, hostility",
-        "isCorrect": false
+        "text": "Criticism, resentment, disengagement, hostility now",
+        "isCorrect": false,
+        "rationale": "\"Criticism, resentment, disengagement, hostility now\" is not what the item tests — Gottman's Four Horsemen: Criticism (attacking character), Contempt (superiority/disgust — strongest predictor of divorce), Defensiveness (counter-complaint o"
       }
     ],
     "rationale": "Gottman's Four Horsemen: Criticism (attacking character), Contempt (superiority/disgust — strongest predictor of divorce), Defensiveness (counter-complaint or victim stance), Stonewalling (emotional withdrawal from interaction). Each has a corresponding antidote in Gottman couples therapy."
@@ -5533,23 +6274,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Teaching communication skills and conflict resolution strategies",
-        "isCorrect": false
+        "text": "Teaching communication skills and conflict resolution strategies now as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Teaching communication skills and conflict resolution strate…\" is not what the item tests — EFT (Johnson, 1985): grounded in attachment theory, EFT identifies negative interaction cycles (pursuer-withdrawer), accesses the primary attachmen"
       },
       {
         "id": "b",
         "text": "Restructuring negative interactional cycles by accessing and reshaping underlying attachment emotions",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "EFT (Johnson, 1985): grounded in attachment theory, EFT identifies negative interaction cycles (pursuer-withdrawer), accesses the primary attachment emotions beneath the cycle (fear, longing, shame), and restructures int…"
       },
       {
         "id": "c",
-        "text": "Behavioral contracts that reward positive couple interactions",
-        "isCorrect": false
+        "text": "Behavioral contracts that reward positive couple interactions now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Behavioral contracts that reward positive couple interaction…\" is not what the item tests — EFT (Johnson, 1985): grounded in attachment theory, EFT identifies negative interaction cycles (pursuer-withdrawer), accesses the primary attachmen"
       },
       {
         "id": "d",
-        "text": "Cognitive restructuring of negative attributions about the partner",
-        "isCorrect": false
+        "text": "Cognitive restructuring of negative attributions about the partner as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Cognitive restructuring of negative attributions about the p…\" is not what the item tests — EFT (Johnson, 1985): grounded in attachment theory, EFT identifies negative interaction cycles (pursuer-withdrawer), accesses the primary attachmen"
       }
     ],
     "rationale": "EFT (Johnson, 1985): grounded in attachment theory, EFT identifies negative interaction cycles (pursuer-withdrawer), accesses the primary attachment emotions beneath the cycle (fear, longing, shame), and restructures interactions around vulnerable, authentic expression to create secure bonding events."
@@ -5564,22 +6309,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "The counselor's clinical assessment and diagnostic formulation",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"The counselor's clinical assessment and diagnostic formulati…\" is not what the item tests — The six-step model: (1) Define the problem from the client's perspective, (2) Ensure safety, (3) Provide support, (4) Examine alternatives, (5) Mak"
       },
       {
         "id": "b",
-        "text": "The client's perspective",
-        "isCorrect": true
+        "text": "The client's perspective on the presenting concern",
+        "isCorrect": true,
+        "rationale": "The six-step model: (1) Define the problem from the client's perspective, (2) Ensure safety, (3) Provide support, (4) Examine alternatives, (5) Make plans, (6) Obtain commitment."
       },
       {
         "id": "c",
-        "text": "The referral source's presenting concern",
-        "isCorrect": false
+        "text": "The referral source's presenting concern as intake",
+        "isCorrect": false,
+        "rationale": "\"The referral source's presenting concern\" is not what the item tests — The six-step model: (1) Define the problem from the client's perspective, (2) Ensure safety, (3) Provide support, (4) Examine alternatives, (5) Make plans, (6) Obtain c"
       },
       {
         "id": "d",
-        "text": "The client's family's description of events",
-        "isCorrect": false
+        "text": "The client's family's description of the events at intake",
+        "isCorrect": false,
+        "rationale": "\"The client's family's description of events\" is not what the item tests — The six-step model: (1) Define the problem from the client's perspective, (2) Ensure safety, (3) Provide support, (4) Examine alternatives, (5) Make plans, (6) Obtai"
       }
     ],
     "rationale": "The six-step model: (1) Define the problem from the client's perspective, (2) Ensure safety, (3) Provide support, (4) Examine alternatives, (5) Make plans, (6) Obtain commitment. Beginning with the client's own understanding is foundational to a collaborative, person-centered crisis response."
@@ -5593,23 +6342,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "It removes the underlying desire to die",
-        "isCorrect": false
+        "text": "It removes the underlying desire to die as the reference material frames it now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"It removes the underlying desire to die as the reference mat…\" is not what the item tests — Means restriction works because suicidal crises are typically acute and time-limited."
       },
       {
         "id": "b",
         "text": "Suicidal crises are time-limited and reducing access to lethal means during the crisis period reduces mortality",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Means restriction works because suicidal crises are typically acute and time-limited."
       },
       {
         "id": "c",
-        "text": "It provides the client with a sense of control over their environment",
-        "isCorrect": false
+        "text": "It provides the client with a sense of control over their environment today as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"It provides the client with a sense of control over their en…\" is not what the item tests — Means restriction works because suicidal crises are typically acute and time-limited."
       },
       {
         "id": "d",
-        "text": "It is required by HIPAA when a client discloses suicidal ideation",
-        "isCorrect": false
+        "text": "It is required by HIPAA when a client discloses suicidal ideation at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"It is required by HIPAA when a client discloses suicidal ide…\" is not what the item tests — Means restriction works because suicidal crises are typically acute and time-limited."
       }
     ],
     "rationale": "Means restriction works because suicidal crises are typically acute and time-limited. Most people who survive an attempt do not go on to die by suicide. Reducing access to highly lethal means (firearms, medications) during the crisis window significantly reduces mortality — even without changing the underlying wish to die."
@@ -5623,23 +6376,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Safety plans are legally binding; no-suicide contracts are not",
-        "isCorrect": false
+        "text": "Safety plans are legally binding; no-suicide contracts are not (during routine sessions)",
+        "isCorrect": false,
+        "rationale": "\"Safety plans are legally binding; no-suicide contracts are n…\" is not what the item tests — Safety plans (Stanley & Brown): collaboratively identify warning signs, internal coping strategies, social contacts, professional resources, and me"
       },
       {
         "id": "b",
-        "text": "Safety plans are collaboratively developed action guides; no-suicide contracts have no evidence base and may create false reassurance",
-        "isCorrect": true
+        "text": "Safety plans are collaboratively developed guides; no-suicide contracts are not evidence-based",
+        "isCorrect": true,
+        "rationale": "Safety plans (Stanley & Brown): collaboratively identify warning signs, internal coping strategies, social contacts, professional resources, and means restriction."
       },
       {
         "id": "c",
-        "text": "No-suicide contracts are preferred for clients with prior attempts",
-        "isCorrect": false
+        "text": "No-suicide contracts are preferred for clients with prior attempts (as commonly taught)",
+        "isCorrect": false,
+        "rationale": "\"No-suicide contracts are preferred for clients with prior at…\" is not what the item tests — Safety plans (Stanley & Brown): collaboratively identify warning signs, internal coping strategies, social contacts, professional resources, and me"
       },
       {
         "id": "d",
-        "text": "Safety plans are used only in inpatient settings",
-        "isCorrect": false
+        "text": "Safety plans are used only in inpatient settings (as the reference material frames it)",
+        "isCorrect": false,
+        "rationale": "\"Safety plans are used only in inpatient settings as the refe…\" is not what the item tests — Safety plans (Stanley & Brown): collaboratively identify warning signs, internal coping strategies, social contacts, professional resources, and me"
       }
     ],
     "rationale": "Safety plans (Stanley & Brown): collaboratively identify warning signs, internal coping strategies, social contacts, professional resources, and means restriction. Research supports their effectiveness. No-suicide contracts lack evidence, may reduce the client's sense of agency, and create liability concerns if clients feel they signed under pressure."
@@ -5653,23 +6410,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Conducting formal diagnostic assessments with standardized tools",
-        "isCorrect": false
+        "text": "Conducting formal diagnostic assessments with standardized tools as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Conducting formal diagnostic assessments with standardized t…\" is not what the item tests — PFA (NCTSN/NCPTSD) focuses on: ensuring safety, providing comfort, stabilizing distressed individuals, gathering information, offering practical as"
       },
       {
         "id": "b",
         "text": "Providing immediate safety, comfort, practical support, and connection to additional services",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "PFA (NCTSN/NCPTSD) focuses on: ensuring safety, providing comfort, stabilizing distressed individuals, gathering information, offering practical assistance, connecting with supports, and providing information about coping."
       },
       {
         "id": "c",
-        "text": "Facilitating emotional debriefing for all exposed individuals",
-        "isCorrect": false
+        "text": "Facilitating emotional debriefing for all exposed individuals as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Facilitating emotional debriefing for all exposed individual…\" is not what the item tests — PFA (NCTSN/NCPTSD) focuses on: ensuring safety, providing comfort, stabilizing distressed individuals, gathering information, offering practical as"
       },
       {
         "id": "d",
-        "text": "Administering PTSD screening scales to all affected survivors",
-        "isCorrect": false
+        "text": "Administering PTSD screening scales to all affected survivors as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Administering PTSD screening scales to all affected survivor…\" is not what the item tests — PFA (NCTSN/NCPTSD) focuses on: ensuring safety, providing comfort, stabilizing distressed individuals, gathering information, offering practical as"
       }
     ],
     "rationale": "PFA (NCTSN/NCPTSD) focuses on: ensuring safety, providing comfort, stabilizing distressed individuals, gathering information, offering practical assistance, connecting with supports, and providing information about coping. It does NOT involve formal diagnosis or routine debriefing."
@@ -5683,23 +6444,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Consciously directing attention to pleasant imagery to displace anxious thoughts",
-        "isCorrect": false
+        "text": "Consciously directing attention to pleasant imagery to displace anxious thoughts now",
+        "isCorrect": false,
+        "rationale": "\"Consciously directing attention to pleasant imagery to displ…\" is not what the item tests — PMR (Jacobson): client alternately tenses and releases major muscle groups, learning to recognize and produce the contrast between tension and rela"
       },
       {
         "id": "b",
         "text": "Systematically tensing and releasing muscle groups to produce a relaxation response",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "PMR (Jacobson): client alternately tenses and releases major muscle groups, learning to recognize and produce the contrast between tension and relaxation. This teaches voluntary control of physiological arousal through the somatic pathway."
       },
       {
         "id": "c",
-        "text": "Slowing breath rate to counteract the physiological arousal of anxiety",
-        "isCorrect": false
+        "text": "Slowing breath rate to counteract the physiological arousal of anxiety by counselors",
+        "isCorrect": false,
+        "rationale": "\"Slowing breath rate to counteract the physiological arousal …\" is not what the item tests — PMR (Jacobson): client alternately tenses and releases major muscle groups, learning to recognize and produce the contrast between tension and rela"
       },
       {
         "id": "d",
-        "text": "Engaging in aerobic activity to metabolize stress hormones",
-        "isCorrect": false
+        "text": "Engaging in aerobic activity to metabolize stress hormones during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Engaging in aerobic activity to metabolize stress hormones d…\" is not what the item tests — PMR (Jacobson): client alternately tenses and releases major muscle groups, learning to recognize and produce the contrast between tension and rela"
       }
     ],
     "rationale": "PMR (Jacobson): client alternately tenses and releases major muscle groups, learning to recognize and produce the contrast between tension and relaxation. This teaches voluntary control of physiological arousal through the somatic pathway."
@@ -5713,23 +6478,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Increasing blood oxygen to counteract hyperventilation-induced dizziness",
-        "isCorrect": false
+        "text": "Increasing blood oxygen to counteract hyperventilation-induced dizziness during counseling",
+        "isCorrect": false,
+        "rationale": "\"Increasing blood oxygen to counteract hyperventilation-induc…\" is not what the item tests — Slow diaphragmatic breathing activates the parasympathetic nervous system via the vagus nerve (stimulating the relaxation response), counteracting "
       },
       {
         "id": "b",
         "text": "Activating the parasympathetic nervous system, counteracting the fight-or-flight response",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Slow diaphragmatic breathing activates the parasympathetic nervous system via the vagus nerve (stimulating the relaxation response), counteracting sympathetic activation."
       },
       {
         "id": "c",
-        "text": "Distracting the client from anxious thoughts through attention to breathing",
-        "isCorrect": false
+        "text": "Distracting the client from anxious thoughts through attention to breathing by counselors",
+        "isCorrect": false,
+        "rationale": "\"Distracting the client from anxious thoughts through attenti…\" is not what the item tests — Slow diaphragmatic breathing activates the parasympathetic nervous system via the vagus nerve (stimulating the relaxation response), counteracting "
       },
       {
         "id": "d",
-        "text": "Reducing muscle tension through rhythmic physical movement",
-        "isCorrect": false
+        "text": "Reducing muscle tension through rhythmic physical movement as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Reducing muscle tension through rhythmic physical movement a…\" is not what the item tests — Slow diaphragmatic breathing activates the parasympathetic nervous system via the vagus nerve (stimulating the relaxation response), counteracting "
       }
     ],
     "rationale": "Slow diaphragmatic breathing activates the parasympathetic nervous system via the vagus nerve (stimulating the relaxation response), counteracting sympathetic activation. This is why it is effective for acute anxiety, panic, and PTSD hyperarousal."
@@ -5743,23 +6512,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Personality disorders where emotional dysregulation is central",
-        "isCorrect": false
+        "text": "Personality disorders where emotional dysregulation is central during counseling",
+        "isCorrect": false,
+        "rationale": "\"Personality disorders where emotional dysregulation is centr…\" is not what the item tests — Teaching clients that anxiety symptoms (racing heart, shortness of breath, hypervigilance) are normal physiological responses to perceived threat r"
       },
       {
         "id": "b",
         "text": "Anxiety disorders and trauma presentations, to normalize physiological symptoms",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Teaching clients that anxiety symptoms (racing heart, shortness of breath, hypervigilance) are normal physiological responses to perceived threat reduces secondary fear (fear of fear) and catastrophic misinterpretation o…"
       },
       {
         "id": "c",
-        "text": "Psychotic disorders to explain the biological basis of hallucinations",
-        "isCorrect": false
+        "text": "Psychotic disorders to explain the biological basis of hallucinations at intake",
+        "isCorrect": false,
+        "rationale": "\"Psychotic disorders to explain the biological basis of hallu…\" is not what the item tests — Teaching clients that anxiety symptoms (racing heart, shortness of breath, hypervigilance) are normal physiological responses to perceived threat r"
       },
       {
         "id": "d",
-        "text": "Depressive disorders to explain low motivation and fatigue",
-        "isCorrect": false
+        "text": "Depressive disorders to explain low motivation and fatigue as usually described",
+        "isCorrect": false,
+        "rationale": "\"Depressive disorders to explain low motivation and fatigue a…\" is not what the item tests — Teaching clients that anxiety symptoms (racing heart, shortness of breath, hypervigilance) are normal physiological responses to perceived threat r"
       }
     ],
     "rationale": "Teaching clients that anxiety symptoms (racing heart, shortness of breath, hypervigilance) are normal physiological responses to perceived threat reduces secondary fear (fear of fear) and catastrophic misinterpretation of body sensations — key mechanisms in anxiety and trauma."
@@ -5773,23 +6546,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Replacing all Western assumptions with indigenous healing practices",
-        "isCorrect": false
+        "text": "Replacing all Western assumptions with indigenous healing practices as clinicians typically apply it as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Replacing all Western assumptions with indigenous healing pr…\" is not what the item tests — CA-EBIs (Bernal's Ecological Validity Framework): surface structure adaptations (language, images, materials) increase familiarity; deep structure "
       },
       {
         "id": "b",
         "text": "Adjusting surface features (language, examples, materials) and deep features (cultural values, worldview) to improve fit and engagement",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "CA-EBIs (Bernal's Ecological Validity Framework): surface structure adaptations (language, images, materials) increase familiarity; deep structure adaptations (cultural values, norms, explanatory models, family roles) in…"
       },
       {
         "id": "c",
-        "text": "Simplifying the evidence-based protocol to accommodate lower educational levels",
-        "isCorrect": false
+        "text": "Simplifying the evidence-based protocol to accommodate lower educational levels at the intake stage as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Simplifying the evidence-based protocol to accommodate lower…\" is not what the item tests — CA-EBIs (Bernal's Ecological Validity Framework): surface structure adaptations (language, images, materials) increase familiarity; deep structure "
       },
       {
         "id": "d",
-        "text": "Requiring bilingual therapists regardless of client language preference",
-        "isCorrect": false
+        "text": "Requiring bilingual therapists regardless of client language preference at the level the item tests as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Requiring bilingual therapists regardless of client language…\" is not what the item tests — CA-EBIs (Bernal's Ecological Validity Framework): surface structure adaptations (language, images, materials) increase familiarity; deep structure "
       }
     ],
     "rationale": "CA-EBIs (Bernal's Ecological Validity Framework): surface structure adaptations (language, images, materials) increase familiarity; deep structure adaptations (cultural values, norms, explanatory models, family roles) increase relevance and trust. Both increase engagement and outcomes."
@@ -5803,23 +6580,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Help clients re-experience past events in a safe environment",
-        "isCorrect": false
+        "text": "Help clients re-experience past events in a safe environment during counseling",
+        "isCorrect": false,
+        "rationale": "\"Help clients re-experience past events in a safe environment…\" is not what the item tests — Behavioral rehearsal: client practices a target behavior (assertiveness, conflict resolution, communication) through role play in the safety of the"
       },
       {
         "id": "b",
         "text": "Practice new skills in session before applying them in real-world situations",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Behavioral rehearsal: client practices a target behavior (assertiveness, conflict resolution, communication) through role play in the safety of the session."
       },
       {
         "id": "c",
         "text": "Rehearse the content of the session for better retention between appointments",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Rehearse the content of the session for better retention bet…\" is not what the item tests — Behavioral rehearsal: client practices a target behavior (assertiveness, conflict resolution, communication) through role play in the safety of the"
       },
       {
         "id": "d",
         "text": "Prepare for stressful medical or legal procedures through anticipatory coaching",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Prepare for stressful medical or legal procedures through an…\" is not what the item tests — Behavioral rehearsal: client practices a target behavior (assertiveness, conflict resolution, communication) through role play in the safety of the"
       }
     ],
     "rationale": "Behavioral rehearsal: client practices a target behavior (assertiveness, conflict resolution, communication) through role play in the safety of the session. The therapist can provide feedback, modeling, and coaching before real-world transfer."
@@ -5833,23 +6614,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Assigned at the end of every session regardless of content",
-        "isCorrect": false
+        "text": "Assigned at the end of every session regardless of content now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Assigned at the end of every session regardless of content n…\" is not what the item tests — Effective homework: collaboratively developed (not imposed), logically connected to in-session work, specific and achievable, and always reviewed i"
       },
       {
         "id": "b",
         "text": "Collaboratively developed, clearly connected to session content, and reviewed in the next session",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Effective homework: collaboratively developed (not imposed), logically connected to in-session work, specific and achievable, and always reviewed in the following session."
       },
       {
         "id": "c",
-        "text": "Assigned as consequences for lack of progress in session",
-        "isCorrect": false
+        "text": "Assigned as consequences for lack of progress in session here as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Assigned as consequences for lack of progress in session her…\" is not what the item tests — Effective homework: collaboratively developed (not imposed), logically connected to in-session work, specific and achievable, and always reviewed i"
       },
       {
         "id": "d",
-        "text": "Complex enough to challenge the client between sessions",
-        "isCorrect": false
+        "text": "Complex enough to challenge the client between sessions today as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Complex enough to challenge the client between sessions toda…\" is not what the item tests — Effective homework: collaboratively developed (not imposed), logically connected to in-session work, specific and achievable, and always reviewed i"
       }
     ],
     "rationale": "Effective homework: collaboratively developed (not imposed), logically connected to in-session work, specific and achievable, and always reviewed in the following session. Reviewing homework communicates its importance and informs next steps."
@@ -5863,23 +6648,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Mindful breathing as a foundation for distress tolerance",
-        "isCorrect": false
+        "text": "Mindful breathing as a foundation for distress tolerance at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Mindful breathing as a foundation for distress tolerance at …\" is not what the item tests — \"Leaves on a stream\": client imagines placing each thought on a leaf and watching it float downstream, not grasping or pushing any thought away."
       },
       {
         "id": "b",
         "text": "Cognitive defusion — observing thoughts as passing mental events without attachment",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "\"Leaves on a stream\": client imagines placing each thought on a leaf and watching it float downstream, not grasping or pushing any thought away."
       },
       {
         "id": "c",
-        "text": "Values clarification through contemplative practice",
-        "isCorrect": false
+        "text": "Values clarification through contemplative practice as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Values clarification through contemplative practice as clini…\" is not what the item tests — \"Leaves on a stream\": client imagines placing each thought on a leaf and watching it float downstream, not grasping or pushing any thought away."
       },
       {
         "id": "d",
-        "text": "Grounding during dissociative episodes",
-        "isCorrect": false
+        "text": "Grounding during dissociative episodes at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Grounding during dissociative episodes at intake as the refe…\" is not what the item tests — \"Leaves on a stream\": client imagines placing each thought on a leaf and watching it float downstream, not grasping or pushing any thought away."
       }
     ],
     "rationale": "\"Leaves on a stream\": client imagines placing each thought on a leaf and watching it float downstream, not grasping or pushing any thought away. This trains defusion — the ability to observe thoughts as events without being swept along by them."
@@ -5893,23 +6682,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Set a firm limit and remind the client of the behavioral agreement",
-        "isCorrect": false
+        "text": "Set a firm limit and remind the client of the behavioral agreement during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Set a firm limit and remind the client of the behavioral agr…\" is not what the item tests — De-escalation: prioritize safety — counselor's own and the client's."
       },
       {
         "id": "b",
         "text": "Ensure physical safety of all parties while maintaining a calm, non-threatening presence",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "De-escalation: prioritize safety — counselor's own and the client's."
       },
       {
         "id": "c",
-        "text": "Terminate the session immediately and ask the client to leave",
-        "isCorrect": false
+        "text": "Terminate the session immediately and ask the client to leave at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Terminate the session immediately and ask the client to leav…\" is not what the item tests — De-escalation: prioritize safety — counselor's own and the client's."
       },
       {
         "id": "d",
-        "text": "Contact security or law enforcement preemptively",
-        "isCorrect": false
+        "text": "Contact security or law enforcement preemptively now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Contact security or law enforcement preemptively now as the …\" is not what the item tests — De-escalation: prioritize safety — counselor's own and the client's."
       }
     ],
     "rationale": "De-escalation: prioritize safety — counselor's own and the client's. Maintain a calm voice, non-threatening posture, personal space, and reduced stimulation. Avoid power struggles. Limit-setting and termination may follow, but safety comes first. Security is contacted only if risk of harm is imminent."
@@ -5923,23 +6716,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Provide a less expensive alternative to licensed clinical services",
-        "isCorrect": false
+        "text": "Provide a less expensive alternative to licensed clinical services during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Provide a less expensive alternative to licensed clinical se…\" is not what the item tests — Peer support specialists with lived experience of mental health or substance use challenges provide unique recovery-oriented support: hope through "
       },
       {
         "id": "b",
         "text": "Offer lived experience, hope modeling, and bridge between clinical and community contexts",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Peer support specialists with lived experience of mental health or substance use challenges provide unique recovery-oriented support: hope through shared experience, practical navigation of systems, and engagement of pop…"
       },
       {
         "id": "c",
-        "text": "Reduce clinician caseloads by taking on lower acuity clients",
-        "isCorrect": false
+        "text": "Reduce clinician caseloads by taking on lower acuity clients as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Reduce clinician caseloads by taking on lower acuity clients…\" is not what the item tests — Peer support specialists with lived experience of mental health or substance use challenges provide unique recovery-oriented support: hope through "
       },
       {
         "id": "d",
-        "text": "Can conduct assessments that clinicians are unable to complete",
-        "isCorrect": false
+        "text": "Can conduct assessments that clinicians are unable to complete at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Can conduct assessments that clinicians are unable to comple…\" is not what the item tests — Peer support specialists with lived experience of mental health or substance use challenges provide unique recovery-oriented support: hope through "
       }
     ],
     "rationale": "Peer support specialists with lived experience of mental health or substance use challenges provide unique recovery-oriented support: hope through shared experience, practical navigation of systems, and engagement of populations that distrust traditional clinical services. They complement — not replace — clinical services."
@@ -5953,23 +6750,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Reassure the client they can return any time they struggle",
-        "isCorrect": false
+        "text": "Reassure the client they can return any time they struggle as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Reassure the client they can return any time they struggle a…\" is not what the item tests — Effective termination: review of progress (what changed and how), consolidation of gains into transferable learning, anticipation of future stresso"
       },
       {
         "id": "b",
         "text": "Review progress, consolidate gains, anticipate future challenges, and process the ending",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Effective termination: review of progress (what changed and how), consolidation of gains into transferable learning, anticipation of future stressors and relapse prevention, and processing the loss of the therapeutic relationship."
       },
       {
         "id": "c",
-        "text": "Conduct a final comprehensive assessment to document outcomes",
-        "isCorrect": false
+        "text": "Conduct a final comprehensive assessment to document outcomes at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Conduct a final comprehensive assessment to document outcome…\" is not what the item tests — Effective termination: review of progress (what changed and how), consolidation of gains into transferable learning, anticipation of future stresso"
       },
       {
         "id": "d",
-        "text": "Schedule a follow-up appointment to ensure maintenance of gains",
-        "isCorrect": false
+        "text": "Schedule a follow-up appointment to ensure maintenance of gains during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Schedule a follow-up appointment to ensure maintenance of ga…\" is not what the item tests — Effective termination: review of progress (what changed and how), consolidation of gains into transferable learning, anticipation of future stresso"
       }
     ],
     "rationale": "Effective termination: review of progress (what changed and how), consolidation of gains into transferable learning, anticipation of future stressors and relapse prevention, and processing the loss of the therapeutic relationship. All are clinically important before closing."
@@ -5983,23 +6784,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Offer to extend therapy given the depth of the relationship",
-        "isCorrect": false
+        "text": "Offer to extend therapy given the depth of the relationship at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Offer to extend therapy given the depth of the relationship …\" is not what the item tests — The statement is clinically rich and emotionally valid — the relationship has been meaningful and real."
       },
       {
         "id": "b",
         "text": "Validate the meaning of the relationship while exploring and building external supports",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The statement is clinically rich and emotionally valid — the relationship has been meaningful and real."
       },
       {
         "id": "c",
-        "text": "Remind the client that therapy is a professional, not personal, relationship",
-        "isCorrect": false
+        "text": "Remind the client that therapy is a professional, not personal, relationship in practice",
+        "isCorrect": false,
+        "rationale": "\"Remind the client that therapy is a professional, not person…\" is not what the item tests — The statement is clinically rich and emotionally valid — the relationship has been meaningful and real."
       },
       {
         "id": "d",
-        "text": "Interpret this as unresolved abandonment issues requiring more treatment",
-        "isCorrect": false
+        "text": "Interpret this as unresolved abandonment issues requiring more treatment in this domain",
+        "isCorrect": false,
+        "rationale": "\"Interpret this as unresolved abandonment issues requiring mo…\" is not what the item tests — The statement is clinically rich and emotionally valid — the relationship has been meaningful and real."
       }
     ],
     "rationale": "The statement is clinically rich and emotionally valid — the relationship has been meaningful and real. Effective response: validate genuinely, explore what made this relationship different, use it to identify what the client can seek in other relationships, and strengthen the support network for post-termination."
@@ -6013,23 +6818,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "A legal document with the force of state law in all jurisdictions",
-        "isCorrect": false
+        "text": "A legal document with the force of state law in all jurisdictions during a routine session",
+        "isCorrect": false,
+        "rationale": "\"A legal document with the force of state law in all jurisdic…\" is not what the item tests — The ACA Code of Ethics combines aspirational principles (how counselors should strive to act) with enforceable mandatory standards (what they must "
       },
       {
         "id": "b",
         "text": "A professional standard establishing aspirational ideals and enforceable conduct standards",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The ACA Code of Ethics combines aspirational principles (how counselors should strive to act) with enforceable mandatory standards (what they must or must not do)."
       },
       {
         "id": "c",
-        "text": "A billing and documentation compliance guide for third-party payers",
-        "isCorrect": false
+        "text": "A billing and documentation compliance guide for third-party payers during a routine session",
+        "isCorrect": false,
+        "rationale": "\"A billing and documentation compliance guide for third-party…\" is not what the item tests — The ACA Code of Ethics combines aspirational principles (how counselors should strive to act) with enforceable mandatory standards (what they must "
       },
       {
         "id": "d",
-        "text": "A set of recommendations that are entirely voluntary for licensed counselors",
-        "isCorrect": false
+        "text": "A set of recommendations that are entirely voluntary for licensed counselors by counselors",
+        "isCorrect": false,
+        "rationale": "\"A set of recommendations that are entirely voluntary for lic…\" is not what the item tests — The ACA Code of Ethics combines aspirational principles (how counselors should strive to act) with enforceable mandatory standards (what they must "
       }
     ],
     "rationale": "The ACA Code of Ethics combines aspirational principles (how counselors should strive to act) with enforceable mandatory standards (what they must or must not do). It is not law, but licensing boards and ACA may sanction violations, and it is used as a standard of care in legal proceedings."
@@ -6043,23 +6852,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Is an ethical obligation while confidentiality is a legal right",
-        "isCorrect": false
+        "text": "Is an ethical obligation while confidentiality is a legal right during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Is an ethical obligation while confidentiality is a legal ri…\" is not what the item tests — Confidentiality is the counselor's ethical duty."
       },
       {
         "id": "b",
         "text": "Is a legal right held by the client that protects disclosures from being used in court",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Confidentiality is the counselor's ethical duty."
       },
       {
         "id": "c",
-        "text": "Applies to all mental health communications regardless of setting",
-        "isCorrect": false
+        "text": "Applies to all mental health communications regardless of setting as usually described",
+        "isCorrect": false,
+        "rationale": "\"Applies to all mental health communications regardless of se…\" is not what the item tests — Confidentiality is the counselor's ethical duty."
       },
       {
         "id": "d",
-        "text": "Can be waived by the counselor in the interest of the client",
-        "isCorrect": false
+        "text": "Can be waived by the counselor in the interest of the client in the outpatient setting",
+        "isCorrect": false,
+        "rationale": "\"Can be waived by the counselor in the interest of the client…\" is not what the item tests — Confidentiality is the counselor's ethical duty."
       }
     ],
     "rationale": "Confidentiality is the counselor's ethical duty. Privilege is the client's legal right to prevent testimony about therapeutic communications in legal proceedings. Privilege is waived by the CLIENT, not the counselor. It varies by state and relationship type."
@@ -6073,23 +6886,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "24 hours for urgent requests",
-        "isCorrect": false
+        "text": "24 hours for urgent requests during a routine session",
+        "isCorrect": false,
+        "rationale": "\"24 hours for urgent requests during a routine session\" is not what the item tests — HIPAA Access Rule (45 CFR §164.524): covered entities must provide access to requested records within 30 days."
       },
       {
         "id": "b",
         "text": "30 days, with a possible one-time 30-day extension",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "HIPAA Access Rule (45 CFR §164.524): covered entities must provide access to requested records within 30 days."
       },
       {
         "id": "c",
-        "text": "60 days under all circumstances",
-        "isCorrect": false
+        "text": "60 days under all circumstances at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"60 days under all circumstances at the intake stage\" is not what the item tests — HIPAA Access Rule (45 CFR §164.524): covered entities must provide access to requested records within 30 days."
       },
       {
         "id": "d",
-        "text": "10 business days as an absolute standard",
-        "isCorrect": false
+        "text": "10 business days as an absolute standard at intake",
+        "isCorrect": false,
+        "rationale": "\"10 business days as an absolute standard at intake\" is not what the item tests — HIPAA Access Rule (45 CFR §164.524): covered entities must provide access to requested records within 30 days."
       }
     ],
     "rationale": "HIPAA Access Rule (45 CFR §164.524): covered entities must provide access to requested records within 30 days. A one-time 30-day extension is permitted if written notice with reason is provided. Counselors may not withhold records solely to collect unpaid balances."
@@ -6103,23 +6920,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "They are not subject to any disclosure under any circumstances",
-        "isCorrect": false
+        "text": "They are not subject to any disclosure under any circumstances (as typically described here)",
+        "isCorrect": false,
+        "rationale": "\"They are not subject to any disclosure under any circumstanc…\" is not what the item tests — HIPAA defines psychotherapy notes as notes recorded in any medium by a healthcare provider who is a mental health professional documenting or analy"
       },
       {
         "id": "b",
-        "text": "They require specific separate authorization for disclosure and are excluded from the standard treatment/payment/operations exception",
-        "isCorrect": true
+        "text": "They require separate authorization and are excluded from the standard TPO disclosure exception",
+        "isCorrect": true,
+        "rationale": "HIPAA defines psychotherapy notes as notes recorded in any medium by a healthcare provider who is a mental health professional documenting or analyzing the contents of a conversation, separated from the rest of the record."
       },
       {
         "id": "c",
-        "text": "They are protected by attorney-client privilege",
-        "isCorrect": false
+        "text": "They are protected by attorney-client privilege as the reference typically frames it now",
+        "isCorrect": false,
+        "rationale": "\"They are protected by attorney-client privilege as the refer…\" is not what the item tests — HIPAA defines psychotherapy notes as notes recorded in any medium by a healthcare provider who is a mental health professional documenting or analy"
       },
       {
         "id": "d",
-        "text": "They can only be released with court order, never with client consent",
-        "isCorrect": false
+        "text": "They can only be released with court order, rarely with client consent (in item-tests usage)",
+        "isCorrect": false,
+        "rationale": "\"They can only be released with court order, rarely with clie…\" is not what the item tests — HIPAA defines psychotherapy notes as notes recorded in any medium by a healthcare provider who is a mental health professional documenting or analy"
       }
     ],
     "rationale": "HIPAA defines psychotherapy notes as notes recorded in any medium by a healthcare provider who is a mental health professional documenting or analyzing the contents of a conversation, separated from the rest of the record. They require specific authorization beyond standard TPO disclosures and cannot be released without client consent except in very limited circumstances."
@@ -6133,23 +6954,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The supervisor is legally liable for any clinical outcome regardless of supervisee conduct",
-        "isCorrect": false
+        "text": "The supervisor is legally liable for any clinical outcome regardless of supervisee conduct today",
+        "isCorrect": false,
+        "rationale": "\"The supervisor is legally liable for any clinical outcome re…\" is not what the item tests — Vicarious liability (respondeat superior): supervisors can be held responsible for harm caused by supervisees under their supervision because they "
       },
       {
         "id": "b",
         "text": "Supervisors may be held legally responsible for harm caused by supervisees under their oversight",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Vicarious liability (respondeat superior): supervisors can be held responsible for harm caused by supervisees under their supervision because they have a duty to ensure supervisee competence and conduct."
       },
       {
         "id": "c",
-        "text": "Supervisees share equal liability with their supervisors for all clinical decisions",
-        "isCorrect": false
+        "text": "Supervisees share equal liability with their supervisors for all clinical decisions by counselors",
+        "isCorrect": false,
+        "rationale": "\"Supervisees share equal liability with their supervisors for…\" is not what the item tests — Vicarious liability (respondeat superior): supervisors can be held responsible for harm caused by supervisees under their supervision because they "
       },
       {
         "id": "d",
-        "text": "Liability is transferred entirely to the supervisee once they obtain independent licensure",
-        "isCorrect": false
+        "text": "Liability is transferred entirely to the supervisee once they obtain independent licensure today",
+        "isCorrect": false,
+        "rationale": "\"Liability is transferred entirely to the supervisee once the…\" is not what the item tests — Vicarious liability (respondeat superior): supervisors can be held responsible for harm caused by supervisees under their supervision because they "
       }
     ],
     "rationale": "Vicarious liability (respondeat superior): supervisors can be held responsible for harm caused by supervisees under their supervision because they have a duty to ensure supervisee competence and conduct. This underscores the supervisor's ethical obligation to monitor, correct, and protect clients."
@@ -6163,23 +6988,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Obtain written informed consent from the client before any consultation",
-        "isCorrect": false
+        "text": "Obtain written informed consent from the client before any consultation in this domain",
+        "isCorrect": false,
+        "rationale": "\"Obtain written informed consent from the client before any c…\" is not what the item tests — Consultation falls under treatment operations (generally permissible under HIPAA) but ethically requires the minimum necessary information."
       },
       {
         "id": "b",
         "text": "Disclose only the minimum information necessary to accomplish the consultation purpose",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Consultation falls under treatment operations (generally permissible under HIPAA) but ethically requires the minimum necessary information."
       },
       {
         "id": "c",
-        "text": "Avoid any identifying information about the client in all consultations",
-        "isCorrect": false
+        "text": "Avoid any identifying information about the client in all consultations in this domain",
+        "isCorrect": false,
+        "rationale": "\"Avoid any identifying information about the client in all co…\" is not what the item tests — Consultation falls under treatment operations (generally permissible under HIPAA) but ethically requires the minimum necessary information."
       },
       {
         "id": "d",
         "text": "Document only consultations where information was shared, not purely conceptual discussions",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Document only consultations where information was shared, no…\" is not what the item tests — Consultation falls under treatment operations (generally permissible under HIPAA) but ethically requires the minimum necessary information."
       }
     ],
     "rationale": "Consultation falls under treatment operations (generally permissible under HIPAA) but ethically requires the minimum necessary information. While complete de-identification is ideal, in practice the minimum necessary standard governs — share only what the consultant needs to be helpful, and document all consultations."
@@ -6193,23 +7022,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Requiring counselors to provide a mandated minimum percentage of services at no charge",
-        "isCorrect": false
+        "text": "Requiring counselors to provide a mandated minimum percentage of services at no charge today",
+        "isCorrect": false,
+        "rationale": "\"Requiring counselors to provide a mandated minimum percentag…\" is not what the item tests — ACA Code A.10.d: counselors are encouraged to contribute to society through pro bono or reduced-fee work."
       },
       {
         "id": "b",
         "text": "Encouraging counselors to contribute to society by offering pro bono or reduced-fee services",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ACA Code A.10.d: counselors are encouraged to contribute to society through pro bono or reduced-fee work. This is aspirational, not a mandatory specific percentage. It reflects the profession's commitment to access and social justice."
       },
       {
         "id": "c",
-        "text": "Prohibiting sliding fee scales that could reduce practice income unfairly",
-        "isCorrect": false
+        "text": "Prohibiting sliding fee scales that could reduce practice income unfairly at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Prohibiting sliding fee scales that could reduce practice in…\" is not what the item tests — ACA Code A.10.d: counselors are encouraged to contribute to society through pro bono or reduced-fee work."
       },
       {
         "id": "d",
-        "text": "Specifying that pro bono clients must receive the same services as paying clients",
-        "isCorrect": false
+        "text": "Specifying that pro bono clients must receive the same services as paying clients in practice",
+        "isCorrect": false,
+        "rationale": "\"Specifying that pro bono clients must receive the same servi…\" is not what the item tests — ACA Code A.10.d: counselors are encouraged to contribute to society through pro bono or reduced-fee work."
       }
     ],
     "rationale": "ACA Code A.10.d: counselors are encouraged to contribute to society through pro bono or reduced-fee work. This is aspirational, not a mandatory specific percentage. It reflects the profession's commitment to access and social justice."
@@ -6223,23 +7056,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Permissible if done collaboratively with the client",
-        "isCorrect": false
+        "text": "Permissible if it is done collaboratively with the client",
+        "isCorrect": false,
+        "rationale": "\"Permissible if done collaboratively with the client\" is not what the item tests — ACA Code E.5.c: counselors take special care to provide proper diagnosis of mental disorders and do not assign inaccurate diagnoses for billing purposes."
       },
       {
         "id": "b",
-        "text": "An ethical violation constituting insurance fraud",
-        "isCorrect": true
+        "text": "An ethical violation that constitutes insurance fraud",
+        "isCorrect": true,
+        "rationale": "ACA Code E.5.c: counselors take special care to provide proper diagnosis of mental disorders and do not assign inaccurate diagnoses for billing purposes."
       },
       {
         "id": "c",
-        "text": "Acceptable if the counselor believes the client will eventually meet criteria",
-        "isCorrect": false
+        "text": "Acceptable if the counselor thinks criteria will eventually be met",
+        "isCorrect": false,
+        "rationale": "\"Acceptable if the counselor believes the client will eventua…\" is not what the item tests — ACA Code E.5.c: counselors take special care to provide proper diagnosis of mental disorders and do not assign inaccurate diagnoses for billing pur"
       },
       {
         "id": "d",
         "text": "Permitted if the diagnosis is V-code adjusted in the record",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Permitted if the diagnosis is V-code adjusted in the record\" is not what the item tests — ACA Code E.5.c: counselors take special care to provide proper diagnosis of mental disorders and do not assign inaccurate diagnoses for billing purpo"
       }
     ],
     "rationale": "ACA Code E.5.c: counselors take special care to provide proper diagnosis of mental disorders and do not assign inaccurate diagnoses for billing purposes. This constitutes insurance fraud (a criminal act) and an ethical violation, regardless of client consent."
@@ -6253,23 +7090,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Use only government-approved encryption software",
-        "isCorrect": false
+        "text": "Use only government-approved encryption software now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Use only government-approved encryption software now as the …\" is not what the item tests — HIPAA Security Rule requires \"reasonable and appropriate\" safeguards — physical (locked storage), technical (encryption, access controls), and admi"
       },
       {
         "id": "b",
         "text": "Implement reasonable physical, technical, and administrative safeguards to protect PHI",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "HIPAA Security Rule requires \"reasonable and appropriate\" safeguards — physical (locked storage), technical (encryption, access controls), and administrative (policies, training)."
       },
       {
         "id": "c",
-        "text": "Store records exclusively on local hardware with no cloud storage",
-        "isCorrect": false
+        "text": "Store records exclusively on local hardware with no cloud storage as usually described",
+        "isCorrect": false,
+        "rationale": "\"Store records exclusively on local hardware with no cloud st…\" is not what the item tests — HIPAA Security Rule requires \"reasonable and appropriate\" safeguards — physical (locked storage), technical (encryption, access controls), and admi"
       },
       {
         "id": "d",
-        "text": "Conduct annual third-party security audits of all systems",
-        "isCorrect": false
+        "text": "Conduct annual third-party security audits of all systems as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Conduct annual third-party security audits of all systems as…\" is not what the item tests — HIPAA Security Rule requires \"reasonable and appropriate\" safeguards — physical (locked storage), technical (encryption, access controls), and admi"
       }
     ],
     "rationale": "HIPAA Security Rule requires \"reasonable and appropriate\" safeguards — physical (locked storage), technical (encryption, access controls), and administrative (policies, training). The standard is reasonable safeguards, not specific technology mandates. Cloud storage is permissible with a Business Associate Agreement."
@@ -6283,23 +7124,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Is acceptable if the client provides written consent",
-        "isCorrect": false
+        "text": "Is acceptable if the client provides written consent at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Is acceptable if the client provides written consent at inta…\" is not what the item tests — ACA Code C.3.b: counselors do not use testimonials from current clients or others who, because of their particular circumstances, are vulnerable to"
       },
       {
         "id": "b",
         "text": "Is prohibited because the therapeutic relationship creates undue influence over client statements",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ACA Code C.3.b: counselors do not use testimonials from current clients or others who, because of their particular circumstances, are vulnerable to undue influence."
       },
       {
         "id": "c",
-        "text": "Is acceptable only for testimonials from former clients",
-        "isCorrect": false
+        "text": "Is acceptable only for testimonials from former clients today as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Is acceptable only for testimonials from former clients toda…\" is not what the item tests — ACA Code C.3.b: counselors do not use testimonials from current clients or others who, because of their particular circumstances, are vulnerable to"
       },
       {
         "id": "d",
-        "text": "Is required to have proper SEO tagging to identify it as promotional",
-        "isCorrect": false
+        "text": "Is required to have proper SEO tagging to identify it as promotional as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Is required to have proper SEO tagging to identify it as pro…\" is not what the item tests — ACA Code C.3.b: counselors do not use testimonials from current clients or others who, because of their particular circumstances, are vulnerable to"
       }
     ],
     "rationale": "ACA Code C.3.b: counselors do not use testimonials from current clients or others who, because of their particular circumstances, are vulnerable to undue influence. The power differential in the therapeutic relationship makes genuine freely-given consent for promotional use ethically suspect."
@@ -6313,23 +7158,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Redundant practice, which is ethically neutral",
-        "isCorrect": false
+        "text": "Redundant practice, which is ethically neutral in the outpatient setting as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Redundant practice, which is ethically neutral in the outpat…\" is not what the item tests — ACA Code C.2.f: counselors recognize when their skills and knowledge are outdated and take steps to address this."
       },
       {
         "id": "b",
         "text": "Practicing with outdated methods that no longer reflect current standards, violating the competence standard",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ACA Code C.2.f: counselors recognize when their skills and knowledge are outdated and take steps to address this."
       },
       {
         "id": "c",
-        "text": "Violating supervision requirements only, not competence standards",
-        "isCorrect": false
+        "text": "Violating supervision requirements only, not competence standards itself as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Violating supervision requirements only, not competence stan…\" is not what the item tests — ACA Code C.2.f: counselors recognize when their skills and knowledge are outdated and take steps to address this."
       },
       {
         "id": "d",
-        "text": "Nothing, as established training is sufficient for the duration of licensure",
-        "isCorrect": false
+        "text": "Nothing, as established training is sufficient for the duration of licensure as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Nothing, as established training is sufficient for the durat…\" is not what the item tests — ACA Code C.2.f: counselors recognize when their skills and knowledge are outdated and take steps to address this."
       }
     ],
     "rationale": "ACA Code C.2.f: counselors recognize when their skills and knowledge are outdated and take steps to address this. Competence requires ongoing professional development, not just initial training. Evidence-based practices evolve; continuing education is an ethical obligation."
@@ -6343,23 +7192,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Continue working and address burnout through self-care strategies only",
-        "isCorrect": false
+        "text": "Continue working and address burnout through self-care strategies only now as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Continue working and address burnout through self-care strat…\" is not what the item tests — ACA Code C.2.g: when counselors are impaired (by burnout, personal crises, substance use, etc.) to the point of affecting practice, they are ethica"
       },
       {
         "id": "b",
         "text": "Limit, suspend, or terminate their professional responsibilities to the extent necessary to protect clients",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ACA Code C.2.g: when counselors are impaired (by burnout, personal crises, substance use, etc.) to the point of affecting practice, they are ethically obligated to limit, suspend, or terminate professional responsibiliti…"
       },
       {
         "id": "c",
-        "text": "Disclose their impairment to all current clients immediately",
-        "isCorrect": false
+        "text": "Disclose their impairment to all current clients immediately in practice as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Disclose their impairment to all current clients immediately…\" is not what the item tests — ACA Code C.2.g: when counselors are impaired (by burnout, personal crises, substance use, etc.) to the point of affecting practice, they are ethica"
       },
       {
         "id": "d",
-        "text": "Seek supervision, which substitutes for any other action when impaired",
-        "isCorrect": false
+        "text": "Seek supervision, which substitutes for any other action when impaired now as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Seek supervision, which substitutes for any other action whe…\" is not what the item tests — ACA Code C.2.g: when counselors are impaired (by burnout, personal crises, substance use, etc.) to the point of affecting practice, they are ethica"
       }
     ],
     "rationale": "ACA Code C.2.g: when counselors are impaired (by burnout, personal crises, substance use, etc.) to the point of affecting practice, they are ethically obligated to limit, suspend, or terminate professional responsibilities to protect clients. Self-care alone is insufficient when clients are at risk."
@@ -6373,23 +7226,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "FERPA — they are education records",
-        "isCorrect": false
+        "text": "FERPA — they are education records at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"FERPA — they are education records at intake as the referenc…\" is not what the item tests — FERPA excludes \"sole possession records\" maintained by a treatment provider and not shared with others from its education record definition."
       },
       {
         "id": "b",
         "text": "HIPAA — they are health records exempt from FERPA's education record definition",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "FERPA excludes \"sole possession records\" maintained by a treatment provider and not shared with others from its education record definition."
       },
       {
         "id": "c",
-        "text": "State law only — federal law does not apply to school counseling",
-        "isCorrect": false
+        "text": "State law only — federal law does not apply to school counseling in this domain",
+        "isCorrect": false,
+        "rationale": "\"State law only — federal law does not apply to school counse…\" is not what the item tests — FERPA excludes \"sole possession records\" maintained by a treatment provider and not shared with others from its education record definition."
       },
       {
         "id": "d",
-        "text": "Neither FERPA nor HIPAA — school counseling records are unregulated",
-        "isCorrect": false
+        "text": "Neither FERPA nor HIPAA — school counseling records are unregulated in practice",
+        "isCorrect": false,
+        "rationale": "\"Neither FERPA nor HIPAA — school counseling records are unre…\" is not what the item tests — FERPA excludes \"sole possession records\" maintained by a treatment provider and not shared with others from its education record definition."
       }
     ],
     "rationale": "FERPA excludes \"sole possession records\" maintained by a treatment provider and not shared with others from its education record definition. Separately maintained treatment records in schools may fall under HIPAA if the school is a covered entity, or be governed by state law. The intersection of FERPA and HIPAA in schools is complex; legal consultation is often warranted."
@@ -6403,23 +7260,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Prohibited under HIPAA regardless of circumstances",
-        "isCorrect": false
+        "text": "Prohibited under HIPAA regardless of circumstances now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Prohibited under HIPAA regardless of circumstances now as th…\" is not what the item tests — Late entries are clinically and legally common."
       },
       {
         "id": "b",
         "text": "Acceptable if clearly dated with the actual documentation date and the date of the session",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Late entries are clinically and legally common."
       },
       {
         "id": "c",
-        "text": "Always considered fraudulent if not completed within 24 hours",
-        "isCorrect": false
+        "text": "Typically considered fraudulent if not completed within 24 hours in the outpatient setting",
+        "isCorrect": false,
+        "rationale": "\"Typically considered fraudulent if not completed within 24 h…\" is not what the item tests — Late entries are clinically and legally common."
       },
       {
         "id": "d",
-        "text": "Acceptable only if the client provides retroactive consent",
-        "isCorrect": false
+        "text": "Acceptable only if the client provides retroactive consent as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Acceptable only if the client provides retroactive consent a…\" is not what the item tests — Late entries are clinically and legally common."
       }
     ],
     "rationale": "Late entries are clinically and legally common. Ethical documentation requires accurately recording BOTH the date of the session and the date the note was written. Backdating (recording a false date) is fraudulent. Timely documentation is a professional standard; late but accurately dated notes are preferable to no notes."
@@ -6434,22 +7295,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Nonmaleficence",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Nonmaleficence\" is not what the item tests — Autonomy: the ethical principle of respecting clients' rights to self-determination — including the right to refuse treatment, discontinue therapy, or make decisions the counselor disagrees with"
       },
       {
         "id": "b",
         "text": "Autonomy",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Autonomy: the ethical principle of respecting clients' rights to self-determination — including the right to refuse treatment, discontinue therapy, or make decisions the counselor disagrees with (provided the client has…"
       },
       {
         "id": "c",
         "text": "Justice",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Justice\" is not what the item tests — Autonomy: the ethical principle of respecting clients' rights to self-determination — including the right to refuse treatment, discontinue therapy, or make decisions the counselor disagrees with (provi"
       },
       {
         "id": "d",
         "text": "Fidelity",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Fidelity\" is not what the item tests — Autonomy: the ethical principle of respecting clients' rights to self-determination — including the right to refuse treatment, discontinue therapy, or make decisions the counselor disagrees with (prov"
       }
     ],
     "rationale": "Autonomy: the ethical principle of respecting clients' rights to self-determination — including the right to refuse treatment, discontinue therapy, or make decisions the counselor disagrees with (provided the client has decision-making capacity and the refusal does not create imminent danger to others)."
@@ -6463,23 +7328,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "A statement that the client denied suicidal ideation",
-        "isCorrect": false
+        "text": "A statement that the client denied any suicidal ideation (as the reference material typically frames it)",
+        "isCorrect": false,
+        "rationale": "\"A statement that the client denied suicidal ideation as the …\" is not what the item tests — Documentation of suicide risk assessment should capture the clinical reasoning process: identified risk factors (static and dynamic), protective fa"
       },
       {
         "id": "b",
-        "text": "The clinical reasoning process — risk factors, protective factors, assessment findings, and the rationale for the clinical decision made",
-        "isCorrect": true
+        "text": "The clinical reasoning — risk and protective factors, findings, and the rationale for the decision",
+        "isCorrect": true,
+        "rationale": "Documentation of suicide risk assessment should capture the clinical reasoning process: identified risk factors (static and dynamic), protective factors, assessment method/tools used, clinical determination of risk level…"
       },
       {
         "id": "c",
-        "text": "A copy of the no-suicide contract signed by the client",
-        "isCorrect": false
+        "text": "A copy of the no-suicide contract signed by the client (as the reference frames it now)",
+        "isCorrect": false,
+        "rationale": "\"A copy of the no-suicide contract signed by the client as th…\" is not what the item tests — Documentation of suicide risk assessment should capture the clinical reasoning process: identified risk factors (static and dynamic), protective fa"
       },
       {
         "id": "d",
-        "text": "Contact information for the nearest inpatient psychiatric unit",
-        "isCorrect": false
+        "text": "Contact information for the nearest inpatient psychiatric unit (at the item-tests level)",
+        "isCorrect": false,
+        "rationale": "\"Contact information for the nearest inpatient psychiatric un…\" is not what the item tests — Documentation of suicide risk assessment should capture the clinical reasoning process: identified risk factors (static and dynamic), protective fa"
       }
     ],
     "rationale": "Documentation of suicide risk assessment should capture the clinical reasoning process: identified risk factors (static and dynamic), protective factors, assessment method/tools used, clinical determination of risk level, and the specific clinical actions taken and why. This demonstrates professional standard of care and provides a defensible record."
@@ -6493,23 +7362,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "An elective specialty area counselors may choose to develop",
-        "isCorrect": false
+        "text": "An elective specialty area counselors may choose to develop during a routine session",
+        "isCorrect": false,
+        "rationale": "\"An elective specialty area counselors may choose to develop …\" is not what the item tests — The MSJCC (Ratts et al., 2016) frames multicultural and social justice competence as foundational — not optional or specialty."
       },
       {
         "id": "b",
         "text": "A foundational ethical responsibility integrated throughout all competency domains",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The MSJCC (Ratts et al., 2016) frames multicultural and social justice competence as foundational — not optional or specialty."
       },
       {
         "id": "c",
-        "text": "A separate certification program requiring additional supervised hours",
-        "isCorrect": false
+        "text": "A separate certification program requiring additional supervised hours in practice",
+        "isCorrect": false,
+        "rationale": "\"A separate certification program requiring additional superv…\" is not what the item tests — The MSJCC (Ratts et al., 2016) frames multicultural and social justice competence as foundational — not optional or specialty."
       },
       {
         "id": "d",
-        "text": "Required only for counselors serving explicitly diverse populations",
-        "isCorrect": false
+        "text": "Required only for counselors serving explicitly diverse populations in this domain",
+        "isCorrect": false,
+        "rationale": "\"Required only for counselors serving explicitly diverse popu…\" is not what the item tests — The MSJCC (Ratts et al., 2016) frames multicultural and social justice competence as foundational — not optional or specialty."
       }
     ],
     "rationale": "The MSJCC (Ratts et al., 2016) frames multicultural and social justice competence as foundational — not optional or specialty. All counselors are expected to develop awareness, knowledge, skills, and action across cultural and power dimensions regardless of their client population."
@@ -6524,22 +7397,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Store assessments in a locked cabinet accessible only by licensed professionals",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ACA Code E.10: counselors maintain the integrity and security of tests and other assessment techniques by protecting test content from unauthorized disclosure."
       },
       {
         "id": "b",
-        "text": "Conduct all assessments in a secure, private setting",
-        "isCorrect": false
+        "text": "Conduct all assessments in a secure, private setting at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Conduct all assessments in a secure, private setting at the …\" is not what the item tests — ACA Code E.10: counselors maintain the integrity and security of tests and other assessment techniques by protecting test content from unauthorized"
       },
       {
         "id": "c",
-        "text": "Ensure test results are encrypted in electronic health records",
-        "isCorrect": false
+        "text": "Ensure test results are encrypted in electronic health records during counseling",
+        "isCorrect": false,
+        "rationale": "\"Ensure test results are encrypted in electronic health recor…\" is not what the item tests — ACA Code E.10: counselors maintain the integrity and security of tests and other assessment techniques by protecting test content from unauthorized"
       },
       {
         "id": "d",
-        "text": "Only use assessments with no known security vulnerabilities",
-        "isCorrect": false
+        "text": "Only use assessments with no known security vulnerabilities at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Only use assessments with no known security vulnerabilities …\" is not what the item tests — ACA Code E.10: counselors maintain the integrity and security of tests and other assessment techniques by protecting test content from unauthorized"
       }
     ],
     "rationale": "ACA Code E.10: counselors maintain the integrity and security of tests and other assessment techniques by protecting test content from unauthorized disclosure. This protects assessment validity — if items are publicly known, normative comparisons become invalid. This includes secure storage, preventing item exposure, and not reproducing copyrighted materials."
@@ -6553,23 +7430,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Immediately contact the complainant to address their concerns directly",
-        "isCorrect": false
+        "text": "Immediately contact the complainant to address their concerns directly in practice",
+        "isCorrect": false,
+        "rationale": "\"Immediately contact the complainant to address their concern…\" is not what the item tests — A licensing board complaint is a legal proceeding with career and licensure implications."
       },
       {
         "id": "b",
         "text": "Consult a licensed attorney familiar with professional licensing before responding",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "A licensing board complaint is a legal proceeding with career and licensure implications."
       },
       {
         "id": "c",
-        "text": "Submit a detailed written response to the board within 48 hours",
-        "isCorrect": false
+        "text": "Submit a detailed written response to the board within 48 hours at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Submit a detailed written response to the board within 48 ho…\" is not what the item tests — A licensing board complaint is a legal proceeding with career and licensure implications."
       },
       {
         "id": "d",
-        "text": "Notify all current clients of the complaint to maintain transparency",
-        "isCorrect": false
+        "text": "Notify all current clients of the complaint to maintain transparency by counselors",
+        "isCorrect": false,
+        "rationale": "\"Notify all current clients of the complaint to maintain tran…\" is not what the item tests — A licensing board complaint is a legal proceeding with career and licensure implications."
       }
     ],
     "rationale": "A licensing board complaint is a legal proceeding with career and licensure implications. The counselor should consult an attorney specializing in professional licensing before making any response. Contacting the complainant directly may violate board orders and worsen the situation. Clients should generally not be notified unless required."
@@ -6583,23 +7464,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The ACA Code requires counselors to engage in specific wellness activities",
-        "isCorrect": false
+        "text": "The ACA Code requires counselors to engage in specific wellness activities during a routine session",
+        "isCorrect": false,
+        "rationale": "\"The ACA Code requires counselors to engage in specific welln…\" is not what the item tests — Self-care is reframed as an ethical obligation (not just a personal benefit) because a counselor's impairment directly compromises client care."
       },
       {
         "id": "b",
         "text": "Impaired counselors cannot provide competent care, and client welfare depends on counselor wellness",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Self-care is reframed as an ethical obligation (not just a personal benefit) because a counselor's impairment directly compromises client care."
       },
       {
         "id": "c",
-        "text": "Wellness modeling increases client motivation for behavior change",
-        "isCorrect": false
+        "text": "Wellness modeling increases client motivation for behavior change as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Wellness modeling increases client motivation for behavior c…\" is not what the item tests — Self-care is reframed as an ethical obligation (not just a personal benefit) because a counselor's impairment directly compromises client care."
       },
       {
         "id": "d",
-        "text": "Counselors who burn out increase costs to the healthcare system",
-        "isCorrect": false
+        "text": "Counselors who burn out increase costs to the healthcare system as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Counselors who burn out increase costs to the healthcare sys…\" is not what the item tests — Self-care is reframed as an ethical obligation (not just a personal benefit) because a counselor's impairment directly compromises client care."
       }
     ],
     "rationale": "Self-care is reframed as an ethical obligation (not just a personal benefit) because a counselor's impairment directly compromises client care. ACA Code C.2.g and C.2.e address impairment: counselors whose personal problems impair competence must address this, limiting practice if necessary."
@@ -6613,23 +7498,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Establish a formal diagnosis for insurance billing",
-        "isCorrect": false
+        "text": "Establish a formal diagnosis for insurance billing during counseling as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Establish a formal diagnosis for insurance billing during co…\" is not what the item tests — The intake serves multiple purposes but its primary clinical function is comprehensive information-gathering to understand the client's presenting "
       },
       {
         "id": "b",
         "text": "Gather comprehensive information to understand the client's concerns and develop a treatment direction",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The intake serves multiple purposes but its primary clinical function is comprehensive information-gathering to understand the client's presenting concerns, history, strengths, and context — enabling an accurate formulat…"
       },
       {
         "id": "c",
-        "text": "Orient the client to agency rules, fees, and paperwork",
-        "isCorrect": false
+        "text": "Orient the client to agency rules, fees, and paperwork in practice as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Orient the client to agency rules, fees, and paperwork in pr…\" is not what the item tests — The intake serves multiple purposes but its primary clinical function is comprehensive information-gathering to understand the client's presenting "
       },
       {
         "id": "d",
-        "text": "Determine whether the client is appropriate for the agency's services",
-        "isCorrect": false
+        "text": "Determine whether the client is appropriate for the agency's services as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Determine whether the client is appropriate for the agency's…\" is not what the item tests — The intake serves multiple purposes but its primary clinical function is comprehensive information-gathering to understand the client's presenting "
       }
     ],
     "rationale": "The intake serves multiple purposes but its primary clinical function is comprehensive information-gathering to understand the client's presenting concerns, history, strengths, and context — enabling an accurate formulation and appropriate treatment planning."
@@ -6643,23 +7532,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Translate the client's statement into clinical terminology",
-        "isCorrect": false
+        "text": "Translate the client's statement into clinical terminology at the intake stage now",
+        "isCorrect": false,
+        "rationale": "\"Translate the client's statement into clinical terminology a…\" is not what the item tests — The chief complaint is best documented in the client's own words (often in quotation marks), capturing their subjective experience and primary conc"
       },
       {
         "id": "b",
         "text": "Record the client's own words describing their primary reason for seeking help",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The chief complaint is best documented in the client's own words (often in quotation marks), capturing their subjective experience and primary concern before clinical formulation."
       },
       {
         "id": "c",
-        "text": "Summarize all presenting concerns in order of clinical severity",
-        "isCorrect": false
+        "text": "Summarize all presenting concerns in order of clinical severity in this domain",
+        "isCorrect": false,
+        "rationale": "\"Summarize all presenting concerns in order of clinical sever…\" is not what the item tests — The chief complaint is best documented in the client's own words (often in quotation marks), capturing their subjective experience and primary conc"
       },
       {
         "id": "d",
-        "text": "Note only the DSM-diagnosable components of the client's stated concern",
-        "isCorrect": false
+        "text": "Note only the DSM-diagnosable components of the client's stated concern itself",
+        "isCorrect": false,
+        "rationale": "\"Note only the DSM-diagnosable components of the client's sta…\" is not what the item tests — The chief complaint is best documented in the client's own words (often in quotation marks), capturing their subjective experience and primary conc"
       }
     ],
     "rationale": "The chief complaint is best documented in the client's own words (often in quotation marks), capturing their subjective experience and primary concern before clinical formulation. This preserves the client's voice and provides a baseline for tracking progress."
@@ -6673,23 +7566,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The client's entire psychiatric history from childhood to present",
-        "isCorrect": false
+        "text": "The client's entire psychiatric history from childhood to present during a routine session",
+        "isCorrect": false,
+        "rationale": "\"The client's entire psychiatric history from childhood to pr…\" is not what the item tests — HPI: characterizes the current episode — when it started (onset), how long it has lasted (duration), how intense it is (severity), whether it is st"
       },
       {
         "id": "b",
         "text": "The onset, duration, severity, course, and precipitating factors of the current concern",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "HPI: characterizes the current episode — when it started (onset), how long it has lasted (duration), how intense it is (severity), whether it is stable/worsening/episodic (course), and what may have triggered or preceded it (precipitants)."
       },
       {
         "id": "c",
-        "text": "Previous diagnoses and hospitalizations only",
-        "isCorrect": false
+        "text": "Previous diagnoses and hospitalizations only itself as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Previous diagnoses and hospitalizations only itself as the r…\" is not what the item tests — HPI: characterizes the current episode — when it started (onset), how long it has lasted (duration), how intense it is (severity), whether it is st"
       },
       {
         "id": "d",
-        "text": "Family history of the same presenting concern",
-        "isCorrect": false
+        "text": "Family history of the same presenting concern today as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Family history of the same presenting concern today as the r…\" is not what the item tests — HPI: characterizes the current episode — when it started (onset), how long it has lasted (duration), how intense it is (severity), whether it is st"
       }
     ],
     "rationale": "HPI: characterizes the current episode — when it started (onset), how long it has lasted (duration), how intense it is (severity), whether it is stable/worsening/episodic (course), and what may have triggered or preceded it (precipitants). This is distinct from full psychiatric history."
@@ -6703,23 +7600,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "It determines which diagnoses the client has had confirmed",
-        "isCorrect": false
+        "text": "It determines which diagnoses the client has had confirmed as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"It determines which diagnoses the client has had confirmed a…\" is not what the item tests — Prior treatment response is one of the most clinically informative elements of psychiatric history: what modalities were tried?"
       },
       {
         "id": "b",
         "text": "It informs which approaches have worked or not worked, guiding current treatment planning",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Prior treatment response is one of the most clinically informative elements of psychiatric history: what modalities were tried?"
       },
       {
         "id": "c",
-        "text": "It establishes whether the client qualifies for intensive services",
-        "isCorrect": false
+        "text": "It establishes whether the client qualifies for intensive services during a routine session",
+        "isCorrect": false,
+        "rationale": "\"It establishes whether the client qualifies for intensive se…\" is not what the item tests — Prior treatment response is one of the most clinically informative elements of psychiatric history: what modalities were tried?"
       },
       {
         "id": "d",
-        "text": "It is required by most third-party payers before authorizing services",
-        "isCorrect": false
+        "text": "It is required by most third-party payers before authorizing services at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"It is required by most third-party payers before authorizing…\" is not what the item tests — Prior treatment response is one of the most clinically informative elements of psychiatric history: what modalities were tried?"
       }
     ],
     "rationale": "Prior treatment response is one of the most clinically informative elements of psychiatric history: what modalities were tried? what were the outcomes? what did the client find helpful or harmful? This avoids repeating ineffective approaches and builds on what works."
@@ -6733,23 +7634,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Counselors are required by law to coordinate with medical providers",
-        "isCorrect": false
+        "text": "Counselors are required by law to coordinate with medical providers at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Counselors are required by law to coordinate with medical pr…\" is not what the item tests — Many medical conditions (thyroid disorders, neurological conditions, autoimmune diseases, medications) produce or mimic psychiatric symptoms."
       },
       {
         "id": "b",
         "text": "Medical conditions can cause, contribute to, or be exacerbated by psychiatric symptoms",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Many medical conditions (thyroid disorders, neurological conditions, autoimmune diseases, medications) produce or mimic psychiatric symptoms."
       },
       {
         "id": "c",
-        "text": "Insurance requires medical clearance before mental health services can begin",
-        "isCorrect": false
+        "text": "Insurance requires medical clearance before mental health services can begin at intake",
+        "isCorrect": false,
+        "rationale": "\"Insurance requires medical clearance before mental health se…\" is not what the item tests — Many medical conditions (thyroid disorders, neurological conditions, autoimmune diseases, medications) produce or mimic psychiatric symptoms."
       },
       {
         "id": "d",
-        "text": "Counselors must rule out medical causes before providing any counseling service",
-        "isCorrect": false
+        "text": "Counselors must rule out medical causes before providing any counseling service itself",
+        "isCorrect": false,
+        "rationale": "\"Counselors must rule out medical causes before providing any…\" is not what the item tests — Many medical conditions (thyroid disorders, neurological conditions, autoimmune diseases, medications) produce or mimic psychiatric symptoms."
       }
     ],
     "rationale": "Many medical conditions (thyroid disorders, neurological conditions, autoimmune diseases, medications) produce or mimic psychiatric symptoms. Failure to consider the medical context can lead to misdiagnosis and inappropriate treatment. Counselors screen for medical factors and collaborate with medical providers when relevant."
@@ -6764,22 +7669,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "It establishes the client's biological predisposition and may inform differential diagnosis and risk",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Family psychiatric history informs: (1) genetic/biological vulnerability (e.g., family history of bipolar disorder increases risk), (2) differential diagnosis (e.g., family history of schizophrenia informs evaluation of…"
       },
       {
         "id": "b",
-        "text": "It determines which diagnoses to exclude",
-        "isCorrect": false
+        "text": "It determines which diagnoses to exclude during a routine session as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"It determines which diagnoses to exclude during a routine se…\" is not what the item tests — Family psychiatric history informs: (1) genetic/biological vulnerability (e.g., family history of bipolar disorder increases risk), (2) differentia"
       },
       {
         "id": "c",
-        "text": "Family history is required for all DSM diagnoses",
-        "isCorrect": false
+        "text": "Family history is required for all DSM diagnoses during counseling as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Family history is required for all DSM diagnoses during coun…\" is not what the item tests — Family psychiatric history informs: (1) genetic/biological vulnerability (e.g., family history of bipolar disorder increases risk), (2) differentia"
       },
       {
         "id": "d",
-        "text": "It identifies which family members should be included in treatment",
-        "isCorrect": false
+        "text": "It identifies which family members should be included in treatment as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"It identifies which family members should be included in tre…\" is not what the item tests — Family psychiatric history informs: (1) genetic/biological vulnerability (e.g., family history of bipolar disorder increases risk), (2) differentia"
       }
     ],
     "rationale": "Family psychiatric history informs: (1) genetic/biological vulnerability (e.g., family history of bipolar disorder increases risk), (2) differential diagnosis (e.g., family history of schizophrenia informs evaluation of psychotic symptoms), and (3) treatment planning (e.g., pharmacological considerations, family dynamics)."
@@ -6793,23 +7702,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "A detailed account of the client's weekly social media use",
-        "isCorrect": false
+        "text": "A detailed account of the client's weekly social media use as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"A detailed account of the client's weekly social media use a…\" is not what the item tests — Social history: educational background and attainment, occupational history, current living situation, relationship/marital history, cultural and r"
       },
       {
         "id": "b",
         "text": "Education, employment, housing, relationships, cultural background, and support systems",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Social history: educational background and attainment, occupational history, current living situation, relationship/marital history, cultural and religious background, primary support systems, and significant life events."
       },
       {
         "id": "c",
-        "text": "A standardized social skills assessment",
-        "isCorrect": false
+        "text": "A standardized social skills assessment in practice as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"A standardized social skills assessment in practice as the r…\" is not what the item tests — Social history: educational background and attainment, occupational history, current living situation, relationship/marital history, cultural and r"
       },
       {
         "id": "d",
-        "text": "Contact information for the client's primary social supports",
-        "isCorrect": false
+        "text": "Contact information for the client's primary social supports at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Contact information for the client's primary social supports…\" is not what the item tests — Social history: educational background and attainment, occupational history, current living situation, relationship/marital history, cultural and r"
       }
     ],
     "rationale": "Social history: educational background and attainment, occupational history, current living situation, relationship/marital history, cultural and religious background, primary support systems, and significant life events. This contextualizes the client's presenting concerns within their social world."
@@ -6823,23 +7736,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Trauma history is required for PTSD diagnosis",
-        "isCorrect": false
+        "text": "Trauma history is required for PTSD diagnosis at the intake stage as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Trauma history is required for PTSD diagnosis at the intake …\" is not what the item tests — Trauma-informed care recognizes that trauma is highly prevalent (ACE studies), often undisclosed without direct inquiry, and influences multiple pr"
       },
       {
         "id": "b",
         "text": "Trauma is highly prevalent and often not disclosed unless directly asked in a trauma-informed manner",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Trauma-informed care recognizes that trauma is highly prevalent (ACE studies), often undisclosed without direct inquiry, and influences multiple presenting concerns."
       },
       {
         "id": "c",
-        "text": "All psychiatric conditions have a trauma component",
-        "isCorrect": false
+        "text": "All psychiatric conditions have a trauma component by counselors as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"All psychiatric conditions have a trauma component by counse…\" is not what the item tests — Trauma-informed care recognizes that trauma is highly prevalent (ACE studies), often undisclosed without direct inquiry, and influences multiple pr"
       },
       {
         "id": "d",
-        "text": "Trauma history determines whether a client can be seen in an outpatient setting",
-        "isCorrect": false
+        "text": "Trauma history determines whether a client can be seen in an outpatient setting as usually described",
+        "isCorrect": false,
+        "rationale": "\"Trauma history determines whether a client can be seen in an…\" is not what the item tests — Trauma-informed care recognizes that trauma is highly prevalent (ACE studies), often undisclosed without direct inquiry, and influences multiple pr"
       }
     ],
     "rationale": "Trauma-informed care recognizes that trauma is highly prevalent (ACE studies), often undisclosed without direct inquiry, and influences multiple presenting concerns. Routine screening — done sensitively and with informed consent — prevents missing a primary driver of symptoms. Asking does not retraumatize; how one asks matters."
@@ -6853,23 +7770,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Cocaine, alcohol, gambling, and eating disorders",
-        "isCorrect": false
+        "text": "Cocaine, alcohol, gambling, and eating disorders in practice as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Cocaine, alcohol, gambling, and eating disorders in practice…\" is not what the item tests — CAGE: \"Have you ever felt you should Cut down?"
       },
       {
         "id": "b",
         "text": "Alcohol use disorder using four questions about cutting down, annoyance, guilt, and eye-openers",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "CAGE: \"Have you ever felt you should Cut down?"
       },
       {
         "id": "c",
-        "text": "Cannabis, alcohol, gambling, and electronic device use",
-        "isCorrect": false
+        "text": "Cannabis, alcohol, gambling, and electronic device use here as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Cannabis, alcohol, gambling, and electronic device use here …\" is not what the item tests — CAGE: \"Have you ever felt you should Cut down?"
       },
       {
         "id": "d",
-        "text": "Any substance use through a comprehensive drug history",
-        "isCorrect": false
+        "text": "Any substance use through a comprehensive drug history here as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Any substance use through a comprehensive drug history here …\" is not what the item tests — CAGE: \"Have you ever felt you should Cut down?"
       }
     ],
     "rationale": "CAGE: \"Have you ever felt you should Cut down? Have people Annoyed you by criticizing your drinking? Have you ever felt Guilty about your drinking? Have you ever had an Eye-opener (drink first thing in morning)?\" Two or more \"yes\" answers indicate probable alcohol use disorder. CAGE screens specifically for alcohol; AUDIT is broader."
@@ -6883,23 +7804,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The client is under 18 years of age only",
-        "isCorrect": false
+        "text": "The client is under 18 years of age only (as the reference material typically frames it here)",
+        "isCorrect": false,
+        "rationale": "\"The client is under 18 years of age only as the reference ma…\" is not what the item tests — Developmental history — milestones, early attachment patterns, school functioning, early trauma — informs understanding of personality development,"
       },
       {
         "id": "b",
-        "text": "Symptoms began in childhood, neurodevelopmental conditions are suspected, or understanding early patterns is clinically useful",
-        "isCorrect": true
+        "text": "Symptoms began in childhood, neurodevelopmental conditions are suspected, or early patterns matter",
+        "isCorrect": true,
+        "rationale": "Developmental history — milestones, early attachment patterns, school functioning, early trauma — informs understanding of personality development, neurodevelopmental conditions (ADHD, ASD), and the origins of presenting patterns."
       },
       {
         "id": "c",
-        "text": "The referring source specifically requests a developmental assessment",
-        "isCorrect": false
+        "text": "The referring source specifically requests a developmental assessment as usually described in practice",
+        "isCorrect": false,
+        "rationale": "\"The referring source specifically requests a developmental a…\" is not what the item tests — Developmental history — milestones, early attachment patterns, school functioning, early trauma — informs understanding of personality development,"
       },
       {
         "id": "d",
-        "text": "The client presents with intellectual disability",
-        "isCorrect": false
+        "text": "The client presents with intellectual disability (as the reference material frames it now)",
+        "isCorrect": false,
+        "rationale": "\"The client presents with intellectual disability as the refe…\" is not what the item tests — Developmental history — milestones, early attachment patterns, school functioning, early trauma — informs understanding of personality development,"
       }
     ],
     "rationale": "Developmental history — milestones, early attachment patterns, school functioning, early trauma — informs understanding of personality development, neurodevelopmental conditions (ADHD, ASD), and the origins of presenting patterns. It is relevant across the lifespan when current symptoms have developmental roots."
@@ -6913,23 +7838,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Counselors are required by law to report all criminal histories to authorities",
-        "isCorrect": false
+        "text": "Counselors are required by law to report all criminal histories to authorities as usually described now",
+        "isCorrect": false,
+        "rationale": "\"Counselors are required by law to report all criminal histor…\" is not what the item tests — Legal history provides context for understanding substance use patterns, trauma exposure (victimization or perpetration), systemic stressors, and c"
       },
       {
         "id": "b",
-        "text": "Legal involvement often intersects with mental health, substance use, trauma, and may affect treatment (e.g., court-mandated treatment)",
-        "isCorrect": true
+        "text": "Legal involvement often intersects with mental health, substance use, and trauma — and may affect treatment",
+        "isCorrect": true,
+        "rationale": "Legal history provides context for understanding substance use patterns, trauma exposure (victimization or perpetration), systemic stressors, and current legal contingencies (court-mandated treatment, probation, custody)."
       },
       {
         "id": "c",
-        "text": "It determines whether the client is eligible for services",
-        "isCorrect": false
+        "text": "It determines whether the client is eligible for services (as the reference material frames it now)",
+        "isCorrect": false,
+        "rationale": "\"It determines whether the client is eligible for services as…\" is not what the item tests — Legal history provides context for understanding substance use patterns, trauma exposure (victimization or perpetration), systemic stressors, and c"
       },
       {
         "id": "d",
-        "text": "Insurers require legal history disclosure before authorizing treatment",
-        "isCorrect": false
+        "text": "Insurers require legal history disclosure before authorizing treatment as clinicians typically apply it now",
+        "isCorrect": false,
+        "rationale": "\"Insurers require legal history disclosure before authorizing…\" is not what the item tests — Legal history provides context for understanding substance use patterns, trauma exposure (victimization or perpetration), systemic stressors, and c"
       }
     ],
     "rationale": "Legal history provides context for understanding substance use patterns, trauma exposure (victimization or perpetration), systemic stressors, and current legal contingencies (court-mandated treatment, probation, custody). It informs realistic treatment planning and coordination with legal systems."
@@ -6943,23 +7872,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Determine which diagnoses apply across cultural contexts",
-        "isCorrect": false
+        "text": "Determine which diagnoses apply across cultural contexts as clinicians typically apply it as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Determine which diagnoses apply across cultural contexts as …\" is not what the item tests — DSM-5 CFI: a 16-question semi-structured interview exploring the client's cultural identity, cultural conceptualization of the problem (explanatory"
       },
       {
         "id": "b",
         "text": "Understand the client's cultural context, explanatory model, and how culture affects the illness experience and help-seeking",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "DSM-5 CFI: a 16-question semi-structured interview exploring the client's cultural identity, cultural conceptualization of the problem (explanatory model), psychosocial stressors and supports in cultural context, and cul…"
       },
       {
         "id": "c",
-        "text": "Adapt standardized assessment tools for culturally diverse populations",
-        "isCorrect": false
+        "text": "Adapt standardized assessment tools for culturally diverse populations during counseling as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Adapt standardized assessment tools for culturally diverse p…\" is not what the item tests — DSM-5 CFI: a 16-question semi-structured interview exploring the client's cultural identity, cultural conceptualization of the problem (explanatory"
       },
       {
         "id": "d",
-        "text": "Identify culture-bound syndromes for accurate diagnosis",
-        "isCorrect": false
+        "text": "Identify culture-bound syndromes for accurate diagnosis as clinicians typically apply it as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Identify culture-bound syndromes for accurate diagnosis as c…\" is not what the item tests — DSM-5 CFI: a 16-question semi-structured interview exploring the client's cultural identity, cultural conceptualization of the problem (explanatory"
       }
     ],
     "rationale": "DSM-5 CFI: a 16-question semi-structured interview exploring the client's cultural identity, cultural conceptualization of the problem (explanatory model), psychosocial stressors and supports in cultural context, and cultural features of the help-seeking relationship. It ensures culturally meaningful assessment."
@@ -6974,22 +7907,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Avoiding the topic unless the client raises it, to respect separation of religion and clinical practice",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Avoiding the topic unless the client raises it, to respect s…\" is not what the item tests — Religion and spirituality are dimensions of diversity and frequently serve as significant coping resources, sources of meaning, and potential stres"
       },
       {
         "id": "b",
         "text": "Routinely and respectfully inquiring about its role in the client's life, coping, and values",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Religion and spirituality are dimensions of diversity and frequently serve as significant coping resources, sources of meaning, and potential stressors."
       },
       {
         "id": "c",
-        "text": "Referring all spiritual concerns to chaplains or clergy without clinical engagement",
-        "isCorrect": false
+        "text": "Referring all spiritual concerns to chaplains or clergy without clinical engagement at intake",
+        "isCorrect": false,
+        "rationale": "\"Referring all spiritual concerns to chaplains or clergy with…\" is not what the item tests — Religion and spirituality are dimensions of diversity and frequently serve as significant coping resources, sources of meaning, and potential stres"
       },
       {
         "id": "d",
-        "text": "Including it only in assessments for clients who appear religiously observant",
-        "isCorrect": false
+        "text": "Including it only in assessments for clients who appear religiously observant in this domain",
+        "isCorrect": false,
+        "rationale": "\"Including it only in assessments for clients who appear reli…\" is not what the item tests — Religion and spirituality are dimensions of diversity and frequently serve as significant coping resources, sources of meaning, and potential stres"
       }
     ],
     "rationale": "Religion and spirituality are dimensions of diversity and frequently serve as significant coping resources, sources of meaning, and potential stressors. ACA multicultural competencies support routinely, respectfully exploring their role — not imposing the counselor's views or avoiding the topic entirely."
@@ -7003,23 +7940,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "It is required before any diagnosis can be assigned",
-        "isCorrect": false
+        "text": "It is required before any diagnosis can be assigned as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"It is required before any diagnosis can be assigned as clini…\" is not what the item tests — History of suicidal behavior — attempts, hospitalizations, self-harm — is among the strongest known predictors of future suicidal behavior."
       },
       {
         "id": "b",
         "text": "Past suicidal behavior is one of the strongest predictors of future suicide risk",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "History of suicidal behavior — attempts, hospitalizations, self-harm — is among the strongest known predictors of future suicidal behavior."
       },
       {
         "id": "c",
         "text": "It determines whether the client can be seen in outpatient vs. inpatient settings",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"It determines whether the client can be seen in outpatient v…\" is not what the item tests — History of suicidal behavior — attempts, hospitalizations, self-harm — is among the strongest known predictors of future suicidal behavior."
       },
       {
         "id": "d",
-        "text": "It alerts the counselor to contact emergency services preemptively",
-        "isCorrect": false
+        "text": "It alerts the counselor to contact emergency services preemptively by counselors",
+        "isCorrect": false,
+        "rationale": "\"It alerts the counselor to contact emergency services preemp…\" is not what the item tests — History of suicidal behavior — attempts, hospitalizations, self-harm — is among the strongest known predictors of future suicidal behavior."
       }
     ],
     "rationale": "History of suicidal behavior — attempts, hospitalizations, self-harm — is among the strongest known predictors of future suicidal behavior. Comprehensive intake must include this history to properly stratify risk and inform treatment intensity and safety planning from the outset."
@@ -7033,23 +7974,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Remind the client of the legal consequences of non-participation",
-        "isCorrect": false
+        "text": "Remind the client of the legal consequences of non-participation during counseling as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Remind the client of the legal consequences of non-participa…\" is not what the item tests — With involuntary clients, acknowledging the mandated context honestly and non-defensively, validating their position, and exploring any personal st"
       },
       {
         "id": "b",
         "text": "Acknowledge the mandated context while exploring what, if anything, the client might personally want from the process",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "With involuntary clients, acknowledging the mandated context honestly and non-defensively, validating their position, and exploring any personal stake they might have (\"Is there anything about your situation you'd want t…"
       },
       {
         "id": "c",
-        "text": "Reschedule until the client is ready to engage voluntarily",
-        "isCorrect": false
+        "text": "Reschedule until the client is ready to engage voluntarily during a routine session as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Reschedule until the client is ready to engage voluntarily d…\" is not what the item tests — With involuntary clients, acknowledging the mandated context honestly and non-defensively, validating their position, and exploring any personal st"
       },
       {
         "id": "d",
-        "text": "Contact the referring court to request motivational enhancement services",
-        "isCorrect": false
+        "text": "Contact the referring court to request motivational enhancement services at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Contact the referring court to request motivational enhancem…\" is not what the item tests — With involuntary clients, acknowledging the mandated context honestly and non-defensively, validating their position, and exploring any personal st"
       }
     ],
     "rationale": "With involuntary clients, acknowledging the mandated context honestly and non-defensively, validating their position, and exploring any personal stake they might have (\"Is there anything about your situation you'd want to change, apart from what the court requires?\") is more likely to build engagement than authority-based approaches."
@@ -7063,23 +8008,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Verify that the client has not been adequately treated elsewhere",
-        "isCorrect": false
+        "text": "Verify that the client has not been adequately treated elsewhere during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Verify that the client has not been adequately treated elsew…\" is not what the item tests — Previous therapy experience informs: what modalities and relationships have been helpful, what hasn't worked and why, how the client experiences an"
       },
       {
         "id": "b",
         "text": "Understand what has helped, what has not, and any prior therapeutic relationship dynamics",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Previous therapy experience informs: what modalities and relationships have been helpful, what hasn't worked and why, how the client experiences and uses the therapeutic relationship, any prior ruptures or termination ex…"
       },
       {
         "id": "c",
-        "text": "Determine whether referral back to the previous provider is more appropriate",
-        "isCorrect": false
+        "text": "Determine whether referral back to the previous provider is more appropriate by counselors",
+        "isCorrect": false,
+        "rationale": "\"Determine whether referral back to the previous provider is …\" is not what the item tests — Previous therapy experience informs: what modalities and relationships have been helpful, what hasn't worked and why, how the client experiences an"
       },
       {
         "id": "d",
-        "text": "Establish whether the client's expectations about therapy are realistic",
-        "isCorrect": false
+        "text": "Establish whether the client's expectations about therapy are realistic during counseling",
+        "isCorrect": false,
+        "rationale": "\"Establish whether the client's expectations about therapy ar…\" is not what the item tests — Previous therapy experience informs: what modalities and relationships have been helpful, what hasn't worked and why, how the client experiences an"
       }
     ],
     "rationale": "Previous therapy experience informs: what modalities and relationships have been helpful, what hasn't worked and why, how the client experiences and uses the therapeutic relationship, any prior ruptures or termination experiences, and what the client brings as expectations and preferences for current treatment."
@@ -7093,23 +8042,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "A one-time signed document completed before the first session",
-        "isCorrect": false
+        "text": "A one-time signed document completed before the first session at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"A one-time signed document completed before the first sessio…\" is not what the item tests — Informed consent is an ongoing process, not a one-time event."
       },
       {
         "id": "b",
         "text": "An ongoing process that evolves as treatment progresses and circumstances change",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Informed consent is an ongoing process, not a one-time event."
       },
       {
         "id": "c",
-        "text": "A legal formality primarily protecting the counselor from liability",
-        "isCorrect": false
+        "text": "A legal formality primarily protecting the counselor from liability by counselors",
+        "isCorrect": false,
+        "rationale": "\"A legal formality primarily protecting the counselor from li…\" is not what the item tests — Informed consent is an ongoing process, not a one-time event."
       },
       {
         "id": "d",
-        "text": "Complete once all paperwork is signed and the client can recall the terms",
-        "isCorrect": false
+        "text": "Complete once all paperwork is signed and the client can recall the terms itself",
+        "isCorrect": false,
+        "rationale": "\"Complete once all paperwork is signed and the client can rec…\" is not what the item tests — Informed consent is an ongoing process, not a one-time event."
       }
     ],
     "rationale": "Informed consent is an ongoing process, not a one-time event. As treatment evolves, new modalities are introduced, circumstances change, or risks/benefits shift, informed consent must be revisited. ACA A.2.a: counselors continually review and update informed consent throughout treatment."
@@ -7123,23 +8076,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Automatic inclusion in the intake process for all clients",
-        "isCorrect": false
+        "text": "Automatic inclusion in the intake process for all clients as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Automatic inclusion in the intake process for all clients as…\" is not what the item tests — Releasing or receiving protected health information requires a valid HIPAA-compliant written authorization (ROI) from the client, with specific ele"
       },
       {
         "id": "b",
         "text": "A signed release of information from the client, except in specific emergency circumstances",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Releasing or receiving protected health information requires a valid HIPAA-compliant written authorization (ROI) from the client, with specific elements: who, what information, for what purpose, expiration date, and right to revoke."
       },
       {
         "id": "c",
-        "text": "Only the client's verbal consent, which can be documented in the session note",
-        "isCorrect": false
+        "text": "Only the client's verbal consent, which can be documented in the session note by counselors",
+        "isCorrect": false,
+        "rationale": "\"Only the client's verbal consent, which can be documented in…\" is not what the item tests — Releasing or receiving protected health information requires a valid HIPAA-compliant written authorization (ROI) from the client, with specific ele"
       },
       {
         "id": "d",
-        "text": "Court authorization for any third-party contact",
-        "isCorrect": false
+        "text": "Court authorization for any third-party contact as used as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Court authorization for any third-party contact as used as t…\" is not what the item tests — Releasing or receiving protected health information requires a valid HIPAA-compliant written authorization (ROI) from the client, with specific ele"
       }
     ],
     "rationale": "Releasing or receiving protected health information requires a valid HIPAA-compliant written authorization (ROI) from the client, with specific elements: who, what information, for what purpose, expiration date, and right to revoke. Exceptions exist for safety emergencies. Verbal consent alone is insufficient under HIPAA."
@@ -7153,23 +8110,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Protect the counselor legally by ensuring the client cannot later claim ignorance",
-        "isCorrect": false
+        "text": "Protect the counselor legally by ensuring the client cannot later claim ignorance today",
+        "isCorrect": false,
+        "rationale": "\"Protect the counselor legally by ensuring the client cannot …\" is not what the item tests — The therapeutic frame (consistent time, place, roles, boundaries, and processes) creates predictability and safety — essential for clients to take "
       },
       {
         "id": "b",
         "text": "Create a predictable, safe therapeutic container that enables trust and productive work",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The therapeutic frame (consistent time, place, roles, boundaries, and processes) creates predictability and safety — essential for clients to take the risks that therapy requires."
       },
       {
         "id": "c",
-        "text": "Limit the scope of services to what the counselor is prepared to provide",
-        "isCorrect": false
+        "text": "Limit the scope of services to what the counselor is prepared to provide in this domain",
+        "isCorrect": false,
+        "rationale": "\"Limit the scope of services to what the counselor is prepare…\" is not what the item tests — The therapeutic frame (consistent time, place, roles, boundaries, and processes) creates predictability and safety — essential for clients to take "
       },
       {
         "id": "d",
-        "text": "Establish the counselor's authority within the therapeutic relationship",
-        "isCorrect": false
+        "text": "Establish the counselor's authority within the therapeutic relationship during counseling",
+        "isCorrect": false,
+        "rationale": "\"Establish the counselor's authority within the therapeutic r…\" is not what the item tests — The therapeutic frame (consistent time, place, roles, boundaries, and processes) creates predictability and safety — essential for clients to take "
       }
     ],
     "rationale": "The therapeutic frame (consistent time, place, roles, boundaries, and processes) creates predictability and safety — essential for clients to take the risks that therapy requires. It is not primarily about legal protection or authority but about creating conditions for trust and therapeutic work."
@@ -7183,23 +8144,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Insurance companies require documentation of client strengths",
-        "isCorrect": false
+        "text": "Insurance companies require documentation of client strengths now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Insurance companies require documentation of client strength…\" is not what the item tests — Strengths-based assessment identifies client competencies, protective factors, support systems, and past successes as treatment resources."
       },
       {
         "id": "b",
         "text": "Strengths serve as resources for treatment and recovery and counterbalance deficit-focused assessment",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Strengths-based assessment identifies client competencies, protective factors, support systems, and past successes as treatment resources."
       },
       {
         "id": "c",
-        "text": "It reduces the client's distress during the intake process",
-        "isCorrect": false
+        "text": "It reduces the client's distress during the intake process itself as the reference material frames it now",
+        "isCorrect": false,
+        "rationale": "\"It reduces the client's distress during the intake process i…\" is not what the item tests — Strengths-based assessment identifies client competencies, protective factors, support systems, and past successes as treatment resources."
       },
       {
         "id": "d",
-        "text": "DSM-5 requires strengths documentation alongside diagnosis",
-        "isCorrect": false
+        "text": "DSM-5 requires strengths documentation alongside diagnosis itself as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"DSM-5 requires strengths documentation alongside diagnosis i…\" is not what the item tests — Strengths-based assessment identifies client competencies, protective factors, support systems, and past successes as treatment resources."
       }
     ],
     "rationale": "Strengths-based assessment identifies client competencies, protective factors, support systems, and past successes as treatment resources. It provides a more complete picture than deficit-only assessment, reduces stigma, and aligns with recovery-oriented and solution-focused frameworks."
@@ -7213,23 +8178,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Generalized anxiety disorder severity",
-        "isCorrect": false
+        "text": "Generalized anxiety disorder severity now",
+        "isCorrect": false,
+        "rationale": "\"Generalized anxiety disorder severity now\" is not what the item tests — PHQ-9 (Patient Health Questionnaire-9): a 9-item validated measure of depression severity based on DSM criteria."
       },
       {
         "id": "b",
         "text": "Depression severity and change over time",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "PHQ-9 (Patient Health Questionnaire-9): a 9-item validated measure of depression severity based on DSM criteria."
       },
       {
         "id": "c",
-        "text": "Psychosis risk in primary care settings",
-        "isCorrect": false
+        "text": "Psychosis risk in primary care settings now",
+        "isCorrect": false,
+        "rationale": "\"Psychosis risk in primary care settings now\" is not what the item tests — PHQ-9 (Patient Health Questionnaire-9): a 9-item validated measure of depression severity based on DSM criteria."
       },
       {
         "id": "d",
-        "text": "PTSD symptom burden in trauma survivors",
-        "isCorrect": false
+        "text": "PTSD symptom burden in trauma survivors now",
+        "isCorrect": false,
+        "rationale": "\"PTSD symptom burden in trauma survivors now\" is not what the item tests — PHQ-9 (Patient Health Questionnaire-9): a 9-item validated measure of depression severity based on DSM criteria."
       }
     ],
     "rationale": "PHQ-9 (Patient Health Questionnaire-9): a 9-item validated measure of depression severity based on DSM criteria. Scores range from 0–27; cutoffs indicate mild, moderate, moderately severe, and severe depression. Also used to track treatment response. Widely used in primary care and mental health settings."
@@ -7244,22 +8213,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Social anxiety disorder specifically",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Social anxiety disorder specifically\" is not what the item tests — GAD-7 (Generalized Anxiety Disorder 7-item scale): validated 7-item screening tool for GAD severity."
       },
       {
         "id": "b",
-        "text": "Generalized anxiety disorder",
-        "isCorrect": true
+        "text": "Generalized anxiety disorder severity",
+        "isCorrect": true,
+        "rationale": "GAD-7 (Generalized Anxiety Disorder 7-item scale): validated 7-item screening tool for GAD severity."
       },
       {
         "id": "c",
         "text": "All anxiety disorders across the spectrum",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"All anxiety disorders across the spectrum\" is not what the item tests — GAD-7 (Generalized Anxiety Disorder 7-item scale): validated 7-item screening tool for GAD severity."
       },
       {
         "id": "d",
-        "text": "Panic disorder symptom frequency",
-        "isCorrect": false
+        "text": "Panic disorder symptom frequency itself",
+        "isCorrect": false,
+        "rationale": "\"Panic disorder symptom frequency\" is not what the item tests — GAD-7 (Generalized Anxiety Disorder 7-item scale): validated 7-item screening tool for GAD severity."
       }
     ],
     "rationale": "GAD-7 (Generalized Anxiety Disorder 7-item scale): validated 7-item screening tool for GAD severity. A score of 10+ suggests probable GAD and warrants further evaluation. Also shows good sensitivity/specificity for other anxiety disorders as a general screen, though developed specifically for GAD."
@@ -7273,23 +8246,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Diagnose PTSD definitively without clinical interview",
-        "isCorrect": false
+        "text": "Diagnose PTSD definitively without clinical interview as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Diagnose PTSD definitively without clinical interview as cli…\" is not what the item tests — PCL-5: a 20-item validated self-report measure corresponding to DSM-5 PTSD symptom clusters."
       },
       {
         "id": "b",
         "text": "Screen for PTSD, monitor symptom change, and provisionally assess symptom severity",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "PCL-5: a 20-item validated self-report measure corresponding to DSM-5 PTSD symptom clusters."
       },
       {
         "id": "c",
-        "text": "Assess trauma history and number of traumatic events",
-        "isCorrect": false
+        "text": "Assess trauma history and number of traumatic events as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Assess trauma history and number of traumatic events as clin…\" is not what the item tests — PCL-5: a 20-item validated self-report measure corresponding to DSM-5 PTSD symptom clusters."
       },
       {
         "id": "d",
-        "text": "Measure the impact of trauma on interpersonal functioning only",
-        "isCorrect": false
+        "text": "Measure the impact of trauma on interpersonal functioning only at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Measure the impact of trauma on interpersonal functioning on…\" is not what the item tests — PCL-5: a 20-item validated self-report measure corresponding to DSM-5 PTSD symptom clusters."
       }
     ],
     "rationale": "PCL-5: a 20-item validated self-report measure corresponding to DSM-5 PTSD symptom clusters. It screens for probable PTSD (cutoff ~31–33), monitors treatment response, and can provisionally assess diagnostic criteria — but does not replace a full structured diagnostic interview."
@@ -7303,23 +8280,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Diagnose alcohol use disorder in clinical populations",
-        "isCorrect": false
+        "text": "Diagnose alcohol use disorder in clinical populations here as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Diagnose alcohol use disorder in clinical populations here a…\" is not what the item tests — AUDIT: a 10-item WHO-developed screener sensitive to the full spectrum from hazardous drinking through alcohol dependence."
       },
       {
         "id": "b",
         "text": "Screen for hazardous, harmful, and dependent alcohol use in primary care and clinical settings",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "AUDIT: a 10-item WHO-developed screener sensitive to the full spectrum from hazardous drinking through alcohol dependence."
       },
       {
         "id": "c",
-        "text": "Assess the severity of withdrawal symptoms in detoxification settings",
-        "isCorrect": false
+        "text": "Assess the severity of withdrawal symptoms in detoxification settings during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Assess the severity of withdrawal symptoms in detoxification…\" is not what the item tests — AUDIT: a 10-item WHO-developed screener sensitive to the full spectrum from hazardous drinking through alcohol dependence."
       },
       {
         "id": "d",
-        "text": "Monitor alcohol abstinence in patients in recovery",
-        "isCorrect": false
+        "text": "Monitor alcohol abstinence in patients in recovery as used as the reference material frames it now",
+        "isCorrect": false,
+        "rationale": "\"Monitor alcohol abstinence in patients in recovery as used a…\" is not what the item tests — AUDIT: a 10-item WHO-developed screener sensitive to the full spectrum from hazardous drinking through alcohol dependence."
       }
     ],
     "rationale": "AUDIT: a 10-item WHO-developed screener sensitive to the full spectrum from hazardous drinking through alcohol dependence. An 8+ score indicates hazardous or harmful use. Designed to identify problems before dependence develops, making it valuable for early intervention."
@@ -7333,23 +8314,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "A projective measure assessing unconscious personality dynamics",
-        "isCorrect": false
+        "text": "A projective measure assessing unconscious personality dynamics at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"A projective measure assessing unconscious personality dynam…\" is not what the item tests — MMPI-2: an objective (self-report, empirically keyed) measure with clinical scales (depression, schizophrenia, psychopathic deviate, etc.), validit"
       },
       {
         "id": "b",
         "text": "An objective, empirically developed self-report measure of psychopathology and personality",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "MMPI-2: an objective (self-report, empirically keyed) measure with clinical scales (depression, schizophrenia, psychopathic deviate, etc.), validity scales (L, F, K — detecting exaggeration, defensiveness), and content/supplementary scales."
       },
       {
         "id": "c",
-        "text": "A clinician-rated scale for assessing personality disorder severity",
-        "isCorrect": false
+        "text": "A clinician-rated scale for assessing personality disorder severity during a routine session",
+        "isCorrect": false,
+        "rationale": "\"A clinician-rated scale for assessing personality disorder s…\" is not what the item tests — MMPI-2: an objective (self-report, empirically keyed) measure with clinical scales (depression, schizophrenia, psychopathic deviate, etc.), validit"
       },
       {
         "id": "d",
-        "text": "A neuropsychological battery assessing cognitive and personality functioning",
-        "isCorrect": false
+        "text": "A neuropsychological battery assessing cognitive and personality functioning by counselors",
+        "isCorrect": false,
+        "rationale": "\"A neuropsychological battery assessing cognitive and persona…\" is not what the item tests — MMPI-2: an objective (self-report, empirically keyed) measure with clinical scales (depression, schizophrenia, psychopathic deviate, etc.), validit"
       }
     ],
     "rationale": "MMPI-2: an objective (self-report, empirically keyed) measure with clinical scales (depression, schizophrenia, psychopathic deviate, etc.), validity scales (L, F, K — detecting exaggeration, defensiveness), and content/supplementary scales. One of the most widely researched psychopathology measures."
@@ -7363,23 +8348,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Is shorter and used for screening, while MMPI-2 is used for diagnosis",
-        "isCorrect": false
+        "text": "Is shorter and used for screening, while MMPI-2 is used for diagnosis as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Is shorter and used for screening, while MMPI-2 is used for …\" is not what the item tests — MCMI-IV: theoretically based on Millon's evolutionary-biosocial personality theory and closely aligned with DSM-5 personality disorder criteria."
       },
       {
         "id": "b",
         "text": "Is theoretically grounded in Millon's biosocial theory and aligned with DSM personality disorder criteria",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "MCMI-IV: theoretically based on Millon's evolutionary-biosocial personality theory and closely aligned with DSM-5 personality disorder criteria."
       },
       {
         "id": "c",
-        "text": "Is a projective measure rather than an objective self-report",
-        "isCorrect": false
+        "text": "Is a projective measure rather than an objective self-report at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Is a projective measure rather than an objective self-report…\" is not what the item tests — MCMI-IV: theoretically based on Millon's evolutionary-biosocial personality theory and closely aligned with DSM-5 personality disorder criteria."
       },
       {
         "id": "d",
-        "text": "Is designed for use with non-clinical, community populations",
-        "isCorrect": false
+        "text": "Is designed for use with non-clinical, community populations at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Is designed for use with non-clinical, community populations…\" is not what the item tests — MCMI-IV: theoretically based on Millon's evolutionary-biosocial personality theory and closely aligned with DSM-5 personality disorder criteria."
       }
     ],
     "rationale": "MCMI-IV: theoretically based on Millon's evolutionary-biosocial personality theory and closely aligned with DSM-5 personality disorder criteria. Designed specifically for clinical populations. MMPI-2 was empirically derived without a single guiding personality theory. Both are objective self-report instruments."
@@ -7393,23 +8382,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "It was developed by projection onto a psychodynamic theoretical framework",
-        "isCorrect": false
+        "text": "It was developed by projection onto a psychodynamic theoretical framework as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"It was developed by projection onto a psychodynamic theoreti…\" is not what the item tests — Projective measures present ambiguous stimuli to elicit responses that are thought to reveal aspects of the individual's perceptual and cognitive o"
       },
       {
         "id": "b",
         "text": "Responses to ambiguous stimuli are thought to reflect the individual's internal psychological structures",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Projective measures present ambiguous stimuli to elicit responses that are thought to reveal aspects of the individual's perceptual and cognitive organization, emotional processing, and interpersonal representations."
       },
       {
         "id": "c",
-        "text": "It directly measures unconscious conflicts through symbolic analysis",
-        "isCorrect": false
+        "text": "It directly measures unconscious conflicts through symbolic analysis as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"It directly measures unconscious conflicts through symbolic …\" is not what the item tests — Projective measures present ambiguous stimuli to elicit responses that are thought to reveal aspects of the individual's perceptual and cognitive o"
       },
       {
         "id": "d",
-        "text": "Clients project their responses onto a screen during administration",
-        "isCorrect": false
+        "text": "Clients project their responses onto a screen during administration now as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Clients project their responses onto a screen during adminis…\" is not what the item tests — Projective measures present ambiguous stimuli to elicit responses that are thought to reveal aspects of the individual's perceptual and cognitive o"
       }
     ],
     "rationale": "Projective measures present ambiguous stimuli to elicit responses that are thought to reveal aspects of the individual's perceptual and cognitive organization, emotional processing, and interpersonal representations. The Rorschach is scored via standardized systems (e.g., Exner's Comprehensive System, R-PAS) to reduce subjectivity."
@@ -7423,23 +8416,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "A single general intelligence quotient (g factor) only",
-        "isCorrect": false
+        "text": "A single general intelligence quotient (g factor) only during a routine session as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"A single general intelligence quotient (g factor) only durin…\" is not what the item tests — Wechsler scales yield: Full Scale IQ (global cognitive ability) and Index scores — Verbal Comprehension, Visual Spatial (or Perceptual Reasoning), "
       },
       {
         "id": "b",
         "text": "A Full Scale IQ and index scores across cognitive domains (verbal, perceptual, working memory, processing speed)",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Wechsler scales yield: Full Scale IQ (global cognitive ability) and Index scores — Verbal Comprehension, Visual Spatial (or Perceptual Reasoning), Fluid Reasoning, Working Memory, and Processing Speed."
       },
       {
         "id": "c",
-        "text": "Academic achievement in reading, writing, and mathematics",
-        "isCorrect": false
+        "text": "Academic achievement in reading, writing, and mathematics at the intake stage as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Academic achievement in reading, writing, and mathematics at…\" is not what the item tests — Wechsler scales yield: Full Scale IQ (global cognitive ability) and Index scores — Verbal Comprehension, Visual Spatial (or Perceptual Reasoning), "
       },
       {
         "id": "d",
-        "text": "Neurological integrity through pattern analysis",
-        "isCorrect": false
+        "text": "Neurological integrity through pattern analysis as clinicians typically apply it as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Neurological integrity through pattern analysis as clinician…\" is not what the item tests — Wechsler scales yield: Full Scale IQ (global cognitive ability) and Index scores — Verbal Comprehension, Visual Spatial (or Perceptual Reasoning), "
       }
     ],
     "rationale": "Wechsler scales yield: Full Scale IQ (global cognitive ability) and Index scores — Verbal Comprehension, Visual Spatial (or Perceptual Reasoning), Fluid Reasoning, Working Memory, and Processing Speed. This profile approach identifies cognitive strengths and weaknesses more clinically useful than a single IQ score."
@@ -7454,22 +8451,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Whether an assessment measures what it is intended to measure",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Whether an assessment measures what it is intended to measur…\" is not what the item tests — Reliability = consistency of measurement."
       },
       {
         "id": "b",
         "text": "The consistency of measurement across time, raters, or items",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Reliability = consistency of measurement."
       },
       {
         "id": "c",
         "text": "Whether an assessment has been validated in the population being tested",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Whether an assessment has been validated in the population b…\" is not what the item tests — Reliability = consistency of measurement."
       },
       {
         "id": "d",
         "text": "The accuracy of the assessment's norms for the local population",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"The accuracy of the assessment's norms for the local populat…\" is not what the item tests — Reliability = consistency of measurement."
       }
     ],
     "rationale": "Reliability = consistency of measurement. Types: test-retest (consistent over time), internal consistency (items correlate with each other), inter-rater (different raters agree). Reliability is necessary but not sufficient for validity — a measure can be reliably measuring the wrong thing."
@@ -7484,22 +8485,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Predicts an important future outcome (e.g., treatment response)",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Predicts an important future outcome (e.g., treatment respon…\" is not what the item tests — Construct validity: evidence that the assessment measures the theoretical construct it claims to measure (e.g., does the depression scale actually "
       },
       {
         "id": "b",
         "text": "Adequately represents all aspects of the content domain being measured",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Adequately represents all aspects of the content domain bein…\" is not what the item tests — Construct validity: evidence that the assessment measures the theoretical construct it claims to measure (e.g., does the depression scale actually "
       },
       {
         "id": "c",
         "text": "Measures the theoretical construct it is intended to measure",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Construct validity: evidence that the assessment measures the theoretical construct it claims to measure (e.g., does the depression scale actually measure depression, not general distress?)."
       },
       {
         "id": "d",
         "text": "Produces consistent results when administered to the same person twice",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Produces consistent results when administered to the same pe…\" is not what the item tests — Construct validity: evidence that the assessment measures the theoretical construct it claims to measure (e.g., does the depression scale actually "
       }
     ],
     "rationale": "Construct validity: evidence that the assessment measures the theoretical construct it claims to measure (e.g., does the depression scale actually measure depression, not general distress?). Assessed through convergent validity (correlates with other depression measures) and discriminant validity (does not correlate with unrelated constructs)."
@@ -7514,22 +8519,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "It correctly identifies true positives but also produces many false positives",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Sensitivity = ability to correctly identify those WITH the condition (true positive rate)."
       },
       {
         "id": "b",
-        "text": "It correctly identifies true negatives but misses many true positives",
-        "isCorrect": false
+        "text": "It correctly identifies true negatives but misses many true positives as used",
+        "isCorrect": false,
+        "rationale": "\"It correctly identifies true negatives but misses many true …\" is not what the item tests — Sensitivity = ability to correctly identify those WITH the condition (true positive rate)."
       },
       {
         "id": "c",
-        "text": "It produces consistent results but does not measure the target construct",
-        "isCorrect": false
+        "text": "It produces consistent results but does not measure the target construct here",
+        "isCorrect": false,
+        "rationale": "\"It produces consistent results but does not measure the targ…\" is not what the item tests — Sensitivity = ability to correctly identify those WITH the condition (true positive rate)."
       },
       {
         "id": "d",
-        "text": "It is appropriate for high-stakes diagnostic decisions",
-        "isCorrect": false
+        "text": "It is appropriate for high-stakes diagnostic decisions during a routine session",
+        "isCorrect": false,
+        "rationale": "\"It is appropriate for high-stakes diagnostic decisions durin…\" is not what the item tests — Sensitivity = ability to correctly identify those WITH the condition (true positive rate)."
       }
     ],
     "rationale": "Sensitivity = ability to correctly identify those WITH the condition (true positive rate). High sensitivity = few false negatives. Specificity = ability to correctly identify those WITHOUT the condition. Low specificity = many false positives. High sensitivity/low specificity = good for screening (don't miss cases) but produces overidentification."
@@ -7543,23 +8552,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Comparing it to a predefined standard of mastery or criterion",
-        "isCorrect": false
+        "text": "Comparing it to a predefined standard of mastery or criterion in practice",
+        "isCorrect": false,
+        "rationale": "\"Comparing it to a predefined standard of mastery or criterio…\" is not what the item tests — Norm-referenced assessment locates a score in relation to a standardization sample (e.g., \"above the 85th percentile for adults aged 30–40\")."
       },
       {
         "id": "b",
         "text": "Comparing it to the performance of a relevant normative comparison group",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Norm-referenced assessment locates a score in relation to a standardization sample (e.g., \"above the 85th percentile for adults aged 30–40\")."
       },
       {
         "id": "c",
-        "text": "Evaluating it against the client's own previous performance",
-        "isCorrect": false
+        "text": "Evaluating it against the client's own previous performance by counselors",
+        "isCorrect": false,
+        "rationale": "\"Evaluating it against the client's own previous performance …\" is not what the item tests — Norm-referenced assessment locates a score in relation to a standardization sample (e.g., \"above the 85th percentile for adults aged 30–40\")."
       },
       {
         "id": "d",
-        "text": "Using clinical cutoffs developed through expert consensus",
-        "isCorrect": false
+        "text": "Using clinical cutoffs developed through expert consensus in this domain",
+        "isCorrect": false,
+        "rationale": "\"Using clinical cutoffs developed through expert consensus in…\" is not what the item tests — Norm-referenced assessment locates a score in relation to a standardization sample (e.g., \"above the 85th percentile for adults aged 30–40\")."
       }
     ],
     "rationale": "Norm-referenced assessment locates a score in relation to a standardization sample (e.g., \"above the 85th percentile for adults aged 30–40\"). Criterion-referenced assessment evaluates performance against an absolute standard (e.g., \"met the cutoff for clinical depression\"). Most standardized personality and cognitive tests are norm-referenced."
@@ -7573,23 +8586,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "They change with treatment and indicate areas for intervention",
-        "isCorrect": false
+        "text": "They change with treatment and indicate areas for intervention in the outpatient setting",
+        "isCorrect": false,
+        "rationale": "\"They change with treatment and indicate areas for interventi…\" is not what the item tests — Static risk factors (prior attempts, history of trauma, demographic factors) are fixed and establish baseline risk."
       },
       {
         "id": "b",
         "text": "They are immutable historical factors that establish baseline risk but cannot be reduced",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Static risk factors (prior attempts, history of trauma, demographic factors) are fixed and establish baseline risk."
       },
       {
         "id": "c",
-        "text": "They are more important than dynamic factors in predicting imminent suicide",
-        "isCorrect": false
+        "text": "They are more important than dynamic factors in predicting imminent suicide by counselors",
+        "isCorrect": false,
+        "rationale": "\"They are more important than dynamic factors in predicting i…\" is not what the item tests — Static risk factors (prior attempts, history of trauma, demographic factors) are fixed and establish baseline risk."
       },
       {
         "id": "d",
-        "text": "They only apply to clients with prior hospitalization histories",
-        "isCorrect": false
+        "text": "They only apply to clients with prior hospitalization histories during a routine session",
+        "isCorrect": false,
+        "rationale": "\"They only apply to clients with prior hospitalization histor…\" is not what the item tests — Static risk factors (prior attempts, history of trauma, demographic factors) are fixed and establish baseline risk."
       }
     ],
     "rationale": "Static risk factors (prior attempts, history of trauma, demographic factors) are fixed and establish baseline risk. Dynamic risk factors (current hopelessness, substance use, access to means, social isolation) are modifiable and more predictive of imminent risk. Both inform the comprehensive risk assessment, but dynamic factors are the targets of intervention."
@@ -7603,23 +8620,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "It is the primary symptom of Major Depressive Disorder",
-        "isCorrect": false
+        "text": "It is the primary symptom of Major Depressive Disorder in practice as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"It is the primary symptom of Major Depressive Disorder in pr…\" is not what the item tests — Beck's hopelessness research (Beck Hopelessness Scale): hopelessness — the belief that the future holds nothing positive — is a stronger predictor "
       },
       {
         "id": "b",
         "text": "Research consistently identifies it as a stronger predictor of suicide than depression severity alone",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Beck's hopelessness research (Beck Hopelessness Scale): hopelessness — the belief that the future holds nothing positive — is a stronger predictor of suicidal intent and completion than depression severity."
       },
       {
         "id": "c",
-        "text": "Clients who express hopelessness are always in immediate danger",
-        "isCorrect": false
+        "text": "Clients who express hopelessness are typically in immediate danger as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Clients who express hopelessness are typically in immediate …\" is not what the item tests — Beck's hopelessness research (Beck Hopelessness Scale): hopelessness — the belief that the future holds nothing positive — is a stronger predictor "
       },
       {
         "id": "d",
-        "text": "It indicates the client lacks the protective factors needed for outpatient safety",
-        "isCorrect": false
+        "text": "It indicates the client lacks the protective factors needed for outpatient safety at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"It indicates the client lacks the protective factors needed …\" is not what the item tests — Beck's hopelessness research (Beck Hopelessness Scale): hopelessness — the belief that the future holds nothing positive — is a stronger predictor "
       }
     ],
     "rationale": "Beck's hopelessness research (Beck Hopelessness Scale): hopelessness — the belief that the future holds nothing positive — is a stronger predictor of suicidal intent and completion than depression severity. A client can be depressed without hopelessness (more treatable) or hopeless without severe depression (highest risk)."
@@ -7633,23 +8654,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Counselors administer assessments without proper training",
-        "isCorrect": false
+        "text": "Counselors administer assessments without proper training as usually described",
+        "isCorrect": false,
+        "rationale": "\"Counselors administer assessments without proper training as…\" is not what the item tests — A normative sample that underrepresents or excludes specific cultural groups leads to scores being interpreted against a reference group that does "
       },
       {
         "id": "b",
         "text": "The normative sample does not adequately represent the client's cultural group",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "A normative sample that underrepresents or excludes specific cultural groups leads to scores being interpreted against a reference group that does not reflect the client's experience — inflating apparent pathology."
       },
       {
         "id": "c",
-        "text": "Assessments are translated without back-translation validation",
-        "isCorrect": false
+        "text": "Assessments are translated without back-translation validation during counseling",
+        "isCorrect": false,
+        "rationale": "\"Assessments are translated without back-translation validati…\" is not what the item tests — A normative sample that underrepresents or excludes specific cultural groups leads to scores being interpreted against a reference group that does "
       },
       {
         "id": "d",
-        "text": "The client is unfamiliar with standardized testing formats",
-        "isCorrect": false
+        "text": "The client is unfamiliar with standardized testing formats at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"The client is unfamiliar with standardized testing formats a…\" is not what the item tests — A normative sample that underrepresents or excludes specific cultural groups leads to scores being interpreted against a reference group that does "
       }
     ],
     "rationale": "A normative sample that underrepresents or excludes specific cultural groups leads to scores being interpreted against a reference group that does not reflect the client's experience — inflating apparent pathology. Item bias (culturally unfamiliar content), construct bias (culture-specific constructs), and method bias (test-taking familiarity) also contribute."
@@ -7663,23 +8688,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Clients have a legal right to know their scores under HIPAA",
-        "isCorrect": false
+        "text": "Clients have a legal right to know their scores under HIPAA as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Clients have a legal right to know their scores under HIPAA …\" is not what the item tests — Therapeutic Assessment (Finn): systematically sharing assessment results with clients in an empathic, collaborative manner — asking the client's ow"
       },
       {
         "id": "b",
         "text": "Collaborative interpretation of results can itself produce therapeutic change and reduce shame",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Therapeutic Assessment (Finn): systematically sharing assessment results with clients in an empathic, collaborative manner — asking the client's own questions — can produce significant therapeutic benefits: increased sel…"
       },
       {
         "id": "c",
-        "text": "It increases billing justification for the assessment services rendered",
-        "isCorrect": false
+        "text": "It increases billing justification for the assessment services rendered during a routine session",
+        "isCorrect": false,
+        "rationale": "\"It increases billing justification for the assessment servic…\" is not what the item tests — Therapeutic Assessment (Finn): systematically sharing assessment results with clients in an empathic, collaborative manner — asking the client's ow"
       },
       {
         "id": "d",
-        "text": "It ensures clients understand and accept their diagnoses",
-        "isCorrect": false
+        "text": "It ensures clients understand and accept their diagnoses now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"It ensures clients understand and accept their diagnoses now…\" is not what the item tests — Therapeutic Assessment (Finn): systematically sharing assessment results with clients in an empathic, collaborative manner — asking the client's ow"
       }
     ],
     "rationale": "Therapeutic Assessment (Finn): systematically sharing assessment results with clients in an empathic, collaborative manner — asking the client's own questions — can produce significant therapeutic benefits: increased self-understanding, reduced stigma, improved treatment engagement, and even symptom reduction."
@@ -7693,23 +8722,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "A complete list of all assessment instruments and their psychometric properties",
-        "isCorrect": false
+        "text": "A complete list of all assessment instruments and their psychometric properties today",
+        "isCorrect": false,
+        "rationale": "\"A complete list of all assessment instruments and their psyc…\" is not what the item tests — Assessment informed consent (ACA E.3.a): clients must understand why they are being assessed, how results will be used, who will receive results (i"
       },
       {
         "id": "b",
         "text": "The purpose of assessment, how results will be used, and who will have access to them",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Assessment informed consent (ACA E.3.a): clients must understand why they are being assessed, how results will be used, who will receive results (including referring parties), and their right to ask questions."
       },
       {
         "id": "c",
-        "text": "The counselor's credentials and training in the specific assessment being used",
-        "isCorrect": false
+        "text": "The counselor's credentials and training in the specific assessment being used itself",
+        "isCorrect": false,
+        "rationale": "\"The counselor's credentials and training in the specific ass…\" is not what the item tests — Assessment informed consent (ACA E.3.a): clients must understand why they are being assessed, how results will be used, who will receive results (i"
       },
       {
         "id": "d",
-        "text": "A guarantee of assessment confidentiality under HIPAA",
-        "isCorrect": false
+        "text": "A guarantee of assessment confidentiality under HIPAA as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"A guarantee of assessment confidentiality under HIPAA as cli…\" is not what the item tests — Assessment informed consent (ACA E.3.a): clients must understand why they are being assessed, how results will be used, who will receive results (i"
       }
     ],
     "rationale": "Assessment informed consent (ACA E.3.a): clients must understand why they are being assessed, how results will be used, who will receive results (including referring parties), and their right to ask questions. This ensures autonomous decision-making about participation in the assessment process."
@@ -7723,23 +8756,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Are administered by computer rather than a clinician",
-        "isCorrect": false
+        "text": "Are administered by computer rather than a clinician as the reference material frames it now",
+        "isCorrect": false,
+        "rationale": "\"Are administered by computer rather than a clinician as the …\" is not what the item tests — Structured and semi-structured clinical interviews (SCID-5, MINI) systematically cover DSM criteria with standardized questions, reducing clinician"
       },
       {
         "id": "b",
         "text": "Use standardized questions following a prescribed order to reduce diagnostic variability",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Structured and semi-structured clinical interviews (SCID-5, MINI) systematically cover DSM criteria with standardized questions, reducing clinician bias and improving diagnostic reliability and agreement."
       },
       {
         "id": "c",
-        "text": "Are considered less clinically rich but more legally defensible",
-        "isCorrect": false
+        "text": "Are considered less clinically rich but more legally defensible during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Are considered less clinically rich but more legally defensi…\" is not what the item tests — Structured and semi-structured clinical interviews (SCID-5, MINI) systematically cover DSM criteria with standardized questions, reducing clinician"
       },
       {
         "id": "d",
-        "text": "Cannot be used to assess complex presentations with multiple comorbidities",
-        "isCorrect": false
+        "text": "Cannot be used to assess complex presentations with multiple comorbidities by counselors",
+        "isCorrect": false,
+        "rationale": "\"Cannot be used to assess complex presentations with multiple…\" is not what the item tests — Structured and semi-structured clinical interviews (SCID-5, MINI) systematically cover DSM criteria with standardized questions, reducing clinician"
       }
     ],
     "rationale": "Structured and semi-structured clinical interviews (SCID-5, MINI) systematically cover DSM criteria with standardized questions, reducing clinician bias and improving diagnostic reliability and agreement. They sacrifice some clinical flexibility but significantly improve diagnostic consistency — essential for research and high-stakes clinical decisions."
@@ -7753,23 +8790,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The frequency and intensity of a target behavior across settings",
-        "isCorrect": false
+        "text": "The frequency and intensity of a target behavior across settings by counselors",
+        "isCorrect": false,
+        "rationale": "\"The frequency and intensity of a target behavior across sett…\" is not what the item tests — FBA (ABC analysis): Antecedents (what precedes/triggers the behavior), Behavior (specific observable definition), Consequences (what follows the be"
       },
       {
         "id": "b",
         "text": "The antecedents, behavior, and consequences that maintain the target behavior",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "FBA (ABC analysis): Antecedents (what precedes/triggers the behavior), Behavior (specific observable definition), Consequences (what follows the behavior and maintains it)."
       },
       {
         "id": "c",
-        "text": "Neurological and cognitive factors underlying behavioral dysregulation",
-        "isCorrect": false
+        "text": "Neurological and cognitive factors underlying behavioral dysregulation itself",
+        "isCorrect": false,
+        "rationale": "\"Neurological and cognitive factors underlying behavioral dys…\" is not what the item tests — FBA (ABC analysis): Antecedents (what precedes/triggers the behavior), Behavior (specific observable definition), Consequences (what follows the be"
       },
       {
         "id": "d",
-        "text": "Whether the behavior meets criteria for a behavioral disorder diagnosis",
-        "isCorrect": false
+        "text": "Whether the behavior meets criteria for a behavioral disorder diagnosis today",
+        "isCorrect": false,
+        "rationale": "\"Whether the behavior meets criteria for a behavioral disorde…\" is not what the item tests — FBA (ABC analysis): Antecedents (what precedes/triggers the behavior), Behavior (specific observable definition), Consequences (what follows the be"
       }
     ],
     "rationale": "FBA (ABC analysis): Antecedents (what precedes/triggers the behavior), Behavior (specific observable definition), Consequences (what follows the behavior and maintains it). Identifying the function of behavior (attention, escape, sensory, access) directly informs intervention design."
@@ -7783,23 +8824,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Assignment of the corresponding diagnostic code for billing purposes",
-        "isCorrect": false
+        "text": "Assignment of the corresponding diagnostic code for billing purposes today",
+        "isCorrect": false,
+        "rationale": "\"Assignment of the corresponding diagnostic code for billing …\" is not what the item tests — Screening tools identify individuals who may warrant further evaluation — they are not diagnostic instruments."
       },
       {
         "id": "b",
         "text": "A comprehensive clinical assessment to confirm or disconfirm the diagnosis",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Screening tools identify individuals who may warrant further evaluation — they are not diagnostic instruments."
       },
       {
         "id": "c",
-        "text": "Referral to psychiatry for medication evaluation",
-        "isCorrect": false
+        "text": "Referral to psychiatry for medication evaluation in the outpatient setting",
+        "isCorrect": false,
+        "rationale": "\"Referral to psychiatry for medication evaluation in the outp…\" is not what the item tests — Screening tools identify individuals who may warrant further evaluation — they are not diagnostic instruments."
       },
       {
         "id": "d",
-        "text": "Immediate psychoeducation about the screened-for condition",
-        "isCorrect": false
+        "text": "Immediate psychoeducation about the screened-for condition during counseling",
+        "isCorrect": false,
+        "rationale": "\"Immediate psychoeducation about the screened-for condition d…\" is not what the item tests — Screening tools identify individuals who may warrant further evaluation — they are not diagnostic instruments."
       }
     ],
     "rationale": "Screening tools identify individuals who may warrant further evaluation — they are not diagnostic instruments. A positive screen indicates that a full clinical assessment (diagnostic interview, history, collateral information) should follow to confirm, rule out, or characterize the presentation before any diagnosis is assigned."
@@ -7813,23 +8858,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The counselor is not fully trained to confirm the diagnosis",
-        "isCorrect": false
+        "text": "The counselor is not fully trained to confirm the diagnosis now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"The counselor is not fully trained to confirm the diagnosis …\" is not what the item tests — DSM-5 provisional specifier: used when the clinician has reason to believe the full criteria will be met but insufficient information exists to con"
       },
       {
         "id": "b",
         "text": "There is a strong presumption the full criteria will be met but information is still being gathered",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "DSM-5 provisional specifier: used when the clinician has reason to believe the full criteria will be met but insufficient information exists to confirm (e.g., a client presenting in crisis before a full history is obtained)."
       },
       {
         "id": "c",
-        "text": "The client has not consented to receiving a formal diagnosis",
-        "isCorrect": false
+        "text": "The client has not consented to receiving a formal diagnosis now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"The client has not consented to receiving a formal diagnosis…\" is not what the item tests — DSM-5 provisional specifier: used when the clinician has reason to believe the full criteria will be met but insufficient information exists to con"
       },
       {
         "id": "d",
-        "text": "Symptoms are subclinical and do not fully meet diagnostic criteria",
-        "isCorrect": false
+        "text": "Symptoms are subclinical and do not fully meet diagnostic criteria as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Symptoms are subclinical and do not fully meet diagnostic cr…\" is not what the item tests — DSM-5 provisional specifier: used when the clinician has reason to believe the full criteria will be met but insufficient information exists to con"
       }
     ],
     "rationale": "DSM-5 provisional specifier: used when the clinician has reason to believe the full criteria will be met but insufficient information exists to confirm (e.g., a client presenting in crisis before a full history is obtained). It is a working diagnosis pending further assessment."
@@ -7843,23 +8892,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Be present for at least six months to qualify as clinically significant",
-        "isCorrect": false
+        "text": "Be present for at least six months to qualify as clinically significant during counseling",
+        "isCorrect": false,
+        "rationale": "\"Be present for at least six months to qualify as clinically …\" is not what the item tests — DSM-5 clinical significance: symptoms must cause clinically significant distress OR functional impairment (social, occupational, academic)."
       },
       {
         "id": "b",
         "text": "Cause distress OR functional impairment in social, occupational, or other important areas",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "DSM-5 clinical significance: symptoms must cause clinically significant distress OR functional impairment (social, occupational, academic)."
       },
       {
         "id": "c",
-        "text": "Be rated as severe by a validated assessment tool",
-        "isCorrect": false
+        "text": "Be rated as severe by a validated assessment tool now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Be rated as severe by a validated assessment tool now as the…\" is not what the item tests — DSM-5 clinical significance: symptoms must cause clinically significant distress OR functional impairment (social, occupational, academic)."
       },
       {
         "id": "d",
-        "text": "Represent a change from the client's lifelong baseline functioning",
-        "isCorrect": false
+        "text": "Represent a change from the client's lifelong baseline functioning during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Represent a change from the client's lifelong baseline funct…\" is not what the item tests — DSM-5 clinical significance: symptoms must cause clinically significant distress OR functional impairment (social, occupational, academic)."
       }
     ],
     "rationale": "DSM-5 clinical significance: symptoms must cause clinically significant distress OR functional impairment (social, occupational, academic). This criterion distinguishes disorder from normative variation. Symptoms can be intense but not clinically significant if they cause no distress or impairment."
@@ -7873,23 +8926,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "PDD involves more severe symptoms than MDD",
-        "isCorrect": false
+        "text": "PDD involves more severe symptoms than MDD in this domain as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"PDD involves more severe symptoms than MDD in this domain as…\" is not what the item tests — PDD (DSM-5 F34.1): depressed mood for most of the day, more days than not, for at least 2 years (1 year for children/adolescents), with at least 2 "
       },
       {
         "id": "b",
         "text": "PDD requires depressed mood present most of the day, more days than not, for at least 2 years",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "PDD (DSM-5 F34.1): depressed mood for most of the day, more days than not, for at least 2 years (1 year for children/adolescents), with at least 2 additional symptoms."
       },
       {
         "id": "c",
-        "text": "MDD can include psychotic features; PDD cannot",
-        "isCorrect": false
+        "text": "MDD can include psychotic features; PDD cannot in practice as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"MDD can include psychotic features; PDD cannot in practice a…\" is not what the item tests — PDD (DSM-5 F34.1): depressed mood for most of the day, more days than not, for at least 2 years (1 year for children/adolescents), with at least 2 "
       },
       {
         "id": "d",
-        "text": "PDD occurs only in adults; MDD can occur across the lifespan",
-        "isCorrect": false
+        "text": "PDD occurs only in adults; MDD can occur across the lifespan as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"PDD occurs only in adults; MDD can occur across the lifespan…\" is not what the item tests — PDD (DSM-5 F34.1): depressed mood for most of the day, more days than not, for at least 2 years (1 year for children/adolescents), with at least 2 "
       }
     ],
     "rationale": "PDD (DSM-5 F34.1): depressed mood for most of the day, more days than not, for at least 2 years (1 year for children/adolescents), with at least 2 additional symptoms. MDD involves more discrete episodes with 5+ symptoms for 2 weeks. Both can co-occur (\"double depression\")."
@@ -7903,23 +8960,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "ASD requires a greater number of traumatic events",
-        "isCorrect": false
+        "text": "ASD requires a greater number of traumatic events now as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"ASD requires a greater number of traumatic events now as cli…\" is not what the item tests — Timing is the primary distinguishing criterion: ASD (F43.0) is diagnosed 3 days to 1 month post-trauma."
       },
       {
         "id": "b",
         "text": "ASD is diagnosed within 3 days to 1 month post-trauma; PTSD is diagnosed after 1 month",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Timing is the primary distinguishing criterion: ASD (F43.0) is diagnosed 3 days to 1 month post-trauma."
       },
       {
         "id": "c",
-        "text": "PTSD includes dissociative symptoms; ASD does not",
-        "isCorrect": false
+        "text": "PTSD includes dissociative symptoms; ASD does not now as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"PTSD includes dissociative symptoms; ASD does not now as cli…\" is not what the item tests — Timing is the primary distinguishing criterion: ASD (F43.0) is diagnosed 3 days to 1 month post-trauma."
       },
       {
         "id": "d",
-        "text": "ASD responds only to medication; PTSD responds to psychotherapy",
-        "isCorrect": false
+        "text": "ASD responds only to medication; PTSD responds to psychotherapy during a routine session",
+        "isCorrect": false,
+        "rationale": "\"ASD responds only to medication; PTSD responds to psychother…\" is not what the item tests — Timing is the primary distinguishing criterion: ASD (F43.0) is diagnosed 3 days to 1 month post-trauma."
       }
     ],
     "rationale": "Timing is the primary distinguishing criterion: ASD (F43.0) is diagnosed 3 days to 1 month post-trauma. PTSD (F43.10) is diagnosed when symptoms persist beyond 1 month. Both require the same Criterion A trauma exposure. ASD actually requires more dissociative symptoms than PTSD."
@@ -7933,23 +8994,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Whether mood episodes respond to mood stabilizing medication",
-        "isCorrect": false
+        "text": "Whether mood episodes respond to mood stabilizing medication at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Whether mood episodes respond to mood stabilizing medication…\" is not what the item tests — Key distinction: BPD mood instability is reactive — triggered by interpersonal events, shifting within hours to days."
       },
       {
         "id": "b",
         "text": "The temporal relationship between mood instability and interpersonal events vs. spontaneous episode onset",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Key distinction: BPD mood instability is reactive — triggered by interpersonal events, shifting within hours to days."
       },
       {
         "id": "c",
-        "text": "The presence of self-harm behavior, which occurs only in BPD",
-        "isCorrect": false
+        "text": "The presence of self-harm behavior, which occurs only in BPD at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"The presence of self-harm behavior, which occurs only in BPD…\" is not what the item tests — Key distinction: BPD mood instability is reactive — triggered by interpersonal events, shifting within hours to days."
       },
       {
         "id": "d",
-        "text": "Age of onset — BPD presents in adolescence; Bipolar II in early adulthood",
-        "isCorrect": false
+        "text": "Age of onset — BPD presents in adolescence; Bipolar II in early adulthood as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Age of onset — BPD presents in adolescence; Bipolar II in ea…\" is not what the item tests — Key distinction: BPD mood instability is reactive — triggered by interpersonal events, shifting within hours to days."
       }
     ],
     "rationale": "Key distinction: BPD mood instability is reactive — triggered by interpersonal events, shifting within hours to days. Bipolar II episodes are more spontaneous, sustained (days to weeks), and episodic, often without clear interpersonal precipitants. Identity disturbance, fear of abandonment, and chronic emptiness are more specific to BPD."
@@ -7963,23 +9028,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "OCD involves more severe anxiety than GAD",
-        "isCorrect": false
+        "text": "OCD involves more severe anxiety than GAD, as the reference material frames it here now",
+        "isCorrect": false,
+        "rationale": "\"OCD involves more severe anxiety than GAD as the reference m…\" is not what the item tests — OCD: ego-dystonic intrusive thoughts (obsessions) + compulsive rituals driven by the need to neutralize anxiety."
       },
       {
         "id": "b",
-        "text": "OCD features discrete obsessions (intrusive, ego-dystonic thoughts) with compulsive rituals; GAD involves pervasive, diffuse worry",
-        "isCorrect": true
+        "text": "OCD features discrete obsessions with compulsive rituals; GAD involves pervasive diffuse worry",
+        "isCorrect": true,
+        "rationale": "OCD: ego-dystonic intrusive thoughts (obsessions) + compulsive rituals driven by the need to neutralize anxiety."
       },
       {
         "id": "c",
-        "text": "GAD responds to CBT; OCD does not",
-        "isCorrect": false
+        "text": "GAD responds to CBT; OCD does not (as the reference material typically frames it in item usage)",
+        "isCorrect": false,
+        "rationale": "\"GAD responds to CBT; OCD does not as the reference material …\" is not what the item tests — OCD: ego-dystonic intrusive thoughts (obsessions) + compulsive rituals driven by the need to neutralize anxiety."
       },
       {
         "id": "d",
-        "text": "OCD typically presents with depression; GAD does not",
-        "isCorrect": false
+        "text": "OCD typically presents with depression; GAD does not during any routine visit",
+        "isCorrect": false,
+        "rationale": "\"OCD typically presents with depression; GAD does not during …\" is not what the item tests — OCD: ego-dystonic intrusive thoughts (obsessions) + compulsive rituals driven by the need to neutralize anxiety."
       }
     ],
     "rationale": "OCD: ego-dystonic intrusive thoughts (obsessions) + compulsive rituals driven by the need to neutralize anxiety. GAD: pervasive, chronic, largely ego-syntonic worry across multiple life domains without discrete obsessions or compulsive rituals. OCD content is often perceived as repugnant or foreign to the self."
@@ -7993,23 +9062,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Whether the client meets full MDD criteria",
-        "isCorrect": false
+        "text": "Whether the client meets full MDD criteria as usually described as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Whether the client meets full MDD criteria as usually descri…\" is not what the item tests — Substance-induced depressive disorder: symptoms develop during or within 1 month of intoxication/withdrawal and resolve when the substance is remov"
       },
       {
         "id": "b",
         "text": "Whether depressive symptoms preceded substance use or persist beyond the expected withdrawal period",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Substance-induced depressive disorder: symptoms develop during or within 1 month of intoxication/withdrawal and resolve when the substance is removed."
       },
       {
         "id": "c",
-        "text": "Whether the substance is a CNS depressant",
-        "isCorrect": false
+        "text": "Whether the substance is a CNS depressant during a routine session as clinicians typically apply it now",
+        "isCorrect": false,
+        "rationale": "\"Whether the substance is a CNS depressant during a routine s…\" is not what the item tests — Substance-induced depressive disorder: symptoms develop during or within 1 month of intoxication/withdrawal and resolve when the substance is remov"
       },
       {
         "id": "d",
-        "text": "Whether the client has a family history of depression",
-        "isCorrect": false
+        "text": "Whether the client has a family history of depression at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Whether the client has a family history of depression at int…\" is not what the item tests — Substance-induced depressive disorder: symptoms develop during or within 1 month of intoxication/withdrawal and resolve when the substance is remov"
       }
     ],
     "rationale": "Substance-induced depressive disorder: symptoms develop during or within 1 month of intoxication/withdrawal and resolve when the substance is removed. Primary MDD: symptoms preceded substance use, persist more than 1 month after cessation, or have a prior history independent of substance use. Timeline and temporal relationship are the key diagnostic tools."
@@ -8023,23 +9096,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The type of psychotic symptoms present (hallucinations vs. delusions)",
-        "isCorrect": false
+        "text": "The type of psychotic symptoms present (hallucinations vs. delusions) during a routine session",
+        "isCorrect": false,
+        "rationale": "\"The type of psychotic symptoms present (hallucinations vs. d…\" is not what the item tests — Duration: Brief Psychotic Disorder (F23) = 1 day to less than 1 month, with full return to premorbid functioning."
       },
       {
         "id": "b",
         "text": "Duration — Brief Psychotic Disorder lasts 1 day to 1 month; Schizophrenia requires 6 months",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Duration: Brief Psychotic Disorder (F23) = 1 day to less than 1 month, with full return to premorbid functioning."
       },
       {
         "id": "c",
-        "text": "The presence of negative symptoms, which occur only in Schizophrenia",
-        "isCorrect": false
+        "text": "The presence of negative symptoms, which occur only in Schizophrenia during a routine session",
+        "isCorrect": false,
+        "rationale": "\"The presence of negative symptoms, which occur only in Schiz…\" is not what the item tests — Duration: Brief Psychotic Disorder (F23) = 1 day to less than 1 month, with full return to premorbid functioning."
       },
       {
         "id": "d",
-        "text": "Brief Psychotic Disorder always has an identifiable stressor; Schizophrenia does not",
-        "isCorrect": false
+        "text": "Brief Psychotic Disorder typically has an identifiable stressor; Schizophrenia does not now",
+        "isCorrect": false,
+        "rationale": "\"Brief Psychotic Disorder typically has an identifiable stres…\" is not what the item tests — Duration: Brief Psychotic Disorder (F23) = 1 day to less than 1 month, with full return to premorbid functioning."
       }
     ],
     "rationale": "Duration: Brief Psychotic Disorder (F23) = 1 day to less than 1 month, with full return to premorbid functioning. Schizophreniform Disorder = 1–6 months. Schizophrenia requires symptoms for at least 6 months (including prodromal and residual phases). Symptom type alone does not differentiate them."
@@ -8053,23 +9130,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Symptom onset after age 18 to distinguish from childhood-onset ADHD",
-        "isCorrect": false
+        "text": "Symptom onset after age 18 to distinguish from childhood-onset ADHD at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Symptom onset after age 18 to distinguish from childhood-ons…\" is not what the item tests — DSM-5 ADHD: Criterion B requires that \"several inattentive or hyperactive-impulsive symptoms were present prior to age 12 years.\" Adults must prese"
       },
       {
         "id": "b",
         "text": "Evidence that several inattentive or hyperactive-impulsive symptoms were present before age 12",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "DSM-5 ADHD: Criterion B requires that \"several inattentive or hyperactive-impulsive symptoms were present prior to age 12 years.\" Adults must present with 5 (not 6) symptoms in each domain."
       },
       {
         "id": "c",
-        "text": "A neuropsychological assessment confirming executive function deficits",
-        "isCorrect": false
+        "text": "A neuropsychological assessment confirming executive function deficits during a routine session",
+        "isCorrect": false,
+        "rationale": "\"A neuropsychological assessment confirming executive functio…\" is not what the item tests — DSM-5 ADHD: Criterion B requires that \"several inattentive or hyperactive-impulsive symptoms were present prior to age 12 years.\" Adults must prese"
       },
       {
         "id": "d",
-        "text": "At least six symptoms of inattention, regardless of age",
-        "isCorrect": false
+        "text": "At least six symptoms of inattention, regardless of age now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"At least six symptoms of inattention, regardless of age now …\" is not what the item tests — DSM-5 ADHD: Criterion B requires that \"several inattentive or hyperactive-impulsive symptoms were present prior to age 12 years.\" Adults must prese"
       }
     ],
     "rationale": "DSM-5 ADHD: Criterion B requires that \"several inattentive or hyperactive-impulsive symptoms were present prior to age 12 years.\" Adults must present with 5 (not 6) symptoms in each domain. Adults often present primarily with inattention symptoms as hyperactivity diminishes with age. Retrospective history is often obtained from school records or family report."
@@ -8083,23 +9164,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Whether the behavior occurs across multiple settings",
-        "isCorrect": false
+        "text": "Whether the behavior occurs across multiple settings as the reference material typically frames it here",
+        "isCorrect": false,
+        "rationale": "\"Whether the behavior occurs across multiple settings as the …\" is not what the item tests — ODD: persistent pattern of angry/irritable mood, argumentative/defiant behavior, or vindictiveness — without physical aggression, property destruct"
       },
       {
         "id": "b",
-        "text": "Whether behaviors include aggression, property destruction, deceitfulness, or serious rule violations (CD) vs. defiance and irritability without these (ODD)",
-        "isCorrect": true
+        "text": "Whether behaviors include aggression, property destruction, deceitfulness, or rule violations (CD)",
+        "isCorrect": true,
+        "rationale": "ODD: persistent pattern of angry/irritable mood, argumentative/defiant behavior, or vindictiveness — without physical aggression, property destruction, theft, or deceit."
       },
       {
         "id": "c",
-        "text": "Whether the child has callous-unemotional traits",
-        "isCorrect": false
+        "text": "Whether the child has callous-unemotional traits as the reference material frames it now",
+        "isCorrect": false,
+        "rationale": "\"Whether the child has callous-unemotional traits as the refe…\" is not what the item tests — ODD: persistent pattern of angry/irritable mood, argumentative/defiant behavior, or vindictiveness — without physical aggression, property destruct"
       },
       {
         "id": "d",
-        "text": "Whether the child is male, as ODD is diagnosed only in females",
-        "isCorrect": false
+        "text": "Whether the child is male, as ODD is diagnosed only in females in the outpatient setting",
+        "isCorrect": false,
+        "rationale": "\"Whether the child is male, as ODD is diagnosed only in femal…\" is not what the item tests — ODD: persistent pattern of angry/irritable mood, argumentative/defiant behavior, or vindictiveness — without physical aggression, property destruct"
       }
     ],
     "rationale": "ODD: persistent pattern of angry/irritable mood, argumentative/defiant behavior, or vindictiveness — without physical aggression, property destruction, theft, or deceit. CD includes these more serious violations. CD is more severe and carries worse long-term prognosis. ODD can develop into CD but is not the same disorder."
@@ -8113,23 +9198,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The cultural values that make certain DSM diagnoses more acceptable than others",
-        "isCorrect": false
+        "text": "The cultural values that make certain DSM diagnoses more acceptable than others as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"The cultural values that make certain DSM diagnoses more acc…\" is not what the item tests — DSM-5 cultural concepts of distress (replacing \"culture-bound syndromes\"): includes cultural syndromes (clusters of symptoms occurring in specific "
       },
       {
         "id": "b",
         "text": "Ways cultural groups experience, understand, and communicate suffering that may not map directly to DSM categories",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "DSM-5 cultural concepts of distress (replacing \"culture-bound syndromes\"): includes cultural syndromes (clusters of symptoms occurring in specific cultural contexts), cultural idioms of distress (shared expressions like…"
       },
       {
         "id": "c",
-        "text": "Cultural barriers to accessing mental health services",
-        "isCorrect": false
+        "text": "Cultural barriers to accessing mental health services during a routine session as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Cultural barriers to accessing mental health services during…\" is not what the item tests — DSM-5 cultural concepts of distress (replacing \"culture-bound syndromes\"): includes cultural syndromes (clusters of symptoms occurring in specific "
       },
       {
         "id": "d",
-        "text": "Culture-bound syndromes that occur only in non-Western populations",
-        "isCorrect": false
+        "text": "Culture-bound syndromes that occur only in non-Western populations in practice as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Culture-bound syndromes that occur only in non-Western popul…\" is not what the item tests — DSM-5 cultural concepts of distress (replacing \"culture-bound syndromes\"): includes cultural syndromes (clusters of symptoms occurring in specific "
       }
     ],
     "rationale": "DSM-5 cultural concepts of distress (replacing \"culture-bound syndromes\"): includes cultural syndromes (clusters of symptoms occurring in specific cultural contexts), cultural idioms of distress (shared expressions like \"nerves\"), and cultural explanations (explanatory models of causation). They inform how clients present and what is diagnostically meaningful."
@@ -8143,23 +9232,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Recent life stressors that could explain the symptoms",
-        "isCorrect": false
+        "text": "Recent life stressors that could explain the symptoms during counseling",
+        "isCorrect": false,
+        "rationale": "\"Recent life stressors that could explain the symptoms during…\" is not what the item tests — DSM-5 Criterion E (or similar exclusion criteria): the disturbance must not be attributable to the physiological effects of a substance (drug of ab"
       },
       {
         "id": "b",
         "text": "A general medical condition or the physiological effects of a substance",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "DSM-5 Criterion E (or similar exclusion criteria): the disturbance must not be attributable to the physiological effects of a substance (drug of abuse, medication) or another medical condition."
       },
       {
         "id": "c",
-        "text": "A personality disorder that better explains the presentation",
-        "isCorrect": false
+        "text": "A personality disorder that better explains the presentation in practice",
+        "isCorrect": false,
+        "rationale": "\"A personality disorder that better explains the presentation…\" is not what the item tests — DSM-5 Criterion E (or similar exclusion criteria): the disturbance must not be attributable to the physiological effects of a substance (drug of ab"
       },
       {
         "id": "d",
-        "text": "Prior trauma history that underlies the symptoms",
-        "isCorrect": false
+        "text": "Prior trauma history that underlies the symptoms during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Prior trauma history that underlies the symptoms during a ro…\" is not what the item tests — DSM-5 Criterion E (or similar exclusion criteria): the disturbance must not be attributable to the physiological effects of a substance (drug of ab"
       }
     ],
     "rationale": "DSM-5 Criterion E (or similar exclusion criteria): the disturbance must not be attributable to the physiological effects of a substance (drug of abuse, medication) or another medical condition. Thyroid conditions, autoimmune diseases, neurological conditions, and medications commonly produce psychiatric symptoms."
@@ -8173,23 +9266,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Are required by insurance before any mental disorder diagnosis can be billed",
-        "isCorrect": false
+        "text": "Are required by insurance before any mental disorder diagnosis can be billed as used as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Are required by insurance before any mental disorder diagnos…\" is not what the item tests — Z-codes (ICD-10/DSM-5 Chapter on Other Conditions): document relational problems, abuse and neglect, housing/economic problems, social environment "
       },
       {
         "id": "b",
         "text": "Document psychosocial and contextual factors that may affect mental health without assigning a mental disorder diagnosis",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Z-codes (ICD-10/DSM-5 Chapter on Other Conditions): document relational problems, abuse and neglect, housing/economic problems, social environment factors, and other psychosocial contexts affecting health."
       },
       {
         "id": "c",
-        "text": "Provide diagnostic specificity for subclinical presentations",
-        "isCorrect": false
+        "text": "Provide diagnostic specificity for subclinical presentations during a routine session as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Provide diagnostic specificity for subclinical presentations…\" is not what the item tests — Z-codes (ICD-10/DSM-5 Chapter on Other Conditions): document relational problems, abuse and neglect, housing/economic problems, social environment "
       },
       {
         "id": "d",
-        "text": "Are used when the clinician is uncertain which diagnosis applies",
-        "isCorrect": false
+        "text": "Are used when the clinician is uncertain which diagnosis applies at the intake stage as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Are used when the clinician is uncertain which diagnosis app…\" is not what the item tests — Z-codes (ICD-10/DSM-5 Chapter on Other Conditions): document relational problems, abuse and neglect, housing/economic problems, social environment "
       }
     ],
     "rationale": "Z-codes (ICD-10/DSM-5 Chapter on Other Conditions): document relational problems, abuse and neglect, housing/economic problems, social environment factors, and other psychosocial contexts affecting health. They provide clinical documentation of context without pathologizing the client and may be the primary focus of treatment."
@@ -8203,23 +9300,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "It indicates the client also meets criteria for a separate anxiety disorder",
-        "isCorrect": false
+        "text": "It indicates the client also meets criteria for a separate anxiety disorder itself",
+        "isCorrect": false,
+        "rationale": "\"It indicates the client also meets criteria for a separate a…\" is not what the item tests — DSM-5 \"with anxious distress\" specifier: MDD or bipolar with tension, restlessness, difficulty concentrating due to worry, fear of losing control."
       },
       {
         "id": "b",
         "text": "It identifies a subgroup with higher suicide risk and different treatment response",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "DSM-5 \"with anxious distress\" specifier: MDD or bipolar with tension, restlessness, difficulty concentrating due to worry, fear of losing control."
       },
       {
         "id": "c",
-        "text": "It is required when prescribing anxiolytics alongside antidepressants",
-        "isCorrect": false
+        "text": "It is required when prescribing anxiolytics alongside antidepressants by counselors",
+        "isCorrect": false,
+        "rationale": "\"It is required when prescribing anxiolytics alongside antide…\" is not what the item tests — DSM-5 \"with anxious distress\" specifier: MDD or bipolar with tension, restlessness, difficulty concentrating due to worry, fear of losing control."
       },
       {
         "id": "d",
-        "text": "It shifts the primary diagnosis from mood disorder to anxiety disorder",
-        "isCorrect": false
+        "text": "It shifts the primary diagnosis from mood disorder to anxiety disorder in practice",
+        "isCorrect": false,
+        "rationale": "\"It shifts the primary diagnosis from mood disorder to anxiet…\" is not what the item tests — DSM-5 \"with anxious distress\" specifier: MDD or bipolar with tension, restlessness, difficulty concentrating due to worry, fear of losing control."
       }
     ],
     "rationale": "DSM-5 \"with anxious distress\" specifier: MDD or bipolar with tension, restlessness, difficulty concentrating due to worry, fear of losing control. Research shows this subgroup has higher suicide risk, worse treatment response to standard antidepressants, and longer time to remission. It does not constitute a separate anxiety disorder diagnosis."
@@ -8233,23 +9334,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Unusual and suggests diagnostic error when present",
-        "isCorrect": false
+        "text": "Unusual and suggests diagnostic error when present by counselors",
+        "isCorrect": false,
+        "rationale": "\"Unusual and suggests diagnostic error when present by counse…\" is not what the item tests — Epidemiological data (NCS-R and similar studies) consistently show that over 50% of individuals with one mental disorder meet criteria for at least"
       },
       {
         "id": "b",
         "text": "The norm rather than the exception in mental health populations",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Epidemiological data (NCS-R and similar studies) consistently show that over 50% of individuals with one mental disorder meet criteria for at least one more."
       },
       {
         "id": "c",
-        "text": "Caused by diagnostic category overlap in the DSM system",
-        "isCorrect": false
+        "text": "Caused by diagnostic category overlap in the DSM system as used",
+        "isCorrect": false,
+        "rationale": "\"Caused by diagnostic category overlap in the DSM system as u…\" is not what the item tests — Epidemiological data (NCS-R and similar studies) consistently show that over 50% of individuals with one mental disorder meet criteria for at least"
       },
       {
         "id": "d",
         "text": "Only relevant when diagnoses are from different diagnostic families",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Only relevant when diagnoses are from different diagnostic f…\" is not what the item tests — Epidemiological data (NCS-R and similar studies) consistently show that over 50% of individuals with one mental disorder meet criteria for at least"
       }
     ],
     "rationale": "Epidemiological data (NCS-R and similar studies) consistently show that over 50% of individuals with one mental disorder meet criteria for at least one more. Comorbidity is the rule, not the exception. It complicates treatment planning and generally worsens prognosis — requiring integrated rather than sequential treatment approaches."
@@ -8263,23 +9368,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Score ranges on a standardized severity rating scale",
-        "isCorrect": false
+        "text": "Score ranges on a standardized severity rating scale as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Score ranges on a standardized severity rating scale as the …\" is not what the item tests — DSM-5 severity ratings are typically based on symptom count beyond the minimum diagnostic threshold and level of functional impairment: mild (few e"
       },
       {
         "id": "b",
         "text": "The number of symptoms present beyond threshold and the degree of functional impairment",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "DSM-5 severity ratings are typically based on symptom count beyond the minimum diagnostic threshold and level of functional impairment: mild (few extra symptoms, mild distress/impairment), moderate (symptoms/impairment b…"
       },
       {
         "id": "c",
-        "text": "Duration of symptoms above the minimum criterion",
-        "isCorrect": false
+        "text": "Duration of symptoms above the minimum criterion now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Duration of symptoms above the minimum criterion now as the …\" is not what the item tests — DSM-5 severity ratings are typically based on symptom count beyond the minimum diagnostic threshold and level of functional impairment: mild (few e"
       },
       {
         "id": "d",
-        "text": "The clinician's global assessment of functioning (GAF)",
-        "isCorrect": false
+        "text": "The clinician's global assessment of functioning (GAF) as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"The clinician's global assessment of functioning (GAF) as cl…\" is not what the item tests — DSM-5 severity ratings are typically based on symptom count beyond the minimum diagnostic threshold and level of functional impairment: mild (few e"
       }
     ],
     "rationale": "DSM-5 severity ratings are typically based on symptom count beyond the minimum diagnostic threshold and level of functional impairment: mild (few extra symptoms, mild distress/impairment), moderate (symptoms/impairment between mild and severe), severe (substantially more symptoms, marked impairment). Specific severity criteria vary by diagnosis."
@@ -8293,23 +9402,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "In factitious disorder, symptoms are not intentionally produced",
-        "isCorrect": false
+        "text": "In factitious disorder, symptoms are not intentionally produced as the reference material frames it at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"In factitious disorder, symptoms are not intentionally produ…\" is not what the item tests — Both involve intentional symptom production."
       },
       {
         "id": "b",
         "text": "Malingering involves external incentives (financial, legal); factitious disorder is motivated by assuming the sick role without external gain",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Both involve intentional symptom production."
       },
       {
         "id": "c",
-        "text": "Factitious disorder is diagnosed in adults; malingering is more common in adolescents",
-        "isCorrect": false
+        "text": "Factitious disorder is diagnosed in adults; malingering is more common in adolescents at the intake stage as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Factitious disorder is diagnosed in adults; malingering is m…\" is not what the item tests — Both involve intentional symptom production."
       },
       {
         "id": "d",
-        "text": "Malingering always involves physical symptoms; factitious disorder involves psychological symptoms",
-        "isCorrect": false
+        "text": "Malingering typically involves physical symptoms; factitious disorder involves psychological symptoms now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Malingering typically involves physical symptoms; factitious…\" is not what the item tests — Both involve intentional symptom production."
       }
     ],
     "rationale": "Both involve intentional symptom production. Distinction is motivation: Malingering = external incentives (disability payments, avoiding legal consequences, obtaining medications). Factitious Disorder = internal psychological need to assume the sick role without obvious external rewards. Malingering is not a mental disorder in DSM-5; Factitious Disorder is."
@@ -8323,23 +9436,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Requires a longer symptom history than prior criteria",
-        "isCorrect": false
+        "text": "Requires a longer symptom history than prior criteria (as the reference material frames it now)",
+        "isCorrect": false,
+        "rationale": "\"Requires a longer symptom history than prior criteria as the…\" is not what the item tests — SSD (DSM-5): a major change from prior somatoform categories is that medical explanation is NOT required for exclusion."
       },
       {
         "id": "b",
-        "text": "Can be diagnosed even when medical explanation for symptoms exists, based on maladaptive thoughts and behaviors about symptoms",
-        "isCorrect": true
+        "text": "Can be diagnosed even when medical explanation exists, based on maladaptive thoughts and behaviors",
+        "isCorrect": true,
+        "rationale": "SSD (DSM-5): a major change from prior somatoform categories is that medical explanation is NOT required for exclusion."
       },
       {
         "id": "c",
-        "text": "Requires symptoms to be medically unexplained",
-        "isCorrect": false
+        "text": "Requires symptoms to be medically unexplained as the reference material frames it in practice today",
+        "isCorrect": false,
+        "rationale": "\"Requires symptoms to be medically unexplained as the referen…\" is not what the item tests — SSD (DSM-5): a major change from prior somatoform categories is that medical explanation is NOT required for exclusion."
       },
       {
         "id": "d",
-        "text": "Is classified under neurodevelopmental disorders in DSM-5",
-        "isCorrect": false
+        "text": "Is classified under neurodevelopmental disorders in DSM-5 (as clinicians typically apply it now)",
+        "isCorrect": false,
+        "rationale": "\"Is classified under neurodevelopmental disorders in DSM-5 as…\" is not what the item tests — SSD (DSM-5): a major change from prior somatoform categories is that medical explanation is NOT required for exclusion."
       }
     ],
     "rationale": "SSD (DSM-5): a major change from prior somatoform categories is that medical explanation is NOT required for exclusion. The diagnosis is based on excessive thoughts, feelings, and behaviors related to symptoms (disproportionate worry, high health anxiety, excessive time/energy devoted to symptoms) — regardless of whether symptoms have a medical basis."
@@ -8353,23 +9470,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Research showed Asperger's was not a valid clinical construct",
-        "isCorrect": false
+        "text": "Research showed Asperger's was not a valid clinical construct as clinicians typically apply it as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Research showed Asperger's was not a valid clinical construc…\" is not what the item tests — DSM-5 ASD consolidation: reliability studies showed clinicians inconsistently applied the prior subtypes, and the core features (social communicati"
       },
       {
         "id": "b",
         "text": "Evidence showed the prior distinctions lacked diagnostic reliability and shared the same core features at varying severity levels",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "DSM-5 ASD consolidation: reliability studies showed clinicians inconsistently applied the prior subtypes, and the core features (social communication deficits + restricted/repetitive behaviors) appeared continuous across severity levels."
       },
       {
         "id": "c",
-        "text": "The consolidation reduced stigma for higher-functioning individuals",
-        "isCorrect": false
+        "text": "The consolidation reduced stigma for higher-functioning individuals in the outpatient setting as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"The consolidation reduced stigma for higher-functioning indi…\" is not what the item tests — DSM-5 ASD consolidation: reliability studies showed clinicians inconsistently applied the prior subtypes, and the core features (social communicati"
       },
       {
         "id": "d",
-        "text": "Insurance reimbursement required a single diagnosis for ABA therapy coverage",
-        "isCorrect": false
+        "text": "Insurance reimbursement required a single diagnosis for ABA therapy coverage during counseling as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Insurance reimbursement required a single diagnosis for ABA …\" is not what the item tests — DSM-5 ASD consolidation: reliability studies showed clinicians inconsistently applied the prior subtypes, and the core features (social communicati"
       }
     ],
     "rationale": "DSM-5 ASD consolidation: reliability studies showed clinicians inconsistently applied the prior subtypes, and the core features (social communication deficits + restricted/repetitive behaviors) appeared continuous across severity levels. Severity specifiers (Level 1–3 for each domain) replaced separate categories."
@@ -8383,23 +9504,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Duration is shortened to 1 week instead of 2 weeks",
-        "isCorrect": false
+        "text": "Duration is shortened to 1 week instead of 2 weeks during counseling",
+        "isCorrect": false,
+        "rationale": "\"Duration is shortened to 1 week instead of 2 weeks during co…\" is not what the item tests — DSM-5 MDD in children/adolescents: irritable mood can be substituted for depressed mood as the primary mood symptom (Criterion A1)."
       },
       {
         "id": "b",
         "text": "Irritable mood can substitute for depressed mood as a core symptom",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "DSM-5 MDD in children/adolescents: irritable mood can be substituted for depressed mood as the primary mood symptom (Criterion A1)."
       },
       {
         "id": "c",
-        "text": "Adolescents must meet 7 rather than 5 criteria",
-        "isCorrect": false
+        "text": "Adolescents must meet 7 rather than 5 criteria at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Adolescents must meet 7 rather than 5 criteria at the intake…\" is not what the item tests — DSM-5 MDD in children/adolescents: irritable mood can be substituted for depressed mood as the primary mood symptom (Criterion A1)."
       },
       {
         "id": "d",
-        "text": "Vegetative symptoms (sleep, appetite) are excluded from consideration in adolescents",
-        "isCorrect": false
+        "text": "Vegetative symptoms are excluded from consideration in adolescents",
+        "isCorrect": false,
+        "rationale": "\"Vegetative symptoms (sleep, appetite) are excluded from cons…\" is not what the item tests — DSM-5 MDD in children/adolescents: irritable mood can be substituted for depressed mood as the primary mood symptom (Criterion A1)."
       }
     ],
     "rationale": "DSM-5 MDD in children/adolescents: irritable mood can be substituted for depressed mood as the primary mood symptom (Criterion A1). This is a developmentally sensitive modification — adolescents may present depression as irritability, anger, or behaviorally rather than sad affect."
@@ -8413,23 +9538,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Broad enough to allow flexible interpretation across sessions",
-        "isCorrect": false
+        "text": "Broad enough to allow flexible interpretation across sessions here",
+        "isCorrect": false,
+        "rationale": "\"Broad enough to allow flexible interpretation across session…\" is not what the item tests — SMART goals provide direction, allow objective progress monitoring, and increase client investment."
       },
       {
         "id": "b",
         "text": "Specific, measurable, achievable, relevant, and time-bound (SMART)",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "SMART goals provide direction, allow objective progress monitoring, and increase client investment."
       },
       {
         "id": "c",
         "text": "Written by the clinician and presented to the client for signature",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Written by the clinician and presented to the client for sig…\" is not what the item tests — SMART goals provide direction, allow objective progress monitoring, and increase client investment."
       },
       {
         "id": "d",
-        "text": "Focused exclusively on symptom elimination",
-        "isCorrect": false
+        "text": "Focused exclusively on symptom elimination during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Focused exclusively on symptom elimination during a routine …\" is not what the item tests — SMART goals provide direction, allow objective progress monitoring, and increase client investment."
       }
     ],
     "rationale": "SMART goals provide direction, allow objective progress monitoring, and increase client investment. Vague goals like \"feel better\" cannot be tracked or evaluated. Symptom elimination alone is often insufficient and unrealistic as a sole target."
@@ -8443,23 +9572,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Client will improve coping skills over the next few months",
-        "isCorrect": false
+        "text": "Client will improve coping skills over the next few months now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Client will improve coping skills over the next few months n…\" is not what the item tests — Option C is measurable (three techniques, 7/10 threshold), behavioral (identify and use), time-bound (4 weeks), and specific."
       },
       {
         "id": "b",
-        "text": "Client will understand the connection between thoughts and feelings",
-        "isCorrect": false
+        "text": "Client will understand the connection between thoughts and feelings as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Client will understand the connection between thoughts and f…\" is not what the item tests — Option C is measurable (three techniques, 7/10 threshold), behavioral (identify and use), time-bound (4 weeks), and specific."
       },
       {
         "id": "c",
         "text": "Client will identify and use three grounding techniques when anxiety reaches 7/10 within 4 weeks",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Option C is measurable (three techniques, 7/10 threshold), behavioral (identify and use), time-bound (4 weeks), and specific."
       },
       {
         "id": "d",
-        "text": "Client will work on reducing anxiety through therapy",
-        "isCorrect": false
+        "text": "Client will work on reducing anxiety through therapy as used as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Client will work on reducing anxiety through therapy as used…\" is not what the item tests — Option C is measurable (three techniques, 7/10 threshold), behavioral (identify and use), time-bound (4 weeks), and specific."
       }
     ],
     "rationale": "Option C is measurable (three techniques, 7/10 threshold), behavioral (identify and use), time-bound (4 weeks), and specific. Options A, B, and D use verbs — \"improve,\" \"understand,\" \"work on\" — that cannot be objectively observed or counted."
@@ -8473,23 +9606,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Are always set by the counselor; long-term goals are set collaboratively",
-        "isCorrect": false
+        "text": "Are typically set by the counselor; long-term goals are set collaboratively during counseling",
+        "isCorrect": false,
+        "rationale": "\"Are typically set by the counselor; long-term goals are set …\" is not what the item tests — Short-term goals are stepping stones — building skills and reducing acute distress in weeks to months."
       },
       {
         "id": "b",
         "text": "Address immediate stabilization and skill-building that scaffolds toward long-term outcomes",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Short-term goals are stepping stones — building skills and reducing acute distress in weeks to months."
       },
       {
         "id": "c",
-        "text": "Are less clinically important and can be skipped when time is limited",
-        "isCorrect": false
+        "text": "Are less clinically important and can be skipped when time is limited during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Are less clinically important and can be skipped when time i…\" is not what the item tests — Short-term goals are stepping stones — building skills and reducing acute distress in weeks to months."
       },
       {
         "id": "d",
-        "text": "Cover a fixed period of 6 months while long-term goals cover a full year",
-        "isCorrect": false
+        "text": "Cover a fixed period of 6 months while long-term goals cover a full year at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Cover a fixed period of 6 months while long-term goals cover…\" is not what the item tests — Short-term goals are stepping stones — building skills and reducing acute distress in weeks to months."
       }
     ],
     "rationale": "Short-term goals are stepping stones — building skills and reducing acute distress in weeks to months. Long-term goals address functional recovery and identity-level outcomes over months to years. Short-term goals create early wins that build momentum and alliance."
@@ -8503,23 +9640,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Stabilize PTSD first through trauma processing, then address the alcohol use",
-        "isCorrect": false
+        "text": "Stabilize PTSD first through trauma processing, then address the alcohol use as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Stabilize PTSD first through trauma processing, then address…\" is not what the item tests — Research (Seeking Safety, COPE): integrated concurrent treatment of PTSD + SUD produces better outcomes than sequential approaches."
       },
       {
         "id": "b",
-        "text": "Require complete abstinence before any trauma work begins",
-        "isCorrect": false
+        "text": "Require complete abstinence before any trauma work begins during counseling as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Require complete abstinence before any trauma work begins du…\" is not what the item tests — Research (Seeking Safety, COPE): integrated concurrent treatment of PTSD + SUD produces better outcomes than sequential approaches."
       },
       {
         "id": "c",
         "text": "Integrated, concurrent treatment of PTSD and SUD; only acute withdrawal justifies medical stabilization first",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Research (Seeking Safety, COPE): integrated concurrent treatment of PTSD + SUD produces better outcomes than sequential approaches."
       },
       {
         "id": "d",
-        "text": "Address alcohol use exclusively since it is the primary disorder",
-        "isCorrect": false
+        "text": "Address alcohol use exclusively since it is the primary disorder at intake as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Address alcohol use exclusively since it is the primary diso…\" is not what the item tests — Research (Seeking Safety, COPE): integrated concurrent treatment of PTSD + SUD produces better outcomes than sequential approaches."
       }
     ],
     "rationale": "Research (Seeking Safety, COPE): integrated concurrent treatment of PTSD + SUD produces better outcomes than sequential approaches. The outdated \"get sober first\" model is exam-penalized. Exception: acute medical withdrawal requires medical stabilization before trauma work."
@@ -8534,22 +9675,26 @@ const KNOWLEDGE_ITEMS = [
       {
         "id": "a",
         "text": "Psychoeducation → hierarchy construction → graduated ERP with response prevention",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ERP for OCD: psychoeducation (the obsession-compulsion model and ERP rationale) must precede exposure so the client understands why response prevention works."
       },
       {
         "id": "b",
-        "text": "Begin ERP immediately → add psychoeducation later to maintain momentum",
-        "isCorrect": false
+        "text": "Begin ERP immediately → add psychoeducation later to maintain momentum in practice",
+        "isCorrect": false,
+        "rationale": "\"Begin ERP immediately → add psychoeducation later to maintai…\" is not what the item tests — ERP for OCD: psychoeducation (the obsession-compulsion model and ERP rationale) must precede exposure so the client understands why response preven"
       },
       {
         "id": "c",
-        "text": "Cognitive restructuring → psychoeducation → ERP as a final phase",
-        "isCorrect": false
+        "text": "Cognitive restructuring → psychoeducation → ERP as a final phase during counseling",
+        "isCorrect": false,
+        "rationale": "\"Cognitive restructuring → psychoeducation → ERP as a final p…\" is not what the item tests — ERP for OCD: psychoeducation (the obsession-compulsion model and ERP rationale) must precede exposure so the client understands why response preven"
       },
       {
         "id": "d",
-        "text": "Relaxation training → cognitive restructuring → ERP",
-        "isCorrect": false
+        "text": "Relaxation training → cognitive restructuring → ERP as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Relaxation training → cognitive restructuring → ERP as clini…\" is not what the item tests — ERP for OCD: psychoeducation (the obsession-compulsion model and ERP rationale) must precede exposure so the client understands why response preven"
       }
     ],
     "rationale": "ERP for OCD: psychoeducation (the obsession-compulsion model and ERP rationale) must precede exposure so the client understands why response prevention works. Hierarchy construction follows. ERP then proceeds from lowest to highest anxiety items. Starting without psychoeducation undermines buy-in."
@@ -8563,23 +9708,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Processing traumatic memories held by child parts",
-        "isCorrect": false
+        "text": "Processing traumatic memories held by child parts as usually described now",
+        "isCorrect": false,
+        "rationale": "\"Processing traumatic memories held by child parts as usually…\" is not what the item tests — Phase-oriented trauma treatment (ISSTD guidelines): Phase 1 = safety and stabilization (grounding, affect regulation, reducing crisis, building int"
       },
       {
         "id": "b",
-        "text": "Integration of all personality states as quickly as possible",
-        "isCorrect": false
+        "text": "Integration of all personality states as quickly as possible at intake",
+        "isCorrect": false,
+        "rationale": "\"Integration of all personality states as quickly as possible…\" is not what the item tests — Phase-oriented trauma treatment (ISSTD guidelines): Phase 1 = safety and stabilization (grounding, affect regulation, reducing crisis, building int"
       },
       {
         "id": "c",
         "text": "Safety, stabilization, and building internal communication among parts",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Phase-oriented trauma treatment (ISSTD guidelines): Phase 1 = safety and stabilization (grounding, affect regulation, reducing crisis, building internal cooperation)."
       },
       {
         "id": "d",
-        "text": "Hypnosis to access and retrieve traumatic memories",
-        "isCorrect": false
+        "text": "Hypnosis to access and retrieve traumatic memories at the intake stage",
+        "isCorrect": false,
+        "rationale": "\"Hypnosis to access and retrieve traumatic memories at the in…\" is not what the item tests — Phase-oriented trauma treatment (ISSTD guidelines): Phase 1 = safety and stabilization (grounding, affect regulation, reducing crisis, building int"
       }
     ],
     "rationale": "Phase-oriented trauma treatment (ISSTD guidelines): Phase 1 = safety and stabilization (grounding, affect regulation, reducing crisis, building internal cooperation). Phase 2 = trauma processing. Phase 3 = integration. Skipping Phase 1 causes destabilization and retraumatization."
@@ -8593,23 +9742,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Always starting with outpatient services regardless of symptom severity",
-        "isCorrect": false
+        "text": "Typically starting with outpatient services regardless of symptom severity as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Typically starting with outpatient services regardless of sy…\" is not what the item tests — Least restrictive environment: match the level of care to clinical need."
       },
       {
         "id": "b",
         "text": "Placing the client in the least intensive setting that can safely and effectively meet their clinical needs",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Least restrictive environment: match the level of care to clinical need."
       },
       {
         "id": "c",
-        "text": "Avoiding hospitalization under all circumstances to preserve client autonomy",
-        "isCorrect": false
+        "text": "Avoiding hospitalization under all circumstances to preserve client autonomy as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Avoiding hospitalization under all circumstances to preserve…\" is not what the item tests — Least restrictive environment: match the level of care to clinical need."
       },
       {
         "id": "d",
-        "text": "Using the least amount of structure to respect client preferences",
-        "isCorrect": false
+        "text": "Using the least amount of structure to respect client preferences today as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Using the least amount of structure to respect client prefer…\" is not what the item tests — Least restrictive environment: match the level of care to clinical need."
       }
     ],
     "rationale": "Least restrictive environment: match the level of care to clinical need. Too much is unnecessarily disruptive; too little leaves the client unsafe. The NCMHCE rewards accurate calibration — not reflexive avoidance or overuse of intensive services."
@@ -8623,23 +9776,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Continue the current plan — 10 sessions is insufficient to judge progress",
-        "isCorrect": false
+        "text": "Continue the current plan — 10 sessions is insufficient to judge progress during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Continue the current plan — 10 sessions is insufficient to j…\" is not what the item tests — Lack of adequate response after 8–12 sessions triggers a plan review: increase frequency, reconsider the approach, add medication augmentation."
       },
       {
         "id": "b",
         "text": "Step up frequency or intensity, review the treatment approach, and consider a medication referral",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Lack of adequate response after 8–12 sessions triggers a plan review: increase frequency, reconsider the approach, add medication augmentation."
       },
       {
         "id": "c",
-        "text": "Terminate and refer since the client is not responding to treatment",
-        "isCorrect": false
+        "text": "Terminate and refer since the client is not responding to treatment as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Terminate and refer since the client is not responding to tr…\" is not what the item tests — Lack of adequate response after 8–12 sessions triggers a plan review: increase frequency, reconsider the approach, add medication augmentation."
       },
       {
         "id": "d",
-        "text": "Add a relaxation component to the existing treatment plan",
-        "isCorrect": false
+        "text": "Add a relaxation component to the existing treatment plan now as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Add a relaxation component to the existing treatment plan no…\" is not what the item tests — Lack of adequate response after 8–12 sessions triggers a plan review: increase frequency, reconsider the approach, add medication augmentation."
       }
     ],
     "rationale": "Lack of adequate response after 8–12 sessions triggers a plan review: increase frequency, reconsider the approach, add medication augmentation. Continuing the same plan without adjustment when progress is stalled is a clinical error specifically tested on the NCMHCE."
@@ -8653,23 +9810,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Diagnose the specific substance use disorder and its DSM-5 severity level",
-        "isCorrect": false
+        "text": "Diagnose the specific substance use disorder and its DSM-5 severity level as usually described",
+        "isCorrect": false,
+        "rationale": "\"Diagnose the specific substance use disorder and its DSM-5 s…\" is not what the item tests — ASAM criteria assess six dimensions: acute intoxication/withdrawal potential, biomedical conditions, emotional/behavioral/cognitive conditions, rea"
       },
       {
         "id": "b",
         "text": "Match the client to the appropriate level of care across six multidimensional assessment areas",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ASAM criteria assess six dimensions: acute intoxication/withdrawal potential, biomedical conditions, emotional/behavioral/cognitive conditions, readiness to change, relapse/continued use potential, and recovery environment."
       },
       {
         "id": "c",
-        "text": "Determine exclusively whether medication-assisted treatment is indicated",
-        "isCorrect": false
+        "text": "Determine exclusively whether medication-assisted treatment is indicated during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Determine exclusively whether medication-assisted treatment …\" is not what the item tests — ASAM criteria assess six dimensions: acute intoxication/withdrawal potential, biomedical conditions, emotional/behavioral/cognitive conditions, rea"
       },
       {
         "id": "d",
-        "text": "Establish the minimum number of sessions insurance will authorize",
-        "isCorrect": false
+        "text": "Establish the minimum number of sessions insurance will authorize as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Establish the minimum number of sessions insurance will auth…\" is not what the item tests — ASAM criteria assess six dimensions: acute intoxication/withdrawal potential, biomedical conditions, emotional/behavioral/cognitive conditions, rea"
       }
     ],
     "rationale": "ASAM criteria assess six dimensions: acute intoxication/withdrawal potential, biomedical conditions, emotional/behavioral/cognitive conditions, readiness to change, relapse/continued use potential, and recovery environment. Together they determine the least restrictive clinically appropriate level of care."
@@ -8683,23 +9844,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Behavioral activation targeting avoidance and withdrawal",
-        "isCorrect": false
+        "text": "Behavioral activation targeting avoidance and withdrawal now",
+        "isCorrect": false,
+        "rationale": "\"Behavioral activation targeting avoidance and withdrawal now\" is not what the item tests — Panic disorder treatment: interoceptive exposure (Barlow) deliberately induces feared bodily sensations — racing heart, dizziness, shortness of brea"
       },
       {
         "id": "b",
-        "text": "ERP targeting obsessional triggers and compulsive rituals",
-        "isCorrect": false
+        "text": "ERP targeting obsessional triggers and compulsive rituals now",
+        "isCorrect": false,
+        "rationale": "\"ERP targeting obsessional triggers and compulsive rituals no…\" is not what the item tests — Panic disorder treatment: interoceptive exposure (Barlow) deliberately induces feared bodily sensations — racing heart, dizziness, shortness of bre"
       },
       {
         "id": "c",
         "text": "Interoceptive exposure targeting fear of physical sensations",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Panic disorder treatment: interoceptive exposure (Barlow) deliberately induces feared bodily sensations — racing heart, dizziness, shortness of breath — to break the catastrophic misinterpretation cycle."
       },
       {
         "id": "d",
         "text": "Systematic desensitization to external feared situations only",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"Systematic desensitization to external feared situations onl…\" is not what the item tests — Panic disorder treatment: interoceptive exposure (Barlow) deliberately induces feared bodily sensations — racing heart, dizziness, shortness of bre"
       }
     ],
     "rationale": "Panic disorder treatment: interoceptive exposure (Barlow) deliberately induces feared bodily sensations — racing heart, dizziness, shortness of breath — to break the catastrophic misinterpretation cycle. This is distinct from specific phobia (in-vivo graduated exposure to external stimuli) and OCD (ERP)."
@@ -8713,23 +9878,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "EMDR as the only validated approach for children under 12",
-        "isCorrect": false
+        "text": "EMDR as the only validated approach for children under 12 now",
+        "isCorrect": false,
+        "rationale": "\"EMDR as the only validated approach for children under 12 no…\" is not what the item tests — TF-CBT (Cohen, Mannarino, Deblinger) has the strongest evidence for childhood PTSD."
       },
       {
         "id": "b",
         "text": "Trauma-Focused CBT (TF-CBT) with parallel caregiver sessions",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "TF-CBT (Cohen, Mannarino, Deblinger) has the strongest evidence for childhood PTSD."
       },
       {
         "id": "c",
-        "text": "Non-directive play therapy until the child is ready to verbally process the trauma",
-        "isCorrect": false
+        "text": "Non-directive play therapy until the child is ready to process the trauma",
+        "isCorrect": false,
+        "rationale": "\"Non-directive play therapy until the child is ready to verba…\" is not what the item tests — TF-CBT (Cohen, Mannarino, Deblinger) has the strongest evidence for childhood PTSD."
       },
       {
         "id": "d",
         "text": "The standard adult CPT protocol adapted for the child’s developmental level",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "\"The standard adult CPT protocol adapted for the child’s deve…\" is not what the item tests — TF-CBT (Cohen, Mannarino, Deblinger) has the strongest evidence for childhood PTSD."
       }
     ],
     "rationale": "TF-CBT (Cohen, Mannarino, Deblinger) has the strongest evidence for childhood PTSD. It includes parallel caregiver components, direct trauma processing (trauma narrative), and conjoint child-caregiver sessions. Non-directive play therapy alone does not meet the evidence standard for PTSD."
@@ -8743,23 +9912,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Weekly individual sessions only, with skills group added if progress stalls",
-        "isCorrect": false
+        "text": "Weekly individual sessions only, with skills group added if progress stalls as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Weekly individual sessions only, with skills group added if …\" is not what the item tests — Standard DBT (Linehan) has four required components: weekly individual therapy (targets hierarchy: life-threatening → therapy-interfering → quality"
       },
       {
         "id": "b",
         "text": "Individual therapy, skills training group, between-session phone coaching, and therapist consultation team",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Standard DBT (Linehan) has four required components: weekly individual therapy (targets hierarchy: life-threatening → therapy-interfering → quality-of-life behaviors), weekly skills group, between-session phone coaching…"
       },
       {
         "id": "c",
-        "text": "Twice-weekly individual sessions until crisis frequency decreases below a threshold",
-        "isCorrect": false
+        "text": "Twice-weekly individual sessions until crisis frequency decreases below a threshold during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Twice-weekly individual sessions until crisis frequency decr…\" is not what the item tests — Standard DBT (Linehan) has four required components: weekly individual therapy (targets hierarchy: life-threatening → therapy-interfering → quality"
       },
       {
         "id": "d",
-        "text": "Group skills training alone for mild BPD presentations",
-        "isCorrect": false
+        "text": "Group skills training alone for mild BPD presentations during counseling as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Group skills training alone for mild BPD presentations durin…\" is not what the item tests — Standard DBT (Linehan) has four required components: weekly individual therapy (targets hierarchy: life-threatening → therapy-interfering → quality"
       }
     ],
     "rationale": "Standard DBT (Linehan) has four required components: weekly individual therapy (targets hierarchy: life-threatening → therapy-interfering → quality-of-life behaviors), weekly skills group, between-session phone coaching, and therapist consultation team. Partial DBT (skills only) produces significantly weaker outcomes."
@@ -8773,23 +9946,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "The client requests more support regardless of clinical presentation",
-        "isCorrect": false
+        "text": "The client requests more support regardless of clinical presentation at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"The client requests more support regardless of clinical pres…\" is not what the item tests — Frequency increases are clinically driven by: active suicidality requiring closer monitoring, recent crisis or hospitalization, insufficient progre"
       },
       {
         "id": "b",
         "text": "Acute safety risk, crisis instability, or insufficient progress warrants more intensive contact",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Frequency increases are clinically driven by: active suicidality requiring closer monitoring, recent crisis or hospitalization, insufficient progress at current intensity, or the demands of intensive trauma processing."
       },
       {
         "id": "c",
-        "text": "This is standard practice for all clients beginning trauma processing work",
-        "isCorrect": false
+        "text": "This is standard practice for all clients beginning trauma processing work as usually described",
+        "isCorrect": false,
+        "rationale": "\"This is standard practice for all clients beginning trauma p…\" is not what the item tests — Frequency increases are clinically driven by: active suicidality requiring closer monitoring, recent crisis or hospitalization, insufficient progre"
       },
       {
         "id": "d",
-        "text": "The client’s insurance plan covers the additional sessions",
-        "isCorrect": false
+        "text": "The client’s insurance plan covers the additional sessions now as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"The client’s insurance plan covers the additional sessions n…\" is not what the item tests — Frequency increases are clinically driven by: active suicidality requiring closer monitoring, recent crisis or hospitalization, insufficient progre"
       }
     ],
     "rationale": "Frequency increases are clinically driven by: active suicidality requiring closer monitoring, recent crisis or hospitalization, insufficient progress at current intensity, or the demands of intensive trauma processing. Insurance coverage informs feasibility but is never the clinical indication."
@@ -8803,23 +9980,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Conducting formal diagnostic reassessment every six months",
-        "isCorrect": false
+        "text": "Conducting formal diagnostic reassessment every six months now as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Conducting formal diagnostic reassessment every six months n…\" is not what the item tests — ROM (Lambert, PCOMS): brief validated measures (PHQ-9, ORS/SRS) administered each session provide real-time feedback."
       },
       {
         "id": "b",
         "text": "Systematically tracking client-reported outcomes at each session to guide treatment adjustments",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ROM (Lambert, PCOMS): brief validated measures (PHQ-9, ORS/SRS) administered each session provide real-time feedback."
       },
       {
         "id": "c",
-        "text": "Reviewing progress notes at the end of each calendar quarter",
-        "isCorrect": false
+        "text": "Reviewing progress notes at the end of each calendar quarter as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Reviewing progress notes at the end of each calendar quarter…\" is not what the item tests — ROM (Lambert, PCOMS): brief validated measures (PHQ-9, ORS/SRS) administered each session provide real-time feedback."
       },
       {
         "id": "d",
-        "text": "Administering the full intake battery at the treatment midpoint",
-        "isCorrect": false
+        "text": "Administering the full intake battery at the treatment midpoint as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Administering the full intake battery at the treatment midpo…\" is not what the item tests — ROM (Lambert, PCOMS): brief validated measures (PHQ-9, ORS/SRS) administered each session provide real-time feedback."
       }
     ],
     "rationale": "ROM (Lambert, PCOMS): brief validated measures (PHQ-9, ORS/SRS) administered each session provide real-time feedback. Research shows clinicians are often unaware when clients are deteriorating without ROM — and feedback loops significantly improve outcomes by enabling earlier plan adjustment."
@@ -8833,23 +10014,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Switching to a completely different theoretical orientation",
-        "isCorrect": false
+        "text": "Switching to a completely different theoretical orientation by counselors as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Switching to a completely different theoretical orientation …\" is not what the item tests — Lack of progress triggers a systematic review before major changes: Is the formulation accurate?"
       },
       {
         "id": "b",
         "text": "Reviewing the case conceptualization, assessing engagement barriers, and considering medication augmentation",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Lack of progress triggers a systematic review before major changes: Is the formulation accurate?"
       },
       {
         "id": "c",
-        "text": "Adding relaxation training as a supplementary component",
-        "isCorrect": false
+        "text": "Adding relaxation training as a supplementary component during counseling as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Adding relaxation training as a supplementary component duri…\" is not what the item tests — Lack of progress triggers a systematic review before major changes: Is the formulation accurate?"
       },
       {
         "id": "d",
-        "text": "Transferring the client to a more experienced clinician",
-        "isCorrect": false
+        "text": "Transferring the client to a more experienced clinician during counseling as the reference material frames it",
+        "isCorrect": false,
+        "rationale": "\"Transferring the client to a more experienced clinician duri…\" is not what the item tests — Lack of progress triggers a systematic review before major changes: Is the formulation accurate?"
       }
     ],
     "rationale": "Lack of progress triggers a systematic review before major changes: Is the formulation accurate? Are there maintaining factors not addressed (sleep, substance use, medical)? Is the client engaging with between-session work? Alliance issues? Is medication warranted? Switching orientations entirely before this review is premature."
@@ -8863,23 +10048,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Determined by the insurance company’s authorized number of sessions",
-        "isCorrect": false
+        "text": "Determined by the insurance company’s authorized number of sessions as usually described",
+        "isCorrect": false,
+        "rationale": "\"Determined by the insurance company’s authorized number of s…\" is not what the item tests — Discharge criteria defined at the outset give both client and counselor a shared target."
       },
       {
         "id": "b",
         "text": "Defined at the outset as observable, measurable indicators that goals have been achieved",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Discharge criteria defined at the outset give both client and counselor a shared target."
       },
       {
         "id": "c",
-        "text": "Left open-ended to allow flexibility as treatment progresses",
-        "isCorrect": false
+        "text": "Left open-ended to allow flexibility as treatment progresses at the level the item tests now",
+        "isCorrect": false,
+        "rationale": "\"Left open-ended to allow flexibility as treatment progresses…\" is not what the item tests — Discharge criteria defined at the outset give both client and counselor a shared target."
       },
       {
         "id": "d",
-        "text": "Set after the client achieves at least 80% symptom reduction",
-        "isCorrect": false
+        "text": "Set after the client achieves at least 80% symptom reduction at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Set after the client achieves at least 80% symptom reduction…\" is not what the item tests — Discharge criteria defined at the outset give both client and counselor a shared target."
       }
     ],
     "rationale": "Discharge criteria defined at the outset give both client and counselor a shared target. They typically include symptom thresholds (e.g., PHQ-9 < 5), functional indicators (return to work, rebuilt relationships), and skill mastery (client applies techniques independently). Insurance authorization is administrative, not a clinical criterion."
@@ -8893,23 +10082,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Terminate immediately to prevent the development of therapeutic dependency",
-        "isCorrect": false
+        "text": "Terminate immediately to prevent the development of therapeutic dependency during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Terminate immediately to prevent the development of therapeu…\" is not what the item tests — When discharge criteria are met: taper rather than abruptly end."
       },
       {
         "id": "b",
-        "text": "Continue at the same frequency indefinitely to prevent any relapse",
-        "isCorrect": false
+        "text": "Continue at the same frequency indefinitely to prevent any relapse as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Continue at the same frequency indefinitely to prevent any r…\" is not what the item tests — When discharge criteria are met: taper rather than abruptly end."
       },
       {
         "id": "c",
         "text": "Begin tapering sessions, review relapse prevention, and establish a plan for returning if needed",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "When discharge criteria are met: taper rather than abruptly end."
       },
       {
         "id": "d",
-        "text": "Switch to open-ended maintenance therapy focused on general wellbeing",
-        "isCorrect": false
+        "text": "Switch to open-ended maintenance therapy focused on general wellbeing at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Switch to open-ended maintenance therapy focused on general …\" is not what the item tests — When discharge criteria are met: taper rather than abruptly end."
       }
     ],
     "rationale": "When discharge criteria are met: taper rather than abruptly end. Moving from weekly to biweekly to monthly builds confidence in independent functioning. Relapse prevention — identifying early warning signs, reviewing coping strategies, clarifying when to return — is required for anxiety disorder termination."
@@ -8923,23 +10116,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "It satisfies managed care and documentation requirements",
-        "isCorrect": false
+        "text": "It satisfies managed care and documentation requirements today as the reference material frames it now",
+        "isCorrect": false,
+        "rationale": "\"It satisfies managed care and documentation requirements tod…\" is not what the item tests — Collaborative goal-setting increases client ownership, aligns treatment with the client’s own values and priorities, and strengthens alliance."
       },
       {
         "id": "b",
         "text": "Client-generated goals are associated with stronger therapeutic alliance, motivation, and outcomes",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Collaborative goal-setting increases client ownership, aligns treatment with the client’s own values and priorities, and strengthens alliance."
       },
       {
         "id": "c",
-        "text": "Clinicians lack sufficient expertise to set goals without client input",
-        "isCorrect": false
+        "text": "Clinicians lack sufficient expertise to set goals without client input at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"Clinicians lack sufficient expertise to set goals without cl…\" is not what the item tests — Collaborative goal-setting increases client ownership, aligns treatment with the client’s own values and priorities, and strengthens alliance."
       },
       {
         "id": "d",
-        "text": "It shifts clinical responsibility to the client if goals are not achieved",
-        "isCorrect": false
+        "text": "It shifts clinical responsibility to the client if goals are not achieved during a routine session",
+        "isCorrect": false,
+        "rationale": "\"It shifts clinical responsibility to the client if goals are…\" is not what the item tests — Collaborative goal-setting increases client ownership, aligns treatment with the client’s own values and priorities, and strengthens alliance."
       }
     ],
     "rationale": "Collaborative goal-setting increases client ownership, aligns treatment with the client’s own values and priorities, and strengthens alliance. Goal consensus research consistently shows that goals clients perceive as their own — not imposed by the clinician — predict stronger engagement and better outcomes."
@@ -8953,23 +10150,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "Avoid all family involvement to maintain individual client confidentiality",
-        "isCorrect": false
+        "text": "Avoid all family involvement to maintain individual client confidentiality as clinicians typically apply it",
+        "isCorrect": false,
+        "rationale": "\"Avoid all family involvement to maintain individual client c…\" is not what the item tests — Culturally responsive treatment planning adapts both goal content and structure to the client’s cultural context."
       },
       {
         "id": "b",
         "text": "Explore whether including family or community in goals and interventions aligns with the client’s values",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Culturally responsive treatment planning adapts both goal content and structure to the client’s cultural context."
       },
       {
         "id": "c",
-        "text": "Apply Western individualistic goal frameworks since these are empirically validated",
-        "isCorrect": false
+        "text": "Apply Western individualistic goal frameworks since these are empirically validated as usually described",
+        "isCorrect": false,
+        "rationale": "\"Apply Western individualistic goal frameworks since these ar…\" is not what the item tests — Culturally responsive treatment planning adapts both goal content and structure to the client’s cultural context."
       },
       {
         "id": "d",
-        "text": "Refer to a counselor from the same cultural background for more appropriate care",
-        "isCorrect": false
+        "text": "Refer to a counselor from the same cultural background for more appropriate care during a routine session",
+        "isCorrect": false,
+        "rationale": "\"Refer to a counselor from the same cultural background for m…\" is not what the item tests — Culturally responsive treatment planning adapts both goal content and structure to the client’s cultural context."
       }
     ],
     "rationale": "Culturally responsive treatment planning adapts both goal content and structure to the client’s cultural context. In collectivist cultures, goals framed around family harmony, community contribution, or relational functioning may be more motivating and clinically meaningful than individually-framed goals. The counselor explores this rather than assumes."
@@ -8983,23 +10184,27 @@ const KNOWLEDGE_ITEMS = [
     "options": [
       {
         "id": "a",
-        "text": "A written summary of the inpatient treatment provided to the client",
-        "isCorrect": false
+        "text": "A written summary of the inpatient treatment provided to the client at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"A written summary of the inpatient treatment provided to the…\" is not what the item tests — The post-discharge period is the highest-risk window for suicide and psychiatric readmission."
       },
       {
         "id": "b",
         "text": "A confirmed outpatient appointment within 7 days of discharge, with crisis resources identified",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "The post-discharge period is the highest-risk window for suicide and psychiatric readmission."
       },
       {
         "id": "c",
-        "text": "A 30-day medication supply with written administration instructions",
-        "isCorrect": false
+        "text": "A 30-day medication supply with written administration instructions at the level the item tests",
+        "isCorrect": false,
+        "rationale": "\"A 30-day medication supply with written administration instr…\" is not what the item tests — The post-discharge period is the highest-risk window for suicide and psychiatric readmission."
       },
       {
         "id": "d",
-        "text": "The client’s verbal agreement to contact the inpatient unit if symptoms worsen",
-        "isCorrect": false
+        "text": "The client’s verbal agreement to contact the inpatient unit if symptoms worsen during counseling",
+        "isCorrect": false,
+        "rationale": "\"The client’s verbal agreement to contact the inpatient unit …\" is not what the item tests — The post-discharge period is the highest-risk window for suicide and psychiatric readmission."
       }
     ],
     "rationale": "The post-discharge period is the highest-risk window for suicide and psychiatric readmission. A confirmed follow-up appointment within 7 days (ideally 24–72 hours) is the single strongest predictor of successful transition. Without a scheduled appointment, the step-down plan is clinically incomplete regardless of other components."

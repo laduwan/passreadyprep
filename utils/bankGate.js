@@ -60,7 +60,14 @@ function checkItem(item, profile) {
 
   const lens = texts.map((t) => t.length);
   const minL = Math.min(...lens); const maxL = Math.max(...lens);
-  if (minL > 0) {
+  // Length-parity rules apply only when options are long enough that length can
+  // act as a test-wise cue. For a label-scale recall item where every option is
+  // under 40 characters (e.g., "Catastrophizing" vs "Personalization"), the 25%
+  // ratio is not a realistic cue and would rule out legitimate items. Decision
+  // items always run the strict rules — their options are actions and length
+  // parity is the point.
+  const shortLabels = profile === 'recall' && maxL < 40;
+  if (minL > 0 && !shortLabels) {
     const ratio = maxL / minL;
     if (ratio > 1.25) errors.push(at(`length ratio ${ratio.toFixed(2)} > 1.25 (${lens.join(',')})`));
     if (ki >= 0 && lens[ki] === maxL && lens[ki] > minL * 1.1) {
