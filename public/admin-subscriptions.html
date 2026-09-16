@@ -63,6 +63,8 @@
   .badge.active{color:var(--emerald-400);border-color:var(--emerald-400);background:rgba(16,185,129,.12)}
   .badge.past_due{color:var(--amber-400);border-color:var(--amber-400);background:rgba(251,191,36,.12)}
   .badge.canceled{color:var(--slate-400);border-color:var(--slate-500);background:rgba(100,116,139,.12)}
+  .badge.trial{color:var(--blue-400);border-color:var(--blue-400);background:rgba(96,165,250,.12)}
+  .badge.expired{color:var(--slate-500);border-color:var(--slate-600);background:rgba(100,116,139,.08)}
 
   .overlay{position:fixed;inset:0;background:rgba(2,6,14,.6);display:flex;justify-content:flex-end;z-index:20}
   .panel{width:min(420px,100%);height:100%;background:var(--slate-900);border-left:1px solid var(--card-border);
@@ -298,7 +300,7 @@
         '<td>' + esc(u.email) + '</td>' +
         '<td>' + esc(u.name || '—') + '</td>' +
         '<td>' + esc(sub.tier || 'free') + '</td>' +
-        '<td><span class="badge ' + esc(sub.status || 'active') + '">' + esc(sub.status || 'active') + '</span></td>' +
+        '<td><span class="badge ' + esc(u.effectiveStatus || 'expired') + '">' + esc(u.effectiveStatus || 'expired') + '</span></td>' +
         '<td>' + esc((sub.tier === 'guarantee' || !sub.currentPeriodEnd) ? 'never expires' : dateStr(sub.currentPeriodEnd)) + '</td>';
       tr.addEventListener('click', function(){ openDetail(u._id); });
       body.appendChild(tr);
@@ -402,7 +404,7 @@
       '<p class="muted" style="margin:0 0 12px">' + esc(u.name || '') + '</p>' +
 
       '<div class="kv"><span>Tier</span><span>' + esc(sub.tier || 'free') + '</span></div>' +
-      '<div class="kv"><span>Status</span><span>' + esc(sub.status || 'active') + '</span></div>' +
+      '<div class="kv"><span>Status</span><span>' + esc(u.effectiveStatus || 'expired') + '</span></div>' +
       '<div class="kv"><span>Period end</span><span>' + esc(dateStr(sub.currentPeriodEnd)) + '</span></div>' +
       '<div class="kv"><span>Stripe customer</span><span>' + esc(sub.stripeCustomerId || '—') + '</span></div>' +
       '<div class="kv"><span>Stripe subscription</span><span>' + esc(sub.stripeSubscriptionId || '—') + '</span></div>' +
