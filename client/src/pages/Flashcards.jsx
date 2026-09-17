@@ -61,6 +61,10 @@ export default function Flashcards() {
   const [di, setDi] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [, forceUpdate] = useState(0);
+  // Snapshotted when a session starts so the results screen can report what
+  // the session actually bought them, rather than just how many cards went by.
+  const [startMastered, setStartMastered] = useState(0);
+  const [tally, setTally] = useState({ again: 0, hard: 0, easy: 0 });
 
   const refresh = () => forceUpdate((n) => n + 1);
 
@@ -91,13 +95,29 @@ export default function Flashcards() {
   const getMast = () => { const sr = ldSR(); return FC_CARDS.filter((c) => { const s = sr[c.id]; return s && s.rp >= 3 && s.du > Date.now(); }).length; };
   const getLrn = () => { const sr = ldSR(); return FC_CARDS.filter((c) => { const s = sr[c.id]; return s && s.rp > 0 && s.rp < 3; }).length; };
 
+  // Cards scheduled to come back inside the next `hours` — the concrete
+  // reason to return tomorrow. Respects the active category filter so it
+  // agrees with the Due counter on the overview.
+  const getDueWithin = useCallback((hours) => {
+    const now = Date.now(), until = now + hours * 3600000, sr = ldSR();
+    return FC_CARDS.filter((c) => {
+      if (filter !== 'all' && c.cat !== filter) return false;
+      const s = sr[c.id];
+      return s && s.du > now && s.du <= until;
+    }).length;
+  }, [filter]);
+
   function startDeck() {
     const d = shuffle(getDue());
+    setStartMastered(getMast());
+    setTally({ again: 0, hard: 0, easy: 0 });
     setDeck(d); setDi(0); setFlipped(false); setView('study');
   }
 
   function rate(quality) {
     updCard(deck[di].id, quality);
+    const bucket = quality < 3 ? 'again' : quality < 5 ? 'hard' : 'easy';
+    setTally((t) => ({ ...t, [bucket]: t[bucket] + 1 }));
     if (di < deck.length - 1) { setDi(di + 1); setFlipped(false); }
     else { setView('results'); refresh(); }
   }
@@ -114,15 +134,59 @@ export default function Flashcards() {
 
   // ── Results ──
   if (view === 'results') {
+    const gained = Math.max(0, getMast() - startMastered);
+    const recalled = tally.hard + tally.easy;
+    const recallPct = deck.length ? Math.round((recalled / deck.length) * 100) : 0;
+    const dueTomorrow = getDueWithin(24);
+    const stillDue = getDue().length;
+
     return (
-      <div className="text-center py-10 space-y-4">
-        <div className="text-5xl">🎉</div>
-        <h1 className="text-2xl font-bold text-white">Session complete</h1>
-        <p className="text-slate-400">Reviewed {deck.length} card{deck.length === 1 ? '' : 's'}. Cards marked Again reappear sooner.</p>
-        <div className="flex gap-3 justify-center">
+      <div className="py-8 space-y-5 max-w-lg mx-auto">
+        <div className="text-center space-y-2">
+          <div className="text-5xl">{gained > 0 ? '🎉' : '✅'}</div>
+          <h1 className="text-2xl font-bold text-white">Session complete</h1>
+          <p className="text-slate-400 text-sm">
+            {deck.length} card{deck.length === 1 ? '' : 's'} reviewed
+            {gained > 0 && <> · <span className="text-emerald-400 font-bold">+{gained} mastered</span></>}
+          </p>
+        </div>
+
+        {/* What the session actually did */}
+        <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
+          <div className="flex justify-between items-baseline mb-2">
+            <span className="text-sm font-bold text-white">Recalled on sight</span>
+            <span className="text-sm font-extrabold text-emerald-400">{recallPct}%</span>
+          </div>
+          <div className="flex h-2.5 rounded-full overflow-hidden bg-slate-700 mb-3">
+            {tally.easy > 0 && <div className="bg-emerald-500" style={{ width: `${(tally.easy / deck.length) * 100}%` }} />}
+            {tally.hard > 0 && <div className="bg-amber-500" style={{ width: `${(tally.hard / deck.length) * 100}%` }} />}
+            {tally.again > 0 && <div className="bg-red-500" style={{ width: `${(tally.again / deck.length) * 100}%` }} />}
+          </div>
+          <div className="grid grid-cols-3 gap-3 text-center">
+            <div><div className="text-xl font-extrabold text-emerald-400">{tally.easy}</div><div className="text-xs text-slate-500">Easy</div></div>
+            <div><div className="text-xl font-extrabold text-amber-400">{tally.hard}</div><div className="text-xs text-slate-500">Hard</div></div>
+            <div><div className="text-xl font-extrabold text-red-400">{tally.again}</div><div className="text-xs text-slate-500">Again</div></div>
+          </div>
+        </div>
+
+        {/* The reason to come back */}
+        <div className="bg-blue-500/8 border border-blue-500/20 rounded-2xl p-4 text-sm">
+          {tally.again > 0 && (
+            <p className="text-slate-300 mb-1">
+              <span className="font-bold text-red-400">{tally.again} card{tally.again === 1 ? '' : 's'}</span> you marked Again come back today.
+            </p>
+          )}
+          <p className="text-slate-300">
+            {dueTomorrow > 0
+              ? <><span className="font-bold text-blue-400">{dueTomorrow} card{dueTomorrow === 1 ? '' : 's'}</span> are scheduled for the next 24 hours — spacing them out is what makes them stick.</>
+              : <>Nothing new is due in the next 24 hours. Your next batch comes back as the intervals mature.</>}
+          </p>
+        </div>
+
+        <div className="flex gap-3 justify-center flex-wrap">
           <button onClick={() => setView('home')} className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-5 py-2.5 rounded-xl">Overview</button>
-          {getDue().length > 0 && (
-            <button onClick={startDeck} className="bg-slate-700 hover:bg-slate-600 text-white font-bold px-5 py-2.5 rounded-xl">{getDue().length} more ›</button>
+          {stillDue > 0 && (
+            <button onClick={startDeck} className="bg-slate-700 hover:bg-slate-600 text-white font-bold px-5 py-2.5 rounded-xl">{stillDue} more ›</button>
           )}
         </div>
       </div>

@@ -12,6 +12,16 @@ export const DOMAIN_LABELS = {
 };
 export const DOMAIN_ORDER = ['counseling', 'intake', 'treatment', 'ethics', 'core'];
 
+// Which diagnostic categories most often carry each domain. Used to point a
+// learner at cases that exercise the domain they just fumbled.
+export const DOMAIN_CATEGORY_MAP = {
+  intake: ['Anxiety', 'Depressive', 'Trauma', 'Substance', 'Personality', 'Dissociative', 'Psychotic', 'OCD-Related'],
+  counseling: ['Depressive', 'Anxiety', 'Personality', 'Trauma', 'Sleep'],
+  treatment: ['Substance', 'Trauma', 'Depressive', 'Anxiety', 'Disruptive', 'OCD-Related'],
+  ethics: ['Personality', 'Substance', 'OCD-Related'],
+  core: ['Psychotic', 'Dissociative', 'Personality', 'Anxiety'],
+};
+
 const HISTORY_KEY = 'prp_history';
 const HISTORY_TS_KEY = 'prp_history_t';
 
@@ -76,6 +86,53 @@ export function saveToHistory(caseObj, answers, dxCorrect, category) {
   localStorage.setItem(HISTORY_KEY, JSON.stringify(h));
   const t = setHistoryTS();
   pushHistory(h, t);
+}
+
+// ── Per-case progress ────────────────────────────────────────────────────────
+// Rolls study history up by case. `caseId` here is the case's externalId — the
+// importer sets externalId from the case payload's own `id` (tools/cases/
+// import-all.js), so these line up with what the catalog returns. Cases saved
+// before an id existed fall back to their title and simply won't match; they
+// show as not-started rather than breaking the list.
+export function loadCaseStats() {
+  const stats = {};
+  loadHistory().forEach((e) => {
+    if (!e.caseId) return;
+    const pct = e.total ? Math.round((e.correct / e.total) * 100) : 0;
+    const cur = stats[e.caseId];
+    if (!cur) {
+      stats[e.caseId] = { attempts: 1, bestPct: pct, lastPct: pct, lastDate: e.date || 0 };
+      return;
+    }
+    cur.attempts += 1;
+    if (pct > cur.bestPct) cur.bestPct = pct;
+    if ((e.date || 0) >= cur.lastDate) { cur.lastPct = pct; cur.lastDate = e.date || 0; }
+  });
+  return stats;
+}
+
+// Which domains a single attempt dropped points in, worst first. Drives the
+// "what to do next" card at the end of a case.
+export function domainMisses(questions, answers) {
+  const agg = {};
+  (questions || []).forEach((q, i) => {
+    const a = (answers || [])[i];
+    const chosen = a && (q.options || []).find((o) => o.id === a.chosenId);
+    const d = q.domain || 'general';
+    if (!agg[d]) agg[d] = { ok: 0, total: 0 };
+    agg[d].total += 1;
+    if (chosen && chosen.isCorrect) agg[d].ok += 1;
+  });
+  return Object.entries(agg)
+    .map(([domain, v]) => ({
+      domain,
+      label: DOMAIN_LABELS[domain] || 'General clinical reasoning',
+      missed: v.total - v.ok,
+      total: v.total,
+      pct: v.total ? Math.round((v.ok / v.total) * 100) : 0,
+    }))
+    .filter((d) => d.missed > 0)
+    .sort((a, b) => b.missed - a.missed || a.pct - b.pct);
 }
 
 export function computeReadiness() {

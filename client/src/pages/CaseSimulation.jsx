@@ -1,9 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, MessageSquare, Loader2 } from 'lucide-react';
-import { saveToHistory, loadHistory } from '../lib/readiness';
+import { ArrowLeft, MessageSquare, Loader2, Target, ArrowRight, TrendingUp, TrendingDown } from 'lucide-react';
+import {
+  saveToHistory, loadHistory, loadCaseStats, computeReadiness,
+  domainMisses, DOMAIN_CATEGORY_MAP,
+} from '../lib/readiness';
 import { authFetch } from '../lib/api';
 import { useStudyPing } from '../lib/useStudyPing';
 import SimDisclaimer from '../components/SimDisclaimer';
+
+// Pick the case to hand them next: prefer one they haven't done, in a category
+// that exercises whichever domain they just dropped points in. Falls back
+// gracefully when they've either mastered everything or missed nothing.
+function pickNextCase(catalog, misses, stats, currentId) {
+  const pool = catalog.filter((c) => c.externalId && c.externalId !== currentId);
+  if (pool.length === 0) return null;
+  const fresh = pool.filter((c) => !stats[c.externalId]);
+  const base = fresh.length ? fresh : pool;
+
+  const targetCats = new Set();
+  misses.slice(0, 2).forEach((m) => (DOMAIN_CATEGORY_MAP[m.domain] || []).forEach((c) => targetCats.add(c)));
+  const targeted = base.filter((c) => targetCats.has(c.category));
+
+  const list = targeted.length ? targeted : base;
+  return list[Math.floor(Math.random() * list.length)] || null;
+}
 
 export default function CaseSimulation({ caseId, mode, examMode = false, onBack, navigate }) {
   useStudyPing('cases');
@@ -18,13 +38,45 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
   const [debriefError, setDebriefError] = useState(null);
   const [caseCategory, setCaseCategory] = useState(null);
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
+  // Accuracy across every earlier case, snapshotted before this attempt is
+  // saved — so the results screen can say whether this one beat their average.
+  const [priorPct, setPriorPct] = useState(null);
+  const [catalog, setCatalog] = useState([]);
+  const [nextCase, setNextCase] = useState(null);
 
   useEffect(() => {
+    // A new case can arrive without unmounting (the "next case" button on the
+    // results screen swaps the prop), so clear everything the old case left.
+    setCaseData(null);
+    setQi(0);
+    setAnswers([]);
+    setPhase(mode === 'classic' ? 'diagnose' : 'answer');
+    setDxChoice(null);
+    setDone(false);
+    setDebrief(null);
+    setDebriefError(null);
+    setNextCase(null);
+    setPriorPct(null);
+    // Each simulation gets its own disclaimer (SimDisclaimer rotates versions
+    // by simulation number), so jumping straight into the next case must show
+    // it again rather than inheriting the last case's acceptance.
+    setDisclaimerAccepted(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     authFetch('/api/content/' + encodeURIComponent(caseId))
       .then((r) => r.json())
       .then((d) => { const item = d.item || {}; const c = item.caseSim || item; setCaseData(c); setCaseCategory(item.category || c.category || null); setAnswers(new Array((c.questions || []).length).fill(null)); })
       .catch(() => {});
-  }, [caseId]);
+  }, [caseId, mode]);
+
+  // The catalog powers the "next case" suggestion. Fetched once alongside the
+  // case so the results screen has it ready the moment they finish.
+  useEffect(() => {
+    authFetch('/api/content?exam=ncmhce')
+      .then((r) => r.json())
+      .then((d) => setCatalog(d.items || []))
+      .catch(() => {});
+  }, []);
 
   if (!caseData) return <p className="text-slate-400">Loading case…</p>;
 
@@ -51,8 +103,17 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
   function next() {
     if (qi < qs.length - 1) { setQi(qi + 1); window.scrollTo({ top: 0, behavior: 'smooth' }); }
     else {
+      // Snapshot the running average BEFORE this attempt lands in history,
+      // otherwise we'd be comparing this case against itself.
+      const before = computeReadiness();
+      setPriorPct(before && before.totalCases > 0 ? before.overallPct : null);
+
       setDone(true);
       saveToHistory(caseData, answers, dxChoice != null ? !!(caseData.differentialOptions || []).find(o => o.isCorrect && o.id === dxChoice) : null, caseCategory);
+
+      // Resolve the follow-up case once, here — doing it during render would
+      // reshuffle the suggestion on every state change.
+      setNextCase(pickNextCase(catalog, domainMisses(qs, answers), loadCaseStats(), caseId));
     }
   }
 
@@ -78,19 +139,105 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
   if (done) {
     const correct = answers.filter((a, i) => a && qs[i].options.find(o => o.id === a.chosenId)?.isCorrect).length;
     const pct = Math.round(correct / qs.length * 100);
+    const misses = domainMisses(qs, answers);
+    const missedQs = qs
+      .map((q, i) => ({ q, i, a: answers[i] }))
+      .filter(({ q, a }) => !(a && q.options.find((o) => o.id === a.chosenId)?.isCorrect));
+    const delta = priorPct != null ? pct - priorPct : null;
+
     return (
       <div className="space-y-4">
         <div className={`text-center rounded-2xl p-8 border ${pct >= 70 ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-amber-500/10 border-amber-500/30'}`}>
           <div className="text-4xl mb-2">{pct >= 70 ? '🏆' : '📈'}</div>
           <div className="text-4xl font-extrabold text-white">{pct}%</div>
           <div className="text-slate-300 mt-1">{correct} of {qs.length} correct</div>
+          {delta !== null && (
+            <div className={`mt-3 inline-flex items-center gap-1.5 text-sm font-semibold px-3 py-1 rounded-full ${
+              delta > 0 ? 'text-emerald-400 bg-emerald-500/10' : delta < 0 ? 'text-amber-400 bg-amber-500/10' : 'text-slate-400 bg-slate-700/40'
+            }`}>
+              {delta > 0 && <TrendingUp className="w-4 h-4" />}
+              {delta < 0 && <TrendingDown className="w-4 h-4" />}
+              {delta === 0
+                ? `Right on your ${priorPct}% average`
+                : `${delta > 0 ? '+' : ''}${delta} points vs your ${priorPct}% average`}
+            </div>
+          )}
         </div>
-        <div className="flex gap-3">
-          <button onClick={() => { setQi(0); setAnswers(new Array(qs.length).fill(null)); setDone(false); setDxChoice(null); setPhase(mode === 'classic' ? 'diagnose' : 'answer'); setDebrief(null); setDebriefError(null); }}
-            className="bg-slate-700 hover:bg-slate-600 text-white font-bold px-4 py-2.5 rounded-xl transition-colors">Retry</button>
-          <button onClick={onBack}
-            className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-4 py-2.5 rounded-xl transition-colors">More cases</button>
+
+        {/* Where to go next — the case is only useful if it points somewhere */}
+        <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <Target className="w-5 h-5 text-emerald-400" />
+            <h2 className="text-lg font-bold text-white">What to work on next</h2>
+          </div>
+
+          {misses.length === 0 ? (
+            <p className="text-sm text-slate-300">
+              Clean sweep — no missed questions on this case. Keep the momentum going with a fresh one.
+            </p>
+          ) : (
+            <>
+              <p className="text-xs text-slate-500 mb-2">Your misses on this case, by NCMHCE domain:</p>
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {misses.map((m) => (
+                  <span key={m.domain} className="text-xs font-bold text-amber-400 bg-amber-500/15 px-2.5 py-1 rounded-full">
+                    {m.label} — {m.missed} of {m.total} missed
+                  </span>
+                ))}
+              </div>
+            </>
+          )}
+
+          <div className="flex gap-3 flex-wrap">
+            {nextCase && (
+              <button
+                onClick={() => navigate('cases', { caseId: nextCase.externalId })}
+                className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-4 py-2.5 rounded-xl transition-colors"
+              >
+                Next case: {nextCase.title} <ArrowRight className="w-4 h-4" />
+              </button>
+            )}
+            <button onClick={() => { setQi(0); setAnswers(new Array(qs.length).fill(null)); setDone(false); setDxChoice(null); setPhase(mode === 'classic' ? 'diagnose' : 'answer'); setDebrief(null); setDebriefError(null); }}
+              className="bg-slate-700 hover:bg-slate-600 text-white font-bold px-4 py-2.5 rounded-xl transition-colors">Retry this case</button>
+            <button onClick={onBack}
+              className="bg-slate-700 hover:bg-slate-600 text-white font-bold px-4 py-2.5 rounded-xl transition-colors">All cases</button>
+          </div>
+          {nextCase && (
+            <p className="text-xs text-slate-500 mt-2">
+              {misses.length > 0
+                ? `Picked to give you more practice in ${misses[0].label}.`
+                : 'A case you haven’t worked through yet.'}
+            </p>
+          )}
         </div>
+
+        {/* Study mode showed feedback as you went — this pulls the misses back
+            together in one place so the review isn't scattered up the page. */}
+        {!examMode && missedQs.length > 0 && (
+          <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
+            <h2 className="text-lg font-bold text-white mb-1">What you missed</h2>
+            <p className="text-xs text-slate-500 mb-3">
+              {missedQs.length} question{missedQs.length === 1 ? '' : 's'} to revisit before you move on.
+            </p>
+            <div className="space-y-3">
+              {missedQs.map(({ q, i, a }) => {
+                const chosen = a && q.options.find((o) => o.id === a.chosenId);
+                const keyed = q.options.find((o) => o.isCorrect);
+                const rationale = (keyed && keyed.explanation && keyed.explanation.rationale) || (keyed && keyed.rationale);
+                return (
+                  <div key={q.id || i} className="border-t border-slate-700/40 pt-3 first:border-t-0 first:pt-0">
+                    <div className="text-sm font-semibold text-white">Q{i + 1}. {q.question}</div>
+                    <div className="text-sm mt-1 text-red-400">
+                      ✗ You chose: <span className="text-slate-400">{chosen ? chosen.text : '(no answer)'}</span>
+                    </div>
+                    {keyed && <div className="text-sm text-emerald-400 mt-0.5">✓ Best answer: <span className="text-slate-300">{keyed.text}</span></div>}
+                    {rationale && <p className="text-sm text-slate-400 mt-1">{rationale}</p>}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Exam-mode case review — feedback was held until the end, like the real NCMHCE */}
         {examMode && (
