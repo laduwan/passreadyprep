@@ -41,6 +41,7 @@ app.use('/api/debrief', require('./routes/debrief'));
 app.use('/api/skills', require('./routes/skills'));
 app.use('/api/nbs', require('./routes/nbs'));
 app.use('/api/core-tutor', require('./routes/coreTutor'));
+app.use('/api/assess-next', require('./routes/assessNext'));
 app.use('/api/intake', require('./routes/intake'));
 app.use('/api/guide', require('./routes/guide'));
 app.use('/api/suggestions', require('./routes/suggestions'));

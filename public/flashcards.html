@@ -124,6 +124,9 @@ function updCard(id, quality) {
 }
 
 var FLT = 'all', DK = [], DI = 0, FLIP = false;
+// Snapshotted per session so the results screen can report what the session
+// actually bought, not just how many cards went past.
+var SESS_START_MAST = 0, SESS_TALLY = { again:0, hard:0, easy:0 };
 
 function getDue() {
   var now = Date.now(), sr = ldSR();
@@ -183,7 +186,20 @@ function setF(f) { FLT = f; showHome(); }
 function startDk() {
   DK = getDue();
   for (var i = DK.length - 1; i > 0; i--) { var j = Math.floor(Math.random()*(i+1)); var t = DK[i]; DK[i] = DK[j]; DK[j] = t; }
+  SESS_START_MAST = getMast();
+  SESS_TALLY = { again:0, hard:0, easy:0 };
   DI = 0; FLIP = false; showCd();
+}
+
+// Cards scheduled to come back inside the next `hours` — the concrete reason
+// to return. Respects the active category filter so it agrees with "Due now".
+function getDueWithin(hours) {
+  var now = Date.now(), until = now + hours * 3600000, sr = ldSR();
+  return ALL_CARDS.filter(function(c) {
+    if (FLT !== 'all' && c.cat !== FLT) return false;
+    var s = sr[c.id];
+    return s && s.du > now && s.du <= until;
+  }).length;
 }
 
 function showCd() {
@@ -223,18 +239,63 @@ function showCd() {
 }
 
 function flipCd() { if (!FLIP) { FLIP = true; showCd(); } }
-function rate(q) { updCard(DK[DI].id, q); DI++; FLIP = false; showCd(); }
+function rate(q) {
+  updCard(DK[DI].id, q);
+  SESS_TALLY[q < 3 ? 'again' : q < 5 ? 'hard' : 'easy']++;
+  DI++; FLIP = false; showCd();
+}
 
 function showRes() {
-  var h = '<div style="text-align:center;padding:30px 0">';
-  h += '<div style="font-size:48px;margin-bottom:12px">🎉</div>';
-  h += '<h1>Session complete</h1>';
-  h += '<p class="lead">Reviewed ' + DK.length + ' cards. Cards marked Again reappear sooner.</p>';
-  h += '<div style="display:flex;gap:10px;justify-content:center;margin-top:16px">';
-  h += '<button class="btn" onclick="showHome()">Overview</button>';
+  var n = DK.length || 1;
+  var gained = Math.max(0, getMast() - SESS_START_MAST);
+  var recallPct = Math.round((SESS_TALLY.hard + SESS_TALLY.easy) / n * 100);
+  var dueTomorrow = getDueWithin(24);
   var nd = getDue();
-  if (nd.length) h += '<button class="btn btn-s" onclick="startDk()">' + nd.length + ' more ›</button>';
+
+  var h = '<div style="text-align:center;padding:24px 0 8px">';
+  h += '<div style="font-size:48px;margin-bottom:10px">' + (gained > 0 ? '🎉' : '✅') + '</div>';
+  h += '<h1>Session complete</h1>';
+  h += '<p class="lead">' + DK.length + ' card' + (DK.length === 1 ? '' : 's') + ' reviewed'
+     + (gained > 0 ? ' · <strong style="color:var(--emerald-400)">+' + gained + ' mastered</strong>' : '') + '</p>';
+  h += '</div>';
+
+  // What the session actually did.
+  h += '<div class="card">';
+  h += '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">';
+  h += '<span style="font-weight:700;color:var(--white);font-size:14px">Recalled on sight</span>';
+  h += '<span style="font-weight:800;color:var(--emerald-400)">' + recallPct + '%</span></div>';
+  // One bar, three segments. The pill radius lives on .bar (which clips), so
+  // the segments are squared off or the joins show rounded notches.
+  h += '<div class="bar" style="display:flex">';
+  if (SESS_TALLY.easy)  h += '<i style="border-radius:0;width:' + (SESS_TALLY.easy / n * 100)  + '%;background:var(--emerald)"></i>';
+  if (SESS_TALLY.hard)  h += '<i style="border-radius:0;width:' + (SESS_TALLY.hard / n * 100)  + '%;background:var(--amber-400)"></i>';
+  if (SESS_TALLY.again) h += '<i style="border-radius:0;width:' + (SESS_TALLY.again / n * 100) + '%;background:var(--red-400)"></i>';
+  h += '</div>';
+  // .stats is a 4-up (2-up on mobile) grid; this row has three cells.
+  h += '<div class="stats" style="margin-top:12px;grid-template-columns:repeat(3,1fr)">';
+  h += '<div><div class="sn" style="color:var(--emerald-400)">' + SESS_TALLY.easy + '</div><div class="sl">Easy</div></div>';
+  h += '<div><div class="sn" style="color:var(--amber-400)">' + SESS_TALLY.hard + '</div><div class="sl">Hard</div></div>';
+  h += '<div><div class="sn" style="color:var(--red-400)">' + SESS_TALLY.again + '</div><div class="sl">Again</div></div>';
   h += '</div></div>';
+
+  // The reason to come back.
+  h += '<div class="card">';
+  if (SESS_TALLY.again) {
+    h += '<div style="font-size:13px;color:var(--slate-300);margin-bottom:6px">'
+       + '<strong style="color:var(--red-400)">' + SESS_TALLY.again + ' card' + (SESS_TALLY.again === 1 ? '' : 's')
+       + '</strong> you marked Again come back today.</div>';
+  }
+  h += '<div style="font-size:13px;color:var(--slate-300)">'
+     + (dueTomorrow
+        ? '<strong style="color:var(--blue-400)">' + dueTomorrow + ' card' + (dueTomorrow === 1 ? '' : 's')
+          + '</strong> are scheduled for the next 24 hours — spacing them out is what makes them stick.'
+        : 'Nothing new is due in the next 24 hours. Your next batch comes back as the intervals mature.')
+     + '</div></div>';
+
+  h += '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px">';
+  h += '<button class="btn" onclick="showHome()">Overview</button>';
+  if (nd.length) h += '<button class="btn btn-s" onclick="startDk()">' + nd.length + ' more ›</button>';
+  h += '</div>';
   app.innerHTML = h;
 }
 

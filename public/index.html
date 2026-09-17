@@ -348,7 +348,7 @@ const weightText = w => (w>0?'+':'')+w;
 // ---- state ----
 let CASE=null, qi=0, answers=[];
 let CASE_EXAM_ID=null, CASE_ITEM_ID=null; // captured per case, for server-side progress sync
-let LIST_ITEMS=[], LIST_FILTER='all';
+let LIST_ITEMS=[], LIST_FILTER='all', LIST_STATUS='all';
 let MODE='new';            // 'new' (diagnosis given) | 'classic' (diagnose first)
 let EXAM_FB=false;         // false = study (feedback each Q) | true = exam (held to end)
 let dxChoice=null;         // classic: chosen differential id
@@ -400,6 +400,54 @@ function saveToHistory(caseObj, answers, dxCorrect){
   if(h.length > 500) h.splice(0, h.length - 500);
   saveHistory(h);
 }
+
+// ---- per-case progress ----
+// Rolls history up by case so the list can show what's done, what went badly,
+// and what's untouched. `caseId` is the case's own id, which the importer also
+// stores as externalId (tools/cases/import-all.js), so these match the catalog.
+const NEEDS_WORK_BELOW = 70;
+function caseStats(){
+  const stats = {};
+  loadHistory().forEach(e => {
+    if(!e.caseId) return;
+    const pct = e.total ? Math.round(e.correct/e.total*100) : 0;
+    const cur = stats[e.caseId];
+    if(!cur){ stats[e.caseId] = {attempts:1, bestPct:pct, lastDate:e.date||0}; return; }
+    cur.attempts++;
+    if(pct > cur.bestPct) cur.bestPct = pct;
+    if((e.date||0) >= cur.lastDate) cur.lastDate = e.date||0;
+  });
+  return stats;
+}
+function caseStatus(st){ return !st ? 'todo' : (st.bestPct < NEEDS_WORK_BELOW ? 'review' : 'done'); }
+
+// The case to hand them next: one they haven't done, in a category that
+// exercises a domain they just missed. Falls back sensibly when they've either
+// missed nothing or already worked through everything. Returns null when the
+// catalog hasn't loaded (embedded-case fallback), and the card just omits it.
+function pickNextCase(missDomains){
+  const stats = caseStats();
+  const pool = LIST_ITEMS.filter(it => it.externalId && it.externalId !== (CASE && CASE.id));
+  if(!pool.length) return null;
+  const fresh = pool.filter(it => !stats[it.externalId]);
+  const base = fresh.length ? fresh : pool;
+  const cats = {};
+  (missDomains||[]).slice(0,2).forEach(d => (DOMAIN_CATEGORY_MAP[d]||[]).forEach(c => { cats[c] = true; }));
+  const targeted = base.filter(it => it.category && cats[it.category]);
+  const list = targeted.length ? targeted : base;
+  return list[Math.floor(Math.random()*list.length)] || null;
+}
+const scoreBadgeClass = p => p>=70 ? 'b-emerald' : p>=50 ? 'b-amber' : 'b-red';
+
+// Which categories tend to carry each domain — used to pick a follow-up case
+// that exercises whatever the learner just dropped points in.
+const DOMAIN_CATEGORY_MAP = {
+  intake: ['Anxiety','Depressive','Trauma','Substance','Personality','Dissociative','Psychotic','OCD-Related'],
+  counseling: ['Depressive','Anxiety','Personality','Trauma','Sleep'],
+  treatment: ['Substance','Trauma','Depressive','Anxiety','Disruptive','OCD-Related'],
+  ethics: ['Personality','Substance','OCD-Related'],
+  core: ['Psychotic','Dissociative','Personality','Anxiety'],
+};
 
 // ---- server-side progress sync (signed-in users) ----
 // Backend already exists: POST/GET /api/progress (routes/progress.js, Attempt model).
@@ -668,6 +716,7 @@ async function showDashboard(){
   h += '<a href="/decision-trees.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🌳 Decision Trees</span><span class="mc-desc">25 branching clinical scenarios — risk and safety, differential diagnosis, ethics, and treatment selection. Walk each one node by node to drill the reasoning the exam rewards.</span></a>';
   h += '<a href="/next-best-step.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🎯 Next Best Step</span><span class="mc-desc">28 rapid clinical decisions: pick the correct next step and dodge the trap. Drills stage-of-change, sequencing, scope of practice, safety, and contraindications — the "what do you do next / what do you avoid" reasoning the exam actually scores.</span></a>';
   h += '<a href="/assess-next.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📋 What to Assess Next</span><span class="mc-desc">26 vignettes: pick the right instrument or assessment step next — the right tool, the right order, and the rule behind it. Completes the drill trio with Which Diagnosis? and Next Best Step.</span></a>';
+  h += '<a href="/assess-next-case.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🧭 What to Assess Next — Full Case</span><span class="mc-desc">Follow one client through 10 sequential rounds — safety screening to treatment planning and ethics. You write what you would assess next and why; an AI evaluator scores your clinical reasoning, then new information is revealed and you decide again. 5 cases.</span></a>';
   h += '<a href="/knowledge-drill.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🧠 Knowledge Drill</span><span class="mc-desc">300 standalone MCQs across all 10 NCMHCE knowledge domains — theories, pioneers, counseling skills, ethics, intake, assessment, diagnosis, and treatment planning. Filter by domain and difficulty. Instant feedback with full clinical rationale on every question.</span></a>';
   h += '<a href="/skills.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🗣️ Microskills Responder</span><span class="mc-desc">Respond in your own words to 14 realistic client statements using an assigned microskill — open questions, reflections of feeling, paraphrases, reframes, immediacy, and more. An AI coach evaluates each response and shows you a stronger version.</span></a>';
   h += '<a href="/theory.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🧬 Theories & Pioneers</span><span class="mc-desc">34 counseling theories and frameworks — founder, core premise, key terms, techniques, and what the NCMHCE actually tests. Search CBT, REBT, DBT, ACT, PCT, Gestalt, psychodynamic, family systems, skills frameworks, and more.</span></a>';
@@ -710,32 +759,72 @@ function goCases(){ renderList(); window.scrollTo({top:0,behavior:'smooth'}); }
 
 // ---- case list ----
 function renderList(){
-  const items = LIST_FILTER==='all'
-    ? LIST_ITEMS
-    : LIST_ITEMS.filter(it => (it.difficulty||'').toLowerCase()===LIST_FILTER);
+  const stats = caseStats();
+  const items = LIST_ITEMS.filter(it => {
+    if(LIST_FILTER!=='all' && (it.difficulty||'').toLowerCase()!==LIST_FILTER) return false;
+    if(LIST_STATUS!=='all' && caseStatus(stats[it.externalId])!==LIST_STATUS) return false;
+    return true;
+  });
+  const doneCount = LIST_ITEMS.filter(it => !!stats[it.externalId]).length;
+  const reviewCount = LIST_ITEMS.filter(it => caseStatus(stats[it.externalId])==='review').length;
+  const pctDone = LIST_ITEMS.length ? Math.round(doneCount/LIST_ITEMS.length*100) : 0;
+  const nextUp = LIST_ITEMS.find(it => !stats[it.externalId]);
+
   let h = '<button class="back" onclick="showDashboard()">‹ Dashboard</button>';
   h += '<h1>Choose a case</h1>';
   h += '<p class="lead">Mode: <strong style="color:var(--white)">'
      + (MODE==='classic' ? 'Classic — you diagnose first' : 'New format — diagnosis given')
      + '</strong></p>';
+
+  // Progress across the whole bank, plus a one-tap way back in.
+  if(LIST_ITEMS.length){
+    h += '<div class="card" style="margin-bottom:16px">';
+    h += '<div class="dom-row"><span><strong style="color:var(--white)">'+doneCount+'</strong> of '+LIST_ITEMS.length+' cases completed'
+       + (reviewCount ? ' · <span class="w-neg" style="font-weight:700">'+reviewCount+'</span> to revisit' : '')
+       + '</span><span class="dom-score w-pos">'+pctDone+'%</span></div>';
+    h += '<div class="dom-bar"><i style="width:'+pctDone+'%;background:var(--emerald)"></i></div>';
+    if(nextUp){
+      h += '<button class="btn" style="margin-top:13px" onclick="startCase(\''+esc(nextUp.externalId)+'\')">'
+         + (doneCount===0 ? 'Start your first case' : 'Continue') + ' — ' + esc(nextUp.title) + ' ›</button>';
+    }
+    h += '</div>';
+  }
+
+  h += '<div class="filter"><span class="flabel">Status</span>';
+  [['all','All'],['todo','Not started'],['review','Needs work'],['done','Completed']].forEach(s => {
+    const n = s[0]==='all' ? LIST_ITEMS.length : LIST_ITEMS.filter(it => caseStatus(stats[it.externalId])===s[0]).length;
+    h += '<button class="fbtn" aria-pressed="'+(LIST_STATUS===s[0])+'" onclick="setStatusFilter(\''+s[0]+'\')">'+s[1]+' ('+n+')</button>';
+  });
+  h += '</div>';
+
   h += '<div class="filter"><span class="flabel">Difficulty</span>';
   ['all','easy','medium','hard'].forEach(d => {
     h += '<button class="fbtn" aria-pressed="'+(LIST_FILTER===d)+'" onclick="setFilter(\''+d+'\')">'+(d==='all'?'All':cap(d))+'</button>';
   });
   h += '</div>';
-  if(!items.length){ h += '<p class="lead">No cases at this level yet.</p>'; }
+
+  if(!items.length){ h += '<p class="lead">No cases match these filters yet.</p>'; }
   items.forEach(it => {
     const diff = (it.difficulty||'').toLowerCase();
+    const st = stats[it.externalId];
+    const status = caseStatus(st);
+    const mark = status==='done' ? '<span class="w-pos" aria-hidden="true">✓ </span>'
+               : status==='review' ? '<span class="w-neg" aria-hidden="true">↻ </span>' : '';
     h += '<button class="case-btn" onclick="startCase(\''+esc(it.externalId)+'\')">'
        + '<span class="row-top"><span class="chips">'
        + '<span class="badge '+diffBadgeClass(diff)+'">'+esc(cap(it.difficulty||''))+'</span>'
        + (it.category ? '<span class="badge b-slate">'+esc(it.category)+'</span>' : '')
+       + (st ? '<span class="badge '+scoreBadgeClass(st.bestPct)+'">Best '+st.bestPct+'%</span>' : '')
+       + (st && st.attempts>1 ? '<span class="badge b-slate">'+st.attempts+' attempts</span>' : '')
        + '</span><span class="chev" aria-hidden="true">›</span></span>'
-       + '<span class="t">'+esc(it.title)+'</span></button>';
+       + '<span class="t">'+mark+esc(it.title)+'</span>'
+       + (status==='review' ? '<span style="display:block;font-size:12px;color:var(--amber-400);margin-top:5px">Scored under '+NEEDS_WORK_BELOW+'% — worth another pass.</span>' : '')
+       + '</button>';
   });
   app.innerHTML = h;
 }
 function setFilter(d){ LIST_FILTER=d; renderList(); }
+function setStatusFilter(s){ LIST_STATUS=s; renderList(); }
 
 // ---- a case ----
 async function startCase(externalId){
@@ -955,6 +1044,16 @@ function finish(){
   const pct = Math.round(correct/qs.length*100);
   const pass = pct >= 70;
 
+  // Running accuracy across every earlier case, read BEFORE this attempt is
+  // saved — otherwise the comparison below would include this case itself.
+  let priorPct = null;
+  const priorH = loadHistory();
+  if(priorH.length){
+    const pc = priorH.reduce((s,e)=>s+(e.correct||0),0);
+    const pt = priorH.reduce((s,e)=>s+(e.total||0),0);
+    if(pt) priorPct = Math.round(pc/pt*100);
+  }
+
   // Save to localStorage history for readiness tracking
   let dxOk = null;
   if(MODE==='classic' && Array.isArray(CASE.differentialOptions) && CASE.differentialOptions.length){
@@ -975,7 +1074,15 @@ function finish(){
   h += '<div class="score-card '+(pass?'pass':'partial')+'">'
      + '<div class="score-icon" aria-hidden="true">'+(pass?'🏆':'📈')+'</div>'
      + '<div class="score-big">'+pct+'%</div>'
-     + '<div class="score-sub">'+correct+' of '+qs.length+' correct · weighted '+weightText(weighted)+'/'+possible+'</div></div>';
+     + '<div class="score-sub">'+correct+' of '+qs.length+' correct · weighted '+weightText(weighted)+'/'+possible+'</div>'
+     + (priorPct===null ? '' : (function(){
+         const d = pct - priorPct;
+         return '<div class="score-sub '+(d>0?'w-pos':d<0?'w-neg':'')+'" style="margin-top:6px;font-weight:700">'
+              + (d===0 ? 'Right on your '+priorPct+'% average'
+                       : (d>0?'+':'')+d+' points vs your '+priorPct+'% average')
+              + '</div>';
+       })())
+     + '</div>';
 
   h += '<div class="card" style="margin-top:14px"><h2>Question summary</h2>';
   rows.forEach(r => {
@@ -1023,6 +1130,32 @@ function finish(){
   Object.keys(dom).forEach(d => {
     h += '<div class="dom-row"><span>'+esc(cap(d))+'</span><span class="dom-score">'+dom[d].ok+'/'+dom[d].total+'</span></div>';
   });
+  h += '</div>';
+
+  // ---- what to work on next ----
+  // A score is a dead end on its own; this turns it into the next action.
+  const missDomains = Object.keys(dom)
+    .filter(d => dom[d].total > dom[d].ok)
+    .sort((a,b) => (dom[b].total-dom[b].ok) - (dom[a].total-dom[a].ok));
+  const nxt = pickNextCase(missDomains);
+  h += '<div class="card" style="margin-top:14px"><h2>What to work on next</h2>';
+  if(!missDomains.length){
+    h += '<div style="font-size:13px;color:var(--slate-300);margin-bottom:10px">Clean sweep — nothing missed on this case.</div>';
+  } else {
+    h += '<div style="font-size:12px;color:var(--slate-500);margin-bottom:8px">Where you dropped points on this case:</div>';
+    h += '<div class="chips" style="flex-wrap:wrap;gap:6px;margin-bottom:10px">';
+    missDomains.forEach(d => {
+      h += '<span class="badge b-amber">'+esc(cap(d))+' — '+(dom[d].total-dom[d].ok)+' of '+dom[d].total+' missed</span>';
+    });
+    h += '</div>';
+  }
+  if(nxt){
+    h += '<button class="btn" onclick="startCase(\''+esc(nxt.externalId)+'\')">Next case: '+esc(nxt.title)+' ›</button>';
+    h += '<div style="font-size:12px;color:var(--slate-500);margin-top:8px">'
+       + (missDomains.length ? 'Picked to give you more practice in '+esc(cap(missDomains[0]))+'.'
+                             : 'A case you haven\'t worked through yet.')
+       + '</div>';
+  }
   h += '</div>';
 
   h += '<div class="card" style="margin-top:14px"><h2>AI clinical debrief</h2>'
