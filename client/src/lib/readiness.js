@@ -101,11 +101,14 @@ export function loadCaseStats() {
     const pct = e.total ? Math.round((e.correct / e.total) * 100) : 0;
     const cur = stats[e.caseId];
     if (!cur) {
-      stats[e.caseId] = { attempts: 1, bestPct: pct, lastPct: pct, lastDate: e.date || 0 };
+      stats[e.caseId] = {
+        attempts: 1, bestPct: pct, lastPct: pct, lastDate: e.date || 0,
+        bestCorrect: e.correct || 0, bestTotal: e.total || 0,
+      };
       return;
     }
     cur.attempts += 1;
-    if (pct > cur.bestPct) cur.bestPct = pct;
+    if (pct > cur.bestPct) { cur.bestPct = pct; cur.bestCorrect = e.correct || 0; cur.bestTotal = e.total || 0; }
     if ((e.date || 0) >= cur.lastDate) { cur.lastPct = pct; cur.lastDate = e.date || 0; }
   });
   return stats;

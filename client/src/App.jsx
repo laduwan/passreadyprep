@@ -16,7 +16,9 @@ import CoreTutor from './pages/CoreTutor';
 import Analytics from './pages/Analytics';
 import Onboarding from './pages/Onboarding';
 import MockExam from './pages/MockExam';
+import VoicePrivacy from './pages/VoicePrivacy';
 import SuggestionBox from './components/SuggestionBox';
+import ThemeToggle from './components/ThemeToggle';
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Dashboard', icon: Home },
@@ -40,6 +42,17 @@ export default function App() {
   const [examMode, setExamMode] = useState(false); // false = study (feedback each Q), true = exam (held to end)
   const [mobileNav, setMobileNav] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Handle deep-link URL params (e.g. /?voiceprivacy=1 from skills.html)
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('voiceprivacy') === '1') {
+        setView('voiceprivacy');
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+    } catch {}
+  }, []);
 
   // Check if signed-in user needs onboarding (no exam date set).
   useEffect(() => {
@@ -87,6 +100,8 @@ export default function App() {
         return <ExamStrategy />;
       case 'guarantee':
         return <Guarantee />;
+      case 'voiceprivacy':
+        return <VoicePrivacy navigate={navigate} />;
       default:
         return <Dashboard navigate={navigate} mode={mode} setMode={setMode} examMode={examMode} setExamMode={setExamMode} />;
     }
@@ -119,9 +134,12 @@ export default function App() {
           </div>
           <span className="text-white font-bold text-lg">PassReady <span className="text-emerald-400">Prep</span></span>
         </div>
-        <button onClick={() => setMobileNav(!mobileNav)} className="text-slate-400 hover:text-white p-1">
-          {mobileNav ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
+          <button onClick={() => setMobileNav(!mobileNav)} className="text-slate-400 hover:text-white p-1">
+            {mobileNav ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile nav overlay */}
@@ -185,7 +203,8 @@ export default function App() {
             })}
           </nav>
 
-          <div className="mt-auto pt-4 border-t border-slate-700/60 px-2">
+          <div className="mt-auto pt-4 border-t border-slate-700/60 px-2 space-y-2">
+            <ThemeToggle />
             <p className="text-xs text-slate-600 leading-relaxed">
               © 2025 GA Integrated Therapeutic Perspectives LLC
             </p>

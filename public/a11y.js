@@ -16,7 +16,8 @@
 
   // Local working state. fontScale is local-only ('', 'lg', 'xl'); the three
   // booleans mirror User.prefs.accessibility on the server.
-  var state = { contrast: false, readable: false, reduceMotion: false, fontScale: '' };
+  var THEME_KEY = 'prp_theme';
+  var state = { contrast: false, readable: false, reduceMotion: false, fontScale: '', lightTheme: false };
 
   function readLocal() {
     try {
@@ -41,6 +42,9 @@
     el.classList.remove('a11y-font-lg', 'a11y-font-xl');
     if (state.fontScale === 'lg') el.classList.add('a11y-font-lg');
     else if (state.fontScale === 'xl') el.classList.add('a11y-font-xl');
+    el.classList.toggle('theme-light', !!state.lightTheme);
+    el.classList.toggle('theme-dark', !state.lightTheme);
+    try { localStorage.setItem(THEME_KEY, state.lightTheme ? 'light' : 'dark'); } catch (e) {}
   }
 
   // ---- server sync (only the three persisted booleans) ---------------------
@@ -147,6 +151,7 @@
       switchRow('contrast', 'High contrast', 'Maximum text/background contrast') +
       switchRow('readable', 'Readable font', 'Dyslexia-friendly spacing & typeface') +
       switchRow('reduceMotion', 'Reduce motion', 'Minimise animations and transitions') +
+      switchRow('lightTheme', 'Light theme', 'Switch to a light colour scheme') +
       '<p class="a11y-sync-note" data-a11y-sync></p>' +
       '<div class="a11y-foot">' +
         '<a href="/accessibility.html">Accessibility statement</a>' +
@@ -174,7 +179,7 @@
     });
     // reset
     panel.querySelector('.a11y-reset').addEventListener('click', function () {
-      state = { contrast: false, readable: false, reduceMotion: false, fontScale: '' };
+      state = { contrast: false, readable: false, reduceMotion: false, fontScale: '', lightTheme: false };
       syncPanelControls();
       commit();
     });
@@ -246,10 +251,18 @@
       state.readable = !!stored.readable;
       state.reduceMotion = !!stored.reduceMotion;
       state.fontScale = (stored.fontScale === 'lg' || stored.fontScale === 'xl') ? stored.fontScale : '';
+      state.lightTheme = !!stored.lightTheme;
     } else {
       // First visit with no stored choice: honour the OS reduced-motion setting.
       try { state.reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
     }
+    // Sync theme from the shared prp_theme key (React ThemeToggle writes here too).
+    // Default to dark — light only activates when the user explicitly toggles it.
+    try {
+      var themeVal = localStorage.getItem(THEME_KEY);
+      if (themeVal === 'light') state.lightTheme = true;
+      else state.lightTheme = false;
+    } catch (e) {}
     apply();
     wireSkipLink();
     buildFab();

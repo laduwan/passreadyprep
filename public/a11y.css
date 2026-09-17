@@ -124,3 +124,24 @@ html.a11y-contrast :focus-visible{ outline:3px solid #ffff33 !important; outline
 /* keep the widget itself readable in contrast mode */
 html.a11y-contrast .a11y-panel{ background:#000 !important; border:2px solid #fff !important; }
 html.a11y-contrast .a11y-panel *{ color:#fff !important; }
+
+/* ---- Light theme -------------------------------------------------------- */
+/* Remaps the vanilla-page CSS variables (--slate-*, --white, accents) so    */
+/* pages outside the React SPA get the same light palette. The React app     */
+/* handles this via Tailwind v4's --color-* overrides in index.css.          */
+html.theme-light{
+  --slate-900:#f1f5f9; --slate-800:#e2e8f0; --slate-700:#cbd5e1; --slate-600:#94a3b8;
+  --slate-500:#64748b; --slate-400:#64748b; --slate-300:#475569; --slate-200:#334155; --white:#0f172a;
+  --emerald-400:#059669; --emerald:#059669;
+  --amber-400:#b45309; --amber:#b45309;
+  --red-400:#dc2626; --red:#dc2626; --red-600:#b91c1c;
+  --blue-400:#2563eb; --blue:#2563eb;
+  --purple-400:#7c3aed; --purple:#7c3aed;
+  --card:rgba(241,245,249,.7); --card-border:rgba(203,213,225,.8);
+}
+/* A11y panel itself stays dark in light theme for consistency */
+html.theme-light .a11y-panel{ background:#0F172A; color:#E2E8F0; border-color:#334155; }
+html.theme-light .a11y-panel *{ color:#E2E8F0; }
+html.theme-light .a11y-panel .a11y-sub,
+html.theme-light .a11y-panel .a11y-hint{ color:#94A3B8; }
+html.theme-light .a11y-panel .a11y-sync-note{ color:#64748B; }

@@ -3,6 +3,7 @@ const User = require('../models/User');
 const Attempt = require('../models/Attempt');
 const adminOrAdminUser = require('../middleware/adminOrAdminUser');
 const { logActivity } = require('../utils/activity');
+const { trialEndFor } = require('../utils/trial');
 
 const router = express.Router();
 router.use(adminOrAdminUser);
@@ -30,12 +31,24 @@ router.get('/', async (req, res) => {
     const limit = Math.min(parseInt(req.query.limit, 10) || 50, 200);
 
     const users = await User.find(filter)
-      .select('email name subscription createdAt')
+      .select('email name subscription createdAt trialEndsAt')
       .sort({ createdAt: -1 })
       .limit(limit)
       .lean();
 
-    res.json({ users, count: users.length });
+    const now = new Date();
+    const usersWithStatus = users.map(u => {
+      const tier = u.subscription && u.subscription.tier;
+      const status = u.subscription && u.subscription.status;
+      let effectiveStatus;
+      if (tier && tier !== 'free') {
+        effectiveStatus = status || 'active';
+      } else {
+        effectiveStatus = trialEndFor(u) > now ? 'trial' : 'expired';
+      }
+      return Object.assign({}, u, { effectiveStatus });
+    });
+    res.json({ users: usersWithStatus, count: usersWithStatus.length });
   } catch (err) {
     console.error('admin-subscriptions list error', err);
     res.status(500).json({ error: 'Could not load subscribers' });

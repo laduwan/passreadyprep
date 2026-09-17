@@ -1,27 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { BookOpen, ChevronRight, Target, CheckCircle2, RotateCcw, Play } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { BookOpen, ChevronRight, Target, CheckCircle, RotateCcw, Play } from 'lucide-react';
 import { authFetch } from '../lib/api';
 import { computeReadiness, loadCaseStats, DOMAIN_LABELS, DOMAIN_CATEGORY_MAP } from '../lib/readiness';
 
 const DIFF_COLORS = { easy: 'text-emerald-400 bg-emerald-500/15', medium: 'text-amber-400 bg-amber-500/15', hard: 'text-red-400 bg-red-500/15' };
 
-// A case you've scored below this is worth another pass.
+// A case scored below this is worth another pass.
 const NEEDS_WORK_BELOW = 70;
 
 const STATUS_FILTERS = [
-  { id: 'all', label: 'All' },
-  { id: 'todo', label: 'Not started' },
-  { id: 'review', label: 'Needs work' },
-  { id: 'done', label: 'Completed' },
+  { key: 'all', label: 'All' },
+  { key: 'not_started', label: 'Not Started' },
+  { key: 'needs_work', label: 'Needs Work' },
+  { key: 'completed', label: 'Completed' },
 ];
 
 function statusOf(stat) {
-  if (!stat) return 'todo';
-  return stat.bestPct < NEEDS_WORK_BELOW ? 'review' : 'done';
-}
-
-function scoreColor(pct) {
-  return pct >= 70 ? 'text-emerald-400 bg-emerald-500/15' : pct >= 50 ? 'text-amber-400 bg-amber-500/15' : 'text-red-400 bg-red-500/15';
+  if (!stat) return 'not_started';
+  return stat.bestPct < NEEDS_WORK_BELOW ? 'needs_work' : 'completed';
 }
 
 function getRecommended(cases, weakDomains, stats) {
@@ -31,8 +27,8 @@ function getRecommended(cases, weakDomains, stats) {
     (DOMAIN_CATEGORY_MAP[w.domain] || []).forEach((c) => targetCats.add(c));
   });
   const matches = cases.filter((c) => targetCats.has(c.category));
-  // Prefer cases they haven't done yet — recommending a case you already aced
-  // is the fastest way to make the panel feel like noise.
+  // Prefer cases they haven't done — recommending one they already aced is the
+  // fastest way to make this panel read as noise.
   const fresh = matches.filter((c) => !stats[c.externalId]);
   const pool = fresh.length >= 4 ? fresh : matches;
   // Shuffle and pick up to 4
@@ -45,12 +41,8 @@ export default function CaseList({ mode, examMode = false, onSelect, navigate })
   const [filter, setFilter] = useState('all');
   const [catFilter, setCatFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [popFilter, setPopFilter] = useState('all');
   const [loading, setLoading] = useState(true);
-
-  // Recomputed each render from localStorage. CaseList remounts whenever the
-  // learner comes back from a case (App clears caseId), so this always
-  // reflects the attempt they just finished.
-  const caseStats = loadCaseStats();
 
   useEffect(() => {
     authFetch('/api/content?exam=ncmhce')
@@ -59,21 +51,33 @@ export default function CaseList({ mode, examMode = false, onSelect, navigate })
       .catch(() => setLoading(false));
   }, []);
 
+  // Best-attempt rollup per case: score, attempt count, last played. Recomputed
+  // when the catalog loads and whenever the learner returns from a case (App
+  // clears caseId, which remounts this list).
+  const caseStats = useMemo(() => loadCaseStats(), [cases]);
+  // Entries saved before cases carried ids fall back to the title, so look up
+  // both — matching how completion was keyed previously.
+  const statFor = (c) => caseStats[c.externalId] || caseStats[c.title];
+
+  const POPULATION_LABELS = { adult: 'Adult', child: 'Child/Adolescent', older_adult: 'Older Adult', couple_family: 'Couple/Family' };
+
   const rd = computeReadiness();
   const recommended = rd ? getRecommended(cases, rd.weakDomains, caseStats) : [];
   const categories = [...new Set(cases.map((c) => c.category).filter(Boolean))].sort();
+  const populations = [...new Set(cases.map((c) => c.population).filter(Boolean))].sort();
   const filtered = cases.filter((c) => {
     if (filter !== 'all' && c.difficulty !== filter) return false;
     if (catFilter !== 'all' && c.category !== catFilter) return false;
-    if (statusFilter !== 'all' && statusOf(caseStats[c.externalId]) !== statusFilter) return false;
+    if (popFilter !== 'all' && (c.population || 'adult') !== popFilter) return false;
+    if (statusFilter !== 'all' && statusOf(statFor(c)) !== statusFilter) return false;
     return true;
   });
 
   // Progress across the whole bank, plus the next case they haven't touched.
-  const attemptedCount = cases.filter((c) => caseStats[c.externalId]).length;
-  const needsWorkCount = cases.filter((c) => statusOf(caseStats[c.externalId]) === 'review').length;
+  const attemptedCount = cases.filter((c) => statFor(c)).length;
+  const needsWorkCount = cases.filter((c) => statusOf(statFor(c)) === 'needs_work').length;
   const progressPct = cases.length ? Math.round((attemptedCount / cases.length) * 100) : 0;
-  const nextUp = cases.find((c) => !caseStats[c.externalId]) || null;
+  const nextUp = cases.find((c) => !statFor(c)) || null;
 
   return (
     <div className="space-y-4">
@@ -139,18 +143,15 @@ export default function CaseList({ mode, examMode = false, onSelect, navigate })
 
       <div className="flex gap-2 flex-wrap">
         {STATUS_FILTERS.map((s) => {
-          const count = s.id === 'all'
-            ? cases.length
-            : cases.filter((c) => statusOf(caseStats[c.externalId]) === s.id).length;
+          const count = s.key === 'all' ? cases.length : cases.filter((c) => statusOf(statFor(c)) === s.key).length;
           return (
-            <button key={s.id} onClick={() => setStatusFilter(s.id)} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
-              statusFilter === s.id ? 'bg-purple-500 text-white border-purple-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
+            <button key={s.key} onClick={() => setStatusFilter(s.key)} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+              statusFilter === s.key ? 'bg-purple-500 text-white border-purple-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
               {s.label} {!loading && <span className="opacity-70">({count})</span>}
             </button>
           );
         })}
       </div>
-
       <div className="flex gap-2 flex-wrap">
         {['all', 'easy', 'medium', 'hard'].map((d) => (
           <button key={d} onClick={() => setFilter(d)} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
@@ -163,56 +164,78 @@ export default function CaseList({ mode, examMode = false, onSelect, navigate })
         <div className="flex gap-2 flex-wrap">
           <button onClick={() => setCatFilter('all')} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
             catFilter === 'all' ? 'bg-blue-500 text-white border-blue-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
-            All categories
+            All categories ({cases.length})
           </button>
-          {categories.map((cat) => (
+          {categories.map((cat) => {
+            const count = cases.filter((c) => c.category === cat).length;
+            return (
             <button key={cat} onClick={() => setCatFilter(cat)} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
               catFilter === cat ? 'bg-blue-500 text-white border-blue-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
-              {cat}
+              {cat} ({count})
             </button>
-          ))}
+            );
+          })}
         </div>
       )}
-      {loading ? <p className="text-slate-400">Loading cases…</p> :
-        filtered.length === 0 ? <p className="text-slate-400">No cases match these filters yet.</p> :
-        filtered.map((c) => {
-          const stat = caseStats[c.externalId];
-          const status = statusOf(stat);
-          return (
-            <button key={c.externalId} onClick={() => onSelect(c.externalId)}
-              className={`w-full text-left rounded-xl p-4 transition-colors group border ${
-                status === 'done'
-                  ? 'bg-slate-800/30 border-emerald-500/20 hover:border-emerald-500/40'
-                  : status === 'review'
-                    ? 'bg-slate-800/50 border-amber-500/25 hover:border-amber-500/50'
-                    : 'bg-slate-800/50 border-slate-700/60 hover:border-emerald-500/40'
-              }`}>
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex gap-2 flex-wrap items-center">
-                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full uppercase ${DIFF_COLORS[c.difficulty] || 'text-slate-300 bg-slate-700'}`}>
-                    {c.difficulty}
-                  </span>
-                  {c.category && <span className="text-xs font-semibold text-slate-400 bg-slate-700/50 px-2 py-0.5 rounded-full">{c.category}</span>}
-                  {stat && (
-                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${scoreColor(stat.bestPct)}`}>
-                      Best {stat.bestPct}%
-                    </span>
-                  )}
-                  {stat && stat.attempts > 1 && (
-                    <span className="text-xs text-slate-500">{stat.attempts} attempts</span>
-                  )}
-                </div>
-                <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-emerald-400 shrink-0" />
-              </div>
-              <p className={`font-semibold mt-2 flex items-center gap-1.5 ${status === 'done' ? 'text-slate-300' : 'text-white'}`}>
-                {status === 'done' && <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />}
-                {status === 'review' && <RotateCcw className="w-4 h-4 text-amber-400 shrink-0" />}
-                {c.title}
-              </p>
-              {status === 'review' && (
-                <p className="text-xs text-amber-400/80 mt-1">Scored under {NEEDS_WORK_BELOW}% — worth another pass.</p>
-              )}
+      {populations.length > 1 && (
+        <div className="flex gap-2 flex-wrap">
+          <button onClick={() => setPopFilter('all')} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+            popFilter === 'all' ? 'bg-amber-500 text-slate-900 border-amber-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
+            All populations
+          </button>
+          {populations.map((pop) => {
+            const count = cases.filter((c) => (c.population || 'adult') === pop).length;
+            return (
+            <button key={pop} onClick={() => setPopFilter(pop)} className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+              popFilter === pop ? 'bg-amber-500 text-slate-900 border-amber-500' : 'border-slate-700 text-slate-300 hover:border-slate-500'}`}>
+              {POPULATION_LABELS[pop] || pop} ({count})
             </button>
+            );
+          })}
+        </div>
+      )}
+      {!loading && filtered.length !== cases.length && (
+        <p className="text-xs text-slate-500">{filtered.length} of {cases.length} cases match your filters</p>
+      )}
+      {loading ? <p className="text-slate-400">Loading cases…</p> :
+        filtered.length === 0 ? <p className="text-slate-400">No cases at this level yet.</p> :
+        filtered.map((c) => {
+          const comp = statFor(c);
+          const status = statusOf(comp);
+          const needsWork = status === 'needs_work';
+          return (
+          <button key={c.externalId} onClick={() => onSelect(c.externalId)}
+            className={`w-full text-left rounded-xl p-4 transition-colors group border ${
+              needsWork
+                ? 'bg-slate-800/50 border-amber-500/25 hover:border-amber-500/50'
+                : status === 'completed'
+                  ? 'bg-slate-800/30 border-emerald-500/20 hover:border-emerald-500/40'
+                  : 'bg-slate-800/50 border-slate-700/60 hover:border-emerald-500/40'
+            }`}>
+            <div className="flex items-center justify-between">
+              <div className="flex gap-2 items-center flex-wrap">
+                <span className={`text-xs font-bold px-2 py-0.5 rounded-full uppercase ${DIFF_COLORS[c.difficulty] || 'text-slate-300 bg-slate-700'}`}>
+                  {c.difficulty}
+                </span>
+                {c.category && <span className="text-xs font-semibold text-slate-400 bg-slate-700/50 px-2 py-0.5 rounded-full">{c.category}</span>}
+                {comp && (
+                  <span className={`flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full ${
+                    needsWork ? 'text-amber-400 bg-amber-500/15' : 'text-emerald-400 bg-emerald-500/15'}`}>
+                    {needsWork ? <RotateCcw className="w-3 h-3" /> : <CheckCircle className="w-3 h-3" />}
+                    {comp.bestCorrect}/{comp.bestTotal}
+                  </span>
+                )}
+                {comp && comp.attempts > 1 && (
+                  <span className="text-xs text-slate-500">{comp.attempts} attempts</span>
+                )}
+              </div>
+              <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-emerald-400" />
+            </div>
+            <p className={`font-semibold mt-2 ${status === 'completed' ? 'text-slate-300' : 'text-white'}`}>{c.title}</p>
+            {needsWork && (
+              <p className="text-xs text-amber-400/80 mt-1">Scored under {NEEDS_WORK_BELOW}% — worth another pass.</p>
+            )}
+          </button>
           );
         })
       }

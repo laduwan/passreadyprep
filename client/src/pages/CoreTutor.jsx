@@ -1,6 +1,6 @@
 // client/src/pages/CoreTutor.jsx
 import React, { useState, useRef, useEffect } from 'react';
-import { Mic, MicOff, Send, RefreshCw, BookOpen, ChevronDown } from 'lucide-react';
+import { Mic, MicOff, Send, RefreshCw, BookOpen, ChevronDown, Info } from 'lucide-react';
 import { useStudyPing } from '../lib/useStudyPing';
 
 const DOMAINS = [
@@ -26,7 +26,7 @@ const DOMAIN_COLORS = {
 
 const SR = typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition);
 
-export default function CoreTutor() {
+export default function CoreTutor({ navigate }) {
   useStudyPing('core-tutor');
   const [domain, setDomain] = useState('');
   const [scenario, setScenario] = useState(null);
@@ -36,6 +36,8 @@ export default function CoreTutor() {
   const [fetching, setFetching] = useState(false);
   const [listening, setListening] = useState(false);
   const [roundCount, setRoundCount] = useState(0);
+  const [voiceInfoOpen, setVoiceInfoOpen] = useState(false);
+  const [showVoiceModal, setShowVoiceModal] = useState(false);
   const recRef = useRef(null);
   const textRef = useRef(null);
 
@@ -72,7 +74,7 @@ export default function CoreTutor() {
     setLoading(false);
   };
 
-  const toggleMic = () => {
+  const activateMic = () => {
     if (!SR) return;
     if (listening && recRef.current) {
       recRef.current.stop();
@@ -102,7 +104,27 @@ export default function CoreTutor() {
     rec.start();
   };
 
-  // Auto-focus textarea when scenario loads
+  const toggleMic = () => {
+    if (!SR) return;
+    if (listening && recRef.current) {
+      activateMic();
+      return;
+    }
+    try {
+      if (!localStorage.getItem('prp_voice_notice_seen')) {
+        setShowVoiceModal(true);
+        return;
+      }
+    } catch {}
+    activateMic();
+  };
+
+  const dismissVoiceModal = () => {
+    try { localStorage.setItem('prp_voice_notice_seen', '1'); } catch {}
+    setShowVoiceModal(false);
+    activateMic();
+  };
+
   useEffect(() => {
     if (scenario && textRef.current && !feedback) {
       textRef.current.focus();
@@ -113,6 +135,33 @@ export default function CoreTutor() {
 
   return (
     <div className="space-y-4">
+      {/* First-time voice notice modal */}
+      {showVoiceModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="bg-slate-900 border border-slate-700 rounded-2xl max-w-sm w-full p-5 shadow-2xl">
+            <p className="text-sm text-slate-300 mb-4 leading-relaxed">
+              PassReady Prep does not record or store your voice. Your browser converts speech to text — we receive only the text.
+            </p>
+            {navigate && (
+              <p className="text-xs text-slate-500 mb-4">
+                <button
+                  onClick={() => { setShowVoiceModal(false); navigate('voiceprivacy'); }}
+                  className="text-emerald-400 underline hover:text-emerald-300"
+                >
+                  See our data practices
+                </button>{' '}for details.
+              </p>
+            )}
+            <button
+              onClick={dismissVoiceModal}
+              className="w-full py-2.5 bg-emerald-500 text-slate-900 font-bold rounded-xl hover:bg-emerald-400 transition-colors"
+            >
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div>
         <div className="flex items-center gap-2">
@@ -216,6 +265,25 @@ export default function CoreTutor() {
                   {loading ? 'Scoring…' : 'Score my response'}
                 </button>
               </div>
+              {SR && (
+                <div className="mt-1">
+                  <button
+                    onClick={() => setVoiceInfoOpen(v => !v)}
+                    className="flex items-center gap-1 text-xs text-slate-500 hover:text-slate-400 transition-colors"
+                  >
+                    <Info className="w-3 h-3" />
+                    <span>About voice input {voiceInfoOpen ? '▲' : '▼'}</span>
+                  </button>
+                  {voiceInfoOpen && (
+                    <p className="mt-1.5 text-xs text-slate-500 leading-relaxed max-w-md">
+                      🎤 Voice input uses your browser's built-in speech recognition (e.g., Google for Chrome, Apple for Safari). Your voice is converted to text by your browser provider — PassReady Prep receives only the typed text. No audio recordings or voiceprints are stored on our servers.
+                      {navigate && (
+                        <> <button onClick={() => navigate('voiceprivacy')} className="text-emerald-400 hover:text-emerald-300 underline">Learn more</button></>
+                      )}
+                    </p>
+                  )}
+                </div>
+              )}
               {!SR && (
                 <p className="text-xs text-slate-500">Voice input requires Chrome (desktop or Android). You can type here instead.</p>
               )}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, MessageSquare, Loader2, Target, ArrowRight, TrendingUp, TrendingDown } from 'lucide-react';
+import { ArrowLeft, MessageSquare, Loader2, ClipboardList, Target, ArrowRight, TrendingUp, TrendingDown } from 'lucide-react';
 import {
   saveToHistory, loadHistory, loadCaseStats, computeReadiness,
   domainMisses, DOMAIN_CATEGORY_MAP,
@@ -38,6 +38,7 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
   const [debriefError, setDebriefError] = useState(null);
   const [caseCategory, setCaseCategory] = useState(null);
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
+  const [showReview, setShowReview] = useState(false);
   // Accuracy across every earlier case, snapshotted before this attempt is
   // saved — so the results screen can say whether this one beat their average.
   const [priorPct, setPriorPct] = useState(null);
@@ -55,6 +56,7 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
     setDone(false);
     setDebrief(null);
     setDebriefError(null);
+    setShowReview(false);
     setNextCase(null);
     setPriorPct(null);
     // Each simulation gets its own disclaimer (SimDisclaimer rotates versions
@@ -139,10 +141,79 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
   if (done) {
     const correct = answers.filter((a, i) => a && qs[i].options.find(o => o.id === a.chosenId)?.isCorrect).length;
     const pct = Math.round(correct / qs.length * 100);
+
+    if (showReview) {
+      return (
+        <div className="space-y-4">
+          <button onClick={() => setShowReview(false)} className="text-sm text-slate-400 hover:text-white flex items-center gap-1">
+            <ArrowLeft className="w-4 h-4" /> Back to results
+          </button>
+          <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
+            <h2 className="text-lg font-bold text-white mb-1">{caseData.title}</h2>
+            {caseData.narrative?.intake && (
+              <p className="text-sm text-slate-400 mt-0.5">Client: {caseData.narrative.intake.split('.')[0]}</p>
+            )}
+            <div className={`inline-block mt-2 text-sm font-bold px-3 py-1 rounded-full ${pct >= 70 ? 'bg-emerald-500/15 text-emerald-400' : 'bg-amber-500/15 text-amber-400'}`}>
+              {correct}/{qs.length} correct ({pct}%)
+            </div>
+          </div>
+          <div className="space-y-3">
+            {qs.map((q, i) => {
+              const a = answers[i];
+              const chosen = a && q.options.find(o => o.id === a.chosenId);
+              const keyed = q.options.find(o => o.isCorrect);
+              const ok = !!(chosen && chosen.isCorrect);
+              const rationale = (keyed && keyed.explanation && keyed.explanation.rationale) || (keyed && keyed.rationale);
+              return (
+                <div key={q.id || i} className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${ok ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'}`}>
+                      {ok ? '✓ Correct' : '✗ Incorrect'}
+                    </span>
+                    <span className="text-xs text-slate-500">Question {i + 1} of {qs.length}</span>
+                  </div>
+                  <p className="text-white font-semibold mb-3">{q.question}</p>
+                  <div className="space-y-2">
+                    {(q.options || []).map((opt, idx) => {
+                      const letter = 'ABCD'[idx];
+                      const isChosen = a && opt.id === a.chosenId;
+                      const isCorrect = opt.isCorrect;
+                      let cls = 'border-slate-700/40 bg-slate-800/20 opacity-50';
+                      let badge = 'bg-slate-700 text-slate-300';
+                      if (isCorrect) { cls = 'border-emerald-500/50 bg-emerald-500/10'; badge = 'bg-emerald-500 text-slate-900'; }
+                      else if (isChosen) { cls = 'border-red-500/50 bg-red-500/10'; badge = 'bg-red-500 text-white'; }
+                      return (
+                        <div key={opt.id} className={`flex gap-3 items-start border rounded-xl p-3 ${cls}`}>
+                          <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold shrink-0 ${badge}`}>{letter}</span>
+                          <div className="flex-1">
+                            <span className="text-slate-200">{opt.text}</span>
+                            {isChosen && !isCorrect && <span className="text-xs text-red-400 ml-2">(your answer)</span>}
+                            {isCorrect && isChosen && <span className="text-xs text-emerald-400 ml-2">(your answer)</span>}
+                            {isCorrect && !isChosen && <span className="text-xs text-emerald-400 ml-2">(correct answer)</span>}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {rationale && (
+                    <div className="mt-3 bg-blue-500/8 border border-blue-500/20 rounded-xl p-3">
+                      <div className="text-xs font-bold uppercase tracking-wide text-blue-400 mb-1">Rationale</div>
+                      <p className="text-sm text-slate-300 leading-relaxed">{rationale}</p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          <button onClick={() => setShowReview(false)}
+            className="bg-slate-700 hover:bg-slate-600 text-white font-bold px-4 py-2.5 rounded-xl transition-colors">
+            Back to results
+          </button>
+        </div>
+      );
+    }
+
     const misses = domainMisses(qs, answers);
-    const missedQs = qs
-      .map((q, i) => ({ q, i, a: answers[i] }))
-      .filter(({ q, a }) => !(a && q.options.find((o) => o.id === a.chosenId)?.isCorrect));
     const delta = priorPct != null ? pct - priorPct : null;
 
     return (
@@ -163,8 +234,18 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
             </div>
           )}
         </div>
+        <div className="flex gap-3 flex-wrap">
+          <button onClick={() => { setQi(0); setAnswers(new Array(qs.length).fill(null)); setDone(false); setDxChoice(null); setPhase(mode === 'classic' ? 'diagnose' : 'answer'); setDebrief(null); setDebriefError(null); setShowReview(false); }}
+            className="bg-slate-700 hover:bg-slate-600 text-white font-bold px-4 py-2.5 rounded-xl transition-colors">Retry</button>
+          <button onClick={() => { setShowReview(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-4 py-2.5 rounded-xl transition-colors flex items-center gap-2">
+            <ClipboardList className="w-4 h-4" /> Review Questions
+          </button>
+          <button onClick={onBack}
+            className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-4 py-2.5 rounded-xl transition-colors">More cases</button>
+        </div>
 
-        {/* Where to go next — the case is only useful if it points somewhere */}
+        {/* Where to go next — a score on its own is a dead end */}
         <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-3">
             <Target className="w-5 h-5 text-emerald-400" />
@@ -172,7 +253,7 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
           </div>
 
           {misses.length === 0 ? (
-            <p className="text-sm text-slate-300">
+            <p className="text-sm text-slate-300 mb-3">
               Clean sweep — no missed questions on this case. Keep the momentum going with a fresh one.
             </p>
           ) : (
@@ -188,56 +269,22 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
             </>
           )}
 
-          <div className="flex gap-3 flex-wrap">
-            {nextCase && (
+          {nextCase && (
+            <>
               <button
                 onClick={() => navigate('cases', { caseId: nextCase.externalId })}
                 className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-4 py-2.5 rounded-xl transition-colors"
               >
                 Next case: {nextCase.title} <ArrowRight className="w-4 h-4" />
               </button>
-            )}
-            <button onClick={() => { setQi(0); setAnswers(new Array(qs.length).fill(null)); setDone(false); setDxChoice(null); setPhase(mode === 'classic' ? 'diagnose' : 'answer'); setDebrief(null); setDebriefError(null); }}
-              className="bg-slate-700 hover:bg-slate-600 text-white font-bold px-4 py-2.5 rounded-xl transition-colors">Retry this case</button>
-            <button onClick={onBack}
-              className="bg-slate-700 hover:bg-slate-600 text-white font-bold px-4 py-2.5 rounded-xl transition-colors">All cases</button>
-          </div>
-          {nextCase && (
-            <p className="text-xs text-slate-500 mt-2">
-              {misses.length > 0
-                ? `Picked to give you more practice in ${misses[0].label}.`
-                : 'A case you haven’t worked through yet.'}
-            </p>
+              <p className="text-xs text-slate-500 mt-2">
+                {misses.length > 0
+                  ? `Picked to give you more practice in ${misses[0].label}.`
+                  : 'A case you haven’t worked through yet.'}
+              </p>
+            </>
           )}
         </div>
-
-        {/* Study mode showed feedback as you went — this pulls the misses back
-            together in one place so the review isn't scattered up the page. */}
-        {!examMode && missedQs.length > 0 && (
-          <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
-            <h2 className="text-lg font-bold text-white mb-1">What you missed</h2>
-            <p className="text-xs text-slate-500 mb-3">
-              {missedQs.length} question{missedQs.length === 1 ? '' : 's'} to revisit before you move on.
-            </p>
-            <div className="space-y-3">
-              {missedQs.map(({ q, i, a }) => {
-                const chosen = a && q.options.find((o) => o.id === a.chosenId);
-                const keyed = q.options.find((o) => o.isCorrect);
-                const rationale = (keyed && keyed.explanation && keyed.explanation.rationale) || (keyed && keyed.rationale);
-                return (
-                  <div key={q.id || i} className="border-t border-slate-700/40 pt-3 first:border-t-0 first:pt-0">
-                    <div className="text-sm font-semibold text-white">Q{i + 1}. {q.question}</div>
-                    <div className="text-sm mt-1 text-red-400">
-                      ✗ You chose: <span className="text-slate-400">{chosen ? chosen.text : '(no answer)'}</span>
-                    </div>
-                    {keyed && <div className="text-sm text-emerald-400 mt-0.5">✓ Best answer: <span className="text-slate-300">{keyed.text}</span></div>}
-                    {rationale && <p className="text-sm text-slate-400 mt-1">{rationale}</p>}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
 
         {/* Exam-mode case review — feedback was held until the end, like the real NCMHCE */}
         {examMode && (
@@ -373,11 +420,32 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
                 const chosen = currentQ.options.find(o => o.id === currentA.chosenId);
                 const correct = currentQ.options.find(o => o.isCorrect);
                 const ok = chosen?.isCorrect;
+                const refs = (caseData.references || []).filter(r => (currentQ.evidenceRef || []).includes(r.id));
                 return (
                   <>
                     <div className={`font-bold ${ok ? 'text-emerald-400' : 'text-red-400'}`}>{ok ? '✓ Correct' : '✗ Not quite'}</div>
                     {!ok && chosen?.rationale && <p className="text-sm text-slate-400">{chosen.rationale}</p>}
+                    {!ok && chosen?.explanation?.commonMistake && (
+                      <p className="text-sm text-amber-400/80">Common mistake: {chosen.explanation.commonMistake}</p>
+                    )}
                     {correct?.explanation?.rationale && <p className="text-sm text-slate-300">{correct.explanation.rationale}</p>}
+                    {correct?.explanation?.keyIndicators?.length > 0 && (
+                      <div className="text-sm text-slate-400">
+                        <span className="font-semibold text-slate-300">Key indicators: </span>
+                        {correct.explanation.keyIndicators.join(' · ')}
+                      </div>
+                    )}
+                    {refs.length > 0 && (
+                      <div className="mt-2 bg-blue-500/8 border border-blue-500/20 rounded-xl p-3">
+                        <div className="text-xs font-bold uppercase tracking-wide text-blue-400 mb-1">Evidence</div>
+                        {refs.map((ref) => (
+                          <div key={ref.id} className="text-sm text-slate-300 mt-1">
+                            <span className="font-semibold">{ref.source}</span>
+                            {ref.detail && <span className="text-slate-400"> — {ref.detail}</span>}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </>
                 );
               })()}

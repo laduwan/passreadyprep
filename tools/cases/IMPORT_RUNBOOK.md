@@ -54,6 +54,31 @@ content and inserts genuinely new ids.
    node tools/cases/import-deep-cases.js --dry-run
    ```
 
+## Fixing imported cases that bypassed the quality gate
+
+The importer now enforces `qualityGate.js` (weight gradient, structural
+parity, no absolutes, novice-trap depth) in addition to `examDepth.js`.
+Cases imported before this check was added may be live with old-standard
+questions. One command rewrites every published case that has gate failures:
+
+```bash
+nohup node tools/cases/rewrite-questions.js \
+  --gate-failures --series tools/cases/review/fix --count 10 --parallel 3 \
+  > fix-imported.log 2>&1 &
+tail -f fix-imported.log
+```
+
+`--gate-failures` loads only cases where at least one question fails
+`qualityGate.js`, so the run skips the already-clean bank. The `--series`
+mode stores each batch for optional SME review before applying. To apply
+all batches without review:
+
+```bash
+for b in fix1 fix2 fix3 fix4 fix5; do
+  node tools/cases/rewrite-questions.js --from $b --apply --keep-status
+done
+```
+
 ## Correcting cases already live
 
 Cases imported before the gold-standard item-quality gate (`qualityGate.js` —
@@ -229,11 +254,15 @@ the per-category targets. Its 13 questions follow the NCMHCE domain weights
 (3 intake, 2 core, 2 treatment, 4 counseling, 2 ethics).
 
 ```bash
-node tools/cases/generate-deep.js --count 63 --per-cat 7 --dry-run      # what it would target, no cost
-nohup node tools/cases/generate-deep.js --count 63 --per-cat 7 --parallel 3 > gen.log 2>&1 &
+node tools/cases/generate-deep.js --count 20 --per-cat 7 --dry-run      # what the first round would target, no cost
+nohup node tools/cases/generate-deep.js --total 250 --count 20 --per-cat 7 --parallel 3 --publish > gen.log 2>&1 &
 tail -f gen.log
 ```
 
+`--total N` keeps going, round after round of `--count`, until the bank has N
+cases (published plus what this run imported), raising the per-category
+target on its own once every category is at `--per-cat`; a round that imports
+nothing stops the run rather than loop. Without `--total` one round runs.
 `--per-cat N` is the deep-case target per blueprint category; the run fills
 the categories with the fewest deep cases first and rotates diagnoses within
 a category. `--parallel N` is cases in flight at once (default 3). Each
