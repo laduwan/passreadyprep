@@ -21,6 +21,7 @@
     'study-guide.html': 'study-guide',
     'podcast.html': 'podcast',
     'skills.html': 'skills', 'skills': 'skills',
+    'assess-next-case.html': 'assess-next',
   };
   var page = (location.pathname.split('/').pop() || '').toLowerCase();
   var TOOL = TOOL_BY_PAGE.hasOwnProperty(page) ? TOOL_BY_PAGE[page] : 'other';

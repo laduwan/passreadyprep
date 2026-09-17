@@ -11,7 +11,7 @@ router.use(requireAuth);
 // 'other' so a stray client can't invent unbounded map keys.
 const KNOWN_TOOLS = [
   'cases', 'exam', 'flashcards', 'dsm', 'decision-trees',
-  'next-best-step', 'study-guide', 'podcast', 'skills', 'other',
+  'next-best-step', 'study-guide', 'podcast', 'skills', 'assess-next', 'other',
 ];
 
 // Heartbeats arrive about once a minute; allow some slack for a flush that
