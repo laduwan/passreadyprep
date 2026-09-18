@@ -13,7 +13,7 @@ const ABSOLUTES = /\b(always|never|absolutely|categorically|universally)\b/i;
 // these; every one passed the ratio and key-longest checks, because cutting
 // text improves both. Detect the cut itself, not its side effects.
 const TRUNCATED_TAIL =
-  /(?:^|\s)(?:a|an|the|and|or|but|nor|for|to|of|in|on|at|by|with|without|from|as|into|onto|about|after|before|during|through|toward|towards|upon|that|which|who|whom|whose|when|while|where|if|whether|because|since|unless|until|based|due|such|including|include|includes|regarding|concerning|per|via|than|then|so)\s*$/i;
+  /(?:^|\s)(?:a|an|the|and|or|but|nor|for|of|in|on|at|by|with|without|from|as|into|onto|about|after|during|through|toward|towards|upon|which|who|whom|whose|when|while|where|if|whether|because|since|unless|until|based|due|such|including|include|includes|regarding|concerning|per|via|than|then|so)\s*$/i;
 
 // Cut immediately after punctuation that cannot end a clause.
 const DANGLING_PUNCT = /[,;:\-–—/&+]\s*$/;
