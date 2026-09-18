@@ -9,6 +9,27 @@
 
 const ABSOLUTES = /\b(always|never|absolutely|categorically|universally)\b/i;
 
+// An option cut mid-clause. The 14 Sep 2026 length pass produced ~1,099 of
+// these; every one passed the ratio and key-longest checks, because cutting
+// text improves both. Detect the cut itself, not its side effects.
+const TRUNCATED_TAIL =
+  /(?:^|\s)(?:a|an|the|and|or|but|nor|for|to|of|in|on|at|by|with|without|from|as|into|onto|about|after|before|during|through|toward|towards|upon|that|which|who|whom|whose|when|while|where|if|whether|because|since|unless|until|based|due|such|including|include|includes|regarding|concerning|per|via|than|then|so)\s*$/i;
+
+// Cut immediately after punctuation that cannot end a clause.
+const DANGLING_PUNCT = /[,;:\-–—/&+]\s*$/;
+
+// Opened and never closed — the other signature of a mid-string cut.
+function isUnbalanced(s) {
+  const t = String(s || '');
+  const pairs = [['(', ')'], ['[', ']'], ['{', '}']];
+  for (const [o, c] of pairs) {
+    if (t.split(o).length !== t.split(c).length) return true;
+  }
+  if ((t.match(/"/g) || []).length % 2 !== 0) return true;
+  if ((t.match(/“/g) || []).length !== (t.match(/”/g) || []).length) return true;
+  return false;
+}
+
 // Prose form of the checks below, for prompting a model to write (or rewrite)
 // options that will actually pass them. Shared by generate-deep.js (whole
 // cases) and fix-distractors.js (single questions) so the rules quoted to the
@@ -33,8 +54,14 @@ STRUCTURAL PARITY — all 4 options in every question MUST be:
     longest must be 125 or fewer. Count characters before finalizing each question.
   • Same grammatical structure (all start the same way, all complete sentences or all phrases).
   • Same level of clinical jargon and specificity.
-  • The correct answer must NOT be the longest option. If it is, shorten it or lengthen a distractor.
+  • The correct answer must NOT be the longest option. If it is, REWRITE it more concisely
+    or lengthen a distractor. Never truncate: every option must be a grammatically complete
+    phrase or sentence. An option that ends on a preposition, conjunction, article, comma,
+    dash, or an unclosed quote or bracket will be rejected, however well its length fits.
   • No option may use absolutes: "always", "never", "absolutely", "categorically", "universally".
+  • Vary which option holds the correct answer. Across the questions in a case, the key
+    must appear in all four positions, and must not sit in any single position for more
+    than half the questions. Do not default to the second option.
 
 NOVICE TRAP DESIGN — every distractor (weight 0, -1, -2) MUST target a specific cognitive error:
   • The "commonMistake" field must name the exact reasoning flaw a student would use to pick it.
@@ -55,6 +82,10 @@ BEFORE OUTPUTTING: For each question, verify:
 3. Confirm the correct answer (weight 3) is NOT the longest option.
 4. Confirm weights are exactly {3, 0, -1, -2} with one of each.
 5. Confirm no option text contains "always", "never", "absolutely", "categorically", "universally".
+6. Confirm every option ends as a complete phrase — not on a preposition, conjunction,
+   article, comma, dash, or an unclosed quote or bracket.
+7. List which option position holds the key for each question. If any position holds more
+   than half, or if any of the four is never used, reassign before outputting.
 If any check fails, fix it before outputting.`;
 
 // Check one question's 4 options. Returns string[] of error messages (empty = clean).
@@ -95,6 +126,19 @@ function checkQuestionQuality(q, tag) {
     }
   });
 
+  opts.forEach((o) => {
+    const text = (o && o.text) || '';
+    if (!text) return; // already reported as empty above
+    if (TRUNCATED_TAIL.test(text)) {
+      errors.push(qp + `opt ${o.id}: truncated — ends mid-clause ("…${text.slice(-40)}")`);
+    } else if (DANGLING_PUNCT.test(text)) {
+      errors.push(qp + `opt ${o.id}: truncated — ends on dangling punctuation ("…${text.slice(-40)}")`);
+    }
+    if (isUnbalanced(text)) {
+      errors.push(qp + `opt ${o.id}: unbalanced quote or bracket — likely truncated`);
+    }
+  });
+
   return errors;
 }
 
@@ -106,6 +150,8 @@ function classifyReason(msg) {
   if (/absolute language/.test(msg)) return 'absolutes';
   if (/commonMistake/.test(msg)) return 'mistake';
   if (/empty option/.test(msg)) return 'empty';
+  if (/truncated|unbalanced quote/.test(msg)) return 'truncated';
+  if (/key in slot|key uses only/.test(msg)) return 'key-position';
   return 'other';
 }
 
@@ -113,12 +159,32 @@ function classifyReason(msg) {
 function checkCaseQuality(c) {
   const errors = [];
   const tag = c.id || c.title || '<unknown>';
+  const qs = c.questions || [];
 
-  for (let qi = 0; qi < (c.questions || []).length; qi++) {
-    errors.push(...checkQuestionQuality(c.questions[qi], `[${tag}] q${qi + 1}`));
+  for (let qi = 0; qi < qs.length; qi++) {
+    errors.push(...checkQuestionQuality(qs[qi], `[${tag}] q${qi + 1}`));
+  }
+
+  // Key position must not cluster. Nothing else in the pipeline enforces this.
+  if (qs.length >= 4) {
+    const slots = qs.map((q) => ((q && q.options) || []).findIndex((o) => o && o.isCorrect));
+    const counts = [0, 0, 0, 0];
+    slots.forEach((s) => { if (s >= 0 && s < 4) counts[s]++; });
+
+    const maxAllowed = Math.max(2, Math.ceil(qs.length * 0.5));
+    counts.forEach((n, slot) => {
+      if (n > maxAllowed) {
+        errors.push(`[${tag}] key in slot ${'ABCD'[slot]} for ${n}/${qs.length} questions (max ${maxAllowed})`);
+      }
+    });
+
+    const distinct = counts.filter((n) => n > 0).length;
+    if (qs.length >= 5 && distinct < 3) {
+      errors.push(`[${tag}] key uses only ${distinct} of 4 slots across ${qs.length} questions`);
+    }
   }
 
   return { ok: errors.length === 0, errors };
 }
 
-module.exports = { checkQuestionQuality, checkCaseQuality, classifyReason, ABSOLUTES, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK };
+module.exports = { checkQuestionQuality, checkCaseQuality, classifyReason, ABSOLUTES, TRUNCATED_TAIL, DANGLING_PUNCT, isUnbalanced, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK };

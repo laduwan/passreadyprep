@@ -255,6 +255,8 @@ function buildRewriteLengthPrompt(caseObj, retries) {
 
   return `You are an NCMHCE item writer fixing ONLY the LENGTH of answer options on ${retries.length} question(s) from one case ("${caseObj.title}"). The clinical meaning, tier (weight), id, rationale and explanation of every option stay as they are; you only add or remove wording to hit the stated length. The KEY must end up shorter than the longest distractor. Count words first, then characters.
 
+Stay within the character range for each option by REWRITING — choosing shorter words, cutting qualifiers, tightening phrasing. Never cut a sentence short to hit the ceiling. Every option you return must be grammatically complete. An option ending on a preposition, conjunction, article, comma, dash, or unclosed bracket is a failure regardless of length.
+
 ${blocks}
 
 Return ONE JSON object only (no markdown, no prose), one entry per question, "q" echoing the question number, every option present with its ORIGINAL id and its new text. Return ONLY id and text per option — weight, rationale and explanation are kept from before and must not be re-sent:
