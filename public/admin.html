@@ -71,6 +71,11 @@
   .modal h2{margin:0 0 4px;color:var(--white);font-size:18px}
   .err-line{color:var(--red-400);font-size:13px;margin-top:6px;min-height:16px}
   .spacer{height:14px}
+  .sortable{cursor:pointer;user-select:none}
+  .sortable:hover{color:var(--emerald-400)}
+  .sort-arrow{font-size:10px;opacity:.4;margin-left:2px}
+  .sort-arrow.asc::after{content:'▲'}
+  .sort-arrow.desc::after{content:'▼'}
   @media (max-width:560px){ th.hide-sm,td.hide-sm{display:none} }
 </style>
 </head>
@@ -130,9 +135,18 @@
   <section id="cases" class="hidden">
     <div class="card" style="margin-bottom:14px">
       <div class="row">
+        <div><label for="fSeries">Series</label>
+          <select id="fSeries"><option value="">All</option><option value="D">D-Series (13Q)</option><option value="G">G-Series (5Q)</option></select></div>
+        <div><label for="fCategory">Category</label>
+          <select id="fCategory"><option value="">Any</option></select></div>
         <div><label for="fStatus">Status</label>
           <select id="fStatus"><option value="">Any</option><option value="published">Published</option>
           <option value="sme_review">In review</option><option value="draft">Draft</option></select></div>
+        <div><label for="fDiff">Difficulty</label>
+          <select id="fDiff"><option value="">Any</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></div>
+      </div>
+      <div class="spacer"></div>
+      <div class="row">
         <div><label for="fSearch">Search</label><input id="fSearch" placeholder="title, id, category" /></div>
         <div style="flex:0 0 auto;min-width:0">
           <button id="applyFilters">Filter</button>
@@ -144,7 +158,14 @@
       <div id="caseCount" class="muted" style="font-size:13px;margin-bottom:8px"></div>
       <div style="overflow-x:auto">
         <table>
-          <thead><tr><th>ID</th><th>Title</th><th class="hide-sm">Category</th><th class="hide-sm">Diff</th><th>Status</th><th>Actions</th></tr></thead>
+          <thead><tr>
+            <th class="sortable" data-col="externalId">ID <span class="sort-arrow"></span></th>
+            <th class="sortable" data-col="title">Title <span class="sort-arrow"></span></th>
+            <th class="sortable hide-sm" data-col="category">Category <span class="sort-arrow"></span></th>
+            <th class="sortable hide-sm" data-col="difficulty">Diff <span class="sort-arrow"></span></th>
+            <th class="sortable" data-col="status">Status <span class="sort-arrow"></span></th>
+            <th>Actions</th>
+          </tr></thead>
           <tbody id="caseRows"></tbody>
         </table>
       </div>
@@ -358,38 +379,113 @@
   }
 
   // ── Cases table ───────────────────────────────────────────────────
+  var allCases = [];
+  var sortCol = 'externalId';
+  var sortDir = 'asc';
+
   function statusBadge(st, needsWork){
     var cls = needsWork ? 'b-needswork' : ('b-'+st);
     var label = needsWork ? 'needs work' : st.replace('_',' ');
     return '<span class="badge '+cls+'">'+esc(label)+'</span>';
   }
+
+  function populateCategoryFilter(items){
+    var cats = {};
+    items.forEach(function(it){ if(it.category) cats[it.category] = true; });
+    var sel = $('fCategory');
+    var cur = sel.value;
+    sel.innerHTML = '<option value="">Any</option>';
+    Object.keys(cats).sort().forEach(function(c){
+      sel.innerHTML += '<option value="'+esc(c)+'">'+esc(c)+'</option>';
+    });
+    sel.value = cur;
+  }
+
+  function filterAndRender(){
+    var series = $('fSeries').value;
+    var cat = $('fCategory').value;
+    var st = $('fStatus').value;
+    var diff = $('fDiff').value;
+    var q = $('fSearch').value.trim().toLowerCase();
+
+    var filtered = allCases.filter(function(it){
+      if(series && it.externalId){
+        var s = it.externalId.replace('ncmhce-','').charAt(0);
+        if(s !== series) return false;
+      }
+      if(cat && it.category !== cat) return false;
+      if(st && it.status !== st) return false;
+      if(diff && it.difficulty !== diff) return false;
+      if(q){
+        var hay = ((it.externalId||'')+(it.title||'')+(it.category||'')).toLowerCase();
+        if(hay.indexOf(q) === -1) return false;
+      }
+      return true;
+    });
+
+    filtered.sort(function(a,b){
+      var va = (a[sortCol]||'').toLowerCase();
+      var vb = (b[sortCol]||'').toLowerCase();
+      if(sortCol === 'externalId'){
+        var na = va.replace(/[^0-9]/g,''); var nb = vb.replace(/[^0-9]/g,'');
+        var sa = va.charAt(va.indexOf('-')+1) || ''; var sb = vb.charAt(vb.indexOf('-')+1) || '';
+        if(sa !== sb) return sortDir==='asc' ? (sa<sb?-1:1) : (sa>sb?-1:1);
+        var diff2 = (parseInt(na,10)||0) - (parseInt(nb,10)||0);
+        return sortDir==='asc' ? diff2 : -diff2;
+      }
+      if(va < vb) return sortDir==='asc' ? -1 : 1;
+      if(va > vb) return sortDir==='asc' ? 1 : -1;
+      return 0;
+    });
+
+    $('caseCount').textContent = filtered.length+' of '+allCases.length+' items';
+    var rows = filtered.map(function(it){
+      return '<tr>'+
+        '<td><code style="font-size:12px">'+esc(it.externalId)+'</code></td>'+
+        '<td>'+esc(it.title||'(untitled)')+'</td>'+
+        '<td class="hide-sm">'+esc(it.category||'')+'</td>'+
+        '<td class="hide-sm">'+esc(it.difficulty||'')+'</td>'+
+        '<td>'+statusBadge(it.status,it.needsWork)+'</td>'+
+        '<td><div class="actions">'+
+          '<button data-edit="'+esc(it.externalId)+'">Edit</button>'+
+          (it.status==='published'
+            ? '<button data-unpub="'+esc(it.externalId)+'">Unpublish</button>'
+            : '<button data-pub="'+esc(it.externalId)+'">Publish</button>')+
+          '<button class="danger" data-del="'+esc(it.externalId)+'">Delete</button>'+
+        '</div></td>'+
+      '</tr>';
+    }).join('');
+    $('caseRows').innerHTML = rows || '<tr><td colspan="6" class="muted" style="padding:18px">No items.</td></tr>';
+
+    document.querySelectorAll('.sort-arrow').forEach(function(el){ el.className='sort-arrow'; });
+    var active = document.querySelector('th[data-col="'+sortCol+'"] .sort-arrow');
+    if(active) active.className = 'sort-arrow '+sortDir;
+  }
+
   function loadCases(){
-    var qs=[]; var st=$('fStatus').value, q=$('fSearch').value.trim();
-    if(st) qs.push('status='+encodeURIComponent(st));
-    if(q) qs.push('q='+encodeURIComponent(q));
-    api('/content/all'+(qs.length?('?'+qs.join('&')):'')).then(function(d){
-      $('caseCount').textContent = d.count+' item'+(d.count===1?'':'s');
-      var rows = d.items.map(function(it){
-        return '<tr>'+
-          '<td><code style="font-size:12px">'+esc(it.externalId)+'</code></td>'+
-          '<td>'+esc(it.title||'(untitled)')+'</td>'+
-          '<td class="hide-sm">'+esc(it.category||'')+'</td>'+
-          '<td class="hide-sm">'+esc(it.difficulty||'')+'</td>'+
-          '<td>'+statusBadge(it.status,it.needsWork)+'</td>'+
-          '<td><div class="actions">'+
-            '<button data-edit="'+esc(it.externalId)+'">Edit</button>'+
-            (it.status==='published'
-              ? '<button data-unpub="'+esc(it.externalId)+'">Unpublish</button>'
-              : '<button data-pub="'+esc(it.externalId)+'">Publish</button>')+
-            '<button class="danger" data-del="'+esc(it.externalId)+'">Delete</button>'+
-          '</div></td>'+
-        '</tr>';
-      }).join('');
-      $('caseRows').innerHTML = rows || '<tr><td colspan="6" class="muted" style="padding:18px">No items.</td></tr>';
+    api('/content/all').then(function(d){
+      allCases = d.items || [];
+      populateCategoryFilter(allCases);
+      filterAndRender();
     }).catch(function(e){ toast(e.message, true); });
   }
-  $('applyFilters').onclick = loadCases;
-  $('fSearch').addEventListener('keydown', function(e){ if(e.key==='Enter') loadCases(); });
+
+  $('applyFilters').onclick = filterAndRender;
+  $('fSearch').addEventListener('keydown', function(e){ if(e.key==='Enter') filterAndRender(); });
+  $('fSeries').addEventListener('change', filterAndRender);
+  $('fCategory').addEventListener('change', filterAndRender);
+  $('fStatus').addEventListener('change', filterAndRender);
+  $('fDiff').addEventListener('change', filterAndRender);
+  $('fSearch').addEventListener('input', filterAndRender);
+
+  document.querySelectorAll('.sortable').forEach(function(th){
+    th.addEventListener('click', function(){
+      var col = th.getAttribute('data-col');
+      if(sortCol === col){ sortDir = sortDir==='asc' ? 'desc' : 'asc'; }
+      else { sortCol = col; sortDir = 'asc'; }
+      filterAndRender();
+    });
+  });
 
   // Delegated row actions
   $('caseRows').addEventListener('click', function(e){
