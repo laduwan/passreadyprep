@@ -4,6 +4,7 @@ const Exam = require('../models/Exam');
 const User = require('../models/User');
 const { TRIAL_DAYS, trialEndFor, trialLevel } = require('../utils/trial');
 const { BOOK_CASE_IDS } = require('./book');
+const { examKeyFor, outlineFor } = require('../utils/examVersion');
 
 const router = express.Router();
 
@@ -25,10 +26,11 @@ async function resolveAccess(req, res, next) {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = payload.sub;
 
-    const user = await User.findById(req.userId).select('subscription createdAt trialEndsAt sessionVersion bookAccess.status');
+    const user = await User.findById(req.userId).select('subscription createdAt trialEndsAt sessionVersion bookAccess.status examDate');
     if (!user) { req.accessLevel = 'free'; return next(); }
 
     req.bookAccess = user.bookAccess?.status || 'none';
+    req.examDate = user.examDate || null;
 
     // Session-version gate: if another device logged in since this token
     // was issued, the sv in the JWT won't match the DB — reject the stale session.
@@ -76,11 +78,38 @@ async function resolveAccess(req, res, next) {
 router.get('/', resolveAccess, async (req, res) => {
   try {
     const filter = { status: 'published' };
+    let servedKey = null;
+    let outlineFallback = false;
+
     if (req.query.exam) {
-      const exam = await Exam.findOne({ key: req.query.exam });
-      if (!exam) return res.json({ count: 0, items: [], accessLevel: req.accessLevel });
-      filter.examId = exam._id;
+      if (req.query.exam === 'ncmhce') {
+        const resolvedKey = examKeyFor(req.examDate || null);
+        servedKey = resolvedKey;
+
+        let exam = await Exam.findOne({ key: resolvedKey });
+
+        if (resolvedKey === 'ncmhce-2027') {
+          let zeroItems = false;
+          if (exam) {
+            const itemCount = await ContentItem.countDocuments({ examId: exam._id, status: 'published' });
+            if (itemCount === 0) zeroItems = true;
+          }
+          if (!exam || zeroItems) {
+            exam = await Exam.findOne({ key: 'ncmhce' });
+            servedKey = 'ncmhce';
+            outlineFallback = true;
+          }
+        }
+
+        if (!exam) return res.json({ count: 0, items: [], accessLevel: req.accessLevel, outline: outlineFor(servedKey || 'ncmhce'), outlineFallback });
+        filter.examId = exam._id;
+      } else {
+        const exam = await Exam.findOne({ key: req.query.exam });
+        if (!exam) return res.json({ count: 0, items: [], accessLevel: req.accessLevel, outline: null, outlineFallback: false });
+        filter.examId = exam._id;
+      }
     }
+
     const items = await ContentItem.find(filter)
       .select('externalId title category difficulty format population')
       .sort({ category: 1, externalId: 1 });
@@ -97,6 +126,8 @@ router.get('/', resolveAccess, async (req, res) => {
       // The end of THIS account's trial, which may be an admin-granted
       // extension rather than the standard TRIAL_DAYS from signup.
       trialEndsAt: req.trialEndsAt || null,
+      outline: outlineFor(servedKey || req.query.exam || 'ncmhce'),
+      outlineFallback,
     });
   } catch (err) {
     console.error('list content error', err);
