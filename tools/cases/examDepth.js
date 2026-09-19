@@ -69,7 +69,13 @@ function lengthCue(question) {
   return null;
 }
 
-function validateExamDepth(c) {
+// 2027-spec section names and minimums (intake/session1/session2, each ≥ 3)
+const SECTIONS_2027_NAMES = ['intake', 'session1', 'session2'];
+const SECTION_MINIMUMS_2027 = [3, 3, 3];
+const SECTION_ORDER_2027 = { intake: 0, session1: 1, session2: 2 };
+
+function validateExamDepth(c, opts) {
+  const spec = (opts && opts.spec) || 'current';
   const e = [];
   const w = [];
   const tag = (c && c.id) || (c && c.title) || '<unknown>';
@@ -86,27 +92,54 @@ function validateExamDepth(c) {
   }
 
   // 2 + 3. section order + per-section minimums ----------------------------
-  const counts = SECTIONS.map(() => 0);
-  let lastIdx = -1;
-  let orderBroken = false;
-  questions.forEach((q, qi) => {
-    const si = sectionIndexForDomain(q && q.domain);
-    counts[si] += 1;
-    if (si < lastIdx && !orderBroken) {
-      e.push(pre + `q[${qi}] (${q && q.domain}) breaks section order — ` +
-        `${SECTIONS[si].title} item appears after a later-section item`);
-      orderBroken = true;
+  if (spec === '2027') {
+    // 2027: use q.section directly (intake → session1 → session2)
+    const counts = { intake: 0, session1: 0, session2: 0 };
+    let lastSi = -1;
+    let orderBroken = false;
+    questions.forEach((q, qi) => {
+      const sec = q && q.section;
+      const si = SECTION_ORDER_2027[sec];
+      if (si === undefined) {
+        e.push(pre + `q[${qi}] missing or invalid section field "${sec}" (must be intake/session1/session2)`);
+        return;
+      }
+      counts[sec] = (counts[sec] || 0) + 1;
+      if (si < lastSi && !orderBroken) {
+        e.push(pre + `q[${qi}] (section "${sec}") breaks section order — must be intake → session1 → session2`);
+        orderBroken = true;
+      }
+      lastSi = Math.max(lastSi, si);
+    });
+    SECTIONS_2027_NAMES.forEach((s, i) => {
+      if ((counts[s] || 0) < SECTION_MINIMUMS_2027[i]) {
+        e.push(pre + `section "${s}" has ${counts[s] || 0} item(s); minimum is ${SECTION_MINIMUMS_2027[i]}`);
+      }
+    });
+  } else {
+    // current spec: derive section from domain
+    const counts = SECTIONS.map(() => 0);
+    let lastIdx = -1;
+    let orderBroken = false;
+    questions.forEach((q, qi) => {
+      const si = sectionIndexForDomain(q && q.domain);
+      counts[si] += 1;
+      if (si < lastIdx && !orderBroken) {
+        e.push(pre + `q[${qi}] (${q && q.domain}) breaks section order — ` +
+          `${SECTIONS[si].title} item appears after a later-section item`);
+        orderBroken = true;
+      }
+      lastIdx = Math.max(lastIdx, si);
+    });
+    SECTIONS.forEach((s, i) => {
+      if (counts[i] < SECTION_MINIMUMS[i]) {
+        e.push(pre + `section "${s.title}" has ${counts[i]} item(s); minimum is ${SECTION_MINIMUMS[i]}`);
+      }
+    });
+    if (questions.length >= QUESTION_FLOOR) {
+      const off = counts.some((c2, i) => Math.abs(c2 - SECTION_TARGET[i]) >= 2);
+      if (off) w.push(pre + `section distribution [${counts.join('/')}] is far from target [${SECTION_TARGET.join('/')}]`);
     }
-    lastIdx = Math.max(lastIdx, si);
-  });
-  SECTIONS.forEach((s, i) => {
-    if (counts[i] < SECTION_MINIMUMS[i]) {
-      e.push(pre + `section "${s.title}" has ${counts[i]} item(s); minimum is ${SECTION_MINIMUMS[i]}`);
-    }
-  });
-  if (questions.length >= QUESTION_FLOOR) {
-    const off = counts.some((c2, i) => Math.abs(c2 - SECTION_TARGET[i]) >= 2);
-    if (off) w.push(pre + `section distribution [${counts.join('/')}] is far from target [${SECTION_TARGET.join('/')}]`);
   }
 
   // per-question checks ----------------------------------------------------
@@ -159,11 +192,11 @@ function validateExamDepth(c) {
   return { ok: e.length === 0, errors: e, warnings: w };
 }
 
-function validateExamDepthSet(cases) {
+function validateExamDepthSet(cases, opts) {
   const errors = [];
   const warnings = [];
   (cases || []).forEach((c) => {
-    const r = validateExamDepth(c);
+    const r = validateExamDepth(c, opts);
     errors.push(...r.errors);
     warnings.push(...r.warnings);
   });

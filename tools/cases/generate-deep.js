@@ -36,6 +36,7 @@ const ContentItem = require('../../models/ContentItem');
 const { validateExamDepth, QUESTION_TARGET } = require('./examDepth');
 const { ALLOWED_SOURCES } = require('./references');
 const bp = require('./blueprint');
+const bp2027 = require('./blueprint2027');
 const dedup = require('./dedup');
 const idAllocator = require('./idAllocator');
 const { checkCaseQuality, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK } = require('./qualityGate');
@@ -48,12 +49,17 @@ const DRY = process.argv.includes('--dry-run');
 const STATUS = process.argv.includes('--publish') ? 'published' : 'sme_review';
 const PARALLEL = Math.max(1, parseInt(flag('parallel', '3'), 10) || 1);
 const TOTAL = parseInt(flag('total', '0'), 10) || 0;
+const SPEC = flag('spec', 'current'); // 'current' or '2027'
 const API_KEY = resolveApiKey(); // ANTHROPIC_API_KEY_CASE_TOOLS if set, else ANTHROPIC_API_KEY
 
 // 13 questions on the NCMHCE domain weights (intake 25 / core 15 / treatment 15 /
 // counseling 30 / ethics 15 percent of scored items): 3 / 2 / 2 / 4 / 2.
 // Sections: Assessment(intake+core)=5, Planning(treatment)=2, Process(counseling+ethics)=6.
 const DOMAIN_PLAN = ['intake', 'intake', 'intake', 'core', 'core', 'treatment', 'treatment', 'counseling', 'counseling', 'counseling', 'counseling', 'ethics', 'ethics'];
+
+// Running case index used for 2027 plan rotation (module-level so multiple
+// generateOne calls within a run each get a different plan).
+let _plan2027Index = 0;
 
 function deepTargets(deepCases, n, perCat = PER_CAT) {
   const have = {};
@@ -110,6 +116,35 @@ HARD REQUIREMENTS:
 - narrative.intake + session1 + session2 are three escalating clinical sections.
 - Output ONLY the JSON object.`;
 
+function buildSchema2027(plan) {
+  const domainSeq = plan.map((item) => `${item.domain}(section:${item.section})`).join(', ');
+  const domainNames = Object.entries(bp2027.DOMAIN_LABELS_2027).map(([k, v]) => `  ${k}: ${v}`).join('\n');
+  const workTaskLines = Object.entries(bp2027.WORK_TASKS_2027)
+    .map(([d, tasks]) => `  ${d}: ${tasks.slice(0, 3).join('; ')}`)
+    .join('\n');
+  return `Return ONE JSON object only (no markdown, no prose) shaped exactly like the EXAMPLE.
+Keys: id, title, category, difficulty, primaryDiagnosis{name,code}, diagnosis{name,code},
+differentialOptions[{id,name,isCorrect}], narrative{intake,session1,session2},
+diagnosticRationale, questions[], references[].
+
+HARD REQUIREMENTS (2027 NCMHCE specification):
+- EXACTLY 13 questions. In order q1..q13 each question must have BOTH a "domain" AND a "section" field.
+  The domain+section for each question in order MUST be: ${domainSeq}.
+- Sections unfold in order: intake (clinical intake / assessment) → session1 (treatment planning) → session2 (counseling interventions and ethics).
+  narrative.intake, narrative.session1, narrative.session2 are three escalating clinical sections of the case.
+- 2027 domain names and typical work tasks:
+${domainNames}
+Work task examples per domain:
+${workTaskLines}
+- Each question: 4 options with weights exactly {3, 0, -1, -2} (one of each).
+- Every option has: id, text, isCorrect (true only for weight 3), weight, rationale (short label).
+- Every option has: explanation:{approach (8+ chars), rationale (full sentence), keyIndicators:[..], commonMistake (20+ chars)}.
+- Each question carries "evidenceRef":["R1",..] pointing at references[].id.
+- "references" entries use ONLY these source names: ${ALLOWED_SOURCES.join('; ')}.
+- Make the client and scenario demographically diverse and distinct from previous cases in your training.
+- Output ONLY the JSON object.`;
+}
+
 const DIFFICULTY_GUIDE = `DIFFICULTY — this is not about how rare the diagnosis is. It is about how much
 the case HIDES.
 
@@ -133,21 +168,25 @@ HARD
 Write the case AT THE ASSIGNED DIFFICULTY. Do not escalate. An easy case that you
 have made "interesting" by adding a comorbidity is no longer an easy case.`;
 
-function buildPrompt(target, exemplar) {
+function buildPrompt(target, exemplar, spec, plan) {
+  const schema = spec === '2027' ? buildSchema2027(plan) : SCHEMA;
+  const specNote = spec === '2027'
+    ? '- This case is for the 2027 NCMHCE specification. Use the 2027 domain labels and section structure above.'
+    : '- The diagnosis is GIVEN to the test-taker; questions test what a competent clinician does next across assessment, treatment planning, counseling skill, and ethics.';
   return `You are an expert psychometrician and NCMHCE item writer. Write a gold-standard deep NCMHCE case simulation.
 
 CASE PARAMETERS:
 - Category: "${target.category}"
 - Primary diagnosis: "${target.diagnosis.name}"${target.diagnosis.code ? ' (' + target.diagnosis.code + ')' : ''}
 - Difficulty: ${target.difficulty}
-- The diagnosis is GIVEN to the test-taker; questions test what a competent clinician does next across assessment, treatment planning, counseling skill, and ethics.
+${specNote}
 - Make the client demographically specific (name, age, race/ethnicity, occupation) and the clinical scenario distinct from common textbook presentations.
 
 ${DIFFICULTY_GUIDE}
 
 ${ITEM_CONSTRUCTION_RULES}
 
-${SCHEMA}
+${schema}
 
 ${STRUCTURAL_PARITY_CHECK}
 
@@ -169,7 +208,12 @@ function nextDeepId(deepCases) {
 async function main() {
   if (!process.env.MONGO_URI) { console.error('MONGO_URI not set.'); process.exit(1); }
   await mongoose.connect(process.env.MONGO_URI, { dbName: 'passreadyprep' });
-  const exam = await Exam.findOneAndUpdate({ key: 'ncmhce' }, { $setOnInsert: { key: 'ncmhce', name: 'National Clinical Mental Health Counseling Examination', profession: 'counseling', board: 'NBCC', formatsSupported: ['case_sim'], status: 'live' } }, { upsert: true, new: true });
+
+  const examKey = SPEC === '2027' ? 'ncmhce-2027' : 'ncmhce';
+  const exam = SPEC === '2027'
+    ? await Exam.findOne({ key: 'ncmhce-2027' })
+    : await Exam.findOneAndUpdate({ key: 'ncmhce' }, { $setOnInsert: { key: 'ncmhce', name: 'National Clinical Mental Health Counseling Examination', profession: 'counseling', board: 'NBCC', formatsSupported: ['case_sim'], status: 'live' } }, { upsert: true, new: true });
+  if (!exam) { console.error('Exam record "' + examKey + '" not found. Run seed-exam-2027.js first.'); process.exit(1); }
 
   // Every case (any status) feeds dedup and id allocation; only published
   // cases count toward the per-category targets (drafts are retired copies).
@@ -180,6 +224,7 @@ async function main() {
   // status), so a round never re-targets a category/diagnosis it just filled.
   const deepLive = deep.filter((c) => c._status === 'published');
   const publishedAtStart = all.filter((c) => c._status === 'published').length;
+  console.log('Spec: ' + (SPEC === '2027' ? 'ncmhce-2027 (2027 NCMHCE specification)' : 'ncmhce (current)'));
   console.log('Live: ' + publishedAtStart + ' published cases, ' + deepLive.length + ' deep (' + deep.length + ' deep incl. drafts). Target ' + PER_CAT + ' deep/category' + (TOTAL ? ', ' + TOTAL + ' cases in total' : '') + '.\n');
 
   let made = 0;
@@ -218,15 +263,19 @@ async function main() {
     const out = [];
     const log = (l) => out.push(l);
     let ok = false;
+    // Claim this plan slot synchronously before any await so parallel workers
+    // don't share the same plan index.
+    const planIdx = _plan2027Index++;
+    const plan = SPEC === '2027' ? bp2027.nextPlan2027(planIdx) : null;
     for (let attempt = 0; attempt < 3 && !ok && !fatal; attempt++) {
       try {
         log('  [' + (idx + 1) + '/' + targets.length + '] ' + t.category + ' / ' + t.diagnosis.name + ' [' + t.difficulty + '] (attempt ' + (attempt + 1) + ')...');
-        const c = extractJson(await callAnthropic(buildPrompt(t, exemplar), { maxTokens: 48000 }));
+        const c = extractJson(await callAnthropic(buildPrompt(t, exemplar, SPEC, plan), { maxTokens: 48000 }));
         c.category = t.category;
         c.difficulty = c.difficulty || t.difficulty;
 
         // Gate 1: examDepth structural validation
-        const v = validateExamDepth(c);
+        const v = validateExamDepth(c, { spec: SPEC });
         if (!v.ok) { log('    FAIL examDepth: ' + v.errors.slice(0, 2).join(' | ')); continue; }
 
         // Gate 2: gold-standard quality checks (weights, parity, absolutes, mistakes)
