@@ -9,7 +9,7 @@ const MONGO_URI = process.env.MONGO_URI;
 if (!MONGO_URI) { console.error('MONGO_URI not set'); process.exit(1); }
 
 async function main() {
-  await mongoose.connect(MONGO_URI);
+  await mongoose.connect(MONGO_URI, { dbName: 'passreadyprep' });
   console.log('Connected to MongoDB');
 
   const Exam = mongoose.connection.collection('exams');

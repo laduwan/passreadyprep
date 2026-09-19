@@ -199,7 +199,7 @@ function fixLengthRatio(options) {
 }
 
 async function main() {
-  await mongoose.connect(MONGO_URI);
+  await mongoose.connect(MONGO_URI, { dbName: 'passreadyprep' });
   console.log('Connected to MongoDB');
 
   const ContentItem = mongoose.connection.collection('contentitems');
