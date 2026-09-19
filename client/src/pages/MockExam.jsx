@@ -11,12 +11,12 @@ import { saveBatchToHistory, saveExamToHistory, loadExamHistory, getOutline } fr
 import { useStudyPing } from '../lib/useStudyPing';
 
 const EXAM_CONFIGS = {
-  current: { size: 11, minutes: 225 },
+  current: { size: 11, minutes: 255 },
   '2027':  { size: 10, minutes: 225 },
 };
 function examConfig() { return EXAM_CONFIGS[getOutline()] || EXAM_CONFIGS.current; }
 const EXAM_SIZE = 11;    // kept for weightedSelect default; overridden by examConfig() at runtime
-const EXAM_MINUTES = 225;
+const EXAM_MINUTES = 255;
 const EXAM_SECS = EXAM_MINUTES * 60;
 
 const BLUEPRINT = {
@@ -171,7 +171,7 @@ function Lobby({ onStart, totalInBank, onBack }) {
       <div className="grid sm:grid-cols-3 gap-3">
         {[
           { label: '11 cases', sub: `from ${totalInBank || '270+'}+ in bank`, icon: Shuffle, color: 'text-blue-400' },
-          { label: '225 min', sub: 'official exam window', icon: Clock, color: 'text-amber-400' },
+          { label: `${examConfig().minutes} min`, sub: 'official exam window', icon: Clock, color: 'text-amber-400' },
           { label: 'Blueprint-weighted', sub: '6 NCMHCE domains', icon: BarChart3, color: 'text-emerald-400' },
         ].map((s) => (
           <div key={s.label} className="bg-slate-800/50 border border-slate-700/60 rounded-xl p-4 text-center">
