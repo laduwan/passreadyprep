@@ -9,11 +9,57 @@
 
 const ABSOLUTES = /\b(always|never|absolutely|categorically|universally)\b/i;
 
-// An option cut mid-clause. The 14 Sep 2026 length pass produced ~1,099 of
-// these; every one passed the ratio and key-longest checks, because cutting
-// text improves both. Detect the cut itself, not its side effects.
-const TRUNCATED_TAIL =
-  /(?:^|\s)(?:a|an|the|and|or|but|nor|for|of|in|on|at|by|with|without|from|as|into|onto|about|after|during|through|toward|towards|upon|which|who|whom|whose|when|while|where|if|whether|because|since|unless|until|based|due|such|including|include|includes|regarding|concerning|per|via|than|then|so)\s*$/i;
+// ============================================================================
+// Truncation detection
+// ============================================================================
+// A truncation is a string that cannot terminate a clause.
+//
+// The previous check used a 52-word stopword list. A 19 Sep 2026 audit over all
+// 13,740 options found it flagged 53, of which 45 (85%) were complete English:
+//   on:14      "…from now on", "…the people she depends on"
+//   about:6    "…nothing to worry about", "…the goals she cares about"
+//   then:6     "…happen to her right then", "…resolving before then"
+//   with:4     "…the trauma he presents with"
+//   for:4      "…what she is asking for"
+//   through/upon/in/of/include/when:11  "…must be acted upon", "…afraid of"
+// Worse, fix-distractors then rewrote those valid options to satisfy the false
+// positive, and the rewrite — a length-constrained model call — is what
+// introduced real cuts. The check was manufacturing its own signal.
+//
+// A real cut has one of three signatures, all high-precision:
+//   1. Ends on a determiner with no following noun ("…decline in a").
+//   2. Ends on dangling punctuation (",", ";", "—", "/", etc.).
+//   3. Has an unclosed bracket or quote.
+// Nothing else. Prepositions, particles and adverbs are acceptable final words.
+//
+// NOTE ON `of`: it has genuine stranding use and both instances in the audit
+// were stranded ("…they will likely grow out of", "…the thing she is afraid
+// of"), so it is deliberately absent. If a later audit shows `of` as common cut
+// residue, add it here and re-check the sample first.
+//
+// NOTE ON conjunctions: `and`, `or`, `than`, `such`, `based`, `whether`,
+// `which` cannot end a clause either, but the audit found ZERO of them in the
+// bank — adding them would be speculation. `include` looked like a safe
+// addition and was not: "…which unipolar depression does not include" is a
+// complete relative clause. Re-measure before extending this rule.
+const DETERMINER_TAIL = /\b(a|an|the)\s*$/i;
+
+// Kept exported so existing importers do not crash. NO LONGER USED in
+// validation — it is the false-positive engine described above.
+const TAIL_STOPWORDS = [
+  'a', 'an', 'the', 'and', 'or', 'but', 'nor', 'for', 'of', 'in', 'on', 'at',
+  'by', 'with', 'without', 'from', 'as', 'into', 'onto', 'about', 'after',
+  'during', 'through', 'toward', 'towards', 'upon', 'which', 'who', 'whom',
+  'whose', 'when', 'while', 'where', 'if', 'whether', 'because', 'since',
+  'unless', 'until', 'based', 'due', 'such', 'including', 'include', 'includes',
+  'regarding', 'concerning', 'per', 'via', 'than', 'then', 'so',
+];
+
+// Left as an export for backward compatibility; no longer used in checks.
+const TRUNCATED_TAIL = new RegExp(
+  `(?:^|\\s)(?:${TAIL_STOPWORDS.join('|')})\\s*$`,
+  'i',
+);
 
 // Cut immediately after punctuation that cannot end a clause.
 const DANGLING_PUNCT = /[,;:\-–—/&+]\s*$/;
@@ -28,6 +74,23 @@ function isUnbalanced(s) {
   if ((t.match(/"/g) || []).length % 2 !== 0) return true;
   if ((t.match(/“/g) || []).length !== (t.match(/”/g) || []).length) return true;
   return false;
+}
+
+// Returns null when the text is fine, else { kind: 'hard', reason }.
+// Every hit is a real defect — there is no soft category any more.
+//
+// IF YOU ADD A REASON STRING HERE, update classifyReason below so it still
+// buckets as 'truncated'. Otherwise `--reasons truncated` silently misses it.
+//
+// The 'empty' branch is unreachable from checkQuestionQuality (which returns on
+// falsy text first); it exists for mergeRewrite, which can pass ''.
+function checkTruncation(text) {
+  const t = String(text || '').trim();
+  if (!t) return { kind: 'hard', reason: 'empty' };
+  if (DETERMINER_TAIL.test(t)) return { kind: 'hard', reason: 'ends on determiner with no noun' };
+  if (DANGLING_PUNCT.test(t)) return { kind: 'hard', reason: 'dangling punctuation' };
+  if (isUnbalanced(t)) return { kind: 'hard', reason: 'unbalanced bracket or quote' };
+  return null;
 }
 
 // Prose form of the checks below, for prompting a model to write (or rewrite)
@@ -56,8 +119,14 @@ STRUCTURAL PARITY — all 4 options in every question MUST be:
   • Same level of clinical jargon and specificity.
   • The correct answer must NOT be the longest option. If it is, REWRITE it more concisely
     or lengthen a distractor. Never truncate: every option must be a grammatically complete
-    phrase or sentence. An option that ends on a preposition, conjunction, article, comma,
-    dash, or an unclosed quote or bracket will be rejected, however well its length fits.
+    phrase or sentence.
+  • An option must NOT end on a determiner ("a", "an", "the") with no following noun, on
+    dangling punctuation ("," ";" "—" "/" etc.), or with an unclosed bracket or quote.
+    Those are the signatures of a cut string and will be rejected.
+    Stranded prepositions and adverbial endings are FINE: "from now on", "acted upon",
+    "carry her through", "right then", and "the goals she cares about" are all complete
+    English and pass. Do not rephrase a complete clause just to avoid ending on a
+    preposition — that produces worse items, not better ones.
   • No option may use absolutes: "always", "never", "absolutely", "categorically", "universally".
   • Vary which option holds the correct answer. Across the questions in a case, the key
     must appear in all four positions, and must not sit in any single position for more
@@ -82,9 +151,11 @@ BEFORE OUTPUTTING: For each question, verify:
 3. Confirm the correct answer (weight 3) is NOT the longest option.
 4. Confirm weights are exactly {3, 0, -1, -2} with one of each.
 5. Confirm no option text contains "always", "never", "absolutely", "categorically", "universally".
-6. Confirm every option ends as a complete phrase — not on a preposition, conjunction,
-   article, comma, dash, or an unclosed quote or bracket.
-7. List which option position holds the key for each question. If any position holds more
+6. Confirm no option ends on a determiner ("a", "an", "the") with no following noun.
+   A stranded preposition ("from now on") or an adverbial ending ("right then") is
+   complete English and passes — do NOT rewrite those.
+7. Confirm no option ends on a comma, dash, or an unclosed quote or bracket.
+8. List which option position holds the key for each question. If any position holds more
    than half, or if any of the four is never used, reassign before outputting.
 If any check fails, fix it before outputting.`;
 
@@ -129,13 +200,9 @@ function checkQuestionQuality(q, tag) {
   opts.forEach((o) => {
     const text = (o && o.text) || '';
     if (!text) return; // already reported as empty above
-    if (TRUNCATED_TAIL.test(text)) {
-      errors.push(qp + `opt ${o.id}: truncated — ends mid-clause ("…${text.slice(-40)}")`);
-    } else if (DANGLING_PUNCT.test(text)) {
-      errors.push(qp + `opt ${o.id}: truncated — ends on dangling punctuation ("…${text.slice(-40)}")`);
-    }
-    if (isUnbalanced(text)) {
-      errors.push(qp + `opt ${o.id}: unbalanced quote or bracket — likely truncated`);
+    const trunc = checkTruncation(text);
+    if (trunc) {
+      errors.push(qp + `opt ${o.id}: truncated — ${trunc.reason} ("…${text.slice(-40)}")`);
     }
   });
 
@@ -150,7 +217,8 @@ function classifyReason(msg) {
   if (/absolute language/.test(msg)) return 'absolutes';
   if (/commonMistake/.test(msg)) return 'mistake';
   if (/empty option/.test(msg)) return 'empty';
-  if (/truncated|unbalanced quote/.test(msg)) return 'truncated';
+  // Keep in sync with the reason strings in checkTruncation.
+  if (/truncated|unbalanced quote|ends on determiner/.test(msg)) return 'truncated';
   if (/key in slot|key uses only/.test(msg)) return 'key-position';
   return 'other';
 }
@@ -187,4 +255,9 @@ function checkCaseQuality(c) {
   return { ok: errors.length === 0, errors };
 }
 
-module.exports = { checkQuestionQuality, checkCaseQuality, classifyReason, ABSOLUTES, TRUNCATED_TAIL, DANGLING_PUNCT, isUnbalanced, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK };
+module.exports = {
+  checkQuestionQuality, checkCaseQuality, classifyReason,
+  ABSOLUTES, TAIL_STOPWORDS, TRUNCATED_TAIL, DANGLING_PUNCT, isUnbalanced,
+  DETERMINER_TAIL, checkTruncation,
+  ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK,
+};
