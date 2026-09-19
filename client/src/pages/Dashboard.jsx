@@ -66,13 +66,16 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
     syncHistory();
     authFetch('/api/content?exam=ncmhce')
       .then((r) => r.json())
-      .then((d) => setCatalogMeta({
-        total: d.total || null,
-        accessLevel: d.accessLevel,
-        trialEndsAt: d.trialEndsAt || null,
-        trialDays: d.trialDays || 3,
-        freeLimit: d.freeLimit || 5,
-      }))
+      .then((d) => {
+        try { localStorage.setItem('prp_outline', d.outlineFallback ? 'current' : (d.outline || 'current')); } catch {}
+        setCatalogMeta({
+          total: d.total || null,
+          accessLevel: d.accessLevel,
+          trialEndsAt: d.trialEndsAt || null,
+          trialDays: d.trialDays || 3,
+          freeLimit: d.freeLimit || 5,
+        });
+      })
       .catch(() => {});
   }, []);
 

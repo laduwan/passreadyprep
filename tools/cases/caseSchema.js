@@ -31,6 +31,8 @@
 // ============================================================================
 
 const DOMAINS = ['treatment', 'counseling', 'intake', 'ethics', 'core'];
+const DOMAINS_2027 = ['profdev', 'assess', 'planning', 'interventions', 'indirect', 'legal'];
+const SECTIONS_2027 = ['intake', 'session1', 'session2'];
 
 // 2022+ NCMHCE cases unfold across three sections. Each of the five scoring
 // domains maps to one section, so existing cases group into sections with no
@@ -53,7 +55,9 @@ function isNonEmptyStr(s, min = 1) {
 }
 
 // Validate a single case. Returns { ok, errors:[], warnings:[] }.
+// opts.spec = '2027' activates 2027-domain validation (DOMAINS_2027 + explicit section field).
 function validateCase(c, opts = {}) {
+  const spec = opts.spec || 'current';
   const e = [];
   const w = [];
   const tag = (c && c.id) || (c && c.title) || '<unknown>';
@@ -133,7 +137,11 @@ function validateCase(c, opts = {}) {
       const qp = pre + `q[${qi}] `;
       if (!isNonEmptyStr(q && q.id)) e.push(qp + 'missing id');
       else if (qids.has(q.id)) e.push(qp + `duplicate question id ${q.id}`); else qids.add(q.id);
-      if (!DOMAINS.includes(q && q.domain)) e.push(qp + `domain must be one of ${DOMAINS.join('/')}`);
+      const validDomains = spec === '2027' ? DOMAINS_2027 : DOMAINS;
+      if (!validDomains.includes(q && q.domain)) e.push(qp + `domain must be one of ${validDomains.join('/')}`);
+      if (spec === '2027' && !SECTIONS_2027.includes(q && q.section)) {
+        e.push(qp + `section must be one of ${SECTIONS_2027.join('/')} (required in 2027 spec)`);
+      }
       if (!isNonEmptyStr(q && q.question, 12)) e.push(qp + 'missing/short question text');
       if (!Array.isArray(q && q.evidenceRef) || q.evidenceRef.length < 1) {
         e.push(qp + 'missing evidenceRef[] (reference id(s) justifying the keyed answer)');
@@ -216,4 +224,4 @@ function validateCaseSet(cases, opts = {}) {
   return { ok: errors.length === 0, count: cases.length, errors, warnings };
 }
 
-module.exports = { validateCase, validateCaseSet, DOMAINS, DIFFICULTIES, SECTIONS, sectionIndexForDomain };
+module.exports = { validateCase, validateCaseSet, DOMAINS, DOMAINS_2027, SECTIONS_2027, DIFFICULTIES, SECTIONS, sectionIndexForDomain };

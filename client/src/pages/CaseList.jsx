@@ -47,7 +47,11 @@ export default function CaseList({ mode, examMode = false, onSelect, navigate })
   useEffect(() => {
     authFetch('/api/content?exam=ncmhce')
       .then((r) => r.json())
-      .then((d) => { setCases(d.items || []); setLoading(false); })
+      .then((d) => {
+        try { localStorage.setItem('prp_outline', d.outlineFallback ? 'current' : (d.outline || 'current')); } catch {}
+        setCases(d.items || []);
+        setLoading(false);
+      })
       .catch(() => setLoading(false));
   }, []);
 

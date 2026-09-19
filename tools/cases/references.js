@@ -74,6 +74,23 @@ const REFERENCE_LIBRARY = [
     citation: 'Frank, E. Interpersonal and Social Rhythm Therapy (IPSRT) for bipolar disorder.',
     use: 'Social-rhythm and sleep regulation for bipolar relapse prevention.' },
 
+  // --- 2027 specification additions ---------------------------------------
+  { key: 'NBCC 2027 Spec', tier: 'exam', body: 'NBCC',
+    citation: 'National Board for Certified Counselors. NCMHCE Examination Specifications, Effective July 1, 2027.',
+    use: 'Six-domain structure, work tasks, and exam format for the 2027 NCMHCE revision.' },
+  { key: 'HIPAA', tier: 'primary', body: 'U.S. Department of Health & Human Services',
+    citation: 'Health Insurance Portability and Accountability Act of 1996 (HIPAA); HIPAA Privacy Rule (45 CFR Parts 160 and 164).',
+    use: 'Privacy, protected health information, minimum necessary standard, and breach notification.' },
+  { key: 'Counseling Compact', tier: 'primary', body: 'Counseling Compact Commission',
+    citation: 'Counseling Compact (effective 2022). Model law for multistate licensure portability.',
+    use: 'Jurisdictional licensure requirements and practice privileges under the Counseling Compact.' },
+  { key: 'ICD-11', tier: 'primary', body: 'World Health Organization',
+    citation: 'World Health Organization. (2019). International Classification of Diseases, 11th Revision (ICD-11).',
+    use: 'Diagnostic codes and mental disorder definitions in the ICD-11 framework.' },
+  { key: 'NBCC Code of Ethics', tier: 'primary', body: 'National Board for Certified Counselors',
+    citation: 'National Board for Certified Counselors. NBCC Code of Ethics.',
+    use: 'Ethical obligations of NCCs: competence, client welfare, confidentiality, supervision, technology use.' },
+
   // --- NBCC exam-defining documents (exam) + handbook reference texts ------
   { key: 'NBCC Content Outline', tier: 'exam', body: 'NBCC',
     citation: 'National Board for Certified Counselors. NCMHCE Content Outline and Candidate Handbook.',

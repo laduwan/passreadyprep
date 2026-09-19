@@ -76,7 +76,10 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
   useEffect(() => {
     authFetch('/api/content?exam=ncmhce')
       .then((r) => r.json())
-      .then((d) => setCatalog(d.items || []))
+      .then((d) => {
+        try { localStorage.setItem('prp_outline', d.outlineFallback ? 'current' : (d.outline || 'current')); } catch {}
+        setCatalog(d.items || []);
+      })
       .catch(() => {});
   }, []);
 

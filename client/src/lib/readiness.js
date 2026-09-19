@@ -12,6 +12,34 @@ export const DOMAIN_LABELS = {
 };
 export const DOMAIN_ORDER = ['counseling', 'intake', 'treatment', 'ethics', 'core'];
 
+// 2027 NCMHCE domain weights (NBCC Examination Specifications, effective July 1, 2027)
+export const DOMAIN_WEIGHTS_2027 = {
+  profdev: 0.15, assess: 0.18, planning: 0.15, interventions: 0.20, indirect: 0.12, legal: 0.20,
+};
+export const DOMAIN_LABELS_2027 = {
+  profdev:       'Professional Development & Practice',
+  assess:        'Assessment & Diagnosis',
+  planning:      'Treatment Planning',
+  interventions: 'Counseling Interventions',
+  indirect:      'Indirect Client Services',
+  legal:         'Legal, Ethical & Professional Standards',
+};
+export const DOMAIN_ORDER_2027 = ['assess', 'interventions', 'legal', 'planning', 'profdev', 'indirect'];
+
+// Read the active outline from localStorage. Set by the content API response.
+// Returns 'current' (default) or '2027'.
+export function getOutline() {
+  try { return localStorage.getItem('prp_outline') || 'current'; } catch { return 'current'; }
+}
+
+// Resolve the active domain config for the current outline.
+function activeDomains() {
+  if (getOutline() === '2027') {
+    return { weights: DOMAIN_WEIGHTS_2027, labels: DOMAIN_LABELS_2027, order: DOMAIN_ORDER_2027 };
+  }
+  return { weights: DOMAIN_WEIGHTS, labels: DOMAIN_LABELS, order: DOMAIN_ORDER };
+}
+
 // Which diagnostic categories most often carry each domain. Used to point a
 // learner at cases that exercise the domain they just fumbled.
 export const DOMAIN_CATEGORY_MAP = {
@@ -126,10 +154,11 @@ export function domainMisses(questions, answers) {
     agg[d].total += 1;
     if (chosen && chosen.isCorrect) agg[d].ok += 1;
   });
+  const { labels: missLabels } = activeDomains();
   return Object.entries(agg)
     .map(([domain, v]) => ({
       domain,
-      label: DOMAIN_LABELS[domain] || 'General clinical reasoning',
+      label: missLabels[domain] || DOMAIN_LABELS[domain] || 'General clinical reasoning',
       missed: v.total - v.ok,
       total: v.total,
       pct: v.total ? Math.round((v.ok / v.total) * 100) : 0,
@@ -142,11 +171,20 @@ export function computeReadiness() {
   const h = loadHistory();
   if (!h.length) return null;
 
+  const { weights, labels: _labels } = activeDomains();
+  const activeSet = new Set(Object.keys(weights));
+
   const agg = {};
-  let totalCases = h.length, totalCorrect = 0, totalQs = 0;
+  let totalCases = 0, totalCorrect = 0, totalQs = 0;
   let dxCorrectCount = 0, dxTotal = 0;
 
   h.forEach((entry) => {
+    // Skip entries whose domains are entirely outside the active domain set.
+    const entryDomains = Object.keys(entry.domains || {});
+    const relevant = entryDomains.some((d) => activeSet.has(d));
+    if (entryDomains.length > 0 && !relevant) return;
+
+    totalCases += 1;
     totalCorrect += entry.correct || 0;
     totalQs += entry.total || 0;
     if (entry.dxCorrect != null) { dxTotal++; if (entry.dxCorrect) dxCorrectCount++; }
@@ -157,13 +195,15 @@ export function computeReadiness() {
     });
   });
 
+  if (!totalCases) return null;
+
   const domainScores = {};
   Object.entries(agg).forEach(([d, v]) => {
     domainScores[d] = v.total ? Math.round((v.ok / v.total) * 100) : 0;
   });
 
   let weightedSum = 0, weightTotal = 0;
-  Object.entries(DOMAIN_WEIGHTS).forEach(([d, w]) => {
+  Object.entries(weights).forEach(([d, w]) => {
     if (agg[d] && agg[d].total >= 1) {
       weightedSum += (agg[d].ok / agg[d].total) * w;
       weightTotal += w;
@@ -225,9 +265,10 @@ export function computeAnalytics() {
     });
   });
 
+  const { labels: activeLabels, order: activeOrder } = activeDomains();
   const pct = (a) => a && a.total ? Math.round((a.ok / a.total) * 100) : null;
-  const domainStats = DOMAIN_ORDER.map((d) => ({
-    domain: d, label: DOMAIN_LABELS[d],
+  const domainStats = activeOrder.map((d) => ({
+    domain: d, label: activeLabels[d] || d,
     allTime: pct(domainAll[d]), recent7: pct(domain7[d]), recent14: pct(domain14[d]),
     questionsAnswered: domainAll[d]?.total || 0,
   }));

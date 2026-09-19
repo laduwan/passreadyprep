@@ -7,10 +7,15 @@ import {
   CheckCircle2, BarChart3, Loader2, Trophy, ArrowLeft, Shuffle,
 } from 'lucide-react';
 import { authFetch } from '../lib/api';
-import { saveBatchToHistory, saveExamToHistory, loadExamHistory } from '../lib/readiness';
+import { saveBatchToHistory, saveExamToHistory, loadExamHistory, getOutline } from '../lib/readiness';
 import { useStudyPing } from '../lib/useStudyPing';
 
-const EXAM_SIZE = 11;
+const EXAM_CONFIGS = {
+  current: { size: 11, minutes: 225 },
+  '2027':  { size: 10, minutes: 225 },
+};
+function examConfig() { return EXAM_CONFIGS[getOutline()] || EXAM_CONFIGS.current; }
+const EXAM_SIZE = 11;    // kept for weightedSelect default; overridden by examConfig() at runtime
 const EXAM_MINUTES = 225;
 const EXAM_SECS = EXAM_MINUTES * 60;
 
@@ -41,7 +46,8 @@ function matchBpKey(cat) {
   return null;
 }
 
-function weightedSelect(items) {
+function weightedSelect(items, size) {
+  const targetSize = size || EXAM_SIZE;
   const groups = {};
   items.forEach((it) => {
     const k = matchBpKey(it.category);
@@ -53,7 +59,7 @@ function weightedSelect(items) {
   const pools = {};
   for (const [k] of bpArr) pools[k] = [...(groups[k] || [])];
   let attempts = 0;
-  while (selected.length < EXAM_SIZE && attempts < 400) {
+  while (selected.length < targetSize && attempts < 400) {
     attempts++;
     let r = Math.random() * totalW, cat = bpArr[bpArr.length - 1][0];
     for (const [k, w] of bpArr) { r -= w; if (r <= 0) { cat = k; break; } }
@@ -80,10 +86,10 @@ function initAnswers(cases) {
 
 // ── sub-components ────────────────────────────────────────────────────────────
 
-function TimerBar({ secs, caseIdx, totalCases, answeredCount, totalQs }) {
+function TimerBar({ secs, examSecs, caseIdx, totalCases, answeredCount, totalQs }) {
   const warn = secs <= 600 && secs > 300;
   const danger = secs <= 300;
-  const pct = Math.round((secs / EXAM_SECS) * 100);
+  const pct = Math.round((secs / (examSecs || EXAM_SECS)) * 100);
   return (
     <div className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-700/60 px-4 py-2.5 flex items-center justify-between gap-4">
       <div className="flex items-center gap-3">
@@ -209,7 +215,7 @@ function Lobby({ onStart, totalInBank, onBack }) {
 
 // ── Results ───────────────────────────────────────────────────────────────────
 
-function Results({ cases, answers, timeUsedSecs, onRetake, onBack }) {
+function Results({ cases, answers, timeUsedSecs, examSecs, examMinutes, onRetake, onBack }) {
   // Compute results
   const caseResults = cases.map((c, ci) => {
     const ea = answers[ci];
@@ -271,7 +277,7 @@ function Results({ cases, answers, timeUsedSecs, onRetake, onBack }) {
       totalQuestions: totalQs,
       caseCount: cases.length,
       timeUsedSecs,
-      timeAllottedSecs: EXAM_SECS,
+      timeAllottedSecs: examSecs || EXAM_SECS,
       domains: allDomains,
       cases: caseResults.map((r) => ({ caseId: r.caseId, title: r.title, correct: r.correct, total: r.total, pct: r.pct, difficulty: r.difficulty, category: r.category })),
     });
@@ -288,7 +294,7 @@ function Results({ cases, answers, timeUsedSecs, onRetake, onBack }) {
         <div className="text-4xl mb-2">{passed ? '🏆' : '📈'}</div>
         <div className="text-5xl font-extrabold text-white">{overallPct}%</div>
         <div className="text-slate-300 mt-1">{totalCorrect} of {totalQs} correct</div>
-        <div className="text-sm text-slate-500 mt-1">Time used: {mUsed}m {sUsed}s of {EXAM_MINUTES}m</div>
+        <div className="text-sm text-slate-500 mt-1">Time used: {mUsed}m {sUsed}s of {examMinutes || EXAM_MINUTES}m</div>
         <div className={`mt-3 text-sm font-bold ${passed ? 'text-emerald-400' : 'text-amber-400'}`}>
           {passed ? 'Strong performance — above the 70% benchmark.' : 'Keep practicing. 70% is the benchmark.'}
         </div>
@@ -375,15 +381,20 @@ export default function MockExam({ navigate }) {
   const [stepIdx, setStepIdx] = useState(0);          // -1 = dx, 0+ = question index
   const [timerSecs, setTimerSecs] = useState(EXAM_SECS);
   const [examStartSecs, setExamStartSecs] = useState(EXAM_SECS);
+  const [activeExamSecs, setActiveExamSecs] = useState(EXAM_SECS);
+  const [activeExamMinutes, setActiveExamMinutes] = useState(EXAM_MINUTES);
   const [timerExpired, setTimerExpired] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const timerRef = useRef(null);
 
-  // Fetch bank total for lobby display
+  // Fetch bank total for lobby display and persist the active outline.
   useEffect(() => {
     authFetch('/api/content?exam=ncmhce')
       .then((r) => r.json())
-      .then((d) => setTotalInBank(d.total || null))
+      .then((d) => {
+        try { localStorage.setItem('prp_outline', d.outlineFallback ? 'current' : (d.outline || 'current')); } catch {}
+        setTotalInBank(d.total || null);
+      })
       .catch(() => {});
   }, []);
 
@@ -420,9 +431,11 @@ export default function MockExam({ navigate }) {
     try {
       const r = await authFetch('/api/content?exam=ncmhce');
       const d = await r.json();
+      try { localStorage.setItem('prp_outline', d.outlineFallback ? 'current' : (d.outline || 'current')); } catch {}
+      const cfg = examConfig();
       const allItems = d.items || [];
       if (allItems.length < 3) throw new Error('Not enough cases in the bank to build an exam.');
-      const stubs = weightedSelect(allItems);
+      const stubs = weightedSelect(allItems, cfg.size);
       if (stubs.length < 3) throw new Error('Blueprint selection returned too few cases.');
 
       // Fetch full case data in parallel
@@ -437,13 +450,15 @@ export default function MockExam({ navigate }) {
         )
       );
 
-      const startSecs = EXAM_SECS;
+      const startSecs = cfg.minutes * 60;
       setCases(full);
       setAnswers(initAnswers(full));
       setCaseIdx(0);
       setStepIdx(hasDxStep(full[0]) ? -1 : 0);
       setTimerSecs(startSecs);
       setExamStartSecs(startSecs);
+      setActiveExamSecs(startSecs);
+      setActiveExamMinutes(cfg.minutes);
       setSubmitted(false);
       setTimerExpired(false);
       setPhase('exam');
@@ -589,6 +604,8 @@ export default function MockExam({ navigate }) {
         cases={cases}
         answers={answers}
         timeUsedSecs={examStartSecs - timerSecs}
+        examSecs={activeExamSecs}
+        examMinutes={activeExamMinutes}
         onRetake={retake}
         onBack={() => navigate('home')}
       />
@@ -611,6 +628,7 @@ export default function MockExam({ navigate }) {
     <div className="space-y-4">
       <TimerBar
         secs={timerSecs}
+        examSecs={activeExamSecs}
         caseIdx={caseIdx}
         totalCases={cases.length}
         answeredCount={totalAnswered}
