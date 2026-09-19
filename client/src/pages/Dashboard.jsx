@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BookOpen, Layers, GitBranch, Brain, FileText, Award, TrendingUp, TrendingDown, Minus, Target, Clock, Zap, BarChart3 } from 'lucide-react';
 import { computeReadiness, computeAnalytics, syncHistory, DOMAIN_ORDER, DOMAIN_LABELS } from '../lib/readiness';
 import { authFetch } from '../lib/api';
@@ -56,6 +56,9 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
 
   useStudyPing('dashboard');
 
+  const isMounted = useRef(false);
+  const debounceRef = useRef(null);
+
   const [catalogMeta, setCatalogMeta] = useState(null);
 
   // Sync study history + fetch catalog meta (trial status, case count) on mount.
@@ -75,6 +78,27 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
 
   useEffect(() => {
     if (examDate) localStorage.setItem('prp_exam_date', examDate);
+
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
+
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      authFetch('/api/auth/exam-date', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ examDate }),
+      })
+        .then((r) => r.ok ? r.json() : null)
+        .then((data) => {
+          if (data && data.user) {
+            try { localStorage.setItem('prp_user', JSON.stringify(data.user)); } catch {}
+          }
+        })
+        .catch(() => {});
+    }, 600);
   }, [examDate]);
 
   const TrendIcon = rd?.recentTrend === 'up' ? TrendingUp : rd?.recentTrend === 'down' ? TrendingDown : Minus;
