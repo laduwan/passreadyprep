@@ -13,7 +13,10 @@ const ABSOLUTES = /\b(always|never|absolutely|categorically|universally)\b/i;
 // these; every one passed the ratio and key-longest checks, because cutting
 // text improves both. Detect the cut itself, not its side effects.
 const TRUNCATED_TAIL =
-  /(?:^|\s)(?:a|an|the|and|or|but|nor|for|of|in|on|at|by|with|without|from|as|into|onto|about|after|during|through|toward|towards|upon|which|who|whom|whose|when|while|where|if|whether|because|since|unless|until|based|due|such|including|include|includes|regarding|concerning|per|via|than|then|so)\s*$/i;
+  /(?:^|\s)(?:a|an|the|and|or|but|nor|for|of|on|at|by|with|without|from|as|into|onto|after|during|through|toward|towards|which|who|whom|whose|when|while|where|if|whether|because|since|unless|until|based|due|such|including|regarding|concerning|per|via|than|then|so)\s*$/i;
+// Removed from list (valid English endings in clinical items): in (preposition
+// stranding "engaging in"), about (phrasal verb "cares about"), upon (passive
+// "acted upon"), include/includes (negative clause "does not include").
 
 // Cut immediately after punctuation that cannot end a clause.
 const DANGLING_PUNCT = /[,;:\-–—/&+]\s*$/;
