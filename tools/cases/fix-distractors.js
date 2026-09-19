@@ -56,6 +56,10 @@
 //   --skip N   skip the first N flagged cases — cases stay flagged until a batch
 //              is applied, so cut sequential review batches with
 //              --count 30 --save batch1, --skip 30 --count 30 --save batch2, ...
+//   --reasons R  comma-separated classifyReason buckets to target; only questions
+//              that have at least one reason in the list are sent for rewrite.
+//              Example: --reasons truncated  (fix only mid-clause truncations)
+//                       --reasons truncated,ratio  (truncation + length-ratio)
 // MONGO_URI / ANTHROPIC_API_KEY from env / .env, same as generate-deep.js
 // (ANTHROPIC_API_KEY_CASE_TOOLS also works — see tools/cases/anthropic.js).
 // ============================================================================
@@ -83,6 +87,8 @@ const REVIEW = flag('review', null);
 const GENERATE = !FROM && (process.argv.includes('--generate') || APPLY || !!SAVE);
 const idi = process.argv.indexOf('--ids');
 const EXPLICIT = idi >= 0 ? (process.argv[idi + 1] || '').split(',').map((s) => s.trim()).filter(Boolean) : null;
+const REASONS_RAW = flag('reasons', null);
+const REASONS_FILTER = REASONS_RAW ? REASONS_RAW.split(',').map((s) => s.trim()).filter(Boolean) : null;
 
 const DISTRACTOR_WEIGHTS = '0,-1,-2';
 
@@ -438,6 +444,7 @@ async function main() {
       if (!reasons.length) return;
       reasons.forEach((r) => { const k = classifyReason(r); histogram[k] = (histogram[k] || 0) + 1; });
       if (!isRewriteSafe(q)) { skipped.push({ id: e.externalId, qi, reasons }); return; }
+      if (REASONS_FILTER && !reasons.some((r) => REASONS_FILTER.includes(classifyReason(r)))) return;
       e.items.push({ qi, question: q, reasons });
     });
   });
