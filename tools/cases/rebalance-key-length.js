@@ -20,23 +20,27 @@
 //       No writes.
 //
 //   --generate [--save review/NAME] [--count N] [--skip N]
-//       For planned questions, one API call per case (MINIMAL rewrites):
-//         make-key-longest: rewrite the KEY by integrating one short clinical
-//           qualifier (timeframe, setting, consent/scope). Clinical claim
-//           unchanged. No bolt-on tails.
-//         clear-key-shortest: rewrite ONE distractor slightly shorter by
-//           removing a redundant word/phrase. Meaning and tier unchanged.
-//       Validate with SELF_DISQUALIFY + checkQuestionQuality gate.
-//       With --save: write review/<save>.json + .html + .csv, no DB writes.
+//       For planned questions, one API call per case (MINIMAL rewrites). Writes
+//       a durable audit doc per case to the rebalanceaudit collection. With
+//       --save: also write review/<save>.json + .html + .csv, no DB writes.
 //
 //   --apply --from review/NAME.json [--review review/NAME.csv] [--keep-status]
 //       Identical semantics to fix-distractors (stale check, $set only changed
 //       paths, sme_review unless --keep-status).
 //
+//   --run [--rounds N] [--count N] [--resume <runId>]
+//       Unattended loop: plan → generate one batch (default 40 cases) → apply
+//       immediately from memory (stale check + gate + $set, --keep-status
+//       implied). Repeats until the plan selects nothing or N rounds done. API
+//       errors per case: retry twice with backoff; if every case in a round
+//       errors, stop. Writes one rebalanceaudit doc per case each round.
+//       --resume <runId>: skips cases already applied under that runId so a
+//       killed run can be restarted. Prints before/after per-series stats.
+//
 // CLI flags identical to fix-distractors: flag(), --ids, --all, --count,
 // --skip, --save/--from/--review/--apply, --keep-status.
 // MONGO_URI (db passreadyprep), ANTHROPIC_API_KEY via tools/cases/anthropic.js.
-// With no MONGO_URI: runs a self-test with 6 synthetic questions and exits.
+// With no MONGO_URI: runs a self-test with 6 synthetic questions + loop test.
 // ============================================================================
 
 require('dotenv').config();
@@ -50,8 +54,11 @@ const { callAnthropic, extractJson, MODEL, resolveApiKey } = require('./anthropi
 const { toCsv, parseCsv, composeNote, esc, writeRepairs, loadLiveCases } = require('./reviewRoundTrip');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
-const COUNT = parseInt(flag('count', '5'), 10);
+const RUN_MODE = process.argv.includes('--run');
+const COUNT = parseInt(flag('count', RUN_MODE ? '40' : '5'), 10);
 const SKIP = parseInt(flag('skip', '0'), 10);
+const ROUNDS = parseInt(flag('rounds', '0'), 10);  // 0 = unlimited
+const RESUME_RUN_ID = flag('resume', null);
 const ALL = process.argv.includes('--all');
 const AUDIT = process.argv.includes('--audit');
 const PLAN_FLAG = process.argv.includes('--plan');
@@ -71,8 +78,9 @@ const LENGTH_BAND = 1.11;
 const GATE_RATIO = 1.25;
 
 // Forbidden patterns: self-disqualifying qualifiers, absolutes, bolt-on tails.
-// Covers fix-distractors' SELF_DISQUALIFY plus the rebalance-specific tails.
 const SELF_DISQUALIFY = /\b(but (does|is) not|suggestive but|does not establish|not the (feature|finding|priority)|on its own|by itself|without other (diagnostic )?features|taken as|treated as evidence|entirely|completely|always|never)\b|(given the clinical presentation|in this clinical scenario|as indicated by the assessment|when evaluating the clinical|considering the client's|in the context of treatment)/i;
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // ---------------------------------------------------------------------------
 // Pure helpers
@@ -112,10 +120,10 @@ function canMakeKeyLongest(q) {
   const lens = opts.map((o) => ((o && o.text) || '').length);
   const kLen = lens[ki];
   const maxD = Math.max(...lens.filter((_, i) => i !== ki));
-  if (kLen >= maxD) return { feasible: false };  // already longest or tied
+  if (kLen >= maxD) return { feasible: false };
   const minAll = Math.min(...lens);
   const bandCeil = Math.floor(minAll * LENGTH_BAND);
-  if (maxD >= bandCeil) return { feasible: false };  // no room above maxD within band
+  if (maxD >= bandCeil) return { feasible: false };
   const cap = Math.floor(kLen * 1.25);
   const targetLen = maxD + 1;
   if (targetLen > bandCeil || targetLen > cap) return { feasible: false };
@@ -131,7 +139,7 @@ function canClearKeyShortest(q) {
   if (ki < 0) return { feasible: false };
   const lens = opts.map((o) => ((o && o.text) || '').length);
   const kLen = lens[ki];
-  if (kLen !== Math.min(...lens)) return { feasible: false };  // not shortest
+  if (kLen !== Math.min(...lens)) return { feasible: false };
   const maxAll = Math.max(...lens);
   const distractors = opts
     .map((o, i) => ({ i, len: lens[i], id: o && o.id }))
@@ -161,6 +169,20 @@ function auditSeries(questions, label) {
   const convL = questions.filter((q) => canMakeKeyLongest(q).feasible).length;
   const convS = questions.filter((q) => canClearKeyShortest(q).feasible).length;
   console.log(`  ${label}: ${total} q | key-longest ${longest} (${pct(longest, total)}) | key-shortest ${shortest} (${pct(shortest, total)}) | convertible→longest ${convL} | convertible↓shortest ${convS}`);
+}
+
+// Per-series stats snapshot for before/after comparison.
+function computeSeriesStats(entries) {
+  const defs = [
+    { label: 'ncmhce-D', filter: (id) => isDeepCase(id) },
+    { label: 'standard', filter: (id) => !isDeepCase(id) },
+  ];
+  const result = {};
+  for (const { label, filter } of defs) {
+    const qs = entries.filter((e) => filter(e.externalId)).flatMap((e) => (e.caseObj.questions || []));
+    result[label] = { total: qs.length, longest: qs.filter(keyIsLongest).length, shortest: qs.filter(keyIsShortest).length };
+  }
+  return result;
 }
 
 // ---------------------------------------------------------------------------
@@ -321,7 +343,179 @@ function mergeRebalanceEdit(question, edits, conv) {
   }
 
   const options = opts.map((o, i) => i === optIdx ? Object.assign({}, o, { text: newText }) : o);
-  return { ok: true, question: Object.assign({}, question, { options }) };
+  return { ok: true, question: Object.assign({}, question, { options }), editedOptIdx: optIdx };
+}
+
+// ---------------------------------------------------------------------------
+// Mongo audit trail
+// ---------------------------------------------------------------------------
+
+function auditColl() {
+  return mongoose.connection.collection('rebalanceaudit');
+}
+
+async function insertAuditDoc(runId, externalId, edits, applied, errors) {
+  try {
+    await auditColl().insertOne({ runId, ts: new Date(), externalId, edits, applied: !!applied, errors: errors || [] });
+  } catch (e) {
+    console.log('  [audit] warn: ' + externalId + ': ' + e.message.slice(0, 80));
+  }
+}
+
+async function getResumedCases(resumeRunId) {
+  if (!resumeRunId) return new Set();
+  const docs = await auditColl().find({ runId: resumeRunId, applied: true }, { projection: { externalId: 1 } }).toArray();
+  const s = new Set(docs.map((d) => d.externalId));
+  if (s.size) console.log('Resuming runId ' + resumeRunId + ': skipping ' + s.size + ' already-applied case(s).\n');
+  return s;
+}
+
+// Build the per-case edits array for the audit doc.
+function buildEditsForAudit(items, mergedByQi) {
+  const edits = [];
+  for (const it of items) {
+    const m = mergedByQi[it.qi];
+    if (!m) continue;
+    const before = it.question.options[m.editedOptIdx];
+    const after = m.question.options[m.editedOptIdx];
+    edits.push({ qi: it.qi, oi: String(after.id), before: before.text, after: after.text, purpose: it.conv.type });
+  }
+  return edits;
+}
+
+// ---------------------------------------------------------------------------
+// --run unattended loop
+// ---------------------------------------------------------------------------
+
+function printRunSummary(before, after, totalApplied, totalSkipped, rounds, runId) {
+  console.log('\n════ RUN SUMMARY ════');
+  console.log('runId: ' + runId + ' | rounds: ' + rounds + ' | applied: ' + totalApplied + ' | skipped: ' + totalSkipped);
+  for (const label of ['ncmhce-D', 'standard']) {
+    const b = before[label] || { total: 0, longest: 0, shortest: 0 };
+    const a = after[label] || { total: 0, longest: 0, shortest: 0 };
+    if (!b.total && !a.total) continue;
+    console.log(`  ${label} (${a.total} q):`);
+    console.log(`    key-longest:  ${pct(b.longest, b.total)} → ${pct(a.longest, a.total)}`);
+    console.log(`    key-shortest: ${pct(b.shortest, b.total)} → ${pct(a.shortest, a.total)}`);
+  }
+  console.log('════════════════════');
+}
+
+async function runUnattended(runId) {
+  const maxRounds = ROUNDS > 0 ? ROUNDS : Infinity;
+  const resumed = await getResumedCases(RESUME_RUN_ID);
+
+  // Snapshot before stats
+  const initEntries = await loadLiveCases(Exam, ContentItem, { explicit: EXPLICIT, all: ALL });
+  const beforeStats = computeSeriesStats(initEntries);
+
+  let totalApplied = 0, totalSkipped = 0, roundNum = 0;
+
+  while (roundNum < maxRounds) {
+    const entries = roundNum === 0 ? initEntries : await loadLiveCases(Exam, ContentItem, { explicit: EXPLICIT, all: ALL });
+    roundNum++;
+
+    const plan = buildPlan(entries);
+    const allSelected = Object.values(plan).flatMap((p) => p.selected).filter((s) => !resumed.has(s.externalId));
+    if (!allSelected.length) { console.log('Round ' + roundNum + ': plan is empty — done.'); break; }
+
+    const byCase = {};
+    for (const s of allSelected) {
+      if (!byCase[s.externalId]) byCase[s.externalId] = [];
+      byCase[s.externalId].push(s);
+    }
+    const batchKeys = Object.keys(byCase).sort().slice(0, COUNT);
+    console.log('\n=== Round ' + roundNum + (maxRounds < Infinity ? '/' + maxRounds : '') + ' — ' + batchKeys.length + ' case(s) of ' + allSelected.length + ' remaining ===');
+
+    let allErrored = true, roundApplied = 0, roundSkipped = 0;
+
+    for (const externalId of batchKeys) {
+      const entry = entries.find((e) => e.externalId === externalId);
+      if (!entry) { roundSkipped++; continue; }
+      const items = byCase[externalId];
+      console.log('  ' + externalId + ' (' + items.length + ' q)...');
+
+      // Call API with up to 2 retries on credit/rate/5xx errors.
+      let reply = null, lastErr = null;
+      const RETRY_MS = [1000, 3000];
+      for (let attempt = 0; attempt <= RETRY_MS.length; attempt++) {
+        if (attempt > 0) {
+          await sleep(RETRY_MS[attempt - 1]);
+          console.log('    retry ' + attempt + '...');
+        }
+        try {
+          reply = extractJson(await callAnthropic(buildRebalancePrompt(entry.caseObj, items), { maxTokens: 8000 }));
+          lastErr = null;
+          break;
+        } catch (e) {
+          lastErr = e;
+          const retriable = /credit|rate.?limit|429|5\d\d|503|overloaded/i.test(e.message);
+          if (!retriable) break;
+          console.log('    error (attempt ' + (attempt + 1) + '): ' + e.message.slice(0, 100));
+        }
+      }
+
+      if (!reply) {
+        const msg = lastErr ? lastErr.message.slice(0, 120) : 'no reply';
+        console.log('    failed after retries: ' + msg);
+        await insertAuditDoc(runId, externalId, [], false, [msg]);
+        roundSkipped++;
+        continue;
+      }
+      allErrored = false;
+
+      const byQ = {};
+      (reply.questions || []).forEach((r) => { if (r && r.q != null) byQ[Number(r.q)] = r.edits; });
+
+      const mergedByQi = {};
+      entry.repairedQis = [];
+      for (const it of items) {
+        const tag = 'q' + (it.qi + 1);
+        const edits = byQ[it.qi + 1];
+        if (!edits) { console.log('    ' + tag + ': not in reply'); continue; }
+        const merged = mergeRebalanceEdit(it.question, edits, it.conv);
+        if (!merged.ok) { console.log('    ' + tag + ': rejected (' + merged.reason + ') ' + merged.detail); continue; }
+
+        // Stale check: key text in current entry must still match what we generated against.
+        const liveKey = (entry.caseObj.questions[it.qi] && entry.caseObj.questions[it.qi].options || []).find((o) => o && o.isCorrect);
+        const genKey = it.question.options.find((o) => o && o.isCorrect);
+        if (!liveKey || !genKey || liveKey.text !== genKey.text) { console.log('    ' + tag + ': stale — skipped'); continue; }
+
+        const failing = checkQuestionQuality(merged.question, tag);
+        if (failing.length) { console.log('    ' + tag + ': gate fails: ' + failing.join(' | ')); continue; }
+
+        console.log('    ' + tag + ': OK [' + it.conv.type + ']');
+        mergedByQi[it.qi] = merged;
+        entry.caseObj.questions[it.qi] = merged.question;
+        entry.repairedQis.push(it.qi);
+      }
+
+      const auditEdits = buildEditsForAudit(items, mergedByQi);
+      if (entry.repairedQis.length) {
+        await writeRepairs(ContentItem, [entry], { keepStatus: true, verb: 'rebalanced key-length on' });
+        await insertAuditDoc(runId, externalId, auditEdits, true, []);
+        resumed.add(externalId);
+        roundApplied++;
+        totalApplied++;
+      } else {
+        await insertAuditDoc(runId, externalId, auditEdits, false, ['no edits accepted']);
+        roundSkipped++;
+      }
+    }
+
+    if (allErrored && batchKeys.length > 0) {
+      console.log('\nEvery case in round ' + roundNum + ' errored — stopping to avoid spin.');
+      totalSkipped += roundSkipped;
+      break;
+    }
+    totalSkipped += roundSkipped;
+    console.log('  Round ' + roundNum + ' done: ' + roundApplied + ' applied, ' + roundSkipped + ' skipped.');
+  }
+
+  // After stats: reload to reflect all writes.
+  const afterEntries = await loadLiveCases(Exam, ContentItem, { explicit: EXPLICIT, all: ALL });
+  const afterStats = computeSeriesStats(afterEntries);
+  printRunSummary(beforeStats, afterStats, totalApplied, totalSkipped, roundNum, runId);
 }
 
 // ---------------------------------------------------------------------------
@@ -451,7 +645,7 @@ async function runFromProposals(entries) {
 // ---------------------------------------------------------------------------
 
 function runSelfTest() {
-  console.log('No MONGO_URI — running self-test with 6 synthetic questions\n');
+  console.log('No MONGO_URI — running self-test with 6 synthetic questions + loop logic\n');
   let pass = 0, fail = 0;
   function assert(label, cond, detail) {
     if (cond) { console.log('  PASS ' + label); pass++; }
@@ -463,7 +657,7 @@ function runSelfTest() {
     return { options: opts.map((o, i) => ({ id: String(i + 1), text: o.t, weight: o.w, isCorrect: !!o.key, explanation: { commonMistake: 'test mistake text here' } })) };
   }
 
-  // 1. Convertible to key-longest: key=K, max_distractor=K+5, min=K → band ceil=88; K+5=85 < 88
+  // 1. Convertible to key-longest
   const q1 = mkQ([{ t: 'a'.repeat(K), w: 3, key: true }, { t: 'b'.repeat(K + 5), w: 0 }, { t: 'c'.repeat(K + 3), w: -1 }, { t: 'd'.repeat(K + 1), w: -2 }]);
   const r1 = canMakeKeyLongest(q1);
   assert('q1 convertible→longest feasible', r1.feasible, JSON.stringify(r1));
@@ -478,44 +672,87 @@ function runSelfTest() {
   const q3 = mkQ([{ t: 'a'.repeat(K + 5), w: 3, key: true }, { t: 'b'.repeat(K + 2), w: 0 }, { t: 'c'.repeat(K + 1), w: -1 }, { t: 'd'.repeat(K), w: -2 }]);
   const r3 = canMakeKeyLongest(q3);
   assert('q3 already longest → infeasible', !r3.feasible);
-  // key=K+5=85, min*1.1=80*1.1=88: 85 < 88 so the gate does NOT flag key-longest here (within band)
   assert('q3 keyIsLongest=false (85 < min*1.1=88, within band)', !keyIsLongest(q3));
 
-  // 4. Shortest-fixable: key=K, 2nd-shortest=K+2, max=K+10; trim to K-1=79 → 90/79=1.139≤1.25
+  // 4. Shortest-fixable: key=K, 2nd-shortest=K+2, max=K+10
   const q4 = mkQ([{ t: 'a'.repeat(K), w: 3, key: true }, { t: 'b'.repeat(K + 2), w: 0 }, { t: 'c'.repeat(K + 10), w: -1 }, { t: 'd'.repeat(K + 5), w: -2 }]);
   const r4 = canClearKeyShortest(q4);
   assert('q4 clear-key-shortest feasible', r4.feasible, JSON.stringify(r4));
   assert('q4 trimmedLen = K-1 = ' + (K - 1), r4.feasible && r4.trimmedLen === K - 1);
 
-  // 5. Band violation: key=K, 2nd-shortest=K+1, max=K+30; trim to K-1=79 → 110/79=1.39>1.25
+  // 5. Band violation
   const q5 = mkQ([{ t: 'a'.repeat(K), w: 3, key: true }, { t: 'b'.repeat(K + 1), w: 0 }, { t: 'c'.repeat(K + 30), w: -1 }, { t: 'd'.repeat(K + 20), w: -2 }]);
   const r5 = canClearKeyShortest(q5);
   assert('q5 band violation → infeasible', !r5.feasible);
 
-  // 6. Tie: key=K tied with distractor; trim tied distractor to K-1 → max=K+5=85/79=1.075≤1.25
+  // 6. Tie: key=K tied with distractor
   const q6 = mkQ([{ t: 'a'.repeat(K), w: 3, key: true }, { t: 'b'.repeat(K), w: 0 }, { t: 'c'.repeat(K + 5), w: -1 }, { t: 'd'.repeat(K + 3), w: -2 }]);
   const r6 = canClearKeyShortest(q6);
   assert('q6 tied-shortest feasible via trim', r6.feasible, JSON.stringify(r6));
   assert('q6 keyIsShortest=true', keyIsShortest(q6));
 
-  // Plan decisions: build mock entries and verify selection
-  const mockEntries = [
-    { externalId: 'ncmhce-D001', status: 'published', reviewNote: '', repairedQis: [], caseObj: { questions: [q1, q4] } },
-    { externalId: 'ncmhce-S001', status: 'published', reviewNote: '', repairedQis: [], caseObj: { questions: [q2, q5] } },
-  ];
-  const origTargetL = TARGET_LONGEST, origTargetS = TARGET_SHORTEST;
-  // Force small targets for test
-  const saved = { tl: TARGET_LONGEST, ts: TARGET_SHORTEST };
-  // Directly call buildPlan (reads module-level TARGET_LONGEST/TARGET_SHORTEST)
-  // We can't mutate const, so just verify the pool contains what we expect
-  const mkl1 = canMakeKeyLongest(q1);
-  const cks4 = canClearKeyShortest(q4);
-  assert('plan pool: q1 in make-key-longest pool', mkl1.feasible);
-  assert('plan pool: q4 in clear-key-shortest pool', cks4.feasible);
-  // q2: key=80 is shortest, max=89, trim 2nd-shortest to 79 → 89/79=1.126≤1.25, so clear-key-shortest IS feasible
+  // Plan pool checks
+  assert('plan pool: q1 in make-key-longest pool', canMakeKeyLongest(q1).feasible);
+  assert('plan pool: q4 in clear-key-shortest pool', canClearKeyShortest(q4).feasible);
   assert('plan pool: q2 NOT in make-key-longest pool', !canMakeKeyLongest(q2).feasible);
-  assert('plan pool: q2 IS in clear-key-shortest pool (key==min, max within trim gate)', canClearKeyShortest(q2).feasible);
+  assert('plan pool: q2 IS in clear-key-shortest pool', canClearKeyShortest(q2).feasible);
   assert('plan pool: q5 not in clear pool', !canClearKeyShortest(q5).feasible);
+
+  // -------------------------------------------------------------------------
+  // Loop logic self-test: 3 rounds of simulated --run with mocked generate.
+  // Each synthetic case has one make-key-longest candidate. The mock generator
+  // returns a valid extension (key set to targetLen chars). After 3 rounds,
+  // the plan is empty because canMakeKeyLongest returns false for all 3 cases.
+  // -------------------------------------------------------------------------
+  console.log('\n  --- loop self-test ---');
+
+  // Three standard cases, each with one convertible question.
+  function mkEntry(id) {
+    const q = { id: id + '-q1', question: 'Q?', domain: 'test',
+      options: [
+        { id: '1', text: 'a'.repeat(K),     weight: 3, isCorrect: true,  explanation: { commonMistake: 'x'.repeat(20) } },
+        { id: '2', text: 'b'.repeat(K + 5), weight: 0, isCorrect: false, explanation: { commonMistake: 'x'.repeat(20) } },
+        { id: '3', text: 'c'.repeat(K + 3), weight: -1, isCorrect: false, explanation: { commonMistake: 'x'.repeat(20) } },
+        { id: '4', text: 'd'.repeat(K + 1), weight: -2, isCorrect: false, explanation: { commonMistake: 'x'.repeat(20) } },
+      ],
+    };
+    return { externalId: id, repairedQis: [], caseObj: { questions: [q] } };
+  }
+  const loopEntries = [mkEntry('ncmhce-S010'), mkEntry('ncmhce-S011'), mkEntry('ncmhce-S012')];
+
+  // Mock generator: immediately apply targetLen to the key for each selected item.
+  function mockApply(entries, selected) {
+    const byCase = {};
+    for (const s of selected) { if (!byCase[s.externalId]) byCase[s.externalId] = []; byCase[s.externalId].push(s); }
+    const batchKeys = Object.keys(byCase).sort().slice(0, 1);  // count=1 per round
+    for (const id of batchKeys) {
+      const entry = entries.find((e) => e.externalId === id);
+      for (const s of byCase[id]) {
+        const key = entry.caseObj.questions[s.qi].options.find((o) => o.isCorrect);
+        key.text = 'A'.repeat(s.conv.targetLen);  // extend key past max distractor
+      }
+    }
+    return batchKeys.length;
+  }
+
+  let loopRound = 0;
+  while (loopRound < 10) {
+    const plan = buildPlan(loopEntries);
+    const selected = Object.values(plan).flatMap((p) => p.selected);
+    if (!selected.length) break;
+    loopRound++;
+    mockApply(loopEntries, selected);
+  }
+  assert('loop terminates in exactly 3 rounds (3 cases, count=1 per round)', loopRound === 3, 'got ' + loopRound);
+  assert('loop exit condition: plan empty after 3 rounds', loopRound < 10);
+  // Verify all three questions now have key > maxDistractor (mock successfully applied)
+  const allFixed = loopEntries.every((e) => {
+    const q = e.caseObj.questions[0];
+    const lens = optLens(q);
+    const ki = q.options.findIndex((o) => o.isCorrect);
+    return lens[ki] > Math.max(...lens.filter((_, i) => i !== ki));
+  });
+  assert('mock apply: all 3 questions have key longer than max distractor', allFixed);
 
   console.log('\n' + pass + ' passed, ' + fail + ' failed.');
   process.exit(fail > 0 ? 1 : 0);
@@ -527,7 +764,7 @@ function runSelfTest() {
 
 async function main() {
   if (!process.env.MONGO_URI) {
-    if (AUDIT || PLAN_FLAG || GENERATE || FROM) { console.error('MONGO_URI is not set.'); process.exit(1); }
+    if (AUDIT || PLAN_FLAG || GENERATE || FROM || RUN_MODE) { console.error('MONGO_URI is not set.'); process.exit(1); }
     runSelfTest();
     return;
   }
@@ -535,6 +772,16 @@ async function main() {
 
   await mongoose.connect(process.env.MONGO_URI, { dbName: 'passreadyprep' });
   console.log('Connected to MongoDB (db: passreadyprep)\n');
+
+  // --run: unattended loop
+  if (RUN_MODE) {
+    if (!resolveApiKey()) { console.error('ANTHROPIC_API_KEY_CASE_TOOLS / ANTHROPIC_API_KEY not set.'); process.exit(1); }
+    const runId = RESUME_RUN_ID || ('rbl-' + Date.now());
+    console.log('Starting --run (runId: ' + runId + ', maxRounds: ' + (ROUNDS || '∞') + ', count: ' + COUNT + ')\n');
+    await runUnattended(runId);
+    await mongoose.disconnect();
+    return;
+  }
 
   const entries = await loadLiveCases(Exam, ContentItem, { explicit: EXPLICIT, all: ALL, from: FROM });
   if (FROM) { await runFromProposals(entries); await mongoose.disconnect(); return; }
@@ -549,20 +796,19 @@ async function main() {
     return;
   }
 
-  // Plan (implicit for generate) — always build when not --from
   const plan = buildPlan(entries);
   printPlan(plan);
   const allSelected = Object.values(plan).flatMap((p) => p.selected);
   console.log('\nTotal planned conversions: ' + allSelected.length);
 
   if (!GENERATE) {
-    console.log('\n' + (PLAN_FLAG ? 'Plan only.' : 'Default: plan only.') + ' --audit for statistics, --generate to produce rewrites.');
+    console.log('\n' + (PLAN_FLAG ? 'Plan only.' : 'Default: plan only.') + ' --audit for statistics, --generate to produce rewrites, --run for unattended loop.');
     await mongoose.disconnect();
     return;
   }
   if (!resolveApiKey()) { console.error('\nANTHROPIC_API_KEY_CASE_TOOLS / ANTHROPIC_API_KEY not set.'); process.exit(1); }
 
-  // Group by externalId; SKIP+COUNT at case level
+  const runId = 'rbl-' + Date.now();
   const byCase = {};
   for (const s of allSelected) {
     if (!byCase[s.externalId]) byCase[s.externalId] = [];
@@ -581,16 +827,20 @@ async function main() {
     if (!entry) continue;
     const items = byCase[externalId];
     console.log('  ' + externalId + ' (' + items.length + ' question(s))...');
-    let reply;
+    let reply, apiErr;
     try {
       reply = extractJson(await callAnthropic(buildRebalancePrompt(entry.caseObj, items), { maxTokens: 8000 }));
     } catch (e) {
       console.log('    ERROR: ' + e.message.slice(0, 150));
-      continue;
+      await insertAuditDoc(runId, externalId, [], false, [e.message.slice(0, 200)]);
+      apiErr = true;
     }
+    if (apiErr) continue;
+
     const byQ = {};
     (reply.questions || []).forEach((r) => { if (r && r.q != null) byQ[Number(r.q)] = r.edits; });
 
+    const mergedByQi = {};
     const proposed = [];
     for (const it of items) {
       const tag = 'q' + (it.qi + 1);
@@ -601,16 +851,22 @@ async function main() {
       const failing = checkQuestionQuality(merged.question, tag);
       if (failing.length) { console.log('    ' + tag + ': gate fails: ' + failing.join(' | ') + ' — skipped'); continue; }
       console.log('    ' + tag + ': OK [' + it.conv.type + ']');
+      mergedByQi[it.qi] = merged;
       proposed.push({ qi: it.qi, questionId: it.question.id, domain: it.question.domain, question: it.question.question, convType: it.conv.type, before: it.question.options, after: merged.question.options });
       if (!SAVE) { entry.caseObj.questions[it.qi] = merged.question; entry.repairedQis.push(it.qi); }
       fixed++;
     }
+
+    const auditEdits = buildEditsForAudit(items, mergedByQi);
+    const applied = !SAVE && proposed.length > 0;
+    await insertAuditDoc(runId, externalId, auditEdits, applied, []);
+
     if (proposed.length) {
       const c = entry.caseObj;
       proposals.cases.push({ externalId, title: c.title, dx: (c.diagnosis && c.diagnosis.name) || (c.primaryDiagnosis && c.primaryDiagnosis.name) || '', questions: proposed });
     }
   }
-  console.log('\n' + fixed + ' question(s) rewritten across ' + proposals.cases.length + ' case(s).');
+  console.log('\n' + fixed + ' question(s) rewritten across ' + proposals.cases.length + ' case(s). runId: ' + runId);
 
   if (SAVE) {
     fs.mkdirSync(path.dirname(path.resolve(SAVE)), { recursive: true });
@@ -637,5 +893,6 @@ if (require.main === module) main().catch((e) => { console.error(e); process.exi
 
 module.exports = {
   isDeepCase, hashStr, keyIsLongest, keyIsShortest, canMakeKeyLongest, canClearKeyShortest,
-  buildPlan, buildRebalancePrompt, mergeRebalanceEdit, SELF_DISQUALIFY, LENGTH_BAND, GATE_RATIO,
+  buildPlan, buildRebalancePrompt, mergeRebalanceEdit, computeSeriesStats,
+  SELF_DISQUALIFY, LENGTH_BAND, GATE_RATIO,
 };
