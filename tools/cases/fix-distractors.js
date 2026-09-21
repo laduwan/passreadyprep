@@ -242,6 +242,12 @@ ${lines}`;
 
   return `You are an NCMHCE item writer fixing ONLY the LENGTH of distractors on ${retries.length} question(s) from one case ("${caseObj.title}"). The wording, clinical meaning, tier (weight), id, rationale and explanation of each distractor stay as they are; you only add or remove ONE clinical qualifier per option as instructed below. Do not count characters or words. Every option you return must still read as a complete, standalone clinical statement — never end one on a determiner ("a", "an", "the") with no following noun, on dangling punctuation, or with an unclosed bracket. The added or removed qualifier must add clinical specificity (a symptom, timeframe, setting, mechanism, or case detail); it must never comment on the option's own correctness or sufficiency. Forbidden patterns include: "but does not establish", "but is not", "suggestive but", "not the feature/finding that", "on its own", "by itself", "without other features", "taken as", "treated as evidence", and any phrasing that tells the reader the option is inadequate. Never introduce absolute language ("always", "never", "entirely", "completely", "all", "none", "rules out"). A distractor must remain something a reasonable but less-expert counselor would actually choose.
 
+The added or removed qualifier must add clinical specificity (a symptom, timeframe, setting, mechanism, or case detail). It must never comment on the option's own correctness or sufficiency. Forbidden patterns include: "but does not establish", "but is not", "suggestive but", "not the feature/finding that", "on its own", "by itself", "without other features", "taken as", "treated as evidence", and any phrasing that tells the reader the option is inadequate.
+
+Never introduce absolute language ("always", "never", "entirely", "completely", "all", "none", "rules out").
+
+A distractor must remain something a reasonable but less-expert counselor would actually choose.
+
 ${blocks}
 
 Return ONE JSON object only (no markdown, no prose), one entry per question, "q" echoing the question number, every distractor present with its ORIGINAL id and its new text. Return ONLY id and text per option — the weight, rationale and explanation are kept from before and must not be re-sent. A returned "text" that ends on a determiner with no following noun, on dangling punctuation, or with an unclosed bracket will be discarded and the question left unchanged:
