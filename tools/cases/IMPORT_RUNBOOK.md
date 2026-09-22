@@ -123,6 +123,23 @@ half-formed, and the tool prints the count. The drill caches for five minutes.
 Flag a case that is still published and its questions show up in both places —
 the tool warns when that is what you are about to do.
 
+**Harvested questions go stale.** A retired duplicate's questions freeze at
+the moment it leaves the bank, while its published counterpart keeps getting
+repaired (`rewrite-questions.js`, `rebalance-key-length.js`,
+`fix-distractors.js`) — so over time the drill drifts to older, lower-quality
+text than the cases students actually sit. `refresh-nbs-harvest.js` re-syncs
+every flagged case from the CURRENT published bank: it finds the counterpart
+by recorded lineage (`caseSim.harvestedFrom`, which it writes on first
+refresh) or by title + primary diagnosis, copies the counterpart's current
+questions and references onto the harvest record, and saves the old content
+to the `nbsrefreshaudit` collection first so a refresh is reversible. Run it
+after any repair pass that touched published cases with harvested twins.
+
+```bash
+node tools/cases/refresh-nbs-harvest.js              # plan: who matches whom, who is stale
+node tools/cases/refresh-nbs-harvest.js --apply      # refresh the stale ones
+```
+
 **Which model.** All three generation tools (`generate-deep.js`,
 `fix-distractors.js`, `rewrite-questions.js`) call the API through
 `tools/cases/anthropic.js`, which uses `ANTHROPIC_MODEL` if that env var is set
