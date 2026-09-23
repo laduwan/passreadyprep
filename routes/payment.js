@@ -184,7 +184,7 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
       // PASSREADY10 (and any future codes). The coupon + promotion code
       // themselves live in the Stripe dashboard, not in this repo.
       allow_promotion_codes: true,
-      success_url: `${process.env.CLIENT_URL}/payment-success.html?tier=${tier}&session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${process.env.CLIENT_URL}/checkout.html?tier=${tier}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.CLIENT_URL}/landing.html#pricing`,
       metadata: {
         userId: user._id.toString(),
