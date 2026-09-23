@@ -46,6 +46,18 @@
 //       -> writes only questions the sheet approves, with overrides, after
 //          re-checking the live question is unchanged and the gate still passes.
 //
+// Unattended (no review file — writes straight to the DB as each case clears
+// the gate; loops until nothing is left flagged):
+//   node tools/cases/fix-distractors.js --run [--rounds N] [--count N] [--resume <runId>]
+//       Repeats: pick a batch of flagged cases -> repair each -> write it the
+//       moment it passes -> record one fixdistractorsaudit doc per case ->
+//       repeat, until the plan is empty, --rounds is reached, or every case in
+//       a round fails on an API credit/rate-limit error (stops rather than
+//       spin). A credit/rate-limit/5xx error on a case is retried twice with
+//       backoff before that case is skipped for the round. --resume <runId>
+//       skips cases already marked "applied" under that runId, so a killed
+//       run can be restarted without re-billing finished work.
+//
 // Writes always $set only the repaired questions' paths (never the whole
 // caseSim). By default a repaired case goes back to sme_review; pass
 // --keep-status to leave published cases live (the sensible choice after a
@@ -76,8 +88,11 @@ const { callAnthropic, extractJson, MODEL, resolveApiKey } = require('./anthropi
 const { AUTO_NOTE_PREFIX, TIER_LABEL, CSV_HEADER, toCsv, parseCsv, readReviewSheet, composeNote, esc, writeRepairs, loadLiveCases } = require('./reviewRoundTrip');
 
 function flag(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d; }
-const COUNT = parseInt(flag('count', '5'), 10);
+const RUN_MODE = process.argv.includes('--run');
+const COUNT = parseInt(flag('count', RUN_MODE ? '20' : '5'), 10);
 const SKIP = parseInt(flag('skip', '0'), 10);
+const ROUNDS = parseInt(flag('rounds', '0'), 10); // --run only; 0 = unlimited
+const RESUME_RUN_ID = flag('resume', null);
 const ALL = process.argv.includes('--all');
 const APPLY = process.argv.includes('--apply');
 const KEEP_STATUS = process.argv.includes('--keep-status');
@@ -447,6 +462,201 @@ ${caseHtml}
 }
 
 // ---------------------------------------------------------------------------
+// One case: repair-prompt call, judge/merge, length-fix follow-ups
+// ---------------------------------------------------------------------------
+
+// One case: one repair-prompt call, each returned question judged and merged
+// into entry.caseObj (unless SAVE is set, in which case entry.caseObj is left
+// untouched and the before/after pair only lives in the returned `proposed`
+// array). Length-only failures get up to LENGTH_PASSES targeted follow-up
+// calls. Returns { proposed, apiError }: apiError is set only when the
+// initial repair-prompt call itself failed (used by both the interactive
+// batch loop and --run to decide whether this case is worth retrying).
+async function repairOneCase(entry) {
+  console.log('  ' + entry.externalId + ' (' + entry.items.length + ' question(s))...');
+  let reply;
+  try {
+    reply = extractJson(await callAnthropic(buildCaseRepairPrompt(entry.caseObj, entry.items), { maxTokens: 32000 }));
+  } catch (e) {
+    console.log('    ERROR: ' + e.message.slice(0, 150));
+    return { proposed: [], apiError: e.message };
+  }
+  const byQ = {};
+  (reply.questions || []).forEach((r) => { if (r && r.q != null) byQ[Number(r.q)] = r.options; });
+
+  const proposed = [];
+  const accept = (it, candidate, note) => {
+    const tag = 'q' + (it.qi + 1);
+    console.log('    ' + tag + ': OK' + (note || ''));
+    candidate.options.forEach((o) => { if (!o.isCorrect) console.log('      [' + (o.weight >= 0 ? ' ' : '') + o.weight + '] ' + o.text + '  (' + o.text.length + ')'); });
+    proposed.push({ qi: it.qi, questionId: it.question.id, domain: it.question.domain, question: it.question.question, reasons: it.reasons, before: it.question.options, after: candidate.options });
+    if (!SAVE) { entry.caseObj.questions[it.qi] = candidate; entry.repairedQis.push(it.qi); }
+  };
+  // Decide a candidate: accept, park for a length-only retry, or drop.
+  const judge = (it, candidate, retryList, note) => {
+    const tag = 'q' + (it.qi + 1);
+    const failing = checkQuestionQuality(candidate, tag);
+    if (failing.length && isLengthOnly(failing) && retryList) { retryList.push({ it, candidate, reasons: failing }); return; }
+    const why = rejectReason(entry.caseObj, it.qi, candidate);
+    if (why) { console.log('    ' + tag + ': ' + why + ' — left unchanged'); return; }
+    accept(it, candidate, note);
+  };
+
+  let retry = [];
+  for (const it of entry.items) {
+    const tag = 'q' + (it.qi + 1);
+    const returned = byQ[it.qi + 1];
+    if (!returned) { console.log('    ' + tag + ': not in reply — left unchanged'); continue; }
+    const candidate = mergeRewrite(it.question, returned);
+    if (!candidate.ok) { console.log('    ' + tag + ': reply rejected (' + candidate.reason + ') — ' + candidate.detail + ' — left unchanged'); continue; }
+    judge(it, candidate.question, retry);
+  }
+
+  // Length-only failures get up to LENGTH_PASSES targeted follow-ups, one
+  // call per case per pass, with exact add/cut deltas per distractor.
+  for (let pass = 1; pass <= LENGTH_PASSES && retry.length; pass++) {
+    console.log('    length pass ' + pass + ': ' + retry.length + ' question(s) off-length — ' + retry.map((r) => 'q' + (r.it.qi + 1)).join(', '));
+    let reply2;
+    try {
+      reply2 = extractJson(await callAnthropic(buildLengthFixPrompt(entry.caseObj, retry), { maxTokens: 16000 }));
+    } catch (e) {
+      console.log('    ERROR (length pass): ' + e.message.slice(0, 150));
+      break;
+    }
+    const byQ2 = {};
+    (reply2.questions || []).forEach((r) => { if (r && r.q != null) byQ2[Number(r.q)] = r.options; });
+    const next = [];
+    for (const r of retry) {
+      const tag = 'q' + (r.it.qi + 1);
+      const returned = byQ2[r.it.qi + 1];
+      const cand2 = returned ? mergeLengthFix(r.candidate, returned) : null;
+      if (!cand2 || !cand2.ok) {
+        const why = cand2 ? '(' + cand2.reason + ') ' + cand2.detail : 'no reply for this question';
+        console.log('    ' + tag + ': length pass reply rejected ' + why + ' — ' + r.reasons.join(' | ') + ' — left unchanged');
+        continue;
+      }
+      judge(r.it, cand2.question, pass < LENGTH_PASSES ? next : null, ' (after length pass ' + pass + ')');
+    }
+    retry = next;
+  }
+  retry.forEach((r) => console.log('    q' + (r.it.qi + 1) + ': still off-length after ' + LENGTH_PASSES + ' passes: ' + r.reasons.join(' | ') + ' — left unchanged'));
+  return { proposed, apiError: null };
+}
+
+// ---------------------------------------------------------------------------
+// --run unattended loop
+// ---------------------------------------------------------------------------
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// "credit balance", 429 and 5xx are worth retrying with backoff; anything
+// else (bad request, a reply that fails validation) will not improve on retry.
+const CREDIT_RETRIABLE_RE = /credit|rate.?limit|429|5\d\d|503|overloaded/i;
+
+// Same predicate as the plan-listing block above (isRewriteSafe / REASONS_FILTER),
+// standalone so --run can recompute the flagged set fresh every round without
+// touching that block's histogram/skip-reporting side effects.
+function flagQuestions(caseObj) {
+  const items = [];
+  (caseObj.questions || []).forEach((q, qi) => {
+    const reasons = checkQuestionQuality(q, 'q' + (qi + 1));
+    if (!reasons.length) return;
+    if (!isRewriteSafe(q)) return;
+    if (REASONS_FILTER && !reasons.some((r) => REASONS_FILTER.includes(classifyReason(r)))) return;
+    items.push({ qi, question: q, reasons });
+  });
+  return items;
+}
+
+function auditColl() {
+  return mongoose.connection.collection('fixdistractorsaudit');
+}
+
+async function insertAuditDoc(runId, externalId, edits, status, errors) {
+  try {
+    await auditColl().insertOne({ runId, ts: new Date(), externalId, status, edits, errors: errors || [] });
+  } catch (e) {
+    console.log('  [audit] warn: ' + externalId + ': ' + e.message.slice(0, 80));
+  }
+}
+
+async function getResumedCases(resumeRunId) {
+  if (!resumeRunId) return new Set();
+  const docs = await auditColl().find({ runId: resumeRunId, status: 'applied' }, { projection: { externalId: 1 } }).toArray();
+  const s = new Set(docs.map((d) => d.externalId));
+  if (s.size) console.log('Resuming runId ' + resumeRunId + ': skipping ' + s.size + ' already-applied case(s).\n');
+  return s;
+}
+
+// Up to 2 retries with backoff, but only for credit/rate-limit/5xx errors on
+// the initial repair-prompt call — anything else (a malformed reply, every
+// candidate rejected by the gate) is not worth repeating.
+async function repairOneCaseWithRetry(entry) {
+  const RETRY_MS = [1000, 3000];
+  let result = { proposed: [], apiError: null };
+  for (let attempt = 0; attempt <= RETRY_MS.length; attempt++) {
+    if (attempt > 0) {
+      await sleep(RETRY_MS[attempt - 1]);
+      console.log('    retry ' + attempt + ' for ' + entry.externalId + '...');
+    }
+    result = await repairOneCase(entry);
+    if (!result.apiError) return { result, creditError: false };
+    if (!CREDIT_RETRIABLE_RE.test(result.apiError)) break;
+  }
+  return { result, creditError: !!(result.apiError && CREDIT_RETRIABLE_RE.test(result.apiError)) };
+}
+
+function countRemaining(entries, resumed) {
+  return entries.filter((e) => flagQuestions(e.caseObj).length && !resumed.has(e.externalId)).length;
+}
+
+async function runUnattended(runId) {
+  const maxRounds = ROUNDS > 0 ? ROUNDS : Infinity;
+  const resumed = await getResumedCases(RESUME_RUN_ID);
+  let totalApplied = 0, totalSkipped = 0, totalErrored = 0, roundNum = 0;
+
+  while (roundNum < maxRounds) {
+    roundNum++;
+    const entries = await loadLiveCases(Exam, ContentItem, { explicit: EXPLICIT, all: ALL });
+    const cases = entries.filter((e) => { e.items = flagQuestions(e.caseObj); return e.items.length && !resumed.has(e.externalId); });
+    if (!cases.length) { console.log('Round ' + roundNum + ': plan is empty — done.'); break; }
+
+    const batch = cases.slice(0, COUNT);
+    console.log('\n=== Round ' + roundNum + (maxRounds < Infinity ? '/' + maxRounds : '') + ' — ' + batch.length + ' case(s) of ' + cases.length + ' remaining ===');
+
+    let roundApplied = 0, roundSkipped = 0, roundErrored = 0, roundCreditErrored = 0;
+    for (const entry of batch) {
+      const { result, creditError } = await repairOneCaseWithRetry(entry);
+      const editsCount = result.proposed.length;
+      let status;
+      if (editsCount > 0) {
+        await writeRepairs(ContentItem, [entry], { keepStatus: KEEP_STATUS });
+        status = 'applied'; roundApplied++; totalApplied++;
+        resumed.add(entry.externalId);
+      } else if (result.apiError) {
+        status = 'error'; roundErrored++; totalErrored++;
+        if (creditError) roundCreditErrored++;
+      } else {
+        status = 'skipped'; roundSkipped++; totalSkipped++;
+      }
+      await insertAuditDoc(runId, entry.externalId, editsCount, status, result.apiError ? [result.apiError] : []);
+    }
+    console.log('  Round ' + roundNum + ' done: ' + roundApplied + ' applied, ' + roundSkipped + ' skipped, ' + roundErrored + ' errored.');
+    if (batch.length > 0 && roundCreditErrored === batch.length) {
+      console.log('\nEvery case in round ' + roundNum + ' errored on API credits — stopping to avoid spin.');
+      break;
+    }
+  }
+
+  const finalEntries = await loadLiveCases(Exam, ContentItem, { explicit: EXPLICIT, all: ALL });
+  const remaining = countRemaining(finalEntries, resumed);
+  console.log('\n════ RUN SUMMARY ════');
+  console.log('runId: ' + runId + ' | rounds: ' + roundNum);
+  console.log('applied: ' + totalApplied + ' | skipped: ' + totalSkipped + ' | errored: ' + totalErrored + ' | remaining in plan: ' + remaining);
+  console.log('════════════════════');
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -490,6 +700,15 @@ async function main() {
   if (SAVE && APPLY) { console.error('--save writes proposals for review instead of the database; drop --apply (apply later with --from).'); process.exit(1); }
   await mongoose.connect(process.env.MONGO_URI, { dbName: 'passreadyprep' });
   console.log('Connected to MongoDB (db: passreadyprep)\n');
+
+  if (RUN_MODE) {
+    if (!resolveApiKey()) { console.error('ANTHROPIC_API_KEY_CASE_TOOLS / ANTHROPIC_API_KEY not set.'); process.exit(1); }
+    const runId = RESUME_RUN_ID || ('fixd-' + Date.now());
+    console.log('Starting --run (runId: ' + runId + ', rounds: ' + (ROUNDS || '∞') + ', count: ' + COUNT + (KEEP_STATUS ? ', keep-status' : '') + ')\n');
+    await runUnattended(runId);
+    await mongoose.disconnect();
+    return;
+  }
 
   const entries = await loadLiveCases(Exam, ContentItem, { explicit: EXPLICIT, all: ALL, from: FROM });
   if (FROM) { await runFromProposals(entries); await mongoose.disconnect(); return; }
@@ -535,74 +754,8 @@ async function main() {
   const proposals = { generatedAt: new Date().toISOString(), model: MODEL, cases: [] };
   let fixed = 0;
   for (const entry of batch) {
-    console.log('  ' + entry.externalId + ' (' + entry.items.length + ' question(s))...');
-    let reply;
-    try {
-      reply = extractJson(await callAnthropic(buildCaseRepairPrompt(entry.caseObj, entry.items), { maxTokens: 32000 }));
-    } catch (e) {
-      console.log('    ERROR: ' + e.message.slice(0, 150));
-      continue;
-    }
-    const byQ = {};
-    (reply.questions || []).forEach((r) => { if (r && r.q != null) byQ[Number(r.q)] = r.options; });
-
-    const proposed = [];
-    const accept = (it, candidate, note) => {
-      const tag = 'q' + (it.qi + 1);
-      console.log('    ' + tag + ': OK' + (note || ''));
-      candidate.options.forEach((o) => { if (!o.isCorrect) console.log('      [' + (o.weight >= 0 ? ' ' : '') + o.weight + '] ' + o.text + '  (' + o.text.length + ')'); });
-      proposed.push({ qi: it.qi, questionId: it.question.id, domain: it.question.domain, question: it.question.question, reasons: it.reasons, before: it.question.options, after: candidate.options });
-      if (!SAVE) { entry.caseObj.questions[it.qi] = candidate; entry.repairedQis.push(it.qi); }
-      fixed += 1;
-    };
-    // Decide a candidate: accept, park for a length-only retry, or drop.
-    const judge = (it, candidate, retryList, note) => {
-      const tag = 'q' + (it.qi + 1);
-      const failing = checkQuestionQuality(candidate, tag);
-      if (failing.length && isLengthOnly(failing) && retryList) { retryList.push({ it, candidate, reasons: failing }); return; }
-      const why = rejectReason(entry.caseObj, it.qi, candidate);
-      if (why) { console.log('    ' + tag + ': ' + why + ' — left unchanged'); return; }
-      accept(it, candidate, note);
-    };
-
-    let retry = [];
-    for (const it of entry.items) {
-      const tag = 'q' + (it.qi + 1);
-      const returned = byQ[it.qi + 1];
-      if (!returned) { console.log('    ' + tag + ': not in reply — left unchanged'); continue; }
-      const candidate = mergeRewrite(it.question, returned);
-      if (!candidate.ok) { console.log('    ' + tag + ': reply rejected (' + candidate.reason + ') — ' + candidate.detail + ' — left unchanged'); continue; }
-      judge(it, candidate.question, retry);
-    }
-
-    // Length-only failures get up to LENGTH_PASSES targeted follow-ups, one
-    // call per case per pass, with exact add/cut deltas per distractor.
-    for (let pass = 1; pass <= LENGTH_PASSES && retry.length; pass++) {
-      console.log('    length pass ' + pass + ': ' + retry.length + ' question(s) off-length — ' + retry.map((r) => 'q' + (r.it.qi + 1)).join(', '));
-      let reply2;
-      try {
-        reply2 = extractJson(await callAnthropic(buildLengthFixPrompt(entry.caseObj, retry), { maxTokens: 16000 }));
-      } catch (e) {
-        console.log('    ERROR (length pass): ' + e.message.slice(0, 150));
-        break;
-      }
-      const byQ2 = {};
-      (reply2.questions || []).forEach((r) => { if (r && r.q != null) byQ2[Number(r.q)] = r.options; });
-      const next = [];
-      for (const r of retry) {
-        const tag = 'q' + (r.it.qi + 1);
-        const returned = byQ2[r.it.qi + 1];
-        const cand2 = returned ? mergeLengthFix(r.candidate, returned) : null;
-        if (!cand2 || !cand2.ok) {
-          const why = cand2 ? '(' + cand2.reason + ') ' + cand2.detail : 'no reply for this question';
-          console.log('    ' + tag + ': length pass reply rejected ' + why + ' — ' + r.reasons.join(' | ') + ' — left unchanged');
-          continue;
-        }
-        judge(r.it, cand2.question, pass < LENGTH_PASSES ? next : null, ' (after length pass ' + pass + ')');
-      }
-      retry = next;
-    }
-    retry.forEach((r) => console.log('    q' + (r.it.qi + 1) + ': still off-length after ' + LENGTH_PASSES + ' passes: ' + r.reasons.join(' | ') + ' — left unchanged'));
+    const { proposed } = await repairOneCase(entry);
+    fixed += proposed.length;
     if (proposed.length) {
       const c = entry.caseObj;
       proposals.cases.push({ externalId: entry.externalId, status: entry.status, title: c.title, dx: (c.diagnosis && c.diagnosis.name) || (c.primaryDiagnosis && c.primaryDiagnosis.name) || '', difficulty: c.difficulty, questionCount: c.questions.length, questions: proposed });
@@ -638,4 +791,5 @@ module.exports = {
   isRewriteSafe, mergeRewrite, newSchemaErrors, composeNote, buildCaseRepairPrompt, rejectReason,
   lengthTargets, isLengthOnly, buildLengthFixPrompt, mergeLengthFix, words, LENGTH_BAND,
   toCsv, parseCsv, proposalCsvRows, readReviewSheet, applyOverrides, liveMatchesProposal, renderReviewHtml, CSV_HEADER,
+  flagQuestions, CREDIT_RETRIABLE_RE, countRemaining, repairOneCase, repairOneCaseWithRetry,
 };
