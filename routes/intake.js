@@ -140,7 +140,7 @@ router.post('/debrief', async (req, res) => {
   try {
     const { transcript } = req.body || {};
     if (!transcript) return res.status(400).json({ error: 'transcript required' });
-    const feedback = await callAnthropic(EVAL_SYSTEM, [{ role: 'user', content: 'Transcript:\n\n' + transcript }], 900);
+    const feedback = await callAnthropic(EVAL_SYSTEM, [{ role: 'user', content: 'Transcript:\n\n' + transcript }], 1800);
     res.json({ feedback });
   } catch (e) { res.status(502).json({ error: String(e.message || e) }); }
 });
