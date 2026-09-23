@@ -261,6 +261,21 @@ reviewed apply that is redundant and, at bank scale, empties the app — pass
 `--keep-status`. The `Auto-repair:` review note and the `/review.html`
 "Needs work" badge still record what changed.
 
+**Unattended (`--run`).** Skips the review file entirely and writes straight
+to the DB as each case clears the gate, looping until nothing is left
+flagged:
+
+```bash
+node tools/cases/fix-distractors.js --run [--rounds N] [--count N] [--resume <runId>]
+```
+
+Each processed case gets one `fixdistractorsaudit` doc (`status:
+'applied'|'skipped'|'error'`). A credit/rate-limit/5xx error on a case is
+retried twice with backoff before that case is skipped for the round; if
+every case in a round errors on credits, the run stops instead of spinning.
+`--resume <runId>` skips cases already marked `applied` under that runId, so
+a killed run can be restarted without re-billing finished work.
+
 ## Growing the bank (new deep cases)
 
 `tools/cases/generate-deep.js` writes new 13-question cases straight into
@@ -287,6 +302,17 @@ accepted case is imported the moment it passes the gates as `sme_review`
 (`--publish` to go live directly), so a dropped shell loses only the cases
 in flight and **re-running the same command continues** from what is
 already stored. A billing or auth error stops the run with a STOPPED line.
+
+`--run [--target N] [--resume <runId>]` is the standardized unattended
+entry point — the same round loop as `--total` (defaults the target to 10
+cases when `--total` is not also given), plus one `generationaudit` doc per
+target attempted (`status: 'applied'|'skipped'|'error'`). A credit-balance
+or rate-limit error on one target's attempt is retried with backoff before
+that attempt counts as failed; if every target in a round errors on
+credits, the run stops instead of continuing to spend attempts. `--resume
+<runId>` keeps the audit trail under one id across a restarted run — the
+"recompute targets from the DB" behavior above already makes re-running
+idempotent on its own.
 Run a small `--count` first and check the Console usage page before
 committing to the full number.
 

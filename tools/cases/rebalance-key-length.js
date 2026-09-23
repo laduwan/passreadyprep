@@ -354,9 +354,15 @@ function auditColl() {
   return mongoose.connection.collection('rebalanceaudit');
 }
 
+// `applied` (boolean) is the field getResumedCases below has always queried
+// on and stays authoritative for --resume against an older runId; `status`
+// is the standardized applied/skipped/error field the other case-tool audit
+// collections (fixdistractorsaudit, generationaudit) use, added here too so
+// all three collections can be queried the same way.
 async function insertAuditDoc(runId, externalId, edits, applied, errors) {
   try {
-    await auditColl().insertOne({ runId, ts: new Date(), externalId, edits, applied: !!applied, errors: errors || [] });
+    const status = applied ? 'applied' : ((errors && errors.length) ? 'error' : 'skipped');
+    await auditColl().insertOne({ runId, ts: new Date(), externalId, edits, applied: !!applied, status, errors: errors || [] });
   } catch (e) {
     console.log('  [audit] warn: ' + externalId + ': ' + e.message.slice(0, 80));
   }

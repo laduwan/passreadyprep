@@ -22,11 +22,27 @@
 //     --dry-run    no API, no DB — just show what it would target
 //     --publish    import as published instead of sme_review
 //
+//     --run [--target N] [--resume <runId>]
+//                  standard unattended contract: same round loop as --total
+//                  (target defaults to 10 when --total is not also given —
+//                  pass --total instead of/with --target for a bigger run),
+//                  plus one generationaudit doc per target attempted this
+//                  run (status: applied/skipped/error) and a stopping rule
+//                  distinct from --total's plain "round imported nothing":
+//                  if every target in a round errors on API credits, the run
+//                  stops instead of continuing to spend attempts. --resume
+//                  <runId> reuses that id for the audit trail across a
+//                  restarted run — the natural "recompute targets from the
+//                  DB" behavior below already makes re-running idempotent.
+//
 // Each accepted case is imported the moment it passes the gates, so a
 // dropped shell loses only the cases in flight; re-running the same command
 // continues (targets are recomputed from what is already in the database).
-// A billing/auth error stops the run instead of failing every target.
+// A billing/auth error stops the run instead of failing every target. A
+// credit-balance/rate-limit/5xx error on one target's attempt is retried
+// with backoff before that attempt is counted as failed.
 //   nohup node tools/cases/generate-deep.js --total 250 --count 20 --per-cat 7 --parallel 3 --publish > gen.log 2>&1 &
+//   nohup node tools/cases/generate-deep.js --run --target 250 --count 20 --per-cat 7 --parallel 3 --publish > gen.log 2>&1 &
 // ============================================================================
 
 try { require('dotenv').config(); } catch (_) {}
@@ -48,7 +64,14 @@ const PER_CAT = parseInt(flag('per-cat', '2'), 10);
 const DRY = process.argv.includes('--dry-run');
 const STATUS = process.argv.includes('--publish') ? 'published' : 'sme_review';
 const PARALLEL = Math.max(1, parseInt(flag('parallel', '3'), 10) || 1);
-const TOTAL = parseInt(flag('total', '0'), 10) || 0;
+const RUN_MODE = process.argv.includes('--run');
+const RESUME_RUN_ID = flag('resume', null);
+const TARGET = parseInt(flag('target', '10'), 10) || 10;
+// --total is the pre-existing flag for "keep going until the bank has N
+// cases"; --run's standardized name for the same idea is --target, default
+// 10. Either sets it; --total wins if both are given (back-compat for
+// existing invocations); --run alone (no --total) falls back to --target.
+const TOTAL = (parseInt(flag('total', '0'), 10) || 0) || (RUN_MODE ? TARGET : 0);
 const SPEC = flag('spec', 'current'); // 'current' or '2027'
 const API_KEY = resolveApiKey(); // ANTHROPIC_API_KEY_CASE_TOOLS if set, else ANTHROPIC_API_KEY
 
@@ -205,6 +228,20 @@ function nextDeepId(deepCases) {
   return idAllocator.next(existing, { prefix: 'D' });
 }
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+function auditColl() {
+  return mongoose.connection.collection('generationaudit');
+}
+
+async function insertAuditDoc(runId, externalId, spec, status, edits, errors) {
+  try {
+    await auditColl().insertOne({ runId, ts: new Date(), externalId, spec, status, edits, errors: errors || [] });
+  } catch (e) {
+    console.log('  [audit] warn: ' + externalId + ': ' + e.message.slice(0, 80));
+  }
+}
+
 async function main() {
   if (!process.env.MONGO_URI) { console.error('MONGO_URI not set.'); process.exit(1); }
   await mongoose.connect(process.env.MONGO_URI, { dbName: 'passreadyprep' });
@@ -251,7 +288,16 @@ async function main() {
   const exemplar = (deep[0] || all[0]);
   let finished = 0;
   let fatal = null; // an API error that will hit every target (billing, auth)
+  let roundCreditErrors = 0; // --run only: targets this round that exhausted retries on a credit/rate-limit error
   const isFatal = (msg) => /credit balance|billing|API 401|API 403|ANTHROPIC_API_KEY/i.test(msg);
+  // --run splits isFatal's two cases apart: an auth/key problem still stops
+  // the whole run immediately (retrying with a bad key wastes nothing but
+  // time); a credit-balance/rate-limit/server error gets retried with
+  // backoff first, and only stops the run once every target in a round has
+  // exhausted its retries the same way (see the round loop below).
+  const isAuthFatal = (msg) => /API 401|API 403|ANTHROPIC_API_KEY/i.test(msg);
+  const isCreditRetriable = (msg) => /credit balance|billing|429|rate.?limit|5\d\d|503|overloaded/i.test(msg);
+  const runId = RESUME_RUN_ID || ('gen-' + Date.now());
   const livePool = all.slice();
   const startedAt = Date.now();
 
@@ -263,6 +309,8 @@ async function main() {
     const out = [];
     const log = (l) => out.push(l);
     let ok = false;
+    let newId = null;
+    let lastCreditErr = null;
     // Claim this plan slot synchronously before any await so parallel workers
     // don't share the same plan index.
     const planIdx = _plan2027Index++;
@@ -294,14 +342,31 @@ async function main() {
           { $set: { examId: exam._id, format: 'case_sim', externalId: c.id, title: c.title, category: c.category, difficulty: c.difficulty, references: c.references || [], caseSim: c }, $setOnInsert: { status: STATUS } },
           { upsert: true }
         );
-        made += 1; ok = true;
+        made += 1; ok = true; newId = c.id;
         log('    ADD ' + c.id + ' [' + c.category + '] "' + (c.title || '').slice(0, 50) + '" -> ' + STATUS);
       } catch (e) {
         log('    ERROR ' + t.category + ': ' + e.message.slice(0, 150));
-        if (isFatal(e.message)) fatal = e.message.slice(0, 150);
+        if (!RUN_MODE) {
+          if (isFatal(e.message)) fatal = e.message.slice(0, 150);
+        } else if (isAuthFatal(e.message)) {
+          fatal = e.message.slice(0, 150);
+        } else if (isCreditRetriable(e.message)) {
+          lastCreditErr = e.message.slice(0, 150);
+          if (attempt < 2) {
+            const backoffMs = [1000, 3000][attempt] || 3000;
+            log('    retrying in ' + backoffMs + 'ms...');
+            await sleep(backoffMs);
+          }
+        }
       }
     }
     if (!ok && !fatal) log('    SKIP ' + t.category + ' / ' + t.diagnosis.name + ' (3 attempts failed)');
+    if (RUN_MODE) {
+      const auditId = newId || (t.category + ' / ' + (t.diagnosis && t.diagnosis.name));
+      const status = ok ? 'applied' : (fatal ? 'error' : (lastCreditErr ? 'error' : 'skipped'));
+      if (!ok && !fatal && lastCreditErr) roundCreditErrors += 1;
+      await insertAuditDoc(runId, auditId, SPEC, status, ok ? 1 : 0, fatal ? [fatal] : (lastCreditErr ? [lastCreditErr] : []));
+    }
     return out;
   }
 
@@ -315,8 +380,10 @@ async function main() {
       console.log('    -- ' + finished + '/' + targets.length + ' target(s) done, ' + made + ' imported, after ' + ((Date.now() - startedAt) / 60000).toFixed(1) + ' min\n');
     }
   }
+  if (RUN_MODE) console.log('--run (runId: ' + runId + ', target: ' + TOTAL + (RESUME_RUN_ID ? ', resumed' : '') + ')');
   console.log('Generating ' + PARALLEL + ' at a time.\n');
-  for (let round = 1; ; round++) {
+  let round = 1;
+  for (; ; round++) {
     if (round > 1) {
       targets = planRound();
       if (!targets.length) { console.log(roundSize() <= 0 ? '\nReached ' + TOTAL + ' cases.' : '\nNo categories left to fill.'); break; }
@@ -324,9 +391,12 @@ async function main() {
       console.log('=== Round ' + round + ': ' + targets.length + ' target(s); bank at ' + (publishedAtStart + made) + '/' + TOTAL + ' ===');
       targets.forEach((t, i) => console.log('  ' + (i + 1) + '. ' + t.category + ' / ' + (t.diagnosis && t.diagnosis.name) + ' [' + t.difficulty + ']'));
     }
-    next = 0; finished = 0;
+    next = 0; finished = 0; roundCreditErrors = 0;
     const madeBefore = made;
     await Promise.all(Array.from({ length: Math.min(PARALLEL, targets.length) }, worker));
+    if (RUN_MODE && !fatal && targets.length > 0 && roundCreditErrors === targets.length) {
+      fatal = 'every target in round ' + round + ' errored on API credits';
+    }
     if (fatal || !TOTAL) break;
     if (made === madeBefore) { console.log('\nThis round imported nothing (every target failed its 3 attempts) — stopping rather than loop. Re-run the same command to try again.'); break; }
   }
@@ -336,6 +406,13 @@ async function main() {
     process.exitCode = 2;
   }
   console.log('\nDone. Imported ' + made + ' deep case(s) as ' + STATUS + '.' + (TOTAL ? ' Bank: ' + (publishedAtStart + made) + ' cases (target ' + TOTAL + ').' : ''));
+  if (RUN_MODE) {
+    const remaining = TOTAL ? Math.max(0, TOTAL - (publishedAtStart + made)) : 0;
+    console.log('\n════ RUN SUMMARY ════');
+    console.log('runId: ' + runId + ' | rounds: ' + round);
+    console.log('applied: ' + made + ' | remaining toward target: ' + remaining);
+    console.log('════════════════════');
+  }
   await mongoose.disconnect();
 }
 main().catch((e) => { console.error(e); process.exit(1); });
