@@ -9,6 +9,7 @@
  *   monthly    — $29/mo recurring (Stripe subscription)
  *   pass3      — $79 one-time, 3 months access
  *   guarantee  — $149 one-time, access until passing
+ *   test       — $1.00 one-time, admin-only live-payment smoke test (grants nothing)
  *
  * ENV vars required (add to .env and Render dashboard):
  *   STRIPE_SECRET_KEY       — sk_live_xxx  (or sk_test_xxx for dev)
@@ -101,6 +102,21 @@ const TIERS = {
     tierName: 'guide',
     entitlementOnly: true, // one-time PRODUCT (the study guide), NOT an access tier.
   },
+  // $1.00 test purchase for verifying the live Stripe flow end to end
+  // (checkout → webhook → activity log). Priced inline so it needs no
+  // product/price in the Stripe dashboard. Admin-only, and the webhook
+  // grants no tier or entitlement — refund it from the Stripe dashboard.
+  test: {
+    priceData: {
+      currency: 'usd',
+      unit_amount: 100, // $1.00
+      product_data: { name: 'PassReady Prep — $1 test purchase' },
+    },
+    mode: 'payment',
+    tierName: 'test',
+    adminOnly: true,
+    testOnly: true,
+  },
 };
 
 // ── POST /api/payment/create-checkout-session ─────────────────────────────────
@@ -123,14 +139,18 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
     }
 
     const tierConfig = TIERS[tier];
-    const priceId = tierConfig.priceId();
+    const priceId = tierConfig.priceData ? null : tierConfig.priceId();
 
-    if (!priceId) {
+    if (!tierConfig.priceData && !priceId) {
       return res.status(500).json({ error: `Price ID for tier "${tier}" is not configured` });
     }
 
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ error: 'User not found' });
+
+    if (tierConfig.adminOnly && user.role !== 'admin') {
+      return res.status(403).json({ error: 'Admin only' });
+    }
 
     // Retrieve or create Stripe customer so we can pre-fill their email
     let customerId = user.subscription?.stripeCustomerId;
@@ -155,7 +175,11 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
     const sessionParams = {
       customer: customerId,
       mode: tierConfig.mode,
-      line_items: [{ price: priceId, quantity: 1 }],
+      line_items: [
+        tierConfig.priceData
+          ? { price_data: tierConfig.priceData, quantity: 1 }
+          : { price: priceId, quantity: 1 },
+      ],
       // Show a promo-code field at checkout so ebook readers can redeem
       // PASSREADY10 (and any future codes). The coupon + promotion code
       // themselves live in the Stripe dashboard, not in this repo.
@@ -187,6 +211,13 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
     if (tier === 'guide') {
       sessionParams.success_url = `${process.env.CLIENT_URL}/study-guide.html?purchase=success`;
       sessionParams.cancel_url = `${process.env.CLIENT_URL}/study-guide.html`;
+    }
+
+    // Test purchase returns to the checkout page's success view.
+    if (tierConfig.testOnly) {
+      sessionParams.allow_promotion_codes = false;
+      sessionParams.success_url = `${process.env.CLIENT_URL}/checkout.html?tier=test&session_id={CHECKOUT_SESSION_ID}`;
+      sessionParams.cancel_url = `${process.env.CLIENT_URL}/checkout.html?tier=test`;
     }
 
     const session = await getStripe().checkout.sessions.create(sessionParams);
@@ -250,6 +281,13 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         if (!userId || !tier || !TIERS[tier]) break;
 
         const tierConfig = TIERS[tier];
+
+        // $1 test purchase: log it, change nothing on the account.
+        if (tierConfig.testOnly) {
+          console.log(`✓ Test purchase: user ${userId}, session ${session.id}`);
+          logActivity({ type: 'payment.succeeded', severity: 'info', userId, email: session.customer_details?.email, message: 'Test purchase ($1.00) — no access granted', meta: { tier, amount: session.amount_total, currency: session.currency, sessionId: session.id }, req });
+          break;
+        }
 
         // One-time PRODUCT (e.g. the study guide): grant an entitlement, never a tier.
         if (tierConfig.entitlementOnly) {

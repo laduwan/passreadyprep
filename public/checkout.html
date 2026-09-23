@@ -181,6 +181,13 @@
       desc: 'Unlimited access — one payment, forever.',
       features: ['All 270+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Pass guarantee — free CE on CounselorReady when you pass'],
     },
+    test: {
+      cls: 'pass3',
+      name: 'Test Purchase (admin)',
+      price: '$1.00',
+      desc: 'Live-payment smoke test. Grants no access — refund it from the Stripe dashboard.',
+      features: ['Admin accounts only','Verifies checkout → webhook → activity log'],
+    },
   };
 
   const params  = new URLSearchParams(location.search);
