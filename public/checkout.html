@@ -146,7 +146,8 @@
   <div id="success-view" style="display:none">
     <div class="tier-box pass3" style="text-align:center">
       <div class="tier-name">Payment confirmed ✓</div>
-      <div class="tier-desc">Your purchase is complete and your access is active.</div>
+      <div class="tier-price" id="thank-you" style="font-size:26px;margin:6px 0 8px">Thank you for your purchase!</div>
+      <div class="tier-desc" id="success-desc">Your purchase is complete and your access is active.</div>
     </div>
     <div class="guar-ack" id="guar-success">
       <div class="guar-ack-head">🛡️ Your Pass Guarantee is active</div>
@@ -202,6 +203,11 @@
     if (params.get('session_id')) {
       document.getElementById('loading').style.display = 'none';
       document.getElementById('success-view').style.display = 'block';
+      if (TIERS[tier]) {
+        document.getElementById('success-desc').textContent = tier === 'test'
+          ? 'Test purchase received. No access was granted — refund it from the Stripe dashboard.'
+          : `Your ${TIERS[tier].name} is active. We're glad you're preparing with us — good luck on the NCMHCE!`;
+      }
       if (tier === 'guarantee') document.getElementById('guar-success').classList.add('show');
       return;
     }
