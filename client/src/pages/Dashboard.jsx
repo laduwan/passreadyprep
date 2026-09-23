@@ -337,7 +337,7 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
         <h2 className="text-lg font-bold text-white mb-3">Study tools</h2>
         <div className="grid sm:grid-cols-2 gap-3">
           {[
-            { id: 'mockexam', icon: Clock, label: 'Timed Mock Exam', desc: 'Full-length, clock-running NCMHCE simulation — 11 cases, blueprint-weighted, 225 min. The closest thing to exam day.' },
+            { id: 'mockexam', icon: Clock, label: 'Timed Mock Exam', desc: 'Full-length, clock-running NCMHCE simulation — 11 cases (10 on the 2027 format), 225 min plus a 15-minute break, section-by-section like the real exam. The closest thing to exam day.' },
             { id: 'flashcards', icon: Layers, label: 'Flashcards', desc: '258 cards with spaced repetition — codes, treatments, differentials, ethics, crisis.' },
             { id: 'trees', icon: GitBranch, label: 'Decision Trees', desc: '25 clinical reasoning walkthroughs — safety triage, differential diagnosis, treatment selection, ethics.' },
             { id: 'dsm', icon: Brain, label: 'DSM-5-TR Reference', desc: '92 diagnoses with ICD-10 codes and first-line treatments. Searchable.' },
