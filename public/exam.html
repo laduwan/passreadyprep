@@ -94,7 +94,7 @@ h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
 .qstem{font-size:18px; line-height:1.4; margin:12px 0 16px; color:var(--white); font-weight:600}
 .opt{display:flex; gap:12px; align-items:flex-start; width:100%; text-align:left; cursor:pointer; font:inherit; color:inherit;
   background:rgba(30,41,59,.5); border:1.5px solid var(--card-border); border-radius:var(--r-md);
-  padding:13px 15px; margin-bottom:10px; transition:border-color .15s, background .15s}
+  padding:13px 15px; transition:border-color .15s, background .15s}
 .opt:hover:not(:disabled){border-color:var(--slate-600); background:rgba(30,41,59,.85)}
 .opt:disabled{cursor:default}
 .opt.selected{border-color:var(--emerald); background:rgba(16,185,129,.1)}
@@ -110,6 +110,23 @@ h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
 .opt .mark{margin-left:8px; font-weight:700; flex:0 0 auto}
 .opt.correct .mark{color:var(--emerald-400)}
 .opt.incorrect .mark{color:var(--red-400)}
+
+/* option row: main option + cross-out toggle */
+.opt-row{display:flex; gap:8px; align-items:stretch; margin-bottom:10px}
+.opt-row .opt{margin-bottom:0}
+.opt-row.struck .opt{opacity:.45}
+.opt-row.struck .opt .otext{text-decoration:line-through}
+.opt-strike{flex:0 0 auto; width:34px; border:1.5px solid var(--card-border); border-radius:var(--r-md);
+  background:rgba(30,41,59,.5); color:var(--slate-400); cursor:pointer; font-size:15px; font-weight:700;
+  transition:border-color .15s, background .15s, color .15s}
+.opt-strike:hover{border-color:var(--red-400); color:var(--red-400)}
+.opt-strike.active{border-color:var(--red-400); background:rgba(239,68,68,.12); color:var(--red-400)}
+
+/* confirm-answer bar */
+.confirm-bar{display:flex; align-items:center; gap:10px; margin:2px 0 14px; padding:10px 12px;
+  background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.25); border-radius:var(--r-md)}
+.confirm-bar span{font-size:13px; color:var(--amber-400); flex:1}
+.confirm-bar .btn{padding:8px 16px; font-size:14px}
 
 /* buttons */
 .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; font:inherit; font-weight:700;
@@ -458,13 +475,45 @@ function jumpTo(ci, si){
 }
 
 // ---- answer recording ----
+// A click only stages a choice (dxPendingId / questionsPending); it isn't
+// scored as "answered" until the user hits Confirm Answer, so a stray hover
+// click can't silently lock in the wrong option.
 function chooseDx(id){
-  examAnswers[caseIdx].dxChosenId = id;
+  const ea = examAnswers[caseIdx];
+  ea.dxPendingId = id;
+  render();
+}
+
+function confirmDx(){
+  const ea = examAnswers[caseIdx];
+  if(ea.dxPendingId == null) return;
+  ea.dxChosenId = ea.dxPendingId;
   render();
 }
 
 function chooseQ(optId){
-  examAnswers[caseIdx].questions[stepIdx] = {chosenId: optId};
+  const ea = examAnswers[caseIdx];
+  ea.questionsPending[stepIdx] = optId;
+  render();
+}
+
+function confirmQ(){
+  const ea = examAnswers[caseIdx];
+  const pending = ea.questionsPending[stepIdx];
+  if(pending == null) return;
+  ea.questions[stepIdx] = {chosenId: pending};
+  render();
+}
+
+function toggleStrikeDx(id){
+  const ea = examAnswers[caseIdx];
+  if(ea.dxStruck.has(id)) ea.dxStruck.delete(id); else ea.dxStruck.add(id);
+  render();
+}
+
+function toggleStrikeQ(optId){
+  const s = examAnswers[caseIdx].struck[stepIdx];
+  if(s.has(optId)) s.delete(optId); else s.add(optId);
   render();
 }
 
@@ -592,12 +641,21 @@ function render(){
     h += '<div class="card" style="margin-bottom:14px">';
     h += '<div style="margin-bottom:8px"><span class="badge b-purple">Diagnosis</span></div>';
     h += '<div class="qstem">Based on the presentation, what is the MOST likely primary diagnosis?</div>';
+    const dxDisplayId = ea.dxPendingId != null ? ea.dxPendingId : ea.dxChosenId;
+    const dxNeedsConfirm = ea.dxPendingId != null && ea.dxPendingId !== ea.dxChosenId;
     opts.forEach((o,idx) => {
-      const sel = ea.dxChosenId === o.id;
+      const sel = dxDisplayId === o.id;
+      const struck = ea.dxStruck.has(o.id);
+      h += '<div class="opt-row'+(struck?' struck':'')+'">';
+      h += '<button class="opt-strike'+(struck?' active':'')+'" title="Cross out this option" onclick="toggleStrikeDx(\''+esc(o.id)+'\')">✕</button>';
       h += '<button class="opt'+(sel?' selected':'')+'" onclick="chooseDx(\''+esc(o.id)+'\')">'
          + '<span class="key">'+LETTERS[idx]+'</span>'
          + '<span class="otext">'+esc(o.name)+'</span></button>';
+      h += '</div>';
     });
+    if(dxNeedsConfirm){
+      h += '<div class="confirm-bar"><span>Selection not yet locked in.</span><button class="btn" onclick="confirmDx()">Confirm Answer</button></div>';
+    }
     h += '<div class="row">';
     if(caseIdx > 0) h += '<button class="btn secondary" onclick="goBack()">‹ Back</button>';
     h += '<button class="btn" onclick="goNext()">Next ›</button>';
@@ -621,12 +679,23 @@ function render(){
     h += '<div class="q-num">Question '+(stepIdx+1)+' of '+c.questions.length+'</div>';
     h += '<div class="qstem">'+esc(q.question)+'</div>';
 
+    const qPending = ea.questionsPending[stepIdx];
+    const qDisplayId = qPending != null ? qPending : (ans && ans.chosenId);
+    const qNeedsConfirm = qPending != null && qPending !== (ans && ans.chosenId);
+    const struckSet = ea.struck[stepIdx];
     opts.forEach((o,idx) => {
-      const sel = ans && ans.chosenId === o.id;
+      const sel = qDisplayId === o.id;
+      const struck = struckSet.has(o.id);
+      h += '<div class="opt-row'+(struck?' struck':'')+'">';
+      h += '<button class="opt-strike'+(struck?' active':'')+'" title="Cross out this option" onclick="toggleStrikeQ(\''+esc(o.id)+'\')">✕</button>';
       h += '<button class="opt'+(sel?' selected':'')+'" onclick="chooseQ(\''+esc(o.id)+'\')">'
          + '<span class="key">'+LETTERS[idx]+'</span>'
          + '<span class="otext">'+esc(o.text)+'</span></button>';
+      h += '</div>';
     });
+    if(qNeedsConfirm){
+      h += '<div class="confirm-bar"><span>Selection not yet locked in.</span><button class="btn" onclick="confirmQ()">Confirm Answer</button></div>';
+    }
 
     h += '<div class="row">';
     if(!(caseIdx === 0 && stepIdx === 0 && !hasDxStep(c)))
@@ -869,7 +938,11 @@ async function init(){
     examCases = cases;
     examAnswers = cases.map(c => ({
       dxChosenId: null,
+      dxPendingId: null,
+      dxStruck: new Set(),
       questions: new Array(c.questions.length).fill(null),
+      questionsPending: new Array(c.questions.length).fill(null),
+      struck: new Array(c.questions.length).fill(null).map(() => new Set()),
       flags: new Array(c.questions.length).fill(false),
     }));
     renderStart(cases.length);

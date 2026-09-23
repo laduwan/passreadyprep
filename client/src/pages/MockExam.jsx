@@ -79,7 +79,11 @@ function hasDxStep(c) {
 function initAnswers(cases) {
   return cases.map((c) => ({
     dxChosenId: null,
+    dxPendingId: null,
+    dxStruck: [],
     questions: new Array((c.questions || []).length).fill(null),
+    questionsPending: new Array((c.questions || []).length).fill(null),
+    struck: new Array((c.questions || []).length).fill(null).map(() => []),
     flags: new Array((c.questions || []).length).fill(false),
   }));
 }
@@ -184,7 +188,8 @@ function Lobby({ onStart, totalInBank, onBack }) {
 
       <div className="bg-slate-800/50 border border-slate-700/60 rounded-xl p-4 text-sm text-slate-400 space-y-1.5">
         <div className="font-bold text-white text-sm mb-2">Exam rules</div>
-        <div>• Answers lock on click — you cannot change a selected option.</div>
+        <div>• Clicking an option selects it — you confirm with a separate button before it's scored, so a stray click never locks in the wrong answer.</div>
+        <div>• Cross out an option you've ruled out with the ✕ button next to it.</div>
         <div>• Feedback is held until you submit, like the real NCMHCE.</div>
         <div>• You can flag questions and navigate between cases freely.</div>
         <div>• Timer auto-submits when it reaches 0:00.</div>
@@ -480,25 +485,57 @@ export default function MockExam({ navigate }) {
 
   // ── answer handlers ────────────────────────────────────────────────────────
 
+  // Clicking an option only stages it (dxPendingId / questionsPending); it is
+  // not scored as "answered" until confirmDx/confirmQ runs, so a stray click
+  // (e.g. from hovering) can't silently lock in the wrong choice.
   function chooseDx(optId) {
-    if (answers[caseIdx]?.dxChosenId) return;
-    setAnswers((prev) => {
-      const next = prev.map((a, i) => i === caseIdx ? { ...a, dxChosenId: optId } : a);
-      return next;
-    });
+    setAnswers((prev) => prev.map((a, i) => i === caseIdx ? { ...a, dxPendingId: optId } : a));
+  }
+
+  function confirmDx() {
+    setAnswers((prev) => prev.map((a, i) => {
+      if (i !== caseIdx || a.dxPendingId == null) return a;
+      return { ...a, dxChosenId: a.dxPendingId };
+    }));
   }
 
   function chooseQ(optId) {
-    if (answers[caseIdx]?.questions[stepIdx]) return;
-    setAnswers((prev) => {
-      const next = prev.map((a, i) => {
-        if (i !== caseIdx) return a;
-        const qs = [...a.questions];
-        qs[stepIdx] = optId;
-        return { ...a, questions: qs };
-      });
-      return next;
-    });
+    setAnswers((prev) => prev.map((a, i) => {
+      if (i !== caseIdx) return a;
+      const qp = [...a.questionsPending];
+      qp[stepIdx] = optId;
+      return { ...a, questionsPending: qp };
+    }));
+  }
+
+  function confirmQ() {
+    setAnswers((prev) => prev.map((a, i) => {
+      if (i !== caseIdx) return a;
+      const pending = a.questionsPending[stepIdx];
+      if (pending == null) return a;
+      const qs = [...a.questions];
+      qs[stepIdx] = pending;
+      return { ...a, questions: qs };
+    }));
+  }
+
+  function toggleStrikeDx(optId) {
+    setAnswers((prev) => prev.map((a, i) => {
+      if (i !== caseIdx) return a;
+      const has = a.dxStruck.includes(optId);
+      return { ...a, dxStruck: has ? a.dxStruck.filter((x) => x !== optId) : [...a.dxStruck, optId] };
+    }));
+  }
+
+  function toggleStrikeQ(optId) {
+    setAnswers((prev) => prev.map((a, i) => {
+      if (i !== caseIdx) return a;
+      const cur = a.struck[stepIdx] || [];
+      const has = cur.includes(optId);
+      const struck = [...a.struck];
+      struck[stepIdx] = has ? cur.filter((x) => x !== optId) : [...cur, optId];
+      return { ...a, struck };
+    }));
   }
 
   function toggleFlag() {
@@ -621,6 +658,10 @@ export default function MockExam({ navigate }) {
   const isDxStep = stepIdx === -1;
   const isFlagged = !isDxStep && ea.flags[stepIdx];
   const currentAnswer = isDxStep ? ea.dxChosenId : ea.questions[stepIdx];
+  const pendingAnswer = isDxStep ? ea.dxPendingId : ea.questionsPending[stepIdx];
+  const displayAnswer = pendingAnswer != null ? pendingAnswer : currentAnswer;
+  const needsConfirm = pendingAnswer != null && pendingAnswer !== currentAnswer;
+  const struckIds = isDxStep ? ea.dxStruck : (ea.struck[stepIdx] || []);
   const isLastQ = stepIdx === qs.length - 1;
   const isLastCase = caseIdx === cases.length - 1;
 
@@ -680,24 +721,45 @@ export default function MockExam({ navigate }) {
           <div className="space-y-2.5">
             {(c.differentialOptions || []).map((opt, idx) => {
               const letter = 'ABCDE'[idx];
-              const isChosen = currentAnswer === opt.id;
+              const isChosen = displayAnswer === opt.id;
+              const isStruck = struckIds.includes(opt.id);
               const cls = currentAnswer
                 ? isChosen ? 'border-emerald-500/50 bg-emerald-500/10' : 'border-slate-700/40 bg-slate-800/20 opacity-60'
+                : isChosen ? 'border-amber-500/50 bg-amber-500/10'
                 : 'border-slate-700/60 bg-slate-800/40 hover:border-slate-600';
-              const badge = currentAnswer && isChosen ? 'bg-emerald-500 text-slate-900' : 'bg-slate-700 text-slate-300';
+              const badge = isChosen ? (currentAnswer ? 'bg-emerald-500 text-slate-900' : 'bg-amber-500 text-slate-900') : 'bg-slate-700 text-slate-300';
               return (
-                <button
-                  key={opt.id}
-                  onClick={() => chooseDx(opt.id)}
-                  disabled={!!currentAnswer}
-                  className={`w-full text-left flex gap-3 items-start border rounded-xl p-3.5 transition-colors ${cls}`}
-                >
-                  <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold shrink-0 ${badge}`}>{letter}</span>
-                  <span className="text-slate-200">{opt.text}</span>
-                </button>
+                <div key={opt.id} className="flex gap-2 items-stretch">
+                  <button
+                    type="button"
+                    onClick={() => toggleStrikeDx(opt.id)}
+                    title="Cross out this option"
+                    className={`shrink-0 w-9 rounded-xl border text-sm font-bold transition-colors ${
+                      isStruck ? 'border-red-400/60 bg-red-500/10 text-red-400' : 'border-slate-700/60 text-slate-500 hover:border-red-400/50 hover:text-red-400'
+                    }`}
+                  >
+                    ✕
+                  </button>
+                  <button
+                    onClick={() => chooseDx(opt.id)}
+                    disabled={!!currentAnswer}
+                    className={`flex-1 text-left flex gap-3 items-start border rounded-xl p-3.5 transition-colors ${cls} ${isStruck ? 'opacity-40' : ''}`}
+                  >
+                    <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold shrink-0 ${badge}`}>{letter}</span>
+                    <span className={`text-slate-200 ${isStruck ? 'line-through' : ''}`}>{opt.text}</span>
+                  </button>
+                </div>
               );
             })}
           </div>
+          {needsConfirm && (
+            <div className="mt-3 flex items-center gap-3 bg-amber-500/10 border border-amber-500/25 rounded-xl px-3.5 py-2.5">
+              <span className="text-sm text-amber-400 flex-1">Selection not yet locked in.</span>
+              <button onClick={confirmDx} className="bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold px-4 py-2 rounded-lg text-sm">
+                Confirm answer
+              </button>
+            </div>
+          )}
           {currentAnswer && (
             <button onClick={() => setStepIdx(0)} className="mt-4 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-5 py-2.5 rounded-xl">
               Begin case questions ›
@@ -727,24 +789,45 @@ export default function MockExam({ navigate }) {
           <div className="space-y-2.5">
             {(qs[stepIdx].options || []).map((opt, idx) => {
               const letter = 'ABCD'[idx];
-              const isChosen = currentAnswer === opt.id;
+              const isChosen = displayAnswer === opt.id;
+              const isStruck = struckIds.includes(opt.id);
               const cls = currentAnswer
                 ? isChosen ? 'border-emerald-500/50 bg-emerald-500/10' : 'border-slate-700/40 bg-slate-800/20 opacity-60'
+                : isChosen ? 'border-amber-500/50 bg-amber-500/10'
                 : 'border-slate-700/60 bg-slate-800/40 hover:border-slate-600';
-              const badge = currentAnswer && isChosen ? 'bg-emerald-500 text-slate-900' : 'bg-slate-700 text-slate-300';
+              const badge = isChosen ? (currentAnswer ? 'bg-emerald-500 text-slate-900' : 'bg-amber-500 text-slate-900') : 'bg-slate-700 text-slate-300';
               return (
-                <button
-                  key={opt.id}
-                  onClick={() => chooseQ(opt.id)}
-                  disabled={!!currentAnswer}
-                  className={`w-full text-left flex gap-3 items-start border rounded-xl p-3.5 transition-colors ${cls}`}
-                >
-                  <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold shrink-0 ${badge}`}>{letter}</span>
-                  <span className="text-slate-200">{opt.text}</span>
-                </button>
+                <div key={opt.id} className="flex gap-2 items-stretch">
+                  <button
+                    type="button"
+                    onClick={() => toggleStrikeQ(opt.id)}
+                    title="Cross out this option"
+                    className={`shrink-0 w-9 rounded-xl border text-sm font-bold transition-colors ${
+                      isStruck ? 'border-red-400/60 bg-red-500/10 text-red-400' : 'border-slate-700/60 text-slate-500 hover:border-red-400/50 hover:text-red-400'
+                    }`}
+                  >
+                    ✕
+                  </button>
+                  <button
+                    onClick={() => chooseQ(opt.id)}
+                    disabled={!!currentAnswer}
+                    className={`flex-1 text-left flex gap-3 items-start border rounded-xl p-3.5 transition-colors ${cls} ${isStruck ? 'opacity-40' : ''}`}
+                  >
+                    <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold shrink-0 ${badge}`}>{letter}</span>
+                    <span className={`text-slate-200 ${isStruck ? 'line-through' : ''}`}>{opt.text}</span>
+                  </button>
+                </div>
               );
             })}
           </div>
+          {needsConfirm && (
+            <div className="mt-3 flex items-center gap-3 bg-amber-500/10 border border-amber-500/25 rounded-xl px-3.5 py-2.5">
+              <span className="text-sm text-amber-400 flex-1">Selection not yet locked in.</span>
+              <button onClick={confirmQ} className="bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold px-4 py-2 rounded-lg text-sm">
+                Confirm answer
+              </button>
+            </div>
+          )}
           {currentAnswer && (
             <div className="mt-4 text-sm text-slate-500 italic">
               Answer locked. Feedback held until you submit.
