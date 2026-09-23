@@ -311,6 +311,9 @@ const examConfig = {
 const SPEC_CUTOVER = new Date('2027-07-01T00:00:00Z');
 const BREAK_SECS = 15 * 60;
 const HALF_CASES = 5;   // the break / half boundary falls after case 5
+// Mock exams need a free trial or a subscription. Free / expired / gated
+// visitors get a sign-up or upgrade prompt and nothing is built or saved.
+const EXAM_ACCESS = ['trial', 'paid'];
 const HISTORY_KEY = 'prp_history';
 
 const BLUEPRINT = {
@@ -465,8 +468,7 @@ function authHeaders(){
 async function fetchCatalog(){
   const r = await fetch('/api/content?exam=ncmhce', { headers: authHeaders() });
   if(!r.ok) throw new Error('Catalog request failed ('+r.status+')');
-  const j = await r.json();
-  return j.items || [];
+  return r.json();
 }
 
 async function fetchCase(externalId){
@@ -760,6 +762,23 @@ function renderLoading(msg){
   app.innerHTML = '<div style="text-align:center;padding:48px 0">'
     +'<div style="font-size:32px;margin-bottom:14px">⏳</div>'
     +'<p class="lead" style="color:var(--slate-300)">'+esc(msg)+'</p></div>';
+}
+
+// ---- render: access gate ----
+function renderGate(level){
+  const g = level === 'gated'
+    ? { title:'Your access is paused', body:'Submit your score report to restore access to timed mock exams.', href:'/score-report.html', cta:'Submit score report ›' }
+    : level === 'expired'
+    ? { title:'Mock exams are for subscribers', body:'Your free trial has ended. Subscribe to take full-length timed mock exams with a domain breakdown and answer review.', href:'/checkout.html?tier=monthly', cta:'Subscribe ›' }
+    : { title:'Mock exams are for subscribers', body:'Create an account to start your free trial and take full-length timed mock exams with a domain breakdown and answer review.', href:'/register.html?next=/exam.html', cta:'Create an account ›' };
+  let h = '<a href="/" class="back">‹ Dashboard</a>';
+  h += '<div class="card" id="access-gate" style="text-align:center">';
+  h += '<div style="margin-bottom:10px"><span class="badge b-amber">🔒 Mock exam</span></div>';
+  h += '<h2>'+esc(g.title)+'</h2>';
+  h += '<p class="lead" style="margin:6px auto 16px;max-width:460px">'+esc(g.body)+'</p>';
+  h += '<a href="'+g.href+'" class="btn">'+esc(g.cta)+'</a>';
+  h += '</div>';
+  app.innerHTML = h;
 }
 
 // ---- render: start screen ----
@@ -1142,7 +1161,9 @@ async function init(){
   try{
     spec = await fetchSpec();
     cfg = examConfig[spec] || examConfig.current;
-    const items = await fetchCatalog();
+    const catalog = await fetchCatalog();
+    if(!EXAM_ACCESS.includes(catalog.accessLevel)){ renderGate(catalog.accessLevel || 'free'); return; }
+    const items = catalog.items || [];
     if(!items.length) throw new Error('No cases available in the catalog.');
     const selected = weightedSelectItems(items, cfg.size);
     if(!selected.length) throw new Error('Could not match any cases to the NCMHCE blueprint. Check that cases have category fields.');

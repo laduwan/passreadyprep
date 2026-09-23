@@ -26,6 +26,9 @@ const EXAM_SIZE = 11;    // kept for weightedSelect default; overridden by examC
 const EXAM_SECS = examConfig.current.minutes * 60;
 const BREAK_SECS = 15 * 60;
 const HALF_CASES = 5;    // the break / half boundary falls after case 5
+// Mock exams need a free trial or a subscription. Free / expired / gated
+// visitors get a sign-up or upgrade prompt and nothing is built or saved.
+const EXAM_ACCESS = ['trial', 'paid'];
 
 const BLUEPRINT = {
   Depressive: 20, Anxiety: 20, Trauma: 18, Substance: 16, Personality: 16,
@@ -269,6 +272,33 @@ function ConfirmModal({ title, body, confirmLabel, onConfirm, onCancel }) {
             {confirmLabel}
           </button>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Access gate ───────────────────────────────────────────────────────────────
+
+function AccessGate({ accessLevel, onBack }) {
+  const gate = accessLevel === 'gated'
+    ? { title: 'Your access is paused', body: 'Submit your score report to restore access to timed mock exams.', href: '/score-report.html', cta: 'Submit score report →' }
+    : accessLevel === 'expired'
+    ? { title: 'Mock exams are for subscribers', body: 'Your free trial has ended. Subscribe to take full-length timed mock exams with a domain breakdown and answer review.', href: '/checkout.html?tier=monthly', cta: 'Subscribe →' }
+    : { title: 'Mock exams are for subscribers', body: 'Create an account to start your free trial and take full-length timed mock exams with a domain breakdown and answer review.', href: '/register.html', cta: 'Create an account →' };
+  return (
+    <div className="space-y-5">
+      <button onClick={onBack} className="text-sm text-slate-400 hover:text-white flex items-center gap-1">
+        <ArrowLeft className="w-4 h-4" /> Dashboard
+      </button>
+      <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 text-center space-y-3">
+        <div className="inline-flex items-center gap-2 bg-amber-500/15 border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1 rounded-full">
+          <Lock className="w-3.5 h-3.5" /> MOCK EXAM
+        </div>
+        <h1 className="text-2xl font-extrabold text-white">{gate.title}</h1>
+        <p className="text-slate-400 text-sm max-w-md mx-auto">{gate.body}</p>
+        <a href={gate.href} className="inline-block bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-extrabold px-6 py-3 rounded-xl transition-colors">
+          {gate.cta}
+        </a>
       </div>
     </div>
   );
@@ -529,6 +559,7 @@ export default function MockExam({ navigate }) {
   const [spec, setSpec] = useState(() => specForExamDate(cachedExamDate()));
   const [examSpec, setExamSpec] = useState('current'); // spec frozen at exam start
   const [totalInBank, setTotalInBank] = useState(null);
+  const [accessLevel, setAccessLevel] = useState(null); // null until /api/content answers
   const [loadError, setLoadError] = useState(null);
   const [cases, setCases] = useState([]);
   const [answers, setAnswers] = useState([]);
@@ -559,8 +590,9 @@ export default function MockExam({ navigate }) {
       .then((d) => {
         try { localStorage.setItem('prp_outline', d.outlineFallback ? 'current' : (d.outline || 'current')); } catch {}
         setTotalInBank(d.total || null);
+        setAccessLevel(d.accessLevel || 'free');
       })
-      .catch(() => {});
+      .catch(() => setAccessLevel('free'));
     // Spec follows the signed-in user's exam date (User.examDate). If the
     // request is unavailable, the cached user record read above stands.
     authFetch('/api/auth/me')
@@ -643,6 +675,11 @@ export default function MockExam({ navigate }) {
       const r = await authFetch('/api/content?exam=ncmhce');
       const d = await r.json();
       try { localStorage.setItem('prp_outline', d.outlineFallback ? 'current' : (d.outline || 'current')); } catch {}
+      if (!EXAM_ACCESS.includes(d.accessLevel)) {
+        setAccessLevel(d.accessLevel || 'free');
+        setPhase('lobby');
+        return;
+      }
       const startCfg = examConfig[spec] || examConfig.current;
       const allItems = d.items || [];
       if (allItems.length < 3) throw new Error('Not enough cases in the bank to build an exam.');
@@ -846,6 +883,16 @@ export default function MockExam({ navigate }) {
   // ── render phases ──────────────────────────────────────────────────────────
 
   if (phase === 'lobby') {
+    if (accessLevel === null) {
+      return (
+        <div className="flex justify-center py-20">
+          <Loader2 className="w-8 h-8 text-emerald-400 animate-spin" />
+        </div>
+      );
+    }
+    if (!EXAM_ACCESS.includes(accessLevel)) {
+      return <AccessGate accessLevel={accessLevel} onBack={() => navigate('home')} />;
+    }
     return (
       <div className="space-y-4">
         <Lobby onStart={startExam} totalInBank={totalInBank} onBack={() => navigate('home')} spec={spec} />
