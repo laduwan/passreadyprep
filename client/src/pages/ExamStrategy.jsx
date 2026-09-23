@@ -29,7 +29,7 @@ const TIMELINES = [
     id: '2to6', label: '2–6 weeks out', color: 'text-amber-400 bg-amber-500/15 border-amber-500/25',
     focus: 'Simulate exam conditions',
     plan: [
-      { tool: 'Cases', icon: BookOpen, daily: '5–6 cases (timed)', why: 'Start timing yourself — the real exam gives 255 minutes for 11 cases (~23 minutes per case). Build your pacing instinct now.' },
+      { tool: 'Cases', icon: BookOpen, daily: '5–6 cases (timed)', why: 'Start timing yourself — the real exam gives 225 minutes for 11 cases (~20 minutes per case). Build your pacing instinct now.' },
       { tool: 'Weak domains', icon: Target, daily: '20 min targeted', why: 'Check your readiness predictor. Whatever\'s lowest gets focused drill. If Ethics is at 45%, do ethics-heavy cases and the Ethics decision trees.' },
       { tool: 'Decision Trees', icon: GitBranch, daily: '10 min', why: 'Ethics and Treatment trees now. These cover the judgment calls the exam loves to test — duty to warn, informed consent, modality selection.' },
       { tool: 'Flashcards', icon: Layers, daily: '10 min', why: 'Quick review only. Most cards should be mastered. Any card still in rotation is a gap — study the underlying concept, not just the card.' },
@@ -140,15 +140,20 @@ export default function ExamStrategy() {
           <div className="space-y-1.5">
             <div className="text-slate-300"><span className="font-bold text-white">Cases:</span> 11 case studies (1 unscored)</div>
             <div className="text-slate-300"><span className="font-bold text-white">Questions:</span> 100 scored items (standard MC, A–D)</div>
-            <div className="text-slate-300"><span className="font-bold text-white">Time:</span> 255 minutes (~23 min/case)</div>
+            <div className="text-slate-300"><span className="font-bold text-white">Time:</span> 225 minutes (~20 min/case), plus a scheduled 15-minute break after case 5</div>
           </div>
           <div className="space-y-1.5">
             <div className="text-slate-300"><span className="font-bold text-white">Scoring:</span> Total correct — no penalty for wrong answers</div>
             <div className="text-slate-300"><span className="font-bold text-white">Structure:</span> Intake summary → Session 1 → Session 2</div>
+            <div className="text-slate-300"><span className="font-bold text-white">Navigation:</span> Review each section before moving on — once you continue, you can't return to it</div>
             <div className="text-slate-300"><span className="font-bold text-white">Level:</span> Application (Bloom's Taxonomy)</div>
           </div>
         </div>
         <div className="mt-3 text-xs text-slate-500">Source: NBCC Content Outline (2025); NBCC Candidate Handbook for State Licensure (2025)</div>
+        <div className="mt-3 pt-3 border-t border-slate-700/60 text-sm text-slate-300">
+          <span className="font-bold text-white">2027 format (exams on or after July 1, 2027):</span> 10 cases in 225 minutes with an optional 15-minute break at the halfway point. You can move freely within cases 1–5, then within cases 6–10; each half locks when you submit it. Scores are reported on a 100–500 scale (passing = 360).
+          <div className="mt-1 text-xs text-slate-500">Source: NBCC NCMHCE Examination Specifications (effective July 1, 2027)</div>
+        </div>
       </div>
 
       {/* Domain weights */}
