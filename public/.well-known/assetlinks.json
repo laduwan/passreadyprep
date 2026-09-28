@@ -3,6 +3,6 @@
   "target": {
     "namespace": "android_app",
     "package_name": "com.gaitp.passreadyprep",
-    "sha256_cert_fingerprints": ["EC:2E:3F:C4:04:F5:FE:CB:28:B0:A4:D0:65:60:EF:9E:20:12:0E:B8:B0:24:18:48:8F:BC:10:F5:08:B8:38:64"]
+    "sha256_cert_fingerprints": ["AD:79:5E:E0:B8:2B:F5:F8:70:8F:91:0C:4C:DD:74:D6:22:AE:E8:C3:0E:19:54:49:C9:00:93:9A:F5:4C:D4:45"]
   }
 }]
