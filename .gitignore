@@ -28,15 +28,13 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Capacitor iOS build artifacts (ios/App itself stays committable)
-ios/App/Pods/
-ios/App/build/
-ios/App/DerivedData/
-ios/App/App/public/
-ios/App/App/capacitor.config.json
-ios/App/App/config.xml
-ios/App/*.xcworkspace/xcuserdata/
-ios/App/*.xcodeproj/xcuserdata/
-ios/App/*.xcodeproj/project.xcworkspace/xcuserdata/
+# Capacitor iOS build artifacts (client/ios/App itself stays committable)
+client/ios/App/build/
+client/ios/App/DerivedData/
+client/ios/App/Pods/
+client/ios/App/App/public/
+client/ios/App/App/capacitor.config.json
+client/ios/App/App/config.xml
+client/ios/capacitor-cordova-ios-plugins/
 xcuserdata/
 *.xcuserstate
