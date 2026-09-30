@@ -23,10 +23,19 @@
     };
   }
 
+  // visit-beacon.js uses sendBeacon, which bypasses fetch.
+  if (navigator.sendBeacon) {
+    var origBeacon = navigator.sendBeacon;
+    navigator.sendBeacon = function (url, data) {
+      if (typeof url === 'string' && url.indexOf('/api') === 0) url = ORIGIN + url;
+      return origBeacon.call(navigator, url, data);
+    };
+  }
+
   // Pages that live only on the web are opened absolutely. iOS Capacitor cancels
   // top-level navigation to a non-app host and hands it to the system browser.
   var EXTERNAL = ['/checkout.html', '/book.html', '/policies.html', '/privacy.html',
-                  '/landing.html', '/score-report.html'];
+                  '/landing.html', '/score-report.html', '/accessibility.html'];
   var FLAG = 'prp_checkout_opened';
 
   document.addEventListener('click', function (e) {
