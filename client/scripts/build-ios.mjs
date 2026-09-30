@@ -109,6 +109,14 @@ for (const rel of scanned) {
 }
 if (missing.size) throw new Error('Unbundled pages linked from the app:\n  ' + [...missing].join('\n  '));
 
+// App icon: the website's graduation cap (public/icons), redrawn at the 1024px
+// Apple needs (native/AppIcon.svg is the source). Applied once `cap add ios` exists.
+const iconSet = path.join(root, 'ios', 'App', 'App', 'Assets.xcassets', 'AppIcon.appiconset');
+if (fs.existsSync(iconSet)) {
+  fs.copyFileSync(path.join(root, 'native', 'AppIcon-1024.png'), path.join(iconSet, 'AppIcon-512@2x.png'));
+  console.log('\nApp icon updated in ios/App.');
+}
+
 console.log('\nCopied into dist from ../public:');
 for (const f of [...copied].sort()) console.log('  ' + f);
 console.log('  native-shim.js');
