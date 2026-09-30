@@ -9,7 +9,8 @@
   } catch (e) {}
   if (!native) return;
 
-  var ORIGIN = 'https://passreadyprep.com';
+  // www directly: the bare domain 307-redirects, which breaks CORS preflights.
+  var ORIGIN = 'https://www.passreadyprep.com';
   window.PRP_NATIVE = true;
 
   // Every extension-less path loads index.html (the study page) in the app.
