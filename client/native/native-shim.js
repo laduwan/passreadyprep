@@ -12,6 +12,13 @@
   var ORIGIN = 'https://passreadyprep.com';
   window.PRP_NATIVE = true;
 
+  // Every extension-less path loads index.html (the study page) in the app.
+  // Mirror the web: / is the landing page, /study stays on the study page.
+  if (location.pathname === '/' || location.pathname === '') {
+    location.replace('/landing.html' + location.search + location.hash);
+    return;
+  }
+
   // Relative API calls go to the live server (the bundle has no backend).
   var origFetch = window.fetch;
   if (typeof origFetch === 'function') {
@@ -34,8 +41,8 @@
 
   // Pages that live only on the web are opened absolutely. iOS Capacitor cancels
   // top-level navigation to a non-app host and hands it to the system browser.
-  var EXTERNAL = ['/checkout.html', '/book.html', '/policies.html', '/privacy.html',
-                  '/landing.html', '/score-report.html', '/accessibility.html'];
+  var EXTERNAL = ['/checkout.html', '/book.html', '/book', '/policies.html', '/privacy.html',
+                  '/score-report.html', '/accessibility.html'];
   var FLAG = 'prp_checkout_opened';
 
   document.addEventListener('click', function (e) {

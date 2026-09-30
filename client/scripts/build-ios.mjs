@@ -9,16 +9,20 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const pub = path.resolve(root, '..', 'public');
 
+// Entry pages copied from ../public. Anything they reference (scripts, data,
+// media) is followed recursively. The landing page is the app's start screen,
+// like / on the web (native-shim.js sends / there).
 const PAGES = [
+  'landing.html',
   'register.html', 'forgot-password.html', 'reset-password.html', 'skills.html', 'exam.html',
-  // Study tools linked from the app's index.html.
   'guarantee.html', 'intake.html', 'flashcards.html', 'decision-trees.html', 'dsm.html',
+  'timed-knowledge-exam.html', 'knowledge-drill.html', 'next-best-step.html',
+  'core-attributes-quiz.html', 'theory.html', 'podcast.html',
 ];
-const NEVER = new Set(['checkout.html', 'book.html']);
 // Pages the shim opens on passreadyprep.com instead (keep in sync with EXTERNAL in native-shim.js).
 const EXTERNAL = new Set(['checkout.html', 'book.html', 'policies.html', 'privacy.html',
-  'landing.html', 'score-report.html', 'accessibility.html']);
-const ASSET_EXT = /\.(js|css|json|pdf|png|jpe?g|gif|svg|webp|ico|mp3|mp4|woff2?|ttf|otf|webmanifest)$/i;
+  'score-report.html', 'accessibility.html']);
+const ASSET_EXT = /\.(js|css|json|pdf|png|jpe?g|gif|svg|webp|ico|mp3|mp4|m4a|woff2?|ttf|otf|webmanifest)$/i;
 const SHIM_TAG = '<script src="/native-shim.js"></script>';
 
 // Same tags server.js injectA11y() adds at serve time, minus the PWA manifest /
@@ -41,35 +45,46 @@ function refsIn(text) {
   for (const m of text.matchAll(/["'(]\s*\/?([A-Za-z0-9_\-./]+?)(?:[?#][^"')]*)?\s*["')]/g)) {
     const rel = m[1];
     if (!ASSET_EXT.test(rel) || rel.includes('..')) continue;
-    if (NEVER.has(rel)) continue;
     const abs = path.join(pub, rel);
     if (fs.existsSync(abs) && fs.statSync(abs).isFile()) out.add(rel);
   }
   return out;
 }
 
+const htmlIn = (dir) => fs.readdirSync(dir).filter((f) => f.endsWith('.html'));
+
+// Partner-portal pages and host redirect rules come along from client/public but
+// are not part of the app; nothing in it links to them.
+for (const f of fs.readdirSync(dist)) {
+  if (/^partner-.*\.html$/.test(f) || f === '_redirects') fs.rmSync(path.join(dist, f));
+}
+
+// Pages Vite already put in dist (client/index.html + client/public/*.html) are
+// the versions the web server serves first, so they are kept, not overwritten.
+const scanned = new Set();
 const copied = new Set();
-// Also follow what the Vite-built index.html references from ../public.
-const queue = [...PAGES, ...INJECTED, ...refsIn(fs.readFileSync(path.join(dist, 'index.html'), 'utf8'))];
+const queue = [...htmlIn(dist), ...PAGES, ...INJECTED];
 while (queue.length) {
   const rel = queue.shift();
-  if (copied.has(rel)) continue;
-  const src = path.join(pub, rel);
-  if (!fs.existsSync(src)) throw new Error(`Missing public/${rel}`);
-  copied.add(rel);
+  if (scanned.has(rel)) continue;
+  scanned.add(rel);
   const dest = path.join(dist, rel);
-  fs.mkdirSync(path.dirname(dest), { recursive: true });
-  fs.copyFileSync(src, dest);
+  if (!fs.existsSync(dest)) {
+    const src = path.join(pub, rel);
+    if (!fs.existsSync(src)) throw new Error(`Missing public/${rel}`);
+    fs.mkdirSync(path.dirname(dest), { recursive: true });
+    fs.copyFileSync(src, dest);
+    copied.add(rel);
+  }
   if (/\.(html|js|css)$/i.test(rel)) {
-    for (const r of refsIn(fs.readFileSync(src, 'utf8'))) if (!copied.has(r)) queue.push(r);
+    for (const r of refsIn(fs.readFileSync(dest, 'utf8'))) if (!scanned.has(r)) queue.push(r);
   }
 }
 
-// Shim goes first in <head> of index.html and every copied HTML file; the
-// serve-time widgets go where server.js puts them.
+// Shim goes first in <head> of every HTML file in dist; the serve-time widgets
+// go where server.js puts them.
 fs.copyFileSync(path.join(root, 'native', 'native-shim.js'), path.join(dist, 'native-shim.js'));
-const htmls = ['index.html', ...[...copied].filter((f) => f.endsWith('.html'))];
-for (const rel of htmls) {
+for (const rel of htmlIn(dist)) {
   const f = path.join(dist, rel);
   let html = fs.readFileSync(f, 'utf8');
   if (html.includes(SHIM_TAG)) continue;
@@ -84,16 +99,16 @@ for (const rel of htmls) {
 
 // Any local page a bundled file links to must be bundled or opened on the web.
 const missing = new Set();
-for (const rel of ['index.html', ...copied]) {
+for (const rel of scanned) {
   if (!/\.(html|js)$/i.test(rel)) continue;
   for (const m of fs.readFileSync(path.join(dist, rel), 'utf8').matchAll(/["'`]\/([A-Za-z0-9_\-/]+\.html)/g)) {
     const page = m[1];
-    if (page === 'index.html' || copied.has(page) || EXTERNAL.has(page)) continue;
+    if (EXTERNAL.has(page) || fs.existsSync(path.join(dist, page))) continue;
     missing.add(`${page} (linked from ${rel})`);
   }
 }
 if (missing.size) throw new Error('Unbundled pages linked from the app:\n  ' + [...missing].join('\n  '));
 
-console.log('\nBundled into dist (besides the Vite output):');
+console.log('\nCopied into dist from ../public:');
 for (const f of [...copied].sort()) console.log('  ' + f);
 console.log('  native-shim.js');
