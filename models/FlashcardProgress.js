@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 
 // One document per user. Stores the full SM-2 spaced-repetition state for
 // every flashcard the user has ever reviewed. The `cards` Map mirrors the
-// localStorage shape: { [cardId]: { ef, iv, rp, du } }.
+// localStorage shape: { [cardId]: { ef, iv, rp, du, lu? } }. Keys are prefixed
+// per tool: fc_ (flashcards.html) and kq_ (knowledge-drill.html).
 //
-// `t` is an epoch-ms timestamp of the last write. The client uses it for
-// last-write-wins merge so switching devices always picks up the freshest data.
+// `t` is an epoch-ms timestamp of the last write. Saves merge card by card
+// (routes/flashcardProgress.js), so one tool never erases the other's cards.
 
 const flashcardProgressSchema = new mongoose.Schema(
   {

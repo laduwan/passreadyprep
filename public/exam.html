@@ -413,6 +413,50 @@ function saveExamToHistory(){
   });
   if(h.length > 500) h.splice(0, h.length - 500);
   saveHistory(h);
+  serverSaveExam();
+}
+
+// ---- server-side progress sync (signed-in users) ----
+// Same POST /api/progress the study page uses, one attempt per case (mode
+// 'timed'), so mock exams count toward readiness on every device and survive
+// the study page replacing local history with the account's attempts.
+function serverSaveExam(){
+  if(!authHeaders().Authorization) return; // signed-out: local history only, as before
+  examCases.forEach((c, ci) => {
+    if(!c._examId) return;
+    const ea = examAnswers[ci];
+    const domains = {};
+    const responses = c.questions.map((q, qi) => {
+      const a = ea.questions[qi];
+      const chosen = a && q.options.find(o => o.id === a.chosenId);
+      const isOk = !!(chosen && chosen.isCorrect);
+      const d = q.domain || 'general';
+      if(!domains[d]) domains[d] = {ok:0, total:0};
+      domains[d].total++;
+      if(isOk) domains[d].ok++;
+      return {
+        questionId: q.id,
+        selectedOptionId: a ? a.chosenId : null,
+        correct: isOk,
+        weight: chosen && typeof chosen.weight === 'number' ? chosen.weight : 0,
+      };
+    });
+    const correct = responses.filter(r => r.correct).length;
+    fetch('/api/progress', {
+      method: 'POST',
+      headers: Object.assign({'Content-Type':'application/json'}, authHeaders()),
+      body: JSON.stringify({
+        examId: c._examId,
+        contentItemId: c._itemId || undefined,
+        externalId: c._externalId || c.id,
+        mode: 'timed',
+        responses,
+        score: responses.length ? Math.round(correct / responses.length * 100) : 0,
+        domainBreakdown: domains,
+        completedAt: new Date().toISOString(),
+      }),
+    }).catch(()=>{});
+  });
 }
 
 // ---- blueprint-weighted selection ----
@@ -475,7 +519,10 @@ async function fetchCase(externalId){
   const r = await fetch('/api/content/'+encodeURIComponent(externalId), { headers: authHeaders() });
   if(!r.ok) throw new Error('Case request failed for '+externalId);
   const j = await r.json();
-  return (j.item && j.item.caseSim) ? j.item.caseSim : j.item;
+  const c = (j.item && j.item.caseSim) ? j.item.caseSim : j.item;
+  // Keep the ids the progress API needs (same fields index.html captures).
+  if(c && j.item){ c._examId = j.item.examId || null; c._itemId = j.item._id || null; c._externalId = externalId; }
+  return c;
 }
 
 // Spec follows the signed-in user's exam date (User.examDate).

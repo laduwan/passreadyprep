@@ -471,6 +471,33 @@ function attemptToEntry(att){
   };
 }
 
+// Exam date follows the account (User.examDate, PATCH /api/auth/exam-date) so
+// every device — and the mock exam's spec choice — uses the same date.
+function saveExamDateToServer(dateVal){
+  if(!authHeaders().Authorization) return;
+  fetch('/api/auth/exam-date', {
+    method: 'PATCH',
+    headers: Object.assign({'Content-Type':'application/json'}, authHeaders()),
+    body: JSON.stringify({ examDate: dateVal }),
+  }).then(r => r.ok ? r.json() : null).then(j => {
+    if(j && j.user) localStorage.setItem('prp_user', JSON.stringify(j.user));
+  }).catch(()=>{});
+}
+async function syncExamDate(){
+  if(!authHeaders().Authorization) return;
+  try{
+    const r = await fetch('/api/auth/me', { headers: authHeaders() });
+    if(!r.ok) return;
+    const j = await r.json();
+    if(!j || !j.user) return;
+    localStorage.setItem('prp_user', JSON.stringify(j.user));
+    const server = j.user.examDate ? String(j.user.examDate).slice(0, 10) : '';
+    const local = localStorage.getItem('prp_exam_date') || '';
+    if(server) localStorage.setItem('prp_exam_date', server);
+    else if(local) saveExamDateToServer(local); // set on this device before sync existed
+  }catch(_){}
+}
+
 async function hydrateFromServer(){
   if(!authHeaders().Authorization) return false; // signed-in only
   try{
@@ -1199,6 +1226,7 @@ function genPlan(){
   var planEl = document.getElementById('study-plan');
   if(!dateEl || !planEl) return;
   var dateVal = dateEl.value;
+  if(dateVal && dateVal !== localStorage.getItem('prp_exam_date')) saveExamDateToServer(dateVal);
   if(dateVal) localStorage.setItem('prp_exam_date', dateVal);
   if(!dateVal){ planEl.innerHTML = '<p style="color:var(--slate-400);font-size:14px;margin:0">Set your exam date to generate a plan.</p>'; return; }
 
@@ -1309,6 +1337,7 @@ async function submitAuth(){
     closeAuth();
     renderAccount();
     await hydrateFromServer();   // pull this account's saved progress
+    await syncExamDate();
     showDashboard();
   }catch(e){
     errEl.textContent = e.message;
@@ -1339,6 +1368,7 @@ document.addEventListener('keydown', function(ev){
 (async function init(){
   renderAccount();
   await hydrateFromServer();   // pulls account history when signed in; no-op otherwise
+  await syncExamDate();
   showDashboard();
 })();
 </script>

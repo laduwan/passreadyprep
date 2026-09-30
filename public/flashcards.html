@@ -119,8 +119,45 @@ function updCard(id, quality) {
   }
   s.ef = Math.max(1.3, s.ef + 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
   s.du = Date.now() + s.iv * 86400000;
+  s.lu = Date.now();
   sr[id] = s;
   svSR(sr);
+  var one = {}; one[id] = s; syncFC(one);
+}
+
+// ---- account sync (signed-in users) ----
+// Same /api/flashcard-progress store Knowledge Drill uses, with fc_ keys (it
+// uses kq_). The server merges card by card, newest `lu` wins, so progress
+// follows the account across devices. Signed out: localStorage only, as before.
+function fcToken(){ try { return localStorage.getItem('prp_token'); } catch(e) { return null; } }
+function syncFC(cards){
+  var tok = fcToken(); if (!tok) return;
+  var p = {}; Object.keys(cards).forEach(function(k){ p['fc_' + k] = cards[k]; });
+  if (!Object.keys(p).length) return;
+  fetch('/api/flashcard-progress', { method:'PUT',
+    headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer ' + tok },
+    body: JSON.stringify({ cards:p, t:Date.now() }) }).catch(function(){});
+}
+function loadFCFromServer(){
+  var tok = fcToken(); if (!tok) return;
+  fetch('/api/flashcard-progress', { headers:{ 'Authorization':'Bearer ' + tok } })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){
+      if (!d || !d.cards) return;
+      var sr = ldSR(), up = {}, changed = false, server = {};
+      Object.keys(d.cards).forEach(function(k){ if (k.indexOf('fc_') === 0) server[k.slice(3)] = d.cards[k]; });
+      Object.keys(server).forEach(function(id){
+        var l = sr[id], r = server[id];
+        if (!l || (r.lu || 0) > (l.lu || 0)) { sr[id] = r; changed = true; }
+      });
+      // Upload what only this device has (or has newer), e.g. progress from before sync.
+      Object.keys(sr).forEach(function(id){
+        var r = server[id];
+        if (!r || (sr[id].lu || 0) > (r.lu || 0)) up[id] = sr[id];
+      });
+      if (changed) { svSR(sr); if (!DK.length) showHome(); }
+      syncFC(up);
+    }).catch(function(){});
 }
 
 var FLT = 'all', DK = [], DI = 0, FLIP = false;
@@ -302,10 +339,13 @@ function showRes() {
 function resetSR() {
   if (!confirm('Reset all flashcard progress?')) return;
   localStorage.removeItem(SK);
+  var tok = fcToken();
+  if (tok) fetch('/api/flashcard-progress?prefix=fc_', { method:'DELETE', headers:{ 'Authorization':'Bearer ' + tok } }).catch(function(){});
   showHome();
 }
 
 showHome();
+loadFCFromServer();
 </script>
 <script src="/suggestion-widget.js"></script>
 <script src="/activity-tracker.js" defer></script>

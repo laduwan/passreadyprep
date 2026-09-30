@@ -17,7 +17,7 @@ const PAGES = [
   'register.html', 'forgot-password.html', 'reset-password.html', 'skills.html', 'exam.html',
   'guarantee.html', 'intake.html', 'flashcards.html', 'decision-trees.html', 'dsm.html',
   'timed-knowledge-exam.html', 'knowledge-drill.html', 'next-best-step.html',
-  'core-attributes-quiz.html', 'theory.html', 'podcast.html',
+  'core-attributes-quiz.html', 'theory.html', 'podcast.html', 'assess-next-case.html',
 ];
 // Pages the shim opens on passreadyprep.com instead (keep in sync with EXTERNAL in native-shim.js).
 const EXTERNAL = new Set(['checkout.html', 'book.html', 'policies.html', 'privacy.html',
@@ -38,6 +38,11 @@ const INJECT_HEAD =
 const INJECT_SKIP = '<a href="#" class="a11y-skip-link" data-a11y-skip>Skip to main content</a>';
 
 execSync('npx vite build', { cwd: root, stdio: 'inherit' });
+
+// The study page: on the web /study serves public/index.html (server.js), not
+// client/index.html. In the app every extension-less path (/study) loads
+// index.html, so it must be the same page the website shows.
+fs.copyFileSync(path.join(pub, 'index.html'), path.join(dist, 'index.html'));
 
 // Every quoted local path in a file that resolves to an existing public asset.
 function refsIn(text) {
