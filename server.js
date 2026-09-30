@@ -80,6 +80,11 @@ const VISIT_HEAD = '<script src="/visit-beacon.js" defer></script>';
 // admin/review screens and the sign-in/checkout flow.
 const ANNOUNCE_HEAD = '<script src="/announcement-modal.js" defer></script>';
 
+// Signed-out banner: when another device signs in, API calls here return 401
+// SESSION_INVALIDATED; this shows one clear "sign in again" banner instead of
+// raw page errors. Not deferred — it wraps fetch before page scripts run.
+const SESSION_HEAD = '<script src="/session-guard.js"></script>';
+
 // PWA head tags, injected the same serve-time way as the a11y widget so every
 // static page and the React shell advertise the web app manifest + register the
 // service worker (needed to install as an app / package for Google Play as a TWA).
@@ -93,7 +98,7 @@ function injectA11y(html) {
   if (typeof html !== 'string') return html;
   if (html.indexOf('/a11y.js') !== -1) return html; // already present — don't double up
   let out = html;
-  out = out.indexOf('</head>') !== -1 ? out.replace('</head>', A11Y_HEAD + PWA_HEAD + VISIT_HEAD + ANNOUNCE_HEAD + '</head>') : (A11Y_HEAD + PWA_HEAD + VISIT_HEAD + ANNOUNCE_HEAD + out);
+  out = out.indexOf('</head>') !== -1 ? out.replace('</head>', SESSION_HEAD + A11Y_HEAD + PWA_HEAD + VISIT_HEAD + ANNOUNCE_HEAD + '</head>') : (SESSION_HEAD + A11Y_HEAD + PWA_HEAD + VISIT_HEAD + ANNOUNCE_HEAD + out);
   if (/<body[^>]*>/i.test(out)) out = out.replace(/(<body[^>]*>)/i, '$1' + A11Y_SKIP);
   return out;
 }

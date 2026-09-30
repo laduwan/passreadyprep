@@ -28,8 +28,9 @@ const SHIM_TAG = '<script src="/native-shim.js"></script>';
 
 // Same tags server.js injectA11y() adds at serve time, minus the PWA manifest /
 // service worker (not wanted inside the native app). Keep in sync with server.js.
-const INJECTED = ['a11y.css', 'translate.css', 'a11y.js', 'translate.js', 'visit-beacon.js', 'announcement-modal.js'];
+const INJECTED = ['session-guard.js', 'a11y.css', 'translate.css', 'a11y.js', 'translate.js', 'visit-beacon.js', 'announcement-modal.js'];
 const INJECT_HEAD =
+  '<script src="/session-guard.js"></script>' +
   '<link rel="stylesheet" href="/a11y.css">' +
   '<link rel="stylesheet" href="/translate.css">' +
   '<script src="/a11y.js" defer></script>' +

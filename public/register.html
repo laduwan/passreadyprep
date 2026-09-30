@@ -251,6 +251,9 @@
     else login();
   });
 
+  // ?tab=login opens the Sign in tab (e.g. from the signed-out banner)
+  if (params.get('tab') === 'login') showTab('login');
+
   // If already logged in, skip straight to destination
   const token = localStorage.getItem('prp_token');
   if (token) window.location.href = next;
