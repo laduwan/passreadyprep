@@ -123,11 +123,13 @@ if (fs.existsSync(iconSet)) {
   fs.copyFileSync(path.join(root, 'native', 'AppIcon-1024.png'), path.join(iconSet, 'AppIcon-512@2x.png'));
   console.log('\nApp icon updated in ios/App.');
 }
-// Launch screen: same cap on the site's navy (native/Splash.svg is the source).
+// Launch screen: the cap (native/Splash.svg is the source) centred at 160pt on
+// the site's navy, which LaunchScreen.storyboard sets as the background. Small
+// images keep the launch screen under iOS's launch-screen memory limit.
 const splashSet = path.join(root, 'ios', 'App', 'App', 'Assets.xcassets', 'Splash.imageset');
 if (fs.existsSync(splashSet)) {
-  for (const f of ['splash-2732x2732.png', 'splash-2732x2732-1.png', 'splash-2732x2732-2.png']) {
-    fs.copyFileSync(path.join(root, 'native', 'Splash-2732.png'), path.join(splashSet, f));
+  for (const f of ['splash.png', 'splash@2x.png', 'splash@3x.png']) {
+    fs.copyFileSync(path.join(root, 'native', 'splash', f), path.join(splashSet, f));
   }
   console.log('Launch screen updated in ios/App.');
 }
