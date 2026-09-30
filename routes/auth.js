@@ -294,7 +294,8 @@ router.delete('/account', requireAuth, async (req, res) => {
     }
 
     const sub = user.subscription || {};
-    if (sub.tier === 'monthly' && ['active', 'past_due'].includes(sub.status)) {
+    // Canceled-but-running subscriptions (cancelAtPeriodEnd) won't bill again.
+    if (sub.tier === 'monthly' && ['active', 'past_due'].includes(sub.status) && !sub.cancelAtPeriodEnd) {
       return res.status(409).json({
         code: 'active_subscription',
         error: 'Your Monthly subscription is still active. Cancel it first so you are not billed again, then delete your account.',

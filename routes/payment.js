@@ -253,6 +253,30 @@ router.get('/status', requireAuth, async (req, res) => {
   }
 });
 
+// ── POST /api/payment/portal ──────────────────────────────────────────────────
+// Opens Stripe's hosted Customer Portal for the signed-in user, where they can
+// cancel their Monthly subscription or update their card themselves. Stripe
+// reports changes back through the webhook below. Requires the portal to be
+// enabled in the Stripe dashboard (Settings → Billing → Customer portal).
+router.post('/portal', requireAuth, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select('subscription');
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    const customer = user.subscription && user.subscription.stripeCustomerId;
+    if (!customer) return res.status(400).json({ error: 'No billing account found for this sign-in' });
+
+    const base = process.env.APP_URL || process.env.CLIENT_URL;
+    const session = await getStripe().billingPortal.sessions.create({
+      customer,
+      return_url: `${base}/study`,
+    });
+    res.json({ url: session.url });
+  } catch (err) {
+    console.error('billing portal error:', err);
+    res.status(500).json({ error: 'Could not open subscription management. Please try again or contact support.' });
+  }
+});
+
 // ── POST /api/payment/webhook ─────────────────────────────────────────────────
 // Stripe calls this endpoint when payments complete or subscriptions change.
 // CRITICAL: Must use express.raw() body parser (configured in server.js).
@@ -328,6 +352,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
           'subscription.tier': 'monthly',
           'subscription.status': sub.status, // 'active', 'past_due', etc.
           'subscription.stripeSubscriptionId': sub.id,
+          'subscription.cancelAtPeriodEnd': !!sub.cancel_at_period_end,
         };
         // Only write the date when Stripe actually gave us one — never
         // overwrite a good value with null, and never write an Invalid Date.

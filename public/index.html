@@ -471,6 +471,27 @@ function attemptToEntry(att){
   };
 }
 
+// Stripe Customer Portal (POST /api/payment/portal): Monthly subscribers
+// cancel or update their card there. In the iOS app it opens in Safari and the
+// app reloads on return (native-shim.js reads prp_checkout_opened).
+async function openBillingPortal(link){
+  const label = link ? link.textContent : '';
+  if(link) link.textContent = 'Opening…';
+  try{
+    const r = await fetch('/api/payment/portal', { method: 'POST', headers: authHeaders() });
+    const j = await r.json().catch(()=>({}));
+    if(r.ok && j.url){
+      try{ sessionStorage.setItem('prp_checkout_opened', '1'); }catch(_){}
+      window.location.href = j.url;
+      return;
+    }
+    alert(j.error || 'Could not open subscription management. Please try again.');
+  }catch(_){
+    alert('Could not reach PassReady Prep. Check your connection and try again.');
+  }
+  if(link) link.textContent = label;
+}
+
 // Exam date follows the account (User.examDate, PATCH /api/auth/exam-date) so
 // every device — and the mock exam's spec choice — uses the same date.
 function saveExamDateToServer(dateVal){
@@ -770,7 +791,10 @@ async function showDashboard(){
 
   // Account deletion (App Store 5.1.1(v)) — signed-in only, small and out of the way.
   if(authHeaders().Authorization){
+    const sub = (currentUser() || {}).subscription || {};
+    const renewing = sub.tier === 'monthly' && ['active','past_due'].includes(sub.status) && sub.stripeCustomerId;
     h += '<p style="text-align:center;font-size:12px;color:var(--slate-500);margin:22px 0 4px">'
+      + (renewing ? '<a href="#" onclick="openBillingPortal(this);return false" style="color:var(--slate-500)">Manage subscription</a> · ' : '')
       + '<a href="/delete-account.html" style="color:var(--slate-500)">Delete account</a></p>';
   }
 

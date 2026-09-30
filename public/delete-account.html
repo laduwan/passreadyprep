@@ -142,6 +142,25 @@
   pw.addEventListener('input', syncBtn);
   cb.addEventListener('change', syncBtn);
 
+  // Stripe's hosted Customer Portal: the person cancels there themselves.
+  // In the iOS app this opens in Safari; the prp_checkout_opened flag makes the
+  // app reload when they come back (native-shim.js).
+  async function openPortal(link){
+    if (link) link.textContent = 'Opening…';
+    try {
+      const r = await fetch('/api/payment/portal', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token } });
+      const data = await r.json().catch(() => ({}));
+      if (r.ok && data.url) {
+        try { sessionStorage.setItem('prp_checkout_opened', '1'); } catch(_) {}
+        window.location.href = data.url;
+        return;
+      }
+      showErr(data.error || 'Could not open subscription management. Please try again.');
+    } catch(_) {
+      showErr('Could not reach PassReady Prep. Check your connection and try again.');
+    }
+  }
+
   async function deleteAccount(){
     document.getElementById('del-err').style.display = 'none';
     btn.disabled = true; btn.textContent = 'Deleting…';
@@ -160,7 +179,7 @@
       }
       let msg = data.error || 'Could not delete your account. Please try again.';
       if (data.code === 'active_subscription') {
-        msg += ' Email <a href="mailto:support@passreadyprep.com?subject=Cancel%20my%20subscription">support@passreadyprep.com</a> and we\'ll cancel it for you.';
+        msg += ' <a href="#" onclick="openPortal(this);return false">Manage subscription</a> to cancel it, or email <a href="mailto:support@passreadyprep.com?subject=Cancel%20my%20subscription">support@passreadyprep.com</a>.';
       }
       showErr(msg);
     } catch(_) {

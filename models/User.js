@@ -80,6 +80,7 @@ const UserSchema = new Schema(
       status: { type: String, default: 'active' },  // active | past_due | canceled
       stripeCustomerId: String,
       stripeSubscriptionId: String,
+      cancelAtPeriodEnd: { type: Boolean, default: false }, // monthly: canceled, runs to period end
       lastPaymentIntentId: String,
       currentPeriodEnd: Date,
 
