@@ -11,7 +11,12 @@ const app = express();
 // Allow the browser frontend to talk to this server, and read JSON bodies.
 // The Stripe webhook needs the raw request body to verify its signature,
 // so it must be registered BEFORE express.json() consumes the body.
-app.use(cors({ origin: process.env.CLIENT_ORIGIN || '*' }));
+// CLIENT_ORIGIN may be a comma-separated list. When set, the iOS app's origin
+// (capacitor://localhost) is always allowed too. Unset keeps the open '*' default.
+const corsOrigin = process.env.CLIENT_ORIGIN
+  ? [...process.env.CLIENT_ORIGIN.split(',').map((o) => o.trim()).filter(Boolean), 'capacitor://localhost']
+  : '*';
+app.use(cors({ origin: corsOrigin }));
 app.use('/api/payment/webhook', express.raw({ type: 'application/json' }));
 app.use(express.json());
 

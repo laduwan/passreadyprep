@@ -27,3 +27,16 @@ tools/cases/gen-de.js
 Thumbs.db
 .vscode/
 .idea/
+
+# Capacitor iOS build artifacts (ios/App itself stays committable)
+ios/App/Pods/
+ios/App/build/
+ios/App/DerivedData/
+ios/App/App/public/
+ios/App/App/capacitor.config.json
+ios/App/App/config.xml
+ios/App/*.xcworkspace/xcuserdata/
+ios/App/*.xcodeproj/xcuserdata/
+ios/App/*.xcodeproj/project.xcworkspace/xcuserdata/
+xcuserdata/
+*.xcuserstate
