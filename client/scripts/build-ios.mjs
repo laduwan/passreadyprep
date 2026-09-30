@@ -116,6 +116,14 @@ if (fs.existsSync(iconSet)) {
   fs.copyFileSync(path.join(root, 'native', 'AppIcon-1024.png'), path.join(iconSet, 'AppIcon-512@2x.png'));
   console.log('\nApp icon updated in ios/App.');
 }
+// Launch screen: same cap on the site's navy (native/Splash.svg is the source).
+const splashSet = path.join(root, 'ios', 'App', 'App', 'Assets.xcassets', 'Splash.imageset');
+if (fs.existsSync(splashSet)) {
+  for (const f of ['splash-2732x2732.png', 'splash-2732x2732-1.png', 'splash-2732x2732-2.png']) {
+    fs.copyFileSync(path.join(root, 'native', 'Splash-2732.png'), path.join(splashSet, f));
+  }
+  console.log('Launch screen updated in ios/App.');
+}
 
 console.log('\nCopied into dist from ../public:');
 for (const f of [...copied].sort()) console.log('  ' + f);
