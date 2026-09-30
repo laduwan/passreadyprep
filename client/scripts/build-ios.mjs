@@ -18,6 +18,7 @@ const PAGES = [
   'guarantee.html', 'intake.html', 'flashcards.html', 'decision-trees.html', 'dsm.html',
   'timed-knowledge-exam.html', 'knowledge-drill.html', 'next-best-step.html',
   'core-attributes-quiz.html', 'theory.html', 'podcast.html', 'assess-next-case.html',
+  'delete-account.html',
 ];
 // Pages the shim opens on passreadyprep.com instead (keep in sync with EXTERNAL in native-shim.js).
 const EXTERNAL = new Set(['checkout.html', 'book.html', 'policies.html', 'privacy.html',

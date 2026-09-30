@@ -768,6 +768,12 @@ async function showDashboard(){
   }
   h += '</div>';
 
+  // Account deletion (App Store 5.1.1(v)) — signed-in only, small and out of the way.
+  if(authHeaders().Authorization){
+    h += '<p style="text-align:center;font-size:12px;color:var(--slate-500);margin:22px 0 4px">'
+      + '<a href="/delete-account.html" style="color:var(--slate-500)">Delete account</a></p>';
+  }
+
   app.innerHTML = h;
   // Auto-render study plan if exam date is saved
   var rd2 = computeReadiness();

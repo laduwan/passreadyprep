@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Delete Account — PassReady Prep</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://www.passreadyprep.com/delete-account.html">
+<style>
+  :root{
+    --emerald:#10B981;--emerald-400:#34D399;--slate-900:#0F172A;--slate-800:#1E293B;
+    --slate-700:#334155;--slate-600:#475569;--slate-500:#64748B;--slate-400:#94A3B8;
+    --slate-300:#CBD5E1;--white:#F8FAFC;--red:#EF4444;--red-400:#F87171;
+    --card:rgba(30,41,59,.6);--card-border:rgba(51,65,85,.6);
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;
+    background:linear-gradient(160deg,#0F172A 0%,#1E293B 50%,#0F172A 100%);
+    background-attachment:fixed;font-family:var(--sans);color:var(--slate-300);padding:24px}
+
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:20px;
+    padding:40px 36px;max-width:440px;width:100%;box-shadow:0 24px 60px -20px rgba(0,0,0,.5)}
+
+  /* brand */
+  .brand-wrap{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;margin-bottom:28px}
+  .brand-chip{width:36px;height:36px;border-radius:10px;background:rgba(16,185,129,.16);
+    display:grid;place-items:center;flex:0 0 auto}
+  .brand-chip svg{width:20px;height:20px;color:var(--emerald-400)}
+  .brand{font-weight:700;font-size:17px;color:var(--white);letter-spacing:-.01em}
+  .brand .prep{color:var(--emerald-400)}
+
+  h1{font-size:22px;font-weight:800;color:var(--white);letter-spacing:-.02em;margin:0 0 6px}
+  .sub{color:var(--slate-400);font-size:14.5px;margin:0 0 20px;line-height:1.5}
+  ul.gone{margin:0 0 22px;padding-left:20px;font-size:14px;line-height:1.7;color:var(--slate-300)}
+
+  label{display:block;font-size:12px;font-weight:700;letter-spacing:.04em;
+    text-transform:uppercase;color:var(--slate-400);margin:0 0 6px}
+  input[type=password]{
+    width:100%;background:rgba(15,23,42,.55);border:1px solid var(--card-border);
+    border-radius:10px;color:var(--white);font:inherit;font-size:15px;
+    padding:11px 14px;outline:none;transition:border-color .15s;margin-bottom:16px}
+  input:focus{border-color:var(--emerald)}
+
+  .confirm-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:20px}
+  .confirm-row input[type=checkbox]{
+    width:18px;height:18px;flex:0 0 auto;margin-top:2px;accent-color:var(--red);cursor:pointer}
+  .confirm-row label{font-size:13.5px;color:var(--slate-400);text-transform:none;
+    letter-spacing:0;font-weight:400;line-height:1.55;cursor:pointer;margin:0}
+
+  .btn{width:100%;background:var(--red);color:var(--white);border:none;border-radius:12px;
+    padding:13px;font:700 15px/1 var(--sans);cursor:pointer;transition:background .15s}
+  .btn:hover:not(:disabled){background:var(--red-400)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.green{background:var(--emerald);color:#04261C;display:block;text-align:center;text-decoration:none}
+  .btn.green:hover{background:var(--emerald-400)}
+
+  .err{color:var(--red);font-size:13.5px;margin:0 0 14px;display:none;line-height:1.5}
+  .err a{color:var(--red-400)}
+
+  .switch{text-align:center;margin-top:18px;font-size:14px;color:var(--slate-500)}
+  .switch a{color:var(--emerald-400);text-decoration:none;font-weight:600}
+
+  .panel{display:none}
+  .panel.active{display:block}
+
+  :focus-visible{outline:2.5px solid var(--emerald-400);outline-offset:2px;border-radius:6px}
+</style>
+</head>
+<body>
+<div class="card">
+  <a class="brand-wrap" href="/landing.html" aria-label="PassReady Prep home">
+    <span class="brand-chip" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+        <path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+      </svg>
+    </span>
+    <span class="brand">PassReady <span class="prep">Prep</span></span>
+  </a>
+
+  <!-- Signed out -->
+  <div class="panel" id="panel-signin">
+    <h1>Delete your account</h1>
+    <p class="sub">Sign in first, then come back here to delete your account.</p>
+    <a class="btn green" href="/register.html?next=/delete-account.html">Sign in</a>
+  </div>
+
+  <!-- Confirm -->
+  <div class="panel" id="panel-confirm">
+    <h1>Delete your account</h1>
+    <p class="sub">This permanently deletes <strong id="acct-email" style="color:var(--white)"></strong> and can't be undone. You will lose:</p>
+    <ul class="gone">
+      <li>Your sign-in and any plan or access on this account</li>
+      <li>Case, mock exam and readiness history</li>
+      <li>Flashcard and Knowledge Drill progress</li>
+      <li>Study streak and activity</li>
+    </ul>
+    <p class="err" id="del-err" role="alert"></p>
+    <label for="del-password">Password</label>
+    <input type="password" id="del-password" autocomplete="current-password" placeholder="••••••••"/>
+    <div class="confirm-row">
+      <input type="checkbox" id="del-confirm"/>
+      <label for="del-confirm">I understand my account and progress will be deleted permanently.</label>
+    </div>
+    <button class="btn" id="del-btn" onclick="deleteAccount()" disabled>Delete my account</button>
+    <div class="switch"><a href="/study">Keep my account</a></div>
+  </div>
+
+  <!-- Done -->
+  <div class="panel" id="panel-done">
+    <h1>Your account was deleted</h1>
+    <p class="sub">Your account and study progress have been removed. Thanks for studying with PassReady Prep.</p>
+    <a class="btn green" href="/">Done</a>
+  </div>
+</div>
+
+<script>
+  const token = (function(){ try { return localStorage.getItem('prp_token'); } catch(_) { return null; } })();
+
+  function show(id){
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === id));
+  }
+
+  function showErr(msg){
+    const el = document.getElementById('del-err');
+    el.innerHTML = msg;
+    el.style.display = 'block';
+  }
+
+  // Everything this site keeps on the device uses the prp_ prefix.
+  function clearDevice(){
+    try {
+      Object.keys(localStorage).forEach(k => { if (k.indexOf('prp_') === 0) localStorage.removeItem(k); });
+    } catch(_) {}
+  }
+
+  const pw = document.getElementById('del-password');
+  const cb = document.getElementById('del-confirm');
+  const btn = document.getElementById('del-btn');
+  function syncBtn(){ btn.disabled = !(pw.value && cb.checked); }
+  pw.addEventListener('input', syncBtn);
+  cb.addEventListener('change', syncBtn);
+
+  async function deleteAccount(){
+    document.getElementById('del-err').style.display = 'none';
+    btn.disabled = true; btn.textContent = 'Deleting…';
+    try {
+      const r = await fetch('/api/auth/account', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ password: pw.value }),
+      });
+      const data = await r.json().catch(() => ({}));
+      if (r.ok) { clearDevice(); show('panel-done'); return; }
+      // Any other 401 means the sign-in itself expired (e.g. signed in on another device).
+      if (r.status === 401 && data.code !== 'wrong_password') {
+        try { localStorage.removeItem('prp_token'); } catch(_) {}
+        show('panel-signin'); return;
+      }
+      let msg = data.error || 'Could not delete your account. Please try again.';
+      if (data.code === 'active_subscription') {
+        msg += ' Email <a href="mailto:support@passreadyprep.com?subject=Cancel%20my%20subscription">support@passreadyprep.com</a> and we\'ll cancel it for you.';
+      }
+      showErr(msg);
+    } catch(_) {
+      showErr('Could not reach PassReady Prep. Check your connection and try again.');
+    }
+    btn.textContent = 'Delete my account';
+    syncBtn();
+  }
+
+  if (!token) {
+    show('panel-signin');
+  } else {
+    let email = '';
+    try { email = (JSON.parse(localStorage.getItem('prp_user') || '{}').email) || ''; } catch(_) {}
+    document.getElementById('acct-email').textContent = email || 'your account';
+    show('panel-confirm');
+  }
+</script>
+</body>
+</html>

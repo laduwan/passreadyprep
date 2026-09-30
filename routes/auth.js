@@ -272,4 +272,55 @@ router.post('/reset-password', async (req, res) => {
   }
 });
 
+// DELETE /api/auth/account — the signed-in user permanently deletes their own
+// account (App Store guideline 5.1.1(v) requires this in-app). Needs the
+// current password. A still-renewing Monthly subscription blocks deletion
+// (409) so nobody is billed after their account is gone; they cancel first.
+// Study data is removed like the admin delete, plus the flashcard and
+// study-history sync docs. Suggestions are kept but detached from the person;
+// ActivityEvent is kept as the audit trail, as with the admin delete.
+router.delete('/account', requireAuth, async (req, res) => {
+  try {
+    const { password } = req.body || {};
+    if (!password) return res.status(400).json({ error: 'Enter your password to delete your account' });
+
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ error: 'Account not found' });
+
+    const ok = await bcrypt.compare(password, user.passwordHash);
+    if (!ok) {
+      logActivity({ type: 'user.delete_failed', severity: 'warn', email: user.email, userId: user._id, message: 'Wrong password on account deletion', req });
+      return res.status(401).json({ code: 'wrong_password', error: 'Password is incorrect' });
+    }
+
+    const sub = user.subscription || {};
+    if (sub.tier === 'monthly' && ['active', 'past_due'].includes(sub.status)) {
+      return res.status(409).json({
+        code: 'active_subscription',
+        error: 'Your Monthly subscription is still active. Cancel it first so you are not billed again, then delete your account.',
+      });
+    }
+
+    const Attempt = require('../models/Attempt');
+    const StudyActivity = require('../models/StudyActivity');
+    const FlashcardProgress = require('../models/FlashcardProgress');
+    const StudyHistorySync = require('../models/StudyHistorySync');
+    const Suggestion = require('../models/Suggestion');
+
+    const email = user.email;
+    await Attempt.deleteMany({ userId: user._id });
+    await StudyActivity.deleteMany({ userId: user._id });
+    await FlashcardProgress.deleteMany({ userId: user._id });
+    await StudyHistorySync.deleteMany({ userId: user._id });
+    await Suggestion.updateMany({ userId: user._id }, { $set: { userId: null }, $unset: { email: 1 } });
+    await User.findByIdAndDelete(user._id);
+
+    logActivity({ type: 'user.account_deleted', severity: 'warn', email, message: 'User deleted their own account', req });
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('account delete error', err);
+    return res.status(500).json({ error: 'Could not delete your account' });
+  }
+});
+
 module.exports = router;
