@@ -1,5 +1,8 @@
 {
   "appId": "com.gaitp.passreadyprep",
   "appName": "PassReady Prep",
-  "webDir": "dist"
+  "webDir": "dist",
+  "ios": {
+    "contentInset": "always"
+  }
 }
