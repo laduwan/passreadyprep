@@ -3,6 +3,7 @@
   "appName": "PassReady Prep",
   "webDir": "dist",
   "ios": {
-    "contentInset": "always"
+    "contentInset": "always",
+    "backgroundColor": "#0F172A"
   }
 }
