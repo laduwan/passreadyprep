@@ -1,0 +1,81 @@
+# PassReady Prep — iOS release automation. See fastlane/SETUP.md.
+#
+#   fastlane beta      build web bundle + app, upload to TestFlight
+#   fastlane metadata  upload listing text (+ screenshots in screenshots/en-US)
+#   fastlane release   beta, then metadata
+#
+# Secrets (API key path, demo account) come from fastlane/.env, which is
+# gitignored. The .p8 key file itself lives outside the repo.
+
+default_platform(:ios)
+
+platform :ios do
+  private_lane :asc_key do
+    app_store_connect_api_key(
+      key_id: ENV.fetch("ASC_KEY_ID"),
+      issuer_id: ENV.fetch("ASC_ISSUER_ID"),
+      key_filepath: File.expand_path(ENV.fetch("ASC_KEY_PATH", "~/.appstoreconnect/AuthKey.p8"))
+    )
+  end
+
+  desc "Rebuild the web bundle and copy it into the iOS project"
+  lane :web do
+    # sh runs inside fastlane/, so the client folder is three levels up.
+    sh("cd ../../.. && npm run build:ios && npx cap sync ios")
+  end
+
+  desc "Build and upload a new build to TestFlight"
+  lane :beta do
+    api_key = asc_key
+    web
+
+    # Next build number = latest on TestFlight + 1. Passed straight to
+    # xcodebuild; Info.plist reads CFBundleVersion from CURRENT_PROJECT_VERSION.
+    latest = latest_testflight_build_number(api_key: api_key, initial_build_number: 0)
+    build_number = latest + 1
+    UI.message("Building #{build_number}")
+
+    build_app(
+      project: "App.xcodeproj",
+      scheme: "App",
+      configuration: "Release",
+      export_method: "app-store",
+      output_directory: "build",
+      clean: true,
+      xcargs: "CURRENT_PROJECT_VERSION=#{build_number} -allowProvisioningUpdates",
+      export_xcargs: "-allowProvisioningUpdates"
+    )
+
+    upload_to_testflight(api_key: api_key, skip_waiting_for_build_processing: true)
+  end
+
+  desc "Upload App Store listing text and screenshots (does not submit)"
+  lane :metadata do
+    shots = Dir.glob("screenshots/en-US/*.{png,jpg,jpeg}")
+    deliver(
+      api_key: asc_key,
+      skip_binary_upload: true,
+      skip_screenshots: shots.empty?,
+      overwrite_screenshots: !shots.empty?,
+      force: true,
+      submit_for_review: false,
+      run_precheck_before_submit: false,
+      precheck_include_in_app_purchases: false,
+      app_review_information: {
+        first_name: ENV["REVIEW_FIRST_NAME"],
+        last_name: ENV["REVIEW_LAST_NAME"],
+        phone_number: ENV["REVIEW_PHONE"],
+        email_address: ENV["REVIEW_EMAIL"],
+        demo_user: ENV["REVIEW_DEMO_USER"],
+        demo_password: ENV["REVIEW_DEMO_PASSWORD"],
+        notes: File.read("metadata/review_information/notes.txt")
+      }
+    )
+  end
+
+  desc "TestFlight build, then listing update"
+  lane :release do
+    beta
+    metadata
+  end
+end

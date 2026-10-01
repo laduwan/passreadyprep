@@ -1,0 +1,21 @@
+PassReady Prep is an NCMHCE (counseling licensure exam) study app. The demo
+account above has full access.
+
+How to review:
+1. Launch the app → tap "Start studying" to open the study dashboard.
+2. Open any case simulation, the timed mock exam, flashcards, decision trees, and
+   the intake interview simulator (uses the microphone and speech recognition;
+   typing also works).
+3. Account deletion: Start studying → scroll to the bottom of the dashboard →
+   "Delete account". Monthly subscribers can cancel from "Manage subscription"
+   in the same place.
+
+Purchases: This build is distributed on the United States storefront only.
+Subscriptions and passes are purchased on our website via an external link, as
+permitted for US storefront apps; no in-app purchase is offered. Users who
+already have an account can sign in to access what they purchased.
+
+AI features: Case, intake and microskills feedback is generated with Anthropic's
+API from the user's answers. Content is for exam preparation, not clinical advice.
+
+Contact: support@passreadyprep.com
