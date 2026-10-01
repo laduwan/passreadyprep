@@ -13,6 +13,11 @@
   var ORIGIN = 'https://www.passreadyprep.com';
   window.PRP_NATIVE = true;
 
+  // iOS paints the area behind the status bar from the page's own background.
+  // Pages with gradient backgrounds leave it white, so give every page a solid
+  // navy base (the page's own background still draws on top of it).
+  try { document.documentElement.style.backgroundColor = '#0F172A'; } catch (e) {}
+
   // Every extension-less path loads index.html (the study page) in the app.
   // Mirror the web: / is the landing page, /study stays on the study page.
   if (location.pathname === '/' || location.pathname === '') {
