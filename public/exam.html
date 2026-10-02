@@ -76,6 +76,10 @@ h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
 .timer-display.danger{color:var(--red-400)}
 .timer-sub{font-size:11px; color:var(--slate-500); margin-top:1px}
 .timer-prog{font-size:13px; color:var(--slate-400); text-align:right; line-height:1.4}
+.timer-right{display:flex; align-items:center; justify-content:flex-end; gap:12px}
+.timer-exit{font:inherit; font-size:13px; font-weight:700; color:var(--slate-300); background:rgba(51,65,85,.5);
+  border:1px solid var(--card-border); border-radius:9px; padding:6px 12px; cursor:pointer; white-space:nowrap}
+.timer-exit:hover{background:rgba(51,65,85,.85); color:var(--white)}
 .timer-prog strong{color:var(--white)}
 .tbar{height:4px; background:var(--slate-700); border-radius:999px; overflow:hidden; width:90px; margin-top:4px}
 .tbar > i{display:block; height:100%; background:var(--emerald); transition:width 1s linear}
@@ -275,7 +279,10 @@ body.exam-active #prp-suggest-tab, body.exam-active #prp-suggest-panel{display:n
     </div>
   </div>
   <div class="timer-center" id="timer-center"><strong>Case 1 of 11</strong></div>
-  <div class="timer-prog" id="timer-prog"></div>
+  <div class="timer-right">
+    <div class="timer-prog" id="timer-prog"></div>
+    <button type="button" class="timer-exit" onclick="confirmExit()" aria-label="Exit the exam">Exit</button>
+  </div>
 </div>
 
 <div class="wrap">
@@ -717,6 +724,24 @@ function showLockModal(n){
   h += '</div></div>';
   closeModal();
   document.body.insertAdjacentHTML('beforeend', h);
+}
+
+// Exit mid-exam: the app has no browser back button, so this is the only way out.
+function confirmExit(){
+  closeModal();
+  let h = '<div class="modal-back" id="lock-modal" role="dialog" aria-modal="true"><div class="modal">';
+  h += '<div class="modal-title">Leave the exam?</div>';
+  h += '<div class="modal-body"><strong>This attempt will end and won\'t be scored.</strong></div>';
+  h += '<div class="modal-row"><button class="btn secondary sm" onclick="closeModal()">Keep going</button>'
+     + '<button class="btn sm" onclick="exitExam()">Leave exam</button></div>';
+  h += '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', h);
+}
+function exitExam(){
+  closeModal();
+  stopTimer();
+  if(breakIv){ clearInterval(breakIv); breakIv = null; }
+  window.location.href = '/';
 }
 
 function closeModal(){
