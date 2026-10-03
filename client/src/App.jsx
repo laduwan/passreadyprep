@@ -33,6 +33,7 @@ const NAV_ITEMS = [
   { id: 'coretutor', label: 'Core Tutor', icon: Zap },
   { id: 'strategy', label: 'Exam Strategy', icon: BarChart3 },
   { id: 'guarantee', label: 'Pass Guarantee', icon: Award },
+  { id: 'nce', label: 'NCE Study', icon: GraduationCap, external: '/nce.html' },
 ];
 
 export default function App() {
