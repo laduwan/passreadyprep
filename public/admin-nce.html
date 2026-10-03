@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>PassReady Prep — NCE Questions</title>
+<style>
+  :root{
+    --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+    --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
+    --emerald:#10B981; --emerald-400:#34D399;
+    --amber-400:#FBBF24; --red-400:#F87171; --blue-400:#60A5FA;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:linear-gradient(160deg,#0F172A,#1E293B 50%,#0F172A);
+    color:var(--slate-200);font-family:var(--sans);font-size:15px;line-height:1.55}
+  a{color:var(--emerald-400)}
+  .wrap{max-width:1080px;margin:0 auto;padding:20px}
+  h2{color:var(--white);font-size:17px;margin:0 0 10px}
+  .muted{color:var(--slate-400)}
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:16px;margin-bottom:16px}
+  button{font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:9px;
+    border:1px solid var(--slate-600);background:var(--slate-700);color:var(--white);padding:8px 13px}
+  button:hover{border-color:var(--emerald)}
+  button.primary{background:var(--emerald);border-color:var(--emerald);color:#04120c}
+  button.danger{background:transparent;border-color:var(--red-400);color:var(--red-400)}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  select,input{font-family:inherit;font-size:14px;background:var(--slate-800);color:var(--white);
+    border:1px solid var(--slate-600);border-radius:8px;padding:8px 10px;width:100%}
+  label{display:block;font-size:12px;font-weight:600;color:var(--slate-300);margin:0 0 4px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+  .row > div{flex:1;min-width:140px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--card-border);vertical-align:top}
+  th{color:var(--slate-400);font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+  .bar{height:6px;border-radius:3px;background:var(--slate-700);min-width:90px}
+  .bar i{display:block;height:6px;border-radius:3px;background:var(--emerald)}
+  .q{border:1px solid var(--card-border);border-radius:10px;padding:14px;margin-bottom:12px;background:rgba(15,23,42,.4)}
+  .q .meta{font-size:12px;color:var(--slate-400);margin-bottom:6px}
+  .q .stem{color:var(--white);font-weight:600;margin-bottom:8px}
+  .q ol{margin:0 0 8px;padding-left:22px}
+  .q li{margin-bottom:4px}
+  .q li.key{color:var(--emerald-400)}
+  .q li small{display:block;color:var(--slate-400)}
+  .q .why{font-size:13.5px;border-left:3px solid var(--emerald);padding-left:10px;margin:8px 0}
+  .actions{display:flex;gap:6px;flex-wrap:wrap}
+  .err{color:var(--red-400);font-size:13px}
+  .hidden{display:none}
+  .toast{position:fixed;bottom:20px;right:20px;background:var(--slate-700);color:var(--white);padding:10px 14px;border-radius:9px;opacity:0;transition:.2s}
+  .toast.show{opacity:1}.toast.err{background:#7f1d1d}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="gate" class="card hidden">
+    <h2>Admin sign-in required</h2>
+    <p class="muted">Open this page from the <a href="/admin-dashboard.html">Admin dashboard</a> (NCE Questions tab).</p>
+  </div>
+
+  <div id="app" class="hidden">
+    <div class="card">
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <h2 style="margin:0">NCE bank coverage</h2>
+        <div class="actions">
+          <span class="muted" id="examStatus"></span>
+          <button id="toggleLive">…</button>
+        </div>
+      </div>
+      <p class="muted" style="margin:6px 0 12px">Targets follow NBCC's NCE domain weights (bank target <span id="bankTarget"></span>). Generate fills the domain furthest below target unless you pick one.</p>
+      <table>
+        <thead><tr><th>Domain</th><th>Weight</th><th>Published</th><th>In review</th><th>Target</th><th>Progress</th></tr></thead>
+        <tbody id="covBody"></tbody>
+      </table>
+      <p class="muted" style="margin:12px 0 4px;font-size:13px">CACREP coverage (published): <span id="cacrep"></span></p>
+    </div>
+
+    <div class="card">
+      <h2>Generate questions</h2>
+      <div class="row">
+        <div><label for="gDomain">Domain</label><select id="gDomain"><option value="">Auto (furthest below target)</option></select></div>
+        <div><label for="gCount">How many (1–10)</label><input id="gCount" type="number" min="1" max="10" value="5" /></div>
+        <div><label for="gDiff">Difficulty</label>
+          <select id="gDiff"><option value="mixed">Mixed</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></div>
+        <div style="flex:0"><button class="primary" id="gBtn">Generate</button></div>
+      </div>
+      <p class="muted" style="font-size:13px;margin:8px 0 0">Each item runs the shared quality gate (4 options, one key, length parity, no absolutes, rationales, approved sources, no near-duplicates). Passing items go to review; nothing is published automatically. Model: <span id="model"></span></p>
+      <div id="gOut" style="margin-top:10px"></div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="align-items:end">
+        <div><label for="fStatus">Status</label>
+          <select id="fStatus"><option value="sme_review">In review</option><option value="published">Published</option><option value="retired">Retired</option></select></div>
+        <div><label for="fDomain">Domain</label><select id="fDomain"><option value="">All</option></select></div>
+        <div><label for="fQ">Search stem</label><input id="fQ" /></div>
+        <div style="flex:0"><button id="fBtn">Load</button></div>
+      </div>
+      <p class="muted" id="listCount" style="margin:10px 0"></p>
+      <div id="list"></div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var DOMAINS = [];
+  var examStatus = 'coming_soon';
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function toast(msg, isErr){ var t=$('toast'); t.textContent=msg; t.className='toast show'+(isErr?' err':''); setTimeout(function(){ t.className='toast'; }, 2600); }
+  function token(){ return sessionStorage.getItem('prp_admin_jwt') || ''; }
+  function api(path, opts){
+    opts = opts || {};
+    opts.headers = Object.assign({ 'Authorization': 'Bearer ' + token() }, opts.headers || {});
+    if (opts.body && typeof opts.body !== 'string'){ opts.headers['content-type']='application/json'; opts.body = JSON.stringify(opts.body); }
+    return fetch('/api/admin/nce' + path, opts).then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(j){
+        if (r.status === 401){ $('app').classList.add('hidden'); $('gate').classList.remove('hidden'); }
+        if (!r.ok){ var e = new Error(j.error || ('Request failed ('+r.status+')')); e.body = j; throw e; }
+        return j;
+      });
+    });
+  }
+  function domainLabel(k){ var d = DOMAINS.filter(function(x){ return x.key===k; })[0]; return d ? d.label : k; }
+
+  function loadCoverage(){
+    return api('/coverage').then(function(c){
+      DOMAINS = c.domains;
+      examStatus = c.examStatus;
+      $('examStatus').textContent = 'Student status: ' + (examStatus === 'live' ? 'LIVE' : 'Coming soon');
+      $('toggleLive').textContent = examStatus === 'live' ? 'Set to coming soon' : 'Set NCE live';
+      $('bankTarget').textContent = c.bankTarget;
+      $('model').textContent = c.model;
+      $('covBody').innerHTML = c.domains.map(function(d){
+        var pct = Math.min(100, Math.round(100 * d.published / d.target));
+        return '<tr><td>'+esc(d.label)+'</td><td>'+Math.round(d.weight*100)+'%</td><td>'+d.published+'</td><td>'+d.review+'</td><td>'+d.target+'</td>'+
+          '<td><div class="bar"><i style="width:'+pct+'%"></i></div></td></tr>';
+      }).join('');
+      $('cacrep').textContent = c.cacrep.map(function(a){ return a.label + ' ' + a.published; }).join(' · ');
+      var opts = c.domains.map(function(d){ return '<option value="'+d.key+'">'+esc(d.label)+'</option>'; }).join('');
+      if ($('gDomain').options.length === 1) { $('gDomain').insertAdjacentHTML('beforeend', opts); $('fDomain').insertAdjacentHTML('beforeend', opts); }
+    });
+  }
+
+  $('toggleLive').onclick = function(){
+    var next = examStatus === 'live' ? 'coming_soon' : 'live';
+    if (next === 'live' && !confirm('Show NCE as live to students?')) return;
+    api('/exam-status', { method:'POST', body:{ status: next } }).then(function(){ toast('NCE is now ' + next); loadCoverage(); }).catch(function(e){ toast(e.message, true); });
+  };
+
+  $('gBtn').onclick = function(){
+    var btn = $('gBtn'); btn.disabled = true; btn.textContent = 'Generating… (up to a few minutes)';
+    $('gOut').innerHTML = '';
+    api('/generate', { method:'POST', body:{ domain: $('gDomain').value || undefined, count: $('gCount').value, difficulty: $('gDiff').value } })
+      .then(function(r){
+        var html = '<p><b>'+r.saved.length+'</b> of '+r.requested+' saved to review in <b>'+esc(domainLabel(r.domain))+'</b>.</p>';
+        if (r.rejected.length) html += '<p class="err">Rejected by the gate:</p><ul>' + r.rejected.map(function(x){
+          return '<li><b>'+esc(x.topic)+'</b>: '+esc(x.errors.join('; '))+'</li>'; }).join('') + '</ul>';
+        $('gOut').innerHTML = html;
+        loadCoverage(); if ($('fStatus').value === 'sme_review') loadList();
+      })
+      .catch(function(e){ $('gOut').innerHTML = '<p class="err">'+esc(e.message)+'</p>'; })
+      .then(function(){ btn.disabled = false; btn.textContent = 'Generate'; });
+  };
+
+  function renderItem(it){
+    var key = (it.options||[]).filter(function(o){ return o.isCorrect; })[0];
+    var acts = '';
+    if (it.status !== 'published') acts += '<button class="primary" data-act="published" data-id="'+it.externalId+'">Publish</button>';
+    if (it.status !== 'sme_review') acts += '<button data-act="sme_review" data-id="'+it.externalId+'">Back to review</button>';
+    if (it.status !== 'retired') acts += '<button class="danger" data-act="retired" data-id="'+it.externalId+'">Retire</button>';
+    return '<div class="q">'+
+      '<div class="meta">'+esc(it.externalId)+' · '+esc(domainLabel(it.domain))+' · '+esc(it.cacrep||'—')+' · '+esc(it.topic||'')+' · '+esc(it.difficulty)+'</div>'+
+      '<div class="stem">'+esc(it.stem)+'</div>'+
+      '<ol type="a">'+(it.options||[]).map(function(o){
+        return '<li class="'+(o.isCorrect?'key':'')+'">'+esc(o.text)+(o.isCorrect?' ✓':'')+'<small>'+esc(o.rationale)+'</small></li>'; }).join('')+'</ol>'+
+      '<div class="why">'+esc(it.rationale)+'</div>'+
+      '<div class="muted" style="font-size:12.5px;margin-bottom:8px">'+(it.references||[]).map(function(r){ return esc(r.source)+(r.detail?' — '+esc(r.detail):''); }).join(' | ')+'</div>'+
+      '<div class="actions">'+acts+'</div></div>';
+  }
+
+  function loadList(){
+    var q = '?status='+encodeURIComponent($('fStatus').value)+'&domain='+encodeURIComponent($('fDomain').value)+'&q='+encodeURIComponent($('fQ').value);
+    return api('/items'+q).then(function(r){
+      $('listCount').textContent = r.count + ' item' + (r.count===1?'':'s') + (r.count >= 500 ? ' (first 500)' : '');
+      $('list').innerHTML = r.items.map(renderItem).join('') || '<p class="muted">Nothing here.</p>';
+    }).catch(function(e){ toast(e.message, true); });
+  }
+  $('fBtn').onclick = loadList;
+  $('list').addEventListener('click', function(e){
+    var b = e.target.closest('button[data-act]'); if (!b) return;
+    b.disabled = true;
+    api('/items/'+encodeURIComponent(b.getAttribute('data-id'))+'/status', { method:'POST', body:{ status: b.getAttribute('data-act') } })
+      .then(function(){ toast(b.getAttribute('data-id')+' → '+b.getAttribute('data-act')); loadList(); loadCoverage(); })
+      .catch(function(err){ b.disabled = false; toast(err.message, true); });
+  });
+
+  if (!token()) { $('gate').classList.remove('hidden'); return; }
+  $('app').classList.remove('hidden');
+  loadCoverage().then(loadList).catch(function(e){ toast(e.message, true); });
+})();
+</script>
+</body>
+</html>

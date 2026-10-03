@@ -81,6 +81,12 @@ services:
         sync: false
       - key: STRIPE_PRICE_GUIDE
         sync: false
+      - key: STRIPE_PRICE_NCE_MONTHLY   # NCE plans (billed separately from NCMHCE)
+        sync: false
+      - key: STRIPE_PRICE_NCE_PASS3
+        sync: false
+      - key: STRIPE_PRICE_NCE_PASS6
+        sync: false
 
       # ── AI features (optional) ────────────────────────────────────────
       - key: ANTHROPIC_API_KEY   # AI debrief (Dr. Claire Moreau) + case generation

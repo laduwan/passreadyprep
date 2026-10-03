@@ -10,6 +10,7 @@
  *   pass3      — $79 one-time, 3 months access
  *   guarantee  — $149 one-time, access until passing
  *   test       — $1.00 one-time, admin-only live-payment smoke test (grants nothing)
+ *   nce_monthly / nce_pass3 / nce_pass6 — NCE plans, written to User.nceAccess
  *
  * ENV vars required (add to .env and Render dashboard):
  *   STRIPE_SECRET_KEY       — sk_live_xxx  (or sk_test_xxx for dev)
@@ -17,6 +18,9 @@
  *   STRIPE_PRICE_MONTHLY    — price_xxx  (monthly $29 recurring price ID)
  *   STRIPE_PRICE_PASS3      — price_xxx  (3-month $79 one-time price ID)
  *   STRIPE_PRICE_GUARANTEE  — price_xxx  ($149 one-time price ID)
+ *   STRIPE_PRICE_NCE_MONTHLY — price_xxx (NCE monthly $24.99 recurring)
+ *   STRIPE_PRICE_NCE_PASS3   — price_xxx (NCE 3-month $59 one-time)
+ *   STRIPE_PRICE_NCE_PASS6   — price_xxx (NCE 6-month $89 one-time)
  *   CLIENT_URL              — https://passreadyprep-server.onrender.com (no trailing slash)
  */
 
@@ -101,6 +105,29 @@ const TIERS = {
     mode: 'payment',
     tierName: 'guide',
     entitlementOnly: true, // one-time PRODUCT (the study guide), NOT an access tier.
+  },
+  // ── NCE plans ── billed separately from NCMHCE: the webhook writes these to
+  // User.nceAccess, never to User.subscription, so buying one exam can't grant
+  // or overwrite the other. Prices live in Stripe (see .env price IDs).
+  nce_monthly: {
+    priceId: () => process.env.STRIPE_PRICE_NCE_MONTHLY,
+    mode: 'subscription',
+    tierName: 'nce_monthly',
+    exam: 'nce',
+  },
+  nce_pass3: {
+    priceId: () => process.env.STRIPE_PRICE_NCE_PASS3,
+    mode: 'payment',
+    tierName: 'nce_pass3',
+    exam: 'nce',
+    accessDays: 90,
+  },
+  nce_pass6: {
+    priceId: () => process.env.STRIPE_PRICE_NCE_PASS6,
+    mode: 'payment',
+    tierName: 'nce_pass6',
+    exam: 'nce',
+    accessDays: 180,
   },
   // $1.00 test purchase for verifying the live Stripe flow end to end
   // (checkout → webhook → activity log). Priced inline so it needs no
@@ -211,6 +238,12 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
     if (tier === 'guide') {
       sessionParams.success_url = `${process.env.CLIENT_URL}/study-guide.html?purchase=success`;
       sessionParams.cancel_url = `${process.env.CLIENT_URL}/study-guide.html`;
+    }
+
+    // NCE plans return to the NCE study page.
+    if (tierConfig.exam === 'nce') {
+      sessionParams.success_url = `${process.env.CLIENT_URL}/nce.html?purchase=success&tier=${tier}`;
+      sessionParams.cancel_url = `${process.env.CLIENT_URL}/nce.html#pricing`;
     }
 
     // Test purchase returns to the checkout page's success view.
@@ -324,6 +357,24 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
           break;
         }
 
+        // NCE one-time pass: extend from whichever is later, now or the end of
+        // time already paid for, so buying early never loses days.
+        if (tierConfig.exam === 'nce') {
+          const u = await User.findById(userId).select('nceAccess');
+          const cur = u && u.nceAccess && u.nceAccess.currentPeriodEnd;
+          const from = cur && cur > new Date() ? cur.getTime() : Date.now();
+          const nceEnd = new Date(from + tierConfig.accessDays * 24 * 60 * 60 * 1000);
+          await User.findByIdAndUpdate(userId, {
+            'nceAccess.tier': tier,
+            'nceAccess.status': 'active',
+            'nceAccess.currentPeriodEnd': nceEnd,
+            'nceAccess.lastPaymentIntentId': session.payment_intent,
+          });
+          console.log(`✓ NCE one-time payment: user ${userId} → ${tier}, expires ${nceEnd}`);
+          logActivity({ type: 'payment.succeeded', severity: 'info', userId, email: session.customer_details?.email, message: `Purchased ${tier}`, meta: { tier, expires: nceEnd, amount: session.amount_total, currency: session.currency }, req });
+          break;
+        }
+
         const accessDays = tierConfig.accessDays;
         const periodEnd = accessDays
           ? new Date(Date.now() + accessDays * 24 * 60 * 60 * 1000)
@@ -347,6 +398,26 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         const sub = event.data.object;
         const userId = sub.metadata?.userId;
         if (!userId) break;
+
+        // NCE monthly lives on User.nceAccess — never touch the NCMHCE plan.
+        if (TIERS[sub.metadata?.tier]?.exam === 'nce') {
+          const nceUpdate = {
+            'nceAccess.tier': sub.metadata.tier,
+            'nceAccess.status': sub.status,
+            'nceAccess.stripeSubscriptionId': sub.id,
+            'nceAccess.cancelAtPeriodEnd': !!sub.cancel_at_period_end,
+          };
+          const ncePeriodEnd = subPeriodEnd(sub);
+          if (ncePeriodEnd) nceUpdate['nceAccess.currentPeriodEnd'] = ncePeriodEnd;
+          await User.findByIdAndUpdate(userId, nceUpdate);
+          console.log(`✓ NCE subscription ${event.type}: user ${userId}, status ${sub.status}`);
+          if (event.type === 'customer.subscription.created') {
+            logActivity({ type: 'payment.succeeded', severity: 'info', userId, message: 'NCE monthly subscription started', meta: { status: sub.status }, req });
+          } else if (sub.status === 'past_due') {
+            logActivity({ type: 'subscription.past_due', severity: 'warn', userId, message: 'NCE monthly subscription is past due', meta: { status: sub.status }, req });
+          }
+          break;
+        }
 
         const update = {
           'subscription.tier': 'monthly',
@@ -376,6 +447,16 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         const userId = sub.metadata?.userId;
         if (!userId) break;
 
+        if (TIERS[sub.metadata?.tier]?.exam === 'nce') {
+          const nceCancel = { 'nceAccess.status': 'canceled' };
+          const nceCancelEnd = subPeriodEnd(sub);
+          if (nceCancelEnd) nceCancel['nceAccess.currentPeriodEnd'] = nceCancelEnd;
+          await User.findByIdAndUpdate(userId, nceCancel);
+          console.log(`✓ NCE subscription cancelled: user ${userId}`);
+          logActivity({ type: 'subscription.canceled', severity: 'info', userId, message: 'NCE monthly subscription cancelled', meta: { periodEnd: nceCancelEnd }, req });
+          break;
+        }
+
         // Don't immediately drop to free — let them use through period end
         const cancelUpdate = { 'subscription.status': 'canceled' };
         const cancelPeriodEnd = subPeriodEnd(sub);
@@ -394,6 +475,17 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         const customerId = invoice.customer;
         const user = await User.findOne({ 'subscription.stripeCustomerId': customerId });
         if (!user) break;
+
+        // A failed NCE renewal marks only the NCE plan past due. The invoice's
+        // subscription id moved under parent.subscription_details in newer
+        // Stripe API versions, so check both places.
+        const invSubId = invoice.subscription || invoice.parent?.subscription_details?.subscription;
+        if (invSubId && user.nceAccess?.stripeSubscriptionId === invSubId) {
+          await User.findByIdAndUpdate(user._id, { 'nceAccess.status': 'past_due' });
+          console.log(`✓ NCE payment failed: user ${user._id}`);
+          logActivity({ type: 'payment.failed', severity: 'warn', userId: user._id, email: user.email, message: 'NCE monthly payment failed', meta: { customerId }, req });
+          break;
+        }
 
         await User.findByIdAndUpdate(user._id, {
           'subscription.status': 'past_due',

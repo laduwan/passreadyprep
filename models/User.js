@@ -102,6 +102,23 @@ const UserSchema = new Schema(
       },
     },
 
+    // NCE access — billed separately from the NCMHCE `subscription` above, so
+    // buying one exam never grants or overwrites the other (routes/payment.js
+    // routes nce_* tiers here). The NCE trial starts the first time the
+    // account opens NCE study, not at signup (see utils/nceAccess.js).
+    nceAccess: {
+      tier: { type: String, default: 'free' },      // free | nce_monthly | nce_pass3 | nce_pass6
+      status: { type: String, default: 'active' },  // active | past_due | canceled
+      stripeSubscriptionId: String,
+      cancelAtPeriodEnd: { type: Boolean, default: false },
+      lastPaymentIntentId: String,
+      currentPeriodEnd: Date,
+      trialStartedAt: Date,
+    },
+
+    // Target NCE exam date (separate from the NCMHCE examDate above).
+    nceExamDate: Date,
+
     prefs: {
       digestOptOut: { type: Boolean, default: false },
       voice: {

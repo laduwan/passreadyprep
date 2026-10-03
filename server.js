@@ -41,6 +41,7 @@ app.use('/api/admin-subscriptions', require('./routes/adminSubscriptions'));
 app.use('/api/admin/generate', require('./routes/adminGenerate'));
 app.use('/api/admin/course',  require('./routes/adminCourse'));
 app.use('/api/admin/broadcast', require('./routes/adminBroadcast'));
+app.use('/api/admin/nce', require('./routes/adminNce'));
 app.use('/api/ncmhce-cases',  require('./routes/ncmhceCases'));
 app.use('/api/debrief', require('./routes/debrief'));
 app.use('/api/skills', require('./routes/skills'));
@@ -54,6 +55,7 @@ app.use('/api/flashcard-progress', require('./routes/flashcardProgress'));
 app.use('/api/study-history', require('./routes/studyHistory'));
 app.use('/api/visits', require('./routes/visits'));
 app.use('/api/announcements', require('./routes/announcements'));
+app.use('/api/nce', require('./routes/nce'));
 
 // ── Accessibility + translation widget injection ────────────────────
 // Every HTML page gets the shared accessibility widget (a11y.css + a11y.js),

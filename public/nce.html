@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — NCE Study</title>
+<meta name="description" content="NCE practice questions and full-length timed mock exams weighted to NBCC's NCE content outline, with per-domain progress tracking.">
+<link rel="canonical" href="https://www.passreadyprep.com/nce.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PassReady Prep">
+<meta property="og:title" content="PassReady Prep — NCE Study">
+<meta property="og:description" content="Practice questions and timed mock exams weighted like the real NCE.">
+<meta property="og:url" content="https://www.passreadyprep.com/nce.html">
+<meta property="og:image" content="https://www.passreadyprep.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{
+  --slate-900:#0F172A;--slate-800:#1E293B;--slate-700:#334155;--slate-600:#475569;
+  --slate-500:#64748B;--slate-400:#94A3B8;--slate-300:#CBD5E1;--slate-200:#E2E8F0;--white:#F8FAFC;
+  --emerald:#10B981;--emerald-400:#34D399;--blue-400:#60A5FA;--blue:#3B82F6;
+  --amber:#F59E0B;--amber-400:#FBBF24;--red:#EF4444;--red-400:#F87171;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --r-xl:16px;--r-lg:12px;--r-md:10px;
+  --card:rgba(30,41,59,.55);--card-border:rgba(51,65,85,.6);
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:linear-gradient(160deg,#0F172A,#1E293B 50%,#0F172A);
+  background-attachment:fixed;color:var(--slate-200);font-family:var(--sans);font-size:16px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding:18px 16px 80px}
+a{color:var(--emerald-400)}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 20px;flex-wrap:wrap}
+.bw{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+.bc{width:38px;height:38px;border-radius:11px;background:rgba(16,185,129,.16);display:grid;place-items:center}
+.bc svg{width:21px;height:21px;color:var(--emerald-400)}
+.bn{font-weight:700;font-size:18px;color:var(--white)}.bn .p{color:var(--emerald-400)}
+.hdr-r{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+h1{font-size:26px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spacing:-.01em}
+h2{font-size:18px;margin:0 0 10px;color:var(--white)}
+.lead{color:var(--slate-400);margin:0 0 16px}
+.muted{color:var(--slate-400)}
+.small{font-size:13px}
+.card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-xl);padding:18px 20px;margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font:inherit;font-weight:700;
+  background:var(--emerald);color:#04261C;border:none;border-radius:var(--r-md);padding:12px 22px;transition:background .15s;text-decoration:none}
+.btn:hover{background:var(--emerald-400)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn-s{background:rgba(51,65,85,.5);color:var(--slate-200)}.btn-s:hover{background:rgba(51,65,85,.8)}
+.btn-sm{padding:8px 14px;font-size:14px}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:4px 10px;border-radius:999px;text-transform:uppercase}
+.b-blue{color:var(--blue-400);background:rgba(59,130,246,.15)}
+.b-em{color:var(--emerald-400);background:rgba(16,185,129,.15)}
+.b-am{color:var(--amber-400);background:rgba(245,158,11,.15)}
+.banner{border-radius:var(--r-lg);padding:12px 16px;margin-bottom:14px;font-size:14.5px;border:1px solid}
+.banner.info{background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.3)}
+.banner.warn{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.3)}
+.banner.ok{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.3)}
+
+/* stats row */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-lg);padding:14px 16px}
+.stat .n{font-size:26px;font-weight:800;color:var(--white);line-height:1.1}
+.stat .l{font-size:12.5px;color:var(--slate-400);margin-top:2px}
+.stat input{font:inherit;font-size:14px;background:rgba(15,23,42,.6);color:var(--white);border:1px solid var(--card-border);border-radius:8px;padding:6px 8px;width:100%;margin-top:4px;color-scheme:dark}
+
+/* domain list */
+.dom{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(51,65,85,.45)}
+.dom:last-child{border-bottom:none}
+.dom-name{font-weight:700;color:var(--white)}
+.dom-sub{font-size:12.5px;color:var(--slate-400)}
+.pct-bar{height:6px;border-radius:3px;background:rgba(51,65,85,.5);margin-top:6px}
+.pct-fill{height:6px;border-radius:3px;background:var(--emerald)}
+.pct-fill.mid{background:var(--amber)}.pct-fill.low{background:var(--red-400)}
+
+/* mode chooser */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0}
+.choice{cursor:pointer;font:inherit;text-align:left;border-radius:var(--r-lg);padding:16px;border:2px solid var(--card-border);
+  background:rgba(51,65,85,.3);color:var(--slate-300);transition:.15s}
+.choice:hover{border-color:rgba(16,185,129,.4);color:var(--white)}
+.choice.selected{border-color:var(--emerald);background:rgba(16,185,129,.12)}
+.choice b{display:block;color:var(--white);font-size:17px}
+.choice span{font-size:13px;color:var(--slate-400)}
+
+/* timer */
+.timer-bar{position:sticky;top:0;z-index:50;background:rgba(15,23,42,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--card-border);padding:10px 16px;display:none}
+.timer-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.timer-display{font-size:22px;font-weight:800;color:var(--white);font-variant-numeric:tabular-nums}
+.timer-display.warn{color:var(--amber-400)}.timer-display.danger{color:var(--red-400)}
+.timer-prog{font-size:13px;color:var(--slate-400);text-align:right;line-height:1.4}
+.timer-prog strong{color:var(--white);display:block}
+
+/* navigator */
+.nav-grid{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0;max-height:180px;overflow:auto}
+.ag-cell{cursor:pointer;width:34px;height:34px;border-radius:7px;font-size:12px;font-weight:700;display:grid;place-items:center;
+  border:1.5px solid var(--card-border);background:rgba(51,65,85,.3);color:var(--slate-400)}
+.ag-cell.current{border-color:var(--blue-400);color:var(--blue-400)}
+.ag-cell.answered{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.4);color:var(--emerald-400)}
+.ag-cell.flagged{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.5);color:var(--amber-400)}
+
+/* question */
+.q-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.q-num{font-size:12px;font-weight:700;color:var(--slate-500);letter-spacing:.04em;text-transform:uppercase}
+.qstem{font-size:17px;font-weight:600;color:var(--white);line-height:1.45;margin:0 0 16px}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{text-align:left;cursor:pointer;font:inherit;font-size:15px;color:var(--slate-200);background:rgba(51,65,85,.35);
+  border:1.5px solid var(--card-border);border-radius:10px;padding:13px 15px;display:flex;align-items:flex-start;gap:10px}
+.opt:hover:not(:disabled){background:rgba(51,65,85,.6)}
+.opt:disabled{cursor:default}
+.opt .mk{font-weight:800;font-size:13px;min-width:20px;margin-top:1px;color:var(--slate-400)}
+.opt.selected{background:rgba(59,130,246,.12);border-color:rgba(59,130,246,.55)}
+.opt.correct{background:rgba(16,185,129,.14);border-color:rgba(16,185,129,.55)}
+.opt.wrong{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.5)}
+.opt-why{font-size:13px;color:var(--slate-400);margin:4px 0 0 32px}
+.rationale{margin-top:12px;border-left:3px solid var(--emerald);background:rgba(16,185,129,.07);border-radius:0 8px 8px 0;
+  padding:10px 13px;font-size:13.5px;line-height:1.55}
+.rat-label{font-weight:700;color:var(--emerald-400);font-size:11px;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:4px}
+.nav-row{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap}
+.flag-btn{background:none;border:1.5px solid var(--card-border);border-radius:var(--r-md);cursor:pointer;font:inherit;font-size:13px;font-weight:600;color:var(--slate-400);padding:8px 14px}
+.flag-btn.flagged{border-color:var(--amber);color:var(--amber-400)}
+
+/* results */
+.score-card{text-align:center;border-radius:var(--r-xl);padding:24px 20px;border:1px solid rgba(59,130,246,.3);background:rgba(59,130,246,.07);margin-bottom:14px}
+.score-big{font-size:44px;font-weight:800;color:var(--white);line-height:1}
+.domain-table{width:100%;border-collapse:collapse;font-size:14px}
+.domain-table th{text-align:left;color:var(--slate-400);font-weight:700;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;padding:6px 8px;border-bottom:1px solid var(--card-border)}
+.domain-table td{padding:8px;border-bottom:1px solid rgba(51,65,85,.4)}
+.domain-table td:last-child{text-align:right;font-weight:700}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.plan{background:rgba(15,23,42,.45);border:1px solid var(--card-border);border-radius:var(--r-lg);padding:18px;display:flex;flex-direction:column}
+.plan.best{border-color:rgba(16,185,129,.55);background:rgba(16,185,129,.06)}
+.plan .pn{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--slate-400)}
+.plan .pp{font-size:32px;font-weight:800;color:var(--white);margin:6px 0 2px}
+.plan .pp small{font-size:14px;color:var(--slate-400);font-weight:600}
+.plan ul{list-style:none;padding:0;margin:10px 0 16px;font-size:13.5px;flex:1}
+.plan li{margin-bottom:5px}.plan li::before{content:"✓ ";color:var(--emerald-400);font-weight:700}
+.hidden{display:none!important}
+@media(max-width:520px){h1{font-size:21px}.qstem{font-size:15px}.opt{font-size:14px}.timer-display{font-size:18px}}
+</style>
+</head>
+<body>
+
+<div class="timer-bar" id="timer-bar" role="timer" aria-live="off">
+  <div class="timer-inner">
+    <div><div class="timer-display" id="timer-display">00:00</div><div class="muted small">remaining</div></div>
+    <div class="timer-prog" id="timer-prog"></div>
+    <button class="btn btn-s btn-sm" id="timer-exit" type="button">Exit</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <header>
+    <a class="bw" href="/study">
+      <span class="bc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l-6-6 6-6"/><path d="M3 12h18"/></svg></span>
+      <span class="bn">PassReady<span class="p"> Prep</span></span>
+    </a>
+    <div class="hdr-r">
+      <span class="badge b-blue">NCE</span>
+      <a class="btn btn-s btn-sm" href="/study">NCMHCE study</a>
+      <a class="btn btn-s btn-sm" id="signin-link" href="/register.html?next=/nce.html">Sign in</a>
+    </div>
+  </header>
+
+  <div id="stage"></div>
+</div>
+
+<script>
+(function(){
+  var TOKEN = null;
+  try { TOKEN = localStorage.getItem('prp_token'); } catch(e) {}
+
+  var BP = null, STATUS = null, PROGRESS = null;
+  var DOM = {}; // key -> domain meta
+
+  // Shown on the page; the charge itself is the Stripe price behind each tier.
+  var PLANS = [
+    { tier:'nce_monthly', name:'Monthly', price:'$24.99', per:'/month', note:'Cancel anytime',
+      features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain'] },
+    { tier:'nce_pass3', name:'3-Month Pass', price:'$59', per:'one-time', note:'Most popular', best:true,
+      features:['Everything in Monthly','90 days of access','No renewal to cancel'] },
+    { tier:'nce_pass6', name:'6-Month Pass', price:'$89', per:'one-time', note:'Best value',
+      features:['Everything in Monthly','180 days of access','Room for a retake'] },
+  ];
+
+  var stage = document.getElementById('stage');
+  var timerBar = document.getElementById('timer-bar');
+  var timerDisplay = document.getElementById('timer-display');
+  var timerProg = document.getElementById('timer-prog');
+  var timerIv = null, timerSecs = 0;
+
+  if (TOKEN) document.getElementById('signin-link').classList.add('hidden');
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function pct(c,t){ return t ? Math.round(100*c/t) : null; }
+  function fillCls(p){ return p==null ? '' : p>=70 ? '' : p>=55 ? 'mid' : 'low'; }
+  function fmt(s){ var h=Math.floor(s/3600), m=Math.floor(s%3600/60), x=s%60; return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0'); }
+
+  function api(path, opts){
+    opts = opts || {};
+    opts.headers = Object.assign({}, opts.headers || {});
+    if (TOKEN) opts.headers.Authorization = 'Bearer ' + TOKEN;
+    if (opts.body && typeof opts.body !== 'string'){ opts.headers['content-type']='application/json'; opts.body=JSON.stringify(opts.body); }
+    return fetch(path, opts).then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(j){
+        if (r.status === 401 && j.code === 'SESSION_INVALIDATED') {
+          try { localStorage.removeItem('prp_token'); } catch(e) {}
+          location.href = '/register.html?next=/nce.html';
+        }
+        if (!r.ok){ var e=new Error(j.message || j.error || ('Request failed ('+r.status+')')); e.status=r.status; e.body=j; throw e; }
+        return j;
+      });
+    });
+  }
+
+  // ── Dashboard ──────────────────────────────────────────────────────
+  function loadAll(){
+    var ps = [api('/api/nce/blueprint'), api('/api/nce/status')];
+    if (TOKEN) ps.push(api('/api/nce/progress').catch(function(){ return null; }));
+    return Promise.all(ps).then(function(r){
+      BP = r[0]; STATUS = r[1]; PROGRESS = r[2] || null;
+      BP.domains.forEach(function(d){ DOM[d.key] = d; });
+    });
+  }
+
+  function accessBanner(){
+    var s = STATUS, msg = '', cls = 'info';
+    if (s.examStatus !== 'live') { msg = '<b>NCE study is in early access.</b> The question bank is still growing. New questions are added every week.'; }
+    if (s.accessLevel === 'free') { cls='info'; msg += (msg?'<br>':'') + 'You\'re previewing '+s.freeLimit+' sample questions. <a href="/register.html?next=/nce.html">Create a free account</a> for a '+s.trialDays+'-day NCE trial with full access.'; }
+    else if (s.accessLevel === 'trial') { cls='ok'; msg += (msg?'<br>':'') + 'NCE free trial active' + (s.trialEndsAt ? ' until <b>'+new Date(s.trialEndsAt).toLocaleDateString()+'</b>' : '') + '. <a href="#pricing">See NCE plans</a>.'; }
+    else if (s.accessLevel === 'expired') { cls='warn'; msg += (msg?'<br>':'') + 'Your NCE trial has ended. Practice is limited to '+s.freeLimit+' sample questions. <a href="#pricing">Pick an NCE plan</a> to unlock everything.'; }
+    else if (s.accessLevel === 'paid' && s.currentPeriodEnd) { cls='ok'; msg += (msg?'<br>':'') + 'NCE plan active' + (s.cancelAtPeriodEnd ? ' — ends ' : ' through ') + new Date(s.currentPeriodEnd).toLocaleDateString() + '.'; }
+    return msg ? '<div class="banner '+cls+'">'+msg+'</div>' : '';
+  }
+
+  function daysUntil(d){ if(!d) return null; var ms = new Date(d) - new Date(); return Math.max(0, Math.ceil(ms/86400000)); }
+
+  function renderHome(){
+    stopTimer();
+    var s = STATUS, by = (PROGRESS && PROGRESS.byDomain) || {};
+    var totC = 0, totT = 0;
+    Object.keys(by).forEach(function(k){ totC += by[k].correct; totT += by[k].total; });
+    var overall = pct(totC, totT);
+    var dLeft = daysUntil(s.examDate);
+    var dateVal = s.examDate ? new Date(s.examDate).toISOString().slice(0,10) : '';
+
+    var html = '<h1>NCE Study</h1>'+
+      '<p class="lead">Practice and full-length mock exams weighted to NBCC\'s NCE content outline: '+BP.exam.totalItems+' questions ('+BP.exam.scoredItems+' scored), '+Math.floor(BP.exam.minutes/60)+' hrs '+(BP.exam.minutes%60)+' min, '+BP.exam.optionsPerItem+' options each.</p>'+
+      accessBanner()+
+      '<div class="stats">'+
+        '<div class="stat"><div class="n">'+(overall==null?'—':overall+'%')+'</div><div class="l">Overall accuracy</div></div>'+
+        '<div class="stat"><div class="n">'+((PROGRESS && PROGRESS.answered) || 0)+'</div><div class="l">Questions answered</div></div>'+
+        '<div class="stat"><div class="n">'+(s.bank.total||0)+'</div><div class="l">Questions in the bank</div></div>'+
+        '<div class="stat"><div class="n">'+(dLeft==null?'—':dLeft)+'</div><div class="l">Days to your NCE</div>'+
+          (TOKEN ? '<input type="date" id="exam-date" value="'+dateVal+'" aria-label="NCE exam date">' : '')+'</div>'+
+      '</div>'+
+      '<div class="card"><h2>Start studying</h2><div class="grid2">'+
+        '<button class="choice" id="go-practice"><b>Practice by domain</b><span>20 questions with feedback and rationales after each one.</span></button>'+
+        '<button class="choice" id="go-mock"><b>Timed mock exam</b><span>Weighted like the real NCE. Full length or shorter forms, scored at the end.</span></button>'+
+      '</div></div>'+
+      '<div class="card"><h2>NCE domains</h2><p class="muted small" style="margin-top:-4px">Weights are NBCC\'s scored item counts. Your accuracy comes from every practice set and mock exam you finish while signed in.</p>'+
+      BP.domains.map(function(d){
+        var b = by[d.key] || {correct:0,total:0}, p = pct(b.correct,b.total);
+        return '<div class="dom"><div><div class="dom-name">'+esc(d.label)+'</div>'+
+          '<div class="dom-sub">'+d.scoredItems+' scored items ('+Math.round(d.weight*100)+'%) · '+(s.bank.byDomain[d.key]||0)+' in bank · '+(p==null?'not started':p+'% of '+b.total)+'</div>'+
+          '<div class="pct-bar"><div class="pct-fill '+fillCls(p)+'" style="width:'+(p||0)+'%"></div></div></div>'+
+          '<button class="btn btn-s btn-sm" data-practice="'+d.key+'">Practice</button></div>';
+      }).join('')+'</div>'+
+      (PROGRESS && PROGRESS.mocks && PROGRESS.mocks.length ? '<div class="card"><h2>Recent mock exams</h2>'+PROGRESS.mocks.map(function(m){
+        return '<div class="dom"><div>'+new Date(m.completedAt).toLocaleDateString()+' · '+m.n+' questions</div><b>'+Math.round(m.score*100)+'%</b></div>'; }).join('')+'</div>' : '')+
+      pricingHtml()+
+      '<p class="muted small">NCE® is a registered trademark of the National Board for Certified Counselors, Inc. (NBCC). PassReady Prep is not affiliated with or endorsed by NBCC. Questions are original practice items, not actual exam items.</p>';
+    stage.innerHTML = html;
+
+    document.getElementById('go-practice').onclick = function(){ startPractice('all'); };
+    document.getElementById('go-mock').onclick = renderMockSetup;
+    Array.prototype.forEach.call(stage.querySelectorAll('[data-practice]'), function(b){ b.onclick = function(){ startPractice(b.getAttribute('data-practice')); }; });
+    Array.prototype.forEach.call(stage.querySelectorAll('[data-buy]'), function(b){ b.onclick = function(){ buy(b.getAttribute('data-buy'), b); }; });
+    var ed = document.getElementById('exam-date');
+    if (ed) ed.onchange = function(){
+      api('/api/nce/exam-date', { method:'PUT', body:{ examDate: ed.value || null } })
+        .then(function(r){ STATUS.examDate = r.examDate; renderHome(); }).catch(function(e){ alert(e.message); });
+    };
+    if (location.hash === '#pricing') { var el = document.getElementById('pricing'); if (el) el.scrollIntoView(); }
+  }
+
+  function pricingHtml(){
+    if (STATUS.accessLevel === 'paid') return '';
+    return '<div class="card" id="pricing"><h2>NCE plans</h2>'+
+      '<p class="muted small" style="margin-top:-4px">Billed separately from NCMHCE. One-time passes don\'t renew.</p><div class="plans">'+
+      PLANS.map(function(p){
+        return '<div class="plan'+(p.best?' best':'')+'"><div class="pn">'+esc(p.name)+(p.note?' · '+esc(p.note):'')+'</div>'+
+          '<div class="pp">'+esc(p.price)+' <small>'+esc(p.per)+'</small></div>'+
+          '<ul>'+p.features.map(function(f){ return '<li>'+esc(f)+'</li>'; }).join('')+'</ul>'+
+          '<button class="btn'+(p.best?'':' btn-s')+'" data-buy="'+p.tier+'">Choose '+esc(p.name)+'</button></div>';
+      }).join('')+'</div></div>';
+  }
+
+  function buy(tier, btn){
+    if (!TOKEN) { location.href = '/register.html?next=' + encodeURIComponent('/nce.html#pricing'); return; }
+    btn.disabled = true; btn.textContent = 'Opening checkout…';
+    api('/api/payment/create-checkout-session', { method:'POST', body:{ tier: tier } })
+      .then(function(r){ location.href = r.url; })
+      .catch(function(e){ btn.disabled = false; btn.textContent = 'Try again'; alert(e.message); });
+  }
+
+  // ── Practice (feedback after every question) ──────────────────────
+  var P = null;
+  function startPractice(domain){
+    stage.innerHTML = '<div class="card">Loading questions…</div>';
+    api('/api/nce/practice?count=20&domain='+encodeURIComponent(domain)).then(function(r){
+      if (!r.items.length) { stage.innerHTML = '<div class="card"><p>No questions are published here yet. Check back soon.</p><button class="btn btn-s" id="back">Back</button></div>'; document.getElementById('back').onclick = renderHome; return; }
+      P = { items: r.items, i: 0, answers: {}, teaser: r.teaser, startedAt: new Date().toISOString(), domain: domain };
+      renderPracticeQ();
+    }).catch(function(e){ stage.innerHTML = '<div class="card">'+esc(e.message)+'</div>'; });
+  }
+
+  function renderPracticeQ(){
+    var it = P.items[P.i], chosen = P.answers[it.id];
+    var html = '<div class="card"><div class="q-meta"><span class="q-num">Question '+(P.i+1)+' of '+P.items.length+'</span>'+
+      '<span class="badge b-em">'+esc((DOM[it.domain]||{}).short || it.domain)+'</span>'+(P.teaser?'<span class="badge b-am">Sample</span>':'')+'</div>'+
+      '<p class="qstem">'+esc(it.stem)+'</p><div class="opts">'+
+      it.options.map(function(o){
+        var cls = '';
+        if (chosen) cls = o.isCorrect ? 'correct' : (o.id === chosen ? 'wrong' : '');
+        return '<div><button class="opt '+cls+'" data-opt="'+o.id+'"'+(chosen?' disabled':'')+'><span class="mk">'+o.id.toUpperCase()+'</span><span>'+esc(o.text)+'</span></button>'+
+          (chosen && (o.isCorrect || o.id === chosen) && o.rationale ? '<div class="opt-why">'+esc(o.rationale)+'</div>' : '')+'</div>';
+      }).join('')+'</div>'+
+      (chosen ? '<div class="rationale"><span class="rat-label">Why</span>'+esc(it.rationale)+
+        (it.references && it.references.length ? '<div class="muted small" style="margin-top:6px">'+it.references.map(function(r){ return esc(r.source)+(r.detail?' — '+esc(r.detail):''); }).join(' | ')+'</div>' : '')+'</div>' : '')+
+      '<div class="nav-row">'+
+        (P.i>0?'<button class="btn btn-s btn-sm" id="prev">Previous</button>':'')+
+        (chosen ? (P.i < P.items.length-1 ? '<button class="btn btn-sm" id="next">Next</button>' : '<button class="btn btn-sm" id="finish">Finish</button>') : '')+
+        '<button class="btn btn-s btn-sm" id="quit" style="margin-left:auto">End set</button>'+
+      '</div></div>';
+    stage.innerHTML = html;
+    Array.prototype.forEach.call(stage.querySelectorAll('[data-opt]'), function(b){
+      b.onclick = function(){ P.answers[it.id] = b.getAttribute('data-opt'); renderPracticeQ(); };
+    });
+    var x;
+    if ((x = document.getElementById('prev'))) x.onclick = function(){ P.i--; renderPracticeQ(); };
+    if ((x = document.getElementById('next'))) x.onclick = function(){ P.i++; renderPracticeQ(); };
+    if ((x = document.getElementById('finish'))) x.onclick = finishPractice;
+    document.getElementById('quit').onclick = finishPractice;
+  }
+
+  function finishPractice(){
+    var answered = P.items.filter(function(it){ return P.answers[it.id]; });
+    if (!answered.length) { renderHome(); return; }
+    var results = answered.map(function(it){
+      var key = it.options.filter(function(o){ return o.isCorrect; })[0];
+      return { it: it, ok: key && key.id === P.answers[it.id] };
+    });
+    renderResults('Practice set complete', results, null);
+    saveAttempt('study', answered.map(function(it){ return { id: it.id, selected: P.answers[it.id], scored: true }; }), P.startedAt);
+  }
+
+  // ── Timed mock exam ───────────────────────────────────────────────
+  var M = null, mockSize = 'full';
+  function renderMockSetup(){
+    stopTimer();
+    if (STATUS.accessLevel === 'free' || STATUS.accessLevel === 'expired') {
+      stage.innerHTML = '<div class="card"><h2>Timed mock exams</h2><p>'+(STATUS.accessLevel==='free'
+        ? 'Create a free account to take a timed NCE mock exam. Your '+STATUS.trialDays+'-day NCE trial starts the first time you open this page signed in.'
+        : 'Your NCE trial has ended. Pick an NCE plan to keep taking timed mock exams.')+'</p>'+
+        '<div class="nav-row">'+(STATUS.accessLevel==='free' ? '<a class="btn" href="/register.html?next=/nce.html">Create free account</a>' : '<a class="btn" href="#pricing" id="to-pricing">See NCE plans</a>')+
+        '<button class="btn btn-s" id="back">Back</button></div></div>';
+      document.getElementById('back').onclick = renderHome;
+      var tp = document.getElementById('to-pricing'); if (tp) tp.onclick = function(e){ e.preventDefault(); renderHome(); document.getElementById('pricing').scrollIntoView(); };
+      return;
+    }
+    var forms = [
+      { k:'full', n:BP.exam.totalItems, t:'Full length · '+fmt(BP.exam.minutes*60)+' · '+BP.exam.unscoredItems+' unscored items, like the real exam' },
+      { k:'100', n:100, t:'Half length · '+fmt(Math.round(BP.exam.minutes/2)*60) },
+      { k:'50', n:50, t:'Quarter length · '+fmt(Math.round(BP.exam.minutes/4)*60) },
+    ];
+    stage.innerHTML = '<div class="card"><h2>Timed NCE mock exam</h2>'+
+      '<p class="muted">Questions are drawn to NBCC\'s domain weights. No feedback until you submit. You can flag questions and jump around, like the real exam.</p>'+
+      '<div class="grid2">'+forms.map(function(f){
+        return '<button class="choice'+(mockSize===f.k?' selected':'')+'" data-size="'+f.k+'"><b>'+f.n+' questions</b><span>'+f.t+'</span></button>'; }).join('')+'</div>'+
+      '<div class="nav-row"><button class="btn" id="start">Start exam</button><button class="btn btn-s" id="back">Back</button></div></div>';
+    Array.prototype.forEach.call(stage.querySelectorAll('[data-size]'), function(b){ b.onclick = function(){ mockSize = b.getAttribute('data-size'); renderMockSetup(); }; });
+    document.getElementById('back').onclick = renderHome;
+    document.getElementById('start').onclick = startMock;
+  }
+
+  function startMock(){
+    stage.innerHTML = '<div class="card">Building your exam…</div>';
+    api('/api/nce/mock?size='+mockSize).then(function(r){
+      if (!r.items.length) { stage.innerHTML = '<div class="card"><p>Not enough questions are published yet to build a mock exam.</p><button class="btn btn-s" id="back">Back</button></div>'; document.getElementById('back').onclick = renderHome; return; }
+      M = { items: r.items, i: 0, answers: {}, flags: {}, startedAt: new Date().toISOString(), shortfall: r.shortfall };
+      startTimer(r.minutes * 60);
+      renderMockQ();
+    }).catch(function(e){ stage.innerHTML = '<div class="card">'+esc(e.message)+'</div>'; });
+  }
+
+  function startTimer(secs){
+    timerSecs = secs; timerBar.style.display = 'block';
+    tick(); timerIv = setInterval(function(){ timerSecs--; tick(); if (timerSecs <= 0) { stopTimer(); submitMock(true); } }, 1000);
+  }
+  function tick(){
+    timerDisplay.textContent = fmt(Math.max(0,timerSecs));
+    timerDisplay.className = 'timer-display' + (timerSecs < 300 ? ' danger' : timerSecs < 900 ? ' warn' : '');
+    if (M) { var n = Object.keys(M.answers).length; timerProg.innerHTML = '<strong>'+n+' / '+M.items.length+'</strong>answered'; }
+  }
+  function stopTimer(){ if (timerIv) clearInterval(timerIv); timerIv = null; timerBar.style.display = 'none'; }
+  document.getElementById('timer-exit').onclick = function(){
+    if (confirm('Exit this mock exam? Your answers will not be saved.')) { stopTimer(); M = null; renderHome(); }
+  };
+
+  function renderMockQ(){
+    var it = M.items[M.i], chosen = M.answers[it.id];
+    stage.innerHTML = '<div class="card">'+
+      '<div class="nav-grid" aria-label="Question navigator">'+M.items.map(function(q,i){
+        var c = 'ag-cell'+(i===M.i?' current':'')+(M.answers[q.id]?' answered':'')+(M.flags[q.id]?' flagged':'');
+        return '<button class="'+c+'" data-go="'+i+'" aria-label="Question '+(i+1)+'">'+(i+1)+'</button>'; }).join('')+'</div>'+
+      '<div class="q-meta"><span class="q-num">Question '+(M.i+1)+' of '+M.items.length+'</span></div>'+
+      '<p class="qstem">'+esc(it.stem)+'</p><div class="opts">'+
+      it.options.map(function(o){
+        return '<button class="opt'+(chosen===o.id?' selected':'')+'" data-opt="'+o.id+'"><span class="mk">'+o.id.toUpperCase()+'</span><span>'+esc(o.text)+'</span></button>'; }).join('')+'</div>'+
+      '<div class="nav-row">'+
+        (M.i>0?'<button class="btn btn-s btn-sm" id="prev">Previous</button>':'')+
+        (M.i<M.items.length-1?'<button class="btn btn-sm" id="next">Next</button>':'')+
+        '<button class="flag-btn'+(M.flags[it.id]?' flagged':'')+'" id="flag">'+(M.flags[it.id]?'Flagged':'Flag for review')+'</button>'+
+        '<button class="btn btn-sm" id="submit" style="margin-left:auto">Submit exam</button>'+
+      '</div></div>';
+    tick();
+    Array.prototype.forEach.call(stage.querySelectorAll('[data-opt]'), function(b){ b.onclick = function(){ M.answers[it.id] = b.getAttribute('data-opt'); renderMockQ(); }; });
+    Array.prototype.forEach.call(stage.querySelectorAll('[data-go]'), function(b){ b.onclick = function(){ M.i = +b.getAttribute('data-go'); renderMockQ(); }; });
+    var x;
+    if ((x = document.getElementById('prev'))) x.onclick = function(){ M.i--; renderMockQ(); };
+    if ((x = document.getElementById('next'))) x.onclick = function(){ M.i++; renderMockQ(); };
+    document.getElementById('flag').onclick = function(){ M.flags[it.id] = !M.flags[it.id]; renderMockQ(); };
+    document.getElementById('submit').onclick = function(){
+      var left = M.items.length - Object.keys(M.answers).length;
+      if (confirm(left ? 'You have '+left+' unanswered question'+(left===1?'':'s')+'. Submit anyway?' : 'Submit your exam?')) submitMock(false);
+    };
+  }
+
+  function submitMock(timeUp){
+    stopTimer();
+    var scored = M.items.filter(function(it){ return it.scored !== false; });
+    var results = scored.map(function(it){
+      var key = it.options.filter(function(o){ return o.isCorrect; })[0];
+      return { it: it, ok: !!(key && key.id === M.answers[it.id]) };
+    });
+    var unscoredN = M.items.length - scored.length;
+    renderResults(timeUp ? 'Time\'s up — exam submitted' : 'Mock exam submitted', results,
+      unscoredN ? unscoredN+' unscored items (like the real NCE\'s field-test questions) are not counted.' : null);
+    saveAttempt('timed', M.items.map(function(it){ return { id: it.id, selected: M.answers[it.id] || null, scored: it.scored !== false }; }), M.startedAt);
+    M = null;
+  }
+
+  // ── Results + review ──────────────────────────────────────────────
+  function renderResults(title, results, note){
+    var right = results.filter(function(r){ return r.ok; }).length;
+    var by = {};
+    results.forEach(function(r){ var b = by[r.it.domain] = by[r.it.domain] || {c:0,t:0}; b.t++; if (r.ok) b.c++; });
+    var p = pct(right, results.length);
+    stage.innerHTML = '<div class="score-card"><div class="muted small">'+esc(title)+'</div><div class="score-big">'+right+' / '+results.length+'</div>'+
+      '<div style="font-size:20px;font-weight:700;margin-top:4px">'+(p==null?'—':p+'%')+'</div>'+
+      (note ? '<div class="muted small" style="margin-top:6px">'+esc(note)+'</div>' : '')+
+      '<div class="muted small" style="margin-top:6px">NBCC sets the passing score for each exam form, so use your weakest domains below to decide what to study next.</div></div>'+
+      '<div class="card"><h2>By domain</h2><table class="domain-table"><thead><tr><th>Domain</th><th>Correct</th><th>%</th></tr></thead><tbody>'+
+      BP.domains.filter(function(d){ return by[d.key]; }).map(function(d){
+        var b = by[d.key]; return '<tr><td>'+esc(d.label)+'</td><td>'+b.c+' / '+b.t+'</td><td>'+pct(b.c,b.t)+'%</td></tr>'; }).join('')+
+      '</tbody></table></div>'+
+      '<div class="card"><h2>Review missed questions</h2>'+
+      (results.filter(function(r){ return !r.ok; }).map(function(r){
+        var key = r.it.options.filter(function(o){ return o.isCorrect; })[0];
+        return '<div style="padding:10px 0;border-bottom:1px solid rgba(51,65,85,.45)"><div class="muted small">'+esc((DOM[r.it.domain]||{}).short||r.it.domain)+'</div>'+
+          '<div style="color:var(--white);font-weight:600;margin:4px 0">'+esc(r.it.stem)+'</div>'+
+          '<div class="small"><b style="color:var(--emerald-400)">Answer '+key.id.toUpperCase()+':</b> '+esc(key.text)+'</div>'+
+          '<div class="rationale">'+esc(r.it.rationale)+'</div></div>';
+      }).join('') || '<p class="muted">Nothing missed. Nice work.</p>')+'</div>'+
+      '<div class="nav-row"><button class="btn" id="home">Back to NCE dashboard</button></div>';
+    document.getElementById('home').onclick = function(){ loadAll().then(renderHome); };
+    window.scrollTo({ top: 0 });
+  }
+
+  function saveAttempt(mode, responses, startedAt){
+    if (!TOKEN) return;
+    api('/api/nce/attempts', { method:'POST', body:{ mode: mode, responses: responses, startedAt: startedAt } })
+      .catch(function(e){ console.warn('Could not save NCE attempt', e.message); });
+  }
+
+  // Leaving mid-exam loses the attempt — warn first.
+  window.addEventListener('beforeunload', function(e){ if (M) { e.preventDefault(); e.returnValue = ''; } });
+
+  loadAll().then(function(){
+    renderHome();
+    if (/purchase=success/.test(location.search)) {
+      stage.insertAdjacentHTML('afterbegin', '<div class="banner ok">Payment received. Your NCE plan is being activated. This page refreshes in a moment.</div>');
+      setTimeout(function(){ loadAll().then(renderHome); }, 3000); // give the webhook a moment
+    }
+  }).catch(function(e){ stage.innerHTML = '<div class="card">Could not load NCE study: '+esc(e.message)+'</div>'; });
+})();
+</script>
+</body>
+</html>
