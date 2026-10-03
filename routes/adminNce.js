@@ -5,6 +5,7 @@ const Exam = require('../models/Exam');
 const bp = require('../utils/nceBlueprint');
 const { checkNceItem } = require('../utils/nceGate');
 const { getNceExam, NCE_SOURCES } = require('../utils/nceExam');
+const { renderHtml, exportFilter } = require('../utils/nceExport');
 const { readSseText, extractJson, MODEL } = require('../tools/cases/anthropic');
 
 // Admin: generate, review and publish NCE questions. Nothing generated here is
@@ -182,6 +183,19 @@ router.post('/generate', async (req, res) => {
   } catch (err) {
     console.error('nce generate error', err);
     res.status(err.status || 500).json({ error: err.message || 'Generation failed' });
+  }
+});
+
+// ── GET /api/admin/nce/export?status=sme_review|published|all ───────
+// Printable hard copy for SME review (print / save as PDF from the browser).
+router.get('/export', async (req, res) => {
+  try {
+    const status = ['sme_review', 'published', 'all'].includes(req.query.status) ? req.query.status : 'sme_review';
+    const items = await NceItem.find(exportFilter(status)).lean();
+    res.type('html').send(renderHtml(items, { status }));
+  } catch (err) {
+    console.error('nce export error', err);
+    res.status(500).json({ error: 'Could not export the NCE bank' });
   }
 });
 
