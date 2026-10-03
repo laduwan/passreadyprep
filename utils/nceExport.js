@@ -48,8 +48,7 @@ function htmlItem(it, n) {
   const bits = [it.externalId, cacrepLabel(it.cacrep), it.topic, it.difficulty, STATUS_LABELS[it.status] || it.status].filter(Boolean);
   const opts = (it.options || []).map((o, k) => (
     `<div class="opt ${o.isCorrect ? 'key' : ''}">` +
-    `<div class="ohdr"><span class="l">${LETTERS[k] || o.id}.</span> ${o.isCorrect ? '<span class="k">✔ KEY</span>' : ''}</div>` +
-    `<div class="ot">${esc(o.text)}</div>` +
+    `<div class="ot"><span class="l">${LETTERS[k] || o.id}.</span> ${esc(o.text)}${o.isCorrect ? ' <span class="k">✔ KEY</span>' : ''}</div>` +
     (o.rationale ? `<div class="rat">${esc(o.rationale)}</div>` : '') +
     `</div>`
   )).join('');
@@ -61,6 +60,7 @@ function htmlItem(it, n) {
     `<div class="opts">${opts}</div>` +
     (it.rationale ? `<div class="foot"><b>Rationale:</b> ${esc(it.rationale)}</div>` : '') +
     (refs ? `<div class="foot"><b>References:</b> ${refs}</div>` : '') +
+    (it.reviewNote ? `<div class="flag"><b>⚑ Check:</b> ${esc(it.reviewNote)}</div>` : '') +
     `<div class="signoff"><span>☐ Approve</span><span>☐ Revise</span><span>☐ Retire</span><span class="notes">Notes:</span></div>` +
     `</article>`
   );
@@ -79,6 +79,7 @@ function renderHtml(items, { status = 'sme_review', generatedAt = new Date() } =
     g.items.map((it) => htmlItem(it, ++n)).join('') +
     `</section>`
   )).join('');
+  const flagged = (items || []).filter((it) => it.reviewNote).length;
   const summary = groups.map((g) => `${esc(g.domain.label)} <b>${g.items.length}</b>`).join(' · ');
   return `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
@@ -97,15 +98,15 @@ h4 { font-size: 13px; margin: 18px 0 6px; color: #333; }
 .legend p { margin: 3px 0; font-size: 12px; }
 .q { break-inside: avoid; page-break-inside: avoid; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px dashed #ddd; }
 .stem { font-weight: 600; margin-bottom: 8px; }
-.opts { display: flex; flex-direction: column; gap: 6px; margin-left: 4px; }
-.opt { padding: 6px 8px; border-left: 3px solid #ddd; font-size: 12px; }
+.opts { display: flex; flex-direction: column; gap: 3px; margin-left: 4px; }
+.opt { padding: 3px 8px; border-left: 3px solid #ddd; font-size: 12px; }
 .opt.key { border-left-color: #0a7f2e; background: #f2fbf4; }
-.ohdr { font-size: 11px; color: #666; margin-bottom: 2px; }
-.ohdr .k { color: #0a7f2e; font-weight: 700; }
-.ohdr .l { font-weight: 700; color: #111; }
+.ot .k { color: #0a7f2e; font-weight: 700; font-size: 11px; }
+.ot .l { font-weight: 700; }
 .ot { color: #111; }
-.rat { color: #555; font-size: 11.5px; margin-top: 3px; font-style: italic; }
+.rat { color: #555; font-size: 11px; margin-top: 1px; font-style: italic; }
 .foot { font-size: 11.5px; color: #444; margin-top: 4px; }
+.flag { font-size: 11.5px; color: #7a4a00; background: #fff6e0; border-left: 3px solid #e0a000; padding: 4px 8px; margin-top: 6px; }
 .signoff { display: flex; gap: 18px; font-size: 11.5px; color: #333; margin-top: 8px; padding-top: 6px; border-top: 1px solid #eee; }
 .signoff .notes { flex: 1; border-bottom: 1px solid #999; min-height: 16px; }
 .toolbar { margin: 0 0 16px; }
@@ -120,10 +121,11 @@ h4 { font-size: 13px; margin: 18px 0 6px; color: #333; }
   <h3>How to review</h3>
   <p><b>✔ KEY</b> marks the correct option. Every option shows why it is right or wrong; check both the key and each distractor.</p>
   <p>Mark each item <b>Approve</b>, <b>Revise</b> (note what to change) or <b>Retire</b>. Approved items are published from Admin → NCE Questions.</p>
+  <p><b>⚑ Check</b> notes mark specific facts or citations the writer was less than certain of — verify those first.</p>
   <p>Check: one clearly best answer · factual accuracy (theorists, dates, test properties, code sections) · distractors plausible but defensibly wrong · no answer given away by length or wording · references support the key.</p>
   <h3 style="margin-top:8px">NCE domains (NBCC 2023 content outline)</h3>
   <p>${bp.DOMAINS.map((d) => `${esc(d.label)} ${d.scoredItems}`).join(' · ')} — of ${bp.EXAM.scoredItems} scored items</p>
-  ${total ? `<h3 style="margin-top:8px">In this copy</h3><p>${summary}</p>` : ''}
+  ${total ? `<h3 style="margin-top:8px">In this copy</h3><p>${summary}${flagged ? ` · <b>${flagged}</b> flagged ⚑` : ''}</p>` : ''}
 </div>
 ${total ? body : '<div class="empty">No NCE questions match this filter yet. Generate questions from Admin → NCE Questions, then export again.</div>'}
 </body></html>`;
@@ -154,6 +156,7 @@ function renderMarkdown(items, { status = 'sme_review', generatedAt = new Date()
       if (it.rationale) out.push(`**Rationale:** ${it.rationale}`, '');
       const refs = (it.references || []).map((r) => r.source + (r.detail ? ' — ' + r.detail : '')).join(' · ');
       if (refs) out.push(`**References:** ${refs}`, '');
+      if (it.reviewNote) out.push(`**⚑ Check:** ${it.reviewNote}`, '');
       out.push('☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________', '', '---', '');
     });
   });

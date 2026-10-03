@@ -18,6 +18,7 @@ module.exports = [
   },
   {
     id: 'nce-s-cor-002',
+    reviewNote: 'Option A is rated Level 2 in its rationale; raters may disagree on the exact level (it is clearly not additive).',
     domain: 'core',
     cacrep: 'helping_relationships',
     topic: 'empathy and its levels',
@@ -114,6 +115,7 @@ module.exports = [
   },
   {
     id: 'nce-s-cor-008',
+    reviewNote: 'Rupture-repair evidence (Safran et al.) is cited to a general Gladding alliance reference.',
     domain: 'core',
     cacrep: 'helping_relationships',
     topic: 'therapeutic alliance',
@@ -130,6 +132,7 @@ module.exports = [
   },
   {
     id: 'nce-s-cor-009',
+    reviewNote: 'Confirm the cited Sue & Sue edition discusses Hook et al.\'s cultural humility model.',
     domain: 'core',
     cacrep: 'social_cultural',
     topic: 'cultural humility',
@@ -200,6 +203,7 @@ module.exports = [
   },
   {
     id: 'nce-s-cor-013',
+    reviewNote: 'Classical/totalistic/complementary views come from Gelso & Hayes; confirm Corey covers the totalistic view or swap the source.',
     domain: 'core',
     cacrep: 'helping_relationships',
     topic: 'countertransference',

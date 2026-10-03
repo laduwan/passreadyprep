@@ -100,6 +100,7 @@ module.exports = [
   // ---------------------------------------------------------------- couples and family concerns
   {
     id: 'nce-s-clf-036',
+    reviewNote: 'Confirm the Gladding section that covers Gottman\'s Four Horsemen.',
     domain: 'clinical_focus',
     cacrep: 'helping_relationships',
     topic: 'couples and family concerns',
@@ -118,6 +119,7 @@ module.exports = [
   },
   {
     id: 'nce-s-clf-037',
+    reviewNote: 'Confirm the Gladding section that covers stepfamily discipline roles.',
     domain: 'clinical_focus',
     cacrep: 'helping_relationships',
     topic: 'couples and family concerns',
@@ -156,6 +158,7 @@ module.exports = [
   // ---------------------------------------------------------------- developmental life transitions
   {
     id: 'nce-s-clf-039',
+    reviewNote: 'Confirm Sharf covers Schlossberg\'s 4 S model (adult transitions).',
     domain: 'clinical_focus',
     cacrep: 'human_growth',
     topic: 'developmental life transitions',
@@ -232,6 +235,7 @@ module.exports = [
   // ---------------------------------------------------------------- chronic illness and disability
   {
     id: 'nce-s-clf-043',
+    reviewNote: 'Confirm Sue & Sue\'s disability coverage; \'rehabilitation model\' distractor is a looser term than medical/moral/social.',
     domain: 'clinical_focus',
     cacrep: 'helping_relationships',
     topic: 'chronic illness and disability',
@@ -404,6 +408,7 @@ module.exports = [
   // ---------------------------------------------------------------- sleep-wake concerns
   {
     id: 'nce-s-clf-052',
+    reviewNote: 'NICE insomnia guidance is mainly the Clinical Knowledge Summary; citation placement is loose.',
     domain: 'clinical_focus',
     cacrep: 'helping_relationships',
     topic: 'sleep-wake concerns',
@@ -519,6 +524,7 @@ module.exports = [
   // ---------------------------------------------------------------- military and veteran populations
   {
     id: 'nce-s-clf-058',
+    reviewNote: 'How VA/DoD 2023 grades debriefing and supportive counseling (distractors) is from memory; verify.',
     domain: 'clinical_focus',
     cacrep: 'helping_relationships',
     topic: 'military and veteran populations',
@@ -537,6 +543,7 @@ module.exports = [
   },
   {
     id: 'nce-s-clf-059',
+    reviewNote: 'Moral injury (Litz et al.) is not a DSM construct; the DSM-5-TR reference points to PTSD criterion D only.',
     domain: 'clinical_focus',
     cacrep: 'helping_relationships',
     topic: 'military and veteran populations',

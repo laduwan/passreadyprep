@@ -353,6 +353,7 @@ module.exports = [
   },
   {
     id: 'nce-s-cou-022',
+    reviewNote: '\'Exceptions\' (SFBT) sits beside the key \'unique outcomes\' (narrative); confirm one best answer reads clearly.',
     domain: 'counseling',
     cacrep: 'helping_relationships',
     topic: 'narrative therapy',
@@ -436,6 +437,7 @@ module.exports = [
   // ---------------------------------------------------------------- DBT
   {
     id: 'nce-s-cou-027',
+    reviewNote: 'Corey\'s placement of DBT (third-wave section of Behavior Therapy) may differ by edition.',
     domain: 'counseling',
     cacrep: 'helping_relationships',
     topic: 'dialectical behavior therapy',
@@ -452,6 +454,7 @@ module.exports = [
   },
   {
     id: 'nce-s-cou-028',
+    reviewNote: 'Corey\'s placement of DBT (third-wave section of Behavior Therapy) may differ by edition.',
     domain: 'counseling',
     cacrep: 'helping_relationships',
     topic: 'dialectical behavior therapy',
@@ -485,6 +488,7 @@ module.exports = [
   },
   {
     id: 'nce-s-cou-030',
+    reviewNote: '\'Unbalancing\' is also a Minuchin technique; confirm the scenario reads clearly as an enactment.',
     domain: 'counseling',
     cacrep: 'helping_relationships',
     topic: 'family systems theories (Bowen, structural, strategic)',

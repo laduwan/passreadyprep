@@ -98,6 +98,7 @@ module.exports = [
   },
   {
     id: 'nce-s-eth-007',
+    reviewNote: 'Rationale says counselors are mandated reporters \'in every U.S. state\'; definitions vary by state.',
     domain: 'ethics',
     cacrep: 'professional_orientation',
     topic: 'mandated reporting of abuse and neglect',
@@ -226,6 +227,7 @@ module.exports = [
   },
   {
     id: 'nce-s-eth-015',
+    reviewNote: 'Stadler\'s tests are cited to Corey\'s ethical decision-making chapter in general, not a section.',
     domain: 'ethics',
     cacrep: 'professional_orientation',
     topic: 'ethical decision-making models',
@@ -306,6 +308,7 @@ module.exports = [
   },
   {
     id: 'nce-s-eth-020',
+    reviewNote: 'Confirm ACA H.2.a explicitly lists emergency procedures among telehealth informed-consent items.',
     domain: 'ethics',
     cacrep: 'professional_orientation',
     topic: 'telehealth and technology ethics',
@@ -370,6 +373,7 @@ module.exports = [
   },
   {
     id: 'nce-s-eth-024',
+    reviewNote: 'Cited as ACA G.2 generally; confirm subsection letters for deception and debriefing.',
     domain: 'ethics',
     cacrep: 'research',
     topic: 'ACA Code of Ethics structure',

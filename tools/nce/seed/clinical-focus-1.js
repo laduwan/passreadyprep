@@ -222,6 +222,7 @@ module.exports = [
   },
   {
     id: 'nce-s-clf-014',
+    reviewNote: 'The cited \'Criteria 10-11 note\' detail is the writer\'s wording of where the DSM-5-TR note sits.',
     domain: 'clinical_focus',
     cacrep: 'assessment',
     topic: 'substance use and addictive disorders',
@@ -444,6 +445,7 @@ module.exports = [
   // ── crisis and disaster response ────────────────────────────────────────
   {
     id: 'nce-s-clf-027',
+    reviewNote: 'No PFA-specific source on the approved list; NICE NG116 supports the no-debriefing point only.',
     domain: 'clinical_focus',
     cacrep: 'helping_relationships',
     topic: 'crisis and disaster response',
@@ -478,6 +480,7 @@ module.exports = [
   // ── intimate partner violence ───────────────────────────────────────────
   {
     id: 'nce-s-clf-029',
+    reviewNote: 'IPV item cites general sources (ACA, Sue & Sue); no IPV-specific source on the approved list.',
     domain: 'clinical_focus',
     cacrep: 'helping_relationships',
     topic: 'intimate partner violence',
@@ -494,6 +497,7 @@ module.exports = [
   },
   {
     id: 'nce-s-clf-030',
+    reviewNote: 'IPV item cites general sources; the key deliberately avoids specific immigration-law (VAWA) claims.',
     domain: 'clinical_focus',
     cacrep: 'social_cultural',
     topic: 'intimate partner violence',

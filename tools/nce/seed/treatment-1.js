@@ -2,6 +2,7 @@
 module.exports = [
   {
     id: 'nce-s-trt-001',
+    reviewNote: 'Wiger reference detail describes the concept, not an exact chapter title.',
     domain: 'treatment',
     cacrep: 'helping_relationships',
     topic: 'SMART goals and measurable objectives',
@@ -18,6 +19,7 @@ module.exports = [
   },
   {
     id: 'nce-s-trt-002',
+    reviewNote: 'ASAM Criteria 4th ed. (2023) renamed some levels; confirm the level-of-care wording is current.',
     domain: 'treatment',
     cacrep: 'helping_relationships',
     topic: 'matching level of care to need',
@@ -34,6 +36,7 @@ module.exports = [
   },
   {
     id: 'nce-s-trt-003',
+    reviewNote: 'VA/DoD 2023 reference detail is paraphrased; confirm wording.',
     domain: 'treatment',
     cacrep: 'helping_relationships',
     topic: 'evidence-based treatment selection',
@@ -101,6 +104,7 @@ module.exports = [
   },
   {
     id: 'nce-s-trt-007',
+    reviewNote: 'Wiger reference detail describes the concept, not an exact chapter title.',
     domain: 'treatment',
     cacrep: 'helping_relationships',
     topic: 'discharge and aftercare planning',
@@ -149,6 +153,7 @@ module.exports = [
   },
   {
     id: 'nce-s-trt-010',
+    reviewNote: 'Action vs. maintenance rests on the conventional ~6-month line in the Transtheoretical Model.',
     domain: 'treatment',
     cacrep: 'helping_relationships',
     topic: 'stages of change and treatment readiness',

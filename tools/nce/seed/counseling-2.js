@@ -122,6 +122,7 @@ module.exports = [
   },
   {
     id: 'nce-s-cou-038',
+    reviewNote: 'Ivey\'s editions differ slightly on the hierarchy\'s base; the key holds across editions.',
     domain: 'counseling',
     cacrep: 'helping_relationships',
     topic: 'basic attending and listening skills',
@@ -203,6 +204,7 @@ module.exports = [
   // ------------------------------------------------------------ play therapy
   {
     id: 'nce-s-cou-043',
+    reviewNote: 'The key\'s wording is in Landreth\'s style, not a direct quote.',
     domain: 'counseling',
     cacrep: 'helping_relationships',
     topic: 'play therapy',
@@ -219,6 +221,7 @@ module.exports = [
   },
   {
     id: 'nce-s-cou-044',
+    reviewNote: 'Kottman\'s Adlerian play therapy phases are cited via Gladding, which may not cover Kottman in depth.',
     domain: 'counseling',
     cacrep: 'helping_relationships',
     topic: 'play therapy',
@@ -285,6 +288,7 @@ module.exports = [
   },
   {
     id: 'nce-s-cou-048',
+    reviewNote: 'Super\'s stage ages are approximate; the rationale notes recycling.',
     domain: 'counseling',
     cacrep: 'career',
     topic: 'career development theories (Holland, Super, Krumboltz)',
@@ -400,6 +404,7 @@ module.exports = [
   // ------------------------------------------------------------ multicultural
   {
     id: 'nce-s-cou-055',
+    reviewNote: 'MSJCC cited via Sue & Sue; consider the primary source (Ratts et al., 2016) when one is added.',
     domain: 'counseling',
     cacrep: 'social_cultural',
     topic: 'multicultural counseling competencies',
@@ -466,6 +471,7 @@ module.exports = [
   // ------------------------------------------------------------ trauma and termination
   {
     id: 'nce-s-cou-059',
+    reviewNote: 'SAMHSA\'s six trauma-informed principles are cited via Gladding (SAMHSA TIP 57 is not on the approved list).',
     domain: 'counseling',
     cacrep: 'helping_relationships',
     topic: 'trauma-informed interventions',

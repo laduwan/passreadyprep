@@ -6,7 +6,8 @@
 // Each seed file exports an array of items:
 //   { id: 'nce-s-eth-001', domain, cacrep, topic, difficulty,
 //     stem, options: [{ id:'a'..'d', text, isCorrect, rationale }],
-//     rationale, references: [{ source, detail }] }
+//     rationale, references: [{ source, detail }],
+//     reviewNote?: 'what a reviewer should double-check' }
 //
 // Every item must pass utils/nceGate.js (the same gate the admin generator
 // uses), plus seed-level checks: unique ids, ids carry the nce-s- prefix, and
@@ -37,6 +38,7 @@ function toDoc(it) {
     rationale: String(it.rationale || '').trim(),
     references: (it.references || []).map((r, j) => ({ id: 'R' + (j + 1), source: r.source, detail: r.detail })),
     status: 'sme_review',
+    reviewNote: it.reviewNote ? String(it.reviewNote).trim() : undefined,
     generatedBy: 'hand-authored seed',
   };
 }

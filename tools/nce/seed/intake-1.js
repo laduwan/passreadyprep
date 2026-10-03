@@ -50,6 +50,7 @@ module.exports = [
   },
   {
     id: 'nce-s-ass-004',
+    reviewNote: 'Confirm the Stanley-Brown step number cited for means restriction (\'Step 6\').',
     domain: 'intake',
     cacrep: 'assessment',
     topic: 'suicide and violence risk assessment',
@@ -258,6 +259,7 @@ module.exports = [
   },
   {
     id: 'nce-s-ass-017',
+    reviewNote: 'Check the Wechsler age ranges used in the rationale (WPPSI-IV, WISC-V, WAIS-IV).',
     domain: 'intake',
     cacrep: 'assessment',
     topic: 'intelligence and achievement tests',
@@ -322,6 +324,7 @@ module.exports = [
   },
   {
     id: 'nce-s-ass-021',
+    reviewNote: 'Distractors/rationale use ASAM 3rd-edition dimension names; the 4th edition (2023) renamed dimensions 3-6.',
     domain: 'intake',
     cacrep: 'assessment',
     topic: 'substance use assessment',
