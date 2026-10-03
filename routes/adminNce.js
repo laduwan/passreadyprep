@@ -186,6 +186,21 @@ router.post('/generate', async (req, res) => {
   }
 });
 
+// ── POST /api/admin/nce/import-seed — { update?: bool } ─────────────
+// Loads the hand-authored seed bank (tools/nce/seed, no API calls) into the
+// review queue. Safe to click repeatedly: only new seed items are inserted.
+router.post('/import-seed', async (req, res) => {
+  try {
+    const { importSeed } = require('../tools/nce/seedImport');
+    const r = await importSeed({ write: true, update: !!(req.body && req.body.update) });
+    if (!r.ok) return res.status(422).json({ error: 'Some seed items fail the quality gate', problems: r.problems.slice(0, 20) });
+    res.json(r);
+  } catch (err) {
+    console.error('nce import-seed error', err);
+    res.status(500).json({ error: 'Could not import the seed questions' });
+  }
+});
+
 // ── GET /api/admin/nce/export?status=sme_review|published|all ───────
 // Printable hard copy for SME review (print / save as PDF from the browser).
 router.get('/export', async (req, res) => {
