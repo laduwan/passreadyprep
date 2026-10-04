@@ -123,6 +123,7 @@
     <button class="tab" data-tab="analytics" data-src="/admin-analytics.html">Analytics</button>
     <button class="tab" data-tab="visits">Visits</button>
     <button class="tab" data-tab="broadcast">Broadcast</button>
+    <button class="tab" data-tab="blog">Blog</button>
   </div>
 </div>
 
@@ -301,6 +302,82 @@
     </div>
   </div>
 
+
+  <!-- Blog panel — write, preview, publish posts served at /blog (routes/blog.js) -->
+  <div class="inline-panel" data-tab="blog" id="blogPanel">
+    <div class="panel-body">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Blog</div>
+          <p class="muted" style="margin:2px 0 0;font-size:13px">Posts are rendered on the server at <a href="/blog" target="_blank" rel="noopener">/blog</a>. Drafts are never public; publishing adds the post to the sitemap.</p>
+        </div>
+        <div class="actions">
+          <button class="ghost" id="blog-seed-btn">Add starter drafts</button>
+          <button class="primary" id="blog-new-btn">New post</button>
+        </div>
+      </div>
+
+      <div class="err-line" id="blog-err"></div>
+
+      <div class="card" id="blog-list-card">
+        <div id="blog-list"><p class="empty">Loading…</p></div>
+      </div>
+
+      <div id="blog-editor" class="hidden">
+        <div class="panel-head" style="margin-top:4px">
+          <div class="panel-title" id="blog-editor-title">New post</div>
+          <span id="blog-editor-status" class="muted" style="font-size:13px"></span>
+        </div>
+        <div class="card" style="margin-bottom:14px">
+          <div style="display:grid;gap:12px">
+            <div>
+              <label for="blog-title">Title</label>
+              <input id="blog-title" maxlength="200" />
+            </div>
+            <div>
+              <label for="blog-slug">Slug <span style="color:var(--slate-500)">(auto from title — lowercase letters, numbers, hyphens)</span></label>
+              <input id="blog-slug" maxlength="120" placeholder="ncmhce-study-plan" />
+            </div>
+            <div>
+              <label for="blog-meta">Meta description <span style="color:var(--slate-500)" id="blog-meta-count">0 / 155</span></label>
+              <input id="blog-meta" maxlength="155" />
+            </div>
+            <div>
+              <label for="blog-excerpt">Excerpt <span style="color:var(--slate-500)">(shown on the /blog list)</span></label>
+              <textarea id="blog-excerpt" rows="2" maxlength="500" style="font-family:inherit;font-size:14px;background:var(--slate-800);color:var(--white);border:1px solid var(--slate-600);border-radius:8px;padding:10px;width:100%;resize:vertical"></textarea>
+            </div>
+            <div class="two-col" style="gap:12px">
+              <div style="flex:1;min-width:200px">
+                <label for="blog-tags">Tags <span style="color:var(--slate-500)">(comma-separated)</span></label>
+                <input id="blog-tags" placeholder="NCMHCE, study plan" />
+              </div>
+              <div style="flex:2;min-width:240px">
+                <label for="blog-cover">Cover image URL <span style="color:var(--slate-500)">(optional — https://… or /path)</span></label>
+                <input id="blog-cover" maxlength="1000" />
+              </div>
+            </div>
+            <div>
+              <label for="blog-body">Body <span style="color:var(--slate-500)">(Markdown — use ## for section headings)</span></label>
+              <textarea id="blog-body" rows="22" style="font-family:monospace;font-size:13px;background:var(--slate-800);color:var(--white);border:1px solid var(--slate-600);border-radius:8px;padding:10px;width:100%;resize:vertical"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button class="primary" id="blog-save-btn">Save</button>
+          <button class="ghost" id="blog-preview-btn">Preview</button>
+          <button class="ghost" id="blog-cancel-btn">Close</button>
+          <span id="blog-status" style="font-size:13px;color:var(--slate-400)"></span>
+        </div>
+        <div class="err-line" id="blog-editor-err"></div>
+
+        <div id="blog-preview-wrap" class="hidden" style="margin-top:16px">
+          <div style="font-size:12px;font-weight:600;color:var(--slate-300);margin-bottom:6px">Preview <span style="color:var(--slate-500);font-weight:400">(rendered and sanitized by the same server renderer the public page uses)</span></div>
+          <div class="card" id="blog-preview" style="line-height:1.7"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <script>
 (function(){
@@ -768,6 +845,173 @@
       $('an-err').textContent = 'Network error: ' + err.message;
     });
   });
+
+  // ── Blog panel ───────────────────────────────────────────────────────
+  // Talks to /api/admin/blog (routes/adminBlog.js) with the dashboard JWT.
+  var blogEditingId = null;     // _id of the post open in the editor, or null for a new one
+  var blogSlugTouched = false;  // stop auto-slugging once the slug is edited by hand
+
+  function blogSlugify(s){
+    return String(s || '').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 120).replace(/-+$/, '');
+  }
+
+  function blogApi(method, url, body){
+    return fetch('/api/admin/blog' + url, {
+      method: method,
+      headers: bcHeaders(),
+      body: body === undefined ? undefined : JSON.stringify(body),
+    }).then(function(r){
+      if (r.status === 401) { clearSession(); showGate('Session expired — sign in again.'); throw new Error('Session expired'); }
+      return r.json().catch(function(){ return {}; }).then(function(d){
+        if (!r.ok) throw new Error(d.error || ('Error ' + r.status));
+        return d;
+      });
+    });
+  }
+
+  function blogFmt(d){ return d ? new Date(d).toLocaleDateString() : '—'; }
+
+  function blogLoad(){
+    $('blog-err').textContent = '';
+    blogApi('GET', '').then(function(d){
+      var list = d.posts || [];
+      if (!list.length) { $('blog-list').innerHTML = '<p class="empty">No posts yet. Click “New post”, or “Add starter drafts” to load the four starter drafts.</p>'; return; }
+      $('blog-list').innerHTML = '<table><thead><tr><th>Title</th><th>Status</th><th>Published</th><th>Updated</th><th></th></tr></thead><tbody>' +
+        list.map(function(p){
+          var live = p.status === 'published';
+          return '<tr><td>' + esc(p.title) + '<div class="muted" style="font-size:12px">/blog/' + esc(p.slug) + '</div></td>' +
+            '<td style="color:' + (live ? 'var(--emerald-400)' : 'var(--slate-400)') + '">' + (live ? 'Published' : 'Draft') + '</td>' +
+            '<td>' + esc(blogFmt(p.publishedAt)) + '</td>' +
+            '<td>' + esc(blogFmt(p.updatedAt)) + '</td>' +
+            '<td style="white-space:nowrap">' +
+              '<button class="ghost" data-blog-edit="' + esc(p._id) + '">Edit</button> ' +
+              (live
+                ? '<button class="ghost" data-blog-unpub="' + esc(p._id) + '">Unpublish</button> <a href="/blog/' + esc(p.slug) + '" target="_blank" rel="noopener" style="font-size:13px">View</a> '
+                : '<button class="ghost" data-blog-pub="' + esc(p._id) + '">Publish</button> ') +
+              '<button class="ghost" data-blog-del="' + esc(p._id) + '" data-title="' + esc(p.title) + '" style="color:var(--red-400);border-color:var(--red-400)">Delete</button>' +
+            '</td></tr>';
+        }).join('') + '</tbody></table>';
+    }).catch(function(e){
+      $('blog-list').innerHTML = '<p class="empty">Could not load posts.</p>';
+      $('blog-err').textContent = e.message;
+    });
+  }
+
+  function blogMetaCount(){
+    var n = $('blog-meta').value.length;
+    $('blog-meta-count').textContent = n + ' / 155';
+    $('blog-meta-count').style.color = n > 155 ? 'var(--red-400)' : (n > 140 ? 'var(--amber-400)' : 'var(--slate-500)');
+  }
+
+  function blogOpenEditor(post){
+    blogEditingId = post ? post._id : null;
+    blogSlugTouched = !!post;
+    $('blog-editor-title').textContent = post ? 'Edit post' : 'New post';
+    $('blog-editor-status').textContent = post ? (post.status === 'published' ? 'Published' : 'Draft') : 'Draft';
+    $('blog-title').value = post ? post.title : '';
+    $('blog-slug').value = post ? post.slug : '';
+    $('blog-meta').value = post ? (post.metaDescription || '') : '';
+    $('blog-excerpt').value = post ? (post.excerpt || '') : '';
+    $('blog-tags').value = post ? (post.tags || []).join(', ') : '';
+    $('blog-cover').value = post ? (post.coverImageUrl || '') : '';
+    $('blog-body').value = post ? (post.bodyMarkdown || '') : '';
+    $('blog-editor-err').textContent = '';
+    $('blog-status').textContent = '';
+    $('blog-preview-wrap').classList.add('hidden');
+    blogMetaCount();
+    $('blog-editor').classList.remove('hidden');
+    $('blog-title').focus();
+  }
+
+  function blogPayload(){
+    return {
+      title: $('blog-title').value.trim(),
+      slug: $('blog-slug').value.trim(),
+      metaDescription: $('blog-meta').value.trim(),
+      excerpt: $('blog-excerpt').value.trim(),
+      tags: $('blog-tags').value,
+      coverImageUrl: $('blog-cover').value.trim(),
+      bodyMarkdown: $('blog-body').value,
+    };
+  }
+
+  if ($('blogPanel')) {
+    var blogLoaded = false;
+    var blogPrevActivate = activate;
+    activate = function(tab, btn){
+      blogPrevActivate(tab, btn);
+      if (tab === 'blog' && !blogLoaded) { blogLoaded = true; blogLoad(); }
+    };
+
+    $('blog-title').addEventListener('input', function(){
+      if (!blogSlugTouched) $('blog-slug').value = blogSlugify($('blog-title').value);
+    });
+    $('blog-slug').addEventListener('input', function(){ blogSlugTouched = true; });
+    $('blog-meta').addEventListener('input', blogMetaCount);
+
+    $('blog-new-btn').addEventListener('click', function(){ blogOpenEditor(null); });
+    $('blog-cancel-btn').addEventListener('click', function(){ $('blog-editor').classList.add('hidden'); blogEditingId = null; });
+
+    $('blog-seed-btn').addEventListener('click', function(){
+      if (!confirm('Add the four starter drafts? Posts whose slug already exists are left alone. Nothing is published.')) return;
+      blogApi('POST', '/seed-drafts', {}).then(function(d){
+        $('blog-err').textContent = '';
+        alert((d.added && d.added.length ? 'Added ' + d.added.length + ' draft(s).' : 'Nothing to add — every starter draft already exists.'));
+        blogLoad();
+      }).catch(function(e){ $('blog-err').textContent = e.message; });
+    });
+
+    $('blog-save-btn').addEventListener('click', function(){
+      var body = blogPayload();
+      $('blog-editor-err').textContent = '';
+      if (!body.title) { $('blog-editor-err').textContent = 'Title is required.'; return; }
+      $('blog-save-btn').disabled = true;
+      $('blog-status').textContent = 'Saving…';
+      var req = blogEditingId ? blogApi('PUT', '/' + blogEditingId, body) : blogApi('POST', '', body);
+      req.then(function(d){
+        blogEditingId = d.post._id;
+        blogSlugTouched = true;
+        $('blog-slug').value = d.post.slug;
+        $('blog-editor-title').textContent = 'Edit post';
+        $('blog-status').textContent = 'Saved.';
+        blogLoad();
+      }).catch(function(e){
+        $('blog-status').textContent = '';
+        $('blog-editor-err').textContent = e.message;
+      }).then(function(){ $('blog-save-btn').disabled = false; });
+    });
+
+    $('blog-preview-btn').addEventListener('click', function(){
+      $('blog-editor-err').textContent = '';
+      blogApi('POST', '/preview', { bodyMarkdown: $('blog-body').value }).then(function(d){
+        // d.html comes back sanitized by the server's allow-list renderer.
+        $('blog-preview').innerHTML = '<h1 style="color:var(--white);margin-top:0">' + esc($('blog-title').value) + '</h1>' + d.html;
+        $('blog-preview-wrap').classList.remove('hidden');
+      }).catch(function(e){ $('blog-editor-err').textContent = e.message; });
+    });
+
+    $('blog-list').addEventListener('click', function(e){
+      var t = e.target.closest('button');
+      if (!t) return;
+      var id;
+      if ((id = t.getAttribute('data-blog-edit'))) {
+        blogApi('GET', '/' + id).then(function(d){ blogOpenEditor(d.post); })
+          .catch(function(err){ $('blog-err').textContent = err.message; });
+      } else if ((id = t.getAttribute('data-blog-pub'))) {
+        if (!confirm('Publish this post? It goes live at /blog and in the sitemap.')) return;
+        blogApi('POST', '/' + id + '/publish', {}).then(blogLoad).catch(function(err){ $('blog-err').textContent = err.message; });
+      } else if ((id = t.getAttribute('data-blog-unpub'))) {
+        blogApi('POST', '/' + id + '/unpublish', {}).then(blogLoad).catch(function(err){ $('blog-err').textContent = err.message; });
+      } else if ((id = t.getAttribute('data-blog-del'))) {
+        if (!confirm('Delete "' + t.getAttribute('data-title') + '"? This cannot be undone.')) return;
+        blogApi('DELETE', '/' + id).then(function(){
+          if (blogEditingId === id) { $('blog-editor').classList.add('hidden'); blogEditingId = null; }
+          blogLoad();
+        }).catch(function(err){ $('blog-err').textContent = err.message; });
+      }
+    });
+  }
 
   var savedJwt = sessionStorage.getItem('prp_admin_jwt');
   var savedEmail = sessionStorage.getItem('prp_admin_email');
