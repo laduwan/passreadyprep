@@ -57,6 +57,7 @@ app.use('/api/visits', require('./routes/visits'));
 app.use('/api/announcements', require('./routes/announcements'));
 app.use('/api/nce', require('./routes/nce'));
 app.use('/api/admin/blog', require('./routes/adminBlog'));
+app.use('/api/resume', require('./routes/resume'));
 
 // ── Accessibility + translation widget injection ────────────────────
 // Every HTML page gets the shared accessibility widget (a11y.css + a11y.js),
