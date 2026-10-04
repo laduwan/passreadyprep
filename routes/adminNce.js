@@ -6,7 +6,7 @@ const bp = require('../utils/nceBlueprint');
 const { checkNceItem } = require('../utils/nceGate');
 const { getNceExam, NCE_SOURCES } = require('../utils/nceExam');
 const User = require('../models/User');
-const { renderRecordHtml, buildRecord } = require('../utils/nceRecord');
+const { renderRecordHtml, renderRecordsBookHtml, buildRecord } = require('../utils/nceRecord');
 const { renderHtml, exportFilter } = require('../utils/nceExport');
 const { readSseText, extractJson, MODEL } = require('../tools/cases/anthropic');
 
@@ -311,6 +311,21 @@ router.get('/items/:id/record', async (req, res) => {
   } catch (err) {
     console.error('nce record error', err);
     res.status(500).json({ error: 'Could not build the evidence record' });
+  }
+});
+
+// GET /api/admin/nce/records?status=published|sme_review|retired|all — every
+// evidence record in one printable document (index + one record per page).
+router.get('/records', async (req, res) => {
+  try {
+    const status = ['sme_review', 'published', 'retired', 'all'].includes(req.query.status) ? req.query.status : 'all';
+    const items = await NceItem.find(status === 'all' ? {} : { status }).sort({ domain: 1, externalId: 1 }).lean();
+    const live = await NceItem.find({ status: { $ne: 'retired' } }).select('externalId stem').lean();
+    const records = items.map((item) => buildRecord(item, { corpusStems: live.filter((x) => x.externalId !== item.externalId) }));
+    res.type('html').send(renderRecordsBookHtml(records, { subtitle: status === 'all' ? 'all statuses' : status.replace('sme_review', 'in review') }));
+  } catch (err) {
+    console.error('nce records error', err);
+    res.status(500).json({ error: 'Could not build the evidence records' });
   }
 });
 

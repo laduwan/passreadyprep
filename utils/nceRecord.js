@@ -72,25 +72,7 @@ function buildRecord(item, { corpusStems = [], fallbackOrigin = null } = {}) {
   };
 }
 
-function renderRecordHtml(r) {
-  const opts = r.options.map((o) => `
-    <tr class="${o.isCorrect ? 'key' : ''}"><td class="l">${esc(String(o.id).toUpperCase())}</td>
-    <td><div>${esc(o.text)}${o.isCorrect ? ' <b class="k">✔ KEY</b>' : ''}</div><div class="why">${esc(o.rationale)}</div></td></tr>`).join('');
-  const refs = r.references.map((x, i) => `
-    <tr><td class="l">R${i + 1}</td><td>
-      <div><b>${esc(x.source)}</b>${x.tier ? ` <span class="tag">${esc(x.tier)}</span>` : ''}${x.approved ? '' : ' <span class="bad">not on the approved source list</span>'}</div>
-      <div><span class="lab">Locator:</span> ${esc(x.detail || '—')}</div>
-      <div><span class="lab">Citation:</span> ${esc(x.citation || '—')}</div>
-      ${x.use ? `<div class="muted">${esc(x.use)}</div>` : ''}
-    </td></tr>`).join('') || '<tr><td colspan="2" class="bad">No references recorded.</td></tr>';
-  const hist = r.history.length ? r.history.map((h) => `
-    <tr><td class="nw">${esc(fmtDate(h.at))}</td><td class="nw">${esc(h.action)}</td><td>${esc(h.by)}</td><td>${esc(h.note)}</td></tr>`).join('')
-    : '<tr><td colspan="4" class="muted">No audit entries yet (item created before audit tracking, or not yet imported).</td></tr>';
-  const c = r.classification;
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="robots" content="noindex, nofollow">
-<title>Evidence record ${esc(r.id)} — PassReady Prep NCE</title>
-<style>
+const RECORD_STYLE = `
 :root { color-scheme: light; }
 * { box-sizing: border-box; }
 body { font: 13px/1.45 -apple-system, "Segoe UI", Roboto, sans-serif; color: #111; background: #fff; margin: 24px; max-width: 900px; }
@@ -114,8 +96,30 @@ tr.key td { background: #f2fbf4; }
 .toolbar { margin-bottom: 14px; } .toolbar button { font: inherit; padding: 6px 12px; cursor: pointer; }
 .foot { margin-top: 24px; font-size: 11px; color: #666; border-top: 1px solid #ddd; padding-top: 8px; }
 @media print { body { margin: 12mm; max-width: none; } .toolbar { display: none; } }
-</style></head><body>
-<div class="toolbar"><button onclick="window.print()">Print / Save as PDF</button></div>
+.record + .record { page-break-before: always; break-before: page; margin-top: 40px; border-top: 3px double #999; padding-top: 24px; }
+.index td { padding: 3px 8px; }
+`;
+
+const RECORD_FOOT = `<div class="foot">Original practice item written for PassReady Prep; not an actual NCE item. NCE® is a registered trademark of the National Board for Certified Counselors, Inc. (NBCC); PassReady Prep is not affiliated with or endorsed by NBCC. References identify the authorities the keyed answer rests on; the locator names the specific section, criterion or concept.</div>
+`;
+
+// One record's content (no page wrapper), so many can be bound into one document.
+function recordSection(r) {
+  const opts = r.options.map((o) => `
+    <tr class="${o.isCorrect ? 'key' : ''}"><td class="l">${esc(String(o.id).toUpperCase())}</td>
+    <td><div>${esc(o.text)}${o.isCorrect ? ' <b class="k">✔ KEY</b>' : ''}</div><div class="why">${esc(o.rationale)}</div></td></tr>`).join('');
+  const refs = r.references.map((x, i) => `
+    <tr><td class="l">R${i + 1}</td><td>
+      <div><b>${esc(x.source)}</b>${x.tier ? ` <span class="tag">${esc(x.tier)}</span>` : ''}${x.approved ? '' : ' <span class="bad">not on the approved source list</span>'}</div>
+      <div><span class="lab">Locator:</span> ${esc(x.detail || '—')}</div>
+      <div><span class="lab">Citation:</span> ${esc(x.citation || '—')}</div>
+      ${x.use ? `<div class="muted">${esc(x.use)}</div>` : ''}
+    </td></tr>`).join('') || '<tr><td colspan="2" class="bad">No references recorded.</td></tr>';
+  const hist = r.history.length ? r.history.map((h) => `
+    <tr><td class="nw">${esc(fmtDate(h.at))}</td><td class="nw">${esc(h.action)}</td><td>${esc(h.by)}</td><td>${esc(h.note)}</td></tr>`).join('')
+    : '<tr><td colspan="4" class="muted">No audit entries yet (item created before audit tracking, or not yet imported).</td></tr>';
+  const c = r.classification;
+  return `<section class="record" id="${esc(r.id)}">
 <h1>Evidence record: ${esc(r.id)}</h1>
 <div class="muted">PassReady Prep · NCE question bank · record generated ${esc(fmtDate(r.recordGeneratedAt))}</div>
 
@@ -154,8 +158,34 @@ ${r.qualityGate.ok ? '<p class="ok">Passes: 4 options, one key, length parity, k
 <h2>Audit trail</h2>
 <table><tr><th>When</th><th>Action</th><th>By</th><th>Note</th></tr>${hist}</table>
 
-<div class="foot">Original practice item written for PassReady Prep; not an actual NCE item. NCE® is a registered trademark of the National Board for Certified Counselors, Inc. (NBCC); PassReady Prep is not affiliated with or endorsed by NBCC. References identify the authorities the keyed answer rests on; the locator names the specific section, criterion or concept.</div>
-</body></html>`;
+</section>`;
 }
 
-module.exports = { buildRecord, renderRecordHtml };
+function page(title, inner) {
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>${esc(title)}</title>
+<style>${RECORD_STYLE}</style></head><body>
+<div class="toolbar"><button onclick="window.print()">Print / Save as PDF</button></div>
+${inner}
+${RECORD_FOOT}</body></html>`;
+}
+
+function renderRecordHtml(r) {
+  return page(`Evidence record ${r.id} — PassReady Prep NCE`, recordSection(r));
+}
+
+// Every record in one printable document, with an index up front. Each record
+// starts on a new page when printed.
+function renderRecordsBookHtml(records, { title = 'NCE evidence records', subtitle = '' } = {}) {
+  const rows = records.map((r) => `<tr><td><a href="#${esc(r.id)}">${esc(r.id)}</a></td><td>${esc(r.classification.domainLabel)}</td><td>${esc(r.statusLabel)}</td><td>${r.qualityGate.ok ? 'passes' : '<span class="bad">fails</span>'}</td><td>${r.verificationFlag ? '⚑' : ''}</td></tr>`).join('');
+  const flagged = records.filter((r) => r.verificationFlag).length;
+  const failing = records.filter((r) => !r.qualityGate.ok).length;
+  const index = `<h1>${esc(title)}</h1>
+<div class="muted">PassReady Prep · ${records.length} question${records.length === 1 ? '' : 's'}${subtitle ? ' · ' + esc(subtitle) : ''} · generated ${esc(fmtDate(new Date()))} · ${flagged} with an open ⚑ flag · ${failing} failing the quality gate</div>
+<h2>Index</h2>
+<table class="index"><tr><th>ID</th><th>Domain</th><th>Status</th><th>Quality gate</th><th>⚑</th></tr>${rows}</table>`;
+  return page(title, `<section class="record">${index}</section>\n` + records.map(recordSection).join('\n'));
+}
+
+module.exports = { buildRecord, renderRecordHtml, renderRecordsBookHtml };
