@@ -562,7 +562,9 @@ function serverSaveAttempt(caseObj, ans, domainsObj, pct){
   }).catch(()=>{});
 }
 
-// NCMHCE domain weights (approximate from NBCC content outline)
+// Readiness weights for the five practice areas. These are PassReady Prep's own
+// weights, not NBCC's published outline percentages; the pass guarantee's 60%
+// threshold is measured with them, so change them deliberately.
 const DOMAIN_WEIGHTS = { counseling: 0.28, intake: 0.25, treatment: 0.22, ethics: 0.15, core: 0.10 };
 
 function computeReadiness(){
@@ -664,7 +666,7 @@ async function showDashboard(){
   if(rd){
     h += '<div class="card" style="margin-bottom:16px">';
     h += '<h2 style="margin-bottom:4px">Exam readiness</h2>';
-    h += '<div style="font-size:13px;color:var(--slate-400);margin-bottom:12px">Your readiness score is weighted by actual NCMHCE domain proportions — Counseling (28%), Intake (25%), Treatment (22%), Ethics (15%), Core (10%). It factors in how many cases you\'ve completed and whether your recent performance is trending up or down. Green (70%+) = exam ready. Amber (50–69%) = almost there. Red (&lt;50%) = keep building.</div>';
+    h += '<div style="font-size:13px;color:var(--slate-400);margin-bottom:12px">Your readiness score weights your accuracy in five practice areas — Counseling (28%), Intake (25%), Treatment (22%), Ethics (15%), Core (10%). It factors in how many cases you\'ve completed and whether your recent performance is trending up or down. Green (70%+) = exam ready. Amber (50–69%) = almost there. Red (&lt;50%) = keep building.</div>';
     h += '<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">';
 
     // Ring gauge
