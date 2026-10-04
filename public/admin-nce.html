@@ -253,7 +253,7 @@
       '<div class="meta">'+esc(it.externalId)+' · '+esc(domainLabel(it.domain))+' · '+esc(it.cacrep||'—')+' · '+esc(it.topic||'')+' · '+esc(it.difficulty)+'</div>'+
       '<div class="stem">'+esc(it.stem)+'</div>'+
       '<ol type="a">'+(it.options||[]).map(function(o){
-        return '<li class="'+(o.isCorrect?'key':'')+'">'+esc(o.text)+(o.isCorrect?' ✓':'')+'<small>'+esc(o.rationale)+'</small></li>'; }).join('')+'</ol>'+
+        return '<li class="'+(o.isCorrect?'key':'')+'">'+esc(o.text)+(o.isCorrect?' <b style="color:var(--emerald-400)">✔ KEY</b>':'')+'<small>'+esc(o.rationale)+'</small></li>'; }).join('')+'</ol>'+
       '<div class="why">'+esc(it.rationale)+'</div>'+
       (it.reviewNote ? '<div class="muted" style="font-size:12.5px;color:var(--amber-400);margin-bottom:6px">⚑ Check: '+esc(it.reviewNote)+'</div>' : '')+
       '<div class="muted" style="font-size:12.5px;margin-bottom:8px">'+(it.references||[]).map(function(r){ return esc(r.source)+(r.detail?' — '+esc(r.detail):''); }).join(' | ')+'</div>'+

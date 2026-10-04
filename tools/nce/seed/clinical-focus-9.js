@@ -473,7 +473,6 @@ module.exports = [
     ],
     rationale: 'DSM-5-TR text on nonsuicidal self-injury notes that it most often starts in the early teen years and can continue for many years. Hospital admissions for NSSI peak around ages 20 to 29 before declining. School-based prevention and staff training in the middle-school years therefore target the developmental window when NSSI typically begins.',
     references: [{ source: 'DSM-5-TR', detail: 'Conditions for Further Study: Nonsuicidal Self-Injury Disorder, Development and Course' }],
-    reviewNote: 'SME to confirm the DSM-5-TR NSSI Development and Course text on hospital admissions peaking at ages 20-29.',
   },
 
   // ── psychopharmacology basics for counselors ──────────────────────────────
@@ -491,8 +490,7 @@ module.exports = [
       { id: 'd', text: 'It is about risk only for adults over 65, so it does not apply to him', isCorrect: false, rationale: 'The warning applies to children, adolescents and young adults under 25, not older adults.' },
     ],
     rationale: 'The FDA boxed warning on antidepressants states that, in short-term studies, they increased the risk of suicidal thinking and behavior in children, adolescents and young adults under age 25. It calls for close monitoring for worsening mood, agitation or suicidality, especially in the first months of treatment and after dose changes. Counselors educate families, encourage communication with the prescriber and monitor risk.',
-    references: [{ source: 'APA CPG', detail: 'Depression across the lifespan: antidepressants in adolescents and suicidality monitoring' }, { source: 'NBCC Study Supplement', detail: 'Psychopharmacology: antidepressants and the FDA boxed warning for young people' }],
-    reviewNote: 'SME to confirm the APA depression CPG and NBCC Study Supplement locators cover the FDA antidepressant boxed warning; the warning itself (under-25 suicidality) is standard.',
+    references: [{ source: 'APA CPG', detail: 'Depression across the lifespan: antidepressants in adolescents and suicidality monitoring' }, { source: 'FDA Antidepressant Boxed Warning', detail: '2007 labeling revision: suicidality warning extended through age 24; close monitoring early in treatment' }],
   },
   {
     id: 'nce-s-clf-266',

@@ -17,6 +17,11 @@ const bp = require('./nceBlueprint');
 const LETTERS = 'ABCD';
 const STATUS_LABELS = { sme_review: 'In review', published: 'Published', retired: 'Retired', draft: 'Draft' };
 
+// Escape text for a CSS string literal (the @page footer).
+function cssStr(s) {
+  return String(s == null ? '' : s).replace(/[\\"]/g, '\\$&').replace(/[\r\n<>]/g, ' ');
+}
+
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
@@ -44,7 +49,7 @@ function describeFilter(status) {
 }
 
 // ── HTML ─────────────────────────────────────────────────────────────────────
-function htmlItem(it, n) {
+function htmlItem(it, n, total) {
   const bits = [it.externalId, cacrepLabel(it.cacrep), it.topic, it.difficulty, STATUS_LABELS[it.status] || it.status].filter(Boolean);
   const opts = (it.options || []).map((o, k) => (
     `<div class="opt ${o.isCorrect ? 'key' : ''}">` +
@@ -55,7 +60,7 @@ function htmlItem(it, n) {
   const refs = (it.references || []).map((r) => esc(r.source) + (r.detail ? ' — ' + esc(r.detail) : '')).join(' · ');
   return (
     `<article class="q">` +
-    `<h4>${n}. <span class="idb">${bits.map(esc).join(' · ')}</span></h4>` +
+    `<h4>Q${n} of ${total} <span class="idb">· ${bits.map(esc).join(' · ')}</span></h4>` +
     `<div class="stem">${esc(it.stem)}</div>` +
     `<div class="opts">${opts}</div>` +
     (it.rationale ? `<div class="foot"><b>Rationale:</b> ${esc(it.rationale)}</div>` : '') +
@@ -66,7 +71,7 @@ function htmlItem(it, n) {
   );
 }
 
-function renderHtml(items, { status = 'sme_review', generatedAt = new Date() } = {}) {
+function renderHtml(items, { status = 'sme_review', generatedAt = new Date(), title = '' } = {}) {
   const groups = groupByDomain(items);
   const total = (items || []).length;
   const date = new Date(generatedAt).toISOString().slice(0, 10);
@@ -76,14 +81,14 @@ function renderHtml(items, { status = 'sme_review', generatedAt = new Date() } =
     `<div class="meta">${g.items.length} item${g.items.length === 1 ? '' : 's'}` +
     (g.domain.scoredItems ? ` · NCE weight ${Math.round(g.domain.weight * 100)}% (${g.domain.scoredItems} of ${bp.EXAM.scoredItems} scored items)` : '') +
     `</div>` +
-    g.items.map((it) => htmlItem(it, ++n)).join('') +
+    g.items.map((it) => htmlItem(it, ++n, total)).join('') +
     `</section>`
   )).join('');
   const flagged = (items || []).filter((it) => it.reviewNote).length;
   const summary = groups.map((g) => `${esc(g.domain.label)} <b>${g.items.length}</b>`).join(' · ');
   return `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<title>PassReady Prep — NCE Question Bank (${esc(describeFilter(status))})</title>
+<title>PassReady Prep — NCE Question Bank${title ? ' · ' + esc(title) : ''} (${esc(describeFilter(status))})</title>
 <style>
 :root { color-scheme: light; }
 * { box-sizing: border-box; }
@@ -112,10 +117,11 @@ h4 { font-size: 13px; margin: 18px 0 6px; color: #333; }
 .toolbar { margin: 0 0 16px; }
 .toolbar button { font: inherit; padding: 6px 12px; cursor: pointer; }
 .empty { border: 1px dashed #999; padding: 16px; color: #555; }
-@media print { body { margin: 12mm; max-width: none; font-size: 10.5pt; } .toolbar { display: none; } h2 { page-break-before: always; } .bank:first-of-type h2 { page-break-before: auto; } }
+@page { size: letter; margin: 12mm 12mm 14mm; @bottom-center { content: "PassReady Prep — NCE Question Bank · ${cssStr(title || 'Full bank')} · review copy · Page " counter(page) " of " counter(pages); font: 8pt -apple-system, 'Segoe UI', Roboto, sans-serif; color: #666; } }
+@media print { body { margin: 0; max-width: none; font-size: 10.5pt; } .toolbar { display: none; } h2 { page-break-before: always; } .bank:first-of-type h2 { page-break-before: auto; } }
 </style></head><body>
 <div class="toolbar"><button onclick="window.print()">Print / Save as PDF</button></div>
-<h1>PassReady Prep — NCE Question Bank</h1>
+<h1>PassReady Prep — NCE Question Bank${title ? ' · ' + esc(title) : ''}</h1>
 <p><b>Generated:</b> ${date} · <b>Showing:</b> ${esc(describeFilter(status))} · <b>Total items:</b> ${total}</p>
 <div class="legend">
   <h3>How to review</h3>
@@ -132,14 +138,15 @@ ${total ? body : '<div class="empty">No NCE questions match this filter yet. Gen
 }
 
 // ── Markdown ─────────────────────────────────────────────────────────────────
-function renderMarkdown(items, { status = 'sme_review', generatedAt = new Date() } = {}) {
+function renderMarkdown(items, { status = 'sme_review', generatedAt = new Date(), title = '' } = {}) {
+  const total = (items || []).length;
   const groups = groupByDomain(items);
   const out = [
-    '# PassReady Prep — NCE Question Bank (Hard Copy)',
+    `# PassReady Prep — NCE Question Bank${title ? ' · ' + title : ''} (Hard Copy)`,
     '',
-    `**Generated:** ${new Date(generatedAt).toISOString().slice(0, 10)} · **Showing:** ${describeFilter(status)} · **Total items:** ${(items || []).length}`,
+    `**Generated:** ${new Date(generatedAt).toISOString().slice(0, 10)} · **Showing:** ${describeFilter(status)} · **Total items:** ${total}`,
     '',
-    '`✔` marks the keyed option. Mark each item Approve / Revise / Retire.',
+    '**✔ KEY** marks the correct option. Mark each item Approve / Revise / Retire.',
     '',
   ];
   let n = 0;
@@ -147,9 +154,9 @@ function renderMarkdown(items, { status = 'sme_review', generatedAt = new Date()
     out.push(`## ${g.domain.label} (${g.items.length})`, '');
     g.items.forEach((it) => {
       const bits = [it.externalId, cacrepLabel(it.cacrep), it.topic, it.difficulty, STATUS_LABELS[it.status] || it.status].filter(Boolean);
-      out.push(`### ${++n}. ${bits.join(' · ')}`, '', it.stem || '', '');
+      out.push(`### Q${++n} of ${total} · ${bits.join(' · ')}`, '', it.stem || '', '');
       (it.options || []).forEach((o, k) => {
-        out.push(`**${LETTERS[k] || o.id}. [${o.isCorrect ? '✔' : ' '}]** ${o.text}`);
+        out.push(`**${LETTERS[k] || o.id}.** ${o.text}${o.isCorrect ? ' **✔ KEY**' : ''}`);
         if (o.rationale) out.push(`> ${o.rationale}`);
         out.push('');
       });

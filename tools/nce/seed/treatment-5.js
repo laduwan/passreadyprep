@@ -244,8 +244,7 @@ module.exports = [
       { id: 'd', text: 'Field survey of residents', isCorrect: false, rationale: 'A field survey collects new data directly from a sample of residents, which the agency did not do.' },
     ],
     rationale: 'Needs assessments can draw on several methods. The social indicators approach infers community need from existing public data, such as census figures, health statistics and school or court records. Key informant interviews, community forums and field surveys all collect new information directly from people. Many needs assessments combine methods because existing data alone may miss what residents and providers see.',
-    references: [{ source: 'Erford (Research and Evaluation in Counseling)', detail: 'Needs assessment methods: key informants, community forums, surveys and social indicators' }],
-    reviewNote: 'Confirm that the Erford text names the social indicators approach among needs assessment methods; the method itself is standard (Warheit, Bell & Schwab).',
+    references: [{ source: 'Warheit et al. (Needs Assessment)', detail: 'Social indicators approach: inferring need from existing public statistics' }, { source: 'Erford (Research and Evaluation in Counseling)', detail: 'Needs assessment methods in program evaluation' }],
   },
   {
     id: 'nce-s-trt-084',

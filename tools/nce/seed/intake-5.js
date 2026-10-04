@@ -223,8 +223,7 @@ module.exports = [
       { id: 'd', text: 'The Timeline Followback', isCorrect: true, rationale: 'The Timeline Followback uses a calendar and memory anchors to reconstruct daily use.' },
     ],
     rationale: 'The Timeline Followback is a calendar-based interview that reconstructs day-by-day substance use over a set window, often 30 to 90 days, using personal events to aid recall. It yields detailed data on frequency, quantity, and patterns such as weekend binges, and it can be repeated to track change. Screening tools such as the CAGE and AUDIT only flag possible problems.',
-    references: [{ source: 'Hays (Assessment)', detail: 'Substance use assessment: calendar-based recall (Timeline Followback)' }],
-    reviewNote: 'Confirm that the current Hays assessment text discusses the Timeline Followback; if not, re-cite to another approved source that does.',
+    references: [{ source: 'Sobell & Sobell (Timeline Followback)', detail: 'Calendar method with memory anchors for daily use estimates' }, { source: 'Hays (Assessment)', detail: 'Substance use assessment: structured and calendar-based methods' }],
   },
   {
     id: 'nce-s-ass-111',

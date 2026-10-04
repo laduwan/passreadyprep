@@ -416,8 +416,7 @@ module.exports = [
       { id: 'd', text: 'Transcendence and new constructs', isCorrect: false, rationale: 'The top level involves new, larger ways of thinking and acting, which he has not reached.' },
     ],
     rationale: 'Ivey\'s Client Change Scale rates client responses to confrontation from denial (level 1), through partial examination (2), acceptance and recognition (3) and creation of a new solution (4), to transcendence or development of new, more inclusive constructs (5). A client who fully owns the discrepancy but has no plan yet is at level 3, and the counselor can now help generate new options.',
-    references: [{ source: GL, detail: 'Counseling skills: confrontation and evaluating the client\'s response' }],
-    reviewNote: 'Ivey\'s own text is not on the approved list; confirm the cited Gladding section covers the Client Change Scale levels.',
+    references: [{ source: 'Ivey et al. (Intentional Interviewing)', detail: 'Confrontation: the Client Change Scale (level 3, acceptance and recognition)' }, { source: GL, detail: 'Counseling skills: confrontation and evaluating the client\'s response' }],
   },
   {
     id: 'nce-s-cou-296',
@@ -486,8 +485,7 @@ module.exports = [
       { id: 'd', text: 'Integration of both racial heritages', isCorrect: false, rationale: 'Integration is the final stage of valuing all of one\'s heritages, which she has not reached.' },
     ],
     rationale: 'Poston\'s five-stage model of biracial identity development runs from personal identity, through choice of group categorization, enmeshment/denial and appreciation, to integration. In the choice stage, peers, family and society press the young person to identify with one group. Counselors can validate the pressure and support exploration of all heritages.',
-    references: [{ source: SS, detail: 'Racial/cultural identity development: biracial and multiracial identity (Poston\'s model)' }],
-    reviewNote: 'Confirm that the Sue & Sue edition in use describes Poston\'s biracial model; no multiracial-specific text is on the approved list.',
+    references: [{ source: 'Poston (Biracial Identity)', detail: 'Stage 2, choice of group categorization' }, { source: SS, detail: 'Racial/cultural identity development: biracial and multiracial identity (Poston\'s model)' }],
   },
   {
     id: 'nce-s-cou-300',

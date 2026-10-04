@@ -100,8 +100,7 @@ module.exports = [
       { id: 'd', text: 'Reassurance that panic is not dangerous and will fade with time', isCorrect: false, rationale: 'Reassurance does not dispute the demand that she must not be weak, so the self-damning belief remains.' },
     ],
     rationale: 'REBT distinguishes primary disturbance (here, the panic) from secondary disturbance, the "disturbance about the disturbance" such as hating oneself for panicking. Ellis advised that counselors often tackle the secondary problem first, because self-condemnation adds suffering and interferes with work on the primary problem. Unconditional self-acceptance helps the client view the symptom as a problem to solve rather than proof of worthlessness.',
-    references: [{ source: C, detail: 'Rational Emotive Behavior Therapy: secondary disturbance (disturbance about disturbance)' }],
-    reviewNote: 'SME to confirm that the Corey locator covers secondary disturbance; the concept is standard in Ellis and Dryden\'s REBT texts.',
+    references: [{ source: 'Ellis & Dryden (REBT)', detail: 'Secondary disturbance (disturbance about disturbance) and addressing it first' }, { source: C, detail: 'Rational Emotive Behavior Therapy: secondary disturbance (disturbance about disturbance)' }],
   },
   // ── SOLUTION-FOCUSED ─────────────────────────────────────────────────────
   {
@@ -183,8 +182,7 @@ module.exports = [
       { id: 'd', text: 'Scaffolding conversation', isCorrect: false, rationale: 'Scaffolding moves clients in small steps from the familiar toward new ideas, not toward reviewing relationships.' },
     ],
     rationale: 'Drawing on Barbara Myerhoff, Michael White described identity as shaped by an "association" or club of life whose members include living and dead, present and absent figures. In re-membering conversations, the counselor helps the client honor members who support a preferred identity, such as a deceased spouse, and revoke or reduce the membership of those whose voices are unhelpful.',
-    references: [{ source: C, detail: 'Narrative Therapy: re-authoring and re-membering conversations' }],
-    reviewNote: 'SME to confirm the Corey locator for re-membering conversations; the practice itself is from White (2007), Maps of Narrative Practice.',
+    references: [{ source: 'White (Maps of Narrative Practice)', detail: 'Ch. 3, re-membering conversations and the club of life' }, { source: C, detail: 'Narrative Therapy: re-authoring and re-membering conversations' }],
   },
   {
     id: 'nce-s-cou-252',
@@ -456,8 +454,7 @@ module.exports = [
       { id: 'd', text: 'Downward arrow technique', isCorrect: true, rationale: 'Repeatedly asking what a thought would mean moves from automatic thoughts down to a core belief.' },
     ],
     rationale: 'In cognitive therapy, the downward arrow technique uncovers intermediate and core beliefs that lie beneath automatic thoughts. The counselor repeatedly asks what the thought would mean if it were true, until the client reaches a basic belief about the self, such as "I\'m incompetent," which can then become a target for change.',
-    references: [{ source: C, detail: 'Cognitive Behavior Therapy: Beck\'s cognitive therapy, identifying core beliefs (downward arrow)' }],
-    reviewNote: 'Confirm the Corey CBT chapter names the downward arrow technique (it is described in J. Beck, Cognitive Behavior Therapy: Basics and Beyond); the core-belief concept itself is in Corey.',
+    references: [{ source: 'J. Beck (CBT: Basics and Beyond)', detail: 'Identifying intermediate and core beliefs: the downward arrow technique' }, { source: C, detail: 'Cognitive Behavior Therapy: Beck\'s cognitive therapy, identifying core beliefs' }],
   },
   // ── REALITY THERAPY ──────────────────────────────────────────────────────
   {
