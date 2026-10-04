@@ -19,7 +19,8 @@
 #   ADMIN_ALERT_SMS_TO, SMS_SENDER, ADMIN_ALERT_EVENTS, ADMIN_ALERT_DISABLE,
 #   ADMIN_ALERT_THROTTLE_MIN, ACTIVITY_TTL_DAYS, VISIT_TTL_DAYS, CLIENT_URL,
 #   ADMIN_EMAIL, TRIAL_REMINDERS_DISABLE (set to 1 to stop the trial reminder
-#   emails without a deploy).
+#   emails without a deploy), BLOG_AUTODRAFT_DISABLE (set to 1 to stop the
+#   weekly AI blog drafts), BLOG_DRAFT_MODEL (model for those drafts).
 # See .env.example for the full documented list.
 # ---------------------------------------------------------------------------
 

@@ -204,6 +204,9 @@ async function start() {
   // Biweekly item quality + IRR digest — sends every other Monday.
   require('./jobs/qualityDigest').start();
 
+  // Weekly blog auto-draft — saves one DRAFT post on Mondays for admin review.
+  require('./jobs/blogAutoDraft').start();
+
   app.listen(PORT, () => console.log(`PassReady Prep API listening on port ${PORT}`));
 }
 
