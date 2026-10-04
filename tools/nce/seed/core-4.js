@@ -192,9 +192,8 @@ module.exports = [
     rationale: `Affective empathy is feeling with the client; cognitive empathy is accurately understanding the client's perspective. Rogers described empathy as sensing the client's world "as if" it were one's own without losing the "as if" quality. When affective resonance turns into personal distress, strengthening the cognitive side helps counselors stay present and effective while reducing burnout and vicarious trauma risk.`,
     references: [
       { source: 'Corey (Theory & Practice)', detail: 'Person-centered therapy: accurate empathic understanding and the "as if" quality' },
-      { source: 'Gladding (Counseling: A Comprehensive Profession)', detail: 'Empathy; counselor burnout and compassion fatigue' },
+      { source: 'Davis (Multidimensional Empathy)', detail: 'Perspective taking (cognitive) vs empathic concern and personal distress (affective)' },
     ],
-    reviewNote: `The cognitive/affective empathy labels come from empathy research (e.g., Davis, 1983; Decety); confirm the cited texts use this framing or treat them as supporting the "as if" concept only.`,
   },
   {
     id: 'nce-s-cor-060',
