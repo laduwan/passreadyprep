@@ -1,11 +1,11 @@
 ---
 title: How the NCMHCE Is Scored
 metaDescription: How NCMHCE scoring works in plain language, what to confirm in the official handbook, and how scoring should shape the way you answer clinical cases.
-excerpt: Understanding how the NCMHCE is scored changes how you study and how you answer. Here is a plain-language look at scoring concepts, what to verify officially, and the habits that follow.
+excerpt: Understanding how the NCMHCE is scored changes how you study and how you answer. Here is a plain-language look at how NBCC scores the exam, and the habits that follow.
 tags: NCMHCE, exam scoring, test strategy
 ---
 
-Few things cause more anxiety before the NCMHCE than scoring. Candidates hear secondhand rules on forums, half-remembered numbers from classmates, and confident claims about "how many you can miss." Most of that is noise. This post explains the scoring concepts that matter, points you to what you should confirm in the official candidate materials, and focuses on the part you can actually control: how understanding scoring should change the way you work a clinical case.
+Few things cause more anxiety before the NCMHCE than scoring. Candidates hear secondhand rules on forums, half-remembered numbers from classmates, and confident claims about "how many you can miss." Most of that is noise. This post lays out how NBCC actually scores the exam, according to its candidate handbook, and focuses on the part you can actually control: how understanding scoring should change the way you work a clinical case.
 
 One note before we start. Scoring rules are set by NBCC, which administers the exam, and they are changing: a new exam format takes effect on July 1, 2027. The details below come from NBCC's candidate handbook and exam specifications.
 
@@ -22,15 +22,15 @@ If you test on or after July 1, 2027, expect changes. The 2027 exam has 10 case 
 
 ## Scoring concepts worth understanding
 
-Even without memorizing official numbers, a few general ideas about how clinical exams are scored will sharpen your thinking.
+A few ideas behind those numbers will sharpen your thinking.
 
 ### Not every question may count
 
-Many standardized exams include pretest material that is being tried out for future forms and doesn't count toward your score. You usually can't tell which items those are. The practical lesson: treat every case as if it counts, and don't burn energy trying to guess which ones are experimental. On the current NCMHCE it does: one of the 11 cases is unscored and is used to gather statistics for future exams.
+Many standardized exams include pretest material that is being tried out for future forms and doesn't count toward your score. You usually can't tell which items those are. The practical lesson: treat every case as if it counts, and don't burn energy trying to guess which ones are experimental. The current NCMHCE does this: one of the 11 cases is unscored and is used to gather statistics for future exams.
 
 ### Several options can look right
 
-In clinical decision-making, several options often look defensible. One may be the best action, another reasonable but weaker, another harmful or outside your scope. NBCC's handbook says each scored question counts for one point, so the question is simply whether you chose the best answer. The clinical lesson is the same either way. The goal isn't to find a defensible answer. It is to find the best one, and above all to avoid the option that would hurt the client.
+In clinical decision-making, several options often look defensible. One may be the best action, another reasonable but weaker, another harmful or outside your scope. NBCC's handbook says each scored question counts for one point, so the question is simply whether you chose the best answer. The goal isn't to find a defensible answer. It is to find the best one, and above all to avoid the option that would hurt the client.
 
 ### Passing scores and exam forms
 
@@ -74,7 +74,7 @@ When you review a practice case, sort your misses by type: safety skipped, rule-
 
 ## The takeaway
 
-You don't need to memorize a scoring formula to do well on the NCMHCE. You need to confirm the official details from the current handbook, then let a few principles guide every answer: avoid harm first, decide what has to come first, validate before you challenge, and rule out before you diagnose. Those habits reflect sound clinical judgment, and they will serve you long after the exam.
+You don't need to memorize a scoring formula to do well on the NCMHCE. You need to know the basics above, check the handbook for anything that changes before your test date, and let a few principles guide every answer: avoid harm first, decide what has to come first, validate before you challenge, and rule out before you diagnose. Those habits reflect sound clinical judgment, and they will serve you long after the exam.
 
 ---
 

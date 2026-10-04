@@ -9,7 +9,7 @@ If you have spent months memorizing diagnostic criteria, your first NCMHCE pract
 
 ## What a clinical simulation case is
 
-A clinical simulation is a case study that unfolds over time. It opens with intake information about a client, and the questions ask you to make clinical decisions about that person. On the current exam, each case study is a narrative followed by 9 to 15 multiple-choice questions.
+A clinical simulation is a case study that unfolds over time. It opens with intake information about a client, and the questions ask you to make clinical decisions about that person. On the current exam, each case study is a narrative followed by 9 to 15 multiple-choice questions, split into sections: an initial intake summary, then two counseling sessions. Each question has four options and one correct answer. The client's diagnosis is provided, so the exam is testing what you do with the client, not whether you can name the disorder.
 
 The current NCMHCE has 11 case studies. Ten are scored and one is unscored, used to try out material for future exams, for a total of 100 scored questions. You get 225 minutes to answer them, with one scheduled 15-minute break after the fifth case. If you test on or after July 1, 2027, the exam drops to 10 case studies.
 
@@ -69,4 +69,4 @@ NCMHCE practice questions reward clinical judgment more than memorization. Treat
 
 ---
 
-*Exam details are from NBCC's [NCMHCE Candidate Handbook](https://nbcc.org/assets/exam/handbooks/ncmhce.pdf), [NCMHCE Content Outline](https://nbcc.org/assets/exam/ncmhce_content_outline.pdf), and [2027 NCMHCE Exam Specifications](https://nbcc.org/assets/exam/NCMHCE_exam_spec_2027.pdf), as of October 2026. NBCC updates these documents, so check them before your test date.*
+*Exam details are from NBCC's [NCMHCE Candidate Handbook](https://nbcc.org/assets/exam/handbooks/ncmhce.pdf), [NCMHCE Content Outline](https://nbcc.org/assets/exam/ncmhce_content_outline.pdf), [2027 NCMHCE Exam Specifications](https://nbcc.org/assets/exam/NCMHCE_exam_spec_2027.pdf), and [NCMHCE format comparison chart](https://www.nbcc.org/assets/exam/ncmhce_format_comparison_chart.pdf), as of October 2026. NBCC updates these documents, so check them before your test date.*

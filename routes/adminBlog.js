@@ -72,15 +72,29 @@ router.post('/preview', (req, res) => {
 });
 
 // POST /api/admin/blog/seed-drafts — add the starter drafts whose slug isn't
-// taken yet. Never overwrites or publishes anything.
+// taken yet. An existing copy is replaced only when it is still a DRAFT that
+// still contains the old "[VERIFY" placeholders (i.e. loaded before the facts
+// were filled in and not hand-edited since). Published posts and edited drafts
+// are never touched, and nothing is ever published.
 router.post('/seed-drafts', async (req, res) => {
   try {
     const drafts = loadSeedDrafts();
-    const existing = await BlogPost.find({ slug: { $in: drafts.map(d => d.slug) } }).select('slug').lean();
-    const have = new Set(existing.map(p => p.slug));
-    const toAdd = drafts.filter(d => !have.has(d.slug)).map(d => Object.assign({}, d, { status: 'draft', publishedAt: null }));
+    const existing = await BlogPost.find({ slug: { $in: drafts.map(d => d.slug) } }).select('slug status bodyMarkdown').lean();
+    const bySlug = new Map(existing.map(p => [p.slug, p]));
+    const toAdd = drafts.filter(d => !bySlug.has(d.slug)).map(d => Object.assign({}, d, { status: 'draft', publishedAt: null }));
     if (toAdd.length) await BlogPost.insertMany(toAdd, { ordered: false });
-    return res.json({ added: toAdd.map(d => d.slug), skipped: [...have] });
+    const updated = [];
+    for (const d of drafts) {
+      const cur = bySlug.get(d.slug);
+      if (cur && cur.status === 'draft' && String(cur.bodyMarkdown || '').includes('[VERIFY')) {
+        await BlogPost.updateOne({ _id: cur._id, status: 'draft' }, { $set: {
+          title: d.title, metaDescription: d.metaDescription, excerpt: d.excerpt, tags: d.tags, bodyMarkdown: d.bodyMarkdown,
+        } });
+        updated.push(d.slug);
+      }
+    }
+    const skipped = existing.map(p => p.slug).filter(s => !updated.includes(s));
+    return res.json({ added: toAdd.map(d => d.slug), updated, skipped });
   } catch (err) {
     console.error('blog seed error', err);
     return res.status(500).json({ error: 'Could not add starter drafts' });

@@ -955,10 +955,13 @@
     $('blog-cancel-btn').addEventListener('click', function(){ $('blog-editor').classList.add('hidden'); blogEditingId = null; });
 
     $('blog-seed-btn').addEventListener('click', function(){
-      if (!confirm('Add the four starter drafts? Posts whose slug already exists are left alone. Nothing is published.')) return;
+      if (!confirm('Add the four starter drafts? Old copies that still have [VERIFY] notes are replaced with the updated versions. Published posts and drafts you have edited are left alone. Nothing is published.')) return;
       blogApi('POST', '/seed-drafts', {}).then(function(d){
         $('blog-err').textContent = '';
-        alert((d.added && d.added.length ? 'Added ' + d.added.length + ' draft(s).' : 'Nothing to add — every starter draft already exists.'));
+        var msg = [];
+        if (d.added && d.added.length) msg.push('Added ' + d.added.length + ' draft(s).');
+        if (d.updated && d.updated.length) msg.push('Updated ' + d.updated.length + ' draft(s) that still had [VERIFY] notes.');
+        alert(msg.length ? msg.join(' ') : 'Nothing to change: every starter draft already exists and is up to date.');
         blogLoad();
       }).catch(function(e){ $('blog-err').textContent = e.message; });
     });

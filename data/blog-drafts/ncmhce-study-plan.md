@@ -17,7 +17,7 @@ Then take one practice case cold, with no review. It will feel uncomfortable. Th
 
 Everything else rests on this week. Start with the most important habit in case work: deciding what has to come first. Safety concerns outrank everything, and you can't treat what you haven't assessed. Beyond those basics, build one consistent way of sequencing decisions and practice it until it is automatic. The [Complete NCMHCE Study Guide](/study-guide.html) walks through a full step-by-step method with worked cases.
 
-Pair that with the foundations of the helping relationship: Rogers' core conditions (unconditional positive regard, empathy, congruence), Bordin's working alliance (bond, goals, tasks), and how ruptures show up in a case. A client who "seems disengaged," "pushes back on the homework," or says "I don't know if this is doing anything" is usually signaling a rupture. The scored move is typically to notice, name, and explore it, not to defend the treatment.
+Pair that with the foundations of the helping relationship: Rogers' core conditions (unconditional positive regard, empathy, congruence), Bordin's working alliance (bond, goals, tasks), and how ruptures show up in a case. A client who "seems disengaged," "pushes back on the homework," or says "I don't know if this is doing anything" is usually signaling a rupture. The stronger response is typically to notice, name, and explore it, not to defend the treatment.
 
 **This week's practice:** a few cases per study session, focusing only on the first decision point. Before you choose, ask what has to happen first at this point in the case.
 
