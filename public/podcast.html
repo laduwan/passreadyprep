@@ -68,6 +68,7 @@
     <input class="search" id="q" type="search" placeholder="Search by title, topic, slot, or category&hellip;" autocomplete="off" />
     <div class="flt" id="flt"></div>
     <div class="count" id="count"></div>
+    <div class="flt" id="pctl"></div>
     <div id="list"></div>
   </main>
 </div>
@@ -133,6 +134,136 @@
     list.innerHTML=html;
   }
   render();
+})();
+</script>
+<script>
+// Commute playback: lock-screen / car controls (Media Session), per-track resume
+// position, and repeat mode. Uses capture-phase listeners on document so it
+// keeps working when render() rebuilds the episode list.
+(function(){
+  var BASE=(typeof PODCAST_AUDIO_BASE==='string')?PODCAST_AUDIO_BASE:'/audio/';
+  var EPS=(typeof PODCAST_EPISODES!=='undefined')?PODCAST_EPISODES:[];
+  var list=document.getElementById('list');
+  var current=null;
+
+  function store(fn){ try { return fn(localStorage); } catch(e){ return null; } }
+  function fileOf(a){ var s=a.getAttribute('src')||''; return s.indexOf(BASE)===0 ? decodeURIComponent(s.slice(BASE.length)) : ''; }
+  function epOf(a){ var f=fileOf(a); for(var i=0;i<EPS.length;i++){ if(EPS[i].file===f) return EPS[i]; } return null; }
+  function audios(){ return [].slice.call(list.querySelectorAll('audio')); }
+  function isEp(t){ return t && t.tagName==='AUDIO' && list.contains(t); }
+
+  // ── resume position (per user + track) ─────────────────────────────────
+  var userId=store(function(ls){ var u=JSON.parse(ls.getItem('prp_user')||'null'); return u && (u.id||u._id||u.email); })||'anon';
+  function posKey(a){ return 'prp_podpos:'+userId+':'+fileOf(a); }
+  var lastSave=0;
+  function savePos(a){
+    if(!a || !fileOf(a) || !isFinite(a.currentTime) || a.ended) return;
+    lastSave=Date.now();
+    store(function(ls){ ls.setItem(posKey(a), String(Math.floor(a.currentTime))); });
+  }
+  function restorePos(a){
+    var t=parseFloat(store(function(ls){ return ls.getItem(posKey(a)); }));
+    var d=a.duration;
+    if(t>5 && isFinite(d) && t<d*0.95) a.currentTime=t;
+  }
+  function clearPos(a){ store(function(ls){ ls.removeItem(posKey(a)); }); }
+
+  // ── repeat mode: off → one → all ───────────────────────────────────────
+  var MODES=['off','one','all'], LABEL={off:'Repeat: Off',one:'Repeat: One',all:'Repeat: All'};
+  var repeat=store(function(ls){ return ls.getItem('prp_podrepeat'); });
+  if(MODES.indexOf(repeat)<0) repeat='off';
+  var ICON='<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;margin-right:5px"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>';
+  var ctl=document.getElementById('pctl');
+  function paintRepeat(){
+    ctl.innerHTML='<button class="fb" id="rpt" aria-pressed="'+(repeat!=='off')+'">'+ICON+(repeat==='one'?'<path d="M11 10h1v4"/>':'')+'</svg>'+LABEL[repeat]+'</button>';
+    if(current) current.loop=(repeat==='one');
+  }
+  if(ctl){
+    paintRepeat();
+    ctl.addEventListener('click',function(ev){
+      if(!ev.target.closest('#rpt')) return;
+      repeat=MODES[(MODES.indexOf(repeat)+1)%MODES.length];
+      store(function(ls){ ls.setItem('prp_podrepeat', repeat); });
+      paintRepeat();
+    });
+  }
+
+  // ── queue navigation (episodes in the order currently shown) ───────────
+  function step(dir, wrap){
+    var all=audios(), i=all.indexOf(current), n=i+dir;
+    if(i<0) return;
+    if(n<0 || n>=all.length){ if(!wrap) return; n=(n+all.length)%all.length; }
+    var next=all[n];
+    if(current && current!==next){ current.pause(); }
+    try { next.scrollIntoView({block:'nearest'}); } catch(e){}
+    var p=next.play(); if(p && p.catch) p.catch(function(){});
+  }
+
+  // ── Media Session (lock screen, Bluetooth, Android Auto) ────────────────
+  var MS=('mediaSession' in navigator) ? navigator.mediaSession : null;
+  function setPos(a){
+    if(!MS || !MS.setPositionState || !a) return;
+    var d=a.duration;
+    if(!isFinite(d) || d<=0) return;
+    try { MS.setPositionState({duration:d, playbackRate:a.playbackRate||1, position:Math.min(a.currentTime,d)}); } catch(e){}
+  }
+  function setMeta(a){
+    if(!MS || typeof MediaMetadata==='undefined') return;
+    var e=epOf(a);
+    try {
+      MS.metadata=new MediaMetadata({
+        title: e ? e.title : document.title,
+        artist: 'PassReady Prep',
+        album: 'NCMHCE Clinical Podcast'+(e && e.cat ? ' · '+e.cat : ''),
+        artwork: [
+          {src:'/icons/icon-192.png', sizes:'192x192', type:'image/png'},
+          {src:'/icons/icon-512.png', sizes:'512x512', type:'image/png'}
+        ]
+      });
+    } catch(err){}
+  }
+  function on(action, fn){ try { MS.setActionHandler(action, fn); } catch(e){} }
+  if(MS){
+    on('play', function(){ if(current){ var p=current.play(); if(p && p.catch) p.catch(function(){}); } });
+    on('pause', function(){ if(current) current.pause(); });
+    on('seekbackward', function(d){ if(!current) return; current.currentTime=Math.max(0, current.currentTime-((d && d.seekOffset)||15)); setPos(current); });
+    on('seekforward', function(d){ if(!current) return; var t=current.currentTime+((d && d.seekOffset)||30); current.currentTime=isFinite(current.duration)?Math.min(t,current.duration):t; setPos(current); });
+    on('seekto', function(d){ if(!current || !d || d.seekTime==null) return; if(d.fastSeek && 'fastSeek' in current) current.fastSeek(d.seekTime); else current.currentTime=d.seekTime; setPos(current); });
+    on('previoustrack', function(){ step(-1, repeat==='all'); });
+    on('nexttrack', function(){ step(1, repeat==='all'); });
+  }
+
+  // ── wire up the episode <audio> elements ───────────────────────────────
+  document.addEventListener('play', function(ev){
+    var a=ev.target; if(!isEp(a)) return;
+    // One episode at a time, so lock-screen controls always drive the one you hear.
+    audios().forEach(function(x){ if(x!==a && !x.paused) x.pause(); });
+    current=a;
+    a.loop=(repeat==='one');
+    setMeta(a);
+    if(MS) MS.playbackState='playing';
+    setPos(a);
+  }, true);
+  document.addEventListener('loadedmetadata', function(ev){ var a=ev.target; if(!isEp(a)) return; restorePos(a); if(a===current) setPos(a); }, true);
+  document.addEventListener('timeupdate', function(ev){
+    var a=ev.target; if(!isEp(a) || a!==current) return;
+    if(Date.now()-lastSave>=5000){ savePos(a); setPos(a); }
+  }, true);
+  document.addEventListener('ratechange', function(ev){ if(ev.target===current) setPos(current); }, true);
+  document.addEventListener('seeked', function(ev){ if(ev.target===current) setPos(current); }, true);
+  document.addEventListener('pause', function(ev){
+    var a=ev.target; if(!isEp(a)) return;
+    savePos(a);
+    if(MS && a===current) MS.playbackState='paused';
+  }, true);
+  document.addEventListener('ended', function(ev){
+    var a=ev.target; if(!isEp(a)) return;
+    clearPos(a);
+    if(MS && a===current) MS.playbackState='paused';
+    if(repeat==='all' && a===current) step(1, true);
+  }, true);
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='hidden' && current) savePos(current); });
+  window.addEventListener('pagehide', function(){ if(current) savePos(current); });
 })();
 </script>
 <script src="/activity-tracker.js" defer></script>
