@@ -35,6 +35,7 @@ app.use('/api/progress', require('./routes/progress'));
 app.use('/api/activity', require('./routes/activity'));
 app.use('/api/content', require('./routes/content'));
 app.use('/api/book', require('./routes/book'));
+app.use('/api/practice-exams', require('./routes/practiceExams'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/admin-users', require('./routes/adminUsers'));
 app.use('/api/admin-subscriptions', require('./routes/adminSubscriptions'));
@@ -125,6 +126,8 @@ app.get('/', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'landin
 app.get('/study', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'index.html')));
 app.get('/skills', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'skills.html')));
 app.get('/book', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'book.html')));
+// The printed Practice Exam 1 excerpt sends readers here to unlock the rest of the key.
+app.get('/practice-exams/1', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'practice-exam-1.html')));
 
 // Digital Asset Links for the Android TWA (Google Play). express.static ignores
 // dotfiles by default, so /.well-known/* would 404 and fall through to the SPA

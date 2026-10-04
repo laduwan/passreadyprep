@@ -1,0 +1,2712 @@
+{
+ "exam": "ncmhce-practice-exam-1",
+ "title": "NCMHCE Practice Exam 1",
+ "minutes": 225,
+ "note": "Questions and the key for items 1-48 are from the published excerpt. The key for items 49-132 was drafted 2026-10-04 and needs clinical review before launch.",
+ "domains": [
+  "Intake, Assessment & Diagnosis",
+  "Counseling Skills & Interventions",
+  "Treatment Planning",
+  "Core Counseling Attributes",
+  "Professional Practice & Ethics"
+ ],
+ "cases": [
+  {
+   "n": 1,
+   "name": "Marcus",
+   "diagnosis": "Major depressive disorder, recurrent episode, moderate (F33.1)"
+  },
+  {
+   "n": 2,
+   "name": "Priya",
+   "diagnosis": "Generalized anxiety disorder (F41.1)"
+  },
+  {
+   "n": 3,
+   "name": "Danielle",
+   "diagnosis": "Posttraumatic stress disorder (F43.10)"
+  },
+  {
+   "n": 4,
+   "name": "Kevin",
+   "diagnosis": "Alcohol use disorder, severe (F10.20)"
+  },
+  {
+   "n": 5,
+   "name": "Tyler",
+   "diagnosis": "Bipolar I disorder, current episode manic, moderate (F31.12)"
+  },
+  {
+   "n": 6,
+   "name": "Jayden",
+   "diagnosis": "Attention-deficit/hyperactivity disorder, combined presentation (F90.2)"
+  },
+  {
+   "n": 7,
+   "name": "Emma",
+   "diagnosis": "Anorexia nervosa, restricting type (F50.01)"
+  },
+  {
+   "n": 8,
+   "name": "Luis",
+   "diagnosis": "Schizophrenia, first episode, currently in acute episode (F20.9)"
+  },
+  {
+   "n": 9,
+   "name": "Hannah",
+   "diagnosis": "Obsessive-compulsive disorder, with good or fair insight (F42.2)"
+  },
+  {
+   "n": 10,
+   "name": "Alyssa",
+   "diagnosis": "Borderline personality disorder (F60.3)"
+  },
+  {
+   "n": 11,
+   "name": "Walter",
+   "diagnosis": "Adjustment disorder with mixed anxiety and depressed mood (F43.23)"
+  }
+ ],
+ "items": [
+  {
+   "n": 1,
+   "case": 1,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which information is MOST important for the counselor to gather during this first session?",
+   "options": {
+    "A": "His relationship with his late father and how he grieved that loss",
+    "B": "Current suicidal thoughts and access to lethal means",
+    "C": "His wife's view of the marriage and how she thinks he is coping",
+    "D": "A detailed history of his employment, injury, and the circumstances of the layoff"
+   },
+   "answer": "B",
+   "rationale": "Depression with hopelessness, recent job loss, and a middle-aged male profile all raise suicide risk. Risk and access to lethal means must be assessed in the first session, before other history.",
+   "whyNot": {
+    "A": "May matter clinically, but safety comes first.",
+    "C": "Collateral view is secondary to direct risk assessment.",
+    "D": "Useful later, but not a safety priority."
+   }
+  },
+  {
+   "n": 2,
+   "case": 1,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which detail BEST supports the 'recurrent' specifier?",
+   "options": {
+    "A": "His current symptoms have lasted about three months",
+    "B": "He has lost weight without trying to",
+    "C": "The layoff happened several weeks before his symptoms began",
+    "D": "A prior episode at 30, followed by years of feeling like himself"
+   },
+   "answer": "D",
+   "rationale": "DSM-5-TR requires at least two episodes separated by at least two consecutive months without meeting criteria for a major depressive episode. His episode at 30, followed by years of feeling like himself, meets that standard.",
+   "whyNot": {
+    "A": "Duration describes the current episode, not recurrence.",
+    "B": "This is a current-episode symptom.",
+    "C": "A stressor doesn't establish recurrence."
+   }
+  },
+  {
+   "n": 3,
+   "case": 1,
+   "section": "Intake",
+   "domain": "Core Counseling Attributes",
+   "question": "Marcus says, “I'm only here because my wife made me.” Which response is MOST therapeutic?",
+   "options": {
+    "A": "“Coming here wasn't your idea, and you're not sure what this can offer you.”",
+    "B": "“Counseling only works if you want to be here, so let's talk about that.”",
+    "C": "“Your wife must be very worried about you to push you to come in.”",
+    "D": "“A lot of men feel that way at first, but most find it helps once they give it a chance.”"
+   },
+   "answer": "A",
+   "rationale": "A reflection that accepts his reluctance lowers defensiveness and builds the alliance. It communicates respect for his autonomy without arguing or making promises.",
+   "whyNot": {
+    "B": "Sounds like a condition or a threat.",
+    "C": "Shifts focus to his wife rather than to him.",
+    "D": "Premature reassurance dismisses his view."
+   }
+  },
+  {
+   "n": 4,
+   "case": 1,
+   "section": "Intake",
+   "domain": "Professional Practice & Ethics",
+   "question": "Marcus asks whether his employer's disability insurer will see what he says. What should the counselor do?",
+   "options": {
+    "A": "Tell him insurers automatically receive the full record when a claim is filed",
+    "B": "Postpone the question until he has signed all the necessary release forms",
+    "C": "Explain what he can authorize and the legal limits of confidentiality",
+    "D": "Assure him that nothing he says will ever leave the counseling room"
+   },
+   "answer": "C",
+   "rationale": "Informed consent includes an honest explanation of confidentiality and its limits. That covers what can be released with his authorization and the exceptions required by law.",
+   "whyNot": {
+    "A": "Records aren't released automatically.",
+    "B": "Consent questions should be answered at the start.",
+    "D": "Absolute promises are inaccurate."
+   }
+  },
+  {
+   "n": 5,
+   "case": 1,
+   "section": "Session 1",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "After Marcus's answer to PHQ-9 item 9, what should the counselor do NEXT?",
+   "options": {
+    "A": "Arrange immediate inpatient hospitalization because he endorsed the item",
+    "B": "Readminister the PHQ-9 at the next session to see if the answer changes",
+    "C": "Refer him to a psychiatrist for an antidepressant evaluation before going further",
+    "D": "Ask directly about ideation, plan, intent, and past attempts"
+   },
+   "answer": "D",
+   "rationale": "A positive item 9 calls for an immediate, direct risk assessment, such as the C-SSRS. That assessment determines the level of risk and the response.",
+   "whyNot": {
+    "A": "Not indicated before risk is assessed.",
+    "B": "Delays a needed assessment.",
+    "C": "May help later but doesn't address current risk."
+   }
+  },
+  {
+   "n": 6,
+   "case": 1,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "The assessment shows passive ideation with no plan or intent and several protective factors. Which intervention is MOST appropriate?",
+   "options": {
+    "A": "Recommend voluntary inpatient admission until his mood has stabilized",
+    "B": "Build a written safety plan with him that addresses the rifles",
+    "C": "Have him sign a no-harm contract agreeing to call the clinic before acting on any thoughts",
+    "D": "Schedule follow-up only if he reports that the ideation has increased"
+   },
+   "answer": "B",
+   "rationale": "Safety planning with lethal-means counseling is an evidence-based practice for passive ideation. Reducing access to firearms is one of the most effective prevention steps.",
+   "whyNot": {
+    "A": "Too restrictive for this risk level.",
+    "C": "No-suicide contracts lack evidence and can create false security.",
+    "D": "Passive monitoring is insufficient."
+   }
+  },
+  {
+   "n": 7,
+   "case": 1,
+   "section": "Session 1",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Marcus says his family would be better off with the insurance money. Which response BEST reflects his experience?",
+   "options": {
+    "A": "“Let's focus for a minute on the things that are still going well.”",
+    "B": "“Part of you has started to believe you're a burden to your family.”",
+    "C": "“Have you thought about how your sons would feel if something happened?”",
+    "D": "“That isn't true. Your family needs you, not the insurance money.”"
+   },
+   "answer": "B",
+   "rationale": "Reflecting perceived burdensomeness shows understanding and opens discussion of a key suicide risk factor. The other responses argue, induce guilt, or change the subject.",
+   "whyNot": {
+    "A": "Premature shift away from risk content.",
+    "C": "Guilt-inducing and can increase shame.",
+    "D": "Arguing invalidates him and ends exploration."
+   }
+  },
+  {
+   "n": 8,
+   "case": 1,
+   "section": "Session 1",
+   "domain": "Core Counseling Attributes",
+   "question": "Marcus says that in his family you don't tell strangers your business. What is the BEST response?",
+   "options": {
+    "A": "Move on to a CBT thought record so the session time is used efficiently",
+    "B": "Explain the research showing that counseling is effective for depression",
+    "C": "Explore his family and cultural beliefs about seeking help",
+    "D": "Gently suggest that this belief may be a form of denial about his depression"
+   },
+   "answer": "C",
+   "rationale": "Broaching cultural and family beliefs about help-seeking shows respect and builds trust. It also helps the counselor fit treatment to his worldview.",
+   "whyNot": {
+    "A": "Skips an important alliance moment.",
+    "B": "Persuasion before understanding creates resistance.",
+    "D": "Pathologizes a cultural value."
+   }
+  },
+  {
+   "n": 9,
+   "case": 1,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "Which treatment goal is written MOST appropriately?",
+   "options": {
+    "A": "Marcus will stop thinking about suicide and feeling like a burden to his family",
+    "B": "Marcus will feel less depressed and more like himself by the end of treatment",
+    "C": "Marcus will complete two scheduled activities per week for four weeks, recorded on a log",
+    "D": "Marcus will understand where his depression comes from and why it returned"
+   },
+   "answer": "C",
+   "rationale": "log Goals should be specific, measurable, attainable, relevant, and time-bound (SMART). This one names a behavior, a frequency, a timeframe, and a way to measure it.",
+   "whyNot": {
+    "A": "Not a realistic or measurable short-term goal.",
+    "B": "Vague and not measurable.",
+    "D": "Insight isn't a measurable outcome."
+   }
+  },
+  {
+   "n": 10,
+   "case": 1,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Marcus says the activity worksheets are pointless. What is the MOST appropriate response?",
+   "options": {
+    "A": "Remind him that progress in counseling depends on completing assignments",
+    "B": "Switch to a different treatment model that doesn't use homework",
+    "C": "Explore what got in the way and adapt the task together so it fits him",
+    "D": "Re-explain why homework is an important part of behavioral activation"
+   },
+   "answer": "C",
+   "rationale": "Collaboratively troubleshooting barriers keeps him engaged and treats nonadherence as information. Adapting the format, for example tracking on his phone, can respect his style.",
+   "whyNot": {
+    "A": "Places blame and risks the alliance.",
+    "B": "Premature; the model hasn't failed.",
+    "D": "Lecturing increases resistance."
+   }
+  },
+  {
+   "n": 11,
+   "case": 1,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "Marcus wants his pastor involved in his care. What should the counselor do?",
+   "options": {
+    "A": "Discourage the pastor's involvement to keep treatment strictly clinical",
+    "B": "Obtain a signed release and coordinate with the pastor as a support",
+    "C": "Call the pastor directly to let him know about the suicide risk",
+    "D": "Suggest he rely on the pastor for support instead of continuing counseling"
+   },
+   "answer": "B",
+   "rationale": "With written consent, natural supports such as clergy can strengthen safety and engagement. Faith is also a protective factor he has named.",
+   "whyNot": {
+    "A": "Ignores a meaningful protective factor.",
+    "C": "Contact without consent breaches confidentiality.",
+    "D": "Abandons clinical care."
+   }
+  },
+  {
+   "n": 12,
+   "case": 1,
+   "section": "Session 2",
+   "domain": "Professional Practice & Ethics",
+   "question": "Marcus's wife calls asking whether he still has suicidal thoughts. There is no release. How should the counselor respond?",
+   "options": {
+    "A": "Tell her about the ideation, since his safety is involved",
+    "B": "Share the details, since as his spouse she is part of his support system",
+    "C": "Confirm that he is a client but decline to share anything else",
+    "D": "Share nothing without his authorization, but listen to what she wants to report"
+   },
+   "answer": "D",
+   "rationale": "Without a release, confidentiality applies even to a spouse. The counselor can receive information from her without disclosing anything, and can encourage Marcus to sign a release.",
+   "whyNot": {
+    "A": "No imminent danger here justifies a disclosure.",
+    "B": "Marriage doesn't waive confidentiality.",
+    "C": "Confirming client status is itself a disclosure."
+   }
+  },
+  {
+   "n": 13,
+   "case": 2,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which feature BEST separates Priya's presentation from typical academic stress?",
+   "options": {
+    "A": "Worry that eases quickly once a friend or parent reassures her",
+    "B": "Trouble falling asleep during high-pressure weeks like midterms and finals",
+    "C": "Worry that is mostly focused on her upcoming exams and grades",
+    "D": "Hard-to-control worry about many areas, most days, for over six months"
+   },
+   "answer": "D",
+   "rationale": "GAD requires excessive, hard-to-control worry about multiple domains, more days than not, for six months or more, with associated symptoms. Her eight-month pattern across many areas fits.",
+   "whyNot": {
+    "A": "Reassurance-responsive worry isn't typical of GAD.",
+    "B": "Time-limited and situational.",
+    "C": "A single focus suggests situational stress."
+   }
+  },
+  {
+   "n": 14,
+   "case": 2,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which step is MOST important to rule out another explanation for her symptoms?",
+   "options": {
+    "A": "Assess caffeine and substance use and recommend a medical evaluation",
+    "B": "Explore childhood experiences in depth to find the origin of her worry",
+    "C": "Refer her for ADHD testing, since she struggles to keep up with work",
+    "D": "Give her a personality inventory to identify traits linked to anxiety"
+   },
+   "answer": "A",
+   "rationale": "GAD can only be diagnosed if symptoms aren't better explained by a substance or a medical condition. High caffeine intake and possible thyroid issues must be ruled out.",
+   "whyNot": {
+    "B": "Not the priority differential here.",
+    "C": "Nothing in the case suggests ADHD.",
+    "D": "Not indicated to rule out other causes."
+   }
+  },
+  {
+   "n": 15,
+   "case": 2,
+   "section": "Intake",
+   "domain": "Core Counseling Attributes",
+   "question": "Priya apologizes again for wasting the counselor's time. Which response is MOST helpful?",
+   "options": {
+    "A": "“You're worried about being a burden, even here.”",
+    "B": "“You're not wasting my time at all. This is exactly what I'm here for.”",
+    "C": "“Let's move on and talk about the goals you have for counseling.”",
+    "D": "“Why do you feel like you're wasting my time?”"
+   },
+   "answer": "A",
+   "rationale": "Reflecting the feeling beneath the apology validates her and shows how her worry plays out in the room. Reassurance and “why” questions tend to cut exploration short.",
+   "whyNot": {
+    "B": "Reassurance can feed the worry cycle.",
+    "C": "Skips an important process moment.",
+    "D": "“Why” questions can feel judgmental."
+   }
+  },
+  {
+   "n": 16,
+   "case": 2,
+   "section": "Intake",
+   "domain": "Professional Practice & Ethics",
+   "question": "When should the counselor tell Priya about the center's eight-session limit?",
+   "options": {
+    "A": "During informed consent in the first session, with referral options",
+    "B": "Only if she asks about how many sessions she can have",
+    "C": "Not at all, because it could add to her anxiety about treatment",
+    "D": "In session seven, when the limit becomes relevant to planning"
+   },
+   "answer": "A",
+   "rationale": "Informed consent includes the length, limits, and continuity of services. Telling her early lets her make informed choices and avoids abandonment later.",
+   "whyNot": {
+    "B": "Consent is the counselor's job to cover.",
+    "C": "Withholding it violates informed consent.",
+    "D": "Too late for informed planning."
+   }
+  },
+  {
+   "n": 17,
+   "case": 2,
+   "section": "Session 1",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "How should Priya's GAD-7 score of 15 be interpreted?",
+   "options": {
+    "A": "Mild range",
+    "B": "Minimal range",
+    "C": "Moderate range",
+    "D": "Severe range"
+   },
+   "answer": "D",
+   "rationale": "GAD-7 cutoffs are 5 (mild), 10 (moderate), and 15 (severe). A score of 15 falls at the start of the severe range and gives a baseline for tracking progress.",
+   "whyNot": {
+    "A": "Mild is 5–9.",
+    "B": "Minimal is 0–4.",
+    "C": "Moderate is 10–14."
+   }
+  },
+  {
+   "n": 18,
+   "case": 2,
+   "section": "Session 1",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Priya says she can't disappoint her parents. Which approach is MOST culturally responsive?",
+   "options": {
+    "A": "Encourage her to set firm boundaries with her parents about her career",
+    "B": "Invite her parents to the next session to discuss their expectations",
+    "C": "Explore what family obligation means to her, on her terms",
+    "D": "Help her see that her career is ultimately her own decision to make"
+   },
+   "answer": "C",
+   "rationale": "Understanding collectivist values and family sacrifice from her perspective avoids framing interdependence as a problem. It helps her find solutions that fit her values.",
+   "whyNot": {
+    "A": "Imposes the counselor's values.",
+    "B": "Premature and made without her input.",
+    "D": "Dismisses cultural context."
+   }
+  },
+  {
+   "n": 19,
+   "case": 2,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "Which approach has the STRONGEST evidence for treating Priya's GAD?",
+   "options": {
+    "A": "Cognitive behavioral therapy targeting worry and intolerance of uncertainty",
+    "B": "Psychoanalytic exploration of early conflicts that may underlie the worry",
+    "C": "EMDR processing of the distressing memories connected to her anxiety",
+    "D": "Nondirective supportive listening that allows her to set the pace"
+   },
+   "answer": "A",
+   "rationale": "CBT, including cognitive restructuring, applied relaxation, and work on intolerance of uncertainty, is a first-line psychotherapy for GAD.",
+   "whyNot": {
+    "B": "Less evidence for GAD.",
+    "C": "Designed for trauma, not GAD.",
+    "D": "Support alone is less effective."
+   }
+  },
+  {
+   "n": 20,
+   "case": 2,
+   "section": "Session 1",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Priya is considering taking her roommate's Adderall. What is the MOST appropriate response?",
+   "options": {
+    "A": "Explore the pros and cons with her and share information about the risks",
+    "B": "Treat it as unrelated to her anxiety and return to the worry work",
+    "C": "Report the roommate to campus police for distributing a controlled substance",
+    "D": "Tell her it's illegal to take someone else's prescription and she must not"
+   },
+   "answer": "A",
+   "rationale": "A motivational interviewing stance respects her autonomy and supports an informed choice. Stimulants can also worsen anxiety, palpitations, and sleep.",
+   "whyNot": {
+    "B": "Highly relevant to her symptoms.",
+    "C": "Not a mandated report and would harm trust.",
+    "D": "Directive warnings often backfire."
+   }
+  },
+  {
+   "n": 21,
+   "case": 2,
+   "section": "Session 2",
+   "domain": "Core Counseling Attributes",
+   "question": "Priya says she failed at worry time. Which response is MOST helpful?",
+   "options": {
+    "A": "“Everyone struggles at first, so don't be so hard on yourself.”",
+    "B": "“You noticed the worry showing up. What made it hard to set it aside?”",
+    "C": "“Then worry time probably isn't the right technique for you.”",
+    "D": "“It may be that you didn't give it a full try yet.”"
+   },
+   "answer": "B",
+   "rationale": "Reframing the attempt as useful data and exploring barriers counters her perfectionism. It also keeps the skill in play.",
+   "whyNot": {
+    "A": "Reassurance without exploration.",
+    "C": "Drops the skill too quickly.",
+    "D": "Blaming and shaming."
+   }
+  },
+  {
+   "n": 22,
+   "case": 2,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "What is the main purpose of the worry-time technique?",
+   "options": {
+    "A": "To gradually get rid of worry completely by the end of treatment",
+    "B": "To share her worries with a trusted friend at a set time each day",
+    "C": "To postpone worry to a set time, building a sense of control",
+    "D": "To uncover the childhood origins of her worry during the set time"
+   },
+   "answer": "C",
+   "rationale": "Stimulus control of worry teaches that worry can be postponed and contained. That weakens the belief that worry is uncontrollable.",
+   "whyNot": {
+    "A": "Worry-free isn't the goal.",
+    "B": "That's reassurance-seeking, which can maintain worry.",
+    "D": "Not the mechanism."
+   }
+  },
+  {
+   "n": 23,
+   "case": 2,
+   "section": "Session 2",
+   "domain": "Professional Practice & Ethics",
+   "question": "Priya's father calls again demanding to know if she attends. How should the counselor respond?",
+   "options": {
+    "A": "Neither confirm nor deny her attendance without her written consent",
+    "B": "Confirm her attendance, since he is paying her tuition",
+    "C": "Tell him she's doing well so that he stops calling the center",
+    "D": "Share records, since FERPA gives parents access to student records"
+   },
+   "answer": "A",
+   "rationale": "Priya is an adult, and her counseling records are confidential. Paying tuition gives her father no right to information. Counseling records are generally treated as treatment records, not ordinary education records.",
+   "whyNot": {
+    "B": "Payment doesn't create a right to information.",
+    "C": "Still an unauthorized disclosure.",
+    "D": "Misreads how counseling records are protected."
+   }
+  },
+  {
+   "n": 24,
+   "case": 2,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "Which goal fits Priya's request within the session limit?",
+   "options": {
+    "A": "Resolve the family conflict about her career path before finals",
+    "B": "Lower her GAD-7 score below 10 within five weeks using worry-management skills",
+    "C": "Complete a full course of long-term treatment at the counseling center",
+    "D": "Eliminate all of her anxiety before finals begin in five weeks"
+   },
+   "answer": "B",
+   "rationale": "The goal is specific, measurable, and achievable within brief treatment and her five-week timeframe.",
+   "whyNot": {
+    "A": "Outside the brief-treatment scope for now.",
+    "C": "Conflicts with the session limit.",
+    "D": "Unrealistic."
+   }
+  },
+  {
+   "n": 25,
+   "case": 3,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Danielle takes long detours to avoid highways. Which PTSD symptom cluster does this represent?",
+   "options": {
+    "A": "Alterations in arousal and reactivity",
+    "B": "Intrusion",
+    "C": "Avoidance",
+    "D": "Negative alterations in cognition and mood"
+   },
+   "answer": "C",
+   "rationale": "Avoiding external reminders such as places, activities, or situations is Criterion C (avoidance) in DSM-5-TR.",
+   "whyNot": {
+    "A": "Covers startle, irritability, and hypervigilance.",
+    "B": "Intrusion includes memories, nightmares, and flashbacks.",
+    "D": "Covers blame, guilt, and detachment."
+   }
+  },
+  {
+   "n": 26,
+   "case": 3,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which step is MOST appropriate regarding her nightly drinking?",
+   "options": {
+    "A": "Diagnose alcohol use disorder at intake based on her nightly use",
+    "B": "Treat the drinking as understandable self-medication for her nightmares",
+    "C": "Screen her alcohol use with a standardized tool such as the AUDIT",
+    "D": "Tell her she must stop drinking before trauma therapy can begin"
+   },
+   "answer": "C",
+   "rationale": "Co-occurring alcohol use is common in PTSD. Standardized screening guides whether further assessment and integrated care are needed.",
+   "whyNot": {
+    "A": "Premature without assessment.",
+    "B": "Minimizes a real risk.",
+    "D": "Unnecessary and can drive dropout."
+   }
+  },
+  {
+   "n": 27,
+   "case": 3,
+   "section": "Intake",
+   "domain": "Core Counseling Attributes",
+   "question": "Danielle says the counselor, as a civilian, can't understand. Which response BEST builds the alliance?",
+   "options": {
+    "A": "“Trauma is trauma, whatever the source, and the healing process is the same.”",
+    "B": "“I've worked with a lot of veterans, so I have a good sense of military life.”",
+    "C": "“Let's not focus on our differences. What matters is that you're here.”",
+    "D": "“You're right that I haven't been there. I'd like to understand what it was like.”"
+   },
+   "answer": "D",
+   "rationale": "Acknowledging the limits of the counselor's experience and inviting her to teach shows humility and respect for military culture.",
+   "whyNot": {
+    "A": "Dismisses military context.",
+    "B": "Defends the counselor's credentials.",
+    "C": "Avoids a real concern."
+   }
+  },
+  {
+   "n": 28,
+   "case": 3,
+   "section": "Intake",
+   "domain": "Professional Practice & Ethics",
+   "question": "The counselor has not been trained in a trauma-focused protocol. What is the MOST appropriate action?",
+   "options": {
+    "A": "Tell her trauma-focused work isn't necessary for her to improve",
+    "B": "Provide supportive counseling indefinitely until she feels ready",
+    "C": "Get training and supervision, or refer her to a trained provider",
+    "D": "Use the protocol after carefully reading the treatment manual"
+   },
+   "answer": "C",
+   "rationale": "Counselors must practice within their competence. Trauma-focused protocols require specific training, and treatment decisions should rest on her clinical needs.",
+   "whyNot": {
+    "A": "Misleading and not client-centered.",
+    "B": "Withholds effective treatment.",
+    "D": "Reading a manual isn't competence."
+   }
+  },
+  {
+   "n": 29,
+   "case": 3,
+   "section": "Session 1",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "How is Danielle's PCL-5 score of 52 BEST interpreted?",
+   "options": {
+    "A": "It confirms the PTSD diagnosis without the need for a clinical interview",
+    "B": "It suggests she may be exaggerating symptoms to support a disability claim",
+    "C": "Consistent with probable PTSD and a baseline for tracking progress",
+    "D": "It falls below the range usually considered clinically significant"
+   },
+   "answer": "C",
+   "rationale": "The PCL-5 is a screening and monitoring tool. Scores above roughly 31–33 suggest probable PTSD, and change over time tracks treatment response.",
+   "whyNot": {
+    "A": "A diagnosis requires clinical interview.",
+    "B": "No evidence of exaggeration.",
+    "D": "It is well above cutoffs."
+   }
+  },
+  {
+   "n": 30,
+   "case": 3,
+   "section": "Session 1",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Danielle says, “It should have been me driving.” Which intervention BEST addresses this?",
+   "options": {
+    "A": "Begin imaginal exposure to the memory of the attack right away",
+    "B": "Reassure her that the switch was not her fault and no one could have known",
+    "C": "Socratic questioning to examine the evidence about her responsibility",
+    "D": "Interpret the statement as hidden anger toward her friend for switching"
+   },
+   "answer": "C",
+   "rationale": "In CPT, self-blame is treated as a stuck point, often driven by hindsight bias. Socratic dialogue helps her reach a more balanced view herself.",
+   "whyNot": {
+    "A": "Premature and not how CPT handles stuck points.",
+    "B": "Reassurance rarely shifts a stuck point.",
+    "D": "Speculative interpretation."
+   }
+  },
+  {
+   "n": 31,
+   "case": 3,
+   "section": "Session 1",
+   "domain": "Professional Practice & Ethics",
+   "question": "How should the counselor respond to Danielle's report of yelling at her daughter?",
+   "options": {
+    "A": "Move on, since yelling at a child is not a form of abuse",
+    "B": "File a child abuse report right away because of the repeated yelling",
+    "C": "Refer the family to family court for a custody evaluation",
+    "D": "Gather more information about the incidents and her daughter's safety"
+   },
+   "answer": "D",
+   "rationale": "The facts presented don't suggest reportable abuse. Assessing further clarifies safety and opens work on parenting under stress.",
+   "whyNot": {
+    "A": "Misses a clinical opportunity.",
+    "B": "Not supported by what she described.",
+    "C": "Unwarranted."
+   }
+  },
+  {
+   "n": 32,
+   "case": 3,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "Which treatment is MOST supported by evidence for Danielle's PTSD?",
+   "options": {
+    "A": "Long-term psychodynamic therapy focused on her earlier relationships",
+    "B": "Relaxation training and sleep hygiene as the main treatment",
+    "C": "A trauma-focused therapy such as CPT or prolonged exposure",
+    "D": "Single-session psychological debriefing about the IED attack"
+   },
+   "answer": "C",
+   "rationale": "Clinical practice guidelines, including the VA/DoD guidelines, recommend trauma-focused psychotherapies such as CPT, PE, and EMDR as first-line treatment for PTSD.",
+   "whyNot": {
+    "A": "Less evidence for PTSD.",
+    "B": "Not sufficient on its own.",
+    "D": "Not effective and may cause harm."
+   }
+  },
+  {
+   "n": 33,
+   "case": 3,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Danielle wants to stop trauma work after missing a session. What is the BEST response?",
+   "options": {
+    "A": "Validate her distress, explore the avoidance, and revisit the rationale",
+    "B": "End treatment, since missing a session shows she isn't ready for the work",
+    "C": "Insist that stopping trauma work now would be a serious mistake",
+    "D": "Agree to stop trauma work and switch to relaxation training instead"
+   },
+   "answer": "A",
+   "rationale": "The urge to avoid, especially after an anniversary, is itself a PTSD symptom. Exploring it while respecting her choice keeps her engaged and informed.",
+   "whyNot": {
+    "B": "Punitive and abandoning.",
+    "C": "Coercive.",
+    "D": "Colludes with avoidance without exploring it."
+   }
+  },
+  {
+   "n": 34,
+   "case": 3,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "Her AUDIT score is 12. How should treatment be structured?",
+   "options": {
+    "A": "Require sobriety for at least 30 days before any trauma work begins",
+    "B": "Address PTSD and alcohol use together in an integrated plan",
+    "C": "Set the alcohol use aside until the PTSD symptoms have improved",
+    "D": "Refer her to an alcohol treatment program first, then resume PTSD work"
+   },
+   "answer": "B",
+   "rationale": "Integrated treatment of co-occurring PTSD and substance use is recommended. Trauma-focused therapy can proceed alongside work on drinking.",
+   "whyNot": {
+    "A": "An outdated sequential model.",
+    "C": "Leaves hazardous use untreated.",
+    "D": "Fragments her care."
+   }
+  },
+  {
+   "n": 35,
+   "case": 3,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "How should the counselor track Danielle's progress?",
+   "options": {
+    "A": "Measure her symptoms only at intake and again at termination",
+    "B": "Rely on her verbal reports of how she is doing each week",
+    "C": "Readminister the PCL-5 at regular intervals during treatment",
+    "D": "Administer the MMPI-2 monthly to monitor her symptom profile"
+   },
+   "answer": "C",
+   "rationale": "Routine outcome monitoring with the PCL-5 guides treatment decisions and is built into CPT.",
+   "whyNot": {
+    "A": "Too late to guide treatment.",
+    "B": "Less reliable.",
+    "D": "Not designed for this purpose."
+   }
+  },
+  {
+   "n": 36,
+   "case": 3,
+   "section": "Session 2",
+   "domain": "Professional Practice & Ethics",
+   "question": "Danielle asks for a letter supporting her disability claim. What is the MOST appropriate response?",
+   "options": {
+    "A": "Clarify her role and offer a factual summary, with consent",
+    "B": "Write the letter only if she agrees to continue trauma-focused work",
+    "C": "Refuse to provide any records, since treatment is confidential",
+    "D": "Write a letter stating that she is fully disabled by her PTSD"
+   },
+   "answer": "A",
+   "rationale": "Treating counselors should avoid forensic opinions outside their role. A factual summary with consent is appropriate, and disability determinations belong to independent evaluators.",
+   "whyNot": {
+    "B": "Coercive and unethical.",
+    "C": "She has a right to her records.",
+    "D": "Mixes treating and forensic roles."
+   }
+  },
+  {
+   "n": 37,
+   "case": 4,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "What is the MOST important immediate clinical concern?",
+   "options": {
+    "A": "The circumstances of his referral by the peer assistance program",
+    "B": "His withdrawal risk, given his past withdrawal seizure",
+    "C": "His readiness to attend AA and connect with a sponsor",
+    "D": "His family history of alcohol use and his parents' drinking"
+   },
+   "answer": "B",
+   "rationale": "Alcohol withdrawal can be life-threatening, and a prior seizure raises the risk of another. Medical assessment of withdrawal risk comes first.",
+   "whyNot": {
+    "A": "Important but not urgent.",
+    "C": "Secondary to medical safety.",
+    "D": "Relevant but not immediate."
+   }
+  },
+  {
+   "n": 38,
+   "case": 4,
+   "section": "Intake",
+   "domain": "Professional Practice & Ethics",
+   "question": "Before sending reports to the peer assistance program, what must the counselor do?",
+   "options": {
+    "A": "Wait until the board issues a subpoena for the records",
+    "B": "Send reports, since the board is the source of the referral",
+    "C": "Obtain a written release specifying what is shared, with whom, and why",
+    "D": "Send only a brief summary, since summaries don't require consent"
+   },
+   "answer": "C",
+   "rationale": "Substance use treatment information requires specific written consent, and federal rules add protections in many programs. Consent must define what is shared, with whom, and why.",
+   "whyNot": {
+    "A": "A subpoena isn't the appropriate route here.",
+    "B": "A referral isn't consent.",
+    "D": "Summaries still require consent."
+   }
+  },
+  {
+   "n": 39,
+   "case": 4,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which instrument measures the severity of alcohol withdrawal?",
+   "options": {
+    "A": "CAGE-AID",
+    "B": "AUDIT-C",
+    "C": "BDI-II",
+    "D": "CIWA-Ar"
+   },
+   "answer": "D",
+   "rationale": "The Clinical Institute Withdrawal Assessment for Alcohol, Revised (CIWA-Ar), rates the severity of withdrawal and guides medical management.",
+   "whyNot": {
+    "A": "A brief screening tool.",
+    "B": "Screens for hazardous use.",
+    "C": "Measures depression."
+   }
+  },
+  {
+   "n": 40,
+   "case": 4,
+   "section": "Intake",
+   "domain": "Core Counseling Attributes",
+   "question": "Kevin says he is only here to keep his license. Which response reflects a motivational interviewing stance?",
+   "options": {
+    "A": "“You need to admit you're an alcoholic before anything can really change.”",
+    "B": "“Your license matters a lot, and you're not sure yet what needs to change.”",
+    "C": "“Why did you decide to drink before going in to work that day?”",
+    "D": "“If you don't engage in treatment, you'll probably lose your license.”"
+   },
+   "answer": "B",
+   "rationale": "Reflecting his values and his ambivalence without confrontation reduces resistance and supports change talk.",
+   "whyNot": {
+    "A": "Labeling increases resistance.",
+    "C": "“Why” questions can feel judgmental.",
+    "D": "Threatening."
+   }
+  },
+  {
+   "n": 41,
+   "case": 4,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "Kevin plans to quit cold turkey this weekend. What level of care is MOST appropriate?",
+   "options": {
+    "A": "Medically managed withdrawal in an inpatient or residential setting",
+    "B": "A self-guided taper at home with his wife monitoring him",
+    "C": "An intensive outpatient program starting the following week",
+    "D": "Weekly outpatient counseling with a plan to stop over the weekend"
+   },
+   "answer": "A",
+   "rationale": "Active withdrawal symptoms and a history of withdrawal seizures call for medically monitored or managed withdrawal (ASAM withdrawal management levels).",
+   "whyNot": {
+    "B": "Dangerous given his seizure history.",
+    "C": "Not sufficient for withdrawal management.",
+    "D": "Doesn't address medical risk."
+   }
+  },
+  {
+   "n": 42,
+   "case": 4,
+   "section": "Session 1",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Kevin wonders if he could drink only on weekends. Which response is MOST consistent with MI?",
+   "options": {
+    "A": "“You should really try AA before deciding anything else.”",
+    "B": "“Controlled drinking doesn't work once someone is dependent on alcohol.”",
+    "C": "“Why weekends? What makes those days different?”",
+    "D": "“You're considering making some change in how you drink.”"
+   },
+   "answer": "D",
+   "rationale": "Reflecting change talk reinforces his movement toward change. Confronting or directing him at this point would invite resistance.",
+   "whyNot": {
+    "A": "Directive and premature.",
+    "B": "Confrontational.",
+    "C": "Can put him on the defensive."
+   }
+  },
+  {
+   "n": 43,
+   "case": 4,
+   "section": "Session 1",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which stage of change BEST describes Kevin's statements in this session?",
+   "options": {
+    "A": "Preparation",
+    "B": "Contemplation",
+    "C": "Action",
+    "D": "Precontemplation"
+   },
+   "answer": "B",
+   "rationale": "He recognizes a problem but is ambivalent about how to change (“maybe I need to do something, but…”). That is contemplation.",
+   "whyNot": {
+    "A": "No firm plan has been committed to.",
+    "C": "He hasn't begun sustained change.",
+    "D": "He already sees a problem."
+   }
+  },
+  {
+   "n": 44,
+   "case": 4,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Kevin says he isn't like the guys at AA. Which response BEST rolls with resistance?",
+   "options": {
+    "A": "“AA doesn't feel like a fit. What would you want recovery to look like?”",
+    "B": "“That sounds like your denial talking about how serious this is.”",
+    "C": "“You really need to commit to 90 meetings in 90 days.”",
+    "D": "“You're right that you don't need the same support they do.”"
+   },
+   "answer": "A",
+   "rationale": "Rolling with resistance accepts his view and invites him to define his own path to support. Mutual-help options besides AA also exist.",
+   "whyNot": {
+    "B": "Confrontation increases resistance.",
+    "C": "Directive and rigid.",
+    "D": "Colludes against needed support."
+   }
+  },
+  {
+   "n": 45,
+   "case": 4,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "Kevin reports cravings after hard shifts. Which intervention is MOST appropriate?",
+   "options": {
+    "A": "Advise him to switch to day shifts to reduce the stress",
+    "B": "Reassure him that cravings will pass on their own with time",
+    "C": "Build a relapse prevention plan for high-risk situations",
+    "D": "Increase sessions to daily until the cravings have eased"
+   },
+   "answer": "C",
+   "rationale": "Relapse prevention targets his specific triggers, such as post-shift stress, and rehearses coping responses.",
+   "whyNot": {
+    "A": "Not a clinical decision for the counselor.",
+    "B": "Dismissive.",
+    "D": "Not indicated."
+   }
+  },
+  {
+   "n": 46,
+   "case": 4,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "Kevin asks about medication for cravings. What is the counselor's MOST appropriate response?",
+   "options": {
+    "A": "Recommend that he start naltrexone at a standard dose",
+    "B": "Share general information about medications and refer him to a prescriber",
+    "C": "Explain that medications for cravings are only used for opioids",
+    "D": "Discourage medication while he's working on skills in counseling"
+   },
+   "answer": "B",
+   "rationale": "FDA-approved medications such as naltrexone and acamprosate can help. The counselor gives information and coordinates, and the prescriber decides.",
+   "whyNot": {
+    "A": "Outside the counselor's scope.",
+    "C": "Inaccurate.",
+    "D": "Not evidence-based."
+   }
+  },
+  {
+   "n": 47,
+   "case": 4,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Kevin's wife asks to join a session. What should the counselor do FIRST?",
+   "options": {
+    "A": "Decline, since the treatment contract is for individual counseling",
+    "B": "Meet with her separately first to hear her perspective",
+    "C": "Discuss it with Kevin and get his consent before including her",
+    "D": "Invite her, since she is already involved in Al-Anon"
+   },
+   "answer": "C",
+   "rationale": "Kevin is the client, so conjoint sessions require his consent. Clear roles and goals should be set before she is included.",
+   "whyNot": {
+    "A": "Rigid; conjoint work may help.",
+    "B": "Creates confidentiality and role concerns.",
+    "D": "Skips client consent."
+   }
+  },
+  {
+   "n": 48,
+   "case": 4,
+   "section": "Session 2",
+   "domain": "Professional Practice & Ethics",
+   "question": "Kevin asks the counselor not to report his relapse. What is the MOST appropriate action?",
+   "options": {
+    "A": "Keep the relapse confidential, since it was a single night and he's back on track",
+    "B": "Review the signed agreement and discuss how the relapse will be reported",
+    "C": "Report it to the program without discussing it with him first",
+    "D": "End treatment, since the relapse violates his agreement"
+   },
+   "answer": "B",
+   "rationale": "Kevin signed a release requiring relapse reporting. Transparency preserves trust and honors his informed consent.",
+   "whyNot": {
+    "A": "Violates the agreement and misleads the program.",
+    "C": "Undermines the alliance.",
+    "D": "Relapse isn't a reason to terminate."
+   }
+  },
+  {
+   "n": 49,
+   "case": 5,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which feature BEST distinguishes a manic episode from a hypomanic episode in Tyler's case?",
+   "options": {
+    "A": "A decreased need for sleep without feeling tired",
+    "B": "Marked impairment, shown by job loss and serious debt",
+    "C": "An elevated, expansive, or irritable mood",
+    "D": "Symptoms that have lasted at least four consecutive days"
+   },
+   "answer": "B",
+   "rationale": "Mania and hypomania share the same symptom list. What separates them is severity: a manic episode causes marked impairment or needs hospitalization. Losing his job and running up $15,000 in debt is marked impairment.",
+   "whyNot": {
+    "A": "Occurs in both mania and hypomania.",
+    "C": "The mood criterion is the same for both.",
+    "D": "Four days is the hypomania threshold; mania needs seven or hospitalization."
+   }
+  },
+  {
+   "n": 50,
+   "case": 5,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which action is MOST urgent at intake?",
+   "options": {
+    "A": "Teach sleep hygiene strategies to help restore his sleep",
+    "B": "Schedule weekly counseling beginning next week",
+    "C": "Arrange an immediate psychiatric evaluation",
+    "D": "Start CBT for mood regulation during this first session"
+   },
+   "answer": "C",
+   "rationale": "He has severe sleep loss, grandiose plans, and intends to drive to Las Vegas tonight. Acute mania with impaired judgment needs same-day psychiatric evaluation for safety and medication.",
+   "whyNot": {
+    "A": "Sleep hygiene can't treat acute mania.",
+    "B": "A week's delay ignores current risk.",
+    "D": "Insight-based therapy isn't possible during acute mania."
+   }
+  },
+  {
+   "n": 51,
+   "case": 5,
+   "section": "Intake",
+   "domain": "Core Counseling Attributes",
+   "question": "Tyler speaks rapidly and keeps interrupting. Which approach is MOST effective?",
+   "options": {
+    "A": "Match his energy and pace to build rapport quickly",
+    "B": "Confront his grandiose thinking about the app directly",
+    "C": "Use brief, calm, structured statements and set gentle limits",
+    "D": "Let him talk freely without redirecting him"
+   },
+   "answer": "C",
+   "rationale": "Pressured speech and distractibility respond best to a calm, simple, structured style. Gentle limits keep the session focused without escalating irritability.",
+   "whyNot": {
+    "A": "Matching his pace feeds the escalation.",
+    "B": "Confronting grandiosity raises irritability and ruptures rapport.",
+    "D": "Without structure the intake can't be completed."
+   }
+  },
+  {
+   "n": 52,
+   "case": 5,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Why is the report of his grandfather's “manic depression” clinically relevant?",
+   "options": {
+    "A": "It rules out a substance-induced cause for his symptoms",
+    "B": "Bipolar disorder is highly heritable, so it supports the diagnosis",
+    "C": "It shows the illness was learned from family behavior",
+    "D": "It confirms the bipolar diagnosis without further assessment"
+   },
+   "answer": "B",
+   "rationale": "Bipolar disorder is among the most heritable psychiatric conditions. A first-degree or second-degree relative with it adds weight to the diagnosis, alongside his prior depressive episode.",
+   "whyNot": {
+    "A": "Family history doesn't rule out substances; the negative screen does that.",
+    "C": "Bipolar disorder isn't learned behavior.",
+    "D": "History supports the diagnosis but never confirms it alone."
+   }
+  },
+  {
+   "n": 53,
+   "case": 5,
+   "section": "Session 1",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Tyler reports diarrhea and a worsening tremor. What should the counselor do?",
+   "options": {
+    "A": "Note the symptoms and review them again at the next session",
+    "B": "Tell him to stop taking lithium right away until he feels better",
+    "C": "Advise him to contact his prescriber today about possible toxicity",
+    "D": "Suggest he drink more water and rest until the stomach bug passes"
+   },
+   "answer": "C",
+   "rationale": "Diarrhea and dehydration can raise lithium levels, and a worsening tremor is an early sign of toxicity. He needs to contact his prescriber today.",
+   "whyNot": {
+    "A": "Possible toxicity can't wait a week.",
+    "B": "Medication changes are the prescriber's call, not the counselor's.",
+    "D": "Fluids alone don't address a possible toxic level."
+   }
+  },
+  {
+   "n": 54,
+   "case": 5,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "Tyler wants to stop lithium because of side effects. What is the BEST response?",
+   "options": {
+    "A": "Support stopping the medication, since it is ultimately his choice",
+    "B": "Suggest he switch to an herbal mood supplement with fewer side effects",
+    "C": "Explore his concerns and encourage him to talk with his prescriber first",
+    "D": "Tell him he must stay on the medication to avoid another episode"
+   },
+   "answer": "C",
+   "rationale": "Side effects are a common reason for stopping lithium, and stopping abruptly raises relapse risk. Exploring his concerns respects his autonomy, and the prescriber can adjust the dose or medication.",
+   "whyNot": {
+    "A": "Endorsing an abrupt stop ignores relapse risk.",
+    "B": "Supplements aren't an evidence-based substitute.",
+    "D": "A directive response undercuts his autonomy and the alliance."
+   }
+  },
+  {
+   "n": 55,
+   "case": 5,
+   "section": "Session 1",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Tyler says cannabis helps him sleep. Which response is MOST appropriate?",
+   "options": {
+    "A": "Refer him to a substance use program right away",
+    "B": "Explore his experience and share how cannabis can affect mood",
+    "C": "Tell him he needs to stop using cannabis immediately",
+    "D": "Agree that it seems to help with sleep and move on to other topics"
+   },
+   "answer": "B",
+   "rationale": "A nonjudgmental, motivational approach keeps him talking. Cannabis can disrupt mood stability and sleep quality in bipolar disorder, so psychoeducation fits.",
+   "whyNot": {
+    "A": "A program referral is premature before assessing his use.",
+    "C": "Demanding abstinence tends to raise resistance.",
+    "D": "Ignoring use misses a real relapse risk."
+   }
+  },
+  {
+   "n": 56,
+   "case": 5,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "Which adjunctive psychosocial intervention is MOST appropriate for Tyler?",
+   "options": {
+    "A": "Long-term psychoanalytic therapy",
+    "B": "Interpersonal and social rhythm therapy",
+    "C": "Exposure and response prevention",
+    "D": "Sleep restriction therapy for insomnia"
+   },
+   "answer": "B",
+   "rationale": "Interpersonal and social rhythm therapy stabilizes daily routines and sleep, which protects against mood episodes. It has evidence as an adjunct to medication in bipolar disorder.",
+   "whyNot": {
+    "A": "Not an evidence-based adjunct for bipolar disorder.",
+    "C": "ERP treats OCD.",
+    "D": "Sleep restriction can trigger mania in bipolar disorder."
+   }
+  },
+  {
+   "n": 57,
+   "case": 5,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "What is the MOST important focus of the family session?",
+   "options": {
+    "A": "Decide who is responsible for paying off the recent debt",
+    "B": "Identify early warning signs and build a relapse plan together",
+    "C": "Explore family-of-origin conflict in depth across generations",
+    "D": "Discuss whether Tyler should move out of the family home"
+   },
+   "answer": "B",
+   "rationale": "Family-focused treatment helps the family recognize early warning signs and agree on a relapse plan. This is the strongest protective step after a manic episode.",
+   "whyNot": {
+    "A": "Practical, but not the clinical priority.",
+    "C": "Deep family-of-origin work doesn't fit this stage.",
+    "D": "A living decision isn't the focus now."
+   }
+  },
+  {
+   "n": 58,
+   "case": 5,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "His mother says, “You always ruin everything.” How should the counselor respond?",
+   "options": {
+    "A": "Ask Tyler how his mother's comment makes him feel",
+    "B": "Tell her that the comment is emotionally abusive",
+    "C": "Gently interrupt and help her restate her concern as a request",
+    "D": "Let the exchange continue so the pattern can be observed"
+   },
+   "answer": "C",
+   "rationale": "Critical comments (high expressed emotion) predict relapse in bipolar disorder. Interrupting gently and coaching her to state a specific request models better communication.",
+   "whyNot": {
+    "A": "Shifts to Tyler without addressing the pattern.",
+    "B": "Labeling her abusive shames her and breaks the alliance.",
+    "D": "Letting criticism continue reinforces it."
+   }
+  },
+  {
+   "n": 59,
+   "case": 5,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "Tyler wants to return to college full time next semester. What should the counselor recommend?",
+   "options": {
+    "A": "Leave the decision about college entirely to his mother",
+    "B": "Enroll full time right away to rebuild his confidence",
+    "C": "A gradual return with a lighter course load and accommodations",
+    "D": "Wait at least two years before returning to college"
+   },
+   "answer": "C",
+   "rationale": "Returning gradually with a lighter load and campus accommodations reduces stress and protects sleep. That lowers relapse risk while supporting his goal.",
+   "whyNot": {
+    "A": "The decision is his, made collaboratively.",
+    "B": "A full load right away raises relapse risk.",
+    "D": "An arbitrary two-year wait isn't evidence-based."
+   }
+  },
+  {
+   "n": 60,
+   "case": 5,
+   "section": "Session 2",
+   "domain": "Professional Practice & Ethics",
+   "question": "Tyler sends a friend request and offers the counselor a share in his app. What is the MOST appropriate response?",
+   "options": {
+    "A": "Accept the share, since it has no current monetary value",
+    "B": "Decline both and explain professional boundaries warmly",
+    "C": "Accept the friend request but decline the share in the app",
+    "D": "Ignore both requests without discussing them"
+   },
+   "answer": "B",
+   "rationale": "Accepting a financial stake or a social media connection creates a dual relationship. Declining warmly and explaining boundaries protects him and the therapy.",
+   "whyNot": {
+    "A": "A share is a financial interest regardless of current value.",
+    "C": "A social media connection is also a boundary crossing.",
+    "D": "Ignoring the requests leaves the boundary unclear."
+   }
+  },
+  {
+   "n": 61,
+   "case": 6,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which information BEST supports an ADHD diagnosis rather than a situational problem?",
+   "options": {
+    "A": "Symptoms at home and school that began before age 12",
+    "B": "He was restless and fidgety during the first session",
+    "C": "His teacher is the one who recommended the evaluation",
+    "D": "He finishes only about half of his classwork each day"
+   },
+   "answer": "A",
+   "rationale": "DSM-5-TR requires several symptoms before age 12 and in two or more settings. Symptoms at home and school since kindergarten meet both.",
+   "whyNot": {
+    "B": "Behavior in one session isn't diagnostic.",
+    "C": "Who referred him doesn't establish the diagnosis.",
+    "D": "Incomplete work has many possible causes."
+   }
+  },
+  {
+   "n": 62,
+   "case": 6,
+   "section": "Intake",
+   "domain": "Professional Practice & Ethics",
+   "question": "Jayden's parents share joint legal custody. What should the counselor do regarding consent?",
+   "options": {
+    "A": "Wait until both parents can attend a session together",
+    "B": "Review the custody order and state law on consent",
+    "C": "Rely on the mother's consent, since she brought him in",
+    "D": "Proceed as though the father has no role in decisions"
+   },
+   "answer": "B",
+   "rationale": "Consent rules for minors with joint legal custody vary by state and by the custody order. The counselor should check both before proceeding.",
+   "whyNot": {
+    "A": "Both parents rarely need to attend together.",
+    "C": "One parent's consent may not be enough, depending on the order.",
+    "D": "Joint legal custody usually gives the father decision rights."
+   }
+  },
+  {
+   "n": 63,
+   "case": 6,
+   "section": "Intake",
+   "domain": "Core Counseling Attributes",
+   "question": "Jayden spins in his chair and asks to play. Which approach BEST builds rapport?",
+   "options": {
+    "A": "Insist that he sit still so he learns what sessions are like",
+    "B": "Talk only with his mother while he plays quietly",
+    "C": "Use developmentally appropriate activities that allow movement",
+    "D": "Tell him he'll get a prize at the end if he sits still"
+   },
+   "answer": "C",
+   "rationale": "Children engage through play and movement. Developmentally appropriate activities build rapport and still allow observation.",
+   "whyNot": {
+    "A": "Demanding stillness from a child with ADHD sets up failure.",
+    "B": "Excluding him misses the chance to build rapport.",
+    "D": "A bribe at intake doesn't build a relationship."
+   }
+  },
+  {
+   "n": 64,
+   "case": 6,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which assessment is MOST appropriate for gathering symptom information?",
+   "options": {
+    "A": "Minnesota Multiphasic Personality Inventory–Adolescent",
+    "B": "Wechsler Intelligence Scale for Children (WISC-V)",
+    "C": "Parent and teacher Vanderbilt rating scales",
+    "D": "Children's Depression Inventory (CDI-2)"
+   },
+   "answer": "C",
+   "rationale": "Vanderbilt rating scales from a parent and a teacher capture symptoms across settings. That cross-setting picture is what the ADHD diagnosis needs.",
+   "whyNot": {
+    "A": "A personality inventory for adolescents, not ADHD symptoms.",
+    "B": "Measures intelligence, not ADHD symptoms.",
+    "D": "Screens depression, not ADHD."
+   }
+  },
+  {
+   "n": 65,
+   "case": 6,
+   "section": "Session 1",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which step is MOST important before finalizing the diagnosis?",
+   "options": {
+    "A": "Rule out vision, hearing, and sleep problems",
+    "B": "Observe him in his classroom for a full school day",
+    "C": "Give a projective drawing test to understand his inner world",
+    "D": "Obtain a full IQ evaluation to assess his learning ability"
+   },
+   "answer": "A",
+   "rationale": "Vision or hearing problems and sleep-disordered breathing (he snores loudly) can mimic inattention and hyperactivity. They should be ruled out before diagnosing ADHD.",
+   "whyNot": {
+    "B": "Helpful but not required to rule out medical causes.",
+    "C": "Projective tests don't diagnose ADHD.",
+    "D": "IQ testing isn't needed to diagnose ADHD."
+   }
+  },
+  {
+   "n": 66,
+   "case": 6,
+   "section": "Session 1",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Jayden's grandmother says he needs a “good whooping.” Which response is MOST culturally responsive?",
+   "options": {
+    "A": "Exclude the grandmother from future family sessions",
+    "B": "Let the comment pass to avoid conflict with the grandmother",
+    "C": "Tell her that spanking is abuse and must stop immediately",
+    "D": "Explore her parenting values respectfully and collaborate"
+   },
+   "answer": "D",
+   "rationale": "Exploring her values respectfully keeps her engaged as a caregiver. It opens the door to effective, non-physical discipline.",
+   "whyNot": {
+    "A": "Excluding her loses a key caregiver.",
+    "B": "Ignoring it leaves harmful discipline unaddressed.",
+    "C": "Labeling and lecturing damages the alliance; reporting depends on actual abuse."
+   }
+  },
+  {
+   "n": 67,
+   "case": 6,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "Which treatment approach is BEST supported for a 9-year-old with ADHD?",
+   "options": {
+    "A": "Behavioral parent training plus a medication evaluation",
+    "B": "Weekly child-centered play therapy as the primary treatment",
+    "C": "Waiting to reassess his symptoms in a year",
+    "D": "An elimination diet that removes sugar and additives"
+   },
+   "answer": "A",
+   "rationale": "For school-age children, guidelines recommend behavioral parent training together with an evaluation for medication.",
+   "whyNot": {
+    "B": "Play therapy isn't evidence-based as primary ADHD treatment.",
+    "C": "Waiting a year delays needed treatment.",
+    "D": "Elimination diets lack strong evidence."
+   }
+  },
+  {
+   "n": 68,
+   "case": 6,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "Which goal is written MOST appropriately?",
+   "options": {
+    "A": "Jayden will complete 80% of classwork in six weeks, per a report card",
+    "B": "Jayden will improve his self-esteem and confidence",
+    "C": "Jayden will stop being disruptive during lessons and transitions",
+    "D": "Jayden will pay better attention in class and at home"
+   },
+   "answer": "A",
+   "rationale": "A good goal is specific, measurable, and time-limited, and names how progress will be checked.",
+   "whyNot": {
+    "B": "Vague and not measurable.",
+    "C": "States what to stop, not a measurable target.",
+    "D": "Vague and not measurable."
+   }
+  },
+  {
+   "n": 69,
+   "case": 6,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Which principle is MOST important for making the token system work?",
+   "options": {
+    "A": "Reinforce specific target behaviors immediately and consistently",
+    "B": "Change the target behaviors daily to keep him interested",
+    "C": "Give out all earned tokens at the end of each week",
+    "D": "Take away tokens every time any misbehavior happens"
+   },
+   "answer": "A",
+   "rationale": "Token systems work when specific target behaviors are reinforced right away and consistently.",
+   "whyNot": {
+    "B": "Changing targets daily confuses him.",
+    "C": "Delayed reward weakens learning for children with ADHD.",
+    "D": "Response cost for every misbehavior turns the system punitive."
+   }
+  },
+  {
+   "n": 70,
+   "case": 6,
+   "section": "Session 2",
+   "domain": "Professional Practice & Ethics",
+   "question": "Jayden's father is upset that he wasn't consulted. What is the MOST appropriate response?",
+   "options": {
+    "A": "Acknowledge his concern and involve him in treatment planning",
+    "B": "Tell him to speak with Jayden's mother about treatment",
+    "C": "Share records only after the mother has agreed to it",
+    "D": "Decline to talk with him until the mother gives permission"
+   },
+   "answer": "A",
+   "rationale": "A parent with joint legal custody generally has a right to take part in treatment decisions. Acknowledging his concern and involving him, per the custody order, protects the treatment.",
+   "whyNot": {
+    "B": "Deflecting to the mother ignores his rights.",
+    "C": "His access doesn't depend on the mother's approval.",
+    "D": "Refusing contact with a legal custodian is inappropriate."
+   }
+  },
+  {
+   "n": 71,
+   "case": 6,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "What is the counselor's MOST appropriate role in the 504 meeting?",
+   "options": {
+    "A": "Decide which accommodations the school is required to provide",
+    "B": "With parental consent, share recommendations for accommodations",
+    "C": "Stay out of the meeting, since it's a school matter",
+    "D": "Share the full clinical record with the school team"
+   },
+   "answer": "B",
+   "rationale": "With parental consent, the counselor can share clinical recommendations to support accommodations. The school team decides what to provide.",
+   "whyNot": {
+    "A": "The school, not the counselor, decides accommodations.",
+    "C": "Collaboration helps the child.",
+    "D": "Share only what's needed, with consent."
+   }
+  },
+  {
+   "n": 72,
+   "case": 6,
+   "section": "Session 2",
+   "domain": "Core Counseling Attributes",
+   "question": "Jayden says, “I'm the bad kid in my class.” Which response is MOST therapeutic?",
+   "options": {
+    "A": "“You're not bad at all. You're a great kid.”",
+    "B": "“Sounds like you feel people see you as the bad kid.”",
+    "C": "“Who told you that you were the bad kid?”",
+    "D": "“If you follow the class rules, you won't be.”"
+   },
+   "answer": "B",
+   "rationale": "A reflection of feeling helps him feel understood and opens up how he sees himself.",
+   "whyNot": {
+    "A": "Reassurance dismisses his experience.",
+    "C": "Shifts to blame and fact-finding.",
+    "D": "Conditional and shaming."
+   }
+  },
+  {
+   "n": 73,
+   "case": 7,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "What is the MOST urgent priority at this point?",
+   "options": {
+    "A": "Develop a meal plan with Emma that she feels comfortable with",
+    "B": "Begin weekly individual therapy to build rapport with Emma",
+    "C": "Explore family dynamics that may be contributing to the restriction",
+    "D": "Coordinate a prompt medical evaluation for medical instability"
+   },
+   "answer": "D",
+   "rationale": "Rapid weight loss, feeling cold, and heavy exercise point to medical risk. Medical stability must be assessed first in an eating disorder.",
+   "whyNot": {
+    "A": "A meal plan comes after medical assessment.",
+    "B": "Rapport matters, but medical risk comes first.",
+    "C": "Family dynamics aren't the urgent priority."
+   }
+  },
+  {
+   "n": 74,
+   "case": 7,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which feature is REQUIRED for a diagnosis of anorexia nervosa?",
+   "options": {
+    "A": "Recurrent episodes of binge eating followed by guilt",
+    "B": "Loss of menstrual periods for three or more cycles",
+    "C": "A body mass index below 15",
+    "D": "Intense fear of weight gain or behavior blocking gain"
+   },
+   "answer": "D",
+   "rationale": "DSM-5-TR requires intense fear of gaining weight or persistent behavior that interferes with weight gain, along with restriction and disturbed body image.",
+   "whyNot": {
+    "A": "Binge eating describes other disorders or the binge-purge subtype.",
+    "B": "Amenorrhea was removed in DSM-5.",
+    "C": "BMI sets severity, not the diagnosis."
+   }
+  },
+  {
+   "n": 75,
+   "case": 7,
+   "section": "Intake",
+   "domain": "Core Counseling Attributes",
+   "question": "Emma insists she is fine. Which response BEST builds the alliance?",
+   "options": {
+    "A": "Acknowledge her perspective with curiosity rather than arguing with her",
+    "B": "Focus on her parents' concerns, since she doesn't see a problem",
+    "C": "Tell her gently that she is in denial about how sick she is",
+    "D": "Show her the weight-loss data to help her see the problem"
+   },
+   "answer": "A",
+   "rationale": "Curiosity about her view, without arguing, lowers defensiveness and builds the alliance.",
+   "whyNot": {
+    "B": "Sidelining her damages engagement.",
+    "C": "Labeling her as in denial raises resistance.",
+    "D": "Confronting her with data tends to backfire."
+   }
+  },
+  {
+   "n": 76,
+   "case": 7,
+   "section": "Intake",
+   "domain": "Professional Practice & Ethics",
+   "question": "How should the counselor handle confidentiality with Emma and her parents?",
+   "options": {
+    "A": "Tell her parents everything she shares in her individual time",
+    "B": "Avoid bringing up confidentiality so she feels comfortable",
+    "C": "Promise Emma that everything she says will stay private",
+    "D": "Explain at the start what stays private and what must be shared"
+   },
+   "answer": "D",
+   "rationale": "With a minor, the counselor should explain up front what stays private and what must be shared, especially safety concerns.",
+   "whyNot": {
+    "A": "Sharing everything destroys trust.",
+    "B": "Avoiding the topic leads to confusion later.",
+    "C": "Absolute promises can't be kept."
+   }
+  },
+  {
+   "n": 77,
+   "case": 7,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "Given the pediatrician's findings, what is the MOST appropriate level of care?",
+   "options": {
+    "A": "Inpatient medical stabilization",
+    "B": "Nutrition counseling only",
+    "C": "An intensive outpatient program",
+    "D": "Continue weekly outpatient counseling"
+   },
+   "answer": "A",
+   "rationale": "A resting heart rate of 44 and orthostatic changes signal medical instability. That meets criteria for inpatient medical stabilization.",
+   "whyNot": {
+    "B": "Doesn't address medical risk.",
+    "C": "Not enough for an unstable patient.",
+    "D": "Not enough for an unstable patient."
+   }
+  },
+  {
+   "n": 78,
+   "case": 7,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "How should the counselor address the coach's “lighter is faster” message?",
+   "options": {
+    "A": "Call the coach without telling Emma, since safety is involved",
+    "B": "Advise Emma to quit the team until she has recovered",
+    "C": "Leave it alone, since coaching is outside counseling",
+    "D": "With consent, coordinate with the coach and medical team"
+   },
+   "answer": "D",
+   "rationale": "With consent, coordinating with the coach and medical team aligns everyone around her health.",
+   "whyNot": {
+    "A": "Contacting him without consent breaches confidentiality.",
+    "B": "Quitting may be premature; the team decides on activity limits.",
+    "C": "The coach's message directly affects treatment."
+   }
+  },
+  {
+   "n": 79,
+   "case": 7,
+   "section": "Session 1",
+   "domain": "Core Counseling Attributes",
+   "question": "The counselor feels uneasy because of her own recent dieting. What should she do?",
+   "options": {
+    "A": "Seek supervision or consultation to address the countertransference",
+    "B": "Refer Emma to another counselor right away",
+    "C": "Share her own dieting experience with Emma to build connection",
+    "D": "Avoid discussing food in session until the wedding is over"
+   },
+   "answer": "A",
+   "rationale": "Countertransference around the counselor's own dieting is best handled in supervision or consultation.",
+   "whyNot": {
+    "B": "Referral is premature.",
+    "C": "Self-disclosure here serves the counselor, not the client.",
+    "D": "Avoiding food content undermines treatment."
+   }
+  },
+  {
+   "n": 80,
+   "case": 7,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "What is the purpose of talking about “the eating disorder” as separate from Emma?",
+   "options": {
+    "A": "To reduce blame so the family can fight the illness, not Emma",
+    "B": "To assess whether Emma has a dissociative process",
+    "C": "To avoid directly discussing Emma's eating behavior",
+    "D": "To communicate that Emma isn't responsible for her recovery"
+   },
+   "answer": "A",
+   "rationale": "Externalizing the illness reduces blame and guilt and unites the family against the disorder. This is a core part of family-based treatment.",
+   "whyNot": {
+    "B": "It isn't a dissociation assessment.",
+    "C": "Eating is discussed directly in FBT.",
+    "D": "She stays part of her recovery."
+   }
+  },
+  {
+   "n": 81,
+   "case": 7,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "In phase 1 of family-based treatment, what is the counselor's primary aim?",
+   "options": {
+    "A": "Have Emma plan her own meals to build her independence",
+    "B": "Empower the parents to take charge of restoring her weight",
+    "C": "Help Emma gain insight into why she restricts her eating",
+    "D": "Treat the parents' marital conflict that surrounds meals"
+   },
+   "answer": "B",
+   "rationale": "Phase 1 of family-based treatment puts parents in charge of weight restoration.",
+   "whyNot": {
+    "A": "Autonomy comes in later phases.",
+    "C": "Insight isn't the phase 1 aim.",
+    "D": "Marital therapy isn't the focus."
+   }
+  },
+  {
+   "n": 82,
+   "case": 7,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Her father shouts, “Just eat!” How should the counselor respond?",
+   "options": {
+    "A": "Coach the parents to use calm, persistent support at meals",
+    "B": "Ask Emma to explain why she won't eat what's served",
+    "C": "Ask the father to leave the session until he can stay calm",
+    "D": "Allow Emma to skip that meal to reduce the conflict"
+   },
+   "answer": "A",
+   "rationale": "Coaching parents in calm, persistent, nonjudgmental meal support is the FBT approach.",
+   "whyNot": {
+    "B": "Asking why invites argument.",
+    "C": "Removing him loses a key support.",
+    "D": "Skipping meals reinforces the illness."
+   }
+  },
+  {
+   "n": 83,
+   "case": 7,
+   "section": "Session 2",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Emma says everyone would be happier without her. What should the counselor do FIRST?",
+   "options": {
+    "A": "Note the comment and continue with the family session",
+    "B": "Reassure her that her family loves her and wants her there",
+    "C": "Tell her parents immediately so they can watch her closely",
+    "D": "Ask her directly about suicidal thoughts, plans, and intent"
+   },
+   "answer": "D",
+   "rationale": "Any statement suggesting suicidal thinking calls for an immediate, direct risk assessment.",
+   "whyNot": {
+    "A": "Ignores possible risk.",
+    "B": "Reassurance skips assessment.",
+    "C": "Assess first, then decide what must be shared."
+   }
+  },
+  {
+   "n": 84,
+   "case": 7,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "Which treatment goal is MOST appropriate at this stage?",
+   "options": {
+    "A": "Emma will stop thinking about food and calories during the day",
+    "B": "Emma will like her body and feel comfortable at her new weight",
+    "C": "Emma will eat whatever she chooses without parental involvement",
+    "D": "Restore weight to the range set by her medical team, tracked weekly"
+   },
+   "answer": "D",
+   "rationale": "Weight restoration to a medically set range, measured weekly, is concrete and fits this stage.",
+   "whyNot": {
+    "A": "Unrealistic now.",
+    "B": "Body acceptance comes later.",
+    "C": "Removing parental oversight contradicts FBT phase 1."
+   }
+  },
+  {
+   "n": 85,
+   "case": 8,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which detail BEST supports schizophrenia rather than schizophreniform disorder?",
+   "options": {
+    "A": "The presence of auditory hallucinations commenting on him",
+    "B": "His fixed belief that he is being monitored by neighbors",
+    "C": "Continuous signs of the disturbance for at least six months",
+    "D": "His withdrawal from school and most social contact"
+   },
+   "answer": "C",
+   "rationale": "Schizophrenia requires continuous signs for at least six months; schizophreniform lasts one to six months. His eight months meets the longer duration.",
+   "whyNot": {
+    "A": "Hallucinations occur in both disorders.",
+    "B": "Delusions occur in both disorders.",
+    "D": "Functional decline occurs in both disorders."
+   }
+  },
+  {
+   "n": 86,
+   "case": 8,
+   "section": "Intake",
+   "domain": "Core Counseling Attributes",
+   "question": "Luis says neighbors watch him through the Wi-Fi. Which response is MOST appropriate?",
+   "options": {
+    "A": "“That isn't possible. A router can't be used to watch people.”",
+    "B": "“Why do you think the neighbors would want to watch you?”",
+    "C": "“I believe you. Let's figure out how to make them stop.”",
+    "D": "“That sounds frightening, feeling watched in your own home.”"
+   },
+   "answer": "D",
+   "rationale": "Responding to the emotion, without arguing with or endorsing the delusion, builds trust.",
+   "whyNot": {
+    "A": "Arguing with a delusion rarely works and harms rapport.",
+    "B": "Probing reinforces the delusion.",
+    "C": "Colludes with the delusion."
+   }
+  },
+  {
+   "n": 87,
+   "case": 8,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which of Luis's symptoms is a NEGATIVE symptom?",
+   "options": {
+    "A": "Belief that neighbors monitor him",
+    "B": "Diminished emotional expression",
+    "C": "Rapid shifts between topics",
+    "D": "Voices commenting on his actions"
+   },
+   "answer": "B",
+   "rationale": "Diminished emotional expression (flat affect) is a negative symptom.",
+   "whyNot": {
+    "A": "A delusion is a positive symptom.",
+    "C": "Disorganized speech is a positive symptom.",
+    "D": "Hallucinations are a positive symptom."
+   }
+  },
+  {
+   "n": 88,
+   "case": 8,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "What should happen before the diagnosis is finalized?",
+   "options": {
+    "A": "A full neuropsychological battery to measure cognitive decline",
+    "B": "A medical evaluation and substance screening to rule out other causes",
+    "C": "Projective personality testing to understand his thought process",
+    "D": "Interviews with his former professors about his functioning"
+   },
+   "answer": "B",
+   "rationale": "A first psychotic episode needs a medical workup and substance screening to rule out other causes.",
+   "whyNot": {
+    "A": "Not required to diagnose.",
+    "C": "Projective tests aren't indicated.",
+    "D": "Not required to diagnose."
+   }
+  },
+  {
+   "n": 89,
+   "case": 8,
+   "section": "Session 1",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Luis's mother consulted a curandero. What is the MOST appropriate response?",
+   "options": {
+    "A": "Tell them spiritual approaches can take the place of medication",
+    "B": "Set it aside as unrelated to Luis's psychiatric treatment",
+    "C": "Advise the family to stop using folk healing during treatment",
+    "D": "Explore the family's beliefs and integrate compatible practices"
+   },
+   "answer": "D",
+   "rationale": "Respecting cultural healing practices and integrating compatible ones strengthens engagement and adherence.",
+   "whyNot": {
+    "A": "Spiritual practice shouldn't replace medication.",
+    "B": "Dismissing it ignores cultural context.",
+    "C": "Banning it risks disengagement."
+   }
+  },
+  {
+   "n": 90,
+   "case": 8,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "Luis dislikes his weight gain. What should the counselor do?",
+   "options": {
+    "A": "Suggest he reduce his dose to limit the side effects",
+    "B": "Recommend a strict diet to reverse the weight gain",
+    "C": "Tell him weight gain is a small price to pay for stability",
+    "D": "Encourage him to raise it with his prescriber"
+   },
+   "answer": "D",
+   "rationale": "Weight gain is a common side effect. The prescriber can adjust or monitor it.",
+   "whyNot": {
+    "A": "Dose changes are the prescriber's decision.",
+    "B": "A strict diet isn't the counselor's to prescribe.",
+    "C": "Dismissing his concern risks nonadherence."
+   }
+  },
+  {
+   "n": 91,
+   "case": 8,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "Luis wants to return to work at his uncle's shop. Which approach is MOST evidence-based?",
+   "options": {
+    "A": "Individual Placement and Support (IPS) supported employment",
+    "B": "Suggest volunteer work only until he is fully stable",
+    "C": "Wait until all of his symptoms have resolved before working",
+    "D": "Place him in a sheltered workshop to build job skills first"
+   },
+   "answer": "A",
+   "rationale": "Individual Placement and Support has the strongest evidence for helping people with serious mental illness find competitive work.",
+   "whyNot": {
+    "B": "Volunteering alone delays real work.",
+    "C": "Full remission isn't required to work.",
+    "D": "Sheltered work has weaker outcomes than IPS."
+   }
+  },
+  {
+   "n": 92,
+   "case": 8,
+   "section": "Session 1",
+   "domain": "Core Counseling Attributes",
+   "question": "Luis says he feels stupid for believing the Wi-Fi idea. Which response is MOST therapeutic?",
+   "options": {
+    "A": "“Many people feel embarrassed looking back. What's that like for you?”",
+    "B": "“It wasn't stupid at all. You were sick at the time.”",
+    "C": "“Good, that means the medication is really working for you.”",
+    "D": "“Let's not dwell on it and focus on moving forward.”"
+   },
+   "answer": "A",
+   "rationale": "Normalizing and inviting exploration supports insight without shaming him.",
+   "whyNot": {
+    "B": "Reassurance closes off discussion.",
+    "C": "Focuses on the medication, not him.",
+    "D": "Avoidance misses a therapeutic moment."
+   }
+  },
+  {
+   "n": 93,
+   "case": 8,
+   "section": "Session 2",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Luis hears voices saying he deserves punishment. What should the counselor do FIRST?",
+   "options": {
+    "A": "Ask what the voices tell him to do and whether he'll act",
+    "B": "Contact his parents to let them know about the voices",
+    "C": "Tell him the voices aren't real and can't hurt him",
+    "D": "Increase session frequency to twice a week for now"
+   },
+   "answer": "A",
+   "rationale": "Command hallucinations about punishment call for an immediate risk assessment: what the voices command and whether he would act on them.",
+   "whyNot": {
+    "B": "Assess before deciding what to disclose.",
+    "C": "Dismissive, and skips assessment.",
+    "D": "Assessment comes first."
+   }
+  },
+  {
+   "n": 94,
+   "case": 8,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Which intervention BEST helps Luis cope with distressing voices?",
+   "options": {
+    "A": "Encourage him to argue back with the voices when they start",
+    "B": "Interpret the symbolic meaning of what the voices say",
+    "C": "Tell him to ignore the voices until they fade",
+    "D": "CBT for psychosis to examine his beliefs about the voices"
+   },
+   "answer": "D",
+   "rationale": "CBT for psychosis helps clients examine and change their beliefs about voices, which reduces distress.",
+   "whyNot": {
+    "A": "Arguing with voices can raise distress.",
+    "B": "Symbolic interpretation isn't evidence-based.",
+    "C": "Ignoring voices is rarely effective."
+   }
+  },
+  {
+   "n": 95,
+   "case": 8,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "Luis's parents ask about coordinated specialty care. Which description is MOST accurate?",
+   "options": {
+    "A": "A medication management clinic run by a psychiatric team",
+    "B": "A residential treatment program for adults with chronic schizophrenia",
+    "C": "Team-based care with therapy, medication, family education, and work support",
+    "D": "A day treatment program for older adults with psychosis"
+   },
+   "answer": "C",
+   "rationale": "Coordinated specialty care for first-episode psychosis is a team approach: therapy, medication, family education, and supported employment or education.",
+   "whyNot": {
+    "A": "Too narrow.",
+    "B": "It isn't residential.",
+    "D": "Not specific to older adults."
+   }
+  },
+  {
+   "n": 96,
+   "case": 8,
+   "section": "Session 2",
+   "domain": "Professional Practice & Ethics",
+   "question": "Luis's parents ask for updates about the voices. How should the counselor respond?",
+   "options": {
+    "A": "Share everything, since they live with him and support him",
+    "B": "Share only what the release allows and suggest a family session",
+    "C": "Refuse to speak with his parents about anything at all",
+    "D": "Share details, since the voices are a safety concern"
+   },
+   "answer": "B",
+   "rationale": "Share only what the release allows, and offer a family session so he can choose what to share.",
+   "whyNot": {
+    "A": "Exceeds his authorization.",
+    "C": "The release allows limited sharing.",
+    "D": "Assess risk first; disclosure must be justified."
+   }
+  },
+  {
+   "n": 97,
+   "case": 9,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which feature BEST distinguishes Hannah's obsessions from generalized worry?",
+   "options": {
+    "A": "They are intrusive, unwanted, and followed by rituals",
+    "B": "They cause significant distress and interfere with functioning",
+    "C": "They involve everyday concerns like work and health",
+    "D": "They get stronger during stressful periods of life"
+   },
+   "answer": "A",
+   "rationale": "Obsessions are intrusive and unwanted, and they drive compulsions. Generalized worry is about real-life concerns without rituals.",
+   "whyNot": {
+    "B": "Distress and impairment occur in both.",
+    "C": "Describes generalized worry.",
+    "D": "Both worsen with stress."
+   }
+  },
+  {
+   "n": 98,
+   "case": 9,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which insight specifier fits Hannah's presentation?",
+   "options": {
+    "A": "With tic-related features",
+    "B": "With absent insight/delusional beliefs",
+    "C": "With poor insight",
+    "D": "With good or fair insight"
+   },
+   "answer": "D",
+   "rationale": "She recognizes that her beliefs are probably untrue: \"I know it's irrational.\"",
+   "whyNot": {
+    "A": "No tics are described.",
+    "B": "She doesn't hold the beliefs with delusional conviction.",
+    "C": "Her insight is good."
+   }
+  },
+  {
+   "n": 99,
+   "case": 9,
+   "section": "Intake",
+   "domain": "Core Counseling Attributes",
+   "question": "Hannah appears ashamed describing her rituals. Which response is MOST helpful?",
+   "options": {
+    "A": "Point out that she already knows the fears are irrational",
+    "B": "Reassure her that the rituals don't sound that bad",
+    "C": "Respond with matter-of-fact curiosity and normalize the symptoms",
+    "D": "Move quickly to another topic to ease her discomfort"
+   },
+   "answer": "C",
+   "rationale": "Matter-of-fact curiosity and normalizing reduce shame and invite disclosure.",
+   "whyNot": {
+    "A": "Shaming.",
+    "B": "Minimizing.",
+    "D": "Avoidance increases shame."
+   }
+  },
+  {
+   "n": 100,
+   "case": 9,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which instrument BEST measures the severity of Hannah's OCD?",
+   "options": {
+    "A": "Mini-Mental State Examination",
+    "B": "Generalized Anxiety Disorder-7",
+    "C": "Beck Anxiety Inventory",
+    "D": "Yale-Brown Obsessive Compulsive Scale"
+   },
+   "answer": "D",
+   "rationale": "The Yale-Brown Obsessive Compulsive Scale is the standard measure of OCD severity.",
+   "whyNot": {
+    "A": "Cognitive screen.",
+    "B": "Generalized anxiety measure.",
+    "C": "General anxiety measure."
+   }
+  },
+  {
+   "n": 101,
+   "case": 9,
+   "section": "Session 1",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "How should Hannah's Y-BOCS score of 26 be interpreted?",
+   "options": {
+    "A": "Moderate range",
+    "B": "Severe range",
+    "C": "Extreme range",
+    "D": "Mild range"
+   },
+   "answer": "B",
+   "rationale": "A Y-BOCS score of 24–31 falls in the severe range.",
+   "whyNot": {
+    "A": "Moderate is 16–23.",
+    "C": "Extreme is 32–40.",
+    "D": "Mild is 8–15."
+   }
+  },
+  {
+   "n": 102,
+   "case": 9,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "Which psychotherapy is FIRST-LINE for Hannah's OCD?",
+   "options": {
+    "A": "Psychodynamic therapy",
+    "B": "Exposure and response prevention",
+    "C": "Supportive counseling",
+    "D": "Thought-stopping techniques"
+   },
+   "answer": "B",
+   "rationale": "Exposure and response prevention is the first-line psychotherapy for OCD.",
+   "whyNot": {
+    "A": "Not first-line.",
+    "C": "Not first-line.",
+    "D": "Not effective and can backfire."
+   }
+  },
+  {
+   "n": 103,
+   "case": 9,
+   "section": "Session 1",
+   "domain": "Counseling Skills & Interventions",
+   "question": "How should the counselor address her husband's accommodation?",
+   "options": {
+    "A": "Explain how accommodation maintains OCD and plan to reduce it",
+    "B": "Tell him to stop all reassurance and help right away",
+    "C": "Praise him for being so supportive of his wife",
+    "D": "Leave him out of treatment, since Hannah is the client"
+   },
+   "answer": "A",
+   "rationale": "Family accommodation maintains OCD. Psychoeducation and a gradual plan to reduce it help.",
+   "whyNot": {
+    "B": "Stopping abruptly can spike distress and conflict.",
+    "C": "Reinforces accommodation.",
+    "D": "Excluding him misses a key factor."
+   }
+  },
+  {
+   "n": 104,
+   "case": 9,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "Which treatment goal is MOST appropriately written?",
+   "options": {
+    "A": "Reduce washing to under 30 minutes a day within 12 weeks",
+    "B": "Hannah will feel less anxious in restaurants and public places",
+    "C": "Hannah will understand why she developed OCD",
+    "D": "Hannah will stop worrying about germs and contamination"
+   },
+   "answer": "A",
+   "rationale": "Specific, measurable, and time-limited.",
+   "whyNot": {
+    "B": "Vague.",
+    "C": "Insight isn't the treatment target.",
+    "D": "Unrealistic and not measurable."
+   }
+  },
+  {
+   "n": 105,
+   "case": 9,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Where should the exposure hierarchy begin?",
+   "options": {
+    "A": "An item that causes her no distress at all",
+    "B": "Whatever her husband thinks she can manage",
+    "C": "The most feared situation, so progress happens faster",
+    "D": "An item she rates as moderately distressing"
+   },
+   "answer": "D",
+   "rationale": "Exposure hierarchies usually begin with a moderately distressing item she can complete.",
+   "whyNot": {
+    "A": "Too easy to produce learning.",
+    "B": "Her ratings should guide the order.",
+    "C": "Starting at the top risks dropout."
+   }
+  },
+  {
+   "n": 106,
+   "case": 9,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Hannah washed her hands five minutes after the exposure. What is the BEST response?",
+   "options": {
+    "A": "Tell her the exposure didn't count because she washed afterward",
+    "B": "Stop ERP for now, since she isn't ready to resist rituals",
+    "C": "Review it, praise her effort, and repeat it with ritual prevention",
+    "D": "Let her wash afterward as long as she completes each exposure"
+   },
+   "answer": "C",
+   "rationale": "Reviewing it, praising her effort, and repeating with response prevention keeps learning on track.",
+   "whyNot": {
+    "A": "Discouraging.",
+    "B": "Premature to stop ERP.",
+    "D": "Allowing rituals undermines the exposure."
+   }
+  },
+  {
+   "n": 107,
+   "case": 9,
+   "section": "Session 2",
+   "domain": "Core Counseling Attributes",
+   "question": "Hannah asks the counselor to promise it's safe. How should the counselor respond?",
+   "options": {
+    "A": "Promise that it's safe to ease her distress in the moment",
+    "B": "Change the subject to her progress this week",
+    "C": "Warmly decline and explain that reassurance feeds OCD",
+    "D": "Tell her that the question itself is irrational"
+   },
+   "answer": "C",
+   "rationale": "Reassurance is a compulsion. Declining warmly and explaining why supports recovery.",
+   "whyNot": {
+    "A": "Reinforces the OCD cycle.",
+    "B": "Avoids teaching the principle.",
+    "D": "Shaming."
+   }
+  },
+  {
+   "n": 108,
+   "case": 9,
+   "section": "Session 2",
+   "domain": "Professional Practice & Ethics",
+   "question": "Hannah asks the counselor to accompany her to a restaurant for an exposure. What is MOST appropriate?",
+   "options": {
+    "A": "Go with her but leave it out of the clinical record",
+    "B": "Plan it with informed consent and a documented rationale",
+    "C": "Refuse, since out-of-office sessions are always unethical",
+    "D": "Make it a social lunch to help her feel more relaxed"
+   },
+   "answer": "B",
+   "rationale": "Out-of-office exposures can be appropriate when planned with informed consent and a documented rationale.",
+   "whyNot": {
+    "A": "Every session must be documented.",
+    "C": "Out-of-office exposure isn't inherently unethical.",
+    "D": "A social lunch crosses boundaries."
+   }
+  },
+  {
+   "n": 109,
+   "case": 10,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which information BEST supports a personality disorder diagnosis rather than a mood episode?",
+   "options": {
+    "A": "Mood changes that happen within a single day",
+    "B": "A history of self-harm during periods of distress",
+    "C": "Having seen several therapists in the past",
+    "D": "A pervasive pattern that began in adolescence"
+   },
+   "answer": "D",
+   "rationale": "Personality disorders are pervasive, enduring patterns that begin by adolescence or early adulthood.",
+   "whyNot": {
+    "A": "Mood shifts occur in many conditions.",
+    "B": "Self-harm isn't specific to BPD.",
+    "C": "Doesn't establish a diagnosis."
+   }
+  },
+  {
+   "n": 110,
+   "case": 10,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "What is the FIRST clinical priority during intake?",
+   "options": {
+    "A": "Complete a personality inventory to confirm the diagnosis",
+    "B": "Explore her family history and early attachments",
+    "C": "Review what went wrong with her past therapists",
+    "D": "Assess her current self-harm and suicide risk"
+   },
+   "answer": "D",
+   "rationale": "Her self-harm history makes current safety the first priority.",
+   "whyNot": {
+    "A": "Testing comes after safety.",
+    "B": "History comes after safety.",
+    "C": "Not the first priority."
+   }
+  },
+  {
+   "n": 111,
+   "case": 10,
+   "section": "Intake",
+   "domain": "Treatment Planning",
+   "question": "Which treatment has the STRONGEST evidence for Alyssa's presentation?",
+   "options": {
+    "A": "Exposure and response prevention",
+    "B": "Nondirective supportive therapy",
+    "C": "Brief solution-focused therapy",
+    "D": "Dialectical behavior therapy (DBT)"
+   },
+   "answer": "D",
+   "rationale": "Dialectical behavior therapy has the strongest evidence for BPD with self-harm.",
+   "whyNot": {
+    "A": "Treats OCD.",
+    "B": "Lacks the structure BPD treatment needs.",
+    "C": "Not evidence-based for BPD."
+   }
+  },
+  {
+   "n": 112,
+   "case": 10,
+   "section": "Intake",
+   "domain": "Professional Practice & Ethics",
+   "question": "What should the counselor do about contact between sessions?",
+   "options": {
+    "A": "Promise to answer any message as soon as possible",
+    "B": "Decide how to handle contact case by case as it happens",
+    "C": "Set a clear written policy on contact during informed consent",
+    "D": "Refuse all contact of any kind outside of sessions"
+   },
+   "answer": "C",
+   "rationale": "A clear written contact policy set during informed consent prevents misunderstanding.",
+   "whyNot": {
+    "A": "Unrealistic and boundary-blurring.",
+    "B": "Inconsistency invites conflict.",
+    "D": "Too rigid; DBT includes structured coaching."
+   }
+  },
+  {
+   "n": 113,
+   "case": 10,
+   "section": "Session 1",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Alyssa arrives angry that the counselor didn't answer her texts. Which response is MOST validating?",
+   "options": {
+    "A": "“I'm not available on weekends, which we talked about when we started.”",
+    "B": "“Let's talk about what really upset you about the breakup.”",
+    "C": "“You were hurting and reached out, and my silence felt like being left.”",
+    "D": "“Fourteen texts in one weekend is more than I can respond to.”"
+   },
+   "answer": "C",
+   "rationale": "Validating her emotional experience, the hurt and the sense of being abandoned, de-escalates and repairs the rupture.",
+   "whyNot": {
+    "A": "Defensive and rule-focused.",
+    "B": "Skips her immediate feelings.",
+    "D": "Invalidating."
+   }
+  },
+  {
+   "n": 114,
+   "case": 10,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "What is the purpose of DBT phone coaching?",
+   "options": {
+    "A": "A way to process trauma memories as they come up",
+    "B": "An unlimited emotional support line for difficult moments",
+    "C": "A replacement for weekly individual sessions",
+    "D": "Brief help applying skills in the moment, within clear limits"
+   },
+   "answer": "D",
+   "rationale": "DBT phone coaching is brief, skills-focused help in the moment, within clear limits.",
+   "whyNot": {
+    "A": "It isn't for trauma processing.",
+    "B": "It isn't unlimited.",
+    "C": "It doesn't replace sessions."
+   }
+  },
+  {
+   "n": 115,
+   "case": 10,
+   "section": "Session 1",
+   "domain": "Core Counseling Attributes",
+   "question": "The counselor feels drained and irritated. What is the BEST action?",
+   "options": {
+    "A": "Shorten her sessions to manage the counselor's energy",
+    "B": "Transfer Alyssa to another counselor on the team",
+    "C": "Bring it to consultation, such as the DBT consultation team",
+    "D": "Tell Alyssa honestly that she is exhausting to work with"
+   },
+   "answer": "C",
+   "rationale": "The DBT consultation team exists to support therapists and maintain treatment quality.",
+   "whyNot": {
+    "A": "Punitive to the client.",
+    "B": "Abandonment risk.",
+    "D": "Harmful."
+   }
+  },
+  {
+   "n": 116,
+   "case": 10,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "What is the main purpose of Alyssa's diary card?",
+   "options": {
+    "A": "To track urges, behaviors, and skill use",
+    "B": "To give the counselor evidence of noncompliance",
+    "C": "To replace verbal reports about her week",
+    "D": "To teach her the habit of daily journaling"
+   },
+   "answer": "A",
+   "rationale": "The diary card tracks urges, behaviors, and skill use to guide session priorities.",
+   "whyNot": {
+    "B": "It isn't for surveillance.",
+    "C": "It complements verbal reports.",
+    "D": "It isn't general journaling."
+   }
+  },
+  {
+   "n": 117,
+   "case": 10,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "Which issue from the diary card should be addressed FIRST?",
+   "options": {
+    "A": "The missed work shift",
+    "B": "Her urges to self-harm",
+    "C": "Her feelings about the counselor",
+    "D": "The fight with her sister"
+   },
+   "answer": "B",
+   "rationale": "DBT's target hierarchy puts life-threatening behavior first, including urges to self-harm.",
+   "whyNot": {
+    "A": "Lower priority.",
+    "C": "Therapy-interfering issues come after life-threatening ones.",
+    "D": "Lower priority."
+   }
+  },
+  {
+   "n": 118,
+   "case": 10,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Which DBT skills module helps Alyssa get through a crisis without making it worse?",
+   "options": {
+    "A": "Walking the middle path",
+    "B": "Distress tolerance",
+    "C": "Interpersonal effectiveness",
+    "D": "Emotion regulation"
+   },
+   "answer": "B",
+   "rationale": "Distress tolerance skills help her survive a crisis without making it worse.",
+   "whyNot": {
+    "A": "Used in adolescent DBT, not crisis survival.",
+    "C": "For relationships.",
+    "D": "For changing emotions."
+   }
+  },
+  {
+   "n": 119,
+   "case": 10,
+   "section": "Session 2",
+   "domain": "Core Counseling Attributes",
+   "question": "Alyssa says the counselor is the only one who really gets her. What is the BEST response?",
+   "options": {
+    "A": "Tell her that isn't true and that others understand her too",
+    "B": "Acknowledge the connection and explore support outside therapy",
+    "C": "Agree and encourage her to rely on sessions for support",
+    "D": "Let the comment pass and return to the diary card"
+   },
+   "answer": "B",
+   "rationale": "Acknowledging the connection while building outside support prevents over-reliance on therapy.",
+   "whyNot": {
+    "A": "Invalidating.",
+    "C": "Fosters dependence.",
+    "D": "Misses the moment."
+   }
+  },
+  {
+   "n": 120,
+   "case": 10,
+   "section": "Session 2",
+   "domain": "Professional Practice & Ethics",
+   "question": "Alyssa asks to follow the counselor's personal Instagram. How should the counselor respond?",
+   "options": {
+    "A": "Block her account without explaining the reason",
+    "B": "Discuss it openly, decline, and review the social media policy",
+    "C": "Leave the question unanswered and move on",
+    "D": "Accept the request, since the account is public anyway"
+   },
+   "answer": "B",
+   "rationale": "Discussing it openly, declining, and reviewing the social media policy keeps the boundary clear and the alliance intact.",
+   "whyNot": {
+    "A": "Rejecting without explanation.",
+    "C": "Avoidance.",
+    "D": "A boundary violation."
+   }
+  },
+  {
+   "n": 121,
+   "case": 11,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Which information BEST supports adjustment disorder rather than major depressive disorder?",
+   "options": {
+    "A": "He is worried about being a burden on his daughter",
+    "B": "He is tearful and irritable with staff and other residents",
+    "C": "He has no prior history of depression or anxiety",
+    "D": "Onset within three months of a clear stressor, with no other disorder"
+   },
+   "answer": "D",
+   "rationale": "Adjustment disorder starts within three months of a stressor and doesn't meet criteria for another disorder. He sleeps well, still enjoys baseball, and his symptoms began after the move.",
+   "whyNot": {
+    "A": "Burden worries occur in many conditions.",
+    "B": "Tearfulness and irritability aren't specific.",
+    "C": "A lack of history doesn't distinguish the two."
+   }
+  },
+  {
+   "n": 122,
+   "case": 11,
+   "section": "Intake",
+   "domain": "Core Counseling Attributes",
+   "question": "The staff counselor assumes Walter's sadness comes with his age. What does this reflect?",
+   "options": {
+    "A": "Cultural humility toward the older generation",
+    "B": "Appropriate clinical judgment about older clients",
+    "C": "An accurate view of emotional changes that come with late life",
+    "D": "Ageist bias that could cause treatable distress to be missed"
+   },
+   "answer": "D",
+   "rationale": "Assuming sadness is normal with age is ageism, and it risks missing treatable distress.",
+   "whyNot": {
+    "A": "It isn't cultural humility.",
+    "B": "It isn't sound judgment.",
+    "C": "Depression isn't a normal part of aging."
+   }
+  },
+  {
+   "n": 123,
+   "case": 11,
+   "section": "Intake",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Given Walter's recent stroke, which additional screening is MOST important?",
+   "options": {
+    "A": "A substance use screen and nothing further",
+    "B": "A career interest inventory to identify new activities",
+    "C": "A personality inventory to understand his coping style",
+    "D": "A brief cognitive screen such as the MoCA"
+   },
+   "answer": "D",
+   "rationale": "After a stroke, a brief cognitive screen such as the MoCA is important.",
+   "whyNot": {
+    "A": "Too narrow.",
+    "B": "Not a priority.",
+    "C": "Not a priority."
+   }
+  },
+  {
+   "n": 124,
+   "case": 11,
+   "section": "Intake",
+   "domain": "Treatment Planning",
+   "question": "Which approach is especially well suited to Walter?",
+   "options": {
+    "A": "Problem-solving therapy combined with life review",
+    "B": "Long-term psychoanalysis",
+    "C": "Exposure and response prevention",
+    "D": "Eye movement desensitization and reprocessing"
+   },
+   "answer": "A",
+   "rationale": "Problem-solving therapy and life review are effective for older adults adjusting to loss.",
+   "whyNot": {
+    "B": "Not suited to his goals.",
+    "C": "For OCD.",
+    "D": "For trauma."
+   }
+  },
+  {
+   "n": 125,
+   "case": 11,
+   "section": "Session 1",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "Walter asks, “At my age, what's the point?” What should the counselor do?",
+   "options": {
+    "A": "Reassure him that he has a lot to live for",
+    "B": "Change the subject to his hobbies",
+    "C": "Consider it a normal part of aging",
+    "D": "Ask directly about suicidal thoughts"
+   },
+   "answer": "D",
+   "rationale": "Hopeless statements in an older man with recent losses call for a direct suicide risk assessment.",
+   "whyNot": {
+    "A": "Reassurance before assessment.",
+    "B": "Avoidance.",
+    "C": "Dismisses risk."
+   }
+  },
+  {
+   "n": 126,
+   "case": 11,
+   "section": "Session 1",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Walter talks about missing his workshop and independence. Which response BEST reflects his experience?",
+   "options": {
+    "A": "“You've lost a lot that made you feel like yourself.”",
+    "B": "“Maybe you can find a new hobby to replace it.”",
+    "C": "“A lot of residents here feel the same way.”",
+    "D": "“At least you're safe and cared for here.”"
+   },
+   "answer": "A",
+   "rationale": "Reflecting his losses of identity and independence shows accurate empathy.",
+   "whyNot": {
+    "B": "Premature problem-solving.",
+    "C": "Generalizing.",
+    "D": "Minimizing."
+   }
+  },
+  {
+   "n": 127,
+   "case": 11,
+   "section": "Session 1",
+   "domain": "Counseling Skills & Interventions",
+   "question": "His daughter says he just needs to accept it. How should the counselor respond?",
+   "options": {
+    "A": "Explain the adjustment process and how to support his autonomy",
+    "B": "Agree that acceptance is the goal of counseling",
+    "C": "Exclude her from his care to protect his independence",
+    "D": "Tell her that she's being unsupportive of her father"
+   },
+   "answer": "A",
+   "rationale": "Psychoeducation about adjustment and supporting his autonomy helps the daughter support him.",
+   "whyNot": {
+    "B": "Acceptance isn't simply forced.",
+    "C": "Excluding her loses support.",
+    "D": "Blaming."
+   }
+  },
+  {
+   "n": 128,
+   "case": 11,
+   "section": "Session 1",
+   "domain": "Treatment Planning",
+   "question": "What should the counselor do about Walter forgetting caregivers' names?",
+   "options": {
+    "A": "Diagnose a mild neurocognitive disorder",
+    "B": "Screen his cognition and coordinate with his medical team",
+    "C": "Assume it's a normal part of aging for someone who is 72",
+    "D": "Ignore it, since he's still adjusting to the move"
+   },
+   "answer": "B",
+   "rationale": "New forgetfulness after a stroke needs screening and medical coordination.",
+   "whyNot": {
+    "A": "Premature.",
+    "C": "Ageist.",
+    "D": "Misses possible impairment."
+   }
+  },
+  {
+   "n": 129,
+   "case": 11,
+   "section": "Session 2",
+   "domain": "Intake, Assessment & Diagnosis",
+   "question": "How should Walter's MoCA score of 23 be interpreted?",
+   "options": {
+    "A": "Possible impairment that needs further evaluation",
+    "B": "Confirmation of a dementia diagnosis",
+    "C": "Severe cognitive impairment",
+    "D": "Normal cognitive functioning for his age"
+   },
+   "answer": "A",
+   "rationale": "A MoCA score below 26 suggests possible impairment that needs further evaluation. It doesn't diagnose dementia.",
+   "whyNot": {
+    "B": "Screens don't diagnose.",
+    "C": "23 isn't severe.",
+    "D": "Below the usual cutoff."
+   }
+  },
+  {
+   "n": 130,
+   "case": 11,
+   "section": "Session 2",
+   "domain": "Treatment Planning",
+   "question": "Which goal BEST builds on Walter's progress?",
+   "options": {
+    "A": "Walter will accept that he can no longer drive himself",
+    "B": "Walter will improve his relationships with staff and residents",
+    "C": "Walter will stop feeling sad about the move",
+    "D": "Attend the weekly VFW group at least three times in the next month"
+   },
+   "answer": "D",
+   "rationale": "Specific, measurable, and built on his interest.",
+   "whyNot": {
+    "A": "Imposed, not his goal.",
+    "B": "Vague.",
+    "C": "Unrealistic."
+   }
+  },
+  {
+   "n": 131,
+   "case": 11,
+   "section": "Session 2",
+   "domain": "Counseling Skills & Interventions",
+   "question": "Walter plans to drive again against medical advice. What is the MOST appropriate response?",
+   "options": {
+    "A": "Report him to the state licensing agency",
+    "B": "Tell him he isn't allowed to drive after his stroke",
+    "C": "Explore what driving means to him and encourage a driving evaluation",
+    "D": "Support his decision, since it's his right to choose"
+   },
+   "answer": "C",
+   "rationale": "Exploring what driving means to him and encouraging a formal driving evaluation balances autonomy and safety.",
+   "whyNot": {
+    "A": "Premature.",
+    "B": "Not the counselor's authority.",
+    "D": "Ignores safety."
+   }
+  },
+  {
+   "n": 132,
+   "case": 11,
+   "section": "Session 2",
+   "domain": "Professional Practice & Ethics",
+   "question": "The administrator wants details of Walter's sessions for a staff meeting. What should the counselor do?",
+   "options": {
+    "A": "Share the details, since staff need them to care for him",
+    "B": "Refuse to share anything under any circumstances",
+    "C": "Share everything, since the facility employs the counselor",
+    "D": "Share only the minimum necessary, with Walter's consent"
+   },
+   "answer": "D",
+   "rationale": "Share only the minimum necessary, with his consent.",
+   "whyNot": {
+    "A": "Too much without consent.",
+    "B": "Some sharing may be appropriate with consent.",
+    "C": "Employment doesn't override confidentiality."
+   }
+  }
+ ]
+}
