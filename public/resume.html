@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Résumé Builder | PassReady Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{
+  --slate-900:#0F172A;--slate-800:#1E293B;--slate-700:#334155;--slate-600:#475569;
+  --slate-500:#64748B;--slate-400:#94A3B8;--slate-300:#CBD5E1;--slate-200:#E2E8F0;--white:#F8FAFC;
+  --emerald:#10B981;--emerald-400:#34D399;--blue-400:#60A5FA;--blue:#3B82F6;
+  --amber:#F59E0B;--amber-400:#FBBF24;--red:#EF4444;--red-400:#F87171;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --r-xl:16px;--r-lg:12px;--r-md:10px;
+  --card:rgba(30,41,59,.55);--card-border:rgba(51,65,85,.6);
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:linear-gradient(160deg,#0F172A,#1E293B 50%,#0F172A);
+  background-attachment:fixed;color:var(--slate-200);font-family:var(--sans);font-size:16px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding:18px 16px 80px}
+a{color:var(--emerald-400)}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 20px;flex-wrap:wrap}
+.bw{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+.bc{width:38px;height:38px;border-radius:11px;background:rgba(16,185,129,.16);display:grid;place-items:center}
+.bc svg{width:21px;height:21px;color:var(--emerald-400)}
+.bn{font-weight:700;font-size:18px;color:var(--white)}.bn .p{color:var(--emerald-400)}
+.hdr-r{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+h1{font-size:26px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spacing:-.01em}
+h2{font-size:18px;margin:0 0 10px;color:var(--white)}
+.lead{color:var(--slate-400);margin:0 0 16px}
+.muted{color:var(--slate-400)}
+.small{font-size:13px}
+.card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-xl);padding:18px 20px;margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font:inherit;font-weight:700;
+  background:var(--emerald);color:#04261C;border:none;border-radius:var(--r-md);padding:12px 22px;transition:background .15s;text-decoration:none}
+.btn:hover{background:var(--emerald-400)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn-s{background:rgba(51,65,85,.5);color:var(--slate-200)}.btn-s:hover{background:rgba(51,65,85,.8)}
+.btn-sm{padding:8px 14px;font-size:14px}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:4px 10px;border-radius:999px;text-transform:uppercase}
+.b-em{color:var(--emerald-400);background:rgba(16,185,129,.15)}
+.banner{border-radius:var(--r-lg);padding:12px 16px;margin-bottom:14px;font-size:14.5px;border:1px solid}
+.banner.info{background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.3)}
+.banner.warn{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.3)}
+.banner.ok{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.3)}
+.dom{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(51,65,85,.45)}
+.dom:last-child{border-bottom:none}
+.dom-name{font-weight:700;color:var(--white)}
+.dom-sub{font-size:12.5px;color:var(--slate-400)}
+.pct-bar{height:6px;border-radius:3px;background:rgba(51,65,85,.5);margin-top:6px}
+.pct-fill{height:6px;border-radius:3px;background:var(--emerald)}
+.pct-fill.mid{background:var(--amber)}.pct-fill.low{background:var(--red-400)}
+/* form fields — same treatment as the date input on the NCE dashboard */
+label{display:block;font-size:12.5px;font-weight:700;color:var(--slate-300);margin:10px 0 4px}
+input,textarea{font:inherit;font-size:14.5px;background:rgba(15,23,42,.6);color:var(--white);border:1px solid var(--card-border);
+  border-radius:8px;padding:9px 11px;width:100%}
+textarea{resize:vertical;min-height:70px}
+input:focus,textarea:focus{outline:2px solid var(--emerald-400);outline-offset:1px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media (max-width:600px){.grid2{grid-template-columns:1fr}}
+.entry{border-top:1px solid rgba(51,65,85,.45);padding-top:6px;margin-top:12px}
+.entry:first-child{border-top:none;margin-top:0;padding-top:0}
+.row-end{display:flex;justify-content:flex-end;margin-top:8px}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="bw" href="/study">
+      <span class="bc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l-6-6 6-6"/><path d="M3 12h18"/></svg></span>
+      <span class="bn">PassReady<span class="p"> Prep</span></span>
+    </a>
+    <div class="hdr-r">
+      <span class="badge b-em">Résumé</span>
+      <a class="btn btn-s btn-sm" href="/study">NCMHCE study</a>
+      <a class="btn btn-s btn-sm" href="/nce.html">NCE study</a>
+    </div>
+  </header>
+
+  <h1>Résumé builder</h1>
+  <p class="lead">You put in the work. Turn your strongest clinical areas into a polished, one-page résumé, ready to download as a PDF.</p>
+
+  <div id="stage"><div class="card"><p class="muted" style="margin:0">Loading…</p></div></div>
+</div>
+
+<script>
+(function(){
+  var TOKEN = null;
+  try { TOKEN = localStorage.getItem('prp_token'); } catch(e) {}
+  var DRAFT_KEY = 'prp_resume_draft';
+  var stage = document.getElementById('stage');
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function $(id){ return document.getElementById(id); }
+
+  if (!TOKEN) {
+    stage.innerHTML = '<div class="banner info">Sign in to use the résumé builder. <a href="/register.html?next=/resume.html">Sign in or create an account</a></div>';
+    return;
+  }
+
+  fetch('/api/resume/eligibility', { headers: { Authorization: 'Bearer ' + TOKEN } })
+    .then(function(r){
+      if (r.status === 401) { stage.innerHTML = '<div class="banner warn">Your session expired. <a href="/register.html?next=/resume.html">Sign in again</a></div>'; return null; }
+      return r.json();
+    })
+    .then(function(e){ if (e) (e.eligible ? renderForm(e) : renderLocked(e)); })
+    .catch(function(){ stage.innerHTML = '<div class="banner warn">Could not load the résumé builder. Please try again.</div>'; });
+
+  // ── Locked: show where they stand on each exam ──────────────────────────
+  function examRow(name, ex, readyAt, href){
+    var r = ex.readiness, cls = r == null ? 'low' : r >= 70 ? '' : r >= 50 ? 'mid' : 'low';
+    var sub = !ex.paid ? 'Needs a paid ' + name + ' plan' : r == null ? 'No practice yet' : (r >= readyAt ? 'Exam ready' : (readyAt - r) + ' points to Exam ready');
+    return '<div class="dom"><div><div class="dom-name">' + name + ' readiness: ' + (r == null ? '—' : r + '%') + '</div>' +
+      '<div class="dom-sub">' + esc(sub) + '</div>' +
+      '<div class="pct-bar"><div class="pct-fill ' + cls + '" style="width:' + (r || 0) + '%"></div></div></div>' +
+      '<a class="btn btn-s btn-sm" href="' + href + '">Keep practicing</a></div>';
+  }
+  function renderLocked(e){
+    stage.innerHTML = '<div class="card"><h2>Unlocks when you are exam ready</h2>' +
+      '<p class="muted small" style="margin-top:-4px">The résumé builder opens on a paid plan once your readiness reaches ' + e.readyAt + '% (Exam ready) on the NCMHCE or the NCE, or once your passing score report is recorded.</p>' +
+      examRow('NCMHCE', e.exams.ncmhce, e.readyAt, '/study') +
+      examRow('NCE', e.exams.nce, e.readyAt, '/nce.html') + '</div>';
+  }
+
+  // ── Form ────────────────────────────────────────────────────────────────
+  var state;
+  function loadDraft(){ try { return JSON.parse(localStorage.getItem(DRAFT_KEY)) || null; } catch(e) { return null; } }
+  function saveDraft(){ try { localStorage.setItem(DRAFT_KEY, JSON.stringify(state)); } catch(e) {} }
+
+  function field(id, label, value, opts){
+    opts = opts || {};
+    var attrs = ' id="' + id + '" data-k="' + id + '"' + (opts.ph ? ' placeholder="' + esc(opts.ph) + '"' : '') + (opts.max ? ' maxlength="' + opts.max + '"' : '');
+    return '<div><label for="' + id + '">' + label + '</label>' + (opts.area
+      ? '<textarea' + attrs + ' rows="' + (opts.rows || 3) + '">' + esc(value) + '</textarea>'
+      : '<input' + attrs + ' value="' + esc(value) + '">') + '</div>';
+  }
+
+  function renderForm(e){
+    state = loadDraft() || {
+      name: '', credentials: '', email: '', phone: '', location: '', link: '',
+      summary: '', strengths: (e.strengths || []).join('\n'), licensure: '',
+      experience: [{ title: '', org: '', location: '', dates: '', bullets: '' }],
+      education: [{ degree: '', school: '', year: '' }],
+    };
+    if (!state.strengths && e.strengths && e.strengths.length) state.strengths = e.strengths.join('\n');
+    draw(e);
+  }
+
+  function draw(e){
+    var exp = state.experience.map(function(x, i){
+      return '<div class="entry" data-exp="' + i + '"><div class="grid2">' +
+        field('exp-title-' + i, 'Title', x.title, { ph: 'Counseling Intern', max: 100 }) +
+        field('exp-org-' + i, 'Organization', x.org, { ph: 'Community Wellness Center', max: 120 }) +
+        field('exp-location-' + i, 'Location', x.location, { ph: 'City, State', max: 80 }) +
+        field('exp-dates-' + i, 'Dates', x.dates, { ph: '2025 – 2026', max: 60 }) + '</div>' +
+        field('exp-bullets-' + i, 'What you did (one per line)', x.bullets, { area: true, rows: 3 }) +
+        (state.experience.length > 1 ? '<div class="row-end"><button class="btn btn-s btn-sm" data-del-exp="' + i + '">Remove</button></div>' : '') + '</div>';
+    }).join('');
+    var edu = state.education.map(function(x, i){
+      return '<div class="entry" data-edu="' + i + '"><div class="grid2">' +
+        field('edu-degree-' + i, 'Degree', x.degree, { ph: 'M.A., Clinical Mental Health Counseling', max: 120 }) +
+        field('edu-school-' + i, 'School', x.school, { max: 120 }) + '</div>' +
+        field('edu-year-' + i, 'Year', x.year, { max: 40 }) +
+        (state.education.length > 1 ? '<div class="row-end"><button class="btn btn-s btn-sm" data-del-edu="' + i + '">Remove</button></div>' : '') + '</div>';
+    }).join('');
+
+    stage.innerHTML =
+      '<div class="banner ok">Unlocked. Your strongest clinical areas are filled in below as résumé-ready skills. Edit anything before you download.</div>' +
+      '<div class="card"><h2>About you</h2><div class="grid2">' +
+        field('name', 'Full name', state.name, { max: 80 }) +
+        field('credentials', 'Degrees and credentials', state.credentials, { ph: 'MA, LPC-Associate', max: 80 }) +
+        field('email', 'Email', state.email, { max: 120 }) +
+        field('phone', 'Phone', state.phone, { max: 40 }) +
+        field('location', 'City, State', state.location, { max: 80 }) +
+        field('link', 'LinkedIn or website (optional)', state.link, { max: 160 }) + '</div>' +
+        field('summary', 'Professional summary', state.summary, { area: true, rows: 4, ph: 'Two or three sentences on who you serve and how you work.' }) + '</div>' +
+      '<div class="card"><h2>Clinical strengths</h2><p class="muted small" style="margin:-4px 0 0">Drawn from your strongest practice areas. One per line; edit or add your own.</p>' +
+        field('strengths', 'Strengths', state.strengths, { area: true, rows: 4 }) + '</div>' +
+      '<div class="card"><h2>Licensure and certification</h2><p class="muted small" style="margin:-4px 0 0">List only what you hold, or say "anticipated" with a date. One per line.</p>' +
+        field('licensure', 'Licenses and certifications', state.licensure, { area: true, rows: 3, ph: 'Licensed Professional Counselor Associate (State), 2026' }) + '</div>' +
+      '<div class="card"><h2>Experience</h2>' + exp + '<div class="row-end"><button class="btn btn-s btn-sm" id="add-exp">Add experience</button></div></div>' +
+      '<div class="card"><h2>Education</h2>' + edu + '<div class="row-end"><button class="btn btn-s btn-sm" id="add-edu">Add education</button></div></div>' +
+      '<div class="actions"><button class="btn" id="download">Download PDF</button><span id="status" class="muted small"></span></div>';
+
+    Array.prototype.forEach.call(stage.querySelectorAll('input,textarea'), function(el){
+      el.addEventListener('input', function(){ read(); saveDraft(); });
+    });
+    $('add-exp').onclick = function(){ read(); if (state.experience.length < 8) state.experience.push({ title:'', org:'', location:'', dates:'', bullets:'' }); saveDraft(); draw(e); };
+    $('add-edu').onclick = function(){ read(); if (state.education.length < 5) state.education.push({ degree:'', school:'', year:'' }); saveDraft(); draw(e); };
+    Array.prototype.forEach.call(stage.querySelectorAll('[data-del-exp]'), function(b){ b.onclick = function(){ read(); state.experience.splice(+b.getAttribute('data-del-exp'), 1); saveDraft(); draw(e); }; });
+    Array.prototype.forEach.call(stage.querySelectorAll('[data-del-edu]'), function(b){ b.onclick = function(){ read(); state.education.splice(+b.getAttribute('data-del-edu'), 1); saveDraft(); draw(e); }; });
+    $('download').onclick = download;
+  }
+
+  function val(id){ var el = $(id); return el ? el.value : ''; }
+  function read(){
+    ['name','credentials','email','phone','location','link','summary','strengths','licensure'].forEach(function(k){ state[k] = val(k); });
+    state.experience = state.experience.map(function(_, i){ return { title: val('exp-title-'+i), org: val('exp-org-'+i), location: val('exp-location-'+i), dates: val('exp-dates-'+i), bullets: val('exp-bullets-'+i) }; });
+    state.education = state.education.map(function(_, i){ return { degree: val('edu-degree-'+i), school: val('edu-school-'+i), year: val('edu-year-'+i) }; });
+  }
+
+  function download(){
+    read(); saveDraft();
+    var st = $('status'), btn = $('download');
+    if (!state.name.trim()) { st.textContent = 'Add your name first.'; $('name').focus(); return; }
+    btn.disabled = true; st.textContent = 'Building your PDF…';
+    var body = Object.assign({}, state, {
+      experience: state.experience.map(function(x){ return Object.assign({}, x, { bullets: x.bullets.split('\n') }); }),
+    });
+    fetch('/api/resume/pdf', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + TOKEN }, body: JSON.stringify(body) })
+      .then(function(r){
+        if (!r.ok) return r.json().catch(function(){ return {}; }).then(function(j){ throw new Error(j.error || 'Could not build the PDF'); });
+        var name = (r.headers.get('Content-Disposition') || '').match(/filename="([^"]+)"/);
+        return r.blob().then(function(b){ return { blob: b, name: name ? name[1] : 'Resume.pdf' }; });
+      })
+      .then(function(f){
+        var url = URL.createObjectURL(f.blob), a = document.createElement('a');
+        a.href = url; a.download = f.name; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+        st.textContent = 'Downloaded.';
+      })
+      .catch(function(err){ st.textContent = err.message; })
+      .then(function(){ btn.disabled = false; });
+  }
+})();
+</script>
+</body>
+</html>
