@@ -11,6 +11,7 @@ const SOURCES = [
   { label: 'NCMHCE Content Outline', url: 'https://nbcc.org/assets/exam/ncmhce_content_outline.pdf' },
   { label: '2027 NCMHCE Exam Specifications', url: 'https://nbcc.org/assets/exam/NCMHCE_exam_spec_2027.pdf' },
   { label: 'NCE Candidate Handbook', url: 'https://nbcc.org/assets/exam/handbooks/nce.pdf' },
+  { label: 'CCE NCMHCE page', url: 'https://www.cce-global.org/assessmentsandexams/ncmhce' },
 ];
 
 const FACTS = [
@@ -22,7 +23,7 @@ const FACTS = [
   'The current NCMHCE allows 225 minutes to answer the cases, with one scheduled 15-minute break after the fifth case. The total test session is 255 minutes (4 hours 15 minutes), including the nondisclosure agreement and tutorial.',
   'The NCMHCE is criterion-referenced. Its passing score is set by a panel of subject matter experts using the Angoff standard-setting method, and statistical equating adjusts the cut score for each exam form, so a raw percentage does not translate directly into pass or fail.',
   'The current NCMHCE content domains, from most to least heavily weighted: Counseling Skills and Interventions; Intake, Assessment, and Diagnosis; then Professional Practice and Ethics, Treatment Planning, and Core Counseling Attributes (equal weight). A sixth domain, Areas of Clinical Focus, is covered through the diagnoses and scenarios in the cases rather than by individual questions.',
-  'Candidates get an unofficial score report when they finish testing, showing a preliminary pass/fail status and general feedback by content domain. Official results are reported to the state licensing board.',
+  'Candidates get an unofficial score report when they finish testing, showing a preliminary pass/fail status and general feedback by content domain. Official scores are reported to the state licensing board automatically, within about 30 days after the monthly testing window closes, once the test session has been verified.',
   'After a failed attempt, a candidate may re-register right away but must wait 30 days from the test date to retest. For state licensure, the state board decides how many attempts are allowed.',
   'At a test center, candidates need two original, unexpired IDs: a government-issued primary ID with name, photo, and signature, and a secondary ID with name and signature. The name on the IDs must exactly match the registration name.',
   // NCMHCE — 2027 format

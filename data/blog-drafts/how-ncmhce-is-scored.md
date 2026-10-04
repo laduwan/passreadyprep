@@ -15,7 +15,7 @@ One note before we start. Scoring rules are set by NBCC, which administers the e
 - **How are individual answers scored?** According to NBCC's handbook, each of the 100 scored questions counts for one score point.
 - **How is the passing score set?** A panel of subject matter experts sets it through a standard-setting process (the Angoff method), judging how a minimally qualified counselor would perform on each question. Statistical equating then adjusts the cut score for each exam form.
 - **What does your score report show?** A preliminary pass or fail status, plus general feedback on your performance in each content domain.
-- **How long until you get results?** You receive an unofficial score report when you finish testing. Official results follow through NBCC, which reports them to your state licensing board.
+- **How long until you get results?** You receive an unofficial score report when you finish testing. Official scores go to your state licensing board automatically, within about 30 days after that month's testing window closes, once your test session has been verified.
 - **What if you don't pass?** You can register again right away, but you must wait 30 days from your test date to retest. For state licensure, your state board decides how many attempts you get.
 
 If you test on or after July 1, 2027, expect changes. The 2027 exam has 10 case studies, reports a scaled score from 100 to 500 with 360 as the passing point, and uses a new set of content domains. A scaled score is not a percentage: 400 does not mean 80 percent correct.
@@ -78,4 +78,4 @@ You don't need to memorize a scoring formula to do well on the NCMHCE. You need 
 
 ---
 
-*Exam details are from NBCC's [NCMHCE Candidate Handbook](https://nbcc.org/assets/exam/handbooks/ncmhce.pdf), [NCMHCE Content Outline](https://nbcc.org/assets/exam/ncmhce_content_outline.pdf), and [2027 NCMHCE Exam Specifications](https://nbcc.org/assets/exam/NCMHCE_exam_spec_2027.pdf), as of October 2026. NBCC updates these documents, so check them before your test date.*
+*Exam details are from NBCC's [NCMHCE Candidate Handbook](https://nbcc.org/assets/exam/handbooks/ncmhce.pdf), [NCMHCE Content Outline](https://nbcc.org/assets/exam/ncmhce_content_outline.pdf), and [2027 NCMHCE Exam Specifications](https://nbcc.org/assets/exam/NCMHCE_exam_spec_2027.pdf), and the Center for Credentialing & Education's [NCMHCE page](https://www.cce-global.org/assessmentsandexams/ncmhce), as of October 2026. NBCC updates these documents, so check them before your test date.*
