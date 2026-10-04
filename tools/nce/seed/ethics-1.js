@@ -98,7 +98,6 @@ module.exports = [
   },
   {
     id: 'nce-s-eth-007',
-    reviewNote: 'Rationale says counselors are mandated reporters \'in every U.S. state\'; definitions vary by state.',
     domain: 'ethics',
     cacrep: 'professional_orientation',
     topic: 'mandated reporting of abuse and neglect',
@@ -110,7 +109,7 @@ module.exports = [
       { id: 'c', text: 'Ask the child\'s teacher to make the report so the counseling relationship is protected', isCorrect: false, rationale: 'In most states the duty to report is personal and cannot be handed off to a colleague.' },
       { id: 'd', text: 'Make a report to child protective services based on reasonable suspicion of abuse', isCorrect: true, rationale: 'Mandated reporters report reasonable suspicion; proof or certainty is not required.' },
     ],
-    rationale: 'Counselors are mandated reporters of suspected child abuse and neglect in every U.S. state. The threshold is reasonable suspicion or cause to believe, not proof, and the counselor should not investigate. Specific timelines, reporting agencies, and procedures vary by state law, and many school policies add internal notification steps.',
+    rationale: 'All U.S. states have mandated reporting laws for suspected child abuse and neglect that cover counselors, though definitions, thresholds, and procedures vary by state. The threshold is reasonable suspicion or cause to believe, not proof, and the counselor should not investigate. Specific timelines, reporting agencies, and procedures vary by state law, and many school policies add internal notification steps.',
     references: [{ source: 'State law', detail: 'Child abuse reporting statutes: reasonable suspicion standard' }, { source: 'ACA Code of Ethics', detail: 'B.2.a Serious and Foreseeable Harm and Legal Requirements' }],
   },
   {
@@ -227,7 +226,6 @@ module.exports = [
   },
   {
     id: 'nce-s-eth-015',
-    reviewNote: 'Stadler\'s tests are cited to Corey\'s ethical decision-making chapter in general, not a section.',
     domain: 'ethics',
     cacrep: 'professional_orientation',
     topic: 'ethical decision-making models',
@@ -240,7 +238,7 @@ module.exports = [
       { id: 'd', text: 'The test of fidelity', isCorrect: false, rationale: 'Fidelity is a moral principle about keeping commitments, not one of Stadler\'s tests.' },
     ],
     rationale: 'Many ethical decision-making models, including the Forester-Miller and Davis practitioner\'s guide, include Stadler\'s three tests for evaluating a selected action. Justice asks whether others would be treated the same, publicity asks whether the counselor would accept public reporting, and universality asks whether the counselor would recommend it to colleagues. Passing all three supports the soundness of the decision.',
-    references: [{ source: 'Corey (Theory & Practice)', detail: 'Ethical issues: steps in ethical decision making' }],
+    references: [{ source: 'Forester-Miller & Davis (Practitioner\'s Guide to Ethical Decision Making)', detail: 'Step 7, evaluating the selected course of action: Stadler\'s tests of justice, publicity, and universality' }],
   },
   {
     id: 'nce-s-eth-016',
@@ -308,7 +306,6 @@ module.exports = [
   },
   {
     id: 'nce-s-eth-020',
-    reviewNote: 'Confirm ACA H.2.a explicitly lists emergency procedures among telehealth informed-consent items.',
     domain: 'ethics',
     cacrep: 'professional_orientation',
     topic: 'telehealth and technology ethics',
@@ -321,7 +318,7 @@ module.exports = [
       { id: 'd', text: 'Use any free video app the client prefers so that the client feels comfortable', isCorrect: false, rationale: 'Platforms must protect confidentiality; preference alone is not the standard (H.2.d).' },
     ],
     rationale: 'Distance counseling requires planning for emergencies the counselor cannot handle in person. Counselors confirm the client\'s physical location, identify local emergency services, and agree on a plan as part of telehealth informed consent (H.2.a). This is especially important for clients with elevated risk.',
-    references: [{ source: 'ACA Code of Ethics', detail: 'H.2.a Informed Consent and Disclosure' }],
+    references: [{ source: 'ACA Code of Ethics', detail: 'H.2.a Informed Consent and Disclosure (includes emergency procedures when the counselor is unavailable)' }],
   },
   {
     id: 'nce-s-eth-021',

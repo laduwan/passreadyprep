@@ -78,6 +78,15 @@
     </div>
 
     <div class="card">
+      <h2>Look up a question's evidence record</h2>
+      <div class="row">
+        <div><label for="recId">Question ID</label><input id="recId" placeholder="e.g. nce-s-eth-007" /></div>
+        <div style="flex:0"><button class="primary" id="recBtn">Open record</button></div>
+      </div>
+      <p class="muted" style="font-size:13px;margin:8px 0 0">Shows the question, key and rationales, every reference with its full citation, today's quality-gate result, origin, SME sign-off and the dated audit trail of every import, edit and status change. Print it or save it as PDF.</p>
+    </div>
+
+    <div class="card">
       <h2>Generate questions</h2>
       <div class="row">
         <div><label for="gDomain">Domain</label><select id="gDomain"><option value="">Auto (furthest below target)</option></select></div>
@@ -88,6 +97,7 @@
       </div>
       <div class="row" style="margin-top:10px;align-items:center">
         <div style="flex:0"><button id="seedBtn" title="Loads the questions written into tools/nce/seed (no API cost) into the review queue">Import seed questions</button></div>
+        <div style="flex:0"><button id="seedRefreshBtn" title="Re-applies corrections from the seed files to seed questions that are still In review. Published and retired questions are not changed.">Update questions in review</button></div>
         <div class="muted" style="font-size:13px">No API cost: loads the hand-written question files shipped with the app into review. Safe to click again; only new questions are added.</div>
       </div>
       <p class="muted" style="font-size:13px;margin:8px 0 0">Each item runs the shared quality gate (4 options, one key, length parity, no absolutes, rationales, approved sources, no near-duplicates). Passing items go to review; nothing is published automatically. Model: <span id="model"></span></p>
@@ -95,6 +105,11 @@
     </div>
 
     <div class="card">
+      <div class="row" style="align-items:end;margin-bottom:12px">
+        <div><label for="rvName">Reviewer name (stamped on Publish)</label><input id="rvName" placeholder="e.g. Jane Doe" /></div>
+        <div><label for="rvCred">Credential</label><input id="rvCred" placeholder="e.g. LPC, NCC" /></div>
+        <div style="flex:0;min-width:auto"><label><input type="checkbox" id="rvAsk" style="width:auto" /> Ask for a note on each decision</label></div>
+      </div>
       <div class="row" style="align-items:end">
         <div><label for="fStatus">Status</label>
           <select id="fStatus"><option value="sme_review">In review</option><option value="published">Published</option><option value="retired">Retired</option></select></div>
@@ -172,23 +187,52 @@
       .then(function(){ btn.disabled = false; btn.textContent = 'Generate'; });
   };
 
-  $('seedBtn').onclick = function(){
-    var btn = $('seedBtn'); btn.disabled = true; btn.textContent = 'Importing…';
-    api('/import-seed', { method:'POST', body:{} })
+  function runSeedImport(update){
+    var btn = $(update ? 'seedRefreshBtn' : 'seedBtn'); var label = btn.textContent;
+    btn.disabled = true; btn.textContent = update ? 'Updating…' : 'Importing…';
+    api('/import-seed', { method:'POST', body:{ update: !!update } })
       .then(function(r){
-        $('gOut').innerHTML = '<p><b>'+r.inserted+'</b> new seed question'+(r.inserted===1?'':'s')+' added to review ('+r.unchanged+' already in the bank'+(r.duplicates.length?', '+r.duplicates.length+' skipped as near-duplicates':'')+').</p>';
+        $('gOut').innerHTML = '<p><b>'+r.inserted+'</b> new seed question'+(r.inserted===1?'':'s')+' added to review'+(update ? ', <b>'+r.refreshed+'</b> in-review question'+(r.refreshed===1?'':'s')+' updated from the seed files' : '')+' ('+r.unchanged+' left unchanged'+(r.duplicates.length?', '+r.duplicates.length+' skipped as near-duplicates':'')+').</p>';
         loadCoverage(); if ($('fStatus').value === 'sme_review') loadList();
       })
       .catch(function(e){
         var probs = (e.body && e.body.problems) || [];
         $('gOut').innerHTML = '<p class="err">'+esc(e.message)+'</p>' + (probs.length ? '<ul>'+probs.map(function(p){ return '<li>'+esc(p.id)+': '+esc(p.errors.join('; '))+'</li>'; }).join('')+'</ul>' : '');
       })
-      .then(function(){ btn.disabled = false; btn.textContent = 'Import seed questions'; });
-  };
+      .then(function(){ btn.disabled = false; btn.textContent = label; });
+  }
+  $('seedBtn').onclick = function(){ runSeedImport(false); };
+  $('seedRefreshBtn').onclick = function(){ runSeedImport(true); };
+
+  // Evidence record: fetch with the admin token, then open the printable page.
+  function openRecord(id){
+    id = String(id || '').trim();
+    if (!id) { toast('Enter a question ID', true); return; }
+    var win = window.open('', '_blank');
+    fetch('/api/admin/nce/items/' + encodeURIComponent(id) + '/record?format=html', { headers: { 'Authorization': 'Bearer ' + token() } })
+      .then(function(r){
+        if (r.ok) return r.text();
+        return r.json().catch(function(){ return {}; }).then(function(j){ throw new Error(j.error || ('Lookup failed (' + r.status + ')')); });
+      })
+      .then(function(html){
+        var url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+        if (win) win.location = url; else location.href = url;
+      })
+      .catch(function(e){ if (win) win.close(); toast(e.message, true); });
+  }
+  $('recBtn').onclick = function(){ openRecord($('recId').value); };
+  // Reviewer identity is remembered on this computer only.
+  try {
+    var rv = JSON.parse(localStorage.getItem('prp_nce_reviewer') || '{}');
+    if (rv.name) $('rvName').value = rv.name; if (rv.credential) $('rvCred').value = rv.credential;
+  } catch (e) {}
+  function saveReviewer(){ try { localStorage.setItem('prp_nce_reviewer', JSON.stringify({ name: $('rvName').value.trim(), credential: $('rvCred').value.trim() })); } catch (e) {} }
+  $('rvName').addEventListener('change', saveReviewer); $('rvCred').addEventListener('change', saveReviewer);
+  $('recId').addEventListener('keydown', function(e){ if (e.key === 'Enter') openRecord($('recId').value); });
 
   function renderItem(it){
     var key = (it.options||[]).filter(function(o){ return o.isCorrect; })[0];
-    var acts = '';
+    var acts = '<button data-rec="'+it.externalId+'">Record</button>';
     if (it.status !== 'published') acts += '<button class="primary" data-act="published" data-id="'+it.externalId+'">Publish</button>';
     if (it.status !== 'sme_review') acts += '<button data-act="sme_review" data-id="'+it.externalId+'">Back to review</button>';
     if (it.status !== 'retired') acts += '<button class="danger" data-act="retired" data-id="'+it.externalId+'">Retire</button>';
@@ -224,9 +268,15 @@
       .catch(function(e){ if (win) win.close(); toast(e.message, true); });
   };
   $('list').addEventListener('click', function(e){
+    var rb = e.target.closest('button[data-rec]'); if (rb) { openRecord(rb.getAttribute('data-rec')); return; }
     var b = e.target.closest('button[data-act]'); if (!b) return;
+    var act = b.getAttribute('data-act');
+    var reviewer = { name: $('rvName').value.trim(), credential: $('rvCred').value.trim() };
+    if (act === 'published' && !reviewer.name && !confirm('No reviewer name is set, so the sign-off will show only your admin email. Publish anyway?')) return;
+    var note = '';
+    if ($('rvAsk').checked) { note = prompt('Note for the audit trail (optional):', '') ; if (note === null) return; }
     b.disabled = true;
-    api('/items/'+encodeURIComponent(b.getAttribute('data-id'))+'/status', { method:'POST', body:{ status: b.getAttribute('data-act') } })
+    api('/items/'+encodeURIComponent(b.getAttribute('data-id'))+'/status', { method:'POST', body:{ status: act, note: note || undefined, reviewer: reviewer.name ? reviewer : undefined } })
       .then(function(){ toast(b.getAttribute('data-id')+' → '+b.getAttribute('data-act')); loadList(); loadCoverage(); })
       .catch(function(err){ b.disabled = false; toast(err.message, true); });
   });

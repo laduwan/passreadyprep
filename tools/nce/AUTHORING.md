@@ -64,3 +64,18 @@ Id prefixes: `eth` ethics, `ass` intake, `clf` clinical_focus, `trt` treatment,
 - Inclusive, non-stereotyping client descriptions; vary age, culture, setting.
 
 Run `node tools/nce/check-nce.js tools/nce/seed/<file>.js` until it exits clean.
+
+## Evidence record (per question)
+
+Every question can be pulled up by ID with its full backing: content, key and
+per-option rationales, each reference resolved to a full citation
+(`utils/nceSources.js`), today's quality-gate result, origin, SME sign-off and
+the dated audit trail of every import, edit and status change.
+
+- Admin → NCE Questions → **Look up a question's evidence record**, or the
+  **Record** button on any question. Print or save as PDF.
+- `node tools/nce/item-record.js <id>` (seed files, no database) or
+  `... <id> --db` (live record incl. audit trail) → `docs/records/<id>.html`.
+
+New sources must be added to `utils/nceSources.js` with a full citation before
+an item may cite them.

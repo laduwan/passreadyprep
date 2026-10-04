@@ -445,7 +445,6 @@ module.exports = [
   // ── crisis and disaster response ────────────────────────────────────────
   {
     id: 'nce-s-clf-027',
-    reviewNote: 'No PFA-specific source on the approved list; NICE NG116 supports the no-debriefing point only.',
     domain: 'clinical_focus',
     cacrep: 'helping_relationships',
     topic: 'crisis and disaster response',
@@ -458,7 +457,7 @@ module.exports = [
       { id: 'd', text: 'Offer psychological first aid for safety, comfort, and needs', isCorrect: true, rationale: 'Psychological first aid promotes safety, calm, connection, and practical help, and is the recommended early response.' },
     ],
     rationale: 'In the immediate aftermath of a disaster, the recommended response is psychological first aid: ensuring safety, providing comfort, meeting practical needs, connecting people with loved ones and supports, and screening for those needing more help. Routine single-session psychological debriefing is not recommended for preventing PTSD.',
-    references: [{ source: 'NICE guidelines', detail: 'NG116 Post-traumatic stress disorder: psychologically focused debriefing not offered' }],
+    references: [{ source: 'Psychological First Aid Field Operations Guide (NCTSN/NCPTSD)', detail: 'PFA core actions: safety and comfort, practical assistance, connection with social supports' }, { source: 'NICE guidelines', detail: 'NG116 Post-traumatic stress disorder: psychologically focused debriefing not offered' }],
   },
   {
     id: 'nce-s-clf-028',

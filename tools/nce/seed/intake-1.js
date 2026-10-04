@@ -50,7 +50,6 @@ module.exports = [
   },
   {
     id: 'nce-s-ass-004',
-    reviewNote: 'Confirm the Stanley-Brown step number cited for means restriction (\'Step 6\').',
     domain: 'intake',
     cacrep: 'assessment',
     topic: 'suicide and violence risk assessment',
@@ -63,7 +62,7 @@ module.exports = [
       { id: 'd', text: 'Lethal means counseling to store the gun outside the home', isCorrect: true, rationale: 'Firearm access sharply raises lethality; collaborative means restriction is a core safety-plan step.' },
     ],
     rationale: 'Firearms are the most lethal common method of suicide, and reducing access during high-risk periods saves lives. The Stanley-Brown Safety Planning Intervention includes making the environment safe, such as having a trusted person hold a firearm or storing it locked away from home.',
-    references: [{ source: 'Stanley-Brown SPI', detail: 'Step 6: Making the environment safe (lethal means)' }],
+    references: [{ source: 'Stanley-Brown SPI', detail: 'Step 6 (final step): Making the environment safe, including lethal means' }],
   },
   {
     id: 'nce-s-ass-005',
@@ -238,7 +237,7 @@ module.exports = [
       { id: 'c', text: '80 to 104', isCorrect: false, rationale: 'Plus or minus 3 SEM gives about 99.7% confidence, wider than asked.' },
       { id: 'd', text: '84 to 100', isCorrect: true, rationale: 'Plus or minus about 2 SEM (1.96 x 4, roughly 8 points) gives the 95% band.' },
     ],
-    rationale: 'The SEM is the standard deviation of a person\'s hypothetical scores around the true score. Bands of about 1, 2, and 3 SEM around the obtained score give roughly 68%, 95%, and 99.7% confidence that the true score lies inside.',
+    rationale: 'The SEM is the standard deviation of a person\'s hypothetical scores around the true score. Bands of plus or minus 1 SEM, about 1.96 SEM (often rounded to 2), and 3 SEM around the obtained score give roughly 68%, 95%, and 99.7% confidence that the true score lies inside. Here 1.96 x 4 = 7.84, so the 95% band is about 84 to 100.',
     references: [{ source: 'Hays (Assessment)', detail: 'Standard error of measurement and confidence intervals' }],
   },
   {
@@ -324,20 +323,19 @@ module.exports = [
   },
   {
     id: 'nce-s-ass-021',
-    reviewNote: 'Distractors/rationale use ASAM 3rd-edition dimension names; the 4th edition (2023) renamed dimensions 3-6.',
     domain: 'intake',
     cacrep: 'assessment',
     topic: 'substance use assessment',
     difficulty: 'medium',
-    stem: 'A 52-year-old client says that when he goes a day without drinking he gets shaky, sweaty, and cannot sleep. Using the ASAM Criteria, under which dimension should the counselor rate these symptoms?',
+    stem: 'A 52-year-old client says that when he goes a day without drinking he gets shaky, sweaty, and cannot sleep. Using the ASAM Criteria (3rd edition), under which dimension should the counselor rate these symptoms?',
     options: [
       { id: 'a', text: 'Readiness to change', isCorrect: false, rationale: 'This dimension rates motivation and engagement, not physical withdrawal.' },
       { id: 'b', text: 'Recovery environment', isCorrect: false, rationale: 'This dimension rates the client\'s living situation and supports.' },
       { id: 'c', text: 'Intoxication and withdrawal', isCorrect: true, rationale: 'Tremor, sweating, and insomnia on stopping alcohol are withdrawal signs, rated in Dimension 1.' },
       { id: 'd', text: 'Relapse potential', isCorrect: false, rationale: 'This dimension rates risk of continued use, not current withdrawal.' },
     ],
-    rationale: 'The ASAM Criteria rate six dimensions to match level of care. Dimension 1 covers intoxication and withdrawal; in the widely taught third edition the others address biomedical conditions, emotional/behavioral/cognitive conditions, readiness to change, relapse or continued-use potential, and the recovery environment. Alcohol withdrawal can be dangerous and may call for medically managed care.',
-    references: [{ source: 'ASAM Criteria', detail: 'Dimension 1: intoxication and withdrawal' }],
+    rationale: 'The ASAM Criteria rate six dimensions to match level of care. Dimension 1 covers intoxication and withdrawal; in the widely taught third edition the others address biomedical conditions, emotional/behavioral/cognitive conditions, readiness to change, relapse or continued-use potential, and the recovery environment. The 2023 fourth edition renamed and reorganized several later dimensions, but intoxication and withdrawal remains part of Dimension 1. Alcohol withdrawal can be dangerous and may call for medically managed care.',
+    references: [{ source: 'ASAM Criteria', detail: '3rd edition, Dimension 1: acute intoxication and/or withdrawal potential' }],
   },
   {
     id: 'nce-s-ass-022',
