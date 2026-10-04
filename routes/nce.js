@@ -3,7 +3,7 @@ const NceItem = require('../models/NceItem');
 const Attempt = require('../models/Attempt');
 const User = require('../models/User');
 const requireAuth = require('../middleware/auth');
-const { resolveNceAccess, NCE_TRIAL_DAYS } = require('../utils/nceAccess');
+const { resolveNceAccess, nceLevel, NCE_TRIAL_DAYS } = require('../utils/nceAccess');
 const bp = require('../utils/nceBlueprint');
 const { getNceExam } = require('../utils/nceExam');
 const { computeNceReadiness } = require('../utils/nceReadiness');
@@ -73,6 +73,31 @@ router.get('/blueprint', (_req, res) => {
     exam2027: bp.EXAM_2027,
     source: bp.SOURCE,
   });
+});
+
+// GET /api/nce/access — the caller's NCE access level only, read without
+// starting the NCE trial clock (resolveNceAccess starts it on first visit).
+// Used by pages outside NCE study, such as the games page, so merely opening
+// them never spends an account's NCE trial.
+router.get('/access', async (req, res) => {
+  res.set('Cache-Control', 'no-store');
+  const header = req.headers.authorization || '';
+  const token = header.startsWith('Bearer ') ? header.slice(7) : null;
+  if (!token) return res.json({ accessLevel: 'free' });
+  let payload;
+  try { payload = require('jsonwebtoken').verify(token, process.env.JWT_SECRET); }
+  catch (_) { return res.json({ accessLevel: 'free' }); }
+  try {
+    const user = await User.findById(payload.sub).select('nceAccess trialEndsAt sessionVersion');
+    if (!user) return res.json({ accessLevel: 'free' });
+    if (user.sessionVersion != null && user.sessionVersion !== payload.sv) {
+      return res.status(401).json({ error: 'Session invalidated', code: 'SESSION_INVALIDATED' });
+    }
+    res.json({ accessLevel: nceLevel(user) });
+  } catch (err) {
+    console.error('nce access error', err);
+    res.status(500).json({ error: 'Could not check NCE access' });
+  }
 });
 
 // GET /api/nce/status — access level, trial end, bank size per area.

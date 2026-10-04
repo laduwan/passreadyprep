@@ -17,7 +17,7 @@ const PAGES = [
   'register.html', 'forgot-password.html', 'reset-password.html', 'skills.html', 'exam.html',
   'guarantee.html', 'intake.html', 'flashcards.html', 'decision-trees.html', 'dsm.html',
   'timed-knowledge-exam.html', 'knowledge-drill.html', 'next-best-step.html',
-  'core-attributes-quiz.html', 'theory.html', 'podcast.html', 'assess-next-case.html',
+  'core-attributes-quiz.html', 'theory.html', 'podcast.html', 'assess-next-case.html', 'games.html',
   'delete-account.html',
 ];
 // Pages the shim opens on passreadyprep.com instead (keep in sync with EXTERNAL in native-shim.js).
