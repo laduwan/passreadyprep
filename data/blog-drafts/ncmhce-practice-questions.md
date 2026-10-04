@@ -9,9 +9,9 @@ If you have spent months memorizing diagnostic criteria, your first NCMHCE pract
 
 ## What a clinical simulation case is
 
-A clinical simulation is a case study that unfolds over time. It opens with intake information about a client, and the questions ask you to make clinical decisions about that person. The current format is described as [VERIFY: current NCMHCE case structure, e.g. intake followed by later sections or sessions], with [VERIFY: number of questions per case and answer-option format on the current NCMHCE].
+A clinical simulation is a case study that unfolds over time. It opens with intake information about a client, and the questions ask you to make clinical decisions about that person. On the current exam, each case study is a narrative followed by 9 to 15 multiple-choice questions.
 
-Check the official candidate handbook for the administrative details: [VERIFY: number of cases on the current NCMHCE], [VERIFY: number of scored vs. unscored pretest cases], and [VERIFY: total testing time and break policy]. Also confirm [VERIFY: whether current NCMHCE cases provide the diagnosis].
+The current NCMHCE has 11 case studies. Ten are scored and one is unscored, used to try out material for future exams, for a total of 100 scored questions. You get 225 minutes to answer them, with one scheduled 15-minute break after the fifth case. If you test on or after July 1, 2027, the exam drops to 10 case studies.
 
 What matters more for your preparation is the shape of the task. Each question is a decision point: not what is true about depression in general, but what to do with this person, at this point in the work.
 
@@ -54,7 +54,7 @@ Distractors are rarely absurd. They tend to be the right action at the wrong tim
 - Under-responding to risk, or over-responding in a way that would damage trust
 - Choosing a culturally incongruent goal and then reading the client's disengagement as resistance
 
-When you review a practice case, spend as much time on why each wrong option loses as on why the right one wins. How these choices translate into points is set by [VERIFY: current NCMHCE scoring method for case questions].
+When you review a practice case, spend as much time on why each wrong option loses as on why the right one wins. On the current exam, NBCC's handbook says each scored question counts for one point, so what matters is choosing the best answer each time.
 
 ## How to practice with cases
 
@@ -66,3 +66,7 @@ When you review a practice case, spend as much time on why each wrong option los
 ## The takeaway
 
 NCMHCE practice questions reward clinical judgment more than memorization. Treat each case as a series of decisions, rank your options by what has to happen first, and study the distractors as carefully as the keyed answers. With enough cases behind you, that reasoning becomes a habit.
+
+---
+
+*Exam details are from NBCC's [NCMHCE Candidate Handbook](https://nbcc.org/assets/exam/handbooks/ncmhce.pdf), [NCMHCE Content Outline](https://nbcc.org/assets/exam/ncmhce_content_outline.pdf), and [2027 NCMHCE Exam Specifications](https://nbcc.org/assets/exam/NCMHCE_exam_spec_2027.pdf), as of October 2026. NBCC updates these documents, so check them before your test date.*

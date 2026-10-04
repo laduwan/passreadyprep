@@ -9,7 +9,7 @@ Most counselors preparing for the NCMHCE are doing it on top of a full caseload,
 
 ## Before week one: get oriented
 
-Spend an hour on logistics before you study a single diagnosis. Read the current official candidate handbook and confirm the details that will shape your preparation: [VERIFY: current NCMHCE format and number of cases], [VERIFY: total testing time and break policy], [VERIFY: content domains and their weighting on the current NCMHCE], and [VERIFY: registration, scheduling, and testing-center or remote-testing options]. Also confirm your state's requirements with your licensing board, since eligibility and timing rules vary: [VERIFY: state licensing board requirements for when candidates may sit for the NCMHCE].
+Spend an hour on logistics before you study a single diagnosis. Read NBCC's candidate handbook so you know what you are training for. The current exam has 11 case studies (10 scored), with 225 minutes of testing time and a scheduled 15-minute break after the fifth case. The most heavily weighted domains are Counseling Skills and Interventions and Intake, Assessment, and Diagnosis. You can test at a Pearson VUE test center or online through Pearson's remotely proctored OnVUE platform. If your test date is on or after July 1, 2027, read the 2027 exam specifications instead, because the format and domains change. Finally, check with your state licensing board about when you are eligible to sit for the exam, since each state sets its own rules.
 
 Then take one practice case cold, with no review. It will feel uncomfortable. That is useful. Note where you hesitated, because those hesitations are your starting map.
 
@@ -56,9 +56,9 @@ This is also the week to start working complete cases from intake to the final d
 
 ## Week 6: Timed practice and targeted review
 
-Shift from learning to rehearsing. Take at least one full-length timed practice exam under conditions that match the real test as closely as you can: [VERIFY: current NCMHCE time limit and scheduled break structure]. Afterward, look for patterns rather than individual misses. Are you skipping safety? Diagnosing before rule-outs? Choosing technique before validation?
+Shift from learning to rehearsing. Take at least one full-length timed practice exam under conditions that match the real test: 225 minutes, with a 15-minute break after the fifth case. Afterward, look for patterns rather than individual misses. Are you skipping safety? Diagnosing before rule-outs? Choosing technique before validation?
 
-Spend the rest of the week on your two or three weakest areas. Keep flashcard reviews short and daily. In the final two days, stop adding new material. Review your one-page notes and your theory signatures, sleep well, and confirm your test-day logistics: [VERIFY: identification and check-in requirements for the NCMHCE].
+Spend the rest of the week on your two or three weakest areas. Keep flashcard reviews short and daily. In the final two days, stop adding new material. Review your one-page notes and your theory signatures, sleep well, and confirm your test-day logistics. At a test center you need two original, unexpired IDs: a government-issued primary ID with your name, photo, and signature, and a secondary ID with your name and signature. For online testing, check Pearson's ID list ahead of time. Either way, the name on your ID must exactly match the name you registered with.
 
 ## Making the plan work for you
 
@@ -70,3 +70,7 @@ Spend the rest of the week on your two or three weakest areas. Keep flashcard re
 ## Final thoughts
 
 Six weeks of steady, structured study can turn a pile of diagnostic tables into a clinical reasoning habit. Start with priorities, layer in the content, and finish with realistic timed practice. If life interrupts the schedule, shift the plan rather than abandoning it. Consistent effort matters more than perfect adherence.
+
+---
+
+*Exam details are from NBCC's [NCMHCE Candidate Handbook](https://nbcc.org/assets/exam/handbooks/ncmhce.pdf), [NCMHCE Content Outline](https://nbcc.org/assets/exam/ncmhce_content_outline.pdf), and [2027 NCMHCE Exam Specifications](https://nbcc.org/assets/exam/NCMHCE_exam_spec_2027.pdf), as of October 2026. NBCC updates these documents, so check them before your test date.*
