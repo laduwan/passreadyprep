@@ -481,8 +481,7 @@ module.exports = [
       { id: 'd', text: 'Express', isCorrect: false, rationale: 'Express is sharing one\'s feelings and opinions about the situation using "I" statements.' },
     ],
     rationale: 'DEAR MAN is a DBT interpersonal effectiveness skill: Describe the situation, Express feelings, Assert the request, Reinforce the other person in advance, stay Mindful, Appear confident and Negotiate. Reinforcing explains what the other person gains by agreeing, which makes a yes more likely.',
-    references: [{ source: C, detail: 'Dialectical behavior therapy: interpersonal effectiveness skills (DEAR MAN)' }],
-    reviewNote: 'DEAR MAN detail comes from Linehan\'s DBT Skills Training Manual, which is not in the approved library; Corey covers DBT modules only briefly. Consider adding Linehan as an approved source.',
+    references: [{ source: 'Linehan (DBT Skills Training Manual)', detail: 'Interpersonal effectiveness: DEAR MAN skills' }],
   },
   {
     id: 'nce-s-cou-150',
@@ -498,7 +497,7 @@ module.exports = [
       { id: 'd', text: 'Radical genuineness with the client as an equal', isCorrect: false, rationale: 'Radical genuineness treats the client as a capable equal rather than fragile; it does not explain a response by history.' },
     ],
     rationale: 'Linehan described six levels of validation: (1) staying awake and attentive, (2) accurate reflection, (3) articulating the unverbalized, (4) validating in terms of past learning or biology, (5) normalizing in terms of present context, and (6) radical genuineness. Validation balances DBT\'s change strategies, communicating that the client\'s responses make sense, which supports the acceptance side of the acceptance-change dialectic.',
-    references: [{ source: C, detail: 'Dialectical behavior therapy: validation strategies and the acceptance-change dialectic' }],
-    reviewNote: 'Six validation levels follow Linehan (1997, 2015); Linehan is not in the approved source library and Corey may not list all six levels. SME should confirm the citation.',
+    references: [{ source: 'Linehan (DBT Skills Training Manual)', detail: 'Validation and its levels' }, { source: C, detail: 'Dialectical behavior therapy: validation strategies and the acceptance-change dialectic' }],
+    reviewNote: 'The six validation levels are set out in Linehan (1997, "Validation and psychotherapy"); confirm the skills manual edition cited presents all six.',
   },
 ];
