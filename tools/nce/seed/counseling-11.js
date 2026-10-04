@@ -1,0 +1,523 @@
+// tools/nce/seed/counseling-11.js — Counseling Skills and Interventions, batch 6 (part 1)
+// Hand-authored original items (nce-s-cou-301 … nce-s-cou-330).
+const C = 'Corey (Theory & Practice)';
+const GL = 'Gladding (Counseling: A Comprehensive Profession)';
+const JG = 'James & Gilliland (Crisis Intervention Strategies)';
+const ED = 'Ellis & Dryden (REBT)';
+const WH = 'White (Maps of Narrative Practice)';
+const MI = 'Miller & Rollnick (MI)';
+const LN = 'Linehan (DBT Skills Training Manual)';
+const JB = 'J. Beck (CBT: Basics and Beyond)';
+const SS = 'Sue & Sue (Counseling the Culturally Diverse)';
+
+module.exports = [
+  // ── REALITY THERAPY AND CHOICE THEORY ───────────────────────────────────
+  {
+    id: 'nce-s-cou-301',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'reality therapy and choice theory',
+    difficulty: 'medium',
+    stem: 'A mother asks a reality therapist to "make" her 16-year-old stop gaming late and start studying. She says she has tried yelling, grounding him and taking away his phone, and nothing works. Which axiom of Glasser\'s choice theory should guide the counselor\'s response?',
+    options: [
+      { id: 'a', text: 'Past events with the son determine the present, so they must be resolved first', isCorrect: false, rationale: 'Glasser held that the past shapes us but that needs can be met only in the present, so therapy focuses on now.' },
+      { id: 'b', text: 'Firm rewards and punishments from parents are what teens need to choose well', isCorrect: false, rationale: 'Rewards and punishments are external control psychology, which choice theory says harms relationships.' },
+      { id: 'c', text: 'The only person whose behavior we can control is our own, not her son\'s', isCorrect: true, rationale: 'This is Glasser\'s first axiom; the mother can change her own choices, which may in turn improve the relationship.' },
+      { id: 'd', text: 'A teen\'s feelings drive his acts, so the counselor should change his mood first', isCorrect: false, rationale: 'Choice theory holds that we change feelings indirectly by changing acting and thinking, not the reverse.' },
+    ],
+    rationale: 'Glasser\'s ten axioms of choice theory begin with the idea that the only behavior we can control is our own; all we can give another person is information. Efforts to force others through criticism, threats or punishment reflect external control psychology and damage relationships. A reality therapist would help the mother evaluate what she is doing and choose behaviors more likely to connect with her son.',
+    references: [{ source: C, detail: 'Reality Therapy: choice theory and Glasser\'s axioms; external control psychology' }],
+  },
+  {
+    id: 'nce-s-cou-302',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'reality therapy and choice theory',
+    difficulty: 'hard',
+    stem: 'A 45-year-old accountant seeks help for tension headaches and worry that have lasted two years. He wants to talk mainly about his symptoms and a harsh father who died a decade ago. Following Glasser\'s choice theory, where would a reality therapist MOST likely focus first?',
+    options: [
+      { id: 'a', text: 'On which important relationship in his life now is unsatisfying', isCorrect: true, rationale: 'Glasser held that long-lasting problems are relationship problems and that the problem relationship is part of present life.' },
+      { id: 'b', text: 'On a detailed history of each headache and the worry that comes with it', isCorrect: false, rationale: 'Reality therapists give little attention to symptoms, seeing them as chosen ways of coping with unmet needs.' },
+      { id: 'c', text: 'On working through his anger at his late father to gain full insight', isCorrect: false, rationale: 'Insight into the past is not the aim; Glasser focused on present behavior and present relationships.' },
+      { id: 'd', text: 'On teaching relaxation so the headaches ease before other work begins', isCorrect: false, rationale: 'Symptom relief skills are not the reality therapy focus; the aim is meeting needs through better choices.' },
+    ],
+    rationale: 'Among Glasser\'s axioms are that all long-lasting psychological problems are relationship problems and that the problem relationship is always part of the person\'s present life. Reality therapists therefore spend little time on symptoms or the distant past. They look for the current relationship in which the client\'s needs for love and belonging or power are not being met.',
+    references: [{ source: C, detail: 'Reality Therapy: choice theory axioms; focus on present relationships rather than symptoms or the past' }],
+  },
+  {
+    id: 'nce-s-cou-303',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'reality therapy and choice theory',
+    difficulty: 'medium',
+    stem: 'A client says, "I\'ve been so depressed since the layoff." Her reality therapist replies, "It sounds like you\'ve been depressing a lot lately. What are you doing while you\'re depressing?" What is the main purpose of describing her mood with an active verb?',
+    options: [
+      { id: 'a', text: 'To show the client that her low mood is not real and will pass soon', isCorrect: false, rationale: 'Glasser does not deny the pain; he reframes it as part of a behavior the person is choosing.' },
+      { id: 'b', text: 'To confront her gently so she feels guilty about staying in her mood', isCorrect: false, rationale: 'Reality therapy avoids blame and criticism; the verb form is meant to empower, not shame.' },
+      { id: 'c', text: 'To find the early experience that first taught her to feel this way', isCorrect: false, rationale: 'Searching for early causes is not part of reality therapy, which stays with present choices.' },
+      { id: 'd', text: 'To stress that total behavior is chosen and can be changed by acting', isCorrect: true, rationale: 'Glasser used verbs such as "depressing" to show that the feeling is part of chosen total behavior that she can change.' },
+    ],
+    rationale: 'Choice theory holds that all behavior is total behavior (acting, thinking, feeling and physiology) and that it is chosen. Glasser described feelings with verbs such as "depressing" or "angering" to underline that people are active in what they experience. Because acting and thinking are the parts we directly control, changing them is the route to feeling better.',
+    references: [{ source: C, detail: 'Reality Therapy: total behavior and the use of verbs (e.g., "depressing")' }],
+  },
+
+  // ── FEMINIST THERAPY ────────────────────────────────────────────────────
+  {
+    id: 'nce-s-cou-304',
+    domain: 'counseling',
+    cacrep: 'social_cultural',
+    topic: 'feminist therapy',
+    difficulty: 'medium',
+    stem: 'A 38-year-old Black woman who uses a wheelchair describes being passed over for promotion. Her feminist counselor helps her explore how race, disability, gender and class combine to shape this experience in ways that a focus on gender alone would miss. Which concept is the counselor drawing on?',
+    options: [
+      { id: 'a', text: 'Androgyny', isCorrect: false, rationale: 'Androgyny refers to a flexible blend of gender-typed traits, not to overlapping social identities.' },
+      { id: 'b', text: 'Intersectionality', isCorrect: true, rationale: 'Intersectionality examines how multiple identities and systems of oppression interact to shape a person\'s experience.' },
+      { id: 'c', text: 'Gender-role analysis', isCorrect: false, rationale: 'Gender-role analysis focuses on gender messages, while this counselor looks at several identities together.' },
+      { id: 'd', text: 'Relabeling', isCorrect: false, rationale: 'Relabeling changes the language used for a trait or symptom; it does not analyze overlapping identities.' },
+    ],
+    rationale: 'Contemporary feminist therapy is multicultural and intersectional. It recognizes that gender is experienced together with race, class, disability, sexual orientation and other identities, and that oppression operates across these at once. Exploring these intersections helps the client locate distress in its full social context rather than in personal failing.',
+    references: [{ source: C, detail: 'Feminist Therapy: multicultural and intersectional perspectives' }, { source: SS, detail: 'Multiple identities and intersectionality in counseling' }],
+  },
+  {
+    id: 'nce-s-cou-305',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'feminist therapy',
+    difficulty: 'medium',
+    stem: 'A graduate student says she feels "crazy" for being upset by a professor\'s repeated sexist jokes. Her feminist counselor briefly shares that she, too, has faced sexism at work and found it hard to name at first. What is the PRIMARY purpose of this disclosure in feminist therapy?',
+    options: [
+      { id: 'a', text: 'To shift the session toward the counselor\'s own story so she can model coping', isCorrect: false, rationale: 'Feminist self-disclosure is brief and for the client\'s benefit; it does not shift the focus to the counselor.' },
+      { id: 'b', text: 'To lessen the power gap and show that her reaction is a shared, valid one', isCorrect: true, rationale: 'Purposeful disclosure equalizes the relationship and normalizes the client\'s reaction as a response to sexism.' },
+      { id: 'c', text: 'To persuade the client to file a formal complaint against the professor', isCorrect: false, rationale: 'Feminist counselors respect client choice; disclosure is not used to push a particular action.' },
+      { id: 'd', text: 'To set up transference so the client can work through early relationships', isCorrect: false, rationale: 'Fostering transference is a psychodynamic aim, not the purpose of feminist self-disclosure.' },
+    ],
+    rationale: 'Feminist therapists use self-disclosure purposefully to reduce the power differential, model openness and help clients see that their reactions are understandable responses to social conditions. Disclosures are brief, relevant and offered for the client\'s benefit. Used this way, they support the egalitarian relationship at the heart of feminist practice.',
+    references: [{ source: C, detail: 'Feminist Therapy: techniques (therapist self-disclosure) and the egalitarian relationship' }],
+  },
+  {
+    id: 'nce-s-cou-306',
+    domain: 'counseling',
+    cacrep: 'social_cultural',
+    topic: 'feminist therapy',
+    difficulty: 'easy',
+    stem: 'Which therapy goal is MOST consistent with a feminist approach to counseling?',
+    options: [
+      { id: 'a', text: 'Helping the client adjust to the roles that are expected of her in her setting', isCorrect: false, rationale: 'Feminist therapy questions adjustment to restrictive roles rather than making it the goal.' },
+      { id: 'b', text: 'Resolving unconscious conflicts that took root in early childhood experiences', isCorrect: false, rationale: 'Resolving unconscious conflict is a psychoanalytic goal, not the defining aim of feminist therapy.' },
+      { id: 'c', text: 'Eliminating symptoms quickly so the client can return to her usual routine', isCorrect: false, rationale: 'Symptom relief alone ignores the social context that feminist therapy places at the center.' },
+      { id: 'd', text: 'Empowering the client and fostering change in oppressive social conditions', isCorrect: true, rationale: 'Feminist therapy aims at personal empowerment and at social transformation, not adjustment to the status quo.' },
+    ],
+    rationale: 'Feminist therapy seeks both individual and social change. Goals include empowerment, self-definition, valuing the client\'s own perspective and challenging oppressive conditions, often through advocacy or social action. Because "the personal is political," adjustment to unjust norms is not considered a healthy outcome.',
+    references: [{ source: C, detail: 'Feminist Therapy: therapeutic goals (empowerment and social transformation)' }],
+  },
+
+  // ── CRISIS INTERVENTION MODELS ──────────────────────────────────────────
+  {
+    id: 'nce-s-cou-307',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'crisis intervention models',
+    difficulty: 'medium',
+    stem: 'A 52-year-old farmworker comes to a rural clinic two days after a flood destroyed his home. Using Roberts\' seven-stage model, the counselor has completed a lethality assessment and established rapport. What should the counselor do NEXT?',
+    options: [
+      { id: 'a', text: 'Identify the major problems, including the event that set off the crisis', isCorrect: true, rationale: 'Stage 3 of Roberts\' model is identifying the major problems and the precipitating event.' },
+      { id: 'b', text: 'Develop and put into action a step-by-step plan for the coming week', isCorrect: false, rationale: 'Formulating an action plan is stage 6, after problems, feelings and alternatives are explored.' },
+      { id: 'c', text: 'Brainstorm alternatives and coping options the client has not yet tried', isCorrect: false, rationale: 'Generating and exploring alternatives is stage 5 and comes after problems and feelings are addressed.' },
+      { id: 'd', text: 'Schedule follow-up contact to check on how he is doing in a few weeks', isCorrect: false, rationale: 'Follow-up is the seventh and final stage of Roberts\' model.' },
+    ],
+    rationale: 'Roberts\' seven stages are: (1) assess lethality and psychosocial needs, (2) establish rapport, (3) identify major problems or precipitants, (4) deal with feelings and emotions, (5) generate and explore alternatives, (6) develop and carry out an action plan, and (7) follow up. Defining the problems that triggered the crisis gives focus to the work on feelings and options that follows.',
+    references: [{ source: GL, detail: 'Crisis counseling: Roberts\' seven-stage crisis intervention model' }],
+  },
+  {
+    id: 'nce-s-cou-308',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'crisis intervention models',
+    difficulty: 'hard',
+    stem: 'A crisis counselor trained in James and Gilliland\'s six-step model is working with a teen who ran away after a family fight. A supervisor asks when assessment should take place in this model. Which answer is accurate?',
+    options: [
+      { id: 'a', text: 'Only at the start, during the step of defining the problem', isCorrect: false, rationale: 'Assessment is not limited to the first step; the client\'s state can change at any point.' },
+      { id: 'b', text: 'Only at the end, when the counselor obtains a commitment', isCorrect: false, rationale: 'Waiting until the end would miss changes in safety and functioning during the session.' },
+      { id: 'c', text: 'Continuously, across all six steps of the intervention', isCorrect: true, rationale: 'James and Gilliland place assessment as an ongoing process that runs through every step.' },
+      { id: 'd', text: 'At set intervals, after each pair of the six steps is done', isCorrect: false, rationale: 'The model does not schedule assessment at fixed points; it is ongoing throughout.' },
+    ],
+    rationale: 'James and Gilliland\'s model has three listening steps (define the problem, ensure safety, provide support) and three acting steps (examine alternatives, make plans, obtain commitment). Assessment is not a separate step; it is pervasive and continuous throughout. The counselor keeps judging the client\'s emotional, behavioral and cognitive functioning to decide how directive to be.',
+    references: [{ source: JG, detail: 'Six-step model of crisis intervention: assessing throughout the process' }],
+  },
+  {
+    id: 'nce-s-cou-309',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'crisis intervention models',
+    difficulty: 'easy',
+    stem: 'Modern crisis theory traces back to a psychiatrist\'s study of grief reactions among survivors and bereaved relatives after the 1942 Cocoanut Grove nightclub fire in Boston. Who conducted this study?',
+    options: [
+      { id: 'a', text: 'Albert Roberts', isCorrect: false, rationale: 'Roberts developed the seven-stage crisis intervention model decades later.' },
+      { id: 'b', text: 'Elisabeth Kübler-Ross', isCorrect: false, rationale: 'Kübler-Ross described stages of dying in the late 1960s, not grief after the fire.' },
+      { id: 'c', text: 'Gerald Caplan', isCorrect: false, rationale: 'Caplan built on this work to develop preventive psychiatry and crisis theory.' },
+      { id: 'd', text: 'Erich Lindemann', isCorrect: true, rationale: 'Lindemann\'s study of grief after the Cocoanut Grove fire is a founding work of crisis theory.' },
+    ],
+    rationale: 'Erich Lindemann studied the acute grief of people affected by the Cocoanut Grove fire and described normal grief reactions and how brief help could aid recovery. Gerald Caplan, his colleague, extended this into a theory of crisis and preventive community mental health. Together their work is the foundation of modern crisis intervention.',
+    references: [{ source: JG, detail: 'History of crisis intervention: Lindemann and Caplan' }],
+  },
+
+  // ── ADLERIAN THERAPY ────────────────────────────────────────────────────
+  {
+    id: 'nce-s-cou-310',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'Adlerian therapy',
+    difficulty: 'medium',
+    stem: 'During a lifestyle assessment, a 30-year-old client says, "People will take advantage of you if you let them," and later, "Unless I\'m the best at something, I\'m nothing." Her Adlerian counselor notes these as faulty convictions to explore. What are these called?',
+    options: [
+      { id: 'a', text: 'Basic mistakes', isCorrect: true, rationale: 'Mosak described basic mistakes, such as overgeneralization and denial of one\'s worth, as self-defeating lifestyle beliefs.' },
+      { id: 'b', text: 'Feelings of inferiority', isCorrect: false, rationale: 'Inferiority feelings are normal and motivate striving; these statements are specific faulty beliefs.' },
+      { id: 'c', text: 'Family constellation', isCorrect: false, rationale: 'The family constellation is the family system and birth order explored in the assessment, not the beliefs.' },
+      { id: 'd', text: 'Social interest', isCorrect: false, rationale: 'Social interest is the sense of belonging and concern for others, which these beliefs work against.' },
+    ],
+    rationale: 'Adlerians summarize the lifestyle assessment by identifying basic mistakes: self-defeating convictions in the client\'s private logic. Mosak grouped them as overgeneralizations, false or impossible goals of security, misperceptions of life and its demands, minimization or denial of one\'s worth, and faulty values. Naming them helps the client gain insight and choose new beliefs.',
+    references: [{ source: C, detail: 'Adlerian Therapy: lifestyle assessment and basic mistakes (Mosak)' }],
+  },
+  {
+    id: 'nce-s-cou-311',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'Adlerian therapy',
+    difficulty: 'easy',
+    stem: 'An Adlerian counselor sees progress when a withdrawn retiree begins tutoring neighborhood children and checks in on an ill friend. Adler saw this growing sense of belonging and concern for others as the key measure of mental health. What did he call it?',
+    options: [
+      { id: 'a', text: 'Fictional finalism', isCorrect: false, rationale: 'Fictional finalism is an imagined central goal that guides behavior, not concern for others.' },
+      { id: 'b', text: 'Style of life', isCorrect: false, rationale: 'Style of life is a person\'s characteristic way of moving toward goals, healthy or not.' },
+      { id: 'c', text: 'Social interest', isCorrect: true, rationale: 'Social interest (Gemeinschaftsgefühl) is the sense of community feeling that Adler saw as the core of health.' },
+      { id: 'd', text: 'Striving for superiority', isCorrect: false, rationale: 'Striving for superiority is the drive to overcome inferiority, which can be useful or useless.' },
+    ],
+    rationale: 'Adler\'s concept of social interest, or Gemeinschaftsgefühl, refers to a sense of belonging to and contributing to the human community. He viewed it as the main criterion of psychological health: the more social interest a person shows, the healthier they are. Adlerian counseling aims to increase it, so new contributions to others are a sign of progress.',
+    references: [{ source: C, detail: 'Adlerian Therapy: social interest and community feeling' }],
+  },
+
+  // ── PERSON-CENTERED THERAPY ─────────────────────────────────────────────
+  {
+    id: 'nce-s-cou-312',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'person-centered therapy',
+    difficulty: 'medium',
+    stem: 'A counseling student is asked to describe the outcome Carl Rogers hoped clients would move toward, which he called becoming a "fully functioning person." Which description is MOST accurate?',
+    options: [
+      { id: 'a', text: 'Living by clear rules learned from parents and keeping strong control of feelings', isCorrect: false, rationale: 'Living by introjected rules reflects conditions of worth, which Rogers saw as blocking growth.' },
+      { id: 'b', text: 'Growing more open to experience and trusting one\'s own inner, organismic valuing', isCorrect: true, rationale: 'Rogers described the fully functioning person as open to experience, living in the moment and self-trusting.' },
+      { id: 'c', text: 'Gaining insight into repressed memories and resolving conflicts from childhood', isCorrect: false, rationale: 'Insight into repressed material is a psychoanalytic aim, not Rogers\' description of growth.' },
+      { id: 'd', text: 'Disputing irrational beliefs and adopting a more rational philosophy of living', isCorrect: false, rationale: 'Disputing irrational beliefs is the REBT route to change, not the person-centered ideal.' },
+    ],
+    rationale: 'Rogers described the fully functioning person as open to experience, living existentially in the present, trusting their own organism and feeling free to choose. As clients receive congruence, unconditional positive regard and empathy, they rely less on conditions of worth and more on their own valuing process. Person-centered therapy trusts this actualizing tendency rather than directing the client toward set goals.',
+    references: [{ source: C, detail: 'Person-Centered Therapy: the fully functioning person and goals of therapy' }],
+  },
+
+  // ── EXISTENTIAL THERAPY ─────────────────────────────────────────────────
+  {
+    id: 'nce-s-cou-313',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'existential therapy',
+    difficulty: 'hard',
+    stem: 'A 58-year-old former dancer with a progressive spinal condition can no longer perform or teach. She says her life now has meaning because of the courage and humor with which she faces her illness. In Frankl\'s logotherapy, which source of meaning is she drawing on?',
+    options: [
+      { id: 'a', text: 'Attitudinal values', isCorrect: true, rationale: 'Frankl held that the stance a person takes toward unavoidable suffering is itself a source of meaning.' },
+      { id: 'b', text: 'Creative values', isCorrect: false, rationale: 'Creative values come from what one gives through work or deeds, which she can no longer do.' },
+      { id: 'c', text: 'Experiential values', isCorrect: false, rationale: 'Experiential values come from what one receives, such as love, nature or art, not from facing suffering.' },
+      { id: 'd', text: 'Will to power', isCorrect: false, rationale: 'Frankl contrasted his will to meaning with Adler\'s will to power; it is not a source of meaning.' },
+    ],
+    rationale: 'Frankl described three main paths to meaning: creative values (what we give to the world), experiential values (what we take from the world, such as love or beauty) and attitudinal values (the stance we take toward suffering we cannot change). Attitudinal values mean that meaning is possible even when the other two paths are closed. This idea comes from his experience in the concentration camps.',
+    references: [{ source: C, detail: 'Existential Therapy: Frankl\'s logotherapy and the search for meaning' }],
+  },
+  {
+    id: 'nce-s-cou-314',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'existential therapy',
+    difficulty: 'medium',
+    stem: 'A 50-year-old client says he feels a nagging regret that he never pursued music and has spent decades doing what others expected. His existential counselor sees this feeling as meaningful rather than as a symptom. How would the counselor MOST likely understand it?',
+    options: [
+      { id: 'a', text: 'As neurotic guilt from breaking his parents\' rules, which needs to be reduced', isCorrect: false, rationale: 'Guilt over breaking rules is not the concern here; his regret is about unlived potential.' },
+      { id: 'b', text: 'As a sign of depression that should be treated before any deeper exploration', isCorrect: false, rationale: 'Existential counselors do not first reduce such feelings to a disorder; they explore what they mean.' },
+      { id: 'c', text: 'As a cognitive distortion that can be disputed with evidence from his life', isCorrect: false, rationale: 'Treating the regret as a distortion to dispute reflects a cognitive approach, not an existential one.' },
+      { id: 'd', text: 'As existential guilt over unlived potential, a call toward a more authentic life', isCorrect: true, rationale: 'Existential guilt arises from failing to realize one\'s possibilities and can motivate authentic choices.' },
+    ],
+    rationale: 'Existential writers such as May and Yalom distinguish existential guilt from neurotic guilt. Existential guilt is the awareness that one has not lived up to one\'s potential or has lived inauthentically, often by following others\' expectations. Rather than removing it, the counselor helps the client hear it as a call to take responsibility and make more authentic choices now.',
+    references: [{ source: C, detail: 'Existential Therapy: authenticity, existential anxiety and existential guilt' }],
+  },
+
+  // ── GESTALT THERAPY ─────────────────────────────────────────────────────
+  {
+    id: 'nce-s-cou-315',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'gestalt therapy',
+    difficulty: 'medium',
+    stem: 'Each time her gestalt counselor asks how she feels about her mother\'s illness, a 27-year-old client makes a joke, talks in vague generalities or changes the subject to her job. Which contact boundary disturbance does this BEST illustrate?',
+    options: [
+      { id: 'a', text: 'Confluence', isCorrect: false, rationale: 'Confluence is a blurring of the boundary between self and others, not a turning away from contact.' },
+      { id: 'b', text: 'Retroflection', isCorrect: false, rationale: 'Retroflection is doing to oneself what one would like to do to others, such as turning anger inward.' },
+      { id: 'c', text: 'Deflection', isCorrect: true, rationale: 'Deflection avoids sustained contact through humor, vagueness, abstraction or changing the subject.' },
+      { id: 'd', text: 'Introjection', isCorrect: false, rationale: 'Introjection is swallowing others\' values whole without examining them.' },
+    ],
+    rationale: 'Gestalt therapy describes several ways people interrupt contact: introjection, projection, retroflection, deflection and confluence. Deflection is a way of diluting contact by being vague, overly polite, joking or shifting focus so that experience does not fully land. The counselor helps the client notice the pattern and stay with what is being avoided.',
+    references: [{ source: C, detail: 'Gestalt Therapy: contact and resistances to contact (deflection)' }],
+  },
+  {
+    id: 'nce-s-cou-316',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'gestalt therapy',
+    difficulty: 'easy',
+    stem: 'A client describes an inner voice that says, "You should be working harder, you lazy slob," and another that whines, "I\'ll do it tomorrow, I\'m too tired." Her gestalt counselor has her give each voice a chair and speak as it. Perls called these two parts of the self:',
+    options: [
+      { id: 'a', text: 'Id and superego', isCorrect: false, rationale: 'The id and superego are Freudian structures, not the gestalt terms for this split.' },
+      { id: 'b', text: 'Top dog and underdog', isCorrect: true, rationale: 'Perls named the demanding, critical part the top dog and the passive, excuse-making part the underdog.' },
+      { id: 'c', text: 'Parent and Child', isCorrect: false, rationale: 'Parent and Child are ego states in transactional analysis, not Perls\' terms.' },
+      { id: 'd', text: 'Figure and ground', isCorrect: false, rationale: 'Figure and ground describe what stands out in awareness, not two conflicting parts of the self.' },
+    ],
+    rationale: 'Perls described a common internal split between the top dog, which is righteous, demanding and full of "shoulds," and the underdog, which resists through excuses, helplessness and delay. The two-chair technique lets the client voice each side fully. Bringing both into awareness helps the client integrate them rather than stay stuck in the conflict.',
+    references: [{ source: C, detail: 'Gestalt Therapy: top dog and underdog; the empty-chair (two-chair) technique' }],
+  },
+
+  // ── RATIONAL EMOTIVE BEHAVIOR THERAPY ───────────────────────────────────
+  {
+    id: 'nce-s-cou-317',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'rational emotive behavior therapy',
+    difficulty: 'hard',
+    stem: 'A client insists, "I must never make a mistake at work." His REBT counselor asks, "Where has holding on to that demand gotten you? How has it helped you at work and with your stress?" Which type of disputing is the counselor using?',
+    options: [
+      { id: 'a', text: 'Empirical disputing', isCorrect: false, rationale: 'Empirical disputing asks for evidence that the belief is true, such as "Where is the proof?"' },
+      { id: 'b', text: 'Pragmatic disputing', isCorrect: true, rationale: 'Pragmatic (functional) disputing asks whether the belief helps or hurts the client in reaching goals.' },
+      { id: 'c', text: 'Logical disputing', isCorrect: false, rationale: 'Logical disputing asks whether the demand follows logically from a preference.' },
+      { id: 'd', text: 'Imaginal disputing', isCorrect: false, rationale: 'Rational emotive imagery works with images and emotions, not questions about usefulness.' },
+    ],
+    rationale: 'Ellis and Dryden describe three main kinds of disputing. Empirical disputing asks whether there is evidence for the belief, logical disputing asks whether it makes sense, and pragmatic or functional disputing asks whether holding the belief helps the client. Showing a client that a demand leads to stress and poorer work often motivates change when other arguments do not.',
+    references: [{ source: ED, detail: 'Disputing irrational beliefs: empirical, logical and pragmatic arguments' }],
+  },
+  {
+    id: 'nce-s-cou-318',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'rational emotive behavior therapy',
+    difficulty: 'medium',
+    stem: 'After her fiancé ended their engagement, a 31-year-old client stays in bed, tells herself she is unlovable and says she wants her REBT counselor to "make the pain go away completely." What is the MOST appropriate emotional goal from an REBT view?',
+    options: [
+      { id: 'a', text: 'Feeling sad and disappointed rather than depressed and self-condemning', isCorrect: true, rationale: 'REBT aims to replace unhealthy negative emotions with healthy ones such as sadness, not to remove all pain.' },
+      { id: 'b', text: 'Feeling calm and indifferent about the end of the relationship by now', isCorrect: false, rationale: 'Indifference to a real loss is not a REBT goal; caring about the loss is healthy.' },
+      { id: 'c', text: 'Feeling cheerful and positive by focusing only on what she gained', isCorrect: false, rationale: 'Forced positivity ignores the loss; REBT does not aim to replace pain with cheer.' },
+      { id: 'd', text: 'Feeling angry at her fiancé so her energy is turned outward instead', isCorrect: false, rationale: 'Swapping one unhealthy emotion for another does not reflect the REBT model of healthy emotions.' },
+    ],
+    rationale: 'REBT distinguishes unhealthy negative emotions, such as depression, anxiety, shame and rage, from healthy negative emotions, such as sadness, concern, disappointment and annoyance. Healthy negative emotions fit real losses and come from rational preferences. The goal is not to feel nothing, but to feel appropriately bad without self-damning beliefs.',
+    references: [{ source: ED, detail: 'Healthy versus unhealthy negative emotions' }],
+  },
+
+  // ── SOLUTION-FOCUSED BRIEF THERAPY ──────────────────────────────────────
+  {
+    id: 'nce-s-cou-319',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'solution-focused brief therapy',
+    difficulty: 'medium',
+    stem: 'A single parent of three lists debts, conflict with an ex-partner and a child\'s school troubles, and says she does not know where to start. Her solution-focused counselor helps her pick one small, doable step for the week. Which SFBT assumption BEST explains this choice?',
+    options: [
+      { id: 'a', text: 'Each problem must be fully understood before any solution can be tried', isCorrect: false, rationale: 'SFBT holds that solutions need not be tied to a full understanding of problems.' },
+      { id: 'b', text: 'Large, lasting change requires first working through all the past causes', isCorrect: false, rationale: 'SFBT is future-focused and does not work through past causes as a first step.' },
+      { id: 'c', text: 'The counselor, as expert, should pick the goal that matters most of all', isCorrect: false, rationale: 'SFBT views the client as the expert who chooses goals; the counselor does not decide.' },
+      { id: 'd', text: 'A small change can set off a ripple effect leading to larger changes', isCorrect: true, rationale: 'De Shazer held that small changes build on each other and can spread to other areas of life.' },
+    ],
+    rationale: 'Solution-focused brief therapy assumes that change is constant and that a small change in one area can lead to larger changes elsewhere. Small, concrete goals are easier to reach, build hope and confidence, and can shift how the whole system works. The client, as the expert on their own life, chooses which step to try.',
+    references: [{ source: C, detail: 'Solution-Focused Brief Therapy: key assumptions (small change leads to bigger change)' }],
+  },
+
+  // ── NARRATIVE THERAPY ───────────────────────────────────────────────────
+  {
+    id: 'nce-s-cou-320',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'narrative therapy',
+    difficulty: 'hard',
+    stem: 'A client who sees himself as "a coward" describes, step by step, how he spoke up for a coworker who was being mocked. His narrative counselor then asks, "What does it say about what you value that you took that stand?" In White\'s terms, this second question explores the:',
+    options: [
+      { id: 'a', text: 'Landscape of action', isCorrect: false, rationale: 'The landscape of action covers events, sequence and time, which the first account already described.' },
+      { id: 'b', text: 'Dominant story', isCorrect: false, rationale: 'The dominant story is the problem-saturated "coward" account, not the new identity meaning.' },
+      { id: 'c', text: 'Landscape of identity', isCorrect: true, rationale: 'Landscape of identity questions ask what an event shows about values, hopes, intentions and character.' },
+      { id: 'd', text: 'Externalizing conversation', isCorrect: false, rationale: 'Externalizing separates the person from the problem; this question builds meaning from an event.' },
+    ],
+    rationale: 'In re-authoring conversations, Michael White moves between two landscapes. Landscape of action questions explore events, circumstances and sequence, while landscape of identity questions explore what those events reveal about the person\'s values, purposes and commitments. Moving back and forth thickens an alternative story that can stand against the dominant one.',
+    references: [{ source: WH, detail: 'Ch. 2, re-authoring conversations: landscape of action and landscape of identity' }],
+  },
+  {
+    id: 'nce-s-cou-321',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'narrative therapy',
+    difficulty: 'easy',
+    stem: 'Which pair of therapists is MOST closely associated with founding narrative therapy and writing Narrative Means to Therapeutic Ends?',
+    options: [
+      { id: 'a', text: 'Michael White and David Epston', isCorrect: true, rationale: 'White (Australia) and Epston (New Zealand) developed narrative therapy and co-wrote this 1990 book.' },
+      { id: 'b', text: 'Steve de Shazer and Insoo Kim Berg', isCorrect: false, rationale: 'De Shazer and Berg developed solution-focused brief therapy.' },
+      { id: 'c', text: 'Salvador Minuchin and Jay Haley', isCorrect: false, rationale: 'Minuchin is linked to structural and Haley to strategic family therapy.' },
+      { id: 'd', text: 'Albert Ellis and Aaron Beck', isCorrect: false, rationale: 'Ellis founded REBT and Beck founded cognitive therapy.' },
+    ],
+    rationale: 'Michael White and David Epston developed narrative therapy in the 1980s, drawing on ideas about stories, power and knowledge. Their book Narrative Means to Therapeutic Ends introduced practices such as externalizing the problem and therapeutic letters. White later described his methods in Maps of Narrative Practice.',
+    references: [{ source: C, detail: 'Narrative Therapy: key figures (White and Epston)' }, { source: WH, detail: 'Introduction: development of narrative practice' }],
+  },
+
+  // ── MOTIVATIONAL INTERVIEWING ───────────────────────────────────────────
+  {
+    id: 'nce-s-cou-322',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'motivational interviewing',
+    difficulty: 'medium',
+    stem: 'A 40-year-old client who gambles online says, "I\'ve got to do something about this. I can\'t keep going on like this." The counselor wants to recognize and reflect the change talk. Using the DARN-CAT framework, which type of change talk is this?',
+    options: [
+      { id: 'a', text: 'Desire', isCorrect: false, rationale: 'Desire is stated as wanting or wishing, such as "I want to stop."' },
+      { id: 'b', text: 'Ability', isCorrect: false, rationale: 'Ability statements express capacity, such as "I could cut back."' },
+      { id: 'c', text: 'Activation', isCorrect: false, rationale: 'Activation signals readiness to move, such as "I\'m willing to try," which is mobilizing talk.' },
+      { id: 'd', text: 'Need', isCorrect: true, rationale: 'Need statements express urgency or necessity, such as "I\'ve got to" or "I can\'t keep going."' },
+    ],
+    rationale: 'Miller and Rollnick divide change talk into preparatory talk (Desire, Ability, Reasons, Need) and mobilizing talk (Commitment, Activation, Taking steps). Need language expresses an imperative for change without saying why or what will be done. Hearing and reflecting each form helps the counselor strengthen the client\'s own motivation.',
+    references: [{ source: MI, detail: 'Evoking: preparatory change talk (DARN), including need' }],
+  },
+  {
+    id: 'nce-s-cou-323',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'motivational interviewing',
+    difficulty: 'medium',
+    stem: 'A client who smokes says calmly, "I\'ve tried to quit five times, and it never sticks. Honestly, smoking is the one thing that gets me through my shifts." The client remains warm and engaged with the counselor. In MI terms, these statements are BEST described as:',
+    options: [
+      { id: 'a', text: 'Discord in the working alliance', isCorrect: false, rationale: 'Discord is friction in the relationship, such as arguing with the counselor, which is absent here.' },
+      { id: 'b', text: 'Sustain talk favoring the status quo', isCorrect: true, rationale: 'Sustain talk is the client\'s own speech in favor of not changing, such as low ability or reasons to keep smoking.' },
+      { id: 'c', text: 'Preparatory change talk about ability', isCorrect: false, rationale: 'Ability change talk expresses capacity to change; these statements argue against it.' },
+      { id: 'd', text: 'Denial requiring direct confrontation', isCorrect: false, rationale: 'MI does not label ambivalence as denial, and confronting it tends to increase sustain talk.' },
+    ],
+    rationale: 'In current MI, what was once called resistance is split into sustain talk and discord. Sustain talk is the client\'s speech about the target behavior that favors staying the same, while discord is tension in the relationship between client and counselor. Both are normal parts of ambivalence, and the counselor responds with reflections rather than argument.',
+    references: [{ source: MI, detail: 'Responding to sustain talk and discord' }],
+  },
+
+  // ── DIALECTICAL BEHAVIOR THERAPY ────────────────────────────────────────
+  {
+    id: 'nce-s-cou-324',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'dialectical behavior therapy',
+    difficulty: 'hard',
+    stem: 'A client in DBT wants to turn down a close friend\'s request to borrow her car again, but her main goal is to keep the friendship warm. Her therapist suggests she stay gentle, show interest in the friend\'s needs, validate them and use an easy manner. Which interpersonal effectiveness skill set is this?',
+    options: [
+      { id: 'a', text: 'DEAR MAN', isCorrect: false, rationale: 'DEAR MAN targets objectives effectiveness, getting what one wants or saying no firmly.' },
+      { id: 'b', text: 'FAST', isCorrect: false, rationale: 'FAST targets self-respect effectiveness: being fair, not over-apologizing, sticking to values, truthful.' },
+      { id: 'c', text: 'GIVE', isCorrect: true, rationale: 'GIVE (gentle, interested, validate, easy manner) targets relationship effectiveness.' },
+      { id: 'd', text: 'TIPP', isCorrect: false, rationale: 'TIPP is a distress tolerance skill for lowering extreme arousal, not an interpersonal skill.' },
+    ],
+    rationale: 'Linehan\'s interpersonal effectiveness module teaches three skill sets matched to a person\'s priority. DEAR MAN serves objectives effectiveness, GIVE serves relationship effectiveness and FAST serves self-respect effectiveness. When keeping the relationship matters most, the client leans on GIVE while still saying no.',
+    references: [{ source: LN, detail: 'Interpersonal effectiveness: GIVE skills for relationship effectiveness' }],
+  },
+  {
+    id: 'nce-s-cou-325',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'dialectical behavior therapy',
+    difficulty: 'medium',
+    stem: 'A 22-year-old in a comprehensive DBT program calls her individual therapist on a Friday night when urges to self-harm rise, and the therapist briefly coaches her through a distress tolerance skill. What is the MAIN function of this phone coaching mode?',
+    options: [
+      { id: 'a', text: 'Helping her use skills in the real-life moments where she needs them', isCorrect: true, rationale: 'Phone coaching serves generalization, helping clients apply skills in daily life when urges arise.' },
+      { id: 'b', text: 'Giving her an open line for long talks to process the whole week', isCorrect: false, rationale: 'DBT coaching calls are brief and skills-focused, not open-ended therapy sessions.' },
+      { id: 'c', text: 'Helping the therapist stay motivated and avoid burnout with clients', isCorrect: false, rationale: 'Supporting therapist motivation is the role of the DBT consultation team, not phone coaching.' },
+      { id: 'd', text: 'Teaching her the four skills modules for the first time in sequence', isCorrect: false, rationale: 'New skills are taught in skills training groups; coaching helps apply skills already learned.' },
+    ],
+    rationale: 'Comprehensive DBT has four modes: individual therapy, group skills training, between-session phone coaching and a therapist consultation team. Skills group teaches skills, while phone coaching helps the client generalize them to the real situations where they are needed. Calls are brief and focused on which skill to use now.',
+    references: [{ source: LN, detail: 'Overview of DBT: treatment modes and the function of between-session skills coaching' }],
+  },
+
+  // ── PLAY THERAPY ────────────────────────────────────────────────────────
+  {
+    id: 'nce-s-cou-326',
+    domain: 'counseling',
+    cacrep: 'human_growth',
+    topic: 'play therapy',
+    difficulty: 'easy',
+    stem: 'Which clinician adapted Carl Rogers\' ideas to work with children, set out eight basic principles of nondirective play therapy and wrote the case study Dibs in Search of Self?',
+    options: [
+      { id: 'a', text: 'Melanie Klein', isCorrect: false, rationale: 'Klein used play as a substitute for free association within a psychoanalytic approach.' },
+      { id: 'b', text: 'Anna Freud', isCorrect: false, rationale: 'Anna Freud used play to build a relationship within child psychoanalysis.' },
+      { id: 'c', text: 'Virginia Axline', isCorrect: true, rationale: 'Axline founded nondirective play therapy based on Rogers and wrote Dibs in Search of Self.' },
+      { id: 'd', text: 'Terry Kottman', isCorrect: false, rationale: 'Kottman developed Adlerian play therapy, not nondirective play therapy.' },
+    ],
+    rationale: 'Virginia Axline, a student of Carl Rogers, applied person-centered ideas to children in nondirective play therapy. Her eight principles include building a warm relationship, accepting the child as they are and letting the child lead. Garry Landreth later developed this work into child-centered play therapy.',
+    references: [{ source: GL, detail: 'Counseling children: play therapy approaches (Axline\'s nondirective play therapy)' }],
+  },
+  {
+    id: 'nce-s-cou-327',
+    domain: 'counseling',
+    cacrep: 'human_growth',
+    topic: 'play therapy',
+    difficulty: 'medium',
+    stem: 'In a child-centered play therapy session, a 7-year-old finishes a clay figure after several tries, holds it up and asks, "Isn\'t it good?" Which counselor response BEST fits this approach?',
+    options: [
+      { id: 'a', text: '"That\'s really good! You\'re a great artist."', isCorrect: false, rationale: 'Evaluative praise teaches the child to rely on adult approval rather than self-evaluation.' },
+      { id: 'b', text: '"Next time you could try adding some more color."', isCorrect: false, rationale: 'Suggestions direct the play and imply the work is not yet good enough.' },
+      { id: 'c', text: '"Why did you decide to make that figure today?"', isCorrect: false, rationale: 'Why questions ask the child to explain and can feel evaluative.' },
+      { id: 'd', text: '"You kept at it until it looked how you wanted."', isCorrect: true, rationale: 'This esteem-building response notes the child\'s effort and lets the child judge the work.' },
+    ],
+    rationale: 'Child-centered play therapists avoid praise and judgment because these place the source of evaluation in the adult. Esteem-building responses describe the child\'s effort, persistence or decisions, such as "You figured it out." These help the child develop an internal sense of competence and self-direction.',
+    references: [{ source: GL, detail: 'Counseling children: child-centered play therapy responses (esteem building versus praise)' }],
+  },
+
+  // ── TRAUMA-INFORMED INTERVENTIONS ───────────────────────────────────────
+  {
+    id: 'nce-s-cou-328',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'trauma-informed interventions',
+    difficulty: 'easy',
+    stem: 'A community agency becoming trauma-informed hires staff with their own lived experience of trauma and recovery to share hope and mutual support with clients. Which of SAMHSA\'s six trauma-informed principles does this step MOST directly reflect?',
+    options: [
+      { id: 'a', text: 'Safety', isCorrect: false, rationale: 'Safety concerns physical and emotional security, not the use of people with lived experience.' },
+      { id: 'b', text: 'Peer support', isCorrect: true, rationale: 'Peer support uses people with lived experience to build trust, hope and recovery.' },
+      { id: 'c', text: 'Trustworthiness and transparency', isCorrect: false, rationale: 'This principle concerns clear, open decisions and consistent boundaries, not peer staff.' },
+      { id: 'd', text: 'Cultural, historical and gender issues', isCorrect: false, rationale: 'This principle addresses bias, culture and historical trauma, not lived-experience roles.' },
+    ],
+    rationale: 'SAMHSA\'s trauma-informed approach rests on six principles: safety; trustworthiness and transparency; peer support; collaboration and mutuality; empowerment, voice and choice; and cultural, historical and gender issues. Peer support draws on people with lived experience of trauma to promote hope, trust and recovery. Many agencies put this principle into practice by hiring peer specialists.',
+    references: [{ source: GL, detail: 'Trauma and crisis counseling: principles of trauma-informed care (SAMHSA)' }],
+  },
+  {
+    id: 'nce-s-cou-329',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'trauma-informed interventions',
+    difficulty: 'medium',
+    stem: 'A veteran with PTSD repeatedly recounts his worst combat memory aloud in session, in the present tense, and listens to a recording of it at home. He also slowly approaches crowded stores he has been avoiding. Which evidence-based treatment is he receiving?',
+    options: [
+      { id: 'a', text: 'Prolonged exposure', isCorrect: true, rationale: 'Prolonged exposure combines repeated imaginal exposure with recorded homework and in vivo exposure.' },
+      { id: 'b', text: 'Cognitive processing therapy', isCorrect: false, rationale: 'CPT centers on stuck points and written work rather than repeated imaginal and in vivo exposure.' },
+      { id: 'c', text: 'Eye movement desensitization', isCorrect: false, rationale: 'EMDR pairs brief memory focus with bilateral stimulation and does not use recordings or in vivo work.' },
+      { id: 'd', text: 'Seeking Safety', isCorrect: false, rationale: 'Seeking Safety is present-focused coping work that does not use detailed exposure to the memory.' },
+    ],
+    rationale: 'Prolonged exposure, developed by Edna Foa, reduces PTSD by helping clients face trauma memories and avoided situations until fear lessens. Its core parts are imaginal exposure (recounting the memory, often recorded for home practice), in vivo exposure to safe but avoided situations, and processing. VA/DoD guidelines strongly recommend it along with CPT and EMDR.',
+    references: [{ source: 'VA/DoD CPG', detail: 'PTSD: recommended trauma-focused psychotherapies (prolonged exposure, CPT, EMDR)' }],
+  },
+
+  // ── COGNITIVE BEHAVIORAL THERAPY ────────────────────────────────────────
+  {
+    id: 'nce-s-cou-330',
+    domain: 'counseling',
+    cacrep: 'helping_relationships',
+    topic: 'cognitive behavioral therapy',
+    difficulty: 'hard',
+    stem: 'A nursing student will not ask her preceptor questions. In CBT she identifies the thought, "If I ask for help, people will see I\'m not competent." Her counselor notes that this conditional rule links a deeper view of herself to her daily thoughts. In J. Beck\'s model, this is:',
+    options: [
+      { id: 'a', text: 'An automatic thought', isCorrect: false, rationale: 'Automatic thoughts are quick, situation-specific thoughts, not general if-then rules.' },
+      { id: 'b', text: 'An intermediate belief', isCorrect: true, rationale: 'Intermediate beliefs are attitudes, rules and assumptions, often in if-then form, that link core beliefs to thoughts.' },
+      { id: 'c', text: 'A core belief', isCorrect: false, rationale: 'A core belief is an absolute, global view such as "I am incompetent," not a conditional rule.' },
+      { id: 'd', text: 'A cognitive distortion', isCorrect: false, rationale: 'Distortions are errors in thinking patterns, not a level in the belief structure.' },
+    ],
+    rationale: 'J. Beck describes three levels of cognition. Core beliefs are global and absolute; intermediate beliefs are the attitudes, rules and assumptions that grow from them, often stated in if-then form; and automatic thoughts are the situation-specific thoughts that pop up. Identifying intermediate beliefs helps explain why the same kinds of automatic thoughts keep recurring.',
+    references: [{ source: JB, detail: 'Identifying and modifying intermediate beliefs (rules, attitudes and assumptions)' }],
+  },
+];

@@ -1,12 +1,12 @@
 # PassReady Prep — NCE Question Bank · Full bank (Hard Copy)
 
-**Generated:** 2026-10-04 · **Showing:** In review · **Total items:** 1000
+**Generated:** 2026-10-04 · **Showing:** In review · **Total items:** 1200
 
 **✔ KEY** marks the correct option. Mark each item Approve / Revise / Retire.
 
-## Professional Practice and Ethics (120)
+## Professional Practice and Ethics (144)
 
-### Q1 of 1000 · nce-s-eth-001 · Professional Counseling Orientation and Ethical Practice · informed consent and its required elements · easy · In review
+### Q1 of 1200 · nce-s-eth-001 · Professional Counseling Orientation and Ethical Practice · informed consent and its required elements · easy · In review
 
 A newly licensed counselor is drafting an informed consent document for a private practice. Which element is a required part of informed consent under the ACA Code of Ethics?
 
@@ -30,7 +30,7 @@ A newly licensed counselor is drafting an informed consent document for a privat
 
 ---
 
-### Q2 of 1000 · nce-s-eth-002 · Professional Counseling Orientation and Ethical Practice · informed consent and its required elements · medium · In review
+### Q2 of 1200 · nce-s-eth-002 · Professional Counseling Orientation and Ethical Practice · informed consent and its required elements · medium · In review
 
 A 12-year-old is brought to counseling by his custodial grandmother, who holds legal guardianship. The boy says he does not want to be there. How should the counselor BEST approach consent?
 
@@ -54,7 +54,7 @@ A 12-year-old is brought to counseling by his custodial grandmother, who holds l
 
 ---
 
-### Q3 of 1000 · nce-s-eth-003 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · medium · In review
+### Q3 of 1200 · nce-s-eth-003 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · medium · In review
 
 A counselor is starting a grief group for adults. During the first session, what should the counselor tell members about confidentiality?
 
@@ -78,7 +78,7 @@ A counselor is starting a grief group for adults. During the first session, what
 
 ---
 
-### Q4 of 1000 · nce-s-eth-004 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · hard · In review
+### Q4 of 1200 · nce-s-eth-004 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · hard · In review
 
 A client discloses a new diagnosis of a contagious, life-threatening disease and says she has not told her long-term partner, with whom she continues to have unprotected sex. State law permits disclosure in this situation. What should the counselor do FIRST?
 
@@ -102,7 +102,7 @@ A client discloses a new diagnosis of a contagious, life-threatening disease and
 
 ---
 
-### Q5 of 1000 · nce-s-eth-005 · Professional Counseling Orientation and Ethical Practice · duty to warn and protect · easy · In review
+### Q5 of 1200 · nce-s-eth-005 · Professional Counseling Orientation and Ethical Practice · duty to warn and protect · easy · In review
 
 During a session, a client names a former coworker, states he has bought a handgun, and describes a plan to shoot her at her home this weekend. Which action is MOST consistent with the counselor's ethical duties?
 
@@ -126,7 +126,7 @@ During a session, a client names a former coworker, states he has bought a handg
 
 ---
 
-### Q6 of 1000 · nce-s-eth-006 · Counseling and Helping Relationships · duty to warn and protect · medium · In review
+### Q6 of 1200 · nce-s-eth-006 · Counseling and Helping Relationships · duty to warn and protect · medium · In review
 
 A client frustrated about a custody dispute says, "Sometimes I could just kill my ex." He names no plan, has no weapons, has no history of violence, and laughs it off. What is the counselor's BEST response?
 
@@ -150,7 +150,7 @@ A client frustrated about a custody dispute says, "Sometimes I could just kill m
 
 ---
 
-### Q7 of 1000 · nce-s-eth-007 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · medium · In review
+### Q7 of 1200 · nce-s-eth-007 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · medium · In review
 
 A school-based counselor notices bruises in the shape of a hand on a 7-year-old's arm. The child says, "Dad gets mad," and then stops talking. The counselor is unsure whether abuse occurred. What should the counselor do?
 
@@ -174,7 +174,7 @@ A school-based counselor notices bruises in the shape of a hand on a 7-year-old'
 
 ---
 
-### Q8 of 1000 · nce-s-eth-008 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · hard · In review
+### Q8 of 1200 · nce-s-eth-008 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · hard · In review
 
 A counselor in a HIPAA-covered agency keeps process notes about session dynamics and her own impressions in a file separate from the medical record. Under the HIPAA Privacy Rule, how are these notes treated?
 
@@ -198,7 +198,7 @@ A counselor in a HIPAA-covered agency keeps process notes about session dynamics
 
 ---
 
-### Q9 of 1000 · nce-s-eth-009 · Professional Counseling Orientation and Ethical Practice · record keeping and documentation · easy · In review
+### Q9 of 1200 · nce-s-eth-009 · Professional Counseling Orientation and Ethical Practice · record keeping and documentation · easy · In review
 
 A competent adult client asks to see a copy of her counseling records. What does the ACA Code of Ethics direct the counselor to do?
 
@@ -222,7 +222,7 @@ A competent adult client asks to see a copy of her counseling records. What does
 
 ---
 
-### Q10 of 1000 · nce-s-eth-010 · Professional Counseling Orientation and Ethical Practice · multiple relationships and boundary crossings · medium · In review
+### Q10 of 1200 · nce-s-eth-010 · Professional Counseling Orientation and Ethical Practice · multiple relationships and boundary crossings · medium · In review
 
 Two years after ending counseling with a client, a counselor runs into the former client at a community event, and the former client asks the counselor out on a date. Under the ACA Code of Ethics, what applies?
 
@@ -246,7 +246,7 @@ Two years after ending counseling with a client, a counselor runs into the forme
 
 ---
 
-### Q11 of 1000 · nce-s-eth-011 · Counseling and Helping Relationships · multiple relationships and boundary crossings · medium · In review
+### Q11 of 1200 · nce-s-eth-011 · Counseling and Helping Relationships · multiple relationships and boundary crossings · medium · In review
 
 A counselor in a small rural town is invited by a long-term client to attend the client's high school graduation, which the client has worked toward despite major barriers. The counselor believes attending could benefit the client. What should the counselor do?
 
@@ -270,7 +270,7 @@ A counselor in a small rural town is invited by a long-term client to attend the
 
 ---
 
-### Q12 of 1000 · nce-s-eth-012 · Professional Counseling Orientation and Ethical Practice · scope of practice and competence · hard · In review
+### Q12 of 1200 · nce-s-eth-012 · Professional Counseling Orientation and Ethical Practice · scope of practice and competence · hard · In review
 
 A licensed counselor completes a one-day introductory workshop on a specialized trauma therapy and wants to start using it with several clients who have complex trauma. Which course of action BEST meets the counselor's ethical obligations?
 
@@ -294,7 +294,7 @@ A licensed counselor completes a one-day introductory workshop on a specialized 
 
 ---
 
-### Q13 of 1000 · nce-s-eth-013 · Professional Counseling Orientation and Ethical Practice · ACA Code of Ethics structure · easy · In review
+### Q13 of 1200 · nce-s-eth-013 · Professional Counseling Orientation and Ethical Practice · ACA Code of Ethics structure · easy · In review
 
 A counselor wants guidance on keeping separate professional and personal social media profiles. Which section of the 2014 ACA Code of Ethics MOST directly addresses this issue?
 
@@ -318,7 +318,7 @@ A counselor wants guidance on keeping separate professional and personal social 
 
 ---
 
-### Q14 of 1000 · nce-s-eth-014 · Professional Counseling Orientation and Ethical Practice · NBCC Code of Ethics · medium · In review
+### Q14 of 1200 · nce-s-eth-014 · Professional Counseling Orientation and Ethical Practice · NBCC Code of Ethics · medium · In review
 
 A licensed counselor who also holds the National Certified Counselor (NCC) credential is accused of an ethics violation. Which statement about the NBCC Code of Ethics is accurate?
 
@@ -342,7 +342,7 @@ A licensed counselor who also holds the National Certified Counselor (NCC) crede
 
 ---
 
-### Q15 of 1000 · nce-s-eth-015 · Professional Counseling Orientation and Ethical Practice · ethical decision-making models · medium · In review
+### Q15 of 1200 · nce-s-eth-015 · Professional Counseling Orientation and Ethical Practice · ethical decision-making models · medium · In review
 
 While evaluating a chosen course of action, a counselor asks, "Would I be comfortable if this decision were reported in the local newspaper?" Which test from Stadler's model is the counselor applying?
 
@@ -366,7 +366,7 @@ While evaluating a chosen course of action, a counselor asks, "Would I be comfor
 
 ---
 
-### Q16 of 1000 · nce-s-eth-016 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · hard · In review
+### Q16 of 1200 · nce-s-eth-016 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · hard · In review
 
 A clinical supervisor learns that a post-master's supervisee has not told clients that she is under supervision or that their cases are discussed with the supervisor. What is the supervisor's MOST appropriate response?
 
@@ -390,7 +390,7 @@ A clinical supervisor learns that a post-master's supervisee has not told client
 
 ---
 
-### Q17 of 1000 · nce-s-eth-017 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · easy · In review
+### Q17 of 1200 · nce-s-eth-017 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · easy · In review
 
 Which statement BEST describes the difference between state licensure and national certification for counselors?
 
@@ -414,7 +414,7 @@ Which statement BEST describes the difference between state licensure and nation
 
 ---
 
-### Q18 of 1000 · nce-s-eth-018 · Social and Cultural Diversity · counselor advocacy and social justice · medium · In review
+### Q18 of 1200 · nce-s-eth-018 · Social and Cultural Diversity · counselor advocacy and social justice · medium · In review
 
 A counselor learns that a client who uses a wheelchair is being denied a reasonable accommodation by her landlord. The counselor wants to contact the housing authority about this client's case. What must the counselor do FIRST?
 
@@ -438,7 +438,7 @@ A counselor learns that a client who uses a wheelchair is being denied a reasona
 
 ---
 
-### Q19 of 1000 · nce-s-eth-019 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · medium · In review
+### Q19 of 1200 · nce-s-eth-019 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · medium · In review
 
 A counselor licensed in one state is asked to provide video counseling to a client who lives in another state. Which consideration is MOST important before beginning?
 
@@ -462,7 +462,7 @@ A counselor licensed in one state is asked to provide video counseling to a clie
 
 ---
 
-### Q20 of 1000 · nce-s-eth-020 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · easy · In review
+### Q20 of 1200 · nce-s-eth-020 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · easy · In review
 
 A counselor is starting video sessions with a new client who has a history of suicidal ideation. Which step is MOST important to complete during the first telehealth session?
 
@@ -486,7 +486,7 @@ A counselor is starting video sessions with a new client who has a history of su
 
 ---
 
-### Q21 of 1000 · nce-s-eth-021 · Social and Cultural Diversity · termination and referral · medium · In review
+### Q21 of 1200 · nce-s-eth-021 · Social and Cultural Diversity · termination and referral · medium · In review
 
 A counselor with strong religious beliefs is assigned a client who wants help with stress in her same-sex marriage. The counselor feels uncomfortable and wants to refer the client elsewhere. What does the ACA Code of Ethics state?
 
@@ -510,7 +510,7 @@ A counselor with strong religious beliefs is assigned a client who wants help wi
 
 ---
 
-### Q22 of 1000 · nce-s-eth-022 · Professional Counseling Orientation and Ethical Practice · counselor impairment and self-care · hard · In review
+### Q22 of 1200 · nce-s-eth-022 · Professional Counseling Orientation and Ethical Practice · counselor impairment and self-care · hard · In review
 
 A counselor notices that a colleague has been arriving late, smelling of alcohol, and falling asleep in team meetings. The colleague carries a full caseload. What should the counselor do FIRST, if it can be done safely?
 
@@ -534,7 +534,7 @@ A counselor notices that a colleague has been arriving late, smelling of alcohol
 
 ---
 
-### Q23 of 1000 · nce-s-eth-023 · Professional Counseling Orientation and Ethical Practice · professional organizations and their roles · easy · In review
+### Q23 of 1200 · nce-s-eth-023 · Professional Counseling Orientation and Ethical Practice · professional organizations and their roles · easy · In review
 
 A student comparing master's programs in clinical mental health counseling asks which organization accredits counseling graduate programs. Which organization is it?
 
@@ -558,7 +558,7 @@ A student comparing master's programs in clinical mental health counseling asks 
 
 ---
 
-### Q24 of 1000 · nce-s-eth-024 · Research and Program Evaluation · ACA Code of Ethics structure · medium · In review
+### Q24 of 1200 · nce-s-eth-024 · Research and Program Evaluation · ACA Code of Ethics structure · medium · In review
 
 A counselor researcher wants to study help-seeking and plans to briefly mislead participants about the study's true aim, because full disclosure would bias their answers. Under the ACA Code of Ethics, when is this acceptable?
 
@@ -584,7 +584,7 @@ A counselor researcher wants to study help-seeking and plans to briefly mislead 
 
 ---
 
-### Q25 of 1000 · nce-s-eth-025 · Professional Counseling Orientation and Ethical Practice · informed consent and its required elements · medium · In review
+### Q25 of 1200 · nce-s-eth-025 · Professional Counseling Orientation and Ethical Practice · informed consent and its required elements · medium · In review
 
 A client in private practice stopped attending sessions and has an unpaid balance of several hundred dollars. The counselor is considering turning the account over to a collection agency. What should the counselor do FIRST?
 
@@ -608,7 +608,7 @@ A client in private practice stopped attending sessions and has an unpaid balanc
 
 ---
 
-### Q26 of 1000 · nce-s-eth-026 · Professional Counseling Orientation and Ethical Practice · multiple relationships and boundary crossings · medium · In review
+### Q26 of 1200 · nce-s-eth-026 · Professional Counseling Orientation and Ethical Practice · multiple relationships and boundary crossings · medium · In review
 
 In a rural farming community where trading services is common, a client who recently lost his job asks whether he could repair the counselor's office roof in exchange for sessions. Under the ACA Code of Ethics, when is bartering acceptable?
 
@@ -632,7 +632,7 @@ In a rural farming community where trading services is common, a client who rece
 
 ---
 
-### Q27 of 1000 · nce-s-eth-027 · Professional Counseling Orientation and Ethical Practice · termination and referral · easy · In review
+### Q27 of 1200 · nce-s-eth-027 · Professional Counseling Orientation and Ethical Practice · termination and referral · easy · In review
 
 A counselor accepts a job in another state and will close her practice in two months. Several of her clients are still working on active treatment goals. Which action BEST avoids client abandonment?
 
@@ -656,7 +656,7 @@ A counselor accepts a job in another state and will close her practice in two mo
 
 ---
 
-### Q28 of 1000 · nce-s-eth-028 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · hard · In review
+### Q28 of 1200 · nce-s-eth-028 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · hard · In review
 
 A counselor receives a subpoena from the attorney for a client's former spouse, demanding the client's full counseling file for a custody hearing. The client has not signed a release. What is the counselor's BEST course of action?
 
@@ -682,7 +682,7 @@ A counselor receives a subpoena from the attorney for a client's former spouse, 
 
 ---
 
-### Q29 of 1000 · nce-s-eth-029 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · medium · In review
+### Q29 of 1200 · nce-s-eth-029 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · medium · In review
 
 Three months after a long-term client dies of natural causes, her adult son calls the counselor and asks for copies of his mother's session notes so he can "understand her better." What should guide the counselor's response?
 
@@ -706,7 +706,7 @@ Three months after a long-term client dies of natural causes, her adult son call
 
 ---
 
-### Q30 of 1000 · nce-s-eth-030 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · easy · In review
+### Q30 of 1200 · nce-s-eth-030 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · easy · In review
 
 A licensed counselor wants advice from a peer consultation group about a difficult case involving a well-known local business owner. The client has not given consent to discuss the case. How should the counselor proceed?
 
@@ -730,7 +730,7 @@ A licensed counselor wants advice from a peer consultation group about a difficu
 
 ---
 
-### Q31 of 1000 · nce-s-eth-031 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · medium · In review
+### Q31 of 1200 · nce-s-eth-031 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · medium · In review
 
 A counselor is about to begin couples counseling with two partners in their fifties. To prevent problems later, what should the counselor do regarding confidentiality at the outset?
 
@@ -754,7 +754,7 @@ A counselor is about to begin couples counseling with two partners in their fift
 
 ---
 
-### Q32 of 1000 · nce-s-eth-032 · Group Counseling and Group Work · scope of practice and competence · easy · In review
+### Q32 of 1200 · nce-s-eth-032 · Group Counseling and Group Work · scope of practice and competence · easy · In review
 
 A counselor is forming a 10-week psychoeducational group on managing workplace stress. According to the ACA Code of Ethics, what is the main purpose of screening prospective members?
 
@@ -778,7 +778,7 @@ A counselor is forming a 10-week psychoeducational group on managing workplace s
 
 ---
 
-### Q33 of 1000 · nce-s-eth-033 · Group Counseling and Group Work · counselor advocacy and social justice · medium · In review
+### Q33 of 1200 · nce-s-eth-033 · Group Counseling and Group Work · counselor advocacy and social justice · medium · In review
 
 During the fourth session of an adolescent anger-management group, several members begin mocking a quieter member's accent, and she starts to cry. What is the leader's MOST appropriate response?
 
@@ -802,7 +802,7 @@ During the fourth session of an adolescent anger-management group, several membe
 
 ---
 
-### Q34 of 1000 · nce-s-eth-034 · Assessment and Testing · scope of practice and competence · easy · In review
+### Q34 of 1200 · nce-s-eth-034 · Assessment and Testing · scope of practice and competence · easy · In review
 
 An agency director asks a newly licensed counselor to administer and interpret an individually administered intelligence test. The counselor has never been trained on this instrument. What should the counselor do?
 
@@ -826,7 +826,7 @@ An agency director asks a newly licensed counselor to administer and interpret a
 
 ---
 
-### Q35 of 1000 · nce-s-eth-035 · Assessment and Testing · record keeping and documentation · hard · In review
+### Q35 of 1200 · nce-s-eth-035 · Assessment and Testing · record keeping and documentation · hard · In review
 
 A client involved in a disability claim signs a release asking the counselor to send her raw personality test responses and scores directly to her attorney, who has no training in psychological testing. How should the counselor respond under the ACA Code of Ethics?
 
@@ -852,7 +852,7 @@ A client involved in a disability claim signs a release asking the counselor to 
 
 ---
 
-### Q36 of 1000 · nce-s-eth-036 · Assessment and Testing · scope of practice and competence · medium · In review
+### Q36 of 1200 · nce-s-eth-036 · Assessment and Testing · scope of practice and competence · medium · In review
 
 A counselor plans to use a depression inventory with a client who immigrated from Vietnam a year ago and is learning English. The inventory was normed mainly on U.S.-born English speakers. What is the BEST ethical approach?
 
@@ -876,7 +876,7 @@ A counselor plans to use a depression inventory with a client who immigrated fro
 
 ---
 
-### Q37 of 1000 · nce-s-eth-037 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · hard · In review
+### Q37 of 1200 · nce-s-eth-037 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · hard · In review
 
 A site supervisor has given a post-master's supervisee written feedback for six months about missed risk assessments and late notes. Despite a written remediation plan, the problems continue. What is the supervisor's MOST appropriate next step?
 
@@ -900,7 +900,7 @@ A site supervisor has given a post-master's supervisee written feedback for six 
 
 ---
 
-### Q38 of 1000 · nce-s-eth-038 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · medium · In review
+### Q38 of 1200 · nce-s-eth-038 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · medium · In review
 
 A counselor educator teaching a group counseling course requires students to take part in an experiential group as members. How should the educator handle evaluation of students in this experience?
 
@@ -926,7 +926,7 @@ A counselor educator teaching a group counseling course requires students to tak
 
 ---
 
-### Q39 of 1000 · nce-s-eth-039 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · easy · In review
+### Q39 of 1200 · nce-s-eth-039 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · easy · In review
 
 After a session in which a new client mentions a popular online video channel she runs, the counselor is tempted to look up the channel and the client's public social media posts. What does the ACA Code of Ethics advise?
 
@@ -950,7 +950,7 @@ After a session in which a new client mentions a popular online video channel sh
 
 ---
 
-### Q40 of 1000 · nce-s-eth-040 · Professional Counseling Orientation and Ethical Practice · record keeping and documentation · easy · In review
+### Q40 of 1200 · nce-s-eth-040 · Professional Counseling Orientation and Ethical Practice · record keeping and documentation · easy · In review
 
 A counselor in solo practice is retiring and has paper files for clients seen over the past 15 years. How should the counselor handle retention and disposal of these records?
 
@@ -974,7 +974,7 @@ A counselor in solo practice is retiring and has paper files for clients seen ov
 
 ---
 
-### Q41 of 1000 · nce-s-eth-041 · Professional Counseling Orientation and Ethical Practice · ethical decision-making models · medium · In review
+### Q41 of 1200 · nce-s-eth-041 · Professional Counseling Orientation and Ethical Practice · ethical decision-making models · medium · In review
 
 A counselor at a state agency is told that a new agency rule requires sharing full session notes with a client's employer whenever the employer pays for services. The counselor believes this conflicts with the ACA Code of Ethics. What should the counselor do FIRST?
 
@@ -998,7 +998,7 @@ A counselor at a state agency is told that a new agency rule requires sharing fu
 
 ---
 
-### Q42 of 1000 · nce-s-eth-042 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · hard · In review
+### Q42 of 1200 · nce-s-eth-042 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · hard · In review
 
 A counselor learns that a colleague has been billing insurers for family sessions that never took place. When she raised it privately, the colleague dismissed her concern and the billing continued. What should the counselor do NEXT?
 
@@ -1022,7 +1022,7 @@ A counselor learns that a colleague has been billing insurers for family session
 
 ---
 
-### Q43 of 1000 · nce-s-eth-043 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · medium · In review
+### Q43 of 1200 · nce-s-eth-043 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · medium · In review
 
 A licensed professional counselor holds a master's in counseling and a doctorate in music history. On her practice website she calls herself "Dr." and lists her credentials. What does the ACA Code of Ethics say about this?
 
@@ -1046,7 +1046,7 @@ A licensed professional counselor holds a master's in counseling and a doctorate
 
 ---
 
-### Q44 of 1000 · nce-s-eth-044 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · hard · In review
+### Q44 of 1200 · nce-s-eth-044 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · hard · In review
 
 A 78-year-old client with a terminal illness tells his counselor he is considering ending his life through his state's legal medical aid-in-dying process. He has no other risk factors. Under the ACA Code of Ethics, how should the counselor approach confidentiality?
 
@@ -1072,7 +1072,7 @@ A 78-year-old client with a terminal illness tells his counselor he is consideri
 
 ---
 
-### Q45 of 1000 · nce-s-eth-045 · Social and Cultural Diversity · counselor advocacy and social justice · medium · In review
+### Q45 of 1200 · nce-s-eth-045 · Social and Cultural Diversity · counselor advocacy and social justice · medium · In review
 
 A 24-year-old client from a close-knit Mexican American family lives at home and gives part of his pay to his parents. The counselor, who values independence, begins urging him to move out to "become his own person." The client has not named this as a goal. What is the ethical concern?
 
@@ -1096,7 +1096,7 @@ A 24-year-old client from a close-knit Mexican American family lives at home and
 
 ---
 
-### Q46 of 1000 · nce-s-eth-046 · Research and Program Evaluation · informed consent and its required elements · easy · In review
+### Q46 of 1200 · nce-s-eth-046 · Research and Program Evaluation · informed consent and its required elements · easy · In review
 
 A counselor researcher is preparing a consent form for a study of coping in caregivers of people with dementia. Which statement is a required element of informed consent for research participants?
 
@@ -1120,7 +1120,7 @@ A counselor researcher is preparing a consent form for a study of coping in care
 
 ---
 
-### Q47 of 1000 · nce-s-eth-047 · Research and Program Evaluation · confidentiality and its limits · medium · In review
+### Q47 of 1200 · nce-s-eth-047 · Research and Program Evaluation · confidentiality and its limits · medium · In review
 
 A counselor in a community agency plans to survey clients about service satisfaction and later publish the findings. The agency has access to a university institutional review board (IRB). Which step is MOST appropriate before collecting data?
 
@@ -1146,7 +1146,7 @@ A counselor in a community agency plans to survey clients about service satisfac
 
 ---
 
-### Q48 of 1000 · nce-s-eth-048 · Research and Program Evaluation · ethical decision-making models · medium · In review
+### Q48 of 1200 · nce-s-eth-048 · Research and Program Evaluation · ethical decision-making models · medium · In review
 
 A counselor's outcome study finds that a group program her agency promotes did not reduce symptoms more than a waitlist. The agency director suggests leaving these results out of the annual report. What should the counselor do?
 
@@ -1170,7 +1170,7 @@ A counselor's outcome study finds that a group program her agency promotes did n
 
 ---
 
-### Q49 of 1000 · nce-s-eth-049 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · medium · In review
+### Q49 of 1200 · nce-s-eth-049 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · medium · In review
 
 A 68-year-old client with an intellectual disability lives in a licensed group home. She tells her counselor that night staff often lock the pantry and send her to bed without dinner as punishment. She has lost weight since her last visit. State law names counselors as mandated reporters of abuse and neglect of vulnerable adults. What should the counselor do?
 
@@ -1194,7 +1194,7 @@ A 68-year-old client with an intellectual disability lives in a licensed group h
 
 ---
 
-### Q50 of 1000 · nce-s-eth-050 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · hard · In review
+### Q50 of 1200 · nce-s-eth-050 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · hard · In review
 
 A 36-year-old client discloses that an uncle sexually abused her from ages 8 to 11. She does not want to file a report. In passing, she mentions that the uncle now coaches a youth soccer team. How should the counselor approach the question of reporting?
 
@@ -1220,7 +1220,7 @@ A 36-year-old client discloses that an uncle sexually abused her from ages 8 to 
 
 ---
 
-### Q51 of 1000 · nce-s-eth-051 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · easy · In review
+### Q51 of 1200 · nce-s-eth-051 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · easy · In review
 
 A counselor has just phoned in a report of suspected child neglect to the state child protection hotline. Which documentation practice is MOST appropriate?
 
@@ -1244,7 +1244,7 @@ A counselor has just phoned in a report of suspected child neglect to the state 
 
 ---
 
-### Q52 of 1000 · nce-s-eth-052 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · easy · In review
+### Q52 of 1200 · nce-s-eth-052 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · easy · In review
 
 Under the Family Educational Rights and Privacy Act (FERPA), when do the rights to inspect and control a student's education records transfer from the parents to the student?
 
@@ -1268,7 +1268,7 @@ Under the Family Educational Rights and Privacy Act (FERPA), when do the rights 
 
 ---
 
-### Q53 of 1000 · nce-s-eth-053 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · medium · In review
+### Q53 of 1200 · nce-s-eth-053 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · medium · In review
 
 A middle school counselor jots brief notes after student meetings to jog her memory. A parent asks to see "everything the school has" on his son. Under FERPA, which condition would keep the counselor's notes outside the definition of education records?
 
@@ -1292,7 +1292,7 @@ A middle school counselor jots brief notes after student meetings to jog her mem
 
 ---
 
-### Q54 of 1000 · nce-s-eth-054 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · hard · In review
+### Q54 of 1200 · nce-s-eth-054 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · hard · In review
 
 A client at a HIPAA-covered clinic reads her records and asks the counselor to change an intake note that lists past alcohol misuse, which she says is wrong. The counselor reviewed the intake carefully and believes the note is accurate and complete. What does the HIPAA Privacy Rule require?
 
@@ -1316,7 +1316,7 @@ A client at a HIPAA-covered clinic reads her records and asks the counselor to c
 
 ---
 
-### Q55 of 1000 · nce-s-eth-055 · Professional Counseling Orientation and Ethical Practice · NBCC Code of Ethics · medium · In review
+### Q55 of 1200 · nce-s-eth-055 · Professional Counseling Orientation and Ethical Practice · NBCC Code of Ethics · medium · In review
 
 A counselor is licensed in her state, holds the National Certified Counselor (NCC) credential, and is a member of the American Counseling Association. Which ethical standards apply to her professional conduct?
 
@@ -1340,7 +1340,7 @@ A counselor is licensed in her state, holds the National Certified Counselor (NC
 
 ---
 
-### Q56 of 1000 · nce-s-eth-056 · Professional Counseling Orientation and Ethical Practice · NBCC Code of Ethics · medium · In review
+### Q56 of 1200 · nce-s-eth-056 · Professional Counseling Orientation and Ethical Practice · NBCC Code of Ethics · medium · In review
 
 A National Certified Counselor receives a public reprimand from her state licensing board for a documentation lapse. She wonders whether she must tell NBCC, since the matter was handled by the state. What does the NBCC Code of Ethics expect?
 
@@ -1366,7 +1366,7 @@ A National Certified Counselor receives a public reprimand from her state licens
 
 ---
 
-### Q57 of 1000 · nce-s-eth-057 · Professional Counseling Orientation and Ethical Practice · counselor impairment and self-care · medium · In review
+### Q57 of 1200 · nce-s-eth-057 · Professional Counseling Orientation and Ethical Practice · counselor impairment and self-care · medium · In review
 
 Two months after her father's death, a counselor finds herself tearful and distracted in sessions with several bereaved clients, and she lost track of one client's risk disclosure last week. What is her MOST appropriate course of action?
 
@@ -1390,7 +1390,7 @@ Two months after her father's death, a counselor finds herself tearful and distr
 
 ---
 
-### Q58 of 1000 · nce-s-eth-058 · Professional Counseling Orientation and Ethical Practice · counselor impairment and self-care · easy · In review
+### Q58 of 1200 · nce-s-eth-058 · Professional Counseling Orientation and Ethical Practice · counselor impairment and self-care · easy · In review
 
 After three years of working mainly with survivors of violent crime, a counselor notices that she now sees the world as unsafe, distrusts strangers, and has intrusive images from clients' stories. Which term BEST describes this?
 
@@ -1416,7 +1416,7 @@ After three years of working mainly with survivors of violent crime, a counselor
 
 ---
 
-### Q59 of 1000 · nce-s-eth-059 · Professional Counseling Orientation and Ethical Practice · professional organizations and their roles · easy · In review
+### Q59 of 1200 · nce-s-eth-059 · Professional Counseling Orientation and Ethical Practice · professional organizations and their roles · easy · In review
 
 A counselor wants to join the American Counseling Association division that focuses on multicultural counseling and that endorsed the Multicultural and Social Justice Counseling Competencies. Which division should she join?
 
@@ -1440,7 +1440,7 @@ A counselor wants to join the American Counseling Association division that focu
 
 ---
 
-### Q60 of 1000 · nce-s-eth-060 · Professional Counseling Orientation and Ethical Practice · professional organizations and their roles · medium · In review
+### Q60 of 1200 · nce-s-eth-060 · Professional Counseling Orientation and Ethical Practice · professional organizations and their roles · medium · In review
 
 A counselor educator is preparing a slide that matches counseling bodies with their roles. Which pairing is accurate?
 
@@ -1464,7 +1464,7 @@ A counselor educator is preparing a slide that matches counseling bodies with th
 
 ---
 
-### Q61 of 1000 · nce-s-eth-061 · Professional Counseling Orientation and Ethical Practice · duty to warn and protect · hard · In review
+### Q61 of 1200 · nce-s-eth-061 · Professional Counseling Orientation and Ethical Practice · duty to warn and protect · hard · In review
 
 The California Supreme Court decided Tarasoff v. Regents of the University of California twice, in 1974 and again on rehearing in 1976. How did the 1976 decision change the clinician's obligation?
 
@@ -1488,7 +1488,7 @@ The California Supreme Court decided Tarasoff v. Regents of the University of Ca
 
 ---
 
-### Q62 of 1000 · nce-s-eth-062 · Professional Counseling Orientation and Ethical Practice · duty to warn and protect · easy · In review
+### Q62 of 1200 · nce-s-eth-062 · Professional Counseling Orientation and Ethical Practice · duty to warn and protect · easy · In review
 
 A counselor relocates her practice to a new state. A colleague tells her that "duty to warn works the same everywhere because of Tarasoff." What is the MOST accurate response?
 
@@ -1512,7 +1512,7 @@ A counselor relocates her practice to a new state. A colleague tells her that "d
 
 ---
 
-### Q63 of 1000 · nce-s-eth-063 · Professional Counseling Orientation and Ethical Practice · ACA Code of Ethics structure · medium · In review
+### Q63 of 1200 · nce-s-eth-063 · Professional Counseling Orientation and Ethical Practice · ACA Code of Ethics structure · medium · In review
 
 The Preamble of the 2014 ACA Code of Ethics lists core professional values of the counseling profession. Which of the following is one of those core values?
 
@@ -1536,7 +1536,7 @@ The Preamble of the 2014 ACA Code of Ethics lists core professional values of th
 
 ---
 
-### Q64 of 1000 · nce-s-eth-064 · Professional Counseling Orientation and Ethical Practice · termination and referral · hard · In review
+### Q64 of 1200 · nce-s-eth-064 · Professional Counseling Orientation and Ethical Practice · termination and referral · hard · In review
 
 A client's partner has twice confronted the counselor in the parking lot after sessions and left threatening voicemails. The counselor no longer feels safe continuing the relationship. Under the ACA Code of Ethics, what may the counselor do?
 
@@ -1560,7 +1560,7 @@ A client's partner has twice confronted the counselor in the parking lot after s
 
 ---
 
-### Q65 of 1000 · nce-s-eth-065 · Professional Counseling Orientation and Ethical Practice · termination and referral · medium · In review
+### Q65 of 1200 · nce-s-eth-065 · Professional Counseling Orientation and Ethical Practice · termination and referral · medium · In review
 
 A counselor realizes that a client's severe eating disorder requires specialized care beyond her competence. She offers three referrals to qualified providers, but the client declines all of them and asks to keep seeing her. What does the ACA Code of Ethics direct?
 
@@ -1584,7 +1584,7 @@ A counselor realizes that a client's severe eating disorder requires specialized
 
 ---
 
-### Q66 of 1000 · nce-s-eth-066 · Social and Cultural Diversity · multiple relationships and boundary crossings · medium · In review
+### Q66 of 1200 · nce-s-eth-066 · Social and Cultural Diversity · multiple relationships and boundary crossings · medium · In review
 
 At the final session, a client who immigrated from the Philippines brings her counselor a small box of homemade pastries to thank her, explaining that in her family such gifts express respect. How should the counselor approach this gift?
 
@@ -1608,7 +1608,7 @@ At the final session, a client who immigrated from the Philippines brings her co
 
 ---
 
-### Q67 of 1000 · nce-s-eth-067 · Assessment and Testing · informed consent and its required elements · easy · In review
+### Q67 of 1200 · nce-s-eth-067 · Assessment and Testing · informed consent and its required elements · easy · In review
 
 A counselor has a guardian's consent to give a career interest inventory to a 17-year-old student. Under the ACA Code of Ethics, what must the counselor explain to the student before the assessment?
 
@@ -1632,7 +1632,7 @@ A counselor has a guardian's consent to give a career interest inventory to a 17
 
 ---
 
-### Q68 of 1000 · nce-s-eth-068 · Assessment and Testing · scope of practice and competence · medium · In review
+### Q68 of 1200 · nce-s-eth-068 · Assessment and Testing · scope of practice and competence · medium · In review
 
 A counselor running a workshop on test anxiety wants to photocopy several items from a published, copyrighted achievement test to use as practice handouts. What is the ethical issue?
 
@@ -1656,7 +1656,7 @@ A counselor running a workshop on test anxiety wants to photocopy several items 
 
 ---
 
-### Q69 of 1000 · nce-s-eth-069 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · medium · In review
+### Q69 of 1200 · nce-s-eth-069 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · medium · In review
 
 A licensed counselor agrees to provide clinical supervision for a new graduate working toward licensure. Under the ACA Code of Ethics, what should the supervisor do at the start of the relationship?
 
@@ -1680,7 +1680,7 @@ A licensed counselor agrees to provide clinical supervision for a new graduate w
 
 ---
 
-### Q70 of 1000 · nce-s-eth-070 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · medium · In review
+### Q70 of 1200 · nce-s-eth-070 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · medium · In review
 
 A counselor's close friend asks her to serve as the licensure supervisor for the friend's adult son, who just finished a counseling degree. The counselor is confident she could be fair. What does the ACA Code of Ethics direct?
 
@@ -1704,7 +1704,7 @@ A counselor's close friend asks her to serve as the licensure supervisor for the
 
 ---
 
-### Q71 of 1000 · nce-s-eth-071 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · easy · In review
+### Q71 of 1200 · nce-s-eth-071 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · easy · In review
 
 A group practice is moving from paper charts to a cloud-based electronic health record. Under the ACA Code of Ethics, what should counselors tell clients about this change?
 
@@ -1728,7 +1728,7 @@ A group practice is moving from paper charts to a cloud-based electronic health 
 
 ---
 
-### Q72 of 1000 · nce-s-eth-072 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · medium · In review
+### Q72 of 1200 · nce-s-eth-072 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · medium · In review
 
 The mother of a 14-year-old client calls after the third session and asks the counselor to tell her "everything he says," noting that she has legal custody and pays for services. The teen has asked that his talks stay private. What is the counselor's BEST approach?
 
@@ -1752,7 +1752,7 @@ The mother of a 14-year-old client calls after the third session and asks the co
 
 ---
 
-### Q73 of 1000 · nce-s-eth-073 · Professional Counseling Orientation and Ethical Practice · record keeping and documentation · easy · In review
+### Q73 of 1200 · nce-s-eth-073 · Professional Counseling Orientation and Ethical Practice · record keeping and documentation · easy · In review
 
 A counselor at a community clinic is reviewing her progress notes before an internal audit. Which entry BEST reflects what belongs in a progress note?
 
@@ -1776,7 +1776,7 @@ A counselor at a community clinic is reviewing her progress notes before an inte
 
 ---
 
-### Q74 of 1000 · nce-s-eth-074 · Professional Counseling Orientation and Ethical Practice · record keeping and documentation · medium · In review
+### Q74 of 1200 · nce-s-eth-074 · Professional Counseling Orientation and Ethical Practice · record keeping and documentation · medium · In review
 
 A week after writing a progress note in the clinic's electronic record, a counselor realizes she entered the wrong medication dose that the client reported. How should she correct the error?
 
@@ -1800,7 +1800,7 @@ A week after writing a progress note in the clinic's electronic record, a counse
 
 ---
 
-### Q75 of 1000 · nce-s-eth-075 · Professional Counseling Orientation and Ethical Practice · record keeping and documentation · hard · In review
+### Q75 of 1200 · nce-s-eth-075 · Professional Counseling Orientation and Ethical Practice · record keeping and documentation · hard · In review
 
 A counselor saw a couple in joint sessions and also met once with each partner alone. After the couple separates, one partner, a 42-year-old man, asks for a copy of "the whole file." The other partner has not given consent. What does the ACA Code of Ethics direct?
 
@@ -1824,7 +1824,7 @@ A counselor saw a couple in joint sessions and also met once with each partner a
 
 ---
 
-### Q76 of 1000 · nce-s-eth-076 · Professional Counseling Orientation and Ethical Practice · ethical decision-making models · easy · In review
+### Q76 of 1200 · nce-s-eth-076 · Professional Counseling Orientation and Ethical Practice · ethical decision-making models · easy · In review
 
 A counselor promised a client she would call him back with a referral by Friday. On Friday, her schedule is overloaded, but she makes the call before leaving work. Which of Kitchener's moral principles does this action MOST directly reflect?
 
@@ -1848,7 +1848,7 @@ A counselor promised a client she would call him back with a referral by Friday.
 
 ---
 
-### Q77 of 1000 · nce-s-eth-077 · Professional Counseling Orientation and Ethical Practice · ethical decision-making models · medium · In review
+### Q77 of 1200 · nce-s-eth-077 · Professional Counseling Orientation and Ethical Practice · ethical decision-making models · medium · In review
 
 A nonprofit agency fills open counseling slots by giving priority to clients with private insurance. A counselor argues that slots should go first to clients with the most severe needs, regardless of payer. Which moral principle is the counselor MOST directly invoking?
 
@@ -1872,7 +1872,7 @@ A nonprofit agency fills open counseling slots by giving priority to clients wit
 
 ---
 
-### Q78 of 1000 · nce-s-eth-078 · Professional Counseling Orientation and Ethical Practice · ethical decision-making models · hard · In review
+### Q78 of 1200 · nce-s-eth-078 · Professional Counseling Orientation and Ethical Practice · ethical decision-making models · hard · In review
 
 A competent 55-year-old client decides to leave a stable job to open a risky small business. She is not in danger, but her counselor believes the move will cause her great stress and financial harm and is tempted to keep steering sessions toward talking her out of it. Which two principles are MOST in tension?
 
@@ -1896,7 +1896,7 @@ A competent 55-year-old client decides to leave a stable job to open a risky sma
 
 ---
 
-### Q79 of 1000 · nce-s-eth-079 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · medium · In review
+### Q79 of 1200 · nce-s-eth-079 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · medium · In review
 
 A counselor holds a full, unencumbered license in her home state, which belongs to the Counseling Compact. She obtains a privilege to practice in another member state to see a client there by video. Whose practice laws govern her work with that client?
 
@@ -1922,7 +1922,7 @@ A counselor holds a full, unencumbered license in her home state, which belongs 
 
 ---
 
-### Q80 of 1000 · nce-s-eth-080 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · hard · In review
+### Q80 of 1200 · nce-s-eth-080 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · hard · In review
 
 A counselor holds an associate-level counseling license that, under her state's law, requires practice under an approved supervisor. She also holds the NCC credential. A friend urges her to open a solo private practice, saying "the NCC shows you're qualified." What determines whether she may practice independently?
 
@@ -1948,7 +1948,7 @@ A counselor holds an associate-level counseling license that, under her state's 
 
 ---
 
-### Q81 of 1000 · nce-s-eth-081 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · easy · In review
+### Q81 of 1200 · nce-s-eth-081 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · easy · In review
 
 A state's counselor law is described as a "title act" rather than a "practice act." What does a title act do?
 
@@ -1972,7 +1972,7 @@ A state's counselor law is described as a "title act" rather than a "practice ac
 
 ---
 
-### Q82 of 1000 · nce-s-eth-082 · Social and Cultural Diversity · counselor advocacy and social justice · medium · In review
+### Q82 of 1200 · nce-s-eth-082 · Social and Cultural Diversity · counselor advocacy and social justice · medium · In review
 
 A counselor who works with many clients facing eviction testifies before a state legislative committee in support of a bill to expand tenant protections. In the ACA Advocacy Competencies, which domain does this work fall under?
 
@@ -1996,7 +1996,7 @@ A counselor who works with many clients facing eviction testifies before a state
 
 ---
 
-### Q83 of 1000 · nce-s-eth-083 · Social and Cultural Diversity · counselor advocacy and social justice · medium · In review
+### Q83 of 1200 · nce-s-eth-083 · Social and Cultural Diversity · counselor advocacy and social justice · medium · In review
 
 A counselor notices that several clients from the same apartment complex report asthma flare-ups from mold, and the landlord ignores repair requests. Which action BEST represents systemic rather than client-level advocacy?
 
@@ -2020,7 +2020,7 @@ A counselor notices that several clients from the same apartment complex report 
 
 ---
 
-### Q84 of 1000 · nce-s-eth-084 · Social and Cultural Diversity · counselor advocacy and social justice · medium · In review
+### Q84 of 1200 · nce-s-eth-084 · Social and Cultural Diversity · counselor advocacy and social justice · medium · In review
 
 A 29-year-old client who is Deaf tells her counselor that her employer keeps refusing to provide an interpreter for staff meetings. She is articulate, knows her rights, and wants to handle it herself, but feels discouraged. Which advocacy approach BEST fits this situation?
 
@@ -2044,7 +2044,7 @@ A 29-year-old client who is Deaf tells her counselor that her employer keeps ref
 
 ---
 
-### Q85 of 1000 · nce-s-eth-085 · Professional Counseling Orientation and Ethical Practice · counselor impairment and self-care · easy · In review
+### Q85 of 1200 · nce-s-eth-085 · Professional Counseling Orientation and Ethical Practice · counselor impairment and self-care · easy · In review
 
 A counseling intern says self-care is "a personal lifestyle choice that has nothing to do with ethics." How does the 2014 ACA Code of Ethics treat counselor self-care?
 
@@ -2068,7 +2068,7 @@ A counseling intern says self-care is "a personal lifestyle choice that has noth
 
 ---
 
-### Q86 of 1000 · nce-s-eth-086 · Professional Counseling Orientation and Ethical Practice · counselor impairment and self-care · medium · In review
+### Q86 of 1200 · nce-s-eth-086 · Professional Counseling Orientation and Ethical Practice · counselor impairment and self-care · medium · In review
 
 A counselor in solo practice is diagnosed with a progressive neurological illness. She is fully able to work now but knows sudden decline is possible. Under the ACA Code of Ethics, what should she do to protect her clients?
 
@@ -2092,7 +2092,7 @@ A counselor in solo practice is diagnosed with a progressive neurological illnes
 
 ---
 
-### Q87 of 1000 · nce-s-eth-087 · Professional Counseling Orientation and Ethical Practice · ACA Code of Ethics structure · easy · In review
+### Q87 of 1200 · nce-s-eth-087 · Professional Counseling Orientation and Ethical Practice · ACA Code of Ethics structure · easy · In review
 
 A new clinical supervisor wants the section of the 2014 ACA Code of Ethics that covers supervisor gatekeeping, evaluation of supervisees and counselor educator duties. Which section should she read?
 
@@ -2116,7 +2116,7 @@ A new clinical supervisor wants the section of the 2014 ACA Code of Ethics that 
 
 ---
 
-### Q88 of 1000 · nce-s-eth-088 · Professional Counseling Orientation and Ethical Practice · ACA Code of Ethics structure · medium · In review
+### Q88 of 1200 · nce-s-eth-088 · Professional Counseling Orientation and Ethical Practice · ACA Code of Ethics structure · medium · In review
 
 A counselor asks whether the 2014 ACA Code of Ethics tells counselors exactly which decision-making model to use when facing a dilemma. Which statement is accurate?
 
@@ -2140,7 +2140,7 @@ A counselor asks whether the 2014 ACA Code of Ethics tells counselors exactly wh
 
 ---
 
-### Q89 of 1000 · nce-s-eth-089 · Professional Counseling Orientation and Ethical Practice · NBCC Code of Ethics · medium · In review
+### Q89 of 1200 · nce-s-eth-089 · Professional Counseling Orientation and Ethical Practice · NBCC Code of Ethics · medium · In review
 
 A counselor's National Certified Counselor (NCC) credential lapsed eight months ago after she did not recertify. Her website, business cards and email signature still list "NCC." What is the ethical concern?
 
@@ -2166,7 +2166,7 @@ A counselor's National Certified Counselor (NCC) credential lapsed eight months 
 
 ---
 
-### Q90 of 1000 · nce-s-eth-090 · Professional Counseling Orientation and Ethical Practice · NBCC Code of Ethics · medium · In review
+### Q90 of 1200 · nce-s-eth-090 · Professional Counseling Orientation and Ethical Practice · NBCC Code of Ethics · medium · In review
 
 A counselor who just passed the NCE posts a list of questions she remembers from the exam in an online study group to help friends who test next month. How is this viewed under NBCC standards?
 
@@ -2192,7 +2192,7 @@ A counselor who just passed the NCE posts a list of questions she remembers from
 
 ---
 
-### Q91 of 1000 · nce-s-eth-091 · Professional Counseling Orientation and Ethical Practice · professional organizations and their roles · easy · In review
+### Q91 of 1200 · nce-s-eth-091 · Professional Counseling Orientation and Ethical Practice · professional organizations and their roles · easy · In review
 
 A newly hired high school counselor wants to join the national professional association for school counselors that publishes a national model for school counseling programs. Which organization is it?
 
@@ -2216,7 +2216,7 @@ A newly hired high school counselor wants to join the national professional asso
 
 ---
 
-### Q92 of 1000 · nce-s-eth-092 · Professional Counseling Orientation and Ethical Practice · professional organizations and their roles · medium · In review
+### Q92 of 1200 · nce-s-eth-092 · Professional Counseling Orientation and Ethical Practice · professional organizations and their roles · medium · In review
 
 A state counseling board wants to join a national organization made up of state counselor licensing boards that works on issues such as license portability and consistent regulatory standards. Which organization fits this description?
 
@@ -2240,7 +2240,7 @@ A state counseling board wants to join a national organization made up of state 
 
 ---
 
-### Q93 of 1000 · nce-s-eth-093 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · hard · In review
+### Q93 of 1200 · nce-s-eth-093 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · hard · In review
 
 A 15-year-old client reveals that she has been cutting her thighs and has had thoughts of "not waking up." Her father emailed the counselor that morning demanding to know what his daughter talks about. She begs the counselor not to tell her parents anything. What should the counselor do FIRST?
 
@@ -2264,7 +2264,7 @@ A 15-year-old client reveals that she has been cutting her thighs and has had th
 
 ---
 
-### Q94 of 1000 · nce-s-eth-094 · Professional Counseling Orientation and Ethical Practice · multiple relationships and boundary crossings · hard · In review
+### Q94 of 1200 · nce-s-eth-094 · Professional Counseling Orientation and Ethical Practice · multiple relationships and boundary crossings · hard · In review
 
 A father in individual counseling for depression asks his counselor to testify as an expert in his upcoming custody trial and to recommend that he receive primary custody. He says, "You know me better than anyone." What should the counselor do?
 
@@ -2288,7 +2288,7 @@ A father in individual counseling for depression asks his counselor to testify a
 
 ---
 
-### Q95 of 1000 · nce-s-eth-095 · Professional Counseling Orientation and Ethical Practice · record keeping and documentation · hard · In review
+### Q95 of 1200 · nce-s-eth-095 · Professional Counseling Orientation and Ethical Practice · record keeping and documentation · hard · In review
 
 A client with adjustment disorder learns his insurer will pay for more sessions only for "a serious diagnosis." He asks his counselor to record major depressive disorder, and the practice manager says, "Everyone does it." What should the counselor do?
 
@@ -2312,7 +2312,7 @@ A client with adjustment disorder learns his insurer will pay for more sessions 
 
 ---
 
-### Q96 of 1000 · nce-s-eth-096 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · hard · In review
+### Q96 of 1200 · nce-s-eth-096 · Professional Counseling Orientation and Ethical Practice · confidentiality and its limits · hard · In review
 
 A client signed a release last month letting her counselor share records in her divorce case. On the same day, the counselor receives a subpoena for the records from the spouse's attorney and a signed letter from the client revoking the release. What should the counselor do?
 
@@ -2338,7 +2338,7 @@ A client signed a release last month letting her counselor share records in her 
 
 ---
 
-### Q97 of 1000 · nce-s-eth-097 · Professional Counseling Orientation and Ethical Practice · duty to warn and protect · medium · In review
+### Q97 of 1200 · nce-s-eth-097 · Professional Counseling Orientation and Ethical Practice · duty to warn and protect · medium · In review
 
 After a careful risk assessment, a counselor concludes that she must notify a man whom her client, a 31-year-old warehouse worker, has credibly threatened to stab. What information should she share when she makes the call?
 
@@ -2362,7 +2362,7 @@ After a careful risk assessment, a counselor concludes that she must notify a ma
 
 ---
 
-### Q98 of 1000 · nce-s-eth-098 · Professional Counseling Orientation and Ethical Practice · duty to warn and protect · hard · In review
+### Q98 of 1200 · nce-s-eth-098 · Professional Counseling Orientation and Ethical Practice · duty to warn and protect · hard · In review
 
 The father of an adult client calls a counselor and says his son has been talking about "getting even" with his ex-partner's new boyfriend and has been driving past the boyfriend's home. The client has said nothing like this in session. How should the counselor BEST view the father's report?
 
@@ -2386,7 +2386,7 @@ The father of an adult client calls a counselor and says his son has been talkin
 
 ---
 
-### Q99 of 1000 · nce-s-eth-099 · Professional Counseling Orientation and Ethical Practice · duty to warn and protect · easy · In review
+### Q99 of 1200 · nce-s-eth-099 · Professional Counseling Orientation and Ethical Practice · duty to warn and protect · easy · In review
 
 A counseling student asks why many textbooks now use the phrase "duty to protect" rather than "duty to warn." Which answer is MOST accurate?
 
@@ -2410,7 +2410,7 @@ A counseling student asks why many textbooks now use the phrase "duty to protect
 
 ---
 
-### Q100 of 1000 · nce-s-eth-100 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · medium · In review
+### Q100 of 1200 · nce-s-eth-100 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · medium · In review
 
 An agency counselor tells her supervisor that a 9-year-old client described being burned with a cigarette by a parent's partner. The supervisor says, "I'll take care of the report." Two days later, the counselor cannot confirm that any report was made. What should she do?
 
@@ -2434,7 +2434,7 @@ An agency counselor tells her supervisor that a 9-year-old client described bein
 
 ---
 
-### Q101 of 1000 · nce-s-eth-101 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · hard · In review
+### Q101 of 1200 · nce-s-eth-101 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · hard · In review
 
 A 40-year-old father in counseling for anger tells his counselor that last week he struck his 6-year-old with a belt, leaving welts. He says it will not happen again and that counseling is how he is "fixing it." He asks the counselor to keep it private. What should the counselor do?
 
@@ -2458,7 +2458,7 @@ A 40-year-old father in counseling for anger tells his counselor that last week 
 
 ---
 
-### Q102 of 1000 · nce-s-eth-102 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · easy · In review
+### Q102 of 1200 · nce-s-eth-102 · Professional Counseling Orientation and Ethical Practice · mandated reporting of abuse and neglect · easy · In review
 
 A new school counselor hesitates to report a suspicion of neglect because she fears the family will sue her if child protective services finds nothing. What should her supervisor tell her?
 
@@ -2482,7 +2482,7 @@ A new school counselor hesitates to report a suspicion of neglect because she fe
 
 ---
 
-### Q103 of 1000 · nce-s-eth-103 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · medium · In review
+### Q103 of 1200 · nce-s-eth-103 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · medium · In review
 
 A billing specialist at a HIPAA-covered group practice asks a counselor to forward complete session notes for every client so claims can be submitted faster. Which HIPAA principle MOST directly applies?
 
@@ -2506,7 +2506,7 @@ A billing specialist at a HIPAA-covered group practice asks a counselor to forwa
 
 ---
 
-### Q104 of 1000 · nce-s-eth-104 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · easy · In review
+### Q104 of 1200 · nce-s-eth-104 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · easy · In review
 
 A counselor opening a private practice that bills health insurance electronically is setting up her intake paperwork. Under the HIPAA Privacy Rule, what must she give new clients?
 
@@ -2530,7 +2530,7 @@ A counselor opening a private practice that bills health insurance electronicall
 
 ---
 
-### Q105 of 1000 · nce-s-eth-105 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · hard · In review
+### Q105 of 1200 · nce-s-eth-105 · Professional Counseling Orientation and Ethical Practice · HIPAA and FERPA basics for counselors · hard · In review
 
 The mother of a 20-year-old university student calls the campus counseling center and demands her daughter's counseling records, saying FERPA gives her a right to them because she pays tuition. The records are used only for the student's treatment. What is the BEST response?
 
@@ -2554,7 +2554,7 @@ The mother of a 20-year-old university student calls the campus counseling cente
 
 ---
 
-### Q106 of 1000 · nce-s-eth-106 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · medium · In review
+### Q106 of 1200 · nce-s-eth-106 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · medium · In review
 
 A counselor provides text-based counseling through a secure platform. A new client prefers to use only a screen name and has not turned on video. Under the ACA Code of Ethics, what should the counselor do?
 
@@ -2578,7 +2578,7 @@ A counselor provides text-based counseling through a secure platform. A new clie
 
 ---
 
-### Q107 of 1000 · nce-s-eth-107 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · hard · In review
+### Q107 of 1200 · nce-s-eth-107 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · hard · In review
 
 A counselor has seen a 66-year-old client by video for two months. The client's hearing loss and unreliable internet now make sessions hard to follow, and both agree little progress is being made. The counselor's office is a short drive from the client. What does the ACA Code of Ethics direct?
 
@@ -2602,7 +2602,7 @@ A counselor has seen a 66-year-old client by video for two months. The client's 
 
 ---
 
-### Q108 of 1000 · nce-s-eth-108 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · easy · In review
+### Q108 of 1200 · nce-s-eth-108 · Professional Counseling Orientation and Ethical Practice · telehealth and technology ethics · easy · In review
 
 A counselor in private practice wants to use a free consumer video-chat app for telehealth sessions because clients already have it on their phones. What is the MAIN ethical concern?
 
@@ -2626,7 +2626,7 @@ A counselor in private practice wants to use a free consumer video-chat app for 
 
 ---
 
-### Q109 of 1000 · nce-s-eth-109 · Professional Counseling Orientation and Ethical Practice · termination and referral · easy · In review
+### Q109 of 1200 · nce-s-eth-109 · Professional Counseling Orientation and Ethical Practice · termination and referral · easy · In review
 
 A 52-year-old client has met all of his goals for managing panic attacks and has had no symptoms for three months. He enjoys sessions and asks to keep coming every week "just to talk." What is the counselor's MOST appropriate response?
 
@@ -2650,7 +2650,7 @@ A 52-year-old client has met all of his goals for managing panic attacks and has
 
 ---
 
-### Q110 of 1000 · nce-s-eth-110 · Group Counseling and Group Work · termination and referral · medium · In review
+### Q110 of 1200 · nce-s-eth-110 · Group Counseling and Group Work · termination and referral · medium · In review
 
 In week five of a 12-week closed process group for young adults, a member privately tells the leader he plans to quit and will not come back. He says he feels criticized by other members. What should the leader do FIRST?
 
@@ -2674,7 +2674,7 @@ In week five of a 12-week closed process group for young adults, a member privat
 
 ---
 
-### Q111 of 1000 · nce-s-eth-111 · Professional Counseling Orientation and Ethical Practice · termination and referral · hard · In review
+### Q111 of 1200 · nce-s-eth-111 · Professional Counseling Orientation and Ethical Practice · termination and referral · hard · In review
 
 A client in private practice has missed three payments despite reminders and a reduced fee. The counselor's consent form explains what happens when fees go unpaid. The client is not in crisis. Which course BEST fits the ACA Code of Ethics?
 
@@ -2698,7 +2698,7 @@ A client in private practice has missed three payments despite reminders and a r
 
 ---
 
-### Q112 of 1000 · nce-s-eth-112 · Professional Counseling Orientation and Ethical Practice · informed consent and its required elements · medium · In review
+### Q112 of 1200 · nce-s-eth-112 · Professional Counseling Orientation and Ethical Practice · informed consent and its required elements · medium · In review
 
 Four months into talk therapy, a counselor believes a structured exposure-based approach would help a client with social anxiety. The client signed a general consent form at intake. What should the counselor do before starting the new approach?
 
@@ -2722,7 +2722,7 @@ Four months into talk therapy, a counselor believes a structured exposure-based 
 
 ---
 
-### Q113 of 1000 · nce-s-eth-113 · Group Counseling and Group Work · informed consent and its required elements · medium · In review
+### Q113 of 1200 · nce-s-eth-113 · Group Counseling and Group Work · informed consent and its required elements · medium · In review
 
 A counselor will lead a 16-week group for adults ordered by a court to attend after domestic violence convictions. The probation office requires attendance and progress reports. What must the counselor explain to members before the group begins?
 
@@ -2746,7 +2746,7 @@ A counselor will lead a 16-week group for adults ordered by a court to attend af
 
 ---
 
-### Q114 of 1000 · nce-s-eth-114 · Research and Program Evaluation · informed consent and its required elements · medium · In review
+### Q114 of 1200 · nce-s-eth-114 · Research and Program Evaluation · informed consent and its required elements · medium · In review
 
 A counselor educator wants students in her practicum course to complete surveys for her study on counselor self-efficacy. What must she make clear to the students under the ACA Code of Ethics?
 
@@ -2770,7 +2770,7 @@ A counselor educator wants students in her practicum course to complete surveys 
 
 ---
 
-### Q115 of 1000 · nce-s-eth-115 · Research and Program Evaluation · informed consent and its required elements · hard · In review
+### Q115 of 1200 · nce-s-eth-115 · Research and Program Evaluation · informed consent and its required elements · hard · In review
 
 An IRB approved a study in which participants were told it measured "attention" when it really measured reactions to staged peer feedback. Data collection for each participant has just ended. What is the researcher's main obligation at this point?
 
@@ -2794,7 +2794,7 @@ An IRB approved a study in which participants were told it measured "attention" 
 
 ---
 
-### Q116 of 1000 · nce-s-eth-116 · Assessment and Testing · scope of practice and competence · medium · In review
+### Q116 of 1200 · nce-s-eth-116 · Assessment and Testing · scope of practice and competence · medium · In review
 
 Midway through a timed achievement test given to a 14-year-old student, a fire alarm forces a 20-minute evacuation. The counselor resumes the test afterward. How should the counselor handle the results?
 
@@ -2818,7 +2818,7 @@ Midway through a timed achievement test given to a 14-year-old student, a fire a
 
 ---
 
-### Q117 of 1000 · nce-s-eth-117 · Assessment and Testing · record keeping and documentation · medium · In review
+### Q117 of 1200 · nce-s-eth-117 · Assessment and Testing · record keeping and documentation · medium · In review
 
 A school team wants to decide a 12-year-old's placement using intelligence and achievement scores from testing done when the student was 7, on an edition of the test that has since been revised. Under the ACA Code of Ethics, what should the counselor advise?
 
@@ -2842,7 +2842,7 @@ A school team wants to decide a 12-year-old's placement using intelligence and a
 
 ---
 
-### Q118 of 1000 · nce-s-eth-118 · Group Counseling and Group Work · multiple relationships and boundary crossings · medium · In review
+### Q118 of 1200 · nce-s-eth-118 · Group Counseling and Group Work · multiple relationships and boundary crossings · medium · In review
 
 While screening for a new depression support group, a counselor learns that one applicant is her next-door neighbor, whose children play with hers. The applicant is a good clinical fit. What is the BEST course of action?
 
@@ -2866,7 +2866,7 @@ While screening for a new depression support group, a counselor learns that one 
 
 ---
 
-### Q119 of 1000 · nce-s-eth-119 · Professional Counseling Orientation and Ethical Practice · ethical decision-making models · medium · In review
+### Q119 of 1200 · nce-s-eth-119 · Professional Counseling Orientation and Ethical Practice · ethical decision-making models · medium · In review
 
 A counselor using Forester-Miller and Davis's Practitioner's Guide has clearly identified the problem: a client's employer wants session updates. According to the model, what should the counselor do NEXT?
 
@@ -2890,7 +2890,7 @@ A counselor using Forester-Miller and Davis's Practitioner's Guide has clearly i
 
 ---
 
-### Q120 of 1000 · nce-s-eth-120 · Group Counseling and Group Work · professional organizations and their roles · easy · In review
+### Q120 of 1200 · nce-s-eth-120 · Group Counseling and Group Work · professional organizations and their roles · easy · In review
 
 A counselor who leads psychoeducational and therapy groups wants to join the ACA division that publishes best practice guidelines and training standards for group workers. Which organization should she join?
 
@@ -2914,9 +2914,585 @@ A counselor who leads psychoeducational and therapy groups wants to join the ACA
 
 ---
 
-## Intake, Assessment, and Diagnosis (120)
+### Q121 of 1200 · nce-s-eth-121 · Professional Counseling Orientation and Ethical Practice · ACA Code of Ethics structure · easy · In review
 
-### Q121 of 1000 · nce-s-ass-001 · Counseling and Helping Relationships · intake interview structure · easy · In review
+A former client has filed an ethics complaint against a counselor with the ACA Ethics Committee. The counselor wants to read the standards on cooperating with the committee and responding to complaints. Which section of the 2014 ACA Code of Ethics should she consult?
+
+**A.** Section C, Professional Responsibility
+> Section C covers competence, advertising, public responsibility and impairment, not the complaint process.
+
+**B.** Section A, The Counseling Relationship
+> Section A covers client welfare, consent, boundaries and termination within the counseling relationship.
+
+**C.** Section I, Resolving Ethical Issues **✔ KEY**
+> Section I addresses ethics complaints, conflicts with law or employers, and cooperation with ethics committees.
+
+**D.** Section B, Confidentiality and Privacy
+> Section B covers privacy, exceptions to confidentiality and records, not responding to complaints.
+
+**Rationale:** The 2014 ACA Code of Ethics has nine sections, A through I. Section I, Resolving Ethical Issues, is the last; it covers knowledge of standards, suspected violations by colleagues, conflicts with law or organizations, and the duty to cooperate with ethics committees. Counselors who receive a complaint are expected to take part in the process rather than resign membership to avoid it.
+
+**References:** ACA Code of Ethics — Section I: Resolving Ethical Issues (I.3 Cooperation With Ethics Committees)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q122 of 1200 · nce-s-eth-122 · Research and Program Evaluation · ACA Code of Ethics structure · medium · In review
+
+A counselor researcher learns that a graduate assistant filled in blank items on 30 returned surveys with the answers participants "probably would have given," so the study would reach its target sample. The data are about to be analyzed. Under Section G of the ACA Code of Ethics, what should the researcher do?
+
+**A.** Remove or flag the filled-in answers and analyze only the data that participants gave **✔ KEY**
+> G.4.a bars distorting or misrepresenting data; staff guesses are fabricated data and cannot be analyzed as real.
+
+**B.** Keep the filled-in answers but note in the report that staff estimated some of the items
+> Disclosing the guesses does not make invented responses legitimate data; they still distort the results.
+
+**C.** Keep the answers, since staff guesses work much like statistical imputation of missing data
+> Imputation is a transparent statistical method; an assistant writing in guessed answers is fabrication.
+
+**D.** Let the assistant decide, since the lead researcher is not responsible for staff conduct
+> The principal researcher is responsible for the ethical conduct of the study, including that of research staff.
+
+**Rationale:** ACA G.4.a requires counselors to plan, conduct and report research accurately and bars fraudulent research, distorted data and misrepresented results. Answers invented by staff are fabricated data, however well meant. The researcher removes them, handles missing data with an accepted and disclosed method, and addresses the assistant's conduct as the person responsible for the study.
+
+**References:** ACA Code of Ethics — G.4.a Accurate Results · ACA Code of Ethics — G.1.f Principal Researcher Responsibility
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q123 of 1200 · nce-s-eth-123 · Research and Program Evaluation · ACA Code of Ethics structure · hard · In review
+
+A counselor educator wants to turn a former master's student's thesis into a journal article. The educator chaired the thesis and plans to rewrite much of the text for publication. Under the ACA Code of Ethics, how should authorship be handled?
+
+**A.** The educator may be lead author, since rewriting the text is the larger share of the work
+> The Code gives lead authorship to the student when a work is substantially based on the student's thesis.
+
+**B.** The student need only be thanked in a footnote, since the thesis has already been graded and filed
+> A footnote does not credit the person whose thesis the article is substantially based on.
+
+**C.** The educator may publish alone, as a thesis chair holds joint rights to the student's work
+> Chairing a thesis gives no right to publish it alone; doing so takes credit for the student's work.
+
+**D.** It may be published only with the student's permission and with the student as lead author **✔ KEY**
+> G.5.f requires the student's permission and lists the student as lead author for work based on a thesis.
+
+**Rationale:** Under ACA G.5.f, manuscripts or presentations substantially based on a student's course papers, projects, dissertation or thesis are used only with the student's permission and list the student as lead author. G.5.d adds that credit goes to those who made significant contributions, in proportion to those contributions. Faculty power over students makes this protection important.
+
+**References:** ACA Code of Ethics — G.5.f Student Research · ACA Code of Ethics — G.5.d Contributors
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q124 of 1200 · nce-s-eth-124 · Professional Counseling Orientation and Ethical Practice · NBCC Code of Ethics · easy · In review
+
+A counselor who holds the National Certified Counselor (NCC) credential and a state license describes herself on her practice website as a "Nationally Licensed Counselor." What is the problem with this description?
+
+**A.** None, since a national certification and a state license together amount to the same thing
+> Certification and licensure are different; combining them does not create a national license.
+
+**B.** It misstates her credential, because NCC is a national certification and not a license **✔ KEY**
+> NCC is a voluntary national certification; licenses are issued by states, so the title misleads the public.
+
+**C.** It is acceptable only if she also lists the year she first passed the licensing exam
+> Adding an exam date does not correct a title that names a credential that does not exist.
+
+**D.** It is acceptable as long as she practices only in the state that issued her license
+> Limiting practice to one state does not make "nationally licensed" accurate.
+
+**Rationale:** Counselor licenses are granted by states; there is no national license. The NCC is a voluntary national certification from NBCC. Both the NBCC Code and ACA C.4.a require counselors to represent their credentials accurately, so a counselor lists "NCC" and her state license separately and correctly.
+
+**References:** NBCC Code of Ethics — Accurate representation of NBCC credentials and qualifications · ACA Code of Ethics — C.4.a Accurate Representation
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q125 of 1200 · nce-s-eth-125 · Professional Counseling Orientation and Ethical Practice · NBCC Code of Ethics · medium · In review
+
+While applying for the NCC credential, a counselor inflates the number of supervised postgraduate hours on her application. She reasons that she is not yet an NCC, so the NBCC Code of Ethics does not apply to her. Which statement is accurate?
+
+**A.** She is right, since the Code binds only counselors who already hold an NBCC credential
+> The NBCC Code applies to applicants as well as to certified counselors.
+
+**B.** Only her state licensing board can act, since NBCC has no role in reviewing applications
+> NBCC reviews its own applications and can act on false information in them.
+
+**C.** The inflated hours matter only if NBCC chooses to audit her application within the first year
+> Falsifying an application is a violation whether or not it is caught in an audit.
+
+**D.** The Code also applies to applicants, so misstating hours can lead to denial or sanctions **✔ KEY**
+> The NBCC Code covers applicants, and dishonesty in the certification process can bring denial or sanctions.
+
+**Rationale:** The NBCC Code of Ethics applies both to National Certified Counselors and to people applying for NBCC certification. Providing false information about education, supervision or experience undermines the integrity of the credential and can lead NBCC to deny certification or impose sanctions. Honesty with credentialing bodies is part of professional integrity from the start of a career.
+
+**References:** NBCC Code of Ethics — Application to NCCs and applicants; honesty in the certification process
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q126 of 1200 · nce-s-eth-126 · Professional Counseling Orientation and Ethical Practice · NBCC Code of Ethics · medium · In review
+
+A National Certified Counselor who works mainly in substance use treatment wants to add NBCC's specialty certification in addictions counseling to her credentials. Which credential should she pursue?
+
+**A.** Master Addictions Counselor (MAC) **✔ KEY**
+> The MAC is NBCC's specialty certification in addictions counseling for NCCs.
+
+**B.** Certified Rehabilitation Counselor
+> The CRC is a rehabilitation counseling credential from CRCC, not an NBCC addictions specialty.
+
+**C.** National Certified School Counselor
+> The NCSC is an NBCC specialty, but it is for school counseling, not addictions.
+
+**D.** Approved Clinical Supervisor (ACS)
+> The ACS is a supervision credential, not an addictions specialty.
+
+**Rationale:** NBCC offers the National Certified Counselor (NCC) as its general credential and specialty certifications built on it, including the Certified Clinical Mental Health Counselor (CCMHC), the National Certified School Counselor (NCSC) and the Master Addictions Counselor (MAC). Specialty credentials require the NCC plus added training and experience in the specialty. Certification is voluntary and separate from state licensure.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — Credentialing: NBCC national certification and specialty certifications
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q127 of 1200 · nce-s-eth-127 · Professional Counseling Orientation and Ethical Practice · counselor impairment and self-care · easy · In review
+
+A community agency counselor carrying 70 cases says she feels drained, has started calling clients "the 2 o'clock no-show" and "the difficult one," and doubts she helps anyone. In Maslach's model of burnout, which dimension do her labels for clients MOST reflect?
+
+**A.** Emotional exhaustion
+> Exhaustion is the drained feeling she reports, not the detached labeling of clients.
+
+**B.** Reduced personal accomplishment
+> This dimension fits her doubt that she helps anyone, not the labels.
+
+**C.** Depersonalization **✔ KEY**
+> Depersonalization is a detached, impersonal or cynical stance toward the people one serves.
+
+**D.** Vicarious traumatization
+> Vicarious trauma is a shift in core beliefs from trauma exposure, not a burnout dimension.
+
+**Rationale:** Maslach described burnout as having three dimensions: emotional exhaustion, depersonalization (a detached or cynical response to clients) and reduced personal accomplishment. This counselor shows all three, and her impersonal labels for clients are the clearest sign of depersonalization. Burnout is a warning sign for impairment, which ACA C.2.g asks counselors to monitor in themselves.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — Counselor burnout: emotional exhaustion, depersonalization and reduced accomplishment · ACA Code of Ethics — C.2.g Impairment
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q128 of 1200 · nce-s-eth-128 · Professional Counseling Orientation and Ethical Practice · counselor impairment and self-care · medium · In review
+
+A counselor in long-term recovery from alcohol use disorder drank heavily over the weekend after a family loss. On Monday morning she feels hungover and shaky and has seven clients scheduled. Which action BEST follows the ACA Code of Ethics?
+
+**A.** See the clients as planned, since one weekend of drinking does not make her impaired
+> She is shaky and hungover now; her current state, not the length of the lapse, puts clients at risk.
+
+**B.** Cancel or arrange coverage for the day, then seek help before resuming her caseload **✔ KEY**
+> C.2.g directs counselors to stop offering services when impaired and to seek assistance first.
+
+**C.** See the clients but tell each one about the relapse so they can decide whether to stay
+> Disclosure does not make impaired services safe and shifts the counselor's burden onto clients.
+
+**D.** Keep the schedule and talk about the relapse with her own counselor at the next session
+> Seeking help is right, but it does not justify seeing clients today while impaired.
+
+**Rationale:** ACA C.2.g asks counselors to monitor themselves for signs of impairment and to refrain from offering services when their physical, mental or emotional state is likely to harm clients. They seek help for problems that reach the level of impairment and, if needed, limit, suspend or end services until it is safe to resume. Arranging coverage protects clients and continuity of care.
+
+**References:** ACA Code of Ethics — C.2.g Impairment
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q129 of 1200 · nce-s-eth-129 · Counseling and Helping Relationships · counselor impairment and self-care · hard · In review
+
+A counselor going through a painful divorce notices that she quickly sides with clients against their spouses and feels irritated when clients consider reconciling. Her supervisor wants to help her manage these reactions. Which approach BEST matches Gelso and Hayes's work on managing countertransference?
+
+**A.** Avoid any client in marital conflict until her divorce is final and the feelings have faded
+> Avoidance may be needed briefly if reactions are severe, but it does not build the capacity to manage them.
+
+**B.** Build self-insight and self-integration, such as through personal therapy and supervision **✔ KEY**
+> Self-insight and self-integration are core countertransference management factors in Gelso and Hayes's model.
+
+**C.** Disclose her divorce to these clients so they understand the source of her strong reactions
+> This disclosure serves the counselor's needs and shifts attention away from the client.
+
+**D.** Suppress her reactions in session and focus only on technique until the feelings subside
+> Suppression without understanding tends to let countertransference shape the work unnoticed.
+
+**Rationale:** Gelso and Hayes describe five factors in managing countertransference: self-insight, self-integration, anxiety management, empathy and conceptualizing skills. Personal therapy and supervision help counselors understand where their reactions come from and keep them from acting them out with clients. Unmanaged reactions tied to a counselor's own life stress can become impairment, which C.2.g asks counselors to monitor.
+
+**References:** Gelso & Hayes (Countertransference) — Countertransference management factors: self-insight, self-integration, anxiety management, empathy, conceptualizing skills · ACA Code of Ethics — C.2.g Impairment
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q130 of 1200 · nce-s-eth-130 · Professional Counseling Orientation and Ethical Practice · multiple relationships and boundary crossings · medium · In review
+
+A 26-year-old client who has been in counseling for four months sends the counselor a friend request on the counselor's personal social media account, saying it would help her feel "more connected." Under the ACA Code of Ethics, what should the counselor do?
+
+**A.** Accept the request but limit the client's view of personal posts through privacy settings
+> A limited personal connection is still a personal virtual relationship with a current client.
+
+**B.** Accept the request, since social media contact is a minor and helpful boundary crossing
+> The Code does not treat this as an acceptable crossing; it prohibits it with current clients.
+
+**C.** Ignore the request and say nothing, so the client is not embarrassed by being turned down
+> Silence leaves the client confused and misses a chance to discuss the boundary and her need.
+
+**D.** Decline and discuss in session why personal online ties with clients are not permitted **✔ KEY**
+> A.5.e prohibits personal virtual relationships with current clients; talking it through supports the work.
+
+**Rationale:** ACA A.5.e prohibits counselors from having personal virtual relationships, such as through social media, with current clients. The counselor declines the request and explores in session what the request means to the client, which can be useful clinical material. The counselor's social media policy, reviewed during informed consent, should explain this in advance.
+
+**References:** ACA Code of Ethics — A.5.e Personal Virtual Relationships With Current Clients · ACA Code of Ethics — H.6.a Virtual Professional Presence
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q131 of 1200 · nce-s-eth-131 · Professional Counseling Orientation and Ethical Practice · multiple relationships and boundary crossings · hard · In review
+
+A counselor has seen a 38-year-old woman individually for a year. She now asks the counselor to start seeing her and her husband together for couples counseling, and the counselor is willing. Under the ACA Code of Ethics, what must happen before the change?
+
+**A.** Explain the change and its effects, get informed consent, and note the right to refuse it **✔ KEY**
+> A.6.d requires informed consent for a role change, including the right to refuse it and its consequences.
+
+**B.** Begin joint sessions, since she already consented to treatment with this same counselor
+> Consent to individual counseling does not cover a change to couples counseling.
+
+**C.** End individual work first, since a counselor may not shift from individual to couples work
+> The Code permits this role change when it is handled through informed consent.
+
+**D.** Have the husband sign a release, since only his consent is needed for the new format
+> The existing client's informed consent to the change is central; a release for the husband is not enough.
+
+**Rationale:** ACA A.6.d treats a shift from individual to relationship or family counseling as a role change. The counselor obtains informed consent and explains the client's right to refuse services related to the change, along with any effects, such as how confidentiality and the alliance may shift with a second client. The husband also gives his own informed consent as a new client.
+
+**References:** ACA Code of Ethics — A.6.d Role Changes in the Professional Relationship
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q132 of 1200 · nce-s-eth-132 · Professional Counseling Orientation and Ethical Practice · scope of practice and competence · easy · In review
+
+A client taking an antidepressant prescribed by her primary care physician tells her counselor she feels better and plans to stop the medication this week. She asks whether stopping on her own is safe. What is the counselor's BEST response?
+
+**A.** Advise her to taper the dose slowly over two weeks to reduce the risk of side effects
+> Giving dosing instructions is medical advice outside a counselor's scope of practice.
+
+**B.** Tell her that stopping is fine, since her improved mood shows that she no longer needs the drug
+> This is a medical judgment the counselor is not trained or licensed to make.
+
+**C.** Urge her to talk with her prescriber first, and offer to coordinate care with her consent **✔ KEY**
+> This respects the counselor's scope while supporting the client and her care team.
+
+**D.** Tell her to keep taking the full dose, since stopping would undo the progress so far
+> Telling her to continue is also a medication decision that belongs to the prescriber.
+
+**Rationale:** Counselors practice within the boundaries of their education, training and licensure, which do not include prescribing or advising on medication changes. The counselor can share general concerns, encourage the client to consult her prescriber before stopping, and, with consent, coordinate with the physician. Exploring her reasons for wanting to stop remains within the counselor's role.
+
+**References:** ACA Code of Ethics — C.2.a Boundaries of Competence · ACA Code of Ethics — D.1.c Interdisciplinary Teamwork
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q133 of 1200 · nce-s-eth-133 · Group Counseling and Group Work · scope of practice and competence · medium · In review
+
+A counselor whose group training and experience are in psychoeducational groups is asked by her agency to lead a long-term psychotherapy group for adults with complex trauma histories. What is her BEST course of action?
+
+**A.** Get specialized training and supervised experience in that type of group before leading it **✔ KEY**
+> Competence is specific to group type; she builds it through training and supervision first.
+
+**B.** Lead the group, since basic group leadership skills carry over evenly across all types of groups
+> ASGW distinguishes group types because each calls for different specialized skills.
+
+**C.** Lead the group as a psychoeducational class so that it stays within her current training
+> Changing the format quietly does not meet the needs the group was formed to serve.
+
+**D.** Accept the role, since an agency assignment makes the group part of her scope of practice
+> An employer's assignment does not create competence or expand professional boundaries.
+
+**Rationale:** ASGW identifies distinct group specializations, including task, psychoeducational, counseling and psychotherapy groups, each calling for its own training. ACA C.2.a and C.2.b limit practice to areas of competence and require education, training and supervised experience before practicing in a new specialty area. Long-term trauma psychotherapy groups demand advanced skills in managing intense affect and member safety.
+
+**References:** ASGW Best Practice Guidelines — Group leader competence and training for the type of group led · ACA Code of Ethics — C.2.b New Specialty Areas of Practice
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q134 of 1200 · nce-s-eth-134 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · medium · In review
+
+A licensure supervisor meets weekly with a supervisee who describes her sessions in detail. The supervisor has never seen or heard any of the supervisee's work. Two clients have recently dropped out without notice. What change would BEST meet the supervisor's obligation to clients?
+
+**A.** Ask the supervisee to write longer summaries of each session before their weekly supervision meetings
+> Longer summaries are still self-report and may miss what the supervisee does not notice.
+
+**B.** Contact the two clients directly to ask why they ended counseling without giving notice
+> This bypasses the supervisee and does not fix how the supervisor monitors ongoing care.
+
+**C.** Continue as before, since a supervisee's self-report is the accepted basis for supervision
+> Self-report alone limits the supervisor's ability to monitor the services clients receive.
+
+**D.** Add direct review of the work, such as recordings or live observation, with client consent **✔ KEY**
+> Direct review lets the supervisor monitor client welfare and supervisee performance, as F.1.a requires.
+
+**Rationale:** Under ACA F.1.a, a supervisor's primary obligation is to monitor the services supervisees provide to clients. Self-report misses what the supervisee does not see or chooses not to share, so direct methods such as recordings or live observation give a fuller picture. Clients consent to recording or observation in advance, as B.6.c and B.6.d require.
+
+**References:** ACA Code of Ethics — F.1.a Client Welfare · ACA Code of Ethics — B.6.c Permission to Record
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q135 of 1200 · nce-s-eth-135 · Professional Counseling Orientation and Ethical Practice · supervision and consultation responsibilities · hard · In review
+
+A counselor in private practice is hired by a school district to consult with teachers on building trauma-informed classrooms. Before the consulting work begins, which step does the ACA Code of Ethics call for?
+
+**A.** Gather confidential details on the individual students the teachers are most worried about
+> Student details are not needed for this consultation and raise privacy concerns.
+
+**B.** Review, in writing and verbally, the rights and responsibilities of her and the consultees **✔ KEY**
+> D.2.b calls for written and verbal review of both parties' rights and responsibilities in formal consultation.
+
+**C.** Offer individual counseling to any of the teachers who seem stressed during the consultation
+> Adding a counseling role to a consulting role creates a multiple relationship.
+
+**D.** Agree to report each teacher's performance to the principal as part of her contract work
+> This makes the consultant an evaluator and should not be agreed to without clear consent from consultees.
+
+**Rationale:** ACA D.2.b requires that, when providing formal consultation, counselors review in writing and verbally the rights and responsibilities of both counselor and consultees, using clear language. This clarifies goals, roles, confidentiality and limits before work begins. D.2.a adds that consultants must be competent in the area of consultation and refer when needed.
+
+**References:** ACA Code of Ethics — D.2.b Informed Consent in Formal Consultation · ACA Code of Ethics — D.2.a Consultant Competency
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q136 of 1200 · nce-s-eth-136 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · easy · In review
+
+Through the 20/20: A Vision for the Future of Counseling initiative, a large group of counseling organizations agreed on a shared definition of counseling to support a unified professional identity. Which statement captures that definition?
+
+**A.** Counseling is the treatment of diagnosed mental disorders through talk-based psychotherapy methods alone
+> The definition is broader than disorder treatment and includes wellness, education and career goals.
+
+**B.** Counseling is a brief advice-giving service that helps people without disorders solve everyday practical problems
+> The definition describes an empowering relationship, not advice-giving for healthy people only.
+
+**C.** A relationship that empowers diverse people to reach mental health, wellness, education and career goals **✔ KEY**
+> This matches the consensus 20/20 definition of counseling.
+
+**D.** Counseling is the use of psychological tests to classify people and guide them into suitable careers
+> This resembles early vocational guidance, not the modern consensus definition.
+
+**Rationale:** The 20/20 initiative, sponsored by ACA and the American Association of State Counseling Boards, produced a consensus definition: counseling is a professional relationship that empowers diverse individuals, families and groups to accomplish mental health, wellness, education and career goals. The definition emphasizes empowerment, diversity and a wellness focus rather than illness alone, which sets counseling apart from neighboring professions.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — 20/20: A Vision for the Future of Counseling consensus definition of counseling
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q137 of 1200 · nce-s-eth-137 · Professional Counseling Orientation and Ethical Practice · licensure, credentialing and professional identity · medium · In review
+
+A counselor educator is teaching the history of counselor licensure in the United States. Which statement is accurate?
+
+**A.** California was the first state to license professional counselors, and Virginia was the last
+> The order is reversed: Virginia was first and California was last.
+
+**B.** Every state licensed counselors by 1990, soon after CACREP was founded in 1981
+> CACREP dates to 1981, but licensure did not reach all 50 states until 2009.
+
+**C.** Virginia licensed counselors first, in 1976, and California was the last state, in 2009 **✔ KEY**
+> Virginia passed the first counselor licensure law in 1976; California completed the 50 states in 2009.
+
+**D.** Counselor licensure began at the federal level and was later handed over to the states
+> Counselor licensure has been a state matter from the start; there is no federal license.
+
+**Rationale:** Counselor licensure in the United States is state-based. Virginia enacted the first general counselor licensure law in 1976, and California became the last of the 50 states to license professional counselors in 2009. Differences among state laws are one reason portability efforts such as the Counseling Compact have developed.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — History of counselor licensure: Virginia (1976) to California (2009)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q138 of 1200 · nce-s-eth-138 · Social and Cultural Diversity · counselor advocacy and social justice · medium · In review
+
+A counselor sees that many clients struggle to use a county clinic that offers no materials in Spanish. A local parents' group is already organizing on the issue. The counselor offers the group her data skills and support while its members lead the effort. Which ACA Advocacy Competencies domain does this BEST illustrate?
+
+**A.** Community collaboration **✔ KEY**
+> She acts with a community group at the school/community level, supporting its own leadership.
+
+**B.** Systems advocacy
+> Systems advocacy is the counselor acting on behalf of clients to change a system, not supporting a group's lead.
+
+**C.** Client/student advocacy
+> This is acting on behalf of an individual client, not joining a community effort.
+
+**D.** Social/political advocacy
+> This is acting in the public arena on legislation and policy, not supporting a local group.
+
+**Rationale:** The ACA Advocacy Competencies distinguish acting with clients and communities from acting on their behalf, at the client, school/community and public arena levels. Community collaboration means working alongside groups that are addressing a shared concern, offering the counselor's skills while the community leads. Systems advocacy, by contrast, has the counselor taking the lead to change an institution.
+
+**References:** ACA Advocacy Competencies — School/community level: community collaboration vs. systems advocacy
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q139 of 1200 · nce-s-eth-139 · Social and Cultural Diversity · counselor advocacy and social justice · hard · In review
+
+A counselor who is a white, upper-middle-class man reflects on how his privilege and his client's marginalized status as a low-income Black woman shape power, trust and communication between them in session. In the Multicultural and Social Justice Counseling Competencies, which developmental domain does this MOST directly address?
+
+**A.** Counselor self-awareness
+> Self-awareness centers on the counselor's own identity; the focus here is the interaction between them.
+
+**B.** Client worldview
+> Client worldview centers on understanding the client's identities and experiences.
+
+**C.** Counseling and advocacy interventions
+> This domain concerns intervening at individual through systemic levels, not the in-session dynamic.
+
+**D.** The counseling relationship **✔ KEY**
+> This domain addresses how privileged and marginalized statuses of both parties shape their relationship.
+
+**Rationale:** The MSJCC (Ratts et al., 2016) arrange competencies in four developmental domains: counselor self-awareness, client worldview, the counseling relationship, and counseling and advocacy interventions. A quadrant model places counselor and client as privileged or marginalized. The counseling relationship domain asks how those combined statuses affect power, trust and communication in the work.
+
+**References:** MSJCC (Ratts et al., 2016) — Developmental domains; privileged and marginalized quadrants; the counseling relationship
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q140 of 1200 · nce-s-eth-140 · Professional Counseling Orientation and Ethical Practice · professional organizations and their roles · medium · In review
+
+A doctoral student preparing to teach and supervise counselors wants to join the ACA division devoted to counselor preparation and clinical supervision, which publishes the journal Counselor Education and Supervision. Which organization is it?
+
+**A.** NBCC
+> NBCC is an independent certification body, not an ACA division.
+
+**B.** ACES **✔ KEY**
+> The Association for Counselor Education and Supervision focuses on counselor preparation and supervision.
+
+**C.** AARC
+> The Association for Assessment and Research in Counseling focuses on assessment and research.
+
+**D.** CACREP
+> CACREP accredits counseling programs; it is not a membership division.
+
+**Rationale:** The Association for Counselor Education and Supervision (ACES) is the ACA division for counselor educators and supervisors and publishes Counselor Education and Supervision. It promotes quality in counselor preparation and supervision practice. CACREP accredits programs and NBCC certifies individuals; neither is an ACA division.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — ACA divisions: Association for Counselor Education and Supervision
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q141 of 1200 · nce-s-eth-141 · Professional Counseling Orientation and Ethical Practice · professional organizations and their roles · medium · In review
+
+A counselor who works in vocational rehabilitation with adults who have disabilities wants the national credential specific to rehabilitation counseling. Which body grants that credential?
+
+**A.** CRCC, which grants the Certified Rehabilitation Counselor (CRC) credential **✔ KEY**
+> The Commission on Rehabilitation Counselor Certification grants the CRC.
+
+**B.** CACREP, which accredits rehabilitation programs and certifies their graduates
+> CACREP accredits programs; it does not certify individual counselors.
+
+**C.** ASCA, which certifies counselors who serve students with disabilities
+> ASCA is the school counselor association and does not grant a rehabilitation credential.
+
+**D.** AASCB, which issues a rehabilitation counseling license valid in all states
+> AASCB is an association of state boards; it issues no licenses, and there is no national license.
+
+**Rationale:** The Commission on Rehabilitation Counselor Certification (CRCC) grants the Certified Rehabilitation Counselor (CRC) credential and maintains its own code of ethics for CRCs. Certification is a voluntary national credential separate from state licensure. Accreditation bodies such as CACREP review programs, not individuals.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — Credentialing: rehabilitation counseling and the CRC credential (CRCC)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q142 of 1200 · nce-s-eth-142 · Professional Counseling Orientation and Ethical Practice · record keeping and documentation · medium · In review
+
+Early in counseling, a 45-year-old client discloses an affair and asks the counselor not to write "anything at all" about her sessions, because her spouse might someday see the record. What is the counselor's BEST response?
+
+**A.** Agree to keep no record of her sessions, so that her request for privacy is honored
+> Counselors must keep the documentation needed to provide and continue services.
+
+**B.** Keep a separate private file at home so that the official agency record holds no session content
+> A hidden file is less secure and misrepresents what the official record contains.
+
+**C.** Explain that some records are required, and discuss what will be noted and who may see it **✔ KEY**
+> This meets A.1.b while respecting her concern through openness about content and access.
+
+**D.** Record every detail of the affair, since full notes protect the counselor in any dispute
+> Excess personal detail is not needed for care and adds risk to the client's privacy.
+
+**Rationale:** ACA A.1.b requires counselors to create, safeguard and maintain the documentation needed to provide services, including sufficient and timely notes. The counselor explains this, describes how records are protected and who can access them, and documents what is clinically necessary without needless personal detail. Being open about records supports trust and informed consent.
+
+**References:** ACA Code of Ethics — A.1.b Records and Documentation · Wiger (Documentation) — Clinically necessary content and minimum necessary detail in progress notes
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q143 of 1200 · nce-s-eth-143 · Professional Counseling Orientation and Ethical Practice · informed consent and its required elements · easy · In review
+
+A counseling intern's practicum requires her to audio-record sessions for review in supervision. A new client arrives for an intake. Under the ACA Code of Ethics, what must the intern do about the recording?
+
+**A.** Record the session and tell the client afterward, since supervision benefits the client too
+> Permission must come before recording, not after the fact.
+
+**B.** Record without asking, since the recordings are kept within the training program alone
+> Limited access does not remove the need for the client's permission.
+
+**C.** Record only the intern's own voice, since that avoids any need for client permission
+> Session content is still captured, and the client still has a right to decide.
+
+**D.** Get the client's permission before recording and explain how it will be used and stored **✔ KEY**
+> B.6.c requires client permission before sessions are recorded.
+
+**Rationale:** ACA B.6.c requires counselors to obtain clients' permission before recording sessions by electronic or other means, and F.1.c requires that clients know the counselor is in training and how supervision affects confidentiality. Informed consent covers who will hear the recording, how it is stored and when it is erased. Clients may decline.
+
+**References:** ACA Code of Ethics — B.6.c Permission to Record · ACA Code of Ethics — F.1.c Informed Consent and Client Rights
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q144 of 1200 · nce-s-eth-144 · Career Development · telehealth and technology ethics · hard · In review
+
+A counselor providing career counseling by video wants a 34-year-old client to complete a free online "career personality quiz" she found on a popular website. The site gives no information on how the quiz was developed or tested. What is the BEST ethical course?
+
+**A.** Use the quiz, since online tools are acceptable in distance counseling if the client agrees
+> Client agreement does not make an untested instrument valid for career decisions.
+
+**B.** Choose an instrument with documented validity, reliability and norms that fit the client **✔ KEY**
+> E.6.a requires weighing validity, reliability and appropriateness when selecting assessments.
+
+**C.** Use the quiz but present its results to the client as a firm guide to her best careers
+> Presenting unknown-quality results as firm guidance misleads the client.
+
+**D.** Use the quiz, since free career tools carry less risk than formal psychological testing
+> Career decisions carry real stakes; low cost does not lower the standard for evidence.
+
+**Rationale:** ACA E.6.a asks counselors to consider validity, reliability, psychometric limits and appropriateness when selecting assessments, whether given in person or online. Many free web quizzes have no technical data, so their results cannot support career decisions. Well-developed interest and values inventories with documented norms, interpreted with the client, serve distance career counseling better.
+
+**References:** ACA Code of Ethics — E.6.a Appropriateness of Instruments · Sharf (Career Development Theory) — Use of interest and values inventories in career counseling
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+## Intake, Assessment, and Diagnosis (144)
+
+### Q145 of 1200 · nce-s-ass-001 · Counseling and Helping Relationships · intake interview structure · easy · In review
 
 A counselor at a community agency begins a first session with a 34-year-old client who has been referred for "stress." Before asking about presenting concerns or history, what should the counselor address?
 
@@ -2940,7 +3516,7 @@ A counselor at a community agency begins a first session with a 34-year-old clie
 
 ---
 
-### Q122 of 1000 · nce-s-ass-002 · Counseling and Helping Relationships · mental status examination · hard · In review
+### Q146 of 1200 · nce-s-ass-002 · Counseling and Helping Relationships · mental status examination · hard · In review
 
 When asked why he came in, a 61-year-old client describes his commute, the parking garage, a conversation with a neighbor, and the weather in great detail before finally explaining that he has been sleeping poorly. How should the counselor record this in the mental status examination?
 
@@ -2964,7 +3540,7 @@ When asked why he came in, a 61-year-old client describes his commute, the parki
 
 ---
 
-### Q123 of 1000 · nce-s-ass-003 · Assessment and Testing · suicide and violence risk assessment · medium · In review
+### Q147 of 1200 · nce-s-ass-003 · Assessment and Testing · suicide and violence risk assessment · medium · In review
 
 During intake, a 19-year-old college student says, "Sometimes I wish I could just go to sleep and not wake up." What should the counselor do FIRST?
 
@@ -2988,7 +3564,7 @@ During intake, a 19-year-old college student says, "Sometimes I wish I could jus
 
 ---
 
-### Q124 of 1000 · nce-s-ass-004 · Assessment and Testing · suicide and violence risk assessment · medium · In review
+### Q148 of 1200 · nce-s-ass-004 · Assessment and Testing · suicide and violence risk assessment · medium · In review
 
 A 47-year-old veteran reports recurring suicidal thoughts without a current plan or intent. He mentions that he keeps a loaded handgun in his nightstand. Which step is MOST important to include in his safety plan?
 
@@ -3012,7 +3588,7 @@ A 47-year-old veteran reports recurring suicidal thoughts without a current plan
 
 ---
 
-### Q125 of 1000 · nce-s-ass-005 · Assessment and Testing · DSM-5-TR diagnostic structure and specifiers · easy · In review
+### Q149 of 1200 · nce-s-ass-005 · Assessment and Testing · DSM-5-TR diagnostic structure and specifiers · easy · In review
 
 A counselor trained years ago asks a colleague where to record the Axis V Global Assessment of Functioning (GAF) score when using DSM-5-TR. What is the BEST answer?
 
@@ -3036,7 +3612,7 @@ A counselor trained years ago asks a colleague where to record the Axis V Global
 
 ---
 
-### Q126 of 1000 · nce-s-ass-006 · Assessment and Testing · differential diagnosis · hard · In review
+### Q150 of 1200 · nce-s-ass-006 · Assessment and Testing · differential diagnosis · hard · In review
 
 A 28-year-old client currently meets criteria for a major depressive episode. Two years ago she had a 5-day period of elevated mood, decreased need for sleep, and rapid speech that friends noticed, with no marked impairment, hospitalization, or psychotic features. She has had no other mood episodes. Which diagnosis BEST fits?
 
@@ -3060,7 +3636,7 @@ A 28-year-old client currently meets criteria for a major depressive episode. Tw
 
 ---
 
-### Q127 of 1000 · nce-s-ass-007 · Assessment and Testing · reliability types · easy · In review
+### Q151 of 1200 · nce-s-ass-007 · Assessment and Testing · reliability types · easy · In review
 
 A test developer gives the same anxiety inventory to the same group of adults twice, two weeks apart, and correlates the two sets of scores. Which type of reliability is being estimated?
 
@@ -3084,7 +3660,7 @@ A test developer gives the same anxiety inventory to the same group of adults tw
 
 ---
 
-### Q128 of 1000 · nce-s-ass-008 · Research and Program Evaluation · reliability types · medium · In review
+### Q152 of 1200 · nce-s-ass-008 · Research and Program Evaluation · reliability types · medium · In review
 
 A school counselor has a single administration of a 40-item vocabulary test in which every item is scored simply right or wrong. Which statistic is BEST suited to estimate the test's internal consistency?
 
@@ -3108,7 +3684,7 @@ A school counselor has a single administration of a 40-item vocabulary test in w
 
 ---
 
-### Q129 of 1000 · nce-s-ass-009 · Assessment and Testing · validity types · medium · In review
+### Q153 of 1200 · nce-s-ass-009 · Assessment and Testing · validity types · medium · In review
 
 Developers of a new mechanical aptitude test give it to newly hired technicians and correlate those scores with supervisor performance ratings collected 18 months later. What type of validity evidence does this provide?
 
@@ -3132,7 +3708,7 @@ Developers of a new mechanical aptitude test give it to newly hired technicians 
 
 ---
 
-### Q130 of 1000 · nce-s-ass-010 · Research and Program Evaluation · validity types · medium · In review
+### Q154 of 1200 · nce-s-ass-010 · Research and Program Evaluation · validity types · medium · In review
 
 A new depression scale correlates .78 with an established depression inventory and .06 with a measure of musical aptitude. The low correlation with musical aptitude is BEST described as evidence of which type of validity?
 
@@ -3156,7 +3732,7 @@ A new depression scale correlates .78 with an established depression inventory a
 
 ---
 
-### Q131 of 1000 · nce-s-ass-011 · Assessment and Testing · norm- vs criterion-referenced tests · easy · In review
+### Q155 of 1200 · nce-s-ass-011 · Assessment and Testing · norm- vs criterion-referenced tests · easy · In review
 
 A district reading test reports, for each fourth grader, whether the student has mastered at least 80% of the grade-level reading objectives, regardless of how classmates performed. What kind of test is this?
 
@@ -3180,7 +3756,7 @@ A district reading test reports, for each fourth grader, whether the student has
 
 ---
 
-### Q132 of 1000 · nce-s-ass-012 · Assessment and Testing · standard scores, percentiles and the normal curve · medium · In review
+### Q156 of 1200 · nce-s-ass-012 · Assessment and Testing · standard scores, percentiles and the normal curve · medium · In review
 
 Scores on a test are normally distributed. Approximately what percentage of test takers score between one standard deviation below the mean and two standard deviations above the mean?
 
@@ -3204,7 +3780,7 @@ Scores on a test are normally distributed. Approximately what percentage of test
 
 ---
 
-### Q133 of 1000 · nce-s-ass-013 · Assessment and Testing · standard scores, percentiles and the normal curve · hard · In review
+### Q157 of 1200 · nce-s-ass-013 · Assessment and Testing · standard scores, percentiles and the normal curve · hard · In review
 
 A counselor compares four results from different normally distributed tests. Which result reflects the HIGHEST standing relative to its norm group?
 
@@ -3228,7 +3804,7 @@ A counselor compares four results from different normally distributed tests. Whi
 
 ---
 
-### Q134 of 1000 · nce-s-ass-014 · Assessment and Testing · standard scores, percentiles and the normal curve · hard · In review
+### Q158 of 1200 · nce-s-ass-014 · Assessment and Testing · standard scores, percentiles and the normal curve · hard · In review
 
 On a normally distributed test, one student's percentile rank rose from 50 to 60 and another student's rose from 89 to 99. Which statement about their raw-score gains is accurate?
 
@@ -3252,7 +3828,7 @@ On a normally distributed test, one student's percentile rank rose from 50 to 60
 
 ---
 
-### Q135 of 1000 · nce-s-ass-015 · Assessment and Testing · standard error of measurement · medium · In review
+### Q159 of 1200 · nce-s-ass-015 · Assessment and Testing · standard error of measurement · medium · In review
 
 A client obtains a score of 92 on a test with a standard error of measurement (SEM) of 4. Which range is the approximate 95% confidence band for the client's true score?
 
@@ -3276,7 +3852,7 @@ A client obtains a score of 92 on a test with a standard error of measurement (S
 
 ---
 
-### Q136 of 1000 · nce-s-ass-016 · Research and Program Evaluation · standard error of measurement · hard · In review
+### Q160 of 1200 · nce-s-ass-016 · Research and Program Evaluation · standard error of measurement · hard · In review
 
 A test has a standard deviation of 15 and a reliability coefficient of .91. What is its standard error of measurement?
 
@@ -3300,7 +3876,7 @@ A test has a standard deviation of 15 and a reliability coefficient of .91. What
 
 ---
 
-### Q137 of 1000 · nce-s-ass-017 · Assessment and Testing · intelligence and achievement tests · easy · In review
+### Q161 of 1200 · nce-s-ass-017 · Assessment and Testing · intelligence and achievement tests · easy · In review
 
 A school-based counselor is part of a team evaluating the intellectual functioning of a 10-year-old. Which instrument is designed for this child's age?
 
@@ -3326,7 +3902,7 @@ A school-based counselor is part of a team evaluating the intellectual functioni
 
 ---
 
-### Q138 of 1000 · nce-s-ass-018 · Assessment and Testing · personality inventories (MMPI-3, NEO-PI) · easy · In review
+### Q162 of 1200 · nce-s-ass-018 · Assessment and Testing · personality inventories (MMPI-3, NEO-PI) · easy · In review
 
 A counselor wants a personality inventory built on the five-factor model (neuroticism, extraversion, openness, agreeableness, and conscientiousness). Which instrument fits this purpose?
 
@@ -3350,7 +3926,7 @@ A counselor wants a personality inventory built on the five-factor model (neurot
 
 ---
 
-### Q139 of 1000 · nce-s-ass-019 · Assessment and Testing · projective tests · easy · In review
+### Q163 of 1200 · nce-s-ass-019 · Assessment and Testing · projective tests · easy · In review
 
 A counselor shows an adolescent a series of ambiguous drawings of people in everyday situations and asks him to tell a story about each one, with a beginning, middle, and end. Which instrument is being used?
 
@@ -3374,7 +3950,7 @@ A counselor shows an adolescent a series of ambiguous drawings of people in ever
 
 ---
 
-### Q140 of 1000 · nce-s-ass-020 · Assessment and Testing · screening instruments (PHQ-9, GAD-7, AUDIT, CAGE) · medium · In review
+### Q164 of 1200 · nce-s-ass-020 · Assessment and Testing · screening instruments (PHQ-9, GAD-7, AUDIT, CAGE) · medium · In review
 
 On the PHQ-9, a client's total score is 6, in the mild range, but she marks "several days" on the last item, which asks about thoughts that she would be better off dead or of hurting herself. What should the counselor do next?
 
@@ -3398,7 +3974,7 @@ On the PHQ-9, a client's total score is 6, in the mild range, but she marks "sev
 
 ---
 
-### Q141 of 1000 · nce-s-ass-021 · Assessment and Testing · substance use assessment · medium · In review
+### Q165 of 1200 · nce-s-ass-021 · Assessment and Testing · substance use assessment · medium · In review
 
 A 52-year-old client says that when he goes a day without drinking he gets shaky, sweaty, and cannot sleep. Using the ASAM Criteria (3rd edition), under which dimension should the counselor rate these symptoms?
 
@@ -3422,7 +3998,7 @@ A 52-year-old client says that when he goes a day without drinking he gets shaky
 
 ---
 
-### Q142 of 1000 · nce-s-ass-022 · Social and Cultural Diversity · culturally fair assessment · medium · In review
+### Q166 of 1200 · nce-s-ass-022 · Social and Cultural Diversity · culturally fair assessment · medium · In review
 
 A counselor is asked to assess the cognitive abilities of a 13-year-old who arrived from Guatemala six months ago and is still learning English. Which approach is MOST appropriate?
 
@@ -3446,7 +4022,7 @@ A counselor is asked to assess the cognitive abilities of a 13-year-old who arri
 
 ---
 
-### Q143 of 1000 · nce-s-ass-023 · Counseling and Helping Relationships · biopsychosocial history · medium · In review
+### Q167 of 1200 · nce-s-ass-023 · Counseling and Helping Relationships · biopsychosocial history · medium · In review
 
 During a biopsychosocial intake, a 55-year-old client with no prior mental health history describes new anxiety, a racing heart, weight loss despite a good appetite, and feeling hot all the time. What is the counselor's BEST next step?
 
@@ -3470,7 +4046,7 @@ During a biopsychosocial intake, a 55-year-old client with no prior mental healt
 
 ---
 
-### Q144 of 1000 · nce-s-ass-024 · Assessment and Testing · collateral information and records · medium · In review
+### Q168 of 1200 · nce-s-ass-024 · Assessment and Testing · collateral information and records · medium · In review
 
 A client being assessed for alcohol use says he "only has a couple of beers on weekends." With his written consent, the counselor also interviews his spouse. What is the PRIMARY value of this collateral information?
 
@@ -3494,7 +4070,7 @@ A client being assessed for alcohol use says he "only has a couple of beers on w
 
 ---
 
-### Q145 of 1000 · nce-s-ass-025 · Career Development · career assessment: interest inventories · easy · In review
+### Q169 of 1200 · nce-s-ass-025 · Career Development · career assessment: interest inventories · easy · In review
 
 A 23-year-old graduate student wants to know how her likes and dislikes compare with those of people who are employed in, and satisfied with, a wide range of occupations. Which instrument is designed to provide this comparison?
 
@@ -3518,7 +4094,7 @@ A 23-year-old graduate student wants to know how her likes and dislikes compare 
 
 ---
 
-### Q146 of 1000 · nce-s-ass-026 · Career Development · career assessment: interest inventories · easy · In review
+### Q170 of 1200 · nce-s-ass-026 · Career Development · career assessment: interest inventories · easy · In review
 
 A rural high school with limited counseling staff wants a career interest tool that students can take, score, and begin interpreting on their own, producing a three-letter summary code they can use to look up matching occupations. Which instrument BEST fits this need?
 
@@ -3542,7 +4118,7 @@ A rural high school with limited counseling staff wants a career interest tool t
 
 ---
 
-### Q147 of 1000 · nce-s-ass-027 · Career Development · career assessment: qualitative methods · medium · In review
+### Q171 of 1200 · nce-s-ass-027 · Career Development · career assessment: qualitative methods · medium · In review
 
 A counselor working with a 46-year-old who lost a long-held factory job asks him to sort cards naming occupations into "would choose," "would not choose," and "undecided" piles and then talk through why he placed each card where he did. What is the MAIN advantage of this method over a standardized interest inventory?
 
@@ -3566,7 +4142,7 @@ A counselor working with a 46-year-old who lost a long-held factory job asks him
 
 ---
 
-### Q148 of 1000 · nce-s-ass-028 · Career Development · career assessment: work values · medium · In review
+### Q172 of 1200 · nce-s-ass-028 · Career Development · career assessment: work values · medium · In review
 
 A 31-year-old client's interest profile fits her field well, yet she has left three jobs, each time saying the work offered little recognition or independence. Her counselor gives her the Minnesota Importance Questionnaire. What does this instrument primarily measure?
 
@@ -3592,7 +4168,7 @@ A 31-year-old client's interest profile fits her field well, yet she has left th
 
 ---
 
-### Q149 of 1000 · nce-s-ass-029 · Career Development · intelligence and achievement tests · medium · In review
+### Q173 of 1200 · nce-s-ass-029 · Career Development · intelligence and achievement tests · medium · In review
 
 A high school junior is exploring careers. Her counselor wants an estimate of her potential to learn in several separate areas, such as mechanical comprehension, arithmetic reasoning, and word knowledge, rather than a record of what she has already mastered in class. Which type of instrument BEST fits?
 
@@ -3616,7 +4192,7 @@ A high school junior is exploring careers. Her counselor wants an estimate of he
 
 ---
 
-### Q150 of 1000 · nce-s-ass-030 · Research and Program Evaluation · item analysis · hard · In review
+### Q174 of 1200 · nce-s-ass-030 · Research and Program Evaluation · item analysis · hard · In review
 
 A counselor educator runs an item analysis on a classroom test. Item 7: p = .52, D = .41. Item 12: p = .48, D = -.22. Item 19: p = .90, D = .10. Item 23: p = .30, D = .35. Which item should be revised or removed FIRST?
 
@@ -3640,7 +4216,7 @@ A counselor educator runs an item analysis on a classroom test. Item 7: p = .52,
 
 ---
 
-### Q151 of 1000 · nce-s-ass-031 · Research and Program Evaluation · reliability types · hard · In review
+### Q175 of 1200 · nce-s-ass-031 · Research and Program Evaluation · reliability types · hard · In review
 
 A test developer splits a 60-item anxiety scale into odd- and even-numbered items and finds that the two halves correlate .60. Using the Spearman-Brown formula, what is the estimated reliability of the full 60-item scale?
 
@@ -3664,7 +4240,7 @@ A test developer splits a 60-item anxiety scale into odd- and even-numbered item
 
 ---
 
-### Q152 of 1000 · nce-s-ass-032 · Research and Program Evaluation · reliability types · medium · In review
+### Q176 of 1200 · nce-s-ass-032 · Research and Program Evaluation · reliability types · medium · In review
 
 Two counselors independently review 50 recorded intakes and judge whether each client meets criteria for a substance use disorder. They agree on 90% of cases, but most clients fall into the "does not meet" category. Why would a researcher report Cohen's kappa instead of simple percent agreement?
 
@@ -3688,7 +4264,7 @@ Two counselors independently review 50 recorded intakes and judge whether each c
 
 ---
 
-### Q153 of 1000 · nce-s-ass-033 · Assessment and Testing · validity types · easy · In review
+### Q177 of 1200 · nce-s-ass-033 · Assessment and Testing · validity types · easy · In review
 
 Clients who try out a new workplace stress inventory say, "It's obviously asking about job stress." The developer cites these comments in the manual as the main evidence that the inventory is valid. What do the comments actually reflect?
 
@@ -3712,7 +4288,7 @@ Clients who try out a new workplace stress inventory say, "It's obviously asking
 
 ---
 
-### Q154 of 1000 · nce-s-ass-034 · Assessment and Testing · validity types · medium · In review
+### Q178 of 1200 · nce-s-ass-034 · Assessment and Testing · validity types · medium · In review
 
 A developer theorizes that counselor burnout has three distinct dimensions and writes items for each. A factor analysis of responses from 900 counselors shows the items clustering on three factors that match the theorized dimensions. This result is BEST described as evidence of which kind of validity?
 
@@ -3736,7 +4312,7 @@ A developer theorizes that counselor burnout has three distinct dimensions and w
 
 ---
 
-### Q155 of 1000 · nce-s-ass-035 · Assessment and Testing · norm- vs criterion-referenced tests · medium · In review
+### Q179 of 1200 · nce-s-ass-035 · Assessment and Testing · norm- vs criterion-referenced tests · medium · In review
 
 A counselor plans to give a self-esteem inventory to a 72-year-old Filipino American retiree. The manual reports norms from about 2,000 undergraduates at four Midwestern universities. What is the counselor's PRIMARY concern in interpreting her percentile score?
 
@@ -3760,7 +4336,7 @@ A counselor plans to give a self-esteem inventory to a 72-year-old Filipino Amer
 
 ---
 
-### Q156 of 1000 · nce-s-ass-036 · Assessment and Testing · standard scores, percentiles and the normal curve · medium · In review
+### Q180 of 1200 · nce-s-ass-036 · Assessment and Testing · standard scores, percentiles and the normal curve · medium · In review
 
 A third grader earns a grade-equivalent score of 6.2 on a mathematics achievement test given to her class. Her parent asks whether she should be moved into sixth-grade math. Which interpretation should the counselor give?
 
@@ -3784,7 +4360,7 @@ A third grader earns a grade-equivalent score of 6.2 on a mathematics achievemen
 
 ---
 
-### Q157 of 1000 · nce-s-ass-037 · Assessment and Testing · standard scores, percentiles and the normal curve · hard · In review
+### Q181 of 1200 · nce-s-ass-037 · Assessment and Testing · standard scores, percentiles and the normal curve · hard · In review
 
 A school district reports its students' achievement results as normal curve equivalents (NCEs) and as stanines. A school board member asks the counselor how to read these scores. Which statement is accurate?
 
@@ -3808,7 +4384,7 @@ A school district reports its students' achievement results as normal curve equi
 
 ---
 
-### Q158 of 1000 · nce-s-ass-038 · Research and Program Evaluation · standard scores, percentiles and the normal curve · medium · In review
+### Q182 of 1200 · nce-s-ass-038 · Research and Program Evaluation · standard scores, percentiles and the normal curve · medium · In review
 
 On a very difficult practice exam, most examinees earn low scores and a handful earn very high scores. How are the mean, median, and mode MOST likely to be ordered in this distribution?
 
@@ -3832,7 +4408,7 @@ On a very difficult practice exam, most examinees earn low scores and a handful 
 
 ---
 
-### Q159 of 1000 · nce-s-ass-039 · Research and Program Evaluation · correlation and shared variance · medium · In review
+### Q183 of 1200 · nce-s-ass-039 · Research and Program Evaluation · correlation and shared variance · medium · In review
 
 In a clinic sample, weekly exercise hours correlate -.70 with depression scores, and nightly hours of sleep correlate +.40 with depression scores. Which conclusion is accurate?
 
@@ -3856,7 +4432,7 @@ In a clinic sample, weekly exercise hours correlate -.70 with depression scores,
 
 ---
 
-### Q160 of 1000 · nce-s-ass-040 · Assessment and Testing · screening instruments (PHQ-9, GAD-7, AUDIT, CAGE) · medium · In review
+### Q184 of 1200 · nce-s-ass-040 · Assessment and Testing · screening instruments (PHQ-9, GAD-7, AUDIT, CAGE) · medium · In review
 
 An elementary school principal proposes using scores from a 10-minute behavior screening checklist, completed once by each teacher, to decide which students are placed in special education services. What is the school counselor's BEST advice?
 
@@ -3880,7 +4456,7 @@ An elementary school principal proposes using scores from a 10-minute behavior s
 
 ---
 
-### Q161 of 1000 · nce-s-ass-041 · Assessment and Testing · screening instruments (PHQ-9, GAD-7, AUDIT, CAGE) · easy · In review
+### Q185 of 1200 · nce-s-ass-041 · Assessment and Testing · screening instruments (PHQ-9, GAD-7, AUDIT, CAGE) · easy · In review
 
 A counselor at a university counseling center plans to give the Beck Depression Inventory-II (BDI-II) to new clients. Which description of the BDI-II is accurate?
 
@@ -3904,7 +4480,7 @@ A counselor at a university counseling center plans to give the Beck Depression 
 
 ---
 
-### Q162 of 1000 · nce-s-ass-042 · Assessment and Testing · personality inventories (MMPI-3, NEO-PI) · hard · In review
+### Q186 of 1200 · nce-s-ass-042 · Assessment and Testing · personality inventories (MMPI-3, NEO-PI) · hard · In review
 
 On an MMPI-3 completed during a disability evaluation, the inconsistent-responding scales are within normal limits, but the infrequent-responding (overreporting) scales are markedly elevated, as are many clinical scales. What is the MOST appropriate interpretation?
 
@@ -3930,7 +4506,7 @@ On an MMPI-3 completed during a disability evaluation, the inconsistent-respondi
 
 ---
 
-### Q163 of 1000 · nce-s-ass-043 · Counseling and Helping Relationships · intake interview structure · medium · In review
+### Q187 of 1200 · nce-s-ass-043 · Counseling and Helping Relationships · intake interview structure · medium · In review
 
 A counselor uses the SCID-5 at intake. It follows a set order of questions keyed to DSM-5 criteria but lets the counselor ask follow-up questions and use clinical judgment in rating each criterion. How is this interview format BEST classified?
 
@@ -3954,7 +4530,7 @@ A counselor uses the SCID-5 at intake. It follows a set order of questions keyed
 
 ---
 
-### Q164 of 1000 · nce-s-ass-044 · Counseling and Helping Relationships · mental status examination · easy · In review
+### Q188 of 1200 · nce-s-ass-044 · Counseling and Helping Relationships · mental status examination · easy · In review
 
 Asked how she has been feeling, a 40-year-old client says, "Honestly, I'm good, really good." Throughout the interview she is tearful, her voice trembles, and her facial expression changes little. How should the counselor document this in the mental status examination?
 
@@ -3978,7 +4554,7 @@ Asked how she has been feeling, a 40-year-old client says, "Honestly, I'm good, 
 
 ---
 
-### Q165 of 1000 · nce-s-ass-045 · Assessment and Testing · collateral information and records · medium · In review
+### Q189 of 1200 · nce-s-ass-045 · Assessment and Testing · collateral information and records · medium · In review
 
 A 9-year-old is referred for inattention and angry outbursts. On a behavior rating scale, the parent's ratings are highly elevated, the teacher's ratings are in the average range, and the child's self-report is low. How should the counselor interpret these results?
 
@@ -4002,7 +4578,7 @@ A 9-year-old is referred for inattention and angry outbursts. On a behavior rati
 
 ---
 
-### Q166 of 1000 · nce-s-ass-046 · Assessment and Testing · DSM-5-TR diagnostic structure and specifiers · hard · In review
+### Q190 of 1200 · nce-s-ass-046 · Assessment and Testing · DSM-5-TR diagnostic structure and specifiers · hard · In review
 
 For the past four weeks, a 33-year-old client has had depressed mood and two other depressive symptoms, causing clear impairment at work. There is no identifiable stressor, and no other mental disorder or medical cause explains the symptoms. The counselor wants the record to state why full criteria are not met. Which diagnosis BEST fits?
 
@@ -4026,7 +4602,7 @@ For the past four weeks, a 33-year-old client has had depressed mood and two oth
 
 ---
 
-### Q167 of 1000 · nce-s-ass-047 · Social and Cultural Diversity · culturally fair assessment · easy · In review
+### Q191 of 1200 · nce-s-ass-047 · Social and Cultural Diversity · culturally fair assessment · easy · In review
 
 A counselor is seeing a 38-year-old client who recently immigrated and describes her distress mainly in terms of family duty and spiritual concerns. The counselor wants a DSM-5-TR tool that explores the client's own explanation of the problem, cultural identity, sources of support, and expectations of help. Which tool should the counselor use?
 
@@ -4050,7 +4626,7 @@ A counselor is seeing a 38-year-old client who recently immigrated and describes
 
 ---
 
-### Q168 of 1000 · nce-s-ass-048 · Assessment and Testing · screening instruments (PHQ-9, GAD-7, AUDIT, CAGE) · medium · In review
+### Q192 of 1200 · nce-s-ass-048 · Assessment and Testing · screening instruments (PHQ-9, GAD-7, AUDIT, CAGE) · medium · In review
 
 A 76-year-old client's daughter reports that he has trouble finding words and has missed paying several bills. On a brief cognitive screen such as the Montreal Cognitive Assessment (MoCA), he scores below the screening cutoff. What should the counselor do NEXT?
 
@@ -4074,7 +4650,7 @@ A 76-year-old client's daughter reports that he has trouble finding words and ha
 
 ---
 
-### Q169 of 1000 · nce-s-ass-049 · Human Growth and Development · differential diagnosis · medium · In review
+### Q193 of 1200 · nce-s-ass-049 · Human Growth and Development · differential diagnosis · medium · In review
 
 An 8-year-old is referred for poor concentration, restlessness, and unfinished classwork. His teacher from last year describes him as attentive and settled. The problems began about five months ago, shortly after he witnessed a violent break-in at his home, and he now has nightmares and startles easily. Which finding MOST argues against ADHD as the primary explanation?
 
@@ -4098,7 +4674,7 @@ An 8-year-old is referred for poor concentration, restlessness, and unfinished c
 
 ---
 
-### Q170 of 1000 · nce-s-ass-050 · Assessment and Testing · differential diagnosis · hard · In review
+### Q194 of 1200 · nce-s-ass-050 · Assessment and Testing · differential diagnosis · hard · In review
 
 A 35-year-old client reports three weeks of depressed mood, loss of interest, guilt, and poor concentration. His partner says he has been "snappy and irritable" with everyone. He sleeps about four hours a night but wakes exhausted and drags through the day. He reports no past periods of elevated mood or unusual energy. Which diagnosis is BEST supported?
 
@@ -4122,7 +4698,7 @@ A 35-year-old client reports three weeks of depressed mood, loss of interest, gu
 
 ---
 
-### Q171 of 1000 · nce-s-ass-051 · Assessment and Testing · differential diagnosis · medium · In review
+### Q195 of 1200 · nce-s-ass-051 · Assessment and Testing · differential diagnosis · medium · In review
 
 A 42-year-old client in a severe depressive episode believes she is being punished for terrible sins and that her organs are rotting. Her family reports that these beliefs appeared only after the depression began, and she has never had psychotic symptoms while her mood was stable. Which diagnosis BEST fits?
 
@@ -4146,7 +4722,7 @@ A 42-year-old client in a severe depressive episode believes she is being punish
 
 ---
 
-### Q172 of 1000 · nce-s-ass-052 · Assessment and Testing · differential diagnosis · hard · In review
+### Q196 of 1200 · nce-s-ass-052 · Assessment and Testing · differential diagnosis · hard · In review
 
 A 24-year-old is brought in after four days of paranoid beliefs and hearing voices. He reports using methamphetamine daily for the past month and stopping two days ago. He has no prior psychiatric history. Which approach to diagnosis is MOST appropriate?
 
@@ -4170,7 +4746,7 @@ A 24-year-old is brought in after four days of paranoid beliefs and hearing voic
 
 ---
 
-### Q173 of 1000 · nce-s-ass-053 · Assessment and Testing · projective tests · easy · In review
+### Q197 of 1200 · nce-s-ass-053 · Assessment and Testing · projective tests · easy · In review
 
 A counselor gives a client a form with stems such as "I regret..." and "My father..." and asks her to finish each one in her own words. Which type of instrument is this?
 
@@ -4194,7 +4770,7 @@ A counselor gives a client a form with stems such as "I regret..." and "My fathe
 
 ---
 
-### Q174 of 1000 · nce-s-ass-054 · Assessment and Testing · projective tests · medium · In review
+### Q198 of 1200 · nce-s-ass-054 · Assessment and Testing · projective tests · medium · In review
 
 As part of an evaluation for possible depression, a school counselor asks a 9-year-old to draw a house, a tree, and a person. Afterward, a colleague proposes diagnosing depression because the tree in the drawing has no leaves. Which response BEST reflects sound practice with this technique?
 
@@ -4218,7 +4794,7 @@ As part of an evaluation for possible depression, a school counselor asks a 9-ye
 
 ---
 
-### Q175 of 1000 · nce-s-ass-055 · Assessment and Testing · substance use assessment · medium · In review
+### Q199 of 1200 · nce-s-ass-055 · Assessment and Testing · substance use assessment · medium · In review
 
 Over the past year, a client's drinking has met these DSM-5-TR criteria: drinking more than intended, unsuccessful efforts to cut down, craving, continued use despite arguments with his spouse about it, and tolerance. He reports no withdrawal symptoms. Which severity specifier applies?
 
@@ -4242,7 +4818,7 @@ Over the past year, a client's drinking has met these DSM-5-TR criteria: drinkin
 
 ---
 
-### Q176 of 1000 · nce-s-ass-056 · Assessment and Testing · substance use assessment · easy · In review
+### Q200 of 1200 · nce-s-ass-056 · Assessment and Testing · substance use assessment · easy · In review
 
 In an integrated primary care clinic, a 44-year-old patient screens positive on the AUDIT-C. What does this result BEST support as the next step?
 
@@ -4266,7 +4842,7 @@ In an integrated primary care clinic, a 44-year-old patient screens positive on 
 
 ---
 
-### Q177 of 1000 · nce-s-ass-057 · Assessment and Testing · substance use assessment · easy · In review
+### Q201 of 1200 · nce-s-ass-057 · Assessment and Testing · substance use assessment · easy · In review
 
 A counselor in a high school health center wants a brief substance use screening tool that was developed and validated specifically for adolescents. Which instrument BEST fits this need?
 
@@ -4290,7 +4866,7 @@ A counselor in a high school health center wants a brief substance use screening
 
 ---
 
-### Q178 of 1000 · nce-s-ass-058 · Human Growth and Development · biopsychosocial history · medium · In review
+### Q202 of 1200 · nce-s-ass-058 · Human Growth and Development · biopsychosocial history · medium · In review
 
 A parent brings a 6-year-old for an intake because of delayed speech and difficulty playing with peers. Which part of the biopsychosocial history is MOST important to gather in detail at this point?
 
@@ -4314,7 +4890,7 @@ A parent brings a 6-year-old for an intake because of delayed speech and difficu
 
 ---
 
-### Q179 of 1000 · nce-s-ass-059 · Assessment and Testing · biopsychosocial history · medium · In review
+### Q203 of 1200 · nce-s-ass-059 · Assessment and Testing · biopsychosocial history · medium · In review
 
 During a biopsychosocial intake for her first episode of depression, a 22-year-old mentions that her mother was hospitalized for bipolar disorder. Why is this family history clinically important?
 
@@ -4338,7 +4914,7 @@ During a biopsychosocial intake for her first episode of depression, a 22-year-o
 
 ---
 
-### Q180 of 1000 · nce-s-ass-060 · Counseling and Helping Relationships · biopsychosocial history · medium · In review
+### Q204 of 1200 · nce-s-ass-060 · Counseling and Helping Relationships · biopsychosocial history · medium · In review
 
 Near the end of a biopsychosocial interview, a counselor asks a 58-year-old client about his friendships, his faith community, times he coped well in the past, and things he does well. What is the main purpose of gathering this information?
 
@@ -4362,7 +4938,7 @@ Near the end of a biopsychosocial interview, a counselor asks a 58-year-old clie
 
 ---
 
-### Q181 of 1000 · nce-s-ass-061 · Counseling and Helping Relationships · intake interview structure · easy · In review
+### Q205 of 1200 · nce-s-ass-061 · Counseling and Helping Relationships · intake interview structure · easy · In review
 
 When structuring an initial intake interview, which sequence is generally recommended for exploring the client's concerns?
 
@@ -4386,7 +4962,7 @@ When structuring an initial intake interview, which sequence is generally recomm
 
 ---
 
-### Q182 of 1000 · nce-s-ass-062 · Assessment and Testing · intake interview structure · medium · In review
+### Q206 of 1200 · nce-s-ass-062 · Assessment and Testing · intake interview structure · medium · In review
 
 An agency is deciding between a fully structured diagnostic interview and an unstructured clinical interview for its intakes. Which statement accurately compares the two approaches?
 
@@ -4410,7 +4986,7 @@ An agency is deciding between a fully structured diagnostic interview and an uns
 
 ---
 
-### Q183 of 1000 · nce-s-ass-063 · Counseling and Helping Relationships · mental status examination · easy · In review
+### Q207 of 1200 · nce-s-ass-063 · Counseling and Helping Relationships · mental status examination · easy · In review
 
 During a mental status examination, a client correctly gives her name and says she is in a hospital, but she cannot state the month, the year, or the day of the week. How should orientation be recorded?
 
@@ -4434,7 +5010,7 @@ During a mental status examination, a client correctly gives her name and says s
 
 ---
 
-### Q184 of 1000 · nce-s-ass-064 · Counseling and Helping Relationships · mental status examination · medium · In review
+### Q208 of 1200 · nce-s-ass-064 · Counseling and Helping Relationships · mental status examination · medium · In review
 
 A 39-year-old client says, "I know my drinking is out of control, and it's hurting my kids." Later in the session she mentions that she drove her children to school that morning after drinking. How are insight and judgment BEST described in the mental status examination?
 
@@ -4458,7 +5034,7 @@ A 39-year-old client says, "I know my drinking is out of control, and it's hurti
 
 ---
 
-### Q185 of 1000 · nce-s-ass-065 · Assessment and Testing · suicide and violence risk assessment · hard · In review
+### Q209 of 1200 · nce-s-ass-065 · Assessment and Testing · suicide and violence risk assessment · hard · In review
 
 A 36-year-old client reports a plan to overdose this weekend on medication she has been saving and says she intends to act on it. She adds that her two children "are the reason I'm still here." How should the counselor weigh her children as a protective factor?
 
@@ -4482,7 +5058,7 @@ A 36-year-old client reports a plan to overdose this weekend on medication she h
 
 ---
 
-### Q186 of 1000 · nce-s-ass-066 · Assessment and Testing · suicide and violence risk assessment · easy · In review
+### Q210 of 1200 · nce-s-ass-066 · Assessment and Testing · suicide and violence risk assessment · easy · In review
 
 A counselor is assessing an adult client's risk of harming others. Which factor is generally considered the strongest single predictor of future violent behavior?
 
@@ -4506,7 +5082,7 @@ A counselor is assessing an adult client's risk of harming others. Which factor 
 
 ---
 
-### Q187 of 1000 · nce-s-ass-067 · Assessment and Testing · DSM-5-TR diagnostic structure and specifiers · medium · In review
+### Q211 of 1200 · nce-s-ass-067 · Assessment and Testing · DSM-5-TR diagnostic structure and specifiers · medium · In review
 
 A 20-year-old has had delusions, hallucinations, and disorganized speech for two months. The symptoms continue, and it is not yet known whether he will recover within six months. Which diagnosis is MOST appropriate now?
 
@@ -4530,7 +5106,7 @@ A 20-year-old has had delusions, hallucinations, and disorganized speech for two
 
 ---
 
-### Q188 of 1000 · nce-s-ass-068 · Human Growth and Development · DSM-5-TR diagnostic structure and specifiers · hard · In review
+### Q212 of 1200 · nce-s-ass-068 · Human Growth and Development · DSM-5-TR diagnostic structure and specifiers · hard · In review
 
 A counselor on a school evaluation team is documenting autism spectrum disorder for a 7-year-old using DSM-5-TR. How are the severity levels for this diagnosis assigned?
 
@@ -4554,7 +5130,7 @@ A counselor on a school evaluation team is documenting autism spectrum disorder 
 
 ---
 
-### Q189 of 1000 · nce-s-ass-069 · Assessment and Testing · intelligence and achievement tests · easy · In review
+### Q213 of 1200 · nce-s-ass-069 · Assessment and Testing · intelligence and achievement tests · easy · In review
 
 A clinic wants a single individually administered intelligence test it can use with clients ranging from a 4-year-old to a 70-year-old. Which instrument covers this full age range?
 
@@ -4580,7 +5156,7 @@ A clinic wants a single individually administered intelligence test it can use w
 
 ---
 
-### Q190 of 1000 · nce-s-ass-070 · Assessment and Testing · intelligence and achievement tests · medium · In review
+### Q214 of 1200 · nce-s-ass-070 · Assessment and Testing · intelligence and achievement tests · medium · In review
 
 A 10-year-old's WISC-V Full Scale IQ is 112, while her reading standard score on the Woodcock-Johnson IV Tests of Achievement is 78. Both scales have a mean of 100 and a standard deviation of 15. What has this pattern traditionally been taken to suggest?
 
@@ -4604,7 +5180,7 @@ A 10-year-old's WISC-V Full Scale IQ is 112, while her reading standard score on
 
 ---
 
-### Q191 of 1000 · nce-s-ass-071 · Social and Cultural Diversity · culturally fair assessment · medium · In review
+### Q215 of 1200 · nce-s-ass-071 · Social and Cultural Diversity · culturally fair assessment · medium · In review
 
 A counselor wants to use an English-language anxiety inventory with Vietnamese-speaking clients and asks a bilingual staff member to translate it word for word. What is the MOST important limitation of this plan?
 
@@ -4628,7 +5204,7 @@ A counselor wants to use an English-language anxiety inventory with Vietnamese-s
 
 ---
 
-### Q192 of 1000 · nce-s-ass-072 · Social and Cultural Diversity · culturally fair assessment · hard · In review
+### Q216 of 1200 · nce-s-ass-072 · Social and Cultural Diversity · culturally fair assessment · hard · In review
 
 A 30-year-old client of Puerto Rican heritage describes an episode at her father's funeral in which she screamed uncontrollably, trembled, felt heat rising in her chest, and briefly felt detached, then felt like herself again. Which approach BEST reflects culturally fair assessment?
 
@@ -4652,7 +5228,7 @@ A 30-year-old client of Puerto Rican heritage describes an episode at her father
 
 ---
 
-### Q193 of 1000 · nce-s-ass-073 · Assessment and Testing · norm- vs criterion-referenced tests · easy · In review
+### Q217 of 1200 · nce-s-ass-073 · Assessment and Testing · norm- vs criterion-referenced tests · easy · In review
 
 A parent is reading her son's score report from a statewide mathematics test. Which statement on the report is a norm-referenced interpretation?
 
@@ -4676,7 +5252,7 @@ A parent is reading her son's score report from a statewide mathematics test. Wh
 
 ---
 
-### Q194 of 1000 · nce-s-ass-074 · Assessment and Testing · norm- vs criterion-referenced tests · hard · In review
+### Q218 of 1200 · nce-s-ass-074 · Assessment and Testing · norm- vs criterion-referenced tests · hard · In review
 
 A counselor educator is building a criterion-referenced mastery test for a crisis-intervention training module. After instruction, 96% of trainees answer one item correctly. The item covers an essential safety skill named in the module objectives. What should the developer do with this item?
 
@@ -4700,7 +5276,7 @@ A counselor educator is building a criterion-referenced mastery test for a crisi
 
 ---
 
-### Q195 of 1000 · nce-s-ass-075 · Assessment and Testing · norm- vs criterion-referenced tests · medium · In review
+### Q219 of 1200 · nce-s-ass-075 · Assessment and Testing · norm- vs criterion-referenced tests · medium · In review
 
 A counselor plans to use a nonverbal ability test whose manual reports norms that were gathered about 30 years ago. When comparing today's clients with that norm group, what is the MAIN interpretive concern?
 
@@ -4726,7 +5302,7 @@ A counselor plans to use a nonverbal ability test whose manual reports norms tha
 
 ---
 
-### Q196 of 1000 · nce-s-ass-076 · Research and Program Evaluation · standard error of measurement · hard · In review
+### Q220 of 1200 · nce-s-ass-076 · Research and Program Evaluation · standard error of measurement · hard · In review
 
 A college counseling center uses a regression equation to predict first-year GPA from an admissions test score. A counselor wants a statistic that shows how far students' actual GPAs typically fall from their predicted GPAs. Which statistic should she use?
 
@@ -4750,7 +5326,7 @@ A college counseling center uses a regression equation to predict first-year GPA
 
 ---
 
-### Q197 of 1000 · nce-s-ass-077 · Research and Program Evaluation · standard error of measurement · medium · In review
+### Q221 of 1200 · nce-s-ass-077 · Research and Program Evaluation · standard error of measurement · medium · In review
 
 Two anxiety scales use the same score metric and have the same standard deviation. Scale X has a reliability coefficient of .95, and Scale Y has one of .70. Why will Scale X have the smaller standard error of measurement?
 
@@ -4774,7 +5350,7 @@ Two anxiety scales use the same score metric and have the same standard deviatio
 
 ---
 
-### Q198 of 1000 · nce-s-ass-078 · Research and Program Evaluation · standard error of measurement · hard · In review
+### Q222 of 1200 · nce-s-ass-078 · Research and Program Evaluation · standard error of measurement · hard · In review
 
 On a test battery where each subtest has a standard error of measurement of 4, a 12-year-old earns 103 on Verbal Reasoning and 109 on Spatial Reasoning. His parent asks whether spatial reasoning is a real strength. Using bands of plus or minus 1 SEM, what should the counselor say?
 
@@ -4798,7 +5374,7 @@ On a test battery where each subtest has a standard error of measurement of 4, a
 
 ---
 
-### Q199 of 1000 · nce-s-ass-079 · Assessment and Testing · personality inventories (MMPI-3, NEO-PI) · medium · In review
+### Q223 of 1200 · nce-s-ass-079 · Assessment and Testing · personality inventories (MMPI-3, NEO-PI) · medium · In review
 
 A 27-year-old graduate student completes the NEO-PI-3 as part of career counseling. Her Extraversion score is very low, and her Neuroticism score is average. She asks whether this means something is wrong with her. What is the BEST interpretation to offer?
 
@@ -4822,7 +5398,7 @@ A 27-year-old graduate student completes the NEO-PI-3 as part of career counseli
 
 ---
 
-### Q200 of 1000 · nce-s-ass-080 · Assessment and Testing · personality inventories (MMPI-3, NEO-PI) · medium · In review
+### Q224 of 1200 · nce-s-ass-080 · Assessment and Testing · personality inventories (MMPI-3, NEO-PI) · medium · In review
 
 A 34-year-old client took the Myers-Briggs Type Indicator (MBTI) at work two years ago and was typed ENFP. Taking it again in counseling, she is typed INFP. Her Extraversion-Introversion preference score was close to the midpoint both times. What BEST explains the change?
 
@@ -4846,7 +5422,7 @@ A 34-year-old client took the Myers-Briggs Type Indicator (MBTI) at work two yea
 
 ---
 
-### Q201 of 1000 · nce-s-ass-081 · Assessment and Testing · personality inventories (MMPI-3, NEO-PI) · easy · In review
+### Q225 of 1200 · nce-s-ass-081 · Assessment and Testing · personality inventories (MMPI-3, NEO-PI) · easy · In review
 
 A counselor uses the Sixteen Personality Factor Questionnaire (16PF) in premarital counseling. Which description of this instrument is accurate?
 
@@ -4870,7 +5446,7 @@ A counselor uses the Sixteen Personality Factor Questionnaire (16PF) in premarit
 
 ---
 
-### Q202 of 1000 · nce-s-ass-082 · Assessment and Testing · collateral information and records · easy · In review
+### Q226 of 1200 · nce-s-ass-082 · Assessment and Testing · collateral information and records · easy · In review
 
 During intake, a 45-year-old client mentions that she saw a counselor at another agency for depression three years ago. The counselor would like to review those records. What is the BEST way to obtain them?
 
@@ -4896,7 +5472,7 @@ During intake, a 45-year-old client mentions that she saw a counselor at another
 
 ---
 
-### Q203 of 1000 · nce-s-ass-083 · Professional Counseling Orientation and Ethical Practice · collateral information and records · medium · In review
+### Q227 of 1200 · nce-s-ass-083 · Professional Counseling Orientation and Ethical Practice · collateral information and records · medium · In review
 
 A client on probation asks her counselor to send attendance and progress information to her probation officer. The release she signs and dates names the counselor, the probation officer, the information to be sent, the purpose, and the required notices on revocation and redisclosure. Under HIPAA, which required element is still missing?
 
@@ -4920,7 +5496,7 @@ A client on probation asks her counselor to send attendance and progress informa
 
 ---
 
-### Q204 of 1000 · nce-s-ass-084 · Assessment and Testing · collateral information and records · hard · In review
+### Q228 of 1200 · nce-s-ass-084 · Assessment and Testing · collateral information and records · hard · In review
 
 A counselor is assessing a 74-year-old widower for possible cognitive decline. He says he manages fine. His daughter, who visits three times a week, describes missed medications and getting lost while driving. His son, who lives overseas and speaks with him by phone monthly, says he "sounds like his old self." How should the counselor weigh these reports?
 
@@ -4944,7 +5520,7 @@ A counselor is assessing a 74-year-old widower for possible cognitive decline. H
 
 ---
 
-### Q205 of 1000 · nce-s-ass-085 · Assessment and Testing · projective tests · hard · In review
+### Q229 of 1200 · nce-s-ass-085 · Assessment and Testing · projective tests · hard · In review
 
 A counselor reviewing a psychological report notes that the Rorschach was formally scored, while the Thematic Apperception Test (TAT) was interpreted. Which statement BEST compares how these two projective tests are typically scored?
 
@@ -4970,7 +5546,7 @@ A counselor reviewing a psychological report notes that the Rorschach was formal
 
 ---
 
-### Q206 of 1000 · nce-s-ass-086 · Assessment and Testing · test selection and administration · easy · In review
+### Q230 of 1200 · nce-s-ass-086 · Assessment and Testing · test selection and administration · easy · In review
 
 A middle school principal asks the school counselor to "give some tests" to a seventh grader who is "having problems." What should the counselor do FIRST?
 
@@ -4994,7 +5570,7 @@ A middle school principal asks the school counselor to "give some tests" to a se
 
 ---
 
-### Q207 of 1000 · nce-s-ass-087 · Assessment and Testing · test selection and administration · medium · In review
+### Q231 of 1200 · nce-s-ass-087 · Assessment and Testing · test selection and administration · medium · In review
 
 A vocational rehabilitation agency asks a counselor whether a 30-year-old client meets criteria for intellectual developmental disorder. Which assessment plan BEST answers this referral question?
 
@@ -5018,7 +5594,7 @@ A vocational rehabilitation agency asks a counselor whether a 30-year-old client
 
 ---
 
-### Q208 of 1000 · nce-s-ass-088 · Research and Program Evaluation · reliability types · medium · In review
+### Q232 of 1200 · nce-s-ass-088 · Research and Program Evaluation · reliability types · medium · In review
 
 A test manual reports a reliability coefficient of .80 for a self-esteem scale. Which interpretation of this value is correct?
 
@@ -5042,7 +5618,7 @@ A test manual reports a reliability coefficient of .80 for a self-esteem scale. 
 
 ---
 
-### Q209 of 1000 · nce-s-ass-089 · Research and Program Evaluation · validity types · hard · In review
+### Q233 of 1200 · nce-s-ass-089 · Research and Program Evaluation · validity types · hard · In review
 
 An aptitude test correlates .35 with supervisors' later job performance ratings. A colleague tells the counselor the test is worthless because this figure is so far below the test's .90 reliability. Which response is MOST accurate?
 
@@ -5066,7 +5642,7 @@ An aptitude test correlates .35 with supervisors' later job performance ratings.
 
 ---
 
-### Q210 of 1000 · nce-s-ass-090 · Social and Cultural Diversity · culturally fair assessment · hard · In review
+### Q234 of 1200 · nce-s-ass-090 · Social and Cultural Diversity · culturally fair assessment · hard · In review
 
 Two cultural groups differ in average scores on a clerical aptitude test. Research shows the test predicts later job performance equally well for both groups, using the same regression line. A hiring manager concludes that the test is biased. What is the BEST response?
 
@@ -5090,7 +5666,7 @@ Two cultural groups differ in average scores on a clerical aptitude test. Resear
 
 ---
 
-### Q211 of 1000 · nce-s-ass-091 · Assessment and Testing · test selection and administration · medium · In review
+### Q235 of 1200 · nce-s-ass-091 · Assessment and Testing · test selection and administration · medium · In review
 
 A client with low vision takes a timed, standardized reading-comprehension test in large print with extended time as an accommodation for her disability. How should the counselor handle the results?
 
@@ -5114,7 +5690,7 @@ A client with low vision takes a timed, standardized reading-comprehension test 
 
 ---
 
-### Q212 of 1000 · nce-s-ass-092 · Assessment and Testing · test selection and administration · medium · In review
+### Q236 of 1200 · nce-s-ass-092 · Assessment and Testing · test selection and administration · medium · In review
 
 To save session time, a counselor wants clients to complete a symptom inventory online at home before intake. The publisher validated the inventory only for proctored administration in an office. Under the ACA Code of Ethics, what should the counselor do?
 
@@ -5140,7 +5716,7 @@ To save session time, a counselor wants clients to complete a symptom inventory 
 
 ---
 
-### Q213 of 1000 · nce-s-ass-093 · Assessment and Testing · communicating assessment results · easy · In review
+### Q237 of 1200 · nce-s-ass-093 · Assessment and Testing · communicating assessment results · easy · In review
 
 A counselor is reviewing a personality inventory profile with a 50-year-old client, who looks worried when she sees that one scale is elevated. Which approach to communicating the results is BEST?
 
@@ -5164,7 +5740,7 @@ A counselor is reviewing a personality inventory profile with a 50-year-old clie
 
 ---
 
-### Q214 of 1000 · nce-s-ass-094 · Assessment and Testing · screening instruments (PHQ-9, GAD-7, AUDIT, CAGE) · medium · In review
+### Q238 of 1200 · nce-s-ass-094 · Assessment and Testing · screening instruments (PHQ-9, GAD-7, AUDIT, CAGE) · medium · In review
 
 A counselor at a veterans' clinic gives a client the PTSD Checklist for DSM-5 (PCL-5) at intake and again every few weeks during treatment. Which description of the PCL-5 is accurate?
 
@@ -5188,7 +5764,7 @@ A counselor at a veterans' clinic gives a client the PTSD Checklist for DSM-5 (P
 
 ---
 
-### Q215 of 1000 · nce-s-ass-095 · Assessment and Testing · couples and family assessment · easy · In review
+### Q239 of 1200 · nce-s-ass-095 · Assessment and Testing · couples and family assessment · easy · In review
 
 In early sessions with a couple, a counselor draws a diagram of three generations of both partners' families, marking marriages, divorces, deaths, illnesses, substance use, and close or cut-off relationships. What is the main assessment purpose of this tool?
 
@@ -5212,7 +5788,7 @@ In early sessions with a couple, a counselor draws a diagram of three generation
 
 ---
 
-### Q216 of 1000 · nce-s-ass-096 · Career Development · career assessment: interest inventories · medium · In review
+### Q240 of 1200 · nce-s-ass-096 · Career Development · career assessment: interest inventories · medium · In review
 
 On the Strong Interest Inventory, a 26-year-old client's highest General Occupational Theme is Artistic. Within that theme, her Basic Interest Scale for Culinary Arts is high, while those for Writing and Mass Communication and for Visual Arts and Design are low. How should the counselor interpret this?
 
@@ -5238,7 +5814,7 @@ On the Strong Interest Inventory, a 26-year-old client's highest General Occupat
 
 ---
 
-### Q217 of 1000 · nce-s-ass-097 · Assessment and Testing · intake interview structure · medium · In review
+### Q241 of 1200 · nce-s-ass-097 · Assessment and Testing · intake interview structure · medium · In review
 
 A counselor is starting a first telehealth intake with a 29-year-old client who has joined the video call from a parked car. Before moving into the presenting concern, which step BEST belongs at the opening of this intake?
 
@@ -5262,7 +5838,7 @@ A counselor is starting a first telehealth intake with a 29-year-old client who 
 
 ---
 
-### Q218 of 1000 · nce-s-ass-098 · Assessment and Testing · intake interview structure · easy · In review
+### Q242 of 1200 · nce-s-ass-098 · Assessment and Testing · intake interview structure · easy · In review
 
 Many intake forms ask the counselor to record the presenting problem, or chief complaint, as a short quotation in the client's own words. What is the main reason for this practice?
 
@@ -5286,7 +5862,7 @@ Many intake forms ask the counselor to record the presenting problem, or chief c
 
 ---
 
-### Q219 of 1000 · nce-s-ass-099 · Assessment and Testing · mental status examination · hard · In review
+### Q243 of 1200 · nce-s-ass-099 · Assessment and Testing · mental status examination · hard · In review
 
 During a mental status examination, a 31-year-old client with insomnia mentions that a few times, just as she was drifting off to sleep, she heard someone call her name and then realized no one was there. She reports no other unusual perceptions, and her thinking is organized. How should the counselor record this?
 
@@ -5310,7 +5886,7 @@ During a mental status examination, a 31-year-old client with insomnia mentions 
 
 ---
 
-### Q220 of 1000 · nce-s-ass-100 · Assessment and Testing · mental status examination · easy · In review
+### Q244 of 1200 · nce-s-ass-100 · Assessment and Testing · mental status examination · easy · In review
 
 A 45-year-old client calmly tells the counselor that the evening news anchor has been sending him personal messages about a secret mission. In which part of the mental status examination does this belong?
 
@@ -5334,7 +5910,7 @@ A 45-year-old client calmly tells the counselor that the evening news anchor has
 
 ---
 
-### Q221 of 1000 · nce-s-ass-101 · Assessment and Testing · suicide and violence risk assessment · medium · In review
+### Q245 of 1200 · nce-s-ass-101 · Assessment and Testing · suicide and violence risk assessment · medium · In review
 
 A counselor reviews intake notes on a 52-year-old client. Which piece of information is a WARNING SIGN of possible near-term suicide risk rather than a longer-standing risk factor?
 
@@ -5358,7 +5934,7 @@ A counselor reviews intake notes on a 52-year-old client. Which piece of informa
 
 ---
 
-### Q222 of 1000 · nce-s-ass-102 · Assessment and Testing · suicide and violence risk assessment · hard · In review
+### Q246 of 1200 · nce-s-ass-102 · Assessment and Testing · suicide and violence risk assessment · hard · In review
 
 A 27-year-old warehouse worker, furious about being passed over for promotion, says of his supervisor, "One of these days he's going to get what's coming to him." He then changes the subject. What should the counselor do FIRST?
 
@@ -5382,7 +5958,7 @@ A 27-year-old warehouse worker, furious about being passed over for promotion, s
 
 ---
 
-### Q223 of 1000 · nce-s-ass-103 · Assessment and Testing · DSM-5-TR diagnostic structure and specifiers · medium · In review
+### Q247 of 1200 · nce-s-ass-103 · Assessment and Testing · DSM-5-TR diagnostic structure and specifiers · medium · In review
 
 A 41-year-old client in Minnesota has had major depressive episodes that began in late October and fully remitted by April in each of the last three years. There have been no depressive episodes at other times of year, and no clear yearly stressor explains the timing. Which specifier BEST fits?
 
@@ -5406,7 +5982,7 @@ A 41-year-old client in Minnesota has had major depressive episodes that began i
 
 ---
 
-### Q224 of 1000 · nce-s-ass-104 · Assessment and Testing · DSM-5-TR diagnostic structure and specifiers · hard · In review
+### Q248 of 1200 · nce-s-ass-104 · Assessment and Testing · DSM-5-TR diagnostic structure and specifiers · hard · In review
 
 For 14 months, a 26-year-old has had depressed mood plus four other depressive symptoms lasting about three days, roughly once a month, unrelated to the menstrual cycle. She has never met criteria for another depressive or bipolar disorder. The counselor wants the diagnosis to state why full criteria are not met. Which diagnosis fits?
 
@@ -5430,7 +6006,7 @@ For 14 months, a 26-year-old has had depressed mood plus four other depressive s
 
 ---
 
-### Q225 of 1000 · nce-s-ass-105 · Human Growth and Development · intelligence and achievement tests · easy · In review
+### Q249 of 1200 · nce-s-ass-105 · Human Growth and Development · intelligence and achievement tests · easy · In review
 
 An early intervention team wants an individually administered measure of cognitive, language, and motor development for an 18-month-old born prematurely. Which instrument is designed for a child this age?
 
@@ -5454,7 +6030,7 @@ An early intervention team wants an individually administered measure of cogniti
 
 ---
 
-### Q226 of 1000 · nce-s-ass-106 · Assessment and Testing · intelligence and achievement tests · medium · In review
+### Q250 of 1200 · nce-s-ass-106 · Assessment and Testing · intelligence and achievement tests · medium · In review
 
 A counselor at an adult education program wants a brief, individually administered screen of basic academic skills, such as word reading, spelling, and math computation, for a 38-year-old returning learner. Which instrument fits this purpose?
 
@@ -5478,7 +6054,7 @@ A counselor at an adult education program wants a brief, individually administer
 
 ---
 
-### Q227 of 1000 · nce-s-ass-107 · Assessment and Testing · projective tests · easy · In review
+### Q251 of 1200 · nce-s-ass-107 · Assessment and Testing · projective tests · easy · In review
 
 A counselor asks an 8-year-old to "draw a picture of everyone in your family, including you, doing something." Which projective technique is this?
 
@@ -5502,7 +6078,7 @@ A counselor asks an 8-year-old to "draw a picture of everyone in your family, in
 
 ---
 
-### Q228 of 1000 · nce-s-ass-108 · Assessment and Testing · projective tests · hard · In review
+### Q252 of 1200 · nce-s-ass-108 · Assessment and Testing · projective tests · hard · In review
 
 A psychological report states that the Rorschach was administered and coded using the Rorschach Performance Assessment System (R-PAS), with the results compared against international reference norms. What does this description tell the counselor reading the report?
 
@@ -5526,7 +6102,7 @@ A psychological report states that the Rorschach was administered and coded usin
 
 ---
 
-### Q229 of 1000 · nce-s-ass-109 · Assessment and Testing · substance use assessment · hard · In review
+### Q253 of 1200 · nce-s-ass-109 · Assessment and Testing · substance use assessment · hard · In review
 
 A 60-year-old client has taken a prescribed opioid exactly as directed for chronic back pain for two years. She needs a higher dose than at first for the same relief and feels ill if she misses a dose. She reports no other problems with the medication. How should these two findings be weighed toward opioid use disorder?
 
@@ -5550,7 +6126,7 @@ A 60-year-old client has taken a prescribed opioid exactly as directed for chron
 
 ---
 
-### Q230 of 1000 · nce-s-ass-110 · Assessment and Testing · substance use assessment · medium · In review
+### Q254 of 1200 · nce-s-ass-110 · Assessment and Testing · substance use assessment · medium · In review
 
 To get a detailed picture of a client's drinking, a counselor sits with him and a calendar of the past 90 days. Using paydays, holidays, and family events as memory anchors, they estimate how many drinks he had on each day. Which method is the counselor using?
 
@@ -5574,7 +6150,7 @@ To get a detailed picture of a client's drinking, a counselor sits with him and 
 
 ---
 
-### Q231 of 1000 · nce-s-ass-111 · Social and Cultural Diversity · biopsychosocial history · medium · In review
+### Q255 of 1200 · nce-s-ass-111 · Social and Cultural Diversity · biopsychosocial history · medium · In review
 
 A 17-year-old who arrived in the United States as a refugee eight months ago is referred for sleep problems and irritability. When taking the biopsychosocial history, which approach to the migration history is MOST complete?
 
@@ -5598,7 +6174,7 @@ A 17-year-old who arrived in the United States as a refugee eight months ago is 
 
 ---
 
-### Q232 of 1000 · nce-s-ass-112 · Assessment and Testing · biopsychosocial history · medium · In review
+### Q256 of 1200 · nce-s-ass-112 · Assessment and Testing · biopsychosocial history · medium · In review
 
 A biopsychosocial intake with a 20-year-old college student shows that her mother has an anxiety disorder, panic attacks began after a car accident last month, she now skips classes held in the building where her first attack happened, and she is close to her older sister. Which finding is a PERPETUATING factor?
 
@@ -5622,7 +6198,7 @@ A biopsychosocial intake with a 20-year-old college student shows that her mothe
 
 ---
 
-### Q233 of 1000 · nce-s-ass-113 · Research and Program Evaluation · standard scores, percentiles and the normal curve · easy · In review
+### Q257 of 1200 · nce-s-ass-113 · Research and Program Evaluation · standard scores, percentiles and the normal curve · easy · In review
 
 A client's score on a self-report scale converts to a z-score of -1.5. What is the equivalent T-score?
 
@@ -5646,7 +6222,7 @@ A client's score on a self-report scale converts to a z-score of -1.5. What is t
 
 ---
 
-### Q234 of 1000 · nce-s-ass-114 · Research and Program Evaluation · standard scores, percentiles and the normal curve · medium · In review
+### Q258 of 1200 · nce-s-ass-114 · Research and Program Evaluation · standard scores, percentiles and the normal curve · medium · In review
 
 A normally distributed test has a mean of 50 and a standard deviation of 15. A client earns a raw score of 65. Approximately what is the client's percentile rank?
 
@@ -5670,7 +6246,7 @@ A normally distributed test has a mean of 50 and a standard deviation of 15. A c
 
 ---
 
-### Q235 of 1000 · nce-s-ass-115 · Research and Program Evaluation · standard error of measurement · hard · In review
+### Q259 of 1200 · nce-s-ass-115 · Research and Program Evaluation · standard error of measurement · hard · In review
 
 A test has a standard deviation of 10 and a reliability coefficient of .91. A client obtains a score of 60. Within which range does the client's true score fall with about 68% confidence?
 
@@ -5694,7 +6270,7 @@ A test has a standard deviation of 10 and a reliability coefficient of .91. A cl
 
 ---
 
-### Q236 of 1000 · nce-s-ass-116 · Career Development · norm- vs criterion-referenced tests · medium · In review
+### Q260 of 1200 · nce-s-ass-116 · Career Development · norm- vs criterion-referenced tests · medium · In review
 
 In career counseling, a 44-year-old client completes a work values exercise in which she must rank 12 values from most to least important. Security ranks first and Prestige ranks last. Which interpretation is accurate?
 
@@ -5718,7 +6294,7 @@ In career counseling, a 44-year-old client completes a work values exercise in w
 
 ---
 
-### Q237 of 1000 · nce-s-ass-117 · Assessment and Testing · differential diagnosis · medium · In review
+### Q261 of 1200 · nce-s-ass-117 · Assessment and Testing · differential diagnosis · medium · In review
 
 Seven months after her husband's death, a 66-year-old client reports intense yearning for him nearly every day, trouble accepting the death, and feeling that part of her has died. These reactions impair her daily functioning. Why would prolonged grief disorder not be diagnosed at this point?
 
@@ -5742,7 +6318,7 @@ Seven months after her husband's death, a 66-year-old client reports intense yea
 
 ---
 
-### Q238 of 1000 · nce-s-ass-118 · Assessment and Testing · screening instruments (PHQ-9, GAD-7, AUDIT, CAGE) · medium · In review
+### Q262 of 1200 · nce-s-ass-118 · Assessment and Testing · screening instruments (PHQ-9, GAD-7, AUDIT, CAGE) · medium · In review
 
 In a primary care behavioral health program, a 35-year-old patient scores 12 on the GAD-7. How should the counselor interpret and use this result?
 
@@ -5766,7 +6342,7 @@ In a primary care behavioral health program, a 35-year-old patient scores 12 on 
 
 ---
 
-### Q239 of 1000 · nce-s-ass-119 · Assessment and Testing · personality inventories (MMPI-3, NEO-PI) · easy · In review
+### Q263 of 1200 · nce-s-ass-119 · Assessment and Testing · personality inventories (MMPI-3, NEO-PI) · easy · In review
 
 A counselor in an adolescent treatment program wants an MMPI-family inventory for a 16-year-old client. Which version is normed for this age group?
 
@@ -5790,7 +6366,7 @@ A counselor in an adolescent treatment program wants an MMPI-family inventory fo
 
 ---
 
-### Q240 of 1000 · nce-s-ass-120 · Assessment and Testing · reliability types · medium · In review
+### Q264 of 1200 · nce-s-ass-120 · Assessment and Testing · reliability types · medium · In review
 
 A counselor needs to reassess a client's reading comprehension three weeks after a first testing and worries that the client will remember specific passages and answers. The test publisher offers two versions built to the same specifications. Which kind of reliability evidence matters MOST for this plan?
 
@@ -5814,9 +6390,585 @@ A counselor needs to reassess a client's reading comprehension three weeks after
 
 ---
 
-## Areas of Clinical Focus (295)
+### Q265 of 1200 · nce-s-ass-121 · Assessment and Testing · validity types · easy · In review
 
-### Q241 of 1000 · nce-s-clf-001 · Assessment and Testing · depressive disorders · easy · In review
+A state board is building a certification exam for school counselors. A panel of experienced practitioners checks every item against a table of specifications that lists the job tasks and how much weight each should carry. Which type of validity evidence does this process mainly provide?
+
+**A.** Face validity
+> Face validity is how the test looks to test takers, not a systematic expert review against a blueprint.
+
+**B.** Content validity **✔ KEY**
+> Expert judgment of how well items sample a defined domain, guided by a table of specifications, is content validity evidence.
+
+**C.** Predictive validity
+> Predictive validity needs a later criterion, such as job performance, correlated with scores.
+
+**D.** Convergent validity
+> Convergent validity comes from correlations with other measures of the same construct.
+
+**Rationale:** Content validity asks whether a test's items adequately and proportionally sample the domain it claims to cover. It is built in during development by writing items to a table of specifications (test blueprint) and having subject-matter experts judge the match. Unlike criterion-related validity, it rests on systematic expert judgment rather than a correlation coefficient.
+
+**References:** Hays (Assessment) — Validity: content validity, test blueprints and expert review
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q266 of 1200 · nce-s-ass-122 · Research and Program Evaluation · validity types · medium · In review
+
+A college counseling center finds that scores on an admissions test correlate .60 with students' first-year grade point averages. A staff member asks what this validity coefficient means. Which interpretation is accurate?
+
+**A.** About 60% of students will have their first-year GPA predicted correctly by the test
+> A correlation is not a hit rate; it does not tell what percentage of individual predictions will be right.
+
+**B.** About 64% of the differences in first-year GPA are explained by the test scores
+> Sixty-four percent is the variance NOT shared (1 - .36), so this reverses the meaning.
+
+**C.** The test must have a reliability of .36, since validity is the square of reliability
+> Validity is limited by reliability, but reliability is not found by squaring a validity coefficient.
+
+**D.** About 36% of the differences in first-year GPA are shared with the test scores **✔ KEY**
+> Squaring r gives the coefficient of determination: .60 x .60 = .36, or 36% shared variance.
+
+**Rationale:** A validity coefficient is a correlation between test scores and a criterion. Squaring it gives the coefficient of determination, the proportion of criterion variance shared with (accounted for by) the test: .60 squared is .36, so 36% of the variation in GPA is associated with test scores and 64% is not. A coefficient of .60 is strong for a predictor, yet much of the criterion still depends on other factors.
+
+**References:** Erford (Research and Evaluation in Counseling) — Correlation: coefficient of determination (r squared) as shared variance · Hays (Assessment) — Criterion-related validity: interpreting validity coefficients
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q267 of 1200 · nce-s-ass-123 · Career Development · validity types · hard · In review
+
+Researchers give the Career Decision Scale to undecided first-year students before and after a semester-long career planning course. Indecision scores drop for course participants but not for a similar group that did not take the course. The researchers cite this result in support of the scale. What type of evidence is it?
+
+**A.** Construct validity, because scores change in the way the theory of indecision predicts **✔ KEY**
+> Showing that scores respond to an intervention as the construct predicts is a recognized source of construct validity evidence.
+
+**B.** Content validity, because the items cover the main reasons students are undecided
+> Content validity is judged from item coverage, not from score changes after an intervention.
+
+**C.** Poor test-retest reliability, because scores for one group shifted over the semester
+> A change that appears only in the group that received the course reflects real change, not instability of the measure.
+
+**D.** Concurrent validity, because scores are compared with another test given at the same time
+> No second criterion measure was given; the comparison is between groups over time.
+
+**Rationale:** Construct validity is supported by many kinds of evidence, including experimental studies showing that scores change in theoretically expected ways. If a measure of career indecision drops after a career intervention but stays stable in a comparison group, that pattern fits what the construct predicts. The stable comparison group also argues against the change being measurement error.
+
+**References:** Hays (Assessment) — Construct validity: evidence from intervention and group-difference studies · Sharf (Career Development Theory) — Career decision making and indecision: assessment of indecision
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q268 of 1200 · nce-s-ass-124 · Social and Cultural Diversity · culturally fair assessment · hard · In review
+
+A test developer compares bilingual and monolingual examinees who earned the same total scores on a reading test. On one item, an idiom-based question, bilingual examinees at every total-score level answer correctly far less often than monolingual examinees. What does this finding MOST likely indicate?
+
+**A.** The bilingual examinees have lower reading ability than the monolingual examinees
+> The groups were matched on total score, so a general ability difference does not explain the gap on this item.
+
+**B.** The item discriminates well and should be kept to separate strong and weak readers
+> Discrimination concerns high versus low scorers overall, not differences between matched groups.
+
+**C.** The item shows differential functioning and may be biased against bilingual examinees **✔ KEY**
+> When equally able groups perform differently on an item, the item functions differently and should be reviewed for bias.
+
+**D.** The overall test is invalid for every group, since one of its items has a problem
+> One flagged item calls for review or removal of that item, not rejection of the whole test.
+
+**Rationale:** Differential item functioning (DIF) analysis compares groups who are matched on the overall trait the test measures. If matched groups still differ in their odds of answering an item correctly, something other than the target ability, here familiarity with an idiom, is influencing the item. Flagged items are reviewed and revised or dropped, which is a key step in making a test culturally fair.
+
+**References:** Hays (Assessment) — Test bias: item bias and differential item functioning
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q269 of 1200 · nce-s-ass-125 · Social and Cultural Diversity · culturally fair assessment · medium · In review
+
+A counselor chooses a nonverbal matrix-reasoning test to estimate the problem-solving ability of a 40-year-old client who recently arrived from Eritrea and speaks little English. A colleague says the test is "culture-free," so cultural factors no longer need to be considered. How should the counselor respond?
+
+**A.** Nonverbal tests lower language demands but still reflect cultural and schooling experience **✔ KEY**
+> Culture-fair tests reduce, but do not remove, the influence of familiarity with testing, abstract figures, and timed tasks.
+
+**B.** Nonverbal tests are fully culture-free, so the score can be read like any other client's
+> No test is culture-free; experience with test formats and schooling still affects performance.
+
+**C.** Nonverbal tests are unsuitable for adults, so a verbal test given in English is better here
+> An English verbal test would mainly measure English proficiency for this client.
+
+**D.** Nonverbal tests are valid only if the client was born in the country where norms were set
+> Norm fit matters, but birthplace alone does not decide validity, and the test can still be used with care.
+
+**Rationale:** Culture-fair or culture-reduced tests, such as nonverbal matrix tasks, lessen reliance on language and specific cultural knowledge. They are not culture-free: familiarity with paper-and-pencil formats, abstract designs, formal schooling, and working against time all affect scores. Counselors still consider the client's background and the norm group when interpreting results.
+
+**References:** Hays (Assessment) — Culturally fair assessment: culture-reduced (culture-fair) versus culture-free tests
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q270 of 1200 · nce-s-ass-126 · Social and Cultural Diversity · culturally fair assessment · medium · In review
+
+A counselor plans to give a standardized personality inventory to a 33-year-old client who moved from Mexico a year ago, speaks mostly Spanish at home, and is comfortable with conversational English at work. What should the counselor do BEFORE selecting the form and norms to use?
+
+**A.** Give the English form, since conversational English at work shows enough proficiency
+> Workplace conversation does not show the reading level and fluency needed for a long inventory.
+
+**B.** Skip standardized testing, since no inventory can be fairly used with recent immigrants
+> Many inventories have translated forms and research with diverse groups; careful selection is the answer.
+
+**C.** Ask a family member to read each item aloud in Spanish while the client gives answers
+> Informal oral translation by a relative changes standard conditions and may affect privacy and honesty.
+
+**D.** Assess the client's acculturation and language dominance to guide the form and norms used **✔ KEY**
+> Knowing acculturation and preferred language helps the counselor pick an appropriate version and interpret scores in context.
+
+**Rationale:** Acculturation and language dominance affect how clients understand items and how well a norm group represents them. Assessing them first, informally or with an acculturation measure, helps the counselor decide whether a translated and validated form is needed and how cautiously to interpret results. The ACA Code asks counselors to consider culture when selecting and interpreting tests.
+
+**References:** ACA Code of Ethics — Section E: Evaluation, Assessment, and Interpretation — multicultural issues and diversity in assessment · Sue & Sue (Counseling the Culturally Diverse) — Acculturation and culturally appropriate assessment
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q271 of 1200 · nce-s-ass-127 · Assessment and Testing · collateral information and records · medium · In review
+
+With a signed release, a counselor receives hospital records from four years ago for a 36-year-old client. The discharge summary lists borderline personality disorder, but the client says that diagnosis "never fit" and was made during a single crisis admission. How should the counselor use this record?
+
+**A.** Adopt the prior diagnosis so the client's records stay consistent across providers
+> Copying a prior diagnosis without assessment can carry forward an error.
+
+**B.** Treat it as one source of data and test it against a current, independent assessment **✔ KEY**
+> Records inform the picture, but the counselor reaches a diagnosis from their own current evaluation.
+
+**C.** Set the record aside, since the client disagrees with it and it is four years old
+> Older records can still hold useful history about symptoms, risk, and prior treatment.
+
+**D.** Ask the hospital to remove the diagnosis before the counselor completes an assessment
+> The counselor has no basis to challenge the record before doing their own evaluation.
+
+**Rationale:** Prior records are valuable collateral data, offering history of symptoms, risk, and treatment response. They are also snapshots taken in a particular context, and a diagnosis made during one crisis admission may not hold over time. Counselors weigh records alongside the interview and other sources rather than adopting or dismissing a prior diagnosis automatically.
+
+**References:** Hays (Assessment) — Clinical assessment: integrating records and collateral sources with interview data
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q272 of 1200 · nce-s-ass-128 · Professional Counseling Orientation and Ethical Practice · collateral information and records · easy · In review
+
+During intake for depression, a 25-year-old client declines to sign a release that would let the counselor speak with her mother. She is not at imminent risk and is otherwise engaged in the assessment. What should the counselor do?
+
+**A.** Call the mother anyway, since family input is needed for a complete diagnostic picture
+> Contacting a third party without consent breaches confidentiality when no exception applies.
+
+**B.** Pause the assessment until the client agrees to sign the release for her mother
+> Making services depend on a release pressures the client and is not needed for assessment.
+
+**C.** Respect her decision, explore her concerns, and continue the assessment without it **✔ KEY**
+> An adult client controls the release of her information; the counselor can still assess well from other data.
+
+**D.** Contact the mother only for history, since this does not reveal what was said in session
+> Even confirming that a person is a client discloses confidential information.
+
+**Rationale:** Collateral contacts with family or other providers require the client's informed, written consent unless a recognized exception to confidentiality applies. When an adult client declines, the counselor respects that choice, may gently explore the reasons, documents the decision, and proceeds with the information available. The client can revisit the release later.
+
+**References:** ACA Code of Ethics — Section B: Confidentiality and Privacy — respecting client rights; consent to disclose information
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q273 of 1200 · nce-s-ass-129 · Assessment and Testing · collateral information and records · medium · In review
+
+A counselor is assessing a 10-year-old for a court-ordered custody evaluation. The father, who is seeking sole custody, describes the child as severely aggressive at home. The mother and the child's teacher describe only mild, occasional outbursts. How should the counselor weigh these reports?
+
+**A.** Rely most on the father's account, since a parent describing more problems is more cautious
+> Severity of a report does not make it more accurate, especially when the informant has a stake in the outcome.
+
+**B.** Rely on the teacher's report alone, since school staff have no reason to be inaccurate
+> Teachers see one setting; a single source is not enough even when it seems neutral.
+
+**C.** Average the three reports to get one score that reflects the child's typical behavior
+> Averaging hides real differences across settings and ignores informant motivation.
+
+**D.** Weigh each informant's setting and motives, and gather more data before concluding **✔ KEY**
+> Informant stake and setting both affect reports, so the counselor integrates sources and seeks corroboration.
+
+**Rationale:** Collateral reports are shaped by the informant's vantage point and by what they stand to gain or lose. In an evaluation tied to custody, a parent's report may be influenced by the dispute, so the counselor weighs it alongside other informants, records, and direct observation. Discrepancies are treated as data to explain, not averaged away.
+
+**References:** Hays (Assessment) — Collateral sources: informant bias and integrating multiple sources of information
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q274 of 1200 · nce-s-ass-130 · Career Development · norm- vs criterion-referenced tests · medium · In review
+
+On the Strong Interest Inventory, a 21-year-old client's Investigative General Occupational Theme has a standard score of 62. She asks whether this means she "got 62 percent." Which explanation is accurate?
+
+**A.** It means she marked "Like" on about 62% of the items in the Investigative theme
+> The theme score is a converted standard score, not the share of items she endorsed.
+
+**B.** It means her interests fall at the 62nd percentile compared with other college students
+> A standard score of 62 on this scale is well above the 62nd percentile.
+
+**C.** It is a standard score, a bit over one SD above the mean of a broad sample of adults **✔ KEY**
+> Theme scores have a mean of 50 and SD of 10 in a general reference sample, so 62 is 1.2 SD above the mean.
+
+**D.** It means she has about a 62% chance of succeeding in an investigative type of career
+> Interest scores describe likes and dislikes, not chances of success.
+
+**Rationale:** The Strong Interest Inventory reports General Occupational Theme scores as standard scores with a mean of 50 and a standard deviation of 10, based on a general reference sample of employed adults. Interpretation is norm-referenced: a score of 62 shows stronger Investigative interests than most people in that sample. It is not a percentage correct, a percentile, or a prediction of success.
+
+**References:** Hays (Assessment) — Strong Interest Inventory: General Occupational Themes reported as standard scores (mean 50, SD 10)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q275 of 1200 · nce-s-ass-131 · Career Development · intelligence and achievement tests · easy · In review
+
+A 19-year-old's Strong Interest Inventory profile shows a high score on the Physician occupational scale. He asks, "So this proves I can make it through medical school?" Which response is BEST?
+
+**A.** Interest scores show similar likes, not ability; grades and test scores speak to ability **✔ KEY**
+> Interest inventories compare likes and dislikes with satisfied workers; ability evidence comes from achievement and aptitude data.
+
+**B.** A high occupational score is a strong sign that he has the ability to finish the training
+> Interest scores do not measure aptitude or achievement, so they cannot predict academic success.
+
+**C.** He should take the inventory again, since a single result cannot be trusted for planning
+> Retesting does not change what the inventory measures; the issue is interest versus ability.
+
+**D.** A high score means he should drop other options and focus only on applying to medicine
+> One scale should open exploration, not close off other options.
+
+**Rationale:** Interest inventories such as the Strong describe how closely a person's likes and dislikes match those of people satisfied in an occupation. They do not measure intelligence, aptitude, or achievement. Career counselors combine interest results with ability evidence such as grades, achievement tests, and admissions test scores before judging the fit of a demanding path.
+
+**References:** Hays (Assessment) — Career assessment: interest inventories versus aptitude and achievement measures
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q276 of 1200 · nce-s-ass-132 · Research and Program Evaluation · reliability types · hard · In review
+
+A 10-item self-efficacy scale has a reliability coefficient of .50. The developer adds 20 new items of the same kind and quality, for 30 items in all. According to the Spearman-Brown formula, what is the estimated reliability of the longer scale?
+
+**A.** .67
+> This is the result for doubling the test (2 x .50 / 1.50), not tripling it.
+
+**B.** .75 **✔ KEY**
+> With k = 3: (3 x .50) / (1 + 2 x .50) = 1.50 / 2.00 = .75.
+
+**C.** .90
+> Reliability rises with length but with diminishing returns; .90 overstates the gain.
+
+**D.** 1.50
+> Simply multiplying by 3 gives an impossible value; reliability cannot exceed 1.0.
+
+**Rationale:** The Spearman-Brown formula estimates reliability when test length changes by a factor of k: r_new = k r / (1 + (k - 1) r). Tripling a scale with reliability .50 gives 1.50 / 2.00 = .75. Adding comparable items raises reliability, but each added block helps less than the one before.
+
+**References:** Erford (Research and Evaluation in Counseling) — Reliability: Spearman-Brown prophecy formula and test length
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q277 of 1200 · nce-s-ass-133 · Research and Program Evaluation · norm- vs criterion-referenced tests · medium · In review
+
+A seventh grader answers 42 of 60 items correctly on a reading test. The score report lists his percentile rank as 85. His parent asks what the two numbers mean. Which statement is accurate?
+
+**A.** He answered 85% of the items correctly, which placed him at the 70th percentile
+> This swaps the two numbers; 42 of 60 is 70%, and the percentile rank is 85.
+
+**B.** He answered 70% of items correctly, so he scored lower than about 85% of his peers
+> A percentile rank of 85 means he scored higher than about 85% of the norm group, not lower.
+
+**C.** He answered 85% of the items correctly, and about 70% of his peers did at least as well
+> The percentage correct is 42 / 60 = 70%, and percentile rank refers to students scoring below him.
+
+**D.** He answered 70% of items correctly and scored higher than about 85% of the norm group **✔ KEY**
+> 42 / 60 = .70, a percentage correct; a percentile rank of 85 means he outscored about 85% of the norm group.
+
+**Rationale:** Percentage correct (42 / 60 = 70%) is an absolute, criterion-style figure about how much of the content a student mastered. A percentile rank is a norm-referenced figure: the percentage of the norm group scoring below the student. A difficult test can produce a modest percentage correct and a high percentile rank, as here.
+
+**References:** Hays (Assessment) — Score interpretation: percentile ranks versus percentage correct
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q278 of 1200 · nce-s-ass-134 · Human Growth and Development · screening instruments (PHQ-9, GAD-7, AUDIT, CAGE) · medium · In review
+
+At a pediatric clinic, a parent completes the M-CHAT-R/F, an autism screening checklist, for a 20-month-old. The result falls in the medium-risk range. The parent asks the counselor whether this means the child has autism. What is the BEST response?
+
+**A.** Yes; a medium-risk result on this checklist is enough to make the autism diagnosis
+> A screening result flags possible risk; diagnosis requires a comprehensive evaluation.
+
+**B.** No; screening this young is unreliable, so wait until the child is in school to retest
+> The tool is designed for toddlers, and waiting would delay early intervention if needed.
+
+**C.** Not yet; follow-up questions come next, then a full evaluation if concerns remain **✔ KEY**
+> A screen that flags concerns leads to follow-up and, if still positive, referral for diagnostic evaluation.
+
+**D.** No; the result is a false positive, since most toddlers this age show these behaviors
+> A screen cannot be dismissed without follow-up; doing so could delay early identification.
+
+**Rationale:** Developmental screeners such as the M-CHAT-R/F identify toddlers who may need further assessment; they do not diagnose. A result that raises concern leads to the structured follow-up questions and, if concern persists, referral for a comprehensive diagnostic evaluation. Early identification matters because early intervention can improve developmental outcomes.
+
+**References:** Hays (Assessment) — Screening versus diagnostic assessment: positive screens lead to follow-up and comprehensive evaluation · Berk (Development Through the Lifespan) — Early childhood development: autism and the value of early identification
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q279 of 1200 · nce-s-ass-135 · Counseling and Helping Relationships · intake interview structure · easy · In review
+
+With about ten minutes left in a first intake session, a counselor has gathered the presenting concern, history, and a risk screen for a 50-year-old client. What is the MOST useful way to close the intake?
+
+**A.** Summarize the main concerns, check accuracy, and agree on next steps and questions **✔ KEY**
+> A closing summary confirms shared understanding and sets a clear, collaborative plan.
+
+**B.** Use the remaining time to begin a new topic, such as the client's early childhood
+> Opening new, deep material at the end leaves no time to process it.
+
+**C.** Give the client the formal diagnosis and a full treatment plan to sign before leaving
+> Diagnosis and planning are shared and collaborative; presenting them as finished skips client input.
+
+**D.** End on time with no summary, since the next session will review all of this material
+> Ending without a summary misses a chance to confirm understanding and build the alliance.
+
+**Rationale:** The close of an intake ties the session together. The counselor summarizes key concerns and strengths, checks whether the summary fits the client's view, and agrees on next steps such as scheduling, referrals, or homework, inviting the client's questions. This structure supports the working alliance and makes the plan collaborative.
+
+**References:** Ivey et al. (Intentional Interviewing) — Five-stage interview structure: summarizing and planning at the end of the session
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q280 of 1200 · nce-s-ass-136 · Assessment and Testing · mental status examination · easy · In review
+
+A 29-year-old client speaks rapidly and is hard to interrupt. She says, "Your plant is green, green is for go, go to the races, horses need water, I should start a water company." How should the counselor record this in the mental status examination?
+
+**A.** Circumstantiality
+> Circumstantial speech includes many details but eventually reaches the original point.
+
+**B.** Flight of ideas **✔ KEY**
+> Rapid jumps from idea to idea, linked by word play or chance associations, describe flight of ideas.
+
+**C.** Thought blocking
+> Thought blocking is a sudden halt in the train of thought, not a rapid stream.
+
+**D.** Perseveration
+> Perseveration is repeating the same idea or response, not jumping between ideas.
+
+**Rationale:** Flight of ideas is a thought process finding: an accelerated flow of ideas with abrupt shifts, where connections are based on sounds, word play, or distracting stimuli. It often occurs with pressured speech and is common in manic episodes. Unlike loosened associations, the links between ideas can usually be followed.
+
+**References:** Hays (Assessment) — Mental status examination: thought process (flight of ideas, circumstantiality, blocking) · DSM-5-TR — Manic episode, Criterion B: flight of ideas or subjective experience that thoughts are racing
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q281 of 1200 · nce-s-ass-137 · Assessment and Testing · suicide and violence risk assessment · hard · In review
+
+Using the Columbia Suicide Severity Rating Scale (C-SSRS), a counselor asks about recent behavior. A 44-year-old client says that last week he poured a bottle of pills into his hand, intending to die, then put them back on his own before swallowing any. No one else was present. How is this behavior classified?
+
+**A.** An interrupted attempt, since the act was stopped before any pills were swallowed
+> An interrupted attempt is stopped by an outside person or circumstance, which did not occur here.
+
+**B.** Non-suicidal self-injurious behavior, since no physical injury took place at all
+> He reported intent to die, so the behavior is suicidal, not non-suicidal self-injury.
+
+**C.** Suicidal ideation only, since the client did not take any action that could harm him
+> Pouring out pills to take them is a behavior, not only a thought.
+
+**D.** An aborted or self-interrupted attempt, since he stopped himself before taking any pills **✔ KEY**
+> The C-SSRS defines an aborted or self-interrupted attempt as beginning steps toward an attempt and stopping oneself.
+
+**Rationale:** The C-SSRS separates suicidal behaviors into actual attempts, interrupted attempts (stopped by an outside circumstance), aborted or self-interrupted attempts (the person stops themselves), and preparatory acts such as gathering means or writing a note. Each counts as suicidal behavior and raises concern. Precise classification guides risk formulation and safety planning.
+
+**References:** C-SSRS — Suicidal behavior section: actual, interrupted, and aborted or self-interrupted attempts; preparatory acts
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q282 of 1200 · nce-s-ass-138 · Assessment and Testing · DSM-5-TR diagnostic structure and specifiers · medium · In review
+
+A 37-year-old outpatient comes to an agency seeking treatment for alcohol use disorder, which is the focus of today's visit. During the intake, the counselor also confirms a long-standing generalized anxiety disorder. Under DSM-5-TR recording guidance, which diagnosis is generally listed first?
+
+**A.** Generalized anxiety disorder, because the condition with the earliest onset is listed first
+> Order is not set by which disorder began first.
+
+**B.** Whichever diagnosis has the lowest ICD-10-CM code, so that the record is in code order
+> Diagnoses are not ordered numerically by code.
+
+**C.** Alcohol use disorder, as the reason for the visit is generally listed first in outpatient care **✔ KEY**
+> In outpatient settings, the condition chiefly responsible for the visit is generally listed first.
+
+**D.** Generalized anxiety disorder, because anxiety disorders come before substance use disorders
+> DSM-5-TR chapter order does not set the order of a client's diagnoses.
+
+**Rationale:** When a person has more than one diagnosis, DSM-5-TR asks clinicians to list the principal diagnosis (inpatient) or the reason for visit (outpatient) first. The reason for visit is the condition chiefly responsible for the services received. Additional diagnoses are listed after it, and the other conditions still guide care.
+
+**References:** DSM-5-TR — Use of the Manual: principal diagnosis and reason for visit
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q283 of 1200 · nce-s-ass-139 · Assessment and Testing · differential diagnosis · medium · In review
+
+For the past year, a 27-year-old accountant has had sudden surges of pounding heart, shaking, and breathlessness, but only when asked to present in meetings or to eat with coworkers. He fears they will see him as incompetent and now avoids team lunches. He has had no unexpected attacks. Which diagnosis BEST fits?
+
+**A.** Social anxiety disorder **✔ KEY**
+> Fear of negative evaluation in social and performance situations, with avoidance for 6 months or more, fits social anxiety disorder.
+
+**B.** Panic disorder
+> Panic disorder requires recurrent unexpected attacks; his attacks occur only in feared social situations.
+
+**C.** Agoraphobia
+> Agoraphobic fear centers on escape or help being hard to get in places such as crowds or transit.
+
+**D.** Generalized anxiety disorder
+> GAD involves broad, hard-to-control worry across many areas, not fear focused on scrutiny.
+
+**Rationale:** Panic attacks can occur within many disorders. When attacks happen only in social or performance situations and are driven by fear of being judged, the diagnosis is social anxiety disorder rather than panic disorder, which requires recurrent unexpected attacks. The panic attack specifier can be added to note the attacks.
+
+**References:** DSM-5-TR — Social Anxiety Disorder: criteria and differential diagnosis (panic disorder); panic attack specifier
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q284 of 1200 · nce-s-ass-140 · Assessment and Testing · standard error of measurement · hard · In review
+
+An ability test has a standard deviation of 15. Its manual reports a reliability of .84 for 6- and 7-year-olds and .96 for adults. A 7-year-old earns a score of 100. Within which range does the child's true score fall with about 68% confidence?
+
+**A.** 97 to 103
+> This uses the adult SEM of 3 (15 x .20), which does not apply to a 7-year-old.
+
+**B.** 94 to 106 **✔ KEY**
+> SEM = 15 x the square root of (1 - .84) = 15 x .40 = 6; 100 plus or minus 6 gives 94 to 106.
+
+**C.** 88 to 112
+> Plus or minus 12 is about a 95% band (2 SEMs), not 68%.
+
+**D.** 84 to 116
+> This treats 1 - .84 as 16 points instead of multiplying 15 by its square root.
+
+**Rationale:** The standard error of measurement is SD x the square root of (1 - r). Because reliability often differs by age, the counselor uses the coefficient for the client's own group: 15 x the square root of .16 = 15 x .40 = 6. One SEM on either side of the obtained score gives a 68% confidence band of 94 to 106.
+
+**References:** Hays (Assessment) — Standard error of measurement: computation and confidence bands; reliability by age group
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q285 of 1200 · nce-s-ass-141 · Assessment and Testing · personality inventories (MMPI-3, NEO-PI) · medium · In review
+
+A counselor at a community mental health center is considering the MMPI-3 for a 45-year-old client with a complex presentation. Which description of the MMPI-3 is accurate?
+
+**A.** A projective test in which the client describes what they see in ambiguous visual images
+> The MMPI-3 is an objective self-report inventory, not a projective test.
+
+**B.** An inventory normed for adolescents aged 14 to 18 that cannot be used with adult clients
+> Adolescent versions are the MMPI-A and MMPI-A-RF; the MMPI-3 is for adults.
+
+**C.** A measure of the five-factor model that yields scores for openness and agreeableness
+> The five-factor domains are measured by the NEO inventories.
+
+**D.** A true/false self-report inventory for adults that includes scales checking response style **✔ KEY**
+> The MMPI-3 is an adult true/false inventory with validity scales for non-responding, inconsistency, over- and underreporting.
+
+**Rationale:** The MMPI-3 is the current adult version of the MMPI, a broad objective self-report inventory answered true or false. Its validity scales detect non-responding, inconsistent responding, and over- or underreporting before substantive scales are interpreted. Adolescents take the MMPI-A or MMPI-A-RF, and five-factor traits are assessed with instruments such as the NEO-PI-3.
+
+**References:** Hays (Assessment) — Personality assessment: MMPI family of instruments and validity scales
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q286 of 1200 · nce-s-ass-142 · Assessment and Testing · projective tests · easy · In review
+
+A counselor considering a projective technique asks a supervisor what main advantage is usually claimed for projective tests compared with self-report inventories. What is the BEST answer?
+
+**A.** They have higher reliability because scoring rules leave no room for judgment
+> Projective tests typically have lower reliability, partly because scoring involves judgment.
+
+**B.** They are faster to give and score, making them well suited to group screening
+> Most projective techniques are individually given and time-consuming to score.
+
+**C.** Their purpose is less obvious, so responses are harder to shape deliberately **✔ KEY**
+> Ambiguous tasks make it harder for clients to tell what a "good" answer is, reducing deliberate faking.
+
+**D.** They yield precise diagnoses that match DSM-5-TR criteria for most disorders
+> Projective results generate hypotheses; they do not map directly to diagnostic criteria.
+
+**Rationale:** Projective techniques present ambiguous stimuli, based on the idea that people project their needs and conflicts into their responses. Because the purpose is less transparent, clients have a harder time presenting themselves in a planned way. The trade-offs are lower reliability, scoring that depends on examiner judgment, and weaker validity evidence for many uses.
+
+**References:** Hays (Assessment) — Projective assessment: projective hypothesis, advantages and limitations
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q287 of 1200 · nce-s-ass-143 · Assessment and Testing · substance use assessment · medium · In review
+
+An outpatient program wants a semi-structured interview that rates the severity of an adult client's problems across medical status, employment, alcohol use, drug use, legal status, family and social relationships, and psychiatric status. Which instrument fits this purpose?
+
+**A.** Addiction Severity Index **✔ KEY**
+> The ASI is a semi-structured interview rating problem severity across seven life areas.
+
+**B.** CAGE questionnaire
+> The CAGE is a four-question alcohol screen, not a multi-area severity interview.
+
+**C.** CRAFFT screening tool
+> The CRAFFT is a brief screen developed for adolescents.
+
+**D.** AUDIT-C screening items
+> The AUDIT-C is three consumption questions about alcohol only.
+
+**Rationale:** The Addiction Severity Index (ASI) is a widely used semi-structured interview for adults that assesses seven areas: medical, employment and support, alcohol, drug, legal, family and social, and psychiatric. Its multi-area profile helps with treatment planning and tracking change. Brief screens such as the CAGE, AUDIT-C, and CRAFFT identify possible problems but do not map severity across life areas.
+
+**References:** Hays (Assessment) — Substance use assessment: Addiction Severity Index and brief screening instruments
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q288 of 1200 · nce-s-ass-144 · Assessment and Testing · biopsychosocial history · hard · In review
+
+A 48-year-old client with no psychiatric history reports two weeks of little sleep, irritability, racing thoughts, and unusual energy. In the medical section of the biopsychosocial history, she mentions starting a high-dose course of prednisone for a severe asthma flare about three weeks ago. What should the counselor do?
+
+**A.** Diagnose bipolar I disorder, since her symptoms meet the criteria for a manic episode
+> Symptoms caused by a medication do not count toward bipolar I disorder.
+
+**B.** Record the timeline and coordinate with her prescriber, since the drug may be the cause **✔ KEY**
+> Corticosteroids can induce manic-like symptoms; the timing calls for medical consultation.
+
+**C.** Advise her to stop taking the prednisone right away, since it is causing her symptoms
+> Medication changes are a prescriber's decision; stopping corticosteroids abruptly can be unsafe.
+
+**D.** Leave the medication out of the assessment, since it is unrelated to her mental health
+> Medication history is central to the biopsychosocial assessment and differential diagnosis.
+
+**Rationale:** The medical part of the biopsychosocial history includes current medications and recent changes, because many medications affect mood and behavior. DSM-5-TR lists corticosteroids among medications that can induce bipolar-type symptoms, and an episode that begins after starting such a drug is diagnosed as substance/medication-induced unless evidence shows otherwise. The counselor documents the timing and coordinates with the prescriber rather than giving medical advice.
+
+**References:** DSM-5-TR — Substance/Medication-Induced Bipolar and Related Disorder: medications such as corticosteroids
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+## Areas of Clinical Focus (354)
+
+### Q289 of 1200 · nce-s-clf-001 · Assessment and Testing · depressive disorders · easy · In review
 
 Under DSM-5-TR, what is the minimum duration for the symptoms of a major depressive episode?
 
@@ -5840,7 +6992,7 @@ Under DSM-5-TR, what is the minimum duration for the symptoms of a major depress
 
 ---
 
-### Q242 of 1000 · nce-s-clf-002 · Assessment and Testing · depressive disorders · medium · In review
+### Q290 of 1200 · nce-s-clf-002 · Assessment and Testing · depressive disorders · medium · In review
 
 A 41-year-old client reports feeling down more days than not for the past 3 years, with low energy, poor appetite, and hopelessness. She cannot recall a stretch of more than a few weeks without these symptoms and has never had a manic or hypomanic episode. Full criteria for a major depressive episode have not been met. Which diagnosis BEST fits?
 
@@ -5864,7 +7016,7 @@ A 41-year-old client reports feeling down more days than not for the past 3 year
 
 ---
 
-### Q243 of 1000 · nce-s-clf-003 · Human Growth and Development · depressive disorders · hard · In review
+### Q291 of 1200 · nce-s-clf-003 · Human Growth and Development · depressive disorders · hard · In review
 
 A 15-year-old has shown irritable mood on most days for the past 14 months, along with low self-esteem and poor concentration. He has not gone more than a few weeks without these symptoms, has no history of severe temper outbursts, and has never met criteria for a manic or hypomanic episode. Which statement is MOST accurate?
 
@@ -5888,7 +7040,7 @@ A 15-year-old has shown irritable mood on most days for the past 14 months, alon
 
 ---
 
-### Q244 of 1000 · nce-s-clf-004 · Assessment and Testing · bipolar disorders · easy · In review
+### Q292 of 1200 · nce-s-clf-004 · Assessment and Testing · bipolar disorders · easy · In review
 
 Unless hospitalization is required, what is the minimum duration of a manic episode in DSM-5-TR?
 
@@ -5912,7 +7064,7 @@ Unless hospitalization is required, what is the minimum duration of a manic epis
 
 ---
 
-### Q245 of 1000 · nce-s-clf-005 · Assessment and Testing · bipolar disorders · medium · In review
+### Q293 of 1200 · nce-s-clf-005 · Assessment and Testing · bipolar disorders · medium · In review
 
 A 30-year-old client has had two major depressive episodes. Last spring she had 5 days of unusually elevated mood, less need for sleep, and increased productivity that friends noticed but that did not impair her work or require hospitalization. She has never had psychotic symptoms or a longer elevated period. Which diagnosis is MOST appropriate?
 
@@ -5936,7 +7088,7 @@ A 30-year-old client has had two major depressive episodes. Last spring she had 
 
 ---
 
-### Q246 of 1000 · nce-s-clf-006 · Assessment and Testing · bipolar disorders · hard · In review
+### Q294 of 1200 · nce-s-clf-006 · Assessment and Testing · bipolar disorders · hard · In review
 
 A 27-year-old with no prior psychiatric history develops grandiosity, pressured speech, almost no sleep, and reckless spending. On the third day he is psychiatrically hospitalized because his behavior has become dangerous. Substances and medical causes are ruled out. Which statement is MOST accurate?
 
@@ -5960,7 +7112,7 @@ A 27-year-old with no prior psychiatric history develops grandiosity, pressured 
 
 ---
 
-### Q247 of 1000 · nce-s-clf-007 · Assessment and Testing · anxiety disorders · easy · In review
+### Q295 of 1200 · nce-s-clf-007 · Assessment and Testing · anxiety disorders · easy · In review
 
 For a diagnosis of generalized anxiety disorder, excessive anxiety and worry must occur more days than not for at least how long?
 
@@ -5984,7 +7136,7 @@ For a diagnosis of generalized anxiety disorder, excessive anxiety and worry mus
 
 ---
 
-### Q248 of 1000 · nce-s-clf-008 · Assessment and Testing · anxiety disorders · medium · In review
+### Q296 of 1200 · nce-s-clf-008 · Assessment and Testing · anxiety disorders · medium · In review
 
 A 36-year-old client has had several sudden, unexpected surges of intense fear with a pounding heart, shortness of breath, and dizziness. For the past 2 months he has worried constantly about having another attack and has stopped exercising because a racing heart might trigger one. Medical causes have been ruled out. Which diagnosis BEST fits?
 
@@ -6008,7 +7160,7 @@ A 36-year-old client has had several sudden, unexpected surges of intense fear w
 
 ---
 
-### Q249 of 1000 · nce-s-clf-009 · Assessment and Testing · trauma- and stressor-related disorders · medium · In review
+### Q297 of 1200 · nce-s-clf-009 · Assessment and Testing · trauma- and stressor-related disorders · medium · In review
 
 Ten days after a serious highway collision, a 24-year-old reports intrusive memories, nightmares, feeling as if the world is unreal, avoiding driving, and trouble sleeping and concentrating. The symptoms began right after the crash and are impairing her work. Which diagnosis is MOST appropriate at this time?
 
@@ -6032,7 +7184,7 @@ Ten days after a serious highway collision, a 24-year-old reports intrusive memo
 
 ---
 
-### Q250 of 1000 · nce-s-clf-010 · Assessment and Testing · trauma- and stressor-related disorders · hard · In review
+### Q298 of 1200 · nce-s-clf-010 · Assessment and Testing · trauma- and stressor-related disorders · hard · In review
 
 A firefighter developed some sleep problems and irritability soon after a fatal fire. Eight months later, after more symptoms emerged, she meets full criteria for PTSD for the first time. She does not report depersonalization or derealization. Which specifier applies?
 
@@ -6056,7 +7208,7 @@ A firefighter developed some sleep problems and irritability soon after a fatal 
 
 ---
 
-### Q251 of 1000 · nce-s-clf-011 · Assessment and Testing · obsessive-compulsive and related disorders · medium · In review
+### Q299 of 1200 · nce-s-clf-011 · Assessment and Testing · obsessive-compulsive and related disorders · medium · In review
 
 A client with contamination obsessions washes his hands for hours daily. He says his family will probably become seriously ill if he stops washing, although he admits he could be wrong. Which DSM-5-TR insight specifier is MOST accurate?
 
@@ -6080,7 +7232,7 @@ A client with contamination obsessions washes his hands for hours daily. He says
 
 ---
 
-### Q252 of 1000 · nce-s-clf-012 · Counseling and Helping Relationships · obsessive-compulsive and related disorders · easy · In review
+### Q300 of 1200 · nce-s-clf-012 · Counseling and Helping Relationships · obsessive-compulsive and related disorders · easy · In review
 
 Which psychological intervention has the strongest evidence as a first-line treatment for obsessive-compulsive disorder?
 
@@ -6104,7 +7256,7 @@ Which psychological intervention has the strongest evidence as a first-line trea
 
 ---
 
-### Q253 of 1000 · nce-s-clf-013 · Assessment and Testing · substance use and addictive disorders · medium · In review
+### Q301 of 1200 · nce-s-clf-013 · Assessment and Testing · substance use and addictive disorders · medium · In review
 
 Over the past 12 months, a client has met five of the eleven DSM-5-TR criteria for alcohol use disorder. Which severity specifier applies?
 
@@ -6128,7 +7280,7 @@ Over the past 12 months, a client has met five of the eleven DSM-5-TR criteria f
 
 ---
 
-### Q254 of 1000 · nce-s-clf-014 · Assessment and Testing · substance use and addictive disorders · medium · In review
+### Q302 of 1200 · nce-s-clf-014 · Assessment and Testing · substance use and addictive disorders · medium · In review
 
 A 52-year-old takes a prescribed opioid exactly as directed for chronic back pain under a physician's care. She reports needing a higher dose than at first and feeling withdrawal symptoms if a dose is late. No other use disorder criteria are present. How should the counselor understand these symptoms?
 
@@ -6154,7 +7306,7 @@ A 52-year-old takes a prescribed opioid exactly as directed for chronic back pai
 
 ---
 
-### Q255 of 1000 · nce-s-clf-015 · Human Growth and Development · neurodevelopmental disorders · easy · In review
+### Q303 of 1200 · nce-s-clf-015 · Human Growth and Development · neurodevelopmental disorders · easy · In review
 
 Under DSM-5-TR, several inattentive or hyperactive-impulsive symptoms of ADHD must have been present before what age?
 
@@ -6178,7 +7330,7 @@ Under DSM-5-TR, several inattentive or hyperactive-impulsive symptoms of ADHD mu
 
 ---
 
-### Q256 of 1000 · nce-s-clf-016 · Human Growth and Development · neurodevelopmental disorders · hard · In review
+### Q304 of 1200 · nce-s-clf-016 · Human Growth and Development · neurodevelopmental disorders · hard · In review
 
 A 7-year-old struggles to take turns in conversation, misses jokes and hints, and speaks to teachers the same way he speaks to peers. A counselor is weighing autism spectrum disorder against social (pragmatic) communication disorder. Which finding would MOST support autism spectrum disorder?
 
@@ -6202,7 +7354,7 @@ A 7-year-old struggles to take turns in conversation, misses jokes and hints, an
 
 ---
 
-### Q257 of 1000 · nce-s-clf-017 · Assessment and Testing · schizophrenia spectrum disorders · medium · In review
+### Q305 of 1200 · nce-s-clf-017 · Assessment and Testing · schizophrenia spectrum disorders · medium · In review
 
 A 22-year-old college student has had auditory hallucinations, persecutory delusions, and disorganized speech for about 3 months, including any early warning signs. There have been no mood episodes, and substance and medical causes are ruled out. Which diagnosis is MOST appropriate?
 
@@ -6226,7 +7378,7 @@ A 22-year-old college student has had auditory hallucinations, persecutory delus
 
 ---
 
-### Q258 of 1000 · nce-s-clf-018 · Assessment and Testing · schizophrenia spectrum disorders · hard · In review
+### Q306 of 1200 · nce-s-clf-018 · Assessment and Testing · schizophrenia spectrum disorders · hard · In review
 
 A 26-year-old has had 5 weeks of prominent hallucinations and delusions. His family reports that for about 6 months before that, he withdrew from friends, showed flat affect, and voiced odd beliefs. No mood episodes have occurred, and substance and medical causes are excluded. Which diagnosis BEST fits?
 
@@ -6250,7 +7402,7 @@ A 26-year-old has had 5 weeks of prominent hallucinations and delusions. His fam
 
 ---
 
-### Q259 of 1000 · nce-s-clf-019 · Assessment and Testing · personality disorders · easy · In review
+### Q307 of 1200 · nce-s-clf-019 · Assessment and Testing · personality disorders · easy · In review
 
 Which personality disorder belongs to DSM-5-TR Cluster C (the anxious or fearful cluster)?
 
@@ -6274,7 +7426,7 @@ Which personality disorder belongs to DSM-5-TR Cluster C (the anxious or fearful
 
 ---
 
-### Q260 of 1000 · nce-s-clf-020 · Assessment and Testing · personality disorders · medium · In review
+### Q308 of 1200 · nce-s-clf-020 · Assessment and Testing · personality disorders · medium · In review
 
 A 20-year-old shows a pervasive pattern of deceitfulness, impulsivity, repeated fights, and lack of remorse since age 15. To diagnose antisocial personality disorder, which additional finding does DSM-5-TR require?
 
@@ -6298,7 +7450,7 @@ A 20-year-old shows a pervasive pattern of deceitfulness, impulsivity, repeated 
 
 ---
 
-### Q261 of 1000 · nce-s-clf-021 · Assessment and Testing · eating disorders · medium · In review
+### Q309 of 1200 · nce-s-clf-021 · Assessment and Testing · eating disorders · medium · In review
 
 A 33-year-old describes episodes, about twice a week for 6 months, of eating far more than most people would in a short period while feeling unable to stop. She eats rapidly, eats alone out of embarrassment, and feels disgusted afterward. She does not vomit, fast, misuse laxatives, or exercise to compensate. Which diagnosis BEST fits?
 
@@ -6322,7 +7474,7 @@ A 33-year-old describes episodes, about twice a week for 6 months, of eating far
 
 ---
 
-### Q262 of 1000 · nce-s-clf-022 · Human Growth and Development · eating disorders · medium · In review
+### Q310 of 1200 · nce-s-clf-022 · Human Growth and Development · eating disorders · medium · In review
 
 Since choking on a piece of food 4 months ago, a 10-year-old refuses most solid foods, eats only liquids and soft foods, and has lost weight. She expresses no concern about body shape or size and wants to be "back to normal." Which diagnosis is MOST likely?
 
@@ -6346,7 +7498,7 @@ Since choking on a piece of food 4 months ago, a 10-year-old refuses most solid 
 
 ---
 
-### Q263 of 1000 · nce-s-clf-023 · Assessment and Testing · neurocognitive disorders · medium · In review
+### Q311 of 1200 · nce-s-clf-023 · Assessment and Testing · neurocognitive disorders · medium · In review
 
 A 74-year-old retired teacher and her daughter both report a gradual decline in her memory over the past year. Testing shows a modest decline from her prior level. She still manages her own bills, medications, and shopping, although these tasks now take more effort and reminder lists. Which diagnosis BEST fits?
 
@@ -6370,7 +7522,7 @@ A 74-year-old retired teacher and her daughter both report a gradual decline in 
 
 ---
 
-### Q264 of 1000 · nce-s-clf-024 · Assessment and Testing · neurocognitive disorders · medium · In review
+### Q312 of 1200 · nce-s-clf-024 · Assessment and Testing · neurocognitive disorders · medium · In review
 
 An 81-year-old hospitalized for a urinary tract infection became confused over 2 days. Staff note she is alert one hour and disoriented the next. A counselor on the unit is asked to help distinguish delirium from major neurocognitive disorder. Which feature MOST points to delirium?
 
@@ -6394,7 +7546,7 @@ An 81-year-old hospitalized for a urinary tract infection became confused over 2
 
 ---
 
-### Q265 of 1000 · nce-s-clf-025 · Assessment and Testing · grief and loss · hard · In review
+### Q313 of 1200 · nce-s-clf-025 · Assessment and Testing · grief and loss · hard · In review
 
 A 58-year-old whose wife died 7 months ago reports intense yearning for her nearly every day, feeling that part of himself has died, and difficulty re-engaging with friends. His grief is far beyond what is expected in his community and is impairing his work. Which statement about prolonged grief disorder is MOST accurate?
 
@@ -6418,7 +7570,7 @@ A 58-year-old whose wife died 7 months ago reports intense yearning for her near
 
 ---
 
-### Q266 of 1000 · nce-s-clf-026 · Counseling and Helping Relationships · grief and loss · easy · In review
+### Q314 of 1200 · nce-s-clf-026 · Counseling and Helping Relationships · grief and loss · easy · In review
 
 Six weeks after his mother died, a client reports sadness, poor sleep, and crying spells. Which feature is MORE typical of grief than of a major depressive episode?
 
@@ -6442,7 +7594,7 @@ Six weeks after his mother died, a client reports sadness, poor sleep, and cryin
 
 ---
 
-### Q267 of 1000 · nce-s-clf-027 · Counseling and Helping Relationships · crisis and disaster response · easy · In review
+### Q315 of 1200 · nce-s-clf-027 · Counseling and Helping Relationships · crisis and disaster response · easy · In review
 
 A counselor volunteers at a shelter the day after a tornado destroyed many homes. Survivors are shaken, tired, and worried about relatives. Which approach is MOST appropriate in this early phase?
 
@@ -6466,7 +7618,7 @@ A counselor volunteers at a shelter the day after a tornado destroyed many homes
 
 ---
 
-### Q268 of 1000 · nce-s-clf-028 · Counseling and Helping Relationships · crisis and disaster response · medium · In review
+### Q316 of 1200 · nce-s-clf-028 · Counseling and Helping Relationships · crisis and disaster response · medium · In review
 
 A client calls the counselor sobbing after receiving an eviction notice. She says, "I just don't see the point of anything anymore." What should the counselor do FIRST?
 
@@ -6490,7 +7642,7 @@ A client calls the counselor sobbing after receiving an eviction notice. She say
 
 ---
 
-### Q269 of 1000 · nce-s-clf-029 · Counseling and Helping Relationships · intimate partner violence · medium · In review
+### Q317 of 1200 · nce-s-clf-029 · Counseling and Helping Relationships · intimate partner violence · medium · In review
 
 During the individual portion of a couples intake, one partner discloses that the other checks her phone, controls all the money, and shoved her last month. She says she is afraid of what will happen if he learns she told. What is the counselor's BEST next step?
 
@@ -6516,7 +7668,7 @@ During the individual portion of a couples intake, one partner discloses that th
 
 ---
 
-### Q270 of 1000 · nce-s-clf-030 · Social and Cultural Diversity · intimate partner violence · medium · In review
+### Q318 of 1200 · nce-s-clf-030 · Social and Cultural Diversity · intimate partner violence · medium · In review
 
 A recently immigrated client discloses that her husband hits her and threatens that she will be deported if she leaves him, since her visa depends on his sponsorship. She speaks limited English and has no family nearby. Which counselor response is MOST helpful?
 
@@ -6542,7 +7694,7 @@ A recently immigrated client discloses that her husband hits her and threatens t
 
 ---
 
-### Q271 of 1000 · nce-s-clf-031 · Counseling and Helping Relationships · child abuse and neglect · easy · In review
+### Q319 of 1200 · nce-s-clf-031 · Counseling and Helping Relationships · child abuse and neglect · easy · In review
 
 During a session at an elementary school, a 7-year-old tells the school counselor that her stepfather hit her with a belt last night, and the counselor sees welts on her arm. What should the counselor do FIRST?
 
@@ -6566,7 +7718,7 @@ During a session at an elementary school, a 7-year-old tells the school counselo
 
 ---
 
-### Q272 of 1000 · nce-s-clf-032 · Counseling and Helping Relationships · child abuse and neglect · medium · In review
+### Q320 of 1200 · nce-s-clf-032 · Counseling and Helping Relationships · child abuse and neglect · medium · In review
 
 A 10-year-old client mentions that he is often home alone for whole weekends with little food in the house. He gives few details and changes the subject. A colleague advises the counselor not to report neglect until the boy gives a clear account. Which statement BEST reflects the reporting standard?
 
@@ -6590,7 +7742,7 @@ A 10-year-old client mentions that he is often home alone for whole weekends wit
 
 ---
 
-### Q273 of 1000 · nce-s-clf-033 · Career Development · career and vocational concerns · medium · In review
+### Q321 of 1200 · nce-s-clf-033 · Career Development · career and vocational concerns · medium · In review
 
 In Holland's theory, consistency describes how close the first two letters of a person's code sit on the RIASEC hexagon. Which Holland code shows the LOWEST consistency?
 
@@ -6614,7 +7766,7 @@ In Holland's theory, consistency describes how close the first two letters of a 
 
 ---
 
-### Q274 of 1000 · nce-s-clf-034 · Career Development · career and vocational concerns · hard · In review
+### Q322 of 1200 · nce-s-clf-034 · Career Development · career and vocational concerns · hard · In review
 
 A 52-year-old machinist who expected to finish his career at one plant is laid off when it closes. He is now researching training programs, trying out new interests, and reconsidering what work means to him. Which concept from Super's life-span, life-space theory BEST describes this process?
 
@@ -6638,7 +7790,7 @@ A 52-year-old machinist who expected to finish his career at one plant is laid o
 
 ---
 
-### Q275 of 1000 · nce-s-clf-035 · Career Development · career and vocational concerns · medium · In review
+### Q323 of 1200 · nce-s-clf-035 · Career Development · career and vocational concerns · medium · In review
 
 A 7-year-old girl who loves building things tells her counselor that she cannot be an engineer because "that is a job for boys." In Gottfredson's theory, what is this child doing?
 
@@ -6662,7 +7814,7 @@ A 7-year-old girl who loves building things tells her counselor that she cannot 
 
 ---
 
-### Q276 of 1000 · nce-s-clf-036 · Counseling and Helping Relationships · couples and family concerns · easy · In review
+### Q324 of 1200 · nce-s-clf-036 · Counseling and Helping Relationships · couples and family concerns · easy · In review
 
 In couples sessions, one partner regularly rolls her eyes, mocks her spouse's tone, and calls him "pathetic." According to Gottman's research, which of the Four Horsemen is this, and the single strongest predictor of divorce?
 
@@ -6688,7 +7840,7 @@ In couples sessions, one partner regularly rolls her eyes, mocks her spouse's to
 
 ---
 
-### Q277 of 1000 · nce-s-clf-037 · Counseling and Helping Relationships · couples and family concerns · medium · In review
+### Q325 of 1200 · nce-s-clf-037 · Counseling and Helping Relationships · couples and family concerns · medium · In review
 
 A newly formed stepfamily seeks counseling because the 13-year-old daughter openly defies her new stepfather's rules, and he responds by giving stricter punishments. Which recommendation is MOST consistent with research on stepfamily adjustment?
 
@@ -6714,7 +7866,7 @@ A newly formed stepfamily seeks counseling because the 13-year-old daughter open
 
 ---
 
-### Q278 of 1000 · nce-s-clf-038 · Counseling and Helping Relationships · couples and family concerns · easy · In review
+### Q326 of 1200 · nce-s-clf-038 · Counseling and Helping Relationships · couples and family concerns · easy · In review
 
 A counselor is about to begin conjoint counseling with a married couple. Each partner may also call or meet with the counselor alone from time to time. What should the counselor establish at the outset?
 
@@ -6738,7 +7890,7 @@ A counselor is about to begin conjoint counseling with a married couple. Each pa
 
 ---
 
-### Q279 of 1000 · nce-s-clf-039 · Human Growth and Development · developmental life transitions · medium · In review
+### Q327 of 1200 · nce-s-clf-039 · Human Growth and Development · developmental life transitions · medium · In review
 
 A counselor uses Schlossberg's transition model with a 58-year-old woman who has just retired early to care for her spouse. Which set of factors does the model use to assess her resources for coping?
 
@@ -6762,7 +7914,7 @@ A counselor uses Schlossberg's transition model with a 58-year-old woman who has
 
 ---
 
-### Q280 of 1000 · nce-s-clf-040 · Human Growth and Development · developmental life transitions · easy · In review
+### Q328 of 1200 · nce-s-clf-040 · Human Growth and Development · developmental life transitions · easy · In review
 
 A 24-year-old client lives with his parents, has changed jobs and majors several times, and says he feels "not really a kid, but not quite an adult." He is still exploring identity, work and relationships. Which concept BEST fits this period?
 
@@ -6786,7 +7938,7 @@ A 24-year-old client lives with his parents, has changed jobs and majors several
 
 ---
 
-### Q281 of 1000 · nce-s-clf-041 · Human Growth and Development · aging and older adults · easy · In review
+### Q329 of 1200 · nce-s-clf-041 · Human Growth and Development · aging and older adults · easy · In review
 
 A 79-year-old widower in assisted living spends sessions reviewing his life, some proud moments and some regrets, and asks whether his life "added up to anything." Which of Erikson's psychosocial stages is he working through?
 
@@ -6810,7 +7962,7 @@ A 79-year-old widower in assisted living spends sessions reviewing his life, som
 
 ---
 
-### Q282 of 1000 · nce-s-clf-042 · Human Growth and Development · aging and older adults · medium · In review
+### Q330 of 1200 · nce-s-clf-042 · Human Growth and Development · aging and older adults · medium · In review
 
 An adult daughter brings her 74-year-old mother to counseling, worried about "early dementia." Over two months the mother has lost interest in her garden, sleeps poorly, and often says "I just can't remember anything anymore." She seems distressed by her memory lapses. What should the counselor do FIRST?
 
@@ -6834,7 +7986,7 @@ An adult daughter brings her 74-year-old mother to counseling, worried about "ea
 
 ---
 
-### Q283 of 1000 · nce-s-clf-043 · Counseling and Helping Relationships · chronic illness and disability · easy · In review
+### Q331 of 1200 · nce-s-clf-043 · Counseling and Helping Relationships · chronic illness and disability · easy · In review
 
 A client who uses a wheelchair after a spinal cord injury says, "My body is not the problem. The problem is buildings without ramps and managers who assume I can't do the job." Which model of disability does her statement reflect?
 
@@ -6860,7 +8012,7 @@ A client who uses a wheelchair after a spinal cord injury says, "My body is not 
 
 ---
 
-### Q284 of 1000 · nce-s-clf-044 · Counseling and Helping Relationships · chronic illness and disability · hard · In review
+### Q332 of 1200 · nce-s-clf-044 · Counseling and Helping Relationships · chronic illness and disability · hard · In review
 
 A 34-year-old client with type 1 diabetes often skips glucose checks and insulin because, she says, "thinking about it makes it too real." Her blood sugar control has worsened and she has had two ER visits. She reports no persistent low mood, worry about having other illnesses, or other psychiatric symptoms. Which DSM-5-TR diagnosis BEST fits?
 
@@ -6884,7 +8036,7 @@ A 34-year-old client with type 1 diabetes often skips glucose checks and insulin
 
 ---
 
-### Q285 of 1000 · nce-s-clf-045 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · medium · In review
+### Q333 of 1200 · nce-s-clf-045 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · medium · In review
 
 A bisexual client has never experienced overt harassment, yet she hides her identity at work, constantly scans for signs of rejection, and says part of her believes something is wrong with her. In Meyer's minority stress model, these experiences are BEST described as which kind of stressors?
 
@@ -6908,7 +8060,7 @@ A bisexual client has never experienced overt harassment, yet she hides her iden
 
 ---
 
-### Q286 of 1000 · nce-s-clf-046 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · medium · In review
+### Q334 of 1200 · nce-s-clf-046 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · medium · In review
 
 The parents of a 16-year-old who recently came out as gay ask a counselor to "help him become straight." The teen does not want to change his orientation. How should the counselor respond?
 
@@ -6932,7 +8084,7 @@ The parents of a 16-year-old who recently came out as gay ask a counselor to "he
 
 ---
 
-### Q287 of 1000 · nce-s-clf-047 · Social and Cultural Diversity · acculturation and immigration stress · easy · In review
+### Q335 of 1200 · nce-s-clf-047 · Social and Cultural Diversity · acculturation and immigration stress · easy · In review
 
 A man who immigrated from Vietnam 15 years ago has stopped speaking Vietnamese, no longer observes family traditions, and says he identifies only with mainstream American culture. Which of Berry's acculturation strategies does this describe?
 
@@ -6956,7 +8108,7 @@ A man who immigrated from Vietnam 15 years ago has stopped speaking Vietnamese, 
 
 ---
 
-### Q288 of 1000 · nce-s-clf-048 · Social and Cultural Diversity · acculturation and immigration stress · hard · In review
+### Q336 of 1200 · nce-s-clf-048 · Social and Cultural Diversity · acculturation and immigration stress · hard · In review
 
 A refugee teen has drifted away from her parents' language and customs but also feels unwelcome and isolated among peers at her new school. In Berry's framework, which strategy does this reflect, and how does it generally compare with the others in acculturative stress?
 
@@ -6980,7 +8132,7 @@ A refugee teen has drifted away from her parents' language and customs but also 
 
 ---
 
-### Q289 of 1000 · nce-s-clf-049 · Social and Cultural Diversity · spiritual and religious concerns · easy · In review
+### Q337 of 1200 · nce-s-clf-049 · Social and Cultural Diversity · spiritual and religious concerns · easy · In review
 
 A devout client feels intense guilt about her divorce because of her faith community's teachings. The counselor is not religious and privately views the teachings as harmful. Which approach is MOST appropriate?
 
@@ -7004,7 +8156,7 @@ A devout client feels intense guilt about her divorce because of her faith commu
 
 ---
 
-### Q290 of 1000 · nce-s-clf-050 · Counseling and Helping Relationships · self-injury · medium · In review
+### Q338 of 1200 · nce-s-clf-050 · Counseling and Helping Relationships · self-injury · medium · In review
 
 A 15-year-old discloses repeated nonsuicidal self-injury and says, "When everything builds up, it is the only thing that makes the feeling stop." Which function of self-injury does her statement MOST clearly reflect?
 
@@ -7028,7 +8180,7 @@ A 15-year-old discloses repeated nonsuicidal self-injury and says, "When everyth
 
 ---
 
-### Q291 of 1000 · nce-s-clf-051 · Counseling and Helping Relationships · self-injury · medium · In review
+### Q339 of 1200 · nce-s-clf-051 · Counseling and Helping Relationships · self-injury · medium · In review
 
 A college student shows the counselor healed marks on her forearm and says she has hurt herself during stressful weeks for two years. She denies wanting to die. Which counselor response is BEST?
 
@@ -7052,7 +8204,7 @@ A college student shows the counselor healed marks on her forearm and says she h
 
 ---
 
-### Q292 of 1000 · nce-s-clf-052 · Counseling and Helping Relationships · sleep-wake concerns · medium · In review
+### Q340 of 1200 · nce-s-clf-052 · Counseling and Helping Relationships · sleep-wake concerns · medium · In review
 
 A counselor is using cognitive behavioral therapy for insomnia (CBT-I) with a client who lies awake in bed for hours most nights. Which instruction is part of the stimulus control component?
 
@@ -7076,7 +8228,7 @@ A counselor is using cognitive behavioral therapy for insomnia (CBT-I) with a cl
 
 ---
 
-### Q293 of 1000 · nce-s-clf-053 · Counseling and Helping Relationships · sleep-wake concerns · easy · In review
+### Q341 of 1200 · nce-s-clf-053 · Counseling and Helping Relationships · sleep-wake concerns · easy · In review
 
 A client reports difficulty staying asleep, with daytime fatigue that affects her work. The problem is not explained by a medical condition, substance or other sleep disorder. According to DSM-5-TR, how often and for how long must the sleep difficulty occur to meet criteria for insomnia disorder?
 
@@ -7100,7 +8252,7 @@ A client reports difficulty staying asleep, with daytime fatigue that affects he
 
 ---
 
-### Q294 of 1000 · nce-s-clf-054 · Counseling and Helping Relationships · psychopharmacology basics for counselors · hard · In review
+### Q342 of 1200 · nce-s-clf-054 · Counseling and Helping Relationships · psychopharmacology basics for counselors · hard · In review
 
 A client with bipolar I disorder who takes lithium had a stomach virus with vomiting for two days. In session she has a coarse hand tremor, seems confused, and walks unsteadily. What should the counselor do?
 
@@ -7124,7 +8276,7 @@ A client with bipolar I disorder who takes lithium had a stomach virus with vomi
 
 ---
 
-### Q295 of 1000 · nce-s-clf-055 · Counseling and Helping Relationships · psychopharmacology basics for counselors · easy · In review
+### Q343 of 1200 · nce-s-clf-055 · Counseling and Helping Relationships · psychopharmacology basics for counselors · easy · In review
 
 A client with major depressive disorder started an SSRI prescribed by her physician 10 days ago. She says, "It is not doing anything, so I am going to stop taking it." What is the counselor's BEST response?
 
@@ -7148,7 +8300,7 @@ A client with major depressive disorder started an SSRI prescribed by her physic
 
 ---
 
-### Q296 of 1000 · nce-s-clf-056 · Human Growth and Development · school and academic concerns · medium · In review
+### Q344 of 1200 · nce-s-clf-056 · Human Growth and Development · school and academic concerns · medium · In review
 
 A 9-year-old with ADHD performs at grade level when given extended test time and a seat near the teacher. He does not need specially designed instruction. Which school plan BEST fits his needs?
 
@@ -7172,7 +8324,7 @@ A 9-year-old with ADHD performs at grade level when given extended test time and
 
 ---
 
-### Q297 of 1000 · nce-s-clf-057 · Human Growth and Development · school and academic concerns · hard · In review
+### Q345 of 1200 · nce-s-clf-057 · Human Growth and Development · school and academic concerns · hard · In review
 
 An 8-year-old has missed most of three weeks of school, crying and complaining of stomachaches each morning that ease once his mother lets him stay home. He worries something bad will happen to her while he is away. Pediatric causes have been ruled out. Which plan is MOST appropriate?
 
@@ -7196,7 +8348,7 @@ An 8-year-old has missed most of three weeks of school, crying and complaining o
 
 ---
 
-### Q298 of 1000 · nce-s-clf-058 · Counseling and Helping Relationships · military and veteran populations · medium · In review
+### Q346 of 1200 · nce-s-clf-058 · Counseling and Helping Relationships · military and veteran populations · medium · In review
 
 A 31-year-old Army veteran meets criteria for PTSD after combat deployments. He is willing to engage in therapy and asks what treatment has the strongest support. According to the VA/DoD clinical practice guideline, which approach is recommended as first-line?
 
@@ -7220,7 +8372,7 @@ A 31-year-old Army veteran meets criteria for PTSD after combat deployments. He 
 
 ---
 
-### Q299 of 1000 · nce-s-clf-059 · Counseling and Helping Relationships · military and veteran populations · hard · In review
+### Q347 of 1200 · nce-s-clf-059 · Counseling and Helping Relationships · military and veteran populations · hard · In review
 
 A Marine veteran says his worst memory is not being in danger himself but following an order that led to civilian deaths. He is consumed by guilt and shame, believes he is "a bad person," and has pulled away from his faith community. Which concept BEST describes his distress?
 
@@ -7244,7 +8396,7 @@ A Marine veteran says his worst memory is not being in danger himself but follow
 
 ---
 
-### Q300 of 1000 · nce-s-clf-060 · Assessment and Testing · depressive disorders · hard · In review
+### Q348 of 1200 · nce-s-clf-060 · Assessment and Testing · depressive disorders · hard · In review
 
 A 44-year-old with major depressive disorder has had a depressive episode each of the last three winters, with full remission every spring. A counselor is considering the "with seasonal pattern" specifier. Which finding would argue MOST strongly AGAINST using it?
 
@@ -7268,7 +8420,7 @@ A 44-year-old with major depressive disorder has had a depressive episode each o
 
 ---
 
-### Q301 of 1000 · nce-s-clf-061 · Human Growth and Development · depressive disorders · easy · In review
+### Q349 of 1200 · nce-s-clf-061 · Human Growth and Development · depressive disorders · easy · In review
 
 A 29-year-old developed a major depressive episode during the second trimester of her first pregnancy. Her midwife assumed the "with peripartum onset" specifier could only be used after delivery. Which statement is accurate under DSM-5-TR?
 
@@ -7292,7 +8444,7 @@ A 29-year-old developed a major depressive episode during the second trimester o
 
 ---
 
-### Q302 of 1000 · nce-s-clf-062 · Assessment and Testing · depressive disorders · easy · In review
+### Q350 of 1200 · nce-s-clf-062 · Assessment and Testing · depressive disorders · easy · In review
 
 A client in a current major depressive episode also says she feels keyed up and tense most days and has a nagging fear that something awful is about to happen. She does not meet criteria for an anxiety disorder. Which specifier BEST captures these features?
 
@@ -7316,7 +8468,7 @@ A client in a current major depressive episode also says she feels keyed up and 
 
 ---
 
-### Q303 of 1000 · nce-s-clf-063 · Assessment and Testing · bipolar disorders · medium · In review
+### Q351 of 1200 · nce-s-clf-063 · Assessment and Testing · bipolar disorders · medium · In review
 
 For about 3 years, a 34-year-old graphic designer has swung between stretches of high energy, talkativeness, and big plans and stretches of low mood and fatigue. Neither the highs nor the lows have ever met full criteria for a hypomanic, manic, or major depressive episode, and she is rarely symptom-free for more than a month. Which diagnosis BEST fits?
 
@@ -7340,7 +8492,7 @@ For about 3 years, a 34-year-old graphic designer has swung between stretches of
 
 ---
 
-### Q304 of 1000 · nce-s-clf-064 · Assessment and Testing · bipolar disorders · hard · In review
+### Q352 of 1200 · nce-s-clf-064 · Assessment and Testing · bipolar disorders · hard · In review
 
 Three weeks after starting an antidepressant for depression, a 38-year-old develops elevated mood, grandiosity, little need for sleep, and reckless spending. His prescriber stops the medication, but the full manic syndrome continues well beyond the drug's expected physiological effect. Which statement is MOST accurate?
 
@@ -7364,7 +8516,7 @@ Three weeks after starting an antidepressant for depression, a 38-year-old devel
 
 ---
 
-### Q305 of 1000 · nce-s-clf-065 · Assessment and Testing · anxiety disorders · medium · In review
+### Q353 of 1200 · nce-s-clf-065 · Assessment and Testing · anxiety disorders · medium · In review
 
 For 8 months, a 47-year-old has avoided buses, crowded grocery stores, and long checkout lines. She fears that if she suddenly felt faint or lost bladder control, escape would be hard and no one would help. She has never had an unexpected panic attack and is not worried about being judged by others. Which diagnosis BEST fits?
 
@@ -7388,7 +8540,7 @@ For 8 months, a 47-year-old has avoided buses, crowded grocery stores, and long 
 
 ---
 
-### Q306 of 1000 · nce-s-clf-066 · Social and Cultural Diversity · anxiety disorders · medium · In review
+### Q354 of 1200 · nce-s-clf-066 · Social and Cultural Diversity · anxiety disorders · medium · In review
 
 A 6-year-old has not spoken at school for 4 months, although she talks freely with her parents at home. Her teacher refers her for evaluation of selective mutism. Which additional finding would make selective mutism LESS likely as the explanation?
 
@@ -7412,7 +8564,7 @@ A 6-year-old has not spoken at school for 4 months, although she talks freely wi
 
 ---
 
-### Q307 of 1000 · nce-s-clf-067 · Assessment and Testing · trauma- and stressor-related disorders · medium · In review
+### Q355 of 1200 · nce-s-clf-067 · Assessment and Testing · trauma- and stressor-related disorders · medium · In review
 
 Five weeks after being unexpectedly laid off from a job of 20 years, a 56-year-old reports sadness, frequent replaying of the termination meeting, poor sleep, and withdrawal from friends. His distress is out of proportion to what is typical and is affecting family life. Criteria for a major depressive episode are not met. Which diagnosis is MOST appropriate?
 
@@ -7436,7 +8588,7 @@ Five weeks after being unexpectedly laid off from a job of 20 years, a 56-year-o
 
 ---
 
-### Q308 of 1000 · nce-s-clf-068 · Human Growth and Development · trauma- and stressor-related disorders · medium · In review
+### Q356 of 1200 · nce-s-clf-068 · Human Growth and Development · trauma- and stressor-related disorders · medium · In review
 
 A 4-year-old was adopted at age 2 after living in an understaffed orphanage. Her adoptive parents say she happily wanders off with strangers at the park, climbs onto unfamiliar adults' laps, and does not look back to check on them. Which diagnosis BEST fits this pattern?
 
@@ -7460,7 +8612,7 @@ A 4-year-old was adopted at age 2 after living in an understaffed orphanage. Her
 
 ---
 
-### Q309 of 1000 · nce-s-clf-069 · Assessment and Testing · obsessive-compulsive and related disorders · medium · In review
+### Q357 of 1200 · nce-s-clf-069 · Assessment and Testing · obsessive-compulsive and related disorders · medium · In review
 
 A 22-year-old man who lifts weights daily is convinced his body looks small and weak, although friends describe him as very muscular. He checks mirrors for hours, wears baggy layers to hide his build, and skips social events. He is not focused on body fat or thinness. Which diagnosis BEST fits?
 
@@ -7484,7 +8636,7 @@ A 22-year-old man who lifts weights daily is convinced his body looks small and 
 
 ---
 
-### Q310 of 1000 · nce-s-clf-070 · Assessment and Testing · obsessive-compulsive and related disorders · easy · In review
+### Q358 of 1200 · nce-s-clf-070 · Assessment and Testing · obsessive-compulsive and related disorders · easy · In review
 
 A 66-year-old describes himself as "a collector." Which finding MOST clearly points to hoarding disorder rather than ordinary collecting?
 
@@ -7508,7 +8660,7 @@ A 66-year-old describes himself as "a collector." Which finding MOST clearly poi
 
 ---
 
-### Q311 of 1000 · nce-s-clf-071 · Assessment and Testing · substance use and addictive disorders · medium · In review
+### Q359 of 1200 · nce-s-clf-071 · Assessment and Testing · substance use and addictive disorders · medium · In review
 
 Two days after stopping several weeks of heavy methamphetamine use, a client reports feeling deeply down and exhausted. He is sleeping for long stretches, has vivid unpleasant dreams, and is eating much more than usual. Which withdrawal syndrome do these symptoms MOST closely match?
 
@@ -7532,7 +8684,7 @@ Two days after stopping several weeks of heavy methamphetamine use, a client rep
 
 ---
 
-### Q312 of 1000 · nce-s-clf-072 · Assessment and Testing · substance use and addictive disorders · easy · In review
+### Q360 of 1200 · nce-s-clf-072 · Assessment and Testing · substance use and addictive disorders · easy · In review
 
 After losing a large sum at an online casino, a client logs back in the next morning, certain that a few more bets will win back what he lost. Which DSM-5-TR gambling disorder criterion does this behavior illustrate?
 
@@ -7556,7 +8708,7 @@ After losing a large sum at an online casino, a client logs back in the next mor
 
 ---
 
-### Q313 of 1000 · nce-s-clf-073 · Counseling and Helping Relationships · substance use and addictive disorders · medium · In review
+### Q361 of 1200 · nce-s-clf-073 · Counseling and Helping Relationships · substance use and addictive disorders · medium · In review
 
 A 30-year-old with opioid use disorder says he is not ready to stop using but wants to keep seeing the counselor. Which counselor action BEST reflects a harm reduction approach?
 
@@ -7582,7 +8734,7 @@ A 30-year-old with opioid use disorder says he is not ready to stop using but wa
 
 ---
 
-### Q314 of 1000 · nce-s-clf-074 · Assessment and Testing · neurodevelopmental disorders · easy · In review
+### Q362 of 1200 · nce-s-clf-074 · Assessment and Testing · neurodevelopmental disorders · easy · In review
 
 Under DSM-5-TR, the severity level of intellectual developmental disorder (mild, moderate, severe, profound) is determined mainly by which factor?
 
@@ -7606,7 +8758,7 @@ Under DSM-5-TR, the severity level of intellectual developmental disorder (mild,
 
 ---
 
-### Q315 of 1000 · nce-s-clf-075 · Human Growth and Development · neurodevelopmental disorders · medium · In review
+### Q363 of 1200 · nce-s-clf-075 · Human Growth and Development · neurodevelopmental disorders · medium · In review
 
 An 11-year-old has had eye blinking and shoulder shrugging since age 9, and over the past year he has also developed frequent throat clearing and sniffing. The tics wax and wane but have never stopped for long. He has never used obscene words. Which diagnosis BEST fits?
 
@@ -7630,7 +8782,7 @@ An 11-year-old has had eye blinking and shoulder shrugging since age 9, and over
 
 ---
 
-### Q316 of 1000 · nce-s-clf-076 · Assessment and Testing · schizophrenia spectrum disorders · hard · In review
+### Q364 of 1200 · nce-s-clf-076 · Assessment and Testing · schizophrenia spectrum disorders · hard · In review
 
 For 8 months, a 58-year-old accountant has been certain that a neighbor is poisoning his garden and reading his mail. He has filed police reports and installed cameras. He reports no hallucinations, his speech is organized, and he continues to work effectively. No mood episodes or substance causes are present. Which diagnosis is MOST appropriate?
 
@@ -7654,7 +8806,7 @@ For 8 months, a 58-year-old accountant has been certain that a neighbor is poiso
 
 ---
 
-### Q317 of 1000 · nce-s-clf-077 · Assessment and Testing · schizophrenia spectrum disorders · hard · In review
+### Q365 of 1200 · nce-s-clf-077 · Assessment and Testing · schizophrenia spectrum disorders · hard · In review
 
 Over 2 years of illness, a 33-year-old has had major depressive episodes for most of the time, often with voices and persecutory beliefs. Between episodes there was a 3-week stretch when the voices and delusions continued while her mood was stable. She has never had mania, and substances are ruled out. Which diagnosis is MOST appropriate?
 
@@ -7678,7 +8830,7 @@ Over 2 years of illness, a 33-year-old has had major depressive episodes for mos
 
 ---
 
-### Q318 of 1000 · nce-s-clf-078 · Assessment and Testing · personality disorders · hard · In review
+### Q366 of 1200 · nce-s-clf-078 · Assessment and Testing · personality disorders · hard · In review
 
 A 26-year-old seeks counseling for "bipolar mood swings." She describes intense anger, chronic emptiness, and fear of being left by her partner. A counselor is weighing borderline personality disorder against a bipolar disorder. Which finding MOST supports borderline personality disorder?
 
@@ -7702,7 +8854,7 @@ A 26-year-old seeks counseling for "bipolar mood swings." She describes intense 
 
 ---
 
-### Q319 of 1000 · nce-s-clf-079 · Assessment and Testing · personality disorders · easy · In review
+### Q367 of 1200 · nce-s-clf-079 · Assessment and Testing · personality disorders · easy · In review
 
 A 35-year-old has few close friends, dresses in an unusual way, and speaks in vague, odd phrases. She believes she can sense what strangers are thinking and that song lyrics on the radio carry special messages for her. Her social anxiety does not ease as she gets to know people. Which personality disorder BEST fits?
 
@@ -7726,7 +8878,7 @@ A 35-year-old has few close friends, dresses in an unusual way, and speaks in va
 
 ---
 
-### Q320 of 1000 · nce-s-clf-080 · Assessment and Testing · eating disorders · medium · In review
+### Q368 of 1200 · nce-s-clf-080 · Assessment and Testing · eating disorders · medium · In review
 
 A 19-year-old reports recurrent binge-eating episodes followed by purging, along with an intense fear of gaining weight. Her physician notes that her body weight is significantly low for her age, sex, and developmental trajectory. Which diagnosis is MOST appropriate?
 
@@ -7750,7 +8902,7 @@ A 19-year-old reports recurrent binge-eating episodes followed by purging, along
 
 ---
 
-### Q321 of 1000 · nce-s-clf-081 · Counseling and Helping Relationships · eating disorders · medium · In review
+### Q369 of 1200 · nce-s-clf-081 · Counseling and Helping Relationships · eating disorders · medium · In review
 
 A client in outpatient counseling for bulimia nervosa says her purging has increased over the past month. Today she mentions feeling dizzy and noticing her heart "fluttering" at times. What should the counselor do?
 
@@ -7774,7 +8926,7 @@ A client in outpatient counseling for bulimia nervosa says her purging has incre
 
 ---
 
-### Q322 of 1000 · nce-s-clf-082 · Assessment and Testing · neurocognitive disorders · medium · In review
+### Q370 of 1200 · nce-s-clf-082 · Assessment and Testing · neurocognitive disorders · medium · In review
 
 A 72-year-old has had a gradual decline in thinking over the past year. His wife reports that he is clear one day and very confused the next, often sees detailed images of children in the house who are not there, and shouts and kicks while dreaming. Mild stiffness and a shuffling gait appeared months after the cognitive changes. Which diagnosis BEST fits?
 
@@ -7798,7 +8950,7 @@ A 72-year-old has had a gradual decline in thinking over the past year. His wife
 
 ---
 
-### Q323 of 1000 · nce-s-clf-083 · Assessment and Testing · neurocognitive disorders · easy · In review
+### Q371 of 1200 · nce-s-clf-083 · Assessment and Testing · neurocognitive disorders · easy · In review
 
 Which presentation MOST suggests vascular neurocognitive disorder rather than neurocognitive disorder due to Alzheimer's disease?
 
@@ -7822,7 +8974,7 @@ Which presentation MOST suggests vascular neurocognitive disorder rather than ne
 
 ---
 
-### Q324 of 1000 · nce-s-clf-084 · Human Growth and Development · grief and loss · medium · In review
+### Q372 of 1200 · nce-s-clf-084 · Human Growth and Development · grief and loss · medium · In review
 
 Fourteen months after her husband died, a 67-year-old client accepts the death and has let herself feel its pain. Now she is struggling to manage the finances he always handled, to drive on the highway alone, and to think of herself as "single." Which of Worden's tasks of mourning is she MOST working on?
 
@@ -7848,7 +9000,7 @@ Fourteen months after her husband died, a 67-year-old client accepts the death a
 
 ---
 
-### Q325 of 1000 · nce-s-clf-085 · Human Growth and Development · grief and loss · hard · In review
+### Q373 of 1200 · nce-s-clf-085 · Human Growth and Development · grief and loss · hard · In review
 
 Six months after his teenage son died, a father has some days filled with looking at photos and crying, and other days focused on returning to work and learning to cook for his family. He worries that this "back and forth" means he is grieving the wrong way. Which framework BEST normalizes his experience?
 
@@ -7874,7 +9026,7 @@ Six months after his teenage son died, a father has some days filled with lookin
 
 ---
 
-### Q326 of 1000 · nce-s-clf-086 · Counseling and Helping Relationships · crisis and disaster response · easy · In review
+### Q374 of 1200 · nce-s-clf-086 · Counseling and Helping Relationships · crisis and disaster response · easy · In review
 
 According to Caplan's crisis theory, which statement BEST describes a crisis?
 
@@ -7900,7 +9052,7 @@ According to Caplan's crisis theory, which statement BEST describes a crisis?
 
 ---
 
-### Q327 of 1000 · nce-s-clf-087 · Counseling and Helping Relationships · crisis and disaster response · medium · In review
+### Q375 of 1200 · nce-s-clf-087 · Counseling and Helping Relationships · crisis and disaster response · medium · In review
 
 Four months after a flood, the volunteers and news crews have left a small town. Residents who once worked side by side now voice anger at slow insurance payouts and agency red tape, and many feel forgotten. In the commonly used phases of community response to disaster, which phase is the town MOST likely in?
 
@@ -7926,7 +9078,7 @@ Four months after a flood, the volunteers and news crews have left a small town.
 
 ---
 
-### Q328 of 1000 · nce-s-clf-088 · Counseling and Helping Relationships · intimate partner violence · easy · In review
+### Q376 of 1200 · nce-s-clf-088 · Counseling and Helping Relationships · intimate partner violence · easy · In review
 
 A week after her partner assaulted her, a client tells the counselor that he cried, brought flowers, promised it would never happen again, and has been "the man I fell in love with." She feels hopeful. In Walker's cycle of violence, which phase is this?
 
@@ -7952,7 +9104,7 @@ A week after her partner assaulted her, a client tells the counselor that he cri
 
 ---
 
-### Q329 of 1000 · nce-s-clf-089 · Counseling and Helping Relationships · intimate partner violence · medium · In review
+### Q377 of 1200 · nce-s-clf-089 · Counseling and Helping Relationships · intimate partner violence · medium · In review
 
 A client says her husband controls all their money, reads her messages, has cut her off from friends, and threatens to take the children if she leaves. She adds, "It isn't really abuse, because he has never hit me." Which framework would BEST help her see these behaviors as connected forms of abuse?
 
@@ -7978,7 +9130,7 @@ A client says her husband controls all their money, reads her messages, has cut 
 
 ---
 
-### Q330 of 1000 · nce-s-clf-090 · Career Development · career and vocational concerns · hard · In review
+### Q378 of 1200 · nce-s-clf-090 · Career Development · career and vocational concerns · hard · In review
 
 A 46-year-old warehouse supervisor lost his job four months ago. A generous severance package covers his bills for the next year, yet he reports feeling aimless, sleeping late, missing his coworkers, and no longer knowing "who I am." Which framework BEST explains why his distress persists despite financial security?
 
@@ -8004,7 +9156,7 @@ A 46-year-old warehouse supervisor lost his job four months ago. A generous seve
 
 ---
 
-### Q331 of 1000 · nce-s-clf-091 · Career Development · career and vocational concerns · medium · In review
+### Q379 of 1200 · nce-s-clf-091 · Career Development · career and vocational concerns · medium · In review
 
 A 34-year-old client has completed several interest inventories, researched dozens of occupations, and shadowed workers in two fields, yet still cannot choose. She describes the same agonizing paralysis when picking an apartment, a car, or even a restaurant, and says any choice feels like it could ruin her life. Which approach BEST fits her concern?
 
@@ -8028,7 +9180,7 @@ A 34-year-old client has completed several interest inventories, researched doze
 
 ---
 
-### Q332 of 1000 · nce-s-clf-092 · Career Development · career and vocational concerns · medium · In review
+### Q380 of 1200 · nce-s-clf-092 · Career Development · career and vocational concerns · medium · In review
 
 An emergency room nurse works predictable shifts and is home every evening. She says the fatigue, tension and irritability she carries home from chaotic shifts leave her snapping at her children and too drained to enjoy family time. Which form of work-family conflict does this BEST illustrate?
 
@@ -8054,7 +9206,7 @@ An emergency room nurse works predictable shifts and is home every evening. She 
 
 ---
 
-### Q333 of 1000 · nce-s-clf-093 · Career Development · career and vocational concerns · medium · In review
+### Q381 of 1200 · nce-s-clf-093 · Career Development · career and vocational concerns · medium · In review
 
 A 27-year-old client with well-controlled epilepsy has a job interview next week. She asks her counselor whether she is required to tell the interviewer about her seizure disorder. Under the Americans with Disabilities Act, which statement is MOST accurate?
 
@@ -8080,7 +9232,7 @@ A 27-year-old client with well-controlled epilepsy has a job interview next week
 
 ---
 
-### Q334 of 1000 · nce-s-clf-094 · Career Development · career and vocational concerns · medium · In review
+### Q382 of 1200 · nce-s-clf-094 · Career Development · career and vocational concerns · medium · In review
 
 A 19-year-old first-generation college student from a Filipino American family says her parents expect her to become a nurse, though she is drawn to graphic design. She values her family's sacrifices and wants their blessing. Her counselor is trained in a decision model that stresses individual choice. What is the MOST culturally responsive approach?
 
@@ -8104,7 +9256,7 @@ A 19-year-old first-generation college student from a Filipino American family s
 
 ---
 
-### Q335 of 1000 · nce-s-clf-095 · Human Growth and Development · couples and family concerns · medium · In review
+### Q383 of 1200 · nce-s-clf-095 · Human Growth and Development · couples and family concerns · medium · In review
 
 Parents of a 15-year-old argue constantly with their son about curfew, friends and privacy, while also arranging care for the father's ailing mother. In Carter and McGoldrick's family life cycle, which key emotional task does the family face in this stage?
 
@@ -8128,7 +9280,7 @@ Parents of a 15-year-old argue constantly with their son about curfew, friends a
 
 ---
 
-### Q336 of 1000 · nce-s-clf-096 · Human Growth and Development · couples and family concerns · medium · In review
+### Q384 of 1200 · nce-s-clf-096 · Human Growth and Development · couples and family concerns · medium · In review
 
 A divorcing couple with children aged 6 and 10 asks a counselor what will MOST affect how well their children adjust over the coming years. Based on research on divorce and child outcomes, which factor should the counselor highlight?
 
@@ -8152,7 +9304,7 @@ A divorcing couple with children aged 6 and 10 asks a counselor what will MOST a
 
 ---
 
-### Q337 of 1000 · nce-s-clf-097 · Counseling and Helping Relationships · couples and family concerns · easy · In review
+### Q385 of 1200 · nce-s-clf-097 · Counseling and Helping Relationships · couples and family concerns · easy · In review
 
 During a heated discussion in couples counseling, a husband pauses, smiles, and says, "Okay, I'm getting defensive. Can I try saying that again?" His wife's tone softens. In Gottman's research, what is the husband's statement called?
 
@@ -8178,7 +9330,7 @@ During a heated discussion in couples counseling, a husband pauses, smiles, and 
 
 ---
 
-### Q338 of 1000 · nce-s-clf-098 · Social and Cultural Diversity · spiritual and religious concerns · medium · In review
+### Q386 of 1200 · nce-s-clf-098 · Social and Cultural Diversity · spiritual and religious concerns · medium · In review
 
 A 20-year-old college student raised in a close-knit congregation tells her counselor she has begun questioning teachings she once accepted without thought. She is reading widely, testing beliefs against her own reasoning, and wants a faith she has chosen for herself. Which of Fowler's stages of faith does this BEST describe?
 
@@ -8202,7 +9354,7 @@ A 20-year-old college student raised in a close-knit congregation tells her coun
 
 ---
 
-### Q339 of 1000 · nce-s-clf-099 · Social and Cultural Diversity · spiritual and religious concerns · hard · In review
+### Q387 of 1200 · nce-s-clf-099 · Social and Cultural Diversity · spiritual and religious concerns · hard · In review
 
 After a long illness in his family, a 63-year-old deacon says he has lost his sense that God listens and feels unmoored from his faith. He is sad at times but sleeps, eats and works normally, and his distress is in proportion to his experience. He meets criteria for no mental disorder. How should the counselor document the focus of treatment?
 
@@ -8226,7 +9378,7 @@ After a long illness in his family, a 63-year-old deacon says he has lost his se
 
 ---
 
-### Q340 of 1000 · nce-s-clf-100 · Counseling and Helping Relationships · child abuse and neglect · medium · In review
+### Q388 of 1200 · nce-s-clf-100 · Counseling and Helping Relationships · child abuse and neglect · medium · In review
 
 A mother tells her counselor that her 11-year-old's new volunteer tutor is "amazing." He buys her daughter small gifts, offers rides so the mother can rest, texts the girl privately at night, and recently told her some of their talks are "just between us." Which feature MOST strongly suggests possible grooming?
 
@@ -8252,7 +9404,7 @@ A mother tells her counselor that her 11-year-old's new volunteer tutor is "amaz
 
 ---
 
-### Q341 of 1000 · nce-s-clf-101 · Counseling and Helping Relationships · child abuse and neglect · easy · In review
+### Q389 of 1200 · nce-s-clf-101 · Counseling and Helping Relationships · child abuse and neglect · easy · In review
 
 A school counselor notices bruises on an active 6-year-old who plays rough sports at recess. Which bruise location should raise the GREATEST concern about possible physical abuse?
 
@@ -8278,7 +9430,7 @@ A school counselor notices bruises on an active 6-year-old who plays rough sport
 
 ---
 
-### Q342 of 1000 · nce-s-clf-102 · Counseling and Helping Relationships · school and academic concerns · easy · In review
+### Q390 of 1200 · nce-s-clf-102 · Counseling and Helping Relationships · school and academic concerns · easy · In review
 
 A middle school counselor is preparing a parent workshop on cyberbullying. Which feature MOST clearly sets cyberbullying apart from traditional in-person bullying?
 
@@ -8302,7 +9454,7 @@ A middle school counselor is preparing a parent workshop on cyberbullying. Which
 
 ---
 
-### Q343 of 1000 · nce-s-clf-103 · Counseling and Helping Relationships · school and academic concerns · medium · In review
+### Q391 of 1200 · nce-s-clf-103 · Counseling and Helping Relationships · school and academic concerns · medium · In review
 
 For several weeks, two larger eighth graders have mocked a smaller classmate, taken his lunch, and posted edited photos of him. The principal asks the school counselor to hold a peer mediation session so the three boys can "work it out together." What is the counselor's BEST response?
 
@@ -8328,7 +9480,7 @@ For several weeks, two larger eighth graders have mocked a smaller classmate, ta
 
 ---
 
-### Q344 of 1000 · nce-s-clf-104 · Human Growth and Development · aging and older adults · easy · In review
+### Q392 of 1200 · nce-s-clf-104 · Human Growth and Development · aging and older adults · easy · In review
 
 A counselor reviewing a new referral for a 77-year-old with low mood, poor sleep and withdrawal thinks, "Anyone her age would feel down. Therapy probably won't change much at this point." What does the counselor's reaction BEST reflect?
 
@@ -8352,7 +9504,7 @@ A counselor reviewing a new referral for a 77-year-old with low mood, poor sleep
 
 ---
 
-### Q345 of 1000 · nce-s-clf-105 · Counseling and Helping Relationships · aging and older adults · medium · In review
+### Q393 of 1200 · nce-s-clf-105 · Counseling and Helping Relationships · aging and older adults · medium · In review
 
 An 84-year-old client mentions that her nephew, who now manages her finances, has her sign blank checks, and that her utilities were shut off last month. She seems anxious when he is mentioned and asks the counselor not to "make trouble." What should the counselor do?
 
@@ -8376,7 +9528,7 @@ An 84-year-old client mentions that her nephew, who now manages her finances, ha
 
 ---
 
-### Q346 of 1000 · nce-s-clf-106 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · hard · In review
+### Q394 of 1200 · nce-s-clf-106 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · hard · In review
 
 A 29-year-old nonbinary client, assigned male at birth, has lived in line with their gender identity for years and feels settled and content with it. They seek counseling for work stress after a promotion. Which statement about a gender dysphoria diagnosis is MOST accurate?
 
@@ -8400,7 +9552,7 @@ A 29-year-old nonbinary client, assigned male at birth, has lived in line with t
 
 ---
 
-### Q347 of 1000 · nce-s-clf-107 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · easy · In review
+### Q395 of 1200 · nce-s-clf-107 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · easy · In review
 
 In the third session, a 17-year-old client tells the counselor that he is transgender, goes by Eli, and uses he/him pronouns. He has not told his parents. Which counselor response is MOST affirming?
 
@@ -8424,7 +9576,7 @@ In the third session, a 17-year-old client tells the counselor that he is transg
 
 ---
 
-### Q348 of 1000 · nce-s-clf-108 · Social and Cultural Diversity · acculturation and immigration stress · hard · In review
+### Q396 of 1200 · nce-s-clf-108 · Social and Cultural Diversity · acculturation and immigration stress · hard · In review
 
 A 45-year-old Somali refugee who resettled two years ago works steadily and cares for his children. He grieves the loss of his land, his community's rituals, and his parents' graves, feels guilty for leaving, and sometimes dreams that his ancestors are calling him. Which concept BEST describes his experience?
 
@@ -8450,7 +9602,7 @@ A 45-year-old Somali refugee who resettled two years ago works steadily and care
 
 ---
 
-### Q349 of 1000 · nce-s-clf-109 · Social and Cultural Diversity · acculturation and immigration stress · easy · In review
+### Q397 of 1200 · nce-s-clf-109 · Social and Cultural Diversity · acculturation and immigration stress · easy · In review
 
 A 12-year-old regularly interprets for her Spanish-speaking parents at medical visits and the bank. At the start of a family counseling session about the father's job loss, the parents ask her to interpret for them. What should the counselor do?
 
@@ -8474,7 +9626,7 @@ A 12-year-old regularly interprets for her Spanish-speaking parents at medical v
 
 ---
 
-### Q350 of 1000 · nce-s-clf-110 · Counseling and Helping Relationships · self-injury · hard · In review
+### Q398 of 1200 · nce-s-clf-110 · Counseling and Helping Relationships · self-injury · hard · In review
 
 A 19-year-old with a three-year history of superficial cutting to "calm down" tells her counselor that last weekend she swallowed a bottle of pills because she "wanted to never wake up." She slept for 12 hours and woke without treatment. Which statement is MOST accurate?
 
@@ -8498,7 +9650,7 @@ A 19-year-old with a three-year history of superficial cutting to "calm down" te
 
 ---
 
-### Q351 of 1000 · nce-s-clf-111 · Counseling and Helping Relationships · self-injury · easy · In review
+### Q399 of 1200 · nce-s-clf-111 · Counseling and Helping Relationships · self-injury · easy · In review
 
 The DSM-5-TR proposed criteria for nonsuicidal self-injury disorder, a condition for further study, require intentional self-inflicted injury without suicidal intent on how many days in the past year?
 
@@ -8522,7 +9674,7 @@ The DSM-5-TR proposed criteria for nonsuicidal self-injury disorder, a condition
 
 ---
 
-### Q352 of 1000 · nce-s-clf-112 · Counseling and Helping Relationships · sleep-wake concerns · medium · In review
+### Q400 of 1200 · nce-s-clf-112 · Counseling and Helping Relationships · sleep-wake concerns · medium · In review
 
 A 16-year-old cannot fall asleep before 2 a.m. on school nights and is exhausted in morning classes. On weekends he sleeps soundly from 2 a.m. to 11 a.m. and wakes refreshed. Months of sleep hygiene tips such as no caffeine and a cool, dark room have not helped. Which explanation BEST fits?
 
@@ -8546,7 +9698,7 @@ A 16-year-old cannot fall asleep before 2 a.m. on school nights and is exhausted
 
 ---
 
-### Q353 of 1000 · nce-s-clf-113 · Counseling and Helping Relationships · psychopharmacology basics for counselors · medium · In review
+### Q401 of 1200 · nce-s-clf-113 · Counseling and Helping Relationships · psychopharmacology basics for counselors · medium · In review
 
 A 58-year-old client with schizophrenia has taken a first-generation antipsychotic for many years. The counselor notices repetitive lip smacking, tongue thrusting and facial grimacing that the client does not seem aware of. Which side effect do these signs MOST likely reflect?
 
@@ -8570,7 +9722,7 @@ A 58-year-old client with schizophrenia has taken a first-generation antipsychot
 
 ---
 
-### Q354 of 1000 · nce-s-clf-114 · Counseling and Helping Relationships · psychopharmacology basics for counselors · easy · In review
+### Q402 of 1200 · nce-s-clf-114 · Counseling and Helping Relationships · psychopharmacology basics for counselors · easy · In review
 
 A client who takes phenelzine, a monoamine oxidase inhibitor, mentions he is planning a celebration dinner of aged cheeses, cured salami and draft beer. The counselor encourages him to check with his prescriber first. Which reaction is the main concern?
 
@@ -8596,7 +9748,7 @@ A client who takes phenelzine, a monoamine oxidase inhibitor, mentions he is pla
 
 ---
 
-### Q355 of 1000 · nce-s-clf-115 · Counseling and Helping Relationships · psychopharmacology basics for counselors · medium · In review
+### Q403 of 1200 · nce-s-clf-115 · Counseling and Helping Relationships · psychopharmacology basics for counselors · medium · In review
 
 A 20-year-old college student without an ADHD diagnosis tells her counselor she takes a friend's prescription stimulant before exams to "focus better." She says it is safe "because doctors prescribe it to kids." What is the counselor's BEST response?
 
@@ -8620,7 +9772,7 @@ A 20-year-old college student without an ADHD diagnosis tells her counselor she 
 
 ---
 
-### Q356 of 1000 · nce-s-clf-116 · Counseling and Helping Relationships · military and veteran populations · medium · In review
+### Q404 of 1200 · nce-s-clf-116 · Counseling and Helping Relationships · military and veteran populations · medium · In review
 
 Two months after her husband returned from a 9-month deployment, a military spouse says he keeps overriding household routines she ran on her own, the children test his rules, and they feel like "strangers sharing a house." In the emotional cycle of deployment, which phase is the family in?
 
@@ -8646,7 +9798,7 @@ Two months after her husband returned from a 9-month deployment, a military spou
 
 ---
 
-### Q357 of 1000 · nce-s-clf-117 · Counseling and Helping Relationships · military and veteran populations · hard · In review
+### Q405 of 1200 · nce-s-clf-117 · Counseling and Helping Relationships · military and veteran populations · hard · In review
 
 A 38-year-old Air Force veteran discloses that she was sexually assaulted by a fellow service member during her enlistment. She never reported it, has no VA disability rating, and assumes VA will not help her without proof. Which statement BEST guides the counselor's response?
 
@@ -8672,7 +9824,7 @@ A 38-year-old Air Force veteran discloses that she was sexually assaulted by a f
 
 ---
 
-### Q358 of 1000 · nce-s-clf-118 · Counseling and Helping Relationships · chronic illness and disability · medium · In review
+### Q406 of 1200 · nce-s-clf-118 · Counseling and Helping Relationships · chronic illness and disability · medium · In review
 
 The mother of a 9-year-old with cerebral palsy says she accepted her son's diagnosis long ago and loves their life, yet waves of sadness return each time his classmates reach milestones he cannot, such as riding a bike. She asks whether something is wrong with her. Which concept BEST frames her experience?
 
@@ -8698,7 +9850,7 @@ The mother of a 9-year-old with cerebral palsy says she accepted her son's diagn
 
 ---
 
-### Q359 of 1000 · nce-s-clf-119 · Assessment and Testing · depressive disorders · medium · In review
+### Q407 of 1200 · nce-s-clf-119 · Assessment and Testing · depressive disorders · medium · In review
 
 A 31-year-old says that in the week before her period she becomes intensely irritable, tearful, and anxious and argues with her partner. The symptoms ease within a few days after menses begins and are gone the following week. She recalls this pattern for about a year. Under DSM-5-TR, what is needed to CONFIRM a diagnosis of premenstrual dysphoric disorder?
 
@@ -8722,7 +9874,7 @@ A 31-year-old says that in the week before her period she becomes intensely irri
 
 ---
 
-### Q360 of 1000 · nce-s-clf-120 · Assessment and Testing · depressive disorders · hard · In review
+### Q408 of 1200 · nce-s-clf-120 · Assessment and Testing · depressive disorders · hard · In review
 
 A 76-year-old is referred for "memory problems" after several months of low mood and withdrawal. During a cognitive screen, which observation MOST suggests that depression, rather than a neurodegenerative neurocognitive disorder, is driving her poor performance?
 
@@ -8748,7 +9900,7 @@ A 76-year-old is referred for "memory problems" after several months of low mood
 
 ---
 
-### Q361 of 1000 · nce-s-clf-121 · Assessment and Testing · bipolar disorders · easy · In review
+### Q409 of 1200 · nce-s-clf-121 · Assessment and Testing · bipolar disorders · easy · In review
 
 Over the past 12 months, a client with bipolar I disorder has had one manic episode, two major depressive episodes, and one hypomanic episode, each separated by a period of remission. Which DSM-5-TR specifier applies?
 
@@ -8772,7 +9924,7 @@ Over the past 12 months, a client with bipolar I disorder has had one manic epis
 
 ---
 
-### Q362 of 1000 · nce-s-clf-122 · Assessment and Testing · bipolar disorders · hard · In review
+### Q410 of 1200 · nce-s-clf-122 · Assessment and Testing · bipolar disorders · hard · In review
 
 For 8 days, a 25-year-old has had elevated mood, little need for sleep, and racing thoughts. She still works her shifts, but she now believes a television news anchor is sending her coded messages. A colleague suggests hypomania because her work has not suffered. Which statement is MOST accurate?
 
@@ -8796,7 +9948,7 @@ For 8 days, a 25-year-old has had elevated mood, little need for sleep, and raci
 
 ---
 
-### Q363 of 1000 · nce-s-clf-123 · Assessment and Testing · anxiety disorders · medium · In review
+### Q411 of 1200 · nce-s-clf-123 · Assessment and Testing · anxiety disorders · medium · In review
 
 For 9 months, a 50-year-old has been convinced he has undiagnosed heart disease despite normal cardiac workups. He has few physical symptoms but checks his pulse many times a day and reads medical websites for hours. He reports little worry about other areas of life. Which diagnosis BEST fits?
 
@@ -8820,7 +9972,7 @@ For 9 months, a 50-year-old has been convinced he has undiagnosed heart disease 
 
 ---
 
-### Q364 of 1000 · nce-s-clf-124 · Assessment and Testing · anxiety disorders · medium · In review
+### Q412 of 1200 · nce-s-clf-124 · Assessment and Testing · anxiety disorders · medium · In review
 
 A client with PTSD has sudden surges of intense fear with a racing heart, sweating, and trembling whenever she encounters reminders of the assault. She does not worry about having attacks out of the blue and has not changed her routine to prevent them. How should these attacks be documented?
 
@@ -8844,7 +9996,7 @@ A client with PTSD has sudden surges of intense fear with a racing heart, sweati
 
 ---
 
-### Q365 of 1000 · nce-s-clf-125 · Human Growth and Development · anxiety disorders · easy · In review
+### Q413 of 1200 · nce-s-clf-125 · Human Growth and Development · anxiety disorders · easy · In review
 
 For 5 weeks, a 9-year-old has refused sleepovers, had nightmares about her mother being hurt, and sobbed whenever her mother leaves for work. The symptoms are causing problems at home and school. Her father asks whether a diagnosis of separation anxiety disorder requires symptoms to last 6 months. What is the minimum duration for a child?
 
@@ -8868,7 +10020,7 @@ For 5 weeks, a 9-year-old has refused sleepovers, had nightmares about her mothe
 
 ---
 
-### Q366 of 1000 · nce-s-clf-126 · Assessment and Testing · trauma- and stressor-related disorders · hard · In review
+### Q414 of 1200 · nce-s-clf-126 · Assessment and Testing · trauma- and stressor-related disorders · hard · In review
 
 A 34-year-old who endured years of childhood abuse reports intrusive memories and avoidance, along with pervasive shame, a sense of being worthless, great difficulty calming strong emotions, and pulling away from close relationships. A colleague wants to give a DSM-5-TR diagnosis of "complex PTSD." Which statement is MOST accurate?
 
@@ -8892,7 +10044,7 @@ A 34-year-old who endured years of childhood abuse reports intrusive memories an
 
 ---
 
-### Q367 of 1000 · nce-s-clf-127 · Counseling and Helping Relationships · trauma- and stressor-related disorders · medium · In review
+### Q415 of 1200 · nce-s-clf-127 · Counseling and Helping Relationships · trauma- and stressor-related disorders · medium · In review
 
 A 40-year-old with PTSD after an armed robbery at her store is ready for trauma-focused treatment. She keeps telling herself, "It was my fault for staying open late," and says she would rather not retell the event in detail session after session. Which evidence-based approach BEST matches her needs and preferences?
 
@@ -8916,7 +10068,7 @@ A 40-year-old with PTSD after an armed robbery at her store is ready for trauma-
 
 ---
 
-### Q368 of 1000 · nce-s-clf-128 · Assessment and Testing · trauma- and stressor-related disorders · medium · In review
+### Q416 of 1200 · nce-s-clf-128 · Assessment and Testing · trauma- and stressor-related disorders · medium · In review
 
 A paramedic reports intrusive images, avoidance, and constant hypervigilance after years of responding to fatal crashes, including the deaths of children. He was never in danger himself. A peer tells him he cannot have PTSD because his own life was never threatened. Which statement is MOST accurate?
 
@@ -8940,7 +10092,7 @@ A paramedic reports intrusive images, avoidance, and constant hypervigilance aft
 
 ---
 
-### Q369 of 1000 · nce-s-clf-129 · Assessment and Testing · obsessive-compulsive and related disorders · easy · In review
+### Q417 of 1200 · nce-s-clf-129 · Assessment and Testing · obsessive-compulsive and related disorders · easy · In review
 
 A 23-year-old spends hours each day picking at small bumps on her face and arms, causing open sores. She has tried many times to stop, feels ashamed, and wears long sleeves to hide the marks. A physician found no skin condition, and she uses no stimulants. Which diagnosis is MOST likely?
 
@@ -8964,7 +10116,7 @@ A 23-year-old spends hours each day picking at small bumps on her face and arms,
 
 ---
 
-### Q370 of 1000 · nce-s-clf-130 · Counseling and Helping Relationships · obsessive-compulsive and related disorders · medium · In review
+### Q418 of 1200 · nce-s-clf-130 · Counseling and Helping Relationships · obsessive-compulsive and related disorders · medium · In review
 
 A counselor and a client with contamination-focused OCD are building an exposure and response prevention (ERP) hierarchy. Which practice is MOST consistent with ERP?
 
@@ -8990,7 +10142,7 @@ A counselor and a client with contamination-focused OCD are building an exposure
 
 ---
 
-### Q371 of 1000 · nce-s-clf-131 · Counseling and Helping Relationships · substance use and addictive disorders · easy · In review
+### Q419 of 1200 · nce-s-clf-131 · Counseling and Helping Relationships · substance use and addictive disorders · easy · In review
 
 A 48-year-old who has drunk heavily every day for years plans to quit "cold turkey" this weekend while home alone. He mentions morning shakes and sweats that go away once he has a drink. What should the counselor do FIRST?
 
@@ -9014,7 +10166,7 @@ A 48-year-old who has drunk heavily every day for years plans to quit "cold turk
 
 ---
 
-### Q372 of 1000 · nce-s-clf-132 · Counseling and Helping Relationships · substance use and addictive disorders · medium · In review
+### Q420 of 1200 · nce-s-clf-132 · Counseling and Helping Relationships · substance use and addictive disorders · medium · In review
 
 A 16-year-old is referred after cannabis is found in his backpack. He uses most days and his grades are slipping. He says, "Weed is natural. It doesn't hurt anybody." Which counselor response BEST reflects a motivational rather than a confrontational approach?
 
@@ -9038,7 +10190,7 @@ A 16-year-old is referred after cannabis is found in his backpack. He uses most 
 
 ---
 
-### Q373 of 1000 · nce-s-clf-133 · Assessment and Testing · neurodevelopmental disorders · medium · In review
+### Q421 of 1200 · nce-s-clf-133 · Assessment and Testing · neurodevelopmental disorders · medium · In review
 
 A 32-year-old seeks an ADHD evaluation for lifelong disorganization, forgetfulness, and trouble finishing tasks at work and home. Which statement about diagnosing ADHD in adults under DSM-5-TR is accurate?
 
@@ -9062,7 +10214,7 @@ A 32-year-old seeks an ADHD evaluation for lifelong disorganization, forgetfulne
 
 ---
 
-### Q374 of 1000 · nce-s-clf-134 · Assessment and Testing · neurodevelopmental disorders · medium · In review
+### Q422 of 1200 · nce-s-clf-134 · Assessment and Testing · neurodevelopmental disorders · medium · In review
 
 An autistic 8-year-old speaks in full sentences but struggles with back-and-forth conversation and making friends. His insistence on sameness and great distress at small changes markedly interfere with functioning across settings. How should severity be recorded under DSM-5-TR?
 
@@ -9086,7 +10238,7 @@ An autistic 8-year-old speaks in full sentences but struggles with back-and-fort
 
 ---
 
-### Q375 of 1000 · nce-s-clf-135 · Assessment and Testing · schizophrenia spectrum disorders · medium · In review
+### Q423 of 1200 · nce-s-clf-135 · Assessment and Testing · schizophrenia spectrum disorders · medium · In review
 
 Two weeks after giving birth, a 28-year-old suddenly develops delusions and disorganized speech. She has no manic or depressive symptoms. With treatment, she returns fully to her prior level of functioning after 10 days. Which diagnosis BEST fits?
 
@@ -9110,7 +10262,7 @@ Two weeks after giving birth, a 28-year-old suddenly develops delusions and diso
 
 ---
 
-### Q376 of 1000 · nce-s-clf-136 · Assessment and Testing · schizophrenia spectrum disorders · easy · In review
+### Q424 of 1200 · nce-s-clf-136 · Assessment and Testing · schizophrenia spectrum disorders · easy · In review
 
 Parents of a 17-year-old report that over 8 months he has pulled away from friends, his grades have dropped, he neglects hygiene, and he has become suspicious and voices odd ideas. He has no clear hallucinations or fixed delusions and does not use substances. What is the MOST appropriate action?
 
@@ -9134,7 +10286,7 @@ Parents of a 17-year-old report that over 8 months he has pulled away from frien
 
 ---
 
-### Q377 of 1000 · nce-s-clf-137 · Assessment and Testing · personality disorders · easy · In review
+### Q425 of 1200 · nce-s-clf-137 · Assessment and Testing · personality disorders · easy · In review
 
 A 30-year-old cannot decide what to wear or what to order at a restaurant without reassurance from her mother. She agrees with others even when she disagrees, for fear of losing their support, feels helpless when alone, and quickly began a new relationship after a breakup. Which personality disorder BEST fits?
 
@@ -9158,7 +10310,7 @@ A 30-year-old cannot decide what to wear or what to order at a restaurant withou
 
 ---
 
-### Q378 of 1000 · nce-s-clf-138 · Assessment and Testing · personality disorders · hard · In review
+### Q426 of 1200 · nce-s-clf-138 · Assessment and Testing · personality disorders · hard · In review
 
 A 45-year-old manager follows rules rigidly, misses deadlines because work is never perfect enough, will not delegate, is reluctant to spend money, and has let friendships lapse because of work. He sees his ways as simply "the right way." He reports no intrusive thoughts or rituals. Which statement is MOST accurate?
 
@@ -9182,7 +10334,7 @@ A 45-year-old manager follows rules rigidly, misses deadlines because work is ne
 
 ---
 
-### Q379 of 1000 · nce-s-clf-139 · Human Growth and Development · eating disorders · medium · In review
+### Q427 of 1200 · nce-s-clf-139 · Human Growth and Development · eating disorders · medium · In review
 
 Parents of a 7-year-old say he eats only a handful of familiar foods and refuses new textures. A pediatrician has ruled out a medical cause. Which finding would MOST support avoidant/restrictive food intake disorder (ARFID) rather than ordinary picky eating?
 
@@ -9206,7 +10358,7 @@ Parents of a 7-year-old say he eats only a handful of familiar foods and refuses
 
 ---
 
-### Q380 of 1000 · nce-s-clf-140 · Counseling and Helping Relationships · eating disorders · medium · In review
+### Q428 of 1200 · nce-s-clf-140 · Counseling and Helping Relationships · eating disorders · medium · In review
 
 A 20-year-old in outpatient counseling for anorexia nervosa says her recent blood work was "totally normal," so she no longer needs to see her physician. Which counselor response is MOST accurate?
 
@@ -9230,7 +10382,7 @@ A 20-year-old in outpatient counseling for anorexia nervosa says her recent bloo
 
 ---
 
-### Q381 of 1000 · nce-s-clf-141 · Assessment and Testing · neurocognitive disorders · medium · In review
+### Q429 of 1200 · nce-s-clf-141 · Assessment and Testing · neurocognitive disorders · medium · In review
 
 A nursing home resident with moderate Alzheimer's disease has, over the past 2 days, become much more confused, drowsy at times and agitated at others, and unable to keep her attention on a conversation. Staff say, "Her dementia is just getting worse." What should the counselor do?
 
@@ -9254,7 +10406,7 @@ A nursing home resident with moderate Alzheimer's disease has, over the past 2 d
 
 ---
 
-### Q382 of 1000 · nce-s-clf-142 · Human Growth and Development · grief and loss · easy · In review
+### Q430 of 1200 · nce-s-clf-142 · Human Growth and Development · grief and loss · easy · In review
 
 A month after her grandfather died, a 4-year-old keeps asking when he will be finished being dead and come home. Her parents worry that something is wrong. What BEST explains her questions?
 
@@ -9278,7 +10430,7 @@ A month after her grandfather died, a 4-year-old keeps asking when he will be fi
 
 ---
 
-### Q383 of 1000 · nce-s-clf-143 · Social and Cultural Diversity · grief and loss · easy · In review
+### Q431 of 1200 · nce-s-clf-143 · Social and Cultural Diversity · grief and loss · easy · In review
 
 A 52-year-old's former husband, with whom she stayed close after their divorce, died suddenly. His family did not invite her to the funeral, coworkers seem puzzled that she is upset, and she says she has "no right" to grieve. Which concept BEST describes her experience?
 
@@ -9304,7 +10456,7 @@ A 52-year-old's former husband, with whom she stayed close after their divorce, 
 
 ---
 
-### Q384 of 1000 · nce-s-clf-144 · Counseling and Helping Relationships · grief and loss · medium · In review
+### Q432 of 1200 · nce-s-clf-144 · Counseling and Helping Relationships · grief and loss · medium · In review
 
 The husband of a woman with advancing ALS says he already grieves the losses of her voice and their plans for retirement. He feels guilty "mourning someone who is still here." Which counselor response is MOST helpful?
 
@@ -9328,7 +10480,7 @@ The husband of a woman with advancing ALS says he already grieves the losses of 
 
 ---
 
-### Q385 of 1000 · nce-s-clf-145 · Assessment and Testing · crisis and disaster response · easy · In review
+### Q433 of 1200 · nce-s-clf-145 · Assessment and Testing · crisis and disaster response · easy · In review
 
 A counselor returns from a meeting to four voicemails from clients. Which client should the counselor contact FIRST?
 
@@ -9352,7 +10504,7 @@ A counselor returns from a meeting to four voicemails from clients. Which client
 
 ---
 
-### Q386 of 1000 · nce-s-clf-146 · Counseling and Helping Relationships · crisis and disaster response · hard · In review
+### Q434 of 1200 · nce-s-clf-146 · Counseling and Helping Relationships · crisis and disaster response · hard · In review
 
 After a high school student dies by suicide, the principal asks the school counselor to lead the response. Which action BEST reduces the risk of suicide contagion among students?
 
@@ -9378,7 +10530,7 @@ After a high school student dies by suicide, the principal asks the school couns
 
 ---
 
-### Q387 of 1000 · nce-s-clf-147 · Counseling and Helping Relationships · intimate partner violence · hard · In review
+### Q435 of 1200 · nce-s-clf-147 · Counseling and Helping Relationships · intimate partner violence · hard · In review
 
 A client who recently left an abusive partner says he keeps appearing wherever she goes and texts her details about her day. She plans to change all her passwords and delete her accounts tonight. Which counselor response is MOST appropriate?
 
@@ -9404,7 +10556,7 @@ A client who recently left an abusive partner says he keeps appearing wherever s
 
 ---
 
-### Q388 of 1000 · nce-s-clf-148 · Human Growth and Development · intimate partner violence · medium · In review
+### Q436 of 1200 · nce-s-clf-148 · Human Growth and Development · intimate partner violence · medium · In review
 
 A mother says her 6-year-old was "asleep upstairs" during her partner's assaults on her and was never hit, so the girl has not been affected. Since the mother left, the child has had nightmares, startles easily, and clings to her at bedtime. Which statement is MOST accurate?
 
@@ -9428,7 +10580,7 @@ A mother says her 6-year-old was "asleep upstairs" during her partner's assaults
 
 ---
 
-### Q389 of 1000 · nce-s-clf-149 · Human Growth and Development · developmental life transitions · medium · In review
+### Q437 of 1200 · nce-s-clf-149 · Human Growth and Development · developmental life transitions · medium · In review
 
 A 53-year-old client says that since her youngest child left for college, she wanders the house feeling useless. Her husband, by contrast, is enjoying the extra time together. Based on life-span research on the empty nest, which factor MOST increases the risk that launching children will be a painful transition?
 
@@ -9452,7 +10604,7 @@ A 53-year-old client says that since her youngest child left for college, she wa
 
 ---
 
-### Q390 of 1000 · nce-s-clf-150 · Human Growth and Development · developmental life transitions · easy · In review
+### Q438 of 1200 · nce-s-clf-150 · Human Growth and Development · developmental life transitions · easy · In review
 
 Parents worry that their 22-year-old son has "failed to launch." In two years he has moved apartments three times, switched jobs twice, and ended two relationships. He is curious and hopeful about his future. Within Arnett's theory of emerging adulthood, how is this pattern BEST understood?
 
@@ -9476,7 +10628,7 @@ Parents worry that their 22-year-old son has "failed to launch." In two years he
 
 ---
 
-### Q391 of 1000 · nce-s-clf-151 · Human Growth and Development · developmental life transitions · medium · In review
+### Q439 of 1200 · nce-s-clf-151 · Human Growth and Development · developmental life transitions · medium · In review
 
 A 47-year-old client works full time, is raising two teenagers, and now helps her mother, who has early dementia, with meals, bills and appointments. She is exhausted, snaps at her children, and feels guilty that she is "failing everyone." What should the counselor do FIRST?
 
@@ -9500,7 +10652,7 @@ A 47-year-old client works full time, is raising two teenagers, and now helps he
 
 ---
 
-### Q392 of 1000 · nce-s-clf-152 · Human Growth and Development · developmental life transitions · medium · In review
+### Q440 of 1200 · nce-s-clf-152 · Human Growth and Development · developmental life transitions · medium · In review
 
 Four months after the birth of their first child, a couple seeks counseling. They argue about night feedings and chores, and both say they feel less close than before. Which statement BEST reflects research on the transition to parenthood?
 
@@ -9524,7 +10676,7 @@ Four months after the birth of their first child, a couple seeks counseling. The
 
 ---
 
-### Q393 of 1000 · nce-s-clf-153 · Counseling and Helping Relationships · chronic illness and disability · hard · In review
+### Q441 of 1200 · nce-s-clf-153 · Counseling and Helping Relationships · chronic illness and disability · hard · In review
 
 A 39-year-old client with relapsing-remitting multiple sclerosis had seemed at peace with her diagnosis. After a new relapse, she is again angry, tearful and asking "why me?" Her counselor wonders if earlier progress was lost. Which understanding of adjustment to chronic illness BEST fits?
 
@@ -9550,7 +10702,7 @@ A 39-year-old client with relapsing-remitting multiple sclerosis had seemed at p
 
 ---
 
-### Q394 of 1000 · nce-s-clf-154 · Counseling and Helping Relationships · chronic illness and disability · medium · In review
+### Q442 of 1200 · nce-s-clf-154 · Counseling and Helping Relationships · chronic illness and disability · medium · In review
 
 A 50-year-old with chronic low back pain for three years also meets criteria for major depressive disorder. He tells the counselor, "Once the doctors fix my back, my mood will fix itself, so counseling can wait." Which response BEST reflects current understanding of chronic pain and depression?
 
@@ -9574,7 +10726,7 @@ A 50-year-old with chronic low back pain for three years also meets criteria for
 
 ---
 
-### Q395 of 1000 · nce-s-clf-155 · Counseling and Helping Relationships · chronic illness and disability · easy · In review
+### Q443 of 1200 · nce-s-clf-155 · Counseling and Helping Relationships · chronic illness and disability · easy · In review
 
 A counselor works with a 68-year-old man who has cared for his wife with Parkinson's disease for six years. He reports feeling trapped, worn out and resentful, and the counselor wants a standard measure of how much strain caregiving places on him. Which instrument is designed for this purpose?
 
@@ -9600,7 +10752,7 @@ A counselor works with a 68-year-old man who has cared for his wife with Parkins
 
 ---
 
-### Q396 of 1000 · nce-s-clf-156 · Social and Cultural Diversity · spiritual and religious concerns · easy · In review
+### Q444 of 1200 · nce-s-clf-156 · Social and Cultural Diversity · spiritual and religious concerns · easy · In review
 
 A counselor uses the FICA tool to take a brief spiritual history at intake. The letters stand for Faith or belief, Importance or influence, a third element, and Address in care. What does the "C" ask about?
 
@@ -9626,7 +10778,7 @@ A counselor uses the FICA tool to take a brief spiritual history at intake. The 
 
 ---
 
-### Q397 of 1000 · nce-s-clf-157 · Social and Cultural Diversity · spiritual and religious concerns · hard · In review
+### Q445 of 1200 · nce-s-clf-157 · Social and Cultural Diversity · spiritual and religious concerns · hard · In review
 
 After a cancer diagnosis, a 61-year-old devout client says, "God is punishing me for my sins. Maybe this is what I deserve." She has stopped attending services and feels abandoned. In Pargament's research on religious coping, how is her response BEST classified, and what is it linked to?
 
@@ -9652,7 +10804,7 @@ After a cancer diagnosis, a 61-year-old devout client says, "God is punishing me
 
 ---
 
-### Q398 of 1000 · nce-s-clf-158 · Social and Cultural Diversity · spiritual and religious concerns · medium · In review
+### Q446 of 1200 · nce-s-clf-158 · Social and Cultural Diversity · spiritual and religious concerns · medium · In review
 
 Eight months after her infant died, a client who has always been devout says she is furious at God and ashamed of feeling that way. She fears her anger means she has lost her faith. The counselor does not share her religion. Which response is MOST appropriate?
 
@@ -9676,7 +10828,7 @@ Eight months after her infant died, a client who has always been devout says she
 
 ---
 
-### Q399 of 1000 · nce-s-clf-159 · Counseling and Helping Relationships · sleep-wake concerns · easy · In review
+### Q447 of 1200 · nce-s-clf-159 · Counseling and Helping Relationships · sleep-wake concerns · easy · In review
 
 A veteran with PTSD has the same trauma-related nightmare several nights a week. His counselor has him write down the dream, change the storyline in any way he chooses, and rehearse the new version in imagery for a few minutes each day. Which intervention is this?
 
@@ -9702,7 +10854,7 @@ A veteran with PTSD has the same trauma-related nightmare several nights a week.
 
 ---
 
-### Q400 of 1000 · nce-s-clf-160 · Counseling and Helping Relationships · sleep-wake concerns · easy · In review
+### Q448 of 1200 · nce-s-clf-160 · Counseling and Helping Relationships · sleep-wake concerns · easy · In review
 
 A 56-year-old client being treated for depression says he sleeps eight hours yet nods off while driving. His wife says he snores loudly and sometimes stops breathing and gasps at night. He also wakes with headaches and has high blood pressure. What should the counselor do?
 
@@ -9726,7 +10878,7 @@ A 56-year-old client being treated for depression says he sleeps eight hours yet
 
 ---
 
-### Q401 of 1000 · nce-s-clf-161 · Career Development · career and vocational concerns · medium · In review
+### Q449 of 1200 · nce-s-clf-161 · Career Development · career and vocational concerns · medium · In review
 
 A 66-year-old retired engineer spent his first months of retirement traveling and finishing house projects. Now, about a year in, he feels let down, bored and unsure what his days are for. In Atchley's phases of retirement, which phase is he MOST likely in?
 
@@ -9752,7 +10904,7 @@ A 66-year-old retired engineer spent his first months of retirement traveling an
 
 ---
 
-### Q402 of 1000 · nce-s-clf-162 · Career Development · career and vocational concerns · easy · In review
+### Q450 of 1200 · nce-s-clf-162 · Career Development · career and vocational concerns · easy · In review
 
 A 63-year-old accountant plans to leave her full-time firm job next year. She does not want to stop working completely, so she is lining up part-time tax preparation work to ease the move into full retirement. What is this type of work called?
 
@@ -9778,7 +10930,7 @@ A 63-year-old accountant plans to leave her full-time firm job next year. She do
 
 ---
 
-### Q403 of 1000 · nce-s-clf-163 · Counseling and Helping Relationships · child abuse and neglect · medium · In review
+### Q451 of 1200 · nce-s-clf-163 · Counseling and Helping Relationships · child abuse and neglect · medium · In review
 
 A 9-year-old tells her school counselor, "My uncle does things to me at night that I don't like, but you can't tell anyone." She looks scared and stops talking. Which response BEST fits recommended practice for handling a sexual abuse disclosure?
 
@@ -9802,7 +10954,7 @@ A 9-year-old tells her school counselor, "My uncle does things to me at night th
 
 ---
 
-### Q404 of 1000 · nce-s-clf-164 · Counseling and Helping Relationships · child abuse and neglect · hard · In review
+### Q452 of 1200 · nce-s-clf-164 · Counseling and Helping Relationships · child abuse and neglect · hard · In review
 
 A counselor has seen a 7-year-old for six months for anxiety. After a report of possible abuse, the CPS caseworker asks the counselor to conduct the investigative interview, since "she already trusts you." The counselor has no forensic interview training. What should the counselor do?
 
@@ -9826,7 +10978,7 @@ A counselor has seen a 7-year-old for six months for anxiety. After a report of 
 
 ---
 
-### Q405 of 1000 · nce-s-clf-165 · Counseling and Helping Relationships · military and veteran populations · medium · In review
+### Q453 of 1200 · nce-s-clf-165 · Counseling and Helping Relationships · military and veteran populations · medium · In review
 
 A counselor in a small rural town sees a 34-year-old Army National Guard member just home from deployment. Compared with many active-duty service members, which stressor is MORE characteristic of Guard and Reserve members and their families?
 
@@ -9852,7 +11004,7 @@ A counselor in a small rural town sees a 34-year-old Army National Guard member 
 
 ---
 
-### Q406 of 1000 · nce-s-clf-166 · Counseling and Helping Relationships · couples and family concerns · medium · In review
+### Q454 of 1200 · nce-s-clf-166 · Counseling and Helping Relationships · couples and family concerns · medium · In review
 
 An 11-year-old lives with her father and stepmother on weekends. She enjoys baking with her stepmother but then feels guilty and turns cold toward her, saying, "Mom would be hurt if she knew I liked her." Which intervention BEST addresses this loyalty conflict?
 
@@ -9876,7 +11028,7 @@ An 11-year-old lives with her father and stepmother on weekends. She enjoys baki
 
 ---
 
-### Q407 of 1000 · nce-s-clf-167 · Human Growth and Development · aging and older adults · medium · In review
+### Q455 of 1200 · nce-s-clf-167 · Human Growth and Development · aging and older adults · medium · In review
 
 A 64-year-old woman has taken custody of her two grandchildren because her daughter has a severe opioid use disorder. She loves them but says, "This was supposed to be my time." She is tired, short on money, and lies awake worrying about her daughter. Which concern is MOST characteristic of custodial grandparents?
 
@@ -9900,7 +11052,7 @@ A 64-year-old woman has taken custody of her two grandchildren because her daugh
 
 ---
 
-### Q408 of 1000 · nce-s-clf-168 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · hard · In review
+### Q456 of 1200 · nce-s-clf-168 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · hard · In review
 
 A 20-year-old client says, "I'm probably gay. I've started going to an LGBTQ+ student group so I'm not so alone, but I'm not ready to say I like it about myself, and I haven't told my family." In Cass's model of homosexual identity formation, which stage BEST fits?
 
@@ -9924,7 +11076,7 @@ A 20-year-old client says, "I'm probably gay. I've started going to an LGBTQ+ st
 
 ---
 
-### Q409 of 1000 · nce-s-clf-169 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · medium · In review
+### Q457 of 1200 · nce-s-clf-169 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · medium · In review
 
 Religious parents of a 15-year-old who has come out as lesbian tell the counselor they cannot approve of her identity, but they love her and want to keep her safe. Which statement BEST reflects family acceptance research on LGBTQ+ youth?
 
@@ -9950,7 +11102,7 @@ Religious parents of a 15-year-old who has come out as lesbian tell the counselo
 
 ---
 
-### Q410 of 1000 · nce-s-clf-170 · Social and Cultural Diversity · acculturation and immigration stress · medium · In review
+### Q458 of 1200 · nce-s-clf-170 · Social and Cultural Diversity · acculturation and immigration stress · medium · In review
 
 A 30-year-old woman resettled as a refugee three months ago after fleeing armed conflict. Through an interpreter she reports nightmares and poor sleep, and says she is worried about losing her apartment and about relatives still in a refugee camp. What should the counselor focus on FIRST?
 
@@ -9974,7 +11126,7 @@ A 30-year-old woman resettled as a refugee three months ago after fleeing armed 
 
 ---
 
-### Q411 of 1000 · nce-s-clf-171 · Social and Cultural Diversity · acculturation and immigration stress · easy · In review
+### Q459 of 1200 · nce-s-clf-171 · Social and Cultural Diversity · acculturation and immigration stress · easy · In review
 
 A Korean immigrant family has lived in the United States for six years. The 15-year-old son speaks mostly English, wants to date, and argues that his parents' rules are "old-fashioned." His parents, who still speak mainly Korean, feel they are losing him. Which concept BEST describes this family conflict?
 
@@ -9998,7 +11150,7 @@ A Korean immigrant family has lived in the United States for six years. The 15-y
 
 ---
 
-### Q412 of 1000 · nce-s-clf-172 · Counseling and Helping Relationships · self-injury · hard · In review
+### Q460 of 1200 · nce-s-clf-172 · Counseling and Helping Relationships · self-injury · hard · In review
 
 Within two weeks, four ninth graders at a high school are found to be cutting after one student posted photos of her wounds online. The principal asks the school counselor how the school should respond. Which plan is MOST consistent with best practice for self-injury in schools?
 
@@ -10024,7 +11176,7 @@ Within two weeks, four ninth graders at a high school are found to be cutting af
 
 ---
 
-### Q413 of 1000 · nce-s-clf-173 · Counseling and Helping Relationships · psychopharmacology basics for counselors · hard · In review
+### Q461 of 1200 · nce-s-clf-173 · Counseling and Helping Relationships · psychopharmacology basics for counselors · hard · In review
 
 A counselor coordinating care for a client with bipolar I disorder learns that the psychiatrist is switching her from lithium to valproate. To support her in keeping medical appointments, the counselor wants to understand the lab monitoring involved. Which monitoring is MOST closely tied to valproate rather than lithium?
 
@@ -10048,7 +11200,7 @@ A counselor coordinating care for a client with bipolar I disorder learns that t
 
 ---
 
-### Q414 of 1000 · nce-s-clf-174 · Counseling and Helping Relationships · psychopharmacology basics for counselors · medium · In review
+### Q462 of 1200 · nce-s-clf-174 · Counseling and Helping Relationships · psychopharmacology basics for counselors · medium · In review
 
 A client who takes sertraline started St. John's wort on her own last week. In session she is restless and sweating, with shivering, muscle twitching, a racing heart and diarrhea. She says the symptoms began yesterday and are getting worse. What should the counselor recognize and do?
 
@@ -10074,7 +11226,7 @@ A client who takes sertraline started St. John's wort on her own last week. In s
 
 ---
 
-### Q415 of 1000 · nce-s-clf-175 · Counseling and Helping Relationships · psychopharmacology basics for counselors · easy · In review
+### Q463 of 1200 · nce-s-clf-175 · Counseling and Helping Relationships · psychopharmacology basics for counselors · easy · In review
 
 A client who has taken a prescribed benzodiazepine daily for six years tells her counselor she is "done with pills" and plans to stop it all at once this weekend. Why should the counselor urge her to talk with her prescriber before stopping?
 
@@ -10098,7 +11250,7 @@ A client who has taken a prescribed benzodiazepine daily for six years tells her
 
 ---
 
-### Q416 of 1000 · nce-s-clf-176 · Human Growth and Development · military and veteran populations · easy · In review
+### Q464 of 1200 · nce-s-clf-176 · Human Growth and Development · military and veteran populations · easy · In review
 
 Two months into her husband's deployment, a mother says their 4-year-old has started wetting the bed again, clings to her at daycare drop-off, and asks every night when Daddy is coming home. What guidance should the counselor give?
 
@@ -10124,7 +11276,7 @@ Two months into her husband's deployment, a mother says their 4-year-old has sta
 
 ---
 
-### Q417 of 1000 · nce-s-clf-177 · Counseling and Helping Relationships · school and academic concerns · medium · In review
+### Q465 of 1200 · nce-s-clf-177 · Counseling and Helping Relationships · school and academic concerns · medium · In review
 
 A 14-year-old has missed 15 school days this term. Each morning he leaves home on time, then spends the day at a friend's house playing video games. He forged notes so his parents would not find out, and he shows no worry about school itself. Which pattern does this BEST fit?
 
@@ -10150,7 +11302,7 @@ A 14-year-old has missed 15 school days this term. Each morning he leaves home o
 
 ---
 
-### Q418 of 1000 · nce-s-clf-178 · Assessment and Testing · neurocognitive disorders · hard · In review
+### Q466 of 1200 · nce-s-clf-178 · Assessment and Testing · neurocognitive disorders · hard · In review
 
 Over 2 years, a 57-year-old engineer has made crude remarks to strangers, lost interest in his grandchildren, shown little concern when his wife cries, and begun eating sweets compulsively. He still recalls recent events and finds his way around town without trouble. Which diagnosis BEST fits?
 
@@ -10174,7 +11326,7 @@ Over 2 years, a 57-year-old engineer has made crude remarks to strangers, lost i
 
 ---
 
-### Q419 of 1000 · nce-s-clf-179 · Assessment and Testing · neurocognitive disorders · easy · In review
+### Q467 of 1200 · nce-s-clf-179 · Assessment and Testing · neurocognitive disorders · easy · In review
 
 A 79-year-old with a known neurocognitive disorder now relies on her son to pay her bills and set out her daily medications because she makes repeated errors on her own. Under DSM-5-TR, what does this change MOST directly indicate?
 
@@ -10198,7 +11350,7 @@ A 79-year-old with a known neurocognitive disorder now relies on her son to pay 
 
 ---
 
-### Q420 of 1000 · nce-s-clf-180 · Counseling and Helping Relationships · neurocognitive disorders · medium · In review
+### Q468 of 1200 · nce-s-clf-180 · Counseling and Helping Relationships · neurocognitive disorders · medium · In review
 
 A daughter caring for her father with moderate Alzheimer's disease says he asks several times each evening where his late wife is. Each time she reminds him that her mother died, he sobs as if hearing it for the first time. Which guidance should the counselor offer?
 
@@ -10224,7 +11376,7 @@ A daughter caring for her father with moderate Alzheimer's disease says he asks 
 
 ---
 
-### Q421 of 1000 · nce-s-clf-181 · Counseling and Helping Relationships · obsessive-compulsive and related disorders · medium · In review
+### Q469 of 1200 · nce-s-clf-181 · Counseling and Helping Relationships · obsessive-compulsive and related disorders · medium · In review
 
 A 63-year-old with hoarding disorder faces eviction because her apartment is blocked by stacked items. Her landlord has offered to send a crew to clear it out over one weekend. Which approach is MOST consistent with effective treatment of hoarding?
 
@@ -10250,7 +11402,7 @@ A 63-year-old with hoarding disorder faces eviction because her apartment is blo
 
 ---
 
-### Q422 of 1000 · nce-s-clf-182 · Assessment and Testing · obsessive-compulsive and related disorders · hard · In review
+### Q470 of 1200 · nce-s-clf-182 · Assessment and Testing · obsessive-compulsive and related disorders · hard · In review
 
 A 27-year-old is completely certain that her nose is grotesquely misshapen, although others see nothing unusual. She checks mirrors for hours and has had two rhinoplasties, which left her more distressed. She is now seeking a third surgeon. Which conclusion is MOST accurate?
 
@@ -10274,7 +11426,7 @@ A 27-year-old is completely certain that her nose is grotesquely misshapen, alth
 
 ---
 
-### Q423 of 1000 · nce-s-clf-183 · Assessment and Testing · obsessive-compulsive and related disorders · medium · In review
+### Q471 of 1200 · nce-s-clf-183 · Assessment and Testing · obsessive-compulsive and related disorders · medium · In review
 
 A 14-year-old with OCD spends hours arranging objects and touching doorframes until things feel "just right." His parents mention that between ages 7 and 10 he had repeated eye blinking and grunting that have since stopped. Which DSM-5-TR specifier should be added to his OCD diagnosis?
 
@@ -10298,7 +11450,7 @@ A 14-year-old with OCD spends hours arranging objects and touching doorframes un
 
 ---
 
-### Q424 of 1000 · nce-s-clf-184 · Assessment and Testing · neurodevelopmental disorders · hard · In review
+### Q472 of 1200 · nce-s-clf-184 · Assessment and Testing · neurodevelopmental disorders · hard · In review
 
 A 9-year-old with average intellectual ability reads slowly and makes many decoding errors. A school team is considering specific learning disorder with impairment in reading. Under DSM-5-TR, which requirement must be met?
 
@@ -10322,7 +11474,7 @@ A 9-year-old with average intellectual ability reads slowly and makes many decod
 
 ---
 
-### Q425 of 1000 · nce-s-clf-185 · Human Growth and Development · neurodevelopmental disorders · easy · In review
+### Q473 of 1200 · nce-s-clf-185 · Human Growth and Development · neurodevelopmental disorders · easy · In review
 
 In DSM-5-TR, deficits in adaptive functioning for intellectual developmental disorder are assessed in which three domains?
 
@@ -10346,7 +11498,7 @@ In DSM-5-TR, deficits in adaptive functioning for intellectual developmental dis
 
 ---
 
-### Q426 of 1000 · nce-s-clf-186 · Assessment and Testing · neurodevelopmental disorders · easy · In review
+### Q474 of 1200 · nce-s-clf-186 · Assessment and Testing · neurodevelopmental disorders · easy · In review
 
 For the past year, a 10-year-old girl has shown seven inattentive symptoms of ADHD, such as losing materials and drifting off during lessons, but only two hyperactive-impulsive symptoms. Symptoms began before age 12 and appear at home and school. Which presentation should be specified?
 
@@ -10370,7 +11522,7 @@ For the past year, a 10-year-old girl has shown seven inattentive symptoms of AD
 
 ---
 
-### Q427 of 1000 · nce-s-clf-187 · Assessment and Testing · schizophrenia spectrum disorders · easy · In review
+### Q475 of 1200 · nce-s-clf-187 · Assessment and Testing · schizophrenia spectrum disorders · easy · In review
 
 Which of the following is a negative symptom of schizophrenia?
 
@@ -10394,7 +11546,7 @@ Which of the following is a negative symptom of schizophrenia?
 
 ---
 
-### Q428 of 1000 · nce-s-clf-188 · Counseling and Helping Relationships · schizophrenia spectrum disorders · hard · In review
+### Q476 of 1200 · nce-s-clf-188 · Counseling and Helping Relationships · schizophrenia spectrum disorders · hard · In review
 
 A 45-year-old in treatment for severe depression arrives with his wife, who says he has barely spoken or eaten for 3 days. In session he stays mute, holds a stiff, odd posture for long periods, and resists when the counselor gently offers him a cup of water. What should the counselor do FIRST?
 
@@ -10420,7 +11572,7 @@ A 45-year-old in treatment for severe depression arrives with his wife, who says
 
 ---
 
-### Q429 of 1000 · nce-s-clf-189 · Counseling and Helping Relationships · schizophrenia spectrum disorders · medium · In review
+### Q477 of 1200 · nce-s-clf-189 · Counseling and Helping Relationships · schizophrenia spectrum disorders · medium · In review
 
 A 24-year-old has just been discharged after a first episode of schizophrenia and is moving back home. His parents are frightened and often criticize him for "lying around," and his mother has given up her job to watch him constantly. Which intervention is MOST likely to reduce his risk of relapse?
 
@@ -10444,7 +11596,7 @@ A 24-year-old has just been discharged after a first episode of schizophrenia an
 
 ---
 
-### Q430 of 1000 · nce-s-clf-190 · Assessment and Testing · personality disorders · easy · In review
+### Q478 of 1200 · nce-s-clf-190 · Assessment and Testing · personality disorders · easy · In review
 
 A 34-year-old arrives in a flamboyant outfit and calls the counselor "my new best friend" at their first meeting. She is upset when attention shifts away from her, speaks dramatically but vaguely, and her emotions change quickly. This pattern has lasted since her late teens. Which personality disorder BEST fits?
 
@@ -10468,7 +11620,7 @@ A 34-year-old arrives in a flamboyant outfit and calls the counselor "my new bes
 
 ---
 
-### Q431 of 1000 · nce-s-clf-191 · Assessment and Testing · personality disorders · hard · In review
+### Q479 of 1200 · nce-s-clf-191 · Assessment and Testing · personality disorders · hard · In review
 
 Since adolescence, a 29-year-old has avoided almost all new relationships and job promotions, believing she is inferior and certain to be rejected. She also has marked fear of being judged when eating or speaking in front of others. How does DSM-5-TR describe avoidant personality disorder in relation to social anxiety disorder?
 
@@ -10492,7 +11644,7 @@ Since adolescence, a 29-year-old has avoided almost all new relationships and jo
 
 ---
 
-### Q432 of 1000 · nce-s-clf-192 · Counseling and Helping Relationships · personality disorders · medium · In review
+### Q480 of 1200 · nce-s-clf-192 · Counseling and Helping Relationships · personality disorders · medium · In review
 
 Early in counseling, a client with borderline personality disorder calls the counselor several times a week between sessions, often late at night, and feels rejected when calls are not returned at once. The counselor is growing frustrated. Which response BEST reflects an effective treatment frame?
 
@@ -10516,7 +11668,7 @@ Early in counseling, a client with borderline personality disorder calls the cou
 
 ---
 
-### Q433 of 1000 · nce-s-clf-193 · Counseling and Helping Relationships · eating disorders · easy · In review
+### Q481 of 1200 · nce-s-clf-193 · Counseling and Helping Relationships · eating disorders · easy · In review
 
 An adult client meets criteria for binge-eating disorder and asks which psychological treatment has the strongest evidence. Which approach should the counselor describe as first-line?
 
@@ -10540,7 +11692,7 @@ An adult client meets criteria for binge-eating disorder and asks which psycholo
 
 ---
 
-### Q434 of 1000 · nce-s-clf-194 · Assessment and Testing · eating disorders · medium · In review
+### Q482 of 1200 · nce-s-clf-194 · Assessment and Testing · eating disorders · medium · In review
 
 A 17-year-old has lost a significant amount of weight over a year through restrictive eating. She intensely fears weight gain and judges herself almost entirely by her shape. Her physician notes that, despite the loss, her weight remains within the normal range for her age and height. Which diagnosis BEST fits?
 
@@ -10564,7 +11716,7 @@ A 17-year-old has lost a significant amount of weight over a year through restri
 
 ---
 
-### Q435 of 1000 · nce-s-clf-195 · Counseling and Helping Relationships · eating disorders · medium · In review
+### Q483 of 1200 · nce-s-clf-195 · Counseling and Helping Relationships · eating disorders · medium · In review
 
 Parents of a 14-year-old recently diagnosed with anorexia nervosa ask what treatment the eating disorder team will recommend. She is medically stable for outpatient care. Which description BEST fits family-based treatment (FBT) for adolescent anorexia?
 
@@ -10588,7 +11740,7 @@ Parents of a 14-year-old recently diagnosed with anorexia nervosa ask what treat
 
 ---
 
-### Q436 of 1000 · nce-s-clf-196 · Assessment and Testing · depressive disorders · hard · In review
+### Q484 of 1200 · nce-s-clf-196 · Assessment and Testing · depressive disorders · hard · In review
 
 A 26-year-old in a major depressive episode brightens noticeably when friends invite her out, then sinks again. She sleeps far more than usual, eats much more, describes her arms and legs as feeling "like lead," and has long been crushed by small hints of criticism. Which specifier BEST fits?
 
@@ -10612,7 +11764,7 @@ A 26-year-old in a major depressive episode brightens noticeably when friends in
 
 ---
 
-### Q437 of 1000 · nce-s-clf-197 · Counseling and Helping Relationships · bipolar disorders · medium · In review
+### Q485 of 1200 · nce-s-clf-197 · Counseling and Helping Relationships · bipolar disorders · medium · In review
 
 A 32-year-old nurse with bipolar I disorder, stable on medication, is about to switch to rotating night shifts. Her past manic episodes followed weeks of disrupted sleep. Which counseling focus is MOST consistent with interpersonal and social rhythm therapy (IPSRT)?
 
@@ -10636,7 +11788,7 @@ A 32-year-old nurse with bipolar I disorder, stable on medication, is about to s
 
 ---
 
-### Q438 of 1000 · nce-s-clf-198 · Counseling and Helping Relationships · anxiety disorders · hard · In review
+### Q486 of 1200 · nce-s-clf-198 · Counseling and Helping Relationships · anxiety disorders · hard · In review
 
 A 22-year-old nursing student has fainted twice while watching blood draws and now avoids clinical rotations. She has specific phobia, blood-injection-injury type. When planning exposure, which added technique is MOST suited to this phobia type?
 
@@ -10662,7 +11814,7 @@ A 22-year-old nursing student has fainted twice while watching blood draws and n
 
 ---
 
-### Q439 of 1000 · nce-s-clf-199 · Assessment and Testing · trauma- and stressor-related disorders · hard · In review
+### Q487 of 1200 · nce-s-clf-199 · Assessment and Testing · trauma- and stressor-related disorders · hard · In review
 
 A 38-year-old meets full criteria for PTSD after a violent home invasion. She also reports that she often feels as though she is watching herself from outside her body and that the world seems dreamlike and unreal. These experiences are not caused by substances or a medical condition. How should this be diagnosed?
 
@@ -10686,7 +11838,7 @@ A 38-year-old meets full criteria for PTSD after a violent home invasion. She al
 
 ---
 
-### Q440 of 1000 · nce-s-clf-200 · Counseling and Helping Relationships · substance use and addictive disorders · medium · In review
+### Q488 of 1200 · nce-s-clf-200 · Counseling and Helping Relationships · substance use and addictive disorders · medium · In review
 
 A 36-year-old with opioid use disorder has taken prescribed buprenorphine for 8 months and has not used illicit opioids. In a recovery group, peers tell him he is "not really clean" and urge him to stop the medication. He asks the counselor what to think. Which response is MOST consistent with best practice?
 
@@ -10712,7 +11864,7 @@ A 36-year-old with opioid use disorder has taken prescribed buprenorphine for 8 
 
 ---
 
-### Q441 of 1000 · nce-s-clf-201 · Counseling and Helping Relationships · grief and loss · easy · In review
+### Q489 of 1200 · nce-s-clf-201 · Counseling and Helping Relationships · grief and loss · easy · In review
 
 Two years after her husband died, a 70-year-old has returned to her volunteer work and made new friends. She still talks to him at his grave on their anniversary and keeps his watch on her nightstand. Her adult children ask the counselor to help her "finally let go." Which response BEST reflects current grief theory?
 
@@ -10736,7 +11888,7 @@ Two years after her husband died, a 70-year-old has returned to her volunteer wo
 
 ---
 
-### Q442 of 1000 · nce-s-clf-202 · Counseling and Helping Relationships · crisis and disaster response · easy · In review
+### Q490 of 1200 · nce-s-clf-202 · Counseling and Helping Relationships · crisis and disaster response · easy · In review
 
 Using James and Gilliland's six-step crisis model, a counselor has defined the problem with a client whose house burned down, ensured his safety, and offered support. The client is now calmer. Which step comes NEXT?
 
@@ -10760,7 +11912,7 @@ Using James and Gilliland's six-step crisis model, a counselor has defined the p
 
 ---
 
-### Q443 of 1000 · nce-s-clf-203 · Counseling and Helping Relationships · intimate partner violence · medium · In review
+### Q491 of 1200 · nce-s-clf-203 · Counseling and Helping Relationships · intimate partner violence · medium · In review
 
 During a risk assessment, a client experiencing partner abuse discloses several things about her partner. Which disclosure MOST strongly signals elevated risk of lethal violence and calls for urgent safety planning?
 
@@ -10786,7 +11938,7 @@ During a risk assessment, a client experiencing partner abuse discloses several 
 
 ---
 
-### Q444 of 1000 · nce-s-clf-204 · Human Growth and Development · neurodevelopmental disorders · medium · In review
+### Q492 of 1200 · nce-s-clf-204 · Human Growth and Development · neurodevelopmental disorders · medium · In review
 
 A 3-year-old has delays in speech, motor skills, and self-care, but cannot yet complete standardized intellectual testing in a valid way. The evaluating team plans to reassess in a year. Which DSM-5-TR diagnosis BEST fits for now?
 
@@ -10810,7 +11962,7 @@ A 3-year-old has delays in speech, motor skills, and self-care, but cannot yet c
 
 ---
 
-### Q445 of 1000 · nce-s-clf-205 · Assessment and Testing · substance use and addictive disorders · hard · In review
+### Q493 of 1200 · nce-s-clf-205 · Assessment and Testing · substance use and addictive disorders · hard · In review
 
 A 44-year-old previously met full criteria for alcohol use disorder. For the past 5 months he has met no criteria except strong cravings, which come mainly when he passes his old bar. He lives at home, not in a controlled setting. Which specifier applies?
 
@@ -10834,7 +11986,7 @@ A 44-year-old previously met full criteria for alcohol use disorder. For the pas
 
 ---
 
-### Q446 of 1000 · nce-s-clf-206 · Assessment and Testing · anxiety disorders · medium · In review
+### Q494 of 1200 · nce-s-clf-206 · Assessment and Testing · anxiety disorders · medium · In review
 
 A 30-year-old violinist is comfortable at parties, in meetings, and on dates, but for a year has felt intense dread before solo recitals, fearing the audience will judge her shaking hands. She has started declining solo work. If criteria for social anxiety disorder are met, which specifier applies?
 
@@ -10858,7 +12010,7 @@ A 30-year-old violinist is comfortable at parties, in meetings, and on dates, bu
 
 ---
 
-### Q447 of 1000 · nce-s-clf-207 · Human Growth and Development · trauma- and stressor-related disorders · medium · In review
+### Q495 of 1200 · nce-s-clf-207 · Human Growth and Development · trauma- and stressor-related disorders · medium · In review
 
 A 4-year-old was in a serious car crash 3 months ago. Since then she repeatedly crashes toy cars together while making siren noises, cries when buckled into her car seat, and clings to her parents at bedtime. She shows no visible distress during the crash play. How should the counselor understand the repetitive play?
 
@@ -10882,7 +12034,7 @@ A 4-year-old was in a serious car crash 3 months ago. Since then she repeatedly 
 
 ---
 
-### Q448 of 1000 · nce-s-clf-208 · Human Growth and Development · aging and older adults · medium · In review
+### Q496 of 1200 · nce-s-clf-208 · Human Growth and Development · aging and older adults · medium · In review
 
 A 73-year-old retired teacher with no history of anxiety reports four months of constant worry, a racing heart, restlessness and poor sleep. She recently began two new medications and says, "I just feel keyed up all the time." What should the counselor do FIRST?
 
@@ -10906,7 +12058,7 @@ A 73-year-old retired teacher with no history of anxiety reports four months of 
 
 ---
 
-### Q449 of 1000 · nce-s-clf-209 · Human Growth and Development · aging and older adults · hard · In review
+### Q497 of 1200 · nce-s-clf-209 · Human Growth and Development · aging and older adults · hard · In review
 
 A home-health aide refers an 83-year-old man who lives alone. His home has spoiled food, piled-up mail and no working heat, and he has missed his heart medication for weeks. No one else is involved in his care. He tells the counselor, "I'm fine. Leave me be." Which response BEST fits the counselor's obligations?
 
@@ -10932,7 +12084,7 @@ A home-health aide refers an 83-year-old man who lives alone. His home has spoil
 
 ---
 
-### Q450 of 1000 · nce-s-clf-210 · Human Growth and Development · aging and older adults · easy · In review
+### Q498 of 1200 · nce-s-clf-210 · Human Growth and Development · aging and older adults · easy · In review
 
 During a community talk on aging, an attendee says, "Getting old means your mind goes and you end up lonely and miserable." Which statement BEST reflects life-span research on typical aging?
 
@@ -10956,7 +12108,7 @@ During a community talk on aging, an attendee says, "Getting old means your mind
 
 ---
 
-### Q451 of 1000 · nce-s-clf-211 · Counseling and Helping Relationships · self-injury · medium · In review
+### Q499 of 1200 · nce-s-clf-211 · Counseling and Helping Relationships · self-injury · medium · In review
 
 A high school teacher tells the school counselor that a 15-year-old in her class has cuts on her arm. The teacher says, "She is just doing it for attention, so I plan to ignore it so I don't reward it." How should the counselor BEST respond to the teacher?
 
@@ -10980,7 +12132,7 @@ A high school teacher tells the school counselor that a 15-year-old in her class
 
 ---
 
-### Q452 of 1000 · nce-s-clf-212 · Counseling and Helping Relationships · self-injury · medium · In review
+### Q500 of 1200 · nce-s-clf-212 · Counseling and Helping Relationships · self-injury · medium · In review
 
 A 16-year-old has cut herself repeatedly for a year and has made one suicide attempt. She has intense mood swings and frequent conflict with her parents. Which treatment approach has the STRONGEST research support for reducing self-harm in adolescents like her?
 
@@ -11006,7 +12158,7 @@ A 16-year-old has cut herself repeatedly for a year and has made one suicide att
 
 ---
 
-### Q453 of 1000 · nce-s-clf-213 · Counseling and Helping Relationships · sleep-wake concerns · medium · In review
+### Q501 of 1200 · nce-s-clf-213 · Counseling and Helping Relationships · sleep-wake concerns · medium · In review
 
 A 76-year-old widow goes to bed at 8 p.m., lies awake for hours, naps twice a day, and gets up at 7 a.m. feeling unrested. She asks the counselor whether she should ask her doctor for a sleeping pill. Which recommendation is MOST appropriate?
 
@@ -11030,7 +12182,7 @@ A 76-year-old widow goes to bed at 8 p.m., lies awake for hours, naps twice a da
 
 ---
 
-### Q454 of 1000 · nce-s-clf-214 · Counseling and Helping Relationships · sleep-wake concerns · easy · In review
+### Q502 of 1200 · nce-s-clf-214 · Counseling and Helping Relationships · sleep-wake concerns · easy · In review
 
 A factory worker was moved to a permanent overnight shift six months ago. He cannot stay asleep when he goes to bed at 9 a.m. and fights to stay awake at work around 4 a.m. His sleep was normal on his old day schedule. Which DSM-5-TR diagnosis BEST fits?
 
@@ -11054,7 +12206,7 @@ A factory worker was moved to a permanent overnight shift six months ago. He can
 
 ---
 
-### Q455 of 1000 · nce-s-clf-215 · Counseling and Helping Relationships · school and academic concerns · medium · In review
+### Q503 of 1200 · nce-s-clf-215 · Counseling and Helping Relationships · school and academic concerns · medium · In review
 
 A new principal asks the high school counselor to serve as the full-time state testing coordinator and to handle discipline for tardy students. The counselor is concerned that these duties will leave little time for students. Which response BEST reflects the ASCA National Model?
 
@@ -11078,7 +12230,7 @@ A new principal asks the high school counselor to serve as the full-time state t
 
 ---
 
-### Q456 of 1000 · nce-s-clf-216 · Counseling and Helping Relationships · school and academic concerns · easy · In review
+### Q504 of 1200 · nce-s-clf-216 · Counseling and Helping Relationships · school and academic concerns · easy · In review
 
 An 11th grader studies hard and knows the material, but during exams her heart pounds, her mind goes blank, and she thinks, "If I fail this, my future is over." Her grades are dropping. Which intervention should the school counselor offer FIRST?
 
@@ -11102,7 +12254,7 @@ An 11th grader studies hard and knows the material, but during exams her heart p
 
 ---
 
-### Q457 of 1000 · nce-s-clf-217 · Human Growth and Development · school and academic concerns · medium · In review
+### Q505 of 1200 · nce-s-clf-217 · Human Growth and Development · school and academic concerns · medium · In review
 
 A 9-year-old in a gifted program reads at a high school level and debates ethics with adults, yet melts down when he loses a board game and struggles to make friends his age. His parents ask how he can be "so mature and so immature." Which concept BEST explains this?
 
@@ -11128,7 +12280,7 @@ A 9-year-old in a gifted program reads at a high school level and debates ethics
 
 ---
 
-### Q458 of 1000 · nce-s-clf-218 · Career Development · career and vocational concerns · medium · In review
+### Q506 of 1200 · nce-s-clf-218 · Career Development · career and vocational concerns · medium · In review
 
 A 29-year-old Army veteran led a 12-person logistics team for six years. Applying for civilian jobs, his resume lists military job codes and unit titles, and he has had no interviews. He says, "Nobody out here values what I did." What should the counselor do FIRST?
 
@@ -11154,7 +12306,7 @@ A 29-year-old Army veteran led a 12-person logistics team for six years. Applyin
 
 ---
 
-### Q459 of 1000 · nce-s-clf-219 · Career Development · career and vocational concerns · easy · In review
+### Q507 of 1200 · nce-s-clf-219 · Career Development · career and vocational concerns · easy · In review
 
 A career counselor is screening clients for a program that serves people who are underemployed. Which client BEST fits the definition of underemployment?
 
@@ -11178,7 +12330,7 @@ A career counselor is screening clients for a program that serves people who are
 
 ---
 
-### Q460 of 1000 · nce-s-clf-220 · Career Development · career and vocational concerns · medium · In review
+### Q508 of 1200 · nce-s-clf-220 · Career Development · career and vocational concerns · medium · In review
 
 A 44-year-old woman with top performance reviews has been passed over three times for vice president. Each time, a man with a similar record was chosen. She tells her counselor, "I must not be leadership material." Which counselor response is BEST?
 
@@ -11202,7 +12354,7 @@ A 44-year-old woman with top performance reviews has been passed over three time
 
 ---
 
-### Q461 of 1000 · nce-s-clf-221 · Career Development · career and vocational concerns · hard · In review
+### Q509 of 1200 · nce-s-clf-221 · Career Development · career and vocational concerns · hard · In review
 
 A college sophomore has clear interests in health and science but has not declared a major. She says, "I'm bad at making big choices; I don't trust myself to pick right." A counselor using social cognitive career theory wants to build her career decision self-efficacy. Which strategy would be MOST powerful?
 
@@ -11226,7 +12378,7 @@ A college sophomore has clear interests in health and science but has not declar
 
 ---
 
-### Q462 of 1000 · nce-s-clf-222 · Counseling and Helping Relationships · couples and family concerns · medium · In review
+### Q510 of 1200 · nce-s-clf-222 · Counseling and Helping Relationships · couples and family concerns · medium · In review
 
 A counselor trained in divorce mediation is helping a couple reach a parenting and property agreement. In the third session, the wife privately asks the counselor to also see her for individual therapy for depression after the divorce is final. What should the counselor do?
 
@@ -11250,7 +12402,7 @@ A counselor trained in divorce mediation is helping a couple reach a parenting a
 
 ---
 
-### Q463 of 1000 · nce-s-clf-223 · Human Growth and Development · couples and family concerns · easy · In review
+### Q511 of 1200 · nce-s-clf-223 · Human Growth and Development · couples and family concerns · easy · In review
 
 Parents of a 13-year-old are alarmed that she now argues about clothes, chores and bedtime and rolls her eyes at their rules. She has good grades, close friends, and still talks with them about school. What should the counselor tell the parents?
 
@@ -11274,7 +12426,7 @@ Parents of a 13-year-old are alarmed that she now argues about clothes, chores a
 
 ---
 
-### Q464 of 1000 · nce-s-clf-224 · Counseling and Helping Relationships · couples and family concerns · medium · In review
+### Q512 of 1200 · nce-s-clf-224 · Counseling and Helping Relationships · couples and family concerns · medium · In review
 
 A family lost their home and business in a wildfire. In counseling, they argue about what went wrong but also describe neighbors who helped and a shared faith that "we will rebuild." A counselor using Froma Walsh's family resilience framework would MOST likely focus on which task?
 
@@ -11300,7 +12452,7 @@ A family lost their home and business in a wildfire. In counseling, they argue a
 
 ---
 
-### Q465 of 1000 · nce-s-clf-225 · Social and Cultural Diversity · spiritual and religious concerns · medium · In review
+### Q513 of 1200 · nce-s-clf-225 · Social and Cultural Diversity · spiritual and religious concerns · medium · In review
 
 A 35-year-old client mentions that during worship at her Pentecostal church she speaks in tongues and sometimes feels the Holy Spirit move through her. She works, has close relationships, and shows no other unusual experiences. How should the counselor BEST understand these reports?
 
@@ -11324,7 +12476,7 @@ A 35-year-old client mentions that during worship at her Pentecostal church she 
 
 ---
 
-### Q466 of 1000 · nce-s-clf-226 · Counseling and Helping Relationships · chronic illness and disability · easy · In review
+### Q514 of 1200 · nce-s-clf-226 · Counseling and Helping Relationships · chronic illness and disability · easy · In review
 
 A 27-year-old is referred eight months after a moderate traumatic brain injury from a car crash. He forgets what was discussed, tires quickly, and becomes irritable when sessions run long. Which adjustment to counseling is MOST appropriate?
 
@@ -11348,7 +12500,7 @@ A 27-year-old is referred eight months after a moderate traumatic brain injury f
 
 ---
 
-### Q467 of 1000 · nce-s-clf-227 · Social and Cultural Diversity · chronic illness and disability · hard · In review
+### Q515 of 1200 · nce-s-clf-227 · Social and Cultural Diversity · chronic illness and disability · hard · In review
 
 A 30-year-old client who was born deaf comes to counseling, with a sign language interpreter, for stress at work. She mentions proudly that she is active in the Deaf community. The counselor plans to begin by helping her grieve the loss of hearing. Why is this plan MOST problematic?
 
@@ -11372,7 +12524,7 @@ A 30-year-old client who was born deaf comes to counseling, with a sign language
 
 ---
 
-### Q468 of 1000 · nce-s-clf-228 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · medium · In review
+### Q516 of 1200 · nce-s-clf-228 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · medium · In review
 
 A 72-year-old transgender woman who transitioned in her forties must move into assisted living after a stroke. She says, "I fought my whole life to be myself. I'm terrified the staff will misgender me or that I'll have to hide again." Which counselor response is BEST?
 
@@ -11396,7 +12548,7 @@ A 72-year-old transgender woman who transitioned in her forties must move into a
 
 ---
 
-### Q469 of 1000 · nce-s-clf-229 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · hard · In review
+### Q517 of 1200 · nce-s-clf-229 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · hard · In review
 
 A 26-year-old bisexual man in a relationship with a woman says his family calls his bisexuality "a phase," while gay friends tell him he is "really straight now." He feels he belongs nowhere. Which concept BEST describes this source of minority stress?
 
@@ -11422,7 +12574,7 @@ A 26-year-old bisexual man in a relationship with a woman says his family calls 
 
 ---
 
-### Q470 of 1000 · nce-s-clf-230 · Social and Cultural Diversity · acculturation and immigration stress · hard · In review
+### Q518 of 1200 · nce-s-clf-230 · Social and Cultural Diversity · acculturation and immigration stress · hard · In review
 
 A 38-year-old woman who entered the country without documentation seeks counseling for panic, poor sleep and constant fear that she will be separated from her children. At intake she hesitates and asks, "Will you tell anyone about my status?" What should the counselor do FIRST?
 
@@ -11448,7 +12600,7 @@ A 38-year-old woman who entered the country without documentation seeks counseli
 
 ---
 
-### Q471 of 1000 · nce-s-clf-231 · Social and Cultural Diversity · acculturation and immigration stress · medium · In review
+### Q519 of 1200 · nce-s-clf-231 · Social and Cultural Diversity · acculturation and immigration stress · medium · In review
 
 A 58-year-old woman who immigrated from rural China two years ago is brought in by her daughter. She reports headaches, fatigue and poor appetite, says her doctor found nothing wrong, and insists, "I am not crazy. I do not need to talk about feelings." Which approach is BEST?
 
@@ -11472,7 +12624,7 @@ A 58-year-old woman who immigrated from rural China two years ago is brought in 
 
 ---
 
-### Q472 of 1000 · nce-s-clf-232 · Counseling and Helping Relationships · psychopharmacology basics for counselors · easy · In review
+### Q520 of 1200 · nce-s-clf-232 · Counseling and Helping Relationships · psychopharmacology basics for counselors · easy · In review
 
 A client with schizophrenia has gained 25 pounds in the six months since starting a second-generation antipsychotic. He says he feels constantly hungry and is thinking of stopping the medication. What should the counselor do?
 
@@ -11496,7 +12648,7 @@ A client with schizophrenia has gained 25 pounds in the six months since startin
 
 ---
 
-### Q473 of 1000 · nce-s-clf-233 · Counseling and Helping Relationships · psychopharmacology basics for counselors · hard · In review
+### Q521 of 1200 · nce-s-clf-233 · Counseling and Helping Relationships · psychopharmacology basics for counselors · hard · In review
 
 A father tells the counselor, "We gave our son a dose of his cousin's ADHD stimulant before a test, and he focused much better. So he must have ADHD, right?" Which response reflects an accurate understanding of stimulant medication?
 
@@ -11522,7 +12674,7 @@ A father tells the counselor, "We gave our son a dose of his cousin's ADHD stimu
 
 ---
 
-### Q474 of 1000 · nce-s-clf-234 · Counseling and Helping Relationships · military and veteran populations · hard · In review
+### Q522 of 1200 · nce-s-clf-234 · Counseling and Helping Relationships · military and veteran populations · hard · In review
 
 A veteran completed prolonged exposure for PTSD. His fear when recalling a roadside ambush has dropped sharply, yet he still feels intense shame that he froze and a friend died, says he "doesn't deserve" good things, and avoids his family. What should the counselor focus on NEXT?
 
@@ -11548,7 +12700,7 @@ A veteran completed prolonged exposure for PTSD. His fear when recalling a roads
 
 ---
 
-### Q475 of 1000 · nce-s-clf-235 · Career Development · military and veteran populations · easy · In review
+### Q523 of 1200 · nce-s-clf-235 · Career Development · military and veteran populations · easy · In review
 
 A 42-year-old retired Navy chief landed a well-paid civilian job after 20 years of service. Six months in, he says, "The work is fine, but I feel pointless. Nobody has each other's back here, and nothing feels urgent." What is the counselor's BEST initial focus?
 
@@ -11574,7 +12726,7 @@ A 42-year-old retired Navy chief landed a well-paid civilian job after 20 years 
 
 ---
 
-### Q476 of 1000 · nce-s-clf-236 · Counseling and Helping Relationships · child abuse and neglect · hard · In review
+### Q524 of 1200 · nce-s-clf-236 · Counseling and Helping Relationships · child abuse and neglect · hard · In review
 
 An 8-year-old from a low-income family has had a painful, untreated dental abscess for months and cannot see the board without glasses. The school nurse has arranged free dental care and free glasses three times, and the parent has not followed through. Which detail MOST supports a concern of neglect rather than poverty alone?
 
@@ -11598,7 +12750,7 @@ An 8-year-old from a low-income family has had a painful, untreated dental absce
 
 ---
 
-### Q477 of 1000 · nce-s-clf-237 · Assessment and Testing · depressive disorders · hard · In review
+### Q525 of 1200 · nce-s-clf-237 · Assessment and Testing · depressive disorders · hard · In review
 
 A 46-year-old who drank heavily every day for two years developed low mood, poor sleep and hopelessness during that period. He stopped drinking and completed withdrawal six weeks ago. His depressive symptoms have not eased since then. Which conclusion is BEST supported?
 
@@ -11622,7 +12774,7 @@ A 46-year-old who drank heavily every day for two years developed low mood, poor
 
 ---
 
-### Q478 of 1000 · nce-s-clf-238 · Human Growth and Development · depressive disorders · medium · In review
+### Q526 of 1200 · nce-s-clf-238 · Human Growth and Development · depressive disorders · medium · In review
 
 Parents of a 9-year-old say that since age 7 he has had severe temper outbreaks about four times a week at home and school, and is angry and irritable most of the day between outbursts. He has had no distinct periods of elevated mood or decreased need for sleep. Which diagnosis BEST fits?
 
@@ -11646,7 +12798,7 @@ Parents of a 9-year-old say that since age 7 he has had severe temper outbreaks 
 
 ---
 
-### Q479 of 1000 · nce-s-clf-239 · Assessment and Testing · bipolar disorders · easy · In review
+### Q527 of 1200 · nce-s-clf-239 · Assessment and Testing · bipolar disorders · easy · In review
 
 A 23-year-old had one manic episode last year that led to a brief hospital stay. She has never had a major depressive episode. A classmate in her counseling program says she "cannot have bipolar disorder without depression." Under DSM-5-TR, what is required for bipolar I disorder?
 
@@ -11670,7 +12822,7 @@ A 23-year-old had one manic episode last year that led to a brief hospital stay.
 
 ---
 
-### Q480 of 1000 · nce-s-clf-240 · Assessment and Testing · bipolar disorders · medium · In review
+### Q528 of 1200 · nce-s-clf-240 · Assessment and Testing · bipolar disorders · medium · In review
 
 A 37-year-old meets full criteria for a current manic episode. During most days of the episode she also feels intensely sad, has lost interest in her usual hobbies, feels worthless, and has recurrent thoughts of death. Which specifier is MOST appropriate?
 
@@ -11694,7 +12846,7 @@ A 37-year-old meets full criteria for a current manic episode. During most days 
 
 ---
 
-### Q481 of 1000 · nce-s-clf-241 · Assessment and Testing · anxiety disorders · hard · In review
+### Q529 of 1200 · nce-s-clf-241 · Assessment and Testing · anxiety disorders · hard · In review
 
 A 29-year-old has, for the past 7 months, felt intense dread whenever his spouse travels, called her many times a day to check that she is safe, and refused overnight work trips. He worries mainly that an accident will take her from him, not about many topics. Which diagnosis BEST fits?
 
@@ -11718,7 +12870,7 @@ A 29-year-old has, for the past 7 months, felt intense dread whenever his spouse
 
 ---
 
-### Q482 of 1000 · nce-s-clf-242 · Human Growth and Development · anxiety disorders · medium · In review
+### Q530 of 1200 · nce-s-clf-242 · Human Growth and Development · anxiety disorders · medium · In review
 
 For 7 months, a 10-year-old has worried more days than not about grades, storms, her family's money and being late. She finds the worry hard to control and has trouble sleeping, but no other physical or associated symptoms. How many associated symptoms does DSM-5-TR require for a child to meet GAD criteria?
 
@@ -11742,7 +12894,7 @@ For 7 months, a 10-year-old has worried more days than not about grades, storms,
 
 ---
 
-### Q483 of 1000 · nce-s-clf-243 · Human Growth and Development · trauma- and stressor-related disorders · medium · In review
+### Q531 of 1200 · nce-s-clf-243 · Human Growth and Development · trauma- and stressor-related disorders · medium · In review
 
 A 3-year-old spent his first 2 years in a series of neglectful placements. Now with stable foster parents, he rarely seeks comfort when hurt and barely responds when they offer it. He shows little positive emotion and has unexplained bouts of fearfulness. He uses language and play typical for his age. Which diagnosis is MOST likely?
 
@@ -11766,7 +12918,7 @@ A 3-year-old spent his first 2 years in a series of neglectful placements. Now w
 
 ---
 
-### Q484 of 1000 · nce-s-clf-244 · Assessment and Testing · trauma- and stressor-related disorders · hard · In review
+### Q532 of 1200 · nce-s-clf-244 · Assessment and Testing · trauma- and stressor-related disorders · hard · In review
 
 A 51-year-old reports intrusive images, nightmares and avoidance since learning by phone that her brother died. Which detail would determine whether the death can meet PTSD Criterion A through learning about it?
 
@@ -11790,7 +12942,7 @@ A 51-year-old reports intrusive images, nightmares and avoidance since learning 
 
 ---
 
-### Q485 of 1000 · nce-s-clf-245 · Assessment and Testing · obsessive-compulsive and related disorders · medium · In review
+### Q533 of 1200 · nce-s-clf-245 · Assessment and Testing · obsessive-compulsive and related disorders · medium · In review
 
 A 41-year-old attorney insists that every memo follow her exact formatting rules, redoes her team's work, and works so many hours she has no hobbies. She sees her standards as correct and is puzzled that others complain. She has no intrusive, unwanted thoughts or rituals. Which feature MOST points to obsessive-compulsive personality disorder rather than OCD?
 
@@ -11814,7 +12966,7 @@ A 41-year-old attorney insists that every memo follow her exact formatting rules
 
 ---
 
-### Q486 of 1000 · nce-s-clf-246 · Assessment and Testing · obsessive-compulsive and related disorders · easy · In review
+### Q534 of 1200 · nce-s-clf-246 · Assessment and Testing · obsessive-compulsive and related disorders · easy · In review
 
 A 19-year-old pulls out her eyebrow hairs while studying, leaving visible bare patches. She feels relief as she pulls, has tried many times to stop, and is embarrassed by how her face looks. She has no concerns about a flaw in her appearance before pulling. Which diagnosis BEST fits?
 
@@ -11838,7 +12990,7 @@ A 19-year-old pulls out her eyebrow hairs while studying, leaving visible bare p
 
 ---
 
-### Q487 of 1000 · nce-s-clf-247 · Assessment and Testing · substance use and addictive disorders · medium · In review
+### Q535 of 1200 · nce-s-clf-247 · Assessment and Testing · substance use and addictive disorders · medium · In review
 
 A 27-year-old who smoked cannabis several times a day for two years stopped 4 days ago. She reports irritability, anxiety, trouble sleeping with vivid dreams, poor appetite and restlessness. She says, "Weed isn't addictive, so this must be something else." How should the counselor understand her symptoms?
 
@@ -11862,7 +13014,7 @@ A 27-year-old who smoked cannabis several times a day for two years stopped 4 da
 
 ---
 
-### Q488 of 1000 · nce-s-clf-248 · Assessment and Testing · substance use and addictive disorders · hard · In review
+### Q536 of 1200 · nce-s-clf-248 · Assessment and Testing · substance use and addictive disorders · hard · In review
 
 A counseling intern drafts a report stating that a client who drinks six energy drinks daily has "caffeine use disorder, moderate." Her supervisor asks her to check DSM-5-TR. Which correction is accurate?
 
@@ -11886,7 +13038,7 @@ A counseling intern drafts a report stating that a client who drinks six energy 
 
 ---
 
-### Q489 of 1000 · nce-s-clf-249 · Human Growth and Development · neurodevelopmental disorders · medium · In review
+### Q537 of 1200 · nce-s-clf-249 · Human Growth and Development · neurodevelopmental disorders · medium · In review
 
 For the past 5 months, a 7-year-old has had rapid eye blinking, facial grimacing and occasional grunting sounds that come and go. A medical cause and substance effects have been ruled out. Which diagnosis is MOST appropriate now?
 
@@ -11910,7 +13062,7 @@ For the past 5 months, a 7-year-old has had rapid eye blinking, facial grimacing
 
 ---
 
-### Q490 of 1000 · nce-s-clf-250 · Human Growth and Development · neurodevelopmental disorders · medium · In review
+### Q538 of 1200 · nce-s-clf-250 · Human Growth and Development · neurodevelopmental disorders · medium · In review
 
 A 7-year-old with average intelligence and normal vision is far behind peers in catching a ball, using scissors and writing legibly. His teachers say the clumsiness has been present since he was a toddler, and no neurological condition has been found. Which diagnosis BEST fits?
 
@@ -11934,7 +13086,7 @@ A 7-year-old with average intelligence and normal vision is far behind peers in 
 
 ---
 
-### Q491 of 1000 · nce-s-clf-251 · Assessment and Testing · schizophrenia spectrum disorders · hard · In review
+### Q539 of 1200 · nce-s-clf-251 · Assessment and Testing · schizophrenia spectrum disorders · hard · In review
 
 For 8 months, a 25-year-old has shown marked avolition, flat affect and grossly disorganized behavior. A careful evaluation finds no delusions, hallucinations or disorganized speech at any point. Why does this presentation fail schizophrenia Criterion A?
 
@@ -11958,7 +13110,7 @@ For 8 months, a 25-year-old has shown marked avolition, flat affect and grossly 
 
 ---
 
-### Q492 of 1000 · nce-s-clf-252 · Human Growth and Development · schizophrenia spectrum disorders · easy · In review
+### Q540 of 1200 · nce-s-clf-252 · Human Growth and Development · schizophrenia spectrum disorders · easy · In review
 
 A community educator preparing a talk for parents asks a counselor when schizophrenia most often first appears. Which statement BEST matches DSM-5-TR?
 
@@ -11982,7 +13134,7 @@ A community educator preparing a talk for parents asks a counselor when schizoph
 
 ---
 
-### Q493 of 1000 · nce-s-clf-253 · Assessment and Testing · personality disorders · medium · In review
+### Q541 of 1200 · nce-s-clf-253 · Assessment and Testing · personality disorders · medium · In review
 
 A 38-year-old lab technician has always lived alone and spends free time on solitary hobbies. He says he has no wish for close relationships, gets little pleasure from social activity, and is unbothered by praise or criticism. He came to counseling only at his sister's urging. Which diagnosis is MOST consistent?
 
@@ -12006,7 +13158,7 @@ A 38-year-old lab technician has always lived alone and spends free time on soli
 
 ---
 
-### Q494 of 1000 · nce-s-clf-254 · Human Growth and Development · personality disorders · hard · In review
+### Q542 of 1200 · nce-s-clf-254 · Human Growth and Development · personality disorders · hard · In review
 
 A 16-year-old has shown chronic emptiness, unstable relationships, frantic efforts to avoid abandonment and impulsive self-harm across home, school and peer settings for 18 months. A colleague says personality disorders "cannot be diagnosed before 18." What does DSM-5-TR state?
 
@@ -12030,7 +13182,7 @@ A 16-year-old has shown chronic emptiness, unstable relationships, frantic effor
 
 ---
 
-### Q495 of 1000 · nce-s-clf-255 · Assessment and Testing · eating disorders · easy · In review
+### Q543 of 1200 · nce-s-clf-255 · Assessment and Testing · eating disorders · easy · In review
 
 An adult client meets criteria for anorexia nervosa, and her physician reports a current body mass index (BMI) of 16.4. Using DSM-5-TR severity ranges for adults, which specifier applies?
 
@@ -12054,7 +13206,7 @@ An adult client meets criteria for anorexia nervosa, and her physician reports a
 
 ---
 
-### Q496 of 1000 · nce-s-clf-256 · Human Growth and Development · eating disorders · medium · In review
+### Q544 of 1200 · nce-s-clf-256 · Human Growth and Development · eating disorders · medium · In review
 
 Parents worry that their 18-month-old puts sand and paper in her mouth at the park. Their neighbor's 6-year-old has eaten paint chips and chalk daily for 2 months, which is not part of any family or cultural practice. Which conclusion about pica is MOST accurate?
 
@@ -12078,7 +13230,7 @@ Parents worry that their 18-month-old puts sand and paper in her mouth at the pa
 
 ---
 
-### Q497 of 1000 · nce-s-clf-257 · Assessment and Testing · neurocognitive disorders · hard · In review
+### Q545 of 1200 · nce-s-clf-257 · Assessment and Testing · neurocognitive disorders · hard · In review
 
 A 74-year-old was diagnosed with Parkinson's disease 6 years ago after developing a tremor and slowed movement. Over the past year, he has developed gradual problems with attention, planning and memory that now interfere with paying bills. Which diagnosis BEST fits?
 
@@ -12102,7 +13254,7 @@ A 74-year-old was diagnosed with Parkinson's disease 6 years ago after developin
 
 ---
 
-### Q498 of 1000 · nce-s-clf-258 · Assessment and Testing · neurocognitive disorders · medium · In review
+### Q546 of 1200 · nce-s-clf-258 · Assessment and Testing · neurocognitive disorders · medium · In review
 
 A 34-year-old construction worker lost consciousness briefly after a fall from scaffolding 5 months ago. Since regaining consciousness, he has had persistent problems with attention, slowed thinking and memory, and he struggles to follow work instructions. Which diagnosis should the counselor consider FIRST?
 
@@ -12126,7 +13278,7 @@ A 34-year-old construction worker lost consciousness briefly after a fall from s
 
 ---
 
-### Q499 of 1000 · nce-s-clf-259 · Assessment and Testing · sleep-wake concerns · medium · In review
+### Q547 of 1200 · nce-s-clf-259 · Assessment and Testing · sleep-wake concerns · medium · In review
 
 A 21-year-old falls asleep in class and at meals several times a day despite sleeping 8 hours a night, a pattern lasting 5 months. When she laughs hard, her knees suddenly buckle and her jaw goes slack for a few seconds, though she stays fully aware. Which condition do these features MOST suggest?
 
@@ -12150,7 +13302,7 @@ A 21-year-old falls asleep in class and at meals several times a day despite sle
 
 ---
 
-### Q500 of 1000 · nce-s-clf-260 · Human Growth and Development · sleep-wake concerns · easy · In review
+### Q548 of 1200 · nce-s-clf-260 · Human Growth and Development · sleep-wake concerns · easy · In review
 
 Parents say their 6-year-old sits up screaming about an hour after falling asleep several nights a month. He is sweaty, wide-eyed and hard to comfort, then settles back to sleep. In the morning he remembers nothing. Which explanation BEST fits?
 
@@ -12174,7 +13326,7 @@ Parents say their 6-year-old sits up screaming about an hour after falling aslee
 
 ---
 
-### Q501 of 1000 · nce-s-clf-261 · Assessment and Testing · sleep-wake concerns · medium · In review
+### Q549 of 1200 · nce-s-clf-261 · Assessment and Testing · sleep-wake concerns · medium · In review
 
 A 48-year-old in counseling for insomnia says that most evenings when she sits or lies down she feels a crawling, uncomfortable urge to move her legs. Walking around eases it, and it is far worse at night than in the morning. This has happened 4 nights a week for 6 months. Which condition should the counselor suspect?
 
@@ -12198,7 +13350,7 @@ A 48-year-old in counseling for insomnia says that most evenings when she sits o
 
 ---
 
-### Q502 of 1000 · nce-s-clf-262 · Counseling and Helping Relationships · self-injury · medium · In review
+### Q550 of 1200 · nce-s-clf-262 · Counseling and Helping Relationships · self-injury · medium · In review
 
 A 22-year-old who burns herself when overwhelmed also reports passive thoughts of death. Her previous counselor had her sign a "no-harm contract" promising not to hurt herself. She asks whether they should sign one again. Which response BEST reflects current practice?
 
@@ -12222,7 +13374,7 @@ A 22-year-old who burns herself when overwhelmed also reports passive thoughts o
 
 ---
 
-### Q503 of 1000 · nce-s-clf-263 · Assessment and Testing · self-injury · medium · In review
+### Q551 of 1200 · nce-s-clf-263 · Assessment and Testing · self-injury · medium · In review
 
 A counselor reviewing an intake form sees that a 20-year-old has several piercings, a large tattoo and ceremonial scarring from a coming-of-age ritual in her community. She denies any other injury to her body. How should the counselor classify these behaviors?
 
@@ -12246,7 +13398,7 @@ A counselor reviewing an intake form sees that a 20-year-old has several piercin
 
 ---
 
-### Q504 of 1000 · nce-s-clf-264 · Human Growth and Development · self-injury · easy · In review
+### Q552 of 1200 · nce-s-clf-264 · Human Growth and Development · self-injury · easy · In review
 
 A school district asks its counselors when to begin prevention programming about nonsuicidal self-injury. According to DSM-5-TR, at what point in development does NSSI MOST often begin?
 
@@ -12270,7 +13422,7 @@ A school district asks its counselors when to begin prevention programming about
 
 ---
 
-### Q505 of 1000 · nce-s-clf-265 · Human Growth and Development · psychopharmacology basics for counselors · medium · In review
+### Q553 of 1200 · nce-s-clf-265 · Human Growth and Development · psychopharmacology basics for counselors · medium · In review
 
 A 17-year-old began an antidepressant prescribed by his pediatrician 2 weeks ago. His mother asks the counselor what the FDA boxed warning on the medication means for her son. Which response is MOST accurate?
 
@@ -12294,7 +13446,7 @@ A 17-year-old began an antidepressant prescribed by his pediatrician 2 weeks ago
 
 ---
 
-### Q506 of 1000 · nce-s-clf-266 · Counseling and Helping Relationships · psychopharmacology basics for counselors · easy · In review
+### Q554 of 1200 · nce-s-clf-266 · Counseling and Helping Relationships · psychopharmacology basics for counselors · easy · In review
 
 A client who started a new antipsychotic last week arrives with a high fever, heavy sweating, very stiff muscles, a racing heart and confusion. Which action should the counselor take FIRST?
 
@@ -12318,7 +13470,7 @@ A client who started a new antipsychotic last week arrives with a high fever, he
 
 ---
 
-### Q507 of 1000 · nce-s-clf-267 · Counseling and Helping Relationships · grief and loss · hard · In review
+### Q555 of 1200 · nce-s-clf-267 · Counseling and Helping Relationships · grief and loss · hard · In review
 
 A 41-year-old whose brother died by suicide five months ago says neighbors avoid the subject, she keeps asking "why" and replaying their last call, and she blames herself for missing signs. Using Worden's mediators of mourning, which mediator MOST shapes the features of her grief?
 
@@ -12342,7 +13494,7 @@ A 41-year-old whose brother died by suicide five months ago says neighbors avoid
 
 ---
 
-### Q508 of 1000 · nce-s-clf-268 · Counseling and Helping Relationships · grief and loss · easy · In review
+### Q556 of 1200 · nce-s-clf-268 · Counseling and Helping Relationships · grief and loss · easy · In review
 
 A father whose wife died suddenly asks whether his 8-year-old son should attend her funeral. The boy has asked to go, but the father worries it will be "too much" for him. What should the counselor recommend?
 
@@ -12366,7 +13518,7 @@ A father whose wife died suddenly asks whether his 8-year-old son should attend 
 
 ---
 
-### Q509 of 1000 · nce-s-clf-269 · Counseling and Helping Relationships · crisis and disaster response · easy · In review
+### Q557 of 1200 · nce-s-clf-269 · Counseling and Helping Relationships · crisis and disaster response · easy · In review
 
 A 35-year-old comes in the day after being robbed at gunpoint. She cannot sleep and is afraid to leave home. The counselor notices her parents' divorce comes up and is tempted to explore how it shaped her. What is the PRIMARY goal of crisis intervention at this point?
 
@@ -12390,7 +13542,7 @@ A 35-year-old comes in the day after being robbed at gunpoint. She cannot sleep 
 
 ---
 
-### Q510 of 1000 · nce-s-clf-270 · Counseling and Helping Relationships · crisis and disaster response · hard · In review
+### Q558 of 1200 · nce-s-clf-270 · Counseling and Helping Relationships · crisis and disaster response · hard · In review
 
 A hurricane floods an entire coastal county. Schools, clinics and businesses close for weeks, and thousands of residents lose homes and jobs at once. In James and Gilliland's classification of crises, which type does this event BEST represent?
 
@@ -12414,7 +13566,7 @@ A hurricane floods an entire coastal county. Schools, clinics and businesses clo
 
 ---
 
-### Q511 of 1000 · nce-s-clf-271 · Counseling and Helping Relationships · intimate partner violence · medium · In review
+### Q559 of 1200 · nce-s-clf-271 · Counseling and Helping Relationships · intimate partner violence · medium · In review
 
 A 33-year-old client whose husband has hit her several times says she will pack the car and leave with her two children tomorrow while he is at work. He does not know about her plan. Which counselor response BEST addresses her safety?
 
@@ -12438,7 +13590,7 @@ A 33-year-old client whose husband has hit her several times says she will pack 
 
 ---
 
-### Q512 of 1000 · nce-s-clf-272 · Counseling and Helping Relationships · intimate partner violence · hard · In review
+### Q560 of 1200 · nce-s-clf-272 · Counseling and Helping Relationships · intimate partner violence · hard · In review
 
 A 45-year-old client tells her counselor that her partner pushed her into a wall last week. She has no children or dependents in the home, is not in immediate danger, and asks the counselor not to tell anyone. In most U.S. jurisdictions, how should the counselor proceed?
 
@@ -12462,7 +13614,7 @@ A 45-year-old client tells her counselor that her partner pushed her into a wall
 
 ---
 
-### Q513 of 1000 · nce-s-clf-273 · Counseling and Helping Relationships · child abuse and neglect · hard · In review
+### Q561 of 1200 · nce-s-clf-273 · Counseling and Helping Relationships · child abuse and neglect · hard · In review
 
 A counselor is seeing several 5-year-olds referred by a preschool. Which observation should raise the GREATEST concern about possible sexual abuse?
 
@@ -12486,7 +13638,7 @@ A counselor is seeing several 5-year-olds referred by a preschool. Which observa
 
 ---
 
-### Q514 of 1000 · nce-s-clf-274 · Counseling and Helping Relationships · child abuse and neglect · medium · In review
+### Q562 of 1200 · nce-s-clf-274 · Counseling and Helping Relationships · child abuse and neglect · medium · In review
 
 A school counselor tells the principal that a 12-year-old described being burned with a cigarette by his father. The principal says, "Let me handle it. I'll call the parents in and decide whether CPS needs to know." What should the counselor do?
 
@@ -12510,7 +13662,7 @@ A school counselor tells the principal that a 12-year-old described being burned
 
 ---
 
-### Q515 of 1000 · nce-s-clf-275 · Career Development · career and vocational concerns · medium · In review
+### Q563 of 1200 · nce-s-clf-275 · Career Development · career and vocational concerns · medium · In review
 
 A 30-year-old with a clear Artistic-Social Holland code works as a payroll clerk, a highly Conventional job. She does the work well but feels restless and drained and talks about quitting. Which Holland concept BEST explains her dissatisfaction?
 
@@ -12534,7 +13686,7 @@ A 30-year-old with a clear Artistic-Social Holland code works as a payroll clerk
 
 ---
 
-### Q516 of 1000 · nce-s-clf-276 · Career Development · career and vocational concerns · easy · In review
+### Q564 of 1200 · nce-s-clf-276 · Career Development · career and vocational concerns · easy · In review
 
 A counselor wants an up-to-date, free U.S. Department of Labor database that describes occupations by tasks, skills, education needed, and wage and outlook data. Which resource should the counselor use?
 
@@ -12558,7 +13710,7 @@ A counselor wants an up-to-date, free U.S. Department of Labor database that des
 
 ---
 
-### Q517 of 1000 · nce-s-clf-277 · Group Counseling and Group Work · school and academic concerns · medium · In review
+### Q565 of 1200 · nce-s-clf-277 · Group Counseling and Group Work · school and academic concerns · medium · In review
 
 An elementary school counselor plans an eight-week small group for students whose parents are divorcing. Several teachers have referred students. What should the counselor do BEFORE the group begins?
 
@@ -12582,7 +13734,7 @@ An elementary school counselor plans an eight-week small group for students whos
 
 ---
 
-### Q518 of 1000 · nce-s-clf-278 · Career Development · school and academic concerns · medium · In review
+### Q566 of 1200 · nce-s-clf-278 · Career Development · school and academic concerns · medium · In review
 
 A high school principal asks the counselor to focus college and career planning on the top 20 percent of the class, since "the others will figure it out." Which response BEST fits the ASCA National Model?
 
@@ -12606,7 +13758,7 @@ A high school principal asks the counselor to focus college and career planning 
 
 ---
 
-### Q519 of 1000 · nce-s-clf-279 · Counseling and Helping Relationships · couples and family concerns · hard · In review
+### Q567 of 1200 · nce-s-clf-279 · Counseling and Helping Relationships · couples and family concerns · hard · In review
 
 In couples counseling, one partner presses for talk and closeness and grows critical when ignored, while the other goes quiet and leaves the room, which makes the first press harder. A counselor using emotionally focused therapy (EFT) would MOST likely do which of the following?
 
@@ -12630,7 +13782,7 @@ In couples counseling, one partner presses for talk and closeness and grows crit
 
 ---
 
-### Q520 of 1000 · nce-s-clf-280 · Counseling and Helping Relationships · couples and family concerns · medium · In review
+### Q568 of 1200 · nce-s-clf-280 · Counseling and Helping Relationships · couples and family concerns · medium · In review
 
 A 14-year-old who was adopted as an infant from Guatemala by White parents has started asking about her birth mother and her heritage. Her parents feel hurt and worry they have failed her. What should the counselor convey to the family?
 
@@ -12654,7 +13806,7 @@ A 14-year-old who was adopted as an infant from Guatemala by White parents has s
 
 ---
 
-### Q521 of 1000 · nce-s-clf-281 · Human Growth and Development · developmental life transitions · hard · In review
+### Q569 of 1200 · nce-s-clf-281 · Human Growth and Development · developmental life transitions · hard · In review
 
 A 44-year-old says that nothing bad has happened, yet she feels a deep loss. She had always expected to marry and have children, and now believes that will not happen. In Schlossberg's transition model, what kind of transition is she facing?
 
@@ -12678,7 +13830,7 @@ A 44-year-old says that nothing bad has happened, yet she feels a deep loss. She
 
 ---
 
-### Q522 of 1000 · nce-s-clf-282 · Human Growth and Development · developmental life transitions · medium · In review
+### Q570 of 1200 · nce-s-clf-282 · Human Growth and Development · developmental life transitions · medium · In review
 
 A school counselor is planning support around puberty for middle school students. Based on research on pubertal timing, which group of students is at GREATEST risk for depression, early sexual activity and substance use?
 
@@ -12702,7 +13854,7 @@ A school counselor is planning support around puberty for middle school students
 
 ---
 
-### Q523 of 1000 · nce-s-clf-283 · Human Growth and Development · developmental life transitions · medium · In review
+### Q571 of 1200 · nce-s-clf-283 · Human Growth and Development · developmental life transitions · medium · In review
 
 A 46-year-old client says, "Everyone says I'm due for a midlife crisis. Should I expect to blow up my life soon?" Which statement BEST reflects life-span research on midlife?
 
@@ -12726,7 +13878,7 @@ A 46-year-old client says, "Everyone says I'm due for a midlife crisis. Should I
 
 ---
 
-### Q524 of 1000 · nce-s-clf-284 · Human Growth and Development · aging and older adults · easy · In review
+### Q572 of 1200 · nce-s-clf-284 · Human Growth and Development · aging and older adults · easy · In review
 
 A retired 74-year-old librarian still reads daily, leads a weekly book club and keeps in touch with former coworkers. She says, "I'm still the same person, just with more time." Which theory of aging BEST describes her adjustment?
 
@@ -12750,7 +13902,7 @@ A retired 74-year-old librarian still reads daily, leads a weekly book club and 
 
 ---
 
-### Q525 of 1000 · nce-s-clf-285 · Human Growth and Development · aging and older adults · medium · In review
+### Q573 of 1200 · nce-s-clf-285 · Human Growth and Development · aging and older adults · medium · In review
 
 An 81-year-old man whose wife died four months ago has given away his tools and fishing gear, says he is "just tired of it all," and lives alone with his hunting rifles. He denies being depressed. What should the counselor do FIRST?
 
@@ -12774,7 +13926,7 @@ An 81-year-old man whose wife died four months ago has given away his tools and 
 
 ---
 
-### Q526 of 1000 · nce-s-clf-286 · Career Development · chronic illness and disability · medium · In review
+### Q574 of 1200 · nce-s-clf-286 · Career Development · chronic illness and disability · medium · In review
 
 A 38-year-old accountant lost most of her vision to diabetic retinopathy over the past year. Her mood has improved in counseling, and she now wants to return to work but is unsure how she would manage the tasks. Which next step BEST supports her goal?
 
@@ -12798,7 +13950,7 @@ A 38-year-old accountant lost most of her vision to diabetic retinopathy over th
 
 ---
 
-### Q527 of 1000 · nce-s-clf-287 · Social and Cultural Diversity · chronic illness and disability · easy · In review
+### Q575 of 1200 · nce-s-clf-287 · Social and Cultural Diversity · chronic illness and disability · easy · In review
 
 A counselor writes intake notes on a new adult client as "a person with autism." In session, the client says, "I'm autistic. It is part of who I am, not something I carry around." What should the counselor do?
 
@@ -12822,7 +13974,7 @@ A counselor writes intake notes on a new adult client as "a person with autism."
 
 ---
 
-### Q528 of 1000 · nce-s-clf-288 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · medium · In review
+### Q576 of 1200 · nce-s-clf-288 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · medium · In review
 
 A 34-year-old gay man works at a small firm where coworkers often tell anti-gay jokes. He is out to family and friends but not at work, and asks whether he "should" come out there. Which counselor response is MOST appropriate?
 
@@ -12846,7 +13998,7 @@ A 34-year-old gay man works at a small firm where coworkers often tell anti-gay 
 
 ---
 
-### Q529 of 1000 · nce-s-clf-289 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · easy · In review
+### Q577 of 1200 · nce-s-clf-289 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · easy · In review
 
 A transgender man, assigned female at birth, tells his counselor that he is attracted only to men. A student in practicum assumes this means the client is "really straight." Which statement corrects the student's error?
 
@@ -12870,7 +14022,7 @@ A transgender man, assigned female at birth, tells his counselor that he is attr
 
 ---
 
-### Q530 of 1000 · nce-s-clf-290 · Social and Cultural Diversity · acculturation and immigration stress · medium · In review
+### Q578 of 1200 · nce-s-clf-290 · Social and Cultural Diversity · acculturation and immigration stress · medium · In review
 
 A bilingual 29-year-old who immigrated from Brazil at 15 speaks fluent English in sessions. When describing her grandmother's death, she pauses, says a phrase in Portuguese, then apologizes. What should the English-speaking counselor do?
 
@@ -12894,7 +14046,7 @@ A bilingual 29-year-old who immigrated from Brazil at 15 speaks fluent English i
 
 ---
 
-### Q531 of 1000 · nce-s-clf-291 · Social and Cultural Diversity · acculturation and immigration stress · medium · In review
+### Q579 of 1200 · nce-s-clf-291 · Social and Cultural Diversity · acculturation and immigration stress · medium · In review
 
 A 50-year-old who was a surgeon in Syria now works nights stocking shelves while his license is reviewed. He is irritable, sleeps poorly, and says, "Here I am nobody." Which factor MOST likely drives his distress?
 
@@ -12918,7 +14070,7 @@ A 50-year-old who was a surgeon in Syria now works nights stocking shelves while
 
 ---
 
-### Q532 of 1000 · nce-s-clf-292 · Social and Cultural Diversity · spiritual and religious concerns · medium · In review
+### Q580 of 1200 · nce-s-clf-292 · Social and Cultural Diversity · spiritual and religious concerns · medium · In review
 
 A 57-year-old client says her imam has been a steady source of comfort since her son's arrest, and she wishes the imam and counselor could "work together" to support her. How should the counselor respond?
 
@@ -12942,7 +14094,7 @@ A 57-year-old client says her imam has been a steady source of comfort since her
 
 ---
 
-### Q533 of 1000 · nce-s-clf-293 · Social and Cultural Diversity · spiritual and religious concerns · easy · In review
+### Q581 of 1200 · nce-s-clf-293 · Social and Cultural Diversity · spiritual and religious concerns · easy · In review
 
 A Muslim client who usually meets at 5 p.m. mentions that Ramadan begins next week and that she fasts from dawn until sunset. What is the BEST response?
 
@@ -12966,7 +14118,7 @@ A Muslim client who usually meets at 5 p.m. mentions that Ramadan begins next we
 
 ---
 
-### Q534 of 1000 · nce-s-clf-294 · Counseling and Helping Relationships · military and veteran populations · hard · In review
+### Q582 of 1200 · nce-s-clf-294 · Counseling and Helping Relationships · military and veteran populations · hard · In review
 
 A 36-year-old Army veteran with PTSD also has a history of mild traumatic brain injury from a blast eight years ago. He has some trouble concentrating. His previous counselor said trauma-focused therapy was "off the table" because of the brain injury. Which statement BEST reflects VA/DoD guidance?
 
@@ -12990,7 +14142,7 @@ A 36-year-old Army veteran with PTSD also has a history of mild traumatic brain 
 
 ---
 
-### Q535 of 1000 · nce-s-clf-295 · Counseling and Helping Relationships · military and veteran populations · medium · In review
+### Q583 of 1200 · nce-s-clf-295 · Counseling and Helping Relationships · military and veteran populations · medium · In review
 
 A Marine veteran back from two deployments drives down the center of the road, swerves around trash bags, and sits with his back to the wall in restaurants. His wife calls him "paranoid." Which counselor framing is MOST helpful?
 
@@ -13014,9 +14166,1425 @@ A Marine veteran back from two deployments drives down the center of the road, s
 
 ---
 
-## Treatment Planning (85)
+### Q584 of 1200 · nce-s-clf-296 · Assessment and Testing · depressive disorders · medium · In review
 
-### Q536 of 1000 · nce-s-trt-001 · Counseling and Helping Relationships · SMART goals and measurable objectives · easy · In review
+A 39-year-old met full criteria for a major depressive episode last year. After treatment, she had no significant symptoms for 5 months. For the past 3 weeks she again meets full criteria for a major depressive episode. She has never had manic or hypomanic symptoms. How should the counselor classify her major depressive disorder?
+
+**A.** Single episode, since a new episode is counted only after a full year of being well
+> DSM-5-TR does not require a full year; the separating interval is at least 2 consecutive months.
+
+**B.** Single episode, since the current symptoms are a continuation of last year's episode
+> Five months without meeting criteria is long enough to count the current episode as a new one.
+
+**C.** Recurrent, since at least 2 straight months without full criteria split the episodes **✔ KEY**
+> Episodes are separate when at least 2 consecutive months pass in which criteria for a major depressive episode are not met.
+
+**D.** Recurrent, but only after the current episode has lasted at least 6 months in total
+> The current episode needs only the usual 2-week minimum; there is no 6-month requirement for recurrence.
+
+**Rationale:** In DSM-5-TR, a major depressive disorder is coded as recurrent when there have been at least two episodes. To count as separate, the episodes must be divided by an interval of at least 2 consecutive months in which criteria for a major depressive episode are not met. Recurrence matters clinically because the risk of further episodes rises with each one, which shapes plans for maintenance treatment.
+
+**References:** DSM-5-TR — Major depressive disorder: recording procedures, single vs recurrent episode (2-month interval)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q585 of 1200 · nce-s-clf-297 · Assessment and Testing · depressive disorders · easy · In review
+
+A 63-year-old in a major depressive episode says that nothing lifts her mood, not even visits from her grandchildren. She wakes at 4 a.m. and cannot get back to sleep, feels worst in the mornings, has lost weight without trying, and feels guilty over small past mistakes. Which specifier BEST fits this episode?
+
+**A.** With melancholic features **✔ KEY**
+> Lack of mood reactivity plus early waking, morning worsening, weight loss and excess guilt fits melancholic features.
+
+**B.** With atypical features
+> Atypical features require mood reactivity, the opposite of her mood that nothing brightens.
+
+**C.** With seasonal pattern
+> Seasonal pattern needs a regular link between episodes and a time of year, which is not described.
+
+**D.** With anxious distress
+> Anxious distress centers on tension, restlessness, worry and fear of losing control, not on these features.
+
+**Rationale:** The melancholic features specifier requires either loss of pleasure in nearly all activities or a lack of reactivity to usually pleasurable events. At least three more features must be present, such as depression that is regularly worse in the morning, waking at least 2 hours early, marked psychomotor change, significant weight loss and excessive guilt. Melancholic presentations are often severe and are a signal to coordinate with a prescriber.
+
+**References:** DSM-5-TR — Specifiers for depressive disorders: with melancholic features
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q586 of 1200 · nce-s-clf-298 · Assessment and Testing · bipolar disorders · hard · In review
+
+A 28-year-old has had two major depressive episodes. Between them, on three separate occasions, she had 3 days of elevated mood, a reduced need for sleep, rapid speech and taking on many new projects. Coworkers noticed the change, but she kept working well. She has never had a longer period of these symptoms. Which diagnosis BEST fits?
+
+**A.** Bipolar II disorder, since the hypomanic periods were clearly seen by others
+> A hypomanic episode requires at least 4 consecutive days; her periods lasted only 3 days.
+
+**B.** Cyclothymic disorder, since mood swung between highs and lows for some time
+> Cyclothymic disorder is ruled out once criteria for a major depressive episode have been met.
+
+**C.** Bipolar I disorder, since highs plus depressive episodes meet the main criteria
+> Bipolar I requires a manic episode of at least a week or one needing hospitalization; none occurred.
+
+**D.** Other specified bipolar disorder, with short-duration hypomanic episodes **✔ KEY**
+> DSM-5-TR lists 2 to 3 day hypomanic episodes plus major depressive episodes as an other specified presentation.
+
+**Rationale:** A hypomanic episode in DSM-5-TR lasts at least 4 consecutive days, so 3-day periods do not support bipolar II disorder. When a person has had major depressive episodes along with hypomanic periods of 2 to 3 days, DSM-5-TR lists the presentation as other specified bipolar and related disorder. Recognizing these brief highs matters, because they may change treatment choices for depression.
+
+**References:** DSM-5-TR — Other specified bipolar and related disorder: short-duration hypomanic episodes (2-3 days) and major depressive episodes
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q587 of 1200 · nce-s-clf-299 · Human Growth and Development · bipolar disorders · easy · In review
+
+A counselor is training college residence-hall staff to spot early signs of serious mood disorders. According to DSM-5-TR, at about what age does the first mood episode of bipolar I disorder begin, on average?
+
+**A.** Around age 8, in middle childhood
+> Bipolar I can begin in childhood, but onset this early is far below the average.
+
+**B.** Around age 18, in late adolescence **✔ KEY**
+> DSM-5-TR gives a mean age of about 18 for the first manic, hypomanic or depressive episode.
+
+**C.** Around age 45, in middle adulthood
+> First onset in midlife or later occurs but is much less common and calls for a medical workup.
+
+**D.** Around age 65, in late adulthood
+> Late-life first mania is uncommon and often points to a medical or neurological cause.
+
+**Rationale:** DSM-5-TR reports that the mean age at onset of the first manic, hypomanic or major depressive episode in bipolar I disorder is about 18 years. This places the typical onset squarely in the college years, which is why campus staff benefit from knowing early warning signs. A first manic episode in late life should prompt a search for medical or neurological causes.
+
+**References:** DSM-5-TR — Bipolar I disorder: development and course, mean age at onset about 18 years
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q588 of 1200 · nce-s-clf-300 · Assessment and Testing · bipolar disorders · medium · In review
+
+For 14 months, a 15-year-old has had many periods of high energy, little sleep and talkativeness, along with many periods of low mood and poor focus. None of these periods has met criteria for a hypomanic, manic or major depressive episode, and he has not gone more than 2 months without symptoms. What diagnostic conclusion is BEST supported?
+
+**A.** No diagnosis yet, since the 2-year duration applies to clients of every age
+> The 2-year rule is for adults; DSM-5-TR shortens the duration to 1 year for children and adolescents.
+
+**B.** Cyclothymic disorder, as 1 year suffices for children and adolescents **✔ KEY**
+> In youth, cyclothymic disorder needs at least 1 year of these fluctuating subthreshold symptoms.
+
+**C.** Bipolar II disorder, since his high-energy periods count as hypomanic ones
+> His highs never met full hypomanic criteria, and he has had no major depressive episode.
+
+**D.** Disruptive mood dysregulation disorder, given the frequent mood swings
+> DMDD is defined by severe temper outbursts and persistent irritability, not alternating highs and lows.
+
+**Rationale:** Cyclothymic disorder involves numerous periods of hypomanic and depressive symptoms that never meet full criteria for an episode. Adults need at least 2 years of these symptoms, but children and adolescents need only 1 year, and symptoms must not be absent for more than 2 months at a time. Youth with cyclothymic disorder warrant close follow-up because some later develop bipolar I or II disorder.
+
+**References:** DSM-5-TR — Cyclothymic disorder: Criterion A, at least 1 year in children and adolescents
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q589 of 1200 · nce-s-clf-301 · Social and Cultural Diversity · anxiety disorders · medium · In review
+
+A 24-year-old graduate student who grew up in Japan avoids classes and meetings. He is not afraid that others will judge him as weak. Instead, he fears that his gaze, blushing and body odor make other people uncomfortable and offend them. Which cultural concept of distress does this MOST closely match?
+
+**A.** Ataque de nervios, an episode of loss of control after family stress
+> Ataque de nervios is a Latin American syndrome of acute outbursts, not a fear of offending others.
+
+**B.** Shenjing shuairuo, a Chinese syndrome of mental and physical fatigue
+> Shenjing shuairuo centers on weakness, fatigue and poor focus, not on social offense.
+
+**C.** Dhat syndrome, an anxiety about the loss of semen and its effects
+> Dhat syndrome is a South Asian concern about semen loss, unrelated to his social fears.
+
+**D.** Taijin kyofusho, a fear that one's body or manner offends others **✔ KEY**
+> Taijin kyofusho is a Japanese syndrome related to social anxiety, focused on offending or upsetting others.
+
+**Rationale:** DSM-5-TR describes taijin kyofusho as a cultural syndrome marked by fear that one's appearance, gaze, facial expressions or body odor are offensive or embarrassing to others. It overlaps with social anxiety disorder, but the fear is of harming others rather than of being judged oneself. Knowing cultural concepts of distress helps counselors understand how clients frame symptoms and avoid misdiagnosis.
+
+**References:** DSM-5-TR — Glossary of cultural concepts of distress: taijin kyofusho; social anxiety disorder, culture-related issues
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q590 of 1200 · nce-s-clf-302 · Social and Cultural Diversity · anxiety disorders · medium · In review
+
+A 58-year-old Cambodian refugee describes sudden attacks of dizziness, a pounding heart, shortness of breath and ringing in her ears. She explains that "wind" is surging up in her body and may burst the vessels in her neck and kill her. Which counselor response is MOST appropriate?
+
+**A.** Explore what the wind attacks mean to her while assessing for panic and trauma **✔ KEY**
+> Khyâl cap often meets panic attack criteria and is tied to trauma; exploring its meaning builds trust and accuracy.
+
+**B.** Tell her the wind belief is mistaken and teach a medical model of panic at once
+> Dismissing her explanatory model damages rapport and ignores how she understands the attacks.
+
+**C.** Record a delusional belief about her body and refer her for antipsychotic care
+> A shared cultural explanation of symptoms is not a delusion and does not suggest psychosis.
+
+**D.** Treat the attacks as culture-bound and not a target for any clinical attention
+> Cultural framing does not make distress untreatable; the attacks still warrant assessment and care.
+
+**Rationale:** Khyâl cap, or "wind attacks," is a Cambodian cultural syndrome with panic-like symptoms and the fear that wind rising in the body will cause serious harm. Episodes often meet panic attack criteria and are common among Cambodian refugees with trauma histories. Using tools such as the Cultural Formulation Interview, counselors explore the client's explanation while assessing for panic disorder and PTSD.
+
+**References:** DSM-5-TR — Glossary of cultural concepts of distress: khyâl cap; panic attack specifier, culture-related issues · Sue & Sue (Counseling the Culturally Diverse) — Culture-bound syndromes and clients' explanatory models of illness
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q591 of 1200 · nce-s-clf-303 · Assessment and Testing · trauma- and stressor-related disorders · hard · In review
+
+A 47-year-old warehouse worker had a spinal injury 9 months ago that left him using a wheelchair. Since a month after the injury he has had low mood, tearfulness and worry that do not meet criteria for another disorder. Distress is out of proportion to what his care team expected. Which adjustment disorder specifier applies?
+
+**A.** Acute, since the symptoms began soon after an identifiable stressor
+> Acute applies only when the disturbance has lasted less than 6 months.
+
+**B.** Not applicable, as symptoms past 6 months rule out adjustment disorder
+> Symptoms may continue when the stressor's consequences endure, as with a lasting disability.
+
+**C.** Persistent (chronic), since the symptoms have lasted 6 months or more **✔ KEY**
+> Persistent (chronic) is used when the disturbance lasts 6 months or longer, as with enduring consequences.
+
+**D.** With delayed expression, since full symptoms appeared after a month
+> Delayed expression is a PTSD specifier, not an adjustment disorder specifier.
+
+**Rationale:** Adjustment disorder symptoms begin within 3 months of a stressor and do not persist more than 6 months after the stressor or its consequences have ended. When a stressor has lasting consequences, such as a permanent disability, symptoms can continue longer. DSM-5-TR uses the specifier acute for a disturbance lasting under 6 months and persistent (chronic) for one lasting 6 months or longer.
+
+**References:** DSM-5-TR — Adjustment disorders: Criterion E and acute vs persistent (chronic) specifiers
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q592 of 1200 · nce-s-clf-304 · Human Growth and Development · trauma- and stressor-related disorders · hard · In review
+
+A 5-year-old saw her father seriously injured in a fall at home 2 months ago. Since then she has frequent nightmares, tantrums and trouble sleeping, and she refuses to go near the stairs. She shows no other avoidance and no changes in mood or beliefs. How does DSM-5-TR treat her avoidance and mood symptoms for PTSD in children 6 and younger?
+
+**A.** One symptom of either avoidance or negative mood and thinking can suffice **✔ KEY**
+> For children 6 and younger, one symptom from the combined avoidance or negative cognition and mood list is enough.
+
+**B.** Two avoidance symptoms are needed, the same rule used for older children
+> Older children and adults need one avoidance symptom plus two negative cognition or mood symptoms.
+
+**C.** PTSD cannot be given before age 7, so an adjustment disorder is recorded
+> DSM-5-TR has a separate set of PTSD criteria for children 6 years and younger.
+
+**D.** She must put her fear into words before avoidance symptoms are counted
+> The preschool criteria rely on observed behavior; verbal report of fear is not required.
+
+**Rationale:** DSM-5-TR gives separate PTSD criteria for children 6 years and younger. Instead of requiring both avoidance and two negative cognition and mood symptoms, the preschool criteria need only one symptom from a combined list of avoidance or negative changes in mood and thinking. The criteria are behavior-based, which suits young children who cannot describe their inner states.
+
+**References:** DSM-5-TR — PTSD for children 6 years and younger: Criterion C (one avoidance or negative cognition/mood symptom)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q593 of 1200 · nce-s-clf-305 · Human Growth and Development · obsessive-compulsive and related disorders · medium · In review
+
+A school counselor preparing a staff workshop wants to describe how obsessive-compulsive disorder typically begins and unfolds. Which statement about OCD across the lifespan is accurate according to DSM-5-TR?
+
+**A.** First onset after age 35 is typical, as most cases begin in midlife
+> Onset after 35 is unusual; the mean age at onset in the U.S. is about 19.5 years.
+
+**B.** Females tend to show symptoms earlier than males, often by age 10
+> The reverse is true; males have an earlier age at onset than females.
+
+**C.** Untreated cases usually remit for good within the first year or so
+> Without treatment the course is usually chronic, often waxing and waning; full remission is uncommon.
+
+**D.** Males tend to have an earlier onset, often during their childhood **✔ KEY**
+> Males have earlier onset, and nearly a quarter of males develop OCD before age 10.
+
+**Rationale:** DSM-5-TR reports a mean age at onset of OCD of about 19.5 years in the United States, with a quarter of cases starting by age 14. Males have an earlier onset than females, and nearly 25% of males have onset before age 10. Without treatment the course is usually chronic, so early recognition in schools can shorten years of impairment.
+
+**References:** DSM-5-TR — Obsessive-compulsive disorder: development and course; gender-related issues
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q594 of 1200 · nce-s-clf-306 · Assessment and Testing · obsessive-compulsive and related disorders · hard · In review
+
+A 31-year-old spends 3 hours a day arranging objects until they feel "right." She is completely convinced that if she stops, her mother will die, and no evidence shakes this belief. She has no hallucinations or other psychotic symptoms, and her thinking is otherwise organized. Which diagnosis BEST fits?
+
+**A.** Delusional disorder, since her belief is fixed and resists all evidence
+> Her belief is the content of an obsession tied to compulsions, which DSM-5-TR keeps within OCD.
+
+**B.** Schizophrenia, since a fixed false belief shows active psychotic illness
+> Schizophrenia needs two or more psychotic symptoms over time; she has none beyond this OCD belief.
+
+**C.** OCD with absent insight/delusional beliefs, the OCD insight specifier **✔ KEY**
+> When a person is fully convinced OCD beliefs are true, OCD is diagnosed with this specifier, not a psychotic disorder.
+
+**D.** Obsessive-compulsive personality disorder, given her rigid perfectionism
+> OCPD involves ego-syntonic perfectionism without true obsessions and compulsions like hers.
+
+**Rationale:** DSM-5-TR rates insight in OCD as good or fair, poor, or absent/delusional beliefs. A person who is completely convinced that OCD beliefs are true still receives an OCD diagnosis with the absent insight/delusional beliefs specifier, rather than a psychotic disorder. Treatment remains exposure and response prevention and medication, though poor insight can make engagement harder.
+
+**References:** DSM-5-TR — Obsessive-compulsive disorder: insight specifiers; differential diagnosis with psychotic disorders
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q595 of 1200 · nce-s-clf-307 · Assessment and Testing · substance use and addictive disorders · easy · In review
+
+A 34-year-old who has used heroin daily for a year last used about 18 hours ago. In session they keep yawning, have a runny nose and watery eyes, show goosebumps and dilated pupils, and report muscle aches and diarrhea. Which condition do these signs MOST suggest?
+
+**A.** Opioid intoxication
+> Opioid intoxication brings drowsiness, slurred speech and constricted, not dilated, pupils.
+
+**B.** Opioid withdrawal **✔ KEY**
+> Yawning, tearing, runny nose, goosebumps, dilated pupils, aches and diarrhea are classic opioid withdrawal signs.
+
+**C.** Stimulant intoxication
+> Stimulants can dilate pupils, but they bring euphoria or agitation, not yawning, aches and diarrhea.
+
+**D.** Cannabis withdrawal
+> Cannabis withdrawal centers on irritability, sleep and appetite problems, not these autonomic signs.
+
+**Rationale:** DSM-5-TR opioid withdrawal includes dysphoric mood, nausea or vomiting, muscle aches, tearing or runny nose, dilated pupils, goosebumps or sweating, diarrhea, yawning, fever and insomnia. With short-acting opioids such as heroin, symptoms usually begin within 6 to 12 hours of the last dose. Opioid intoxication, by contrast, causes pupillary constriction and drowsiness, so the pupils are a useful clue.
+
+**References:** DSM-5-TR — Opioid withdrawal: Criterion B signs and symptoms; opioid intoxication: pupillary constriction
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q596 of 1200 · nce-s-clf-308 · Assessment and Testing · substance use and addictive disorders · medium · In review
+
+A college counselor is reviewing DSM-5-TR intoxication criteria with interns so they can recognize recent substance use during walk-in sessions. Which set of physical signs is listed for cannabis intoxication?
+
+**A.** Slurred speech, unsteady gait, nystagmus and poor attention or memory
+> These signs describe alcohol or sedative intoxication, not cannabis intoxication.
+
+**B.** Constricted pupils, drowsiness, slurred speech and impaired memory
+> Pupillary constriction with drowsiness is the pattern of opioid intoxication.
+
+**C.** Dilated pupils, chills, nausea, weight loss and psychomotor agitation
+> These signs fit stimulant intoxication, such as cocaine or amphetamine use.
+
+**D.** Red eyes, increased appetite, dry mouth and a rapid heart rate **✔ KEY**
+> Conjunctival injection, increased appetite, dry mouth and tachycardia are the listed cannabis signs.
+
+**Rationale:** DSM-5-TR cannabis intoxication requires problematic behavioral or psychological changes plus two or more signs within 2 hours of use: conjunctival injection (red eyes), increased appetite, dry mouth and tachycardia. Knowing each substance's pattern of signs helps counselors tell recent use from other causes of a change in presentation. Constricted pupils point to opioids, while dilated pupils with agitation point to stimulants.
+
+**References:** DSM-5-TR — Cannabis intoxication: Criterion C physical signs
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q597 of 1200 · nce-s-clf-309 · Human Growth and Development · neurodevelopmental disorders · medium · In review
+
+A mother says her 16-year-old son, diagnosed with ADHD combined presentation at age 7, "must have outgrown it," since he no longer runs and climbs everywhere. He still loses assignments, misses deadlines and drifts off in class, and he says he feels fidgety inside. How should the counselor respond?
+
+**A.** Explain that hyperactivity often fades to restlessness while inattention lasts **✔ KEY**
+> In adolescence, overt hyperactivity often becomes inner restlessness, while inattention tends to persist.
+
+**B.** Agree that ADHD has resolved, as fewer motor symptoms mean it is no longer present
+> His ongoing inattention and impairment show the disorder is still active.
+
+**C.** Suggest a new diagnosis is needed, since ADHD cannot shift between presentations
+> ADHD presentations can change over time; a new diagnosis is not required.
+
+**D.** Advise her that adolescent inattention is a typical phase that needs no support
+> His symptoms cause real academic impairment and continue a lifelong pattern that warrants support.
+
+**Rationale:** DSM-5-TR notes that motor hyperactivity is often most visible in preschool and early school years and becomes less obvious in adolescence. In teens and adults it may show as fidgeting, impatience or an inner feeling of restlessness, while inattention and poor planning often persist. A shift from combined to predominantly inattentive presentation is common and does not mean the disorder has resolved.
+
+**References:** DSM-5-TR — ADHD: development and course; changes in presentation across development · Berk (Development Through the Lifespan) — ADHD in adolescence and adulthood
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q598 of 1200 · nce-s-clf-310 · Assessment and Testing · neurodevelopmental disorders · easy · In review
+
+A 10-year-old with average intellectual ability reads and writes at grade level. However, despite a year of targeted tutoring, he cannot recall basic math facts, counts on his fingers to add small numbers, and makes frequent calculation errors. Which diagnosis BEST fits?
+
+**A.** Intellectual developmental disorder, mild severity
+> His intellectual ability is average and his deficits are limited to one academic area.
+
+**B.** Specific learning disorder, impairment in mathematics **✔ KEY**
+> Persistent trouble with number sense, math facts and calculation despite help fits this specifier.
+
+**C.** Specific learning disorder, impairment in written expression
+> His writing is at grade level; the impairment is in math skills.
+
+**D.** ADHD, with a predominantly inattentive presentation
+> No broad inattention is described; his difficulty is specific to mathematics.
+
+**Rationale:** Specific learning disorder requires persistent difficulty in a key academic skill for at least 6 months despite targeted help, with skills well below age expectations. DSM-5-TR specifies the affected domain: reading, written expression or mathematics. Impairment in mathematics includes trouble with number sense, memorizing arithmetic facts, accurate calculation and math reasoning, a pattern sometimes called dyscalculia.
+
+**References:** DSM-5-TR — Specific learning disorder: with impairment in mathematics; dyscalculia
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q599 of 1200 · nce-s-clf-311 · Social and Cultural Diversity · schizophrenia spectrum disorders · medium · In review
+
+A 70-year-old woman from Puerto Rico whose husband died 3 months ago tells the counselor that some evenings she hears him call her name and feels he is near. She finds this comforting, says it is common in her family, and is otherwise managing daily life. What should the counselor do?
+
+**A.** Refer her urgently for antipsychotic medication to treat the hallucinations
+> An isolated, comforting experience of this kind does not point to psychosis needing medication.
+
+**B.** Record schizophrenia, since hearing voices is a core feature of the disorder
+> Schizophrenia needs several symptoms over at least 6 months with decline; none is described.
+
+**C.** Explore what the experience means to her, as it alone is not a sign of psychosis **✔ KEY**
+> Hearing a deceased loved one is common in grief and accepted in many cultures, so meaning matters most.
+
+**D.** Ask her to stop discussing the voice so that she can accept that he is gone
+> Shutting down the topic dismisses her experience and her culture and may harm rapport.
+
+**Rationale:** DSM-5-TR cautions that hallucinations with religious content or perceptions of a deceased loved one can be a normal part of experience in some cultures and in grief. Before thinking of psychosis, counselors consider the person's culture, the distress and impairment involved, and whether other symptoms are present. Here, a comforting, culturally familiar experience with intact functioning calls for respectful exploration, not a psychotic disorder diagnosis.
+
+**References:** DSM-5-TR — Schizophrenia: culture-related diagnostic issues; hallucinations in culturally sanctioned contexts · Sue & Sue (Counseling the Culturally Diverse) — Counseling Latinx clients: cultural values and spiritual beliefs
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q600 of 1200 · nce-s-clf-312 · Assessment and Testing · schizophrenia spectrum disorders · hard · In review
+
+A 21-year-old meets criteria for schizophreniform disorder. The clinician is deciding whether to add the "with good prognostic features" specifier, which requires at least two of four listed features. Which finding counts as one of those features?
+
+**A.** Prominent psychosis began within 4 weeks of the first change in functioning **✔ KEY**
+> Rapid onset of psychosis within 4 weeks of the first noticeable change is one of the four features.
+
+**B.** A long, slow period of social withdrawal and decline came before the psychosis
+> A long, insidious prodrome is linked to poorer outcome, not to good prognostic features.
+
+**C.** Blunted or flat affect was present through most of the active-phase symptoms
+> The specifier requires the absence of blunted or flat affect, not its presence.
+
+**D.** A first-degree relative has been treated for schizophrenia for several years
+> Family history is a risk factor, not one of the listed good prognostic features.
+
+**Rationale:** The "with good prognostic features" specifier for schizophreniform disorder requires at least two of: onset of prominent psychotic symptoms within 4 weeks of the first noticeable change in usual behavior, confusion or perplexity, good premorbid social and occupational functioning, and the absence of blunted or flat affect. These features predict a better chance of recovery. A slow onset with negative symptoms points toward a poorer outcome.
+
+**References:** DSM-5-TR — Schizophreniform disorder: with good prognostic features specifier
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q601 of 1200 · nce-s-clf-313 · Social and Cultural Diversity · personality disorders · medium · In review
+
+A 36-year-old who came to the U.S. as a political refugee 2 years ago is guarded with the counselor, asks who will see his records, and says he does not trust officials. He speaks limited English and has faced discrimination at work. A colleague suggests paranoid personality disorder. What is the BEST response?
+
+**A.** Agree, since mistrust of others is the core feature of paranoid personality
+> Mistrust that fits his life circumstances is not a pervasive, unwarranted personality pattern.
+
+**B.** Agree, but add a delusional disorder diagnosis for his beliefs about officials
+> His wariness is grounded in real experiences and is not a fixed false belief.
+
+**C.** Delay any rapport-building until his mistrust has been fully assessed
+> Building trust is part of assessment; delaying it would likely deepen his guardedness.
+
+**D.** Consider that his guardedness may reflect refugee history and discrimination **✔ KEY**
+> DSM-5-TR warns that wariness tied to refugee status or discrimination can be mislabeled as paranoid.
+
+**Rationale:** DSM-5-TR notes that behaviors shaped by sociocultural context, such as guardedness in immigrants, political refugees or members of minority groups who face discrimination, can be wrongly labeled paranoid. Language barriers and unfamiliarity with systems can add to this wariness. Counselors weigh the person's history and context before diagnosing a personality disorder and focus on building trust.
+
+**References:** DSM-5-TR — Paranoid personality disorder: culture-related diagnostic issues · Sue & Sue (Counseling the Culturally Diverse) — Cultural mistrust and healthy cultural paranoia in clients of color
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q602 of 1200 · nce-s-clf-314 · Assessment and Testing · personality disorders · hard · In review
+
+A 52-year-old had a stroke affecting the frontal lobe 8 months ago. His wife reports that, unlike before, he now makes rude comments to strangers, spends money impulsively and loses his temper over small things. He had steady work and relationships for decades. Which diagnosis BEST fits?
+
+**A.** Antisocial personality disorder, given his new impulsive and rude behavior
+> Antisocial PD requires a pattern since age 15 with conduct disorder before 15; his change is recent.
+
+**B.** Borderline personality disorder, given his anger and impulsive spending
+> A personality disorder must trace back to adolescence or early adulthood, not begin in midlife.
+
+**C.** Personality change due to another medical condition, the stroke **✔ KEY**
+> A persistent change from his prior personality caused by a medical condition fits this diagnosis.
+
+**D.** Intermittent explosive disorder, given his outbursts over small things
+> IED is not diagnosed when outbursts are better explained by the effects of a medical condition.
+
+**Rationale:** A personality disorder is an enduring pattern whose onset can be traced to adolescence or early adulthood and that is not due to a medical condition. When a persistent change from a person's prior personality is the direct result of a medical condition, such as a stroke or brain injury, DSM-5-TR diagnoses personality change due to another medical condition. Subtypes include disinhibited, aggressive and labile types.
+
+**References:** DSM-5-TR — General personality disorder criteria (onset, exclusions); personality change due to another medical condition
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q603 of 1200 · nce-s-clf-315 · Assessment and Testing · eating disorders · medium · In review
+
+A 22-year-old meets criteria for bulimia nervosa. Her weight is in the normal range. Over the past 3 months she has averaged about 10 episodes of self-induced vomiting per week after binges. Based on DSM-5-TR, what is the current severity level?
+
+**A.** Moderate
+> Moderate covers 4 to 7 compensatory episodes per week.
+
+**B.** Severe **✔ KEY**
+> Severe covers 8 to 13 compensatory episodes per week, which fits her average of 10.
+
+**C.** Mild
+> Mild covers 1 to 3 compensatory episodes per week.
+
+**D.** Extreme
+> Extreme begins at 14 or more compensatory episodes per week.
+
+**Rationale:** Bulimia nervosa severity in DSM-5-TR is based on how often inappropriate compensatory behaviors such as vomiting occur. Mild is 1 to 3 episodes per week, moderate 4 to 7, severe 8 to 13 and extreme 14 or more. Severity may be raised to reflect other symptoms and functional disability, and frequent purging raises medical risk.
+
+**References:** DSM-5-TR — Bulimia nervosa: severity specifiers based on compensatory behaviors per week
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q604 of 1200 · nce-s-clf-316 · Assessment and Testing · eating disorders · easy · In review
+
+For 2 months, an 11-year-old has brought food back up into her mouth without effort shortly after most meals, then rechews and swallows it or spits it out. She has no nausea, a full medical workup found no gastrointestinal cause, and she has no concerns about weight or shape. Which diagnosis BEST fits?
+
+**A.** Rumination disorder **✔ KEY**
+> Repeated regurgitation for at least a month, not due to a medical condition, fits rumination disorder.
+
+**B.** Bulimia nervosa
+> Bulimia involves binges, purging to prevent weight gain and undue focus on weight or shape.
+
+**C.** Anorexia nervosa
+> Anorexia requires restriction leading to low weight and fear of gaining weight.
+
+**D.** Pica
+> Pica is the persistent eating of nonfood substances, not regurgitation of food.
+
+**Rationale:** Rumination disorder involves repeated regurgitation of food over at least 1 month, with the food rechewed, reswallowed or spit out. The behavior is not due to a gastrointestinal or other medical condition and does not occur only during another eating disorder. Because it can lead to weight loss and social avoidance at meals, counselors coordinate with medical providers and may use habit reversal methods such as diaphragmatic breathing.
+
+**References:** DSM-5-TR — Rumination disorder: Criteria A-C
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q605 of 1200 · nce-s-clf-317 · Assessment and Testing · neurocognitive disorders · medium · In review
+
+A 42-year-old is referred for growing irritability, trouble planning and organizing at work, and new jerky, dance-like movements of his hands and face. His mother and his grandfather developed similar problems in midlife. Which neurocognitive disorder do these features MOST suggest?
+
+**A.** NCD due to Alzheimer's disease
+> Alzheimer's usually begins later with memory loss and lacks early choreiform movements.
+
+**B.** Vascular neurocognitive disorder
+> Vascular NCD follows cerebrovascular events, often in a stepwise course, without chorea.
+
+**C.** NCD with Lewy bodies
+> Lewy body NCD features fluctuating cognition, visual hallucinations and parkinsonism, not chorea.
+
+**D.** NCD due to Huntington's disease **✔ KEY**
+> Midlife onset, chorea, executive decline, irritability and a dominant family pattern point to Huntington's.
+
+**Rationale:** Huntington's disease is an inherited, autosomal dominant condition, so a parent with the illness gives a child a 50% chance of carrying the gene. DSM-5-TR notes an average age at diagnosis of about 40 years, with insidious onset and gradual progression. Early signs often include irritability, depression, anxiety and executive dysfunction, with choreiform movements as the hallmark motor feature.
+
+**References:** DSM-5-TR — Major or mild neurocognitive disorder due to Huntington's disease
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q606 of 1200 · nce-s-clf-318 · Assessment and Testing · neurocognitive disorders · hard · In review
+
+A 58-year-old with 30 years of heavy daily drinking has been sober for 4 months. He cannot learn new information, forgetting a conversation within minutes, and he fills gaps with detailed but invented stories. His attention and other skills are largely intact, and he needs help to manage his daily life. Which diagnosis BEST fits?
+
+**A.** Alcohol withdrawal delirium, since the memory gaps followed his drinking
+> Delirium involves disturbed attention with acute onset; his deficits are stable months into sobriety.
+
+**B.** Alcohol-induced major NCD, amnestic-confabulatory type, from heavy use **✔ KEY**
+> Persistent, severe new-learning loss with confabulation after long heavy drinking fits this specifier.
+
+**C.** Major NCD due to Alzheimer's disease, given the profound memory loss
+> The link to long heavy drinking and the confabulation point to an alcohol-induced cause.
+
+**D.** Alcohol use disorder in early remission, with expected memory lapses
+> Remission status does not explain a severe, lasting amnestic disorder that impairs independence.
+
+**Rationale:** DSM-5-TR includes an amnestic-confabulatory type for alcohol-induced major neurocognitive disorder, a presentation also known as Korsakoff syndrome. It reflects thiamine deficiency linked to chronic heavy drinking and features severe loss of new learning with confabulation, while other abilities may be relatively spared. Because deficits persist beyond intoxication and withdrawal, care often involves supported living and memory aids.
+
+**References:** DSM-5-TR — Substance/medication-induced major NCD: alcohol, amnestic-confabulatory type
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q607 of 1200 · nce-s-clf-319 · Assessment and Testing · neurocognitive disorders · medium · In review
+
+Over only 4 months, a 61-year-old has gone from managing her own business to needing help dressing. Her family notes sudden, brief jerks of her arms and a new unsteady gait. She has no history of stroke, head injury or substance use. Which neurocognitive disorder do these features MOST suggest?
+
+**A.** NCD due to Alzheimer's disease, typical of early-onset cases
+> Alzheimer's progresses gradually over years, not to severe impairment within months.
+
+**B.** Mild neurocognitive disorder, since symptoms began only recently
+> She now needs help with daily tasks, so her impairment is major, not mild.
+
+**C.** NCD due to prion disease, given rapid decline with myoclonus **✔ KEY**
+> Very rapid progression with myoclonus and ataxia is the hallmark of prion disease.
+
+**D.** Frontotemporal NCD, since her decline began in her early 60s
+> Frontotemporal NCD leads with behavior or language change and progresses more slowly.
+
+**Rationale:** DSM-5-TR describes neurocognitive disorder due to prion disease, such as Creutzfeldt-Jakob disease, as having an insidious onset with commonly rapid progression. Motor features such as myoclonus or ataxia, or biomarker evidence, support the diagnosis. A decline over months rather than years is a key clue that sets it apart from Alzheimer's and frontotemporal NCD.
+
+**References:** DSM-5-TR — Major or mild neurocognitive disorder due to prion disease
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q608 of 1200 · nce-s-clf-320 · Assessment and Testing · sleep-wake concerns · medium · In review
+
+The wife of a 67-year-old client reports that several times a month, late in the night, he shouts and punches while asleep. When she wakes him he is alert at once and describes a dream of fighting off an attacker. He recently struck her by accident. Which sleep disorder do these features MOST suggest?
+
+**A.** REM sleep behavior disorder **✔ KEY**
+> Acting out vivid dreams with full alertness on waking fits REM sleep behavior disorder.
+
+**B.** Non-REM sleep terror type
+> Sleep terrors occur early in the night, with confusion on waking and little dream recall.
+
+**C.** Nightmare disorder
+> Nightmares cause distressing dreams, but the person does not act them out physically.
+
+**D.** Non-REM sleepwalking type
+> Sleepwalking occurs in non-REM sleep with confusion and amnesia, not vivid dream recall.
+
+**Rationale:** REM sleep behavior disorder involves vocalizing and complex movements during REM sleep, often later in the night, with the person acting out dreams. On waking, the person is fully alert and can describe the dream. It is most common in older men and often precedes synucleinopathies such as Parkinson's disease or Lewy body disease, so referral for sleep and neurological evaluation and bedroom safety planning are warranted.
+
+**References:** DSM-5-TR — Rapid eye movement sleep behavior disorder: criteria and development and course
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q609 of 1200 · nce-s-clf-321 · Human Growth and Development · sleep-wake concerns · easy · In review
+
+A 74-year-old says that over recent years her sleep has become lighter, she wakes more often during the night, and she gets sleepy by 8:30 p.m. and wakes near 5 a.m. She feels rested and functions well in the daytime. She asks whether something is wrong. Which response BEST reflects lifespan research?
+
+**A.** Her pattern shows insomnia disorder and needs treatment to restore youthful sleep
+> Insomnia disorder requires distress or daytime impairment, which she does not have.
+
+**B.** Older adults need much less sleep, so she should stay up later to sleep deeper
+> Sleep need changes only modestly with age, and staying up late does not restore deep sleep.
+
+**C.** Lighter, broken sleep with earlier timing is common in aging and not harmful alone **✔ KEY**
+> Aging brings less deep sleep, more waking and an earlier sleep phase; good daytime function is reassuring.
+
+**D.** Waking early and sleeping lightly at her age signals early neurocognitive disorder
+> These changes are typical of normal aging and do not by themselves suggest cognitive decline.
+
+**Rationale:** Normal aging brings less deep slow-wave sleep, more frequent nighttime waking and a shift toward earlier sleep and wake times. These changes are not a disorder when the person feels rested and functions well during the day. Counselors watch instead for daytime impairment, loud snoring or breathing pauses, and mood or medication effects that suggest a treatable sleep problem.
+
+**References:** Berk (Development Through the Lifespan) — Late adulthood physical development: changes in sleep · DSM-5-TR — Circadian rhythm sleep-wake disorders: advanced sleep phase type, development and course
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q610 of 1200 · nce-s-clf-322 · Assessment and Testing · self-injury · hard · In review
+
+A 19-year-old with severe intellectual developmental disorder repeatedly bangs his head and bites his hand, with the same rhythmic pattern many times a day since early childhood. Staff ask whether the DSM-5-TR proposed nonsuicidal self-injury disorder fits. Which conclusion is BEST supported?
+
+**A.** NSSI disorder fits, since he injures himself on at least 5 days each year
+> Frequency alone is not enough; the proposed criteria exclude repetitive stereotypies in this context.
+
+**B.** NSSI disorder fits, since the injuries are deliberate and lack suicidal intent
+> The behavior is better explained by a stereotypic pattern than by NSSI driven by an expected outcome.
+
+**C.** No disorder can be given, since self-injury is expected with his disability
+> Self-injurious stereotypies can be diagnosed and need intervention; they are not simply expected.
+
+**D.** Stereotypic movement disorder, with self-injurious behavior, fits better **✔ KEY**
+> Repetitive, purposeless self-injury from early development in this context fits stereotypic movement disorder.
+
+**Rationale:** The DSM-5-TR proposed criteria for nonsuicidal self-injury disorder state that the behavior is not better explained by another condition, including repetitive stereotypies in a person with an intellectual developmental disorder. Stereotypic movement disorder involves repetitive, seemingly driven and purposeless motor behavior beginning early in development, and it can be specified as with self-injurious behavior. Accurate diagnosis guides safety measures and behavioral treatment.
+
+**References:** DSM-5-TR — Conditions for further study: nonsuicidal self-injury disorder, Criterion F; stereotypic movement disorder
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q611 of 1200 · nce-s-clf-323 · Counseling and Helping Relationships · self-injury · medium · In review
+
+A 17-year-old in DBT says she cut herself again over the weekend but "has no idea why it happened." Her counselor wants to understand, step by step, the events, thoughts, feelings and urges that led to the cutting and what followed it. Which DBT technique BEST fits this goal?
+
+**A.** Radical acceptance, letting go of the fight against what has happened
+> Radical acceptance is a distress tolerance skill, not a method for mapping causes of a behavior.
+
+**B.** Behavior chain analysis of the links before and after the self-injury **✔ KEY**
+> Chain analysis traces the prompting event, links and consequences of a target behavior in detail.
+
+**C.** The DEAR MAN skill, a script for making clear requests of other people
+> DEAR MAN is an interpersonal effectiveness skill for asking for what one wants.
+
+**D.** Opposite action, acting against the urge tied to an unjustified emotion
+> Opposite action changes emotions; it does not identify the chain that led to the cutting.
+
+**Rationale:** In DBT, a behavior chain analysis is a detailed review of a problem behavior such as self-injury. Counselor and client identify vulnerability factors, the prompting event, each link of thoughts, feelings, sensations and actions, and the short- and long-term consequences. The analysis then points to where new skills can break the chain next time.
+
+**References:** Linehan (DBT Skills Training Manual) — Behavior chain analysis of problem behavior
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q612 of 1200 · nce-s-clf-324 · Counseling and Helping Relationships · psychopharmacology basics for counselors · easy · In review
+
+A 45-year-old stopped taking paroxetine on her own 3 days ago because she "felt better." She now reports dizziness, nausea, irritability, flu-like aches and brief "electric shock" sensations in her head. She fears her depression is back. What should the counselor do?
+
+**A.** Explain this may be discontinuation syndrome and urge a call to her prescriber **✔ KEY**
+> Abruptly stopping paroxetine often causes these symptoms; the prescriber can guide restarting or tapering.
+
+**B.** Tell her that the symptoms confirm relapse and that she should restart the pill
+> The physical symptoms point to discontinuation, and dosing decisions belong to the prescriber.
+
+**C.** Suggest she wait it out, as stopping an antidepressant has no physical effects
+> Antidepressant discontinuation can cause real, distressing physical symptoms.
+
+**D.** Advise taking an over-the-counter sleep aid until the strange sensations pass
+> Counselors do not recommend medications, and this would not address the cause.
+
+**Rationale:** DSM-5-TR describes antidepressant discontinuation syndrome, which can follow abrupt stopping or sharp reduction of an antidepressant taken for at least a month. Symptoms such as dizziness, nausea, irritability, flu-like aches and electric shock sensations usually begin within 2 to 4 days and are more common with short half-life drugs like paroxetine. Counselors help clients tell this from relapse and refer them to the prescriber for a taper plan.
+
+**References:** DSM-5-TR — Medication-induced movement disorders and other adverse effects: antidepressant discontinuation syndrome
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q613 of 1200 · nce-s-clf-325 · Assessment and Testing · psychopharmacology basics for counselors · medium · In review
+
+A client with schizophrenia began a new antipsychotic 10 days ago. In session he cannot sit still, shifts his legs constantly and paces the room. He says he feels "jittery inside" and cannot stop moving, and he denies new worries. What do these signs MOST likely reflect?
+
+**A.** Tardive dyskinesia from long-term antipsychotic use
+> Tardive dyskinesia appears after months or years and involves involuntary mouth and face movements.
+
+**B.** Akathisia, an acute side effect of the new antipsychotic **✔ KEY**
+> Inner restlessness with pacing soon after starting an antipsychotic is the picture of acute akathisia.
+
+**C.** Worsening psychotic agitation that calls for a higher dose
+> Mistaking akathisia for agitation and raising the dose can worsen it; the prescriber should assess.
+
+**D.** Generalized anxiety disorder emerging with the illness
+> GAD needs 6 months of worry; he denies new worries and his restlessness began with the drug.
+
+**Rationale:** Medication-induced acute akathisia is a subjective sense of restlessness with observable movements such as fidgeting, rocking or pacing, appearing within a few weeks of starting or raising an antipsychotic. It is often mistaken for anxiety or psychotic agitation, and it is distressing enough to drive nonadherence and has been linked to suicidal thinking. Counselors who notice it should prompt a timely review with the prescriber.
+
+**References:** DSM-5-TR — Medication-induced movement disorders: medication-induced acute akathisia
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q614 of 1200 · nce-s-clf-326 · Counseling and Helping Relationships · grief and loss · medium · In review
+
+A 71-year-old cares at home for her husband, who has advanced Alzheimer's disease and no longer knows her name. She says, "He is right here, yet the man I married is gone. I don't know whether to grieve or keep hoping." Her friends tell her she cannot grieve someone who is still alive. Which concept BEST describes her loss?
+
+**A.** Ambiguous loss, as he is present in body but absent in mind and identity **✔ KEY**
+> Boss's ambiguous loss describes a loved one who is physically present but psychologically absent, which blocks closure.
+
+**B.** Delayed grief, as she has pushed her feelings away and will grieve later
+> She is not suppressing feelings; she is openly describing a loss that has no clear end point.
+
+**C.** Prolonged grief disorder, as her yearning has lasted for a very long time
+> Prolonged grief disorder requires a death at least 12 months earlier; her husband is still living.
+
+**D.** Exaggerated grief, as her distress has grown into a separate disorder
+> Nothing suggests a psychiatric disorder; her confusion fits the unclear nature of the loss itself.
+
+**Rationale:** Pauline Boss described ambiguous loss as a loss without clear facts or closure. In one type, a person is physically present but psychologically absent, as with advanced dementia; in the other, a person is physically missing but kept psychologically present, as with a missing soldier. Because the loss is unclear, others often fail to recognize it, and counselors help clients hold both the loss and the ongoing relationship rather than push for resolution.
+
+**References:** Boss (Ambiguous Loss) — Psychological absence with physical presence: dementia caregiving · Worden (Grief Counseling) — Grief in caregivers and nonfinite loss
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q615 of 1200 · nce-s-clf-327 · Counseling and Helping Relationships · grief and loss · medium · In review
+
+A hospice plans to require six sessions of grief counseling for every adult family member after each patient's death, whether or not they want it. The program director asks a counselor for advice. Based on research on bereavement interventions, what should the counselor recommend?
+
+**A.** Keep the plan, since early counseling for every mourner prevents later grief problems
+> Research has not shown that routine counseling for all bereaved people prevents later problems.
+
+**B.** Replace counseling with a single group debriefing held in the week after each death
+> Single-session debriefing is not supported and does not target the people most likely to struggle.
+
+**C.** Offer care to those at high risk or seeking help, as routine care shows little gain **✔ KEY**
+> Interventions show the clearest benefit for high-risk mourners and those with complicated grief.
+
+**D.** Delay any contact for one full year, since grief must run its course before help
+> Mourners at high risk or in distress can benefit from help well before a year has passed.
+
+**Rationale:** Worden reviews three approaches to bereavement services: offering help to everyone, offering it to those judged at high risk, and waiting until problems appear or people ask. Outcome reviews find little benefit from routine intervention for people with normal grief, but better results for high-risk mourners and those with complicated grief. Programs therefore screen for risk and make help easy to reach rather than requiring it for all.
+
+**References:** Worden (Grief Counseling) — Is grief counseling effective? Universal vs targeted (high-risk) bereavement intervention
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q616 of 1200 · nce-s-clf-328 · Counseling and Helping Relationships · crisis and disaster response · hard · In review
+
+Within an hour of learning that his business partner embezzled their savings, a 50-year-old arrives at a walk-in clinic pacing, sobbing and unable to follow simple questions. According to James and Gilliland, which basic crisis intervention model is MOST suited to this stage of his crisis?
+
+**A.** Cognitive model, to dispute his faulty thoughts about the theft right away
+> The cognitive model fits once a client is stable enough to examine and change his thinking.
+
+**B.** Equilibrium model, to calm him and restore a basic level of stable coping **✔ KEY**
+> The equilibrium model fits early intervention, when a person is out of control and cannot make choices.
+
+**C.** Psychosocial transition model, to review how his past shaped this event
+> The psychosocial transition model draws on inner and outer resources after the client has stabilized.
+
+**D.** Developmental model, to place the loss within his midlife stage tasks
+> This is not one of the three basic crisis models, and it does not fit the acute stage of his crisis.
+
+**Rationale:** James and Gilliland describe three basic crisis intervention models. The equilibrium model aims to restore a person in disequilibrium to a steady state and is most appropriate early, when the person is out of control and disoriented. The cognitive and psychosocial transition models are better suited after stabilization, when the client can work on thoughts or on inner and outer resources.
+
+**References:** James & Gilliland (Crisis Intervention Strategies) — Basic crisis intervention models: equilibrium, cognitive and psychosocial transition
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q617 of 1200 · nce-s-clf-329 · Counseling and Helping Relationships · crisis and disaster response · medium · In review
+
+At a family assistance center after a bridge collapse, a responder finds a young man sitting alone, staring blankly and rocking. He does not respond when asked his name. Which Psychological First Aid core action should the responder use NEXT?
+
+**A.** Information gathering, by asking him to describe the collapse in full detail
+> PFA does not press survivors for a detailed account, and he cannot yet engage in an interview.
+
+**B.** Linkage with services, by handing him a list of local mental health clinics
+> Referral material is of little use to a survivor who cannot yet attend to what is said.
+
+**C.** Information on coping, by teaching him a set of steps for managing stress
+> Coping education comes later; he must first be calm and oriented enough to take it in.
+
+**D.** Stabilization, by calmly helping him orient to where he is and who is near **✔ KEY**
+> Stabilization is for survivors who are overwhelmed or disoriented, such as those glassy-eyed and unresponsive.
+
+**Rationale:** The PFA Field Operations Guide lists eight core actions, including contact and engagement, safety and comfort, stabilization, information gathering, practical assistance, connection with social supports, information on coping, and linkage with collaborative services. Stabilization is used when survivors are emotionally overwhelmed or disoriented, with signs such as a vacant stare, no response to questions, or rocking. The responder stays close, speaks calmly and helps the person orient before moving to other actions.
+
+**References:** Psychological First Aid Field Operations Guide (NCTSN/NCPTSD) — Core Action 3: Stabilization of emotionally overwhelmed survivors
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q618 of 1200 · nce-s-clf-330 · Counseling and Helping Relationships · crisis and disaster response · easy · In review
+
+A week after a shooting at a community festival, a town council asks a counselor what to expect for residents' mental health over the coming months. Which response is MOST accurate?
+
+**A.** Most will have distress that fades with time, while a smaller group needs care **✔ KEY**
+> Most survivors recover with support and time; a minority develop lasting problems that need treatment.
+
+**B.** Most will develop PTSD and should start trauma therapy as soon as possible
+> Only a minority of people exposed to a disaster develop PTSD; resilience is the common course.
+
+**C.** Few will be affected, since distress after a single event tends to be rare
+> Early distress is common and expected; it is the lasting impairment that affects a minority.
+
+**D.** Symptoms are unlikely to appear until a year later, so services can wait
+> Reactions often begin right away, and early practical and emotional support is helpful.
+
+**Rationale:** Psychological First Aid rests on the finding that most people exposed to disasters and mass violence have early distress that eases over time, especially with practical help and social support. A smaller group develops lasting problems such as PTSD, depression or substance misuse. Communities therefore offer broad, supportive help early and screen and follow up so that those who need treatment are linked to it.
+
+**References:** Psychological First Aid Field Operations Guide (NCTSN/NCPTSD) — Basic objectives of PFA: expected recovery and natural resilience after disaster
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q619 of 1200 · nce-s-clf-331 · Counseling and Helping Relationships · intimate partner violence · medium · In review
+
+A 40-year-old client whose husband has hit her says she has decided to stay for now. She has no income of her own, fears he will become more violent if she leaves, and wants to keep the family together. What is the BEST response from the counselor?
+
+**A.** Tell her the counselor cannot keep working with her unless she agrees to leave
+> Making care depend on leaving is coercive and cuts her off from support when she needs it most.
+
+**B.** Respect her choice and build a safety plan for staying, with resources to use **✔ KEY**
+> Honoring her autonomy while planning for safety where she is keeps her engaged and safer.
+
+**C.** Begin couples sessions with her husband so that the two of them can resolve it
+> Couples work while violence is ongoing can raise her risk and implies shared blame for the abuse.
+
+**D.** Explore how her own behavior may be setting off his anger before each incident
+> This blames the victim; responsibility for violence lies with the person who uses it.
+
+**Rationale:** People stay in abusive relationships for many reasons, including economic dependence, fear of escalation, children and hope for change. Pressure to leave can damage trust and does not match the client's own read of her risk. Counselors respect her decisions, assess danger, and build a safety plan that fits her current situation while making shelters, advocates and legal options known.
+
+**References:** James & Gilliland (Crisis Intervention Strategies) — Intimate partner violence: reasons for staying and safety planning with the survivor
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q620 of 1200 · nce-s-clf-332 · Counseling and Helping Relationships · intimate partner violence · medium · In review
+
+A court refers a 35-year-old man after he was arrested for assaulting his partner. He says, "I just have a temper. Put me in an anger management class and I'll be fine." Which referral is MOST appropriate?
+
+**A.** A general anger management class focused on spotting triggers and calming down
+> Anger management treats violence as a loss of control and misses the pattern of power and control.
+
+**B.** Conjoint couples counseling so both partners can learn to argue more safely
+> Couples work is not recommended with ongoing violence and may place the partner at greater risk.
+
+**C.** A specialized program for people who abuse partners, stressing accountability **✔ KEY**
+> Batterer intervention programs address beliefs about power and control and hold the person responsible.
+
+**D.** Individual insight therapy on how his childhood shaped his feelings of anger
+> Exploring childhood alone does not address the controlling behavior or his responsibility for it.
+
+**Rationale:** Partner abuse is a pattern of power and control, not only a problem of anger. Generic anger management can let the person frame the violence as a temper issue and blame the partner for provoking it. Specialized intervention programs confront controlling beliefs, focus on accountability and are coordinated with the courts and with advocates for the victim's safety.
+
+**References:** James & Gilliland (Crisis Intervention Strategies) — Intimate partner violence: intervention with abusers vs anger management
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q621 of 1200 · nce-s-clf-333 · Counseling and Helping Relationships · intimate partner violence · easy · In review
+
+A 28-year-old woman says her girlfriend tracks her phone and has threatened to tell the client's conservative family and employer that she is a lesbian if she ever ends the relationship. The client is not out to either. How should the counselor view this threat?
+
+**A.** As ordinary conflict, since there has not been any physical violence so far
+> Abuse includes emotional and controlling tactics; physical violence is not required.
+
+**B.** As mutual fighting, since partner abuse is unusual between two women
+> IPV occurs in same-sex relationships at rates similar to or higher than in other couples.
+
+**C.** As a privacy issue alone, to be handled by legal advice rather than safety work
+> The threat is used to trap her in the relationship and calls for safety planning, not only legal advice.
+
+**D.** As a control tactic, using the threat of outing to keep her from leaving **✔ KEY**
+> Threatening to out a partner is a form of coercive control specific to LGBTQ+ relationships.
+
+**Rationale:** Intimate partner violence in same-sex relationships follows the same pattern of power and control seen in other relationships, with some added tactics. Threatening to reveal a partner's sexual orientation or gender identity to family, employers or others uses stigma to keep the partner from leaving or seeking help. Counselors recognize this as abuse, assess safety, and connect clients with LGBTQ+-affirming advocacy services.
+
+**References:** James & Gilliland (Crisis Intervention Strategies) — Partner violence in same-sex relationships: outing as a control tactic
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q622 of 1200 · nce-s-clf-334 · Counseling and Helping Relationships · child abuse and neglect · easy · In review
+
+A primary care clinic asks a counselor why it should screen adult patients for adverse childhood experiences (ACEs), such as abuse, neglect and household dysfunction. Which finding from the ACE Study BEST supports screening?
+
+**A.** Only sexual abuse predicts later health problems, so other ACEs add little
+> Many types of adversity, not only sexual abuse, are linked to later health and mental health risks.
+
+**B.** As the number of ACEs rises, so does the risk of many health problems **✔ KEY**
+> The ACE Study found a graded, dose-response link between ACE count and later health risks.
+
+**C.** ACEs are rare among middle-class adults, so screening finds few cases
+> The original study sample was largely middle class, and ACEs were common in it.
+
+**D.** ACE effects fade by early adulthood, so their health impact is short
+> The study linked childhood adversity to health outcomes decades later in adulthood.
+
+**Rationale:** The CDC-Kaiser ACE Study surveyed a large, mostly middle-class adult sample and found that childhood adversity was common. It showed a graded relationship: the more types of adversity a person reported, the higher the risk of outcomes such as depression, substance misuse, suicide attempts and chronic disease. Trauma-informed care uses this finding to justify routine, sensitive screening and support.
+
+**References:** SAMHSA TIP 57 — Trauma-informed care: the Adverse Childhood Experiences Study and its graded findings
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q623 of 1200 · nce-s-clf-335 · Counseling and Helping Relationships · child abuse and neglect · medium · In review
+
+A 10-year-old is well fed and has no injuries. Her father, however, calls her "worthless" daily, threatens to give her dog away when she cries, and locks her in a closet when angry. The counselor notes that she has become withdrawn and fearful. Which DSM-5-TR condition BEST fits what she is experiencing?
+
+**A.** Child neglect, since her father fails to meet her emotional needs
+> Neglect is a failure to provide basic needs; these are active, harmful acts by the parent.
+
+**B.** Parent-child relational problem, as their communication is poor
+> This label fits strained relationships; it does not capture deliberate threats and confinement.
+
+**C.** Child psychological abuse, from his threats, insults and confinement **✔ KEY**
+> Nonaccidental verbal or symbolic acts that cause significant psychological harm define this condition.
+
+**D.** Child physical abuse, since being shut in a closet harms the body
+> Physical abuse involves nonaccidental physical injury; confinement here is a form of psychological abuse.
+
+**Rationale:** DSM-5-TR defines child psychological abuse as nonaccidental verbal or symbolic acts by a parent or caregiver that result, or could reasonably result, in significant psychological harm. Examples include berating, disparaging or humiliating the child, threatening to harm or abandon loved people or pets, and confining the child, such as in a closet. The condition is coded as confirmed or suspected and also triggers the counselor's mandated reporting duty.
+
+**References:** DSM-5-TR — Other Conditions That May Be a Focus of Clinical Attention: Child Psychological Abuse
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q624 of 1200 · nce-s-clf-336 · Counseling and Helping Relationships · child abuse and neglect · hard · In review
+
+Two weeks after a counselor reported a 12-year-old's disclosure of sexual abuse by her stepfather, the girl says she "made it all up." Her mother, who is upset about the family's money problems since he moved out, sits in the waiting room. What should the counselor do?
+
+**A.** Tell CPS about the recantation and keep supporting her without pressure **✔ KEY**
+> Recanting is common under family pressure; CPS needs the new information and she needs steady support.
+
+**B.** Withdraw the report, since the child has now said that it did not happen
+> A recantation does not undo reasonable suspicion, and the counselor cannot simply withdraw a report.
+
+**C.** Confront her with the details of her first account to show it was true
+> Pressing her adds to her distress and makes the counselor an investigator, which is not the role.
+
+**D.** Ask the mother to help decide which version of events should be believed
+> The mother may be a source of pressure, and judging the truth belongs to the investigators.
+
+**Rationale:** Children often recant abuse disclosures, especially when a nonoffending parent is unsupportive, the family faces losses after the report, or the child feels blamed for the fallout. A recantation is new information for CPS but does not by itself cancel the reasonable suspicion that triggered the report. The counselor shares it with CPS as required, avoids investigative questioning, and stays a calm, consistent support for the child.
+
+**References:** State law — Child abuse reporting: reasonable suspicion standard and sharing new information with CPS
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q625 of 1200 · nce-s-clf-337 · Career Development · career and vocational concerns · hard · In review
+
+A 45-year-old bank teller knows his branch will close within a year. He is planning for the change, takes charge of his decisions and believes he can learn new skills, but he has not looked into any other kinds of work and says he "wouldn't know where to start." In Savickas's model of career adaptability, which dimension is MOST in need of support?
+
+**A.** Concern, his sense that his work future is worth planning for now
+> He is already planning for the change, which shows concern for his future.
+
+**B.** Control, his sense that the career choices ahead belong to him
+> He takes charge of his decisions, which reflects a sense of control.
+
+**C.** Confidence, his belief that he can master the tasks ahead of him
+> He believes he can learn new skills, so self-efficacy is not the main gap.
+
+**D.** Curiosity, his exploration of possible selves and options at work **✔ KEY**
+> He has not explored any options, which points to a gap in curiosity.
+
+**Rationale:** Savickas's career construction theory describes career adaptability in four dimensions: concern about the future, control over decisions, curiosity that drives exploration of self and options, and confidence to pursue goals. Matching help to the weak dimension makes intervention efficient. For a client low in curiosity, the counselor uses information-seeking tasks, job shadowing and exploration of transferable skills.
+
+**References:** Sharf (Career Development Theory) — Savickas's career construction theory: concern, control, curiosity and confidence
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q626 of 1200 · nce-s-clf-338 · Counseling and Helping Relationships · couples and family concerns · medium · In review
+
+Since her parents divorced, a 12-year-old cooks dinner, gets her two younger brothers to bed, and listens late at night as her depressed mother confides her money worries and loneliness. Teachers say the girl seems tired and "older than her years." Which family concept BEST describes this pattern?
+
+**A.** Emotional cutoff, as the girl pulls away from her family to manage
+> Cutoff is distancing to manage fusion; she is drawn closer into an adult role, not away.
+
+**B.** Triangulation, as she is pulled into the conflict between two parents
+> Triangulation draws a third person into a dyad's conflict; here she has taken over a parent's role.
+
+**C.** Parentification, as the girl takes on a parent's tasks and burdens **✔ KEY**
+> Parentification places adult caregiving and emotional duties on a child at the cost of her needs.
+
+**D.** Differentiation, as she grows into a mature and self-reliant person
+> Differentiation is a healthy balance of self and connection, not a child carrying adult burdens.
+
+**Rationale:** Boszormenyi-Nagy's contextual therapy describes parentification as a child taking on parental roles, whether practical caregiving or serving as a parent's emotional confidant. Some responsibility can build skills, but chronic parentification without acknowledgment drains the child and creates an imbalance of give and take across generations. Counselors restore generational boundaries, link the parent with adult supports, and acknowledge the child's contributions.
+
+**References:** Goldenberg (Family Therapy) — Contextual therapy (Boszormenyi-Nagy): parentification and relational ethics
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q627 of 1200 · nce-s-clf-339 · Human Growth and Development · developmental life transitions · hard · In review
+
+A counselor notices that many clients who finished college during a deep national recession describe the same pattern years later: lower starting pay, delayed home buying and lasting worry about job security. In the lifespan perspective, which type of influence BEST explains this shared pattern?
+
+**A.** Normative age-graded influences, shared by everyone at a given age
+> Age-graded influences are tied to age itself, such as puberty or school entry, not to an era.
+
+**B.** Nonnormative influences, unusual events that happen to only a few
+> Nonnormative events are irregular and individual, not shared by a whole cohort.
+
+**C.** Critical periods, set windows when a skill must be acquired or lost
+> Critical periods concern biological readiness windows, not economic conditions of an era.
+
+**D.** History-graded influences, forces tied to a period in history **✔ KEY**
+> Economic downturns, wars and epidemics are history-graded influences that shape a whole cohort.
+
+**Rationale:** Baltes's lifespan perspective, as presented by Berk, sorts influences into normative age-graded, normative history-graded and nonnormative. History-graded influences are forces unique to an era, such as recessions, epidemics, wars and technological change, which explain why people born at the same time share certain patterns. Counselors who recognize cohort effects can frame clients' struggles as partly structural rather than purely personal.
+
+**References:** Berk (Development Through the Lifespan) — Lifespan perspective: age-graded, history-graded and nonnormative influences
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q628 of 1200 · nce-s-clf-340 · Human Growth and Development · developmental life transitions · easy · In review
+
+Two months after his parents separated, a 5-year-old tells his preschool teacher, "Daddy left because I was too loud." His parents are puzzled, since they never said anything like that. Which explanation should the counselor offer them?
+
+**A.** Young children often blame themselves for divorce and need clear reassurance **✔ KEY**
+> Preschoolers' egocentric thinking often leads them to see themselves as the cause of a breakup.
+
+**B.** His remark shows that he has overheard the parents arguing about his behavior
+> Self-blame is common in young children without any such cue; it need not reflect what he heard.
+
+**C.** Self-blame at his age points to a depressive disorder that needs prompt treatment
+> Self-blame alone is a common, expected reaction at this age and is not a sign of a disorder.
+
+**D.** He is trying to bring his parents back together by drawing attention to himself
+> Reunion fantasies are common, but this statement reflects self-blame rather than a plan.
+
+**Rationale:** Berk notes that preschool and early school-age children often blame themselves for their parents' divorce and may fear being abandoned, reflecting their egocentric reasoning. Parents can help by explaining in simple terms that the decision was between the adults, that it was not caused by the child, and that both parents will keep caring for him. Predictable routines and contact with both parents also support adjustment.
+
+**References:** Berk (Development Through the Lifespan) — Divorce: young children's self-blame and fears of abandonment
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q629 of 1200 · nce-s-clf-341 · Human Growth and Development · developmental life transitions · medium · In review
+
+A 27-year-old who became a mother at 16 is now finishing her associate degree among classmates nine years younger. She is proud of her progress but says she feels "out of step" with both her old friends, who are starting families, and her classmates. Which concept BEST frames her experience?
+
+**A.** Identity foreclosure, as she committed to roles without exploration
+> Foreclosure is commitment without exploration; she is actively exploring new roles now.
+
+**B.** Off-time transitions, as her life events differ from the social clock **✔ KEY**
+> Early parenthood and later schooling are off-time relative to age norms, which can bring strain.
+
+**C.** A non-event transition, as an event she expected has not taken place
+> Non-events are expected events that fail to happen; her events did happen, just at unusual times.
+
+**D.** Role confusion, as she lacks a clear sense of her values and her goals
+> She is proud of her progress and has clear goals; her strain comes from timing, not confusion.
+
+**Rationale:** Neugarten described the social clock, the age-graded expectations for when major life events such as finishing school, marrying and having children should occur. Events that occur well before or after these norms are off-time and can bring stress, fewer peers in the same position and less social support. Counselors help clients find peers who share their path and value the strengths gained from a nontraditional sequence.
+
+**References:** Berk (Development Through the Lifespan) — Social clock: on-time and off-time life events in adulthood
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q630 of 1200 · nce-s-clf-342 · Human Growth and Development · aging and older adults · medium · In review
+
+A 78-year-old retired farmer with arthritis has cut his large garden down to two raised beds of his favorite vegetables, spends more time tending them, and now uses a kneeling stool and long-handled tools. He says gardening is still the best part of his week. Which concept BEST describes how he is adapting?
+
+**A.** Disengagement theory, as he withdraws from roles as his body declines
+> He has not withdrawn; he has reshaped a valued activity to keep doing it well.
+
+**B.** Activity theory, as he keeps as busy as he was in his middle-aged years
+> He has reduced his garden on purpose rather than keeping his earlier activity level.
+
+**C.** Selective optimization with compensation, as he narrows and adapts **✔ KEY**
+> He selects key goals, optimizes effort on them, and compensates for losses with aids.
+
+**D.** Gerotranscendence, as he turns from activity toward cosmic reflection
+> Gerotranscendence involves a shift toward spiritual reflection, not adapting a hobby.
+
+**Rationale:** Baltes's selective optimization with compensation describes how older adults age well despite losses. They select a smaller set of valued goals, optimize their resources by investing effort in those goals, and compensate for declines with new strategies or aids. The model helps counselors support clients in keeping meaningful activities rather than giving them up.
+
+**References:** Berk (Development Through the Lifespan) — Late adulthood: selective optimization with compensation (Baltes)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q631 of 1200 · nce-s-clf-343 · Human Growth and Development · aging and older adults · hard · In review
+
+An 84-year-old former dancer has lost much of her mobility. She tells her counselor, "I spent years upset about what my body could not do. Now I put my energy into teaching young dancers by video and into my friendships." In Peck's view of late adulthood, which task has she MOST clearly resolved?
+
+**A.** Ego differentiation, by finding worth in roles beyond her career
+> Ego differentiation concerns finding worth beyond the work role; her shift centers on physical decline.
+
+**B.** Ego transcendence, by facing death through her legacy to others
+> Ego transcendence concerns facing mortality; her statement is about moving beyond bodily limits.
+
+**C.** Ego integrity, by finding peace with the full course of her life
+> Integrity is Erikson's broad stage; Peck split it into more specific tasks.
+
+**D.** Body transcendence, by stressing mental and social powers over loss **✔ KEY**
+> She has moved past preoccupation with physical limits to emphasize cognitive and social strengths.
+
+**Rationale:** Robert Peck expanded Erikson's ego integrity stage into three tasks. Ego differentiation means finding worth beyond the work role, body transcendence means compensating for physical decline by emphasizing cognitive, emotional and social powers, and ego transcendence means facing mortality by investing in a future beyond oneself. This client has moved from body preoccupation to body transcendence.
+
+**References:** Berk (Development Through the Lifespan) — Late adulthood: Peck's tasks of ego integrity (ego differentiation, body transcendence, ego transcendence)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q632 of 1200 · nce-s-clf-344 · Counseling and Helping Relationships · chronic illness and disability · hard · In review
+
+A 33-year-old with lupus has joint pain and fatigue. She worries about flares before big events and keeps a symptom diary that her rheumatologist asked for, but her worry fits her medical situation, and she spends little time on health concerns otherwise. Her partner asks whether she has somatic symptom disorder. Which response is MOST accurate?
+
+**A.** Yes, because she has physical symptoms that disrupt her daily life
+> Distressing symptoms alone do not meet criteria; excessive thoughts, feelings or behaviors are also required.
+
+**B.** No, because her worry and actions are in proportion to her illness **✔ KEY**
+> Criterion B requires disproportionate thoughts, high health anxiety or excessive time and energy.
+
+**C.** No, because the diagnosis cannot apply when a medical illness exists
+> Somatic symptom disorder can occur alongside a diagnosed medical condition.
+
+**D.** Yes, because keeping a symptom diary is a form of excess health checking
+> Her diary was requested by her physician and is a reasonable part of managing lupus.
+
+**Rationale:** Somatic symptom disorder requires distressing somatic symptoms plus excessive thoughts, feelings or behaviors about them: disproportionate thoughts about seriousness, persistently high health anxiety, or excessive time and energy devoted to them, usually lasting more than 6 months. A medical condition does not rule out the diagnosis, but proportionate concern and recommended self-monitoring do not meet Criterion B. Mislabeling realistic coping can invalidate clients with chronic illness.
+
+**References:** DSM-5-TR — Somatic symptom disorder: Criterion B excessive thoughts, feelings or behaviors
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q633 of 1200 · nce-s-clf-345 · Counseling and Helping Relationships · chronic illness and disability · medium · In review
+
+A 41-year-old engineer who uses a wheelchair says coworkers often call her "so inspiring" for simply coming to work, and a stranger at a café praised her for "getting out." She feels uneasy but wonders whether she is being ungrateful. How should the counselor understand these comments?
+
+**A.** As kind support she should accept, since the remarks are meant well
+> Good intent does not remove the message that her ordinary life is surprising.
+
+**B.** As a sign of her own low self-worth that is shaping how she hears praise
+> This locates the problem in her rather than in the assumptions behind the comments.
+
+**C.** As overt discrimination that calls for a formal complaint at her job
+> The remarks are subtle and well meant; they fit microaggressions rather than overt discrimination.
+
+**D.** As ableist microaggressions that cast everyday life as heroic **✔ KEY**
+> Praising routine activities implies low expectations of people with disabilities.
+
+**Rationale:** Microaggressions are brief, often unintended messages that communicate slights toward members of marginalized groups. Treating routine activities of a person with a disability as remarkable implies that a full life with a disability is unexpected. Counselors validate the client's unease, help her name the pattern, and support her in choosing whether and how to respond.
+
+**References:** Sue & Sue (Counseling the Culturally Diverse) — Counseling persons with disabilities: ableism and disability microaggressions
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q634 of 1200 · nce-s-clf-346 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · easy · In review
+
+A 70-year-old gay man facing heart surgery has been estranged from his siblings for decades. He says three close friends have been "my real family for forty years" and fears they will be shut out of medical decisions. What should the counselor do FIRST?
+
+**A.** Urge him to reconcile with his siblings, who are his legal next of kin
+> This dismisses the supports he has chosen and pushes contact he has not asked for.
+
+**B.** Honor his chosen family and help him plan for a health care proxy **✔ KEY**
+> Recognizing chosen family and helping with advance directives protects his wishes and supports.
+
+**C.** Explain that hospitals tend to let close friends decide in emergencies
+> Without legal documents, friends may be excluded from decisions; this reassurance is misleading.
+
+**D.** Explore whether his distance from his siblings reflects his own shame
+> This assumes pathology and sidesteps his urgent, practical concern about his care.
+
+**Rationale:** Many LGBTQ+ older adults rely on chosen family, often because of past rejection by family of origin. These bonds can lack legal standing, so a partner or close friends may be excluded from medical decisions unless documents such as a health care proxy are in place. Counselors affirm chosen family as real family and help clients plan so their wishes are honored.
+
+**References:** Sue & Sue (Counseling the Culturally Diverse) — Counseling LGBTQ+ individuals: older adults and families of choice
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q635 of 1200 · nce-s-clf-347 · Social and Cultural Diversity · LGBTQ+ clients and minority stress · medium · In review
+
+A 32-year-old Black lesbian says she hears racist remarks at LGBTQ+ social events and anti-gay sermons at the Black church where she grew up. She says, "I have to leave part of myself at the door wherever I go." Which approach BEST reflects the Multicultural and Social Justice Counseling Competencies?
+
+**A.** Address her stress as racial and sexual stress in separate parts of treatment
+> Splitting her identities misses how they combine to shape her experience in each setting.
+
+**B.** Ask her to choose which identity matters more so that goals stay in focus
+> Forcing a ranking of identities repeats the very split she describes as painful.
+
+**C.** Explore how her intersecting identities shape the stress she faces in each place **✔ KEY**
+> An intersectional lens sees her identities, privileges and oppressions as interacting.
+
+**D.** Encourage her to stop attending both settings so she can avoid more stress
+> Advising withdrawal cuts her off from communities and supports she may value.
+
+**Rationale:** The MSJCC build on intersectionality, the idea that identities such as race, sexual orientation and gender combine to shape a person's experiences of privilege and oppression. A client who belongs to more than one marginalized group may face rejection in each community that shares one of her identities. Counselors explore how these identities interact and help the client find or build spaces where she can be whole.
+
+**References:** MSJCC (Ratts et al., 2016) — Intersectionality of identities; client worldview and counseling relationship domains
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q636 of 1200 · nce-s-clf-348 · Social and Cultural Diversity · acculturation and immigration stress · medium · In review
+
+A counselor at a resettlement agency is designing an intake for adult refugees from several countries. Many arrived after years in camps, and all now face new jobs, schools and language. Which framework BEST guides a full assessment of their stressors?
+
+**A.** Explore stressors before, during and after migration across their journey **✔ KEY**
+> Premigration, migration and postmigration stressors each add to refugee distress.
+
+**B.** Focus on the original trauma, since resettlement stress tends to be minor
+> Postmigration stressors such as poverty and isolation strongly affect refugee well-being.
+
+**C.** Rate each client's English skill, since language ability predicts all of it
+> Language matters but is one stressor among many and does not capture trauma or losses.
+
+**D.** Focus on present symptoms only, since the past cannot be changed in therapy
+> Ignoring earlier stages misses trauma and losses that shape present distress.
+
+**Rationale:** Counseling literature on immigrants and refugees assesses stressors across three phases. Premigration stressors include war, persecution and loss; migration stressors include dangerous travel and long stays in camps; postmigration stressors include poverty, discrimination, language barriers and loss of status. Assessing all three phases gives a fuller picture of distress and strengths and guides practical as well as clinical help.
+
+**References:** Sue & Sue (Counseling the Culturally Diverse) — Counseling immigrants and refugees: premigration, migration and postmigration stressors
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q637 of 1200 · nce-s-clf-349 · Social and Cultural Diversity · spiritual and religious concerns · hard · In review
+
+A 24-year-old devout Catholic spends up to three hours a day repeating prayers until they feel "perfect" and confesses the same minor thoughts several times a week. Her priest has told her this is not required and urged her to stop, but she fears she is damned if she does. How should the counselor view this pattern?
+
+**A.** As religious obsessions and compulsions beyond what her faith asks **✔ KEY**
+> Her rituals exceed her faith's norms, cause distress, and take over an hour a day, fitting OCD.
+
+**B.** As devout practice to respect, since it is part of her religious life
+> Her own faith leader views the rituals as excessive, so they are not normative religious practice.
+
+**C.** As a spiritual problem only, to be addressed by her priest, not therapy
+> The pattern fits a treatable disorder; working with her priest can help but does not replace care.
+
+**D.** As a delusion, since her fear of damnation is a fixed false belief
+> Her fear arises within her faith and she can see it as excessive; it is not a delusion.
+
+**Rationale:** DSM-5-TR notes that OCD themes can be religious, and it advises against an OCD diagnosis for culturally prescribed rituals unless they exceed cultural norms, occur at times others in the culture see as inappropriate, and interfere with functioning. Here the client's rituals take more than an hour a day, cause distress and go beyond what her own priest expects. With her consent, collaborating with her priest can support exposure and response prevention.
+
+**References:** DSM-5-TR — Obsessive-compulsive disorder: religious themes; culture-related diagnostic issues and differential diagnosis
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q638 of 1200 · nce-s-clf-350 · Social and Cultural Diversity · spiritual and religious concerns · medium · In review
+
+A 30-year-old left the tight-knit religious community she was raised in. Her family now limits contact, and her former friends will not speak to her. She says she does not regret leaving but feels lost without the rituals, friendships and sense of purpose she once had. Which focus is BEST for counseling?
+
+**A.** Celebrate her escape and help her reject the beliefs she was taught
+> Taking a side against her former faith imposes the counselor's view on her journey.
+
+**B.** Process her losses and help her build new sources of meaning and support **✔ KEY**
+> Leaving a faith community can bring grief over relationships, identity and meaning that need care.
+
+**C.** Help her plan a return, since her distress shows she made the wrong choice
+> Distress over losses does not mean the decision was wrong; she does not regret leaving.
+
+**D.** Avoid the topic of religion, since it lies outside the scope of counseling
+> Spiritual and religious concerns are a valid focus of counseling, not outside its scope.
+
+**Rationale:** Leaving a religious community can bring layered losses: relationships, rituals, identity, a shared worldview and sometimes contact with family. Clients may feel relief and grief at once. Counselors stay neutral about the faith itself, help the client mourn what was lost, and support her in building new communities, values and sources of meaning.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — Spirituality in counseling: spiritual and religious issues as a focus of counseling
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q639 of 1200 · nce-s-clf-351 · Social and Cultural Diversity · spiritual and religious concerns · easy · In review
+
+A counselor with a strong Christian faith is working with a client who has recently found peace through Buddhist meditation and wants to deepen that practice to manage anxiety. The counselor feels an urge to suggest prayer from her own tradition instead. According to the ACA Code of Ethics, what should the counselor do?
+
+**A.** Support the client's chosen practice and keep from imposing her own values **✔ KEY**
+> Counselors respect clients' beliefs and avoid imposing their own values on clients.
+
+**B.** Refer the client to a Buddhist counselor, since their beliefs differ
+> Referral based only on the counselor's values is discouraged; differing beliefs are not a reason to refer.
+
+**C.** Share her own faith as one more option, so that the client can compare
+> Promoting her own faith risks imposing her values on a client who has chosen a path.
+
+**D.** Tell the client about her beliefs so the client can decide whether to stay
+> Disclosing her faith shifts the focus to the counselor and is not needed to serve the client.
+
+**Rationale:** ACA Code A.4.b directs counselors to be aware of their own values, attitudes and beliefs and to avoid imposing them on clients. A.11.b adds that counselors do not refer clients based solely on the counselor's personal values. The counselor supports the client's chosen spiritual practice as a coping resource and seeks supervision if her reactions persist.
+
+**References:** ACA Code of Ethics — A.4.b Personal Values; A.11.b Values Within Termination and Referral
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q640 of 1200 · nce-s-clf-352 · Career Development · school and academic concerns · easy · In review
+
+A middle school counselor is writing a unit of classroom lessons to build students' readiness for high school and future careers, such as goal setting, self-discipline and belief in their own ability to succeed. Which ASCA resource should the counselor use to select the lesson outcomes?
+
+**A.** ASCA Student Standards: Mindsets & Behaviors for Student Success **✔ KEY**
+> These standards set the mindsets and behaviors school counseling lessons aim to build.
+
+**B.** ASCA Ethical Standards for School Counselors and their sections
+> The ethical standards guide counselor conduct, not student learning outcomes.
+
+**C.** The ASCA position statement on the role of the school counselor
+> Position statements describe counselor roles, not lesson outcomes for students.
+
+**D.** The ASCA program assessment used to rate school counseling plans
+> The program assessment evaluates the program as a whole, not student outcomes.
+
+**Rationale:** The ASCA National Model uses the ASCA Student Standards: Mindsets & Behaviors for Student Success to define the knowledge, attitudes and skills students need for college and career readiness. School counselors choose standards across the academic, career and social/emotional domains to set lesson objectives. This keeps classroom lessons tied to measurable student outcomes.
+
+**References:** ASCA National Model — ASCA Student Standards: Mindsets & Behaviors for Student Success; college and career readiness
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q641 of 1200 · nce-s-clf-353 · Career Development · school and academic concerns · medium · In review
+
+After job shadowing at a clinic and taking a health science elective, a 15-year-old tells her school counselor that she wants "some kind of health care career" but has not chosen a specific job or training path. In Super's exploration stage, which task is she working on?
+
+**A.** Specifying, by narrowing her preference to one particular occupation
+> Specifying is choosing a specific occupation, which she has not yet done.
+
+**B.** Implementing, by finishing training and taking up an entry-level job
+> Implementing involves completing training and entering work, a later task.
+
+**C.** Stabilizing, by settling into a chosen job and confirming the choice
+> Stabilizing belongs to the establishment stage of early adulthood.
+
+**D.** Crystallizing, by forming a general idea of the field she may pursue **✔ KEY**
+> Crystallizing is forming a tentative, general career preference, which fits her statement.
+
+**Rationale:** In Super's life-span, life-space theory, the exploration stage includes the tasks of crystallizing, specifying and implementing a career choice. Crystallizing means forming a general preference based on interests, abilities and values, as this student has done. School counselors support it with exploration activities and then help students specify choices and plan the training that leads to them.
+
+**References:** Sharf (Career Development Theory) — Super's life stages: exploration tasks of crystallization, specification and implementation
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q642 of 1200 · nce-s-clf-354 · Counseling and Helping Relationships · military and veteran populations · medium · In review
+
+A 34-year-old Army veteran in counseling for PTSD mentions that a community physician recently prescribed alprazolam for his nightmares and anxiety, and that he now takes it most nights with a few beers. What is the counselor's BEST response?
+
+**A.** Tell him to stop the medication at once, since it is unsafe for PTSD
+> Advising a sudden stop is outside the counselor's scope and can be dangerous with daily use.
+
+**B.** Leave medication issues to the physician and focus on trauma work
+> Ignoring a risky combination fails the client; coordinating care is part of the counselor's role.
+
+**C.** With consent, share concerns with the prescriber and screen his alcohol use **✔ KEY**
+> Guidelines advise against benzodiazepines for PTSD, and mixing them with alcohol adds risk.
+
+**D.** Suggest he ask for a higher dose so that his nightmares are fully controlled
+> Recommending doses is outside scope, and benzodiazepines are not advised for PTSD.
+
+**Rationale:** The VA/DoD clinical practice guideline for PTSD recommends against benzodiazepines, which lack evidence for PTSD, may interfere with trauma-focused therapy and carry risks of dependence. Combined with alcohol they also raise the risk of oversedation and overdose. The counselor does not change medications but, with the client's consent, coordinates with the prescriber and assesses alcohol use.
+
+**References:** VA/DoD CPG — Management of PTSD and Acute Stress Disorder: recommendation against benzodiazepines
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+## Treatment Planning (102)
+
+### Q643 of 1200 · nce-s-trt-001 · Counseling and Helping Relationships · SMART goals and measurable objectives · easy · In review
 
 A counselor is writing a treatment plan for a 34-year-old client with social anxiety. Which objective is BEST written according to SMART criteria?
 
@@ -13042,7 +15610,7 @@ A counselor is writing a treatment plan for a 34-year-old client with social anx
 
 ---
 
-### Q537 of 1000 · nce-s-trt-002 · Counseling and Helping Relationships · matching level of care to need · medium · In review
+### Q644 of 1200 · nce-s-trt-002 · Counseling and Helping Relationships · matching level of care to need · medium · In review
 
 A 41-year-old client with an alcohol use disorder has relapsed twice while attending weekly outpatient sessions. There is no withdrawal risk, no acute medical or psychiatric concern, and the client has stable housing and a supportive partner. Which level of care is MOST appropriate?
 
@@ -13068,7 +15636,7 @@ A 41-year-old client with an alcohol use disorder has relapsed twice while atten
 
 ---
 
-### Q538 of 1000 · nce-s-trt-003 · Counseling and Helping Relationships · evidence-based treatment selection · medium · In review
+### Q645 of 1200 · nce-s-trt-003 · Counseling and Helping Relationships · evidence-based treatment selection · medium · In review
 
 A 29-year-old veteran meets criteria for posttraumatic stress disorder after a combat deployment. According to major clinical practice guidelines, which psychotherapy approach has the strongest research support as a first-line treatment?
 
@@ -13094,7 +15662,7 @@ A 29-year-old veteran meets criteria for posttraumatic stress disorder after a c
 
 ---
 
-### Q539 of 1000 · nce-s-trt-004 · Counseling and Helping Relationships · collaborative treatment planning · easy · In review
+### Q646 of 1200 · nce-s-trt-004 · Counseling and Helping Relationships · collaborative treatment planning · easy · In review
 
 A counselor has completed an intake with a 52-year-old Korean American client who reports grief and insomnia after her husband's death. What is the BEST way for the counselor to develop the treatment plan?
 
@@ -13118,7 +15686,7 @@ A counselor has completed an intake with a 52-year-old Korean American client wh
 
 ---
 
-### Q540 of 1000 · nce-s-trt-005 · Assessment and Testing · progress monitoring and outcome measures · medium · In review
+### Q647 of 1200 · nce-s-trt-005 · Assessment and Testing · progress monitoring and outcome measures · medium · In review
 
 A counselor gives a 23-year-old client the PHQ-9 at every session. After eight sessions of treatment for depression, the client's scores have not meaningfully changed from intake. What should the counselor do NEXT?
 
@@ -13142,7 +15710,7 @@ A counselor gives a 23-year-old client the PHQ-9 at every session. After eight s
 
 ---
 
-### Q541 of 1000 · nce-s-trt-006 · Counseling and Helping Relationships · coordination of care and referral · medium · In review
+### Q648 of 1200 · nce-s-trt-006 · Counseling and Helping Relationships · coordination of care and referral · medium · In review
 
 During a first session, a 47-year-old client mentions that she also sees a psychiatrist who prescribes her antidepressant. What should the counselor do to coordinate care?
 
@@ -13166,7 +15734,7 @@ During a first session, a 47-year-old client mentions that she also sees a psych
 
 ---
 
-### Q542 of 1000 · nce-s-trt-007 · Counseling and Helping Relationships · discharge and aftercare planning · medium · In review
+### Q649 of 1200 · nce-s-trt-007 · Counseling and Helping Relationships · discharge and aftercare planning · medium · In review
 
 A program director is training new counselors at a community mental health agency. When should discharge and aftercare planning ideally begin for a new client?
 
@@ -13192,7 +15760,7 @@ A program director is training new counselors at a community mental health agenc
 
 ---
 
-### Q543 of 1000 · nce-s-trt-008 · Counseling and Helping Relationships · safety planning · medium · In review
+### Q650 of 1200 · nce-s-trt-008 · Counseling and Helping Relationships · safety planning · medium · In review
 
 A counselor is completing a Stanley-Brown Safety Planning Intervention with a 19-year-old college student who has recent suicidal ideation. Which step does the safety plan address FIRST?
 
@@ -13216,7 +15784,7 @@ A counselor is completing a Stanley-Brown Safety Planning Intervention with a 19
 
 ---
 
-### Q544 of 1000 · nce-s-trt-009 · Counseling and Helping Relationships · stages of change and treatment readiness · easy · In review
+### Q651 of 1200 · nce-s-trt-009 · Counseling and Helping Relationships · stages of change and treatment readiness · easy · In review
 
 A 38-year-old client says, "I know my drinking is hurting my marriage, and part of me wants to cut back, but I'm just not sure I'm ready to give it up." Which stage of change does this statement BEST reflect?
 
@@ -13240,7 +15808,7 @@ A 38-year-old client says, "I know my drinking is hurting my marriage, and part 
 
 ---
 
-### Q545 of 1000 · nce-s-trt-010 · Counseling and Helping Relationships · stages of change and treatment readiness · hard · In review
+### Q652 of 1200 · nce-s-trt-010 · Counseling and Helping Relationships · stages of change and treatment readiness · hard · In review
 
 A 60-year-old client stopped smoking four months ago. He uses nicotine gum, avoids places where he used to smoke, and calls a friend when cravings hit. According to Prochaska and DiClemente, which stage is he in?
 
@@ -13266,7 +15834,7 @@ A 60-year-old client stopped smoking four months ago. He uses nicotine gum, avoi
 
 ---
 
-### Q546 of 1000 · nce-s-trt-011 · Research and Program Evaluation · program evaluation and needs assessment · medium · In review
+### Q653 of 1200 · nce-s-trt-011 · Research and Program Evaluation · program evaluation and needs assessment · medium · In review
 
 Three months into a new school-based anger management group, a counselor gathers feedback from students and teachers so she can refine the sessions while the program is still running. This is an example of which type of evaluation?
 
@@ -13290,7 +15858,7 @@ Three months into a new school-based anger management group, a counselor gathers
 
 ---
 
-### Q547 of 1000 · nce-s-trt-012 · Research and Program Evaluation · program evaluation and needs assessment · easy · In review
+### Q654 of 1200 · nce-s-trt-012 · Research and Program Evaluation · program evaluation and needs assessment · easy · In review
 
 Before creating any new services, a rural counseling center surveys residents, local physicians and school staff to find out which mental health concerns are most common and which services are missing. What is the center conducting?
 
@@ -13314,7 +15882,7 @@ Before creating any new services, a rural counseling center surveys residents, l
 
 ---
 
-### Q548 of 1000 · nce-s-trt-013 · Research and Program Evaluation · research design basics · easy · In review
+### Q655 of 1200 · nce-s-trt-013 · Research and Program Evaluation · research design basics · easy · In review
 
 A school counselor records a student's disruptive outbursts during baseline, introduces a token system, removes it, and then reintroduces it (an ABAB design). What is the main purpose of the withdrawal phase?
 
@@ -13338,7 +15906,7 @@ A school counselor records a student's disruptive outbursts during baseline, int
 
 ---
 
-### Q549 of 1000 · nce-s-trt-014 · Research and Program Evaluation · research design basics · medium · In review
+### Q656 of 1200 · nce-s-trt-014 · Research and Program Evaluation · research design basics · medium · In review
 
 A researcher delivers a new career-readiness curriculum to one intact ninth-grade class and uses a second existing class at the same school as a comparison. Both classes complete pretests and posttests. Which design is this?
 
@@ -13362,7 +15930,7 @@ A researcher delivers a new career-readiness curriculum to one intact ninth-grad
 
 ---
 
-### Q550 of 1000 · nce-s-trt-015 · Research and Program Evaluation · research design basics · hard · In review
+### Q657 of 1200 · nce-s-trt-015 · Research and Program Evaluation · research design basics · hard · In review
 
 A counselor selects the 15 students with the highest scores on a test anxiety scale for a six-week group. There is no comparison group, all students complete the group, and nothing notable happens at school during that time. Posttest scores are lower. Which threat to internal validity MOST likely accounts for part of this drop?
 
@@ -13386,7 +15954,7 @@ A counselor selects the 15 students with the highest scores on a test anxiety sc
 
 ---
 
-### Q551 of 1000 · nce-s-trt-016 · Research and Program Evaluation · statistics used in outcome research · hard · In review
+### Q658 of 1200 · nce-s-trt-016 · Research and Program Evaluation · statistics used in outcome research · hard · In review
 
 A researcher sets alpha at .05 and finds p = .03 when comparing a new intervention with treatment as usual, so she rejects the null hypothesis. If the intervention in fact has no real effect, what has occurred?
 
@@ -13410,7 +15978,7 @@ A researcher sets alpha at .05 and finds p = .03 when comparing a new interventi
 
 ---
 
-### Q552 of 1000 · nce-s-trt-017 · Research and Program Evaluation · statistics used in outcome research · medium · In review
+### Q659 of 1200 · nce-s-trt-017 · Research and Program Evaluation · statistics used in outcome research · medium · In review
 
 A study of 4,000 clients finds that a brief online module reduces anxiety scores compared with a waitlist, p < .001, with Cohen's d = 0.08. How should a counselor BEST interpret these results?
 
@@ -13434,7 +16002,7 @@ A study of 4,000 clients finds that a brief online module reduces anxiety scores
 
 ---
 
-### Q553 of 1000 · nce-s-trt-018 · Research and Program Evaluation · research design basics · easy · In review
+### Q660 of 1200 · nce-s-trt-018 · Research and Program Evaluation · research design basics · easy · In review
 
 A survey of 600 adolescents finds that hours spent on social media correlate r = .45 with scores on a depressive symptom scale. Which conclusion is BEST supported by this finding?
 
@@ -13458,7 +16026,7 @@ A survey of 600 adolescents finds that hours spent on social media correlate r =
 
 ---
 
-### Q554 of 1000 · nce-s-trt-019 · Research and Program Evaluation · statistics used in outcome research · medium · In review
+### Q661 of 1200 · nce-s-trt-019 · Research and Program Evaluation · statistics used in outcome research · medium · In review
 
 A statistics instructor asks counseling students to classify several variables by scale of measurement. Which variable is measured on an interval scale?
 
@@ -13482,7 +16050,7 @@ A statistics instructor asks counseling students to classify several variables b
 
 ---
 
-### Q555 of 1000 · nce-s-trt-020 · Research and Program Evaluation · statistics used in outcome research · medium · In review
+### Q662 of 1200 · nce-s-trt-020 · Research and Program Evaluation · statistics used in outcome research · medium · In review
 
 Annual household incomes of clients at a community counseling agency are mostly low, but a small number of clients report very high incomes. Which statement about this distribution is accurate?
 
@@ -13506,7 +16074,7 @@ Annual household incomes of clients at a community counseling agency are mostly 
 
 ---
 
-### Q556 of 1000 · nce-s-trt-021 · Research and Program Evaluation · statistics used in outcome research · medium · In review
+### Q663 of 1200 · nce-s-trt-021 · Research and Program Evaluation · statistics used in outcome research · medium · In review
 
 Scores on a depression inventory are normally distributed with a mean of 50 and a standard deviation of 10. A client scores 60. Approximately what percentage of the norm group scored at or below this client?
 
@@ -13530,7 +16098,7 @@ Scores on a depression inventory are normally distributed with a mean of 50 and 
 
 ---
 
-### Q557 of 1000 · nce-s-trt-022 · Research and Program Evaluation · statistics used in outcome research · medium · In review
+### Q664 of 1200 · nce-s-trt-022 · Research and Program Evaluation · statistics used in outcome research · medium · In review
 
 A researcher randomly assigns 90 clients to one of three conditions (individual CBT, a mindfulness group, or a waitlist) and compares the groups on posttest anxiety scores measured on an interval scale. Which statistical test is MOST appropriate?
 
@@ -13554,7 +16122,7 @@ A researcher randomly assigns 90 clients to one of three conditions (individual 
 
 ---
 
-### Q558 of 1000 · nce-s-trt-023 · Research and Program Evaluation · statistics used in outcome research · hard · In review
+### Q665 of 1200 · nce-s-trt-023 · Research and Program Evaluation · statistics used in outcome research · hard · In review
 
 A counselor-researcher is planning a study comparing two interventions and wants to reduce the risk of missing a true but modest difference between them. Which change would MOST directly increase statistical power?
 
@@ -13578,7 +16146,7 @@ A counselor-researcher is planning a study comparing two interventions and wants
 
 ---
 
-### Q559 of 1000 · nce-s-trt-024 · Research and Program Evaluation · research design basics · hard · In review
+### Q666 of 1200 · nce-s-trt-024 · Research and Program Evaluation · research design basics · hard · In review
 
 A trial finds that a new anxiety program works well. Participants knew they were in a closely watched study, received extra attention from research staff, and liked being part of something new. Critics doubt that the results will hold in routine agency practice. Which threat are the critics MOST likely describing?
 
@@ -13602,7 +16170,7 @@ A trial finds that a new anxiety program works well. Participants knew they were
 
 ---
 
-### Q560 of 1000 · nce-s-trt-025 · Research and Program Evaluation · research design basics · hard · In review
+### Q667 of 1200 · nce-s-trt-025 · Research and Program Evaluation · research design basics · hard · In review
 
 A school counselor wants to show that a social skills intervention caused improvement for three elementary students on the autism spectrum. Once learned, the skills are not expected to fade, and withdrawing the intervention would be ethically questionable. Which design BEST fits these conditions?
 
@@ -13626,7 +16194,7 @@ A school counselor wants to show that a social skills intervention caused improv
 
 ---
 
-### Q561 of 1000 · nce-s-trt-026 · Research and Program Evaluation · research design basics · medium · In review
+### Q668 of 1200 · nce-s-trt-026 · Research and Program Evaluation · research design basics · medium · In review
 
 A researcher conducts in-depth interviews with 12 parents who have lost a child to overdose. Her goal is to describe the essence of how parents live through this kind of grief, setting aside her own assumptions as she analyzes the data. Which qualitative tradition does this study reflect?
 
@@ -13650,7 +16218,7 @@ A researcher conducts in-depth interviews with 12 parents who have lost a child 
 
 ---
 
-### Q562 of 1000 · nce-s-trt-027 · Research and Program Evaluation · research design basics · easy · In review
+### Q669 of 1200 · nce-s-trt-027 · Research and Program Evaluation · research design basics · easy · In review
 
 After coding interviews with first-generation college students, a counselor-researcher shares her preliminary themes with the participants and asks whether the themes accurately capture their experiences. Which trustworthiness strategy is she using?
 
@@ -13674,7 +16242,7 @@ After coding interviews with first-generation college students, a counselor-rese
 
 ---
 
-### Q563 of 1000 · nce-s-trt-028 · Research and Program Evaluation · research design basics · medium · In review
+### Q670 of 1200 · nce-s-trt-028 · Research and Program Evaluation · research design basics · medium · In review
 
 A state counseling association plans to survey its members and wants school, clinical mental health and rehabilitation counselors represented in the sample in the same proportions as in the full membership, with members chosen at random. Which sampling method BEST meets this goal?
 
@@ -13698,7 +16266,7 @@ A state counseling association plans to survey its members and wants school, cli
 
 ---
 
-### Q564 of 1000 · nce-s-trt-029 · Research and Program Evaluation · statistics used in outcome research · easy · In review
+### Q671 of 1200 · nce-s-trt-029 · Research and Program Evaluation · statistics used in outcome research · easy · In review
 
 A researcher locates 48 published and unpublished studies of group counseling for adolescent depression and statistically combines their effect sizes to estimate an overall effect. What type of study is this?
 
@@ -13722,7 +16290,7 @@ A researcher locates 48 published and unpublished studies of group counseling fo
 
 ---
 
-### Q565 of 1000 · nce-s-trt-030 · Research and Program Evaluation · program evaluation and needs assessment · medium · In review
+### Q672 of 1200 · nce-s-trt-030 · Research and Program Evaluation · program evaluation and needs assessment · medium · In review
 
 A college counseling center builds a logic model for a new peer-support program. Which entry belongs in the outcomes column of the model rather than in the outputs column?
 
@@ -13746,7 +16314,7 @@ A college counseling center builds a logic model for a new peer-support program.
 
 ---
 
-### Q566 of 1000 · nce-s-trt-031 · Counseling and Helping Relationships · SMART goals and measurable objectives · easy · In review
+### Q673 of 1200 · nce-s-trt-031 · Counseling and Helping Relationships · SMART goals and measurable objectives · easy · In review
 
 The parents and teacher of an 8-year-old boy report frequent tantrums when classwork becomes frustrating. Which objective for his treatment plan is MOST measurable?
 
@@ -13772,7 +16340,7 @@ The parents and teacher of an 8-year-old boy report frequent tantrums when class
 
 ---
 
-### Q567 of 1000 · nce-s-trt-032 · Counseling and Helping Relationships · matching level of care to need · medium · In review
+### Q674 of 1200 · nce-s-trt-032 · Counseling and Helping Relationships · matching level of care to need · medium · In review
 
 A 26-year-old man with schizophrenia was discharged from a psychiatric unit two weeks ago. He is taking his medication and has no suicidal or homicidal ideation, but he has missed several outpatient appointments and struggles to manage daily tasks on his own. Consistent with the least restrictive environment, which plan is MOST appropriate?
 
@@ -13798,7 +16366,7 @@ A 26-year-old man with schizophrenia was discharged from a psychiatric unit two 
 
 ---
 
-### Q568 of 1000 · nce-s-trt-033 · Counseling and Helping Relationships · discharge and aftercare planning · medium · In review
+### Q675 of 1200 · nce-s-trt-033 · Counseling and Helping Relationships · discharge and aftercare planning · medium · In review
 
 A 33-year-old client finishing treatment for alcohol use disorder is building a relapse prevention plan with her counselor. Based on the cognitive-behavioral relapse prevention model, which element is MOST central to the plan?
 
@@ -13824,7 +16392,7 @@ A 33-year-old client finishing treatment for alcohol use disorder is building a 
 
 ---
 
-### Q569 of 1000 · nce-s-trt-034 · Counseling and Helping Relationships · coordination of care and referral · easy · In review
+### Q676 of 1200 · nce-s-trt-034 · Counseling and Helping Relationships · coordination of care and referral · easy · In review
 
 An interdisciplinary team at an adolescent residential program decides that clients who miss group will lose family phone calls for a week. The counselor on the team believes this decision raises ethical concerns. What should the counselor do FIRST?
 
@@ -13850,7 +16418,7 @@ An interdisciplinary team at an adolescent residential program decides that clie
 
 ---
 
-### Q570 of 1000 · nce-s-trt-035 · Counseling and Helping Relationships · evidence-based treatment selection · medium · In review
+### Q677 of 1200 · nce-s-trt-035 · Counseling and Helping Relationships · evidence-based treatment selection · medium · In review
 
 A 31-year-old graduate student has had recurrent unexpected panic attacks for six months. She now avoids crowded buses and worries constantly that her racing heart signals a heart attack. Medical causes have been ruled out. Which psychotherapy approach is the BEST first-line choice?
 
@@ -13874,7 +16442,7 @@ A 31-year-old graduate student has had recurrent unexpected panic attacks for si
 
 ---
 
-### Q571 of 1000 · nce-s-trt-036 · Counseling and Helping Relationships · evidence-based treatment selection · medium · In review
+### Q678 of 1200 · nce-s-trt-036 · Counseling and Helping Relationships · evidence-based treatment selection · medium · In review
 
 A 24-year-old client meets criteria for borderline personality disorder. She cuts herself several times a month during intense emotional storms, and reducing self-harm is her top priority. Which treatment has the strongest research support for this presentation?
 
@@ -13898,7 +16466,7 @@ A 24-year-old client meets criteria for borderline personality disorder. She cut
 
 ---
 
-### Q572 of 1000 · nce-s-trt-037 · Counseling and Helping Relationships · evidence-based treatment selection · hard · In review
+### Q679 of 1200 · nce-s-trt-037 · Counseling and Helping Relationships · evidence-based treatment selection · hard · In review
 
 A clinical supervisor is reviewing the common factors versus specific factors debate with a counselor-in-training. Across comparisons of well-established (bona fide) therapies, which finding is MOST consistent with the common factors research?
 
@@ -13924,7 +16492,7 @@ A clinical supervisor is reviewing the common factors versus specific factors de
 
 ---
 
-### Q573 of 1000 · nce-s-trt-038 · Counseling and Helping Relationships · collaborative treatment planning · medium · In review
+### Q680 of 1200 · nce-s-trt-038 · Counseling and Helping Relationships · collaborative treatment planning · medium · In review
 
 A 45-year-old man with obsessive-compulsive disorder is nervous about exposure and response prevention and asks whether there are other options. Which response BEST reflects shared decision making?
 
@@ -13948,7 +16516,7 @@ A 45-year-old man with obsessive-compulsive disorder is nervous about exposure a
 
 ---
 
-### Q574 of 1000 · nce-s-trt-039 · Counseling and Helping Relationships · collaborative treatment planning · medium · In review
+### Q681 of 1200 · nce-s-trt-039 · Counseling and Helping Relationships · collaborative treatment planning · medium · In review
 
 A 19-year-old Mexican American client with depression tells her counselor that decisions in her family are made together and that she wants her mother involved in her care. Which approach to the treatment plan is MOST culturally responsive?
 
@@ -13972,7 +16540,7 @@ A 19-year-old Mexican American client with depression tells her counselor that d
 
 ---
 
-### Q575 of 1000 · nce-s-trt-040 · Assessment and Testing · progress monitoring and outcome measures · easy · In review
+### Q682 of 1200 · nce-s-trt-040 · Assessment and Testing · progress monitoring and outcome measures · easy · In review
 
 A group practice announces that it is adopting measurement-based care. Which practice BEST describes this approach?
 
@@ -13996,7 +16564,7 @@ A group practice announces that it is adopting measurement-based care. Which pra
 
 ---
 
-### Q576 of 1000 · nce-s-trt-041 · Assessment and Testing · progress monitoring and outcome measures · hard · In review
+### Q683 of 1200 · nce-s-trt-041 · Assessment and Testing · progress monitoring and outcome measures · hard · In review
 
 A counseling center begins giving the Outcome Questionnaire-45 (OQ-45) before every session and sends counselors color-coded alerts based on expected recovery curves. According to research on this kind of routine outcome monitoring with feedback, which clients benefit MOST?
 
@@ -14020,7 +16588,7 @@ A counseling center begins giving the Outcome Questionnaire-45 (OQ-45) before ev
 
 ---
 
-### Q577 of 1000 · nce-s-trt-042 · Assessment and Testing · progress monitoring and outcome measures · medium · In review
+### Q684 of 1200 · nce-s-trt-042 · Assessment and Testing · progress monitoring and outcome measures · medium · In review
 
 A 56-year-old client's scores on a weekly anxiety measure have risen by more than the measure's reliable change index since intake, and she arrives at session five looking tense. How should the counselor respond to this deterioration?
 
@@ -14044,7 +16612,7 @@ A 56-year-old client's scores on a weekly anxiety measure have risen by more tha
 
 ---
 
-### Q578 of 1000 · nce-s-trt-043 · Counseling and Helping Relationships · safety planning · medium · In review
+### Q685 of 1200 · nce-s-trt-043 · Counseling and Helping Relationships · safety planning · medium · In review
 
 A 28-year-old client had a suicidal crisis over the weekend. He did not use his safety plan, saying it "didn't feel real" and that he had forgotten where he put it. He is now safe and engaged. What should the counselor do with the plan?
 
@@ -14068,7 +16636,7 @@ A 28-year-old client had a suicidal crisis over the weekend. He did not use his 
 
 ---
 
-### Q579 of 1000 · nce-s-trt-044 · Counseling and Helping Relationships · safety planning · easy · In review
+### Q686 of 1200 · nce-s-trt-044 · Counseling and Helping Relationships · safety planning · easy · In review
 
 While adding crisis resources to a safety plan, a 17-year-old client asks what happens if she contacts 988. Which description is accurate?
 
@@ -14092,7 +16660,7 @@ While adding crisis resources to a safety plan, a 17-year-old client asks what h
 
 ---
 
-### Q580 of 1000 · nce-s-trt-045 · Counseling and Helping Relationships · SMART goals and measurable objectives · easy · In review
+### Q687 of 1200 · nce-s-trt-045 · Counseling and Helping Relationships · SMART goals and measurable objectives · easy · In review
 
 A counselor writes this objective for a client with panic disorder: "Client will reduce panic attacks from four per week to one or fewer per week, as recorded in a daily panic log." Which SMART element is missing?
 
@@ -14116,7 +16684,7 @@ A counselor writes this objective for a client with panic disorder: "Client will
 
 ---
 
-### Q581 of 1000 · nce-s-trt-046 · Counseling and Helping Relationships · matching level of care to need · hard · In review
+### Q688 of 1200 · nce-s-trt-046 · Counseling and Helping Relationships · matching level of care to need · hard · In review
 
 A 34-year-old client with severe depression has worsened despite three weeks in an intensive outpatient program (three hours, three days a week). He is not suicidal, lives with a supportive spouse, and can stay safe at night, but he needs structured treatment most of each weekday. Which level of care BEST fits?
 
@@ -14140,7 +16708,7 @@ A 34-year-old client with severe depression has worsened despite three weeks in 
 
 ---
 
-### Q582 of 1000 · nce-s-trt-047 · Counseling and Helping Relationships · matching level of care to need · medium · In review
+### Q689 of 1200 · nce-s-trt-047 · Counseling and Helping Relationships · matching level of care to need · medium · In review
 
 Which client presentation MOST clearly meets criteria for inpatient psychiatric hospitalization rather than a less restrictive level of care?
 
@@ -14164,7 +16732,7 @@ Which client presentation MOST clearly meets criteria for inpatient psychiatric 
 
 ---
 
-### Q583 of 1000 · nce-s-trt-048 · Counseling and Helping Relationships · coordination of care and referral · medium · In review
+### Q690 of 1200 · nce-s-trt-048 · Counseling and Helping Relationships · coordination of care and referral · medium · In review
 
 A 20-year-old client in counseling for perfectionism mentions that she has been vomiting after most meals, has lost 15 pounds in two months, and feels dizzy when she stands up. The counselor has no eating disorder training. What is the BEST course of action?
 
@@ -14188,7 +16756,7 @@ A 20-year-old client in counseling for perfectionism mentions that she has been 
 
 ---
 
-### Q584 of 1000 · nce-s-trt-049 · Counseling and Helping Relationships · discharge and aftercare planning · easy · In review
+### Q691 of 1200 · nce-s-trt-049 · Counseling and Helping Relationships · discharge and aftercare planning · easy · In review
 
 A 42-year-old client is completing an intensive outpatient program for depression and will step down to weekly counseling. Which aftercare step does the MOST to reduce the risk that he drops out after discharge?
 
@@ -14214,7 +16782,7 @@ A 42-year-old client is completing an intensive outpatient program for depressio
 
 ---
 
-### Q585 of 1000 · nce-s-trt-050 · Counseling and Helping Relationships · stages of change and treatment readiness · easy · In review
+### Q692 of 1200 · nce-s-trt-050 · Counseling and Helping Relationships · stages of change and treatment readiness · easy · In review
 
 A 50-year-old client was referred by his physician for heavy cannabis use. He says, "It helps me relax. I don't see what the problem is." Which intervention BEST matches his stage of change?
 
@@ -14238,7 +16806,7 @@ A 50-year-old client was referred by his physician for heavy cannabis use. He sa
 
 ---
 
-### Q586 of 1000 · nce-s-trt-051 · Counseling and Helping Relationships · stages of change and treatment readiness · hard · In review
+### Q693 of 1200 · nce-s-trt-051 · Counseling and Helping Relationships · stages of change and treatment readiness · hard · In review
 
 A counselor uses a decisional balance exercise with a client who is weighing whether to stop gambling. According to research on the Transtheoretical Model, how does decisional balance typically shift as people move from precontemplation toward action?
 
@@ -14262,7 +16830,7 @@ A counselor uses a decisional balance exercise with a client who is weighing whe
 
 ---
 
-### Q587 of 1000 · nce-s-trt-052 · Counseling and Helping Relationships · SMART goals and measurable objectives · easy · In review
+### Q694 of 1200 · nce-s-trt-052 · Counseling and Helping Relationships · SMART goals and measurable objectives · easy · In review
 
 A counselor-in-training writes "Client will have healthier relationships" as the only entry under objectives in a treatment plan. Her supervisor explains how goals and objectives differ. Which statement BEST describes that difference?
 
@@ -14286,7 +16854,7 @@ A counselor-in-training writes "Client will have healthier relationships" as the
 
 ---
 
-### Q588 of 1000 · nce-s-trt-053 · Counseling and Helping Relationships · SMART goals and measurable objectives · medium · In review
+### Q695 of 1200 · nce-s-trt-053 · Counseling and Helping Relationships · SMART goals and measurable objectives · medium · In review
 
 A 27-year-old client with severe social anxiety rarely speaks in groups larger than three people. At intake, her counselor writes the objective: "Client will give a 10-minute presentation to her 200-person department within two weeks." Which SMART criterion does this objective MOST clearly fail?
 
@@ -14310,7 +16878,7 @@ A 27-year-old client with severe social anxiety rarely speaks in groups larger t
 
 ---
 
-### Q589 of 1000 · nce-s-trt-054 · Counseling and Helping Relationships · collaborative treatment planning · medium · In review
+### Q696 of 1200 · nce-s-trt-054 · Counseling and Helping Relationships · collaborative treatment planning · medium · In review
 
 A 44-year-old man seeks counseling for stress after losing his job. During the intake, he mentions drinking six to eight beers most nights but says, "That is not why I am here." The counselor believes the drinking is a major concern. How should the counselor approach the treatment plan?
 
@@ -14334,7 +16902,7 @@ A 44-year-old man seeks counseling for stress after losing his job. During the i
 
 ---
 
-### Q590 of 1000 · nce-s-trt-055 · Counseling and Helping Relationships · collaborative treatment planning · hard · In review
+### Q697 of 1200 · nce-s-trt-055 · Counseling and Helping Relationships · collaborative treatment planning · hard · In review
 
 A 63-year-old Vietnamese immigrant client nods and agrees to every goal the counselor proposes during treatment planning, then misses the next two sessions. She has said she was raised to defer to doctors and teachers. Which response is MOST likely to produce a truly collaborative plan?
 
@@ -14358,7 +16926,7 @@ A 63-year-old Vietnamese immigrant client nods and agrees to every goal the coun
 
 ---
 
-### Q591 of 1000 · nce-s-trt-056 · Counseling and Helping Relationships · coordination of care and referral · medium · In review
+### Q698 of 1200 · nce-s-trt-056 · Counseling and Helping Relationships · coordination of care and referral · medium · In review
 
 A counselor works as a behavioral health care manager in a primary care clinic that uses the collaborative care model. She tracks every patient's PHQ-9 scores in a registry and reviews the caseload weekly with a consulting psychiatrist. What is the main purpose of the registry review?
 
@@ -14384,7 +16952,7 @@ A counselor works as a behavioral health care manager in a primary care clinic t
 
 ---
 
-### Q592 of 1000 · nce-s-trt-057 · Counseling and Helping Relationships · coordination of care and referral · easy · In review
+### Q699 of 1200 · nce-s-trt-057 · Counseling and Helping Relationships · coordination of care and referral · easy · In review
 
 During a routine visit, a family physician learns that a 35-year-old patient has been having panic attacks. She walks the patient down the hall, introduces him by name to the clinic's counselor, and explains why she thinks they should meet that same day. What is this practice called?
 
@@ -14410,7 +16978,7 @@ During a routine visit, a family physician learns that a 35-year-old patient has
 
 ---
 
-### Q593 of 1000 · nce-s-trt-058 · Counseling and Helping Relationships · discharge and aftercare planning · medium · In review
+### Q700 of 1200 · nce-s-trt-058 · Counseling and Helping Relationships · discharge and aftercare planning · medium · In review
 
 A 39-year-old client has met her treatment goals for generalized anxiety and will be discharged from an outpatient agency. Her counselor is preparing the discharge summary. Which entry is MOST essential to include?
 
@@ -14434,7 +17002,7 @@ A 39-year-old client has met her treatment goals for generalized anxiety and wil
 
 ---
 
-### Q594 of 1000 · nce-s-trt-059 · Counseling and Helping Relationships · safety planning · hard · In review
+### Q701 of 1200 · nce-s-trt-059 · Counseling and Helping Relationships · safety planning · hard · In review
 
 A 46-year-old client with recurring suicidal thoughts keeps a handgun in his bedside drawer. He has no current plan or intent and is working on a safety plan with his counselor. He says the gun is for protection and he does not want to sell it. Which approach is MOST consistent with best practice?
 
@@ -14458,7 +17026,7 @@ A 46-year-old client with recurring suicidal thoughts keeps a handgun in his bed
 
 ---
 
-### Q595 of 1000 · nce-s-trt-060 · Research and Program Evaluation · program evaluation and needs assessment · hard · In review
+### Q702 of 1200 · nce-s-trt-060 · Research and Program Evaluation · program evaluation and needs assessment · hard · In review
 
 An agency compares two depression programs by dividing each program's total cost by the number of clients who achieved remission, finding $2,400 per remission for one and $3,100 for the other. Outcomes are not converted to dollar values. Which type of analysis is this?
 
@@ -14482,7 +17050,7 @@ An agency compares two depression programs by dividing each program's total cost
 
 ---
 
-### Q596 of 1000 · nce-s-trt-061 · Research and Program Evaluation · program evaluation and needs assessment · medium · In review
+### Q703 of 1200 · nce-s-trt-061 · Research and Program Evaluation · program evaluation and needs assessment · medium · In review
 
 A school district adopts an evidence-based bullying prevention curriculum, but after one year bullying reports have not declined. Teachers report that they often skipped lessons to make time for test preparation. What should the program evaluator examine FIRST?
 
@@ -14506,7 +17074,7 @@ A school district adopts an evidence-based bullying prevention curriculum, but a
 
 ---
 
-### Q597 of 1000 · nce-s-trt-062 · Research and Program Evaluation · research design basics · easy · In review
+### Q704 of 1200 · nce-s-trt-062 · Research and Program Evaluation · research design basics · easy · In review
 
 A researcher randomly assigns college students to receive either four or eight sessions of mindfulness training and then compares their scores on a perceived stress scale. In this study, what is the dependent variable?
 
@@ -14530,7 +17098,7 @@ A researcher randomly assigns college students to receive either four or eight s
 
 ---
 
-### Q598 of 1000 · nce-s-trt-063 · Research and Program Evaluation · research design basics · medium · In review
+### Q705 of 1200 · nce-s-trt-063 · Research and Program Evaluation · research design basics · medium · In review
 
 A college counseling center compares students who signed up for a new resilience workshop with students who chose not to attend. At pretest, workshop students already reported more social support and higher motivation. Workshop students show greater gains at posttest. Which threat to internal validity is MOST important here?
 
@@ -14554,7 +17122,7 @@ A college counseling center compares students who signed up for a new resilience
 
 ---
 
-### Q599 of 1000 · nce-s-trt-064 · Research and Program Evaluation · research design basics · medium · In review
+### Q706 of 1200 · nce-s-trt-064 · Research and Program Evaluation · research design basics · medium · In review
 
 A researcher first analyzes outcome scores from 200 clients in a grief support program. She then interviews 15 clients whose scores did not improve to understand why the program did not help them. Which research design is she using?
 
@@ -14580,7 +17148,7 @@ A researcher first analyzes outcome scores from 200 clients in a grief support p
 
 ---
 
-### Q600 of 1000 · nce-s-trt-065 · Research and Program Evaluation · research design basics · hard · In review
+### Q707 of 1200 · nce-s-trt-065 · Research and Program Evaluation · research design basics · hard · In review
 
 A research team plans a randomized trial of a new intervention for adults with severe depression, some of whom report suicidal ideation. One team member proposes a no-treatment control group to get the cleanest comparison. Which comparison condition is MOST ethically defensible?
 
@@ -14604,7 +17172,7 @@ A research team plans a randomized trial of a new intervention for adults with s
 
 ---
 
-### Q601 of 1000 · nce-s-trt-066 · Research and Program Evaluation · statistics used in outcome research · easy · In review
+### Q708 of 1200 · nce-s-trt-066 · Research and Program Evaluation · statistics used in outcome research · easy · In review
 
 A study comparing a new group intervention with a waitlist reports Cohen's d = 0.50 on a measure of anxiety. Using Cohen's conventional benchmarks, how large is this effect?
 
@@ -14628,7 +17196,7 @@ A study comparing a new group intervention with a waitlist reports Cohen's d = 0
 
 ---
 
-### Q602 of 1000 · nce-s-trt-067 · Research and Program Evaluation · statistics used in outcome research · medium · In review
+### Q709 of 1200 · nce-s-trt-067 · Research and Program Evaluation · statistics used in outcome research · medium · In review
 
 A trial reports that clients receiving a sleep intervention improved 5 points more on an insomnia scale than controls, with a 95% confidence interval for the difference of 2 to 8 points. Which interpretation is MOST accurate?
 
@@ -14652,7 +17220,7 @@ A trial reports that clients receiving a sleep intervention improved 5 points mo
 
 ---
 
-### Q603 of 1000 · nce-s-trt-068 · Research and Program Evaluation · statistics used in outcome research · hard · In review
+### Q710 of 1200 · nce-s-trt-068 · Research and Program Evaluation · statistics used in outcome research · hard · In review
 
 A client's score on a depression measure drops from 38 to 26. The reliable change index for this measure is 8 points, and the cutoff separating clinical from nonclinical populations is 20. Using the Jacobson and Truax approach, how should this change be classified?
 
@@ -14676,7 +17244,7 @@ A client's score on a depression measure drops from 38 to 26. The reliable chang
 
 ---
 
-### Q604 of 1000 · nce-s-trt-069 · Assessment and Testing · matching level of care to need · medium · In review
+### Q711 of 1200 · nce-s-trt-069 · Assessment and Testing · matching level of care to need · medium · In review
 
 A 52-year-old client drinks about a fifth of vodka daily and wants to stop. The last time he quit on his own, he had a withdrawal seizure and was taken to an emergency department. He has stable housing and a supportive sister. Which recommendation is MOST appropriate as the first step?
 
@@ -14700,7 +17268,7 @@ A 52-year-old client drinks about a fifth of vodka daily and wants to stop. The 
 
 ---
 
-### Q605 of 1000 · nce-s-trt-070 · Assessment and Testing · matching level of care to need · medium · In review
+### Q712 of 1200 · nce-s-trt-070 · Assessment and Testing · matching level of care to need · medium · In review
 
 A 36-year-old teacher meets criteria for mild alcohol use disorder. She has no withdrawal symptoms or medical problems, is motivated to cut back, and lives with a supportive partner. Her counselor recommends a 28-day residential program "just to be safe." What is the MAIN concern with this recommendation?
 
@@ -14724,7 +17292,7 @@ A 36-year-old teacher meets criteria for mild alcohol use disorder. She has no w
 
 ---
 
-### Q606 of 1000 · nce-s-trt-071 · Counseling and Helping Relationships · evidence-based treatment selection · medium · In review
+### Q713 of 1200 · nce-s-trt-071 · Counseling and Helping Relationships · evidence-based treatment selection · medium · In review
 
 A 58-year-old retired nurse has had trouble falling and staying asleep at least four nights a week for over a year. Medical and substance-related causes have been ruled out, and she would prefer not to take sleep medication. Which psychological treatment has the strongest evidence as a first-line approach?
 
@@ -14748,7 +17316,7 @@ A 58-year-old retired nurse has had trouble falling and staying asleep at least 
 
 ---
 
-### Q607 of 1000 · nce-s-trt-072 · Counseling and Helping Relationships · evidence-based treatment selection · hard · In review
+### Q714 of 1200 · nce-s-trt-072 · Counseling and Helping Relationships · evidence-based treatment selection · hard · In review
 
 A 33-year-old client with bipolar I disorder takes lithium as prescribed. Her mood episodes tend to follow disruptions such as overnight shifts, travel across time zones and conflicts with her partner. Her psychiatrist asks the counselor to provide an adjunctive psychotherapy suited to this pattern. Which approach BEST fits?
 
@@ -14772,7 +17340,7 @@ A 33-year-old client with bipolar I disorder takes lithium as prescribed. Her mo
 
 ---
 
-### Q608 of 1000 · nce-s-trt-073 · Research and Program Evaluation · progress monitoring and outcome measures · hard · In review
+### Q715 of 1200 · nce-s-trt-073 · Research and Program Evaluation · progress monitoring and outcome measures · hard · In review
 
 An experienced counselor declines to use session-by-session outcome measures, saying, "After 20 years, I can tell when a client is getting worse." Which research finding MOST directly challenges this view?
 
@@ -14796,7 +17364,7 @@ An experienced counselor declines to use session-by-session outcome measures, sa
 
 ---
 
-### Q609 of 1000 · nce-s-trt-074 · Research and Program Evaluation · progress monitoring and outcome measures · easy · In review
+### Q716 of 1200 · nce-s-trt-074 · Research and Program Evaluation · progress monitoring and outcome measures · easy · In review
 
 A counselor plans to track a client's anxiety with a brief standardized self-report measure over the course of treatment. When should the counselor give the measure for the FIRST time?
 
@@ -14820,7 +17388,7 @@ A counselor plans to track a client's anxiety with a brief standardized self-rep
 
 ---
 
-### Q610 of 1000 · nce-s-trt-075 · Counseling and Helping Relationships · discharge and aftercare planning · medium · In review
+### Q717 of 1200 · nce-s-trt-075 · Counseling and Helping Relationships · discharge and aftercare planning · medium · In review
 
 A 41-year-old client has met all the goals in her treatment plan for depression, and her scores have stayed in the nonclinical range for two months. She says she feels ready to stop. Her counselor would like to keep meeting weekly to "work on deeper issues." What should the counselor do?
 
@@ -14844,7 +17412,7 @@ A 41-year-old client has met all the goals in her treatment plan for depression,
 
 ---
 
-### Q611 of 1000 · nce-s-trt-076 · Counseling and Helping Relationships · safety planning · easy · In review
+### Q718 of 1200 · nce-s-trt-076 · Counseling and Helping Relationships · safety planning · easy · In review
 
 A new counselor asks why the agency uses a written safety plan with clients at risk of suicide instead of asking them to sign a "no-suicide contract." Which explanation is MOST accurate?
 
@@ -14868,7 +17436,7 @@ A new counselor asks why the agency uses a written safety plan with clients at r
 
 ---
 
-### Q612 of 1000 · nce-s-trt-077 · Counseling and Helping Relationships · stages of change and treatment readiness · medium · In review
+### Q719 of 1200 · nce-s-trt-077 · Counseling and Helping Relationships · stages of change and treatment readiness · medium · In review
 
 A 47-year-old client who has smoked for 30 years tells his counselor that he has picked a quit date two weeks from now, bought nicotine patches and told his family. Which counselor response BEST matches his current stage of change?
 
@@ -14892,7 +17460,7 @@ A 47-year-old client who has smoked for 30 years tells his counselor that he has
 
 ---
 
-### Q613 of 1000 · nce-s-trt-078 · Counseling and Helping Relationships · stages of change and treatment readiness · hard · In review
+### Q720 of 1200 · nce-s-trt-078 · Counseling and Helping Relationships · stages of change and treatment readiness · hard · In review
 
 A 29-year-old client stopped using methamphetamine eight months ago but used again for three days after a breakup. She tells her counselor, "I'm back at square one." According to Prochaska and DiClemente's model, which statement BEST reflects how relapse is understood?
 
@@ -14916,7 +17484,7 @@ A 29-year-old client stopped using methamphetamine eight months ago but used aga
 
 ---
 
-### Q614 of 1000 · nce-s-trt-079 · Counseling and Helping Relationships · coordination of care and referral · hard · In review
+### Q721 of 1200 · nce-s-trt-079 · Counseling and Helping Relationships · coordination of care and referral · hard · In review
 
 A client's primary care physician calls the counselor to coordinate care and asks for "everything you have," including the private process notes the counselor keeps separate from the client's clinical record. Under HIPAA, which statement is accurate?
 
@@ -14940,7 +17508,7 @@ A client's primary care physician calls the counselor to coordinate care and ask
 
 ---
 
-### Q615 of 1000 · nce-s-trt-080 · Counseling and Helping Relationships · SMART goals and measurable objectives · easy · In review
+### Q722 of 1200 · nce-s-trt-080 · Counseling and Helping Relationships · SMART goals and measurable objectives · easy · In review
 
 A 30-year-old client seeks counseling because panic attacks keep her from driving on the highway to work. Her counselor adds this objective: "Client will walk 30 minutes three times a week for the next eight weeks, as recorded in an exercise log." Which SMART criterion is this objective MOST likely to fail?
 
@@ -14964,7 +17532,7 @@ A 30-year-old client seeks counseling because panic attacks keep her from drivin
 
 ---
 
-### Q616 of 1000 · nce-s-trt-081 · Counseling and Helping Relationships · collaborative treatment planning · medium · In review
+### Q723 of 1200 · nce-s-trt-081 · Counseling and Helping Relationships · collaborative treatment planning · medium · In review
 
 A 30-year-old man with a mild intellectual disability lives in a group home and is starting counseling for anger after conflicts with a housemate. The group home manager offers to write his treatment goals for him to save time. What is the BEST approach?
 
@@ -14988,7 +17556,7 @@ A 30-year-old man with a mild intellectual disability lives in a group home and 
 
 ---
 
-### Q617 of 1000 · nce-s-trt-082 · Research and Program Evaluation · program evaluation and needs assessment · easy · In review
+### Q724 of 1200 · nce-s-trt-082 · Research and Program Evaluation · program evaluation and needs assessment · easy · In review
 
 At the end of its first full year, a middle school's peer mediation program is evaluated so the school board can decide whether to continue funding it. Which type of evaluation is this?
 
@@ -15012,7 +17580,7 @@ At the end of its first full year, a middle school's peer mediation program is e
 
 ---
 
-### Q618 of 1000 · nce-s-trt-083 · Research and Program Evaluation · program evaluation and needs assessment · medium · In review
+### Q725 of 1200 · nce-s-trt-083 · Research and Program Evaluation · program evaluation and needs assessment · medium · In review
 
 To estimate the need for youth mental health services in a county, an agency analyzes existing census data, school dropout rates, juvenile arrest records and emergency department visits for self-harm. No residents or providers are contacted directly. Which needs assessment method is the agency using?
 
@@ -15036,7 +17604,7 @@ To estimate the need for youth mental health services in a county, an agency ana
 
 ---
 
-### Q619 of 1000 · nce-s-trt-084 · Research and Program Evaluation · program evaluation and needs assessment · medium · In review
+### Q726 of 1200 · nce-s-trt-084 · Research and Program Evaluation · program evaluation and needs assessment · medium · In review
 
 An evaluator of a new parenting program at a community center records how many sessions are offered, who attends, whether the target families of toddlers are being reached and whether facilitators cover each planned module. She does not yet measure changes in parenting. Which type of evaluation is she conducting?
 
@@ -15060,7 +17628,7 @@ An evaluator of a new parenting program at a community center records how many s
 
 ---
 
-### Q620 of 1000 · nce-s-trt-085 · Counseling and Helping Relationships · coordination of care and referral · medium · In review
+### Q727 of 1200 · nce-s-trt-085 · Counseling and Helping Relationships · coordination of care and referral · medium · In review
 
 A counselor in a rural clinic refers a 66-year-old client with worsening depression to a telepsychiatry service for a medication evaluation. The client signs a release so the two providers can share information. What should the counselor do to BEST complete the referral?
 
@@ -15084,9 +17652,417 @@ A counselor in a rural clinic refers a 66-year-old client with worsening depress
 
 ---
 
-## Counseling Skills and Interventions (300)
+### Q728 of 1200 · nce-s-trt-086 · Counseling and Helping Relationships · discharge and aftercare planning · medium · In review
 
-### Q621 of 1000 · nce-s-cou-001 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · easy · In review
+A 37-year-old client has recovered from her second major depressive episode after 14 sessions of cognitive behavioral therapy. As discharge nears, she says, "What if the depression sneaks up on me again?" Which aftercare step BEST addresses her concern?
+
+**A.** Reassure her that people who finish CBT seldom have another depressive episode afterward
+> This is inaccurate; depression often recurs, especially after more than one episode, and false reassurance leaves her unprepared.
+
+**B.** Keep weekly sessions going without an end date so that any return of symptoms is caught
+> Open-ended weekly care is not clinically indicated once goals are met and can undercut her confidence in her own skills.
+
+**C.** Write a plan with her that lists early warning signs and the steps she will take if they appear **✔ KEY**
+> Preparing for setbacks with a written plan of personal warning signs and coping steps is a core relapse prevention task before termination.
+
+**D.** Ask her to contact the agency only if she begins to have thoughts of suicide after discharge
+> Waiting for suicidal thoughts sets the bar for returning far too high; earlier warning signs should prompt action.
+
+**Rationale:** In cognitive behavioral therapy, relapse prevention is built into the final phase of treatment. The counselor helps the client anticipate setbacks, identify her own early warning signs and write down the skills and supports she will use, including when to seek a booster session. This turns the fear of recurrence into a concrete plan she can act on.
+
+**References:** J. Beck (CBT: Basics and Beyond) — Termination and relapse prevention: preparing for setbacks and planning for early warning signs
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q729 of 1200 · nce-s-trt-087 · Counseling and Helping Relationships · discharge and aftercare planning · easy · In review
+
+A 24-year-old client in treatment for anxiety has missed three sessions in a row and has not answered phone calls. Agency policy allows the case to be closed. What should the counselor do before closing the case?
+
+**A.** Send a caring outreach letter that invites return and lists referral and crisis resources **✔ KEY**
+> Outreach that leaves the door open and offers other resources avoids abandonment and supports continuity of care.
+
+**B.** Close the case without contact, since the client has chosen to stop coming to counseling
+> Closing with no outreach risks abandonment; the reason for the absences is unknown and the client may still need help.
+
+**C.** Keep the case open with weekly calls until the client agrees to come back for a final session
+> Repeated pursuit can feel intrusive and ignores the client's choice; one clear outreach with resources is the standard.
+
+**D.** Ask the client's emergency contact to find out why the client has stopped coming to sessions
+> Contacting a third party about attendance without consent breaches confidentiality when there is no emergency.
+
+**Rationale:** When a client stops attending, the counselor should try to reach them, invite a return or a closing session, and offer referrals and crisis resources before the case is closed. The ACA Code asks counselors to provide pretermination counseling and recommend other providers when needed, so that ending services does not amount to abandonment. The outreach attempt and closing summary are documented in the record.
+
+**References:** ACA Code of Ethics — A.11.c Appropriate Termination · Wiger (Documentation) — Termination documentation: discharge reason, outreach attempts and referrals offered
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q730 of 1200 · nce-s-trt-088 · Counseling and Helping Relationships · safety planning · medium · In review
+
+While building a safety plan, a 32-year-old client names her older brother as the only person she would call for help in a crisis. She adds that he works nights and seldom answers his phone after 10 p.m., when her urges are strongest. What should the counselor do NEXT?
+
+**A.** Accept the brother as her contact, since she trusts him and chose him on her own
+> Her trust matters, but leaving a known barrier unaddressed makes this step likely to fail when she needs it most.
+
+**B.** Move straight to the step on making her home safer, since this step will not work
+> Skipping the step gives up on social support; the barrier can be solved by adding contacts who are reachable.
+
+**C.** Tell her to call 911 instead of family members whenever her urges begin late at night
+> Emergency services belong in the plan for imminent danger, but they do not replace the social support step.
+
+**D.** Explore this barrier with her and identify other people she could reach late at night **✔ KEY**
+> Safety planning includes checking how likely each step is to be used and problem-solving obstacles, such as an unreachable contact.
+
+**Rationale:** In the Safety Planning Intervention, the counselor asks how likely the client is to use each step and works through any obstacles. A contact who cannot be reached at the hours of highest risk is a barrier that should be solved, for example by adding other people or a crisis line for those hours. A plan that fits the client's real life is more likely to be used.
+
+**References:** Stanley-Brown SPI — Assessing the likelihood of using each step and problem-solving barriers to use
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q731 of 1200 · nce-s-trt-089 · Assessment and Testing · safety planning · hard · In review
+
+A 66-year-old widower completing a Stanley-Brown safety plan says, "When the dark thoughts start, I walk to the diner and chat with the regulars about baseball. I don't tell them how I feel, but it takes my mind off things." In which step of the safety plan does this strategy BEST belong?
+
+**A.** People I can ask for help
+> This step lists people the client tells about the crisis and asks for help; he does not disclose his distress at the diner.
+
+**B.** Social settings for distraction **✔ KEY**
+> Going to a social setting to take his mind off things, without disclosing the crisis, fits the distraction step.
+
+**C.** Internal coping strategies on my own
+> Internal strategies are things he does on his own without contacting others, such as a hobby at home.
+
+**D.** Warning signs that a crisis is coming
+> Warning signs are the thoughts, moods and situations that signal a crisis, not the actions taken in response.
+
+**Rationale:** The Stanley-Brown plan moves from warning signs, to internal coping strategies, to people and social settings that provide distraction, to people the client can ask for help, to professionals and crisis services, and finally to making the environment safe. The distraction step uses social contact without disclosing the crisis, while the help step involves telling someone that he is struggling. His diner visits fit the distraction step.
+
+**References:** Stanley-Brown SPI — Step 3, people and social settings that provide distraction, versus Step 4, people whom I can ask for help
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q732 of 1200 · nce-s-trt-090 · Assessment and Testing · SMART goals and measurable objectives · easy · In review
+
+A counselor-in-training lists this objective for a 45-year-old client with depression: "Counselor will provide cognitive behavioral therapy weekly for 12 weeks." Why is this entry a weak treatment objective?
+
+**A.** It names a treatment approach that has too little evidence for adults with depression
+> CBT is a well-supported treatment for depression; the problem lies in how the objective is written.
+
+**B.** It describes the counselor's intervention, not a measurable change by the client **✔ KEY**
+> Objectives state what the client will do or achieve; the counselor's planned service belongs under interventions.
+
+**C.** It sets a 12-week time frame, which is too long for an objective in a treatment plan
+> A defined time frame is a strength, and 12 weeks is a reasonable span for this kind of objective.
+
+**D.** It leaves out the diagnosis, which must be repeated within each treatment objective
+> The diagnosis appears elsewhere in the plan; objectives do not need to restate it.
+
+**Rationale:** A treatment plan separates goals, objectives and interventions. Objectives are measurable, client-centered steps, such as a target score or behavior by a set date, while interventions describe what the counselor will do to help the client get there. Writing the counselor's service as an objective leaves no way to judge the client's progress.
+
+**References:** Wiger (Documentation) — Treatment plans: measurable client objectives distinguished from clinician interventions
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q733 of 1200 · nce-s-trt-091 · Assessment and Testing · SMART goals and measurable objectives · medium · In review
+
+A supervisor reviews this objective for a 16-year-old referred for angry outbursts at school: "Client will gain insight into the causes of his anger by the end of the semester." Which revision BEST makes the objective measurable?
+
+**A.** Client will develop a much deeper understanding of his anger by the end of the semester
+> "Deeper understanding" is still an internal state that cannot be observed or counted.
+
+**B.** Client will feel calmer and more in control at school by the end of the fall semester
+> Feeling calmer is a worthy aim but is vague and gives no way to observe or measure change.
+
+**C.** Client will attend all of his weekly counseling sessions through the end of the semester
+> Attendance is measurable but tracks participation, not a change in the problem behavior.
+
+**D.** Client will name three anger triggers and use a coping skill for each in session by week 4 **✔ KEY**
+> This states observable client behaviors, a number to count and a deadline, so progress can be checked.
+
+**Rationale:** Measurable objectives use observable action verbs such as name, list, use or reduce, rather than internal states such as understand, gain insight or feel. They also specify how much and by when. Turning "insight" into naming triggers and showing coping skills lets the counselor and client see whether the objective has been met.
+
+**References:** Wiger (Documentation) — Writing behavioral objectives: observable action verbs, criteria and target dates
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q734 of 1200 · nce-s-trt-092 · Assessment and Testing · matching level of care to need · medium · In review
+
+A 29-year-old client with moderate opioid use disorder is stable on buprenorphine, has no medical or psychiatric complications and wants to stay in recovery. However, he shares an apartment with two people who use heroin daily, and he has nowhere else to live. Which assessment dimension MOST supports a more structured setting?
+
+**A.** Recovery or living environment **✔ KEY**
+> Living with people who use daily, with no other housing, is a serious environmental risk that can justify more structure.
+
+**B.** Withdrawal potential
+> He is stable on buprenorphine, so acute withdrawal is not driving the placement decision.
+
+**C.** Biomedical conditions
+> The stem states that he has no medical complications.
+
+**D.** Readiness to change
+> He wants to stay in recovery, so readiness is a strength here rather than a concern.
+
+**Rationale:** Placement decisions rest on a multidimensional assessment rather than diagnosis alone. Here every dimension looks favorable except his living environment, where daily exposure to active use and the lack of other housing threaten his recovery. That single dimension can support a more structured option, such as a residential setting or recovery housing combined with continued medication.
+
+**References:** ASAM Criteria — Multidimensional assessment: recovery/living environment as a basis for level-of-care decisions
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q735 of 1200 · nce-s-trt-093 · Assessment and Testing · matching level of care to need · medium · In review
+
+On day 12 of a residential substance use program, a 40-year-old client has no withdrawal symptoms, a stable home with a sober partner and strong coping skills, and meets criteria for outpatient care. The program requires every client to complete 30 days. What does level-of-care practice support?
+
+**A.** Keep her in residential care for all 30 days, since full program completion predicts success
+> Length of stay should follow the client's progress, not a fixed program length.
+
+**B.** Discharge her with no follow-up care, since she has done so well in the first two weeks
+> Moving down a level is appropriate, but ending all care removes needed support early in recovery.
+
+**C.** Transfer her to outpatient care now, based on reassessment of her current needs and progress **✔ KEY**
+> Ongoing reassessment should move clients along the continuum when they meet criteria for a different level.
+
+**D.** Extend her stay to 60 days so she can build even stronger coping skills before going home
+> Extending care she no longer needs is over-placement and disrupts her home and work life without benefit.
+
+**Rationale:** Level-of-care decisions are outcome-driven rather than time-driven. Clients are reassessed during treatment and moved to the least intensive level that is safe and effective once they meet its criteria, instead of staying for a preset number of days. Continuing care at the next level keeps support in place during the transition.
+
+**References:** ASAM Criteria — Continued service and transfer criteria: variable length of service based on progress rather than fixed program length
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q736 of 1200 · nce-s-trt-094 · Counseling and Helping Relationships · evidence-based treatment selection · easy · In review
+
+The parents of a 6-year-old girl describe daily defiance, frequent tantrums and hitting her younger brother. Her teacher reports similar behavior at school. Which intervention has the strongest evidence as a first-line approach for this age group?
+
+**A.** Parent training that teaches praise, clear commands and consistent consequences **✔ KEY**
+> Behavioral parent training programs are the first-line, best-supported treatment for conduct problems in young children.
+
+**B.** Weekly individual insight-oriented therapy so the girl can explore her feelings
+> Insight-oriented individual work with a young child lacks the evidence that parent-focused behavioral programs have.
+
+**C.** A referral for stimulant medication as the first step to bring her behavior down
+> Medication is not a first-line treatment for conduct problems themselves, and no ADHD diagnosis is described.
+
+**D.** A peer group with other aggressive children so they can learn from one another
+> Grouping aggressive children together can reinforce problem behavior and is not the recommended first step.
+
+**Rationale:** For children aged about 3 to 11 with oppositional or conduct problems, parent training programs have the strongest research base. Parents learn to use positive attention, praise, clear instructions and consistent, non-harsh consequences, which change the patterns that keep the behavior going. Medication is not recommended as routine treatment for conduct problems.
+
+**References:** NICE guidelines — Antisocial behaviour and conduct disorders in children and young people (CG158): parent training programmes for ages 3 to 11
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q737 of 1200 · nce-s-trt-095 · Counseling and Helping Relationships · evidence-based treatment selection · hard · In review
+
+A 48-year-old client with generalized anxiety disorder has not improved after psychoeducation and a guided self-help program. Under NICE stepped-care guidance, which pair of psychological treatments is recommended as the high-intensity option?
+
+**A.** Eye movement desensitization and reprocessing or psychodynamic therapy
+> Neither EMDR nor psychodynamic therapy is a recommended high-intensity treatment for GAD in this guidance.
+
+**B.** Individual cognitive behavioral therapy or applied relaxation training **✔ KEY**
+> NICE names individual CBT and applied relaxation as the high-intensity psychological options for GAD.
+
+**C.** Exposure and response prevention or interpersonal psychotherapy alone
+> ERP is a treatment for OCD, and IPT is not a recommended high-intensity intervention for GAD.
+
+**D.** Nondirective supportive counseling or a large psychoeducational group
+> Psychoeducational groups are a low-intensity step, and supportive counseling is not a recommended GAD treatment.
+
+**Rationale:** NICE uses stepped care for generalized anxiety disorder: identification and psychoeducation first, then low-intensity interventions such as guided self-help or psychoeducational groups, and then high-intensity options. At the high-intensity step, the recommended psychological treatments are individual CBT or applied relaxation, with medication as an alternative based on client preference. Treatment intensity is stepped up only when a lower step has not helped.
+
+**References:** NICE guidelines — Generalised anxiety disorder and panic disorder in adults (CG113): stepped care, step 3 high-intensity CBT or applied relaxation
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q738 of 1200 · nce-s-trt-096 · Counseling and Helping Relationships · collaborative treatment planning · medium · In review
+
+A 51-year-old client with mild alcohol use disorder and no withdrawal history wants to cut down to two drinks on weekend evenings. Her counselor believes abstinence would be safer. During treatment planning, what is the MOST collaborative way to proceed?
+
+**A.** Write abstinence as the goal, since the counselor's expertise should guide what goes in the plan
+> Imposing a goal the client does not hold tends to raise resistance and lower engagement.
+
+**B.** Delay planning until the client accepts that abstinence is the only realistic goal for her
+> Withholding planning until she agrees is confrontational and risks losing her from treatment.
+
+**C.** Adopt her reduction goal, share concerns openly, and agree to review progress on it together **✔ KEY**
+> Starting from the client's goal, giving honest input and planning to reassess respects her autonomy while keeping safety in view.
+
+**D.** Let her write the plan entirely on her own so the counselor does not influence her choices
+> Collaboration means shared work; the counselor should still offer expertise and help shape measurable steps.
+
+**Rationale:** Collaborative planning treats the client as the decision maker about her own goals while the counselor contributes information and concerns. In motivational interviewing, the counselor can offer a view with permission, then negotiate a plan that starts where the client is and includes a way to check how it is working. If moderation proves difficult, the goal can be revisited together.
+
+**References:** Miller & Rollnick (MI) — Planning: negotiating change goals, offering information with permission and honoring client autonomy
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q739 of 1200 · nce-s-trt-097 · Research and Program Evaluation · progress monitoring and outcome measures · medium · In review
+
+A counselor uses the Outcome Rating Scale (ORS) at the start and the Session Rating Scale (SRS) at the end of each session. A 22-year-old client's ORS scores are flat, and after session three his SRS score drops well below his earlier ratings. What should the counselor do?
+
+**A.** Invite his feedback about what did not fit in the session and adjust the approach with him **✔ KEY**
+> The SRS taps the alliance; a drop calls for an open conversation about goals, methods and fit.
+
+**B.** Increase session frequency, since the drop in the SRS shows that his symptoms are worsening
+> The SRS measures the client's view of the session and alliance, not his symptoms.
+
+**C.** Set the SRS aside and focus on the ORS, since only the ORS is a true measure of outcome
+> Alliance feedback is useful because alliance problems predict dropout and poor outcomes.
+
+**D.** Replace both scales with a longer symptom inventory that gives more reliable scores
+> Swapping measures avoids the signal; the drop should be explored with the client directly.
+
+**Rationale:** The ORS is a brief measure of how the client is doing personally, interpersonally, socially and overall, while the SRS asks how the session went in terms of the relationship, goals and topics, approach and overall fit. A falling SRS score is an early alliance warning. Discussing it openly and adjusting the work is the purpose of this kind of client feedback system.
+
+**References:** Lambert (Outcome Monitoring) — Client feedback systems: Outcome Rating Scale and Session Rating Scale, alliance feedback
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q740 of 1200 · nce-s-trt-098 · Research and Program Evaluation · progress monitoring and outcome measures · easy · In review
+
+A community mental health center plans to adopt the Outcome Questionnaire-45 (OQ-45) to track client progress. Which three areas of functioning does the OQ-45 assess?
+
+**A.** Mood, anxiety and substance use
+> These are symptom areas but not the three OQ-45 subscales.
+
+**B.** Insight, motivation and alliance
+> These are process variables, not the outcome domains the OQ-45 measures.
+
+**C.** Cognition, memory and attention
+> These are neuropsychological domains, not OQ-45 subscales.
+
+**D.** Symptoms, relationships, social role **✔ KEY**
+> The OQ-45 has Symptom Distress, Interpersonal Relations and Social Role subscales.
+
+**Rationale:** The OQ-45 is a 45-item self-report measure designed for repeated use during therapy. Its three subscales are Symptom Distress, Interpersonal Relations and Social Role performance, and higher scores mean more distress. Its sensitivity to change makes it useful for session-by-session monitoring.
+
+**References:** Lambert (Outcome Monitoring) — Outcome Questionnaire-45: Symptom Distress, Interpersonal Relations and Social Role subscales
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q741 of 1200 · nce-s-trt-099 · Counseling and Helping Relationships · stages of change and treatment readiness · hard · In review
+
+A 34-year-old client stopped gambling six weeks ago. He is working hard to stay away from casinos and to handle urges as they come. According to the Transtheoretical Model, which processes of change are MOST emphasized at his stage?
+
+**A.** Consciousness raising and dramatic relief to build his awareness of the problem
+> These experiential processes are most used early, in moving from precontemplation to contemplation.
+
+**B.** Stimulus control and counterconditioning to manage cues and replace the behavior **✔ KEY**
+> In the action stage, behavioral processes such as stimulus control and counterconditioning are emphasized.
+
+**C.** Environmental reevaluation to weigh how his gambling has affected his family
+> Environmental reevaluation is linked mainly with contemplation, when people are weighing change.
+
+**D.** Self-reevaluation to picture who he would be without gambling in his life
+> Self-reevaluation is most prominent in the shift from contemplation to preparation.
+
+**Rationale:** Having changed his behavior within the past six months, he is in the action stage. Research on the Transtheoretical Model links the action and maintenance stages with behavioral processes: stimulus control, counterconditioning, contingency management and helping relationships. Experiential processes such as consciousness raising, dramatic relief and reevaluation are emphasized in earlier stages.
+
+**References:** Transtheoretical Model — Integration of stages and processes of change: behavioral processes in action and maintenance
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q742 of 1200 · nce-s-trt-100 · Counseling and Helping Relationships · coordination of care and referral · medium · In review
+
+A counselor at a HIPAA-covered agency is sending a client's assessment and treatment summary to the psychiatrist who will now manage the client's medication. A colleague says HIPAA's minimum necessary standard requires removing most details first. Which statement is accurate?
+
+**A.** Minimum necessary applies to every disclosure, so only a diagnosis and medication may be sent
+> The standard has exceptions, and disclosures to a provider for treatment are one of them.
+
+**B.** Minimum necessary bars any sharing of mental health records unless a court orders the release
+> HIPAA permits sharing for treatment; a court order is not needed for coordination between providers.
+
+**C.** Minimum necessary does not apply to disclosures made to another provider for treatment purposes **✔ KEY**
+> The Privacy Rule exempts disclosures to, or requests by, a health care provider for treatment from this standard.
+
+**D.** Minimum necessary applies only to paper records, so electronic summaries can be sent in full
+> The standard covers protected health information in any form, paper or electronic.
+
+**Rationale:** Under the HIPAA Privacy Rule, the minimum necessary standard limits uses and disclosures for purposes such as payment and operations, but it does not apply to disclosures to a health care provider for treatment. Providers can share what is clinically relevant to coordinate care. Psychotherapy notes kept separate from the record still require the client's authorization, and state law or agency policy may set stricter rules.
+
+**References:** HIPAA — Privacy Rule minimum necessary standard (45 CFR 164.502(b)): exception for disclosures to a provider for treatment
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q743 of 1200 · nce-s-trt-101 · Research and Program Evaluation · statistics used in outcome research · medium · In review
+
+In a trial of a group treatment for depression, the treatment group's mean posttest score is 21 and the control group's mean is 27 on a measure where higher scores mean more severe symptoms. The pooled standard deviation is 8. What is Cohen's d, and how large is the effect?
+
+**A.** 0.75, between medium and large **✔ KEY**
+> d = (27 - 21) / 8 = 0.75, which falls between the medium (0.5) and large (0.8) benchmarks.
+
+**B.** 1.33, a very large effect
+> This divides the SD by the mean difference (8 / 6) instead of the reverse.
+
+**C.** 6.0, a very large effect
+> Six is the raw mean difference; d divides it by the standard deviation.
+
+**D.** 0.29, a small effect
+> This divides the difference by a mean (6 / 21) instead of by the standard deviation.
+
+**Rationale:** Cohen's d is the difference between two group means divided by the pooled standard deviation, which expresses the effect in standard deviation units. Here (27 - 21) / 8 = 0.75. By Cohen's conventions (about 0.2 small, 0.5 medium, 0.8 large), this is a medium-to-large effect.
+
+**References:** Erford (Research and Evaluation in Counseling) — Effect size: computing Cohen's d from group means and pooled standard deviation
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q744 of 1200 · nce-s-trt-102 · Research and Program Evaluation · statistics used in outcome research · hard · In review
+
+A small pilot study had a power of .60 to detect a medium effect. It found p = .24, and the authors concluded that the new intervention does not work. If the intervention truly has a medium effect, what error may they have made, and how likely was it?
+
+**A.** A Type I error, with probability .05
+> A Type I error is rejecting a true null; these authors did not reject the null.
+
+**B.** A Type II error, with probability .60
+> .60 is the power, the chance of correctly detecting the effect, not the chance of missing it.
+
+**C.** A Type I error, with probability .40
+> The error is failing to detect a real effect, which is Type II, not Type I.
+
+**D.** A Type II error, with probability .40 **✔ KEY**
+> Missing a real effect is a Type II error; beta = 1 - power = 1 - .60 = .40.
+
+**Rationale:** A Type II error is failing to reject a false null hypothesis, that is, missing an effect that really exists. Its probability, beta, equals 1 minus power, so a study with power of .60 has a .40 chance of missing a true medium effect. Underpowered outcome studies can therefore lead to the mistaken conclusion that an effective treatment does not work.
+
+**References:** Erford (Research and Evaluation in Counseling) — Hypothesis testing: Type II error, beta and statistical power (1 - beta)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+## Counseling Skills and Interventions (360)
+
+### Q745 of 1200 · nce-s-cou-001 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · easy · In review
 
 After a tense meeting in which she felt belittled by her supervisor, a client goes home and yells at her teenage son over a minor chore. Which defense mechanism does this BEST illustrate?
 
@@ -15110,7 +18086,7 @@ After a tense meeting in which she felt belittled by her supervisor, a client go
 
 ---
 
-### Q622 of 1000 · nce-s-cou-002 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · medium · In review
+### Q746 of 1200 · nce-s-cou-002 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · medium · In review
 
 Several months into treatment, a client begins reacting to the counselor's neutral comments with hurt and anger, saying, "You sound just like my father, always judging me." From a psychoanalytic perspective, the counselor should view this reaction as:
 
@@ -15134,7 +18110,7 @@ Several months into treatment, a client begins reacting to the counselor's neutr
 
 ---
 
-### Q623 of 1000 · nce-s-cou-003 · Counseling and Helping Relationships · Adlerian therapy · medium · In review
+### Q747 of 1200 · nce-s-cou-003 · Counseling and Helping Relationships · Adlerian therapy · medium · In review
 
 An Adlerian counselor tells a client that his frequent helplessness seems to get his siblings to handle his responsibilities for him. Once the hidden payoff is named, the behavior becomes less appealing to the client. This technique is known as:
 
@@ -15158,7 +18134,7 @@ An Adlerian counselor tells a client that his frequent helplessness seems to get
 
 ---
 
-### Q624 of 1000 · nce-s-cou-004 · Human Growth and Development · Adlerian therapy · medium · In review
+### Q748 of 1200 · nce-s-cou-004 · Human Growth and Development · Adlerian therapy · medium · In review
 
 In Adler's view of psychological birth order, which child is MOST associated with the experience of being "dethroned" when a new sibling arrives?
 
@@ -15182,7 +18158,7 @@ In Adler's view of psychological birth order, which child is MOST associated wit
 
 ---
 
-### Q625 of 1000 · nce-s-cou-005 · Counseling and Helping Relationships · person-centered therapy · easy · In review
+### Q749 of 1200 · nce-s-cou-005 · Counseling and Helping Relationships · person-centered therapy · easy · In review
 
 Carl Rogers proposed that clients move toward growth when the counselor offers congruence, accurate empathic understanding, and which other core condition?
 
@@ -15206,7 +18182,7 @@ Carl Rogers proposed that clients move toward growth when the counselor offers c
 
 ---
 
-### Q626 of 1000 · nce-s-cou-006 · Human Growth and Development · person-centered therapy · hard · In review
+### Q750 of 1200 · nce-s-cou-006 · Human Growth and Development · person-centered therapy · hard · In review
 
 A college student tells her counselor she feels worthwhile only when she earns top grades, the one achievement her parents consistently praised while growing up. From a person-centered perspective, her distress MOST likely stems from:
 
@@ -15230,7 +18206,7 @@ A college student tells her counselor she feels worthwhile only when she earns t
 
 ---
 
-### Q627 of 1000 · nce-s-cou-007 · Counseling and Helping Relationships · existential therapy · easy · In review
+### Q751 of 1200 · nce-s-cou-007 · Counseling and Helping Relationships · existential therapy · easy · In review
 
 Which theorist founded logotherapy, drawing on his experiences in Nazi concentration camps to argue that people can find meaning even in unavoidable suffering?
 
@@ -15254,7 +18230,7 @@ Which theorist founded logotherapy, drawing on his experiences in Nazi concentra
 
 ---
 
-### Q628 of 1000 · nce-s-cou-008 · Counseling and Helping Relationships · existential therapy · medium · In review
+### Q752 of 1200 · nce-s-cou-008 · Counseling and Helping Relationships · existential therapy · medium · In review
 
 Irvin Yalom described four "ultimate concerns," or givens of existence, that are central to existential psychotherapy. Which set lists them?
 
@@ -15278,7 +18254,7 @@ Irvin Yalom described four "ultimate concerns," or givens of existence, that are
 
 ---
 
-### Q629 of 1000 · nce-s-cou-009 · Counseling and Helping Relationships · gestalt therapy · easy · In review
+### Q753 of 1200 · nce-s-cou-009 · Counseling and Helping Relationships · gestalt therapy · easy · In review
 
 A client grieving her late father says she never told him how angry she was about his drinking. The counselor invites her to imagine her father sitting in an empty chair and to speak to him directly, in the present tense. This intervention is MOST characteristic of:
 
@@ -15302,7 +18278,7 @@ A client grieving her late father says she never told him how angry she was abou
 
 ---
 
-### Q630 of 1000 · nce-s-cou-010 · Counseling and Helping Relationships · gestalt therapy · hard · In review
+### Q754 of 1200 · nce-s-cou-010 · Counseling and Helping Relationships · gestalt therapy · hard · In review
 
 When a coworker criticizes him, a client reports that he wants to shout back but instead clenches his jaw and digs his fingernails into his own palms. In gestalt terms, this pattern of turning back onto oneself what one would like to do to others is called:
 
@@ -15326,7 +18302,7 @@ When a coworker criticizes him, a client reports that he wants to shout back but
 
 ---
 
-### Q631 of 1000 · nce-s-cou-011 · Counseling and Helping Relationships · behavior therapy · medium · In review
+### Q755 of 1200 · nce-s-cou-011 · Counseling and Helping Relationships · behavior therapy · medium · In review
 
 Joseph Wolpe's systematic desensitization pairs deep relaxation with gradual imagined exposure to a fear hierarchy. The technique is based on which principle?
 
@@ -15350,7 +18326,7 @@ Joseph Wolpe's systematic desensitization pairs deep relaxation with gradual ima
 
 ---
 
-### Q632 of 1000 · nce-s-cou-012 · Counseling and Helping Relationships · behavior therapy · medium · In review
+### Q756 of 1200 · nce-s-cou-012 · Counseling and Helping Relationships · behavior therapy · medium · In review
 
 To reduce a 7-year-old's hitting, his parents remove his tablet for the evening each time he hits his sister, and the hitting decreases. Which operant procedure are they using?
 
@@ -15374,7 +18350,7 @@ To reduce a 7-year-old's hitting, his parents remove his tablet for the evening 
 
 ---
 
-### Q633 of 1000 · nce-s-cou-013 · Counseling and Helping Relationships · cognitive behavioral therapy · easy · In review
+### Q757 of 1200 · nce-s-cou-013 · Counseling and Helping Relationships · cognitive behavioral therapy · easy · In review
 
 Aaron Beck's cognitive triad of depression describes a negative view of which three areas?
 
@@ -15398,7 +18374,7 @@ Aaron Beck's cognitive triad of depression describes a negative view of which th
 
 ---
 
-### Q634 of 1000 · nce-s-cou-014 · Counseling and Helping Relationships · cognitive behavioral therapy · medium · In review
+### Q758 of 1200 · nce-s-cou-014 · Counseling and Helping Relationships · cognitive behavioral therapy · medium · In review
 
 A mother tells her counselor that her son's soccer team lost the championship because she had to miss the game for work. In Beck's cognitive therapy, this is an example of which cognitive distortion?
 
@@ -15422,7 +18398,7 @@ A mother tells her counselor that her son's soccer team lost the championship be
 
 ---
 
-### Q635 of 1000 · nce-s-cou-015 · Counseling and Helping Relationships · rational emotive behavior therapy · easy · In review
+### Q759 of 1200 · nce-s-cou-015 · Counseling and Helping Relationships · rational emotive behavior therapy · easy · In review
 
 In Albert Ellis's ABCDE model of rational emotive behavior therapy, what does the "D" represent?
 
@@ -15446,7 +18422,7 @@ In Albert Ellis's ABCDE model of rational emotive behavior therapy, what does th
 
 ---
 
-### Q636 of 1000 · nce-s-cou-016 · Counseling and Helping Relationships · rational emotive behavior therapy · hard · In review
+### Q760 of 1200 · nce-s-cou-016 · Counseling and Helping Relationships · rational emotive behavior therapy · hard · In review
 
 A client says, "I must get this promotion. If I don't, it will be awful, I won't be able to stand it, and it will prove I'm worthless." According to Ellis, which element is the CORE of this irrational belief, from which the others derive?
 
@@ -15470,7 +18446,7 @@ A client says, "I must get this promotion. If I don't, it will be awful, I won't
 
 ---
 
-### Q637 of 1000 · nce-s-cou-017 · Counseling and Helping Relationships · reality therapy and choice theory · medium · In review
+### Q761 of 1200 · nce-s-cou-017 · Counseling and Helping Relationships · reality therapy and choice theory · medium · In review
 
 Reality therapy is often taught through the WDEP system (Wants, Doing and direction, Evaluation, Planning). Who developed and expanded this system?
 
@@ -15494,7 +18470,7 @@ Reality therapy is often taught through the WDEP system (Wants, Doing and direct
 
 ---
 
-### Q638 of 1000 · nce-s-cou-018 · Counseling and Helping Relationships · reality therapy and choice theory · medium · In review
+### Q762 of 1200 · nce-s-cou-018 · Counseling and Helping Relationships · reality therapy and choice theory · medium · In review
 
 A high school student says he skips class because "nobody there likes me anyway." After exploring what he wants and what he is currently doing, the reality therapist asks, "Is skipping class helping you get the friendships you want?" This question reflects which part of WDEP?
 
@@ -15518,7 +18494,7 @@ A high school student says he skips class because "nobody there likes me anyway.
 
 ---
 
-### Q639 of 1000 · nce-s-cou-019 · Counseling and Helping Relationships · solution-focused brief therapy · easy · In review
+### Q763 of 1200 · nce-s-cou-019 · Counseling and Helping Relationships · solution-focused brief therapy · easy · In review
 
 A counselor asks a client, "Suppose that tonight, while you sleep, the problem that brought you here is solved. When you wake up, what will be the first thing you notice that tells you things are different?" This is an example of:
 
@@ -15542,7 +18518,7 @@ A counselor asks a client, "Suppose that tonight, while you sleep, the problem t
 
 ---
 
-### Q640 of 1000 · nce-s-cou-020 · Counseling and Helping Relationships · solution-focused brief therapy · medium · In review
+### Q764 of 1200 · nce-s-cou-020 · Counseling and Helping Relationships · solution-focused brief therapy · medium · In review
 
 A counselor says, "On a scale from 0 to 10, where 10 means the problem is fully resolved, you said you are at a 4. What would tell you that you had moved to a 5?" This technique and the approach it comes from are MOST closely associated with:
 
@@ -15566,7 +18542,7 @@ A counselor says, "On a scale from 0 to 10, where 10 means the problem is fully 
 
 ---
 
-### Q641 of 1000 · nce-s-cou-021 · Counseling and Helping Relationships · narrative therapy · easy · In review
+### Q765 of 1200 · nce-s-cou-021 · Counseling and Helping Relationships · narrative therapy · easy · In review
 
 A counselor working with a 10-year-old who refuses to go to school asks, "When does the Worry show up, and how does it try to convince you to stay home?" The counselor is using which technique?
 
@@ -15590,7 +18566,7 @@ A counselor working with a 10-year-old who refuses to go to school asks, "When d
 
 ---
 
-### Q642 of 1000 · nce-s-cou-022 · Counseling and Helping Relationships · narrative therapy · hard · In review
+### Q766 of 1200 · nce-s-cou-022 · Counseling and Helping Relationships · narrative therapy · hard · In review
 
 A narrative counselor learns that a client who describes himself as "a hopeless addict" turned down a drink at a family wedding last month. The counselor explores this event in detail to begin building an alternative story. In narrative therapy, such events are called:
 
@@ -15616,7 +18592,7 @@ A narrative counselor learns that a client who describes himself as "a hopeless 
 
 ---
 
-### Q643 of 1000 · nce-s-cou-023 · Social and Cultural Diversity · feminist therapy · medium · In review
+### Q767 of 1200 · nce-s-cou-023 · Social and Cultural Diversity · feminist therapy · medium · In review
 
 Which statement BEST reflects a central principle of feminist therapy?
 
@@ -15640,7 +18616,7 @@ Which statement BEST reflects a central principle of feminist therapy?
 
 ---
 
-### Q644 of 1000 · nce-s-cou-024 · Social and Cultural Diversity · feminist therapy · medium · In review
+### Q768 of 1200 · nce-s-cou-024 · Social and Cultural Diversity · feminist therapy · medium · In review
 
 A counselor helps a client identify the messages she received growing up about what women "should" be, where those messages came from, and how they influence her guilt about setting limits with family today. This feminist intervention is called:
 
@@ -15664,7 +18640,7 @@ A counselor helps a client identify the messages she received growing up about w
 
 ---
 
-### Q645 of 1000 · nce-s-cou-025 · Counseling and Helping Relationships · motivational interviewing · easy · In review
+### Q769 of 1200 · nce-s-cou-025 · Counseling and Helping Relationships · motivational interviewing · easy · In review
 
 In motivational interviewing, the core skills are summarized by the acronym OARS: open questions, affirmations, reflections, and what?
 
@@ -15688,7 +18664,7 @@ In motivational interviewing, the core skills are summarized by the acronym OARS
 
 ---
 
-### Q646 of 1000 · nce-s-cou-026 · Counseling and Helping Relationships · motivational interviewing · hard · In review
+### Q770 of 1200 · nce-s-cou-026 · Counseling and Helping Relationships · motivational interviewing · hard · In review
 
 A client says, "I know I should cut back on drinking, but it's the only thing that helps me relax after work." Which counselor response is MOST consistent with motivational interviewing?
 
@@ -15712,7 +18688,7 @@ A client says, "I know I should cut back on drinking, but it's the only thing th
 
 ---
 
-### Q647 of 1000 · nce-s-cou-027 · Counseling and Helping Relationships · dialectical behavior therapy · medium · In review
+### Q771 of 1200 · nce-s-cou-027 · Counseling and Helping Relationships · dialectical behavior therapy · medium · In review
 
 A DBT skills group is teaching TIPP skills for crisis survival and practicing radical acceptance of painful realities that cannot be changed right now. These skills belong to which DBT module?
 
@@ -15736,7 +18712,7 @@ A DBT skills group is teaching TIPP skills for crisis survival and practicing ra
 
 ---
 
-### Q648 of 1000 · nce-s-cou-028 · Counseling and Helping Relationships · dialectical behavior therapy · easy · In review
+### Q772 of 1200 · nce-s-cou-028 · Counseling and Helping Relationships · dialectical behavior therapy · easy · In review
 
 Marsha Linehan developed dialectical behavior therapy initially for chronically suicidal clients. The central dialectic of the approach is the balance between:
 
@@ -15760,7 +18736,7 @@ Marsha Linehan developed dialectical behavior therapy initially for chronically 
 
 ---
 
-### Q649 of 1000 · nce-s-cou-029 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · medium · In review
+### Q773 of 1200 · nce-s-cou-029 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · medium · In review
 
 Two parents in a tense marriage each confide in their 15-year-old daughter about their frustrations with the other, and the daughter now feels responsible for keeping the peace. A Bowenian family counselor would MOST likely describe this pattern as:
 
@@ -15784,7 +18760,7 @@ Two parents in a tense marriage each confide in their 15-year-old daughter about
 
 ---
 
-### Q650 of 1000 · nce-s-cou-030 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · hard · In review
+### Q774 of 1200 · nce-s-cou-030 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · hard · In review
 
 Parents tell a family counselor they always agree on rules. The counselor asks them to decide, right now in session, whether their son may stay out late Saturday, then watches as the son interrupts and his mother sides with him. In Minuchin's structural family therapy, this technique is called:
 
@@ -15810,7 +18786,7 @@ Parents tell a family counselor they always agree on rules. The counselor asks t
 
 ---
 
-### Q651 of 1000 · nce-s-cou-031 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+### Q775 of 1200 · nce-s-cou-031 · Group Counseling and Group Work · group stages and dynamics · medium · In review
 
 In the third session of a community anger-management group, members begin arguing about the attendance rule, and two members openly question whether the leader is qualified to run the group. According to Tuckman's model, the group is MOST likely in which stage?
 
@@ -15834,7 +18810,7 @@ In the third session of a community anger-management group, members begin arguin
 
 ---
 
-### Q652 of 1000 · nce-s-cou-032 · Group Counseling and Group Work · group stages and dynamics · hard · In review
+### Q776 of 1200 · nce-s-cou-032 · Group Counseling and Group Work · group stages and dynamics · hard · In review
 
 During the transition stage of a counseling group, a member crosses his arms and says to the leader, 'Honestly, this group is a waste of my time.' Other members fall silent. Which leader response BEST fits Corey's guidance for this stage?
 
@@ -15858,7 +18834,7 @@ During the transition stage of a counseling group, a member crosses his arms and
 
 ---
 
-### Q653 of 1000 · nce-s-cou-033 · Group Counseling and Group Work · group stages and dynamics · easy · In review
+### Q777 of 1200 · nce-s-cou-033 · Group Counseling and Group Work · group stages and dynamics · easy · In review
 
 A high school counselor plans a six-week group in which students learn and practice specific study and test-anxiety management skills, with brief lessons and structured activities each week. Under the ASGW classification of group work, this is BEST described as which type of group?
 
@@ -15882,7 +18858,7 @@ A high school counselor plans a six-week group in which students learn and pract
 
 ---
 
-### Q654 of 1000 · nce-s-cou-034 · Group Counseling and Group Work · group leadership skills and therapeutic factors · easy · In review
+### Q778 of 1200 · nce-s-cou-034 · Group Counseling and Group Work · group leadership skills and therapeutic factors · easy · In review
 
 After a member of a grief group shares that she still sets a place at the table for her late husband, three other members say they have done something similar. She replies, 'I thought I was the only one.' Which of Yalom's therapeutic factors is MOST evident?
 
@@ -15906,7 +18882,7 @@ After a member of a grief group shares that she still sets a place at the table 
 
 ---
 
-### Q655 of 1000 · nce-s-cou-035 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
+### Q779 of 1200 · nce-s-cou-035 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
 
 In a young adult counseling group, two members repeatedly press a quieter member to 'finally tell us what really happened' with her family, even after she says she is not ready. Which leadership skill is MOST needed at this moment?
 
@@ -15930,7 +18906,7 @@ In a young adult counseling group, two members repeatedly press a quieter member
 
 ---
 
-### Q656 of 1000 · nce-s-cou-036 · Group Counseling and Group Work · group leadership skills and therapeutic factors · hard · In review
+### Q780 of 1200 · nce-s-cou-036 · Group Counseling and Group Work · group leadership skills and therapeutic factors · hard · In review
 
 In a long-term interpersonal group, a man reacts to the male co-leader with the same deference and hidden resentment he felt toward his father, and competes with an older member as he did with his brother. Over months he recognizes the pattern and responds to them differently. Which of Yalom's therapeutic factors does this process BEST illustrate?
 
@@ -15954,7 +18930,7 @@ In a long-term interpersonal group, a man reacts to the male co-leader with the 
 
 ---
 
-### Q657 of 1000 · nce-s-cou-037 · Counseling and Helping Relationships · basic attending and listening skills · easy · In review
+### Q781 of 1200 · nce-s-cou-037 · Counseling and Helping Relationships · basic attending and listening skills · easy · In review
 
 In Egan's SOLER guideline for nonverbal attending, what does the letter 'L' stand for?
 
@@ -15978,7 +18954,7 @@ In Egan's SOLER guideline for nonverbal attending, what does the letter 'L' stan
 
 ---
 
-### Q658 of 1000 · nce-s-cou-038 · Counseling and Helping Relationships · basic attending and listening skills · medium · In review
+### Q782 of 1200 · nce-s-cou-038 · Counseling and Helping Relationships · basic attending and listening skills · medium · In review
 
 A practicum student is eager to start using confrontation and interpretation with clients. According to Ivey's microskills hierarchy, which skills should the student master FIRST?
 
@@ -16004,7 +18980,7 @@ A practicum student is eager to start using confrontation and interpretation wit
 
 ---
 
-### Q659 of 1000 · nce-s-cou-039 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · easy · In review
+### Q783 of 1200 · nce-s-cou-039 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · easy · In review
 
 A client says, 'My supervisor criticized my report in front of the whole team again, and I just sat there and said nothing.' Which counselor response is the BEST example of a reflection of feeling?
 
@@ -16028,7 +19004,7 @@ A client says, 'My supervisor criticized my report in front of the whole team ag
 
 ---
 
-### Q660 of 1000 · nce-s-cou-040 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · medium · In review
+### Q784 of 1200 · nce-s-cou-040 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · medium · In review
 
 Midway through a session, a client has moved quickly among worries about money, conflict with her sister and trouble sleeping. The counselor wants to pull these threads together, check accuracy and help the client choose a focus. Which skill is MOST suited to this purpose?
 
@@ -16052,7 +19028,7 @@ Midway through a session, a client has moved quickly among worries about money, 
 
 ---
 
-### Q661 of 1000 · nce-s-cou-041 · Counseling and Helping Relationships · confrontation and immediacy · medium · In review
+### Q785 of 1200 · nce-s-cou-041 · Counseling and Helping Relationships · confrontation and immediacy · medium · In review
 
 A client who is tearful and twisting a tissue says, 'I'm completely fine with the divorce. It's no big deal.' Which response BEST illustrates empathic confrontation?
 
@@ -16076,7 +19052,7 @@ A client who is tearful and twisting a tissue says, 'I'm completely fine with th
 
 ---
 
-### Q662 of 1000 · nce-s-cou-042 · Counseling and Helping Relationships · confrontation and immediacy · medium · In review
+### Q786 of 1200 · nce-s-cou-042 · Counseling and Helping Relationships · confrontation and immediacy · medium · In review
 
 A counselor says, 'I notice that whenever we get close to talking about your father, you change the subject and glance at me as if checking my reaction. I'm wondering what is happening between us right now.' This statement is BEST described as:
 
@@ -16100,7 +19076,7 @@ A counselor says, 'I notice that whenever we get close to talking about your fat
 
 ---
 
-### Q663 of 1000 · nce-s-cou-043 · Counseling and Helping Relationships · play therapy · medium · In review
+### Q787 of 1200 · nce-s-cou-043 · Counseling and Helping Relationships · play therapy · medium · In review
 
 In a child-centered play therapy session, a 6-year-old grows frustrated and raises a wooden block as if to throw it at the counselor. Using Landreth's ACT model of limit setting, which response is BEST?
 
@@ -16126,7 +19102,7 @@ In a child-centered play therapy session, a 6-year-old grows frustrated and rais
 
 ---
 
-### Q664 of 1000 · nce-s-cou-044 · Counseling and Helping Relationships · play therapy · hard · In review
+### Q788 of 1200 · nce-s-cou-044 · Counseling and Helping Relationships · play therapy · hard · In review
 
 A play therapist spends early sessions building an egalitarian relationship with a 9-year-old, then gathers information about the child's lifestyle and mistaken beliefs, helps the child gain insight, and finally uses reorientation to practice new ways of belonging. This sequence is characteristic of which approach?
 
@@ -16152,7 +19128,7 @@ A play therapist spends early sessions building an egalitarian relationship with
 
 ---
 
-### Q665 of 1000 · nce-s-cou-045 · Counseling and Helping Relationships · crisis intervention models · medium · In review
+### Q789 of 1200 · nce-s-cou-045 · Counseling and Helping Relationships · crisis intervention models · medium · In review
 
 A college student arrives at the counseling center hours after learning his scholarship was revoked, saying he 'can't see a way forward.' Following Roberts' seven-stage crisis intervention model, what should the counselor do FIRST?
 
@@ -16176,7 +19152,7 @@ A college student arrives at the counseling center hours after learning his scho
 
 ---
 
-### Q666 of 1000 · nce-s-cou-046 · Counseling and Helping Relationships · crisis intervention models · easy · In review
+### Q790 of 1200 · nce-s-cou-046 · Counseling and Helping Relationships · crisis intervention models · easy · In review
 
 A family is seen by a crisis counselor two days after their apartment was destroyed in a fire. Which goal BEST reflects the primary aim of crisis intervention?
 
@@ -16200,7 +19176,7 @@ A family is seen by a crisis counselor two days after their apartment was destro
 
 ---
 
-### Q667 of 1000 · nce-s-cou-047 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q791 of 1200 · nce-s-cou-047 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 On Holland's RIASEC hexagon, which pair of personality types is MOST consistent, meaning the two types share the most characteristics?
 
@@ -16224,7 +19200,7 @@ On Holland's RIASEC hexagon, which pair of personality types is MOST consistent,
 
 ---
 
-### Q668 of 1000 · nce-s-cou-048 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q792 of 1200 · nce-s-cou-048 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 A 52-year-old nurse manager tells a counselor that her main concerns are holding on to the position she has built, keeping her clinical skills current and innovating within her role. In Super's life-span, life-space theory, these concerns BEST fit which career stage?
 
@@ -16248,7 +19224,7 @@ A 52-year-old nurse manager tells a counselor that her main concerns are holding
 
 ---
 
-### Q669 of 1000 · nce-s-cou-049 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q793 of 1200 · nce-s-cou-049 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 A client is anxious because she has no clear five-year career plan. The counselor helps her see that past opportunities arose from unexpected events, and encourages curiosity, persistence, flexibility, optimism and risk taking to create and use future chance events. This approach reflects:
 
@@ -16272,7 +19248,7 @@ A client is anxious because she has no clear five-year career plan. The counselo
 
 ---
 
-### Q670 of 1000 · nce-s-cou-050 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
+### Q794 of 1200 · nce-s-cou-050 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
 
 A 4-year-old eagerly plans games and starts projects, but his parents often scold him for 'making messes' when he tries new activities. In Erikson's theory, this child is working on which psychosocial crisis?
 
@@ -16296,7 +19272,7 @@ A 4-year-old eagerly plans games and starts projects, but his parents often scol
 
 ---
 
-### Q671 of 1000 · nce-s-cou-051 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
+### Q795 of 1200 · nce-s-cou-051 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
 
 An 8-year-old correctly explains that a ball of clay has the same amount of clay after it is rolled into a long snake, but she struggles with a purely hypothetical question about what would happen if people had no need for sleep. In Piaget's theory, she is MOST likely in which stage?
 
@@ -16320,7 +19296,7 @@ An 8-year-old correctly explains that a ball of clay has the same amount of clay
 
 ---
 
-### Q672 of 1000 · nce-s-cou-052 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · medium · In review
+### Q796 of 1200 · nce-s-cou-052 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · medium · In review
 
 Asked whether a man should steal an unaffordable medicine to save his wife, a 16-year-old answers, 'No, because if everyone broke the law when they felt like it, society would fall apart.' This reasoning BEST fits which Kohlberg stage?
 
@@ -16344,7 +19320,7 @@ Asked whether a man should steal an unaffordable medicine to save his wife, a 16
 
 ---
 
-### Q673 of 1000 · nce-s-cou-053 · Human Growth and Development · attachment theory · medium · In review
+### Q797 of 1200 · nce-s-cou-053 · Human Growth and Development · attachment theory · medium · In review
 
 In the Strange Situation, a 14-month-old stays close to her mother and explores little. She becomes very distressed when her mother leaves, and on reunion she clings to her mother while also pushing away and crying angrily. Which attachment classification BEST fits?
 
@@ -16368,7 +19344,7 @@ In the Strange Situation, a 14-month-old stays close to her mother and explores 
 
 ---
 
-### Q674 of 1000 · nce-s-cou-054 · Human Growth and Development · attachment theory · hard · In review
+### Q798 of 1200 · nce-s-cou-054 · Human Growth and Development · attachment theory · hard · In review
 
 A counselor reviewing an infant assessment reads that, on reunion with a parent, the 12-month-old approached with his face turned away, then froze with a dazed expression. Which statement about this pattern is MOST accurate?
 
@@ -16392,7 +19368,7 @@ A counselor reviewing an infant assessment reads that, on reunion with a parent,
 
 ---
 
-### Q675 of 1000 · nce-s-cou-055 · Social and Cultural Diversity · multicultural counseling competencies · hard · In review
+### Q799 of 1200 · nce-s-cou-055 · Social and Cultural Diversity · multicultural counseling competencies · hard · In review
 
 The original Sue, Arredondo and McDavis multicultural competencies were organized around attitudes and beliefs, knowledge and skills. Which additional aspirational competency did the Multicultural and Social Justice Counseling Competencies (MSJCC) add?
 
@@ -16418,7 +19394,7 @@ The original Sue, Arredondo and McDavis multicultural competencies were organize
 
 ---
 
-### Q676 of 1000 · nce-s-cou-056 · Social and Cultural Diversity · multicultural counseling competencies · easy · In review
+### Q800 of 1200 · nce-s-cou-056 · Social and Cultural Diversity · multicultural counseling competencies · easy · In review
 
 A counselor notices she feels impatient with clients who defer major decisions to their extended families, and she begins examining how her own upbringing shapes that reaction. In the Sue, Arredondo and McDavis framework, this work MOST directly reflects which competency area?
 
@@ -16442,7 +19418,7 @@ A counselor notices she feels impatient with clients who defer major decisions t
 
 ---
 
-### Q677 of 1000 · nce-s-cou-057 · Social and Cultural Diversity · racial and cultural identity models · medium · In review
+### Q801 of 1200 · nce-s-cou-057 · Social and Cultural Diversity · racial and cultural identity models · medium · In review
 
 Months after a racist incident on campus shook her belief that race did not matter, a Black college student now surrounds herself with Black-centered organizations, studies Black history intensely and expresses anger toward White people. In Cross's Nigrescence model, she is MOST likely in which stage?
 
@@ -16466,7 +19442,7 @@ Months after a racist incident on campus shook her belief that race did not matt
 
 ---
 
-### Q678 of 1000 · nce-s-cou-058 · Social and Cultural Diversity · racial and cultural identity models · hard · In review
+### Q802 of 1200 · nce-s-cou-058 · Social and Cultural Diversity · racial and cultural identity models · hard · In review
 
 After a multicultural course, a White counseling student feels guilt and confusion. She now sees racism around her, yet feels torn between loyalty to family members who make racist jokes and her new beliefs. In Helms' White racial identity model, this experience BEST fits which status?
 
@@ -16490,7 +19466,7 @@ After a multicultural course, a White counseling student feels guilt and confusi
 
 ---
 
-### Q679 of 1000 · nce-s-cou-059 · Counseling and Helping Relationships · trauma-informed interventions · medium · In review
+### Q803 of 1200 · nce-s-cou-059 · Counseling and Helping Relationships · trauma-informed interventions · medium · In review
 
 At an intake, a client with a history of assault becomes visibly tense when the counselor closes the office door and moves her chair to sit between the client and the exit. Which response BEST reflects trauma-informed practice?
 
@@ -16516,7 +19492,7 @@ At an intake, a client with a history of assault becomes visibly tense when the 
 
 ---
 
-### Q680 of 1000 · nce-s-cou-060 · Counseling and Helping Relationships · termination skills · medium · In review
+### Q804 of 1200 · nce-s-cou-060 · Counseling and Helping Relationships · termination skills · medium · In review
 
 A client has met her goals for managing panic after 14 sessions, and she and the counselor agree to end counseling. Which approach to the final sessions is BEST?
 
@@ -16540,7 +19516,7 @@ A client has met her goals for managing panic after 14 sessions, and she and the
 
 ---
 
-### Q681 of 1000 · nce-s-cou-061 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+### Q805 of 1200 · nce-s-cou-061 · Group Counseling and Group Work · group stages and dynamics · medium · In review
 
 A counselor is interviewing applicants for a 10-week interpersonal process group. Under the ACA Code of Ethics, the main purpose of this pre-group screening is to:
 
@@ -16564,7 +19540,7 @@ A counselor is interviewing applicants for a 10-week interpersonal process group
 
 ---
 
-### Q682 of 1000 · nce-s-cou-062 · Group Counseling and Group Work · group stages and dynamics · easy · In review
+### Q806 of 1200 · nce-s-cou-062 · Group Counseling and Group Work · group stages and dynamics · easy · In review
 
 A counselor on an acute inpatient psychiatric unit, where the average stay is five days, is designing a daily coping-skills group. Which group format is MOST appropriate?
 
@@ -16588,7 +19564,7 @@ A counselor on an acute inpatient psychiatric unit, where the average stay is fi
 
 ---
 
-### Q683 of 1000 · nce-s-cou-063 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+### Q807 of 1200 · nce-s-cou-063 · Group Counseling and Group Work · group stages and dynamics · medium · In review
 
 An elementary school counselor is forming a counseling group for 7-year-olds whose parents recently divorced. Which group size is generally recommended for a group of children this age?
 
@@ -16614,7 +19590,7 @@ An elementary school counselor is forming a counseling group for 7-year-olds who
 
 ---
 
-### Q684 of 1000 · nce-s-cou-064 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
+### Q808 of 1200 · nce-s-cou-064 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
 
 Two co-leaders of an adult support group notice that members have begun bringing complaints about one leader to the other, and the leaders have started to feel competitive with each other. Which step BEST addresses this co-leadership problem?
 
@@ -16638,7 +19614,7 @@ Two co-leaders of an adult support group notice that members have begun bringing
 
 ---
 
-### Q685 of 1000 · nce-s-cou-065 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
+### Q809 of 1200 · nce-s-cou-065 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
 
 In the fourth session of a men's support group, one member has again taken most of the time telling long stories about his week, while others glance at the clock. Which leader response is MOST appropriate?
 
@@ -16662,7 +19638,7 @@ In the fourth session of a men's support group, one member has again taken most 
 
 ---
 
-### Q686 of 1000 · nce-s-cou-066 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
+### Q810 of 1200 · nce-s-cou-066 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
 
 In a teen group, several members begin blaming one boy for the group's lack of progress, citing his lateness and jokes, and they bring him up whenever the discussion becomes tense. Which leader response is BEST?
 
@@ -16686,7 +19662,7 @@ In a teen group, several members begin blaming one boy for the group's lack of p
 
 ---
 
-### Q687 of 1000 · nce-s-cou-067 · Group Counseling and Group Work · group leadership skills and therapeutic factors · easy · In review
+### Q811 of 1200 · nce-s-cou-067 · Group Counseling and Group Work · group leadership skills and therapeutic factors · easy · In review
 
 A group leader says, "I notice that each time someone starts to talk about anger, the group quickly shifts to joking. What do you make of that?" This statement is an example of which leader focus?
 
@@ -16710,7 +19686,7 @@ A group leader says, "I notice that each time someone starts to talk about anger
 
 ---
 
-### Q688 of 1000 · nce-s-cou-068 · Group Counseling and Group Work · group leadership skills and therapeutic factors · easy · In review
+### Q812 of 1200 · nce-s-cou-068 · Group Counseling and Group Work · group leadership skills and therapeutic factors · easy · In review
 
 A leader says, "Amara, what you just described about feeling invisible at work sounds a lot like what Dev shared last week about his family. Dev, how does Amara's story land for you?" Which group leadership skill is the leader using?
 
@@ -16734,7 +19710,7 @@ A leader says, "Amara, what you just described about feeling invisible at work s
 
 ---
 
-### Q689 of 1000 · nce-s-cou-069 · Group Counseling and Group Work · group leadership skills and therapeutic factors · hard · In review
+### Q813 of 1200 · nce-s-cou-069 · Group Counseling and Group Work · group leadership skills and therapeutic factors · hard · In review
 
 Which statement about group cohesiveness is MOST consistent with Yalom's account of it?
 
@@ -16758,7 +19734,7 @@ Which statement about group cohesiveness is MOST consistent with Yalom's account
 
 ---
 
-### Q690 of 1000 · nce-s-cou-070 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+### Q814 of 1200 · nce-s-cou-070 · Group Counseling and Group Work · group stages and dynamics · medium · In review
 
 Midway through a closed 12-week counseling group, a member emails the leader that she has decided to quit the group and will not return. What is the BEST response from the leader?
 
@@ -16782,7 +19758,7 @@ Midway through a closed 12-week counseling group, a member emails the leader tha
 
 ---
 
-### Q691 of 1000 · nce-s-cou-071 · Group Counseling and Group Work · group stages and dynamics · hard · In review
+### Q815 of 1200 · nce-s-cou-071 · Group Counseling and Group Work · group stages and dynamics · hard · In review
 
 In a training group, members persistently treat the leader as all-knowing, wait passively for direction and become resentful when the leader does not supply answers. In Bion's theory of group functioning, this pattern BEST reflects which basic assumption?
 
@@ -16808,7 +19784,7 @@ In a training group, members persistently treat the leader as all-knowing, wait 
 
 ---
 
-### Q692 of 1000 · nce-s-cou-072 · Career Development · career development theories (Holland, Super, Krumboltz) · easy · In review
+### Q816 of 1200 · nce-s-cou-072 · Career Development · career development theories (Holland, Super, Krumboltz) · easy · In review
 
 Frank Parsons described wise vocational choice as resting on a clear understanding of oneself, knowledge of the requirements and conditions of different jobs, and which third element?
 
@@ -16832,7 +19808,7 @@ Frank Parsons described wise vocational choice as resting on a clear understandi
 
 ---
 
-### Q693 of 1000 · nce-s-cou-073 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q817 of 1200 · nce-s-cou-073 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 A client's interest inventory shows a very high Investigative score, while her other five RIASEC scores are all low and close together. In Holland's theory, this profile is BEST described as showing a high degree of:
 
@@ -16856,7 +19832,7 @@ A client's interest inventory shows a very high Investigative score, while her o
 
 ---
 
-### Q694 of 1000 · nce-s-cou-074 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
+### Q818 of 1200 · nce-s-cou-074 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
 
 Super used career maturity to describe an adolescent's readiness to make age-appropriate career decisions. Because adults recycle through stages rather than progress in a fixed order, which term did Super propose for readiness to cope with changing work and working conditions in adulthood?
 
@@ -16882,7 +19858,7 @@ Super used career maturity to describe an adolescent's readiness to make age-app
 
 ---
 
-### Q695 of 1000 · nce-s-cou-075 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q819 of 1200 · nce-s-cou-075 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 According to Anne Roe's theory, an adult who grew up in a cold, rejecting or neglectful family climate would be MOST likely to gravitate toward which kind of occupation?
 
@@ -16906,7 +19882,7 @@ According to Anne Roe's theory, an adult who grew up in a cold, rejecting or neg
 
 ---
 
-### Q696 of 1000 · nce-s-cou-076 · Career Development · career development theories (Holland, Super, Krumboltz) · easy · In review
+### Q820 of 1200 · nce-s-cou-076 · Career Development · career development theories (Holland, Super, Krumboltz) · easy · In review
 
 A 14-year-old who once wanted to be an astronaut now talks about whether she has the grades and abilities for engineering and whether the work fits what she values. In Ginzberg's theory, she is in which period?
 
@@ -16930,7 +19906,7 @@ A 14-year-old who once wanted to be an astronaut now talks about whether she has
 
 ---
 
-### Q697 of 1000 · nce-s-cou-077 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
+### Q821 of 1200 · nce-s-cou-077 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
 
 A client must make a major compromise because her preferred occupations are not available locally. According to Gottfredson's theory of circumscription and compromise, which aspect of her self-concept is she likely to protect MOST when compromising?
 
@@ -16956,7 +19932,7 @@ A client must make a major compromise because her preferred occupations are not 
 
 ---
 
-### Q698 of 1000 · nce-s-cou-078 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q822 of 1200 · nce-s-cou-078 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 A counselor helps a client set a career goal, clarify her values, generate several alternatives and gather occupational information. In Krumboltz's social learning theory of career decision making, the counselor is building which factor?
 
@@ -16980,7 +19956,7 @@ A counselor helps a client set a career goal, clarify her values, generate sever
 
 ---
 
-### Q699 of 1000 · nce-s-cou-079 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q823 of 1200 · nce-s-cou-079 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 A college senior knows her strengths and has researched several occupations, but each time she nears a choice she tells herself, "I always make the wrong decision," and stalls. In the cognitive information processing (CIP) approach, the counselor should focus FIRST on which domain of the pyramid?
 
@@ -17004,7 +19980,7 @@ A college senior knows her strengths and has researched several occupations, but
 
 ---
 
-### Q700 of 1000 · nce-s-cou-080 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q824 of 1200 · nce-s-cou-080 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 A first-generation college student is confident she can master the coursework for an engineering degree, but she doubts that the degree will lead to a good job for someone without family connections in the field. In social cognitive career theory, her doubt BEST reflects low:
 
@@ -17028,7 +20004,7 @@ A first-generation college student is confident she can master the coursework fo
 
 ---
 
-### Q701 of 1000 · nce-s-cou-081 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q825 of 1200 · nce-s-cou-081 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 An accountant consistently receives excellent performance reviews, but he tells his counselor that the job offers none of the autonomy or variety he values and he dreads going to work. In the theory of work adjustment, his situation is BEST described as:
 
@@ -17052,7 +20028,7 @@ An accountant consistently receives excellent performance reviews, but he tells 
 
 ---
 
-### Q702 of 1000 · nce-s-cou-082 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q826 of 1200 · nce-s-cou-082 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 A 24-year-old has interests and options but says his parents should decide his career, and he puts off every decision he could make himself. In Savickas's career construction theory, which career adapt-ability is MOST in need of development?
 
@@ -17076,7 +20052,7 @@ A 24-year-old has interests and options but says his parents should decide his c
 
 ---
 
-### Q703 of 1000 · nce-s-cou-083 · Career Development · career development theories (Holland, Super, Krumboltz) · easy · In review
+### Q827 of 1200 · nce-s-cou-083 · Career Development · career development theories (Holland, Super, Krumboltz) · easy · In review
 
 A counselor wants a free online database, sponsored by the U.S. Department of Labor, that replaced the Dictionary of Occupational Titles and describes occupations by tasks, skills, knowledge, work context and interest codes. Which resource fits this description?
 
@@ -17100,7 +20076,7 @@ A counselor wants a free online database, sponsored by the U.S. Department of La
 
 ---
 
-### Q704 of 1000 · nce-s-cou-084 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
+### Q828 of 1200 · nce-s-cou-084 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
 
 A 9-year-old spends his energy on school, sports and friendships with same-sex peers, and sexual interests seem quiet. In Freud's psychosexual theory, he is in which stage?
 
@@ -17124,7 +20100,7 @@ A 9-year-old spends his energy on school, sports and friendships with same-sex p
 
 ---
 
-### Q705 of 1000 · nce-s-cou-085 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
+### Q829 of 1200 · nce-s-cou-085 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
 
 A 19-year-old says he will take over his family's restaurant, as his parents always planned, and that he has never seriously considered any other path. In Marcia's framework, his identity status is:
 
@@ -17148,7 +20124,7 @@ A 19-year-old says he will take over his family's restaurant, as his parents alw
 
 ---
 
-### Q706 of 1000 · nce-s-cou-086 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · medium · In review
+### Q830 of 1200 · nce-s-cou-086 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · medium · In review
 
 A 42-year-old architect is questioning whether the youthful vision he built his career around is worth pursuing, reappraising his marriage and wondering what legacy he will leave. In Levinson's seasons of life, he is MOST likely in the:
 
@@ -17174,7 +20150,7 @@ A 42-year-old architect is questioning whether the youthful vision he built his 
 
 ---
 
-### Q707 of 1000 · nce-s-cou-087 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · hard · In review
+### Q831 of 1200 · nce-s-cou-087 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · hard · In review
 
 An 8-year-old's mother is moved to night shifts by her employer, and the child now spends evenings with less supervision and less help with homework. The child has never been to the workplace. In Bronfenbrenner's ecological systems theory, the employer's decision operates at which level?
 
@@ -17198,7 +20174,7 @@ An 8-year-old's mother is moved to night shifts by her employer, and the child n
 
 ---
 
-### Q708 of 1000 · nce-s-cou-088 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
+### Q832 of 1200 · nce-s-cou-088 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
 
 A tutor gives a first-grader step-by-step hints on a puzzle he cannot yet solve alone, then gradually withdraws the hints as he becomes able to solve it himself. This adjustment of support is BEST described as:
 
@@ -17222,7 +20198,7 @@ A tutor gives a first-grader step-by-step hints on a puzzle he cannot yet solve 
 
 ---
 
-### Q709 of 1000 · nce-s-cou-089 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · hard · In review
+### Q833 of 1200 · nce-s-cou-089 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · hard · In review
 
 A woman who has long put everyone else's needs ahead of her own comes to believe that caring responsibly must include caring for herself, and that avoiding harm applies to her as well as to others. In Gilligan's ethic of care, this reasoning BEST reflects which level?
 
@@ -17248,7 +20224,7 @@ A woman who has long put everyone else's needs ahead of her own comes to believe
 
 ---
 
-### Q710 of 1000 · nce-s-cou-090 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · medium · In review
+### Q834 of 1200 · nce-s-cou-090 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · medium · In review
 
 A school counselor is planning supports for children growing up with poverty and parental substance use. Longitudinal research on resilience, such as Werner and Smith's Kauai study, MOST consistently identifies which protective factor?
 
@@ -17272,7 +20248,7 @@ A school counselor is planning supports for children growing up with poverty and
 
 ---
 
-### Q711 of 1000 · nce-s-cou-091 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · medium · In review
+### Q835 of 1200 · nce-s-cou-091 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · medium · In review
 
 A strategic therapist tells a client with chronic insomnia that on any night he is still awake at midnight, he must get up and wax the kitchen floor until morning. The task is deliberately designed to be more unpleasant than the symptom itself. Which intervention and originator does this illustrate?
 
@@ -17296,7 +20272,7 @@ A strategic therapist tells a client with chronic insomnia that on any night he 
 
 ---
 
-### Q712 of 1000 · nce-s-cou-092 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · hard · In review
+### Q836 of 1200 · nce-s-cou-092 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · hard · In review
 
 A brief therapy team trained at the Mental Research Institute (MRI) in Palo Alto notices that a mother's repeated lectures to her withdrawn son lead him to withdraw further, which prompts more lectures. In the MRI model, what is the PRIMARY target of intervention?
 
@@ -17320,7 +20296,7 @@ A brief therapy team trained at the Mental Research Institute (MRI) in Palo Alto
 
 ---
 
-### Q713 of 1000 · nce-s-cou-093 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · easy · In review
+### Q837 of 1200 · nce-s-cou-093 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · easy · In review
 
 During a family session about a teenager's failing grades, her father answers every emotional comment with charts, rules and calm, logical analysis, showing little feeling for himself or for others. Which Satir communication stance is he displaying?
 
@@ -17344,7 +20320,7 @@ During a family session about a teenager's failing grades, her father answers ev
 
 ---
 
-### Q714 of 1000 · nce-s-cou-094 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · medium · In review
+### Q838 of 1200 · nce-s-cou-094 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · medium · In review
 
 A family therapist insists early on that he decides who attends and how sessions are run, but then leaves it to the family to take responsibility for what will change. He relies on spontaneity, playfulness and co-therapy, and calls these struggles the "battle for structure" and the "battle for initiative." Which approach is this?
 
@@ -17368,7 +20344,7 @@ A family therapist insists early on that he decides who attends and how sessions
 
 ---
 
-### Q715 of 1000 · nce-s-cou-095 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · medium · In review
+### Q839 of 1200 · nce-s-cou-095 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · medium · In review
 
 A man who prides himself on generosity becomes intensely angry at a coworker he calls "greedy and selfish," although his friends say he can be quite stingy himself. A Jungian counselor would MOST likely view his reaction as a projection of which archetype?
 
@@ -17392,7 +20368,7 @@ A man who prides himself on generosity becomes intensely angry at a coworker he 
 
 ---
 
-### Q716 of 1000 · nce-s-cou-096 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · hard · In review
+### Q840 of 1200 · nce-s-cou-096 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · hard · In review
 
 A client raised by emotionally unavailable parents eagerly reports each accomplishment to the counselor, seems to need admiring responses, and feels deflated and empty when the counselor responds neutrally. In Kohut's self psychology, the client is MOST likely seeking which kind of response?
 
@@ -17416,7 +20392,7 @@ A client raised by emotionally unavailable parents eagerly reports each accompli
 
 ---
 
-### Q717 of 1000 · nce-s-cou-097 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
+### Q841 of 1200 · nce-s-cou-097 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
 
 A counseling student is comparing Freud's psychosexual theory with Erikson's psychosocial theory. Which statement MOST accurately describes a key difference between them?
 
@@ -17440,7 +20416,7 @@ A counseling student is comparing Freud's psychosexual theory with Erikson's psy
 
 ---
 
-### Q718 of 1000 · nce-s-cou-098 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · easy · In review
+### Q842 of 1200 · nce-s-cou-098 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · easy · In review
 
 Describing a mistake she made at work, a client says aloud to herself, in a scolding tone that echoes her mother, "You should have known better. How careless can you be?" In Eric Berne's transactional analysis, which ego state is she speaking from?
 
@@ -17464,7 +20440,7 @@ Describing a mistake she made at work, a client says aloud to herself, in a scol
 
 ---
 
-### Q719 of 1000 · nce-s-cou-099 · Counseling and Helping Relationships · behavior therapy · medium · In review
+### Q843 of 1200 · nce-s-cou-099 · Counseling and Helping Relationships · behavior therapy · medium · In review
 
 Arnold Lazarus's multimodal therapy assesses clients across seven modalities summarized by the acronym BASIC I.D. What do the final letters "I.D." represent?
 
@@ -17488,7 +20464,7 @@ Arnold Lazarus's multimodal therapy assesses clients across seven modalities sum
 
 ---
 
-### Q720 of 1000 · nce-s-cou-100 · Counseling and Helping Relationships · cognitive behavioral therapy · medium · In review
+### Q844 of 1200 · nce-s-cou-100 · Counseling and Helping Relationships · cognitive behavioral therapy · medium · In review
 
 A counselor prepares a newly hired paramedic for high-stress calls in three phases: first building an understanding of how stress works, then learning and rehearsing coping skills such as coping self-statements and relaxation, and finally applying them under graded, increasingly realistic stressors. Which approach is the counselor using?
 
@@ -17512,7 +20488,7 @@ A counselor prepares a newly hired paramedic for high-stress calls in three phas
 
 ---
 
-### Q721 of 1000 · nce-s-cou-101 · Counseling and Helping Relationships · behavior therapy · medium · In review
+### Q845 of 1200 · nce-s-cou-101 · Counseling and Helping Relationships · behavior therapy · medium · In review
 
 A 46-year-old client returning to the workforce doubts she can learn the spreadsheet software her new job requires. According to Bandura, which source of self-efficacy is generally the MOST powerful way to strengthen her belief that she can succeed?
 
@@ -17536,7 +20512,7 @@ A 46-year-old client returning to the workforce doubts she can learn the spreads
 
 ---
 
-### Q722 of 1000 · nce-s-cou-102 · Counseling and Helping Relationships · behavior therapy · easy · In review
+### Q846 of 1200 · nce-s-cou-102 · Counseling and Helping Relationships · behavior therapy · easy · In review
 
 A slot machine pays out after an unpredictable number of plays, averaging about one win every 20 pulls. Which reinforcement schedule is this, and how does it typically affect extinction?
 
@@ -17560,7 +20536,7 @@ A slot machine pays out after an unpredictable number of plays, averaging about 
 
 ---
 
-### Q723 of 1000 · nce-s-cou-103 · Counseling and Helping Relationships · behavior therapy · medium · In review
+### Q847 of 1200 · nce-s-cou-103 · Counseling and Helping Relationships · behavior therapy · medium · In review
 
 After being bitten by a neighbor's German shepherd, a 7-year-old now becomes frightened around other large dogs, yet he stays relaxed around small dogs and cats. In classical conditioning terms, his fear of other large dogs and his calm around small dogs reflect, respectively, which two processes?
 
@@ -17584,7 +20560,7 @@ After being bitten by a neighbor's German shepherd, a 7-year-old now becomes fri
 
 ---
 
-### Q724 of 1000 · nce-s-cou-104 · Counseling and Helping Relationships · behavior therapy · easy · In review
+### Q848 of 1200 · nce-s-cou-104 · Counseling and Helping Relationships · behavior therapy · easy · In review
 
 To teach a 4-year-old with a language delay to say "water," a therapist first reinforces any vocal sound, then only "wa," then "wa-ter," and finally only the complete word. Which behavioral technique is the therapist using?
 
@@ -17608,7 +20584,7 @@ To teach a 4-year-old with a language delay to say "water," a therapist first re
 
 ---
 
-### Q725 of 1000 · nce-s-cou-105 · Counseling and Helping Relationships · cognitive behavioral therapy · medium · In review
+### Q849 of 1200 · nce-s-cou-105 · Counseling and Helping Relationships · cognitive behavioral therapy · medium · In review
 
 A client keeps telling herself, "I'm a failure." Rather than disputing the thought, her counselor asks her to restate it as "I'm having the thought that I'm a failure" and to notice the words without arguing with them. Which acceptance and commitment therapy (ACT) process is the counselor targeting?
 
@@ -17632,7 +20608,7 @@ A client keeps telling herself, "I'm a failure." Rather than disputing the thoug
 
 ---
 
-### Q726 of 1000 · nce-s-cou-106 · Counseling and Helping Relationships · cognitive behavioral therapy · easy · In review
+### Q850 of 1200 · nce-s-cou-106 · Counseling and Helping Relationships · cognitive behavioral therapy · easy · In review
 
 Mindfulness-based cognitive therapy (MBCT), developed by Segal, Williams and Teasdale, was designed primarily for which purpose?
 
@@ -17656,7 +20632,7 @@ Mindfulness-based cognitive therapy (MBCT), developed by Segal, Williams and Tea
 
 ---
 
-### Q727 of 1000 · nce-s-cou-107 · Counseling and Helping Relationships · reality therapy and choice theory · easy · In review
+### Q851 of 1200 · nce-s-cou-107 · Counseling and Helping Relationships · reality therapy and choice theory · easy · In review
 
 In William Glasser's choice theory, all behavior is an attempt to satisfy five basic needs. Which list names them?
 
@@ -17680,7 +20656,7 @@ In William Glasser's choice theory, all behavior is an attempt to satisfy five b
 
 ---
 
-### Q728 of 1000 · nce-s-cou-108 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · hard · In review
+### Q852 of 1200 · nce-s-cou-108 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · hard · In review
 
 A counselor uses a time-limited psychodynamic approach (such as those of Mann or Strupp and Binder) with a client who has recurring conflicts with authority figures. How does this approach MOST differ from traditional long-term psychoanalysis?
 
@@ -17704,7 +20680,7 @@ A counselor uses a time-limited psychodynamic approach (such as those of Mann or
 
 ---
 
-### Q729 of 1000 · nce-s-cou-109 · Counseling and Helping Relationships · basic attending and listening skills · easy · In review
+### Q853 of 1200 · nce-s-cou-109 · Counseling and Helping Relationships · basic attending and listening skills · easy · In review
 
 A reluctant 16-year-old says only that last night "was bad" because of an argument with his mother. The counselor wants to invite him to tell the story in his own words. Which counselor question BEST serves that goal?
 
@@ -17728,7 +20704,7 @@ A reluctant 16-year-old says only that last night "was bad" because of an argume
 
 ---
 
-### Q730 of 1000 · nce-s-cou-110 · Counseling and Helping Relationships · basic attending and listening skills · easy · In review
+### Q854 of 1200 · nce-s-cou-110 · Counseling and Helping Relationships · basic attending and listening skills · easy · In review
 
 A grieving client finishes describing her mother's final days in hospice, then stops speaking and looks down with tears in her eyes. What is the MOST helpful counselor response in that moment?
 
@@ -17752,7 +20728,7 @@ A grieving client finishes describing her mother's final days in hospice, then s
 
 ---
 
-### Q731 of 1000 · nce-s-cou-111 · Counseling and Helping Relationships · confrontation and immediacy · medium · In review
+### Q855 of 1200 · nce-s-cou-111 · Counseling and Helping Relationships · confrontation and immediacy · medium · In review
 
 A client in early recovery asks his counselor, "Have you ever struggled with addiction yourself?" The counselor has been in recovery for many years. Which guideline BEST governs whether and how she self-discloses?
 
@@ -17776,7 +20752,7 @@ A client in early recovery asks his counselor, "Have you ever struggled with add
 
 ---
 
-### Q732 of 1000 · nce-s-cou-112 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · hard · In review
+### Q856 of 1200 · nce-s-cou-112 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · hard · In review
 
 A father calls his 15-year-old "stubborn," and the counselor replies, "He sounds determined to stand by what he believes." Later, the counselor suggests the son's school refusal may be his way of keeping an eye on a parent he worries about. Which statement BEST distinguishes the two techniques?
 
@@ -17802,7 +20778,7 @@ A father calls his 15-year-old "stubborn," and the counselor replies, "He sounds
 
 ---
 
-### Q733 of 1000 · nce-s-cou-113 · Social and Cultural Diversity · multicultural counseling competencies · medium · In review
+### Q857 of 1200 · nce-s-cou-113 · Social and Cultural Diversity · multicultural counseling competencies · medium · In review
 
 Pamela Hays's ADDRESSING framework helps counselors consider the many cultural influences shaping a client's identity. In this acronym, what does the first "D" stand for?
 
@@ -17828,7 +20804,7 @@ Pamela Hays's ADDRESSING framework helps counselors consider the many cultural i
 
 ---
 
-### Q734 of 1000 · nce-s-cou-114 · Social and Cultural Diversity · multicultural counseling competencies · hard · In review
+### Q858 of 1200 · nce-s-cou-114 · Social and Cultural Diversity · multicultural counseling competencies · hard · In review
 
 After years of being passed over at work despite strong reviews, a client says he has little control over his career because of systemic discrimination, and he places responsibility for his situation on that system rather than on himself. In Derald Wing Sue's worldview model, which quadrant BEST fits?
 
@@ -17852,7 +20828,7 @@ After years of being passed over at work despite strong reviews, a client says h
 
 ---
 
-### Q735 of 1000 · nce-s-cou-115 · Social and Cultural Diversity · multicultural counseling competencies · hard · In review
+### Q859 of 1200 · nce-s-cou-115 · Social and Cultural Diversity · multicultural counseling competencies · hard · In review
 
 At intake, a counselor briefly asks a Latina client whether she minds working with a counselor of a different ethnicity. He never returns to culture, even when she later describes ethnic bias from her supervisor. In Day-Vines and colleagues' broaching continuum, which style does this MOST reflect?
 
@@ -17878,7 +20854,7 @@ At intake, a counselor briefly asks a Latina client whether she minds working wi
 
 ---
 
-### Q736 of 1000 · nce-s-cou-116 · Counseling and Helping Relationships · crisis intervention models · medium · In review
+### Q860 of 1200 · nce-s-cou-116 · Counseling and Helping Relationships · crisis intervention models · medium · In review
 
 A counselor deployed to a family assistance center after a mass shooting will use Psychological First Aid (PFA) as developed by the National Child Traumatic Stress Network and National Center for PTSD. Which practice is NOT one of the PFA core actions?
 
@@ -17902,7 +20878,7 @@ A counselor deployed to a family assistance center after a mass shooting will us
 
 ---
 
-### Q737 of 1000 · nce-s-cou-117 · Counseling and Helping Relationships · trauma-informed interventions · medium · In review
+### Q861 of 1200 · nce-s-cou-117 · Counseling and Helping Relationships · trauma-informed interventions · medium · In review
 
 A counselor using trauma-focused cognitive behavioral therapy (TF-CBT) with a 9-year-old has completed psychoeducation and parenting skills, relaxation, affective modulation and cognitive coping. Following the PRACTICE sequence, which component comes NEXT?
 
@@ -17928,7 +20904,7 @@ A counselor using trauma-focused cognitive behavioral therapy (TF-CBT) with a 9-
 
 ---
 
-### Q738 of 1000 · nce-s-cou-118 · Counseling and Helping Relationships · trauma-informed interventions · medium · In review
+### Q862 of 1200 · nce-s-cou-118 · Counseling and Helping Relationships · trauma-informed interventions · medium · In review
 
 After a year at a child advocacy center, a counselor notices lasting changes in her own beliefs: she now sees the world as unsafe, distrusts adults around her own children, and has intrusive images drawn from clients' accounts. Which term BEST describes her experience?
 
@@ -17952,7 +20928,7 @@ After a year at a child advocacy center, a counselor notices lasting changes in 
 
 ---
 
-### Q739 of 1000 · nce-s-cou-119 · Counseling and Helping Relationships · trauma-informed interventions · easy · In review
+### Q863 of 1200 · nce-s-cou-119 · Counseling and Helping Relationships · trauma-informed interventions · easy · In review
 
 While talking about an assault, a client begins to dissociate: she stares blankly, speaks in a monotone, and says the room feels "far away." What should the counselor do FIRST?
 
@@ -17976,7 +20952,7 @@ While talking about an assault, a client begins to dissociate: she stares blankl
 
 ---
 
-### Q740 of 1000 · nce-s-cou-120 · Counseling and Helping Relationships · trauma-informed interventions · medium · In review
+### Q864 of 1200 · nce-s-cou-120 · Counseling and Helping Relationships · trauma-informed interventions · medium · In review
 
 In eye movement desensitization and reprocessing (EMDR), the client holds the disturbing image, negative belief and body sensations in mind while the counselor leads sets of eye movements, and distress ratings are taken until they fall toward zero. In Shapiro's eight-phase protocol, which phase is this?
 
@@ -18000,7 +20976,7 @@ In eye movement desensitization and reprocessing (EMDR), the client holds the di
 
 ---
 
-### Q741 of 1000 · nce-s-cou-121 · Counseling and Helping Relationships · Adlerian therapy · medium · In review
+### Q865 of 1200 · nce-s-cou-121 · Counseling and Helping Relationships · Adlerian therapy · medium · In review
 
 During a lifestyle assessment, an Adlerian counselor asks a 38-year-old client to describe a single, specific incident from early childhood that she can picture clearly, including what she felt at the time. The counselor is LEAST concerned with whether the memory is factually accurate. What is the main purpose of gathering these early recollections?
 
@@ -18024,7 +21000,7 @@ During a lifestyle assessment, an Adlerian counselor asks a 38-year-old client t
 
 ---
 
-### Q742 of 1000 · nce-s-cou-122 · Counseling and Helping Relationships · Adlerian therapy · easy · In review
+### Q866 of 1200 · nce-s-cou-122 · Counseling and Helping Relationships · Adlerian therapy · easy · In review
 
 An Adlerian counselor asks a client who feels stuck in a low mood to close his eyes and recall a pleasant memory, notice the feelings that come with it, then recall a painful memory and notice how his feelings shift, and then return to the pleasant one. The aim is to show him that he can influence his feelings by what he chooses to think about. This is called:
 
@@ -18048,7 +21024,7 @@ An Adlerian counselor asks a client who feels stuck in a low mood to close his e
 
 ---
 
-### Q743 of 1000 · nce-s-cou-123 · Counseling and Helping Relationships · Adlerian therapy · easy · In review
+### Q867 of 1200 · nce-s-cou-123 · Counseling and Helping Relationships · Adlerian therapy · easy · In review
 
 A 15-year-old who failed her first algebra test tells her school counselor she is "just bad at math" and wants to drop the class. She studied every evening for the next test and raised her score to a C. Which counselor response BEST reflects the Adlerian use of encouragement?
 
@@ -18072,7 +21048,7 @@ A 15-year-old who failed her first algebra test tells her school counselor she i
 
 ---
 
-### Q744 of 1000 · nce-s-cou-124 · Counseling and Helping Relationships · person-centered therapy · medium · In review
+### Q868 of 1200 · nce-s-cou-124 · Counseling and Helping Relationships · person-centered therapy · medium · In review
 
 Carl Rogers (1957) proposed six conditions that are necessary and sufficient for therapeutic personality change. Besides the counselor's congruence, unconditional positive regard and empathy, which condition describes the state of the client entering the relationship?
 
@@ -18096,7 +21072,7 @@ Carl Rogers (1957) proposed six conditions that are necessary and sufficient for
 
 ---
 
-### Q745 of 1000 · nce-s-cou-125 · Counseling and Helping Relationships · person-centered therapy · easy · In review
+### Q869 of 1200 · nce-s-cou-125 · Counseling and Helping Relationships · person-centered therapy · easy · In review
 
 A 60-year-old client caring for his wife with dementia asks his counselor, "Just tell me straight: should I move her into a memory care facility or not?" Which counselor response is MOST consistent with a person-centered, nondirective stance?
 
@@ -18120,7 +21096,7 @@ A 60-year-old client caring for his wife with dementia asks his counselor, "Just
 
 ---
 
-### Q746 of 1000 · nce-s-cou-126 · Counseling and Helping Relationships · person-centered therapy · medium · In review
+### Q870 of 1200 · nce-s-cou-126 · Counseling and Helping Relationships · person-centered therapy · medium · In review
 
 A counseling student is summarizing common criticisms of the person-centered approach for a theories exam. Which criticism is MOST often raised?
 
@@ -18144,7 +21120,7 @@ A counseling student is summarizing common criticisms of the person-centered app
 
 ---
 
-### Q747 of 1000 · nce-s-cou-127 · Counseling and Helping Relationships · existential therapy · medium · In review
+### Q871 of 1200 · nce-s-cou-127 · Counseling and Helping Relationships · existential therapy · medium · In review
 
 A 29-year-old client has been offered a job abroad and says he feels anxious about the choice because no one can make it for him and he will have to live with the results. How would an existential counselor MOST likely view this anxiety?
 
@@ -18168,7 +21144,7 @@ A 29-year-old client has been offered a job abroad and says he feels anxious abo
 
 ---
 
-### Q748 of 1000 · nce-s-cou-128 · Counseling and Helping Relationships · existential therapy · hard · In review
+### Q872 of 1200 · nce-s-cou-128 · Counseling and Helping Relationships · existential therapy · hard · In review
 
 Which pairing of existential theorist and contribution is accurate?
 
@@ -18192,7 +21168,7 @@ Which pairing of existential theorist and contribution is accurate?
 
 ---
 
-### Q749 of 1000 · nce-s-cou-129 · Counseling and Helping Relationships · existential therapy · hard · In review
+### Q873 of 1200 · nce-s-cou-129 · Counseling and Helping Relationships · existential therapy · hard · In review
 
 A client dreads sweating heavily when giving presentations, and the more he fears it, the more he sweats. His counselor asks him, before his next talk, to try to sweat as much as he possibly can and to show the audience just how much he can sweat. Which Frankl technique is this?
 
@@ -18216,7 +21192,7 @@ A client dreads sweating heavily when giving presentations, and the more he fear
 
 ---
 
-### Q750 of 1000 · nce-s-cou-130 · Counseling and Helping Relationships · gestalt therapy · easy · In review
+### Q874 of 1200 · nce-s-cou-130 · Counseling and Helping Relationships · gestalt therapy · easy · In review
 
 A client speaks of her partner and herself as "we" when describing every feeling and opinion. She says they "never disagree," and she becomes anxious and vague when the counselor asks what she alone wants. In gestalt terms, this blurring of the boundary between self and other is called:
 
@@ -18240,7 +21216,7 @@ A client speaks of her partner and herself as "we" when describing every feeling
 
 ---
 
-### Q751 of 1000 · nce-s-cou-131 · Counseling and Helping Relationships · gestalt therapy · medium · In review
+### Q875 of 1200 · nce-s-cou-131 · Counseling and Helping Relationships · gestalt therapy · medium · In review
 
 A client gives a long, detached account of an argument he had with his brother two years ago. As he talks, his voice tightens and he taps his foot quickly. Which response is MOST consistent with gestalt therapy?
 
@@ -18264,7 +21240,7 @@ A client gives a long, detached account of an argument he had with his brother t
 
 ---
 
-### Q752 of 1000 · nce-s-cou-132 · Counseling and Helping Relationships · gestalt therapy · hard · In review
+### Q876 of 1200 · nce-s-cou-132 · Counseling and Helping Relationships · gestalt therapy · hard · In review
 
 Arnold Beisser's paradoxical theory of change is a foundation of gestalt practice. Which statement BEST captures it?
 
@@ -18288,7 +21264,7 @@ Arnold Beisser's paradoxical theory of change is a foundation of gestalt practic
 
 ---
 
-### Q753 of 1000 · nce-s-cou-133 · Counseling and Helping Relationships · rational emotive behavior therapy · easy · In review
+### Q877 of 1200 · nce-s-cou-133 · Counseling and Helping Relationships · rational emotive behavior therapy · easy · In review
 
 A client who believes it would be unbearable to look foolish is assigned homework: wear a brightly mismatched outfit to the grocery store and loudly ask a clerk where the milk is while standing next to it. She is to notice that she can tolerate others' reactions and still accept herself. This REBT technique is called:
 
@@ -18312,7 +21288,7 @@ A client who believes it would be unbearable to look foolish is assigned homewor
 
 ---
 
-### Q754 of 1000 · nce-s-cou-134 · Counseling and Helping Relationships · rational emotive behavior therapy · hard · In review
+### Q878 of 1200 · nce-s-cou-134 · Counseling and Helping Relationships · rational emotive behavior therapy · hard · In review
 
 After failing the bar exam, a 27-year-old law graduate says, "I failed, so I'm a failure." Her REBT counselor works toward unconditional self-acceptance (USA). Which goal BEST reflects this concept?
 
@@ -18336,7 +21312,7 @@ After failing the bar exam, a 27-year-old law graduate says, "I failed, so I'm a
 
 ---
 
-### Q755 of 1000 · nce-s-cou-135 · Counseling and Helping Relationships · rational emotive behavior therapy · medium · In review
+### Q879 of 1200 · nce-s-cou-135 · Counseling and Helping Relationships · rational emotive behavior therapy · medium · In review
 
 A counselor asks a client to imagine vividly that he is turned down for a date, let himself feel the depressed panic that follows, and then, while keeping the image, change the feeling to disappointment. Afterward they discuss what he told himself to make the change. This REBT technique is:
 
@@ -18360,7 +21336,7 @@ A counselor asks a client to imagine vividly that he is turned down for a date, 
 
 ---
 
-### Q756 of 1000 · nce-s-cou-136 · Counseling and Helping Relationships · solution-focused brief therapy · easy · In review
+### Q880 of 1200 · nce-s-cou-136 · Counseling and Helping Relationships · solution-focused brief therapy · easy · In review
 
 A client says she has felt sad "every single day" since moving to a new city. Her counselor asks, "Think about this past week. When was the sadness even a little lighter, and what was different then?" This is an example of:
 
@@ -18384,7 +21360,7 @@ A client says she has felt sad "every single day" since moving to a new city. He
 
 ---
 
-### Q757 of 1000 · nce-s-cou-137 · Counseling and Helping Relationships · solution-focused brief therapy · medium · In review
+### Q881 of 1200 · nce-s-cou-137 · Counseling and Helping Relationships · solution-focused brief therapy · medium · In review
 
 A father raising three children alone after his wife's death says nothing is going well, and he cannot recall a single time things were better. Which response is MOST consistent with a solution-focused coping question?
 
@@ -18408,7 +21384,7 @@ A father raising three children alone after his wife's death says nothing is goi
 
 ---
 
-### Q758 of 1000 · nce-s-cou-138 · Counseling and Helping Relationships · solution-focused brief therapy · hard · In review
+### Q882 of 1200 · nce-s-cou-138 · Counseling and Helping Relationships · solution-focused brief therapy · hard · In review
 
 A 16-year-old is sent to counseling by his school after a fight. He says he has no problem and is only there because the principal required it. In de Shazer's terms, what is the counselor-client relationship, and what is the BEST response?
 
@@ -18432,7 +21408,7 @@ A 16-year-old is sent to counseling by his school after a fight. He says he has 
 
 ---
 
-### Q759 of 1000 · nce-s-cou-139 · Counseling and Helping Relationships · narrative therapy · medium · In review
+### Q883 of 1200 · nce-s-cou-139 · Counseling and Helping Relationships · narrative therapy · medium · In review
 
 A mother of twins says, "A good mother never needs help, so I'm failing." Her narrative counselor asks, "Where did you learn that idea about good mothers? Who benefits when mothers believe it? Are there times it doesn't fit your life?" The counselor is MAINLY engaged in:
 
@@ -18456,7 +21432,7 @@ A mother of twins says, "A good mother never needs help, so I'm failing." Her na
 
 ---
 
-### Q760 of 1000 · nce-s-cou-140 · Counseling and Helping Relationships · narrative therapy · medium · In review
+### Q884 of 1200 · nce-s-cou-140 · Counseling and Helping Relationships · narrative therapy · medium · In review
 
 A young adult reclaiming her life from an eating disorder invites three friends to a session. While she talks with the counselor, the friends listen; then they describe what stood out to them, what it brought up in their own lives and how it moved them, and she responds. This narrative practice is known as:
 
@@ -18482,7 +21458,7 @@ A young adult reclaiming her life from an eating disorder invites three friends 
 
 ---
 
-### Q761 of 1000 · nce-s-cou-141 · Counseling and Helping Relationships · narrative therapy · medium · In review
+### Q885 of 1200 · nce-s-cou-141 · Counseling and Helping Relationships · narrative therapy · medium · In review
 
 After a session, a narrative counselor mails a client a letter that quotes the client's own words about how he stood up to "the Anger," notes questions the counselor is still curious about and names the steps he took. What is the MAIN purpose of such therapeutic letters?
 
@@ -18506,7 +21482,7 @@ After a session, a narrative counselor mails a client a letter that quotes the c
 
 ---
 
-### Q762 of 1000 · nce-s-cou-142 · Social and Cultural Diversity · feminist therapy · easy · In review
+### Q886 of 1200 · nce-s-cou-142 · Social and Cultural Diversity · feminist therapy · easy · In review
 
 Which counselor practice BEST reflects the egalitarian relationship emphasized in feminist therapy?
 
@@ -18530,7 +21506,7 @@ Which counselor practice BEST reflects the egalitarian relationship emphasized i
 
 ---
 
-### Q763 of 1000 · nce-s-cou-143 · Social and Cultural Diversity · feminist therapy · medium · In review
+### Q887 of 1200 · nce-s-cou-143 · Social and Cultural Diversity · feminist therapy · medium · In review
 
 A home health aide who immigrated five years ago blames herself for "being weak" because she has not confronted an agency that underpays her. Her counselor helps her map the differences in power between her and the agency, including economic, legal and gender factors, and explore ways she might access power. This feminist intervention is:
 
@@ -18554,7 +21530,7 @@ A home health aide who immigrated five years ago blames herself for "being weak"
 
 ---
 
-### Q764 of 1000 · nce-s-cou-144 · Social and Cultural Diversity · feminist therapy · medium · In review
+### Q888 of 1200 · nce-s-cou-144 · Social and Cultural Diversity · feminist therapy · medium · In review
 
 Relational-cultural theory (RCT), developed by Jean Baker Miller, Judith Jordan and colleagues at the Stone Center, challenges traditional models of development. According to RCT, psychological growth occurs MAINLY through:
 
@@ -18578,7 +21554,7 @@ Relational-cultural theory (RCT), developed by Jean Baker Miller, Judith Jordan 
 
 ---
 
-### Q765 of 1000 · nce-s-cou-145 · Counseling and Helping Relationships · motivational interviewing · medium · In review
+### Q889 of 1200 · nce-s-cou-145 · Counseling and Helping Relationships · motivational interviewing · medium · In review
 
 Near the end of a session about her drinking, a client says, "I'm going to call the outpatient program on Monday and set up an intake." Using the DARN-CAT framework, which kind of change talk is this?
 
@@ -18602,7 +21578,7 @@ Near the end of a session about her drinking, a client says, "I'm going to call 
 
 ---
 
-### Q766 of 1000 · nce-s-cou-146 · Counseling and Helping Relationships · motivational interviewing · medium · In review
+### Q890 of 1200 · nce-s-cou-146 · Counseling and Helping Relationships · motivational interviewing · medium · In review
 
 A father who smokes in the car with his young children says being a present, healthy dad is "the most important thing in my life." Which response BEST develops discrepancy in a way consistent with the spirit of motivational interviewing?
 
@@ -18626,7 +21602,7 @@ A father who smokes in the car with his young children says being a present, hea
 
 ---
 
-### Q767 of 1000 · nce-s-cou-147 · Counseling and Helping Relationships · motivational interviewing · easy · In review
+### Q891 of 1200 · nce-s-cou-147 · Counseling and Helping Relationships · motivational interviewing · easy · In review
 
 After building rapport with a client who has diabetes, depression and money worries, the counselor and client agree that they will concentrate on his eating and medication habits for now. In the four processes of motivational interviewing, this step is called:
 
@@ -18650,7 +21626,7 @@ After building rapport with a client who has diabetes, depression and money worr
 
 ---
 
-### Q768 of 1000 · nce-s-cou-148 · Counseling and Helping Relationships · dialectical behavior therapy · easy · In review
+### Q892 of 1200 · nce-s-cou-148 · Counseling and Helping Relationships · dialectical behavior therapy · easy · In review
 
 After a client self-harms, her DBT therapist works with her to trace, step by step, her vulnerability factors that day, the prompting event, each thought, feeling and action leading to the behavior, and the consequences that followed. This procedure is called:
 
@@ -18674,7 +21650,7 @@ After a client self-harms, her DBT therapist works with her to trace, step by st
 
 ---
 
-### Q769 of 1000 · nce-s-cou-149 · Counseling and Helping Relationships · dialectical behavior therapy · medium · In review
+### Q893 of 1200 · nce-s-cou-149 · Counseling and Helping Relationships · dialectical behavior therapy · medium · In review
 
 A client in a DBT skills group practices asking her roommate to pay his share of the rent. At one point she says, "If you get your half to me by Friday, I'll stop bringing it up and things can get back to normal between us." In the DEAR MAN skill, this statement illustrates:
 
@@ -18698,7 +21674,7 @@ A client in a DBT skills group practices asking her roommate to pay his share of
 
 ---
 
-### Q770 of 1000 · nce-s-cou-150 · Counseling and Helping Relationships · dialectical behavior therapy · hard · In review
+### Q894 of 1200 · nce-s-cou-150 · Counseling and Helping Relationships · dialectical behavior therapy · hard · In review
 
 A client says she freezes and goes silent whenever her manager raises his voice. Her DBT therapist responds, "Growing up, speaking up when your father yelled got you punished, so freezing makes sense given what you learned." In Linehan's levels of validation, this response BEST illustrates:
 
@@ -18724,7 +21700,7 @@ A client says she freezes and goes silent whenever her manager raises his voice.
 
 ---
 
-### Q771 of 1000 · nce-s-cou-151 · Counseling and Helping Relationships · termination skills · medium · In review
+### Q895 of 1200 · nce-s-cou-151 · Counseling and Helping Relationships · termination skills · medium · In review
 
 After four sessions on grief, a 58-year-old client leaves a voicemail cancelling her next appointment and saying she 'just doesn't need counseling anymore.' The counselor believes important work remains. What is the BEST response?
 
@@ -18748,7 +21724,7 @@ After four sessions on grief, a 58-year-old client leaves a voicemail cancelling
 
 ---
 
-### Q772 of 1000 · nce-s-cou-152 · Counseling and Helping Relationships · termination skills · easy · In review
+### Q896 of 1200 · nce-s-cou-152 · Counseling and Helping Relationships · termination skills · easy · In review
 
 After 12 sessions and several changes in approach, a client with social anxiety shows no measurable improvement, and the client and counselor agree that counseling is not helping. According to the ACA Code of Ethics, what should the counselor do?
 
@@ -18772,7 +21748,7 @@ After 12 sessions and several changes in approach, a client with social anxiety 
 
 ---
 
-### Q773 of 1000 · nce-s-cou-153 · Counseling and Helping Relationships · termination skills · medium · In review
+### Q897 of 1200 · nce-s-cou-153 · Counseling and Helping Relationships · termination skills · medium · In review
 
 A school counselor's individual sessions with a 7-year-old will end in three weeks because he has met his goals. Which approach to ending is MOST developmentally appropriate?
 
@@ -18796,7 +21772,7 @@ A school counselor's individual sessions with a 7-year-old will end in three wee
 
 ---
 
-### Q774 of 1000 · nce-s-cou-154 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · hard · In review
+### Q898 of 1200 · nce-s-cou-154 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · hard · In review
 
 A client says, 'I keep picking up extra shifts even though I'm exhausted. My parents gave up everything to bring us to this country.' Which counselor response is the BEST example of a reflection of meaning?
 
@@ -18820,7 +21796,7 @@ A client says, 'I keep picking up extra shifts even though I'm exhausted. My par
 
 ---
 
-### Q775 of 1000 · nce-s-cou-155 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · easy · In review
+### Q899 of 1200 · nce-s-cou-155 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · easy · In review
 
 A client says, 'Between my night classes and my daughter's soccer schedule, I haven't had a free evening in a month.' Which counselor response is the BEST paraphrase?
 
@@ -18844,7 +21820,7 @@ A client says, 'Between my night classes and my daughter's soccer schedule, I ha
 
 ---
 
-### Q776 of 1000 · nce-s-cou-156 · Counseling and Helping Relationships · confrontation and immediacy · medium · In review
+### Q900 of 1200 · nce-s-cou-156 · Counseling and Helping Relationships · confrontation and immediacy · medium · In review
 
 A client who was open in earlier sessions has arrived late three weeks in a row, answers in single words and avoids looking at the counselor. The counselor senses growing distance between them. Which response BEST demonstrates immediacy?
 
@@ -18868,7 +21844,7 @@ A client who was open in earlier sessions has arrived late three weeks in a row,
 
 ---
 
-### Q777 of 1000 · nce-s-cou-157 · Social and Cultural Diversity · basic attending and listening skills · medium · In review
+### Q901 of 1200 · nce-s-cou-157 · Social and Cultural Diversity · basic attending and listening skills · medium · In review
 
 During intake, a client looks down or past the counselor most of the time and moves her chair back slightly when the counselor leans in. She explains that in her family, looking an elder or professional directly in the eye is considered disrespectful. What should the counselor do?
 
@@ -18892,7 +21868,7 @@ During intake, a client looks down or past the counselor most of the time and mo
 
 ---
 
-### Q778 of 1000 · nce-s-cou-158 · Counseling and Helping Relationships · play therapy · easy · In review
+### Q902 of 1200 · nce-s-cou-158 · Counseling and Helping Relationships · play therapy · easy · In review
 
 During child-centered play therapy, a 5-year-old holds up a paintbrush and asks the counselor, 'What color should I make the sky?' Which response BEST fits this approach?
 
@@ -18916,7 +21892,7 @@ During child-centered play therapy, a 5-year-old holds up a paintbrush and asks 
 
 ---
 
-### Q779 of 1000 · nce-s-cou-159 · Counseling and Helping Relationships · play therapy · medium · In review
+### Q903 of 1200 · nce-s-cou-159 · Counseling and Helping Relationships · play therapy · medium · In review
 
 A counselor trains parents to hold weekly 30-minute nondirective play sessions with their own child at home, using reflective listening, tracking and limit setting, while the counselor supervises and gives feedback on their skills. Which approach is this?
 
@@ -18940,7 +21916,7 @@ A counselor trains parents to hold weekly 30-minute nondirective play sessions w
 
 ---
 
-### Q780 of 1000 · nce-s-cou-160 · Human Growth and Development · attachment theory · hard · In review
+### Q904 of 1200 · nce-s-cou-160 · Human Growth and Development · attachment theory · hard · In review
 
 A 34-year-old client says he badly wants a close relationship, yet he pulls away whenever someone gets close because he expects to be hurt and doubts that he deserves love. In Bartholomew and Horowitz's four-category model of adult attachment, which style BEST fits?
 
@@ -18966,7 +21942,7 @@ A 34-year-old client says he badly wants a close relationship, yet he pulls away
 
 ---
 
-### Q781 of 1000 · nce-s-cou-161 · Human Growth and Development · attachment theory · easy · In review
+### Q905 of 1200 · nce-s-cou-161 · Human Growth and Development · attachment theory · easy · In review
 
 Bowlby proposed that through repeated experiences with caregivers, a child builds mental representations of whether others are dependable and whether the self is worthy of care, which then guide expectations in later relationships. What did Bowlby call these representations?
 
@@ -18990,7 +21966,7 @@ Bowlby proposed that through repeated experiences with caregivers, a child build
 
 ---
 
-### Q782 of 1000 · nce-s-cou-162 · Social and Cultural Diversity · racial and cultural identity models · hard · In review
+### Q906 of 1200 · nce-s-cou-162 · Social and Cultural Diversity · racial and cultural identity models · hard · In review
 
 For two years a Korean American graduate student rejected anything she saw as White culture and worked only within Asian American groups. Lately she feels uneasy with that rigid stance, wonders whether it limits her personal autonomy and is sorting out which values are truly her own. In the Racial/Cultural Identity Development (R/CID) model, she is MOST likely in which stage?
 
@@ -19014,7 +21990,7 @@ For two years a Korean American graduate student rejected anything she saw as Wh
 
 ---
 
-### Q783 of 1000 · nce-s-cou-163 · Social and Cultural Diversity · racial and cultural identity models · medium · In review
+### Q907 of 1200 · nce-s-cou-163 · Social and Cultural Diversity · racial and cultural identity models · medium · In review
 
 After a classmate's remark about her family's background, a 15-year-old Mexican American student begins asking her grandparents about their lives in Mexico, joins a Latinx student club and reads Chicano history, though she has not settled what her heritage means to her. In Phinney's model of ethnic identity, she is in which stage?
 
@@ -19038,7 +22014,7 @@ After a classmate's remark about her family's background, a 15-year-old Mexican 
 
 ---
 
-### Q784 of 1000 · nce-s-cou-164 · Social and Cultural Diversity · multicultural counseling competencies · medium · In review
+### Q908 of 1200 · nce-s-cou-164 · Social and Cultural Diversity · multicultural counseling competencies · medium · In review
 
 A counselor who holds several privileged identities is working with a client from a marginalized racial and religious group. She sets aside time to explore with the client how their differences in power and privilege affect trust, communication and the work they are doing together. In the MSJCC, this falls MOST directly within which developmental domain?
 
@@ -19062,7 +22038,7 @@ A counselor who holds several privileged identities is working with a client fro
 
 ---
 
-### Q785 of 1000 · nce-s-cou-165 · Social and Cultural Diversity · multicultural counseling competencies · medium · In review
+### Q909 of 1200 · nce-s-cou-165 · Social and Cultural Diversity · multicultural counseling competencies · medium · In review
 
 An older counseling text lists ataque de nervios as a 'culture-bound syndrome.' DSM-5-TR uses a broader term that includes cultural syndromes, cultural idioms of distress and cultural explanations or perceived causes. What is that term?
 
@@ -19086,7 +22062,7 @@ An older counseling text lists ataque de nervios as a 'culture-bound syndrome.' 
 
 ---
 
-### Q786 of 1000 · nce-s-cou-166 · Counseling and Helping Relationships · crisis intervention models · easy · In review
+### Q910 of 1200 · nce-s-cou-166 · Counseling and Helping Relationships · crisis intervention models · easy · In review
 
 Using James and Gilliland's six-step model of crisis intervention, a counselor has defined the problem from the client's point of view, ensured the client's safety and provided support. What is the counselor's NEXT step?
 
@@ -19110,7 +22086,7 @@ Using James and Gilliland's six-step model of crisis intervention, a counselor h
 
 ---
 
-### Q787 of 1000 · nce-s-cou-167 · Counseling and Helping Relationships · crisis intervention models · hard · In review
+### Q911 of 1200 · nce-s-cou-167 · Counseling and Helping Relationships · crisis intervention models · hard · In review
 
 In Kanel's ABC model of crisis intervention, a counselor first builds rapport through attending and reflection. The counselor then identifies the precipitating event, the client's perception of it and the resulting distress and impaired functioning. What is this second phase called?
 
@@ -19134,7 +22110,7 @@ In Kanel's ABC model of crisis intervention, a counselor first builds rapport th
 
 ---
 
-### Q788 of 1000 · nce-s-cou-168 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+### Q912 of 1200 · nce-s-cou-168 · Group Counseling and Group Work · group stages and dynamics · medium · In review
 
 Before launching a support group at a refugee resettlement agency, a counselor studies the community's needs, the agency's resources and support, and cultural attitudes toward discussing personal problems in a group. In the ASGW Best Practice Guidelines, this planning task is called:
 
@@ -19158,7 +22134,7 @@ Before launching a support group at a refugee resettlement agency, a counselor s
 
 ---
 
-### Q789 of 1000 · nce-s-cou-169 · Group Counseling and Group Work · group stages and dynamics · easy · In review
+### Q913 of 1200 · nce-s-cou-169 · Group Counseling and Group Work · group stages and dynamics · easy · In review
 
 The T-group (training group), first developed at the National Training Laboratories in Bethel, Maine, used here-and-now feedback to teach human relations skills. Whose field theory and group dynamics research led to this movement?
 
@@ -19182,7 +22158,7 @@ The T-group (training group), first developed at the National Training Laborator
 
 ---
 
-### Q790 of 1000 · nce-s-cou-170 · Group Counseling and Group Work · group stages and dynamics · easy · In review
+### Q914 of 1200 · nce-s-cou-170 · Group Counseling and Group Work · group stages and dynamics · easy · In review
 
 A counselor suggests that a recently widowed client try a community bereavement group run by and for people who have lost a spouse, with no professional leader. Compared with a counseling or therapy group, what BEST characterizes this kind of group?
 
@@ -19206,7 +22182,7 @@ A counselor suggests that a recently widowed client try a community bereavement 
 
 ---
 
-### Q791 of 1000 · nce-s-cou-171 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
+### Q915 of 1200 · nce-s-cou-171 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
 
 A 15-year-old in a court-mandated anger management group sits with his hood up and says, 'I'm only here because the judge made me.' What is the leader's BEST initial response?
 
@@ -19230,7 +22206,7 @@ A 15-year-old in a court-mandated anger management group sits with his hood up a
 
 ---
 
-### Q792 of 1000 · nce-s-cou-172 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+### Q916 of 1200 · nce-s-cou-172 · Group Counseling and Group Work · group stages and dynamics · medium · In review
 
 In the ninth session of a cohesive interpersonal group, Malik tells Rosa that her advice-giving feels 'preachy,' and Rosa responds sharply. The room goes quiet. What should the leader do?
 
@@ -19254,7 +22230,7 @@ In the ninth session of a cohesive interpersonal group, Malik tells Rosa that he
 
 ---
 
-### Q793 of 1000 · nce-s-cou-173 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
+### Q917 of 1200 · nce-s-cou-173 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
 
 A member describes feeling ignored at family dinners. The leader asks her, 'Is there anyone in this room who you feel might be ignoring you right now?' In Yalom's two-tiered approach to the here-and-now, this question is an example of:
 
@@ -19278,7 +22254,7 @@ A member describes feeling ignored at family dinners. The leader asks her, 'Is t
 
 ---
 
-### Q794 of 1000 · nce-s-cou-174 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · medium · In review
+### Q918 of 1200 · nce-s-cou-174 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · medium · In review
 
 A 9-year-old's frequent stomachaches keep his worried mother home from work. A therapist directs the boy to pretend to have a stomachache at set times and the mother to pretend to comfort him, turning the symptom into play while the mother takes back her caretaking role. This technique is MOST closely associated with:
 
@@ -19302,7 +22278,7 @@ A 9-year-old's frequent stomachaches keep his worried mother home from work. A t
 
 ---
 
-### Q795 of 1000 · nce-s-cou-175 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · medium · In review
+### Q919 of 1200 · nce-s-cou-175 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · medium · In review
 
 In a group setting, a guide uses a client's family chronology to have members role-play scenes from the lives of the client's parents and grandparents, helping the client see them as people and let go of old learnings. This experiential technique, developed by Virginia Satir, is called:
 
@@ -19326,7 +22302,7 @@ In a group setting, a guide uses a client's family chronology to have members ro
 
 ---
 
-### Q796 of 1000 · nce-s-cou-176 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · hard · In review
+### Q920 of 1200 · nce-s-cou-176 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · hard · In review
 
 Parents of a 14-year-old have grounded him for longer and longer periods for breaking curfew, with no effect. In MRI brief therapy terms, which outcome would represent second-order change?
 
@@ -19350,7 +22326,7 @@ Parents of a 14-year-old have grounded him for longer and longer periods for bre
 
 ---
 
-### Q797 of 1000 · nce-s-cou-177 · Counseling and Helping Relationships · behavior therapy · medium · In review
+### Q921 of 1200 · nce-s-cou-177 · Counseling and Helping Relationships · behavior therapy · medium · In review
 
 Parents decide to stop going into their 3-year-old's room when she cries at bedtime. On the second and third nights, her crying becomes louder and lasts longer than before. How should the counselor explain this?
 
@@ -19374,7 +22350,7 @@ Parents decide to stop going into their 3-year-old's room when she cries at bedt
 
 ---
 
-### Q798 of 1000 · nce-s-cou-178 · Counseling and Helping Relationships · behavior therapy · hard · In review
+### Q922 of 1200 · nce-s-cou-178 · Counseling and Helping Relationships · behavior therapy · hard · In review
 
 To reduce a child's hand-biting, a behavior analyst delivers a token at the end of every 10-minute interval in which no hand-biting occurs, regardless of what else the child is doing. Which procedure is this?
 
@@ -19398,7 +22374,7 @@ To reduce a child's hand-biting, a behavior analyst delivers a token at the end 
 
 ---
 
-### Q799 of 1000 · nce-s-cou-179 · Human Growth and Development · psychodynamic and psychoanalytic theory · medium · In review
+### Q923 of 1200 · nce-s-cou-179 · Human Growth and Development · psychodynamic and psychoanalytic theory · medium · In review
 
 An 18-month-old who recently toddled off happily to explore now repeatedly returns to his mother, shadows her, wants her to share each discovery and becomes upset when she leaves, yet sometimes pushes her away. In Mahler's separation-individuation theory, he is in which subphase?
 
@@ -19422,7 +22398,7 @@ An 18-month-old who recently toddled off happily to explore now repeatedly retur
 
 ---
 
-### Q800 of 1000 · nce-s-cou-180 · Human Growth and Development · psychodynamic and psychoanalytic theory · easy · In review
+### Q924 of 1200 · nce-s-cou-180 · Human Growth and Development · psychodynamic and psychoanalytic theory · easy · In review
 
 A 2-year-old insists on bringing a worn stuffed rabbit to child care and clutches it when her father leaves. In Winnicott's object relations theory, what function does this transitional object serve?
 
@@ -19448,7 +22424,7 @@ A 2-year-old insists on bringing a worn stuffed rabbit to child care and clutche
 
 ---
 
-### Q801 of 1000 · nce-s-cou-181 · Counseling and Helping Relationships · reality therapy and choice theory · easy · In review
+### Q925 of 1200 · nce-s-cou-181 · Counseling and Helping Relationships · reality therapy and choice theory · easy · In review
 
 Glasser pictured total behavior as a car, with basic needs as the engine and wants as the steering wheel. Which two components are the front wheels, the parts of behavior a person controls most directly?
 
@@ -19472,7 +22448,7 @@ Glasser pictured total behavior as a car, with basic needs as the engine and wan
 
 ---
 
-### Q802 of 1000 · nce-s-cou-182 · Counseling and Helping Relationships · reality therapy and choice theory · medium · In review
+### Q926 of 1200 · nce-s-cou-182 · Counseling and Helping Relationships · reality therapy and choice theory · medium · In review
 
 A 17-year-old on probation says nothing matters to him, yet he lights up when he talks about his grandmother and about someday becoming a firefighter. A reality therapist notes that these belong to his quality world. In choice theory, the quality world is BEST described as:
 
@@ -19496,7 +22472,7 @@ A 17-year-old on probation says nothing matters to him, yet he lights up when he
 
 ---
 
-### Q803 of 1000 · nce-s-cou-183 · Counseling and Helping Relationships · reality therapy and choice theory · medium · In review
+### Q927 of 1200 · nce-s-cou-183 · Counseling and Helping Relationships · reality therapy and choice theory · medium · In review
 
 A client agreed to walk for 20 minutes three mornings this week. She returns saying she "just couldn't find the time." Which response BEST reflects the reality therapy principles of accepting no excuses and using no punishment?
 
@@ -19520,7 +22496,7 @@ A client agreed to walk for 20 minutes three mornings this week. She returns say
 
 ---
 
-### Q804 of 1000 · nce-s-cou-184 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · easy · In review
+### Q928 of 1200 · nce-s-cou-184 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · easy · In review
 
 A 56-year-old client says, "My son moved across the country for work last month. The house is so quiet now, and I still catch myself setting four places at dinner." Which response is the BEST reflection of feeling?
 
@@ -19544,7 +22520,7 @@ A 56-year-old client says, "My son moved across the country for work last month.
 
 ---
 
-### Q805 of 1000 · nce-s-cou-185 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · medium · In review
+### Q929 of 1200 · nce-s-cou-185 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · medium · In review
 
 A counselor opens the fourth session by saying, "Last week you talked about the tension with your sister, the late nights at work and how little sleep you are getting, and you decided to try leaving the office by six. Where would you like to begin today?" Which skill is the counselor using, and for what purpose?
 
@@ -19568,7 +22544,7 @@ A counselor opens the fourth session by saying, "Last week you talked about the 
 
 ---
 
-### Q806 of 1000 · nce-s-cou-186 · Counseling and Helping Relationships · confrontation and immediacy · medium · In review
+### Q930 of 1200 · nce-s-cou-186 · Counseling and Helping Relationships · confrontation and immediacy · medium · In review
 
 A client says, "I'm completely over the breakup," as her eyes fill with tears and she twists a ring on her finger. Which counselor response is the BEST example of a skilled confrontation?
 
@@ -19592,7 +22568,7 @@ A client says, "I'm completely over the breakup," as her eyes fill with tears an
 
 ---
 
-### Q807 of 1000 · nce-s-cou-187 · Counseling and Helping Relationships · confrontation and immediacy · hard · In review
+### Q931 of 1200 · nce-s-cou-187 · Counseling and Helping Relationships · confrontation and immediacy · hard · In review
 
 Over six sessions, a client has said repairing his marriage is his top goal, yet he has cancelled each couples appointment he scheduled. The alliance is strong. The counselor gently notes this discrepancy, and the client is quiet, then says, "I guess I've been avoiding it because I'm afraid she'll tell me she wants out." What should the counselor do NEXT?
 
@@ -19618,7 +22594,7 @@ Over six sessions, a client has said repairing his marriage is his top goal, yet
 
 ---
 
-### Q808 of 1000 · nce-s-cou-188 · Counseling and Helping Relationships · termination skills · hard · In review
+### Q932 of 1200 · nce-s-cou-188 · Counseling and Helping Relationships · termination skills · hard · In review
 
 A client whose panic attacks resolved months ago has a history of losing caregivers in childhood. Three sessions before a jointly planned ending, she reports two new panic attacks and asks whether she can keep coming "for as long as it takes." What is the BEST response?
 
@@ -19642,7 +22618,7 @@ A client whose panic attacks resolved months ago has a history of losing caregiv
 
 ---
 
-### Q809 of 1000 · nce-s-cou-189 · Counseling and Helping Relationships · termination skills · easy · In review
+### Q933 of 1200 · nce-s-cou-189 · Counseling and Helping Relationships · termination skills · easy · In review
 
 A client has met his counseling goals. Rather than stopping abruptly, the counselor proposes moving from weekly sessions to sessions every three weeks, followed by a booster session two months later. What is the MAIN purpose of this plan?
 
@@ -19666,7 +22642,7 @@ A client has met his counseling goals. Rather than stopping abruptly, the counse
 
 ---
 
-### Q810 of 1000 · nce-s-cou-190 · Counseling and Helping Relationships · Adlerian therapy · medium · In review
+### Q934 of 1200 · nce-s-cou-190 · Counseling and Helping Relationships · Adlerian therapy · medium · In review
 
 A client reports frequent headaches that keep her home from social events. Her Adlerian counselor asks, "If these headaches went away tomorrow, what would you be doing differently in your life?" What is the PRIMARY purpose of this question?
 
@@ -19690,7 +22666,7 @@ A client reports frequent headaches that keep her home from social events. Her A
 
 ---
 
-### Q811 of 1000 · nce-s-cou-191 · Counseling and Helping Relationships · Adlerian therapy · hard · In review
+### Q935 of 1200 · nce-s-cou-191 · Counseling and Helping Relationships · Adlerian therapy · hard · In review
 
 A teacher consults a school counselor about a 9-year-old who tears up classmates' artwork and makes cruel remarks to the teacher. The teacher says she feels deeply hurt and wonders how a child could treat her this way. Using Dreikurs's goals of misbehavior, which goal is the child MOST likely pursuing?
 
@@ -19716,7 +22692,7 @@ A teacher consults a school counselor about a 9-year-old who tears up classmates
 
 ---
 
-### Q812 of 1000 · nce-s-cou-192 · Counseling and Helping Relationships · person-centered therapy · medium · In review
+### Q936 of 1200 · nce-s-cou-192 · Counseling and Helping Relationships · person-centered therapy · medium · In review
 
 A client sees himself as "a calm person who doesn't get angry." When his partner says he shouted during an argument, he insists he was "just being emphatic." In Rogers's theory of personality, this BEST illustrates:
 
@@ -19740,7 +22716,7 @@ A client sees himself as "a calm person who doesn't get angry." When his partner
 
 ---
 
-### Q813 of 1000 · nce-s-cou-193 · Counseling and Helping Relationships · person-centered therapy · hard · In review
+### Q937 of 1200 · nce-s-cou-193 · Counseling and Helping Relationships · person-centered therapy · hard · In review
 
 A client says, "I suppose I'm kind of annoyed with my sister, but it's not a big deal," while clenching her fist. Which option BEST matches how a person-centered counselor and a gestalt counselor would each MOST likely respond?
 
@@ -19764,7 +22740,7 @@ A client says, "I suppose I'm kind of annoyed with my sister, but it's not a big
 
 ---
 
-### Q814 of 1000 · nce-s-cou-194 · Counseling and Helping Relationships · existential therapy · easy · In review
+### Q938 of 1200 · nce-s-cou-194 · Counseling and Helping Relationships · existential therapy · easy · In review
 
 A 44-year-old client says, "I have no choice but to stay in a job I hate. My family expects it." Which counselor response is MOST consistent with existential therapy?
 
@@ -19788,7 +22764,7 @@ A 44-year-old client says, "I have no choice but to stay in a job I hate. My fam
 
 ---
 
-### Q815 of 1000 · nce-s-cou-195 · Counseling and Helping Relationships · existential therapy · hard · In review
+### Q939 of 1200 · nce-s-cou-195 · Counseling and Helping Relationships · existential therapy · hard · In review
 
 A 67-year-old client recently told his cancer is terminal says, "What's the point of anything now?" He is not suicidal. Which counselor response is MOST characteristic of an existential approach rather than a cognitive behavioral one?
 
@@ -19812,7 +22788,7 @@ A 67-year-old client recently told his cancer is terminal says, "What's the poin
 
 ---
 
-### Q816 of 1000 · nce-s-cou-196 · Counseling and Helping Relationships · behavior therapy · medium · In review
+### Q940 of 1200 · nce-s-cou-196 · Counseling and Helping Relationships · behavior therapy · medium · In review
 
 Two counselors treat clients who fear elevators. One teaches relaxation and works up a ranked list of feared scenes. The other has the client ride an elevator repeatedly for a long session, without leaving, until the anxiety subsides. Which statement accurately contrasts these approaches?
 
@@ -19836,7 +22812,7 @@ Two counselors treat clients who fear elevators. One teaches relaxation and work
 
 ---
 
-### Q817 of 1000 · nce-s-cou-197 · Counseling and Helping Relationships · behavior therapy · easy · In review
+### Q941 of 1200 · nce-s-cou-197 · Counseling and Helping Relationships · behavior therapy · easy · In review
 
 A counselor, a 13-year-old and his parents write and sign an agreement: on each school night he finishes his homework by 8 p.m., he earns 30 minutes of video games, and his father will check the work and deliver the reward. Which behavioral technique is this?
 
@@ -19860,7 +22836,7 @@ A counselor, a 13-year-old and his parents write and sign an agreement: on each 
 
 ---
 
-### Q818 of 1000 · nce-s-cou-198 · Counseling and Helping Relationships · cognitive behavioral therapy · medium · In review
+### Q942 of 1200 · nce-s-cou-198 · Counseling and Helping Relationships · cognitive behavioral therapy · medium · In review
 
 A client says, "My boss walked right past me this morning without saying hello. I'm going to get fired." Which counselor response BEST illustrates Socratic questioning?
 
@@ -19884,7 +22860,7 @@ A client says, "My boss walked right past me this morning without saying hello. 
 
 ---
 
-### Q819 of 1000 · nce-s-cou-199 · Counseling and Helping Relationships · cognitive behavioral therapy · medium · In review
+### Q943 of 1200 · nce-s-cou-199 · Counseling and Helping Relationships · cognitive behavioral therapy · medium · In review
 
 A client with depression says she used to love her pottery class and will start going again "once I feel more motivated." Which response BEST reflects behavioral activation?
 
@@ -19908,7 +22884,7 @@ A client with depression says she used to love her pottery class and will start 
 
 ---
 
-### Q820 of 1000 · nce-s-cou-200 · Counseling and Helping Relationships · cognitive behavioral therapy · easy · In review
+### Q944 of 1200 · nce-s-cou-200 · Counseling and Helping Relationships · cognitive behavioral therapy · easy · In review
 
 On a thought record, a client has written the situation, her automatic thought ("Everyone at the party thought I was boring") and her emotion (embarrassment, 85%). What does a cognitive therapy thought record typically ask her to do NEXT?
 
@@ -19932,7 +22908,7 @@ On a thought record, a client has written the situation, her automatic thought (
 
 ---
 
-### Q821 of 1000 · nce-s-cou-201 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · easy · In review
+### Q945 of 1200 · nce-s-cou-201 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · easy · In review
 
 Freud called it the "fundamental rule" of psychoanalysis: the client reports whatever comes to mind, however trivial, illogical or embarrassing it seems, without censoring it. This technique is called:
 
@@ -19956,7 +22932,7 @@ Freud called it the "fundamental rule" of psychoanalysis: the client reports wha
 
 ---
 
-### Q822 of 1000 · nce-s-cou-202 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · hard · In review
+### Q946 of 1200 · nce-s-cou-202 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · hard · In review
 
 After gaining the insight that he ends relationships once they become close, a client begins arriving late and "forgets" a session. Weeks later he describes pulling away from a new partner in the same way. From a psychoanalytic perspective, which statement BEST describes what is happening and how to proceed?
 
@@ -19980,7 +22956,7 @@ After gaining the insight that he ends relationships once they become close, a c
 
 ---
 
-### Q823 of 1000 · nce-s-cou-203 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · hard · In review
+### Q947 of 1200 · nce-s-cou-203 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · hard · In review
 
 A 40-year-old moved across the country at 20 and has not spoken to his parents in ten years. He says, "I've put all that behind me." His father also stopped speaking to his own family as a young man, and the client's marriage now swings between intense closeness and angry distance. How would a Bowenian therapist MOST likely understand and approach this?
 
@@ -20004,7 +22980,7 @@ A 40-year-old moved across the country at 20 and has not spoken to his parents i
 
 ---
 
-### Q824 of 1000 · nce-s-cou-204 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · medium · In review
+### Q948 of 1200 · nce-s-cou-204 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · medium · In review
 
 In a first session with a family, a counselor lets the father speak first as the family expects, picks up the family's own phrases and pace, and follows their story. Afterward she sketches a diagram showing a diffuse boundary between the mother and son and a rigid one around the father. In structural family therapy, these two activities are BEST described as:
 
@@ -20028,7 +23004,7 @@ In a first session with a family, a counselor lets the father speak first as the
 
 ---
 
-### Q825 of 1000 · nce-s-cou-205 · Counseling and Helping Relationships · trauma-informed interventions · medium · In review
+### Q949 of 1200 · nce-s-cou-205 · Counseling and Helping Relationships · trauma-informed interventions · medium · In review
 
 At intake, a counselor explains to a client with a history of sexual assault what each part of the interview involves and why questions are asked. She lets the client choose where to sit and whether the door stays open, and says she may skip any question. These practices BEST reflect:
 
@@ -20052,7 +23028,7 @@ At intake, a counselor explains to a client with a history of sexual assault wha
 
 ---
 
-### Q826 of 1000 · nce-s-cou-206 · Counseling and Helping Relationships · trauma-informed interventions · hard · In review
+### Q950 of 1200 · nce-s-cou-206 · Counseling and Helping Relationships · trauma-informed interventions · hard · In review
 
 A veteran with PTSD writes an impact statement about why he thinks a friend died in an ambush and how it changed his beliefs about safety, trust, power, esteem and intimacy. His therapist then helps him identify "stuck points," such as "It was my fault," and examine them with structured worksheets. Which treatment is this?
 
@@ -20076,7 +23052,7 @@ A veteran with PTSD writes an impact statement about why he thinks a friend died
 
 ---
 
-### Q827 of 1000 · nce-s-cou-207 · Counseling and Helping Relationships · crisis intervention models · easy · In review
+### Q951 of 1200 · nce-s-cou-207 · Counseling and Helping Relationships · crisis intervention models · easy · In review
 
 According to classic crisis theory, which statement BEST describes an acute crisis?
 
@@ -20102,7 +23078,7 @@ According to classic crisis theory, which statement BEST describes an acute cris
 
 ---
 
-### Q828 of 1000 · nce-s-cou-208 · Counseling and Helping Relationships · crisis intervention models · hard · In review
+### Q952 of 1200 · nce-s-cou-208 · Counseling and Helping Relationships · crisis intervention models · hard · In review
 
 Hours after a house fire, a client sits staring at the floor, cannot say where she will sleep tonight, and does not respond to questions about whom she might call. Her triage assessment shows severe impairment. Using James and Gilliland's continuum of crisis worker involvement, which stance is MOST appropriate?
 
@@ -20126,7 +23102,7 @@ Hours after a house fire, a client sits staring at the floor, cannot say where s
 
 ---
 
-### Q829 of 1000 · nce-s-cou-209 · Counseling and Helping Relationships · motivational interviewing · medium · In review
+### Q953 of 1200 · nce-s-cou-209 · Counseling and Helping Relationships · motivational interviewing · medium · In review
 
 Partway through a session, a court-referred client crosses his arms and says, "You're just like my probation officer, always telling me what to do." Which counselor response BEST reflects how motivational interviewing handles discord?
 
@@ -20150,7 +23126,7 @@ Partway through a session, a court-referred client crosses his arms and says, "Y
 
 ---
 
-### Q830 of 1000 · nce-s-cou-210 · Counseling and Helping Relationships · motivational interviewing · medium · In review
+### Q954 of 1200 · nce-s-cou-210 · Counseling and Helping Relationships · motivational interviewing · medium · In review
 
 Asked to rate on a 0 to 10 scale how important it is to her to stop vaping, a 19-year-old says, "Maybe a 3." Which follow-up question is MOST likely to elicit change talk?
 
@@ -20174,7 +23150,7 @@ Asked to rate on a 0 to 10 scale how important it is to her to stop vaping, a 19
 
 ---
 
-### Q831 of 1000 · nce-s-cou-211 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+### Q955 of 1200 · nce-s-cou-211 · Group Counseling and Group Work · group stages and dynamics · medium · In review
 
 A counselor holds individual pre-group interviews for a 12-week interpersonal process group. She spends each interview asking about symptoms, history and current stressors, then tells applicants whether they have been accepted. Her supervisor says an essential element of screening is missing. Which element is it?
 
@@ -20198,7 +23174,7 @@ A counselor holds individual pre-group interviews for a 12-week interpersonal pr
 
 ---
 
-### Q832 of 1000 · nce-s-cou-212 · Group Counseling and Group Work · group stages and dynamics · easy · In review
+### Q956 of 1200 · nce-s-cou-212 · Group Counseling and Group Work · group stages and dynamics · easy · In review
 
 A counselor is preparing the informed consent discussion for a new adult therapy group. Which statement BEST belongs in that discussion?
 
@@ -20222,7 +23198,7 @@ A counselor is preparing the informed consent discussion for a new adult therapy
 
 ---
 
-### Q833 of 1000 · nce-s-cou-213 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+### Q957 of 1200 · nce-s-cou-213 · Group Counseling and Group Work · group stages and dynamics · medium · In review
 
 A counselor in a community clinic is planning an open-ended outpatient interpersonal therapy group for adults. Which plan for size and session length is MOST consistent with Yalom's recommendations?
 
@@ -20246,7 +23222,7 @@ A counselor in a community clinic is planning an open-ended outpatient interpers
 
 ---
 
-### Q834 of 1000 · nce-s-cou-214 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
+### Q958 of 1200 · nce-s-cou-214 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
 
 In the sixth session of a process group, members keep switching topics whenever anyone mentions loneliness. The leader is considering a self-disclosure. Which disclosure is MOST consistent with Yalom's guidance on leader transparency?
 
@@ -20270,7 +23246,7 @@ In the sixth session of a process group, members keep switching topics whenever 
 
 ---
 
-### Q835 of 1000 · nce-s-cou-215 · Group Counseling and Group Work · group leadership skills and therapeutic factors · hard · In review
+### Q959 of 1200 · nce-s-cou-215 · Group Counseling and Group Work · group leadership skills and therapeutic factors · hard · In review
 
 Near the end of a co-led depression group, a member quietly says she has stockpiled pills and "probably won't be around next week." Other members look stunned. What should the leaders do?
 
@@ -20296,7 +23272,7 @@ Near the end of a co-led depression group, a member quietly says she has stockpi
 
 ---
 
-### Q836 of 1000 · nce-s-cou-216 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+### Q960 of 1200 · nce-s-cou-216 · Group Counseling and Group Work · group stages and dynamics · medium · In review
 
 Three members of an interpersonal group have begun meeting for coffee before each session. In group they sit together, trade knowing glances and fall silent when one of them is challenged. Following Yalom, how should the leader BEST respond?
 
@@ -20320,7 +23296,7 @@ Three members of an interpersonal group have begun meeting for coffee before eac
 
 ---
 
-### Q837 of 1000 · nce-s-cou-217 · Group Counseling and Group Work · group leadership skills and therapeutic factors · hard · In review
+### Q961 of 1200 · nce-s-cou-217 · Group Counseling and Group Work · group leadership skills and therapeutic factors · hard · In review
 
 In a long-term group, Theo bristles at every comment from Ines, an assertive older member, and accuses her of "always looking down on me," though others see her remarks as mild. He later realizes she reminds him of his critical older sister. Drawing on Sullivan, Yalom calls Theo's distorted perception of Ines:
 
@@ -20344,7 +23320,7 @@ In a long-term group, Theo bristles at every comment from Ines, an assertive old
 
 ---
 
-### Q838 of 1000 · nce-s-cou-218 · Group Counseling and Group Work · group stages and dynamics · easy · In review
+### Q962 of 1200 · nce-s-cou-218 · Group Counseling and Group Work · group stages and dynamics · easy · In review
 
 A counselor wants to know whether her 10-week anxiety management group actually reduced members' symptoms. Which evaluation approach BEST answers that question?
 
@@ -20368,7 +23344,7 @@ A counselor wants to know whether her 10-week anxiety management group actually 
 
 ---
 
-### Q839 of 1000 · nce-s-cou-219 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
+### Q963 of 1200 · nce-s-cou-219 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
 
 A counselor is launching a video-based support group for caregivers who live across her state. Which step is MOST specific to the safe running of this telehealth group?
 
@@ -20392,7 +23368,7 @@ A counselor is launching a video-based support group for caregivers who live acr
 
 ---
 
-### Q840 of 1000 · nce-s-cou-220 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
+### Q964 of 1200 · nce-s-cou-220 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
 
 For her first months as a hospital social worker, Amina followed every unit norm and sought her colleagues' approval. Now, secure in the role, she is pushing the team to adopt her ideas for discharge planning and asserting her own views. In Tiedeman and O'Hara's decision-making model, Amina is in which stage?
 
@@ -20416,7 +23392,7 @@ For her first months as a hospital social worker, Amina followed every unit norm
 
 ---
 
-### Q841 of 1000 · nce-s-cou-221 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q965 of 1200 · nce-s-cou-221 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 A counselor uses Krumboltz's happenstance learning theory with a 30-year-old who wants to "figure out the one right career." According to this theory, how should the success of their counseling be judged?
 
@@ -20440,7 +23416,7 @@ A counselor uses Krumboltz's happenstance learning theory with a 30-year-old who
 
 ---
 
-### Q842 of 1000 · nce-s-cou-222 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q966 of 1200 · nce-s-cou-222 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 A 47-year-old engineer has cut back his hours to care for his aging father, coaches his daughter's soccer team and is taking an evening course. He says work "matters less right now than it did five years ago." Which concept from Super's life-career rainbow BEST describes this?
 
@@ -20464,7 +23440,7 @@ A 47-year-old engineer has cut back his hours to care for his aging father, coac
 
 ---
 
-### Q843 of 1000 · nce-s-cou-223 · Career Development · career development theories (Holland, Super, Krumboltz) · easy · In review
+### Q967 of 1200 · nce-s-cou-223 · Career Development · career development theories (Holland, Super, Krumboltz) · easy · In review
 
 A college sophomore scores very low on the Vocational Identity scale of Holland's My Vocational Situation. What does this score MOST likely indicate?
 
@@ -20488,7 +23464,7 @@ A college sophomore scores very low on the Vocational Identity scale of Holland'
 
 ---
 
-### Q844 of 1000 · nce-s-cou-224 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
+### Q968 of 1200 · nce-s-cou-224 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
 
 A counselor follows Fouad and Bingham's culturally appropriate career counseling model with a Somali American client. They have built a culturally appropriate relationship and identified her career issues. What is the NEXT step in the model?
 
@@ -20514,7 +23490,7 @@ A counselor follows Fouad and Bingham's culturally appropriate career counseling
 
 ---
 
-### Q845 of 1000 · nce-s-cou-225 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
+### Q969 of 1200 · nce-s-cou-225 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
 
 For more than a year a client has swung back and forth between staying in nursing and returning to art school, each time convincing herself the other path is right. In Pryor and Bright's chaos theory of careers, this pattern reflects which attractor?
 
@@ -20540,7 +23516,7 @@ For more than a year a client has swung back and forth between staying in nursin
 
 ---
 
-### Q846 of 1000 · nce-s-cou-226 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q970 of 1200 · nce-s-cou-226 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 Duc, 18, tells his counselor he will study pharmacy because his parents and grandparents decided it is best for the family, and he seems at ease with this. His family holds strongly collective social values. From the standpoint of Brown's values-based theory, how should the counselor view this choice?
 
@@ -20564,7 +23540,7 @@ Duc, 18, tells his counselor he will study pharmacy because his parents and gran
 
 ---
 
-### Q847 of 1000 · nce-s-cou-227 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
+### Q971 of 1200 · nce-s-cou-227 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
 
 A counselor is redesigning a career-choice workshop and wants to include the components that Brown and Ryan Krane's meta-analysis linked to the largest effects. Which set should she build in?
 
@@ -20588,7 +23564,7 @@ A counselor is redesigning a career-choice workshop and wants to include the com
 
 ---
 
-### Q848 of 1000 · nce-s-cou-228 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
+### Q972 of 1200 · nce-s-cou-228 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
 
 Parents of a 16-year-old worry because over one school year he has tried out different friend groups, clothing styles, music and political views. He is otherwise doing well. From Erikson's perspective, how should the counselor understand this?
 
@@ -20612,7 +23588,7 @@ Parents of a 16-year-old worry because over one school year he has tried out dif
 
 ---
 
-### Q849 of 1000 · nce-s-cou-229 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
+### Q973 of 1200 · nce-s-cou-229 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
 
 While talking with her grandmother on the phone, a 4-year-old nods in answer to questions and holds up a new toy, saying, "Look at this one!" Which feature of Piaget's preoperational stage does this show?
 
@@ -20636,7 +23612,7 @@ While talking with her grandmother on the phone, a 4-year-old nods in answer to 
 
 ---
 
-### Q850 of 1000 · nce-s-cou-230 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · medium · In review
+### Q974 of 1200 · nce-s-cou-230 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · medium · In review
 
 A woman resolves a moral dilemma by focusing on preserving relationships and avoiding harm to everyone involved. Under Kohlberg's scoring she would likely be placed at Stage 3, below the postconventional level. Which critique, associated with Carol Gilligan, addresses this?
 
@@ -20660,7 +23636,7 @@ A woman resolves a moral dilemma by focusing on preserving relationships and avo
 
 ---
 
-### Q851 of 1000 · nce-s-cou-231 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · medium · In review
+### Q975 of 1200 · nce-s-cou-231 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · medium · In review
 
 Parents of a 10-year-old set many strict rules, rarely explain them beyond "because I said so," and show little warmth or responsiveness to his feelings. Which parenting style in Baumrind's framework is this, and which outcome does research MOST often link to it?
 
@@ -20684,7 +23660,7 @@ Parents of a 10-year-old set many strict rules, rarely explain them beyond "beca
 
 ---
 
-### Q852 of 1000 · nce-s-cou-232 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · medium · In review
+### Q976 of 1200 · nce-s-cou-232 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · medium · In review
 
 After a breakup, a 15-year-old tells her school counselor, "Nobody has ever hurt like this. My mom could never understand, because what I feel is completely different from anything she went through." In Elkind's account of adolescent egocentrism, this reflects:
 
@@ -20708,7 +23684,7 @@ After a breakup, a 15-year-old tells her school counselor, "Nobody has ever hurt
 
 ---
 
-### Q853 of 1000 · nce-s-cou-233 · Social and Cultural Diversity · multicultural counseling competencies · medium · In review
+### Q977 of 1200 · nce-s-cou-233 · Social and Cultural Diversity · multicultural counseling competencies · medium · In review
 
 After a case presentation, a White supervisor tells a Black counseling intern, "You are so articulate. I wasn't expecting that." The supervisor means it as praise. In Sue's taxonomy of racial microaggressions, this remark is BEST classified as a:
 
@@ -20732,7 +23708,7 @@ After a case presentation, a White supervisor tells a Black counseling intern, "
 
 ---
 
-### Q854 of 1000 · nce-s-cou-234 · Social and Cultural Diversity · multicultural counseling competencies · easy · In review
+### Q978 of 1200 · nce-s-cou-234 · Social and Cultural Diversity · multicultural counseling competencies · easy · In review
 
 Working with a Cambodian refugee, a counselor learns the client's own terms for her distress, asks how her community explains such symptoms and frames goals within those meanings. This approach reflects which perspective?
 
@@ -20756,7 +23732,7 @@ Working with a Cambodian refugee, a counselor learns the client's own terms for 
 
 ---
 
-### Q855 of 1000 · nce-s-cou-235 · Social and Cultural Diversity · racial and cultural identity models · hard · In review
+### Q979 of 1200 · nce-s-cou-235 · Social and Cultural Diversity · racial and cultural identity models · hard · In review
 
 Linh, 17, was born in the United States to Vietnamese parents. At home and at her temple she has been taught to speak Vietnamese, honor her elders and keep Tet traditions, and she embraces these norms. The process by which she has been socialized into and kept her heritage culture is called:
 
@@ -20782,7 +23758,7 @@ Linh, 17, was born in the United States to Vietnamese parents. At home and at he
 
 ---
 
-### Q856 of 1000 · nce-s-cou-236 · Social and Cultural Diversity · racial and cultural identity models · hard · In review
+### Q980 of 1200 · nce-s-cou-236 · Social and Cultural Diversity · racial and cultural identity models · hard · In review
 
 A Black woman tells her counselor that she is repeatedly passed over at her firm. Her complaint was dismissed because the firm promotes many White women and several Black men. Which framework BEST helps the counselor understand her experience?
 
@@ -20806,7 +23782,7 @@ A Black woman tells her counselor that she is repeatedly passed over at her firm
 
 ---
 
-### Q857 of 1000 · nce-s-cou-237 · Social and Cultural Diversity · multicultural counseling competencies · medium · In review
+### Q981 of 1200 · nce-s-cou-237 · Social and Cultural Diversity · multicultural counseling competencies · medium · In review
 
 In a multicultural course, a White student says, "I worked hard for everything I have, so I don't have privilege." The instructor introduces Peggy McIntosh's concept of White privilege. Which statement BEST captures that concept?
 
@@ -20830,7 +23806,7 @@ In a multicultural course, a White student says, "I worked hard for everything I
 
 ---
 
-### Q858 of 1000 · nce-s-cou-238 · Counseling and Helping Relationships · play therapy · easy · In review
+### Q982 of 1200 · nce-s-cou-238 · Counseling and Helping Relationships · play therapy · easy · In review
 
 A counselor offers a 10-year-old a tray of sand and shelves of miniature figures, invites her to "make a world," and quietly witnesses the scene she builds. Dora Kalff developed this sandplay approach from which theoretical tradition?
 
@@ -20856,7 +23832,7 @@ A counselor offers a 10-year-old a tray of sand and shelves of miniature figures
 
 ---
 
-### Q859 of 1000 · nce-s-cou-239 · Human Growth and Development · attachment theory · hard · In review
+### Q983 of 1200 · nce-s-cou-239 · Human Growth and Development · attachment theory · hard · In review
 
 In the Adult Attachment Interview, a mother describes a childhood with a harsh, rejecting father. She recounts painful memories in a coherent, balanced way, reflects on how they affected her and shows some understanding of her father's struggles. Her interview is MOST likely classified as:
 
@@ -20880,7 +23856,7 @@ In the Adult Attachment Interview, a mother describes a childhood with a harsh, 
 
 ---
 
-### Q860 of 1000 · nce-s-cou-240 · Human Growth and Development · attachment theory · easy · In review
+### Q984 of 1200 · nce-s-cou-240 · Human Growth and Development · attachment theory · easy · In review
 
 Harlow raised infant rhesus monkeys with two surrogate mothers: one made of bare wire that held a feeding bottle and one covered in soft cloth without food. What did the monkeys' behavior show?
 
@@ -20904,7 +23880,7 @@ Harlow raised infant rhesus monkeys with two surrogate mothers: one made of bare
 
 ---
 
-### Q861 of 1000 · nce-s-cou-241 · Counseling and Helping Relationships · gestalt therapy · medium · In review
+### Q985 of 1200 · nce-s-cou-241 · Counseling and Helping Relationships · gestalt therapy · medium · In review
 
 A 34-year-old nurse works through a high fever because "real professionals do not take sick days," a rule her first charge nurse drilled into her. When her gestalt counselor asks whether she herself agrees with the rule, she looks puzzled and cannot say. Which contact boundary disturbance does this BEST illustrate?
 
@@ -20928,7 +23904,7 @@ A 34-year-old nurse works through a high fever because "real professionals do no
 
 ---
 
-### Q862 of 1000 · nce-s-cou-242 · Counseling and Helping Relationships · gestalt therapy · easy · In review
+### Q986 of 1200 · nce-s-cou-242 · Counseling and Helping Relationships · gestalt therapy · easy · In review
 
 While describing how her brother dismissed her at a family dinner, a client keeps making a small brushing-away motion with one hand. Her gestalt counselor asks her to make the motion larger and larger and then to give the hand a voice. Which technique is the counselor using?
 
@@ -20952,7 +23928,7 @@ While describing how her brother dismissed her at a family dinner, a client keep
 
 ---
 
-### Q863 of 1000 · nce-s-cou-243 · Counseling and Helping Relationships · gestalt therapy · hard · In review
+### Q987 of 1200 · nce-s-cou-243 · Counseling and Helping Relationships · gestalt therapy · hard · In review
 
 Midway through a session, a client says, "I'm stuck. I don't know what I feel, and I need you to tell me what to do," and then falls silent. Her gestalt counselor sees this as the impasse layer that Perls described. What would the counselor MOST likely do next?
 
@@ -20976,7 +23952,7 @@ Midway through a session, a client says, "I'm stuck. I don't know what I feel, a
 
 ---
 
-### Q864 of 1000 · nce-s-cou-244 · Counseling and Helping Relationships · rational emotive behavior therapy · easy · In review
+### Q988 of 1200 · nce-s-cou-244 · Counseling and Helping Relationships · rational emotive behavior therapy · easy · In review
 
 A retired bus driver tells his counselor, "I can't stand waiting at the pharmacy. Ten minutes in that line is unbearable, so I just leave without my medication." In Ellis's REBT, which irrational derivative BEST describes his belief?
 
@@ -21000,7 +23976,7 @@ A retired bus driver tells his counselor, "I can't stand waiting at the pharmacy
 
 ---
 
-### Q865 of 1000 · nce-s-cou-245 · Counseling and Helping Relationships · rational emotive behavior therapy · medium · In review
+### Q989 of 1200 · nce-s-cou-245 · Counseling and Helping Relationships · rational emotive behavior therapy · medium · In review
 
 A client insists that his partner must agree with him on every major decision. His REBT counselor asks, "How does it follow that because you would strongly prefer her agreement, she therefore must agree?" Which type of disputing is this?
 
@@ -21024,7 +24000,7 @@ A client insists that his partner must agree with him on every major decision. H
 
 ---
 
-### Q866 of 1000 · nce-s-cou-246 · Counseling and Helping Relationships · rational emotive behavior therapy · hard · In review
+### Q990 of 1200 · nce-s-cou-246 · Counseling and Helping Relationships · rational emotive behavior therapy · hard · In review
 
 A 26-year-old graduate student with panic attacks tells her REBT counselor, "Now I hate myself for being so weak that I panic at all." Following Ellis, what would the counselor typically address FIRST?
 
@@ -21048,7 +24024,7 @@ A 26-year-old graduate student with panic attacks tells her REBT counselor, "Now
 
 ---
 
-### Q867 of 1000 · nce-s-cou-247 · Counseling and Helping Relationships · solution-focused brief therapy · medium · In review
+### Q991 of 1200 · nce-s-cou-247 · Counseling and Helping Relationships · solution-focused brief therapy · medium · In review
 
 At the end of a first session, a counselor tells a couple who fight about chores, "Between now and the next time we meet, notice what happens in your relationship that you want to keep happening." In de Shazer's approach, this assignment is known as:
 
@@ -21072,7 +24048,7 @@ At the end of a first session, a counselor tells a couple who fight about chores
 
 ---
 
-### Q868 of 1000 · nce-s-cou-248 · Counseling and Helping Relationships · solution-focused brief therapy · medium · In review
+### Q992 of 1200 · nce-s-cou-248 · Counseling and Helping Relationships · solution-focused brief therapy · medium · In review
 
 A counselor opens a second session by asking, "What's been better since we met?" A woman caring for her father with Parkinson's disease says there was one calm evening at home. Which response is MOST consistent with solution-focused practice?
 
@@ -21096,7 +24072,7 @@ A counselor opens a second session by asking, "What's been better since we met?"
 
 ---
 
-### Q869 of 1000 · nce-s-cou-249 · Counseling and Helping Relationships · solution-focused brief therapy · easy · In review
+### Q993 of 1200 · nce-s-cou-249 · Counseling and Helping Relationships · solution-focused brief therapy · easy · In review
 
 Solution-focused brief therapy was developed mainly by which pair of clinicians at the Brief Family Therapy Center in Milwaukee?
 
@@ -21120,7 +24096,7 @@ Solution-focused brief therapy was developed mainly by which pair of clinicians 
 
 ---
 
-### Q870 of 1000 · nce-s-cou-250 · Counseling and Helping Relationships · narrative therapy · medium · In review
+### Q994 of 1200 · nce-s-cou-250 · Counseling and Helping Relationships · narrative therapy · medium · In review
 
 A narrative counselor first asks a 15-year-old, "How much of your school week has the Panic taken over?" Later the counselor asks, "When have you had some influence over the Panic, even a little?" This paired line of questioning is known as:
 
@@ -21144,7 +24120,7 @@ A narrative counselor first asks a 15-year-old, "How much of your school week ha
 
 ---
 
-### Q871 of 1000 · nce-s-cou-251 · Counseling and Helping Relationships · narrative therapy · hard · In review
+### Q995 of 1200 · nce-s-cou-251 · Counseling and Helping Relationships · narrative therapy · hard · In review
 
 A 70-year-old widower says his life feels empty since his wife died. His narrative counselor asks who belongs in his "club of life," what his late wife would say she valued in him, and whether some members whose voices put him down should have less say. This practice is called:
 
@@ -21168,7 +24144,7 @@ A 70-year-old widower says his life feels empty since his wife died. His narrati
 
 ---
 
-### Q872 of 1000 · nce-s-cou-252 · Counseling and Helping Relationships · narrative therapy · medium · In review
+### Q996 of 1200 · nce-s-cou-252 · Counseling and Helping Relationships · narrative therapy · medium · In review
 
 A counseling student is asked to describe the counselor's position in narrative therapy as Michael White described it. Which description is MOST accurate?
 
@@ -21192,7 +24168,7 @@ A counseling student is asked to describe the counselor's position in narrative 
 
 ---
 
-### Q873 of 1000 · nce-s-cou-253 · Counseling and Helping Relationships · feminist therapy · medium · In review
+### Q997 of 1200 · nce-s-cou-253 · Counseling and Helping Relationships · feminist therapy · medium · In review
 
 A 41-year-old Latina office manager was told by human resources that she is "too emotional" about repeated sexual comments from a supervisor. Her feminist counselor describes her anger and poor sleep as understandable responses to an unjust situation rather than signs of personal pathology. Which intervention is the counselor using?
 
@@ -21216,7 +24192,7 @@ A 41-year-old Latina office manager was told by human resources that she is "too
 
 ---
 
-### Q874 of 1000 · nce-s-cou-254 · Counseling and Helping Relationships · feminist therapy · hard · In review
+### Q998 of 1200 · nce-s-cou-254 · Counseling and Helping Relationships · feminist therapy · hard · In review
 
 A client's insurer requires a diagnosis before it will pay for counseling. Her counselor practices from a feminist perspective. Which approach to DSM-5-TR diagnosis is MOST consistent with feminist therapy?
 
@@ -21240,7 +24216,7 @@ A client's insurer requires a diagnosis before it will pay for counseling. Her c
 
 ---
 
-### Q875 of 1000 · nce-s-cou-255 · Counseling and Helping Relationships · dialectical behavior therapy · easy · In review
+### Q999 of 1200 · nce-s-cou-255 · Counseling and Helping Relationships · dialectical behavior therapy · easy · In review
 
 A DBT skills trainer describes a state of mind that integrates "emotion mind" and "reasonable mind," allowing a person to sense what is true and act from inner balance. What is this state called?
 
@@ -21264,7 +24240,7 @@ A DBT skills trainer describes a state of mind that integrates "emotion mind" an
 
 ---
 
-### Q876 of 1000 · nce-s-cou-256 · Counseling and Helping Relationships · dialectical behavior therapy · medium · In review
+### Q1000 of 1200 · nce-s-cou-256 · Counseling and Helping Relationships · dialectical behavior therapy · medium · In review
 
 After a minor slip of the tongue at a party, a client feels intense shame and wants to hide in her room all weekend. She and her DBT therapist agree that the shame does not fit the facts. Which emotion regulation skill would the therapist MOST likely coach?
 
@@ -21288,7 +24264,7 @@ After a minor slip of the tongue at a party, a client feels intense shame and wa
 
 ---
 
-### Q877 of 1000 · nce-s-cou-257 · Counseling and Helping Relationships · dialectical behavior therapy · hard · In review
+### Q1001 of 1200 · nce-s-cou-257 · Counseling and Helping Relationships · dialectical behavior therapy · hard · In review
 
 A client's DBT diary card shows that this week she cut herself once, skipped her skills group twice and had a painful argument with her sister. According to the DBT target hierarchy for individual sessions, which issue should the therapist address FIRST?
 
@@ -21312,7 +24288,7 @@ A client's DBT diary card shows that this week she cut herself once, skipped her
 
 ---
 
-### Q878 of 1000 · nce-s-cou-258 · Counseling and Helping Relationships · play therapy · easy · In review
+### Q1002 of 1200 · nce-s-cou-258 · Counseling and Helping Relationships · play therapy · easy · In review
 
 In a child-centered play therapy session, a 4-year-old silently drives a toy truck into a tower of blocks and watches it fall. The counselor says, "You're driving that right into there, and down it goes." This response is BEST described as:
 
@@ -21336,7 +24312,7 @@ In a child-centered play therapy session, a 4-year-old silently drives a toy tru
 
 ---
 
-### Q879 of 1000 · nce-s-cou-259 · Counseling and Helping Relationships · play therapy · medium · In review
+### Q1003 of 1200 · nce-s-cou-259 · Counseling and Helping Relationships · play therapy · medium · In review
 
 A counselor about to begin child-centered play therapy with a 7-year-old wonders whether to read a list of playroom rules in the first few minutes. Following Landreth's guidance, what is the BEST approach to limits?
 
@@ -21360,7 +24336,7 @@ A counselor about to begin child-centered play therapy with a 7-year-old wonders
 
 ---
 
-### Q880 of 1000 · nce-s-cou-260 · Human Growth and Development · play therapy · medium · In review
+### Q1004 of 1200 · nce-s-cou-260 · Human Growth and Development · play therapy · medium · In review
 
 A parent asks why the counselor plans to use play therapy with her 5-year-old instead of talking through the child's fears about a new baby in the family. Which explanation BEST reflects developmental reasoning?
 
@@ -21384,7 +24360,7 @@ A parent asks why the counselor plans to use play therapy with her 5-year-old in
 
 ---
 
-### Q881 of 1000 · nce-s-cou-261 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · medium · In review
+### Q1005 of 1200 · nce-s-cou-261 · Counseling and Helping Relationships · psychodynamic and psychoanalytic theory · medium · In review
 
 For several weeks a psychodynamic counselor has noticed that a client's rage at his wife's mild comments seems to echo his anger at his critical mother. When is an interpretation of this link MOST likely to be useful?
 
@@ -21408,7 +24384,7 @@ For several weeks a psychodynamic counselor has noticed that a client's rage at 
 
 ---
 
-### Q882 of 1000 · nce-s-cou-262 · Counseling and Helping Relationships · behavior therapy · easy · In review
+### Q1006 of 1200 · nce-s-cou-262 · Counseling and Helping Relationships · behavior therapy · easy · In review
 
 A doctoral student loves her evening run but keeps putting off writing her dissertation. Her counselor suggests that she go running only after she has written for one full hour. Which behavioral principle is the counselor applying?
 
@@ -21432,7 +24408,7 @@ A doctoral student loves her evening run but keeps putting off writing her disse
 
 ---
 
-### Q883 of 1000 · nce-s-cou-263 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · hard · In review
+### Q1007 of 1200 · nce-s-cou-263 · Counseling and Helping Relationships · family systems theories (Bowen, structural, strategic) · hard · In review
 
 In a family session, a quiet 16-year-old's complaints are repeatedly overridden by her father and older brother, who form a strong coalition. A structural family therapist deliberately sides with the teenager for a period, backing her view until the family's hierarchy begins to shift. This technique is:
 
@@ -21456,7 +24432,7 @@ In a family session, a quiet 16-year-old's complaints are repeatedly overridden 
 
 ---
 
-### Q884 of 1000 · nce-s-cou-264 · Counseling and Helping Relationships · Adlerian therapy · easy · In review
+### Q1008 of 1200 · nce-s-cou-264 · Counseling and Helping Relationships · Adlerian therapy · easy · In review
 
 A shy 23-year-old says he wishes he were the kind of person who could start conversations with coworkers. His Adlerian counselor asks him, for one week, to behave as though he already were that person. Which technique is this?
 
@@ -21480,7 +24456,7 @@ A shy 23-year-old says he wishes he were the kind of person who could start conv
 
 ---
 
-### Q885 of 1000 · nce-s-cou-265 · Counseling and Helping Relationships · person-centered therapy · medium · In review
+### Q1009 of 1200 · nce-s-cou-265 · Counseling and Helping Relationships · person-centered therapy · medium · In review
 
 Rogers described accurate empathic understanding as sensing the client's private world "as if" it were the counselor's own. What does the "as if" quality emphasize?
 
@@ -21504,7 +24480,7 @@ Rogers described accurate empathic understanding as sensing the client's private
 
 ---
 
-### Q886 of 1000 · nce-s-cou-266 · Counseling and Helping Relationships · existential therapy · hard · In review
+### Q1010 of 1200 · nce-s-cou-266 · Counseling and Helping Relationships · existential therapy · hard · In review
 
 An existential counselor notices that a 52-year-old engineer talks easily about his job and his duties to relatives, but goes blank when asked about his own values, feelings and sense of who he is. Which mode of being-in-the-world appears MOST neglected?
 
@@ -21528,7 +24504,7 @@ An existential counselor notices that a 52-year-old engineer talks easily about 
 
 ---
 
-### Q887 of 1000 · nce-s-cou-267 · Counseling and Helping Relationships · cognitive behavioral therapy · medium · In review
+### Q1011 of 1200 · nce-s-cou-267 · Counseling and Helping Relationships · cognitive behavioral therapy · medium · In review
 
 A client says, "If I make a mistake in the meeting, people will notice." The counselor asks, "And if they notice, what would that mean about you?" The counselor repeats this kind of question after each answer until the client says, "That I'm incompetent." Which technique is this?
 
@@ -21552,7 +24528,7 @@ A client says, "If I make a mistake in the meeting, people will notice." The cou
 
 ---
 
-### Q888 of 1000 · nce-s-cou-268 · Counseling and Helping Relationships · reality therapy and choice theory · medium · In review
+### Q1012 of 1200 · nce-s-cou-268 · Counseling and Helping Relationships · reality therapy and choice theory · medium · In review
 
 A father admits that he nags, criticizes and threatens his 14-year-old about grades, and their relationship has grown cold. In Glasser's choice theory, what would a reality therapist encourage him to use in place of these "deadly habits"?
 
@@ -21576,7 +24552,7 @@ A father admits that he nags, criticizes and threatens his 14-year-old about gra
 
 ---
 
-### Q889 of 1000 · nce-s-cou-269 · Counseling and Helping Relationships · motivational interviewing · medium · In review
+### Q1013 of 1200 · nce-s-cou-269 · Counseling and Helping Relationships · motivational interviewing · medium · In review
 
 In a primary care clinic, a 58-year-old client asks a counselor, "Is it really that bad to have four beers every night?" Which response BEST follows the elicit-provide-elicit approach used in motivational interviewing?
 
@@ -21600,7 +24576,7 @@ In a primary care clinic, a 58-year-old client asks a counselor, "Is it really t
 
 ---
 
-### Q890 of 1000 · nce-s-cou-270 · Counseling and Helping Relationships · trauma-informed interventions · hard · In review
+### Q1014 of 1200 · nce-s-cou-270 · Counseling and Helping Relationships · trauma-informed interventions · hard · In review
 
 A 30-year-old with PTSD and alcohol use disorder is in early recovery and becomes overwhelmed when trauma memories come up. Her counselor begins Seeking Safety, the model developed by Lisa Najavits. Which feature BEST describes this model?
 
@@ -21624,7 +24600,7 @@ A 30-year-old with PTSD and alcohol use disorder is in early recovery and become
 
 ---
 
-### Q891 of 1000 · nce-s-cou-271 · Group Counseling and Group Work · group stages and dynamics · easy · In review
+### Q1015 of 1200 · nce-s-cou-271 · Group Counseling and Group Work · group stages and dynamics · easy · In review
 
 In the first two sessions of a closed group for adults coping with job loss, members talk politely about safe topics, look to the leader for direction and quietly test whether it is safe to share. According to Corey's model of group development, which stage is this group MOST likely in?
 
@@ -21648,7 +24624,7 @@ In the first two sessions of a closed group for adults coping with job loss, mem
 
 ---
 
-### Q892 of 1000 · nce-s-cou-272 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+### Q1016 of 1200 · nce-s-cou-272 · Group Counseling and Group Work · group stages and dynamics · medium · In review
 
 After several tense sessions in which members argued and challenged the leader, a workplace communication group begins agreeing on how to give feedback. Members start supporting each other and speak of the group as "we." According to Tuckman, which stage has the group entered?
 
@@ -21672,7 +24648,7 @@ After several tense sessions in which members argued and challenged the leader, 
 
 ---
 
-### Q893 of 1000 · nce-s-cou-273 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+### Q1017 of 1200 · nce-s-cou-273 · Group Counseling and Group Work · group stages and dynamics · medium · In review
 
 A closed 10-week counseling group for college students has two sessions left. Which leader focus BEST fits Corey's description of the tasks of the final stage?
 
@@ -21696,7 +24672,7 @@ A closed 10-week counseling group for college students has two sessions left. Wh
 
 ---
 
-### Q894 of 1000 · nce-s-cou-274 · Group Counseling and Group Work · group stages and dynamics · easy · In review
+### Q1018 of 1200 · nce-s-cou-274 · Group Counseling and Group Work · group stages and dynamics · easy · In review
 
 A hospital counselor chairs a committee of nurses, chaplains and social workers that meets monthly to develop a new discharge-planning protocol. Under the Association for Specialists in Group Work (ASGW) classification of groups, this is BEST described as which type?
 
@@ -21720,7 +24696,7 @@ A hospital counselor chairs a committee of nurses, chaplains and social workers 
 
 ---
 
-### Q895 of 1000 · nce-s-cou-275 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+### Q1019 of 1200 · nce-s-cou-275 · Group Counseling and Group Work · group stages and dynamics · medium · In review
 
 A counselor runs an open-ended outpatient therapy group. A new member will join next week, and several veteran members worry that "starting over" will slow the group down. What is the BEST way to bring the newcomer in?
 
@@ -21744,7 +24720,7 @@ A counselor runs an open-ended outpatient therapy group. A new member will join 
 
 ---
 
-### Q896 of 1000 · nce-s-cou-276 · Group Counseling and Group Work · group leadership skills and therapeutic factors · easy · In review
+### Q1020 of 1200 · nce-s-cou-276 · Group Counseling and Group Work · group leadership skills and therapeutic factors · easy · In review
 
 In a substance use recovery group, a new member says, "Hearing Rosa talk about two years sober makes me think I might actually get there too." Which of Yalom's therapeutic factors is MOST evident?
 
@@ -21768,7 +24744,7 @@ In a substance use recovery group, a new member says, "Hearing Rosa talk about t
 
 ---
 
-### Q897 of 1000 · nce-s-cou-277 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
+### Q1021 of 1200 · nce-s-cou-277 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
 
 A retired teacher in a depression group says the best part of the group was learning that her encouragement helped another member apply for a job: "For the first time in months, I feel useful to someone." Which of Yalom's therapeutic factors does this BEST illustrate?
 
@@ -21792,7 +24768,7 @@ A retired teacher in a depression group says the best part of the group was lear
 
 ---
 
-### Q898 of 1000 · nce-s-cou-278 · Group Counseling and Group Work · group leadership skills and therapeutic factors · hard · In review
+### Q1022 of 1200 · nce-s-cou-278 · Group Counseling and Group Work · group leadership skills and therapeutic factors · hard · In review
 
 Late in a cancer survivors' group, a member says the group taught him that however much support he receives, he must still face his own mortality and take ultimate responsibility for how he lives. Which of Yalom's therapeutic factors does this BEST reflect?
 
@@ -21816,7 +24792,7 @@ Late in a cancer survivors' group, a member says the group taught him that howev
 
 ---
 
-### Q899 of 1000 · nce-s-cou-279 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
+### Q1023 of 1200 · nce-s-cou-279 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
 
 In the fifth session of a support group for new parents, one member has said little since the first meeting, though she listens closely and nods often as others talk. Which leader response is BEST?
 
@@ -21840,7 +24816,7 @@ In the fifth session of a support group for new parents, one member has said lit
 
 ---
 
-### Q900 of 1000 · nce-s-cou-280 · Group Counseling and Group Work · group leadership skills and therapeutic factors · easy · In review
+### Q1024 of 1200 · nce-s-cou-280 · Group Counseling and Group Work · group leadership skills and therapeutic factors · easy · In review
 
 In a high school counseling group, a member starts describing in detail what an absent member's boyfriend supposedly did at a party, and other members lean in to hear more. Which leader skill is MOST needed right now?
 
@@ -21864,7 +24840,7 @@ In a high school counseling group, a member starts describing in detail what an 
 
 ---
 
-### Q901 of 1000 · nce-s-cou-281 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q1025 of 1200 · nce-s-cou-281 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 An 11-year-old tells his counselor he has crossed hairstylist and bus driver off his list because "people in my family go to college and get important jobs." In Gottfredson's theory of circumscription and compromise, this reasoning reflects which stage?
 
@@ -21888,7 +24864,7 @@ An 11-year-old tells his counselor he has crossed hairstylist and bus driver off
 
 ---
 
-### Q902 of 1000 · nce-s-cou-282 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q1026 of 1200 · nce-s-cou-282 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 Using the CASVE cycle from the cognitive information processing approach, a counselor has helped a client understand her values, skills and the options open to her. They now expand her list of possible occupations and then narrow it to three or four realistic choices. Which phase are they in?
 
@@ -21912,7 +24888,7 @@ Using the CASVE cycle from the cognitive information processing approach, a coun
 
 ---
 
-### Q903 of 1000 · nce-s-cou-283 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
+### Q1027 of 1200 · nce-s-cou-283 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
 
 In Savickas's career construction interview, a counselor asks a client whom she admired when she was growing up, other than her parents. According to career construction theory, what do her answers MOST directly reveal?
 
@@ -21936,7 +24912,7 @@ In Savickas's career construction interview, a counselor asks a client whom she 
 
 ---
 
-### Q904 of 1000 · nce-s-cou-284 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+### Q1028 of 1200 · nce-s-cou-284 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
 
 A 21-year-old who earlier explored several fields has committed to nursing and is now deciding to specialize in pediatric intensive care. In Ginzberg, Ginsburg, Axelrad and Herma's theory, she is in which substage of the realistic period?
 
@@ -21960,7 +24936,7 @@ A 21-year-old who earlier explored several fields has committed to nursing and i
 
 ---
 
-### Q905 of 1000 · nce-s-cou-285 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
+### Q1029 of 1200 · nce-s-cou-285 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
 
 A 20-year-old says he has not thought much about what he wants in a career, religion or politics, has no plans and does not see why it matters. He is not distressed about this. Which of Marcia's identity statuses BEST fits?
 
@@ -21984,7 +24960,7 @@ A 20-year-old says he has not thought much about what he wants in a career, reli
 
 ---
 
-### Q906 of 1000 · nce-s-cou-286 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
+### Q1030 of 1200 · nce-s-cou-286 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
 
 A school counselor sets up regular meetings between a 9-year-old's parents and his teacher so that home and school follow the same homework and behavior plan. In Bronfenbrenner's ecological systems theory, the counselor is strengthening which system?
 
@@ -22008,7 +24984,7 @@ A school counselor sets up regular meetings between a 9-year-old's parents and h
 
 ---
 
-### Q907 of 1000 · nce-s-cou-287 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · hard · In review
+### Q1031 of 1200 · nce-s-cou-287 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · hard · In review
 
 An 8-year-old explains that he shares his snack with a classmate "because then she'll share her cookies with me tomorrow." For him, right action is whatever serves his own interests through fair trades. In Kohlberg's theory, this reasoning BEST fits which stage orientation?
 
@@ -22032,7 +25008,7 @@ An 8-year-old explains that he shares his snack with a classmate "because then s
 
 ---
 
-### Q908 of 1000 · nce-s-cou-288 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · hard · In review
+### Q1032 of 1200 · nce-s-cou-288 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · hard · In review
 
 A 5-year-old talks aloud to herself while working on a difficult puzzle ("No, the corner piece goes here first...") and talks more as the task gets harder. How would Vygotsky MOST likely interpret this behavior?
 
@@ -22056,7 +25032,7 @@ A 5-year-old talks aloud to herself while working on a difficult puzzle ("No, th
 
 ---
 
-### Q909 of 1000 · nce-s-cou-289 · Human Growth and Development · attachment theory · easy · In review
+### Q1033 of 1200 · nce-s-cou-289 · Human Growth and Development · attachment theory · easy · In review
 
 In the Strange Situation, a 12-month-old explores the toys with little attention to his mother, shows little distress when she leaves and, when she returns, looks away and does not seek contact. Which attachment classification BEST fits?
 
@@ -22080,7 +25056,7 @@ In the Strange Situation, a 12-month-old explores the toys with little attention
 
 ---
 
-### Q910 of 1000 · nce-s-cou-290 · Human Growth and Development · attachment theory · medium · In review
+### Q1034 of 1200 · nce-s-cou-290 · Human Growth and Development · attachment theory · medium · In review
 
 Ainsworth's home observations linked infants' later attachment classifications to how their caregivers had responded during the first year. Which caregiving pattern is MOST strongly associated with secure attachment?
 
@@ -22104,7 +25080,7 @@ Ainsworth's home observations linked infants' later attachment classifications t
 
 ---
 
-### Q911 of 1000 · nce-s-cou-291 · Counseling and Helping Relationships · basic attending and listening skills · easy · In review
+### Q1035 of 1200 · nce-s-cou-291 · Counseling and Helping Relationships · basic attending and listening skills · easy · In review
 
 A client mentions that she skipped her sister's wedding. The counselor asks, "Why did you do that?" and the client becomes guarded. What is the MOST likely problem with the counselor's question?
 
@@ -22128,7 +25104,7 @@ A client mentions that she skipped her sister's wedding. The counselor asks, "Wh
 
 ---
 
-### Q912 of 1000 · nce-s-cou-292 · Counseling and Helping Relationships · basic attending and listening skills · medium · In review
+### Q1036 of 1200 · nce-s-cou-292 · Counseling and Helping Relationships · basic attending and listening skills · medium · In review
 
 Reviewing a recording, a supervisor notes that a trainee often changes the subject, jumping to topics that interest the trainee instead of staying with what the client just said. Which component of Ivey's attending behavior should the trainee practice?
 
@@ -22152,7 +25128,7 @@ Reviewing a recording, a supervisor notes that a trainee often changes the subje
 
 ---
 
-### Q913 of 1000 · nce-s-cou-293 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · medium · In review
+### Q1037 of 1200 · nce-s-cou-293 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · medium · In review
 
 A 70-year-old client says, "Moving in with my daughter means I'll see my grandkids every day. But I'm giving up the house I lived in for forty years." Which response BEST reflects the client's feelings?
 
@@ -22176,7 +25152,7 @@ A 70-year-old client says, "Moving in with my daughter means I'll see my grandki
 
 ---
 
-### Q914 of 1000 · nce-s-cou-294 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · medium · In review
+### Q1038 of 1200 · nce-s-cou-294 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · medium · In review
 
 A counselor paraphrases, "So you're angry that your boss ignored your idea in the meeting." The client pauses and says, "Not angry, really. More like invisible." What is the BEST next response from the counselor?
 
@@ -22200,7 +25176,7 @@ A counselor paraphrases, "So you're angry that your boss ignored your idea in th
 
 ---
 
-### Q915 of 1000 · nce-s-cou-295 · Counseling and Helping Relationships · confrontation and immediacy · hard · In review
+### Q1039 of 1200 · nce-s-cou-295 · Counseling and Helping Relationships · confrontation and immediacy · hard · In review
 
 After a counselor gently points out a discrepancy, a client says, "Okay, I see that I keep missing my kids' games, even though I say family comes first. I'm still not sure what to do about it." On Ivey's Client Change Scale, this response is BEST classified as:
 
@@ -22224,7 +25200,7 @@ After a counselor gently points out a discrepancy, a client says, "Okay, I see t
 
 ---
 
-### Q916 of 1000 · nce-s-cou-296 · Counseling and Helping Relationships · confrontation and immediacy · medium · In review
+### Q1040 of 1200 · nce-s-cou-296 · Counseling and Helping Relationships · confrontation and immediacy · medium · In review
 
 Each session, a client asks her counselor what she should do and then thanks him warmly for "knowing best." The counselor notices he has begun giving advice he would not usually give. Which response BEST uses immediacy?
 
@@ -22248,7 +25224,7 @@ Each session, a client asks her counselor what she should do and then thanks him
 
 ---
 
-### Q917 of 1000 · nce-s-cou-297 · Counseling and Helping Relationships · termination skills · medium · In review
+### Q1041 of 1200 · nce-s-cou-297 · Counseling and Helping Relationships · termination skills · medium · In review
 
 A client has met all of her counseling goals, but her counselor keeps suggesting "a few more sessions" because he enjoys their work and will miss her. What should the counselor do FIRST?
 
@@ -22272,7 +25248,7 @@ A client has met all of her counseling goals, but her counselor keeps suggesting
 
 ---
 
-### Q918 of 1000 · nce-s-cou-298 · Social and Cultural Diversity · multicultural counseling competencies · hard · In review
+### Q1042 of 1200 · nce-s-cou-298 · Social and Cultural Diversity · multicultural counseling competencies · hard · In review
 
 A university counselor learns that several transgender students have been denied campus housing that matches their gender identity. She works with residence life administrators to revise the university's housing policy. In the MSJCC, this intervention targets which socioecological level?
 
@@ -22296,7 +25272,7 @@ A university counselor learns that several transgender students have been denied
 
 ---
 
-### Q919 of 1000 · nce-s-cou-299 · Social and Cultural Diversity · racial and cultural identity models · medium · In review
+### Q1043 of 1200 · nce-s-cou-299 · Social and Cultural Diversity · racial and cultural identity models · medium · In review
 
 A 13-year-old with a Black father and a White mother tells her school counselor that classmates keep asking "what she really is," and she feels she has to pick one racial group to belong to. In Poston's biracial identity development model, which stage BEST fits?
 
@@ -22320,7 +25296,7 @@ A 13-year-old with a Black father and a White mother tells her school counselor 
 
 ---
 
-### Q920 of 1000 · nce-s-cou-300 · Social and Cultural Diversity · racial and cultural identity models · hard · In review
+### Q1044 of 1200 · nce-s-cou-300 · Social and Cultural Diversity · racial and cultural identity models · hard · In review
 
 A White counseling student now rejects racism intellectually and seeks out classmates of color, often asking them to explain racism to her, while still judging their experiences by White norms. In Helms's White racial identity model, which status BEST fits?
 
@@ -22344,9 +25320,1449 @@ A White counseling student now rejects racism intellectually and seeks out class
 
 ---
 
-## Core Counseling Attributes (80)
+### Q1045 of 1200 · nce-s-cou-301 · Counseling and Helping Relationships · reality therapy and choice theory · medium · In review
 
-### Q921 of 1000 · nce-s-cor-001 · Counseling and Helping Relationships · empathy and its levels · medium · In review
+A mother asks a reality therapist to "make" her 16-year-old stop gaming late and start studying. She says she has tried yelling, grounding him and taking away his phone, and nothing works. Which axiom of Glasser's choice theory should guide the counselor's response?
+
+**A.** Past events with the son determine the present, so they must be resolved first
+> Glasser held that the past shapes us but that needs can be met only in the present, so therapy focuses on now.
+
+**B.** Firm rewards and punishments from parents are what teens need to choose well
+> Rewards and punishments are external control psychology, which choice theory says harms relationships.
+
+**C.** The only person whose behavior we can control is our own, not her son's **✔ KEY**
+> This is Glasser's first axiom; the mother can change her own choices, which may in turn improve the relationship.
+
+**D.** A teen's feelings drive his acts, so the counselor should change his mood first
+> Choice theory holds that we change feelings indirectly by changing acting and thinking, not the reverse.
+
+**Rationale:** Glasser's ten axioms of choice theory begin with the idea that the only behavior we can control is our own; all we can give another person is information. Efforts to force others through criticism, threats or punishment reflect external control psychology and damage relationships. A reality therapist would help the mother evaluate what she is doing and choose behaviors more likely to connect with her son.
+
+**References:** Corey (Theory & Practice) — Reality Therapy: choice theory and Glasser's axioms; external control psychology
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1046 of 1200 · nce-s-cou-302 · Counseling and Helping Relationships · reality therapy and choice theory · hard · In review
+
+A 45-year-old accountant seeks help for tension headaches and worry that have lasted two years. He wants to talk mainly about his symptoms and a harsh father who died a decade ago. Following Glasser's choice theory, where would a reality therapist MOST likely focus first?
+
+**A.** On which important relationship in his life now is unsatisfying **✔ KEY**
+> Glasser held that long-lasting problems are relationship problems and that the problem relationship is part of present life.
+
+**B.** On a detailed history of each headache and the worry that comes with it
+> Reality therapists give little attention to symptoms, seeing them as chosen ways of coping with unmet needs.
+
+**C.** On working through his anger at his late father to gain full insight
+> Insight into the past is not the aim; Glasser focused on present behavior and present relationships.
+
+**D.** On teaching relaxation so the headaches ease before other work begins
+> Symptom relief skills are not the reality therapy focus; the aim is meeting needs through better choices.
+
+**Rationale:** Among Glasser's axioms are that all long-lasting psychological problems are relationship problems and that the problem relationship is always part of the person's present life. Reality therapists therefore spend little time on symptoms or the distant past. They look for the current relationship in which the client's needs for love and belonging or power are not being met.
+
+**References:** Corey (Theory & Practice) — Reality Therapy: choice theory axioms; focus on present relationships rather than symptoms or the past
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1047 of 1200 · nce-s-cou-303 · Counseling and Helping Relationships · reality therapy and choice theory · medium · In review
+
+A client says, "I've been so depressed since the layoff." Her reality therapist replies, "It sounds like you've been depressing a lot lately. What are you doing while you're depressing?" What is the main purpose of describing her mood with an active verb?
+
+**A.** To show the client that her low mood is not real and will pass soon
+> Glasser does not deny the pain; he reframes it as part of a behavior the person is choosing.
+
+**B.** To confront her gently so she feels guilty about staying in her mood
+> Reality therapy avoids blame and criticism; the verb form is meant to empower, not shame.
+
+**C.** To find the early experience that first taught her to feel this way
+> Searching for early causes is not part of reality therapy, which stays with present choices.
+
+**D.** To stress that total behavior is chosen and can be changed by acting **✔ KEY**
+> Glasser used verbs such as "depressing" to show that the feeling is part of chosen total behavior that she can change.
+
+**Rationale:** Choice theory holds that all behavior is total behavior (acting, thinking, feeling and physiology) and that it is chosen. Glasser described feelings with verbs such as "depressing" or "angering" to underline that people are active in what they experience. Because acting and thinking are the parts we directly control, changing them is the route to feeling better.
+
+**References:** Corey (Theory & Practice) — Reality Therapy: total behavior and the use of verbs (e.g., "depressing")
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1048 of 1200 · nce-s-cou-304 · Social and Cultural Diversity · feminist therapy · medium · In review
+
+A 38-year-old Black woman who uses a wheelchair describes being passed over for promotion. Her feminist counselor helps her explore how race, disability, gender and class combine to shape this experience in ways that a focus on gender alone would miss. Which concept is the counselor drawing on?
+
+**A.** Androgyny
+> Androgyny refers to a flexible blend of gender-typed traits, not to overlapping social identities.
+
+**B.** Intersectionality **✔ KEY**
+> Intersectionality examines how multiple identities and systems of oppression interact to shape a person's experience.
+
+**C.** Gender-role analysis
+> Gender-role analysis focuses on gender messages, while this counselor looks at several identities together.
+
+**D.** Relabeling
+> Relabeling changes the language used for a trait or symptom; it does not analyze overlapping identities.
+
+**Rationale:** Contemporary feminist therapy is multicultural and intersectional. It recognizes that gender is experienced together with race, class, disability, sexual orientation and other identities, and that oppression operates across these at once. Exploring these intersections helps the client locate distress in its full social context rather than in personal failing.
+
+**References:** Corey (Theory & Practice) — Feminist Therapy: multicultural and intersectional perspectives · Sue & Sue (Counseling the Culturally Diverse) — Multiple identities and intersectionality in counseling
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1049 of 1200 · nce-s-cou-305 · Counseling and Helping Relationships · feminist therapy · medium · In review
+
+A graduate student says she feels "crazy" for being upset by a professor's repeated sexist jokes. Her feminist counselor briefly shares that she, too, has faced sexism at work and found it hard to name at first. What is the PRIMARY purpose of this disclosure in feminist therapy?
+
+**A.** To shift the session toward the counselor's own story so she can model coping
+> Feminist self-disclosure is brief and for the client's benefit; it does not shift the focus to the counselor.
+
+**B.** To lessen the power gap and show that her reaction is a shared, valid one **✔ KEY**
+> Purposeful disclosure equalizes the relationship and normalizes the client's reaction as a response to sexism.
+
+**C.** To persuade the client to file a formal complaint against the professor
+> Feminist counselors respect client choice; disclosure is not used to push a particular action.
+
+**D.** To set up transference so the client can work through early relationships
+> Fostering transference is a psychodynamic aim, not the purpose of feminist self-disclosure.
+
+**Rationale:** Feminist therapists use self-disclosure purposefully to reduce the power differential, model openness and help clients see that their reactions are understandable responses to social conditions. Disclosures are brief, relevant and offered for the client's benefit. Used this way, they support the egalitarian relationship at the heart of feminist practice.
+
+**References:** Corey (Theory & Practice) — Feminist Therapy: techniques (therapist self-disclosure) and the egalitarian relationship
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1050 of 1200 · nce-s-cou-306 · Social and Cultural Diversity · feminist therapy · easy · In review
+
+Which therapy goal is MOST consistent with a feminist approach to counseling?
+
+**A.** Helping the client adjust to the roles that are expected of her in her setting
+> Feminist therapy questions adjustment to restrictive roles rather than making it the goal.
+
+**B.** Resolving unconscious conflicts that took root in early childhood experiences
+> Resolving unconscious conflict is a psychoanalytic goal, not the defining aim of feminist therapy.
+
+**C.** Eliminating symptoms quickly so the client can return to her usual routine
+> Symptom relief alone ignores the social context that feminist therapy places at the center.
+
+**D.** Empowering the client and fostering change in oppressive social conditions **✔ KEY**
+> Feminist therapy aims at personal empowerment and at social transformation, not adjustment to the status quo.
+
+**Rationale:** Feminist therapy seeks both individual and social change. Goals include empowerment, self-definition, valuing the client's own perspective and challenging oppressive conditions, often through advocacy or social action. Because "the personal is political," adjustment to unjust norms is not considered a healthy outcome.
+
+**References:** Corey (Theory & Practice) — Feminist Therapy: therapeutic goals (empowerment and social transformation)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1051 of 1200 · nce-s-cou-307 · Counseling and Helping Relationships · crisis intervention models · medium · In review
+
+A 52-year-old farmworker comes to a rural clinic two days after a flood destroyed his home. Using Roberts' seven-stage model, the counselor has completed a lethality assessment and established rapport. What should the counselor do NEXT?
+
+**A.** Identify the major problems, including the event that set off the crisis **✔ KEY**
+> Stage 3 of Roberts' model is identifying the major problems and the precipitating event.
+
+**B.** Develop and put into action a step-by-step plan for the coming week
+> Formulating an action plan is stage 6, after problems, feelings and alternatives are explored.
+
+**C.** Brainstorm alternatives and coping options the client has not yet tried
+> Generating and exploring alternatives is stage 5 and comes after problems and feelings are addressed.
+
+**D.** Schedule follow-up contact to check on how he is doing in a few weeks
+> Follow-up is the seventh and final stage of Roberts' model.
+
+**Rationale:** Roberts' seven stages are: (1) assess lethality and psychosocial needs, (2) establish rapport, (3) identify major problems or precipitants, (4) deal with feelings and emotions, (5) generate and explore alternatives, (6) develop and carry out an action plan, and (7) follow up. Defining the problems that triggered the crisis gives focus to the work on feelings and options that follows.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — Crisis counseling: Roberts' seven-stage crisis intervention model
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1052 of 1200 · nce-s-cou-308 · Counseling and Helping Relationships · crisis intervention models · hard · In review
+
+A crisis counselor trained in James and Gilliland's six-step model is working with a teen who ran away after a family fight. A supervisor asks when assessment should take place in this model. Which answer is accurate?
+
+**A.** Only at the start, during the step of defining the problem
+> Assessment is not limited to the first step; the client's state can change at any point.
+
+**B.** Only at the end, when the counselor obtains a commitment
+> Waiting until the end would miss changes in safety and functioning during the session.
+
+**C.** Continuously, across all six steps of the intervention **✔ KEY**
+> James and Gilliland place assessment as an ongoing process that runs through every step.
+
+**D.** At set intervals, after each pair of the six steps is done
+> The model does not schedule assessment at fixed points; it is ongoing throughout.
+
+**Rationale:** James and Gilliland's model has three listening steps (define the problem, ensure safety, provide support) and three acting steps (examine alternatives, make plans, obtain commitment). Assessment is not a separate step; it is pervasive and continuous throughout. The counselor keeps judging the client's emotional, behavioral and cognitive functioning to decide how directive to be.
+
+**References:** James & Gilliland (Crisis Intervention Strategies) — Six-step model of crisis intervention: assessing throughout the process
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1053 of 1200 · nce-s-cou-309 · Counseling and Helping Relationships · crisis intervention models · easy · In review
+
+Modern crisis theory traces back to a psychiatrist's study of grief reactions among survivors and bereaved relatives after the 1942 Cocoanut Grove nightclub fire in Boston. Who conducted this study?
+
+**A.** Albert Roberts
+> Roberts developed the seven-stage crisis intervention model decades later.
+
+**B.** Elisabeth Kübler-Ross
+> Kübler-Ross described stages of dying in the late 1960s, not grief after the fire.
+
+**C.** Gerald Caplan
+> Caplan built on this work to develop preventive psychiatry and crisis theory.
+
+**D.** Erich Lindemann **✔ KEY**
+> Lindemann's study of grief after the Cocoanut Grove fire is a founding work of crisis theory.
+
+**Rationale:** Erich Lindemann studied the acute grief of people affected by the Cocoanut Grove fire and described normal grief reactions and how brief help could aid recovery. Gerald Caplan, his colleague, extended this into a theory of crisis and preventive community mental health. Together their work is the foundation of modern crisis intervention.
+
+**References:** James & Gilliland (Crisis Intervention Strategies) — History of crisis intervention: Lindemann and Caplan
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1054 of 1200 · nce-s-cou-310 · Counseling and Helping Relationships · Adlerian therapy · medium · In review
+
+During a lifestyle assessment, a 30-year-old client says, "People will take advantage of you if you let them," and later, "Unless I'm the best at something, I'm nothing." Her Adlerian counselor notes these as faulty convictions to explore. What are these called?
+
+**A.** Basic mistakes **✔ KEY**
+> Mosak described basic mistakes, such as overgeneralization and denial of one's worth, as self-defeating lifestyle beliefs.
+
+**B.** Feelings of inferiority
+> Inferiority feelings are normal and motivate striving; these statements are specific faulty beliefs.
+
+**C.** Family constellation
+> The family constellation is the family system and birth order explored in the assessment, not the beliefs.
+
+**D.** Social interest
+> Social interest is the sense of belonging and concern for others, which these beliefs work against.
+
+**Rationale:** Adlerians summarize the lifestyle assessment by identifying basic mistakes: self-defeating convictions in the client's private logic. Mosak grouped them as overgeneralizations, false or impossible goals of security, misperceptions of life and its demands, minimization or denial of one's worth, and faulty values. Naming them helps the client gain insight and choose new beliefs.
+
+**References:** Corey (Theory & Practice) — Adlerian Therapy: lifestyle assessment and basic mistakes (Mosak)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1055 of 1200 · nce-s-cou-311 · Counseling and Helping Relationships · Adlerian therapy · easy · In review
+
+An Adlerian counselor sees progress when a withdrawn retiree begins tutoring neighborhood children and checks in on an ill friend. Adler saw this growing sense of belonging and concern for others as the key measure of mental health. What did he call it?
+
+**A.** Fictional finalism
+> Fictional finalism is an imagined central goal that guides behavior, not concern for others.
+
+**B.** Style of life
+> Style of life is a person's characteristic way of moving toward goals, healthy or not.
+
+**C.** Social interest **✔ KEY**
+> Social interest (Gemeinschaftsgefühl) is the sense of community feeling that Adler saw as the core of health.
+
+**D.** Striving for superiority
+> Striving for superiority is the drive to overcome inferiority, which can be useful or useless.
+
+**Rationale:** Adler's concept of social interest, or Gemeinschaftsgefühl, refers to a sense of belonging to and contributing to the human community. He viewed it as the main criterion of psychological health: the more social interest a person shows, the healthier they are. Adlerian counseling aims to increase it, so new contributions to others are a sign of progress.
+
+**References:** Corey (Theory & Practice) — Adlerian Therapy: social interest and community feeling
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1056 of 1200 · nce-s-cou-312 · Counseling and Helping Relationships · person-centered therapy · medium · In review
+
+A counseling student is asked to describe the outcome Carl Rogers hoped clients would move toward, which he called becoming a "fully functioning person." Which description is MOST accurate?
+
+**A.** Living by clear rules learned from parents and keeping strong control of feelings
+> Living by introjected rules reflects conditions of worth, which Rogers saw as blocking growth.
+
+**B.** Growing more open to experience and trusting one's own inner, organismic valuing **✔ KEY**
+> Rogers described the fully functioning person as open to experience, living in the moment and self-trusting.
+
+**C.** Gaining insight into repressed memories and resolving conflicts from childhood
+> Insight into repressed material is a psychoanalytic aim, not Rogers' description of growth.
+
+**D.** Disputing irrational beliefs and adopting a more rational philosophy of living
+> Disputing irrational beliefs is the REBT route to change, not the person-centered ideal.
+
+**Rationale:** Rogers described the fully functioning person as open to experience, living existentially in the present, trusting their own organism and feeling free to choose. As clients receive congruence, unconditional positive regard and empathy, they rely less on conditions of worth and more on their own valuing process. Person-centered therapy trusts this actualizing tendency rather than directing the client toward set goals.
+
+**References:** Corey (Theory & Practice) — Person-Centered Therapy: the fully functioning person and goals of therapy
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1057 of 1200 · nce-s-cou-313 · Counseling and Helping Relationships · existential therapy · hard · In review
+
+A 58-year-old former dancer with a progressive spinal condition can no longer perform or teach. She says her life now has meaning because of the courage and humor with which she faces her illness. In Frankl's logotherapy, which source of meaning is she drawing on?
+
+**A.** Attitudinal values **✔ KEY**
+> Frankl held that the stance a person takes toward unavoidable suffering is itself a source of meaning.
+
+**B.** Creative values
+> Creative values come from what one gives through work or deeds, which she can no longer do.
+
+**C.** Experiential values
+> Experiential values come from what one receives, such as love, nature or art, not from facing suffering.
+
+**D.** Will to power
+> Frankl contrasted his will to meaning with Adler's will to power; it is not a source of meaning.
+
+**Rationale:** Frankl described three main paths to meaning: creative values (what we give to the world), experiential values (what we take from the world, such as love or beauty) and attitudinal values (the stance we take toward suffering we cannot change). Attitudinal values mean that meaning is possible even when the other two paths are closed. This idea comes from his experience in the concentration camps.
+
+**References:** Corey (Theory & Practice) — Existential Therapy: Frankl's logotherapy and the search for meaning
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1058 of 1200 · nce-s-cou-314 · Counseling and Helping Relationships · existential therapy · medium · In review
+
+A 50-year-old client says he feels a nagging regret that he never pursued music and has spent decades doing what others expected. His existential counselor sees this feeling as meaningful rather than as a symptom. How would the counselor MOST likely understand it?
+
+**A.** As neurotic guilt from breaking his parents' rules, which needs to be reduced
+> Guilt over breaking rules is not the concern here; his regret is about unlived potential.
+
+**B.** As a sign of depression that should be treated before any deeper exploration
+> Existential counselors do not first reduce such feelings to a disorder; they explore what they mean.
+
+**C.** As a cognitive distortion that can be disputed with evidence from his life
+> Treating the regret as a distortion to dispute reflects a cognitive approach, not an existential one.
+
+**D.** As existential guilt over unlived potential, a call toward a more authentic life **✔ KEY**
+> Existential guilt arises from failing to realize one's possibilities and can motivate authentic choices.
+
+**Rationale:** Existential writers such as May and Yalom distinguish existential guilt from neurotic guilt. Existential guilt is the awareness that one has not lived up to one's potential or has lived inauthentically, often by following others' expectations. Rather than removing it, the counselor helps the client hear it as a call to take responsibility and make more authentic choices now.
+
+**References:** Corey (Theory & Practice) — Existential Therapy: authenticity, existential anxiety and existential guilt
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1059 of 1200 · nce-s-cou-315 · Counseling and Helping Relationships · gestalt therapy · medium · In review
+
+Each time her gestalt counselor asks how she feels about her mother's illness, a 27-year-old client makes a joke, talks in vague generalities or changes the subject to her job. Which contact boundary disturbance does this BEST illustrate?
+
+**A.** Confluence
+> Confluence is a blurring of the boundary between self and others, not a turning away from contact.
+
+**B.** Retroflection
+> Retroflection is doing to oneself what one would like to do to others, such as turning anger inward.
+
+**C.** Deflection **✔ KEY**
+> Deflection avoids sustained contact through humor, vagueness, abstraction or changing the subject.
+
+**D.** Introjection
+> Introjection is swallowing others' values whole without examining them.
+
+**Rationale:** Gestalt therapy describes several ways people interrupt contact: introjection, projection, retroflection, deflection and confluence. Deflection is a way of diluting contact by being vague, overly polite, joking or shifting focus so that experience does not fully land. The counselor helps the client notice the pattern and stay with what is being avoided.
+
+**References:** Corey (Theory & Practice) — Gestalt Therapy: contact and resistances to contact (deflection)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1060 of 1200 · nce-s-cou-316 · Counseling and Helping Relationships · gestalt therapy · easy · In review
+
+A client describes an inner voice that says, "You should be working harder, you lazy slob," and another that whines, "I'll do it tomorrow, I'm too tired." Her gestalt counselor has her give each voice a chair and speak as it. Perls called these two parts of the self:
+
+**A.** Id and superego
+> The id and superego are Freudian structures, not the gestalt terms for this split.
+
+**B.** Top dog and underdog **✔ KEY**
+> Perls named the demanding, critical part the top dog and the passive, excuse-making part the underdog.
+
+**C.** Parent and Child
+> Parent and Child are ego states in transactional analysis, not Perls' terms.
+
+**D.** Figure and ground
+> Figure and ground describe what stands out in awareness, not two conflicting parts of the self.
+
+**Rationale:** Perls described a common internal split between the top dog, which is righteous, demanding and full of "shoulds," and the underdog, which resists through excuses, helplessness and delay. The two-chair technique lets the client voice each side fully. Bringing both into awareness helps the client integrate them rather than stay stuck in the conflict.
+
+**References:** Corey (Theory & Practice) — Gestalt Therapy: top dog and underdog; the empty-chair (two-chair) technique
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1061 of 1200 · nce-s-cou-317 · Counseling and Helping Relationships · rational emotive behavior therapy · hard · In review
+
+A client insists, "I must never make a mistake at work." His REBT counselor asks, "Where has holding on to that demand gotten you? How has it helped you at work and with your stress?" Which type of disputing is the counselor using?
+
+**A.** Empirical disputing
+> Empirical disputing asks for evidence that the belief is true, such as "Where is the proof?"
+
+**B.** Pragmatic disputing **✔ KEY**
+> Pragmatic (functional) disputing asks whether the belief helps or hurts the client in reaching goals.
+
+**C.** Logical disputing
+> Logical disputing asks whether the demand follows logically from a preference.
+
+**D.** Imaginal disputing
+> Rational emotive imagery works with images and emotions, not questions about usefulness.
+
+**Rationale:** Ellis and Dryden describe three main kinds of disputing. Empirical disputing asks whether there is evidence for the belief, logical disputing asks whether it makes sense, and pragmatic or functional disputing asks whether holding the belief helps the client. Showing a client that a demand leads to stress and poorer work often motivates change when other arguments do not.
+
+**References:** Ellis & Dryden (REBT) — Disputing irrational beliefs: empirical, logical and pragmatic arguments
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1062 of 1200 · nce-s-cou-318 · Counseling and Helping Relationships · rational emotive behavior therapy · medium · In review
+
+After her fiancé ended their engagement, a 31-year-old client stays in bed, tells herself she is unlovable and says she wants her REBT counselor to "make the pain go away completely." What is the MOST appropriate emotional goal from an REBT view?
+
+**A.** Feeling sad and disappointed rather than depressed and self-condemning **✔ KEY**
+> REBT aims to replace unhealthy negative emotions with healthy ones such as sadness, not to remove all pain.
+
+**B.** Feeling calm and indifferent about the end of the relationship by now
+> Indifference to a real loss is not a REBT goal; caring about the loss is healthy.
+
+**C.** Feeling cheerful and positive by focusing only on what she gained
+> Forced positivity ignores the loss; REBT does not aim to replace pain with cheer.
+
+**D.** Feeling angry at her fiancé so her energy is turned outward instead
+> Swapping one unhealthy emotion for another does not reflect the REBT model of healthy emotions.
+
+**Rationale:** REBT distinguishes unhealthy negative emotions, such as depression, anxiety, shame and rage, from healthy negative emotions, such as sadness, concern, disappointment and annoyance. Healthy negative emotions fit real losses and come from rational preferences. The goal is not to feel nothing, but to feel appropriately bad without self-damning beliefs.
+
+**References:** Ellis & Dryden (REBT) — Healthy versus unhealthy negative emotions
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1063 of 1200 · nce-s-cou-319 · Counseling and Helping Relationships · solution-focused brief therapy · medium · In review
+
+A single parent of three lists debts, conflict with an ex-partner and a child's school troubles, and says she does not know where to start. Her solution-focused counselor helps her pick one small, doable step for the week. Which SFBT assumption BEST explains this choice?
+
+**A.** Each problem must be fully understood before any solution can be tried
+> SFBT holds that solutions need not be tied to a full understanding of problems.
+
+**B.** Large, lasting change requires first working through all the past causes
+> SFBT is future-focused and does not work through past causes as a first step.
+
+**C.** The counselor, as expert, should pick the goal that matters most of all
+> SFBT views the client as the expert who chooses goals; the counselor does not decide.
+
+**D.** A small change can set off a ripple effect leading to larger changes **✔ KEY**
+> De Shazer held that small changes build on each other and can spread to other areas of life.
+
+**Rationale:** Solution-focused brief therapy assumes that change is constant and that a small change in one area can lead to larger changes elsewhere. Small, concrete goals are easier to reach, build hope and confidence, and can shift how the whole system works. The client, as the expert on their own life, chooses which step to try.
+
+**References:** Corey (Theory & Practice) — Solution-Focused Brief Therapy: key assumptions (small change leads to bigger change)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1064 of 1200 · nce-s-cou-320 · Counseling and Helping Relationships · narrative therapy · hard · In review
+
+A client who sees himself as "a coward" describes, step by step, how he spoke up for a coworker who was being mocked. His narrative counselor then asks, "What does it say about what you value that you took that stand?" In White's terms, this second question explores the:
+
+**A.** Landscape of action
+> The landscape of action covers events, sequence and time, which the first account already described.
+
+**B.** Dominant story
+> The dominant story is the problem-saturated "coward" account, not the new identity meaning.
+
+**C.** Landscape of identity **✔ KEY**
+> Landscape of identity questions ask what an event shows about values, hopes, intentions and character.
+
+**D.** Externalizing conversation
+> Externalizing separates the person from the problem; this question builds meaning from an event.
+
+**Rationale:** In re-authoring conversations, Michael White moves between two landscapes. Landscape of action questions explore events, circumstances and sequence, while landscape of identity questions explore what those events reveal about the person's values, purposes and commitments. Moving back and forth thickens an alternative story that can stand against the dominant one.
+
+**References:** White (Maps of Narrative Practice) — Ch. 2, re-authoring conversations: landscape of action and landscape of identity
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1065 of 1200 · nce-s-cou-321 · Counseling and Helping Relationships · narrative therapy · easy · In review
+
+Which pair of therapists is MOST closely associated with founding narrative therapy and writing Narrative Means to Therapeutic Ends?
+
+**A.** Michael White and David Epston **✔ KEY**
+> White (Australia) and Epston (New Zealand) developed narrative therapy and co-wrote this 1990 book.
+
+**B.** Steve de Shazer and Insoo Kim Berg
+> De Shazer and Berg developed solution-focused brief therapy.
+
+**C.** Salvador Minuchin and Jay Haley
+> Minuchin is linked to structural and Haley to strategic family therapy.
+
+**D.** Albert Ellis and Aaron Beck
+> Ellis founded REBT and Beck founded cognitive therapy.
+
+**Rationale:** Michael White and David Epston developed narrative therapy in the 1980s, drawing on ideas about stories, power and knowledge. Their book Narrative Means to Therapeutic Ends introduced practices such as externalizing the problem and therapeutic letters. White later described his methods in Maps of Narrative Practice.
+
+**References:** Corey (Theory & Practice) — Narrative Therapy: key figures (White and Epston) · White (Maps of Narrative Practice) — Introduction: development of narrative practice
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1066 of 1200 · nce-s-cou-322 · Counseling and Helping Relationships · motivational interviewing · medium · In review
+
+A 40-year-old client who gambles online says, "I've got to do something about this. I can't keep going on like this." The counselor wants to recognize and reflect the change talk. Using the DARN-CAT framework, which type of change talk is this?
+
+**A.** Desire
+> Desire is stated as wanting or wishing, such as "I want to stop."
+
+**B.** Ability
+> Ability statements express capacity, such as "I could cut back."
+
+**C.** Activation
+> Activation signals readiness to move, such as "I'm willing to try," which is mobilizing talk.
+
+**D.** Need **✔ KEY**
+> Need statements express urgency or necessity, such as "I've got to" or "I can't keep going."
+
+**Rationale:** Miller and Rollnick divide change talk into preparatory talk (Desire, Ability, Reasons, Need) and mobilizing talk (Commitment, Activation, Taking steps). Need language expresses an imperative for change without saying why or what will be done. Hearing and reflecting each form helps the counselor strengthen the client's own motivation.
+
+**References:** Miller & Rollnick (MI) — Evoking: preparatory change talk (DARN), including need
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1067 of 1200 · nce-s-cou-323 · Counseling and Helping Relationships · motivational interviewing · medium · In review
+
+A client who smokes says calmly, "I've tried to quit five times, and it never sticks. Honestly, smoking is the one thing that gets me through my shifts." The client remains warm and engaged with the counselor. In MI terms, these statements are BEST described as:
+
+**A.** Discord in the working alliance
+> Discord is friction in the relationship, such as arguing with the counselor, which is absent here.
+
+**B.** Sustain talk favoring the status quo **✔ KEY**
+> Sustain talk is the client's own speech in favor of not changing, such as low ability or reasons to keep smoking.
+
+**C.** Preparatory change talk about ability
+> Ability change talk expresses capacity to change; these statements argue against it.
+
+**D.** Denial requiring direct confrontation
+> MI does not label ambivalence as denial, and confronting it tends to increase sustain talk.
+
+**Rationale:** In current MI, what was once called resistance is split into sustain talk and discord. Sustain talk is the client's speech about the target behavior that favors staying the same, while discord is tension in the relationship between client and counselor. Both are normal parts of ambivalence, and the counselor responds with reflections rather than argument.
+
+**References:** Miller & Rollnick (MI) — Responding to sustain talk and discord
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1068 of 1200 · nce-s-cou-324 · Counseling and Helping Relationships · dialectical behavior therapy · hard · In review
+
+A client in DBT wants to turn down a close friend's request to borrow her car again, but her main goal is to keep the friendship warm. Her therapist suggests she stay gentle, show interest in the friend's needs, validate them and use an easy manner. Which interpersonal effectiveness skill set is this?
+
+**A.** DEAR MAN
+> DEAR MAN targets objectives effectiveness, getting what one wants or saying no firmly.
+
+**B.** FAST
+> FAST targets self-respect effectiveness: being fair, not over-apologizing, sticking to values, truthful.
+
+**C.** GIVE **✔ KEY**
+> GIVE (gentle, interested, validate, easy manner) targets relationship effectiveness.
+
+**D.** TIPP
+> TIPP is a distress tolerance skill for lowering extreme arousal, not an interpersonal skill.
+
+**Rationale:** Linehan's interpersonal effectiveness module teaches three skill sets matched to a person's priority. DEAR MAN serves objectives effectiveness, GIVE serves relationship effectiveness and FAST serves self-respect effectiveness. When keeping the relationship matters most, the client leans on GIVE while still saying no.
+
+**References:** Linehan (DBT Skills Training Manual) — Interpersonal effectiveness: GIVE skills for relationship effectiveness
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1069 of 1200 · nce-s-cou-325 · Counseling and Helping Relationships · dialectical behavior therapy · medium · In review
+
+A 22-year-old in a comprehensive DBT program calls her individual therapist on a Friday night when urges to self-harm rise, and the therapist briefly coaches her through a distress tolerance skill. What is the MAIN function of this phone coaching mode?
+
+**A.** Helping her use skills in the real-life moments where she needs them **✔ KEY**
+> Phone coaching serves generalization, helping clients apply skills in daily life when urges arise.
+
+**B.** Giving her an open line for long talks to process the whole week
+> DBT coaching calls are brief and skills-focused, not open-ended therapy sessions.
+
+**C.** Helping the therapist stay motivated and avoid burnout with clients
+> Supporting therapist motivation is the role of the DBT consultation team, not phone coaching.
+
+**D.** Teaching her the four skills modules for the first time in sequence
+> New skills are taught in skills training groups; coaching helps apply skills already learned.
+
+**Rationale:** Comprehensive DBT has four modes: individual therapy, group skills training, between-session phone coaching and a therapist consultation team. Skills group teaches skills, while phone coaching helps the client generalize them to the real situations where they are needed. Calls are brief and focused on which skill to use now.
+
+**References:** Linehan (DBT Skills Training Manual) — Overview of DBT: treatment modes and the function of between-session skills coaching
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1070 of 1200 · nce-s-cou-326 · Human Growth and Development · play therapy · easy · In review
+
+Which clinician adapted Carl Rogers' ideas to work with children, set out eight basic principles of nondirective play therapy and wrote the case study Dibs in Search of Self?
+
+**A.** Melanie Klein
+> Klein used play as a substitute for free association within a psychoanalytic approach.
+
+**B.** Anna Freud
+> Anna Freud used play to build a relationship within child psychoanalysis.
+
+**C.** Virginia Axline **✔ KEY**
+> Axline founded nondirective play therapy based on Rogers and wrote Dibs in Search of Self.
+
+**D.** Terry Kottman
+> Kottman developed Adlerian play therapy, not nondirective play therapy.
+
+**Rationale:** Virginia Axline, a student of Carl Rogers, applied person-centered ideas to children in nondirective play therapy. Her eight principles include building a warm relationship, accepting the child as they are and letting the child lead. Garry Landreth later developed this work into child-centered play therapy.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — Counseling children: play therapy approaches (Axline's nondirective play therapy)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1071 of 1200 · nce-s-cou-327 · Human Growth and Development · play therapy · medium · In review
+
+In a child-centered play therapy session, a 7-year-old finishes a clay figure after several tries, holds it up and asks, "Isn't it good?" Which counselor response BEST fits this approach?
+
+**A.** "That's really good! You're a great artist."
+> Evaluative praise teaches the child to rely on adult approval rather than self-evaluation.
+
+**B.** "Next time you could try adding some more color."
+> Suggestions direct the play and imply the work is not yet good enough.
+
+**C.** "Why did you decide to make that figure today?"
+> Why questions ask the child to explain and can feel evaluative.
+
+**D.** "You kept at it until it looked how you wanted." **✔ KEY**
+> This esteem-building response notes the child's effort and lets the child judge the work.
+
+**Rationale:** Child-centered play therapists avoid praise and judgment because these place the source of evaluation in the adult. Esteem-building responses describe the child's effort, persistence or decisions, such as "You figured it out." These help the child develop an internal sense of competence and self-direction.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — Counseling children: child-centered play therapy responses (esteem building versus praise)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1072 of 1200 · nce-s-cou-328 · Counseling and Helping Relationships · trauma-informed interventions · easy · In review
+
+A community agency becoming trauma-informed hires staff with their own lived experience of trauma and recovery to share hope and mutual support with clients. Which of SAMHSA's six trauma-informed principles does this step MOST directly reflect?
+
+**A.** Safety
+> Safety concerns physical and emotional security, not the use of people with lived experience.
+
+**B.** Peer support **✔ KEY**
+> Peer support uses people with lived experience to build trust, hope and recovery.
+
+**C.** Trustworthiness and transparency
+> This principle concerns clear, open decisions and consistent boundaries, not peer staff.
+
+**D.** Cultural, historical and gender issues
+> This principle addresses bias, culture and historical trauma, not lived-experience roles.
+
+**Rationale:** SAMHSA's trauma-informed approach rests on six principles: safety; trustworthiness and transparency; peer support; collaboration and mutuality; empowerment, voice and choice; and cultural, historical and gender issues. Peer support draws on people with lived experience of trauma to promote hope, trust and recovery. Many agencies put this principle into practice by hiring peer specialists.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — Trauma and crisis counseling: principles of trauma-informed care (SAMHSA)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1073 of 1200 · nce-s-cou-329 · Counseling and Helping Relationships · trauma-informed interventions · medium · In review
+
+A veteran with PTSD repeatedly recounts his worst combat memory aloud in session, in the present tense, and listens to a recording of it at home. He also slowly approaches crowded stores he has been avoiding. Which evidence-based treatment is he receiving?
+
+**A.** Prolonged exposure **✔ KEY**
+> Prolonged exposure combines repeated imaginal exposure with recorded homework and in vivo exposure.
+
+**B.** Cognitive processing therapy
+> CPT centers on stuck points and written work rather than repeated imaginal and in vivo exposure.
+
+**C.** Eye movement desensitization
+> EMDR pairs brief memory focus with bilateral stimulation and does not use recordings or in vivo work.
+
+**D.** Seeking Safety
+> Seeking Safety is present-focused coping work that does not use detailed exposure to the memory.
+
+**Rationale:** Prolonged exposure, developed by Edna Foa, reduces PTSD by helping clients face trauma memories and avoided situations until fear lessens. Its core parts are imaginal exposure (recounting the memory, often recorded for home practice), in vivo exposure to safe but avoided situations, and processing. VA/DoD guidelines strongly recommend it along with CPT and EMDR.
+
+**References:** VA/DoD CPG — PTSD: recommended trauma-focused psychotherapies (prolonged exposure, CPT, EMDR)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1074 of 1200 · nce-s-cou-330 · Counseling and Helping Relationships · cognitive behavioral therapy · hard · In review
+
+A nursing student will not ask her preceptor questions. In CBT she identifies the thought, "If I ask for help, people will see I'm not competent." Her counselor notes that this conditional rule links a deeper view of herself to her daily thoughts. In J. Beck's model, this is:
+
+**A.** An automatic thought
+> Automatic thoughts are quick, situation-specific thoughts, not general if-then rules.
+
+**B.** An intermediate belief **✔ KEY**
+> Intermediate beliefs are attitudes, rules and assumptions, often in if-then form, that link core beliefs to thoughts.
+
+**C.** A core belief
+> A core belief is an absolute, global view such as "I am incompetent," not a conditional rule.
+
+**D.** A cognitive distortion
+> Distortions are errors in thinking patterns, not a level in the belief structure.
+
+**Rationale:** J. Beck describes three levels of cognition. Core beliefs are global and absolute; intermediate beliefs are the attitudes, rules and assumptions that grow from them, often stated in if-then form; and automatic thoughts are the situation-specific thoughts that pop up. Identifying intermediate beliefs helps explain why the same kinds of automatic thoughts keep recurring.
+
+**References:** J. Beck (CBT: Basics and Beyond) — Identifying and modifying intermediate beliefs (rules, attitudes and assumptions)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1075 of 1200 · nce-s-cou-331 · Counseling and Helping Relationships · basic attending and listening skills · easy · In review
+
+A 62-year-old client pauses while describing her first week of retirement. The counselor nods, says "Mm-hm," and then repeats one key word she used: "Restless?" In Ivey's basic listening sequence, what is the counselor doing?
+
+**A.** Paraphrasing
+> A paraphrase restates the main content of what the client said in fresh words; a single word and a nod do not.
+
+**B.** Encouraging **✔ KEY**
+> Encouragers such as head nods, "uh-huh" and repeating a key word prompt the client to keep talking and expand.
+
+**C.** Summarizing
+> Summarizing pulls together several themes over a longer stretch of the session, not one word.
+
+**D.** Interpreting
+> Interpreting offers a new frame of reference; repeating the client's own word adds no new meaning.
+
+**Rationale:** Ivey places encouraging in the basic listening sequence along with questioning, paraphrasing, reflecting feeling and summarizing. Encouragers include nods, minimal verbal prompts and the repetition of key words, and they invite the client to elaborate on what matters to them. Repeating a key word often leads the client to explore the feeling or meaning behind it.
+
+**References:** Ivey et al. (Intentional Interviewing) — Encouraging, paraphrasing and summarizing: encouragers and key-word restatement
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1076 of 1200 · nce-s-cou-332 · Counseling and Helping Relationships · basic attending and listening skills · medium · In review
+
+During an intake, a client has spoken at length and in general terms about "always" feeling tired. The counselor now needs to know whether the client has started any new medication in the past month. Which statement BEST describes the role of a closed question here?
+
+**A.** It should be avoided, since closed questions damage rapport in intake sessions
+> Closed questions are a normal part of intake; overuse, not use, is what harms rapport.
+
+**B.** It should be rephrased as a "why" question so the client explains their habits
+> "Why" questions can sound accusatory and would not efficiently obtain the specific fact needed.
+
+**C.** It should replace open questions for the rest of the interview to save time
+> Relying only on closed questions puts the counselor in charge of content and limits the client's story.
+
+**D.** It fits well, because closed questions gather specific facts and narrow focus **✔ KEY**
+> Closed questions are useful for obtaining specific information and focusing a broad or wandering account.
+
+**Rationale:** Open questions invite clients to elaborate, while closed questions can usually be answered in a few words. Closed questions are appropriate for gathering specific facts, such as recent medication changes, and for bringing focus to a diffuse account. The skill lies in balancing the two so that the client keeps ownership of the story.
+
+**References:** Ivey et al. (Intentional Interviewing) — Questions: uses of open and closed questions
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1077 of 1200 · nce-s-cou-333 · Counseling and Helping Relationships · basic attending and listening skills · hard · In review
+
+A supervisor reviewing a trainee's recordings notices that clients often mention family and faith, yet sessions keep returning to work stress. The trainee responds warmly whenever work comes up and gives brief, flat replies to everything else. Which concept from Ivey's microskills BEST explains this pattern?
+
+**A.** Selective attention, since clients tend to talk about what the counselor attends to **✔ KEY**
+> Ivey notes that counselors reinforce certain topics by attending to them, and clients then talk more about those topics.
+
+**B.** Resistance, since the clients are avoiding the material that matters most to them
+> The clients do raise family and faith; the narrowing comes from the trainee's responses, not client avoidance.
+
+**C.** Transference, since the clients are repeating early relationship patterns in session
+> Nothing suggests the clients are reliving past relationships with the trainee.
+
+**D.** Mirroring, since the trainee is matching the clients' body language and pace well
+> Mirroring nonverbal behavior builds rapport; it does not explain why the topics narrow.
+
+**Rationale:** Ivey describes selective attention as the tendency of counselors to listen and respond more to some topics than others, often without awareness. Because clients follow the counselor's lead, they end up talking mostly about what the counselor reinforces. Reviewing recordings helps trainees notice what they attend to and what they ignore.
+
+**References:** Ivey et al. (Intentional Interviewing) — Attending behavior: selective attention and verbal tracking
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1078 of 1200 · nce-s-cou-334 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · medium · In review
+
+A counselor says to a young adult client, "It sounds like moving back home has left you feeling both grateful and a little trapped. Am I hearing that right?" What is the main purpose of the final question?
+
+**A.** To shift the session toward a new topic now that the feeling has been named
+> The question invites the client to stay with the reflection, not to move on to new material.
+
+**B.** To test whether the client is being honest about how they feel at home
+> The question checks the counselor's accuracy, not the client's honesty.
+
+**C.** To check the accuracy of the reflection and invite the client to correct it **✔ KEY**
+> A checkout (perception check) lets the client confirm, refine or correct the counselor's understanding.
+
+**D.** To signal that the counselor is unsure and wants the client to lead instead
+> The checkout is a deliberate part of good reflection, not a sign of counselor uncertainty.
+
+**Rationale:** Ivey recommends ending many paraphrases and reflections with a checkout, such as "Is that close?" or "Did I get that right?" The checkout keeps the reflection tentative, gives the client power to correct the counselor and often leads to a more precise description of the experience. It also signals that the client, not the counselor, is the expert on their feelings.
+
+**References:** Ivey et al. (Intentional Interviewing) — Reflecting feelings and paraphrasing: the checkout (perception check)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1079 of 1200 · nce-s-cou-335 · Counseling and Helping Relationships · reflection, paraphrasing and summarizing · medium · In review
+
+A client says calmly, "I was a little irritated when my roommate ate my leftovers again." The counselor responds, "You were furious with him." What is the MAIN weakness of this reflection?
+
+**A.** It overstates the intensity of the feeling the client expressed **✔ KEY**
+> "Furious" is far stronger than "a little irritated," so the reflection misses the client's actual level of feeling.
+
+**B.** It reflects a feeling rather than the content of what happened
+> Reflecting feeling is a legitimate skill; the problem is the inaccurate intensity, not the choice to reflect affect.
+
+**C.** It uses the past tense instead of focusing on the present moment
+> Past-tense reflection is acceptable when the client describes a past event.
+
+**D.** It repeats the client's own words too closely to add anything
+> The counselor substituted a new and much stronger word, so this is not parroting.
+
+**Rationale:** An accurate reflection of feeling matches both the type and the intensity of the emotion the client expresses. Overshooting the intensity can leave the client feeling misunderstood or pushed, while undershooting can minimize the experience. A better response might be "It bothered you that it happened again."
+
+**References:** Ivey et al. (Intentional Interviewing) — Reflecting feelings: matching the type and intensity of emotion
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1080 of 1200 · nce-s-cou-336 · Counseling and Helping Relationships · confrontation and immediacy · medium · In review
+
+A practicum student wants to use supportive confrontation with a client whose words and actions seem to conflict. According to Ivey's model, what should the student do FIRST?
+
+**A.** Name the contradiction directly so the client cannot avoid looking at it
+> Pointing out the discrepancy is the second step and should follow careful listening.
+
+**B.** Listen and observe closely to identify the mixed messages and conflicts **✔ KEY**
+> Supportive confrontation begins by listening, observing and clearly identifying the discrepancy.
+
+**C.** Rate the client's response on the Client Change Scale for the session
+> Evaluating change with the Client Change Scale comes after the discrepancy has been pointed out.
+
+**D.** Offer an interpretation of the unconscious reasons behind the conflict
+> Interpretation is a separate influencing skill and is not the first step of confrontation.
+
+**Rationale:** Ivey describes supportive confrontation as a sequence. The counselor first listens and observes to identify incongruities, mixed messages and conflicts; next points them out and helps the client work through them in a nonjudgmental way; and then evaluates the client's response, for example with the Client Change Scale. Starting with listening keeps the confrontation accurate and grounded in the relationship.
+
+**References:** Ivey et al. (Intentional Interviewing) — Confrontation: the three steps of supportive confrontation
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1081 of 1200 · nce-s-cou-337 · Counseling and Helping Relationships · confrontation and immediacy · easy · In review
+
+A client has been describing a conflict with a coworker. Which counselor statement shows the HIGHEST level of immediacy?
+
+**A.** "Last month you also had trouble speaking up with your brother."
+> This links past events and stays in the past tense, so it has little immediacy.
+
+**B.** "Right now, as you talk about him, I notice your voice getting quiet." **✔ KEY**
+> Present-tense attention to what is happening between counselor and client in the moment is immediacy.
+
+**C.** "Next week you could try telling him how his comments affect you."
+> This is a future-oriented suggestion, not a here-and-now response.
+
+**D.** "Your coworker sounds like he has been difficult for a long time."
+> This comments on a third party outside the session and stays in the past.
+
+**Rationale:** Immediacy refers to the counselor's present-tense, here-and-now responses about what is happening in the session or between counselor and client. Statements about the past or future have less immediacy than those that name what is occurring right now. Used well, immediacy brings hidden feelings and relational patterns into the room where they can be explored.
+
+**References:** Ivey et al. (Intentional Interviewing) — Immediacy: past, present and future tense in counselor responses
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1082 of 1200 · nce-s-cou-338 · Counseling and Helping Relationships · termination skills · easy · In review
+
+A counselor in an employee assistance program offers each client up to six sessions. When is it BEST to begin discussing the end of counseling with a new client?
+
+**A.** At the fifth session, so the client is not distracted earlier
+> Waiting until the next-to-last session leaves little time to plan and may feel abrupt.
+
+**B.** Only after the client reports that the main goal has been met
+> With a fixed session limit, the end date does not depend on when goals are reached.
+
+**C.** In the first session, as part of setting goals and expectations **✔ KEY**
+> In time-limited work, raising the ending at the start shapes goals and helps clients use each session well.
+
+**D.** When the counselor notices the client becoming too dependent
+> Termination planning should not wait for a problem; in brief work it is built in from the outset.
+
+**Rationale:** In brief and time-limited counseling, the ending is known from the start, so it should be discussed during informed consent and goal setting. This lets the client and counselor choose realistic goals, track progress and prepare for the end together. Raising termination early also reduces the chance that the final session feels like an abrupt loss.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — Termination in counseling: timing and preparation for ending
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1083 of 1200 · nce-s-cou-339 · Counseling and Helping Relationships · termination skills · medium · In review
+
+In the next-to-last session of CBT for depression, a 41-year-old client says, "You fixed me. I don't know what I'll do without you telling me what to do." Which counselor response BEST supports the gains lasting after counseling ends?
+
+**A.** Review the specific skills the client used and credit them for the change **✔ KEY**
+> Helping clients attribute progress to their own efforts builds self-efficacy and supports self-therapy after ending.
+
+**B.** Accept the thanks graciously and add more sessions to ease the transition
+> Extending sessions because of dependence reinforces the belief that the client cannot cope alone.
+
+**C.** Explain that relapse is unlikely now that the depression has fully lifted
+> Depression often recurs; relapse prevention prepares clients for setbacks rather than denying them.
+
+**D.** Suggest the client call the counselor whenever a hard decision comes up
+> This keeps the counselor in charge of decisions and works against the goal of client independence.
+
+**Rationale:** J. Beck describes preparing for termination from the start of CBT, with the aim of clients becoming their own therapists. Near the end, the counselor reviews which skills the client used and helps them attribute improvement to their own work rather than to the counselor. This attribution strengthens self-efficacy and supports relapse prevention and booster planning.
+
+**References:** J. Beck (CBT: Basics and Beyond) — Termination and relapse prevention: attributing progress to the client
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1084 of 1200 · nce-s-cou-340 · Counseling and Helping Relationships · termination skills · hard · In review
+
+A community clinic finds that many new clients drop out after one or two sessions without saying why. The director asks counselors for one change most likely to reduce this premature termination. Which change is BEST supported?
+
+**A.** Assigning homework from the first session so that clients feel more invested
+> Homework can help later, but early demands without shared understanding can increase dropout.
+
+**B.** Scheduling first sessions less often so clients who stay are more motivated
+> Longer gaps early in counseling weaken engagement and tend to increase dropout.
+
+**C.** Moving clients who miss a session to a waitlist until they recommit to care
+> This penalizes clients who are already disengaging and makes premature termination more likely.
+
+**D.** Clarifying expectations about counseling and agreeing on goals at the start **✔ KEY**
+> Role induction and early agreement on goals and methods address mismatched expectations, a key cause of dropout.
+
+**Rationale:** Premature termination is often linked to a mismatch between what clients expect and what counseling offers, along with a weak early alliance. Preparing clients for counseling (role induction), discussing how long it may take and agreeing on goals and tasks early reduce dropout. Monitoring the alliance and progress in early sessions also helps counselors notice clients at risk of leaving.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — Termination in counseling: premature termination and how to reduce it
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1085 of 1200 · nce-s-cou-341 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+
+A school counselor leads a parent-teacher committee planning a new homework policy. One parent objects to every proposal with a different reason each week. The counselor later learns this parent's child was recently suspended and the parent fears the policy will single the child out. What group dynamic is operating?
+
+**A.** Scapegoating, in which the group blames one member for its lack of progress
+> Scapegoating is the group turning on one member; here one member is blocking the group.
+
+**B.** A hidden agenda, an unstated personal goal that steers a member's behavior **✔ KEY**
+> The parent's unspoken concern about the child is a hidden agenda that drives the repeated objections.
+
+**C.** Subgrouping, in which several members form an alliance against the group
+> Subgrouping involves an alliance of several members, not one member acting alone.
+
+**D.** Groupthink, in which members suppress dissent to reach quick agreement
+> Groupthink suppresses disagreement; this parent is expressing a great deal of it.
+
+**Rationale:** A hidden agenda is a goal or concern a member holds but does not state, which shapes how that member acts in the group. Hidden agendas are common in task groups and can stall progress because the stated arguments are not the real issue. Leaders help by attending to process and creating safe ways for members to voice underlying concerns.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — Groups in counseling: group dynamics and hidden agendas
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1086 of 1200 · nce-s-cou-342 · Group Counseling and Group Work · group stages and dynamics · medium · In review
+
+A counselor is forming an eight-week group for new parents adjusting after the birth of their first child. She decides to include only members who share this life transition. According to Yalom, what is the main advantage of this homogeneous composition?
+
+**A.** Deeper long-term character change through exposure to many conflict styles
+> Yalom links deep interpersonal change to heterogeneous, long-term groups, not homogeneous ones.
+
+**B.** Less need for screening, since shared problems make members interchangeable
+> Screening is still needed; a shared concern does not make members alike in readiness or fit.
+
+**C.** Faster cohesion and mutual support, which suits a brief group's aims well **✔ KEY**
+> Homogeneous groups gel quickly, offer immediate support and suit short-term, focused goals.
+
+**D.** More conflict in early sessions, which speeds up the group's working stage
+> Homogeneous groups tend to have less conflict, not more.
+
+**Rationale:** Yalom notes that homogeneous groups become cohesive quickly, provide immediate support, have better attendance and less conflict, and produce faster symptom relief. Their drawback is that they may stay at a more superficial level. Heterogeneous composition is preferred for long-term interpersonal groups that aim at deeper change.
+
+**References:** Yalom & Leszcz (Group Psychotherapy) — Composition of therapy groups: homogeneous versus heterogeneous groups
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1087 of 1200 · nce-s-cou-343 · Group Counseling and Group Work · group stages and dynamics · easy · In review
+
+In a partial hospitalization program, a counselor leads a long-term group for adults with severe, long-standing personality and mood problems. The aim is in-depth personality change and remediation of serious dysfunction. Under the ASGW classification, which type of group is this?
+
+**A.** Task and work group
+> Task groups exist to complete a work product, such as a committee goal.
+
+**B.** Psychoeducation group
+> Psychoeducation groups teach skills and information, often to prevent problems.
+
+**C.** Counseling group
+> Counseling groups address normal-range personal and interpersonal problems of living.
+
+**D.** Psychotherapy group **✔ KEY**
+> Psychotherapy groups treat serious, long-standing problems and aim at in-depth personality change.
+
+**Rationale:** ASGW describes four group work specializations: task and work, psychoeducation, counseling and psychotherapy. Psychotherapy groups serve members with serious or chronic psychological problems and aim at reconstructive, in-depth change, often in clinical settings. Counseling groups, by contrast, address problems of living for members who function in the normal range.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — Group work: ASGW types of groups (psychotherapy groups)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1088 of 1200 · nce-s-cou-344 · Group Counseling and Group Work · group leadership skills and therapeutic factors · easy · In review
+
+In an assertiveness group, a 26-year-old member watches another member calmly decline an unfair request in a role-play. The next week, she reports using the same words and tone with her landlord. Which of Yalom's therapeutic factors does this BEST illustrate?
+
+**A.** Imitative behavior **✔ KEY**
+> Adopting behaviors modeled by other members or the leader is imitative behavior.
+
+**B.** Universality
+> Universality is the relief of learning that others share one's problems.
+
+**C.** Catharsis
+> Catharsis is the release of strong emotion, not the copying of a skill.
+
+**D.** Altruism
+> Altruism is the benefit of helping other members, not learning from them.
+
+**Rationale:** Yalom lists imitative behavior among the therapeutic factors of groups. Members learn by watching how others, including the leader, handle situations and then try those behaviors themselves. Even when imitation is brief, it can help members experiment with new ways of acting.
+
+**References:** Yalom & Leszcz (Group Psychotherapy) — Ch. 1: The therapeutic factors, imitative behavior
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1089 of 1200 · nce-s-cou-345 · Group Counseling and Group Work · group leadership skills and therapeutic factors · medium · In review
+
+In a long-term interpersonal group, several members tell Kofi that his habit of joking whenever someone becomes emotional leaves them feeling brushed off. Kofi is surprised and says, "I thought I was helping." Which therapeutic factor is MOST directly at work?
+
+**A.** Instillation of hope from watching other members improve
+> Hope comes from seeing others get better; Kofi is learning how he affects people.
+
+**B.** Imparting information through direct advice and teaching
+> Members are describing their reactions to him, not offering advice or instruction.
+
+**C.** Interpersonal learning from feedback on his effect on others **✔ KEY**
+> Learning how one is seen and how one's behavior lands on others is interpersonal learning.
+
+**D.** Existential factors as he faces full responsibility for his life
+> Existential factors involve life's givens, such as death and ultimate responsibility.
+
+**Rationale:** Yalom considers interpersonal learning one of the most powerful therapeutic factors in long-term groups. Through here-and-now feedback, members discover how their behavior affects others and how they are perceived, which they often cannot see on their own. They can then try new ways of relating within the safety of the group.
+
+**References:** Yalom & Leszcz (Group Psychotherapy) — Interpersonal learning: feedback and the group as social microcosm
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1090 of 1200 · nce-s-cou-346 · Group Counseling and Group Work · group leadership skills and therapeutic factors · hard · In review
+
+In the first sessions of a new outpatient group, the leader often asks members to respond to one another rather than to her, thanks members who give honest feedback and models nonjudgmental acceptance herself. Which of Yalom's basic tasks of the group therapist is she MAINLY carrying out?
+
+**A.** Creating and maintaining the group by selecting members and preventing dropout
+> This task covers forming the group and keeping it intact, such as screening and handling absences.
+
+**B.** Culture building, shaping the norms that let the group act as a helping agent **✔ KEY**
+> Shaping norms such as member-to-member interaction and honest feedback, explicitly and by modeling, is culture building.
+
+**C.** Process illumination, explaining the meaning of an interaction just completed
+> Process illumination reflects on an interaction after it occurs; she is mainly setting norms.
+
+**D.** Interpretation of transference, linking members' reactions to their families
+> Yalom's group therapist emphasizes here-and-now norms, and she is not interpreting family patterns.
+
+**Rationale:** Yalom describes three basic tasks of the group therapist: creating and maintaining the group, culture building, and activating and illuminating the here-and-now. In culture building, the leader shapes norms such as self-disclosure, direct interaction among members and nonjudgmental acceptance, acting both as a technical expert and as a model-setting participant. These norms make the group itself the main agent of change.
+
+**References:** Yalom & Leszcz (Group Psychotherapy) — The therapist: basic tasks, culture building and norm shaping
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1091 of 1200 · nce-s-cou-347 · Career Development · career development theories (Holland, Super, Krumboltz) · hard · In review
+
+Super's Archway Model shows personal factors such as needs, values and aptitudes in one pillar and societal factors such as family, school and the labor market in the other, joined by an arch of developmental stages. What sits in the keystone of the arch?
+
+**A.** The labor market, which sets the jobs available to the person
+> The labor market is part of the societal pillar, not the keystone.
+
+**B.** Career maturity, the readiness to make decisions at each age
+> Career maturity is a separate construct in Super's theory, not the keystone of the archway.
+
+**C.** Interests, which link a person's values with available jobs
+> Interests sit in the personal pillar alongside needs, values and aptitudes.
+
+**D.** The self, which integrates personal and societal influences **✔ KEY**
+> Super placed the self, the person as decision maker and self-concept, in the keystone that unites both pillars.
+
+**Rationale:** Super's Archway Model is a visual summary of the factors in career development. One pillar holds personal characteristics such as needs, values, interests and aptitudes, and the other holds societal influences such as the economy, community, school, family and labor market. The arch represents developmental stages and role self-concepts, and the keystone is the self, which brings these influences together in career decisions.
+
+**References:** Sharf (Career Development Theory) — Super's life-span theory: the Archway Model
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1092 of 1200 · nce-s-cou-348 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+
+As a child, Mateo spent many happy weekends at his aunt's bakery, where the smell of bread came to mean warmth and family. Now 19, he feels drawn to culinary school without ever having been praised for cooking. In Krumboltz's social learning theory, this influence is BEST described as:
+
+**A.** an associative learning experience pairing the setting with positive feelings **✔ KEY**
+> Associative learning links a previously neutral stimulus, here the bakery, with positive emotional experiences.
+
+**B.** an instrumental learning experience shaped by rewards for his own cooking
+> Instrumental learning follows consequences of one's own actions; he was never rewarded for cooking.
+
+**C.** a genetic endowment, an inborn special ability that limits career choice
+> Genetic endowment refers to inherited qualities and abilities, not emotional associations.
+
+**D.** a task-approach skill he uses to gather information and make a decision
+> Task-approach skills are decision-making and work habits, not emotional associations.
+
+**Rationale:** Krumboltz identified four influences on career decision making: genetic endowment and special abilities, environmental conditions and events, learning experiences and task-approach skills. Learning experiences are instrumental, when behavior is shaped by its consequences, or associative, when a neutral stimulus becomes paired with positive or negative experiences. Mateo's attraction comes from pairing the bakery with warmth, an associative experience.
+
+**References:** Sharf (Career Development Theory) — Krumboltz's social learning theory: instrumental and associative learning experiences
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1093 of 1200 · nce-s-cou-349 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+
+A 15-year-old had little interest in computer science until a summer coding camp, where she built a working app and learned that coding jobs pay well and help people. Her interest is now strong. According to the interest model in social cognitive career theory (SCCT), what MOST directly produced this interest?
+
+**A.** Her Holland code, which fixed her interests before she attended the camp
+> SCCT treats interests as learned and changeable, not set in advance by a personality type.
+
+**B.** Her career maturity, which rose as she moved through the growth stage
+> Career maturity is Super's construct and does not explain this sudden rise in interest.
+
+**C.** Rising self-efficacy and positive outcome expectations for the field **✔ KEY**
+> SCCT holds that interests grow where people feel capable and expect valued outcomes.
+
+**D.** Chance events alone, which shape interests apart from beliefs and skills
+> The camp mattered because it changed her beliefs about her ability and the work's rewards.
+
+**Rationale:** In Lent, Brown and Hackett's social cognitive career theory, interests develop from self-efficacy beliefs and outcome expectations. When learning experiences lead people to feel capable at an activity and to expect valued results, interest grows, which then shapes goals and actions. This makes interests a target for intervention through mastery experiences and accurate information.
+
+**References:** Sharf (Career Development Theory) — Social cognitive career theory: the interest model (self-efficacy and outcome expectations)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1094 of 1200 · nce-s-cou-350 · Career Development · career development theories (Holland, Super, Krumboltz) · easy · In review
+
+A 34-year-old client describes herself as ambitious, persuasive and energetic. She enjoys leading teams, selling ideas and taking business risks, and dislikes detailed scientific work. Which Holland type is MOST dominant for her?
+
+**A.** Social
+> Social types prefer helping, teaching and caring for others more than persuading or selling.
+
+**B.** Enterprising **✔ KEY**
+> Enterprising types like leading, persuading, selling and taking risks to reach organizational goals.
+
+**C.** Conventional
+> Conventional types prefer orderly, detailed work with data and clear procedures.
+
+**D.** Investigative
+> Investigative types enjoy scientific, analytical work, which she dislikes.
+
+**Rationale:** Holland's six types are Realistic, Investigative, Artistic, Social, Enterprising and Conventional. Enterprising people tend to be ambitious, sociable and persuasive and are drawn to leading, managing and selling. Investigative work sits opposite Enterprising on the hexagon, which fits her dislike of scientific tasks.
+
+**References:** Sharf (Career Development Theory) — Holland's theory of types: the Enterprising type
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1095 of 1200 · nce-s-cou-351 · Career Development · career development theories (Holland, Super, Krumboltz) · medium · In review
+
+A college junior refuses to consider any business major, saying, "I'm just not a numbers person. I've always been bad at math." Her transcripts show solid math grades. In Krumboltz's social learning theory, her statement is BEST described as:
+
+**A.** a self-observation generalization that may be inaccurate **✔ KEY**
+> Self-observation generalizations are learned self-appraisals of ability or interest, which can be mistaken.
+
+**B.** an environmental condition that blocks her from the field
+> Environmental conditions are outside events such as the job market, not her beliefs about herself.
+
+**C.** a genetic endowment that sets a ceiling on her math skills
+> Her good grades contradict an inborn limit; the barrier is her learned belief.
+
+**D.** a task-approach skill she uses to rule out career options
+> Task-approach skills are decision-making and work skills, not self-evaluations.
+
+**Rationale:** In Krumboltz's theory, learning experiences produce self-observation generalizations, which are overt or covert statements people make about their own abilities, interests and values. These generalizations guide career choices but can be inaccurate or overgeneralized. Counselors help clients examine such beliefs against evidence and test them through new learning experiences.
+
+**References:** Sharf (Career Development Theory) — Krumboltz's social learning theory: self-observation generalizations
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1096 of 1200 · nce-s-cou-352 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · medium · In review
+
+An 81-year-old retired violinist has given up teaching and touring to focus on a few favorite pieces. She practices them more often than before, and she plays slower passages just before fast ones so the fast ones seem quicker by contrast. Which developmental model BEST explains her approach?
+
+**A.** Baltes's selective optimization with compensation **✔ KEY**
+> She selects fewer goals, optimizes them with practice and compensates for losses with new strategies.
+
+**B.** Cumming and Henry's disengagement theory of aging
+> Disengagement describes mutual withdrawal from society, not active strategies to maintain skill.
+
+**C.** Erikson's stage of generativity versus stagnation
+> Generativity concerns guiding the next generation in midlife, which is not the focus here.
+
+**D.** Levinson's model of the midlife transition period
+> Levinson's midlife transition concerns reappraisal around age 40, not late-life adaptation.
+
+**Rationale:** Baltes proposed that successful aging involves selective optimization with compensation. Older adults select a smaller set of personally valued goals, optimize their resources and practice in those areas, and compensate for losses with new means of reaching the same ends. The model views late life as a time of active adaptation rather than simple decline.
+
+**References:** Berk (Development Through the Lifespan) — Late adulthood: selective optimization with compensation (Baltes)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1097 of 1200 · nce-s-cou-353 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · hard · In review
+
+A 9-month-old watches a parent hide a toy under a blue cloth and finds it several times. The parent then hides it under a red cloth while the baby watches, and the baby searches under the blue cloth again. According to Piaget, what does this error indicate?
+
+**A.** The infant has no sense that hidden objects continue to exist
+> Searching for the toy at all shows that some object permanence is already present.
+
+**B.** The infant has a vision problem and needs to be screened soon
+> The A-not-B error is typical at this age and does not suggest a sensory problem.
+
+**C.** Object permanence is emerging but is not yet fully developed **✔ KEY**
+> Searching for hidden objects but at the old location (A-not-B) marks incomplete object permanence.
+
+**D.** The infant has reached mental representation and pretend play
+> Mental representation emerges near the end of the sensorimotor stage, around 18 to 24 months.
+
+**Rationale:** In Piaget's sensorimotor stage, infants of about 8 to 12 months begin to search for hidden objects, showing emerging object permanence. They often make the A-not-B search error, looking where the object was previously found rather than where they saw it hidden last. This error fades as object permanence becomes more complete in later sensorimotor substages.
+
+**References:** Berk (Development Through the Lifespan) — Piaget's sensorimotor stage: object permanence and the A-not-B search error
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1098 of 1200 · nce-s-cou-354 · Human Growth and Development · human development theories (Erikson, Piaget, Kohlberg) · easy · In review
+
+A 52-year-old electrician has begun training apprentices and volunteering with a youth program. He says, "I want to leave something behind that helps the next generation." Which of Erikson's psychosocial stages does this concern reflect?
+
+**A.** Intimacy versus isolation
+> This early adult stage centers on forming close, committed relationships.
+
+**B.** Integrity versus despair
+> This late-life stage involves reviewing one's life and accepting it as meaningful.
+
+**C.** Industry versus inferiority
+> This school-age stage concerns competence at tasks and comparisons with peers.
+
+**D.** Generativity versus stagnation **✔ KEY**
+> Midlife generativity centers on guiding and contributing to the next generation.
+
+**Rationale:** Erikson described generativity versus stagnation as the central task of middle adulthood. Generativity involves caring for and guiding the next generation through parenting, mentoring, teaching or community contribution. Adults who do not find such outlets may feel stagnant or self-absorbed.
+
+**References:** Berk (Development Through the Lifespan) — Middle adulthood: Erikson's generativity versus stagnation
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1099 of 1200 · nce-s-cou-355 · Human Growth and Development · attachment theory · medium · In review
+
+A 10-month-old cries and crawls after his father when he leaves the room, and when the father returns the baby explores the playroom while checking back with him. In Bowlby's phases of attachment development, this infant is MOST likely in which phase?
+
+**A.** Preattachment
+> In this phase, from birth to about 6 weeks, infants do not yet object to being left with strangers.
+
+**B.** Clear-cut attachment **✔ KEY**
+> From about 6 to 8 months, infants show separation anxiety and use the caregiver as a secure base.
+
+**C.** Attachment in the making
+> Infants in this phase respond differently to familiar people but do not yet protest separation.
+
+**D.** Reciprocal relationship
+> This later phase, from about 18 to 24 months, involves language and negotiating with the caregiver.
+
+**Rationale:** Bowlby described four phases: preattachment, attachment in the making, clear-cut attachment and formation of a reciprocal relationship. In the clear-cut phase, beginning around 6 to 8 months, infants show separation anxiety and use the familiar caregiver as a secure base for exploration. As language and representation grow, toddlers enter the reciprocal phase and can negotiate with caregivers about comings and goings.
+
+**References:** Berk (Development Through the Lifespan) — Bowlby's ethological theory: phases of attachment (clear-cut attachment)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1100 of 1200 · nce-s-cou-356 · Human Growth and Development · attachment theory · hard · In review
+
+In the Adult Attachment Interview, a father describes his parents as "great, totally normal, very loving." When asked for specific memories, he says he cannot recall any, then mentions being sent to his room alone whenever he cried. He adds that childhood "doesn't really affect who you are." How is this interview MOST likely classified?
+
+**A.** Dismissing **✔ KEY**
+> Idealized but unsupported descriptions, poor recall and downplaying attachment's importance mark a dismissing interview.
+
+**B.** Preoccupied
+> Preoccupied interviews are long, entangled and angry or vague, not brief and idealizing.
+
+**C.** Autonomous
+> Autonomous interviews are coherent and balanced, with specific memories that support general descriptions.
+
+**D.** Unresolved
+> Unresolved interviews show lapses in reasoning when the speaker discusses loss or trauma.
+
+**Rationale:** The Adult Attachment Interview classifies adults by the coherence of their account of childhood. Dismissing adults idealize their parents in general terms, cannot supply supporting memories or offer memories that contradict the ideal, and minimize the importance of attachment. Their infants are more likely to show avoidant attachment in the Strange Situation.
+
+**References:** Berk (Development Through the Lifespan) — Attachment: continuity across generations and the Adult Attachment Interview
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1101 of 1200 · nce-s-cou-357 · Social and Cultural Diversity · multicultural counseling competencies · medium · In review
+
+A Korean American client born and raised in Ohio tells her counselor that coworkers often ask, "But where are you really from?" and praise her "excellent English." In Sue's taxonomy of racial microaggressions, these comments are BEST classified as which type?
+
+**A.** Microassault, an explicit and deliberate racial attack
+> Microassaults are conscious, overt attacks such as slurs; these comments are not deliberate insults.
+
+**B.** Microinsult, conveying that she must be unintelligent
+> Microinsults demean a person's heritage or ability; these comments mainly deny that she belongs.
+
+**C.** Macroaggression, a policy that excludes her from work
+> The comments are interpersonal remarks, not an institutional policy or system.
+
+**D.** Microinvalidation, treating her as foreign in her own land **✔ KEY**
+> "Alien in own land" remarks negate her experience as an American and are microinvalidations.
+
+**Rationale:** Sue described three types of microaggression: microassaults, microinsults and microinvalidations. Microinvalidations exclude, negate or nullify the thoughts, feelings or reality of people of color. Treating Asian Americans and Latinx Americans as perpetual foreigners, the "alien in own land" theme, is a common microinvalidation.
+
+**References:** Sue & Sue (Counseling the Culturally Diverse) — Racial microaggressions: microinvalidations and the "alien in own land" theme
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1102 of 1200 · nce-s-cou-358 · Social and Cultural Diversity · multicultural counseling competencies · medium · In review
+
+A counselor believes that healthy adults should make decisions independently of their families and judges clients who consult elders as "enmeshed." He assumes his own training's view of mental health applies equally to every client and sees no need to examine it. Which term BEST describes his stance?
+
+**A.** Cultural humility
+> Cultural humility involves ongoing self-reflection and openness, the opposite of his stance.
+
+**B.** Acculturation
+> Acculturation is the change that occurs when cultures come into contact, not a counselor's bias.
+
+**C.** Cultural encapsulation **✔ KEY**
+> Wrenn's cultural encapsulation means treating one's own cultural assumptions as universal truths.
+
+**D.** Cultural relativism
+> Cultural relativism judges behavior within its own cultural context, which he fails to do.
+
+**Rationale:** Wrenn introduced the term cultural encapsulation to describe counselors who substitute their own cultural assumptions for reality and ignore cultural variation among clients. Encapsulated counselors define normal behavior by their own culture and may pathologize clients whose values differ, such as collectivistic decision making. Developing awareness of one's own cultural values and biases is the first multicultural competency for this reason.
+
+**References:** Sue & Sue (Counseling the Culturally Diverse) — Multicultural counseling competence: cultural encapsulation of the counselor (Wrenn)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1103 of 1200 · nce-s-cou-359 · Social and Cultural Diversity · racial and cultural identity models · medium · In review
+
+After a diversity workshop left him feeling guilty and confused, a White graduate student now says that people of color "bring most of their problems on themselves" and that White people are unfairly blamed. He avoids the classmates of color he had begun to befriend. In Helms's White racial identity model, which status does this reflect?
+
+**A.** Contact
+> Contact involves naive obliviousness to race, before the guilt and confusion he has experienced.
+
+**B.** Reintegration **✔ KEY**
+> Retreating from guilt into idealizing Whites and blaming people of color marks reintegration.
+
+**C.** Pseudo-independence
+> Pseudo-independence involves an intellectual rejection of racism, not blaming people of color.
+
+**D.** Autonomy
+> Autonomy reflects a secure, nonracist White identity and openness to difference.
+
+**Rationale:** Helms's statuses are contact, disintegration, reintegration, pseudo-independence, immersion/emersion and autonomy. In reintegration, a person resolves the discomfort of disintegration by retreating into beliefs that favor Whites and blame people of color for their problems. Counselors can help by gently challenging these beliefs while supporting the person through the guilt that triggered them.
+
+**References:** Sue & Sue (Counseling the Culturally Diverse) — White racial identity development: Helms's reintegration status
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1104 of 1200 · nce-s-cou-360 · Social and Cultural Diversity · racial and cultural identity models · hard · In review
+
+A 16-year-old with a Filipino mother and a Black father decided last year to identify only as Black among friends. She now tells her counselor she feels guilty and disloyal when she avoids her mother's relatives and hides her Filipino heritage at school. According to Poston's biracial identity model, which stage is she in?
+
+**A.** Personal identity
+> Personal identity is the early childhood stage, when identity rests on personal traits rather than group.
+
+**B.** Appreciation
+> In appreciation, she would begin to value and explore both heritages instead of hiding one.
+
+**C.** Integration
+> Integration involves recognizing and valuing all of her racial and ethnic identities.
+
+**D.** Enmeshment/denial **✔ KEY**
+> Guilt, confusion and disloyalty after choosing one heritage over the other define enmeshment/denial.
+
+**Rationale:** Poston's model of biracial identity runs from personal identity through choice of group categorization, enmeshment/denial and appreciation to integration. In enmeshment/denial, a person who has chosen one group feels guilt, confusion or self-hatred about not being able to express the other part of their heritage. Counselors can help resolve this guilt so the person moves toward appreciating and integrating both identities.
+
+**References:** Poston (Biracial Identity) — Stage 3, enmeshment/denial · Sue & Sue (Counseling the Culturally Diverse) — Racial/cultural identity development: biracial and multiracial identity (Poston's model)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+## Core Counseling Attributes (96)
+
+### Q1105 of 1200 · nce-s-cor-001 · Counseling and Helping Relationships · empathy and its levels · medium · In review
 
 A 34-year-old client says, "My boss praised my project in front of everyone, but then gave the promotion to someone else. I don't know what to think." Which counselor response is an interchangeable (Level 3) response on Carkhuff's empathy scale?
 
@@ -22370,7 +26786,7 @@ A 34-year-old client says, "My boss praised my project in front of everyone, but
 
 ---
 
-### Q922 of 1000 · nce-s-cor-002 · Counseling and Helping Relationships · empathy and its levels · hard · In review
+### Q1106 of 1200 · nce-s-cor-002 · Counseling and Helping Relationships · empathy and its levels · hard · In review
 
 In a sixth session, a graduate student says, "I keep telling everyone I'm fine with moving home after graduation. My parents are happy, so I guess I should be too." Which counselor response BEST illustrates additive (Level 4) empathy?
 
@@ -22396,7 +26812,7 @@ In a sixth session, a graduate student says, "I keep telling everyone I'm fine w
 
 ---
 
-### Q923 of 1000 · nce-s-cor-003 · Counseling and Helping Relationships · empathy and its levels · easy · In review
+### Q1107 of 1200 · nce-s-cor-003 · Counseling and Helping Relationships · empathy and its levels · easy · In review
 
 On Carkhuff's five-level scale of empathic understanding, a counselor response rated at Level 1 or Level 2 is described as which of the following?
 
@@ -22420,7 +26836,7 @@ On Carkhuff's five-level scale of empathic understanding, a counselor response r
 
 ---
 
-### Q924 of 1000 · nce-s-cor-004 · Counseling and Helping Relationships · empathy and its levels · easy · In review
+### Q1108 of 1200 · nce-s-cor-004 · Counseling and Helping Relationships · empathy and its levels · easy · In review
 
 A client tearfully describes the recent death of her dog. Which counselor response reflects empathy rather than sympathy?
 
@@ -22444,7 +26860,7 @@ A client tearfully describes the recent death of her dog. Which counselor respon
 
 ---
 
-### Q925 of 1000 · nce-s-cor-005 · Counseling and Helping Relationships · unconditional positive regard · medium · In review
+### Q1109 of 1200 · nce-s-cor-005 · Counseling and Helping Relationships · unconditional positive regard · medium · In review
 
 A 52-year-old client says, "I yelled at my teenage son last night and called him useless. I'm ashamed to even tell you." Which counselor response BEST demonstrates unconditional positive regard?
 
@@ -22468,7 +26884,7 @@ A 52-year-old client says, "I yelled at my teenage son last night and called him
 
 ---
 
-### Q926 of 1000 · nce-s-cor-006 · Counseling and Helping Relationships · congruence and genuineness · medium · In review
+### Q1110 of 1200 · nce-s-cor-006 · Counseling and Helping Relationships · congruence and genuineness · medium · In review
 
 Midway through a session, a client asks, "You look distracted. Are you even listening to me?" The counselor realizes her attention had drifted. Which response BEST demonstrates congruence?
 
@@ -22492,7 +26908,7 @@ Midway through a session, a client asks, "You look distracted. Are you even list
 
 ---
 
-### Q927 of 1000 · nce-s-cor-007 · Counseling and Helping Relationships · therapeutic alliance · easy · In review
+### Q1111 of 1200 · nce-s-cor-007 · Counseling and Helping Relationships · therapeutic alliance · easy · In review
 
 Bordin's pantheoretical model of the working alliance consists of which three components?
 
@@ -22516,7 +26932,7 @@ Bordin's pantheoretical model of the working alliance consists of which three co
 
 ---
 
-### Q928 of 1000 · nce-s-cor-008 · Counseling and Helping Relationships · therapeutic alliance · hard · In review
+### Q1112 of 1200 · nce-s-cor-008 · Counseling and Helping Relationships · therapeutic alliance · hard · In review
 
 In the fourth session, a client who has been completing CBT thought records says flatly, "I did the homework again, I guess. Whatever helps you." The client has arrived late twice. What should the counselor do FIRST?
 
@@ -22542,7 +26958,7 @@ In the fourth session, a client who has been completing CBT thought records says
 
 ---
 
-### Q929 of 1000 · nce-s-cor-009 · Social and Cultural Diversity · cultural humility · medium · In review
+### Q1113 of 1200 · nce-s-cor-009 · Social and Cultural Diversity · cultural humility · medium · In review
 
 A counselor who has completed many multicultural trainings begins work with a Hmong American client. According to Hook and colleagues' model of cultural humility, which stance BEST reflects cultural humility?
 
@@ -22566,7 +26982,7 @@ A counselor who has completed many multicultural trainings begins work with a Hm
 
 ---
 
-### Q930 of 1000 · nce-s-cor-010 · Social and Cultural Diversity · counselor self-awareness and bias · medium · In review
+### Q1114 of 1200 · nce-s-cor-010 · Social and Cultural Diversity · counselor self-awareness and bias · medium · In review
 
 A counselor notices that she schedules a client who lives in public housing for shorter sessions and assigns fewer homework tasks, assuming the client "won't follow through." What is the MOST appropriate next step?
 
@@ -22590,7 +27006,7 @@ A counselor notices that she schedules a client who lives in public housing for 
 
 ---
 
-### Q931 of 1000 · nce-s-cor-011 · Counseling and Helping Relationships · countertransference · easy · In review
+### Q1115 of 1200 · nce-s-cor-011 · Counseling and Helping Relationships · countertransference · easy · In review
 
 A counselor notices he feels unusually irritated and impatient with an older male client who reminds him of his own critical father. This reaction is BEST described as
 
@@ -22614,7 +27030,7 @@ A counselor notices he feels unusually irritated and impatient with an older mal
 
 ---
 
-### Q932 of 1000 · nce-s-cor-012 · Counseling and Helping Relationships · countertransference · medium · In review
+### Q1116 of 1200 · nce-s-cor-012 · Counseling and Helping Relationships · countertransference · medium · In review
 
 A counselor whose sister died by overdose finds herself giving extra session time and her personal cell number to a young adult client in early recovery. What is the BEST course of action?
 
@@ -22638,7 +27054,7 @@ A counselor whose sister died by overdose finds herself giving extra session tim
 
 ---
 
-### Q933 of 1000 · nce-s-cor-013 · Counseling and Helping Relationships · countertransference · hard · In review
+### Q1117 of 1200 · nce-s-cor-013 · Counseling and Helping Relationships · countertransference · hard · In review
 
 A supervisor tells a trainee, "Every feeling you have toward a client, not just the conflicts from your own past, can be useful information about the client and the relationship." This statement reflects which view of countertransference?
 
@@ -22662,7 +27078,7 @@ A supervisor tells a trainee, "Every feeling you have toward a client, not just 
 
 ---
 
-### Q934 of 1000 · nce-s-cor-014 · Counseling and Helping Relationships · nonjudgmental stance · medium · In review
+### Q1118 of 1200 · nce-s-cor-014 · Counseling and Helping Relationships · nonjudgmental stance · medium · In review
 
 A college student says, "I've been hooking up with different people most weekends, and my roommate thinks I'm a mess." Which counselor response BEST reflects a nonjudgmental stance?
 
@@ -22686,7 +27102,7 @@ A college student says, "I've been hooking up with different people most weekend
 
 ---
 
-### Q935 of 1000 · nce-s-cor-015 · Counseling and Helping Relationships · warmth and respect · easy · In review
+### Q1119 of 1200 · nce-s-cor-015 · Counseling and Helping Relationships · warmth and respect · easy · In review
 
 A 70-year-old widower arrives early for his first session and seems nervous. Which counselor behavior BEST conveys warmth and respect?
 
@@ -22710,7 +27126,7 @@ A 70-year-old widower arrives early for his first session and seems nervous. Whi
 
 ---
 
-### Q936 of 1000 · nce-s-cor-016 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · medium · In review
+### Q1120 of 1200 · nce-s-cor-016 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · medium · In review
 
 A White counselor working with a Black client hears the client say, "I wasn't sure I could talk about racism at work with you." Which counselor response BEST shows awareness of power and privilege in the relationship?
 
@@ -22734,7 +27150,7 @@ A White counselor working with a Black client hears the client say, "I wasn't su
 
 ---
 
-### Q937 of 1000 · nce-s-cor-017 · Counseling and Helping Relationships · empathy and its levels · medium · In review
+### Q1121 of 1200 · nce-s-cor-017 · Counseling and Helping Relationships · empathy and its levels · medium · In review
 
 A 41-year-old man ordered to counseling after a road-rage incident sits down and says, "This is a joke. The other guy cut me off and I'm the one stuck here wasting my Thursday." Which counselor response BEST conveys empathy?
 
@@ -22758,7 +27174,7 @@ A 41-year-old man ordered to counseling after a road-rage incident sits down and
 
 ---
 
-### Q938 of 1000 · nce-s-cor-018 · Counseling and Helping Relationships · empathy and its levels · hard · In review
+### Q1122 of 1200 · nce-s-cor-018 · Counseling and Helping Relationships · empathy and its levels · hard · In review
 
 A client says, "My sister borrowed money again and didn't pay it back. She's completely selfish, and anyone in my place would cut her off for good." Which counselor response communicates empathy WITHOUT signaling agreement with the client's judgment?
 
@@ -22782,7 +27198,7 @@ A client says, "My sister borrowed money again and didn't pay it back. She's com
 
 ---
 
-### Q939 of 1000 · nce-s-cor-019 · Counseling and Helping Relationships · unconditional positive regard · medium · In review
+### Q1123 of 1200 · nce-s-cor-019 · Counseling and Helping Relationships · unconditional positive regard · medium · In review
 
 A 29-year-old client who left a stable nursing job to work as a touring musician says she is happy with the choice, though money is tight. The counselor privately thinks the decision is unwise. Which approach BEST reflects unconditional positive regard and respect for client autonomy?
 
@@ -22806,7 +27222,7 @@ A 29-year-old client who left a stable nursing job to work as a touring musician
 
 ---
 
-### Q940 of 1000 · nce-s-cor-020 · Counseling and Helping Relationships · unconditional positive regard · easy · In review
+### Q1124 of 1200 · nce-s-cor-020 · Counseling and Helping Relationships · unconditional positive regard · easy · In review
 
 Rogers held that when a counselor provides unconditional positive regard, empathy, and congruence, clients move toward growth because of an innate drive to develop their capacities. He called this drive the
 
@@ -22830,7 +27246,7 @@ Rogers held that when a counselor provides unconditional positive regard, empath
 
 ---
 
-### Q941 of 1000 · nce-s-cor-021 · Counseling and Helping Relationships · congruence and genuineness · medium · In review
+### Q1125 of 1200 · nce-s-cor-021 · Counseling and Helping Relationships · congruence and genuineness · medium · In review
 
 A client describes years of failed fertility treatments. The counselor went through a similar loss and feels a wave of sadness. Which response BEST reflects genuineness and intentional use of self without inappropriate self-disclosure?
 
@@ -22854,7 +27270,7 @@ A client describes years of failed fertility treatments. The counselor went thro
 
 ---
 
-### Q942 of 1000 · nce-s-cor-022 · Counseling and Helping Relationships · congruence and genuineness · easy · In review
+### Q1126 of 1200 · nce-s-cor-022 · Counseling and Helping Relationships · congruence and genuineness · easy · In review
 
 During a video session, a client says, "On this screen it's hard to tell whether what I say really lands with you." Which counselor adjustment BEST supports genuineness in telehealth?
 
@@ -22880,7 +27296,7 @@ During a video session, a client says, "On this screen it's hard to tell whether
 
 ---
 
-### Q943 of 1000 · nce-s-cor-023 · Counseling and Helping Relationships · therapeutic alliance · medium · In review
+### Q1127 of 1200 · nce-s-cor-023 · Counseling and Helping Relationships · therapeutic alliance · medium · In review
 
 A 15-year-old brought to counseling by his mother crosses his arms and says, "She's the one who wanted this. I don't have anything to talk about." Which counselor response is MOST likely to begin building a working alliance?
 
@@ -22904,7 +27320,7 @@ A 15-year-old brought to counseling by his mother crosses his arms and says, "Sh
 
 ---
 
-### Q944 of 1000 · nce-s-cor-024 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · hard · In review
+### Q1128 of 1200 · nce-s-cor-024 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · hard · In review
 
 A court-mandated client on probation asks at intake, "So whatever I say in here goes straight to my probation officer, right?" The client has signed a release limited to attendance and progress reports. What is the BEST response?
 
@@ -22928,7 +27344,7 @@ A court-mandated client on probation asks at intake, "So whatever I say in here 
 
 ---
 
-### Q945 of 1000 · nce-s-cor-025 · Social and Cultural Diversity · cultural humility · medium · In review
+### Q1129 of 1200 · nce-s-cor-025 · Social and Cultural Diversity · cultural humility · medium · In review
 
 In a first session, a counselor told a U.S.-born Korean American client, "Your English is excellent." The client became quiet for the rest of the hour. At the next session, what should the counselor do FIRST?
 
@@ -22952,7 +27368,7 @@ In a first session, a counselor told a U.S.-born Korean American client, "Your E
 
 ---
 
-### Q946 of 1000 · nce-s-cor-026 · Social and Cultural Diversity · cultural humility · hard · In review
+### Q1130 of 1200 · nce-s-cor-026 · Social and Cultural Diversity · cultural humility · hard · In review
 
 A second-generation Nigerian American counselor begins working with a 24-year-old woman who immigrated from Nigeria two years ago. The counselor thinks, "I grew up with this, so I already know what her parents expect of her." Which stance BEST reflects cultural humility?
 
@@ -22976,7 +27392,7 @@ A second-generation Nigerian American counselor begins working with a 24-year-ol
 
 ---
 
-### Q947 of 1000 · nce-s-cor-027 · Social and Cultural Diversity · counselor self-awareness and bias · medium · In review
+### Q1131 of 1200 · nce-s-cor-027 · Social and Cultural Diversity · counselor self-awareness and bias · medium · In review
 
 A counselor with strong religious convictions works with a client who wants help deciding whether to leave her faith community. The counselor notices a pull to encourage the client to stay. What is the MOST appropriate action?
 
@@ -23000,7 +27416,7 @@ A counselor with strong religious convictions works with a client who wants help
 
 ---
 
-### Q948 of 1000 · nce-s-cor-028 · Counseling and Helping Relationships · countertransference · easy · In review
+### Q1132 of 1200 · nce-s-cor-028 · Counseling and Helping Relationships · countertransference · easy · In review
 
 A counselor whose parents had a bitter divorce works with a 16-year-old caught in a custody dispute. She finds herself angry at the client's father and urging the teen to "stand up to him." This pattern is BEST described as
 
@@ -23026,7 +27442,7 @@ A counselor whose parents had a bitter divorce works with a 16-year-old caught i
 
 ---
 
-### Q949 of 1000 · nce-s-cor-029 · Counseling and Helping Relationships · nonjudgmental stance · easy · In review
+### Q1133 of 1200 · nce-s-cor-029 · Counseling and Helping Relationships · nonjudgmental stance · easy · In review
 
 A client says, "I still smoke weed most nights to fall asleep. Go ahead and give me the lecture." Which counselor response BEST reflects a nonjudgmental stance?
 
@@ -23050,7 +27466,7 @@ A client says, "I still smoke weed most nights to fall asleep. Go ahead and give
 
 ---
 
-### Q950 of 1000 · nce-s-cor-030 · Counseling and Helping Relationships · nonjudgmental stance · medium · In review
+### Q1134 of 1200 · nce-s-cor-030 · Counseling and Helping Relationships · nonjudgmental stance · medium · In review
 
 A 33-year-old single mother mentions in passing that she does sex work to pay her bills, then says she came to counseling because of anxiety about her son's problems at school. What should the counselor do?
 
@@ -23074,7 +27490,7 @@ A 33-year-old single mother mentions in passing that she does sex work to pay he
 
 ---
 
-### Q951 of 1000 · nce-s-cor-031 · Counseling and Helping Relationships · warmth and respect · easy · In review
+### Q1135 of 1200 · nce-s-cor-031 · Counseling and Helping Relationships · warmth and respect · easy · In review
 
 A client arrives sobbing and breathing rapidly after learning she is being evicted at the end of the week. Which counselor response BEST conveys warmth in this moment?
 
@@ -23098,7 +27514,7 @@ A client arrives sobbing and breathing rapidly after learning she is being evict
 
 ---
 
-### Q952 of 1000 · nce-s-cor-032 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · medium · In review
+### Q1136 of 1200 · nce-s-cor-032 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · medium · In review
 
 A counselor is meeting with a Spanish-speaking client through a trained professional interpreter. Which practice BEST preserves the client's voice and respects the counseling relationship?
 
@@ -23122,7 +27538,7 @@ A counselor is meeting with a Spanish-speaking client through a trained professi
 
 ---
 
-### Q953 of 1000 · nce-s-cor-033 · Social and Cultural Diversity · counselor self-awareness and bias · medium · In review
+### Q1137 of 1200 · nce-s-cor-033 · Social and Cultural Diversity · counselor self-awareness and bias · medium · In review
 
 A counselor who sincerely holds egalitarian values reviews her recorded sessions for supervision. She notices that with her Latino clients she offers fewer reflections, interrupts more often, and moves to advice sooner than with her White clients. She had not been aware of the difference. This pattern BEST illustrates
 
@@ -23146,7 +27562,7 @@ A counselor who sincerely holds egalitarian values reviews her recorded sessions
 
 ---
 
-### Q954 of 1000 · nce-s-cor-034 · Social and Cultural Diversity · counselor self-awareness and bias · medium · In review
+### Q1138 of 1200 · nce-s-cor-034 · Social and Cultural Diversity · counselor self-awareness and bias · medium · In review
 
 A 47-year-old client in a larger body seeks counseling for grief after his mother's death. He has not raised any concern about his weight. Over three sessions, the counselor finds herself suggesting exercise plans and asking about his eating. Which action BEST reflects counselor self-awareness?
 
@@ -23170,7 +27586,7 @@ A 47-year-old client in a larger body seeks counseling for grief after his mothe
 
 ---
 
-### Q955 of 1000 · nce-s-cor-035 · Social and Cultural Diversity · counselor self-awareness and bias · hard · In review
+### Q1139 of 1200 · nce-s-cor-035 · Social and Cultural Diversity · counselor self-awareness and bias · hard · In review
 
 The week after a national election, a client spends several minutes praising a candidate the counselor strongly opposes. The counselor notices her jaw tightening. The client then asks, "You agree with me, right?" Which counselor response BEST reflects self-aware, ethical practice?
 
@@ -23194,7 +27610,7 @@ The week after a national election, a client spends several minutes praising a c
 
 ---
 
-### Q956 of 1000 · nce-s-cor-036 · Counseling and Helping Relationships · warmth and respect · easy · In review
+### Q1140 of 1200 · nce-s-cor-036 · Counseling and Helping Relationships · warmth and respect · easy · In review
 
 At a community mental health center, a 36-year-old client referred by his caseworker glares at the counselor and says, "You're just another paid stranger. You don't actually care what happens to me." Which counselor response BEST conveys warmth and respect?
 
@@ -23218,7 +27634,7 @@ At a community mental health center, a 36-year-old client referred by his casewo
 
 ---
 
-### Q957 of 1000 · nce-s-cor-037 · Social and Cultural Diversity · warmth and respect · medium · In review
+### Q1141 of 1200 · nce-s-cor-037 · Social and Cultural Diversity · warmth and respect · medium · In review
 
 A 60-year-old Vietnamese immigrant father comes to counseling about conflict with his teenage son. In the first session he says, "You are the expert. Please tell me what I should do." Which counselor approach BEST combines respect with responsiveness to his request?
 
@@ -23242,7 +27658,7 @@ A 60-year-old Vietnamese immigrant father comes to counseling about conflict wit
 
 ---
 
-### Q958 of 1000 · nce-s-cor-038 · Counseling and Helping Relationships · warmth and respect · easy · In review
+### Q1142 of 1200 · nce-s-cor-038 · Counseling and Helping Relationships · warmth and respect · easy · In review
 
 A 38-year-old Army veteran referred for military sexual trauma tells the counselor in her second session, "I'm not ready to talk about what happened. I don't know if I ever will be." Which counselor response BEST respects the client's pace?
 
@@ -23266,7 +27682,7 @@ A 38-year-old Army veteran referred for military sexual trauma tells the counsel
 
 ---
 
-### Q959 of 1000 · nce-s-cor-039 · Counseling and Helping Relationships · unconditional positive regard · medium · In review
+### Q1143 of 1200 · nce-s-cor-039 · Counseling and Helping Relationships · unconditional positive regard · medium · In review
 
 A 26-year-old client in outpatient treatment for opioid use returns after relapsing following 90 days of abstinence. He looks down and says, "You must be so disappointed in me." Which counselor response BEST demonstrates unconditional positive regard?
 
@@ -23290,7 +27706,7 @@ A 26-year-old client in outpatient treatment for opioid use returns after relaps
 
 ---
 
-### Q960 of 1000 · nce-s-cor-040 · Counseling and Helping Relationships · unconditional positive regard · easy · In review
+### Q1144 of 1200 · nce-s-cor-040 · Counseling and Helping Relationships · unconditional positive regard · easy · In review
 
 According to Carl Rogers, incongruence between a person's self-concept and actual experience develops primarily when the person
 
@@ -23314,7 +27730,7 @@ According to Carl Rogers, incongruence between a person's self-concept and actua
 
 ---
 
-### Q961 of 1000 · nce-s-cor-041 · Counseling and Helping Relationships · congruence and genuineness · easy · In review
+### Q1145 of 1200 · nce-s-cor-041 · Counseling and Helping Relationships · congruence and genuineness · easy · In review
 
 In person-centered theory, a counselor who is congruent is one who
 
@@ -23338,7 +27754,7 @@ In person-centered theory, a counselor who is congruent is one who
 
 ---
 
-### Q962 of 1000 · nce-s-cor-042 · Counseling and Helping Relationships · congruence and genuineness · hard · In review
+### Q1146 of 1200 · nce-s-cor-042 · Counseling and Helping Relationships · congruence and genuineness · hard · In review
 
 A 31-year-old client who says coworkers avoid her asks, "Be honest. Do you find me annoying? Everyone else does." In their sessions, the counselor has felt irritated when the client cuts her off mid-sentence. Which response BEST demonstrates congruence in the client's service?
 
@@ -23362,7 +27778,7 @@ A 31-year-old client who says coworkers avoid her asks, "Be honest. Do you find 
 
 ---
 
-### Q963 of 1000 · nce-s-cor-043 · Counseling and Helping Relationships · therapeutic alliance · medium · In review
+### Q1147 of 1200 · nce-s-cor-043 · Counseling and Helping Relationships · therapeutic alliance · medium · In review
 
 A clinic director wants an early indicator of which clients are likely to benefit from counseling, regardless of the counselor's theoretical approach. Based on psychotherapy outcome research, which measure is the MOST useful early predictor?
 
@@ -23388,7 +27804,7 @@ A clinic director wants an early indicator of which clients are likely to benefi
 
 ---
 
-### Q964 of 1000 · nce-s-cor-044 · Counseling and Helping Relationships · therapeutic alliance · hard · In review
+### Q1148 of 1200 · nce-s-cor-044 · Counseling and Helping Relationships · therapeutic alliance · hard · In review
 
 In the third session of couples counseling, Dana interrupts her wife and says to the counselor, "Every time she talks, you nod along. You're clearly on her side." What should the counselor do FIRST?
 
@@ -23412,7 +27828,7 @@ In the third session of couples counseling, Dana interrupts her wife and says to
 
 ---
 
-### Q965 of 1000 · nce-s-cor-045 · Social and Cultural Diversity · cultural humility · medium · In review
+### Q1149 of 1200 · nce-s-cor-045 · Social and Cultural Diversity · cultural humility · medium · In review
 
 A 50-year-old Diné (Navajo) client being seen for anxiety mentions that her family is arranging a ceremony with a traditional healer next month. Which counselor response BEST reflects cultural humility?
 
@@ -23436,7 +27852,7 @@ A 50-year-old Diné (Navajo) client being seen for anxiety mentions that her fam
 
 ---
 
-### Q966 of 1000 · nce-s-cor-046 · Counseling and Helping Relationships · nonjudgmental stance · easy · In review
+### Q1150 of 1200 · nce-s-cor-046 · Counseling and Helping Relationships · nonjudgmental stance · easy · In review
 
 A 19-year-old says, "I dropped out of college to stream video games full time. My parents keep calling me lazy." Which counselor response BEST reflects a nonjudgmental stance?
 
@@ -23460,7 +27876,7 @@ A 19-year-old says, "I dropped out of college to stream video games full time. M
 
 ---
 
-### Q967 of 1000 · nce-s-cor-047 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · medium · In review
+### Q1151 of 1200 · nce-s-cor-047 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · medium · In review
 
 A client who works two hourly jobs has missed two sessions after short-notice shift changes. She apologizes repeatedly and seems afraid of being dropped. The agency discharges clients after three missed sessions. Which counselor response BEST reflects awareness of power and privilege?
 
@@ -23484,7 +27900,7 @@ A client who works two hourly jobs has missed two sessions after short-notice sh
 
 ---
 
-### Q968 of 1000 · nce-s-cor-048 · Counseling and Helping Relationships · countertransference · medium · In review
+### Q1152 of 1200 · nce-s-cor-048 · Counseling and Helping Relationships · countertransference · medium · In review
 
 A counselor working with a 68-year-old recently widowed man, with his permission, has begun calling his bank, drafting his letters, and booking his appointments. She thinks warmly, "He would be lost without me." Which risk does this pattern MOST directly create?
 
@@ -23508,7 +27924,7 @@ A counselor working with a 68-year-old recently widowed man, with his permission
 
 ---
 
-### Q969 of 1000 · nce-s-cor-049 · Social and Cultural Diversity · cultural humility · medium · In review
+### Q1153 of 1200 · nce-s-cor-049 · Social and Cultural Diversity · cultural humility · medium · In review
 
 A counselor tells a 45-year-old Mexican American client, "It must help to have your big family around you right now." The client replies, "Actually, my family is part of the stress. My friends from work are who I lean on." Which counselor response BEST reflects cultural humility?
 
@@ -23532,7 +27948,7 @@ A counselor tells a 45-year-old Mexican American client, "It must help to have y
 
 ---
 
-### Q970 of 1000 · nce-s-cor-050 · Social and Cultural Diversity · cultural humility · hard · In review
+### Q1154 of 1200 · nce-s-cor-050 · Social and Cultural Diversity · cultural humility · hard · In review
 
 A Filipina American counselor begins working with a 58-year-old White, heterosexual, Christian man who owns a hardware store in a small farming town and is struggling after his business partner died. The counselor thinks, "His culture is the mainstream one, so there isn't much cultural material to explore." Which stance BEST reflects cultural humility?
 
@@ -23556,7 +27972,7 @@ A Filipina American counselor begins working with a 58-year-old White, heterosex
 
 ---
 
-### Q971 of 1000 · nce-s-cor-051 · Social and Cultural Diversity · cultural humility · easy · In review
+### Q1155 of 1200 · nce-s-cor-051 · Social and Cultural Diversity · cultural humility · easy · In review
 
 Which description BEST captures cultural humility as distinct from cultural competence?
 
@@ -23582,7 +27998,7 @@ Which description BEST captures cultural humility as distinct from cultural comp
 
 ---
 
-### Q972 of 1000 · nce-s-cor-052 · Counseling and Helping Relationships · nonjudgmental stance · medium · In review
+### Q1156 of 1200 · nce-s-cor-052 · Counseling and Helping Relationships · nonjudgmental stance · medium · In review
 
 A 44-year-old man says, "I've been seeing someone else for six months. My wife has no idea. You probably think I'm a terrible person now." Which counselor response BEST reflects a nonjudgmental stance?
 
@@ -23606,7 +28022,7 @@ A 44-year-old man says, "I've been seeing someone else for six months. My wife h
 
 ---
 
-### Q973 of 1000 · nce-s-cor-053 · Counseling and Helping Relationships · nonjudgmental stance · medium · In review
+### Q1157 of 1200 · nce-s-cor-053 · Counseling and Helping Relationships · nonjudgmental stance · medium · In review
 
 A 62-year-old client laid off from a factory job says, "Immigrants took all the jobs around here. People like that are ruining this country." The counselor, herself the daughter of immigrants, feels a flash of anger. Which response BEST reflects a nonjudgmental stance while staying ethical?
 
@@ -23630,7 +28046,7 @@ A 62-year-old client laid off from a factory job says, "Immigrants took all the 
 
 ---
 
-### Q974 of 1000 · nce-s-cor-054 · Counseling and Helping Relationships · nonjudgmental stance · easy · In review
+### Q1158 of 1200 · nce-s-cor-054 · Counseling and Helping Relationships · nonjudgmental stance · easy · In review
 
 A 67-year-old woman meeting by telehealth after eight months of sobriety says, "I drank at my granddaughter's wedding. I blew everything. I'm back at zero." Which counselor response BEST reflects a nonjudgmental stance?
 
@@ -23654,7 +28070,7 @@ A 67-year-old woman meeting by telehealth after eight months of sobriety says, "
 
 ---
 
-### Q975 of 1000 · nce-s-cor-055 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · medium · In review
+### Q1159 of 1200 · nce-s-cor-055 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · medium · In review
 
 A middle school counselor receives a 13-year-old sent by the assistant principal after a hallway fight. The student slumps in the chair and says, "Just write me up already. You all work for the office." Which counselor response BEST reflects awareness of power in this setting?
 
@@ -23678,7 +28094,7 @@ A middle school counselor receives a 13-year-old sent by the assistant principal
 
 ---
 
-### Q976 of 1000 · nce-s-cor-056 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · hard · In review
+### Q1160 of 1200 · nce-s-cor-056 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · hard · In review
 
 A 55-year-old Haitian Creole-speaking woman comes to an intake for depression with her adult son, who offers to interpret. As the session goes on, he answers some questions without asking her and gives brief summaries of her longer replies. What is the BEST course of action?
 
@@ -23702,7 +28118,7 @@ A 55-year-old Haitian Creole-speaking woman comes to an intake for depression wi
 
 ---
 
-### Q977 of 1000 · nce-s-cor-057 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · medium · In review
+### Q1161 of 1200 · nce-s-cor-057 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · medium · In review
 
 A 50-year-old Black man who was once hospitalized involuntarily says at intake, "You've got all those letters after your name. The last one decided what was wrong with me and never asked me a thing." Which counselor response BEST addresses the power differential?
 
@@ -23726,7 +28142,7 @@ A 50-year-old Black man who was once hospitalized involuntarily says at intake, 
 
 ---
 
-### Q978 of 1000 · nce-s-cor-058 · Counseling and Helping Relationships · empathy and its levels · medium · In review
+### Q1162 of 1200 · nce-s-cor-058 · Counseling and Helping Relationships · empathy and its levels · medium · In review
 
 A 78-year-old man tells his 27-year-old counselor, "You're young enough to be my granddaughter. What could you know about burying a wife of 55 years?" Which counselor response BEST conveys empathy?
 
@@ -23750,7 +28166,7 @@ A 78-year-old man tells his 27-year-old counselor, "You're young enough to be my
 
 ---
 
-### Q979 of 1000 · nce-s-cor-059 · Counseling and Helping Relationships · empathy and its levels · hard · In review
+### Q1163 of 1200 · nce-s-cor-059 · Counseling and Helping Relationships · empathy and its levels · hard · In review
 
 A counselor at a refugee resettlement agency tells her supervisor that she cries alongside clients as they describe their losses, then feels drained and has trouble thinking clearly in session. The supervisor suggests she shift the balance of her empathy. Which shift is the supervisor MOST likely recommending?
 
@@ -23774,7 +28190,7 @@ A counselor at a refugee resettlement agency tells her supervisor that she cries
 
 ---
 
-### Q980 of 1000 · nce-s-cor-060 · Counseling and Helping Relationships · unconditional positive regard · easy · In review
+### Q1164 of 1200 · nce-s-cor-060 · Counseling and Helping Relationships · unconditional positive regard · easy · In review
 
 In person-centered counseling, offering unconditional positive regard means the counselor
 
@@ -23798,7 +28214,7 @@ In person-centered counseling, offering unconditional positive regard means the 
 
 ---
 
-### Q981 of 1000 · nce-s-cor-061 · Counseling and Helping Relationships · congruence and genuineness · medium · In review
+### Q1165 of 1200 · nce-s-cor-061 · Counseling and Helping Relationships · congruence and genuineness · medium · In review
 
 A 23-year-old client starting treatment for panic attacks asks, "Just tell me straight. Is this going to fix me?" The counselor believes the approach is likely to help but cannot be certain it will work for him. Which response BEST demonstrates congruence?
 
@@ -23822,7 +28238,7 @@ A 23-year-old client starting treatment for panic attacks asks, "Just tell me st
 
 ---
 
-### Q982 of 1000 · nce-s-cor-062 · Counseling and Helping Relationships · therapeutic alliance · hard · In review
+### Q1166 of 1200 · nce-s-cor-062 · Counseling and Helping Relationships · therapeutic alliance · hard · In review
 
 A 48-year-old client with marked paranoid features stiffens when the counselor mentions his former employer. "How do you know where I worked? Have you been talking to people about me?" The detail came from the intake form he completed. Which response is MOST likely to protect the working alliance?
 
@@ -23848,7 +28264,7 @@ A 48-year-old client with marked paranoid features stiffens when the counselor m
 
 ---
 
-### Q983 of 1000 · nce-s-cor-063 · Counseling and Helping Relationships · countertransference · medium · In review
+### Q1167 of 1200 · nce-s-cor-063 · Counseling and Helping Relationships · countertransference · medium · In review
 
 A counselor in a community reentry program, herself a mother of young children, is assigned a 35-year-old man who served a sentence for physically abusing a child. She notices she is curt with him, ends sessions early, and dreads his appointments. What is the MOST appropriate action?
 
@@ -23872,7 +28288,7 @@ A counselor in a community reentry program, herself a mother of young children, 
 
 ---
 
-### Q984 of 1000 · nce-s-cor-064 · Social and Cultural Diversity · warmth and respect · easy · In review
+### Q1168 of 1200 · nce-s-cor-064 · Social and Cultural Diversity · warmth and respect · easy · In review
 
 At his first session, a 26-year-old graduate student from Ghana whose name is Kwabena says, "Most people here just call me Kevin. It's easier." Which counselor response BEST conveys respect?
 
@@ -23896,7 +28312,7 @@ At his first session, a 26-year-old graduate student from Ghana whose name is Kw
 
 ---
 
-### Q985 of 1000 · nce-s-cor-065 · Counseling and Helping Relationships · counselor self-awareness and bias · hard · In review
+### Q1169 of 1200 · nce-s-cor-065 · Counseling and Helping Relationships · counselor self-awareness and bias · hard · In review
 
 A counselor in long-term recovery through a 12-step program works at an outpatient clinic. Reviewing her notes, she sees that she steers nearly every client toward meetings and describes clients who prefer SMART Recovery or medication for opioid use disorder as "not ready." Which step BEST reflects counselor self-awareness?
 
@@ -23920,7 +28336,7 @@ A counselor in long-term recovery through a 12-step program works at an outpatie
 
 ---
 
-### Q986 of 1000 · nce-s-cor-066 · Group Counseling and Group Work · counselor self-awareness and bias · medium · In review
+### Q1170 of 1200 · nce-s-cor-066 · Group Counseling and Group Work · counselor self-awareness and bias · medium · In review
 
 A counselor leading a hospital support group for family caregivers reviews a session recording. She notices that she invites the two members who are nurses to speak more often and responds to them at length, while briefly thanking a member with little formal education. What should the leader do?
 
@@ -23944,7 +28360,7 @@ A counselor leading a hospital support group for family caregivers reviews a ses
 
 ---
 
-### Q987 of 1000 · nce-s-cor-067 · Counseling and Helping Relationships · counselor self-awareness and bias · easy · In review
+### Q1171 of 1200 · nce-s-cor-067 · Counseling and Helping Relationships · counselor self-awareness and bias · easy · In review
 
 A counselor in training asks her supervisor how to become more aware of her own cultural biases. Which activity MOST directly builds this kind of self-awareness?
 
@@ -23968,7 +28384,7 @@ A counselor in training asks her supervisor how to become more aware of her own 
 
 ---
 
-### Q988 of 1000 · nce-s-cor-068 · Counseling and Helping Relationships · unconditional positive regard · hard · In review
+### Q1172 of 1200 · nce-s-cor-068 · Counseling and Helping Relationships · unconditional positive regard · hard · In review
 
 A perfectionistic 20-year-old engineering student has felt worthless since childhood. The counselor notices that she becomes animated and praises him when he reports top grades, but grows quiet when he describes setbacks. From a person-centered view, what is the MAIN concern?
 
@@ -23992,7 +28408,7 @@ A perfectionistic 20-year-old engineering student has felt worthless since child
 
 ---
 
-### Q989 of 1000 · nce-s-cor-069 · Counseling and Helping Relationships · unconditional positive regard · easy · In review
+### Q1173 of 1200 · nce-s-cor-069 · Counseling and Helping Relationships · unconditional positive regard · easy · In review
 
 Which counselor statement BEST illustrates unconditional positive regard?
 
@@ -24016,7 +28432,7 @@ Which counselor statement BEST illustrates unconditional positive regard?
 
 ---
 
-### Q990 of 1000 · nce-s-cor-070 · Counseling and Helping Relationships · congruence and genuineness · medium · In review
+### Q1174 of 1200 · nce-s-cor-070 · Counseling and Helping Relationships · congruence and genuineness · medium · In review
 
 In the fifth session, a counselor refers to a grieving client's late son as "Marcus." The client stiffens and says quietly, "His name was Martin." Which counselor response BEST demonstrates congruence?
 
@@ -24040,7 +28456,7 @@ In the fifth session, a counselor refers to a grieving client's late son as "Mar
 
 ---
 
-### Q991 of 1000 · nce-s-cor-071 · Counseling and Helping Relationships · congruence and genuineness · hard · In review
+### Q1175 of 1200 · nce-s-cor-071 · Counseling and Helping Relationships · congruence and genuineness · hard · In review
 
 A trainee tells her supervisor, "To be congruent, I should tell clients every reaction I have toward them as soon as I notice it." Which reply from the supervisor MOST accurately describes congruence in person-centered theory?
 
@@ -24064,7 +28480,7 @@ A trainee tells her supervisor, "To be congruent, I should tell clients every re
 
 ---
 
-### Q992 of 1000 · nce-s-cor-072 · Counseling and Helping Relationships · therapeutic alliance · medium · In review
+### Q1176 of 1200 · nce-s-cor-072 · Counseling and Helping Relationships · therapeutic alliance · medium · In review
 
 A 45-year-old client seeking help with heavy weekend drinking says his goal is to cut back to two drinks a night, not to quit. He has no history of withdrawal. The counselor believes abstinence would be safer. Which approach BEST strengthens the working alliance?
 
@@ -24088,7 +28504,7 @@ A 45-year-old client seeking help with heavy weekend drinking says his goal is t
 
 ---
 
-### Q993 of 1000 · nce-s-cor-073 · Group Counseling and Group Work · therapeutic alliance · medium · In review
+### Q1177 of 1200 · nce-s-cor-073 · Group Counseling and Group Work · therapeutic alliance · medium · In review
 
 At the first meeting of a 10-week court-mandated anger management group, several members say they are only there to get their paperwork signed. Which leader action is MOST likely to begin building a working alliance with the members?
 
@@ -24112,7 +28528,7 @@ At the first meeting of a 10-week court-mandated anger management group, several
 
 ---
 
-### Q994 of 1000 · nce-s-cor-074 · Counseling and Helping Relationships · warmth and respect · easy · In review
+### Q1178 of 1200 · nce-s-cor-074 · Counseling and Helping Relationships · warmth and respect · easy · In review
 
 A 34-year-old client who uses a power wheelchair arrives for an intake with a personal care attendant. Which counselor behavior BEST conveys respect?
 
@@ -24136,7 +28552,7 @@ A 34-year-old client who uses a power wheelchair arrives for an intake with a pe
 
 ---
 
-### Q995 of 1000 · nce-s-cor-075 · Group Counseling and Group Work · warmth and respect · medium · In review
+### Q1179 of 1200 · nce-s-cor-075 · Group Counseling and Group Work · warmth and respect · medium · In review
 
 In a school counseling group for 14-year-olds coping with family changes, a usually quiet member describes crying the night her father moved out. Another member snickers. Which leader response BEST conveys warmth and respect while protecting the group?
 
@@ -24160,7 +28576,7 @@ In a school counseling group for 14-year-olds coping with family changes, a usua
 
 ---
 
-### Q996 of 1000 · nce-s-cor-076 · Counseling and Helping Relationships · nonjudgmental stance · medium · In review
+### Q1180 of 1200 · nce-s-cor-076 · Counseling and Helping Relationships · nonjudgmental stance · medium · In review
 
 A 52-year-old client tearfully says she has decided to move her mother, who has advanced dementia, into a memory care facility. The counselor grew up in a family where caring for aging parents at home was expected. Which response BEST reflects a nonjudgmental stance?
 
@@ -24184,7 +28600,7 @@ A 52-year-old client tearfully says she has decided to move her mother, who has 
 
 ---
 
-### Q997 of 1000 · nce-s-cor-077 · Counseling and Helping Relationships · nonjudgmental stance · hard · In review
+### Q1181 of 1200 · nce-s-cor-077 · Counseling and Helping Relationships · nonjudgmental stance · hard · In review
 
 A counselor helping a client with job stress learns the client drinks six to eight beers most nights. Wanting to stay nonjudgmental, the counselor decides not to ask about the drinking because the client has not raised it as a concern. Which statement BEST evaluates this decision?
 
@@ -24208,7 +28624,7 @@ A counselor helping a client with job stress learns the client drinks six to eig
 
 ---
 
-### Q998 of 1000 · nce-s-cor-078 · Social and Cultural Diversity · cultural humility · medium · In review
+### Q1182 of 1200 · nce-s-cor-078 · Social and Cultural Diversity · cultural humility · medium · In review
 
 An intake form lists a 30-year-old client's background as "Puerto Rican and Irish." The client has come for help with work stress and uses they/them pronouns. Which approach BEST reflects cultural humility?
 
@@ -24232,7 +28648,7 @@ An intake form lists a 30-year-old client's background as "Puerto Rican and Iris
 
 ---
 
-### Q999 of 1000 · nce-s-cor-079 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · medium · In review
+### Q1183 of 1200 · nce-s-cor-079 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · medium · In review
 
 A White counselor suggests that a 24-year-old Black client ease evening anxiety by taking long walks through his suburban neighborhood after dark. The client pauses and says, "That's not as simple for me as it might be for you." Which response BEST shows awareness of privilege?
 
@@ -24256,7 +28672,7 @@ A White counselor suggests that a 24-year-old Black client ease evening anxiety 
 
 ---
 
-### Q1000 of 1000 · nce-s-cor-080 · Counseling and Helping Relationships · empathy and its levels · easy · In review
+### Q1184 of 1200 · nce-s-cor-080 · Counseling and Helping Relationships · empathy and its levels · easy · In review
 
 A client says, "I finished my degree at 52, and none of my kids came to the graduation. I guess it's no big deal." The counselor replies, "Congratulations! What are your plans now that you've graduated?" On Carkhuff's empathy scale, this response is BEST classified as
 
@@ -24275,6 +28691,390 @@ A client says, "I finished my degree at 52, and none of my kids came to the grad
 **Rationale:** On Carkhuff's five-level scale, Level 3 is interchangeable with the client's expressed feeling and meaning, Levels 4 and 5 are additive, and Levels 1 and 2 are subtractive. A response that attends to surface content while missing the core feeling, here the hurt behind "no big deal," falls below the minimally facilitative level.
 
 **References:** Gladding (Counseling: A Comprehensive Profession) — Carkhuff's scale of empathic understanding: subtractive, interchangeable and additive responses
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1185 of 1200 · nce-s-cor-081 · Counseling and Helping Relationships · countertransference · hard · In review
+
+A supervisor notes that a counselor stays steady with highly distressed clients because she has a sound, intact character structure and keeps clear boundaries between her own needs and her clients' needs. In Gelso and Hayes's account of countertransference management, this capacity is called
+
+**A.** self-integration **✔ KEY**
+> Self-integration refers to an intact, healthy character structure and the ability to differentiate self from client.
+
+**B.** self-insight
+> Self-insight is awareness of one's own feelings and their origins, not the stability of one's character structure.
+
+**C.** anxiety management
+> Anxiety management is the ability to tolerate and regulate one's anxiety so it does not drive behavior in session.
+
+**D.** conceptualizing skill
+> Conceptualizing skill is the use of theory to understand the client and the relationship, including one's reactions.
+
+**Rationale:** Gelso and Hayes describe five interrelated counselor qualities that help manage countertransference: self-insight, self-integration, anxiety management, empathy and conceptualizing skills. Self-integration is the most basic of these: a healthy, well-differentiated sense of self that lets the counselor recognize where they end and the client begins. Without it, the counselor's unresolved needs are more likely to spill into the work.
+
+**References:** Gelso & Hayes (Countertransference) — Managing countertransference: the five factors (self-insight, self-integration, anxiety management, empathy, conceptualizing skills)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1186 of 1200 · nce-s-cor-082 · Counseling and Helping Relationships · countertransference · hard · In review
+
+A 39-year-old client says early on that everyone eventually gives up on him. He arrives late, dismisses suggestions, and mocks the counselor's questions. The counselor notices she has become curt and is privately hoping he will drop out, much as his family and past employers did. Which view of countertransference BEST fits understanding her reaction as a response pulled by the client's interpersonal style?
+
+**A.** The classical view
+> The classical view limits countertransference to the counselor's unconscious, unresolved conflicts reacting to the client's transference.
+
+**B.** The totalistic view
+> The totalistic view counts every counselor reaction as countertransference, without the specific focus on interpersonal pull.
+
+**C.** The complementary view **✔ KEY**
+> The complementary view sees the counselor's reaction as the response the client's style tends to evoke from others, here rejection.
+
+**D.** The intersubjective view
+> This is not one of the four conceptions Gelso and Hayes outline, and it does not specifically name the interpersonal pull.
+
+**Rationale:** Gelso and Hayes describe classical, totalistic, complementary and integrative conceptions of countertransference. The complementary view holds that clients' characteristic interpersonal styles pull predictable responses from others, including the counselor. Recognizing the pull lets the counselor avoid repeating the rejection the client expects and instead use it to understand his relational pattern.
+
+**References:** Gelso & Hayes (Countertransference) — Ch. 1: classical, totalistic, complementary and integrative conceptions; complementary view and interpersonal pull
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1187 of 1200 · nce-s-cor-083 · Group Counseling and Group Work · countertransference · medium · In review
+
+A leader of an adult grief group feels mounting irritation each time one member tells long stories that fill the session. She reminds herself that monopolizing often shields a member from painful feelings and from closeness with others, and her irritation turns to curiosity. Which countertransference management factor described by Gelso and Hayes is she MOST clearly using?
+
+**A.** Self-integration, keeping a stable sense of self apart from members
+> Self-integration concerns an intact character structure; the leader's shift came from applying theory.
+
+**B.** Anxiety management, lowering her own tension so it does not leak out
+> Regulating anxiety helps, but what changed her reaction here was a theoretical understanding of the member.
+
+**C.** Empathy, feeling the member's grief as though it were her own grief
+> Empathy keeps the "as if" quality; merging with the member's grief is not what she did or what empathy means.
+
+**D.** Conceptualizing skills, using theory to make sense of the member's role **✔ KEY**
+> She drew on a theoretical understanding of monopolizing to interpret the behavior, which defused her reaction.
+
+**Rationale:** Conceptualizing skill is the counselor's ability to draw on theory to understand the client's dynamics and the relationship, including the counselor's own reactions. Framing a behavior that irritates the leader as a meaningful defense helps her respond therapeutically instead of acting out irritation. In groups, this lets the leader address the monopolizing in a way that serves both the member and the group.
+
+**References:** Gelso & Hayes (Countertransference) — Managing countertransference: conceptualizing skills as a management factor · Yalom & Leszcz (Group Psychotherapy) — Problem group members: the monopolist
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1188 of 1200 · nce-s-cor-084 · Counseling and Helping Relationships · therapeutic alliance · medium · In review
+
+A 28-year-old client with contamination fears says she likes her counselor and agrees that being able to ride the subway again is the right goal. When the counselor proposes exposure exercises, she says, "Touching handrails on purpose makes no sense to me." In Bordin's model, which part of the working alliance is MOST strained?
+
+**A.** The goals, since she does not share the aim of returning to the subway
+> She explicitly agrees with the subway goal, so agreement on goals is intact.
+
+**B.** The tasks, since she does not accept the methods proposed to get there **✔ KEY**
+> Her objection is to the exposure exercises themselves, which is a disagreement about tasks.
+
+**C.** The bond, since her objection shows she does not trust the counselor
+> She says she likes the counselor; the objection concerns the method, not the emotional bond.
+
+**D.** Readiness for change, which Bordin listed as a fourth alliance component
+> Bordin's model has three components (goals, tasks, bond); readiness for change is not one of them.
+
+**Rationale:** Bordin defined the working alliance as agreement on goals, agreement on tasks and an emotional bond. A client can share the goal and like the counselor yet reject the methods, which strains the tasks component. Exploring the rationale for exposure collaboratively, and adjusting the steps with the client, helps restore agreement.
+
+**References:** Gladding (Counseling: A Comprehensive Profession) — Working alliance: goals, tasks and bond (Bordin)
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1189 of 1200 · nce-s-cor-085 · Counseling and Helping Relationships · therapeutic alliance · hard · In review
+
+In a first family session, a father says the only problem is his 14-year-old's defiance. The mother says the real issue is the father's drinking, and the teen says nothing needs fixing. Each member is warm toward the counselor but dismisses the others' concerns. Using Friedlander and colleagues' SOFTA framework, which alliance dimension is MOST in need of attention?
+
+**A.** Emotional connection to the counselor
+> Each member is warm toward the counselor, so this dimension is not the main concern.
+
+**B.** Engagement in the therapy process
+> Engagement concerns involvement in the work; the defining problem here is disagreement among members.
+
+**C.** Safety within the therapy system
+> Nothing indicates members feel unsafe in session; the issue is a lack of shared aims.
+
+**D.** Shared purpose within the family **✔ KEY**
+> Members disagree about what the problem is and whether change is needed, which defines a weak within-family alliance.
+
+**Rationale:** The System for Observing Family Therapy Alliances (SOFTA) has four dimensions: engagement in the therapeutic process, emotional connection to the therapist, safety within the therapeutic system and shared sense of purpose within the family. Shared purpose is unique to conjoint work because it concerns the alliance among family members, not just with the counselor. Building a common definition of the problem is often a priority before change work can begin.
+
+**References:** Friedlander et al. (Alliances in Couple & Family Therapy) — SOFTA dimensions: engagement, emotional connection, safety, shared sense of purpose within the family
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1190 of 1200 · nce-s-cor-086 · Counseling and Helping Relationships · empathy and its levels · medium · In review
+
+As a client describes a violent assault, a new counselor feels her own heart racing and a strong urge to change the subject so that she can feel calmer. In Davis's multidimensional model of empathy, this self-focused discomfort is BEST described as
+
+**A.** personal distress **✔ KEY**
+> Personal distress is self-oriented anxiety and unease in response to another's suffering, which can push the helper to escape.
+
+**B.** empathic concern
+> Empathic concern is other-oriented warmth and compassion for the person suffering, not anxiety about oneself.
+
+**C.** perspective taking
+> Perspective taking is the cognitive ability to adopt another's viewpoint, not an emotional reaction.
+
+**D.** fantasy
+> The fantasy dimension is the tendency to identify with fictional characters in books or films.
+
+**Rationale:** Davis measured empathy with four dimensions: perspective taking, fantasy, empathic concern and personal distress. Empathic concern points the helper toward the other person, while personal distress is focused on the helper's own discomfort and can lead to avoidance. Counselors who notice personal distress can ground themselves and return attention to the client.
+
+**References:** Davis (Multidimensional Empathy) — Four dimensions: perspective taking, fantasy, empathic concern and personal distress
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1191 of 1200 · nce-s-cor-087 · Counseling and Helping Relationships · empathy and its levels · easy · In review
+
+A 20-year-old college student who uses a wheelchair says, "The elevator in my science building broke again, so I missed another lab. My professor just said to get the notes from someone." Which counselor response BEST conveys accurate empathy?
+
+**A.** Elevators break down sometimes. Have you thought about asking a classmate for notes?
+> This minimizes the barrier and jumps to advice, so it misses the client's feelings.
+
+**B.** You should file a complaint with disability services right away about that building.
+> Advocacy may help later, but directing action first skips understanding the client's experience.
+
+**C.** You're frustrated, missing labs over something you can't control, and then brushed off. **✔ KEY**
+> This accurately reflects both the frustration and the sense of being dismissed by the professor.
+
+**D.** I know exactly how you feel. I hated it whenever I had to miss a class in college too.
+> Claiming identical experience shifts focus to the counselor and overlooks the access barrier.
+
+**Rationale:** Accurate empathy captures both the client's feeling and the situation that gives rise to it, in the counselor's own words. Here the client's frustration stems from repeated access barriers and a dismissive response, and an empathic reflection names both. Advice, minimizing and "I know exactly how you feel" statements pull away from the client's frame of reference.
+
+**References:** Ivey et al. (Intentional Interviewing) — Reflection of feeling and empathic understanding
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1192 of 1200 · nce-s-cor-088 · Counseling and Helping Relationships · congruence and genuineness · easy · In review
+
+When a client begins describing his sexual history, the counselor says, "I'm completely comfortable with this topic." As she speaks, her voice tightens, she leans back, and she starts taking notes rapidly. The client grows guarded. Which core condition is MOST clearly lacking?
+
+**A.** Unconditional positive regard
+> Nothing shows she values him less; the problem is the mismatch between her words and her state.
+
+**B.** Congruence **✔ KEY**
+> Her words deny discomfort that her voice and posture reveal, a clear mismatch between inner experience and expression.
+
+**C.** Concreteness
+> Concreteness is helping a client be specific; it does not explain the client's guardedness here.
+
+**D.** Accurate empathy
+> She has not yet misread his feelings; the breakdown lies in her own genuineness.
+
+**Rationale:** Congruence means the counselor's outward communication matches inner experience. Clients often read nonverbal cues more readily than words, so a counselor who claims comfort while showing tension can seem untrustworthy. A congruent counselor notices the discomfort, manages it, and, if relevant, acknowledges it honestly rather than covering it with a facade.
+
+**References:** Corey (Theory & Practice) — Person-centered therapy: congruence or genuineness
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1193 of 1200 · nce-s-cor-089 · Group Counseling and Group Work · congruence and genuineness · medium · In review
+
+In week five of a parenting skills group, three members again arrive 15 minutes late, and the leader has felt frustrated for weeks. One member says, "You seem annoyed with us today. Are you?" Which leader response BEST demonstrates congruence?
+
+**A.** Not at all. I'm here to support all of you, so let's get back to the topic for today.
+> Denying a feeling the members can already sense is incongruent and models avoidance.
+
+**B.** Yes. Some of you clearly don't respect this group, and that needs to change right now.
+> This voices the feeling as blame and judgment, not as an owned reaction the group can explore.
+
+**C.** Yes, I've felt frustrated about the late arrivals. I'd like us to talk about it together. **✔ KEY**
+> The leader owns the feeling honestly and turns it into a here-and-now discussion that serves the group.
+
+**D.** What makes you ask? I'm curious what you're noticing, and how others see me today.
+> Deflecting the direct question keeps the leader's real reaction hidden behind a technique.
+
+**Rationale:** A congruent leader's words match their inner experience, and they share relevant feelings in an owned, nonblaming way when it helps the work. Acknowledging frustration and inviting discussion models honest communication and lets members examine a pattern that affects the whole group. Denial or deflection teaches members that real reactions are not welcome.
+
+**References:** Yalom & Leszcz (Group Psychotherapy) — Therapist transparency and here-and-now focus · Corey (Theory & Practice) — Person-centered therapy: congruence or genuineness
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1194 of 1200 · nce-s-cor-090 · Counseling and Helping Relationships · unconditional positive regard · medium · In review
+
+A 31-year-old mother whose children were placed in foster care for neglect a year ago has completed her case plan and has regained custody. She says, "Everyone still looks at me like I'm a bad mother. I bet you do too." Which counselor response BEST conveys unconditional positive regard?
+
+**A.** You did neglect them before, but what really matters most now is that you've changed.
+> This makes her worth depend on having changed, which is conditional regard.
+
+**B.** I don't see you that way. I value you as a person, including the hard parts of your story. **✔ KEY**
+> This affirms her worth without conditions and without denying or condemning her history.
+
+**C.** Other people's opinions shouldn't matter, so try not to worry about how they look at you.
+> This dismisses her pain and sidesteps her question about how the counselor sees her.
+
+**D.** You've done everything the court asked of you, so you have earned some respect from me.
+> Respect framed as earned by compliance is conditional, the opposite of unconditional regard.
+
+**Rationale:** Unconditional positive regard is the counselor's acceptance and valuing of the client as a person, not contingent on behavior or progress. It does not require approving of past actions, but it separates the client's worth from them. For clients who carry shame and expect judgment, this acceptance helps them examine their experience openly.
+
+**References:** Corey (Theory & Practice) — Person-centered therapy: unconditional positive regard and acceptance
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1195 of 1200 · nce-s-cor-091 · Counseling and Helping Relationships · warmth and respect · easy · In review
+
+During a telehealth session, a client's 4-year-old wakes from a nap crying, and the client says, "I'm so sorry, I have to go check on her." Which counselor response BEST conveys warmth?
+
+**A.** Please try to arrange childcare for our sessions so we're not interrupted again.
+> This focuses on the inconvenience and adds pressure at a stressful moment.
+
+**B.** That's fine, but we'll need to end on time even if we lose some minutes now.
+> Leading with the time limit sounds cool and rule-focused rather than caring.
+
+**C.** We can just reschedule the rest. Message me later whenever things calm down.
+> Ending abruptly may feel like a dismissal and gives up the session without asking.
+
+**D.** Of course, no need to apologize. Go take care of her; I'll be right here. **✔ KEY**
+> This relieves her guilt, accepts her parenting role, and signals the counselor's steady availability.
+
+**Rationale:** Warmth is conveyed through acceptance, kindness and a relaxed, caring manner, especially when a client feels embarrassed. Telehealth brings clients' home lives into the session, and responding to interruptions with understanding protects the relationship. Logistics can be discussed later if interruptions become a pattern.
+
+**References:** Ivey et al. (Intentional Interviewing) — Empathic relationship: warmth and positive regard
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1196 of 1200 · nce-s-cor-092 · Counseling and Helping Relationships · nonjudgmental stance · easy · In review
+
+A 38-year-old client says, "My partner and I decided we're never having kids. My parents keep saying I'll regret it and that it's selfish." Which counselor response BEST reflects a nonjudgmental stance?
+
+**A.** It sounds like you've made your decision, and their comments are weighing on you. **✔ KEY**
+> This accepts the decision as the client's and focuses on the client's experience of the pressure.
+
+**B.** Your parents might have a point. A lot of people do change their minds about this.
+> This sides with the parents and implies the client's choice is likely mistaken.
+
+**C.** Have you and your partner fully thought through what you might miss out on later?
+> This questions the soundness of the decision rather than exploring what the client brought.
+
+**D.** Good for you both. Honestly, having children isn't the right choice for most people.
+> Approval is still judgment, and it imposes the counselor's own view about having children.
+
+**Rationale:** A nonjudgmental stance means the counselor neither condemns nor endorses the client's life choices, staying with the client's own meaning and feelings. Both disapproval and enthusiastic approval insert the counselor's values. Here the client's concern is family pressure, so the counselor reflects that experience.
+
+**References:** ACA Code of Ethics — A.4.b Personal Values
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1197 of 1200 · nce-s-cor-093 · Social and Cultural Diversity · cultural humility · medium · In review
+
+A hearing counselor working with a 34-year-old Deaf client through an ASL interpreter suggests they explore "grief about your hearing loss." The client signs that she was born Deaf, sees Deafness as her culture, and feels no loss about it. Which next step BEST reflects cultural humility?
+
+**A.** Explain that many people do grieve hearing loss, so it may still be worth exploring later on
+> This holds onto the counselor's frame and overrides the client's own view of her identity.
+
+**B.** Ask the client to spend the next session teaching her everything she should know about Deaf culture
+> This shifts the counselor's learning burden onto the client and takes over the client's session.
+
+**C.** Own the assumption, follow the client's view of Deafness, and learn about Deaf culture herself **✔ KEY**
+> This acknowledges the error, centers the client's identity, and accepts responsibility for ongoing learning.
+
+**D.** Refer the client to a Deaf counselor, since a hearing counselor cannot understand her experience
+> Referral may be an option the client chooses, but reflexive referral avoids the repair and the relationship.
+
+**Rationale:** Cultural humility involves an accurate view of one's own limits, openness to the client's perspective, and ongoing self-directed learning. Many Deaf people view Deafness as a linguistic and cultural identity rather than a medical loss, and a hearing counselor's deficit framing can feel invalidating. Owning the assumption repairs the relationship, while learning on one's own time avoids making the client the teacher.
+
+**References:** Sue & Sue (Counseling the Culturally Diverse) — Counseling individuals with disabilities; Deaf culture and the medical vs cultural model
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1198 of 1200 · nce-s-cor-094 · Social and Cultural Diversity · counselor self-awareness and bias · hard · In review
+
+A 27-year-old Mexican American client describes being followed by store security while shopping. Hoping to reassure her, the counselor says, "I don't really see color. To me, everyone is just a person." The client changes the subject. In Sue's taxonomy of microaggressions, the counselor's comment is BEST classified as a
+
+**A.** microassault
+> Microassaults are explicit, usually deliberate attacks; the counselor meant to be reassuring.
+
+**B.** microinsult
+> Microinsults demean a person's heritage or ability, such as implying a client is less capable.
+
+**C.** microaffirmation
+> Microaffirmations are small acts of inclusion, not one of Sue's three forms of microaggression.
+
+**D.** microinvalidation **✔ KEY**
+> Color-blind statements negate the client's racialized experience and reality, the hallmark of a microinvalidation.
+
+**Rationale:** Sue described three forms of microaggression: microassaults, microinsults and microinvalidations. Color-blind remarks are a classic microinvalidation because they deny the relevance of race just as the client reports a racialized experience. Counselors' good intentions do not cancel the impact, which is why self-awareness of such reflexive reassurances matters.
+
+**References:** Sue & Sue (Counseling the Culturally Diverse) — Racial microaggressions: microinvalidations and color blindness
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1199 of 1200 · nce-s-cor-095 · Counseling and Helping Relationships · counselor self-awareness and bias · medium · In review
+
+A 74-year-old widow tells her counselor she has a new partner and wants to talk about sexual intimacy, which feels different than it did decades ago. The counselor, in her thirties, finds herself steering back to the client's health appointments. What is the MOST appropriate response to this pattern?
+
+**A.** Notice her possible age-related assumptions and return to the concern the client raised **✔ KEY**
+> Recognizing the bias and refocusing on the client's stated goal is the core of self-awareness.
+
+**B.** Refer the client to a medical provider, since sexual concerns in later life are medical
+> This treats the concern as purely medical and avoids the topic the client chose to bring to counseling.
+
+**C.** Keep the focus on health care, because that is more likely to be the client's real priority
+> This substitutes the counselor's assumption about older adults for the client's own stated priority.
+
+**D.** Tell the client she feels awkward about the subject and ask her to choose a different topic
+> Placing the counselor's discomfort on the client restricts the work instead of managing the reaction.
+
+**Rationale:** Ageist assumptions, such as viewing older adults as asexual, can lead counselors to avoid topics clients want to address. Self-awareness means noticing when one's own discomfort or stereotypes are steering the session, exploring that in supervision, and following the client's agenda. Sexuality remains an important part of well-being across the lifespan.
+
+**References:** ACA Code of Ethics — A.4.b Personal Values · Berk (Development Through the Lifespan) — Late adulthood: sexuality and intimate relationships
+
+☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
+
+---
+
+### Q1200 of 1200 · nce-s-cor-096 · Social and Cultural Diversity · awareness of power and privilege in the counseling relationship · medium · In review
+
+A heterosexual counselor at a rural clinic realizes that the agency's intake form offers only "husband" or "wife" for partner status. A gay client mentions he left the field blank and wondered whether he would be welcome. Which action BEST reflects awareness of privilege in the counseling relationship?
+
+**A.** Reassure the client that the form is just paperwork and has no effect on how he is treated
+> This dismisses the message the form sends and the client's reasonable concern about safety.
+
+**B.** Acknowledge what the form signals, ask how he describes his relationship, and push to revise it **✔ KEY**
+> This names the impact, centers the client's terms and addresses the institutional barrier.
+
+**C.** Fill in "wife" so that the record is complete, and then move on to the presenting concern
+> This erases the client's identity and repeats the heteronormative assumption in the record.
+
+**D.** Avoid asking about his relationship in the future so that he is not made to feel uncomfortable
+> Avoidance withholds attention from a relevant part of his life and implies the topic is unwelcome.
+
+**Rationale:** Heterosexual privilege includes not having to notice that forms and routines assume one's own identity. Counselors who hold privilege can acknowledge how such systems affect clients, invite clients to describe themselves in their own terms, and advocate to change exclusionary practices. The MSJCC frame this as awareness of how privileged and marginalized statuses shape the relationship and the setting.
+
+**References:** MSJCC (Ratts et al., 2016) — Counseling relationship and advocacy: privileged and marginalized statuses and institutional barriers · Sue & Sue (Counseling the Culturally Diverse) — Counseling LGBTQ clients: heterosexism and heterosexual privilege
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 

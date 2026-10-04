@@ -127,6 +127,9 @@ const NCE_EXTRA_LIBRARY = [
   { key: 'Warheit et al. (Needs Assessment)', tier: 'seminal', body: 'Warheit, Bell & Schwab',
     citation: 'Warheit, G. J., Bell, R. A., & Schwab, J. J. (1977). Needs Assessment Approaches: Concepts and Methods (DHEW Publication No. ADM 77-472). National Institute of Mental Health.',
     use: 'Needs assessment methods: key informant, community forum, rates-under-treatment, social indicators, and field survey approaches.' },
+  { key: 'Boss (Ambiguous Loss)', tier: 'seminal', body: 'Boss',
+    citation: 'Boss, P. (1999). Ambiguous Loss: Learning to Live with Unresolved Grief. Harvard University Press.',
+    use: 'Ambiguous loss: physical absence with psychological presence (e.g., missing persons) and psychological absence with physical presence (e.g., dementia).' },
 ];
 
 const NCE_REFERENCE_LIBRARY = [...REFERENCE_LIBRARY, ...NCE_EXTRA_LIBRARY];
