@@ -287,7 +287,7 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
       '<div class="card"><h2>Start studying</h2><div class="grid2">'+
         '<button class="choice" id="go-practice"><b>Practice by domain</b><span>20 questions with feedback and rationales after each one.</span></button>'+
         '<button class="choice" id="go-mock"><b>Timed mock exam</b><span>Weighted like the real NCE. Full length or shorter forms, scored at the end.</span></button>'+
-      '</div></div>'+
+      '</div><p class="muted small" style="margin:12px 0 0">Need a break? Play <a href="/games.html#clue">Theory Clue</a>: crack the case of the mystery counseling theory.</p></div>'+
       '<div class="card"><h2>NCE domains</h2><p class="muted small" style="margin-top:-4px">Weights are NBCC\'s scored item counts. Your accuracy comes from every practice set and mock exam you finish while signed in.</p>'+
       BP.domains.map(function(d){
         var b = by[d.key] || {correct:0,total:0}, p = pct(b.correct,b.total);

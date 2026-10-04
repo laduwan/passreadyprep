@@ -20,6 +20,7 @@
     'next-best-step.html': 'next-best-step',
     'study-guide.html': 'study-guide',
     'podcast.html': 'podcast',
+    'games.html': 'games',
     'skills.html': 'skills', 'skills': 'skills',
     'assess-next-case.html': 'assess-next',
   };
@@ -91,7 +92,7 @@
   function toolLabel(key) {
     return { 'cases': 'Case practice', 'exam': 'Exam sim', 'flashcards': 'Flashcards',
       'dsm': 'DSM browser', 'decision-trees': 'Decision trees', 'next-best-step': 'Next best step',
-      'study-guide': 'Study guide', 'podcast': 'Podcast', 'skills': 'Skills', 'other': 'Other' }[key] || key;
+      'study-guide': 'Study guide', 'podcast': 'Podcast', 'games': 'Games', 'skills': 'Skills', 'other': 'Other' }[key] || key;
   }
 
   var wrap = document.createElement('div');
