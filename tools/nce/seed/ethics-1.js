@@ -238,7 +238,7 @@ module.exports = [
       { id: 'd', text: 'The test of fidelity', isCorrect: false, rationale: 'Fidelity is a moral principle about keeping commitments, not one of Stadler\'s tests.' },
     ],
     rationale: 'Many ethical decision-making models, including the Forester-Miller and Davis practitioner\'s guide, include Stadler\'s three tests for evaluating a selected action. Justice asks whether others would be treated the same, publicity asks whether the counselor would accept public reporting, and universality asks whether the counselor would recommend it to colleagues. Passing all three supports the soundness of the decision.',
-    references: [{ source: 'Forester-Miller & Davis (Practitioner\'s Guide to Ethical Decision Making)', detail: 'Step 7, evaluating the selected course of action: Stadler\'s tests of justice, publicity, and universality' }],
+    references: [{ source: 'Forester-Miller & Davis (Practitioner\'s Guide to Ethical Decision Making)', detail: 'Step 6, evaluating the selected course of action: Stadler\'s tests of justice, publicity, and universality' }],
   },
   {
     id: 'nce-s-eth-016',
