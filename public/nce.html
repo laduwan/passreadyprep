@@ -248,6 +248,7 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
         '<div class="dom-sub">'+trend+'</div>'+
         '<div class="pct-bar"><div class="pct-fill '+cls+'" style="width:'+r.score+'%"></div></div></div></div>'+
       (r.weakDomains && r.weakDomains.length ? '<p class="small" style="margin:10px 0 0">Focus next: '+r.weakDomains.map(function(w){ return esc(w.label)+' ('+w.pct+'%)'; }).join(', ')+'</p>' : '')+
+      (r.score >= 85 ? '<p style="margin:12px 0 0"><a class="btn btn-sm" href="/resume.html">Build your résumé</a> <span class="muted small">You are exam ready. Turn your strongest areas into a polished résumé.</span></p>' : '')+
       '<p class="muted small" style="margin:10px 0 0">Your accuracy in each NCE domain, weighted by NBCC\'s scored item counts, adjusted for how much you have practiced and whether your recent work is trending up.'+conf+' 70%+ = almost there, 85%+ = exam ready. A practice indicator, not a prediction of your NCE result.</p>'+
       '</div>';
   }

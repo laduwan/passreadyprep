@@ -667,6 +667,7 @@ async function showDashboard(){
     h += '<div class="card" style="margin-bottom:16px">';
     h += '<h2 style="margin-bottom:4px">Exam readiness</h2>';
     h += '<div style="font-size:13px;color:var(--slate-400);margin-bottom:12px">Your readiness score weights your accuracy in five practice areas — Counseling (28%), Intake (25%), Treatment (22%), Ethics (15%), Core (10%). It factors in how many cases you\'ve completed and whether your recent performance is trending up or down. Green (70%+) = exam ready. Amber (50–69%) = almost there. Red (&lt;50%) = keep building.</div>';
+    if(rd.readiness >= 85) h += '<div style="margin:0 0 12px"><a class="btn" href="/resume.html">Build your résumé</a> <span style="font-size:13px;color:var(--slate-400)">You are exam ready. Turn your strongest areas into a polished résumé.</span></div>';
     h += '<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">';
 
     // Ring gauge
