@@ -88,6 +88,9 @@ const NCE_EXTRA_LIBRARY = [
   { key: 'ACA Advocacy Competencies', tier: 'primary', body: 'American Counseling Association',
     citation: 'Toporek, R. L., & Daniels, J. (2018). 2018 Update and Expansion of the 2003 ACA Advocacy Competencies: Honoring the Work of the Past and Contextualizing the Present. American Counseling Association. (Original competencies: Lewis, J. A., Arnold, M. S., House, R., & Toporek, R. L., 2003.)',
     use: 'Advocacy domains (client/student, school/community, public arena) and acting with vs on behalf of clients.' },
+  { key: 'ASCA National Model', tier: 'primary', body: 'American School Counselor Association',
+    citation: 'American School Counselor Association. (2019). The ASCA National Model: A Framework for School Counseling Programs (4th ed.).',
+    use: 'School counselor role; appropriate vs inappropriate activities; comprehensive school counseling programs.' },
 ];
 
 const NCE_REFERENCE_LIBRARY = [...REFERENCE_LIBRARY, ...NCE_EXTRA_LIBRARY];
