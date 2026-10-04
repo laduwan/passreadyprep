@@ -39,6 +39,24 @@ const NceItemSchema = new Schema(
 
     status: { type: String, enum: ['draft', 'sme_review', 'published', 'retired'], default: 'sme_review', index: true },
     reviewedBy: { name: String, credential: String, date: Date },
+
+    // Provenance — where this item came from, for the evidence record
+    // (GET /api/admin/nce/items/:id/record).
+    origin: {
+      method: { type: String, enum: ['seed', 'generator', 'manual'] },
+      file: String,        // seed file name, e.g. 'ethics-1.js'
+      importedAt: Date,
+    },
+
+    // Append-only audit trail: every import, refresh, edit and status change,
+    // with who did it. Never rewritten — the evidence record prints it.
+    history: [{
+      _id: false,
+      at: { type: Date, default: Date.now },
+      action: String,      // imported | refreshed | generated | edited | published | sme_review | retired
+      by: String,          // admin email, 'admin token', or 'seed import'
+      note: String,
+    }],
     reviewNote: String,
     generatedBy: String, // model id, for audit
   },

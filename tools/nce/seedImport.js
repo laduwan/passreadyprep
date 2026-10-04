@@ -13,7 +13,7 @@ const NceItem = require('../../models/NceItem');
 const { findDuplicate } = require('../../utils/nceGate');
 const { loadSeed, checkSeed } = require('./seedLib');
 
-async function importSeed({ write = false, update = false } = {}) {
+async function importSeed({ write = false, update = false, by = 'seed import' } = {}) {
   const entries = loadSeed();
   const check = checkSeed(entries);
   if (!check.ok) return { ok: false, problems: check.problems, seedCount: entries.length };
@@ -23,23 +23,29 @@ async function importSeed({ write = false, update = false } = {}) {
   const others = existing.filter((d) => !d.externalId.startsWith('nce-s-')).map((d) => ({ externalId: d.externalId, stem: d.stem }));
 
   const insert = []; const refresh = []; const unchanged = []; const duplicates = [];
-  entries.forEach(({ doc }) => {
+  const now = new Date();
+  entries.forEach(({ doc, file }) => {
     const cur = byId.get(doc.externalId);
     if (!cur) {
       const dup = findDuplicate(doc.stem, others);
-      if (dup) duplicates.push({ id: doc.externalId, against: dup.against }); else insert.push(doc);
-    } else if (update && cur.status === 'sme_review') refresh.push(doc);
+      if (dup) duplicates.push({ id: doc.externalId, against: dup.against });
+      else insert.push(Object.assign({}, doc, {
+        origin: { method: 'seed', file, importedAt: now },
+        history: [{ at: now, action: 'imported', by, note: `Hand-authored seed item from tools/nce/seed/${file}` }],
+      }));
+    } else if (update && cur.status === 'sme_review') refresh.push(Object.assign({}, doc, { _file: file }));
     else unchanged.push(doc.externalId);
   });
 
   if (write) {
     if (insert.length) await NceItem.insertMany(insert, { ordered: false });
     for (const doc of refresh) {
-      const { status, ...fields } = doc;
+      const { status, _file, ...fields } = doc;
       // A note resolved in the seed file must also clear in the database.
-      const update = { $set: {} };
+      const update = { $set: { 'origin.method': 'seed', 'origin.file': _file } };
       Object.entries(fields).forEach(([k, v]) => { if (v !== undefined) update.$set[k] = v; });
       if (!fields.reviewNote) update.$unset = { reviewNote: 1 };
+      update.$push = { history: { at: now, action: 'refreshed', by, note: `Text updated from tools/nce/seed/${_file}` } };
       await NceItem.updateOne({ externalId: doc.externalId, status: 'sme_review' }, update);
     }
   }

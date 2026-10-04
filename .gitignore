@@ -38,3 +38,6 @@ client/ios/App/App/config.xml
 client/ios/capacitor-cordova-ios-plugins/
 xcuserdata/
 *.xcuserstate
+
+# Per-question evidence records written by tools/nce/item-record.js
+docs/records/
