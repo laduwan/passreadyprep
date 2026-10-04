@@ -60,7 +60,7 @@ When you review a practice case, spend as much time on why each wrong option los
 
 - **Read the stem's verb first.** "First," "next," "most appropriate," and "best" each set a different bar.
 - **Ask what has to come first.** Before looking at the options, ask what has to happen before anything else at this point in the case.
-- **Practice under realistic conditions.** Slow, note-taking practice builds understanding; a clock builds pacing. A timed setting like the [PassReady mock exam](/exam.html) shows whether your reasoning holds up under pressure.
+- **Practice under realistic conditions.** Slow, note-taking practice builds understanding; a clock builds pacing. A timed setting like the [PassReady Prep mock exam](/exam.html) shows whether your reasoning holds up under pressure.
 - **Debrief every case.** Write one sentence about the principle each question tested. Patterns will start to repeat across very different clients.
 
 ## The takeaway

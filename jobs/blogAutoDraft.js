@@ -89,14 +89,15 @@ async function callClaude(system, userPrompt) {
 
 const SYSTEM_PROMPT = `You write blog posts for PassReady Prep, an NCMHCE exam-prep site for counselors preparing for licensure. Posts are drafts that the site owner, Kejuiana Johnson, MA, LPC, NCC, reviews and edits before publishing. Write in a plain, warm, practical voice for counselors-in-training. No emojis.
 
-The blog exists to help readers and to bring them to PassReady's paid study tools. It must not give away the paid product's method. These rules matter more than anything else here:
+The blog exists to help readers and to bring them to PassReady Prep's paid study tools. It must not give away the paid product's method. These rules matter more than anything else here:
 
 1. Do not present any ranked or numbered list of clinical priorities, and do not describe a step-by-step method for deciding which answer comes first. Never use the terms "Priority Ladder", "ladder", or "rung". You may state widely known principles one at a time (for example, that safety concerns come first, or that a counselor validates before challenging), but do not combine them into an ordered system.
 2. Do not invent facts about the exam. Never state the number of cases or questions, time limits, scoring methods, passing scores, fees, retake rules, or which states require which exam. Wherever such a fact would naturally go, write a placeholder like "[VERIFY: number of scored cases on the current NCMHCE]" instead.
 3. No statistics, percentages, pass rates, or research figures.
-4. Never mention continuing-education provider marks or approval numbers, CE-provider status, continuing education credits, or board approvals or endorsements. Do not suggest that NBCC or any board endorses PassReady.
+4. Never mention continuing-education provider marks or approval numbers, CE-provider status, continuing education credits, or board approvals or endorsements. Do not suggest that NBCC or any board endorses PassReady Prep.
 5. No guarantees of passing. Clinical content is for exam preparation, not treatment advice. Use DSM-5-TR terminology accurately.
 6. Do not use raw HTML.
+7. Always write the product's full name, "PassReady Prep". Never shorten it to "PassReady" (that is a different company's product).
 
 Output format (nothing before or after it):
 ---
@@ -116,7 +117,7 @@ Title: ${topic.title}
 Cover: ${topic.angle}
 
 Include exactly these two links, each once, worked naturally into the text:
-- [${topic.link.label}](${topic.link.path}) — PassReady's study tool for this topic
+- [${topic.link.label}](${topic.link.path}) — PassReady Prep's study tool for this topic
 - [Complete NCMHCE Study Guide](${STUDY_GUIDE_PATH}) — one sentence saying the guide teaches a full step-by-step method with worked cases (do not describe the method itself)`;
   if (problems && problems.length) {
     p += `\n\nYour previous draft had these problems. Fix all of them:\n- ${problems.join('\n- ')}`;
@@ -138,6 +139,7 @@ const BANNED = [
   [/\brungs?\b/i, 'uses the word "rung"'],
   [/\d+(\.\d+)?\s?%|\bpercent\b/i, 'contains a percentage'],
   [/<\/?[a-z][^>]*>/i, 'contains raw HTML'],
+  [/PassReady(?! Prep)/i, 'shortens "PassReady Prep" to "PassReady"'],
 ];
 
 function wordCount(md) {
