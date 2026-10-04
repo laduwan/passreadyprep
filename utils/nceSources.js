@@ -67,6 +67,15 @@ const NCE_EXTRA_LIBRARY = [
   { key: 'Goldenberg (Family Therapy)', tier: 'seminal', body: 'Goldenberg, Stanton & Goldenberg',
     citation: 'Goldenberg, I., Stanton, M., & Goldenberg, H. (2017). Family Therapy: An Overview (9th ed.). Cengage.',
     use: 'Family systems theories and techniques: Bowen, structural, strategic, experiential, narrative.' },
+  { key: 'Lambert (Outcome Monitoring)', tier: 'seminal', body: 'Lambert',
+    citation: 'Lambert, M. J. (2010). Prevention of Treatment Failure: The Use of Measuring, Monitoring, and Feedback in Clinical Practice. American Psychological Association.',
+    use: 'Routine outcome monitoring (OQ-45) and feedback for clients not on track.' },
+  { key: 'SAMHSA 988 Lifeline', tier: 'guideline', body: 'SAMHSA',
+    citation: 'Substance Abuse and Mental Health Services Administration. 988 Suicide & Crisis Lifeline (launched July 16, 2022).',
+    use: 'National crisis line: call, text or chat, 24/7.' },
+  { key: 'LOCUS (AACP)', tier: 'guideline', body: 'American Association for Community Psychiatry',
+    citation: 'American Association for Community Psychiatry. (2020). Level of Care Utilization System for Psychiatric and Addiction Services (LOCUS), Version 20.',
+    use: 'Mental health level-of-care determination across intensity levels.' },
 ];
 
 const NCE_REFERENCE_LIBRARY = [...REFERENCE_LIBRARY, ...NCE_EXTRA_LIBRARY];
