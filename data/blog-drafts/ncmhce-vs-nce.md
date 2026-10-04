@@ -26,7 +26,7 @@ A typical NCE question is self-contained. It gives you a short stem and asks you
 
 The NCMHCE asks a different question: can you act like a competent clinical mental health counselor with a specific client? Instead of standalone items, you work through cases. You read intake information, and then you make decisions about assessment, diagnosis, treatment planning, intervention, and ethics as the case develops. Whether the current format provides the diagnosis or expects you to reach it is something to confirm in the handbook: [VERIFY: whether the current NCMHCE provides the diagnosis in each case].
 
-Knowledge still matters, but it is used in service of decisions. You need to know the deciding feature between two diagnoses, which screening tool fits the situation, and which action comes first when several are reasonable. A helpful way to think about sequencing is a simple priority order: imminent safety, then medical and substance rule-outs, then stabilization, then the alliance, then assessment, then evidence-based treatment, with ethics running through all of it.
+Knowledge still matters, but it is used in service of decisions. You need to know the deciding feature between two diagnoses, which screening tool fits the situation, and which action comes first when several are reasonable. Much of the challenge is sequencing: deciding what has to happen first when several actions are appropriate.
 
 ## How the two exams feel different on test day
 
@@ -60,7 +60,7 @@ Focus on breadth and recall. Work through each content area systematically, use 
 
 ### If you need the NCMHCE
 
-Focus on decision-making. Learn a priority order and practice applying it until it is automatic. Study diagnoses through their clinical presentation and their differentials, not just their criteria lists. Above all, work full cases and debrief every one, spending as much time on why the wrong options lose as on why the right one wins.
+Focus on decision-making. Practice deciding what comes first when several actions are reasonable, until it is automatic. Study diagnoses through their clinical presentation and their differentials, not just their criteria lists. Above all, work full cases and debrief every one, spending as much time on why the wrong options lose as on why the right one wins.
 
 ### If you need both
 

@@ -50,19 +50,11 @@ This is the part that pays off on test day.
 
 If harmful or out-of-scope choices can cost you, the worst move on any question is the one that endangers the client or oversteps your role. Before choosing, scan the options for the ones that would skip a safety assessment, ignore a reporting duty, breach confidentiality, create a dual relationship, or practice outside your competence. Eliminate those first.
 
-### Use a priority order to choose between good options
+### Know what has to come first
 
-When two answers both seem reasonable, the one that addresses a higher clinical priority usually wins. A practical ranking:
+When two answers both seem reasonable, the one that has to happen first usually wins. For example, if a client hints at hopelessness, a direct, empathic suicide inquiry comes before screening for depression, exploring a relationship stressor, or asking about drinking. All of those are reasonable. Only one is first.
 
-1. Imminent safety
-2. Medical and substance rule-outs
-3. Stabilization
-4. Alliance and validation
-5. Clarifying the picture through assessment
-6. Evidence-based treatment
-7. Ethics throughout
-
-For example, if a client hints at hopelessness, a direct, empathic suicide inquiry comes before screening for depression, exploring a relationship stressor, or asking about drinking. All of those are reasonable. Only one is first.
+Safety is the obvious case, but the same logic runs through every case, and getting the order right consistently takes a deliberate method and plenty of practice. The [Complete NCMHCE Study Guide](/study-guide.html) teaches a step-by-step approach to sequencing decisions like these.
 
 ### Validate before you challenge
 
@@ -84,4 +76,4 @@ When you review a practice case, sort your misses by type: safety skipped, rule-
 
 ## The takeaway
 
-You don't need to memorize a scoring formula to do well on the NCMHCE. You need to confirm the official details from the current handbook, then let a few principles guide every answer: avoid harm first, rank options by clinical priority, validate before you challenge, and rule out before you diagnose. Those habits reflect sound clinical judgment, and they will serve you long after the exam.
+You don't need to memorize a scoring formula to do well on the NCMHCE. You need to confirm the official details from the current handbook, then let a few principles guide every answer: avoid harm first, decide what has to come first, validate before you challenge, and rule out before you diagnose. Those habits reflect sound clinical judgment, and they will serve you long after the exam.

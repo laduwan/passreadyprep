@@ -29,37 +29,21 @@ Most case questions fall into a handful of families:
 
 Very few of these can be answered by recall alone.
 
-## The Priority Ladder: a way to break ties
+## Breaking ties between good answers
 
-The hardest part of simulation questions is that several options usually look reasonable. The real question is which comes first. A simple ranking of clinical priorities helps. When two answers both look right, the one higher on this list usually wins:
+The hardest part of simulation questions is that several options usually look reasonable. Each one may be something a good counselor would do eventually. The real question is which one comes first, and the exam is built to reward that judgment.
 
-1. **Imminent safety** — suicidality, homicidality, abuse, danger
-2. **Medical and substance rule-outs** — could this be organic, or explained by a substance?
-3. **Stabilization** — acute symptom relief, grounding, crisis reduction
-4. **Alliance and validation** — the client must feel heard before any intervention lands
-5. **Clarifying the picture** — assessment, history, collateral information
-6. **Evidence-based treatment** — the right approach for the right diagnosis
-7. **Ethics throughout** — confidentiality, reporting duties, and competence apply at every step
+Some of it is common sense you already know from training: a safety concern takes precedence over everything else, and you can't treat a problem you haven't assessed. Beyond those basics, sequencing gets subtle fast, and it is where many well-prepared candidates lose ground. It pays to have one consistent method for deciding what has to happen before anything else can, and to practice it until you no longer have to think about it.
 
-This is a reasoning framework, not an official scoring rubric. It forces you to ask what has to happen before anything else can.
+The [Complete NCMHCE Study Guide](/study-guide.html) lays out a step-by-step method for breaking these ties, with worked cases across the diagnostic families.
 
-## A worked example
+## A quick example
 
-Imagine a 38-year-old man who self-refers for "stress at work and feeling disconnected from everything." For several weeks he has been waking very early, has low energy and poor concentration, and feels empty. He denies suicidal thoughts but adds, "Some days I wonder what the point is." He drinks a few beers most evenings to "take the edge off," hasn't seen his doctor in a couple of years, and describes his marriage as strained.
+Imagine a client who comes in for stress at work. Near the end of the intake, almost in passing, they say, "Some days I wonder what the point is." Several options might follow: a depression screener, exploring the work situation, asking about sleep, or a direct question about suicidal thoughts.
 
-Now walk the decision points.
+All of them are reasonable things a counselor might do. Only one belongs first: a direct, warm inquiry about thoughts of harming themselves. A vague statement of hopelessness is not something you note and move past. Every other option, however clinically sound, skips the question that has to be answered before anything else.
 
-**First, safety.** "I wonder what the point is" is not something you note and move past. The strongest response is a direct, warm inquiry: when you say that, are you having any thoughts of harming yourself or ending your life? Jumping to a depression screener, the marriage, or the drinking all skip a higher priority.
-
-**Next, rule-outs.** Once he denies ideation, plan, and intent, two things stand out. His symptoms could have medical contributors, and he hasn't had a checkup in a long time. His drinking also needs to be quantified, because alcohol disrupts sleep and worsens mood. A medical referral and a standardized alcohol screen belong here, before you settle on a mood diagnosis.
-
-**Then, the differential.** Is this a depressive episode, a longer-standing low-grade depression, a substance-induced picture, or an understandable stress response? You can't finish that answer until you know whether the low mood came before or after the drinking increased.
-
-**Throughout, the alliance.** He is new to counseling and says he feels disconnected. Before handing him forms, validate the step he took by coming in and ask what kind of help would feel useful to him.
-
-**Finally, treatment.** Only after safety, rule-outs, and the alliance are addressed does the treatment question come into focus, including whether co-occurring alcohol use should be treated alongside the mood symptoms and whether the marriage belongs in the plan.
-
-Getting the content right is not enough on its own. The order matters.
+That is the pattern you will see again and again. The content of several answers is right, and the order is what separates them. Real cases stack many of these decisions on top of each other, which is why working full cases matters more than drilling isolated facts.
 
 ## Why distractors are so convincing
 
@@ -75,7 +59,7 @@ When you review a practice case, spend as much time on why each wrong option los
 ## How to practice with cases
 
 - **Read the stem's verb first.** "First," "next," "most appropriate," and "best" each set a different bar.
-- **Name the rung.** Before looking at the options, ask which priority this decision point lives on.
+- **Ask what has to come first.** Before looking at the options, ask what has to happen before anything else at this point in the case.
 - **Practice under realistic conditions.** Slow, note-taking practice builds understanding; a clock builds pacing. A timed setting like the [PassReady mock exam](/exam.html) shows whether your reasoning holds up under pressure.
 - **Debrief every case.** Write one sentence about the principle each question tested. Patterns will start to repeat across very different clients.
 

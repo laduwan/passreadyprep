@@ -13,21 +13,13 @@ Spend an hour on logistics before you study a single diagnosis. Read the current
 
 Then take one practice case cold, with no review. It will feel uncomfortable. That is useful. Note where you hesitated, because those hesitations are your starting map.
 
-## Week 1: The Priority Ladder and the helping relationship
+## Week 1: Clinical priorities and the helping relationship
 
-Everything else rests on this week. Learn a working order of clinical priorities and practice applying it until it is automatic:
-
-1. Imminent safety
-2. Medical and substance rule-outs
-3. Stabilization
-4. Alliance and validation
-5. Clarifying the picture through assessment
-6. Evidence-based treatment
-7. Ethics throughout
+Everything else rests on this week. Start with the most important habit in case work: deciding what has to come first. Safety concerns outrank everything, and you can't treat what you haven't assessed. Beyond those basics, build one consistent way of sequencing decisions and practice it until it is automatic. The [Complete NCMHCE Study Guide](/study-guide.html) walks through a full step-by-step method with worked cases.
 
 Pair that with the foundations of the helping relationship: Rogers' core conditions (unconditional positive regard, empathy, congruence), Bordin's working alliance (bond, goals, tasks), and how ruptures show up in a case. A client who "seems disengaged," "pushes back on the homework," or says "I don't know if this is doing anything" is usually signaling a rupture. The scored move is typically to notice, name, and explore it, not to defend the treatment.
 
-**This week's practice:** a few cases per study session, focusing only on the first decision point. Ask yourself, "Which rung is this?" before you choose.
+**This week's practice:** a few cases per study session, focusing only on the first decision point. Before you choose, ask what has to happen first at this point in the case.
 
 ## Week 2: Theories, microskills, and group work
 
@@ -44,7 +36,7 @@ Now move into the diagnostic families you are most likely to see in case after c
 - **The clinical picture:** how it actually presents in a vignette, not just the criteria list
 - **The deciding feature** between look-alike diagnoses (episodic vs. chronic depression, depression vs. bipolar, PTSD vs. acute stress vs. adjustment)
 - **Assessment in context:** which screener or measure you would reach for, and when
-- **What the exam rewards and punishes:** for example, always screening for prior mania or hypomania before settling on a depressive diagnosis, and assessing safety the moment hopelessness appears
+- **Common traps:** for example, always screening for prior mania or hypomania before settling on a depressive diagnosis, and assessing safety the moment hopelessness appears
 
 Interactive [decision trees](/decision-trees.html) are useful this week because they force you to work a differential branch by branch, the way a case expects you to think, instead of guessing from a list.
 
@@ -66,13 +58,13 @@ This is also the week to start working complete cases from intake to the final d
 
 Shift from learning to rehearsing. Take at least one full-length timed practice exam under conditions that match the real test as closely as you can: [VERIFY: current NCMHCE time limit and scheduled break structure]. Afterward, look for patterns rather than individual misses. Are you skipping safety? Diagnosing before rule-outs? Choosing technique before validation?
 
-Spend the rest of the week on your two or three weakest areas. Keep flashcard reviews short and daily. In the final two days, stop adding new material. Review your one-page priority sheet and your theory signatures, sleep well, and confirm your test-day logistics: [VERIFY: identification and check-in requirements for the NCMHCE].
+Spend the rest of the week on your two or three weakest areas. Keep flashcard reviews short and daily. In the final two days, stop adding new material. Review your one-page notes and your theory signatures, sleep well, and confirm your test-day logistics: [VERIFY: identification and check-in requirements for the NCMHCE].
 
 ## Making the plan work for you
 
 - **Short beats long.** Forty focused minutes most days beats one exhausting weekend session.
 - **Practice retrieval, not rereading.** Cases, flashcards, and explaining a concept out loud all build more durable memory than highlighting.
-- **Track misses by type.** A miss log organized by priority rung shows you patterns a score alone can hide.
+- **Track misses by type.** A miss log organized by the kind of mistake (a missed safety cue, a wrong differential, a skipped assessment) shows you patterns a score alone can hide.
 - **Protect your wellbeing.** You are preparing to help clients manage stress. Apply some of that to yourself.
 
 ## Final thoughts
