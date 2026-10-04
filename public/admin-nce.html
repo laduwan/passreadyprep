@@ -88,6 +88,7 @@
       </div>
       <div class="row" style="margin-top:10px;align-items:center">
         <div style="flex:0"><button id="seedBtn" title="Loads the questions written into tools/nce/seed (no API cost) into the review queue">Import seed questions</button></div>
+        <div style="flex:0"><button id="seedRefreshBtn" title="Re-applies corrections from the seed files to seed questions that are still In review. Published and retired questions are not changed.">Update questions in review</button></div>
         <div class="muted" style="font-size:13px">No API cost: loads the hand-written question files shipped with the app into review. Safe to click again; only new questions are added.</div>
       </div>
       <p class="muted" style="font-size:13px;margin:8px 0 0">Each item runs the shared quality gate (4 options, one key, length parity, no absolutes, rationales, approved sources, no near-duplicates). Passing items go to review; nothing is published automatically. Model: <span id="model"></span></p>
@@ -172,19 +173,22 @@
       .then(function(){ btn.disabled = false; btn.textContent = 'Generate'; });
   };
 
-  $('seedBtn').onclick = function(){
-    var btn = $('seedBtn'); btn.disabled = true; btn.textContent = 'Importing…';
-    api('/import-seed', { method:'POST', body:{} })
+  function runSeedImport(update){
+    var btn = $(update ? 'seedRefreshBtn' : 'seedBtn'); var label = btn.textContent;
+    btn.disabled = true; btn.textContent = update ? 'Updating…' : 'Importing…';
+    api('/import-seed', { method:'POST', body:{ update: !!update } })
       .then(function(r){
-        $('gOut').innerHTML = '<p><b>'+r.inserted+'</b> new seed question'+(r.inserted===1?'':'s')+' added to review ('+r.unchanged+' already in the bank'+(r.duplicates.length?', '+r.duplicates.length+' skipped as near-duplicates':'')+').</p>';
+        $('gOut').innerHTML = '<p><b>'+r.inserted+'</b> new seed question'+(r.inserted===1?'':'s')+' added to review'+(update ? ', <b>'+r.refreshed+'</b> in-review question'+(r.refreshed===1?'':'s')+' updated from the seed files' : '')+' ('+r.unchanged+' left unchanged'+(r.duplicates.length?', '+r.duplicates.length+' skipped as near-duplicates':'')+').</p>';
         loadCoverage(); if ($('fStatus').value === 'sme_review') loadList();
       })
       .catch(function(e){
         var probs = (e.body && e.body.problems) || [];
         $('gOut').innerHTML = '<p class="err">'+esc(e.message)+'</p>' + (probs.length ? '<ul>'+probs.map(function(p){ return '<li>'+esc(p.id)+': '+esc(p.errors.join('; '))+'</li>'; }).join('')+'</ul>' : '');
       })
-      .then(function(){ btn.disabled = false; btn.textContent = 'Import seed questions'; });
-  };
+      .then(function(){ btn.disabled = false; btn.textContent = label; });
+  }
+  $('seedBtn').onclick = function(){ runSeedImport(false); };
+  $('seedRefreshBtn').onclick = function(){ runSeedImport(true); };
 
   function renderItem(it){
     var key = (it.options||[]).filter(function(o){ return o.isCorrect; })[0];

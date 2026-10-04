@@ -36,7 +36,11 @@ async function importSeed({ write = false, update = false } = {}) {
     if (insert.length) await NceItem.insertMany(insert, { ordered: false });
     for (const doc of refresh) {
       const { status, ...fields } = doc;
-      await NceItem.updateOne({ externalId: doc.externalId, status: 'sme_review' }, { $set: fields });
+      // A note resolved in the seed file must also clear in the database.
+      const update = { $set: {} };
+      Object.entries(fields).forEach(([k, v]) => { if (v !== undefined) update.$set[k] = v; });
+      if (!fields.reviewNote) update.$unset = { reviewNote: 1 };
+      await NceItem.updateOne({ externalId: doc.externalId, status: 'sme_review' }, update);
     }
   }
   return {

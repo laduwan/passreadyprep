@@ -4406,7 +4406,7 @@ A counselor deployed to a family assistance center after a mass shooting will us
 
 **Rationale:** PFA's eight core actions are contact and engagement, safety and comfort, stabilization, information gathering on current needs and concerns, practical assistance, connection with social supports, information on coping, and linkage with collaborative services. It is evidence-informed, flexible and non-intrusive, and it does not push survivors to retell or process their trauma.
 
-**References:** Gladding (Counseling: A Comprehensive Profession) — Crisis and disaster counseling: Psychological First Aid core actions
+**References:** Psychological First Aid Field Operations Guide (NCTSN/NCPTSD) — The eight PFA core actions
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 

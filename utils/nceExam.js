@@ -31,6 +31,9 @@ const NCE_SOURCES = [
   'Sharf (Career Development Theory)',
   'Berk (Development Through the Lifespan)',
   'Erford (Research and Evaluation in Counseling)',
+  'Forester-Miller & Davis (Practitioner\'s Guide to Ethical Decision Making)',
+  'Psychological First Aid Field Operations Guide (NCTSN/NCPTSD)',
+  'AASM Clinical Practice Guideline (Insomnia)',
 ];
 
 module.exports = { getNceExam, NCE_SOURCES };

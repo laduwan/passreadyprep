@@ -288,7 +288,6 @@ module.exports = [
   },
   {
     id: 'nce-s-cou-048',
-    reviewNote: 'Super\'s stage ages are approximate; the rationale notes recycling.',
     domain: 'counseling',
     cacrep: 'career',
     topic: 'career development theories (Holland, Super, Krumboltz)',
@@ -300,7 +299,7 @@ module.exports = [
       { id: 'c', text: 'Maintenance', isCorrect: true, rationale: 'Maintenance (about ages 45 to 64) involves holding, updating and innovating to preserve one\'s position.' },
       { id: 'd', text: 'Disengagement', isCorrect: false, rationale: 'Disengagement (about 65 and older) involves decelerating, retirement planning and retirement living.' },
     ],
-    rationale: "Super's stages are growth, exploration, establishment, maintenance and disengagement, each with developmental tasks; the maintenance tasks are holding, updating and innovating. Super also stressed that people recycle through stages and that work is one of several life roles shown in the life-career rainbow.",
+    rationale: "Super's stages are growth, exploration, establishment, maintenance and disengagement, each with developmental tasks; the maintenance tasks are holding, updating and innovating. Super treated the stage ages as approximate, and he stressed that people recycle through stages and that work is one of several life roles shown in the life-career rainbow.",
     references: [{ source: 'Sharf (Career Development Theory)', detail: "Super's life-span, life-space theory: maintenance stage tasks" }],
   },
   {

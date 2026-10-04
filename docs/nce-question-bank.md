@@ -166,11 +166,9 @@ A school-based counselor notices bruises in the shape of a hand on a 7-year-old'
 **D. [✔]** Make a report to child protective services based on reasonable suspicion of abuse
 > Mandated reporters report reasonable suspicion; proof or certainty is not required.
 
-**Rationale:** Counselors are mandated reporters of suspected child abuse and neglect in every U.S. state. The threshold is reasonable suspicion or cause to believe, not proof, and the counselor should not investigate. Specific timelines, reporting agencies, and procedures vary by state law, and many school policies add internal notification steps.
+**Rationale:** All U.S. states have mandated reporting laws for suspected child abuse and neglect that cover counselors, though definitions, thresholds, and procedures vary by state. The threshold is reasonable suspicion or cause to believe, not proof, and the counselor should not investigate. Specific timelines, reporting agencies, and procedures vary by state law, and many school policies add internal notification steps.
 
 **References:** State law — Child abuse reporting statutes: reasonable suspicion standard · ACA Code of Ethics — B.2.a Serious and Foreseeable Harm and Legal Requirements
-
-**⚑ Check:** Rationale says counselors are mandated reporters 'in every U.S. state'; definitions vary by state.
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
@@ -362,9 +360,7 @@ While evaluating a chosen course of action, a counselor asks, "Would I be comfor
 
 **Rationale:** Many ethical decision-making models, including the Forester-Miller and Davis practitioner's guide, include Stadler's three tests for evaluating a selected action. Justice asks whether others would be treated the same, publicity asks whether the counselor would accept public reporting, and universality asks whether the counselor would recommend it to colleagues. Passing all three supports the soundness of the decision.
 
-**References:** Corey (Theory & Practice) — Ethical issues: steps in ethical decision making
-
-**⚑ Check:** Stadler's tests are cited to Corey's ethical decision-making chapter in general, not a section.
+**References:** Forester-Miller & Davis (Practitioner's Guide to Ethical Decision Making) — Step 7, evaluating the selected course of action: Stadler's tests of justice, publicity, and universality
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
@@ -484,9 +480,7 @@ A counselor is starting video sessions with a new client who has a history of su
 
 **Rationale:** Distance counseling requires planning for emergencies the counselor cannot handle in person. Counselors confirm the client's physical location, identify local emergency services, and agree on a plan as part of telehealth informed consent (H.2.a). This is especially important for clients with elevated risk.
 
-**References:** ACA Code of Ethics — H.2.a Informed Consent and Disclosure
-
-**⚑ Check:** Confirm ACA H.2.a explicitly lists emergency procedures among telehealth informed-consent items.
+**References:** ACA Code of Ethics — H.2.a Informed Consent and Disclosure (includes emergency procedures when the counselor is unavailable)
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
@@ -1268,9 +1262,7 @@ A 47-year-old veteran reports recurring suicidal thoughts without a current plan
 
 **Rationale:** Firearms are the most lethal common method of suicide, and reducing access during high-risk periods saves lives. The Stanley-Brown Safety Planning Intervention includes making the environment safe, such as having a trusted person hold a firearm or storing it locked away from home.
 
-**References:** Stanley-Brown SPI — Step 6: Making the environment safe (lethal means)
-
-**⚑ Check:** Confirm the Stanley-Brown step number cited for means restriction ('Step 6').
+**References:** Stanley-Brown SPI — Step 6 (final step): Making the environment safe, including lethal means
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
@@ -1532,7 +1524,7 @@ A client obtains a score of 92 on a test with a standard error of measurement (S
 **D. [✔]** 84 to 100
 > Plus or minus about 2 SEM (1.96 x 4, roughly 8 points) gives the 95% band.
 
-**Rationale:** The SEM is the standard deviation of a person's hypothetical scores around the true score. Bands of about 1, 2, and 3 SEM around the obtained score give roughly 68%, 95%, and 99.7% confidence that the true score lies inside.
+**Rationale:** The SEM is the standard deviation of a person's hypothetical scores around the true score. Bands of plus or minus 1 SEM, about 1.96 SEM (often rounded to 2), and 3 SEM around the obtained score give roughly 68%, 95%, and 99.7% confidence that the true score lies inside. Here 1.96 x 4 = 7.84, so the 95% band is about 84 to 100.
 
 **References:** Hays (Assessment) — Standard error of measurement and confidence intervals
 
@@ -1664,7 +1656,7 @@ On the PHQ-9, a client's total score is 6, in the mild range, but she marks "sev
 
 ### 69. nce-s-ass-021 · Assessment and Testing · substance use assessment · medium · In review
 
-A 52-year-old client says that when he goes a day without drinking he gets shaky, sweaty, and cannot sleep. Using the ASAM Criteria, under which dimension should the counselor rate these symptoms?
+A 52-year-old client says that when he goes a day without drinking he gets shaky, sweaty, and cannot sleep. Using the ASAM Criteria (3rd edition), under which dimension should the counselor rate these symptoms?
 
 **A. [ ]** Readiness to change
 > This dimension rates motivation and engagement, not physical withdrawal.
@@ -1678,11 +1670,9 @@ A 52-year-old client says that when he goes a day without drinking he gets shaky
 **D. [ ]** Relapse potential
 > This dimension rates risk of continued use, not current withdrawal.
 
-**Rationale:** The ASAM Criteria rate six dimensions to match level of care. Dimension 1 covers intoxication and withdrawal; in the widely taught third edition the others address biomedical conditions, emotional/behavioral/cognitive conditions, readiness to change, relapse or continued-use potential, and the recovery environment. Alcohol withdrawal can be dangerous and may call for medically managed care.
+**Rationale:** The ASAM Criteria rate six dimensions to match level of care. Dimension 1 covers intoxication and withdrawal; in the widely taught third edition the others address biomedical conditions, emotional/behavioral/cognitive conditions, readiness to change, relapse or continued-use potential, and the recovery environment. The 2023 fourth edition renamed and reorganized several later dimensions, but intoxication and withdrawal remains part of Dimension 1. Alcohol withdrawal can be dangerous and may call for medically managed care.
 
-**References:** ASAM Criteria — Dimension 1: intoxication and withdrawal
-
-**⚑ Check:** Distractors/rationale use ASAM 3rd-edition dimension names; the 4th edition (2023) renamed dimensions 3-6.
+**References:** ASAM Criteria — 3rd edition, Dimension 1: acute intoxication and/or withdrawal potential
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
@@ -2986,9 +2976,7 @@ A counselor volunteers at a shelter the day after a tornado destroyed many homes
 
 **Rationale:** In the immediate aftermath of a disaster, the recommended response is psychological first aid: ensuring safety, providing comfort, meeting practical needs, connecting people with loved ones and supports, and screening for those needing more help. Routine single-session psychological debriefing is not recommended for preventing PTSD.
 
-**References:** NICE guidelines — NG116 Post-traumatic stress disorder: psychologically focused debriefing not offered
-
-**⚑ Check:** No PFA-specific source on the approved list; NICE NG116 supports the no-debriefing point only.
+**References:** Psychological First Aid Field Operations Guide (NCTSN/NCPTSD) — PFA core actions: safety and comfort, practical assistance, connection with social supports · NICE guidelines — NG116 Post-traumatic stress disorder: psychologically focused debriefing not offered
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
@@ -3600,9 +3588,7 @@ A counselor is using cognitive behavioral therapy for insomnia (CBT-I) with a cl
 
 **Rationale:** Stimulus control therapy aims to restore the bed and bedroom as cues for sleep: go to bed only when sleepy, use the bed only for sleep and sex, leave the bed when unable to sleep, keep a fixed wake time and avoid daytime naps. It is combined with sleep restriction, cognitive work and education in CBT-I, the recommended first-line treatment for chronic insomnia.
 
-**References:** NICE guidelines — Insomnia: CBT-I as first-line treatment for long-term insomnia
-
-**⚑ Check:** NICE insomnia guidance is mainly the Clinical Knowledge Summary; citation placement is loose.
+**References:** AASM Clinical Practice Guideline (Insomnia) — Behavioral and psychological treatments for chronic insomnia (2021): CBT-I recommended; stimulus control as a component · NICE guidelines — Clinical Knowledge Summary: Insomnia, CBT-I as first-line management of long-term insomnia
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
@@ -7230,11 +7216,9 @@ A 52-year-old nurse manager tells a counselor that her main concerns are holding
 **D. [ ]** Disengagement
 > Disengagement (about 65 and older) involves decelerating, retirement planning and retirement living.
 
-**Rationale:** Super's stages are growth, exploration, establishment, maintenance and disengagement, each with developmental tasks; the maintenance tasks are holding, updating and innovating. Super also stressed that people recycle through stages and that work is one of several life roles shown in the life-career rainbow.
+**Rationale:** Super's stages are growth, exploration, establishment, maintenance and disengagement, each with developmental tasks; the maintenance tasks are holding, updating and innovating. Super treated the stage ages as approximate, and he stressed that people recycle through stages and that work is one of several life roles shown in the life-career rainbow.
 
 **References:** Sharf (Career Development Theory) — Super's life-span, life-space theory: maintenance stage tasks
-
-**⚑ Check:** Super's stage ages are approximate; the rationale notes recycling.
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
@@ -8888,7 +8872,7 @@ A counselor deployed to a family assistance center after a mass shooting will us
 
 **Rationale:** PFA's eight core actions are contact and engagement, safety and comfort, stabilization, information gathering on current needs and concerns, practical assistance, connection with social supports, information on coping, and linkage with collaborative services. It is evidence-informed, flexible and non-intrusive, and it does not push survivors to retell or process their trauma.
 
-**References:** Gladding (Counseling: A Comprehensive Profession) — Crisis and disaster counseling: Psychological First Aid core actions
+**References:** Psychological First Aid Field Operations Guide (NCTSN/NCPTSD) — The eight PFA core actions
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 

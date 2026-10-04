@@ -427,7 +427,7 @@ module.exports = [
       { id: 'd', text: 'Asking survivors to recount the event in detail', isCorrect: true, rationale: 'PFA does not require survivors to describe the event in detail; pressing for a detailed account can be distressing and resembles debriefing, which PFA avoids.' },
     ],
     rationale: 'PFA\'s eight core actions are contact and engagement, safety and comfort, stabilization, information gathering on current needs and concerns, practical assistance, connection with social supports, information on coping, and linkage with collaborative services. It is evidence-informed, flexible and non-intrusive, and it does not push survivors to retell or process their trauma.',
-    references: [{ source: 'Gladding (Counseling: A Comprehensive Profession)', detail: 'Crisis and disaster counseling: Psychological First Aid core actions' }],
+    references: [{ source: 'Psychological First Aid Field Operations Guide (NCTSN/NCPTSD)', detail: 'The eight PFA core actions' }],
   },
   {
     id: 'nce-s-cou-117',

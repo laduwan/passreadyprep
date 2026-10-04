@@ -408,7 +408,6 @@ module.exports = [
   // ---------------------------------------------------------------- sleep-wake concerns
   {
     id: 'nce-s-clf-052',
-    reviewNote: 'NICE insomnia guidance is mainly the Clinical Knowledge Summary; citation placement is loose.',
     domain: 'clinical_focus',
     cacrep: 'helping_relationships',
     topic: 'sleep-wake concerns',
@@ -422,7 +421,8 @@ module.exports = [
     ],
     rationale: 'Stimulus control therapy aims to restore the bed and bedroom as cues for sleep: go to bed only when sleepy, use the bed only for sleep and sex, leave the bed when unable to sleep, keep a fixed wake time and avoid daytime naps. It is combined with sleep restriction, cognitive work and education in CBT-I, the recommended first-line treatment for chronic insomnia.',
     references: [
-      { source: 'NICE guidelines', detail: 'Insomnia: CBT-I as first-line treatment for long-term insomnia' },
+      { source: 'AASM Clinical Practice Guideline (Insomnia)', detail: 'Behavioral and psychological treatments for chronic insomnia (2021): CBT-I recommended; stimulus control as a component' },
+      { source: 'NICE guidelines', detail: 'Clinical Knowledge Summary: Insomnia, CBT-I as first-line management of long-term insomnia' },
     ],
   },
   {
