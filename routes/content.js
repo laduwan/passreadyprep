@@ -74,6 +74,19 @@ async function resolveAccess(req, res, next) {
   }
 }
 
+// GET /api/content/access — the caller's NCMHCE access level, with no content.
+// The static study-tool pages check it through public/tool-gate.js, so they
+// follow the same trial / subscription rules as the case paywall. Registered
+// before /:externalId so "access" is never read as a case id.
+router.get('/access', resolveAccess, (req, res) => {
+  res.set('Cache-Control', 'no-store');
+  res.json({
+    accessLevel: req.accessLevel,
+    trialEndsAt: req.trialEndsAt || null,
+    gateReason: req.gateReason || null,
+  });
+});
+
 // GET /api/content?exam=ncmhce — list published cases
 router.get('/', resolveAccess, async (req, res) => {
   try {
