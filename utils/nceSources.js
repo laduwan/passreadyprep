@@ -79,6 +79,12 @@ const NCE_EXTRA_LIBRARY = [
   { key: 'Linehan (DBT Skills Training Manual)', tier: 'seminal', body: 'Linehan',
     citation: 'Linehan, M. M. (2015). DBT Skills Training Manual (2nd ed.). Guilford Press.',
     use: 'DBT skills modules (mindfulness, distress tolerance, emotion regulation, interpersonal effectiveness), chain analysis and validation.' },
+  { key: 'James & Gilliland (Crisis Intervention Strategies)', tier: 'seminal', body: 'James & Gilliland',
+    citation: 'James, R. K., & Gilliland, B. E. (2017). Crisis Intervention Strategies (8th ed.). Cengage.',
+    use: 'Six-step model of crisis intervention; crisis assessment.' },
+  { key: 'Kanel (A Guide to Crisis Intervention)', tier: 'seminal', body: 'Kanel',
+    citation: 'Kanel, K. (2019). A Guide to Crisis Intervention (6th ed.). Cengage.',
+    use: 'ABC model of crisis intervention.' },
 ];
 
 const NCE_REFERENCE_LIBRARY = [...REFERENCE_LIBRARY, ...NCE_EXTRA_LIBRARY];
