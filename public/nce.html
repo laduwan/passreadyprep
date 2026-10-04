@@ -235,6 +235,23 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
 
   function daysUntil(d){ if(!d) return null; var ms = new Date(d) - new Date(); return Math.max(0, Math.ceil(ms/86400000)); }
 
+  // NCE readiness card — the score is computed server-side (utils/nceReadiness.js).
+  function readinessHtml(){
+    var r = PROGRESS && PROGRESS.readiness;
+    if (!r) return TOKEN ? '<div class="card"><h2>NCE readiness</h2><p class="muted small" style="margin:0">Answer some practice questions or take a mock exam and your readiness score will appear here.</p></div>' : '';
+    var cls = r.score >= 70 ? '' : r.score >= 50 ? 'mid' : 'low';
+    var trend = r.trend === 'up' ? 'Trending up' : r.trend === 'down' ? 'Trending down' : 'Steady';
+    var conf = r.answered < r.answeredForFullConfidence
+      ? ' The score counts in full once you have answered '+r.answeredForFullConfidence+' questions ('+r.answered+' so far).' : '';
+    return '<div class="card"><h2>NCE readiness</h2>'+
+      '<div class="dom"><div><div class="dom-name">'+r.score+'% · '+esc(r.label)+'</div>'+
+        '<div class="dom-sub">'+trend+'</div>'+
+        '<div class="pct-bar"><div class="pct-fill '+cls+'" style="width:'+r.score+'%"></div></div></div></div>'+
+      (r.weakDomains && r.weakDomains.length ? '<p class="small" style="margin:10px 0 0">Focus next: '+r.weakDomains.map(function(w){ return esc(w.label)+' ('+w.pct+'%)'; }).join(', ')+'</p>' : '')+
+      '<p class="muted small" style="margin:10px 0 0">Your accuracy in each NCE domain, weighted by NBCC\'s scored item counts, adjusted for how much you have practiced and whether your recent work is trending up.'+conf+' 70%+ = almost there, 85%+ = exam ready. A practice indicator, not a prediction of your NCE result.</p>'+
+      '</div>';
+  }
+
   function renderHome(){
     stopTimer();
     var s = STATUS, by = (PROGRESS && PROGRESS.byDomain) || {};
@@ -254,6 +271,7 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
         '<div class="stat"><div class="n">'+(dLeft==null?'—':dLeft)+'</div><div class="l">Days to your NCE</div>'+
           (TOKEN ? '<input type="date" id="exam-date" value="'+dateVal+'" aria-label="NCE exam date">' : '')+'</div>'+
       '</div>'+
+      readinessHtml()+
       '<div class="card"><h2>Start studying</h2><div class="grid2">'+
         '<button class="choice" id="go-practice"><b>Practice by domain</b><span>20 questions with feedback and rationales after each one.</span></button>'+
         '<button class="choice" id="go-mock"><b>Timed mock exam</b><span>Weighted like the real NCE. Full length or shorter forms, scored at the end.</span></button>'+

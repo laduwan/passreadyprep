@@ -6,6 +6,7 @@ const requireAuth = require('../middleware/auth');
 const { resolveNceAccess, NCE_TRIAL_DAYS } = require('../utils/nceAccess');
 const bp = require('../utils/nceBlueprint');
 const { getNceExam } = require('../utils/nceExam');
+const { computeNceReadiness } = require('../utils/nceReadiness');
 
 // Student-facing NCE study API. Admin generation/review lives in routes/adminNce.js.
 const router = express.Router();
@@ -234,6 +235,7 @@ router.get('/progress', requireAuth, async (req, res) => {
     res.json({
       answered,
       byDomain,
+      readiness: computeNceReadiness(byDomain, attempts), // null until anything is answered
       mocks: attempts.filter((a) => a.mode === 'timed').slice(0, 10)
         .map((a) => ({ score: a.score, completedAt: a.completedAt, n: (a.responses || []).length })),
     });
