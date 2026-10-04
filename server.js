@@ -56,6 +56,7 @@ app.use('/api/study-history', require('./routes/studyHistory'));
 app.use('/api/visits', require('./routes/visits'));
 app.use('/api/announcements', require('./routes/announcements'));
 app.use('/api/nce', require('./routes/nce'));
+app.use('/api/admin/blog', require('./routes/adminBlog'));
 
 // ── Accessibility + translation widget injection ────────────────────
 // Every HTML page gets the shared accessibility widget (a11y.css + a11y.js),
@@ -111,6 +112,11 @@ function sendHtml(res, filePath) {
     res.type('html').send(injectA11y(html));
   });
 }
+
+// Public blog (/blog, /blog/:slug) and the dynamic /sitemap.xml — server-rendered
+// by routes/blog.js, sent through the same widget injection as every other page.
+// Registered before express.static so /sitemap.xml wins over public/sitemap.xml.
+app.use(require('./routes/blog')({ sendPage: (res, html) => res.type('html').send(injectA11y(html)) }));
 
 // Explicit page routes — must come BEFORE express.static so the landing page
 // wins at / instead of public/index.html.

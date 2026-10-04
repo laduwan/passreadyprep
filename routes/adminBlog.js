@@ -1,0 +1,173 @@
+// Admin → Blog: create, edit, publish/unpublish, delete, preview.
+// Every route is behind the same admin gate as the rest of /api/admin
+// (admin JWT or the legacy x-admin-token).
+const express = require('express');
+const mongoose = require('mongoose');
+const requireAdmin = require('../middleware/adminOrAdminUser');
+const BlogPost = require('../models/BlogPost');
+const { renderMarkdown, safeImageUrl } = require('../utils/blogRender');
+const { loadSeedDrafts } = require('../data/blogSeedDrafts');
+const { logActivity } = require('../utils/activity');
+
+const router = express.Router();
+router.use(requireAdmin);
+
+const SLUG_RE = BlogPost.SLUG_RE;
+
+function slugify(s) {
+  return String(s || '').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 120).replace(/-+$/, '');
+}
+
+function parseTags(t) {
+  const list = Array.isArray(t) ? t : String(t || '').split(',');
+  const seen = {};
+  return list.map(x => String(x).trim()).filter(x => x && x.length <= 40 && !seen[x.toLowerCase()] && (seen[x.toLowerCase()] = 1)).slice(0, 12);
+}
+
+// Validates + normalizes an editor payload. Returns { error } or { data }.
+function readBody(body) {
+  const b = body || {};
+  const title = String(b.title || '').trim();
+  if (!title) return { error: 'Title is required.' };
+  if (title.length > 200) return { error: 'Title must be 200 characters or fewer.' };
+  const slug = String(b.slug || '').trim() ? String(b.slug).trim().toLowerCase() : slugify(title);
+  if (!SLUG_RE.test(slug) || slug.length > 120) return { error: 'Slug may only contain lowercase letters, numbers, and single hyphens.' };
+  const metaDescription = String(b.metaDescription || '').trim();
+  if (metaDescription.length > 155) return { error: 'Meta description must be 155 characters or fewer.' };
+  const excerpt = String(b.excerpt || '').trim();
+  if (excerpt.length > 500) return { error: 'Excerpt must be 500 characters or fewer.' };
+  const rawCover = String(b.coverImageUrl || '').trim();
+  const coverImageUrl = rawCover ? safeImageUrl(rawCover) : null;
+  if (rawCover && !coverImageUrl) return { error: 'Cover image URL must start with https:// or /.' };
+  const bodyMarkdown = String(b.bodyMarkdown || '');
+  if (bodyMarkdown.length > 200000) return { error: 'Body is too long.' };
+  return { data: { title, slug, metaDescription, excerpt, coverImageUrl, bodyMarkdown, tags: parseTags(b.tags) } };
+}
+
+function validId(id) { return mongoose.Types.ObjectId.isValid(id); }
+
+function dupSlug(err) { return err && err.code === 11000; }
+
+// GET /api/admin/blog — every post (no bodies), newest edit first
+router.get('/', async (_req, res) => {
+  try {
+    const posts = await BlogPost.find({})
+      .sort({ updatedAt: -1 })
+      .select('slug title status publishedAt updatedAt createdAt tags')
+      .lean();
+    return res.json({ posts });
+  } catch (err) {
+    console.error('blog list error', err);
+    return res.status(500).json({ error: 'Could not load posts' });
+  }
+});
+
+// POST /api/admin/blog/preview — { bodyMarkdown } → { html } via the public renderer
+router.post('/preview', (req, res) => {
+  const md = String((req.body && req.body.bodyMarkdown) || '');
+  if (md.length > 200000) return res.status(400).json({ error: 'Body is too long.' });
+  return res.json({ html: renderMarkdown(md) });
+});
+
+// POST /api/admin/blog/seed-drafts — add the starter drafts whose slug isn't
+// taken yet. Never overwrites or publishes anything.
+router.post('/seed-drafts', async (req, res) => {
+  try {
+    const drafts = loadSeedDrafts();
+    const existing = await BlogPost.find({ slug: { $in: drafts.map(d => d.slug) } }).select('slug').lean();
+    const have = new Set(existing.map(p => p.slug));
+    const toAdd = drafts.filter(d => !have.has(d.slug)).map(d => Object.assign({}, d, { status: 'draft', publishedAt: null }));
+    if (toAdd.length) await BlogPost.insertMany(toAdd, { ordered: false });
+    return res.json({ added: toAdd.map(d => d.slug), skipped: [...have] });
+  } catch (err) {
+    console.error('blog seed error', err);
+    return res.status(500).json({ error: 'Could not add starter drafts' });
+  }
+});
+
+// GET /api/admin/blog/:id — full post for the editor
+router.get('/:id', async (req, res) => {
+  if (!validId(req.params.id)) return res.status(404).json({ error: 'Post not found' });
+  const post = await BlogPost.findById(req.params.id).lean().catch(() => null);
+  if (!post) return res.status(404).json({ error: 'Post not found' });
+  return res.json({ post });
+});
+
+// POST /api/admin/blog — create (always as a draft)
+router.post('/', async (req, res) => {
+  const { error, data } = readBody(req.body);
+  if (error) return res.status(400).json({ error });
+  try {
+    const post = await BlogPost.create(Object.assign(data, { status: 'draft' }));
+    return res.status(201).json({ post });
+  } catch (err) {
+    if (dupSlug(err)) return res.status(409).json({ error: 'That slug is already used by another post.' });
+    console.error('blog create error', err);
+    return res.status(500).json({ error: 'Could not create post' });
+  }
+});
+
+// PUT /api/admin/blog/:id — save edits (status is changed only via publish/unpublish)
+router.put('/:id', async (req, res) => {
+  if (!validId(req.params.id)) return res.status(404).json({ error: 'Post not found' });
+  const { error, data } = readBody(req.body);
+  if (error) return res.status(400).json({ error });
+  try {
+    const post = await BlogPost.findByIdAndUpdate(req.params.id, { $set: data }, { new: true, runValidators: true });
+    if (!post) return res.status(404).json({ error: 'Post not found' });
+    return res.json({ post });
+  } catch (err) {
+    if (dupSlug(err)) return res.status(409).json({ error: 'That slug is already used by another post.' });
+    console.error('blog update error', err);
+    return res.status(500).json({ error: 'Could not save post' });
+  }
+});
+
+// POST /api/admin/blog/:id/publish — publishedAt is set only if it was never set
+router.post('/:id/publish', async (req, res) => {
+  if (!validId(req.params.id)) return res.status(404).json({ error: 'Post not found' });
+  try {
+    const post = await BlogPost.findById(req.params.id);
+    if (!post) return res.status(404).json({ error: 'Post not found' });
+    if (!post.title || !String(post.bodyMarkdown || '').trim()) return res.status(400).json({ error: 'Add a title and body before publishing.' });
+    post.status = 'published';
+    if (!post.publishedAt) post.publishedAt = new Date();
+    await post.save();
+    logActivity({ type: 'admin.blog_published', severity: 'info', message: `Blog post published: ${post.slug}`, req });
+    return res.json({ post });
+  } catch (err) {
+    console.error('blog publish error', err);
+    return res.status(500).json({ error: 'Could not publish post' });
+  }
+});
+
+// POST /api/admin/blog/:id/unpublish — back to draft (public URL starts 404ing)
+router.post('/:id/unpublish', async (req, res) => {
+  if (!validId(req.params.id)) return res.status(404).json({ error: 'Post not found' });
+  try {
+    const post = await BlogPost.findByIdAndUpdate(req.params.id, { $set: { status: 'draft' } }, { new: true });
+    if (!post) return res.status(404).json({ error: 'Post not found' });
+    return res.json({ post });
+  } catch (err) {
+    console.error('blog unpublish error', err);
+    return res.status(500).json({ error: 'Could not unpublish post' });
+  }
+});
+
+// DELETE /api/admin/blog/:id
+router.delete('/:id', async (req, res) => {
+  if (!validId(req.params.id)) return res.status(404).json({ error: 'Post not found' });
+  try {
+    const post = await BlogPost.findByIdAndDelete(req.params.id);
+    if (!post) return res.status(404).json({ error: 'Post not found' });
+    logActivity({ type: 'admin.blog_deleted', severity: 'info', message: `Blog post deleted: ${post.slug}`, req });
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('blog delete error', err);
+    return res.status(500).json({ error: 'Could not delete post' });
+  }
+});
+
+module.exports = router;
+module.exports.slugify = slugify;
