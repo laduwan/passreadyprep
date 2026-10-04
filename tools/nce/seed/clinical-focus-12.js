@@ -16,8 +16,7 @@ module.exports = [
       { id: 'd', text: 'Exaggerated grief, as her distress has grown into a separate disorder', isCorrect: false, rationale: 'Nothing suggests a psychiatric disorder; her confusion fits the unclear nature of the loss itself.' },
     ],
     rationale: 'Pauline Boss described ambiguous loss as a loss without clear facts or closure. In one type, a person is physically present but psychologically absent, as with advanced dementia; in the other, a person is physically missing but kept psychologically present, as with a missing soldier. Because the loss is unclear, others often fail to recognize it, and counselors help clients hold both the loss and the ongoing relationship rather than push for resolution.',
-    references: [{ source: 'Worden (Grief Counseling)', detail: 'Ambiguous and nonfinite loss: Boss\'s ambiguous loss in dementia caregiving' }],
-    reviewNote: 'Confirm that the cited Worden edition discusses Boss\'s ambiguous loss; if not, the SME may prefer a family-stress text locator.',
+    references: [{ source: 'Boss (Ambiguous Loss)', detail: 'Psychological absence with physical presence: dementia caregiving' }, { source: 'Worden (Grief Counseling)', detail: 'Grief in caregivers and nonfinite loss' }],
   },
   {
     id: 'nce-s-clf-327',
