@@ -562,10 +562,11 @@ function serverSaveAttempt(caseObj, ans, domainsObj, pct){
   }).catch(()=>{});
 }
 
-// Readiness weights for the five practice areas. These are PassReady Prep's own
-// weights, not NBCC's published outline percentages; the pass guarantee's 60%
-// threshold is measured with them, so change them deliberately.
-const DOMAIN_WEIGHTS = { counseling: 0.28, intake: 0.25, treatment: 0.22, ethics: 0.15, core: 0.10 };
+// Readiness weights for the five practice areas, matching NBCC's current NCMHCE
+// content outline (Counseling 30%, Intake 25%, Treatment/Ethics/Core 15% each).
+// The pass guarantee's 60% threshold is measured with them, and
+// utils/ncmhceReadiness.js keeps a server copy, so change both together.
+const DOMAIN_WEIGHTS = { counseling: 0.30, intake: 0.25, treatment: 0.15, ethics: 0.15, core: 0.15 };
 
 function computeReadiness(){
   const h = loadHistory();
@@ -666,7 +667,7 @@ async function showDashboard(){
   if(rd){
     h += '<div class="card" style="margin-bottom:16px">';
     h += '<h2 style="margin-bottom:4px">Exam readiness</h2>';
-    h += '<div style="font-size:13px;color:var(--slate-400);margin-bottom:12px">Your readiness score weights your accuracy in five practice areas — Counseling (28%), Intake (25%), Treatment (22%), Ethics (15%), Core (10%). It factors in how many cases you\'ve completed and whether your recent performance is trending up or down. Green (70%+) = exam ready. Amber (50–69%) = almost there. Red (&lt;50%) = keep building.</div>';
+    h += '<div style="font-size:13px;color:var(--slate-400);margin-bottom:12px">Your readiness score weights your accuracy in five practice areas — Counseling (30%), Intake (25%), Treatment (15%), Ethics (15%), Core (15%). It factors in how many cases you\'ve completed and whether your recent performance is trending up or down. Green (70%+) = exam ready. Amber (50–69%) = almost there. Red (&lt;50%) = keep building.</div>';
     if(rd.readiness >= 85) h += '<div style="margin:0 0 12px"><a class="btn" href="/resume.html">Build your résumé</a> <span style="font-size:13px;color:var(--slate-400)">You are exam ready. Turn your strongest areas into a polished résumé.</span></div>';
     h += '<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">';
 

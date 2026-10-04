@@ -2,7 +2,7 @@
 // (computeReadiness). Used to gate the résumé builder (routes/resume.js) so the
 // unlock can't be bypassed from the browser. Keep the weights and formula in
 // sync with index.html — the pass guarantee's 60% threshold uses the same score.
-const DOMAIN_WEIGHTS = { counseling: 0.28, intake: 0.25, treatment: 0.22, ethics: 0.15, core: 0.10 };
+const DOMAIN_WEIGHTS = { counseling: 0.30, intake: 0.25, treatment: 0.15, ethics: 0.15, core: 0.15 };
 
 // attempts: NCMHCE Attempt docs, oldest first, each with
 // domainBreakdown { domain: { ok, total } } (same shape index.html syncs).
