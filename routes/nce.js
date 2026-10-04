@@ -62,7 +62,7 @@ async function teaserItems() {
   return out;
 }
 
-function locked(level) { return level === 'free' || level === 'expired'; }
+function locked(level) { return level === 'free' || level === 'expired' || level === 'gated'; }
 
 // GET /api/nce/blueprint — the exam format and domain weights (public).
 router.get('/blueprint', (_req, res) => {
@@ -133,9 +133,12 @@ router.get('/mock', resolveNceAccess, async (req, res) => {
     if (locked(req.nceAccessLevel)) {
       return res.status(402).json({
         error: 'NCE plan required',
-        gateReason: req.nceAccessLevel === 'free' ? 'signin_required' : 'trial_expired',
+        gateReason: req.nceAccessLevel === 'free' ? 'signin_required'
+          : req.nceAccessLevel === 'gated' ? 'score_report_required' : 'trial_expired',
         message: req.nceAccessLevel === 'free'
           ? `Create a free account to take a timed NCE mock exam (${NCE_TRIAL_DAYS}-day trial).`
+          : req.nceAccessLevel === 'gated'
+          ? 'Your NCE Pass Guarantee check-in is due. Submit your exam date or score report to restore access.'
           : 'Your NCE trial has ended. Pick an NCE plan to keep taking timed exams.',
       });
     }

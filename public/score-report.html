@@ -101,7 +101,7 @@
   <!-- FORM -->
   <div class="state" id="state-form">
     <div class="info-box">
-      <p>Your account is unlimited — this is just a quick check-in to confirm you're actively preparing for the NCMHCE. Submit below and you're good to go.</p>
+      <p>Your account is unlimited — this is just a quick check-in to confirm you're actively preparing for the <span class="exam-name">NCMHCE</span>. Submit below and you're good to go.</p>
     </div>
 
     <!-- Tab selector: scheduled vs taken -->
@@ -120,7 +120,7 @@
 
     <!-- Section: scheduled -->
     <div class="form-section active" id="section-scheduled">
-      <label>My NCMHCE exam date</label>
+      <label>My <span class="exam-name">NCMHCE</span> exam date</label>
       <input type="date" id="scheduledDate" />
       <label>Any notes <span style="color:var(--slate-600);font-weight:400;text-transform:none">(optional)</span></label>
       <textarea id="scheduledNotes" placeholder="e.g. Registered through Pearson VUE, testing center in Atlanta"></textarea>
@@ -159,6 +159,10 @@
 
 <script>
   let currentTab = 'scheduled';
+  // ?exam=nce → the NCE Pass Guarantee check-in; otherwise NCMHCE, as before.
+  const EXAM = new URLSearchParams(location.search).get('exam') === 'nce' ? 'nce' : 'ncmhce';
+  const HOME = EXAM === 'nce' ? '/nce.html' : '/';
+  if (EXAM === 'nce') document.querySelectorAll('.exam-name').forEach(el => { el.textContent = 'NCE'; });
 
   function switchTab(tab) {
     currentTab = tab;
@@ -181,14 +185,14 @@
 
   async function init() {
     const token = localStorage.getItem('prp_token');
-    if (!token) { window.location = '/'; return; }
+    if (!token) { window.location = HOME; return; }
 
     try {
-      const r = await fetch('/api/payment/score-report-status', {
+      const r = await fetch('/api/payment/score-report-status?exam=' + EXAM, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await r.json();
-      if (!data.gated) { window.location = '/'; return; }
+      if (!data.gated) { window.location = HOME; return; }
       show(data.scoreReport.status === 'pending' ? 'state-pending' : 'state-form');
     } catch (e) {
       show('state-form');
@@ -226,7 +230,7 @@
       const r = await fetch('/api/payment/score-report', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ examDate, result, notes }),
+        body: JSON.stringify({ examDate, result, notes, exam: EXAM }),
       });
       const data = await r.json();
       if (!r.ok) {

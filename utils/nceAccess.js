@@ -10,6 +10,8 @@
 //   'trial'   — within NCE_TRIAL_DAYS of the account's first NCE visit
 //   'expired' — trial over, no active NCE plan
 //   'paid'    — active nce_* plan
+//   'gated'   — NCE Pass Guarantee past its 6-month check-in, score report not
+//               yet approved (same rule as the NCMHCE guarantee)
 // ============================================================================
 
 const jwt = require('jsonwebtoken');
@@ -32,6 +34,10 @@ function nceLevel(user, now = new Date()) {
   const a = (user && user.nceAccess) || {};
   const tier = a.tier || 'free';
   const end = a.currentPeriodEnd ? new Date(a.currentPeriodEnd) : null;
+  if (tier === 'nce_guarantee' && end && end <= now) {
+    const sr = (a.scoreReport && a.scoreReport.status) || 'none';
+    return ['approved_extension', 'passed'].includes(sr) ? 'paid' : 'gated';
+  }
   if (tier !== 'free' && (!end || end > now)) return 'paid';
   const trialEnd = nceTrialEnd(user);
   return trialEnd && trialEnd > now ? 'trial' : 'expired';

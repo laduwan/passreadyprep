@@ -88,6 +88,8 @@ services:
         sync: false
       - key: STRIPE_PRICE_NCE_PASS6
         sync: false
+      - key: STRIPE_PRICE_NCE_GUARANTEE # optional: NCE Pass Guarantee stays hidden until set
+        sync: false
 
       # ── AI features (optional) ────────────────────────────────────────
       - key: ANTHROPIC_API_KEY   # AI debrief (Dr. Claire Moreau) + case generation
