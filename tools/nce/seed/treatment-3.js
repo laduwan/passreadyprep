@@ -118,7 +118,6 @@ module.exports = [
     ],
     rationale: 'The OQ-45 measures symptom distress, interpersonal relations and social role functioning. Lambert and colleagues found that giving counselors feedback on clients predicted to be not on track, especially paired with clinical support tools that review alliance, motivation and supports, improved outcomes and reduced deterioration. Counselors on their own tend to underestimate which clients are getting worse.',
     references: [{ source: 'Lambert (Outcome Monitoring)', detail: 'OQ-45 feedback and alerts for clients not on track' }, { source: 'Hays (Assessment)', detail: 'Outcome assessment and routine outcome monitoring' }],
-    reviewNote: 'Finding is from Lambert\'s feedback research (e.g., Lambert, Whipple & Kleinstäuber, 2018); confirm Hays covers the OQ-45 or consider adding a Lambert source to nceSources.js.',
   },
   {
     id: 'nce-s-trt-042',
@@ -170,7 +169,6 @@ module.exports = [
     ],
     rationale: 'The 988 Suicide and Crisis Lifeline became the national three-digit number in the United States in July 2022. It routes calls, texts and chats to trained crisis counselors 24 hours a day. In a Stanley-Brown safety plan it belongs in the step listing professionals and agencies to contact in a crisis.',
     references: [{ source: 'SAMHSA 988 Lifeline', detail: '988 by call, text or chat, 24/7' }, { source: 'Stanley-Brown SPI', detail: 'Step 5: professionals and agencies to contact in a crisis' }],
-    reviewNote: '988 facts (launched July 2022; call/text/chat, 24/7) are from SAMHSA rather than the cited SPI source; consider adding a SAMHSA 988 source to nceSources.js.',
   },
   {
     id: 'nce-s-trt-045',
@@ -203,7 +201,6 @@ module.exports = [
     ],
     rationale: 'Levels of care run from outpatient to intensive outpatient (about 9 or more hours a week for adults), partial hospitalization (about 20 or more hours a week, usually most of each weekday), and 24-hour residential or inpatient care. The best match is the least restrictive level that meets current need; worsening in IOP without imminent danger points to PHP.',
     references: [{ source: 'LOCUS (AACP)', detail: 'Level-of-care intensity: intensive outpatient versus partial hospitalization' }],
-    reviewNote: 'ASAM is substance-use focused and its 4th edition (2023) renamed Level 2.5 "high-intensity outpatient"; the item avoids level numbers, but an SME may prefer a mental health level-of-care source (e.g., LOCUS).',
   },
   {
     id: 'nce-s-trt-047',
