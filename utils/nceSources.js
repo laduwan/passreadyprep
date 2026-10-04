@@ -76,6 +76,9 @@ const NCE_EXTRA_LIBRARY = [
   { key: 'LOCUS (AACP)', tier: 'guideline', body: 'American Association for Community Psychiatry',
     citation: 'American Association for Community Psychiatry. (2020). Level of Care Utilization System for Psychiatric and Addiction Services (LOCUS), Version 20.',
     use: 'Mental health level-of-care determination across intensity levels.' },
+  { key: 'Linehan (DBT Skills Training Manual)', tier: 'seminal', body: 'Linehan',
+    citation: 'Linehan, M. M. (2015). DBT Skills Training Manual (2nd ed.). Guilford Press.',
+    use: 'DBT skills modules (mindfulness, distress tolerance, emotion regulation, interpersonal effectiveness), chain analysis and validation.' },
 ];
 
 const NCE_REFERENCE_LIBRARY = [...REFERENCE_LIBRARY, ...NCE_EXTRA_LIBRARY];
