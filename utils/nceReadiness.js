@@ -62,6 +62,9 @@ function computeNceReadiness(byDomain, attempts) {
     answeredForFullConfidence: FULL_CONFIDENCE_ANSWERS,
     trend: recentPct > overallPct ? 'up' : recentPct < overallPct - 5 ? 'down' : 'steady',
     weakDomains,
+    // NBCC weight of each domain, heaviest first, for the dashboard's explanation.
+    weights: bp.DOMAINS.slice().sort((a, b) => b.weight - a.weight)
+      .map((d) => ({ key: d.key, short: d.short, pct: Math.round(d.weight * 100) })),
   };
 }
 
