@@ -82,6 +82,9 @@
       <div class="row">
         <div><label for="recId">Question ID</label><input id="recId" placeholder="e.g. nce-s-eth-007" /></div>
         <div style="flex:0"><button class="primary" id="recBtn">Open record</button></div>
+        <div style="flex:0;min-width:auto"><label for="recAllStatus">All records</label>
+          <select id="recAllStatus" style="width:auto"><option value="published">Published</option><option value="sme_review">In review</option><option value="all">All statuses</option></select></div>
+        <div style="flex:0"><button id="recAllBtn" title="Every record in one printable document: an index, then one record per page">Print all records</button></div>
       </div>
       <p class="muted" style="font-size:13px;margin:8px 0 0">Shows the question, key and rationales, every reference with its full citation, today's quality-gate result, origin, SME sign-off and the dated audit trail of every import, edit and status change. Print it or save it as PDF.</p>
     </div>
@@ -221,6 +224,15 @@
       .catch(function(e){ if (win) win.close(); toast(e.message, true); });
   }
   $('recBtn').onclick = function(){ openRecord($('recId').value); };
+  $('recAllBtn').onclick = function(){
+    var btn = $('recAllBtn'); btn.disabled = true; btn.textContent = 'Building…';
+    var win = window.open('', '_blank');
+    fetch('/api/admin/nce/records?status=' + encodeURIComponent($('recAllStatus').value), { headers: { 'Authorization': 'Bearer ' + token() } })
+      .then(function(r){ if (!r.ok) throw new Error('Could not build the records (' + r.status + ')'); return r.text(); })
+      .then(function(html){ var url = URL.createObjectURL(new Blob([html], { type: 'text/html' })); if (win) win.location = url; else location.href = url; })
+      .catch(function(e){ if (win) win.close(); toast(e.message, true); })
+      .then(function(){ btn.disabled = false; btn.textContent = 'Print all records'; });
+  };
   // Reviewer identity is remembered on this computer only.
   try {
     var rv = JSON.parse(localStorage.getItem('prp_nce_reviewer') || '{}');

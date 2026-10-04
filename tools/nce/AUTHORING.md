@@ -74,8 +74,12 @@ the dated audit trail of every import, edit and status change.
 
 - Admin → NCE Questions → **Look up a question's evidence record**, or the
   **Record** button on any question. Print or save as PDF.
-- `node tools/nce/item-record.js <id>` (seed files, no database) or
-  `... <id> --db` (live record incl. audit trail) → `docs/records/<id>.html`.
+- **All at once:** Admin → NCE Questions → **Print all records** (published,
+  in review, or all), or `node tools/nce/item-record.js --all [--db]
+  [--status=published] [--separate]` → `docs/records/nce-evidence-records.html`:
+  an index, then one record per page (`--separate` also writes one file each).
+- One question: `node tools/nce/item-record.js <id>` (seed files, no database)
+  or `... <id> --db` (live record incl. audit trail) → `docs/records/<id>.html`.
 
 New sources must be added to `utils/nceSources.js` with a full citation before
 an item may cite them.
