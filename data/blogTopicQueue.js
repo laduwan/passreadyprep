@@ -10,7 +10,11 @@
 //   title  post title (≤ 70 chars reads best in search results)
 //   angle  what the post should cover — the drafter writes only from this
 //   link   the ONE internal study-tool link the post must include
-module.exports = [
+//   exam   'NCE' for NCE posts (omitted = NCMHCE). NCE posts link to /nce.html,
+//          get the NCE call to action, and skip the NCMHCE study-guide teaser.
+//
+// The exported queue alternates NCMHCE and NCE topics so both exams get posts.
+const NCMHCE_TOPICS = [
   {
     slug: 'ncmhce-suicide-risk-assessment',
     title: 'Suicide Risk Assessment on the NCMHCE: What Cases Look For',
@@ -120,3 +124,71 @@ module.exports = [
     link: { path: '/assess-next.html', label: 'what-to-assess-next practice' },
   },
 ];
+
+const NCE_TOPICS = [
+  {
+    exam: 'NCE',
+    slug: 'nce-counseling-theories',
+    title: 'Counseling Theories on the NCE: Key Approaches to Know',
+    angle: 'Major counseling theories and their founders, core concepts, and signature techniques as the NCE tends to test them: psychodynamic, Adlerian, person-centered, existential, Gestalt, behavioral, cognitive, REBT, reality therapy, solution-focused, narrative, and family systems approaches. How to tell approaches apart from a short stem.',
+    link: { path: '/nce.html', label: 'NCE practice questions and mock exams' },
+  },
+  {
+    exam: 'NCE',
+    slug: 'nce-human-growth-development',
+    title: 'Human Growth and Development on the NCE',
+    angle: 'Developmental theories the NCE draws on: Piaget, Erikson, Kohlberg, Gilligan, attachment theory, and lifespan transitions, with how each shows up in a counseling scenario.',
+    link: { path: '/nce.html', label: 'NCE practice questions and mock exams' },
+  },
+  {
+    exam: 'NCE',
+    slug: 'nce-ethics-confidentiality',
+    title: 'Ethics on the NCE: Confidentiality, Consent, and Boundaries',
+    angle: 'Professional practice and ethics for the NCE: informed consent elements, confidentiality and its limits, duty to warn and protect at a general level, multiple relationships, documentation, scope of competence, and ethical decision-making models. Send readers to their state board for state-specific rules.',
+    link: { path: '/nce.html', label: 'NCE practice questions and mock exams' },
+  },
+  {
+    exam: 'NCE',
+    slug: 'nce-assessment-testing',
+    title: 'Assessment and Testing on the NCE: Reliability, Validity, and Scores',
+    angle: 'Assessment concepts for the NCE: reliability types, validity types, norm- versus criterion-referenced tests, standard scores and percentiles, the normal curve, standard error of measurement, and choosing appropriate instruments. Explain concepts in words; do not state statistics about the exam.',
+    link: { path: '/nce.html', label: 'NCE practice questions and mock exams' },
+  },
+  {
+    exam: 'NCE',
+    slug: 'nce-career-development',
+    title: 'Career Development Theories for the NCE',
+    angle: 'Career theories and assessments the NCE covers: Holland, Super, Krumboltz, Gottfredson, Roe, trait-and-factor, and how career issues show up in counseling scenarios.',
+    link: { path: '/nce.html', label: 'NCE practice questions and mock exams' },
+  },
+  {
+    exam: 'NCE',
+    slug: 'nce-group-counseling',
+    title: 'Group Counseling on the NCE: Stages, Roles, and Therapeutic Factors',
+    angle: 'Group work for the NCE: group stages, leader skills, member roles, Yalom\'s therapeutic factors, screening, and confidentiality limits in groups.',
+    link: { path: '/nce.html', label: 'NCE practice questions and mock exams' },
+  },
+  {
+    exam: 'NCE',
+    slug: 'nce-research-program-evaluation',
+    title: 'Research and Program Evaluation for the NCE',
+    angle: 'Research concepts counselors need for the NCE: research designs, variables, validity threats, basic statistics concepts explained in words, needs assessment, and program evaluation.',
+    link: { path: '/nce.html', label: 'NCE practice questions and mock exams' },
+  },
+  {
+    exam: 'NCE',
+    slug: 'nce-social-cultural-diversity',
+    title: 'Social and Cultural Diversity on the NCE',
+    angle: 'Multicultural counseling for the NCE: cultural humility, identity development models, acculturation, privilege and oppression, and culturally responsive practice.',
+    link: { path: '/nce.html', label: 'NCE practice questions and mock exams' },
+  },
+];
+
+// Alternate: NCMHCE, NCE, NCMHCE, NCE, … then whatever is left of the longer list.
+const queue = [];
+for (let i = 0; i < Math.max(NCMHCE_TOPICS.length, NCE_TOPICS.length); i++) {
+  if (NCMHCE_TOPICS[i]) queue.push(NCMHCE_TOPICS[i]);
+  if (NCE_TOPICS[i]) queue.push(NCE_TOPICS[i]);
+}
+
+module.exports = queue;

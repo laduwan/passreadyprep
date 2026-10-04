@@ -11,6 +11,8 @@ const SOURCES = [
   { label: 'NCMHCE Content Outline', url: 'https://nbcc.org/assets/exam/ncmhce_content_outline.pdf' },
   { label: '2027 NCMHCE Exam Specifications', url: 'https://nbcc.org/assets/exam/NCMHCE_exam_spec_2027.pdf' },
   { label: 'NCE Candidate Handbook', url: 'https://nbcc.org/assets/exam/handbooks/nce.pdf' },
+  { label: 'NCE Content Outline', url: 'https://nbcc.org/assets/exam/nce_content_outline.pdf' },
+  { label: '2027 NCE Exam Specifications', url: 'https://www.nbcc.org/assets/exam/NCE_exam_spec_2027.pdf' },
   { label: 'CCE NCMHCE page', url: 'https://www.cce-global.org/assessmentsandexams/ncmhce' },
   { label: 'NCMHCE format comparison chart', url: 'https://www.nbcc.org/assets/exam/ncmhce_format_comparison_chart.pdf' },
 ];
@@ -30,7 +32,11 @@ const FACTS = [
   // NCMHCE — 2027 format
   'For tests on or after July 1, 2027, the NCMHCE has 10 case studies, reports a scaled score from 100 to 500 with 360 as the passing point, and uses a new set of content domains. A scaled score is not a percentage correct.',
   // NCE
-  'The current NCE has 200 multiple-choice questions: 160 scored and 40 unscored field-test items. Each scored question counts for one point; the passing score is set by subject matter experts and equated across forms. The total NCE session is 255 minutes.',
+  'The current NCE (tests before July 1, 2027) has 200 multiple-choice questions with four options each: 160 scored and 40 unscored field-test items, mixed in and indistinguishable. Each scored question counts for one point; the passing score is set by subject matter experts and equated across forms.',
+  'The current NCE allows 3 hours 45 minutes (225 minutes) to answer, with a scheduled break after question 100; flagged or skipped questions in the first half must be handled before the break. The total NCE session is 255 minutes.',
+  'The NCE content outline (2023) has six domains. From most to least heavily weighted: Counseling Skills and Interventions and Areas of Clinical Focus (nearly equal, together more than half the scored items), then Professional Practice and Ethics and Intake, Assessment, and Diagnosis (equal), then Treatment Planning, then Core Counseling Attributes. NCE items also reflect the eight original CACREP content areas (Professional Counseling Orientation and Ethical Practice; Social and Cultural Diversity; Human Growth and Development; Career Development; Counseling and Helping Relationships; Group Counseling and Group Work; Assessment and Testing; Research and Program Evaluation), but NBCC publishes no item counts per CACREP area.',
+  'From July 1, 2027, the NCE has 170 questions with three options each (140 scored, 30 field-test), 225 minutes with an optional 15-minute break halfway, and new content domains.',
+  'NCE score reports, official score reporting to state boards, the 30-day retest wait, and ID rules work the same way as described above for the NCMHCE.',
   // State rules
   'Which exam a counselor must take, and when they become eligible, is set by each state licensing board and varies by state and license level. Posts must send readers to their state board for this, never state a specific state\'s rule.',
 ];

@@ -255,6 +255,17 @@ const FOOTER = `<footer class="site">
   </div>
 </footer>`;
 
+// Posts whose FIRST tag is "NCE" get the NCE call to action; all others get
+// the NCMHCE one.
+const NCE_CTA = `<section class="guar" style="margin-top:40px">
+  <h2>Put it into practice.</h2>
+  <p>Work NCE practice questions and full-length timed mock exams weighted to the six NCE domains, then see where you stand.</p>
+  <div class="hero-cta">
+    <a class="btn lg" href="/nce.html">Try NCE practice questions</a>
+    <a class="btn lg ghost" href="/register.html">Create your account</a>
+  </div>
+</section>`;
+
 const CTA = `<section class="guar" style="margin-top:40px">
   <h2>Put it into practice.</h2>
   <p>Work realistic NCMHCE clinical simulations under exam timing, then see exactly where you stand.</p>
@@ -377,7 +388,7 @@ function renderPost(post) {
     <div class="prose">
 ${renderMarkdown(post.bodyMarkdown)}
     </div>
-    ${CTA}
+    ${(tags[0] || '').toUpperCase() === 'NCE' ? NCE_CTA : CTA}
     <p class="crumbs" style="margin-top:28px"><a href="/blog">&larr; Back to all posts</a></p>
   </article>
 </div>`;

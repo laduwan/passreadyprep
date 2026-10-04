@@ -15,7 +15,8 @@
  *   - no percentages or made-up exam numbers; exam details may come ONLY from
  *     the NBCC-sourced fact sheet in data/ncmhceExamFacts.js, and a sources
  *     note citing NBCC's documents is appended to every draft
- *   - must include the topic's study-tool link and the study-guide teaser link
+ *   - must include the topic's study-tool link, plus the study-guide teaser
+ *     link on NCMHCE topics (topics with exam: 'NCE' link only to /nce.html)
  *   - length and meta-description limits
  * A draft that fails gets one retry with the problems listed; if it still
  * fails, nothing is saved and the failure is logged.
@@ -90,7 +91,7 @@ async function callClaude(system, userPrompt) {
 
 // ── Prompts ──────────────────────────────────────────────────────────────────
 
-const SYSTEM_PROMPT = `You write blog posts for PassReady Prep, an NCMHCE exam-prep site for counselors preparing for licensure. Posts are drafts that the site owner, Kejuiana Johnson, MA, LPC, NCC, reviews and edits before publishing. Write in a plain, warm, practical voice for counselors-in-training. No emojis.
+const SYSTEM_PROMPT = `You write blog posts for PassReady Prep, an exam-prep site for counselors preparing for the NCMHCE and NCE licensure exams. Each request names which exam the post is about. Posts are drafts that the site owner, Kejuiana Johnson, MA, LPC, NCC, reviews and edits before publishing. Write in a plain, warm, practical voice for counselors-in-training. No emojis.
 
 The blog exists to help readers and to bring them to PassReady Prep's paid study tools. It must not give away the paid product's method. These rules matter more than anything else here:
 
@@ -108,23 +109,34 @@ ${EXAM.FACTS.map(f => '- ' + f).join('\n')}
 Output format (nothing before or after it):
 ---
 title: <the exact title you were given>
-metaDescription: <one sentence, 155 characters or fewer, includes "NCMHCE">
+metaDescription: <one sentence, 155 characters or fewer, includes the exam name from the request (NCMHCE or NCE)>
 excerpt: <1–2 sentences, 240 characters or fewer>
-tags: <3 comma-separated tags, the first one is NCMHCE>
+tags: <3 comma-separated tags, the first one is the exam name from the request (NCMHCE or NCE)>
 ---
 <markdown body>
 
 Body rules: start with an intro paragraph (no top-level # heading — the page shows the title). Use ## section headings, ### where helpful. ${MIN_WORDS}–1,200 words. End with a short concluding section; do not write a sign-up pitch (the site adds its own call to action).`;
 
+function examOf(topic) {
+  return topic.exam === 'NCE' ? 'NCE' : 'NCMHCE';
+}
+
 function buildUserPrompt(topic, problems) {
+  const exam = examOf(topic);
+  const links = exam === 'NCE'
+    ? `Include exactly this one link, once, worked naturally into the text:
+- [${topic.link.label}](${topic.link.path}) — PassReady Prep's NCE practice questions and mock exams
+Do not link to the NCMHCE study guide.`
+    : `Include exactly these two links, each once, worked naturally into the text:
+- [${topic.link.label}](${topic.link.path}) — PassReady Prep's study tool for this topic
+- [Complete NCMHCE Study Guide](${STUDY_GUIDE_PATH}) — one sentence saying the guide teaches a full step-by-step method with worked cases (do not describe the method itself)`;
   let p = `Draft this post.
 
+Exam: ${exam}
 Title: ${topic.title}
 Cover: ${topic.angle}
 
-Include exactly these two links, each once, worked naturally into the text:
-- [${topic.link.label}](${topic.link.path}) — PassReady Prep's study tool for this topic
-- [Complete NCMHCE Study Guide](${STUDY_GUIDE_PATH}) — one sentence saying the guide teaches a full step-by-step method with worked cases (do not describe the method itself)`;
+${links}`;
   if (problems && problems.length) {
     p += `\n\nYour previous draft had these problems. Fix all of them:\n- ${problems.join('\n- ')}`;
   }
@@ -167,10 +179,10 @@ function checkDraft(draft, topic) {
 
   if (!draft.metaDescription) problems.push('missing metaDescription');
   else if (draft.metaDescription.length > 155) problems.push(`metaDescription is ${draft.metaDescription.length} characters (max 155)`);
-  else if (!/NCMHCE/.test(draft.metaDescription)) problems.push('metaDescription must include "NCMHCE"');
+  else if (!new RegExp('\\b' + examOf(topic) + '\\b').test(draft.metaDescription)) problems.push(`metaDescription must include "${examOf(topic)}"`);
   if (draft.excerpt.length > 500) problems.push('excerpt is too long');
   if (!draft.bodyMarkdown.includes(`](${topic.link.path})`)) problems.push(`missing the link to ${topic.link.path}`);
-  if (!draft.bodyMarkdown.includes(`](${STUDY_GUIDE_PATH})`)) problems.push(`missing the link to ${STUDY_GUIDE_PATH}`);
+  if (examOf(topic) === 'NCMHCE' && !draft.bodyMarkdown.includes(`](${STUDY_GUIDE_PATH})`)) problems.push(`missing the link to ${STUDY_GUIDE_PATH}`);
   const words = wordCount(draft.bodyMarkdown);
   if (words < MIN_WORDS || words > MAX_WORDS) problems.push(`body is ${words} words (aim for ${MIN_WORDS}–1,200)`);
   return problems;
@@ -219,6 +231,8 @@ async function runOnce({ force = false } = {}) {
       continue;
     }
     draft.title = topic.title; // the queue owns the title
+    // First tag = exam name; the public page picks its call to action from it.
+    draft.tags = [examOf(topic)].concat((draft.tags || []).filter(t => t.toUpperCase() !== examOf(topic))).slice(0, 3);
     problems = checkDraft(draft, topic);
     if (problems.length) {
       console.warn(`${LOG} ${topic.slug} attempt ${attempt} failed checks: ${problems.join('; ')}`);
