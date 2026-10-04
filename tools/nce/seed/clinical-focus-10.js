@@ -104,7 +104,6 @@ module.exports = [
       { source: 'State law', detail: 'Mandated reporting statutes: child, elder and dependent-adult abuse vs adult partner violence' },
       { source: 'ACA Code of Ethics', detail: 'B.1.c Respect for Confidentiality; B.2.a Serious and Foreseeable Harm and Legal Requirements' },
     ],
-    reviewNote: 'A few states require some health practitioners to report injuries from assault; SME to confirm the "most U.S. jurisdictions" framing for counselors.',
   },
 
   // ── child abuse and neglect ───────────────────────────────────────────────

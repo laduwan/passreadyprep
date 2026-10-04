@@ -8,7 +8,8 @@
 //   node tools/banks/export-nce.js --from-seed     # the hand-authored seed files
 //                                                  # (tools/nce/seed), no database
 //   node tools/banks/export-nce.js --from-seed --files=ethics-2,intake-2 --out=nce-question-bank-batch2
-//        # only some seed files, written to docs/<out>.{html,md}
+//        # only some seed files, written to docs/<out>.{html,md}; "batchN" in --out
+//        # titles the copy "Batch N" (or pass --title=...), otherwise "Full bank"
 //
 // Emits docs/nce-question-bank.html (print to PDF from any browser) and
 // docs/nce-question-bank.md. Needs MONGO_URI (reads .env) unless --from-seed.
@@ -28,12 +29,14 @@ const status = ['sme_review', 'published', 'all'].includes(arg) ? arg : 'sme_rev
 
 const opt = (name) => (process.argv.find((a) => a.startsWith(`--${name}=`)) || '').split('=')[1] || '';
 const OUT = (opt('out') || 'nce-question-bank').replace(/[^a-zA-Z0-9_-]/g, '');
+// Copy name shown in the heading and on every printed page footer.
+const TITLE = opt('title') || ((OUT.match(/batch(\d+)/) || [])[1] ? `Batch ${OUT.match(/batch(\d+)/)[1]}` : 'Full bank');
 
 function write(items, label) {
   const root = path.resolve(__dirname, '..', '..');
   fs.mkdirSync(path.join(root, 'docs'), { recursive: true });
-  fs.writeFileSync(path.join(root, `docs/${OUT}.html`), renderHtml(items, { status: label }));
-  fs.writeFileSync(path.join(root, `docs/${OUT}.md`), renderMarkdown(items, { status: label }));
+  fs.writeFileSync(path.join(root, `docs/${OUT}.html`), renderHtml(items, { status: label, title: TITLE }));
+  fs.writeFileSync(path.join(root, `docs/${OUT}.md`), renderMarkdown(items, { status: label, title: TITLE }));
   console.log(`wrote docs/${OUT}.html and .md — ${items.length} items (${label})`);
 }
 
