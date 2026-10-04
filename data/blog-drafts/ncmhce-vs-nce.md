@@ -64,7 +64,7 @@ Focus on decision-making. Practice deciding what comes first when several action
 
 ### If you need both
 
-Start with the NCE content areas to build your foundation, then shift toward case-based practice. PassReady offers [NCE practice and mock exams](/nce.html) as a separate product alongside its NCMHCE case simulations, so you can prepare for both in one place.
+Start with the NCE content areas to build your foundation, then shift toward case-based practice. PassReady Prep offers [NCE practice and mock exams](/nce.html) as a separate product alongside its NCMHCE case simulations, so you can prepare for both in one place.
 
 ## Bottom line
 
