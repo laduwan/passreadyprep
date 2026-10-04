@@ -12,12 +12,13 @@ const SOURCES = [
   { label: '2027 NCMHCE Exam Specifications', url: 'https://nbcc.org/assets/exam/NCMHCE_exam_spec_2027.pdf' },
   { label: 'NCE Candidate Handbook', url: 'https://nbcc.org/assets/exam/handbooks/nce.pdf' },
   { label: 'CCE NCMHCE page', url: 'https://www.cce-global.org/assessmentsandexams/ncmhce' },
+  { label: 'NCMHCE format comparison chart', url: 'https://www.nbcc.org/assets/exam/ncmhce_format_comparison_chart.pdf' },
 ];
 
 const FACTS = [
   // NCMHCE — current format (tests before July 1, 2027)
   'The NCMHCE and NCE are developed by the National Board for Certified Counselors (NBCC) and delivered through Pearson, at a Pearson VUE test center or online through Pearson\'s remotely proctored OnVUE platform.',
-  'The current NCMHCE has 11 case studies. Each is a narrative followed by 9 to 15 multiple-choice questions.',
+  'The current NCMHCE has 11 case studies. Each is a narrative followed by 9 to 15 multiple-choice questions, in sections: an initial intake summary, then two counseling sessions. Each question has four options and one correct answer. The client\'s diagnosis is provided in the case.',
   'On the current NCMHCE, 10 cases are scored and 1 is unscored (used to gather statistics for future exams); 100 questions are scored in total.',
   'Each scored NCMHCE question counts for one score point.',
   'The current NCMHCE allows 225 minutes to answer the cases, with one scheduled 15-minute break after the fifth case. The total test session is 255 minutes (4 hours 15 minutes), including the nondisclosure agreement and tutorial.',
