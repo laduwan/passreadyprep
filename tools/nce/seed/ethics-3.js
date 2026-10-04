@@ -270,11 +270,11 @@ module.exports = [
     options: [
       { id: 'a', text: 'Continue, since the client\'s wish to stay outweighs the competence concern', isCorrect: false, rationale: 'Client preference does not permit practice outside competence when serious risk is present.' },
       { id: 'b', text: 'Keep working with her but drop eating-related goals from the treatment plan', isCorrect: false, rationale: 'Ignoring the main clinical problem does not address the risk and is not what the Code directs.' },
-      { id: 'c', text: 'Discontinue the counseling relationship once the referrals have been offered', isCorrect: true, rationale: 'A.11.b states that if clients decline the suggested referrals, counselors discontinue the relationship.' },
+      { id: 'c', text: 'Discontinue the counseling relationship once the referrals have been offered', isCorrect: true, rationale: 'A.11.a states that if clients decline the suggested referrals, counselors discontinue the relationship.' },
       { id: 'd', text: 'Ask a friend with eating-disorder training to coach her by phone each week', isCorrect: false, rationale: 'Informal coaching is not supervision or consultation and does not establish competence.' },
     ],
-    rationale: 'A.11.b provides that when counselors lack the competence to help a client, they avoid entering or continuing the relationship, know culturally and clinically appropriate referral resources, and suggest them. If the client declines the suggested referrals, the counselor discontinues the relationship, handling the transition with care to avoid abandonment.',
-    references: [{ source: 'ACA Code of Ethics', detail: 'A.11.b Competence Within Termination and Referral' }],
+    rationale: 'A.11.a provides that when counselors lack the competence to help a client, they avoid entering or continuing the relationship, know culturally and clinically appropriate referral resources, and suggest them. If the client declines the suggested referrals, the counselor discontinues the relationship, handling the transition with care to avoid abandonment.',
+    references: [{ source: 'ACA Code of Ethics', detail: 'A.11.a Competence Within Termination and Referral' }],
   },
   {
     id: 'nce-s-eth-066',
