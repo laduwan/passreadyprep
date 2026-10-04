@@ -119,11 +119,24 @@
     h+='</div>';
     return h;
   }
+  // Rebuild the list without interrupting playback: the playing episode's card
+  // (same <audio> node) is moved into its new position, or kept at the top if
+  // the current search/filter hides it. Moving it synchronously never pauses it.
+  function setList(list,html){
+    var live=null;
+    [].forEach.call(list.querySelectorAll('audio'),function(a){ if(!live && !a.paused) live=a; });
+    var card=live && live.closest('.ep');
+    list.innerHTML=html;
+    if(!card) return;
+    var key=live.getAttribute('data-src')||live.getAttribute('src'), slot=null;
+    [].forEach.call(list.querySelectorAll('audio'),function(a){ if(!slot && (a.getAttribute('data-src')||a.getAttribute('src'))===key) slot=a.closest('.ep'); });
+    if(slot) slot.parentNode.replaceChild(card,slot); else list.insertBefore(card,list.firstChild);
+  }
   function render(){
     var list=document.getElementById('list');
     var shown=EPS.filter(matches);
     document.getElementById('count').textContent=shown.length+' of '+EPS.length+' episode'+(EPS.length===1?'':'s');
-    if(!shown.length){ list.innerHTML='<div class="empty">No episodes match that search.</div>'; return; }
+    if(!shown.length){ setList(list,'<div class="empty">No episodes match that search.</div>'); return; }
     var html='';
     CATS.forEach(function(c){
       var inCat=shown.filter(function(e){return e.cat===c;});
@@ -131,7 +144,7 @@
       html+='<div class="cat-hd">'+esc(c)+'</div>';
       inCat.forEach(function(e){ html+=epHtml(e); });
     });
-    list.innerHTML=html;
+    setList(list,html);
   }
   render();
 })();
@@ -147,7 +160,7 @@
   var current=null;
 
   function store(fn){ try { return fn(localStorage); } catch(e){ return null; } }
-  function fileOf(a){ var s=a.getAttribute('src')||''; return s.indexOf(BASE)===0 ? decodeURIComponent(s.slice(BASE.length)) : ''; }
+  function fileOf(a){ var s=a.getAttribute('data-src')||a.getAttribute('src')||''; return s.indexOf(BASE)===0 ? decodeURIComponent(s.slice(BASE.length)) : ''; }
   function epOf(a){ var f=fileOf(a); for(var i=0;i<EPS.length;i++){ if(EPS[i].file===f) return EPS[i]; } return null; }
   function audios(){ return [].slice.call(list.querySelectorAll('audio')); }
   function isEp(t){ return t && t.tagName==='AUDIO' && list.contains(t); }
@@ -264,6 +277,155 @@
   }, true);
   document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='hidden' && current) savePos(current); });
   window.addEventListener('pagehide', function(){ if(current) savePos(current); });
+})();
+</script>
+<script>
+// Offline episodes: a per-episode button saves the full audio file to the Cache
+// API; saved episodes play from an object URL of the cached copy, so they work
+// with no network. Same page-level delegation as the block above.
+(function(){
+  if(!('caches' in window)) return; // unsupported: no buttons at all
+  var CACHE='prp-audio-v1', FAILKEY='prp_podfail';
+  var list=document.getElementById('list');
+  var saved={}, state={}, objUrl=null, objEl=null, persistAsked=false;
+
+  function store(fn){ try { return fn(localStorage); } catch(e){ return null; } }
+  var failed=store(function(ls){ return JSON.parse(ls.getItem(FAILKEY)||'{}'); })||{};
+  function setFailed(url,on){ if(on) failed[url]=1; else delete failed[url]; store(function(ls){ ls.setItem(FAILKEY, JSON.stringify(failed)); }); }
+  function norm(u){ try { return new URL(u, location.href).href; } catch(e){ return u; } }
+  function urlOf(a){ return norm(a.getAttribute('data-src')||a.getAttribute('src')||''); }
+
+  var SVG='<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;margin-right:5px">';
+  var DL=SVG+'<path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>';
+  var OK=SVG+'<path d="M20 6 9 17l-5-5"/></svg>';
+  var NO=SVG+'<path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+
+  function paintBtn(b){
+    var url=b.getAttribute('data-off'), s=state[url];
+    if(s && s.saving){ b.innerHTML=DL+'Saving'+(s.pct!=null?' '+s.pct+'%':'…'); b.setAttribute('aria-pressed','false'); b.removeAttribute('title'); return; }
+    if(saved[url]){ b.innerHTML=OK+'Saved offline'; b.setAttribute('aria-pressed','true'); b.title='Tap to remove the saved copy'; return; }
+    b.setAttribute('aria-pressed','false'); b.removeAttribute('title');
+    b.innerHTML=failed[url] ? NO+'Save failed — retry' : DL+'Save offline';
+  }
+  function paintUrl(url){ [].forEach.call(list.querySelectorAll('button[data-off]'),function(b){ if(b.getAttribute('data-off')===url) paintBtn(b); }); }
+
+  // Stamp data-src (original R2 URL) and add one button per episode card.
+  function decorate(){
+    [].forEach.call(list.querySelectorAll('.ep audio'),function(a){
+      if(!a.getAttribute('data-src')) a.setAttribute('data-src', a.getAttribute('src')||'');
+      var card=a.closest('.ep');
+      if(card.querySelector('button[data-off]')) return;
+      var row=document.createElement('div'); row.className='flt'; row.style.margin='9px 0 0';
+      var b=document.createElement('button'); b.className='fb'; b.setAttribute('data-off', urlOf(a));
+      row.appendChild(b); a.parentNode.insertBefore(row, a.nextSibling); paintBtn(b);
+    });
+  }
+  new MutationObserver(decorate).observe(list,{childList:true});
+  decorate();
+  caches.open(CACHE).then(function(c){ return c.keys(); }).then(function(reqs){
+    reqs.forEach(function(r){ saved[r.url]=1; paintUrl(r.url); });
+  }).catch(function(e){ console.warn('[podcast offline] cache unavailable:', e); });
+
+  function fail(url, why){
+    console.warn('[podcast offline] save failed for '+url+':', why);
+    delete state[url]; setFailed(url,true); paintUrl(url);
+  }
+  function quotaError(msg){ var e=new Error(msg); e.name='QuotaExceededError'; return e; }
+  function freeBytes(){
+    if(!navigator.storage || !navigator.storage.estimate) return Promise.resolve(Infinity);
+    return navigator.storage.estimate().then(function(e){ return (e.quota||Infinity)-(e.usage||0); }, function(){ return Infinity; });
+  }
+  function save(url){
+    state[url]={saving:true, pct:null}; setFailed(url,false); paintUrl(url);
+    var free=Infinity, type='audio/mp4';
+    freeBytes().then(function(f){
+      free=f;
+      if(free<1048576) throw quotaError('storage almost full ('+free+' bytes free)');
+      return fetch(url,{mode:'cors', cache:'no-store'}); // full file, no Range header
+    }).then(function(res){
+      if(res.status!==200) throw new Error('HTTP '+res.status+' (need a full 200 response)');
+      type=res.headers.get('Content-Type')||type;
+      var total=parseInt(res.headers.get('Content-Length'),10);
+      if(total>0 && total*1.1>free) throw quotaError('file is '+total+' bytes, '+free+' free');
+      if(!res.body || !res.body.getReader) return res.blob();
+      var reader=res.body.getReader(), parts=[], got=0;
+      function pump(){
+        return reader.read().then(function(r){
+          if(r.done) return new Blob(parts,{type:type});
+          parts.push(r.value); got+=r.value.byteLength;
+          if(total>0){ var pct=Math.min(99, Math.floor(got*100/total)); if(pct!==state[url].pct){ state[url].pct=pct; paintUrl(url); } }
+          return pump();
+        });
+      }
+      return pump();
+    }).then(function(blob){
+      if(!blob.size) throw new Error('empty response');
+      var full=new Response(blob,{status:200, headers:{'Content-Type':type, 'Content-Length':String(blob.size)}});
+      return caches.open(CACHE).then(function(c){ return c.put(url, full); });
+    }).then(function(){
+      delete state[url]; saved[url]=1; paintUrl(url);
+      if(!persistAsked && navigator.storage && navigator.storage.persist){
+        persistAsked=true;
+        navigator.storage.persist().catch(function(){});
+      }
+    }).catch(function(e){
+      var why=(e && e.name==='TypeError') ? 'network error or missing CORS header (Access-Control-Allow-Origin) on the audio host — '+e.message
+        : (e && e.name==='QuotaExceededError') ? 'not enough storage — '+e.message
+        : (e && e.message) || e;
+      caches.open(CACHE).then(function(c){ return c.delete(url); }).catch(function(){}); // nothing partial
+      fail(url, why);
+    });
+  }
+  function remove(url){
+    caches.open(CACHE).then(function(c){ return c.delete(url); }).then(function(){
+      delete saved[url]; paintUrl(url);
+    }).catch(function(e){ console.warn('[podcast offline] remove failed:', e); });
+  }
+  list.addEventListener('click',function(ev){
+    var b=ev.target.closest('button[data-off]'); if(!b) return;
+    var url=b.getAttribute('data-off');
+    if(state[url] && state[url].saving) return;
+    if(saved[url]) remove(url); else save(url);
+  });
+
+  // While the source is being swapped, load() resets currentTime to 0 and fires
+  // pause/timeupdate; keep those from overwriting the saved resume position.
+  ['pause','timeupdate'].forEach(function(type){
+    window.addEventListener(type, function(ev){ if(ev.target && ev.target.__prpSwap) ev.stopImmediatePropagation(); }, true);
+  });
+  window.addEventListener('loadedmetadata', function(ev){ if(ev.target && ev.target.__prpSwap) ev.target.__prpSwap=false; }, true);
+
+  // Play saved episodes from the cached copy. The network load is cut off
+  // synchronously, then the cached blob is swapped in at the same position.
+  document.addEventListener('play', function(ev){
+    var a=ev.target;
+    if(!a || a.tagName!=='AUDIO' || !list.contains(a)) return;
+    if(!a.getAttribute('data-src')) a.setAttribute('data-src', a.getAttribute('src')||'');
+    var url=urlOf(a);
+    if(!saved[url] || (a.currentSrc||'').indexOf('blob:')===0) return;
+    var t=a.currentTime;
+    a.__prpSwap=true;
+    a.removeAttribute('src'); a.load(); // abort the network fetch (no error event)
+    caches.open(CACHE).then(function(c){ return c.match(url); }).then(function(res){
+      if(!res) throw new Error('not in cache');
+      return res.blob();
+    }).then(function(blob){
+      if(objUrl){ // release the previous copy; its element goes back to its network URL
+        URL.revokeObjectURL(objUrl);
+        if(objEl && objEl!==a){ objEl.setAttribute('src', objEl.getAttribute('data-src')); }
+      }
+      objUrl=URL.createObjectURL(blob); objEl=a;
+      if(t>0) a.addEventListener('loadedmetadata', function once(){ a.removeEventListener('loadedmetadata', once); a.currentTime=t; });
+      a.setAttribute('src', objUrl);
+      var p=a.play(); if(p && p.catch) p.catch(function(){});
+    }).catch(function(e){
+      console.warn('[podcast offline] cached copy unavailable, using network:', e);
+      delete saved[url]; paintUrl(url);
+      a.__prpSwap=false;
+      a.setAttribute('src', url);
+      var p=a.play(); if(p && p.catch) p.catch(function(){});
+    });
+  }, true);
 })();
 </script>
 <script src="/activity-tracker.js" defer></script>
