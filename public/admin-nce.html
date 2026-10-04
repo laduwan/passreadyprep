@@ -286,11 +286,11 @@
     if (!reviewer.name) { toast('Enter the reviewer name first (it is stamped on every question).', true); $('rvName').focus(); return; }
     var domain = $('fDomain').value, q = $('fQ').value;
     var btn = $('allBtn');
-    api('/items?status=sme_review&domain='+encodeURIComponent(domain)+'&q='+encodeURIComponent(q)).then(function(r){
-      if (!r.count) { toast('No questions are in review for these filters.'); return; }
-      var flagged = r.items.filter(function(it){ return it.reviewNote; }).length;
+    api('/publish-reviewed', { method:'POST', body:{ dryRun: true, domain: domain || undefined, q: q || undefined } }).then(function(r){
+      if (!r.matched) { toast('No questions are in review for these filters.'); return; }
+      var flagged = r.flagged;
       var scope = (domain ? domainLabel(domain) : 'all domains') + (q ? ', matching "'+q+'"' : '');
-      var msg = 'Publish ALL '+(r.count >= 500 ? '500+' : r.count)+' questions in review ('+scope+')?\n\nSigned off as: '+reviewer.name+(reviewer.credential?', '+reviewer.credential:'')+
+      var msg = 'Publish ALL '+r.matched+' questions in review ('+scope+')?\n\nSigned off as: '+reviewer.name+(reviewer.credential?', '+reviewer.credential:'')+
         (flagged ? '\n\n'+flagged+' of them still carry a ⚑ Check flag.' : '')+
         '\n\nEach question gets its own audit-trail entry. Questions that fail the quality gate stay in review.';
       if (!confirm(msg)) return;
