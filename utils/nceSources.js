@@ -91,6 +91,9 @@ const NCE_EXTRA_LIBRARY = [
   { key: 'ASCA National Model', tier: 'primary', body: 'American School Counselor Association',
     citation: 'American School Counselor Association. (2019). The ASCA National Model: A Framework for School Counseling Programs (4th ed.).',
     use: 'School counselor role; appropriate vs inappropriate activities; comprehensive school counseling programs.' },
+  { key: 'Brown & Ryan Krane (Career Interventions)', tier: 'seminal', body: 'Brown & Ryan Krane',
+    citation: 'Brown, S. D., & Ryan Krane, N. E. (2000). Four (or five) sessions and a cloud of dust: Old assumptions and new observations about career counseling. In S. D. Brown & R. W. Lent (Eds.), Handbook of Counseling Psychology (3rd ed., pp. 740-766). Wiley.',
+    use: 'Critical ingredients of effective career interventions.' },
 ];
 
 const NCE_REFERENCE_LIBRARY = [...REFERENCE_LIBRARY, ...NCE_EXTRA_LIBRARY];
