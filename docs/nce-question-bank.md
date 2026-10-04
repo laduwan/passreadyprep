@@ -5606,8 +5606,6 @@ A counselor uses Schlossberg's transition model with a 58-year-old woman who has
 
 **References:** Sharf (Career Development Theory) — Adult career transitions: Schlossberg's transition model (4 S's)
 
-**⚑ Check:** Confirm Sharf covers Schlossberg's 4 S model (adult transitions).
-
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
 ---
@@ -6066,8 +6064,6 @@ A 31-year-old Army veteran meets criteria for PTSD after combat deployments. He 
 
 **References:** VA/DoD CPG — Management of PTSD and Acute Stress Disorder: trauma-focused psychotherapy recommendations
 
-**⚑ Check:** How VA/DoD 2023 grades debriefing and supportive counseling (distractors) is from memory; verify.
-
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
 ---
@@ -6091,8 +6087,6 @@ A Marine veteran says his worst memory is not being in danger himself but follow
 **Rationale:** Moral injury, described by Litz and colleagues, is lasting distress after perpetrating, failing to prevent or witnessing acts that transgress deeply held moral beliefs. It shows up mainly as guilt, shame, self-condemnation and spiritual or relational withdrawal rather than fear. It overlaps with PTSD criterion D (negative beliefs about oneself, guilt, shame) but is not a DSM diagnosis.
 
 **References:** DSM-5-TR — PTSD criterion D: persistent negative beliefs about oneself and persistent guilt or shame
-
-**⚑ Check:** Moral injury (Litz et al.) is not a DSM construct; the DSM-5-TR reference points to PTSD criterion D only.
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
@@ -12762,8 +12756,6 @@ A DBT skills group is teaching TIPP skills for crisis survival and practicing ra
 
 **References:** Corey (Theory & Practice) — Behavior Therapy: dialectical behavior therapy skills modules
 
-**⚑ Check:** Corey's placement of DBT (third-wave section of Behavior Therapy) may differ by edition.
-
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
 ---
@@ -12787,8 +12779,6 @@ Marsha Linehan developed dialectical behavior therapy initially for chronically 
 **Rationale:** DBT integrates cognitive-behavioral change strategies with acceptance practices drawn from Zen and mindfulness. Linehan developed it for chronically suicidal clients, many meeting criteria for borderline personality disorder, who experienced pure change-focused therapy as invalidating.
 
 **References:** Corey (Theory & Practice) — Behavior Therapy: dialectical behavior therapy, acceptance and change
-
-**⚑ Check:** Corey's placement of DBT (third-wave section of Behavior Therapy) may differ by edition.
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
@@ -18156,8 +18146,6 @@ A counselor who has completed many multicultural trainings begins work with a Hm
 
 **References:** Sue & Sue (Counseling the Culturally Diverse) — Cultural humility as an other-oriented stance
 
-**⚑ Check:** Confirm the cited Sue & Sue edition discusses Hook et al.'s cultural humility model.
-
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
 ---
@@ -18252,9 +18240,7 @@ A supervisor tells a trainee, "Every feeling you have toward a client, not just 
 
 **Rationale:** The classical view, rooted in Freud, defines countertransference narrowly as the counselor's unconscious, conflict-based reactions to the client's transference and treats it as an impediment. The totalistic view broadens it to all of the counselor's emotional responses and treats them as a source of understanding. Contemporary integrative views keep the focus on conflict-based reactions while stressing that, once understood, they can inform the work.
 
-**References:** Corey (Theory & Practice) — Psychoanalytic therapy: countertransference and its therapeutic use
-
-**⚑ Check:** Classical/totalistic/complementary views come from Gelso & Hayes; confirm Corey covers the totalistic view or swap the source.
+**References:** Gelso & Hayes (Countertransference) — Ch. 1: classical, totalistic, complementary and integrative conceptions · Corey (Theory & Practice) — Psychoanalytic therapy: countertransference and its therapeutic use
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
@@ -19004,9 +18990,7 @@ In the third session of couples counseling, Dana interrupts her wife and says to
 
 **Rationale:** In couple and family counseling the counselor holds an alliance with each member, and a split alliance, where one member feels less allied with the counselor, is linked to poorer engagement and dropout. The counselor should address the rupture openly and nondefensively in session, maintaining balanced (multipartial) alliances with all members.
 
-**References:** Goldenberg (Family Therapy) — Therapeutic alliance in couple and family therapy; balanced alliances with each member
-
-**⚑ Check:** Split-alliance research (Pinsof; Friedlander and colleagues, SOFTA) is not itself in the source library; SME should confirm the Goldenberg locator.
+**References:** Friedlander et al. (Alliances in Couple & Family Therapy) — Split alliances and SOFTA safety/emotional connection; repairing in-session ruptures · Goldenberg (Family Therapy) — Therapeutic alliance in couple and family therapy; balanced alliances with each member
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
@@ -19368,9 +19352,7 @@ A counselor at a refugee resettlement agency tells her supervisor that she cries
 
 **Rationale:** Affective empathy is feeling with the client; cognitive empathy is accurately understanding the client's perspective. Rogers described empathy as sensing the client's world "as if" it were one's own without losing the "as if" quality. When affective resonance turns into personal distress, strengthening the cognitive side helps counselors stay present and effective while reducing burnout and vicarious trauma risk.
 
-**References:** Corey (Theory & Practice) — Person-centered therapy: accurate empathic understanding and the "as if" quality · Gladding (Counseling: A Comprehensive Profession) — Empathy; counselor burnout and compassion fatigue
-
-**⚑ Check:** The cognitive/affective empathy labels come from empathy research (e.g., Davis, 1983; Decety); confirm the cited texts use this framing or treat them as supporting the "as if" concept only.
+**References:** Corey (Theory & Practice) — Person-centered therapy: accurate empathic understanding and the "as if" quality · Davis (Multidimensional Empathy) — Perspective taking (cognitive) vs empathic concern and personal distress (affective)
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 

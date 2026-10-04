@@ -120,6 +120,7 @@
         <div><label for="fQ">Search stem</label><input id="fQ" /></div>
         <div style="flex:0"><button id="fBtn">Load</button></div>
         <div style="flex:0"><button id="pBtn" title="Opens a printable copy of the items with this status (save as PDF from the print dialog)">Print for review</button></div>
+        <div style="flex:0"><button class="primary" id="allBtn" title="Publishes every In-review question matching the Domain and Search filters, signed off with the reviewer name above. Questions that fail the quality gate stay in review.">Reviewed all → Publish</button></div>
       </div>
       <p class="muted" id="listCount" style="margin:10px 0"></p>
       <div id="list"></div>
@@ -278,6 +279,33 @@
         if (win) win.location = url; else location.href = url;
       })
       .catch(function(e){ if (win) win.close(); toast(e.message, true); });
+  };
+  // "Reviewed all": one sign-off for every In-review item matching the filters.
+  $('allBtn').onclick = function(){
+    var reviewer = { name: $('rvName').value.trim(), credential: $('rvCred').value.trim() };
+    if (!reviewer.name) { toast('Enter the reviewer name first (it is stamped on every question).', true); $('rvName').focus(); return; }
+    var domain = $('fDomain').value, q = $('fQ').value;
+    var btn = $('allBtn');
+    api('/items?status=sme_review&domain='+encodeURIComponent(domain)+'&q='+encodeURIComponent(q)).then(function(r){
+      if (!r.count) { toast('No questions are in review for these filters.'); return; }
+      var flagged = r.items.filter(function(it){ return it.reviewNote; }).length;
+      var scope = (domain ? domainLabel(domain) : 'all domains') + (q ? ', matching "'+q+'"' : '');
+      var msg = 'Publish ALL '+(r.count >= 500 ? '500+' : r.count)+' questions in review ('+scope+')?\n\nSigned off as: '+reviewer.name+(reviewer.credential?', '+reviewer.credential:'')+
+        (flagged ? '\n\n'+flagged+' of them still carry a ⚑ Check flag.' : '')+
+        '\n\nEach question gets its own audit-trail entry. Questions that fail the quality gate stay in review.';
+      if (!confirm(msg)) return;
+      var note = '';
+      if ($('rvAsk').checked) { note = prompt('Note for the audit trail (optional):', ''); if (note === null) return; }
+      btn.disabled = true; btn.textContent = 'Publishing…';
+      return api('/publish-reviewed', { method:'POST', body:{ reviewer: reviewer, domain: domain || undefined, q: q || undefined, note: note || undefined } })
+        .then(function(res){
+          $('listCount').textContent = '';
+          toast(res.published+' published'+(res.skipped.length ? ', '+res.skipped.length+' left in review (failed the gate)' : ''));
+          if (res.skipped.length) $('gOut').innerHTML = '<p class="err">Left in review (failed the quality gate):</p><ul>'+res.skipped.map(function(p){ return '<li>'+esc(p.id)+': '+esc(p.errors.join('; '))+'</li>'; }).join('')+'</ul>';
+          loadList(); loadCoverage();
+        });
+    }).catch(function(e){ toast(e.message, true); })
+      .then(function(){ btn.disabled = false; btn.textContent = 'Reviewed all → Publish'; });
   };
   $('list').addEventListener('click', function(e){
     var rb = e.target.closest('button[data-rec]'); if (rb) { openRecord(rb.getAttribute('data-rec')); return; }

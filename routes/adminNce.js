@@ -297,6 +297,49 @@ router.post('/items/:id/status', async (req, res) => {
   }
 });
 
+// POST /api/admin/nce/publish-reviewed — { reviewer: {name, credential}, domain?, q?, note? }
+// "Reviewed all": publishes every In-review item matching the same filter as
+// the list, stamped with the reviewer. Each item re-runs the quality gate and
+// is skipped (left in review) if it fails; each gets its own audit entry.
+router.post('/publish-reviewed', async (req, res) => {
+  try {
+    const { reviewer, domain, q, note } = req.body || {};
+    const name = reviewer && String(reviewer.name || '').trim();
+    if (!name) return res.status(400).json({ error: 'A reviewer name is required to sign off in bulk' });
+    const credential = String((reviewer && reviewer.credential) || '').trim();
+    const filter = { status: 'sme_review' };
+    if (domain) filter.domain = String(domain);
+    if (q) filter.stem = new RegExp(String(q).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+    const items = await NceItem.find(filter).sort({ externalId: 1 }).lean();
+    const actor = await actorFor(req);
+    const now = new Date();
+    const who = `${name}${credential ? ', ' + credential : ''} (via ${actor})`;
+    const auditNote = ['Bulk sign-off ("Reviewed all")', note ? String(note).slice(0, 500) : ''].filter(Boolean).join(' — ');
+    const skipped = [];
+    const ids = [];
+    for (const it of items) {
+      const v = checkNceItem(it, { corpusStems: [], allowedSources: NCE_SOURCES });
+      if (v.ok) ids.push(it._id); else skipped.push({ id: it.externalId, errors: v.errors });
+    }
+    // Same sign-off and audit entry for every item, so one updateMany does it.
+    let published = 0;
+    if (ids.length) {
+      const r = await NceItem.updateMany(
+        { _id: { $in: ids }, status: 'sme_review' },
+        {
+          $set: { status: 'published', reviewedBy: { name, credential, date: now } },
+          $push: { history: { at: now, action: 'published', by: who, note: auditNote } },
+        }
+      );
+      published = r.modifiedCount != null ? r.modifiedCount : (r.nModified || 0);
+    }
+    res.json({ matched: items.length, published, skipped });
+  } catch (err) {
+    console.error('nce publish-reviewed error', err);
+    res.status(500).json({ error: 'Could not publish the reviewed items' });
+  }
+});
+
 // GET /api/admin/nce/items/:id/record[?format=html] — the evidence record for
 // one question: content, key and rationales, references resolved to full
 // citations, provenance, review sign-off, and the full audit trail.

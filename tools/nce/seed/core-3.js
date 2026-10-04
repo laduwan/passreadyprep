@@ -197,8 +197,10 @@ module.exports = [
       { id: 'd', text: 'Schedule separate sessions with Dana alone to rebuild her trust before joint work', isCorrect: false, rationale: 'Moving to private sessions before addressing the issue together can create new imbalances and secrets and delays repair in the room.' },
     ],
     rationale: 'In couple and family counseling the counselor holds an alliance with each member, and a split alliance, where one member feels less allied with the counselor, is linked to poorer engagement and dropout. The counselor should address the rupture openly and nondefensively in session, maintaining balanced (multipartial) alliances with all members.',
-    references: [{ source: 'Goldenberg (Family Therapy)', detail: 'Therapeutic alliance in couple and family therapy; balanced alliances with each member' }],
-    reviewNote: 'Split-alliance research (Pinsof; Friedlander and colleagues, SOFTA) is not itself in the source library; SME should confirm the Goldenberg locator.',
+    references: [
+      { source: 'Friedlander et al. (Alliances in Couple & Family Therapy)', detail: 'Split alliances and SOFTA safety/emotional connection; repairing in-session ruptures' },
+      { source: 'Goldenberg (Family Therapy)', detail: 'Therapeutic alliance in couple and family therapy; balanced alliances with each member' },
+    ],
   },
   {
     id: 'nce-s-cor-045',

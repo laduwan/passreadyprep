@@ -4772,9 +4772,7 @@ In the third session of couples counseling, Dana interrupts her wife and says to
 
 **Rationale:** In couple and family counseling the counselor holds an alliance with each member, and a split alliance, where one member feels less allied with the counselor, is linked to poorer engagement and dropout. The counselor should address the rupture openly and nondefensively in session, maintaining balanced (multipartial) alliances with all members.
 
-**References:** Goldenberg (Family Therapy) — Therapeutic alliance in couple and family therapy; balanced alliances with each member
-
-**⚑ Check:** Split-alliance research (Pinsof; Friedlander and colleagues, SOFTA) is not itself in the source library; SME should confirm the Goldenberg locator.
+**References:** Friedlander et al. (Alliances in Couple & Family Therapy) — Split alliances and SOFTA safety/emotional connection; repairing in-session ruptures · Goldenberg (Family Therapy) — Therapeutic alliance in couple and family therapy; balanced alliances with each member
 
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 

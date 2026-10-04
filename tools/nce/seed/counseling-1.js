@@ -437,7 +437,6 @@ module.exports = [
   // ---------------------------------------------------------------- DBT
   {
     id: 'nce-s-cou-027',
-    reviewNote: 'Corey\'s placement of DBT (third-wave section of Behavior Therapy) may differ by edition.',
     domain: 'counseling',
     cacrep: 'helping_relationships',
     topic: 'dialectical behavior therapy',
@@ -454,7 +453,6 @@ module.exports = [
   },
   {
     id: 'nce-s-cou-028',
-    reviewNote: 'Corey\'s placement of DBT (third-wave section of Behavior Therapy) may differ by edition.',
     domain: 'counseling',
     cacrep: 'helping_relationships',
     topic: 'dialectical behavior therapy',

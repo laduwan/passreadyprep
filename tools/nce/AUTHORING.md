@@ -81,5 +81,14 @@ the dated audit trail of every import, edit and status change.
 - One question: `node tools/nce/item-record.js <id>` (seed files, no database)
   or `... <id> --db` (live record incl. audit trail) → `docs/records/<id>.html`.
 
+## Bulk sign-off
+
+After an SME has reviewed the whole queue (e.g. from the printed copy), Admin →
+NCE Questions → **Reviewed all → Publish** publishes every In-review question
+matching the Domain/Search filters in one step. The reviewer name is required
+and is stamped on each question's sign-off and audit trail, along with a "Bulk
+sign-off" note. Questions that fail the quality gate stay in review and are
+listed.
+
 New sources must be added to `utils/nceSources.js` with a full citation before
 an item may cite them.

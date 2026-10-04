@@ -132,7 +132,6 @@ module.exports = [
   },
   {
     id: 'nce-s-cor-009',
-    reviewNote: 'Confirm the cited Sue & Sue edition discusses Hook et al.\'s cultural humility model.',
     domain: 'core',
     cacrep: 'social_cultural',
     topic: 'cultural humility',
@@ -203,7 +202,6 @@ module.exports = [
   },
   {
     id: 'nce-s-cor-013',
-    reviewNote: 'Classical/totalistic/complementary views come from Gelso & Hayes; confirm Corey covers the totalistic view or swap the source.',
     domain: 'core',
     cacrep: 'helping_relationships',
     topic: 'countertransference',
@@ -216,7 +214,10 @@ module.exports = [
       { id: 'd', text: 'Totalistic view, including all counselor reactions to clients', isCorrect: true, rationale: 'The totalistic view defines countertransference as all of the counselor\'s emotional reactions and sees them as potentially useful data.' },
     ],
     rationale: 'The classical view, rooted in Freud, defines countertransference narrowly as the counselor\'s unconscious, conflict-based reactions to the client\'s transference and treats it as an impediment. The totalistic view broadens it to all of the counselor\'s emotional responses and treats them as a source of understanding. Contemporary integrative views keep the focus on conflict-based reactions while stressing that, once understood, they can inform the work.',
-    references: [{ source: 'Corey (Theory & Practice)', detail: 'Psychoanalytic therapy: countertransference and its therapeutic use' }],
+    references: [
+      { source: 'Gelso & Hayes (Countertransference)', detail: 'Ch. 1: classical, totalistic, complementary and integrative conceptions' },
+      { source: 'Corey (Theory & Practice)', detail: 'Psychoanalytic therapy: countertransference and its therapeutic use' },
+    ],
   },
   {
     id: 'nce-s-cor-014',

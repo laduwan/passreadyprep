@@ -94,6 +94,15 @@ const NCE_EXTRA_LIBRARY = [
   { key: 'Brown & Ryan Krane (Career Interventions)', tier: 'seminal', body: 'Brown & Ryan Krane',
     citation: 'Brown, S. D., & Ryan Krane, N. E. (2000). Four (or five) sessions and a cloud of dust: Old assumptions and new observations about career counseling. In S. D. Brown & R. W. Lent (Eds.), Handbook of Counseling Psychology (3rd ed., pp. 740-766). Wiley.',
     use: 'Critical ingredients of effective career interventions.' },
+  { key: 'Gelso & Hayes (Countertransference)', tier: 'seminal', body: 'Gelso & Hayes',
+    citation: 'Gelso, C. J., & Hayes, J. A. (2007). Countertransference and the Therapist\'s Inner Experience: Perils and Possibilities. Lawrence Erlbaum.',
+    use: 'Classical, totalistic, complementary and integrative views of countertransference; managing countertransference.' },
+  { key: 'Friedlander et al. (Alliances in Couple & Family Therapy)', tier: 'seminal', body: 'Friedlander, Escudero & Heatherington',
+    citation: 'Friedlander, M. L., Escudero, V., & Heatherington, L. (2006). Therapeutic Alliances in Couple and Family Therapy: An Empirically Informed Guide to Practice. American Psychological Association.',
+    use: 'SOFTA alliance dimensions; split (unbalanced) alliances in conjoint therapy, building on Pinsof\'s integrative alliance model.' },
+  { key: 'Davis (Multidimensional Empathy)', tier: 'primary', body: 'Davis',
+    citation: 'Davis, M. H. (1983). Measuring individual differences in empathy: Evidence for a multidimensional approach. Journal of Personality and Social Psychology, 44(1), 113-126.',
+    use: 'Cognitive (perspective taking) vs affective (empathic concern, personal distress) components of empathy.' },
 ];
 
 const NCE_REFERENCE_LIBRARY = [...REFERENCE_LIBRARY, ...NCE_EXTRA_LIBRARY];

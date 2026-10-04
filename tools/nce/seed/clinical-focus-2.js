@@ -158,7 +158,6 @@ module.exports = [
   // ---------------------------------------------------------------- developmental life transitions
   {
     id: 'nce-s-clf-039',
-    reviewNote: 'Confirm Sharf covers Schlossberg\'s 4 S model (adult transitions).',
     domain: 'clinical_focus',
     cacrep: 'human_growth',
     topic: 'developmental life transitions',
@@ -524,7 +523,6 @@ module.exports = [
   // ---------------------------------------------------------------- military and veteran populations
   {
     id: 'nce-s-clf-058',
-    reviewNote: 'How VA/DoD 2023 grades debriefing and supportive counseling (distractors) is from memory; verify.',
     domain: 'clinical_focus',
     cacrep: 'helping_relationships',
     topic: 'military and veteran populations',
@@ -543,7 +541,6 @@ module.exports = [
   },
   {
     id: 'nce-s-clf-059',
-    reviewNote: 'Moral injury (Litz et al.) is not a DSM construct; the DSM-5-TR reference points to PTSD criterion D only.',
     domain: 'clinical_focus',
     cacrep: 'helping_relationships',
     topic: 'military and veteran populations',
