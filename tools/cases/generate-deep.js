@@ -223,8 +223,11 @@ Now output ONLY the JSON for the requested case.`;
 // API + MAIN
 // ============================================================================
 
-function nextDeepId(deepCases) {
-  const existing = deepCases.map((c) => c.id || c.externalId).filter(Boolean);
+// `takenIds` holds every externalId in the collection, across ALL exams: the
+// admin and learner routes look cases up by externalId alone, so an id reused
+// by ncmhce-2027 shadows the live ncmhce case that already has it.
+function nextDeepId(deepCases, takenIds) {
+  const existing = deepCases.map((c) => c.id || c.externalId).filter(Boolean).concat(Array.from(takenIds || []));
   return idAllocator.next(existing, { prefix: 'D' });
 }
 
@@ -256,6 +259,7 @@ async function main() {
   // cases count toward the per-category targets (drafts are retired copies).
   const docs = await ContentItem.find({ examId: exam._id, format: 'case_sim' }).select('externalId status caseSim').lean();
   const all = docs.map((d) => Object.assign({ id: d.externalId, _status: d.status }, d.caseSim || {}));
+  const takenIds = new Set((await ContentItem.distinct('externalId')).filter(Boolean));
   const deep = all.filter((c) => (c.questions || []).length >= 11);
   // deepLive: published deep cases plus everything imported this run (any
   // status), so a round never re-targets a category/diagnosis it just filled.
@@ -334,7 +338,8 @@ async function main() {
         const d = dedup.isNearDuplicate(c, livePool, { threshold: 0.55 });
         if (d.dup) { log('    FAIL dedup (too close to ' + d.against + ')'); continue; }
 
-        c.id = nextDeepId(deep);
+        c.id = nextDeepId(deep, takenIds);
+        takenIds.add(c.id);
         c._status = STATUS;
         deep.push(c); livePool.push(c); deepLive.push(c);
         await ContentItem.updateOne(

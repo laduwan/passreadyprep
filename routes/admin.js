@@ -16,6 +16,13 @@ router.use(requireAdmin);
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
+// The :externalId param on the single-case routes also accepts the Mongo _id.
+// externalId is only unique per exam (ncmhce and ncmhce-2027 both mint D-ids),
+// so the review page sends _id to be sure it acts on the case it showed.
+function caseFilter(key) {
+  return /^[0-9a-f]{24}$/i.test(key) ? { _id: key } : { externalId: key };
+}
+
 // The exam every manually-authored case belongs to. Created lazily so a fresh
 // database (or a wiped dev copy) doesn't 500 on the first manual add.
 async function getNcmhceExam() {
@@ -114,7 +121,7 @@ router.get('/content/all', async (req, res) => {
 // GET /api/admin/content/:externalId — one full case, any status (for review/edit)
 router.get('/content/:externalId', async (req, res) => {
   try {
-    const item = await ContentItem.findOne({ externalId: req.params.externalId });
+    const item = await ContentItem.findOne(caseFilter(req.params.externalId));
     if (!item) return res.status(404).json({ error: 'Case not found' });
     return res.json({ item });
   } catch (err) {
@@ -182,13 +189,16 @@ router.put('/content/:externalId', async (req, res) => {
     if (['easy', 'medium', 'hard'].includes(b.difficulty)) set.difficulty = b.difficulty;
     if (['draft', 'sme_review', 'published'].includes(b.status)) set.status = b.status;
     if (Array.isArray(b.references)) set.references = b.references;
+    const filter = caseFilter(req.params.externalId);
     if (b.caseSim && typeof b.caseSim === 'object') {
-      b.caseSim.id = req.params.externalId; // keep payload id aligned with the key
+      const cur = filter._id ? await ContentItem.findOne(filter).select('externalId').lean() : { externalId: req.params.externalId };
+      if (!cur) return res.status(404).json({ error: 'Case not found' });
+      b.caseSim.id = cur.externalId; // keep payload id aligned with the key
       set.caseSim = b.caseSim;
     }
 
     const item = await ContentItem.findOneAndUpdate(
-      { externalId: req.params.externalId },
+      filter,
       { $set: set },
       { new: true }
     );
@@ -203,7 +213,7 @@ router.put('/content/:externalId', async (req, res) => {
 // DELETE /api/admin/content/:externalId — remove a case.
 router.delete('/content/:externalId', async (req, res) => {
   try {
-    const item = await ContentItem.findOneAndDelete({ externalId: req.params.externalId });
+    const item = await ContentItem.findOneAndDelete(caseFilter(req.params.externalId));
     if (!item) return res.status(404).json({ error: 'Case not found' });
     return res.json({ externalId: item.externalId, deleted: true });
   } catch (err) {
@@ -218,7 +228,7 @@ router.post('/content/:externalId/publish', async (req, res) => {
   try {
     const reviewer = (req.body && req.body.reviewer) || 'admin';
     const item = await ContentItem.findOneAndUpdate(
-      { externalId: req.params.externalId },
+      caseFilter(req.params.externalId),
       { $set: { status: 'published', reviewedBy: { name: reviewer, date: new Date() } } },
       { new: true }
     );
@@ -233,7 +243,7 @@ router.post('/content/:externalId/publish', async (req, res) => {
 router.post('/content/:externalId/unpublish', async (req, res) => {
   try {
     const item = await ContentItem.findOneAndUpdate(
-      { externalId: req.params.externalId },
+      caseFilter(req.params.externalId),
       { $set: { status: 'sme_review' } },
       { new: true }
     );
@@ -249,7 +259,7 @@ router.post('/content/:externalId/note', async (req, res) => {
   try {
     const note = req.body && typeof req.body.note === 'string' ? req.body.note : '';
     const item = await ContentItem.findOneAndUpdate(
-      { externalId: req.params.externalId },
+      caseFilter(req.params.externalId),
       { $set: { reviewNote: note, needsWork: note.trim().length > 0 } },
       { new: true }
     );

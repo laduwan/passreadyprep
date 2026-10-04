@@ -246,7 +246,7 @@ async function showList(){
     h += '<p class="lead">'+(TAB==='sme_review'?'Nothing waiting. Generated cases show up here after you import or generate them.':'No published cases yet.')+'</p>';
   }
   data.items.forEach(it=>{
-    h += '<button class="case-btn" onclick="openCase(\''+esc(it.externalId)+'\')">'
+    h += '<button class="case-btn" onclick="openCase(\''+esc(it._id)+'\')">'
        + '<span class="t">'+esc(it.title)+'</span>'
        + '<span class="chips"><span class="chip">'+esc(it.category)+'</span>'
        + '<span class="chip">'+esc(cap(it.difficulty))+'</span>'
@@ -657,10 +657,10 @@ function failCard(msg){
   return '<div class="gen-result fail"><strong style="color:#B23A60">✗ Generation failed</strong><br />'+esc(msg)+'</div>';
 }
 
-async function openCase(externalId){
+async function openCase(key){  // case _id (or externalId)
   app.innerHTML = '<p class="lead">Loading…</p>';
   let item;
-  try{ item = (await api('/api/admin/content/'+encodeURIComponent(externalId))).item; }
+  try{ item = (await api('/api/admin/content/'+encodeURIComponent(key))).item; }
   catch(e){ return gate(e.message); }
   renderReview(item);
 }
@@ -683,7 +683,7 @@ function renderReview(item){
      + (item.needsWork?' &nbsp;<span class="status needs">flagged: needs work</span>':'')
      + '</div>'
      + '<textarea id="note" rows="3" style="width:100%;font:inherit;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;margin-top:6px;resize:vertical" placeholder="Flag edits to yourself — e.g. &quot;Q3 distractor too weak, rewrite.&quot; Saving a note marks this case as needs-work.">'+esc(item.reviewNote||'')+'</textarea>'
-     + '<div class="row" style="margin-top:8px"><button class="btn ghost" onclick="saveNote(\''+esc(item.externalId)+'\')">Save note</button><span id="noteMsg"></span></div></div>';
+     + '<div class="row" style="margin-top:8px"><button class="btn ghost" onclick="saveNote(\''+esc(item._id)+'\')">Save note</button><span id="noteMsg"></span></div></div>';
 
   // vignette + diagnosis
   h += '<div class="card"><div class="vignette">';
@@ -723,10 +723,10 @@ function renderReview(item){
 
 function actionButtons(item){
   if(item.status==='sme_review'){
-    return '<button class="btn pub" onclick="publish(\''+esc(item.externalId)+'\')">Approve &amp; publish</button>'
+    return '<button class="btn pub" onclick="publish(\''+esc(item._id)+'\')">Approve &amp; publish</button>'
          + '<button class="btn ghost" onclick="showList()">Not yet</button>';
   }
-  return '<button class="btn ghost" onclick="unpublish(\''+esc(item.externalId)+'\')">Unpublish (send back to pending)</button>';
+  return '<button class="btn ghost" onclick="unpublish(\''+esc(item._id)+'\')">Unpublish (send back to pending)</button>';
 }
 
 async function publish(id){
