@@ -114,6 +114,22 @@ const UserSchema = new Schema(
       lastPaymentIntentId: String,
       currentPeriodEnd: Date,
       trialStartedAt: Date,
+      // Score report gate for the NCE Pass Guarantee (nce_guarantee) — same
+      // rules as subscription.scoreReport, kept separate so a report for one
+      // exam never clears the other exam's check-in.
+      scoreReport: {
+        status: {
+          type: String,
+          enum: ['none', 'pending', 'approved_extension', 'passed'],
+          default: 'none',
+        },
+        submittedAt: Date,
+        reviewedAt: Date,
+        examDate: Date,
+        result: String,
+        notes: String,
+        extensionCount: { type: Number, default: 0 },
+      },
     },
 
     // Target NCE exam date (separate from the NCMHCE examDate above).

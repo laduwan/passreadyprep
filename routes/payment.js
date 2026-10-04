@@ -11,6 +11,8 @@
  *   guarantee  — $149 one-time, access until passing
  *   test       — $1.00 one-time, admin-only live-payment smoke test (grants nothing)
  *   nce_monthly / nce_pass3 / nce_pass6 — NCE plans, written to User.nceAccess
+ *   nce_guarantee — NCE Pass Guarantee, same rules as `guarantee`, written to
+ *                   User.nceAccess. Off until STRIPE_PRICE_NCE_GUARANTEE is set.
  *
  * ENV vars required (add to .env and Render dashboard):
  *   STRIPE_SECRET_KEY       — sk_live_xxx  (or sk_test_xxx for dev)
@@ -21,6 +23,7 @@
  *   STRIPE_PRICE_NCE_MONTHLY — price_xxx (NCE monthly $24.99 recurring)
  *   STRIPE_PRICE_NCE_PASS3   — price_xxx (NCE 3-month $59 one-time)
  *   STRIPE_PRICE_NCE_PASS6   — price_xxx (NCE 6-month $89 one-time)
+ *   STRIPE_PRICE_NCE_GUARANTEE — price_xxx (NCE Pass Guarantee one-time; optional)
  *   CLIENT_URL              — https://passreadyprep-server.onrender.com (no trailing slash)
  */
 
@@ -93,6 +96,7 @@ const TIERS = {
     priceId: () => process.env.STRIPE_PRICE_GUARANTEE,
     mode: 'payment',
     tierName: 'guarantee',
+    guarantee: true,
     // Access is unlimited — no re-payment ever.
     // After 6 months the account requires a candidate verification checkpoint:
     // they submit an exam date (scheduled) or a score report (taken).
@@ -129,6 +133,17 @@ const TIERS = {
     exam: 'nce',
     accessDays: 180,
   },
+  // NCE Pass Guarantee: the same promise as `guarantee` above (no repayment,
+  // a candidate check-in every 6 months, pass → free CE course, fail → free
+  // extension), on User.nceAccess. Not offered until its price is configured.
+  nce_guarantee: {
+    priceId: () => process.env.STRIPE_PRICE_NCE_GUARANTEE,
+    mode: 'payment',
+    tierName: 'nce_guarantee',
+    exam: 'nce',
+    guarantee: true,
+    accessDays: 180,
+  },
   // $1.00 test purchase for verifying the live Stripe flow end to end
   // (checkout → webhook → activity log). Priced inline so it needs no
   // product/price in the Stripe dashboard. Admin-only, and the webhook
@@ -158,7 +173,7 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
     }
 
     // Pass Guarantee requires explicit acknowledgment of the check-in terms
-    if (tier === 'guarantee' && !guaranteeTermsAccepted) {
+    if (TIERS[tier].guarantee && !guaranteeTermsAccepted) {
       return res.status(400).json({
         error: 'You must acknowledge the Pass Guarantee candidate verification terms to proceed',
         code: 'GUARANTEE_TERMS_REQUIRED',
@@ -193,7 +208,7 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
     }
 
     // Record guarantee terms acceptance timestamp
-    if (tier === 'guarantee' && !user.guaranteeTermsAcceptedAt) {
+    if (tierConfig.guarantee && !user.guaranteeTermsAcceptedAt) {
       await User.findByIdAndUpdate(req.userId, {
         guaranteeTermsAcceptedAt: new Date(),
       });
@@ -509,34 +524,44 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
   }
 });
 
+// Which Pass Guarantee a score report belongs to: the NCMHCE guarantee lives
+// on User.subscription, the NCE guarantee on User.nceAccess. Requests name the
+// exam with `exam: 'nce'`; anything else means NCMHCE, as before.
+function guaranteePlan(user, exam) {
+  return exam === 'nce'
+    ? { exam: 'nce', name: 'NCE', path: 'nceAccess', tier: 'nce_guarantee', plan: user.nceAccess || {} }
+    : { exam: 'ncmhce', name: 'NCMHCE', path: 'subscription', tier: 'guarantee', plan: user.subscription || {} };
+}
+
 // ── POST /api/payment/score-report ───────────────────────────────────────────
 // User submits their score report after sitting the exam.
 // Puts the guarantee gate into 'pending' state for admin review.
-// Accepts: { examDate, result: 'pass'|'fail', notes (optional) }
+// Accepts: { examDate, result: 'pass'|'fail'|'scheduled', notes (optional), exam ('nce' | default NCMHCE) }
 // In production, add file upload (multer) for the actual PDF score report.
 router.post('/score-report', requireAuth, async (req, res) => {
   try {
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ error: 'User not found' });
 
-    if (user.subscription.tier !== 'guarantee') {
-      return res.status(403).json({ error: 'Score report only applies to the Pass Guarantee tier' });
-    }
+    const { examDate, result, notes, exam } = req.body || {};
+    const g = guaranteePlan(user, exam);
 
-    const { examDate, result, notes } = req.body || {};
+    if (g.plan.tier !== g.tier) {
+      return res.status(403).json({ error: `Score report only applies to the ${g.name} Pass Guarantee` });
+    }
 
     if (!examDate || !['pass', 'fail', 'scheduled'].includes(result)) {
       return res.status(400).json({ error: 'examDate and result (pass|fail|scheduled) are required' });
     }
 
-    user.subscription.scoreReport = {
+    user.set(`${g.path}.scoreReport`, {
       status: 'pending',
       submittedAt: new Date(),
       examDate: new Date(examDate),
       result,
       notes: notes || '',
-      extensionCount: user.subscription.scoreReport?.extensionCount || 0,
-    };
+      extensionCount: (g.plan.scoreReport && g.plan.scoreReport.extensionCount) || 0,
+    });
     await user.save();
 
     res.json({ ok: true, message: 'Score report submitted — we\'ll review and extend your access within 1 business day.' });
@@ -546,19 +571,21 @@ router.post('/score-report', requireAuth, async (req, res) => {
   }
 });
 
-// ── GET /api/payment/score-report-status ─────────────────────────────────────
+// ── GET /api/payment/score-report-status?exam=nce ─────────────────────────────
 // Returns the user's current gate state so the frontend knows what to show.
 router.get('/score-report-status', requireAuth, async (req, res) => {
   try {
-    const user = await User.findById(req.userId).select('subscription');
+    const user = await User.findById(req.userId).select('subscription nceAccess');
     if (!user) return res.status(404).json({ error: 'User not found' });
 
-    const sub = user.subscription;
+    const g = guaranteePlan(user, req.query.exam);
+    const sub = g.plan;
     const now = new Date();
     const expired = sub.currentPeriodEnd && sub.currentPeriodEnd < now;
     const sr = sub.scoreReport || {};
 
     res.json({
+      exam: g.exam,
       tier: sub.tier,
       expired: !!expired,
       currentPeriodEnd: sub.currentPeriodEnd,
@@ -568,7 +595,7 @@ router.get('/score-report-status', requireAuth, async (req, res) => {
         extensionCount: sr.extensionCount || 0,
       },
       // The key flag: is the gate currently blocking access?
-      gated: sub.tier === 'guarantee' && !!expired && !['approved_extension', 'passed'].includes(sr.status),
+      gated: sub.tier === g.tier && !!expired && !['approved_extension', 'passed'].includes(sr.status),
     });
   } catch (err) {
     console.error('score-report-status error:', err);
@@ -579,7 +606,7 @@ router.get('/score-report-status', requireAuth, async (req, res) => {
 // ── POST /api/payment/score-report/:userId/review  (admin only) ───────────────
 // Admin approves a submitted score report.
 // action: 'extend' (failed → add 90 days) | 'pass' (passed → close out + trigger CE)
-// Protected by admin token check — add your admin middleware here.
+// exam: 'nce' for the NCE guarantee; anything else means NCMHCE.
 router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
   try {
     const reviewer = await User.findById(req.userId);
@@ -587,7 +614,7 @@ router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
       return res.status(403).json({ error: 'Admin only' });
     }
 
-    const { action, notes } = req.body || {};
+    const { action, notes, exam } = req.body || {};
     if (!['extend', 'pass'].includes(action)) {
       return res.status(400).json({ error: 'action must be "extend" or "pass"' });
     }
@@ -595,33 +622,33 @@ router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
     const user = await User.findById(req.params.userId);
     if (!user) return res.status(404).json({ error: 'User not found' });
 
-    const sr = user.subscription.scoreReport;
+    const g = guaranteePlan(user, exam);
+    const sr = g.plan.scoreReport || {};
     if (sr.status !== 'pending') {
-      return res.status(400).json({ error: 'No pending score report to review' });
+      return res.status(400).json({ error: `No pending ${g.name} score report to review` });
     }
 
     if (action === 'extend') {
       // Failed — extend access by 90 days from today
       const newEnd = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
-      user.subscription.currentPeriodEnd = newEnd;
-      user.subscription.scoreReport.status = 'approved_extension';
-      user.subscription.scoreReport.extensionCount = (sr.extensionCount || 0) + 1;
-      user.subscription.scoreReport.reviewedAt = new Date();
-      user.subscription.scoreReport.notes = notes || '';
-      // Reset to 'none' so they can submit again after the next attempt
-      // (set a timeout or let them re-submit when ready)
+      const count = (sr.extensionCount || 0) + 1;
+      user.set(`${g.path}.currentPeriodEnd`, newEnd);
+      user.set(`${g.path}.scoreReport.status`, 'approved_extension');
+      user.set(`${g.path}.scoreReport.extensionCount`, count);
+      user.set(`${g.path}.scoreReport.reviewedAt`, new Date());
+      user.set(`${g.path}.scoreReport.notes`, notes || '');
       await user.save();
       return res.json({
         ok: true,
-        message: `Access extended 90 days (extension #${user.subscription.scoreReport.extensionCount}). New expiry: ${newEnd.toDateString()}`,
+        message: `${g.name} access extended 90 days (extension #${count}). New expiry: ${newEnd.toDateString()}`,
       });
     }
 
     if (action === 'pass') {
       // Passed — mark as passed, close out access, trigger CE benefit
-      user.subscription.scoreReport.status = 'passed';
-      user.subscription.scoreReport.reviewedAt = new Date();
-      user.subscription.scoreReport.notes = notes || '';
+      user.set(`${g.path}.scoreReport.status`, 'passed');
+      user.set(`${g.path}.scoreReport.reviewedAt`, new Date());
+      user.set(`${g.path}.scoreReport.notes`, notes || '');
       // Keep currentPeriodEnd as-is (they don't need more prep time)
       await user.save();
 
@@ -632,10 +659,10 @@ router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
       const adminEmail = process.env.ADMIN_ALERT_EMAIL || process.env.MAIL_FROM_EMAIL;
       sendMail({
         to: adminEmail,
-        subject: `[PRP] Exam passed — grant CE benefit for ${user.email}`,
-        text: `${user.email} (user ${user._id}) just passed their NCMHCE score report review.\n\nManually grant their free CounselorReady CE course benefit.\n\nReviewed at: ${new Date().toISOString()}`,
+        subject: `[PRP] ${g.name} passed — grant CE benefit for ${user.email}`,
+        text: `${user.email} (user ${user._id}) just passed their ${g.name} score report review.\n\nManually grant their free CounselorReady CE course benefit.\n\nReviewed at: ${new Date().toISOString()}`,
       }).catch(err => console.error('CE benefit alert email failed:', err.message));
-      console.log(`🎉 PASSED: user ${user._id} (${user.email}) — CE benefit alert emailed to ${adminEmail}`);
+      console.log(`🎉 PASSED ${g.name}: user ${user._id} (${user.email}) — CE benefit alert emailed to ${adminEmail}`);
 
       return res.json({ ok: true, message: `Marked as passed. CE benefit trigger logged for ${user.email}.` });
     }
@@ -646,7 +673,8 @@ router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
 });
 
 // ── GET /api/payment/pending-score-reports  (admin only) ─────────────────────
-// Lists all users with a pending score report for the admin review queue.
+// Lists all users with a pending score report, NCMHCE and NCE, for the admin
+// review queue. Each entry carries `exam` — pass it back to the review route.
 router.get('/pending-score-reports', requireAuth, async (req, res) => {
   try {
     const reviewer = await User.findById(req.userId);
@@ -654,14 +682,69 @@ router.get('/pending-score-reports', requireAuth, async (req, res) => {
       return res.status(403).json({ error: 'Admin only' });
     }
 
-    const pending = await User.find({ 'subscription.scoreReport.status': 'pending' })
-      .select('email name subscription.scoreReport subscription.currentPeriodEnd subscription.tier')
-      .sort({ 'subscription.scoreReport.submittedAt': 1 });
+    const docs = await User.find({ $or: [
+      { 'subscription.scoreReport.status': 'pending' },
+      { 'nceAccess.scoreReport.status': 'pending' },
+    ] })
+      .select('email name subscription.scoreReport subscription.currentPeriodEnd subscription.tier nceAccess.scoreReport nceAccess.currentPeriodEnd nceAccess.tier')
+      .lean();
 
-    res.json({ count: pending.length, users: pending });
+    const users = [];
+    docs.forEach((u) => {
+      ['ncmhce', 'nce'].forEach((exam) => {
+        const g = guaranteePlan(u, exam);
+        if (g.plan.scoreReport && g.plan.scoreReport.status === 'pending') {
+          users.push(Object.assign({}, u, { exam: g.exam }));
+        }
+      });
+    });
+    users.sort((x, y) => {
+      const sx = guaranteePlan(x, x.exam).plan.scoreReport.submittedAt || 0;
+      const sy = guaranteePlan(y, y.exam).plan.scoreReport.submittedAt || 0;
+      return new Date(sx) - new Date(sy);
+    });
+
+    res.json({ count: users.length, users });
   } catch (err) {
     console.error('pending-score-reports error:', err);
     res.status(500).json({ error: 'Could not load pending reports' });
+  }
+});
+
+// ── GET /api/payment/plans?exam=nce ─────────────────────────────────────────
+// Live prices for an exam's plans, read from Stripe using the price IDs in the
+// environment, so pages show what Stripe will charge. A plan whose price ID is
+// not set is left out — that is how the NCE Pass Guarantee stays hidden until
+// STRIPE_PRICE_NCE_GUARANTEE exists. Cached for 10 minutes.
+const PLAN_CACHE_MS = 10 * 60 * 1000;
+const planCache = {};
+router.get('/plans', async (req, res) => {
+  const exam = req.query.exam === 'nce' ? 'nce' : 'ncmhce';
+  const hit = planCache[exam];
+  if (hit && Date.now() - hit.at < PLAN_CACHE_MS) return res.json(hit.body);
+  try {
+    const tiers = Object.keys(TIERS).filter((t) => {
+      const c = TIERS[t];
+      if (c.adminOnly || c.entitlementOnly || c.priceData) return false;
+      return (c.exam || 'ncmhce') === exam && !!c.priceId();
+    });
+    const plans = await Promise.all(tiers.map(async (t) => {
+      const price = await getStripe().prices.retrieve(TIERS[t].priceId());
+      return {
+        tier: t,
+        amount: price.unit_amount,          // in cents
+        currency: price.currency,
+        interval: (price.recurring && price.recurring.interval) || null,
+        guarantee: !!TIERS[t].guarantee,
+        accessDays: TIERS[t].accessDays || null,
+      };
+    }));
+    const body = { exam, plans };
+    planCache[exam] = { at: Date.now(), body };
+    res.json(body);
+  } catch (err) {
+    console.error('plans error:', err.message);
+    res.status(502).json({ error: 'Could not load plan prices' });
   }
 });
 

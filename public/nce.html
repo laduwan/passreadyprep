@@ -181,7 +181,15 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
       features:['Everything in Monthly','90 days of access','No renewal to cancel'] },
     { tier:'nce_pass6', name:'6-Month Pass', price:'$89', per:'one-time', note:'Best value',
       features:['Everything in Monthly','180 days of access','Room for a retake'] },
+    // Shown only once the server reports a Stripe price for it (see LIVE below).
+    { tier:'nce_guarantee', name:'Pass Guarantee', price:'', per:'one-time', note:'Pass guaranteed', liveOnly:true,
+      features:['Everything in Monthly','Access until you pass','Free CE course on CounselorReady when you pass'] },
   ];
+  // Live prices from Stripe via /api/payment/plans, keyed by tier. When the
+  // lookup fails the plans above show their listed prices and the guarantee
+  // stays hidden.
+  var LIVE = {};
+  function money(cents){ return '$' + (cents / 100).toFixed(cents % 100 ? 2 : 0); }
 
   var stage = document.getElementById('stage');
   var timerBar = document.getElementById('timer-bar');
@@ -217,7 +225,10 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
   function loadAll(){
     var ps = [api('/api/nce/blueprint'), api('/api/nce/status')];
     if (TOKEN) ps.push(api('/api/nce/progress').catch(function(){ return null; }));
-    return Promise.all(ps).then(function(r){
+    var plans = fetch('/api/payment/plans?exam=nce').then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){ LIVE = {}; ((d && d.plans) || []).forEach(function(p){ LIVE[p.tier] = p; }); })
+      .catch(function(){});
+    return Promise.all(ps).then(function(r){ return plans.then(function(){ return r; }); }).then(function(r){
       BP = r[0]; STATUS = r[1]; PROGRESS = r[2] || null;
       BP.domains.forEach(function(d){ DOM[d.key] = d; });
     });
@@ -228,6 +239,7 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
     if (s.examStatus !== 'live') { msg = '<b>NCE study is in early access.</b> The question bank is still growing. New questions are added every week.'; }
     if (s.accessLevel === 'free') { cls='info'; msg += (msg?'<br>':'') + 'You\'re previewing '+s.freeLimit+' sample questions. <a href="/register.html?next=/nce.html">Create a free account</a> for a '+s.trialDays+'-day NCE trial with full access.'; }
     else if (s.accessLevel === 'trial') { cls='ok'; msg += (msg?'<br>':'') + 'NCE free trial active' + (s.trialEndsAt ? ' until <b>'+new Date(s.trialEndsAt).toLocaleDateString()+'</b>' : '') + '. <a href="#pricing">See NCE plans</a>.'; }
+    else if (s.accessLevel === 'gated') { cls='warn'; msg += (msg?'<br>':'') + 'Your NCE Pass Guarantee check-in is due. <a href="/score-report.html?exam=nce">Submit your exam date or score report</a> to restore full access.'; }
     else if (s.accessLevel === 'expired') { cls='warn'; msg += (msg?'<br>':'') + 'Your NCE trial has ended. Practice is limited to '+s.freeLimit+' sample questions. <a href="#pricing">Pick an NCE plan</a> to unlock everything.'; }
     else if (s.accessLevel === 'paid' && s.currentPeriodEnd) { cls='ok'; msg += (msg?'<br>':'') + 'NCE plan active' + (s.cancelAtPeriodEnd ? ' — ends ' : ' through ') + new Date(s.currentPeriodEnd).toLocaleDateString() + '.'; }
     return msg ? '<div class="banner '+cls+'">'+msg+'</div>' : '';
@@ -285,12 +297,13 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
   }
 
   function pricingHtml(){
-    if (STATUS.accessLevel === 'paid') return '';
+    if (STATUS.accessLevel === 'paid' || STATUS.accessLevel === 'gated') return '';
     return '<div class="card" id="pricing"><h2>NCE plans</h2>'+
       '<p class="muted small" style="margin-top:-4px">Billed separately from NCMHCE. One-time passes don\'t renew.</p><div class="plans">'+
-      PLANS.map(function(p){
+      PLANS.filter(function(p){ return !p.liveOnly || LIVE[p.tier]; }).map(function(p){
+        var price = LIVE[p.tier] ? money(LIVE[p.tier].amount) : p.price;
         return '<div class="plan'+(p.best?' best':'')+'"><div class="pn">'+esc(p.name)+(p.note?' · '+esc(p.note):'')+'</div>'+
-          '<div class="pp">'+esc(p.price)+' <small>'+esc(p.per)+'</small></div>'+
+          '<div class="pp">'+esc(price)+' <small>'+esc(p.per)+'</small></div>'+
           '<ul>'+p.features.map(function(f){ return '<li>'+esc(f)+'</li>'; }).join('')+'</ul>'+
           '<button class="btn'+(p.best?'':' btn-s')+'" data-buy="'+p.tier+'">Choose '+esc(p.name)+'</button></div>';
       }).join('')+'</div></div>';
@@ -298,6 +311,8 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
 
   function buy(tier, btn){
     if (!TOKEN) { location.href = '/register.html?next=' + encodeURIComponent('/nce.html#pricing'); return; }
+    // The guarantee needs its terms acknowledged first; checkout.html has that step.
+    if (tier === 'nce_guarantee') { location.href = '/checkout.html?tier=nce_guarantee'; return; }
     btn.disabled = true; btn.textContent = 'Opening checkout…';
     api('/api/payment/create-checkout-session', { method:'POST', body:{ tier: tier } })
       .then(function(r){ location.href = r.url; })

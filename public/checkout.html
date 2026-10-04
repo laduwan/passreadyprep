@@ -182,6 +182,13 @@
       desc: 'Unlimited access — one payment, forever.',
       features: ['All 270+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Pass guarantee — free CE on CounselorReady when you pass'],
     },
+    nce_guarantee: {
+      cls: 'guarantee',
+      name: 'NCE Pass Guarantee',
+      price: '',   // read from Stripe via /api/payment/plans
+      desc: 'Unlimited NCE access — one payment, no renewal.',
+      features: ['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain','Pass guarantee — free CE on CounselorReady when you pass, or free extended access'],
+    },
     test: {
       cls: 'pass3',
       name: 'Test Purchase (admin)',
@@ -195,6 +202,7 @@
   const tier    = params.get('tier') || 'pass3';
   const tierCfg = TIERS[tier] || TIERS.pass3;
   const token   = localStorage.getItem('prp_token');
+  const isGuarantee = tier === 'guarantee' || tier === 'nce_guarantee';
 
   function init() {
     // Post-payment success — Stripe redirected back with ?session_id=.
@@ -208,7 +216,7 @@
           ? 'Test purchase received. No access was granted — refund it from the Stripe dashboard.'
           : `Your ${TIERS[tier].name} is active. We're glad you're preparing with us — good luck on the NCMHCE!`;
       }
-      if (tier === 'guarantee') document.getElementById('guar-success').classList.add('show');
+      if (isGuarantee) document.getElementById('guar-success').classList.add('show');
       return;
     }
 
@@ -222,8 +230,25 @@
       <ul class="tier-features">${tierCfg.features.map(f => `<li>${f}</li>`).join('')}</ul>
     `;
 
+    // NCE Pass Guarantee: its price lives only in Stripe, so show what the
+    // server reports — and don't offer it at all until a price is set.
+    if (tier === 'nce_guarantee') {
+      const priceEl = box.querySelector('.tier-price');
+      priceEl.textContent = '…';
+      fetch('/api/payment/plans?exam=nce').then(r => r.ok ? r.json() : Promise.reject())
+        .then(d => {
+          const p = (d.plans || []).find(x => x.tier === 'nce_guarantee');
+          if (!p) throw new Error('not offered');
+          priceEl.textContent = '$' + (p.amount / 100).toFixed(p.amount % 100 ? 2 : 0);
+        })
+        .catch(() => {
+          priceEl.textContent = 'Not available yet';
+          document.getElementById('pay-btn').disabled = true;
+        });
+    }
+
     // Update pay button color for guarantee
-    if (tier === 'guarantee') {
+    if (isGuarantee) {
       document.getElementById('pay-btn').className = 'btn amber';
       document.getElementById('guar-ack').classList.add('show');
     }
@@ -258,7 +283,7 @@
     }
 
     // Guarantee tier: require acknowledgment checkbox
-    if (tier === 'guarantee') {
+    if (isGuarantee) {
       const checked = document.getElementById('guar-check').checked;
       if (!checked) {
         showErr('Please acknowledge the Pass Guarantee terms to continue.');
@@ -272,7 +297,7 @@
 
     try {
       const body = { tier };
-      if (tier === 'guarantee') body.guaranteeTermsAccepted = true;
+      if (isGuarantee) body.guaranteeTermsAccepted = true;
 
       const r = await fetch('/api/payment/create-checkout-session', {
         method: 'POST',
