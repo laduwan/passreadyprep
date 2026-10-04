@@ -11,8 +11,5 @@ Disallow: /admin-users.html
 Disallow: /register.html
 Disallow: /forgot-password.html
 Disallow: /reset-password.html
-Disallow: /intake.html
-Disallow: /index-4.html
-Disallow: /landing-5.html
 
 Sitemap: https://www.passreadyprep.com/sitemap.xml

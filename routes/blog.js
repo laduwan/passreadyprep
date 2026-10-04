@@ -15,9 +15,9 @@ const { renderIndex, renderPost, renderNotFound, SITE } = require('../utils/blog
 
 const PER_PAGE = 10;
 
-// Indexable content pages for the sitemap. Must stay in sync with the pages
-// that carry an NCMHCE <title>/canonical (and must never include a page that
-// is noindexed or Disallowed in robots.txt).
+// Indexable content pages for the sitemap (canonical www-https paths). Never
+// list a page that is noindexed. /book is left out on purpose: it is only the
+// signed-in book-buyer receipt-upload flow, not standalone content.
 const STATIC_PAGES = [
   '/',
   '/study',
@@ -28,6 +28,17 @@ const STATIC_PAGES = [
   '/dsm.html',
   '/guarantee.html',
   '/podcast.html',
+  '/study-guide.html',
+  '/intake.html',
+  '/knowledge-drill.html',
+  '/timed-knowledge-exam.html',
+  '/next-best-step.html',
+  '/assess-next.html',
+  '/core-attributes-quiz.html',
+  '/theory.html',
+  '/nce.html',
+  '/policies.html',
+  '/accessibility.html',
 ];
 
 function dbReady() {
