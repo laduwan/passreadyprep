@@ -297,20 +297,22 @@ router.post('/items/:id/status', async (req, res) => {
   }
 });
 
-// POST /api/admin/nce/publish-reviewed — { reviewer: {name, credential}, domain?, q?, note? }
+// POST /api/admin/nce/publish-reviewed — { reviewer: {name, credential}, domain?, q?, note?, dryRun? }
 // "Reviewed all": publishes every In-review item matching the same filter as
 // the list, stamped with the reviewer. Each item re-runs the quality gate and
 // is skipped (left in review) if it fails; each gets its own audit entry.
 router.post('/publish-reviewed', async (req, res) => {
   try {
-    const { reviewer, domain, q, note } = req.body || {};
+    const { reviewer, domain, q, note, dryRun } = req.body || {};
     const name = reviewer && String(reviewer.name || '').trim();
-    if (!name) return res.status(400).json({ error: 'A reviewer name is required to sign off in bulk' });
+    if (!name && !dryRun) return res.status(400).json({ error: 'A reviewer name is required to sign off in bulk' });
     const credential = String((reviewer && reviewer.credential) || '').trim();
     const filter = { status: 'sme_review' };
     if (domain) filter.domain = String(domain);
     if (q) filter.stem = new RegExp(String(q).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
     const items = await NceItem.find(filter).sort({ externalId: 1 }).lean();
+    // dryRun: counts for the confirmation dialog, across every match (the list stops at 500).
+    if (dryRun) return res.json({ matched: items.length, flagged: items.filter((it) => it.reviewNote).length });
     const actor = await actorFor(req);
     const now = new Date();
     const who = `${name}${credential ? ', ' + credential : ''} (via ${actor})`;
