@@ -36,6 +36,7 @@ const { logActivity } = require('../utils/activity');
 const Attempt = require('../models/Attempt');
 const { getNceExam } = require('../utils/nceExam');
 const { cleanDomainScores, buildRetakePlan } = require('../utils/retakePlan');
+const { isForfeited, nextRequestDue, RESULT_WINDOW_DAYS } = require('../utils/guaranteeRules');
 
 // Lazy init: construct the Stripe client on first use, not at module load.
 // Building it at require-time meant a missing STRIPE_SECRET_KEY crashed the
@@ -565,6 +566,14 @@ router.post('/score-report', requireAuth, async (req, res) => {
       return res.status(400).json({ error: 'examDate and result (pass|fail|scheduled) are required' });
     }
 
+    // No request within 90 days of a verified non-pass forfeits the guarantee.
+    if (isForfeited(g.plan.scoreReport)) {
+      return res.status(403).json({
+        error: 'This Pass Guarantee was forfeited: no new request was made within 90 days of your last exam. Contact support with any questions.',
+        code: 'GUARANTEE_FORFEITED',
+      });
+    }
+
     const taken = result !== 'scheduled';
     if (typeof letter !== 'string' || !LETTER_TYPES.test(letter)) {
       return res.status(400).json({
@@ -580,7 +589,7 @@ router.post('/score-report', requireAuth, async (req, res) => {
       // A result is claimed within 14 days of the exam (Pass Guarantee terms).
       const days = (Date.now() - new Date(examDate).getTime()) / 86400000;
       if (!(days >= -1)) return res.status(400).json({ error: 'The exam date for a result can’t be in the future.' });
-      if (days > 14) {
+      if (days > RESULT_WINDOW_DAYS) {
         return res.status(400).json({
           error: 'Results must be submitted within 14 days of the exam date. Contact support if you need help.',
           code: 'CLAIM_WINDOW_CLOSED',
@@ -676,7 +685,10 @@ router.get('/score-report-status', requireAuth, async (req, res) => {
       gated: sub.tier === g.tier && !!expired && sr.status !== 'passed',
       // Any guarantee holder can report a result (within 14 days of the exam),
       // not only one whose access is currently paused.
-      eligible: sub.tier === g.tier && sr.status !== 'passed',
+      eligible: sub.tier === g.tier && sr.status !== 'passed' && !isForfeited(sr),
+      forfeited: sub.tier === g.tier && isForfeited(sr),
+      // After a verified non-pass: the last day to make the next request.
+      nextRequestDue: nextRequestDue(sr),
       lastResult: sr.result || null,
       examDate: sr.examDate || null,
       retakePlan: sr.retakePlan || null,

@@ -119,6 +119,13 @@
   <p class="sub">Upload your exam appointment, or report your result within 14 days of your exam. No payment, no catch. We just need to confirm one person is using one account for one exam.</p>
   <div class="divider"></div>
 
+  <!-- FORFEITED -->
+  <div class="state" id="state-forfeited">
+    <div class="pending-icon">⌛</div>
+    <p class="pending-msg">This Pass Guarantee has ended.</p>
+    <p class="pending-note">No new request was made within 90 days of your last exam, so the guarantee was forfeited. You can still <a id="forfeitPlans" href="/" style="color:var(--emerald-400)">pick a plan</a> to keep studying, or contact support with questions.</p>
+  </div>
+
   <!-- PENDING -->
   <div class="state" id="state-pending">
     <div class="pending-icon">⏳</div>
@@ -301,8 +308,14 @@
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await r.json();
+      if (data.forfeited) { document.getElementById('forfeitPlans').href = HOME; show('state-forfeited'); return; }
       if (!data.eligible && !data.gated) { window.location = HOME; return; }
       show(data.scoreReport.status === 'pending' ? 'state-pending' : 'state-form');
+      if (data.nextRequestDue) {
+        const due = new Date(data.nextRequestDue).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+        document.querySelector('#state-form .info-box p').textContent =
+          'Upload your next exam appointment confirmation by ' + due + ' (90 days after your last exam) to keep your Pass Guarantee. Each verified upload adds 3 months.';
+      }
       if (data.lastResult === 'fail') renderPlan(data.retakePlan);
     } catch (e) {
       show('state-form');
