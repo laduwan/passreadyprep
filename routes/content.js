@@ -203,4 +203,7 @@ router.get('/:externalId', resolveAccess, async (req, res) => {
   }
 });
 
+// Shared with routes that apply the same NCMHCE trial/subscription rule.
+router.resolveAccess = resolveAccess;
+
 module.exports = router;
