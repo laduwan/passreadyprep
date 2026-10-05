@@ -131,7 +131,7 @@ module.exports = [
       { id: 'a', text: `Filial family therapy, developed by Bernard Guerney`, isCorrect: false, rationale: `Filial therapy trains parents to hold child-centered play sessions; it does not use this fantasy-and-art method.` },
       { id: 'b', text: `Gestalt play therapy, developed by Violet Oaklander`, isCorrect: true, rationale: `Oaklander's rosebush fantasy and her focus on the senses, self and contact are hallmarks of Gestalt play therapy.` },
       { id: 'c', text: `Jungian sandplay therapy, developed by Dora Kalff`, isCorrect: false, rationale: `Sandplay uses a sand tray and miniature figures within a Jungian frame.` },
-      { id: 'd', text: `Child-centered play therapy, developed by Landreth`, isCorrect: false, rationale: `Child-centered play therapy is nondirective; the counselor would not direct a fantasy exercise like this.` },
+      { id: 'd', text: `Child-centered play therapy, developed by Axline`, isCorrect: false, rationale: `Virginia Axline's child-centered play therapy is nondirective, so the counselor would not lead a fantasy exercise like this.` },
     ],
     rationale: `Violet Oaklander, author of Windows to Our Children, applied Gestalt principles to work with children. Her methods include drawing, clay, sensory awareness and projective fantasies such as the rosebush, in which the child speaks as the image in the first person. The aim is to strengthen the child's sense of self and ability to make contact, so that blocked feelings can be expressed.`,
     references: [{ source: C, detail: 'Gestalt therapy: applications with children; Oaklander\'s projective techniques' }],
@@ -243,16 +243,17 @@ module.exports = [
     cacrep: 'career',
     topic: 'career development theories (Holland, Super, Krumboltz)',
     difficulty: 'medium',
-    stem: `A client whose Holland code is strongly Artistic works as a payroll auditor in a highly structured, rule-bound office, a Conventional environment. How would Holland describe the fit between this person and this environment?`,
+    stem: `A 22-year-old completes the Career Thoughts Inventory. His highest score shows that he struggles to weigh his own view of his interests against the strong opinions of his parents and partner about what he should do. Which CTI scale is MOST likely elevated?`,
     options: [
-      { id: 'a', text: `High consistency`, isCorrect: false, rationale: `Consistency describes how closely a person's own top types relate on the hexagon, not person-environment fit.` },
-      { id: 'b', text: `Low congruence`, isCorrect: true, rationale: `Artistic and Conventional lie opposite each other on the hexagon, so the person-environment fit is poor.` },
-      { id: 'c', text: `High differentiation`, isCorrect: false, rationale: `Differentiation describes how clearly one type stands out in a profile, not fit with a job.` },
-      { id: 'd', text: `Low identity`, isCorrect: false, rationale: `Identity refers to the clarity of a person's goals and talents, not the fit with an environment.` },
+      { id: 'a', text: `Decision-Making Confusion`, isCorrect: false, rationale: `This scale reflects trouble starting or sustaining the decision process because of emotional distress or limited knowledge of how to decide.` },
+      { id: 'b', text: `External Conflict`, isCorrect: true, rationale: `External Conflict reflects difficulty balancing one's own self-perceptions with input from significant others.` },
+      { id: 'c', text: `Commitment Anxiety`, isCorrect: false, rationale: `Commitment Anxiety reflects anxiety about committing to a choice once options are known.` },
+      { id: 'd', text: `Vocational Identity`, isCorrect: false, rationale: `Vocational Identity is a scale of Holland's My Vocational Situation, not the CTI.` },
     ],
-    rationale: `In Holland's hexagon (Realistic, Investigative, Artistic, Social, Enterprising, Conventional), types placed opposite each other share the fewest traits. Congruence is the degree of match between a person's type and the work environment, and Artistic and Conventional are opposites. Low congruence predicts lower satisfaction and greater likelihood of change.`,
-    references: [{ source: SH, detail: 'Holland\'s theory: congruence and the RIASEC hexagon' }],
+    rationale: `The Career Thoughts Inventory, developed by Sampson and colleagues within the cognitive information processing approach, measures negative career thoughts. Its three scales are Decision-Making Confusion, Commitment Anxiety and External Conflict. A high External Conflict score points the counselor toward helping the client sort out his own views from the expectations of important others.`,
+    references: [{ source: SH, detail: 'Cognitive information processing: Career Thoughts Inventory scales' }],
   },
+
 
   // ── HUMAN DEVELOPMENT ────────────────────────────────────────────────────
   {
@@ -408,39 +409,41 @@ module.exports = [
     references: [{ source: TIP57, detail: 'Common responses to trauma; psychoeducation that normalizes survival reactions' }],
   },
 
-  // ── TERMINATION SKILLS ───────────────────────────────────────────────────
+  // ── GROUP DYNAMICS AND LEADERSHIP ────────────────────────────────────────
   {
     id: 'nce-s-cou-414',
     domain: 'counseling',
-    cacrep: 'professional_orientation',
-    topic: 'termination skills',
+    cacrep: 'group',
+    topic: 'group stages and dynamics',
     difficulty: 'easy',
-    stem: `A counselor at a community agency has accepted a new job and will leave in two months. Several of her clients are still working on their goals. What should she do?`,
+    stem: `In a chronic pain support group, a 61-year-old member describes her problems in detail each week and asks for help. When members offer ideas, she explains why each one will not work, and her complaints seem to grow as the group tries harder. Which problem member type in Yalom's account does she MOST resemble?`,
     options: [
-      { id: 'a', text: `Tell clients in the final session and give them the agency's phone number`, isCorrect: false, rationale: `Last-minute notice leaves no time to process the ending or arrange a smooth transfer.` },
-      { id: 'b', text: `Keep seeing them privately after she leaves so that care is not interrupted`, isCorrect: false, rationale: `Taking agency clients into private practice raises conflicts and agency policy concerns.` },
-      { id: 'c', text: `Tell clients early, process the ending and arrange a careful transfer of care`, isCorrect: true, rationale: `Early notice, discussion of the ending and a well-coordinated transfer protect continuity of care.` },
-      { id: 'd', text: `Let the agency reassign her clients after she has gone, as is usual practice`, isCorrect: false, rationale: `Leaving the transfer to others after she departs does not meet her own duty to ensure continuity.` },
+      { id: 'a', text: `The monopolist`, isCorrect: false, rationale: `A monopolist talks compulsively and dominates airtime; the defining feature here is rejecting the help offered.` },
+      { id: 'b', text: `The silent member`, isCorrect: false, rationale: `She talks readily each week, so she is not a silent member.` },
+      { id: 'c', text: `The help-rejecting complainer`, isCorrect: true, rationale: `She asks for help, then rejects every suggestion while her complaints continue or grow.` },
+      { id: 'd', text: `The scapegoat`, isCorrect: false, rationale: `A scapegoat is a member the group blames; here, she is the one turning aside the group's efforts.` },
     ],
-    rationale: `The ACA Code of Ethics requires counselors who transfer or refer clients to complete the needed clinical and administrative steps and keep open communication with clients and receiving practitioners (A.11.d). Giving ample notice lets clients process the ending and lets the counselor prepare a careful handoff. This protects clients from abandonment and keeps care continuous.`,
-    references: [{ source: ACA, detail: 'A.11.d Appropriate Transfer of Services' }],
+    rationale: `Yalom describes the help-rejecting complainer as a member who repeatedly asks for help, then rejects each offer, often implying that the problem is beyond solving. Other members grow frustrated and may withdraw. Leaders avoid joining the cycle of advice and instead help the member and the group look at the pattern itself.`,
+    references: [{ source: YL, detail: 'Problem group members: the help-rejecting complainer' }],
   },
+
   {
     id: 'nce-s-cou-415',
     domain: 'counseling',
-    cacrep: 'professional_orientation',
-    topic: 'termination skills',
+    cacrep: 'group',
+    topic: 'group leadership skills and therapeutic factors',
     difficulty: 'hard',
-    stem: `A client's partner, who has a history of violence, has begun waiting outside the counselor's office and recently sent the counselor a threatening message. The counselor is considering ending counseling with the client. Which statement BEST reflects the ACA Code of Ethics?`,
+    stem: `In an interpersonal group, Mei says, "There's something I've never told anyone, and I'm scared of how you'll all look at me after." Instead of asking for the secret, the leader asks what makes sharing it here feel risky and how she imagines each member might react. In Yalom's terms, the leader is encouraging:`,
     options: [
-      { id: 'a', text: `She must continue, since ending counseling here would be abandonment`, isCorrect: false, rationale: `The Code allows termination in this situation; ending with proper steps is not abandonment.` },
-      { id: 'b', text: `She may end counseling only if the client consents to the ending`, isCorrect: false, rationale: `Client consent is not required when the counselor is in jeopardy of harm.` },
-      { id: 'c', text: `She may end it, with pretermination counseling and referrals`, isCorrect: true, rationale: `A.11.c permits termination when the counselor is in jeopardy of harm from someone in a relationship with the client, with pretermination counseling and referrals.` },
-      { id: 'd', text: `She may end counseling at once without contact, since safety comes first`, isCorrect: false, rationale: `Ending without any contact or referral fails the duty to provide pretermination counseling when possible.` },
+      { id: 'a', text: `vertical disclosure, about the depth of the secret's content`, isCorrect: false, rationale: `Vertical disclosure goes deeper into the content of the secret itself, which the leader is not asking for.` },
+      { id: 'b', text: `catharsis, the release of emotion tied to an old memory`, isCorrect: false, rationale: `Catharsis is a therapeutic factor about emotional release, not a type of disclosure the leader is shaping.` },
+      { id: 'c', text: `horizontal disclosure, about disclosing to this group now`, isCorrect: true, rationale: `Horizontal disclosure is disclosure about the act of disclosing, focused on here-and-now feelings toward the group.` },
+      { id: 'd', text: `self-disclosure by the leader to model openness for members`, isCorrect: false, rationale: `The leader is inviting Mei's disclosure, not sharing anything personal.` },
     ],
-    rationale: `ACA Code A.11.c allows counselors to terminate when they are in jeopardy of harm by the client or by another person with whom the client has a relationship. Counselors still provide pretermination counseling and recommend other service providers when necessary. Arranging the ending safely, for example by phone or with other staff present, protects both the counselor and the client.`,
-    references: [{ source: ACA, detail: 'A.11.c Appropriate Termination' }],
+    rationale: `Yalom and Leszcz distinguish vertical disclosure, which goes into the depth of past or private content, from horizontal disclosure, which is disclosure about the disclosure itself. Horizontal disclosure keeps the work in the here-and-now: what makes it hard to share with these people, and what reactions the member expects. It can deepen engagement and trust even before, or without, revealing the secret.`,
+    references: [{ source: YL, detail: 'The here-and-now: vertical versus horizontal self-disclosure' }],
   },
+
 
   // ── FAMILY SYSTEMS THEORIES ──────────────────────────────────────────────
   {
