@@ -110,7 +110,7 @@ module.exports = [
       { id: 'c', text: `Fidelity, keeping promises and commitments`, isCorrect: false, rationale: `Fidelity concerns honoring commitments and trust, not giving truthful feedback.` },
       { id: 'd', text: `Autonomy, supporting a client's own choices`, isCorrect: false, rationale: `Autonomy concerns self-determination; the key act here is telling the truth.` },
     ],
-    rationale: `The Preamble of the 2014 ACA Code lists six principles that guide ethical decisions: autonomy, nonmaleficence, beneficence, justice, fidelity and veracity. Veracity, dealing truthfully with people, was added to the list in the 2014 revision. Honest feedback about progress, even when unwelcome, reflects this principle.`,
+    rationale: `The Preamble of the 2014 ACA Code lists six principles that guide ethical decisions: autonomy, nonmaleficence, beneficence, justice, fidelity and veracity. Veracity, dealing truthfully with people, goes beyond the five principles Kitchener originally described. Honest feedback about progress, even when unwelcome, reflects this principle.`,
     references: [{ source: 'ACA Code of Ethics', detail: 'Preamble: fundamental principles of professional ethical behavior (veracity)' }],
   },
   {
