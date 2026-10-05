@@ -46,7 +46,7 @@
 <body>
 <div class="wrap">
   <h1>Pass Guarantee check-ins</h1>
-  <p class="sub">Verify the document against the account name, then approve. <b>Extend</b> adds 3 months (appointment confirmation or verified non-pass). <b>Passed</b> closes the guarantee and emails you to issue the CE course.</p>
+  <p class="sub">Verify the document against the account name, then approve. <b>Extend</b> adds 3 months (appointment confirmation or verified non-pass). <b>Passed</b> closes the guarantee and emails you to issue the CE course. Forfeited guarantees are listed last; <b>Reopen</b> gives 3 more months and a fresh 90 days to book.</p>
   <div id="list"><p class="empty">Loading…</p></div>
 </div>
 <script>
@@ -70,7 +70,9 @@ function card(rep){
   var el = document.createElement('div');
   el.className = 'card';
   var h = '<div class="row"><span class="who">' + esc(rep.name || rep.email) + '</span><span class="muted">' + esc(rep.email) + '</span>'
-    + '<span class="pill">' + rep.exam.toUpperCase() + '</span><span class="pill ' + esc(rep.result) + '">' + esc(LABEL[rep.result] || rep.result) + '</span></div>'
+    + '<span class="pill">' + rep.exam.toUpperCase() + '</span>'
+    + (rep.forfeited ? '<span class="pill fail">Forfeited</span>' : '<span class="pill ' + esc(rep.result) + '">' + esc(LABEL[rep.result] || rep.result) + '</span>') + '</div>'
+    + (rep.forfeited ? '<div class="muted">No request within 90 days of the failed exam (due ' + day(rep.nextRequestDue) + ').</div>' : '')
     + '<div class="muted">Exam date ' + day(rep.examDate) + ' · submitted ' + day(rep.submittedAt) + ' · access ends ' + day(rep.currentPeriodEnd)
     + ' · extensions so far ' + (rep.extensionCount || 0) + '</div>';
   if (rep.notes) h += '<p>' + esc(rep.notes) + '</p>';
@@ -84,7 +86,9 @@ function card(rep){
   h += '<div class="actions">'
     + (rep.letterType ? '<button data-act="doc">View document</button>' : '<span class="muted">No document attached</span>')
     + '<input type="text" placeholder="Note (optional)" data-note />'
-    + (rep.result === 'pass'
+    + (rep.forfeited
+      ? '<button class="primary" data-act="reopen">Reopen guarantee</button>'
+      : rep.result === 'pass'
       ? '<button class="primary" data-act="pass">Mark passed</button>'
       : '<button class="primary" data-act="extend">Extend 3 months</button>')
     + '</div><div class="doc"></div><p class="err"></p>';
