@@ -33,6 +33,10 @@ const Stripe = require('stripe');
 const User = require('../models/User');
 const requireAuth = require('../middleware/auth');
 const { logActivity } = require('../utils/activity');
+const Attempt = require('../models/Attempt');
+const { getNceExam } = require('../utils/nceExam');
+const { cleanDomainScores, buildRetakePlan } = require('../utils/retakePlan');
+const { isForfeited, nextRequestDue, RESULT_WINDOW_DAYS } = require('../utils/guaranteeRules');
 
 // Lazy init: construct the Stripe client on first use, not at module load.
 // Building it at require-time meant a missing STRIPE_SECRET_KEY crashed the
@@ -534,16 +538,24 @@ function guaranteePlan(user, exam) {
 }
 
 // ── POST /api/payment/score-report ───────────────────────────────────────────
-// User submits their score report after sitting the exam.
-// Puts the guarantee gate into 'pending' state for admin review.
-// Accepts: { examDate, result: 'pass'|'fail'|'scheduled', notes (optional), exam ('nce' | default NCMHCE) }
-// In production, add file upload (multer) for the actual PDF score report.
+// User submits a check-in or an exam result for their Pass Guarantee.
+// Puts the guarantee into 'pending' state for admin review.
+// Accepts: { examDate, result: 'pass'|'fail'|'scheduled', notes?, exam ('nce' | default NCMHCE),
+//            letter (data URI, always required), domainScores? { key: { earned, possible } } }
+// Every check-in comes with a document so it can be verified against the
+// account (Pass Guarantee terms, policies.html#guarantee): the exam appointment
+// confirmation for 'scheduled', the score letter for 'pass' / 'fail'. An
+// approved 'scheduled' or 'fail' adds 3 months. A fail also needs the
+// per-domain scores from the letter; they build the retake plan.
+const LETTER_MAX = 7_000_000; // data-URI length, ~5 MB file
+const LETTER_TYPES = /^data:(image\/(png|jpeg|webp|heic)|application\/pdf);base64,/;
+
 router.post('/score-report', requireAuth, async (req, res) => {
   try {
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ error: 'User not found' });
 
-    const { examDate, result, notes, exam } = req.body || {};
+    const { examDate, result, notes, exam, letter, domainScores } = req.body || {};
     const g = guaranteePlan(user, exam);
 
     if (g.plan.tier !== g.tier) {
@@ -554,22 +566,96 @@ router.post('/score-report', requireAuth, async (req, res) => {
       return res.status(400).json({ error: 'examDate and result (pass|fail|scheduled) are required' });
     }
 
+    // No request within 90 days of a verified non-pass forfeits the guarantee.
+    if (isForfeited(g.plan.scoreReport)) {
+      return res.status(403).json({
+        error: 'This Pass Guarantee was forfeited: no new request was made within 90 days of your last exam. Contact support with any questions.',
+        code: 'GUARANTEE_FORFEITED',
+      });
+    }
+
+    const taken = result !== 'scheduled';
+    if (typeof letter !== 'string' || !LETTER_TYPES.test(letter)) {
+      return res.status(400).json({
+        error: taken
+          ? 'Attach your score letter (PDF or photo) to verify your result.'
+          : 'Attach your exam appointment confirmation (PDF or photo).',
+      });
+    }
+    if (letter.length > LETTER_MAX) {
+      return res.status(400).json({ error: 'That file is too large. Please attach a file under 5 MB.' });
+    }
+    if (taken) {
+      // A result is claimed within 14 days of the exam (Pass Guarantee terms).
+      const days = (Date.now() - new Date(examDate).getTime()) / 86400000;
+      if (!(days >= -1)) return res.status(400).json({ error: 'The exam date for a result can’t be in the future.' });
+      if (days > RESULT_WINDOW_DAYS) {
+        return res.status(400).json({
+          error: 'Results must be submitted within 14 days of the exam date. Contact support if you need help.',
+          code: 'CLAIM_WINDOW_CLOSED',
+        });
+      }
+    }
+
+    const clean = cleanDomainScores(g.exam, domainScores);
+    if (clean.error) return res.status(400).json({ error: clean.error });
+    let retakePlan = null;
+    if (result === 'fail') {
+      if (Object.keys(clean.scores).length < 2) {
+        return res.status(400).json({ error: 'Enter the domain scores from your letter so we can build your retake plan.' });
+      }
+      retakePlan = buildRetakePlan(g.exam, clean.scores, await practiceByDomain(user._id, g.exam));
+    }
+
+    // Keep the previous report (minus its letter) so each attempt stays on record.
+    const prev = g.plan.scoreReport;
+    if (prev && prev.status && prev.status !== 'none') {
+      const { letter: _omit, ...rest } = typeof prev.toObject === 'function' ? prev.toObject() : prev;
+      user.set(`${g.path}.scoreReportHistory`, [...(g.plan.scoreReportHistory || []), rest]);
+    }
+
     user.set(`${g.path}.scoreReport`, {
       status: 'pending',
       submittedAt: new Date(),
       examDate: new Date(examDate),
       result,
       notes: notes || '',
-      extensionCount: (g.plan.scoreReport && g.plan.scoreReport.extensionCount) || 0,
+      extensionCount: (prev && prev.extensionCount) || 0,
+      letter,
+      letterType: letter.slice(5, letter.indexOf(';')),
+      domainScores: Object.keys(clean.scores).length ? clean.scores : undefined,
+      retakePlan: retakePlan || undefined,
     });
     await user.save();
 
-    res.json({ ok: true, message: 'Score report submitted — we\'ll review and extend your access within 1 business day.' });
+    res.json({
+      ok: true,
+      retakePlan,
+      message: 'Score report submitted — we\'ll review it within 1 business day.',
+    });
   } catch (err) {
     console.error('score-report submit error:', err);
     res.status(500).json({ error: 'Could not submit score report' });
   }
 });
+
+// Practice accuracy by domain from the member's PassReady attempts, in the
+// shape utils/retakePlan.js expects: { key: { correct, total } }.
+async function practiceByDomain(userId, exam) {
+  const attempts = await Attempt.find({ userId }).select('examId domainBreakdown').limit(2000).lean();
+  const nceExam = await getNceExam().catch(() => null);
+  const isNce = (a) => nceExam && String(a.examId) === String(nceExam._id);
+  const out = {};
+  attempts.filter((a) => (exam === 'nce') === !!isNce(a)).forEach((a) => {
+    Object.entries(a.domainBreakdown || {}).forEach(([k, v]) => {
+      // NCMHCE attempts store { ok, total }; NCE attempts store { correct, total }.
+      const c = +(v && (v.correct != null ? v.correct : v.ok)) || 0, t = +(v && v.total) || 0;
+      out[k] = out[k] || { correct: 0, total: 0 };
+      out[k].correct += c; out[k].total += t;
+    });
+  });
+  return out;
+}
 
 // ── GET /api/payment/score-report-status?exam=nce ─────────────────────────────
 // Returns the user's current gate state so the frontend knows what to show.
@@ -594,12 +680,72 @@ router.get('/score-report-status', requireAuth, async (req, res) => {
         submittedAt: sr.submittedAt || null,
         extensionCount: sr.extensionCount || 0,
       },
-      // The key flag: is the gate currently blocking access?
-      gated: sub.tier === g.tier && !!expired && !['approved_extension', 'passed'].includes(sr.status),
+      // The key flag: is the gate currently blocking access? An approved
+      // extension only lasts until the new currentPeriodEnd.
+      gated: sub.tier === g.tier && !!expired && sr.status !== 'passed',
+      // Any guarantee holder can report a result (within 14 days of the exam),
+      // not only one whose access is currently paused.
+      eligible: sub.tier === g.tier && sr.status !== 'passed' && !isForfeited(sr),
+      forfeited: sub.tier === g.tier && isForfeited(sr),
+      // After a verified non-pass: the last day to make the next request.
+      nextRequestDue: nextRequestDue(sr),
+      lastResult: sr.result || null,
+      examDate: sr.examDate || null,
+      retakePlan: sr.retakePlan || null,
     });
   } catch (err) {
     console.error('score-report-status error:', err);
     res.status(500).json({ error: 'Could not retrieve status' });
+  }
+});
+
+// ── GET /api/payment/score-reports  (admin only) ─────────────────────────────
+// Pending Pass Guarantee check-ins for both exams, oldest first, without the
+// documents (fetch each with the letter route below).
+router.get('/score-reports', requireAuth, async (req, res) => {
+  try {
+    const reviewer = await User.findById(req.userId).select('role');
+    if (!reviewer || reviewer.role !== 'admin') return res.status(403).json({ error: 'Admin only' });
+    const users = await User.find({
+      $or: [{ 'subscription.scoreReport.status': 'pending' }, { 'nceAccess.scoreReport.status': 'pending' }],
+    }).select('email name subscription nceAccess').lean();
+    const reports = [];
+    users.forEach((u) => {
+      [['ncmhce', u.subscription], ['nce', u.nceAccess]].forEach(([exam, plan]) => {
+        const sr = plan && plan.scoreReport;
+        if (!sr || sr.status !== 'pending') return;
+        reports.push({
+          userId: u._id, email: u.email, name: u.name, exam,
+          result: sr.result, examDate: sr.examDate, submittedAt: sr.submittedAt, notes: sr.notes,
+          letterType: sr.letterType || null, domainScores: sr.domainScores || null,
+          retakePlan: sr.retakePlan || null, extensionCount: sr.extensionCount || 0,
+          currentPeriodEnd: plan.currentPeriodEnd || null,
+        });
+      });
+    });
+    reports.sort((a, b) => new Date(a.submittedAt) - new Date(b.submittedAt));
+    res.json({ reports });
+  } catch (err) {
+    console.error('score-reports list error:', err);
+    res.status(500).json({ error: 'Could not load score reports' });
+  }
+});
+
+// ── GET /api/payment/score-report/:userId/letter?exam=nce  (admin only) ───────
+// The uploaded document (score letter or appointment confirmation) as a data URI.
+router.get('/score-report/:userId/letter', requireAuth, async (req, res) => {
+  try {
+    const reviewer = await User.findById(req.userId).select('role');
+    if (!reviewer || reviewer.role !== 'admin') return res.status(403).json({ error: 'Admin only' });
+    const g = req.query.exam === 'nce' ? 'nceAccess' : 'subscription';
+    const user = await User.findById(req.params.userId).select(`+${g}.scoreReport.letter`).lean();
+    const sr = user && user[g] && user[g].scoreReport;
+    if (!sr || !sr.letter) return res.status(404).json({ error: 'No document on file' });
+    res.set('Cache-Control', 'no-store');
+    res.json({ letter: sr.letter, letterType: sr.letterType || null });
+  } catch (err) {
+    console.error('score-report letter error:', err);
+    res.status(500).json({ error: 'Could not load the document' });
   }
 });
 
@@ -629,8 +775,10 @@ router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
     }
 
     if (action === 'extend') {
-      // Failed — extend access by 90 days from today
-      const newEnd = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+      // Failed — extend access by 90 days from today (never shortening a
+      // period that already runs longer)
+      const cur = g.plan.currentPeriodEnd ? new Date(g.plan.currentPeriodEnd).getTime() : 0;
+      const newEnd = new Date(Math.max(Date.now() + 90 * 24 * 60 * 60 * 1000, cur));
       const count = (sr.extensionCount || 0) + 1;
       user.set(`${g.path}.currentPeriodEnd`, newEnd);
       user.set(`${g.path}.scoreReport.status`, 'approved_extension');

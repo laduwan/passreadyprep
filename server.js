@@ -18,6 +18,8 @@ const corsOrigin = process.env.CLIENT_ORIGIN
   : '*';
 app.use(cors({ origin: corsOrigin }));
 app.use('/api/payment/webhook', express.raw({ type: 'application/json' }));
+// Score-report check-ins carry the member's score letter as a data URI (~5 MB).
+app.use('/api/payment/score-report', express.json({ limit: '8mb' }));
 app.use(express.json());
 
 // Watch every response and record 5xx failures as error events (see utils/activity).

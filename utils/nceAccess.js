@@ -36,7 +36,9 @@ function nceLevel(user, now = new Date()) {
   const end = a.currentPeriodEnd ? new Date(a.currentPeriodEnd) : null;
   if (tier === 'nce_guarantee' && end && end <= now) {
     const sr = (a.scoreReport && a.scoreReport.status) || 'none';
-    return ['approved_extension', 'passed'].includes(sr) ? 'paid' : 'gated';
+    // An approved extension moves currentPeriodEnd 3 months out; once that
+    // lapses the check-in is due again (same rule as routes/content.js).
+    return sr === 'passed' ? 'paid' : 'gated';
   }
   if (tier !== 'free' && (!end || end > now)) return 'paid';
   const trialEnd = nceTrialEnd(user);

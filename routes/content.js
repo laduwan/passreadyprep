@@ -5,6 +5,7 @@ const User = require('../models/User');
 const { TRIAL_DAYS, trialEndFor, trialLevel } = require('../utils/trial');
 const { BOOK_CASE_IDS } = require('./book');
 const { examKeyFor, outlineFor } = require('../utils/examVersion');
+const { isForfeited } = require('../utils/guaranteeRules');
 
 const router = express.Router();
 
@@ -46,14 +47,16 @@ async function resolveAccess(req, res, next) {
     const now = new Date();
     const expired = sub.currentPeriodEnd && sub.currentPeriodEnd < now;
 
-    // Guarantee tier gate: expired + no approved score report → blocked
+    // Guarantee tier gate: past the current period and not passed → blocked
+    // until the next score report is approved. An approved extension sets a new
+    // currentPeriodEnd 3 months out, so once that lapses the gate returns.
     if (tier === 'guarantee' && expired) {
       const srStatus = sub.scoreReport?.status || 'none';
-      if (!['approved_extension', 'passed'].includes(srStatus)) {
+      if (srStatus !== 'passed') {
         req.accessLevel = 'gated';
         req.gateReason = srStatus === 'pending'
           ? 'score_report_pending'
-          : 'score_report_required';
+          : isForfeited(sub.scoreReport) ? 'guarantee_forfeited' : 'score_report_required';
         return next();
       }
     }
@@ -158,7 +161,9 @@ router.get('/:externalId', resolveAccess, async (req, res) => {
         gateReason: req.gateReason,
         message: req.gateReason === 'score_report_pending'
           ? 'Your score report is under review. Access will be restored within 1 business day.'
-          : 'Your 6-month access period has ended. Submit your score report to continue.',
+          : req.gateReason === 'guarantee_forfeited'
+          ? 'Your Pass Guarantee was forfeited: no new request was made within 90 days of your last exam. Pick a plan to keep studying.'
+          : 'Your access period has ended. Upload your exam appointment or score letter to continue.',
       });
     }
 
