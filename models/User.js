@@ -99,7 +99,17 @@ const UserSchema = new Schema(
         result: String,             // 'pass' | 'fail' — as reported
         notes: String,              // admin notes on review
         extensionCount: { type: Number, default: 0 },
+        // The member's score letter (data URI, image or PDF) — required for a
+        // pass or fail claim so the result can be verified against the account.
+        letter: { type: String, select: false },
+        letterType: String,
+        // Per-domain results copied from the letter: { key: { earned, possible } }
+        domainScores: mongoose.Schema.Types.Mixed,
+        // utils/retakePlan.js output for a non-passing result
+        retakePlan: mongoose.Schema.Types.Mixed,
       },
+      // Earlier reports (without the letter), newest last.
+      scoreReportHistory: [mongoose.Schema.Types.Mixed],
     },
 
     // NCE access — billed separately from the NCMHCE `subscription` above, so
@@ -129,7 +139,12 @@ const UserSchema = new Schema(
         result: String,
         notes: String,
         extensionCount: { type: Number, default: 0 },
+        letter: { type: String, select: false },
+        letterType: String,
+        domainScores: mongoose.Schema.Types.Mixed,
+        retakePlan: mongoose.Schema.Types.Mixed,
       },
+      scoreReportHistory: [mongoose.Schema.Types.Mixed],
     },
 
     // Target NCE exam date (separate from the NCMHCE examDate above).

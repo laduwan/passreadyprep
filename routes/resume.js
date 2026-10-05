@@ -30,7 +30,7 @@ function ncmhcePaid(user, now = new Date()) {
   const expired = sub.currentPeriodEnd && new Date(sub.currentPeriodEnd) < now;
   if (!expired) return true;
   const sr = (sub.scoreReport || {}).status || 'none';
-  return tier === 'guarantee' && ['approved_extension', 'passed'].includes(sr);
+  return tier === 'guarantee' && sr === 'passed';
 }
 
 async function eligibility(userId) {

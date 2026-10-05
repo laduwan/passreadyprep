@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PassReady Prep — Guarantee Check-ins</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+  :root{
+    --ink:#1B2A3A; --muted:#5B6B7A;
+    --primary:#0E7C7B; --primary-dark:#0A5E5D;
+    --bg:#F7F5F1; --card:#FFFFFF; --border:#E5E0D8;
+    --red:#B42318; --amber:#B54708;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+  .wrap{max-width:860px;margin:0 auto;padding:18px 16px 64px}
+  h1{font-size:22px;margin:4px 0 4px}
+  .sub{color:var(--muted);margin:0 0 18px;font-size:14px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:14px}
+  .row{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+  .who{font-weight:700}
+  .muted{color:var(--muted);font-size:13px}
+  .pill{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;background:#EEF4F4;color:var(--primary-dark)}
+  .pill.fail{background:#FEF3F2;color:var(--red)}
+  .pill.pass{background:#ECFDF3;color:#067647}
+  .pill.scheduled{background:#FFFAEB;color:var(--amber)}
+  table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
+  th,td{text-align:left;padding:5px 6px;border-top:1px solid var(--border)}
+  th{color:var(--muted);font-weight:600;border-top:none}
+  td.n,th.n{text-align:right}
+  .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}
+  button{font:inherit;font-weight:600;border-radius:8px;padding:8px 14px;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--ink)}
+  button.primary{background:var(--primary);border-color:var(--primary);color:#fff}
+  button:disabled{opacity:.5;cursor:default}
+  input[type=text]{font:inherit;padding:8px 10px;border:1px solid var(--border);border-radius:8px;flex:1;min-width:160px}
+  .doc{margin-top:10px}
+  .doc img{max-width:100%;border:1px solid var(--border);border-radius:8px}
+  .doc iframe{width:100%;height:520px;border:1px solid var(--border);border-radius:8px}
+  .empty{color:var(--muted);text-align:center;padding:30px 0}
+  .err{color:var(--red)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Pass Guarantee check-ins</h1>
+  <p class="sub">Verify the document against the account name, then approve. <b>Extend</b> adds 3 months (appointment confirmation or verified non-pass). <b>Passed</b> closes the guarantee and emails you to issue the CE course.</p>
+  <div id="list"><p class="empty">Loading…</p></div>
+</div>
+<script>
+// Uses the session the admin dashboard signs in with (admin-dashboard.html).
+var TOKEN = sessionStorage.getItem('prp_admin_jwt');
+var list = document.getElementById('list');
+
+function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function day(d){ return d ? new Date(d).toLocaleDateString() : '—'; }
+function api(path, opts){
+  opts = opts || {};
+  opts.headers = Object.assign({ 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json' }, opts.headers || {});
+  return fetch(path, opts).then(function(r){
+    return r.json().catch(function(){ return {}; }).then(function(d){ if (!r.ok) throw new Error(d.error || ('HTTP ' + r.status)); return d; });
+  });
+}
+
+var LABEL = { pass: 'Passed', fail: 'Did not pass', scheduled: 'Appointment' };
+
+function card(rep){
+  var el = document.createElement('div');
+  el.className = 'card';
+  var h = '<div class="row"><span class="who">' + esc(rep.name || rep.email) + '</span><span class="muted">' + esc(rep.email) + '</span>'
+    + '<span class="pill">' + rep.exam.toUpperCase() + '</span><span class="pill ' + esc(rep.result) + '">' + esc(LABEL[rep.result] || rep.result) + '</span></div>'
+    + '<div class="muted">Exam date ' + day(rep.examDate) + ' · submitted ' + day(rep.submittedAt) + ' · access ends ' + day(rep.currentPeriodEnd)
+    + ' · extensions so far ' + (rep.extensionCount || 0) + '</div>';
+  if (rep.notes) h += '<p>' + esc(rep.notes) + '</p>';
+  if (rep.retakePlan && rep.retakePlan.domains) {
+    h += '<table><thead><tr><th>Domain</th><th class="n">Exam</th><th class="n">Practice</th><th>Status</th></tr></thead><tbody>';
+    rep.retakePlan.domains.forEach(function(d){
+      h += '<tr><td>' + esc(d.label) + '</td><td class="n">' + d.examPct + '%</td><td class="n">' + (d.practicePct == null ? '—' : d.practicePct + '%') + '</td><td>' + esc(d.status.replace('_', ' ')) + '</td></tr>';
+    });
+    h += '</tbody></table>';
+  }
+  h += '<div class="actions">'
+    + (rep.letterType ? '<button data-act="doc">View document</button>' : '<span class="muted">No document attached</span>')
+    + '<input type="text" placeholder="Note (optional)" data-note />'
+    + (rep.result === 'pass'
+      ? '<button class="primary" data-act="pass">Mark passed</button>'
+      : '<button class="primary" data-act="extend">Extend 3 months</button>')
+    + '</div><div class="doc"></div><p class="err"></p>';
+  el.innerHTML = h;
+
+  var err = el.querySelector('.err');
+  el.addEventListener('click', function(e){
+    var act = e.target.getAttribute && e.target.getAttribute('data-act');
+    if (!act) return;
+    err.textContent = '';
+    if (act === 'doc') {
+      e.target.disabled = true;
+      api('/api/payment/score-report/' + rep.userId + '/letter?exam=' + rep.exam).then(function(d){
+        // Show it from a blob URL: browsers block data: PDFs in frames.
+        var box = el.querySelector('.doc');
+        return fetch(d.letter).then(function(r){ return r.blob(); }).then(function(b){
+          var url = URL.createObjectURL(b);
+          var node = document.createElement(b.type === 'application/pdf' ? 'iframe' : 'img');
+          if (node.tagName === 'IFRAME') node.title = 'Score document'; else node.alt = 'Score document';
+          node.src = url;
+          box.appendChild(node);
+          var a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Open in a new tab';
+          box.appendChild(a);
+        });
+      }).catch(function(x){ err.textContent = x.message; e.target.disabled = false; });
+      return;
+    }
+    var note = el.querySelector('[data-note]').value.trim();
+    el.querySelectorAll('button').forEach(function(b){ b.disabled = true; });
+    api('/api/payment/score-report/' + rep.userId + '/review', {
+      method: 'POST', body: JSON.stringify({ action: act, notes: note, exam: rep.exam }),
+    }).then(function(d){
+      el.innerHTML = '<div class="muted">' + esc(rep.email) + ' — ' + esc(d.message || 'Done') + '</div>';
+    }).catch(function(x){
+      err.textContent = x.message;
+      el.querySelectorAll('button').forEach(function(b){ b.disabled = false; });
+    });
+  });
+  return el;
+}
+
+function load(){
+  if (!TOKEN) {
+    list.innerHTML = '<p class="empty">Sign in from the <a href="/admin-dashboard.html">admin dashboard</a> to review check-ins.</p>';
+    return;
+  }
+  api('/api/payment/score-reports').then(function(d){
+    list.innerHTML = '';
+    if (!d.reports.length) { list.innerHTML = '<p class="empty">No check-ins waiting for review.</p>'; return; }
+    d.reports.forEach(function(r){ list.appendChild(card(r)); });
+  }).catch(function(x){ list.innerHTML = '<p class="empty err">' + esc(x.message) + '</p>'; });
+}
+load();
+</script>
+</body>
+</html>

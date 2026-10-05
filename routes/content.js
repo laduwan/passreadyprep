@@ -46,10 +46,12 @@ async function resolveAccess(req, res, next) {
     const now = new Date();
     const expired = sub.currentPeriodEnd && sub.currentPeriodEnd < now;
 
-    // Guarantee tier gate: expired + no approved score report → blocked
+    // Guarantee tier gate: past the current period and not passed → blocked
+    // until the next score report is approved. An approved extension sets a new
+    // currentPeriodEnd 3 months out, so once that lapses the gate returns.
     if (tier === 'guarantee' && expired) {
       const srStatus = sub.scoreReport?.status || 'none';
-      if (!['approved_extension', 'passed'].includes(srStatus)) {
+      if (srStatus !== 'passed') {
         req.accessLevel = 'gated';
         req.gateReason = srStatus === 'pending'
           ? 'score_report_pending'
