@@ -82,15 +82,24 @@ const A11Y_SKIP = '<a href="#" class="a11y-skip-link" data-a11y-skip>Skip to mai
 // not visitor traffic.
 const VISIT_HEAD = '<script src="/visit-beacon.js" defer></script>';
 
-// Google tag (GA4), injected the same serve-time way. Off until
-// GA_MEASUREMENT_ID (G-XXXXXXX) is set; skips the /admin* and /review* operator
-// screens, like the visit beacon. Only a well-formed ID is ever written into the page.
-const GA_ID = /^G-[A-Z0-9]{4,20}$/.test(process.env.GA_MEASUREMENT_ID || '') ? process.env.GA_MEASUREMENT_ID : '';
-const GA_HEAD = GA_ID
+// Google tag (gtag.js), injected the same serve-time way. One loader serves
+// every configured ID:
+//   GOOGLE_ADS_ID      — Google Ads tag (AW-…). Defaults to the PassReady Prep
+//                        account's tag; set to "off" to disable it.
+//   GA_MEASUREMENT_ID  — optional Google Analytics 4 (G-…).
+// Skips the /admin* and /review* operator screens, like the visit beacon. Only
+// well-formed IDs are ever written into the page.
+const GOOGLE_ADS_DEFAULT = 'AW-18479243093';
+const GTAG_IDS = [
+  process.env.GOOGLE_ADS_ID === undefined ? GOOGLE_ADS_DEFAULT : process.env.GOOGLE_ADS_ID,
+  process.env.GA_MEASUREMENT_ID,
+].filter((id) => /^(AW-[0-9]{6,15}|G-[A-Z0-9]{4,20})$/.test(id || ''));
+const GA_HEAD = GTAG_IDS.length
   ? '<script>(function(){var p=location.pathname;if(/^\\/(admin|review)/.test(p))return;' +
-    'var s=document.createElement("script");s.async=true;s.src="https://www.googletagmanager.com/gtag/js?id=' + GA_ID + '";' +
+    'var s=document.createElement("script");s.async=true;s.src="https://www.googletagmanager.com/gtag/js?id=' + GTAG_IDS[0] + '";' +
     'document.head.appendChild(s);window.dataLayer=window.dataLayer||[];' +
-    'window.gtag=function(){dataLayer.push(arguments);};gtag("js",new Date());gtag("config","' + GA_ID + '");})();</script>'
+    'window.gtag=function(){dataLayer.push(arguments);};gtag("js",new Date());' +
+    GTAG_IDS.map((id) => 'gtag("config","' + id + '");').join('') + '})();</script>'
   : '';
 
 // Member announcement pop-up, injected the same serve-time way. The script
