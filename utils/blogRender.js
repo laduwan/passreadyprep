@@ -195,7 +195,7 @@ const HEADER = `<header class="site">
   <div class="nav">
     <a class="brand-wrap" href="/" aria-label="PassReady Prep home">
       <span class="brand-chip" aria-hidden="true">${BRAND_SVG}</span>
-      <span class="brand">PassReady <span class="prep">Prep</span><small>NCMHCE clinical simulations</small></span>
+      <span class="brand">PassReady <span class="prep">Prep</span><small>NCE &amp; NCMHCE exam practice and simulations</small></span>
     </a>
     <nav class="nav-links">
       <a class="navlink" href="/#features">Features</a>
