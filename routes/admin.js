@@ -107,7 +107,7 @@ router.get('/content/all', async (req, res) => {
       filter.$or = [{ title: rx }, { externalId: rx }, { category: rx }];
     }
     const items = await ContentItem.find(filter)
-      .select('externalId title category difficulty status format needsWork updatedAt')
+      .select('externalId title category difficulty status format needsWork reviewNote updatedAt')
       .sort({ updatedAt: -1 })
       .limit(1000)
       .lean();
@@ -268,6 +268,24 @@ router.post('/content/:externalId/note', async (req, res) => {
   } catch (err) {
     console.error('admin note error', err);
     return res.status(500).json({ error: 'Could not save the note' });
+  }
+});
+
+// Mark a flagged case as fixed: clears needsWork but keeps the reviewer's note
+// on record (prefixed with the date it was resolved). Used by the cases table.
+router.post('/content/:externalId/resolve', async (req, res) => {
+  try {
+    const item = await ContentItem.findOne(caseFilter(req.params.externalId));
+    if (!item) return res.status(404).json({ error: 'Case not found' });
+    const note = (item.reviewNote || '').trim();
+    const stamp = 'Resolved ' + new Date().toISOString().slice(0, 10);
+    item.reviewNote = note && !note.startsWith('Resolved ') ? stamp + ' — ' + note : (note || stamp);
+    item.needsWork = false;
+    await item.save();
+    return res.json({ externalId: item.externalId, status: item.status, needsWork: item.needsWork, reviewNote: item.reviewNote });
+  } catch (err) {
+    console.error('admin resolve error', err);
+    return res.status(500).json({ error: 'Could not update that case' });
   }
 });
 
