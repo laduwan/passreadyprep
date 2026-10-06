@@ -701,20 +701,27 @@ router.get('/score-report-status', requireAuth, async (req, res) => {
 
 // ── GET /api/payment/score-reports  (admin only) ─────────────────────────────
 // Pending Pass Guarantee check-ins for both exams, oldest first, without the
-// documents (fetch each with the letter route below).
+// documents (fetch each with the letter route below), then forfeited
+// guarantees (forfeited: true) so an admin can reopen one.
 router.get('/score-reports', requireAuth, async (req, res) => {
   try {
     const reviewer = await User.findById(req.userId).select('role');
     if (!reviewer || reviewer.role !== 'admin') return res.status(403).json({ error: 'Admin only' });
     const users = await User.find({
-      $or: [{ 'subscription.scoreReport.status': 'pending' }, { 'nceAccess.scoreReport.status': 'pending' }],
+      $or: [
+        { 'subscription.scoreReport.status': 'pending' }, { 'nceAccess.scoreReport.status': 'pending' },
+        { 'subscription.scoreReport.status': 'approved_extension', 'subscription.scoreReport.result': 'fail' },
+        { 'nceAccess.scoreReport.status': 'approved_extension', 'nceAccess.scoreReport.result': 'fail' },
+      ],
     }).select('email name subscription nceAccess').lean();
     const reports = [];
     users.forEach((u) => {
       [['ncmhce', u.subscription], ['nce', u.nceAccess]].forEach(([exam, plan]) => {
         const sr = plan && plan.scoreReport;
-        if (!sr || sr.status !== 'pending') return;
+        const forfeited = isForfeited(sr);
+        if (!sr || (sr.status !== 'pending' && !forfeited)) return;
         reports.push({
+          forfeited, nextRequestDue: nextRequestDue(sr),
           userId: u._id, email: u.email, name: u.name, exam,
           result: sr.result, examDate: sr.examDate, submittedAt: sr.submittedAt, notes: sr.notes,
           letterType: sr.letterType || null, domainScores: sr.domainScores || null,
@@ -723,7 +730,7 @@ router.get('/score-reports', requireAuth, async (req, res) => {
         });
       });
     });
-    reports.sort((a, b) => new Date(a.submittedAt) - new Date(b.submittedAt));
+    reports.sort((a, b) => (a.forfeited - b.forfeited) || (new Date(a.submittedAt) - new Date(b.submittedAt)));
     res.json({ reports });
   } catch (err) {
     console.error('score-reports list error:', err);
@@ -761,8 +768,8 @@ router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
     }
 
     const { action, notes, exam } = req.body || {};
-    if (!['extend', 'pass'].includes(action)) {
-      return res.status(400).json({ error: 'action must be "extend" or "pass"' });
+    if (!['extend', 'pass', 'reopen'].includes(action)) {
+      return res.status(400).json({ error: 'action must be "extend", "pass" or "reopen"' });
     }
 
     const user = await User.findById(req.params.userId);
@@ -770,6 +777,19 @@ router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
 
     const g = guaranteePlan(user, exam);
     const sr = g.plan.scoreReport || {};
+
+    // Reopen a forfeited guarantee (e.g. a state-board delay): 3 more months
+    // of access and a fresh 90 days to make the next request.
+    if (action === 'reopen') {
+      if (!isForfeited(sr)) return res.status(400).json({ error: `This ${g.name} guarantee is not forfeited` });
+      const newEnd = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+      user.set(`${g.path}.currentPeriodEnd`, newEnd);
+      user.set(`${g.path}.scoreReport.reopenedAt`, new Date());
+      user.set(`${g.path}.scoreReport.notes`, notes || 'Reopened by admin');
+      await user.save();
+      return res.json({ ok: true, message: `${g.name} guarantee reopened. Access until ${newEnd.toDateString()}; next request due the same day.` });
+    }
+
     if (sr.status !== 'pending') {
       return res.status(400).json({ error: `No pending ${g.name} score report to review` });
     }

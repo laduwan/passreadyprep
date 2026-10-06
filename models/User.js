@@ -103,6 +103,7 @@ const UserSchema = new Schema(
         // pass or fail claim so the result can be verified against the account.
         letter: { type: String, select: false },
         letterType: String,
+        reopenedAt: Date,           // admin reopened a forfeited guarantee (restarts the 90 days)
         // Per-domain results copied from the letter: { key: { earned, possible } }
         domainScores: mongoose.Schema.Types.Mixed,
         // utils/retakePlan.js output for a non-passing result
@@ -141,6 +142,7 @@ const UserSchema = new Schema(
         extensionCount: { type: Number, default: 0 },
         letter: { type: String, select: false },
         letterType: String,
+        reopenedAt: Date,           // admin reopened a forfeited guarantee (restarts the 90 days)
         domainScores: mongoose.Schema.Types.Mixed,
         retakePlan: mongoose.Schema.Types.Mixed,
       },
