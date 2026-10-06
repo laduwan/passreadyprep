@@ -383,10 +383,12 @@
   var sortCol = 'externalId';
   var sortDir = 'asc';
 
-  function statusBadge(st, needsWork){
-    var cls = needsWork ? 'b-needswork' : ('b-'+st);
-    var label = needsWork ? 'needs work' : st.replace('_',' ');
-    return '<span class="badge '+cls+'">'+esc(label)+'</span>';
+  // The real status is always shown; a "needs work" review flag is added
+  // beside it (hover for the reviewer's note) instead of hiding the status.
+  function statusBadge(st, needsWork, note){
+    var b = '<span class="badge b-'+esc(st)+'">'+esc(String(st||'').replace('_',' '))+'</span>';
+    if (needsWork) b += ' <span class="badge b-needswork" title="'+esc(note||'Flagged for review')+'">needs work</span>';
+    return b;
   }
 
   function populateCategoryFilter(items){
@@ -445,12 +447,13 @@
         '<td>'+esc(it.title||'(untitled)')+'</td>'+
         '<td class="hide-sm">'+esc(it.category||'')+'</td>'+
         '<td class="hide-sm">'+esc(it.difficulty||'')+'</td>'+
-        '<td>'+statusBadge(it.status,it.needsWork)+'</td>'+
+        '<td>'+statusBadge(it.status,it.needsWork,it.reviewNote)+'</td>'+
         '<td><div class="actions">'+
           '<button data-edit="'+esc(it.externalId)+'">Edit</button>'+
           (it.status==='published'
             ? '<button data-unpub="'+esc(it.externalId)+'">Unpublish</button>'
             : '<button data-pub="'+esc(it.externalId)+'">Publish</button>')+
+          (it.needsWork ? '<button data-resolve="'+esc(it.externalId)+'">Mark fixed</button>' : '')+
           '<button class="danger" data-del="'+esc(it.externalId)+'">Delete</button>'+
         '</div></td>'+
       '</tr>';
@@ -494,6 +497,11 @@
     if((id=t.getAttribute('data-edit'))) return openEditor(id);
     if((id=t.getAttribute('data-pub'))) return act('/content/'+encodeURIComponent(id)+'/publish','POST','Published');
     if((id=t.getAttribute('data-unpub'))) return act('/content/'+encodeURIComponent(id)+'/unpublish','POST','Sent to review');
+    if((id=t.getAttribute('data-resolve'))){
+      var c = allCases.filter(function(x){ return x.externalId===id; })[0] || {};
+      if(!confirm('Mark '+id+' as fixed?'+(c.reviewNote ? '\n\nReviewer note:\n'+c.reviewNote : '')+'\n\nThe "needs work" flag is cleared; the note is kept on record.')) return;
+      return act('/content/'+encodeURIComponent(id)+'/resolve','POST','Marked fixed');
+    }
     if((id=t.getAttribute('data-del'))){
       if(!confirm('Delete '+id+'? This cannot be undone.')) return;
       return act('/content/'+encodeURIComponent(id),'DELETE','Deleted');
