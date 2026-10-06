@@ -4,18 +4,18 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-site-verification" content="vx_qOgnlLQA9FBRFUFGz9_-V1_2smF05iDPv79ljtNY" />
-<title>NCMHCE Exam Prep &amp; Practice Cases | PassReady Prep</title>
-<meta name="description" content="NCMHCE exam prep for LPCs and LMHCs: clinical case simulations, a timed mock exam, an AI debrief, and a readiness score that shows when you're ready.">
+<title>NCMHCE &amp; NCE Exam Prep, Practice Cases &amp; Questions | PassReady Prep</title>
+<meta name="description" content="NCMHCE and NCE exam prep for counselors: NCMHCE clinical case simulations, NCE practice questions, timed mock exams for both, and a readiness score that shows when you're ready.">
 <link rel="canonical" href="https://www.passreadyprep.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PassReady Prep">
-<meta property="og:title" content="NCMHCE Exam Prep &amp; Practice Cases | PassReady Prep">
-<meta property="og:description" content="NCMHCE exam prep for LPCs and LMHCs: clinical case simulations, a timed mock exam, an AI debrief, and a readiness score that shows when you're ready.">
+<meta property="og:title" content="NCMHCE &amp; NCE Exam Prep, Practice Cases &amp; Questions | PassReady Prep">
+<meta property="og:description" content="NCMHCE and NCE exam prep for counselors: NCMHCE clinical case simulations, NCE practice questions, timed mock exams for both, and a readiness score that shows when you're ready.">
 <meta property="og:url" content="https://www.passreadyprep.com/">
 <meta property="og:image" content="https://www.passreadyprep.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="NCMHCE Exam Prep &amp; Practice Cases | PassReady Prep">
-<meta name="twitter:description" content="NCMHCE exam prep for LPCs and LMHCs: clinical case simulations, a timed mock exam, an AI debrief, and a readiness score that shows when you're ready.">
+<meta name="twitter:title" content="NCMHCE &amp; NCE Exam Prep, Practice Cases &amp; Questions | PassReady Prep">
+<meta name="twitter:description" content="NCMHCE and NCE exam prep for counselors: NCMHCE clinical case simulations, NCE practice questions, timed mock exams for both, and a readiness score that shows when you're ready.">
 <meta name="twitter:image" content="https://www.passreadyprep.com/og.png">
 <script type="application/ld+json">
 {
@@ -26,8 +26,8 @@
       "@id": "https://www.passreadyprep.com/#website",
       "url": "https://www.passreadyprep.com/",
       "name": "PassReady Prep",
-      "alternateName": ["PassReady Prep NCMHCE", "passreadyprep.com"],
-      "description": "NCMHCE practice test and clinical case simulations for the clinical mental health counseling licensure exam.",
+      "alternateName": ["PassReady Prep NCMHCE", "PassReady Prep NCE", "passreadyprep.com"],
+      "description": "NCMHCE clinical case simulations plus NCE practice questions and timed mock exams for counselor licensure.",
       "publisher": { "@id": "https://www.passreadyprep.com/#org" }
     },
     {
@@ -35,7 +35,7 @@
       "@id": "https://www.passreadyprep.com/#org",
       "name": "PassReady Prep",
       "url": "https://www.passreadyprep.com/",
-      "description": "PassReady Prep provides NCMHCE practice cases, timed mock exams, flashcards, and a readiness predictor to prepare LPCs and LMHCs for the clinical mental health counseling licensure exam (NCMHCE). Built by a board-approved continuing education provider.",
+      "description": "PassReady Prep provides NCMHCE practice cases, NCE practice questions, timed mock exams, flashcards, and a readiness predictor to prepare counselors for the National Clinical Mental Health Counseling Examination (NCMHCE) and the National Counselor Examination (NCE). Built by a board-approved continuing education provider.",
       "parentOrganization": { "@type": "Organization", "name": "GA Integrated Therapeutic Perspectives LLC" }
     }
   ]
@@ -194,6 +194,28 @@
   .ico-red{background:rgba(239,68,68,.13)} .ico-slate{background:rgba(51,65,85,.5)}
   .feat h3{font-size:17px; color:var(--white); font-weight:700; margin:0 0 7px; letter-spacing:-.01em}
   .feat p{color:var(--slate-400); font-size:14.5px; line-height:1.55; margin:0}
+  /* ---------- exam picker (NCMHCE + NCE) ---------- */
+  .exam-grid{display:grid; gap:16px; grid-template-columns:1fr}
+  @media (min-width:760px){ .exam-grid{grid-template-columns:1fr 1fr} }
+  .exam-card{display:flex; flex-direction:column; background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-xl); padding:24px}
+  .exam-card.ncmhce{border-top:3px solid var(--emerald)}
+  .exam-card.nce{border-top:3px solid var(--blue)}
+  .exam-tag{font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--slate-400)}
+  .exam-card h3{font-size:22px; color:var(--white); font-weight:700; letter-spacing:-.01em; margin:6px 0 4px}
+  .exam-card .exam-full{color:var(--slate-400); font-size:14px; margin:0 0 14px}
+  .exam-card ul{list-style:none; padding:0; margin:0 0 18px; display:grid; gap:8px}
+  .exam-card li{position:relative; padding-left:22px; color:var(--slate-300); font-size:14.5px; line-height:1.5}
+  .exam-card li::before{content:""; position:absolute; left:4px; top:8px; width:7px; height:7px; border-radius:50%; background:var(--emerald-400)}
+  .exam-card.nce li::before{background:var(--blue-400)}
+  .exam-foot{margin-top:auto; display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px}
+  .exam-foot .from{color:var(--slate-400); font-size:13.5px}
+  .exam-foot .from b{color:var(--white)}
+  .btn.blue{background:var(--blue); color:#fff}
+  .btn.blue:hover{background:var(--blue-400)}
+  .exam-note{margin-top:16px; text-align:center; color:var(--slate-400); font-size:14px}
+  .hero-alt{margin-top:14px; font-size:14.5px; color:var(--slate-400)}
+  .hero-alt a{font-weight:700; color:var(--blue-400); text-decoration:none}
+  .hero-alt a:hover{text-decoration:underline}
   .also{margin-top:18px; text-align:center; color:var(--slate-400); font-size:15px}
   .also strong{color:var(--slate-200); font-weight:700}
 
@@ -307,6 +329,7 @@
       <span class="brand">PassReady <span class="prep">Prep</span><small>NCE &amp; NCMHCE exam practice and simulations</small></span>
     </a>
     <nav class="nav-links">
+      <a class="navlink" href="#exams">NCMHCE &amp; NCE</a>
       <a class="navlink" href="#features">Features</a>
       <a class="navlink" href="#how">How it works</a>
       <a class="navlink" href="#pricing">Pricing</a>
@@ -328,6 +351,7 @@
         <a class="btn lg" href="/study">Start studying</a>
         <a class="btn lg ghost" href="/guarantee.html">How the guarantee works</a>
       </div>
+      <p class="hero-alt reveal d3">Taking the NCE? <a href="/nce.html">Try free NCE practice questions &rarr;</a></p>
       <div class="trust reveal d4">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         Built by a board-approved continuing education provider
@@ -378,6 +402,48 @@
         <div class="dom-bar"><i style="--w:90%; background:var(--purple)"></i></div>
       </div>
     </div>
+  </section>
+
+  <!-- ===================== EXAMS ===================== -->
+  <section class="wrap band tight" id="exams" aria-labelledby="exams-h">
+    <div class="sec-head">
+      <span class="eyebrow">Two exams, one account</span>
+      <h2 id="exams-h">Prep for the NCMHCE, the NCE, or both</h2>
+      <p>Sign in once and study for either counselor licensure exam. Each one has its own free trial and its own plans, so you only pay for the exam you're taking.</p>
+    </div>
+    <div class="exam-grid">
+      <div class="exam-card ncmhce">
+        <span class="exam-tag">Clinical simulations</span>
+        <h3>NCMHCE</h3>
+        <p class="exam-full">National Clinical Mental Health Counseling Examination</p>
+        <ul>
+          <li>240+ case simulations in the current 2022+ format</li>
+          <li>Full-length timed mock exams with the real 225-minute clock</li>
+          <li>AI case debriefs, 250+ flashcards, and a DSM-5-TR reference</li>
+          <li>Readiness score weighted to the five NCMHCE domains</li>
+        </ul>
+        <div class="exam-foot">
+          <a class="btn" href="/study">Study for the NCMHCE</a>
+          <span class="from">From <b>$29</b>/mo &middot; 3-day free trial</span>
+        </div>
+      </div>
+      <div class="exam-card nce">
+        <span class="exam-tag">Practice questions &middot; New</span>
+        <h3>NCE</h3>
+        <p class="exam-full">National Counselor Examination</p>
+        <ul>
+          <li>Practice by domain, with a rationale after every question</li>
+          <li>Timed mock exams built like the real NCE: 200 questions, 3 hrs 45 min</li>
+          <li>Questions weighted to NBCC&rsquo;s six NCE content domains</li>
+          <li>Progress and a readiness score tracked by domain</li>
+        </ul>
+        <div class="exam-foot">
+          <a class="btn blue" href="/nce.html">Study for the NCE</a>
+          <span class="from">From <b>$24.99</b>/mo &middot; free sample questions</span>
+        </div>
+      </div>
+    </div>
+    <p class="exam-note">Already an NCMHCE member? Your NCE free trial starts the first time you open NCE study, not when you signed up.</p>
   </section>
 
   <!-- ===================== DEMO ===================== -->
@@ -499,6 +565,7 @@
       <span class="eyebrow">Pricing</span>
       <h2>Start free. Go deeper when you're ready.</h2>
       <p>One-time passes, not a subscription treadmill. Every tier includes the pass guarantee once you unlock full access.</p>
+      <p style="margin-top:10px; font-size:14.5px;">These are NCMHCE plans. Studying for the NCE? <a href="/nce.html">See NCE plans</a> &mdash; from $24.99/mo, or a one-time $59 (3 months) or $89 (6 months).</p>
     </div>
 
     <div class="price-grid">
@@ -633,8 +700,11 @@
   <!-- ===================== FINAL CTA ===================== -->
   <section class="wrap final">
     <h2>Find out where you actually stand.</h2>
-    <p>Work your first NCMHCE practice case and get a readiness read in minutes.</p>
-    <a class="btn lg" href="/study">Start studying</a>
+    <p>Work your first NCMHCE practice case or NCE practice set and get a readiness read in minutes.</p>
+    <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
+      <a class="btn lg" href="/study">Start NCMHCE prep</a>
+      <a class="btn lg blue" href="/nce.html">Start NCE prep</a>
+    </div>
   </section>
 </main>
 
@@ -647,11 +717,12 @@
           <span class="brand-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
           <span class="brand">PassReady <span class="prep">Prep</span></span>
         </a>
-        <p>NCMHCE practice cases and clinical simulations for the clinical mental health counseling licensure exam — showing you when you're ready to sit, backed by a guarantee.</p>
+        <p>NCMHCE clinical simulations and NCE practice questions for counselor licensure — showing you when you're ready to sit, backed by a guarantee.</p>
       </div>
       <div class="foot-col">
         <h4>Study</h4>
         <a href="/study">Case simulations</a>
+        <a href="/nce.html">NCE practice &amp; mock exams</a>
         <a href="/exam.html">Timed mock exam</a>
         <a href="/timed-knowledge-exam.html">Timed knowledge exam</a>
         <a href="/knowledge-drill.html">Knowledge drill</a>
