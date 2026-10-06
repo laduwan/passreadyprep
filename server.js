@@ -82,6 +82,17 @@ const A11Y_SKIP = '<a href="#" class="a11y-skip-link" data-a11y-skip>Skip to mai
 // not visitor traffic.
 const VISIT_HEAD = '<script src="/visit-beacon.js" defer></script>';
 
+// Google tag (GA4), injected the same serve-time way. Off until
+// GA_MEASUREMENT_ID (G-XXXXXXX) is set; skips the /admin* and /review* operator
+// screens, like the visit beacon. Only a well-formed ID is ever written into the page.
+const GA_ID = /^G-[A-Z0-9]{4,20}$/.test(process.env.GA_MEASUREMENT_ID || '') ? process.env.GA_MEASUREMENT_ID : '';
+const GA_HEAD = GA_ID
+  ? '<script>(function(){var p=location.pathname;if(/^\\/(admin|review)/.test(p))return;' +
+    'var s=document.createElement("script");s.async=true;s.src="https://www.googletagmanager.com/gtag/js?id=' + GA_ID + '";' +
+    'document.head.appendChild(s);window.dataLayer=window.dataLayer||[];' +
+    'window.gtag=function(){dataLayer.push(arguments);};gtag("js",new Date());gtag("config","' + GA_ID + '");})();</script>'
+  : '';
+
 // Member announcement pop-up, injected the same serve-time way. The script
 // only does anything when a member is signed in (prp_token present), and skips
 // admin/review screens and the sign-in/checkout flow.
@@ -105,7 +116,7 @@ function injectA11y(html) {
   if (typeof html !== 'string') return html;
   if (html.indexOf('/a11y.js') !== -1) return html; // already present — don't double up
   let out = html;
-  out = out.indexOf('</head>') !== -1 ? out.replace('</head>', SESSION_HEAD + A11Y_HEAD + PWA_HEAD + VISIT_HEAD + ANNOUNCE_HEAD + '</head>') : (SESSION_HEAD + A11Y_HEAD + PWA_HEAD + VISIT_HEAD + ANNOUNCE_HEAD + out);
+  out = out.indexOf('</head>') !== -1 ? out.replace('</head>', SESSION_HEAD + A11Y_HEAD + PWA_HEAD + VISIT_HEAD + GA_HEAD + ANNOUNCE_HEAD + '</head>') : (SESSION_HEAD + A11Y_HEAD + PWA_HEAD + VISIT_HEAD + GA_HEAD + ANNOUNCE_HEAD + out);
   if (/<body[^>]*>/i.test(out)) out = out.replace(/(<body[^>]*>)/i, '$1' + A11Y_SKIP);
   return out;
 }
