@@ -180,7 +180,7 @@ const STYLE = `
   footer.site{border-top:1px solid rgba(51,65,85,.4); margin-top:24px; padding:36px 0 44px}
   .foot{display:grid; gap:26px; grid-template-columns:1fr}
   @media (min-width:640px){ .foot{grid-template-columns:1fr 1fr} }
-  @media (min-width:960px){ .foot{grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px} }
+  @media (min-width:960px){ .foot{grid-template-columns:1.4fr 1fr 1fr 1fr 1fr; gap:30px} }
   .foot-brand .brand{margin-top:10px}
   .foot-brand p{color:var(--slate-500); font-size:13.5px; margin:12px 0 0; max-width:300px; line-height:1.55}
   .foot-col h4{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--slate-400); margin:0 0 12px; font-weight:700}
@@ -247,6 +247,17 @@ const FOOTER = `<footer class="site">
         <a href="/games.html">Code Match game (free)</a>
       </div>
       <div class="foot-col">
+        <h4>Study tools</h4>
+        <a href="/study">Study dashboard</a>
+        <a href="/study-guide.html">Study guide</a>
+        <a href="/theory.html">Theories &amp; pioneers</a>
+        <a href="/knowledge-drill.html">Knowledge drill</a>
+        <a href="/core-attributes-quiz.html">Core attributes drill</a>
+        <a href="/decision-trees.html">Decision trees</a>
+        <a href="/skills.html">Microskills responder</a>
+        <a href="/intake.html">Intake interview simulator</a>
+      </div>
+      <div class="foot-col">
         <h4>More</h4>
         <a href="/#features">Features</a>
         <a href="/#how">How it works</a>
@@ -285,6 +296,64 @@ const CTA = `<section class="guar" style="margin-top:40px">
     <a class="btn lg ghost" href="/register.html">Create your account</a>
   </div>
 </section>`;
+
+// "Practice this" links under each post: 3 tool pages picked by keyword from
+// the post's title and tags, topped up from the exam's defaults.
+const TOOLS = {
+  '/study': ['NCMHCE case simulations', 'Work a full NCMHCE-format clinical case with weighted feedback.'],
+  '/study-guide.html': ['NCMHCE study guide', 'All 18 diagnostic families plus 3 full-length practice exams.'],
+  '/knowledge-drill.html': ['NCMHCE knowledge drill', '300 standalone questions across the 10 knowledge domains.'],
+  '/theory.html': ['Theories & pioneers', '34 counseling theories: founders, techniques, and what is tested.'],
+  '/core-attributes-quiz.html': ['Core attributes drill', 'Recognize empathy, genuineness, and the other core attributes.'],
+  '/decision-trees.html': ['NCMHCE decision trees', 'Branching scenarios for risk, diagnosis, ethics, and treatment.'],
+  '/skills.html': ['Microskills responder', 'Answer client statements with an assigned microskill.'],
+  '/intake.html': ['Intake interview simulator', 'Interview an AI client and get a supervisor debrief.'],
+  '/dsm.html': ['DSM-5-TR reference', '92 diagnoses with ICD-10 codes and first-line treatments.'],
+  '/next-best-step.html': ['NCMHCE next best step', 'Rapid clinical decisions: pick the next step, dodge the trap.'],
+  '/assess-next.html': ['What to assess next', 'Pick the right instrument or assessment step, in order.'],
+  '/nce.html': ['NCE practice questions', 'NCE questions and timed mock exams across the six domains.'],
+  '/games.html': ['Study games', 'Code Match, Triage Rush, and Theory Clue.'],
+};
+const TOOL_RULES = [
+  [/theor|pioneer|cbt|rebt|dbt|gestalt|adlerian|psychodynamic|family systems/, ['/theory.html']],
+  [/intake|interview|biopsychosocial/, ['/intake.html']],
+  [/assess|screen|instrument/, ['/assess-next.html']],
+  [/microskill|reflect|paraphras|open question|rapport|counseling skill/, ['/skills.html']],
+  [/core attribute|empath|genuine|congruen|unconditional/, ['/core-attributes-quiz.html']],
+  [/diagnos|dsm|differential|disorder/, ['/dsm.html', '/decision-trees.html']],
+  [/ethic|risk|safety|suicid|duty to warn|treatment plan/, ['/decision-trees.html']],
+  [/next step|next best|sequenc|prioriti/, ['/next-best-step.html']],
+  [/knowledge|domain|fact/, ['/knowledge-drill.html']],
+  [/study guide|study plan|strategy|how to study/, ['/study-guide.html']],
+  [/case|simulation|vignette/, ['/study']],
+];
+const TOOL_DEFAULTS = {
+  NCMHCE: ['/study', '/knowledge-drill.html', '/theory.html'],
+  NCE: ['/nce.html', '/theory.html', '/games.html'],
+};
+
+function practiceLinks(post, isNce) {
+  const text = [post.title].concat(post.tags || []).join(' ').toLowerCase();
+  const picks = [];
+  const add = href => { if (picks.length < 3 && TOOLS[href] && !picks.includes(href)) picks.push(href); };
+  // NCE posts stick to the NCE-relevant defaults; the keyword tools are NCMHCE drills.
+  if (!isNce) TOOL_RULES.forEach(([re, hrefs]) => { if (re.test(text)) hrefs.forEach(add); });
+  TOOL_DEFAULTS[isNce ? 'NCE' : 'NCMHCE'].forEach(add);
+  return picks;
+}
+
+function practiceBlock(post, isNce) {
+  const cards = practiceLinks(post, isNce).map(href => `<article class="feat">
+      <h2><a href="${href}">${esc(TOOLS[href][0])}</a></h2>
+      <p>${esc(TOOLS[href][1])}</p>
+    </article>`).join('\n    ');
+  return `<section style="margin-top:40px" aria-labelledby="practice-this">
+  <span class="eyebrow" id="practice-this">Practice this</span>
+  <div class="feat-grid" style="margin-top:14px">
+    ${cards}
+  </div>
+</section>`;
+}
 
 // opts: { title, description, canonical, ogType, image, jsonLd: [objects], robots, body }
 function page(opts) {
@@ -388,6 +457,7 @@ function renderPost(post) {
   const published = post.publishedAt ? new Date(post.publishedAt).toISOString() : undefined;
   const modified = new Date(post.updatedAt || post.publishedAt || Date.now()).toISOString();
   const tags = (post.tags || []).filter(Boolean);
+  const isNce = (tags[0] || '').toUpperCase() === 'NCE';
 
   const body = `<div class="wrap band">
   <article class="article">
@@ -399,7 +469,8 @@ function renderPost(post) {
     <div class="prose">
 ${renderMarkdown(post.bodyMarkdown)}
     </div>
-    ${(tags[0] || '').toUpperCase() === 'NCE' ? NCE_CTA : CTA}
+    ${practiceBlock(post, isNce)}
+    ${isNce ? NCE_CTA : CTA}
     <p class="crumbs" style="margin-top:28px"><a href="/blog">&larr; Back to all posts</a></p>
   </article>
 </div>`;

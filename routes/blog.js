@@ -2,12 +2,16 @@
 //
 //   GET /blog            published posts, newest first, 10 per page (?page=N)
 //   GET /blog/:slug      one published post; drafts and unknown slugs 404
-//   GET /sitemap.xml     www-https content pages + /blog + every published post
+//   GET /sitemap.xml     www-https content pages + /blog + every published post,
+//                        each with a <lastmod>
 //
 // Mounted from server.js BEFORE express.static so these routes win over any
 // file in public/. `sendPage` is server.js's HTML sender, so blog pages get the
 // same serve-time injections (a11y, translate, PWA, visit beacon) as every
 // other page.
+const fs = require('fs');
+const path = require('path');
+const { execFile } = require('child_process');
 const express = require('express');
 const mongoose = require('mongoose');
 const BlogPost = require('../models/BlogPost');
@@ -43,6 +47,42 @@ const STATIC_PAGES = [
   '/policies.html',
   '/accessibility.html',
 ];
+
+// <lastmod> for the static pages = the page file's last git commit date
+// (YYYY-MM-DD), falling back to the file's mtime if git is unavailable.
+// Files only change on deploy, which restarts the process, so the lookup runs
+// once per process and is cached.
+const ROOT = path.join(__dirname, '..');
+const PAGE_FILES = {
+  '/': 'public/landing.html',
+  '/study': 'public/index.html',
+  '/practice-exams/1': 'public/practice-exam-1.html',
+};
+const pageFile = p => PAGE_FILES[p] || 'public' + p;
+
+function fileLastmod(rel) {
+  return new Promise(resolve => {
+    execFile('git', ['log', '-1', '--format=%cs', '--', rel], { cwd: ROOT, timeout: 5000 }, (err, out) => {
+      const d = err ? '' : String(out).trim();
+      if (/^\d{4}-\d{2}-\d{2}$/.test(d)) return resolve(d);
+      fs.stat(path.join(ROOT, rel), (e, st) => resolve(e ? null : st.mtime.toISOString().slice(0, 10)));
+    });
+  });
+}
+
+let staticLastmods = null;
+function getStaticLastmods() {
+  if (!staticLastmods) {
+    // utils/blogRender.js stands in for /blog when no post is published yet.
+    const files = STATIC_PAGES.map(pageFile).concat('utils/blogRender.js');
+    staticLastmods = Promise.all(files.map(fileLastmod)).then(dates => {
+      const map = {};
+      files.forEach((f, i) => { map[f] = dates[i]; });
+      return map;
+    });
+  }
+  return staticLastmods;
+}
 
 function dbReady() {
   return mongoose.connection.readyState === 1;
@@ -114,13 +154,15 @@ module.exports = function createBlogRouter({ sendPage }) {
       posts = [];
     }
 
+    const fileDates = await getStaticLastmods();
     const lastmod = d => new Date(d).toISOString().slice(0, 10);
-    const urls = STATIC_PAGES.map(p => `  <url><loc>${xmlEsc(SITE + p)}</loc></url>`);
+    const lastmodTag = d => (d ? `<lastmod>${d}</lastmod>` : '');
+    const urls = STATIC_PAGES.map(p => `  <url><loc>${xmlEsc(SITE + p)}</loc>${lastmodTag(fileDates[pageFile(p)])}</url>`);
     const newest = posts.reduce((m, p) => {
       const t = new Date(p.updatedAt || p.publishedAt).getTime();
       return t > m ? t : m;
     }, 0);
-    urls.push(`  <url><loc>${xmlEsc(SITE + '/blog')}</loc>${newest ? `<lastmod>${lastmod(newest)}</lastmod>` : ''}</url>`);
+    urls.push(`  <url><loc>${xmlEsc(SITE + '/blog')}</loc>${lastmodTag(newest ? lastmod(newest) : fileDates['utils/blogRender.js'])}</url>`);
     posts.forEach(p => {
       urls.push(`  <url><loc>${xmlEsc(SITE + '/blog/' + p.slug)}</loc><lastmod>${lastmod(p.updatedAt || p.publishedAt)}</lastmod></url>`);
     });

@@ -276,6 +276,27 @@
     </div>
   </header>
   <main id="app" aria-live="polite"></main>
+  <!-- Static, pre-login intro: in the raw HTML so crawlers see the tool
+       directory without running JS. Hidden for signed-in members and once a
+       case is open (setIntro() below); signed-in members get the dashboard's
+       own "Study tools" card instead. -->
+  <section class="card" id="study-intro" style="margin-top:16px" aria-labelledby="study-intro-h">
+    <h2 id="study-intro-h">NCMHCE study tools in one place</h2>
+    <p class="lead">PassReady Prep pairs full NCMHCE-format clinical case simulations with focused drills for the knowledge and reasoning the exam scores. Start with a free case above, or open any tool below.</p>
+    <ul class="fb-list" style="margin:0; padding-left:20px; color:var(--slate-400); font-size:14.5px">
+      <li><a href="/study">NCMHCE case simulations</a> — read a vignette, answer the clinical questions, and get weighted, evidence-based feedback.</li>
+      <li><a href="/exam.html">NCMHCE timed mock exam</a> — a full blueprint-weighted exam under the real clock.</li>
+      <li><a href="/study-guide.html">The Complete NCMHCE Study Guide</a> — all 18 diagnostic families plus 3 full-length practice exams.</li>
+      <li><a href="/knowledge-drill.html">NCMHCE knowledge drill</a> — 300 standalone questions across all 10 knowledge domains, with rationales.</li>
+      <li><a href="/theory.html">NCMHCE theories &amp; pioneers</a> — 34 counseling theories: founders, core premises, techniques, and what the exam tests.</li>
+      <li><a href="/core-attributes-quiz.html">NCMHCE core attributes drill</a> — practice recognizing empathy, genuineness, and the other core counselor attributes.</li>
+      <li><a href="/decision-trees.html">NCMHCE decision trees</a> — branching scenarios for risk, differential diagnosis, ethics, and treatment selection.</li>
+      <li><a href="/skills.html">NCMHCE microskills responder</a> — answer client statements with an assigned microskill and get AI coaching.</li>
+      <li><a href="/intake.html">NCMHCE intake interview simulator</a> — interview an AI client and get a supervisor debrief.</li>
+      <li><a href="/next-best-step.html">NCMHCE next best step</a> and <a href="/assess-next.html">what to assess next</a> — rapid sequencing decisions.</li>
+      <li><a href="/flashcards.html">NCMHCE flashcards</a> and the <a href="/dsm.html">DSM-5-TR reference</a> — codes, first-line treatments, and differentials.</li>
+    </ul>
+  </section>
   <p class="hint" id="modehint"></p>
   <p class="tm-note" style="margin:28px 0 8px; text-align:center; color:#64748B; font-size:12px; line-height:1.5">NCE&reg; and NCMHCE&reg; are registered trademarks of the National Board for Certified Counselors, Inc. (NBCC). PassReady Prep is not affiliated with or endorsed by NBCC.</p>
 </div>
@@ -646,7 +667,17 @@ function computeReadiness(){
 }
 
 // ---- dashboard ----
+// Static #study-intro: visible on the dashboard for signed-out visitors only.
+function setIntro(show){
+  const el = document.getElementById('study-intro');
+  if(!el) return;
+  let signedIn = false;
+  try{ signedIn = !!localStorage.getItem('prp_token'); }catch(_){}
+  el.hidden = !show || signedIn;
+}
+
 async function showDashboard(){
+  setIntro(true);
   app.innerHTML = '<p class="lead">Loading…</p>';
   if(!LIST_ITEMS.length){ LIST_ITEMS = await fetchList(); }
   modehint.textContent = DATA_SOURCE === 'embedded'
@@ -821,7 +852,7 @@ function modeCard(m, title, desc, tag){
 }
 function setMode(m){ MODE = m; showDashboard(); }
 function setExamFb(v){ EXAM_FB = !!v; showDashboard(); }
-function goCases(){ renderList(); window.scrollTo({top:0,behavior:'smooth'}); }
+function goCases(){ setIntro(false); renderList(); window.scrollTo({top:0,behavior:'smooth'}); }
 
 // ---- case list ----
 function renderList(){
@@ -894,6 +925,7 @@ function setStatusFilter(s){ LIST_STATUS=s; renderList(); }
 
 // ---- a case ----
 async function startCase(externalId){
+  setIntro(false);
   app.innerHTML = '<p class="lead">Loading…</p>';
   CASE = await fetchCase(externalId);
   CASE.questions.forEach(q => { q._opts = shuffle(q.options.slice()); });
