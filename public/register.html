@@ -205,6 +205,8 @@
       }
       localStorage.setItem('prp_token', data.token);
       localStorage.setItem('prp_user', JSON.stringify(data.user));
+      // /conversions.js reports the sign_up on the next page, after the redirect.
+      localStorage.setItem('prp_signup_pending', String(Date.now()));
       window.location.href = next;
     } catch (e) {
       showErr('reg-err','Network error. Please try again.');

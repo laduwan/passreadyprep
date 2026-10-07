@@ -85,12 +85,14 @@ const VISIT_HEAD = '<script src="/visit-beacon.js" defer></script>';
 // Google tag (GA4), injected the same serve-time way. Off until
 // GA_MEASUREMENT_ID (G-XXXXXXX) is set; skips the /admin* and /review* operator
 // screens, like the visit beacon. Only a well-formed ID is ever written into the page.
+// conversions.js rides along with it and reports sign_up / purchase events.
 const GA_ID = /^G-[A-Z0-9]{4,20}$/.test(process.env.GA_MEASUREMENT_ID || '') ? process.env.GA_MEASUREMENT_ID : '';
 const GA_HEAD = GA_ID
   ? '<script>(function(){var p=location.pathname;if(/^\\/(admin|review)/.test(p))return;' +
     'var s=document.createElement("script");s.async=true;s.src="https://www.googletagmanager.com/gtag/js?id=' + GA_ID + '";' +
     'document.head.appendChild(s);window.dataLayer=window.dataLayer||[];' +
-    'window.gtag=function(){dataLayer.push(arguments);};gtag("js",new Date());gtag("config","' + GA_ID + '");})();</script>'
+    'window.gtag=function(){dataLayer.push(arguments);};gtag("js",new Date());gtag("config","' + GA_ID + '");})();</script>' +
+    '<script src="/conversions.js" defer></script>'
   : '';
 
 // Member announcement pop-up, injected the same serve-time way. The script
