@@ -255,13 +255,13 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
     // The guide isn't app access — send the buyer back to the guide page,
     // which flips to a download button once the webhook grants the entitlement.
     if (tier === 'guide') {
-      sessionParams.success_url = `${process.env.CLIENT_URL}/study-guide.html?purchase=success`;
+      sessionParams.success_url = `${process.env.CLIENT_URL}/study-guide.html?purchase=success&session_id={CHECKOUT_SESSION_ID}`;
       sessionParams.cancel_url = `${process.env.CLIENT_URL}/study-guide.html`;
     }
 
     // NCE plans return to the NCE study page.
     if (tierConfig.exam === 'nce') {
-      sessionParams.success_url = `${process.env.CLIENT_URL}/nce.html?purchase=success&tier=${tier}`;
+      sessionParams.success_url = `${process.env.CLIENT_URL}/nce.html?purchase=success&tier=${tier}&session_id={CHECKOUT_SESSION_ID}`;
       sessionParams.cancel_url = `${process.env.CLIENT_URL}/nce.html#pricing`;
     }
 
@@ -302,6 +302,34 @@ router.get('/status', requireAuth, async (req, res) => {
   } catch (err) {
     console.error('payment status error:', err);
     res.status(500).json({ error: 'Could not retrieve subscription status' });
+  }
+});
+
+// ── GET /api/payment/session/:id ──────────────────────────────────────────────
+// What a finished Checkout Session charged, for the Google Ads / GA4 purchase
+// conversion fired by /conversions.js on the success page. Only the buyer can
+// read their own session, and the amount comes from Stripe (after promo codes),
+// never from the page. Test purchases are flagged so they are not reported.
+router.get('/session/:id', requireAuth, async (req, res) => {
+  const id = String(req.params.id || '');
+  if (!/^cs_[A-Za-z0-9_]{10,200}$/.test(id)) return res.status(400).json({ error: 'Invalid session id' });
+  try {
+    const session = await getStripe().checkout.sessions.retrieve(id);
+    if (!session || session.metadata?.userId !== String(req.userId)) {
+      return res.status(404).json({ error: 'Session not found' });
+    }
+    const tier = session.metadata?.tier || '';
+    res.json({
+      id: session.id,
+      tier,
+      complete: session.status === 'complete',
+      test: !!TIERS[tier]?.testOnly,
+      value: (session.amount_total || 0) / 100,
+      currency: String(session.currency || 'usd').toUpperCase(),
+    });
+  } catch (err) {
+    console.error('payment session lookup error:', err.message);
+    res.status(404).json({ error: 'Session not found' });
   }
 });
 
