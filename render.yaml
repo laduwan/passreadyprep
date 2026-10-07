@@ -69,8 +69,10 @@ services:
       - key: TRIAL_DAYS          # STANDARD trial length in days (default 3); per-person
         value: "3"               # extensions are granted in Admin → Subscribers
 
-      # ── Email (Brevo) ─────────────────────────────────────────────────
-      - key: BREVO_API_KEY
+      # ── Email (Resend; Brevo kept for SMS + as fallback) ──────────────
+      - key: PRP_RESEND_API_KEY  # PRP's Resend key; all email goes via Resend once set
+        sync: false
+      - key: BREVO_API_KEY       # SMS alerts, and email only while PRP_RESEND_API_KEY is unset
         sync: false
       - key: MAIL_FROM_EMAIL
         value: noreply@passreadyprep.com
@@ -79,8 +81,6 @@ services:
 
       # ── Inbound email (Resend Receiving) ──────────────────────────────
       - key: RESEND_WEBHOOK_SECRET   # whsec_ from the /api/inbound-email/webhook webhook in Resend
-        sync: false
-      - key: RESEND_INBOUND_API_KEY  # Resend key for PRP's receiving domain (fetches email bodies)
         sync: false
       - key: INBOUND_FORWARD_TO      # optional; defaults to ADMIN_ALERT_EMAIL
         sync: false

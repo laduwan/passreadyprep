@@ -4,11 +4,11 @@
  *
  * Usage:
  *   node jobs/broadcast-oct2026.js          # dry run (logs, no sends)
- *   node jobs/broadcast-oct2026.js --send   # live send via Brevo
+ *   node jobs/broadcast-oct2026.js --send   # live send via utils/mailer (Resend)
  *
  * Idempotent: skips users already flagged with this broadcastKey.
  * Respects digestOptOut.
- * Requires MONGO_URI and BREVO_API_KEY in .env (or Render env vars).
+ * Requires MONGO_URI and PRP_RESEND_API_KEY in .env (or Render env vars).
  */
 
 require('dotenv').config();

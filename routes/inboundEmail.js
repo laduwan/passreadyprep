@@ -9,8 +9,8 @@
  *   1. verifies the webhook signature (Resend signs with Svix),
  *   2. answers 200 straight away so Resend doesn't retry a slow handler,
  *   3. logs an `email.received` activity event (visible in the admin panel),
- *   4. fetches the full message and forwards it to the inbox through the
- *      existing Brevo mailer, with Reply-To set to the original sender.
+ *   4. fetches the full message and forwards it to the inbox through
+ *      utils/mailer.js, with Reply-To set to the original sender.
  *
  * Setup — Resend Dashboard → Webhooks → Add Webhook:
  *   URL:   https://www.passreadyprep.com/api/inbound-email/webhook
@@ -20,10 +20,9 @@
  * ENV vars:
  *   RESEND_WEBHOOK_SECRET   — whsec_xxx, the signing secret of the webhook above.
  *                             Required: without it every request is refused.
- *   RESEND_INBOUND_API_KEY  — re_xxx, an API key on the Resend account that owns
- *                             PRP's receiving domain (used to fetch the body).
- *                             Kept separate from RESEND_API_KEY, which is
- *                             CounselorReady's key for the cross-promo job.
+ *   PRP_RESEND_API_KEY      — re_xxx, PRP's Resend key (the same one utils/mailer.js
+ *                             sends with), used here to fetch the body. Must be on
+ *                             the account that owns the receiving domain.
  *                             If unset, the forward carries metadata only.
  *   INBOUND_FORWARD_TO      — where received mail is forwarded. Defaults to
  *                             ADMIN_ALERT_EMAIL, then MAIL_FROM_EMAIL.
@@ -89,7 +88,7 @@ function verifySignature(rawBody, headers, secret) {
 // Returns null when no key is configured or the call fails — the caller still
 // forwards the metadata so nothing is silently lost.
 async function fetchReceivedEmail(emailId) {
-  const apiKey = process.env.RESEND_INBOUND_API_KEY;
+  const apiKey = process.env.PRP_RESEND_API_KEY;
   if (!apiKey || !emailId) return null;
   try {
     const res = await fetch(RESEND_RECEIVED_ENDPOINT + encodeURIComponent(emailId), {
@@ -152,7 +151,7 @@ async function handleReceived(data) {
         allowedSchemesByTag: { img: ['http', 'https', 'data'] },
       })
     : '';
-  const missing = full ? '' : '\n\n(Body not fetched — set RESEND_INBOUND_API_KEY, or open the email in the Resend dashboard.)';
+  const missing = full ? '' : '\n\n(Body not fetched — set PRP_RESEND_API_KEY, or open the email in the Resend dashboard.)';
 
   const text = `${header}\n\n${bodyText}${missing}`;
   const html =
