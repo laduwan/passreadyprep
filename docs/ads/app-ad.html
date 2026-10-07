@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  Google Ads image creatives for the PassReady Prep app (App / Display campaigns).
+  Render with: node docs/ads/render.js  →  landscape 1200x628, square 1200x1200, portrait 1200x1500.
+
+  Built to satisfy the "Misleading ad design" policy:
+  - Solid, opaque background (no transparency).
+  - Brand + headline make it clear this is an ad, not app/system UI.
+  - The phone shows a read-only results screen: no answer choices, no text
+    inputs, no buttons, no carousel dots or scrollbars that look tappable.
+  - One phone, one message (doesn't look like several ads in one image).
+  - No drawn CTA button; Google adds the real install/CTA button itself.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
+    --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --white:#F8FAFC;
+    --emerald:#10B981; --emerald-400:#34D399; --blue-400:#60A5FA;
+    --amber-400:#FBBF24; --red-400:#F87171; --purple-400:#A78BFA;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html,body{background:#0F172A}
+  body{font-family:Inter, system-ui, sans-serif; color:var(--white); overflow:hidden}
+
+  .ad{position:relative; overflow:hidden; background:linear-gradient(160deg,#0F172A 0%,#1E293B 55%,#0F172A 100%)}
+  .glow{position:absolute; border-radius:50%; filter:blur(90px); opacity:.35; background:var(--emerald)}
+
+  .brand{display:flex; align-items:center; gap:16px}
+  .brand img{width:64px; height:64px; border-radius:14px}
+  .brand span{font-size:34px; font-weight:700; letter-spacing:-.01em}
+  .brand span b{color:var(--emerald-400); font-weight:700}
+  h1{font-weight:800; letter-spacing:-.025em; line-height:1.06}
+  h1 em{font-style:normal; color:var(--emerald-400)}
+  .sub{color:var(--slate-300); line-height:1.4}
+  .points{list-style:none; display:flex; flex-direction:column; gap:12px; color:var(--slate-300)}
+  .points li{display:flex; align-items:center; gap:12px}
+  .points li::before{content:""; width:10px; height:10px; border-radius:50%; background:var(--emerald); flex:none}
+
+  /* Phone: read-only Performance screen recreated from the app demo */
+  .phone{position:absolute; width:400px; height:820px; border-radius:56px; background:#111A2E;
+         border:3px solid #3A4660; box-shadow:0 40px 90px rgba(0,0,0,.55); padding:46px 26px; transform-origin:top left}
+  .scr-h{display:flex; align-items:center; gap:12px; font-size:22px; font-weight:700; margin-bottom:22px}
+  .scr-h i{width:38px; height:38px; border-radius:10px; background:rgba(16,185,129,.15); display:grid; place-items:center}
+  .scr-h i svg{width:20px; height:20px}
+  .stats{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px}
+  .stat{background:rgba(51,65,85,.35); border:1px solid rgba(71,85,105,.5); border-radius:14px; padding:16px 0; text-align:center}
+  .stat b{display:block; font-size:30px; font-weight:800}
+  .stat small{font-size:14px; color:var(--slate-500)}
+  .card{background:rgba(30,41,59,.8); border:1px solid rgba(71,85,105,.5); border-radius:14px; padding:18px}
+  .card h3{font-size:16px; font-weight:700; margin-bottom:14px}
+  .row{margin-bottom:12px}
+  .row:last-child{margin-bottom:0}
+  .row div{display:flex; justify-content:space-between; font-size:14px; font-weight:600; margin-bottom:6px}
+  .bar{height:7px; border-radius:4px; background:rgba(71,85,105,.4)}
+  .bar i{display:block; height:100%; border-radius:4px}
+  .focus{margin-top:16px; background:rgba(251,191,36,.08); border:1px solid rgba(251,191,36,.25); border-radius:14px; padding:16px}
+  .focus b{color:var(--amber-400); font-size:15px}
+  .focus p{color:var(--slate-400); font-size:14px; line-height:1.45; margin-top:6px}
+
+  /* Layouts */
+  .landscape{width:1200px; height:628px}
+  .landscape .copy{position:absolute; left:72px; top:64px; width:640px}
+  .landscape h1{font-size:62px; margin:40px 0 22px}
+  .landscape .sub{font-size:25px}
+  .landscape .phone{left:800px; top:56px; transform:scale(.86)}
+  .landscape .focus{display:none}
+  .landscape .glow{width:420px; height:420px; right:40px; top:80px}
+
+  .square{width:1200px; height:1200px}
+  .square .copy{position:absolute; left:80px; top:80px; width:600px}
+  .square h1{font-size:76px; margin:56px 0 28px}
+  .square .sub{font-size:28px; margin-bottom:40px}
+  .square .points{font-size:26px; gap:18px}
+  .square .phone{left:700px; top:150px; transform:scale(1.15)}
+  .square .glow{width:520px; height:520px; right:0; top:320px}
+
+  .portrait{width:1200px; height:1500px}
+  .portrait .copy{position:absolute; left:90px; right:90px; top:90px; text-align:center}
+  .portrait .brand{justify-content:center}
+  .portrait h1{font-size:80px; margin:52px 0 28px}
+  .portrait .sub{font-size:31px}
+  .portrait .phone{left:370px; top:640px; transform:scale(1.15)}
+  .portrait .glow{width:600px; height:600px; left:300px; top:760px}
+</style>
+</head>
+<body>
+<div class="ad" id="ad">
+  <div class="glow"></div>
+  <div class="copy">
+    <div class="brand"><img src="icon.png" alt=""><span>PassReady <b>Prep</b></span></div>
+    <h1>Know you're ready <em>before</em> the NCMHCE.</h1>
+    <p class="sub">Clinical case simulations with AI feedback and a score for every exam domain.</p>
+    <ul class="points" id="points">
+      <li>NCMHCE-style clinical cases</li>
+      <li>AI debrief after every case</li>
+      <li>See your weakest domains</li>
+    </ul>
+  </div>
+
+  <div class="phone" aria-hidden="true">
+    <div class="scr-h"><i><svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.4" stroke-linecap="round"><path d="M6 20V11M12 20V5M18 20v-6"/></svg></i>Performance</div>
+    <div class="stats">
+      <div class="stat"><b style="color:var(--blue-400)">24</b><small>Cases</small></div>
+      <div class="stat"><b style="color:var(--emerald-400)">74%</b><small>Accuracy</small></div>
+      <div class="stat"><b style="color:#FB923C">5d</b><small>Streak</small></div>
+      <div class="stat"><b style="color:var(--purple-400)">14</b><small>Days left</small></div>
+    </div>
+    <div class="card">
+      <h3>Domain accuracy</h3>
+      <div class="row"><div><span>Counseling</span><span>82%</span></div><div class="bar"><i style="width:82%;background:var(--emerald)"></i></div></div>
+      <div class="row"><div><span>Assessment &amp; Dx</span><span>76%</span></div><div class="bar"><i style="width:76%;background:var(--emerald)"></i></div></div>
+      <div class="row"><div><span>Treatment</span><span>68%</span></div><div class="bar"><i style="width:68%;background:var(--amber-400)"></i></div></div>
+      <div class="row"><div><span>Ethics</span><span style="color:var(--red-400)">52%</span></div><div class="bar"><i style="width:52%;background:var(--red-400)"></i></div></div>
+      <div class="row"><div><span>Core Attributes</span><span>71%</span></div><div class="bar"><i style="width:71%;background:var(--emerald)"></i></div></div>
+    </div>
+    <div class="focus">
+      <b>Area to focus</b>
+      <p>Ethics is at 52% across 15 questions. Prioritize Ethics cases this week.</p>
+    </div>
+  </div>
+</div>
+<script>
+  const layout = new URLSearchParams(location.search).get('layout') || 'square';
+  document.getElementById('ad').classList.add(layout);
+  if (layout !== 'square') document.getElementById('points').remove();
+</script>
+</body>
+</html>
