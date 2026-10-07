@@ -704,14 +704,32 @@ router.get('/activity/study', async (req, res) => {
 // so you can confirm email/SMS delivery end to end.
 router.post('/activity/test', async (req, res) => {
   try {
-    await logActivity({
+    const saved = await logActivity({
       type: 'admin.test_alert',
       severity: 'warn',
       message: 'Test alert triggered from the admin panel.',
       notify: true,
       req,
     });
-    return res.json({ ok: true, message: 'Test event logged. If alerts are configured, check your email/SMS.' });
+    // Say where it went and whether it actually left, so a missing key or a
+    // wrong recipient shows up here instead of as silence.
+    const to = process.env.ADMIN_ALERT_EMAIL || process.env.MAIL_FROM_EMAIL || '';
+    const sms = process.env.ADMIN_ALERT_SMS_TO || '';
+    const problems = [];
+    if (!process.env.PRP_RESEND_API_KEY && !process.env.BREVO_API_KEY) problems.push('PRP_RESEND_API_KEY is not set (nor BREVO_API_KEY), so email is only logged, not sent');
+    if (!process.env.ADMIN_ALERT_EMAIL) problems.push(`ADMIN_ALERT_EMAIL is not set, so alerts go to MAIL_FROM_EMAIL (${to || 'unset'})`);
+    if (process.env.ADMIN_ALERT_DISABLE === '1') problems.push('ADMIN_ALERT_DISABLE=1 silences all alerts');
+    const delivered = !!(saved && saved.notified);
+    return res.json({
+      ok: true,
+      delivered,
+      to: to || null,
+      sms: sms || null,
+      problems,
+      message: delivered
+        ? `Test alert sent to ${[to, sms].filter(Boolean).join(' and ')}.`
+        : 'Test alert was NOT delivered' + (problems.length ? ': ' + problems.join('; ') : ' (Brevo rejected it, or a test alert was already sent in the last few minutes; check the server logs).'),
+    });
   } catch (err) {
     console.error('admin activity test error', err);
     return res.status(500).json({ error: 'Could not send test alert' });

@@ -645,7 +645,7 @@
   $('aSearch').addEventListener('keydown', function(e){ if(e.key==='Enter') loadActivity(); });
   $('aTest').onclick = function(){
     api('/activity/test',{method:'POST'}).then(function(r){
-      toast(r.message || 'Test event logged'); loadActivity(); loadActivityStats();
+      toast(r.message || 'Test event logged', r.delivered === false); loadActivity(); loadActivityStats();
     }).catch(function(e){ toast(e.message, true); });
   };
 
