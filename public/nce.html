@@ -108,9 +108,27 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
 .opt:disabled{cursor:default}
 .opt .mk{font-weight:800;font-size:13px;min-width:20px;margin-top:1px;color:var(--slate-400)}
 .opt.selected{background:rgba(59,130,246,.12);border-color:rgba(59,130,246,.55)}
-.opt.correct{background:rgba(16,185,129,.14);border-color:rgba(16,185,129,.55)}
-.opt.wrong{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.5)}
-.opt-why{font-size:13px;color:var(--slate-400);margin:4px 0 0 32px}
+.opts > div > .opt{width:100%}
+.opt .tag{margin-left:auto;align-self:center;flex-shrink:0;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  border-radius:999px;padding:3px 9px;white-space:nowrap}
+.opt.correct{background:rgba(16,185,129,.2);border:2px solid var(--emerald);color:var(--white);box-shadow:0 0 0 3px rgba(16,185,129,.15)}
+.opt.correct .mk{color:var(--emerald-400)}
+.opt.correct .tag{background:var(--emerald);color:#04261C}
+.opt.wrong{background:rgba(239,68,68,.18);border:2px solid var(--red);color:var(--white);box-shadow:0 0 0 3px rgba(239,68,68,.15)}
+.opt.wrong .mk{color:var(--red-400)}
+.opt.wrong .tag{background:var(--red);color:#fff}
+.opt.dim{opacity:.5}
+.opt-why{font-size:13px;color:var(--slate-400);margin:6px 0 2px 32px;padding-left:10px;border-left:2px solid var(--card-border)}
+.opt-why.ok{color:var(--emerald-400);border-left-color:var(--emerald)}
+.opt-why.bad{color:var(--red-400);border-left-color:var(--red)}
+.verdict{display:flex;align-items:center;gap:10px;margin:0 0 14px;padding:11px 14px;border-radius:10px;font-weight:700;font-size:15px}
+.verdict .vi{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.verdict.ok{background:rgba(16,185,129,.16);border:1.5px solid var(--emerald);color:var(--emerald-400)}
+.verdict.ok .vi{background:var(--emerald);color:#04261C}
+.verdict.bad{background:rgba(239,68,68,.14);border:1.5px solid var(--red);color:var(--red-400)}
+.verdict.bad .vi{background:var(--red);color:#fff}
+.rationale.bad{border-left-color:var(--red);background:rgba(239,68,68,.06)}
+.rationale.bad .rat-label{color:var(--red-400)}
 .rationale{margin-top:12px;border-left:3px solid var(--emerald);background:rgba(16,185,129,.07);border-radius:0 8px 8px 0;
   padding:10px 13px;font-size:13.5px;line-height:1.55}
 .rat-label{font-weight:700;color:var(--emerald-400);font-size:11px;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:4px}
@@ -351,16 +369,26 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
 
   function renderPracticeQ(){
     var it = P.items[P.i], chosen = P.answers[it.id];
+    var key = it.options.filter(function(o){ return o.isCorrect; })[0], gotIt = !!(chosen && key && key.id === chosen);
     var html = '<div class="card"><div class="q-meta"><span class="q-num">Question '+(P.i+1)+' of '+P.items.length+'</span>'+
       '<span class="badge b-em">'+esc((DOM[it.domain]||{}).short || it.domain)+'</span>'+(P.teaser?'<span class="badge b-am">Sample</span>':'')+'</div>'+
-      '<p class="qstem">'+esc(it.stem)+'</p><div class="opts">'+
+      '<p class="qstem">'+esc(it.stem)+'</p>'+
+      (chosen ? (gotIt
+        ? '<div class="verdict ok" role="status"><span class="vi" aria-hidden="true">✓</span>Correct!</div>'
+        : '<div class="verdict bad" role="status"><span class="vi" aria-hidden="true">✗</span>Incorrect. The correct answer is '+(key ? key.id.toUpperCase() : '')+'.</div>') : '')+
+      '<div class="opts">'+
       it.options.map(function(o){
-        var cls = '';
-        if (chosen) cls = o.isCorrect ? 'correct' : (o.id === chosen ? 'wrong' : '');
-        return '<div><button class="opt '+cls+'" data-opt="'+o.id+'"'+(chosen?' disabled':'')+'><span class="mk">'+o.id.toUpperCase()+'</span><span>'+esc(o.text)+'</span></button>'+
-          (chosen && (o.isCorrect || o.id === chosen) && o.rationale ? '<div class="opt-why">'+esc(o.rationale)+'</div>' : '')+'</div>';
+        var cls = '', tag = '';
+        if (chosen) {
+          if (o.isCorrect) { cls = 'correct'; tag = o.id === chosen ? '✓ Your answer' : '✓ Correct answer'; }
+          else if (o.id === chosen) { cls = 'wrong'; tag = '✗ Your answer'; }
+          else cls = 'dim';
+        }
+        return '<div><button class="opt '+cls+'" data-opt="'+o.id+'"'+(chosen?' disabled':'')+'><span class="mk">'+o.id.toUpperCase()+'</span><span>'+esc(o.text)+'</span>'+
+          (tag ? '<span class="tag">'+tag+'</span>' : '')+'</button>'+
+          (chosen && (o.isCorrect || o.id === chosen) && o.rationale ? '<div class="opt-why '+(o.isCorrect?'ok':'bad')+'">'+esc(o.rationale)+'</div>' : '')+'</div>';
       }).join('')+'</div>'+
-      (chosen ? '<div class="rationale"><span class="rat-label">Why</span>'+esc(it.rationale)+
+      (chosen ? '<div class="rationale'+(gotIt?'':' bad')+'"><span class="rat-label">Why</span>'+esc(it.rationale)+
         (it.references && it.references.length ? '<div class="muted small" style="margin-top:6px">'+it.references.map(function(r){ return esc(r.source)+(r.detail?' — '+esc(r.detail):''); }).join(' | ')+'</div>' : '')+'</div>' : '')+
       '<div class="nav-row">'+
         (P.i>0?'<button class="btn btn-s btn-sm" id="prev">Previous</button>':'')+
