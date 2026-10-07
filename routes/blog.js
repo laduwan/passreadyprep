@@ -36,6 +36,7 @@ const STATIC_PAGES = [
   '/assess-next.html',
   '/core-attributes-quiz.html',
   '/theory.html',
+  '/games.html',
   '/nce.html',
   '/policies.html',
   '/accessibility.html',
