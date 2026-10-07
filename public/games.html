@@ -3,9 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Study Games | PassReady Prep</title>
-<meta name="description" content="Study games for counseling licensure exam prep: Code Match for DSM-5-TR codes and treatments, Triage Rush for next-best-step decisions, and Theory Clue for counseling theories.">
+<title>NCE &amp; NCMHCE Study Games | PassReady Prep</title>
+<meta name="description" content="NCE and NCMHCE study games for counselor licensure prep: Code Match for DSM-5-TR codes and treatments, Triage Rush for NCMHCE next-best-step decisions, and Theory Clue for counseling theories.">
 <link rel="canonical" href="https://www.passreadyprep.com/games.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PassReady Prep">
+<meta property="og:title" content="NCE &amp; NCMHCE Study Games | PassReady Prep">
+<meta property="og:description" content="NCE and NCMHCE study games for counselor licensure prep: Code Match for DSM-5-TR codes and treatments, Triage Rush for NCMHCE next-best-step decisions, and Theory Clue for counseling theories.">
+<meta property="og:url" content="https://www.passreadyprep.com/games.html">
+<meta property="og:image" content="https://www.passreadyprep.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NCE &amp; NCMHCE Study Games | PassReady Prep">
+<meta name="twitter:description" content="NCE and NCMHCE study games for counselor licensure prep: Code Match for DSM-5-TR codes and treatments, Triage Rush for NCMHCE next-best-step decisions, and Theory Clue for counseling theories.">
+<meta name="twitter:image" content="https://www.passreadyprep.com/og.png">
 <style>
   /* Layout: PassReady's dark slate + emerald system; a game switcher, then one animated play surface per game with a confetti canvas over the top. Single dark theme, as on the live site. */
   :root{
@@ -25,8 +35,11 @@
   header{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:18px}
   .brand{display:flex; align-items:center; gap:10px; font-weight:700; font-size:18px; color:var(--ink)}
   .brand b{color:var(--em4)}
+  .brand .bt{line-height:1.1}
+  .brand small{display:block; font-weight:600; font-size:11px; color:var(--em4); letter-spacing:.02em; margin-top:2px}
   .chip{width:36px; height:36px; border-radius:10px; background:rgba(16,185,129,.16); display:grid; place-items:center}
   .chip svg{width:20px; height:20px; color:var(--em4)}
+  .backs{display:flex; gap:14px; flex-wrap:wrap}
   .switch{display:flex; gap:6px; padding:5px; background:rgba(15,23,42,.65); border:1px solid var(--line); border-radius:999px; position:relative}
   .sw{font:inherit; font-weight:700; font-size:14px; border:none; border-radius:999px; padding:8px 16px; cursor:pointer; background:transparent; color:var(--mute); transition:background .25s, color .25s}
   .sw[aria-selected="true"]{background:var(--em); color:#04261C}
@@ -223,8 +236,8 @@
 <canvas id="fx" aria-hidden="true"></canvas>
 <div class="wrap">
   <header>
-    <a class="brand" href="/" style="text-decoration:none"><span class="chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>PassReady <b>Games</b></a>
-    <a class="back" href="/study">&lsaquo; Back to dashboard</a>
+    <a class="brand" href="/" style="text-decoration:none"><span class="chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span><span class="bt">PassReady <b>Games</b><small>NCE &amp; NCMHCE study games</small></span></a>
+    <span class="backs"><a class="back" href="/study">&lsaquo; NCMHCE dashboard</a><a class="back" href="/nce.html">&lsaquo; NCE dashboard</a></span>
     <div class="switch" role="tablist" aria-label="Games">
       <button class="sw" role="tab" id="tab-match" aria-controls="match" aria-selected="true">Code Match<span class="free">Free</span></button>
       <button class="sw" role="tab" id="tab-rush" aria-controls="rush" aria-selected="false">Triage Rush</button>
@@ -234,6 +247,7 @@
   <section id="match" role="tabpanel" aria-labelledby="tab-match" class="panel"></section>
   <section id="rush" role="tabpanel" aria-labelledby="tab-rush" class="panel" hidden></section>
   <section id="clue" role="tabpanel" aria-labelledby="tab-clue" class="panel" hidden></section>
+  <p style="margin:24px 0 0; text-align:center; color:var(--faint); font-size:12px; line-height:1.5">NCE&reg; and NCMHCE&reg; are registered trademarks of the National Board for Certified Counselors, Inc. (NBCC). PassReady Prep is not affiliated with or endorsed by NBCC.</p>
 </div>
 
 <script src="/nbs-data.js"></script>
@@ -392,7 +406,7 @@ THEORY_DATA.forEach(function(c){ c.items.forEach(function(i){ THEORIES.push({ ca
   function matchIntro(){
     stopMatchClock();
     var cat=get('prp_game_match_cat')||'mixed', mode=get('prp_game_match_mode')||'code';
-    M.innerHTML='<div class="intro in"><div class="eyebrow">NCMHCE · DSM-5-TR</div><h1>Code Match</h1>'+
+    M.innerHTML='<div class="intro in"><div class="eyebrow">NCE · NCMHCE · DSM-5-TR</div><h1>Code Match</h1>'+
       '<p>Drag each diagnosis onto its ICD-10-CM code or first-line treatment. Clear the board fast, and chain correct drops for a combo. You can also tap a diagnosis, then its match.</p>'+
       '<div class="row" style="margin-bottom:18px;align-items:flex-end">'+
       '<label class="sel" for="m-cat">Category<select id="m-cat"><option value="mixed">Mixed (all categories)</option>'+MCATS.map(function(c){return '<option value="'+esc(c.cat)+'">'+esc(c.cat)+' ('+c.dx.length+')</option>';}).join('')+'</select></label>'+
