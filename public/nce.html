@@ -260,7 +260,7 @@ a.choice{text-decoration:none}
     <div class="hdr-r">
       <span class="badge b-blue">NCE</span>
       <a class="btn btn-s btn-sm" href="/study">NCMHCE study</a>
-      <a class="btn btn-s btn-sm" id="signin-link" href="/register.html?next=/nce.html">Sign in</a>
+      <a class="btn btn-s btn-sm" id="signin-link" href="/register.html?tab=login&next=/nce.html">Sign in</a>
     </div>
   </header>
 
@@ -371,7 +371,7 @@ a.choice{text-decoration:none}
     var lead = r
       ? '<b>'+esc(r.label)+'</b>'+trend+(focus ? '<br>Focus next: <b>'+esc(focus.d.label)+'</b>'+(focus.p==null?' (not started)':' ('+focus.p+'%)')+'.' : '')
       : TOKEN ? 'Answer some practice questions or take a mock exam and your readiness score appears here.'
-      : 'Try free sample questions, then create an account to track your readiness by domain.';
+      : 'Try free sample questions, then <a href="/register.html?tab=login&next=/nce.html">sign in</a> or <a href="/register.html?next=/nce.html">create a free account</a> to track your readiness by domain.';
     var conf = r && r.answered < r.answeredForFullConfidence
       ? ' The score counts in full once you have answered '+r.answeredForFullConfidence+' questions ('+r.answered+' so far).' : '';
     return '<div class="hero">'+
@@ -394,7 +394,8 @@ a.choice{text-decoration:none}
   // account's domain accuracy. Same shape as the NCMHCE plan (index.html genPlan).
   function planHtml(by, dLeft){
     var head = '<div class="card"><div class="plan-top"><h2 style="margin:0">Study plan</h2>'+(dLeft != null ? '<span class="plan-days">'+dLeft+' day'+(dLeft===1?'':'s')+' to go</span>' : '')+'</div>';
-    if (!TOKEN) return head+'<p class="muted small" style="margin:0"><a href="/register.html?next=/nce.html">Create a free account</a> and set your exam date to get a day-by-day NCE study plan built from your weakest domains.</p></div>';
+    if (!TOKEN) return head+'<p class="muted small" style="margin:0 0 10px">Sign in and set your exam date to get a day-by-day NCE study plan built from your weakest domains.</p>'+
+      '<div class="ph-acts"><a class="btn btn-sm" href="/register.html?tab=login&next=/nce.html">Sign in</a><a class="btn btn-s btn-sm" href="/register.html?next=/nce.html">Create a free account</a></div></div>';
     if (dLeft == null) return head+'<p class="muted small" style="margin:0 0 10px">Set your NCE exam date and we\'ll build a 3-phase plan from your domain scores: weak areas first, then timed mock exams, then light review before test day.</p>'+
       '<input type="date" class="plan-date" id="exam-date-plan" aria-label="NCE exam date"></div>';
     if (dLeft === 0) return head+'<p style="margin:0">Exam day. Skip new material, eat, hydrate and trust your prep. Good luck!</p></div>';
