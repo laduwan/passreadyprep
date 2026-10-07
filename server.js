@@ -82,16 +82,28 @@ const A11Y_SKIP = '<a href="#" class="a11y-skip-link" data-a11y-skip>Skip to mai
 // not visitor traffic.
 const VISIT_HEAD = '<script src="/visit-beacon.js" defer></script>';
 
-// Google tag (GA4), injected the same serve-time way. Off until
-// GA_MEASUREMENT_ID (G-XXXXXXX) is set; skips the /admin* and /review* operator
-// screens, like the visit beacon. Only a well-formed ID is ever written into the page.
-// conversions.js rides along with it and reports sign_up / purchase events.
+// Google tag, injected the same serve-time way. Off until GA_MEASUREMENT_ID
+// (GA4, G-XXXXXXX) and/or GOOGLE_ADS_ID (Google Ads, AW-123456789) is set; skips
+// the /admin* and /review* operator screens, like the visit beacon. Only
+// well-formed IDs are ever written into the page.
+// conversions.js rides along with it and reports sign_up / purchase events —
+// to GA4 as events, and to Google Ads as conversions when the matching
+// conversion label (from the Ads conversion action's tag setup) is set.
 const GA_ID = /^G-[A-Z0-9]{4,20}$/.test(process.env.GA_MEASUREMENT_ID || '') ? process.env.GA_MEASUREMENT_ID : '';
-const GA_HEAD = GA_ID
+const ADS_ID = /^AW-[0-9]{6,15}$/.test(process.env.GOOGLE_ADS_ID || '') ? process.env.GOOGLE_ADS_ID : '';
+const adsLabel = (v) => (ADS_ID && /^[A-Za-z0-9_-]{4,40}$/.test(v || '') ? ADS_ID + '/' + v : '');
+const ADS_SEND_TO = {
+  signup: adsLabel(process.env.GOOGLE_ADS_SIGNUP_LABEL),
+  purchase: adsLabel(process.env.GOOGLE_ADS_PURCHASE_LABEL),
+};
+const TAG_IDS = [GA_ID, ADS_ID].filter(Boolean);
+const GA_HEAD = TAG_IDS.length
   ? '<script>(function(){var p=location.pathname;if(/^\\/(admin|review)/.test(p))return;' +
-    'var s=document.createElement("script");s.async=true;s.src="https://www.googletagmanager.com/gtag/js?id=' + GA_ID + '";' +
+    'var s=document.createElement("script");s.async=true;s.src="https://www.googletagmanager.com/gtag/js?id=' + TAG_IDS[0] + '";' +
     'document.head.appendChild(s);window.dataLayer=window.dataLayer||[];' +
-    'window.gtag=function(){dataLayer.push(arguments);};gtag("js",new Date());gtag("config","' + GA_ID + '");})();</script>' +
+    'window.gtag=function(){dataLayer.push(arguments);};gtag("js",new Date());' +
+    TAG_IDS.map((id) => 'gtag("config","' + id + '");').join('') +
+    'window.PRP_ADS=' + JSON.stringify(ADS_SEND_TO) + ';})();</script>' +
     '<script src="/conversions.js" defer></script>'
   : '';
 
