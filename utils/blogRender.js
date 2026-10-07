@@ -261,6 +261,7 @@ const FOOTER = `<footer class="site">
     <div class="foot-legal">
       <span class="prov">GA Integrated Therapeutic Perspectives LLC</span>
       <span><a href="/policies.html" style="color:var(--slate-500)">Policies &amp; Terms</a> &nbsp;·&nbsp; © 2026 GA Integrated Therapeutic Perspectives LLC. All rights reserved.</span>
+      <span class="tm" style="flex-basis:100%">NCE&reg; and NCMHCE&reg; are registered trademarks of the National Board for Certified Counselors, Inc. (NBCC). PassReady Prep is not affiliated with or endorsed by NBCC.</span>
     </div>
   </div>
 </footer>`;
