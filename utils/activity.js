@@ -128,10 +128,15 @@ async function notifyAdmin(doc, saved) {
   const html = '<pre style="font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap">' +
     escapeHtml(text) + '</pre>';
 
-  if (to) await sendMail({ to, subject, html, text });
-  if (smsTo) await sendSms({ to: smsTo, text: subject + (doc.message ? ' — ' + doc.message : '') });
+  const results = [];
+  if (to) results.push(await sendMail({ to, subject, html, text }));
+  if (smsTo) results.push(await sendSms({ to: smsTo, text: subject + (doc.message ? ' — ' + doc.message : '') }));
 
-  if (saved) { try { saved.notified = true; await saved.save(); } catch (e) {} }
+  // Only mark "alerted" when something actually went out — a Brevo rejection or
+  // a missing BREVO_API_KEY (dev log-only mode) must not look like a sent alert.
+  const delivered = results.some((r) => r && r.ok && !r.dev);
+  if (!delivered) console.error('[activity] alert NOT delivered for', doc.type, '→', to || smsTo, safeJson(results));
+  if (saved && delivered) { try { saved.notified = true; await saved.save(); } catch (e) {} }
 }
 
 // ── Express integration ────────────────────────────────────────────────────
