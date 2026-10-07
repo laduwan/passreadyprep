@@ -93,6 +93,57 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
 .game-links a:hover{background:rgba(245,158,11,.22)}
 .game-links a.all{color:var(--slate-200);background:rgba(51,65,85,.5);border-color:var(--card-border)}
 
+/* dashboard hero */
+.hero{position:relative;overflow:hidden;display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-bottom:14px;padding:24px;
+  border-radius:20px;border:1px solid rgba(16,185,129,.28);
+  background:radial-gradient(120% 140% at 0% 0%,rgba(16,185,129,.22),transparent 55%),radial-gradient(90% 120% at 100% 100%,rgba(59,130,246,.18),transparent 60%),rgba(30,41,59,.7)}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(52,211,153,.18),transparent 70%);pointer-events:none}
+.ring{--p:0;--c:var(--emerald);flex:0 0 auto;width:132px;height:132px;border-radius:50%;display:grid;place-items:center;
+  background:conic-gradient(var(--c) calc(var(--p)*1%),rgba(51,65,85,.55) 0);animation:ring-in .9s ease-out both}
+.ring > div{width:108px;height:108px;border-radius:50%;background:#162033;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ring b{font-size:30px;font-weight:800;color:var(--white);line-height:1}
+.ring span{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--slate-400);margin-top:4px}
+@property --p{syntax:'<number>';inherits:false;initial-value:0}
+@keyframes ring-in{from{--p:0}}
+.hero-body{flex:1 1 300px;min-width:0;position:relative;z-index:1}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--emerald-400);margin-bottom:6px}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--emerald-400);box-shadow:0 0 0 4px rgba(52,211,153,.18)}
+.hero h1{font-size:30px;margin:0 0 6px}
+.hero .lead{margin:0 0 14px;color:var(--slate-300)}
+.hero .lead b{color:var(--white)}
+.trend{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;margin-left:4px;vertical-align:1px}
+.trend.up{color:var(--emerald-400);background:rgba(16,185,129,.15)}.trend.down{color:var(--red-400);background:rgba(239,68,68,.15)}.trend.flat{color:var(--slate-300);background:rgba(51,65,85,.6)}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap}
+.hero-fine{font-size:12.5px;color:var(--slate-400);margin:12px 0 0}
+.hero details{margin-top:10px;font-size:12.5px;color:var(--slate-400)}
+.hero summary{cursor:pointer;color:var(--slate-300);font-weight:600}
+.hero details p{margin:6px 0 0}
+
+/* stat tiles */
+.stat{display:flex;gap:12px;align-items:flex-start}
+.stat .si{flex:0 0 auto;width:36px;height:36px;border-radius:10px;display:grid;place-items:center}
+.stat .si svg{width:19px;height:19px}
+.stat > div:last-child{min-width:0;flex:1}
+.si.em{background:rgba(16,185,129,.16);color:var(--emerald-400)}.si.bl{background:rgba(59,130,246,.16);color:var(--blue-400)}
+.si.vi{background:rgba(167,139,250,.16);color:#A78BFA}.si.am{background:rgba(245,158,11,.16);color:var(--amber-400)}
+
+/* domain rows */
+.dom.d{grid-template-columns:auto 1fr auto;cursor:pointer;border-radius:12px;padding:12px 10px;margin:0 -10px;border-bottom:none;transition:background .15s}
+.dom.d:hover{background:rgba(51,65,85,.35)}
+.dom.d + .dom.d{border-top:1px solid rgba(51,65,85,.45)}
+.dnum{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:14px;color:var(--dc);background:color-mix(in srgb,var(--dc) 16%,transparent)}
+.dom.d .pct-bar{height:8px;border-radius:4px}
+.dom.d .pct-fill{height:8px;border-radius:4px;animation:grow .8s ease-out both}
+@keyframes grow{from{width:0}}
+.dright{display:flex;align-items:center;gap:10px}
+.pill{font-size:13px;font-weight:800;border-radius:999px;padding:4px 10px;min-width:52px;text-align:center;color:var(--emerald-400);background:rgba(16,185,129,.14)}
+.pill.mid{color:var(--amber-400);background:rgba(245,158,11,.14)}.pill.low{color:var(--red-400);background:rgba(239,68,68,.14)}
+.pill.none{color:var(--slate-400);background:rgba(51,65,85,.5);font-weight:700}
+.weak-tag{font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--amber-400);margin-left:6px}
+@media(max-width:520px){.hero{padding:18px}.ring{width:112px;height:112px}.ring > div{width:92px;height:92px}.ring b{font-size:25px}.hero h1{font-size:24px}.dom.d{grid-template-columns:auto 1fr}.dright{grid-column:2;justify-content:space-between}}
+@media(prefers-reduced-motion:reduce){.ring,.dom.d .pct-fill{animation:none}}
+
 /* timer */
 .timer-bar{position:sticky;top:0;z-index:50;background:rgba(15,23,42,.92);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--card-border);padding:10px 16px;display:none}
@@ -278,28 +329,56 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
 
   function daysUntil(d){ if(!d) return null; var ms = new Date(d) - new Date(); return Math.max(0, Math.ceil(ms/86400000)); }
 
-  // NCE readiness card — the score is computed server-side (utils/nceReadiness.js).
-  function readinessHtml(){
-    var r = PROGRESS && PROGRESS.readiness;
-    if (!r) return TOKEN ? '<div class="card"><h2>NCE readiness</h2><p class="muted small" style="margin:0">Answer some practice questions or take a mock exam and your readiness score will appear here.</p></div>' : '';
-    var cls = r.score >= 70 ? '' : r.score >= 50 ? 'mid' : 'low';
-    var trend = r.trend === 'up' ? 'Trending up' : r.trend === 'down' ? 'Trending down' : 'Steady';
-    var conf = r.answered < r.answeredForFullConfidence
-      ? ' The score counts in full once you have answered '+r.answeredForFullConfidence+' questions ('+r.answered+' so far).' : '';
-    return '<div class="card"><h2>NCE readiness</h2>'+
-      '<div class="dom"><div><div class="dom-name">'+r.score+'% · '+esc(r.label)+'</div>'+
-        '<div class="dom-sub">'+trend+'</div>'+
-        '<div class="pct-bar"><div class="pct-fill '+cls+'" style="width:'+r.score+'%"></div></div></div></div>'+
-      (r.weakDomains && r.weakDomains.length ? '<p class="small" style="margin:10px 0 0">Focus next: '+r.weakDomains.map(function(w){ return esc(w.label)+' ('+w.pct+'%)'; }).join(', ')+'</p>' : '')+
-      (r.score >= 85 ? '<p style="margin:12px 0 0"><a class="btn btn-sm" href="/resume.html">Build your résumé</a> <span class="muted small">You are exam ready. Turn your strongest areas into a polished résumé.</span></p>' : '')+
-      '<p class="muted small" style="margin:10px 0 0">Your accuracy in each NCE domain, weighted by NBCC\'s scored item counts'+(r.weights && r.weights.length ? ' ('+r.weights.map(function(w){ return esc(w.short)+' '+w.pct+'%'; }).join(', ')+')' : '')+', adjusted for how much you have practiced and whether your recent work is trending up.'+conf+' 70%+ = almost there, 85%+ = exam ready. A practice indicator, not a prediction of your NCE result.</p>'+
-      '</div>';
+  // Domain to practise next: lowest accuracy among domains with answers
+  // (matching readiness.weakDomains); with no answers yet, the heaviest domain.
+  function focusDomain(by){
+    var best = null;
+    BP.domains.forEach(function(d){
+      var b = by[d.key] || {correct:0,total:0}, p = pct(b.correct,b.total);
+      var score = p == null ? 1000 - d.weight : p;
+      if (!best || score < best.score) best = { d: d, score: score, p: p };
+    });
+    return best;
   }
 
+  // Dashboard hero: readiness ring (score from utils/nceReadiness.js),
+  // countdown and a one-click start on the weakest domain.
+  function heroHtml(by, dLeft, focus){
+    var r = PROGRESS && PROGRESS.readiness;
+    var ringC = !r ? 'var(--slate-500)' : r.score >= 70 ? 'var(--emerald)' : r.score >= 50 ? 'var(--amber)' : 'var(--red-400)';
+    var trend = r ? (r.trend === 'up' ? '<span class="trend up">↑ Trending up</span>' : r.trend === 'down' ? '<span class="trend down">↓ Trending down</span>' : '<span class="trend flat">Steady</span>') : '';
+    var eyebrow = dLeft == null ? 'NCE study' : dLeft === 0 ? 'NCE · exam day' : 'NCE · '+dLeft+' day'+(dLeft===1?'':'s')+' to go';
+    var lead = r
+      ? '<b>'+esc(r.label)+'</b>'+trend+(focus ? '<br>Focus next: <b>'+esc(focus.d.label)+'</b>'+(focus.p==null?' (not started)':' ('+focus.p+'%)')+'.' : '')
+      : TOKEN ? 'Answer some practice questions or take a mock exam and your readiness score appears here.'
+      : 'Try free sample questions, then create an account to track your readiness by domain.';
+    var conf = r && r.answered < r.answeredForFullConfidence
+      ? ' The score counts in full once you have answered '+r.answeredForFullConfidence+' questions ('+r.answered+' so far).' : '';
+    return '<div class="hero">'+
+      '<div class="ring" style="--p:'+(r ? r.score : 0)+';--c:'+ringC+'"><div><b>'+(r ? r.score+'%' : '—')+'</b><span>Readiness</span></div></div>'+
+      '<div class="hero-body">'+
+        '<div class="eyebrow"><span class="dot"></span>'+eyebrow+'</div>'+
+        '<h1>NCE Study</h1>'+
+        '<p class="lead">'+lead+'</p>'+
+        '<div class="hero-cta">'+
+          (focus ? '<button class="btn" id="go-focus">Practice '+esc(focus.d.short || focus.d.label)+'</button>' : '')+
+          '<button class="btn btn-s" id="go-mock2">Take a mock exam</button>'+
+        '</div>'+
+        (r && r.score >= 85 ? '<p class="hero-fine"><a href="/resume.html">You are exam ready. Build your résumé →</a></p>' : '')+
+        '<p class="hero-fine">'+BP.exam.totalItems+' questions ('+BP.exam.scoredItems+' scored) · '+Math.floor(BP.exam.minutes/60)+' hrs '+(BP.exam.minutes%60)+' min · '+BP.exam.optionsPerItem+' options each, weighted to NBCC\'s NCE content outline.</p>'+
+        (r ? '<details><summary>How readiness works</summary><p>Your accuracy in each NCE domain, weighted by NBCC\'s scored item counts'+(r.weights && r.weights.length ? ' ('+r.weights.map(function(w){ return esc(w.short)+' '+w.pct+'%'; }).join(', ')+')' : '')+', adjusted for how much you have practiced and whether your recent work is trending up.'+conf+' 70%+ = almost there, 85%+ = exam ready. A practice indicator, not a prediction of your NCE result.</p></details>' : '')+
+      '</div></div>';
+  }
+
+  var DOM_COLORS = ['#34D399','#60A5FA','#A78BFA','#FBBF24','#F472B6','#22D3EE'];
   var SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
   var ICO = {
     practice: SVG+'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
     mock: SVG+'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M9 2h6"/></svg>',
+    target: SVG+'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>',
+    done: SVG+'<path d="M20 6L9 17l-5-5"/></svg>',
+    bank: SVG+'<path d="M12 2l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>',
+    cal: SVG+'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
     games: SVG+'<rect x="2" y="6" width="20" height="12" rx="4"/><path d="M6 12h4M8 10v4"/><circle cx="15.5" cy="11" r=".8" fill="currentColor"/><circle cx="17.5" cy="13" r=".8" fill="currentColor"/></svg>',
   };
 
@@ -312,17 +391,16 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
     var dLeft = daysUntil(s.examDate);
     var dateVal = s.examDate ? new Date(s.examDate).toISOString().slice(0,10) : '';
 
-    var html = '<h1>NCE Study</h1>'+
-      '<p class="lead">Practice and full-length mock exams weighted to NBCC\'s NCE content outline: '+BP.exam.totalItems+' questions ('+BP.exam.scoredItems+' scored), '+Math.floor(BP.exam.minutes/60)+' hrs '+(BP.exam.minutes%60)+' min, '+BP.exam.optionsPerItem+' options each.</p>'+
+    var focus = focusDomain(by);
+    var html = heroHtml(by, dLeft, focus)+
       accessBanner()+
       '<div class="stats">'+
-        '<div class="stat"><div class="n">'+(overall==null?'—':overall+'%')+'</div><div class="l">Overall accuracy</div></div>'+
-        '<div class="stat"><div class="n">'+((PROGRESS && PROGRESS.answered) || 0)+'</div><div class="l">Questions answered</div></div>'+
-        '<div class="stat"><div class="n">'+(s.bank.total||0)+'</div><div class="l">Questions in the bank</div></div>'+
-        '<div class="stat"><div class="n">'+(dLeft==null?'—':dLeft)+'</div><div class="l">Days to your NCE</div>'+
-          (TOKEN ? '<input type="date" id="exam-date" value="'+dateVal+'" aria-label="NCE exam date">' : '')+'</div>'+
+        '<div class="stat"><span class="si em">'+ICO.target+'</span><div><div class="n">'+(overall==null?'—':overall+'%')+'</div><div class="l">Overall accuracy</div></div></div>'+
+        '<div class="stat"><span class="si bl">'+ICO.done+'</span><div><div class="n">'+((PROGRESS && PROGRESS.answered) || 0)+'</div><div class="l">Questions answered</div></div></div>'+
+        '<div class="stat"><span class="si vi">'+ICO.bank+'</span><div><div class="n">'+(s.bank.total||0)+'</div><div class="l">Questions in the bank</div></div></div>'+
+        '<div class="stat"><span class="si am">'+ICO.cal+'</span><div><div class="n">'+(dLeft==null?'—':dLeft)+'</div><div class="l">Days to your NCE</div>'+
+          (TOKEN ? '<input type="date" id="exam-date" value="'+dateVal+'" aria-label="NCE exam date">' : '')+'</div></div>'+
       '</div>'+
-      readinessHtml()+
       '<div class="card"><h2>Start studying</h2><div class="grid2">'+
         '<button class="choice" id="go-practice"><span class="ico em">'+ICO.practice+'</span><b>Practice by domain</b><span>20 questions with feedback and rationales after each one.</span></button>'+
         '<button class="choice" id="go-mock"><span class="ico bl">'+ICO.mock+'</span><b>Timed mock exam</b><span>Weighted like the real NCE. Full length or shorter forms, scored at the end.</span></button>'+
@@ -330,12 +408,14 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
           '<div class="game-links"><a href="/games.html#clue">Theory Clue</a><a href="/games.html">Code Match · free</a><a href="/games.html#rush">Triage Rush · NCMHCE</a></div></div>'+
       '</div></div>'+
       '<div class="card"><h2>NCE domains</h2><p class="muted small" style="margin-top:-4px">Weights are NBCC\'s scored item counts. Your accuracy comes from every practice set and mock exam you finish while signed in.</p>'+
-      BP.domains.map(function(d){
+      BP.domains.map(function(d, i){
         var b = by[d.key] || {correct:0,total:0}, p = pct(b.correct,b.total);
-        return '<div class="dom"><div><div class="dom-name">'+esc(d.label)+'</div>'+
-          '<div class="dom-sub">'+d.scoredItems+' scored items ('+Math.round(d.weight*100)+'%) · '+(s.bank.byDomain[d.key]||0)+' in bank · '+(p==null?'not started':p+'% of '+b.total)+'</div>'+
-          '<div class="pct-bar"><div class="pct-fill '+fillCls(p)+'" style="width:'+(p||0)+'%"></div></div></div>'+
-          '<button class="btn btn-s btn-sm" data-practice="'+d.key+'">Practice</button></div>';
+        var weak = focus && focus.d.key === d.key && p != null;
+        return '<div class="dom d" data-practice="'+d.key+'" style="--dc:'+DOM_COLORS[i % DOM_COLORS.length]+'"><span class="dnum">'+(i+1)+'</span>'+
+          '<div><div class="dom-name">'+esc(d.label)+(weak ? '<span class="weak-tag">Focus</span>' : '')+'</div>'+
+          '<div class="dom-sub">'+d.scoredItems+' scored items ('+Math.round(d.weight*100)+'%) · '+(s.bank.byDomain[d.key]||0)+' in bank'+(p==null?'':' · '+b.total+' answered')+'</div>'+
+          '<div class="pct-bar"><div class="pct-fill '+fillCls(p)+'" style="width:'+(p||0)+'%;animation-delay:'+(i*0.06)+'s"></div></div></div>'+
+          '<div class="dright"><span class="pill '+(p==null?'none':fillCls(p))+'">'+(p==null?'New':p+'%')+'</span><button class="btn btn-s btn-sm">Practice</button></div></div>';
       }).join('')+'</div>'+
       (PROGRESS && PROGRESS.mocks && PROGRESS.mocks.length ? '<div class="card"><h2>Recent mock exams</h2>'+PROGRESS.mocks.map(function(m){
         return '<div class="dom"><div>'+new Date(m.completedAt).toLocaleDateString()+' · '+m.n+' questions</div><b>'+Math.round(m.score*100)+'%</b></div>'; }).join('')+'</div>' : '')+
@@ -345,6 +425,8 @@ h2{font-size:18px;margin:0 0 10px;color:var(--white)}
 
     document.getElementById('go-practice').onclick = function(){ startPractice('all'); };
     document.getElementById('go-mock').onclick = renderMockSetup;
+    document.getElementById('go-mock2').onclick = renderMockSetup;
+    if (focus) document.getElementById('go-focus').onclick = function(){ startPractice(focus.d.key); };
     Array.prototype.forEach.call(stage.querySelectorAll('[data-practice]'), function(b){ b.onclick = function(){ startPractice(b.getAttribute('data-practice')); }; });
     Array.prototype.forEach.call(stage.querySelectorAll('[data-buy]'), function(b){ b.onclick = function(){ buy(b.getAttribute('data-buy'), b); }; });
     var ed = document.getElementById('exam-date');
