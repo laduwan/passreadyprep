@@ -78,6 +78,10 @@
   .nav-links{display:flex; align-items:center; gap:22px}
   .nav-links a.navlink{color:var(--slate-300); text-decoration:none; font-weight:600; font-size:14.5px}
   .nav-links a.navlink:hover{color:var(--white)}
+  .nav-links a.navlink, .nav-links .btn{white-space:nowrap}
+  @media (max-width:1000px){ .nav-links a.navlink.mid{display:none} }
+  @media (max-width:480px){ .nav-links .btn{padding:9px 12px; font-size:13.5px} }
+  @media (max-width:420px){ .nav-links .sm-hide{display:none} }
   @media (max-width:680px){ .nav-links a.navlink{display:none} }
 
   /* ---------- buttons ---------- */
@@ -251,7 +255,8 @@
   /* ---------- footer ---------- */
   footer.site{border-top:1px solid rgba(51,65,85,.4); margin-top:24px; padding:36px 0 44px}
   .foot{display:grid; gap:26px; grid-template-columns:1fr}
-  @media (min-width:720px){ .foot{grid-template-columns:1.4fr 1fr 1fr; gap:30px} }
+  @media (min-width:640px){ .foot{grid-template-columns:1fr 1fr} }
+  @media (min-width:960px){ .foot{grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px} }
   .foot-brand .brand{margin-top:10px}
   .foot-brand p{color:var(--slate-500); font-size:13.5px; margin:12px 0 0; max-width:300px; line-height:1.55}
   .foot-col h4{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--slate-400); margin:0 0 12px; font-weight:700}
@@ -330,12 +335,10 @@
     </a>
     <nav class="nav-links">
       <a class="navlink" href="#exams">NCMHCE &amp; NCE</a>
-      <a class="navlink" href="#features">Features</a>
-      <a class="navlink" href="#how">How it works</a>
       <a class="navlink" href="#pricing">Pricing</a>
-      <a class="navlink" href="/guarantee.html">Guarantee</a>
-      <a class="navlink" href="/study-guide.html">Study guide</a>
-      <a class="btn" href="/study">Start studying</a>
+      <a class="navlink mid" href="/guarantee.html">NCMHCE guarantee</a>
+      <a class="navlink mid" href="/study-guide.html">NCMHCE study guide</a>
+      <a class="btn" href="/study"><span class="sm-hide">Start&nbsp;</span>NCMHCE prep</a>
     </nav>
   </div>
 </header>
@@ -348,7 +351,7 @@
       <h1 class="reveal d1">Know you're ready <em>before</em> you sit for the NCMHCE.</h1>
       <p class="lead reveal d2">Practice the NCMHCE — the clinical mental health counseling licensure exam for LPCs and LMHCs — with realistic cases in the current 2022+ format. A readiness number tracks where you actually stand, and a pass guarantee has your back either way.</p>
       <div class="hero-cta reveal d3">
-        <a class="btn lg" href="/study">Start studying</a>
+        <a class="btn lg" href="/study">Start NCMHCE prep</a>
         <a class="btn lg ghost" href="/guarantee.html">How the guarantee works</a>
       </div>
       <p class="hero-alt reveal d3">Taking the NCE? <a href="/nce.html">Try free NCE practice questions &rarr;</a></p>
@@ -450,7 +453,7 @@
   <section class="wrap band tight" aria-label="Product demo">
     <div class="sec-head">
       <span class="eyebrow">See it in action</span>
-      <h2>A real case simulation, start to finish</h2>
+      <h2>A real NCMHCE case simulation, start to finish</h2>
       <p>Watch how a case plays out — read the intake, make the clinical calls, and see your readiness score update.</p>
     </div>
     <div class="demo-wrap">
@@ -464,9 +467,9 @@
   <!-- ===================== STAT STRIP ===================== -->
   <section class="wrap band tight" aria-label="By the numbers">
     <div class="stat-strip">
-      <div class="stat-cell"><div class="stat-num">240<span>+</span></div><div class="stat-lbl">Full case simulations</div></div>
-      <div class="stat-cell"><div class="stat-num">250<span>+</span></div><div class="stat-lbl">Spaced-repetition flashcards</div></div>
-      <div class="stat-cell"><div class="stat-num">90<span>+</span></div><div class="stat-lbl">DSM-5-TR quick references</div></div>
+      <div class="stat-cell"><div class="stat-num">240<span>+</span></div><div class="stat-lbl">NCMHCE case simulations</div></div>
+      <div class="stat-cell"><div class="stat-num">250<span>+</span></div><div class="stat-lbl">NCMHCE flashcards</div></div>
+      <div class="stat-cell"><div class="stat-num">90<span>+</span></div><div class="stat-lbl">NCMHCE DSM-5-TR references</div></div>
       <div class="stat-cell"><div class="stat-num">5</div><div class="stat-lbl">NCMHCE domains tracked</div></div>
     </div>
   </section>
@@ -492,8 +495,8 @@
   <!-- ===================== FEATURES ===================== -->
   <section class="wrap band" id="features">
     <div class="sec-head">
-      <span class="eyebrow">What's inside</span>
-      <h2>Everything you need in one place</h2>
+      <span class="eyebrow">Inside NCMHCE prep</span>
+      <h2>Everything you need for the NCMHCE in one place</h2>
       <p>Practice, reference, and a clear read on your progress — built for the format you'll actually face.</p>
     </div>
 
@@ -536,7 +539,7 @@
   <!-- ===================== HOW IT WORKS ===================== -->
   <section class="wrap band" id="how">
     <div class="sec-head">
-      <span class="eyebrow">How it works</span>
+      <span class="eyebrow">How NCMHCE prep works</span>
       <h2>Practice, get scored, watch readiness climb</h2>
       <p>A loop that turns every case into a clearer picture of where you stand.</p>
     </div>
@@ -681,7 +684,7 @@
   <section class="wrap band">
     <div class="guar">
       <div class="shield" aria-hidden="true">🛡️</div>
-      <h2>The pass guarantee</h2>
+      <h2>The NCMHCE pass guarantee</h2>
       <p class="promise">You pass, you win. You don't, we've got you.</p>
       <div class="guar-split">
         <div class="guar-box win">
@@ -720,30 +723,38 @@
         <p>NCMHCE clinical simulations and NCE practice questions for counselor licensure — showing you when you're ready to sit, backed by a guarantee.</p>
       </div>
       <div class="foot-col">
-        <h4>Study</h4>
-        <a href="/study">Case simulations</a>
-        <a href="/nce.html">NCE practice &amp; mock exams</a>
-        <a href="/exam.html">Timed mock exam</a>
-        <a href="/timed-knowledge-exam.html">Timed knowledge exam</a>
-        <a href="/knowledge-drill.html">Knowledge drill</a>
-        <a href="/next-best-step.html">Next best step</a>
-        <a href="/assess-next.html">What to assess next</a>
-        <a href="/intake.html">Intake interview simulator</a>
-        <a href="/decision-trees.html">Decision trees</a>
-        <a href="/skills.html">Microskills responder</a>
-        <a href="/core-attributes-quiz.html">Core attributes drill</a>
-        <a href="/flashcards.html">Flashcards</a>
-        <a href="/dsm.html">DSM-5-TR reference</a>
-        <a href="/theory.html">Theories &amp; pioneers reference</a>
-        <a href="/guarantee.html">Pass guarantee</a>
+        <h4>NCMHCE</h4>
+        <a href="/study">NCMHCE case simulations</a>
+        <a href="/exam.html">NCMHCE timed mock exam</a>
+        <a href="/timed-knowledge-exam.html">NCMHCE timed knowledge exam</a>
+        <a href="/practice-exams/1">NCMHCE Practice Exam 1 answer key</a>
+        <a href="/knowledge-drill.html">NCMHCE knowledge drill</a>
+        <a href="/next-best-step.html">NCMHCE next best step</a>
+        <a href="/assess-next.html">NCMHCE what to assess next</a>
+        <a href="/intake.html">NCMHCE intake interview simulator</a>
+        <a href="/decision-trees.html">NCMHCE decision trees</a>
+        <a href="/skills.html">NCMHCE microskills responder</a>
+        <a href="/core-attributes-quiz.html">NCMHCE core attributes drill</a>
+        <a href="/flashcards.html">NCMHCE flashcards</a>
+        <a href="/dsm.html">NCMHCE DSM-5-TR reference</a>
+        <a href="/theory.html">NCMHCE theories &amp; pioneers</a>
+        <a href="/guarantee.html">NCMHCE pass guarantee</a>
+      </div>
+      <div class="foot-col">
+        <h4>NCE</h4>
+        <a href="/nce.html">NCE practice questions &amp; mock exams</a>
+        <a href="/nce.html#pricing">NCE plans &amp; pricing</a>
+        <a href="/sheets/nce-study-sheets.pdf">NCE study sheets (PDF)</a>
+        <a href="/games.html#clue">Theory Clue game</a>
+        <a href="/games.html">Code Match game (free)</a>
       </div>
       <div class="foot-col">
         <h4>More</h4>
         <a href="#features">Features</a>
         <a href="#how">How it works</a>
-        <a href="/study-guide.html">Free study guide</a>
-        <a href="/book">Study-guide bonuses</a>
-        <a href="/podcast.html">Clinical podcast</a>
+        <a href="/study-guide.html">NCMHCE study guide</a>
+        <a href="/book">NCMHCE study-guide bonuses</a>
+        <a href="/podcast.html">NCMHCE clinical podcast</a>
         <a href="/blog">Blog</a>
         <a href="/accessibility.html">Accessibility</a>
         <a href="https://www.counselorready.com" target="_blank" rel="noopener">CounselorReady (CE)</a>

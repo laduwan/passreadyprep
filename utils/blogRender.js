@@ -179,7 +179,8 @@ const STYLE = `
 
   footer.site{border-top:1px solid rgba(51,65,85,.4); margin-top:24px; padding:36px 0 44px}
   .foot{display:grid; gap:26px; grid-template-columns:1fr}
-  @media (min-width:720px){ .foot{grid-template-columns:1.4fr 1fr 1fr; gap:30px} }
+  @media (min-width:640px){ .foot{grid-template-columns:1fr 1fr} }
+  @media (min-width:960px){ .foot{grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px} }
   .foot-brand .brand{margin-top:10px}
   .foot-brand p{color:var(--slate-500); font-size:13.5px; margin:12px 0 0; max-width:300px; line-height:1.55}
   .foot-col h4{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--slate-400); margin:0 0 12px; font-weight:700}
@@ -217,24 +218,33 @@ const FOOTER = `<footer class="site">
           <span class="brand-chip" aria-hidden="true">${BRAND_SVG}</span>
           <span class="brand">PassReady <span class="prep">Prep</span></span>
         </a>
-        <p>NCMHCE practice cases and clinical simulations for the clinical mental health counseling licensure exam — showing you when you're ready to sit, backed by a guarantee.</p>
+        <p>NCMHCE clinical simulations and NCE practice questions for counselor licensure — showing you when you're ready to sit, backed by a guarantee.</p>
       </div>
       <div class="foot-col">
-        <h4>Study</h4>
-        <a href="/study">Case simulations</a>
-        <a href="/exam.html">Timed mock exam</a>
-        <a href="/timed-knowledge-exam.html">Timed knowledge exam</a>
-        <a href="/knowledge-drill.html">Knowledge drill</a>
-        <a href="/next-best-step.html">Next best step</a>
-        <a href="/assess-next.html">What to assess next</a>
-        <a href="/intake.html">Intake interview simulator</a>
-        <a href="/decision-trees.html">Decision trees</a>
-        <a href="/skills.html">Microskills responder</a>
-        <a href="/core-attributes-quiz.html">Core attributes drill</a>
-        <a href="/flashcards.html">Flashcards</a>
-        <a href="/dsm.html">DSM-5-TR reference</a>
-        <a href="/theory.html">Theories &amp; pioneers reference</a>
-        <a href="/guarantee.html">Pass guarantee</a>
+        <h4>NCMHCE</h4>
+        <a href="/study">NCMHCE case simulations</a>
+        <a href="/exam.html">NCMHCE timed mock exam</a>
+        <a href="/timed-knowledge-exam.html">NCMHCE timed knowledge exam</a>
+        <a href="/practice-exams/1">NCMHCE Practice Exam 1 answer key</a>
+        <a href="/knowledge-drill.html">NCMHCE knowledge drill</a>
+        <a href="/next-best-step.html">NCMHCE next best step</a>
+        <a href="/assess-next.html">NCMHCE what to assess next</a>
+        <a href="/intake.html">NCMHCE intake interview simulator</a>
+        <a href="/decision-trees.html">NCMHCE decision trees</a>
+        <a href="/skills.html">NCMHCE microskills responder</a>
+        <a href="/core-attributes-quiz.html">NCMHCE core attributes drill</a>
+        <a href="/flashcards.html">NCMHCE flashcards</a>
+        <a href="/dsm.html">NCMHCE DSM-5-TR reference</a>
+        <a href="/theory.html">NCMHCE theories &amp; pioneers</a>
+        <a href="/guarantee.html">NCMHCE pass guarantee</a>
+      </div>
+      <div class="foot-col">
+        <h4>NCE</h4>
+        <a href="/nce.html">NCE practice questions &amp; mock exams</a>
+        <a href="/nce.html#pricing">NCE plans &amp; pricing</a>
+        <a href="/sheets/nce-study-sheets.pdf">NCE study sheets (PDF)</a>
+        <a href="/games.html#clue">Theory Clue game</a>
+        <a href="/games.html">Code Match game (free)</a>
       </div>
       <div class="foot-col">
         <h4>More</h4>

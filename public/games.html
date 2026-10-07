@@ -39,6 +39,7 @@
   .brand small{display:block; font-weight:600; font-size:11px; color:var(--em4); letter-spacing:.02em; margin-top:2px}
   .chip{width:36px; height:36px; border-radius:10px; background:rgba(16,185,129,.16); display:grid; place-items:center}
   .chip svg{width:20px; height:20px; color:var(--em4)}
+  .backs{display:flex; gap:14px; flex-wrap:wrap}
   .switch{display:flex; gap:6px; padding:5px; background:rgba(15,23,42,.65); border:1px solid var(--line); border-radius:999px; position:relative}
   .sw{font:inherit; font-weight:700; font-size:14px; border:none; border-radius:999px; padding:8px 16px; cursor:pointer; background:transparent; color:var(--mute); transition:background .25s, color .25s}
   .sw[aria-selected="true"]{background:var(--em); color:#04261C}
@@ -236,7 +237,7 @@
 <div class="wrap">
   <header>
     <a class="brand" href="/" style="text-decoration:none"><span class="chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span><span class="bt">PassReady <b>Games</b><small>NCE &amp; NCMHCE study games</small></span></a>
-    <a class="back" href="/study">&lsaquo; Back to dashboard</a>
+    <span class="backs"><a class="back" href="/study">&lsaquo; NCMHCE dashboard</a><a class="back" href="/nce.html">&lsaquo; NCE dashboard</a></span>
     <div class="switch" role="tablist" aria-label="Games">
       <button class="sw" role="tab" id="tab-match" aria-controls="match" aria-selected="true">Code Match<span class="free">Free</span></button>
       <button class="sw" role="tab" id="tab-rush" aria-controls="rush" aria-selected="false">Triage Rush</button>
