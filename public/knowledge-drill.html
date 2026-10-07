@@ -110,6 +110,14 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
   h1{font-size:22px}.qstem{font-size:15px}.opt{font-size:14px}
   .domain-grid{grid-template-columns:1fr}
 }
+
+  /* Static "About" + Study tools footer — footer rules copied from landing.html */
+  .tool-about{margin-top:32px}
+  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
+  footer.site{border-top:1px solid rgba(51,65,85,.4); margin-top:28px; padding:22px 0 0}
+  .foot-col h4{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--slate-400); margin:0 0 10px; font-weight:700}
+  .foot-col a{display:inline-block; color:var(--slate-300); text-decoration:none; font-size:14.5px; margin:4px 16px 4px 0}
+  .foot-col a:hover{color:var(--emerald-400)}
 </style>
 </head>
 <body>
@@ -146,6 +154,22 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
 
   <div class="scoreline"><span id="progress"></span><span id="score"></span></div>
   <div id="stage"></div>
+  <section class="tool-about" aria-labelledby="tool-about-h">
+    <h2 id="tool-about-h">About the knowledge drill</h2>
+    <p class="lead">Every question stands alone, so you can target a weak domain without working a full case, and every answer comes with a clinical rationale. When your domain scores hold steady, move on to full <a href="/study">NCMHCE case simulations</a> and the <a href="/exam.html">timed mock exam</a>; review missed theory items in <a href="/theory.html">theories &amp; pioneers</a>.</p>
+  </section>
+  <footer class="site">
+    <nav class="foot-col" aria-label="Study tools">
+      <h4>Study tools</h4>
+      <a href="/study">Case simulations</a>
+      <a href="/study-guide.html">Study guide</a>
+      <a href="/theory.html">Theories &amp; pioneers</a>
+      <a href="/core-attributes-quiz.html">Core attributes drill</a>
+      <a href="/decision-trees.html">Decision trees</a>
+      <a href="/skills.html">Microskills responder</a>
+      <a href="/intake.html">Intake interview simulator</a>
+    </nav>
+  </footer>
 </div>
 
 <script src="/knowledge-data.js"></script>

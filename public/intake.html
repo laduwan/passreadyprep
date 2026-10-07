@@ -114,6 +114,14 @@ h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
 :focus-visible{outline:2.5px solid var(--emerald-400); outline-offset:2px; border-radius:6px}
 @media(prefers-reduced-motion:reduce){*{transition:none !important}}
 @media(max-width:520px){h1{font-size:22px} .wrap{padding:16px 14px 56px} .card{padding:16px} .chat{height:340px}}
+
+  /* Static "About" + Study tools footer — footer rules copied from landing.html */
+  .tool-about{margin-top:32px}
+  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
+  footer.site{border-top:1px solid rgba(51,65,85,.4); margin-top:28px; padding:22px 0 0}
+  .foot-col h4{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--slate-400); margin:0 0 10px; font-weight:700}
+  .foot-col a{display:inline-block; color:var(--slate-300); text-decoration:none; font-size:14.5px; margin:4px 16px 4px 0}
+  .foot-col a:hover{color:var(--emerald-400)}
 </style>
 </head>
 <body>
@@ -132,6 +140,22 @@ h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
   </header>
   <h1>Intake Interview Simulator</h1><p class="lead">Run a full clinical intake with an AI-simulated client, then get a supervisor-style debrief on your rapport-building, questioning technique, and risk screening — the skills the NCMHCE case simulations are built around.</p>
   <main id="app" aria-live="polite"></main>
+  <section class="tool-about" aria-labelledby="tool-about-h">
+    <h2 id="tool-about-h">About the intake simulator</h2>
+    <p class="lead">Each simulated client shares more as your rapport and questioning improve, the way a real client does at intake, and the debrief covers rapport, questioning technique, and risk screening. Sharpen individual responses with the <a href="/skills.html">microskills responder</a>, and practice choosing assessments with <a href="/assess-next.html">what to assess next</a>.</p>
+  </section>
+  <footer class="site">
+    <nav class="foot-col" aria-label="Study tools">
+      <h4>Study tools</h4>
+      <a href="/study">Case simulations</a>
+      <a href="/study-guide.html">Study guide</a>
+      <a href="/theory.html">Theories &amp; pioneers</a>
+      <a href="/knowledge-drill.html">Knowledge drill</a>
+      <a href="/core-attributes-quiz.html">Core attributes drill</a>
+      <a href="/decision-trees.html">Decision trees</a>
+      <a href="/skills.html">Microskills responder</a>
+    </nav>
+  </footer>
 </div>
 
 <script>

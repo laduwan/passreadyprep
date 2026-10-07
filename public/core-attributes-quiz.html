@@ -93,6 +93,14 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
 .tg-fill{height:4px;border-radius:2px}
 
 @media(max-width:520px){h1{font-size:22px}.qstem{font-size:15px}.opt{font-size:14px}.topic-grid{grid-template-columns:1fr}}
+
+  /* Static "About" + Study tools footer — footer rules copied from landing.html */
+  .tool-about{margin-top:32px}
+  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
+  footer.site{border-top:1px solid rgba(51,65,85,.4); margin-top:28px; padding:22px 0 0}
+  .foot-col h4{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--slate-400); margin:0 0 10px; font-weight:700}
+  .foot-col a{display:inline-block; color:var(--slate-300); text-decoration:none; font-size:14.5px; margin:4px 16px 4px 0}
+  .foot-col a:hover{color:var(--emerald-400)}
 </style>
 </head>
 <body>
@@ -115,6 +123,22 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
   <div class="flt" id="filters"></div>
   <div class="scoreline"><span id="progress"></span><span id="score"></span></div>
   <div id="stage"></div>
+  <section class="tool-about" aria-labelledby="tool-about-h">
+    <h2 id="tool-about-h">About the core attributes drill</h2>
+    <p class="lead">Core Counseling Attributes questions test how you convey empathy, unconditional positive regard, and congruence, how you build and repair the working alliance, and how you respond across cultures. Practice the same skills in your own words with the <a href="/skills.html">microskills responder</a> and the <a href="/intake.html">intake interview simulator</a>, and review the theories behind them in <a href="/theory.html">theories &amp; pioneers</a>.</p>
+  </section>
+  <footer class="site">
+    <nav class="foot-col" aria-label="Study tools">
+      <h4>Study tools</h4>
+      <a href="/study">Case simulations</a>
+      <a href="/study-guide.html">Study guide</a>
+      <a href="/theory.html">Theories &amp; pioneers</a>
+      <a href="/knowledge-drill.html">Knowledge drill</a>
+      <a href="/decision-trees.html">Decision trees</a>
+      <a href="/skills.html">Microskills responder</a>
+      <a href="/intake.html">Intake interview simulator</a>
+    </nav>
+  </footer>
 </div>
 
 <script src="/ca-quiz-data.js"></script>
