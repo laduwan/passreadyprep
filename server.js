@@ -18,6 +18,8 @@ const corsOrigin = process.env.CLIENT_ORIGIN
   : '*';
 app.use(cors({ origin: corsOrigin }));
 app.use('/api/payment/webhook', express.raw({ type: 'application/json' }));
+// Resend inbound-email webhook: raw body too, for its Svix signature check.
+app.use('/api/inbound-email/webhook', express.raw({ type: 'application/json' }));
 // Score-report check-ins carry the member's score letter as a data URI (~5 MB).
 app.use('/api/payment/score-report', express.json({ limit: '8mb' }));
 app.use(express.json());
@@ -61,6 +63,7 @@ app.use('/api/announcements', require('./routes/announcements'));
 app.use('/api/nce', require('./routes/nce'));
 app.use('/api/admin/blog', require('./routes/adminBlog'));
 app.use('/api/resume', require('./routes/resume'));
+app.use('/api/inbound-email', require('./routes/inboundEmail'));
 
 // ── Accessibility + translation widget injection ────────────────────
 // Every HTML page gets the shared accessibility widget (a11y.css + a11y.js),

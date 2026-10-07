@@ -5,7 +5,7 @@
  * past-week performance: cases completed, accuracy, weak domains, and a
  * recommended focus for the coming week.
  *
- * Uses the same Brevo transactional email as trial reminders (no new deps).
+ * Uses the same transactional mailer (utils/mailer.js) as trial reminders (no new deps).
  * Only emails users who:
  *   - Have an active paid subscription or are within their trial
  *   - Completed at least 1 case in the past 14 days (engaged)

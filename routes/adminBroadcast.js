@@ -77,7 +77,7 @@ router.post('/send', async (req, res) => {
       } catch {
         failed++;
       }
-      // Brevo rate limit: small delay between sends
+      // Provider rate limit: small delay between sends
       await new Promise((r) => setTimeout(r, 200));
     }
 
