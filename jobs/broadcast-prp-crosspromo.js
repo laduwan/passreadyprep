@@ -8,7 +8,7 @@
  * supervisees / colleagues" note, not a hard sell.
  *
  * CR is a separate application with its own database and its own transactional
- * mail provider (Resend, not the Brevo setup this repo's utils/mailer.js uses),
+ * mail provider account (Resend, separate from the PRP key utils/mailer.js uses),
  * so this job takes its own connection and send path rather than reusing
  * models/User.js or utils/mailer.js — those are PassReady Prep's, and running
  * this against PRP's own database/users would be wrong. The schema below

@@ -4,13 +4,13 @@
  *
  * Usage:
  *   node jobs/broadcast-sept2026.js              # dry run (logs, doesn't send)
- *   node jobs/broadcast-sept2026.js --send       # actually sends via Brevo
+ *   node jobs/broadcast-sept2026.js --send       # actually sends via utils/mailer (Resend)
  *
  * Targets every registered user. Respects digestOptOut. Skips anyone
  * who already received this broadcast (tracked via a one-time flag on
  * the user doc so re-runs are safe).
  *
- * Requires MONGO_URI and BREVO_API_KEY in .env (or Render env vars).
+ * Requires MONGO_URI and PRP_RESEND_API_KEY in .env (or Render env vars).
  */
 
 require('dotenv').config();
@@ -20,7 +20,7 @@ const { sendMail } = require('../utils/mailer');
 
 const DRY_RUN = !process.argv.includes('--send');
 const BROADCAST_KEY = 'sept2026_features'; // idempotency key
-const BATCH_DELAY_MS = 200; // 200ms between sends (Brevo rate limit friendly)
+const BATCH_DELAY_MS = 200; // 200ms between sends (provider rate limit friendly)
 
 const SUBJECT = "Your study plan just got smarter — here's what's new";
 

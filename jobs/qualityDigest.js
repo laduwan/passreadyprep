@@ -7,7 +7,7 @@
  *   - IRR check: do N independent AI calls agree on the weight assignments
  *     (blind — no stored weights shown)?
  *
- * Emails a summary to ADMIN_ALERT_EMAIL via Brevo.
+ * Emails a summary to ADMIN_ALERT_EMAIL via utils/mailer.js.
  *
  * Biweekly logic: fires every Monday; checks whether the current ISO week
  * number is even. Week parity is stable and doesn't drift.
@@ -15,7 +15,7 @@
  * Env vars:
  *   ANTHROPIC_API_KEY    — required (same key as debrief/tutor)
  *   ADMIN_ALERT_EMAIL    — recipient (falls back to MAIL_FROM_EMAIL)
- *   BREVO_API_KEY        — required for actual send
+ *   PRP_RESEND_API_KEY   — required for actual send
  *   QUALITY_DIGEST_DISABLE=1  — skip without a code change
  *   QUALITY_SAMPLE_SIZE  — questions per run (default 15)
  *   IRR_SAMPLE_SIZE      — questions for IRR check (default 10)
