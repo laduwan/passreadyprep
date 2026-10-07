@@ -716,7 +716,7 @@ router.post('/activity/test', async (req, res) => {
     const to = process.env.ADMIN_ALERT_EMAIL || process.env.MAIL_FROM_EMAIL || '';
     const sms = process.env.ADMIN_ALERT_SMS_TO || '';
     const problems = [];
-    if (!process.env.BREVO_API_KEY) problems.push('BREVO_API_KEY is not set, so email is only logged, not sent');
+    if (!process.env.PRP_RESEND_API_KEY && !process.env.BREVO_API_KEY) problems.push('PRP_RESEND_API_KEY is not set (nor BREVO_API_KEY), so email is only logged, not sent');
     if (!process.env.ADMIN_ALERT_EMAIL) problems.push(`ADMIN_ALERT_EMAIL is not set, so alerts go to MAIL_FROM_EMAIL (${to || 'unset'})`);
     if (process.env.ADMIN_ALERT_DISABLE === '1') problems.push('ADMIN_ALERT_DISABLE=1 silences all alerts');
     const delivered = !!(saved && saved.notified);
