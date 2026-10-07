@@ -58,6 +58,12 @@ services:
         sync: false
       - key: GA_MEASUREMENT_ID   # optional Google Analytics 4 ID (G-XXXXXXX); unset = no Google tag
         sync: false
+      - key: GOOGLE_ADS_ID       # optional Google Ads tag ID (AW-123456789); works with or without GA4
+        sync: false
+      - key: GOOGLE_ADS_SIGNUP_LABEL    # label from the Ads "sign up" conversion action (the part after AW-…/)
+        sync: false
+      - key: GOOGLE_ADS_PURCHASE_LABEL  # label from the Ads "purchase" conversion action
+        sync: false
 
       # ── Free trial ────────────────────────────────────────────────────
       - key: TRIAL_DAYS          # STANDARD trial length in days (default 3); per-person

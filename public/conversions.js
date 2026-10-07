@@ -1,8 +1,10 @@
 /**
  * PassReady Prep — GA4 / Google Ads conversion events.
  * Injected by server.js next to the Google tag, so it only loads when
- * GA_MEASUREMENT_ID is set. Mark sign_up and purchase as key events in GA4,
- * then import them into Google Ads as conversions.
+ * GA_MEASUREMENT_ID and/or GOOGLE_ADS_ID is set. With GA4, mark sign_up and
+ * purchase as key events and import them into Google Ads. With a Google Ads
+ * AW- tag, each event is also sent as a conversion to the send_to target that
+ * server.js puts in window.PRP_ADS (only when its conversion label is set).
  *
  *   sign_up  — register.html leaves a prp_signup_pending flag before it
  *              redirects; the next page reports it once.
@@ -19,6 +21,7 @@
 
   var SIGNUP_KEY = 'prp_signup_pending';
   var DONE_KEY = 'prp_tracked_purchases';
+  var ADS = window.PRP_ADS || {};
   var SIGNUP_MAX_AGE = 24 * 60 * 60 * 1000; // an old, stale flag is not a sign-up
 
   function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
@@ -28,7 +31,10 @@
   var pending = get(SIGNUP_KEY);
   if (pending) {
     del(SIGNUP_KEY);
-    if (Date.now() - Number(pending) < SIGNUP_MAX_AGE) gtag('event', 'sign_up', { method: 'email' });
+    if (Date.now() - Number(pending) < SIGNUP_MAX_AGE) {
+      gtag('event', 'sign_up', { method: 'email' });
+      if (ADS.signup) gtag('event', 'conversion', { send_to: ADS.signup });
+    }
   }
 
   var sid = new URLSearchParams(location.search).get('session_id');
@@ -52,6 +58,14 @@
         currency: s.currency,
         items: [{ item_id: s.tier, item_name: s.tier, price: s.value, quantity: 1 }],
       });
+      if (ADS.purchase) {
+        gtag('event', 'conversion', {
+          send_to: ADS.purchase,
+          value: s.value,
+          currency: s.currency,
+          transaction_id: s.id,
+        });
+      }
       done.push(sid);
       set(DONE_KEY, JSON.stringify(done.slice(-20)));
     })
