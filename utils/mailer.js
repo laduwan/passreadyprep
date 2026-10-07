@@ -7,6 +7,9 @@
 //   MAIL_FROM_EMAIL  — the verified sender address, e.g. noreply@passreadyprep.com
 //   MAIL_FROM_NAME   — display name, e.g. "PassReady Prep"
 //
+// sendMail also takes an optional replyTo address (used by the inbound-email
+// forward so replying reaches the original sender).
+//
 // If BREVO_API_KEY is not set, sendMail logs the message to the server console
 // instead of sending — so password reset works end-to-end in development and
 // you can copy the link from the logs while you finish DNS/domain verification.
@@ -15,7 +18,7 @@
 const BREVO_ENDPOINT = 'https://api.brevo.com/v3/smtp/email';
 const BREVO_SMS_ENDPOINT = 'https://api.brevo.com/v3/transactionalSMS/sms';
 
-async function sendMail({ to, subject, html, text }) {
+async function sendMail({ to, subject, html, text, replyTo }) {
   const fromEmail = process.env.MAIL_FROM_EMAIL || 'noreply@passreadyprep.com';
   const fromName = process.env.MAIL_FROM_NAME || 'PassReady Prep';
   const apiKey = process.env.BREVO_API_KEY;
@@ -48,6 +51,7 @@ async function sendMail({ to, subject, html, text }) {
         subject,
         htmlContent: html,
         textContent: text,
+        ...(replyTo ? { replyTo: { email: replyTo } } : {}),
       }),
     });
 

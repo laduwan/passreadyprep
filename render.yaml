@@ -77,6 +77,14 @@ services:
       - key: MAIL_FROM_NAME
         value: PassReady Prep
 
+      # ── Inbound email (Resend Receiving) ──────────────────────────────
+      - key: RESEND_WEBHOOK_SECRET   # whsec_ from the /api/inbound-email/webhook webhook in Resend
+        sync: false
+      - key: RESEND_INBOUND_API_KEY  # Resend key for PRP's receiving domain (fetches email bodies)
+        sync: false
+      - key: INBOUND_FORWARD_TO      # optional; defaults to ADMIN_ALERT_EMAIL
+        sync: false
+
       # ── Stripe ────────────────────────────────────────────────────────
       - key: STRIPE_SECRET_KEY
         sync: false
