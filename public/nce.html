@@ -147,6 +147,23 @@ a.choice{text-decoration:none}
 @media(max-width:520px){.hero{padding:18px}.ring{width:112px;height:112px}.ring > div{width:92px;height:92px}.ring b{font-size:25px}.hero h1{font-size:24px}.dom.d{grid-template-columns:auto 1fr}.dright{grid-column:2;justify-content:space-between}}
 @media(prefers-reduced-motion:reduce){.ring,.dom.d .pct-fill{animation:none}}
 
+/* study plan */
+.plan-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.plan-days{font-size:13px;font-weight:800;color:var(--emerald-400);background:rgba(16,185,129,.14);border-radius:999px;padding:4px 11px}
+.phase{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:14px 0;border-top:1px solid rgba(51,65,85,.45)}
+.phase:first-of-type{border-top:none}
+.ph-n{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:14px}
+.ph-n.p1{background:rgba(59,130,246,.16);color:var(--blue-400)}.ph-n.p2{background:rgba(167,139,250,.16);color:#A78BFA}.ph-n.p3{background:rgba(16,185,129,.16);color:var(--emerald-400)}
+.ph-t{font-weight:700;color:var(--white)}
+.ph-when{font-size:12px;font-weight:700;color:var(--slate-400);margin-left:6px}
+.ph-now{font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#04261C;background:var(--emerald-400);border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:1px}
+.ph-d{font-size:14px;color:var(--slate-300);margin-top:3px}
+.ph-d b{color:var(--amber-400)}
+.ph-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+.targets{margin-top:6px;padding:12px 14px;border-radius:12px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);font-size:14px}
+.targets strong{color:var(--emerald-400)}
+.plan-date{font:inherit;font-size:14px;background:rgba(15,23,42,.6);color:var(--white);border:1px solid var(--card-border);border-radius:8px;padding:7px 9px;color-scheme:dark}
+
 /* timer */
 .timer-bar{position:sticky;top:0;z-index:50;background:rgba(15,23,42,.92);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--card-border);padding:10px 16px;display:none}
@@ -373,6 +390,69 @@ a.choice{text-decoration:none}
       '</div></div>';
   }
 
+  // NCE study plan: three phases from today to the exam date, built from the
+  // account's domain accuracy. Same shape as the NCMHCE plan (index.html genPlan).
+  function planHtml(by, dLeft){
+    var head = '<div class="card"><div class="plan-top"><h2 style="margin:0">Study plan</h2>'+(dLeft != null ? '<span class="plan-days">'+dLeft+' day'+(dLeft===1?'':'s')+' to go</span>' : '')+'</div>';
+    if (!TOKEN) return head+'<p class="muted small" style="margin:0"><a href="/register.html?next=/nce.html">Create a free account</a> and set your exam date to get a day-by-day NCE study plan built from your weakest domains.</p></div>';
+    if (dLeft == null) return head+'<p class="muted small" style="margin:0 0 10px">Set your NCE exam date and we\'ll build a 3-phase plan from your domain scores: weak areas first, then timed mock exams, then light review before test day.</p>'+
+      '<input type="date" class="plan-date" id="exam-date-plan" aria-label="NCE exam date"></div>';
+    if (dLeft === 0) return head+'<p style="margin:0">Exam day. Skip new material, eat, hydrate and trust your prep. Good luck!</p></div>';
+
+    var started = [], fresh = [];
+    BP.domains.forEach(function(d){
+      var b = by[d.key] || {correct:0,total:0}, p = pct(b.correct,b.total);
+      if (p == null) fresh.push(d); else started.push({ d: d, p: p });
+    });
+    started.sort(function(a,b){ return a.p - b.p; });
+    fresh.sort(function(a,b){ return b.weight - a.weight; });
+    var weak = started.slice(0, 2);
+    var answered = (PROGRESS && PROGRESS.answered) || 0;
+    var goal = (PROGRESS && PROGRESS.readiness && PROGRESS.readiness.answeredForFullConfidence) || 300;
+
+    var p1, p2, p3;
+    if (dLeft <= 2) { p1 = 0; p2 = 0; p3 = dLeft; }
+    else if (dLeft < 7) { p3 = 1; p2 = 1; p1 = dLeft - 2; }
+    else { p1 = Math.floor(dLeft * 0.5); p2 = Math.floor(dLeft * 0.3); p3 = dLeft - p1 - p2; }
+    function when(a, b){ return a === b ? 'Day '+a : 'Days '+a+'–'+b; }
+    function phase(n, title, from, to, body, acts){
+      return '<div class="phase"><span class="ph-n p'+n+'">'+n+'</span><div>'+
+        '<div class="ph-t">'+title+'<span class="ph-when">'+when(from, to)+'</span>'+(from === 1 ? '<span class="ph-now">Now</span>' : '')+'</div>'+
+        '<div class="ph-d">'+body+'</div>'+(acts ? '<div class="ph-acts">'+acts+'</div>' : '')+'</div></div>';
+    }
+
+    var h = head, d = 1;
+    if (p1) {
+      var focus = weak.length
+        ? 'Focus on your weakest domains: '+weak.map(function(w){ return '<b>'+esc(w.d.short || w.d.label)+'</b> ('+w.p+'%)'; }).join(' and ')+'.'
+        : 'Start with the heaviest domains: '+fresh.slice(0, 2).map(function(x){ return '<b>'+esc(x.short || x.label)+'</b> ('+Math.round(x.weight*100)+'%)'; }).join(' and ')+'.';
+      var untried = weak.length ? fresh.slice(0, 2) : [];
+      var acts = (weak.length ? weak.map(function(w){ return w.d; }) : fresh.slice(0, 2)).map(function(x){
+        return '<button class="btn btn-sm" data-practice="'+x.key+'">Practice '+esc(x.short || x.label)+'</button>'; }).join('');
+      h += phase(1, 'Build foundations', d, d + p1 - 1,
+        focus+(untried.length ? ' Also try: '+untried.map(function(x){ return esc(x.short || x.label); }).join(', ')+' (not started).' : '')+
+        ' Read the rationale on every miss and review the matching study sheet section.', acts);
+      d += p1;
+    }
+    if (p2) {
+      var mocks = Math.max(1, Math.floor(p2 / 3));
+      h += phase(2, 'Timed mock exams', d, d + p2 - 1,
+        (mocks === 1 ? 'Take a full-length timed mock exam ('+BP.exam.totalItems+' questions) under real test conditions.'
+          : 'Take '+mocks+' timed mock exams, building up from half length to full length ('+BP.exam.totalItems+' questions).')+' Review every missed question, then practice the domains it flags.',
+        '<button class="btn btn-s btn-sm" id="plan-mock">Start a mock exam</button>');
+      d += p2;
+    }
+    h += phase(3, 'Sharpen and rest', d, d + p3 - 1,
+      'Light review only: your Focus domains, the study sheets and a game or two. The day before your exam, rest instead of cramming.',
+      '<a class="btn btn-s btn-sm" href="/sheets/nce-study-sheets.pdf" target="_blank" rel="noopener">Study sheets</a><a class="btn btn-s btn-sm" href="/games.html#clue">Theory Clue</a>');
+
+    var left = Math.max(0, goal - answered);
+    var sets = p1 ? Math.max(1, Math.min(3, Math.ceil(left / p1 / 20))) : 1;
+    h += '<div class="targets"><strong>Daily target:</strong> '+sets+' practice set'+(sets===1?'':'s')+' ('+(sets*20)+' questions) + 10 minutes with the study sheets.'+
+      (left ? '<br><span class="muted small">'+left+' more answers until your readiness score counts in full ('+answered+' of '+goal+').</span>' : '')+'</div>';
+    return h+'</div>';
+  }
+
   var DOM_COLORS = ['#34D399','#60A5FA','#A78BFA','#FBBF24','#F472B6','#22D3EE'];
   var SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
   var ICO = {
@@ -412,6 +492,7 @@ a.choice{text-decoration:none}
         '<div class="choice games"><span class="ico am">'+ICO.games+'</span><b>Study games</b><span>Need a break? Learn by playing.</span>'+
           '<div class="game-links"><a href="/games.html#clue">Theory Clue</a><a href="/games.html">Code Match · free</a><a href="/games.html#rush">Triage Rush · NCMHCE</a></div></div>'+
       '</div></div>'+
+      planHtml(by, dLeft)+
       '<div class="card"><h2>NCE domains</h2><p class="muted small" style="margin-top:-4px">Weights are NBCC\'s scored item counts. Your accuracy comes from every practice set and mock exam you finish while signed in.</p>'+
       BP.domains.map(function(d, i){
         var b = by[d.key] || {correct:0,total:0}, p = pct(b.correct,b.total);
@@ -434,11 +515,15 @@ a.choice{text-decoration:none}
     if (focus) document.getElementById('go-focus').onclick = function(){ startPractice(focus.d.key); };
     Array.prototype.forEach.call(stage.querySelectorAll('[data-practice]'), function(b){ b.onclick = function(){ startPractice(b.getAttribute('data-practice')); }; });
     Array.prototype.forEach.call(stage.querySelectorAll('[data-buy]'), function(b){ b.onclick = function(){ buy(b.getAttribute('data-buy'), b); }; });
-    var ed = document.getElementById('exam-date');
-    if (ed) ed.onchange = function(){
-      api('/api/nce/exam-date', { method:'PUT', body:{ examDate: ed.value || null } })
-        .then(function(r){ STATUS.examDate = r.examDate; renderHome(); }).catch(function(e){ alert(e.message); });
-    };
+    ['exam-date', 'exam-date-plan'].forEach(function(id){
+      var ed = document.getElementById(id);
+      if (ed) ed.onchange = function(){
+        api('/api/nce/exam-date', { method:'PUT', body:{ examDate: ed.value || null } })
+          .then(function(r){ STATUS.examDate = r.examDate; renderHome(); }).catch(function(e){ alert(e.message); });
+      };
+    });
+    var pm = document.getElementById('plan-mock');
+    if (pm) pm.onclick = renderMockSetup;
     if (location.hash === '#pricing') { var el = document.getElementById('pricing'); if (el) el.scrollIntoView(); }
   }
 
