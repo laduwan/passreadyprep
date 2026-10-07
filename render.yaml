@@ -56,7 +56,9 @@ services:
       # ── Anonymous pageview counting ───────────────────────────────────
       - key: VISIT_HASH_SALT     # any long random string; salts the one-way visitor hash (no raw IPs stored)
         sync: false
-      - key: GA_MEASUREMENT_ID   # optional Google Analytics 4 ID (G-XXXXXXX); unset = no Google tag
+      - key: GA_MEASUREMENT_ID   # optional Google Analytics 4 ID (G-XXXXXXX); unset = no GA
+        sync: false
+      - key: GOOGLE_ADS_ID       # optional override of the Google Ads tag (AW-…); unset = built-in AW-18479243093, "off" = none
         sync: false
 
       # ── Free trial ────────────────────────────────────────────────────
