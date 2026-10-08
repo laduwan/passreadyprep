@@ -1,0 +1,3157 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.240
+You know, usually when we talk about a medical diagnosis,
+
+2
+00:00:04.240 --> 00:00:07.280
+there's this expectation of just absolute precision.
+
+3
+00:00:07.280 --> 00:00:08.120
+Oh, sure.
+
+4
+00:00:08.120 --> 00:00:09.680
+Like it feels like engineering or something.
+
+5
+00:00:09.680 --> 00:00:11.160
+You break your arm, you get an X-ray,
+
+6
+00:00:11.160 --> 00:00:12.160
+and it shows that, you know,
+
+7
+00:00:12.160 --> 00:00:14.520
+that jagged white line on the radius bone.
+
+8
+00:00:14.520 --> 00:00:16.560
+Right, it's binary, it's incredibly clean.
+
+9
+00:00:16.560 --> 00:00:18.600
+Exactly, the doctor just points to the screen
+
+10
+00:00:18.600 --> 00:00:21.040
+and says, there it is, broken.
+
+11
+00:00:21.040 --> 00:00:21.880
+And we like that.
+
+12
+00:00:21.880 --> 00:00:23.880
+I mean, inherently we find it comforting
+
+13
+00:00:23.880 --> 00:00:26.400
+when things are visible and perfectly categorized.
+
+14
+00:00:26.400 --> 00:00:28.560
+We wanna know exactly what we're fighting.
+
+15
+00:00:28.640 --> 00:00:31.080
+Yeah, but then, and this is why we're here today,
+
+16
+00:00:31.080 --> 00:00:33.800
+you step into the world of human behavior.
+
+17
+00:00:33.800 --> 00:00:36.080
+You walk into a clinical psychology clinic
+
+18
+00:00:36.080 --> 00:00:38.320
+and suddenly that X-ray machine is,
+
+19
+00:00:38.320 --> 00:00:40.520
+well, it's entirely useless.
+
+20
+00:00:40.520 --> 00:00:41.560
+Completely useless.
+
+21
+00:00:41.560 --> 00:00:44.960
+The diagnostic landscape is honestly incredibly murky.
+
+22
+00:00:44.960 --> 00:00:47.520
+So, welcome to today's deep dive.
+
+23
+00:00:47.520 --> 00:00:49.440
+If you're a learner, and I know you are
+
+24
+00:00:49.440 --> 00:00:51.600
+because you're sitting here with us right now,
+
+25
+00:00:51.600 --> 00:00:54.320
+you've probably wondered how professionals
+
+26
+00:00:54.320 --> 00:00:57.640
+actually make sense of the human mind without that X-ray.
+
+27
+00:00:57.640 --> 00:00:58.760
+It's a huge challenge.
+
+28
+00:00:58.760 --> 00:01:01.880
+Right, so today we are cracking open
+
+29
+00:01:01.880 --> 00:01:06.080
+what is basically a masterclass in reading human behavior.
+
+30
+00:01:06.080 --> 00:01:10.280
+We've got this stack of clinical test prep transcripts,
+
+31
+00:01:10.280 --> 00:01:12.600
+specifically pass-ready prep by Keek,
+
+32
+00:01:12.600 --> 00:01:14.680
+which are designed for mental health counselors.
+
+33
+00:01:14.680 --> 00:01:17.640
+Yeah, and the goal here isn't to study for an exam,
+
+34
+00:01:17.640 --> 00:01:19.040
+obviously. No, definitely not.
+
+35
+00:01:19.040 --> 00:01:21.280
+We're trying to decode how professionals
+
+36
+00:01:21.280 --> 00:01:23.640
+actually distinguish between these near-identical
+
+37
+00:01:23.640 --> 00:01:25.040
+psychological states.
+
+38
+00:01:25.040 --> 00:01:26.560
+How do they keep people safe?
+
+39
+00:01:26.560 --> 00:01:28.320
+What actually drives human behavior?
+
+40
+00:01:28.320 --> 00:01:30.840
+It really is a fascinating framework to look at.
+
+41
+00:01:30.840 --> 00:01:32.400
+And I have to say, seeing you set up there
+
+42
+00:01:32.400 --> 00:01:33.600
+for this deep dive,
+
+43
+00:01:33.600 --> 00:01:35.840
+I mean, you've got this expansive,
+
+44
+00:01:35.840 --> 00:01:38.800
+warmly lit library backdrop.
+
+45
+00:01:38.800 --> 00:01:39.640
+Oh, thanks.
+
+46
+00:01:39.640 --> 00:01:42.040
+Yeah, with those intricate behavioral charts behind you,
+
+47
+00:01:42.040 --> 00:01:43.960
+it's very fitting because the truth is,
+
+48
+00:01:43.960 --> 00:01:46.560
+this entire diagnostic manual we're exploring today,
+
+49
+00:01:46.560 --> 00:01:48.280
+it's ultimately about drawing boundaries.
+
+50
+00:01:48.280 --> 00:01:49.120
+New boundaries, yeah.
+
+51
+00:01:49.120 --> 00:01:50.640
+Right, it's an attempt to figure out
+
+52
+00:01:50.640 --> 00:01:52.840
+where normal human distress ends,
+
+53
+00:01:52.840 --> 00:01:54.920
+you know, and a clinical disorder actually begins.
+
+54
+00:01:55.120 --> 00:01:57.720
+And that requires an incredible amount of precision
+
+55
+00:01:57.720 --> 00:01:59.360
+to navigate that gray area.
+
+56
+00:01:59.360 --> 00:02:01.280
+Okay, let's untack this.
+
+57
+00:02:01.280 --> 00:02:04.480
+I wanna start with the most common internal experiences
+
+58
+00:02:04.480 --> 00:02:06.960
+that, well, pretty much all of us recognize, right?
+
+59
+00:02:06.960 --> 00:02:08.040
+Anxiety and depression.
+
+60
+00:02:08.040 --> 00:02:08.880
+The big two.
+
+61
+00:02:08.880 --> 00:02:09.840
+Yeah.
+
+62
+00:02:09.840 --> 00:02:11.760
+When I first looked at this source material,
+
+63
+00:02:11.760 --> 00:02:14.000
+I just assumed anxiety was anxiety,
+
+64
+00:02:14.000 --> 00:02:16.480
+like you feel nervous, your heart beats fast,
+
+65
+00:02:16.480 --> 00:02:19.800
+you sweat, but professionals actually map this out
+
+66
+00:02:19.800 --> 00:02:21.800
+by looking for a specific target, right?
+
+67
+00:02:21.800 --> 00:02:23.520
+Like the target of the fear.
+
+68
+00:02:23.520 --> 00:02:24.360
+Exactly.
+
+69
+00:02:24.440 --> 00:02:27.640
+The anxiety family is entirely driven by fear,
+
+70
+00:02:27.640 --> 00:02:29.920
+that is the biological engine running the whole thing.
+
+71
+00:02:29.920 --> 00:02:30.760
+Right.
+
+72
+00:02:30.760 --> 00:02:33.880
+But you cannot diagnose the specific disorder
+
+73
+00:02:33.880 --> 00:02:36.080
+just by looking at the physical panic.
+
+74
+00:02:36.080 --> 00:02:37.840
+The diagnosis entirely depends
+
+75
+00:02:37.840 --> 00:02:39.280
+on what that fear is pointed at.
+
+76
+00:02:39.280 --> 00:02:41.200
+You really have to find the invisible target.
+
+77
+00:02:41.200 --> 00:02:43.760
+Okay, let me try to map this out based on what I read.
+
+78
+00:02:43.760 --> 00:02:45.560
+So if the worry is just spread out
+
+79
+00:02:45.560 --> 00:02:46.880
+across a million different domains,
+
+80
+00:02:46.880 --> 00:02:49.320
+like I'm worried about my job, my health,
+
+81
+00:02:49.320 --> 00:02:51.920
+whether I left the stove on, my kids' grades.
+
+82
+00:02:51.920 --> 00:02:53.000
+Just a constant hum.
+
+83
+00:02:53.000 --> 00:02:55.400
+Yeah, this persistent hum that lasts for months,
+
+84
+00:02:55.400 --> 00:02:57.240
+that's generalized anxiety disorder.
+
+85
+00:02:57.240 --> 00:02:58.080
+Well, GED.
+
+86
+00:02:58.080 --> 00:02:59.680
+But what if the fear is pointed
+
+87
+00:02:59.680 --> 00:03:01.040
+at something really specific,
+
+88
+00:03:01.040 --> 00:03:03.000
+like being around a crowd of people?
+
+89
+00:03:03.000 --> 00:03:03.840
+Yeah.
+
+90
+00:03:03.840 --> 00:03:04.760
+Well, this is where the clinician
+
+91
+00:03:04.760 --> 00:03:06.120
+has to dig a little deeper,
+
+92
+00:03:06.120 --> 00:03:08.920
+because just saying fear of crowds
+
+93
+00:03:08.920 --> 00:03:10.280
+isn't enough information.
+
+94
+00:03:10.280 --> 00:03:12.760
+You have to ask, why are you afraid of the crime?
+
+95
+00:03:12.760 --> 00:03:13.920
+Ah, okay.
+
+96
+00:03:13.920 --> 00:03:17.600
+Right, so if your fear is pointed at being judged
+
+97
+00:03:17.600 --> 00:03:20.160
+like at the scrutiny or the potential
+
+98
+00:03:20.160 --> 00:03:22.840
+for negative evaluation by those people,
+
+99
+00:03:22.840 --> 00:03:25.080
+then you're looking at social anxiety disorder.
+
+100
+00:03:25.080 --> 00:03:26.800
+Okay, but what if it's not about being judged?
+
+101
+00:03:26.800 --> 00:03:29.120
+What if you just feel trapped in that crowd?
+
+102
+00:03:29.120 --> 00:03:31.520
+Then you're likely looking at agoraphobia.
+
+103
+00:03:31.520 --> 00:03:32.360
+Oh, wow.
+
+104
+00:03:32.360 --> 00:03:33.960
+Yeah, in that case, the fear is pointed
+
+105
+00:03:33.960 --> 00:03:36.800
+at being trapped in a situation where,
+
+106
+00:03:36.800 --> 00:03:39.360
+you know, escape is physically difficult,
+
+107
+00:03:39.360 --> 00:03:41.680
+or where help might be totally unavailable
+
+108
+00:03:41.680 --> 00:03:42.680
+if you start to panic.
+
+109
+00:03:42.680 --> 00:03:43.840
+So the behavior is the same,
+
+110
+00:03:43.840 --> 00:03:45.120
+but the reason is different.
+
+111
+00:03:45.120 --> 00:03:45.960
+Exactly.
+
+112
+00:03:45.960 --> 00:03:47.280
+A person with social anxiety
+
+113
+00:03:47.280 --> 00:03:48.560
+and a person with agoraphobia
+
+114
+00:03:48.560 --> 00:03:51.840
+might both avoid going to a crowded shopping mall.
+
+115
+00:03:51.840 --> 00:03:54.240
+So the presenting behavior looks totally identical,
+
+116
+00:03:55.240 --> 00:03:57.080
+but the underlying motive,
+
+117
+00:03:57.080 --> 00:04:00.320
+the engine of that avoidance is completely different.
+
+118
+00:04:00.320 --> 00:04:02.400
+So anxiety is basically a smoke alarm.
+
+119
+00:04:02.400 --> 00:04:03.240
+I like that.
+
+120
+00:04:03.240 --> 00:04:05.040
+Yeah, so generalized anxiety
+
+121
+00:04:05.040 --> 00:04:07.160
+is when the alarm is just constantly humming
+
+122
+00:04:07.160 --> 00:04:09.360
+in the background for absolutely everything.
+
+123
+00:04:09.360 --> 00:04:11.480
+Social anxiety is when it only blares
+
+124
+00:04:11.480 --> 00:04:14.000
+because it detects other people judging you.
+
+125
+00:04:14.000 --> 00:04:16.440
+Yes, and to finish that analogy,
+
+126
+00:04:16.440 --> 00:04:18.440
+panic disorder is when you are actually
+
+127
+00:04:18.440 --> 00:04:20.120
+terrified of the alarm itself.
+
+128
+00:04:20.120 --> 00:04:21.240
+Wait, really?
+
+129
+00:04:21.280 --> 00:04:22.560
+Terrified of the alarm.
+
+130
+00:04:22.560 --> 00:04:23.640
+Exactly.
+
+131
+00:04:23.640 --> 00:04:24.560
+In panic disorder,
+
+132
+00:04:24.560 --> 00:04:28.360
+the fear is pointed at the next unexpected surge of panic.
+
+133
+00:04:28.360 --> 00:04:30.760
+So you're afraid of being afraid?
+
+134
+00:04:30.760 --> 00:04:31.880
+Basically, yeah.
+
+135
+00:04:31.880 --> 00:04:34.120
+The person becomes hyper-focused
+
+136
+00:04:34.120 --> 00:04:35.880
+on their own physiological sensations.
+
+137
+00:04:35.880 --> 00:04:37.680
+So like a slight change in heart rate,
+
+138
+00:04:37.680 --> 00:04:38.520
+a little shortness of breath.
+
+139
+00:04:38.520 --> 00:04:39.720
+They're again, they spiral.
+
+140
+00:04:39.720 --> 00:04:41.400
+Right, because they are terrified
+
+141
+00:04:41.400 --> 00:04:43.000
+of having another panic attack.
+
+142
+00:04:43.000 --> 00:04:45.880
+The target of the fear is the fear itself.
+
+143
+00:04:45.880 --> 00:04:49.360
+What's fascinating here is how the diagnostic criteria
+
+144
+00:04:49.360 --> 00:04:51.520
+force the clinician to look right past
+
+145
+00:04:51.520 --> 00:04:52.520
+the presenting symptom.
+
+146
+00:04:52.520 --> 00:04:54.480
+Because treating the symptom isn't enough.
+
+147
+00:04:54.480 --> 00:04:56.200
+No, you can't just treat the avoidance.
+
+148
+00:04:56.200 --> 00:04:57.960
+You have to treat the specific fear
+
+149
+00:04:57.960 --> 00:04:59.400
+that's actually driving it.
+
+150
+00:04:59.400 --> 00:05:00.680
+That makes total sense.
+
+151
+00:05:00.680 --> 00:05:02.720
+And it seems like the stakes for finding
+
+152
+00:05:02.720 --> 00:05:05.040
+that underlying engine get incredibly high
+
+153
+00:05:05.040 --> 00:05:08.120
+when we move from anxiety over to mood disorders.
+
+154
+00:05:08.120 --> 00:05:08.960
+Oh, absolutely.
+
+155
+00:05:08.960 --> 00:05:11.880
+Especially that boundary between unipolar-depressive
+
+156
+00:05:11.880 --> 00:05:15.040
+like major depressive disorder and bipolar disorder.
+
+157
+00:05:15.040 --> 00:05:16.920
+The source material made a huge deal out of this.
+
+158
+00:05:16.920 --> 00:05:19.960
+It is a matter of absolute critical safety.
+
+159
+00:05:19.960 --> 00:05:21.960
+I mean, when a client comes into a clinic,
+
+160
+00:05:21.960 --> 00:05:23.840
+they're almost always coming in
+
+161
+00:05:23.840 --> 00:05:26.120
+during the low, the depressive phase.
+
+162
+00:05:26.120 --> 00:05:26.960
+Right.
+
+163
+00:05:26.960 --> 00:05:27.800
+Think about it.
+
+164
+00:05:27.800 --> 00:05:29.280
+Nobody schedules an emergency therapy appointment
+
+165
+00:05:29.280 --> 00:05:32.440
+because they feel invincible, need zero sleep
+
+166
+00:05:32.440 --> 00:05:35.480
+and have this rush of brilliant racing thoughts.
+
+167
+00:05:35.480 --> 00:05:37.520
+Yeah, they only come in when they crash.
+
+168
+00:05:37.520 --> 00:05:38.800
+So they sit down on the couch
+
+169
+00:05:38.800 --> 00:05:40.920
+and they present looking exactly like someone
+
+170
+00:05:40.920 --> 00:05:43.000
+with standard major depressive disorder.
+
+171
+00:05:43.000 --> 00:05:44.640
+But here's the danger.
+
+172
+00:05:44.640 --> 00:05:46.800
+If you just look at that presentation
+
+173
+00:05:47.320 --> 00:05:48.760
+and you assume it's unipolar depression
+
+174
+00:05:48.760 --> 00:05:52.920
+and then treat it with a standard SSRI antidepressant,
+
+175
+00:05:52.920 --> 00:05:54.600
+you can cause profound harm.
+
+176
+00:05:54.600 --> 00:05:57.560
+Because SSRI's flood the brain with serotonin, right?
+
+177
+00:05:57.560 --> 00:06:00.120
+So if they actually have an underlying bipolar disorder
+
+178
+00:06:00.120 --> 00:06:02.120
+that you missed, what actually happens?
+
+179
+00:06:02.120 --> 00:06:04.520
+It acts like pouring rocket fuel onto a latent engine.
+
+180
+00:06:04.520 --> 00:06:05.360
+Oh my God.
+
+181
+00:06:05.360 --> 00:06:07.560
+Yeah, an antidepressant given alone
+
+182
+00:06:07.560 --> 00:06:09.520
+to someone with bipolar disorder
+
+183
+00:06:09.520 --> 00:06:11.080
+can literally flip that patient
+
+184
+00:06:11.080 --> 00:06:14.160
+into a full dangerous manic episode.
+
+185
+00:06:14.160 --> 00:06:15.400
+That is terrifying.
+
+186
+00:06:15.400 --> 00:06:16.320
+It really is.
+
+187
+00:06:16.320 --> 00:06:18.440
+They go from being profoundly depressed
+
+188
+00:06:18.440 --> 00:06:22.520
+to dangerously impulsive, detached from reality
+
+189
+00:06:22.520 --> 00:06:24.400
+or unable to sleep for days.
+
+190
+00:06:24.400 --> 00:06:26.480
+So just by giving them the standard treatment,
+
+191
+00:06:26.480 --> 00:06:27.720
+you make it worse.
+
+192
+00:06:27.720 --> 00:06:29.080
+Much worse.
+
+193
+00:06:29.080 --> 00:06:31.600
+It is the single most consequential danger
+
+194
+00:06:31.600 --> 00:06:33.440
+of misreading mood.
+
+195
+00:06:33.440 --> 00:06:35.280
+You treat the symptom directly in front of you
+
+196
+00:06:35.280 --> 00:06:36.760
+without checking the history
+
+197
+00:06:36.760 --> 00:06:38.800
+and you trigger a major crisis.
+
+198
+00:06:38.800 --> 00:06:39.640
+Wow.
+
+199
+00:06:39.640 --> 00:06:42.480
+That is why the cardinal rule in diagnostics
+
+200
+00:06:42.480 --> 00:06:44.040
+is that you must actively hunt
+
+201
+00:06:44.040 --> 00:06:46.640
+for a history of mania or hypomania
+
+202
+00:06:46.640 --> 00:06:49.200
+with every single depressed client.
+
+203
+00:06:49.200 --> 00:06:50.280
+You have to know the history
+
+204
+00:06:50.280 --> 00:06:51.640
+before you touch the chemistry.
+
+205
+00:06:51.640 --> 00:06:52.480
+Well said.
+
+206
+00:06:52.480 --> 00:06:54.520
+Which actually transitions us perfectly
+
+207
+00:06:54.520 --> 00:06:57.160
+to another boundary that really trips people up time.
+
+208
+00:06:57.160 --> 00:06:58.760
+The way timelines dictate
+
+209
+00:06:58.760 --> 00:07:00.720
+whether someone is detached from reality.
+
+210
+00:07:00.720 --> 00:07:02.600
+Yes, the psychotic spectrum.
+
+211
+00:07:02.600 --> 00:07:03.440
+Right.
+
+212
+00:07:03.440 --> 00:07:04.720
+When it comes to the psychotic spectrum,
+
+213
+00:07:04.720 --> 00:07:07.360
+it seems like the diagnosis is literally just a clock.
+
+214
+00:07:07.360 --> 00:07:09.000
+It is entirely built on duration.
+
+215
+00:07:09.000 --> 00:07:11.400
+It's like a ladder constructed out of time.
+
+216
+00:07:11.400 --> 00:07:12.360
+But why?
+
+217
+00:07:12.360 --> 00:07:14.040
+Why does the diagnostic system
+
+218
+00:07:14.040 --> 00:07:16.200
+care so much about a calendar?
+
+219
+00:07:16.200 --> 00:07:18.000
+Like let me walk up this ladder first.
+
+220
+00:07:18.000 --> 00:07:20.360
+If someone has psychotic symptoms, delusions,
+
+221
+00:07:20.360 --> 00:07:22.840
+hallucinations, maybe disorganized speech.
+
+222
+00:07:22.840 --> 00:07:23.680
+Right.
+
+223
+00:07:23.680 --> 00:07:25.120
+But they last under one month
+
+224
+00:07:25.120 --> 00:07:26.600
+and then the person returns to normal,
+
+225
+00:07:26.600 --> 00:07:28.320
+that's brief psychotic disorder.
+
+226
+00:07:28.320 --> 00:07:29.160
+Correct.
+
+227
+00:07:29.160 --> 00:07:30.640
+Then if it lasts between one and six months,
+
+228
+00:07:30.640 --> 00:07:32.120
+it's schizophrenia form disorder.
+
+229
+00:07:32.120 --> 00:07:34.080
+And if it crosses that six month mark,
+
+230
+00:07:34.080 --> 00:07:35.560
+it becomes schizophrenia.
+
+231
+00:07:35.560 --> 00:07:37.720
+What is magically happening at month six?
+
+232
+00:07:37.720 --> 00:07:40.160
+It's not magic, it's neurobiology and prognosis.
+
+233
+00:07:40.160 --> 00:07:41.160
+Okay, how so?
+
+234
+00:07:41.160 --> 00:07:44.520
+Well, the brain can experience brief psychotic breaks
+
+235
+00:07:44.520 --> 00:07:48.120
+due to immense acute stress or trauma.
+
+236
+00:07:48.120 --> 00:07:50.440
+Like a person might completely detach from reality
+
+237
+00:07:50.440 --> 00:07:52.800
+for two weeks under severe duress.
+
+238
+00:07:52.800 --> 00:07:54.360
+Just totally break from reality.
+
+239
+00:07:54.360 --> 00:07:56.840
+Yes, but once the stressor resolves,
+
+240
+00:07:56.840 --> 00:07:58.880
+their brain returns to baseline.
+
+241
+00:07:58.880 --> 00:08:00.880
+That's a temporary malfunction.
+
+242
+00:08:00.880 --> 00:08:03.440
+But as those symptoms stretch past six months,
+
+243
+00:08:03.440 --> 00:08:04.600
+we're no longer looking
+
+244
+00:08:04.600 --> 00:08:06.760
+at a temporary stress induced break.
+
+245
+00:08:06.760 --> 00:08:08.120
+What are we looking at then?
+
+246
+00:08:08.120 --> 00:08:09.600
+We're looking at an insidious,
+
+247
+00:08:09.600 --> 00:08:12.520
+pervasive neural cognitive change.
+
+248
+00:08:12.520 --> 00:08:15.520
+The six month threshold is the boundary
+
+249
+00:08:15.520 --> 00:08:17.240
+where clinicians have to recognize
+
+250
+00:08:17.240 --> 00:08:19.200
+that this is a lifelong management issue,
+
+251
+00:08:19.200 --> 00:08:20.560
+not just a passing storm.
+
+252
+00:08:20.560 --> 00:08:21.960
+Okay, that makes sense.
+
+253
+00:08:21.960 --> 00:08:24.600
+But what about when psychosis overlaps with a mood disorder?
+
+254
+00:08:24.600 --> 00:08:26.400
+Like when someone is deeply depressed
+
+255
+00:08:26.400 --> 00:08:28.120
+but also having delusions,
+
+256
+00:08:28.120 --> 00:08:30.160
+the manual gets really specific there too.
+
+257
+00:08:30.160 --> 00:08:31.000
+It does.
+
+258
+00:08:31.000 --> 00:08:32.840
+That's where the clinician has to look very closely
+
+259
+00:08:32.840 --> 00:08:33.920
+at the timeline again
+
+260
+00:08:33.920 --> 00:08:36.000
+to diagnose schizoaffective disorder.
+
+261
+00:08:36.000 --> 00:08:37.400
+Schizoaffective, yeah.
+
+262
+00:08:37.400 --> 00:08:39.840
+There must be a period of at least two weeks
+
+263
+00:08:39.840 --> 00:08:43.160
+where the psychosis is present completely on its own
+
+264
+00:08:43.160 --> 00:08:46.240
+without a major mood episode running alongside it.
+
+265
+00:08:46.240 --> 00:08:48.500
+Wait, so the psychosis basically has to stand
+
+266
+00:08:48.500 --> 00:08:51.120
+on its own two feet for a couple of weeks
+
+267
+00:08:51.120 --> 00:08:52.720
+to prove it's a separate entity
+
+268
+00:08:52.720 --> 00:08:53.960
+rather than just being
+
+269
+00:08:53.960 --> 00:08:56.400
+like a really severe feature of the depression.
+
+270
+00:08:56.400 --> 00:08:58.040
+Exactly, that freestanding stretch
+
+271
+00:08:58.040 --> 00:09:00.400
+of altered reality is the separator.
+
+272
+00:09:00.400 --> 00:09:03.000
+It proves the psychotic engine can run independently.
+
+273
+00:09:03.000 --> 00:09:05.160
+Okay, so we have timelines for reality.
+
+274
+00:09:05.160 --> 00:09:07.960
+But what about when people are detached from others?
+
+275
+00:09:07.960 --> 00:09:12.040
+The way personality styles are categorized is wild to me.
+
+276
+00:09:12.040 --> 00:09:13.040
+It's very nuanced.
+
+277
+00:09:13.040 --> 00:09:15.920
+Let's take someone who is just a total loner.
+
+278
+00:09:15.920 --> 00:09:17.120
+If you're at a party
+
+279
+00:09:17.120 --> 00:09:20.040
+and you see someone standing entirely alone in the corner
+
+280
+00:09:20.040 --> 00:09:22.860
+just staring at the wall, ignoring everyone,
+
+281
+00:09:22.860 --> 00:09:24.660
+that's schizoid personality disorder, right?
+
+282
+00:09:24.660 --> 00:09:26.040
+Like they just wanna be left alone.
+
+283
+00:09:26.040 --> 00:09:27.120
+Not necessarily.
+
+284
+00:09:27.120 --> 00:09:28.640
+You're looking at the behavior again
+
+285
+00:09:28.640 --> 00:09:29.880
+but missing the motive.
+
+286
+00:09:29.880 --> 00:09:32.260
+They could actually have avoidant personality disorder.
+
+287
+00:09:32.260 --> 00:09:33.940
+Wait, so if they're avoidant,
+
+288
+00:09:33.980 --> 00:09:35.700
+they are terrified of being judged.
+
+289
+00:09:35.700 --> 00:09:36.540
+If they're schizoid,
+
+290
+00:09:36.540 --> 00:09:39.000
+they just genuinely don't care about interacting.
+
+291
+00:09:39.000 --> 00:09:40.660
+It's all about the hidden motive.
+
+292
+00:09:40.660 --> 00:09:41.860
+Exactly right.
+
+293
+00:09:41.860 --> 00:09:43.940
+A person with schizoid personality disorder
+
+294
+00:09:43.940 --> 00:09:46.920
+genuinely prefers solitude.
+
+295
+00:09:46.920 --> 00:09:49.600
+They have a restricted range of emotional expression.
+
+296
+00:09:49.600 --> 00:09:52.380
+They simply don't desire close relationships.
+
+297
+00:09:52.380 --> 00:09:54.300
+So they're perfectly fine in that corner.
+
+298
+00:09:54.300 --> 00:09:56.340
+Yes, they are content there.
+
+299
+00:09:56.340 --> 00:09:59.740
+But the avoidant person who was also socially isolated
+
+300
+00:09:59.740 --> 00:10:01.500
+desperately wants connection.
+
+301
+00:10:01.500 --> 00:10:03.800
+Wow, that is so sad.
+
+302
+00:10:03.820 --> 00:10:05.120
+So why are they in the corner?
+
+303
+00:10:05.120 --> 00:10:07.840
+Because they are completely paralyzed
+
+304
+00:10:07.840 --> 00:10:11.200
+by the fear of rejection and inadequacy.
+
+305
+00:10:11.200 --> 00:10:13.180
+They're standing there agonizing,
+
+306
+00:10:13.180 --> 00:10:15.320
+wishing they could join the conversation
+
+307
+00:10:15.320 --> 00:10:17.480
+but terrified they'll be judged.
+
+308
+00:10:17.480 --> 00:10:20.400
+Those are two entirely different internal worlds.
+
+309
+00:10:20.400 --> 00:10:22.480
+Right, and imagine the harm
+
+310
+00:10:22.480 --> 00:10:24.320
+if a clinician gets that wrong.
+
+311
+00:10:24.320 --> 00:10:26.320
+If you try to push a schizoid client
+
+312
+00:10:26.320 --> 00:10:28.280
+into social exposure therapy,
+
+313
+00:10:28.280 --> 00:10:29.680
+treating them like they're avoidant.
+
+314
+00:10:29.680 --> 00:10:30.960
+They'd totally push them away.
+
+315
+00:10:30.960 --> 00:10:32.360
+You would completely alienate them.
+
+316
+00:10:32.360 --> 00:10:34.560
+You'd be trying to cure a fear they don't even have
+
+317
+00:10:34.560 --> 00:10:36.960
+to fulfill a desire they don't feel.
+
+318
+00:10:36.960 --> 00:10:37.960
+That makes so much sense.
+
+319
+00:10:37.960 --> 00:10:39.960
+Motive is literally everything.
+
+320
+00:10:39.960 --> 00:10:43.000
+And does motive separate the erratic,
+
+321
+00:10:43.000 --> 00:10:45.160
+highly emotional personalities too?
+
+322
+00:10:45.160 --> 00:10:47.640
+Because I know borderline personality disorder
+
+323
+00:10:47.640 --> 00:10:50.400
+and bipolar disorder get confused constantly.
+
+324
+00:10:50.400 --> 00:10:51.240
+All the time.
+
+325
+00:10:51.240 --> 00:10:53.280
+Yeah, because they both feature
+
+326
+00:10:53.280 --> 00:10:56.200
+these massive, intense mood swings.
+
+327
+00:10:56.200 --> 00:10:57.560
+They do, but again,
+
+328
+00:10:57.560 --> 00:10:59.440
+the separator is the tempo and the trigger.
+
+329
+00:10:59.440 --> 00:11:00.600
+Tempo and trigger, okay.
+
+330
+00:11:00.600 --> 00:11:02.800
+Borderline mood shifts are highly reactive.
+
+331
+00:11:02.800 --> 00:11:04.960
+They can happen in minutes or hours
+
+332
+00:11:04.960 --> 00:11:06.800
+and they are almost always triggered
+
+333
+00:11:06.800 --> 00:11:08.320
+by an interpersonal event.
+
+334
+00:11:08.320 --> 00:11:09.160
+Like what?
+
+335
+00:11:09.160 --> 00:11:11.640
+Specifically a perceived relationship rupture
+
+336
+00:11:11.640 --> 00:11:13.760
+or an intense fear of abandonment.
+
+337
+00:11:13.760 --> 00:11:15.400
+So if a friend doesn't text back,
+
+338
+00:11:15.400 --> 00:11:17.440
+someone with borderline might spiral
+
+339
+00:11:17.440 --> 00:11:20.120
+into intense anger or despair within an hour
+
+340
+00:11:20.120 --> 00:11:22.320
+just because that underlying fear of abandonment
+
+341
+00:11:22.320 --> 00:11:23.400
+was triggered.
+
+342
+00:11:23.400 --> 00:11:25.560
+But bipolar doesn't work like that.
+
+343
+00:11:25.560 --> 00:11:26.600
+Exactly.
+
+344
+00:11:26.600 --> 00:11:28.880
+Bipolar mood shifts are neurochemical events
+
+345
+00:11:28.880 --> 00:11:32.200
+that last for days, weeks, or even months.
+
+346
+00:11:32.200 --> 00:11:33.720
+They have a completely different tempo.
+
+347
+00:11:33.720 --> 00:11:34.560
+Right.
+
+348
+00:11:34.560 --> 00:11:37.120
+And they don't require an interpersonal trigger to start.
+
+349
+00:11:37.120 --> 00:11:39.160
+A manic episode can begin
+
+350
+00:11:39.160 --> 00:11:41.760
+regardless of whether your friend texted you back or not.
+
+351
+00:11:41.760 --> 00:11:42.800
+Got it.
+
+352
+00:11:42.800 --> 00:11:44.280
+Since we are talking about motives
+
+353
+00:11:44.280 --> 00:11:46.080
+and how things feel internally,
+
+354
+00:11:46.080 --> 00:11:49.680
+I wanna bring up the distinction between OCD and OCPD.
+
+355
+00:11:49.680 --> 00:11:51.800
+This really caught my attention in the prep materials.
+
+356
+00:11:51.800 --> 00:11:54.080
+I honestly always thought they were just variations
+
+357
+00:11:54.080 --> 00:11:55.480
+of the exact same thing.
+
+358
+00:11:55.480 --> 00:11:56.480
+Oh, they sound similar,
+
+359
+00:11:56.520 --> 00:11:59.000
+but the internal experience is night and day.
+
+360
+00:11:59.000 --> 00:12:00.640
+It really comes down to whether the symptoms
+
+361
+00:12:00.640 --> 00:12:02.800
+are egotistonic or egosyntonic.
+
+362
+00:12:02.800 --> 00:12:04.080
+Right, okay, let me see if I have this.
+
+363
+00:12:04.080 --> 00:12:07.920
+So OCD, obsessive compulsive disorder is egodistonic,
+
+364
+00:12:07.920 --> 00:12:11.560
+meaning the intrusive thoughts are totally unwanted,
+
+365
+00:12:11.560 --> 00:12:12.960
+the person hates them.
+
+366
+00:12:12.960 --> 00:12:13.800
+Yes.
+
+367
+00:12:13.800 --> 00:12:15.320
+So if they have an obsession that their house
+
+368
+00:12:15.320 --> 00:12:16.960
+will burn down, they are miserable,
+
+369
+00:12:16.960 --> 00:12:19.320
+and they perform compulsions like checking the stove
+
+370
+00:12:19.320 --> 00:12:22.640
+20 times just to neutralize that horrible anxiety.
+
+371
+00:12:22.640 --> 00:12:23.960
+Precisely.
+
+372
+00:12:23.960 --> 00:12:27.160
+The disorder is an unwelcome intruder in their mind,
+
+373
+00:12:27.160 --> 00:12:30.320
+but OCPD excessive compulsive personality disorder
+
+374
+00:12:30.320 --> 00:12:31.560
+is egosyntonic.
+
+375
+00:12:31.560 --> 00:12:33.160
+Which means it feels right to them.
+
+376
+00:12:33.160 --> 00:12:36.840
+Yes, it's a pervasive, rigid personality style
+
+377
+00:12:36.840 --> 00:12:38.800
+of perfectionism and control
+
+378
+00:12:38.800 --> 00:12:41.240
+that actually feels correct to the person.
+
+379
+00:12:41.240 --> 00:12:44.640
+So the person with OCPD who organizes their pantry
+
+380
+00:12:44.640 --> 00:12:47.640
+alphabetically and demands everyone in the house
+
+381
+00:12:47.640 --> 00:12:50.320
+follow these strict arbitrary rules,
+
+382
+00:12:50.320 --> 00:12:52.280
+they don't feel distressed about the rules themselves.
+
+383
+00:12:52.280 --> 00:12:53.280
+No, they feel distressed
+
+384
+00:12:53.280 --> 00:12:54.920
+when other people don't follow their rules.
+
+385
+00:12:54.920 --> 00:12:55.760
+Ah.
+
+386
+00:12:55.760 --> 00:12:57.800
+They believe their way is the objectively
+
+387
+00:12:57.800 --> 00:12:58.720
+correct way to live.
+
+388
+00:12:58.720 --> 00:13:01.280
+There were no unwanted intrusive obsessions,
+
+389
+00:13:01.280 --> 00:13:03.360
+no neutralizing compulsions,
+
+390
+00:13:03.360 --> 00:13:06.000
+just this deeply ingrained need for control.
+
+391
+00:13:06.000 --> 00:13:07.360
+Wow, okay.
+
+392
+00:13:07.360 --> 00:13:09.560
+Let's shift gears from the architecture of the mind
+
+393
+00:13:09.560 --> 00:13:13.240
+to how distress actually manifests in the physical body.
+
+394
+00:13:13.240 --> 00:13:16.320
+Because trauma, coping mechanisms, physical symptoms,
+
+395
+00:13:16.320 --> 00:13:18.000
+they all have their own strict boundaries.
+
+396
+00:13:18.000 --> 00:13:18.840
+They really do.
+
+397
+00:13:18.840 --> 00:13:21.160
+Let's start with the trauma timeline.
+
+398
+00:13:21.160 --> 00:13:23.320
+We saw the clock with psychosis earlier
+
+399
+00:13:23.320 --> 00:13:26.160
+and it turns out it dictates trauma diagnoses too.
+
+400
+00:13:26.160 --> 00:13:29.160
+Yes, because after a severe trauma,
+
+401
+00:13:29.160 --> 00:13:31.480
+we actually expect an acute psychological
+
+402
+00:13:31.480 --> 00:13:32.440
+and physical reaction.
+
+403
+00:13:32.440 --> 00:13:33.360
+Right, it's normal.
+
+404
+00:13:33.360 --> 00:13:36.080
+It is entirely normal for the body's alarm system
+
+405
+00:13:36.080 --> 00:13:37.240
+to be ringing.
+
+406
+00:13:37.240 --> 00:13:40.040
+So for the first three days after a trauma,
+
+407
+00:13:40.040 --> 00:13:43.160
+there is technically no disorder diagnosed.
+
+408
+00:13:43.160 --> 00:13:45.040
+It's just a normative human reaction.
+
+409
+00:13:45.040 --> 00:13:47.200
+And then from three days to one month,
+
+410
+00:13:47.200 --> 00:13:49.960
+it is classified as acute stress disorder.
+
+411
+00:13:49.960 --> 00:13:50.800
+Correct.
+
+412
+00:13:50.800 --> 00:13:53.280
+The brain is still in the immediate aftermath,
+
+413
+00:13:53.280 --> 00:13:55.280
+just trying to process the event.
+
+414
+00:13:55.280 --> 00:13:57.480
+And PTSD, post-traumatic stress disorder
+
+415
+00:13:57.480 --> 00:14:00.960
+is only diagnosed after that one month mark has passed.
+
+416
+00:14:00.960 --> 00:14:03.120
+Like if the symptoms of hypervigilance,
+
+417
+00:14:03.120 --> 00:14:05.800
+flashbacks and avoidance persist past day 30,
+
+418
+00:14:05.800 --> 00:14:06.840
+the label shifts.
+
+419
+00:14:06.840 --> 00:14:07.680
+Exactly.
+
+420
+00:14:07.680 --> 00:14:10.240
+But what if the stressor isn't a life-threatening trauma?
+
+421
+00:14:10.240 --> 00:14:12.920
+What if someone goes through a really brutal divorce
+
+422
+00:14:12.920 --> 00:14:14.120
+or they lose their job
+
+423
+00:14:14.120 --> 00:14:16.440
+and they are struggling physically and emotionally
+
+424
+00:14:16.440 --> 00:14:17.960
+way more than you'd expect?
+
+425
+00:14:17.960 --> 00:14:21.320
+That boundary is captured by adjustment disorder.
+
+426
+00:14:21.320 --> 00:14:23.880
+It's the disproportionate residual response
+
+427
+00:14:23.880 --> 00:14:25.400
+to a major life stressor
+
+428
+00:14:25.400 --> 00:14:28.960
+that doesn't quite meet the criteria for a severe trauma.
+
+429
+00:14:28.960 --> 00:14:30.160
+But sometimes, you know,
+
+430
+00:14:30.160 --> 00:14:32.840
+people try to cope with these stressors using substances.
+
+431
+00:14:32.840 --> 00:14:34.800
+And here's where it gets really interesting.
+
+432
+00:14:34.800 --> 00:14:36.240
+Oh, the substance guidelines.
+
+433
+00:14:36.240 --> 00:14:37.440
+Yeah.
+
+434
+00:14:37.440 --> 00:14:39.360
+This part honestly blew me away.
+
+435
+00:14:39.360 --> 00:14:40.640
+Hold on.
+
+436
+00:14:40.640 --> 00:14:42.480
+Based on every movie I've ever seen,
+
+437
+00:14:42.480 --> 00:14:43.720
+I thought opioid withdrawal
+
+438
+00:14:43.720 --> 00:14:46.560
+was the ultimate medical emergency.
+
+439
+00:14:46.560 --> 00:14:49.360
+The sweating, the shaking, the pure agony.
+
+440
+00:14:49.360 --> 00:14:51.680
+It looks like a life or death crisis on screen.
+
+441
+00:14:51.680 --> 00:14:52.520
+Right.
+
+442
+00:14:52.520 --> 00:14:53.440
+Hollywood loves to show that.
+
+443
+00:14:53.440 --> 00:14:55.760
+But you're telling me, based on this manual,
+
+444
+00:14:55.760 --> 00:14:58.720
+that alcohol withdrawal is the one that can actually be fatal
+
+445
+00:14:58.720 --> 00:15:00.520
+and requires benzodiazepine.
+
+446
+00:15:00.520 --> 00:15:02.600
+It is entirely counterintuitive.
+
+447
+00:15:02.600 --> 00:15:05.120
+Opioid withdrawal is genuinely miserable.
+
+448
+00:15:05.120 --> 00:15:08.800
+The physical pain, the nausea, the autonomic distress.
+
+449
+00:15:08.800 --> 00:15:11.040
+I mean, it is horrific to experience,
+
+450
+00:15:11.040 --> 00:15:12.960
+but it is very rarely fatal.
+
+451
+00:15:12.960 --> 00:15:13.800
+Wow.
+
+452
+00:15:13.800 --> 00:15:14.880
+On the other hand,
+
+453
+00:15:14.880 --> 00:15:17.640
+alcohol and sedative withdrawal can literally kill you.
+
+454
+00:15:17.640 --> 00:15:20.600
+Wait, alcohol withdrawal is the fatal one, but why?
+
+455
+00:15:20.600 --> 00:15:22.800
+Because of the physiological mechanism.
+
+456
+00:15:22.800 --> 00:15:23.920
+Alcohol and sedatives
+
+457
+00:15:23.920 --> 00:15:27.040
+are profound central nervous system depressants.
+
+458
+00:15:27.040 --> 00:15:29.640
+Over time, the brain constantly pumps out
+
+459
+00:15:29.640 --> 00:15:31.720
+excitatory chemicals just to keep you awake
+
+460
+00:15:31.720 --> 00:15:34.480
+and functioning against the heavy suppression of the alcohol.
+
+461
+00:15:34.480 --> 00:15:35.300
+Oh, I see.
+
+462
+00:15:35.300 --> 00:15:37.160
+So the brain is pressing the gas pedal to the floor
+
+463
+00:15:37.160 --> 00:15:38.960
+just to counter the breaks of the alcohol.
+
+464
+00:15:38.960 --> 00:15:39.800
+Exactly.
+
+465
+00:15:39.800 --> 00:15:41.480
+So what happens when you abruptly stop drinking?
+
+466
+00:15:41.480 --> 00:15:42.580
+The breaks are gone.
+
+467
+00:15:42.580 --> 00:15:44.320
+The breaks are suddenly gone.
+
+468
+00:15:44.360 --> 00:15:47.280
+But the brain is still flooring the gas pedal.
+
+469
+00:15:47.280 --> 00:15:50.080
+The central nervous system, essentially short circuits.
+
+470
+00:15:50.080 --> 00:15:54.000
+This massive over excitation leads to severe seizures
+
+471
+00:15:54.000 --> 00:15:56.440
+and a condition called delirium tremens,
+
+472
+00:15:56.440 --> 00:15:59.360
+which involves profound confusion, hallucinations
+
+473
+00:15:59.360 --> 00:16:01.200
+and cardiovascular collapse.
+
+474
+00:16:01.200 --> 00:16:04.080
+Meaning medical safety absolutely overrides
+
+475
+00:16:04.080 --> 00:16:06.320
+any psychological intervention in those moments.
+
+476
+00:16:06.320 --> 00:16:09.640
+You can't do talk therapy when the brain is seizing.
+
+477
+00:16:09.640 --> 00:16:10.560
+No, you cannot.
+
+478
+00:16:10.560 --> 00:16:13.320
+It requires medical management, usually with benzos,
+
+479
+00:16:13.320 --> 00:16:15.640
+to just taper that excitation down.
+
+480
+00:16:15.640 --> 00:16:17.920
+If we connect this to the bigger picture,
+
+481
+00:16:17.920 --> 00:16:22.480
+society often judges substances based on legality or stigma.
+
+482
+00:16:22.480 --> 00:16:24.440
+But clinical diagnostics is purely
+
+483
+00:16:24.440 --> 00:16:25.840
+about physiological reality.
+
+484
+00:16:25.840 --> 00:16:27.520
+Yeah, its body doesn't care about the law.
+
+485
+00:16:27.520 --> 00:16:28.360
+No, it doesn't.
+
+486
+00:16:28.360 --> 00:16:29.880
+And speaking of physiological reality,
+
+487
+00:16:29.880 --> 00:16:32.040
+the manual draws a very specific boundary
+
+488
+00:16:32.040 --> 00:16:33.520
+around addictions.
+
+489
+00:16:33.520 --> 00:16:36.120
+Gambling disorder is the only behavioral addiction
+
+490
+00:16:36.120 --> 00:16:37.160
+officially recognized.
+
+491
+00:16:37.160 --> 00:16:39.320
+Wait, not video games, not social media.
+
+492
+00:16:39.320 --> 00:16:40.320
+I hear people call themselves
+
+493
+00:16:40.320 --> 00:16:41.680
+addictions to those all the time.
+
+494
+00:16:41.680 --> 00:16:43.440
+Not formally, no.
+
+495
+00:16:43.440 --> 00:16:45.440
+Because the clinical evidence shows
+
+496
+00:16:45.440 --> 00:16:47.800
+the gambling hijacks the exact same
+
+497
+00:16:47.800 --> 00:16:51.480
+neural reward circuitry as chemical substances.
+
+498
+00:16:51.480 --> 00:16:53.580
+The dopamine surge, the tolerance,
+
+499
+00:16:53.580 --> 00:16:55.480
+the severe withdrawal-like cravings,
+
+500
+00:16:55.480 --> 00:16:57.600
+it perfectly mimics substance use
+
+501
+00:16:57.600 --> 00:17:00.080
+without a chemical ever entering the bloodstream.
+
+502
+00:17:00.080 --> 00:17:02.080
+That is wild.
+
+503
+00:17:02.080 --> 00:17:04.880
+But I guess the physical manifestations of mental health
+
+504
+00:17:04.880 --> 00:17:07.840
+are probably most stark when we look at eating disorders.
+
+505
+00:17:07.840 --> 00:17:09.760
+The notes mention anorexia nervosa
+
+506
+00:17:09.760 --> 00:17:11.200
+has the highest mortality rate
+
+507
+00:17:11.200 --> 00:17:12.920
+of any disorder in psychiatry.
+
+508
+00:17:12.920 --> 00:17:14.520
+The highest, period.
+
+509
+00:17:14.520 --> 00:17:15.880
+The severe caloric restriction
+
+510
+00:17:15.880 --> 00:17:17.600
+doesn't just cause weight loss,
+
+511
+00:17:17.600 --> 00:17:19.440
+it degrades the heart muscle,
+
+512
+00:17:19.440 --> 00:17:21.080
+leading to fatal arrhythmias.
+
+513
+00:17:21.080 --> 00:17:21.920
+Oh, wow.
+
+514
+00:17:21.920 --> 00:17:24.560
+This is why, just like with severe alcohol withdrawal,
+
+515
+00:17:24.560 --> 00:17:27.760
+medical stabilization must precede psychological treatment.
+
+516
+00:17:27.760 --> 00:17:29.040
+You have to stabilize the heart
+
+517
+00:17:29.040 --> 00:17:30.360
+before you explore the mind.
+
+518
+00:17:30.360 --> 00:17:31.200
+That makes sense.
+
+519
+00:17:31.200 --> 00:17:33.160
+And the boundary between anorexia and bulimia
+
+520
+00:17:33.160 --> 00:17:34.760
+is heavily dependent on weight, right?
+
+521
+00:17:34.760 --> 00:17:37.800
+Yes, anorexia involves significantly low body weight.
+
+522
+00:17:37.800 --> 00:17:40.080
+A person with bulimia engages in binge eating
+
+523
+00:17:40.080 --> 00:17:42.560
+and compensatory behaviors like purging,
+
+524
+00:17:42.560 --> 00:17:43.800
+but they maintain a normal
+
+525
+00:17:43.800 --> 00:17:45.480
+or even above normal body weight.
+
+526
+00:17:45.480 --> 00:17:47.680
+But there's another eating disorder we need to talk about
+
+527
+00:17:47.680 --> 00:17:52.520
+that strips away the body image component entirely, ARFI.
+
+528
+00:17:52.520 --> 00:17:55.360
+Avoidant Restrictive Food Intake Disorder.
+
+529
+00:17:55.360 --> 00:17:57.800
+ARFID is fascinating
+
+530
+00:17:57.800 --> 00:18:00.960
+because it involves severe, dangerous food restriction
+
+531
+00:18:00.960 --> 00:18:03.600
+that leads to profound nutritional deficiency,
+
+532
+00:18:03.600 --> 00:18:06.040
+but there is absolutely no fear of gaining weight.
+
+533
+00:18:06.040 --> 00:18:07.120
+None. None. Yeah.
+
+534
+00:18:07.120 --> 00:18:08.920
+There was no body image distortion.
+
+535
+00:18:08.920 --> 00:18:10.360
+So why are they starving?
+
+536
+00:18:10.360 --> 00:18:12.840
+It's often driven by intense sensory aversions.
+
+537
+00:18:12.840 --> 00:18:15.200
+So the texture, the smell, the color of the food
+
+538
+00:18:15.200 --> 00:18:16.600
+is just unbearable to them.
+
+539
+00:18:16.600 --> 00:18:19.240
+Or it's driven by an intense phobia
+
+540
+00:18:19.240 --> 00:18:20.960
+of choking or vomiting.
+
+541
+00:18:20.960 --> 00:18:21.800
+Oh, I see.
+
+542
+00:18:21.800 --> 00:18:22.880
+Again, if a clinician assumes
+
+543
+00:18:22.880 --> 00:18:25.840
+all food restriction is driven by a fear of fatness,
+
+544
+00:18:25.840 --> 00:18:28.400
+they will completely misdiagnose and mistreat
+
+545
+00:18:28.400 --> 00:18:30.040
+the ARFID client.
+
+546
+00:18:30.040 --> 00:18:31.800
+Okay, so we've covered the hidden motives,
+
+547
+00:18:31.800 --> 00:18:33.660
+the internal clocks, the body's response.
+
+548
+00:18:33.660 --> 00:18:36.200
+Let's scale this out across a person's lifespan
+
+549
+00:18:36.280 --> 00:18:38.680
+and look at the real-world ethical stakes
+
+550
+00:18:38.680 --> 00:18:41.000
+for the people doing the diagnosing.
+
+551
+00:18:41.000 --> 00:18:43.800
+Let's start with childhood, ADHD.
+
+552
+00:18:43.800 --> 00:18:44.960
+A very common one.
+
+553
+00:18:44.960 --> 00:18:45.800
+Right.
+
+554
+00:18:45.800 --> 00:18:47.440
+The diagnostic criteria require
+
+555
+00:18:47.440 --> 00:18:50.160
+that the symptoms of inattention or hyperactivity
+
+556
+00:18:50.160 --> 00:18:51.960
+appear before age 12,
+
+557
+00:18:51.960 --> 00:18:54.000
+and crucially, they must be present
+
+558
+00:18:54.000 --> 00:18:56.280
+in two or more settings.
+
+559
+00:18:56.280 --> 00:18:59.020
+Why is that multiple setting rule so important?
+
+560
+00:18:59.020 --> 00:19:02.360
+Because ADHD is a neurodevelopmental disorder.
+
+561
+00:19:02.360 --> 00:19:04.600
+It is a structural and functional difference
+
+562
+00:19:04.600 --> 00:19:06.040
+in how the brain operates.
+
+563
+00:19:06.040 --> 00:19:09.140
+And a brain doesn't completely change how it operates
+
+564
+00:19:09.140 --> 00:19:11.040
+just because you walk through a different door.
+
+565
+00:19:11.040 --> 00:19:12.240
+Ah, okay.
+
+566
+00:19:12.240 --> 00:19:14.920
+So if a kid is heavily distracted and impulsive at school
+
+567
+00:19:14.920 --> 00:19:17.920
+but perfectly focused, organized, and calm at home.
+
+568
+00:19:17.920 --> 00:19:20.760
+Then you likely don't have a neurodevelopmental disorder.
+
+569
+00:19:20.760 --> 00:19:21.600
+What do you have then?
+
+570
+00:19:21.600 --> 00:19:24.120
+You might have a kid who is being bullied
+
+571
+00:19:24.120 --> 00:19:27.280
+or has a learning disability specific to that classroom
+
+572
+00:19:27.280 --> 00:19:29.400
+or is dealing with anxiety triggered
+
+573
+00:19:29.400 --> 00:19:31.040
+by that specific teacher.
+
+574
+00:19:31.040 --> 00:19:33.260
+If the symptoms don't exist in two settings,
+
+575
+00:19:33.260 --> 00:19:34.540
+you have to look at the environment,
+
+576
+00:19:34.540 --> 00:19:36.020
+not just the child's brain.
+
+577
+00:19:36.020 --> 00:19:38.020
+That is such a crucial distinction.
+
+578
+00:19:38.020 --> 00:19:40.420
+And jumping to the other end of the lifespan,
+
+579
+00:19:40.420 --> 00:19:42.460
+the distinction between delirium and dementia
+
+580
+00:19:42.460 --> 00:19:45.540
+in older adults is another major safety boundary.
+
+581
+00:19:45.540 --> 00:19:48.340
+Dementia, like Alzheimer's, is insidious.
+
+582
+00:19:48.340 --> 00:19:50.500
+It creeps in slowly over years
+
+583
+00:19:50.500 --> 00:19:53.300
+and progressively degrades cognition.
+
+584
+00:19:53.300 --> 00:19:55.180
+But delirium is acute.
+
+585
+00:19:55.180 --> 00:19:58.260
+Yes, delirium comes on rapidly over hours or days
+
+586
+00:19:58.260 --> 00:20:00.380
+and cognition severely fluctuates.
+
+587
+00:20:00.380 --> 00:20:02.620
+And the key here is the mechanism.
+
+588
+00:20:02.640 --> 00:20:04.240
+Delirium is usually caused
+
+589
+00:20:04.240 --> 00:20:06.960
+by a reversible underlying medical issue.
+
+590
+00:20:06.960 --> 00:20:08.120
+Like what kind of issue?
+
+591
+00:20:08.120 --> 00:20:09.460
+Well, in elderly patients,
+
+592
+00:20:09.460 --> 00:20:11.120
+a simple urinary tract infection
+
+593
+00:20:11.120 --> 00:20:13.480
+or a bad reaction to a new medication
+
+594
+00:20:13.480 --> 00:20:16.720
+can cause sudden profound confusion and hallucinations
+
+595
+00:20:16.720 --> 00:20:19.320
+that look terrifyingly like severe dementia.
+
+596
+00:20:19.320 --> 00:20:21.240
+But if a clinician or a doctor mistakes
+
+597
+00:20:21.240 --> 00:20:24.000
+that sudden delirium for a natural progressive decline,
+
+598
+00:20:24.000 --> 00:20:25.280
+they might just shrug and say,
+
+599
+00:20:25.280 --> 00:20:26.360
+well, they're getting older.
+
+600
+00:20:26.360 --> 00:20:27.680
+And they miss the chance to cure it
+
+601
+00:20:27.680 --> 00:20:29.720
+with a simple course of antibiotics.
+
+602
+00:20:29.720 --> 00:20:31.680
+Delirium is a medical emergency
+
+603
+00:20:31.740 --> 00:20:33.740
+hiding as cognitive decline.
+
+604
+00:20:33.740 --> 00:20:35.420
+The theme of crisis and safety
+
+605
+00:20:35.420 --> 00:20:37.580
+is just everywhere in this framework.
+
+606
+00:20:37.580 --> 00:20:39.920
+Let's talk about assessing suicide risk.
+
+607
+00:20:39.920 --> 00:20:42.700
+When a clinician is sitting with someone in crisis,
+
+608
+00:20:42.700 --> 00:20:44.380
+they use structured protocols
+
+609
+00:20:44.380 --> 00:20:46.900
+like the Columbia Suicide Severity Rating Scale.
+
+610
+00:20:46.900 --> 00:20:48.380
+The CSSRS, yes.
+
+611
+00:20:48.380 --> 00:20:51.660
+Right, they assess the ideation, the plan,
+
+612
+00:20:51.660 --> 00:20:54.520
+the intent, the access to lethal means.
+
+613
+00:20:54.520 --> 00:20:56.780
+But I was really surprised by what the standard is
+
+614
+00:20:56.780 --> 00:20:58.640
+for actually preventing it.
+
+615
+00:20:58.640 --> 00:21:00.060
+Because for decades, you know,
+
+616
+00:21:00.080 --> 00:21:02.400
+we've heard about no suicide contracts.
+
+617
+00:21:02.400 --> 00:21:03.880
+You make the patient sign a paper
+
+618
+00:21:03.880 --> 00:21:05.840
+promising they won't hurt themselves.
+
+619
+00:21:05.840 --> 00:21:08.480
+And those contracts are not evidence-based.
+
+620
+00:21:08.480 --> 00:21:10.640
+In fact, they can be deeply harmful.
+
+621
+00:21:10.640 --> 00:21:12.800
+Why though, wouldn't a promise help?
+
+622
+00:21:12.800 --> 00:21:14.880
+Because a contract is coercive.
+
+623
+00:21:14.880 --> 00:21:18.060
+It exists primarily to protect the clinician's liability,
+
+624
+00:21:18.060 --> 00:21:19.840
+not to empower the patient.
+
+625
+00:21:19.840 --> 00:21:21.240
+It essentially tells the patient,
+
+626
+00:21:21.240 --> 00:21:23.860
+promise you won't do this, or else.
+
+627
+00:21:23.860 --> 00:21:27.120
+The evidence-based standard is a collaborative safety plan.
+
+628
+00:21:27.120 --> 00:21:29.520
+A safety plan, where they sit down together
+
+629
+00:21:29.540 --> 00:21:31.580
+and map out a step-by-step strategy
+
+630
+00:21:31.580 --> 00:21:34.620
+for what the patient can actually do when a crisis hits.
+
+631
+00:21:34.620 --> 00:21:35.500
+Yes.
+
+632
+00:21:35.500 --> 00:21:38.820
+It sounds more like, when the pain hits an eight out of 10,
+
+633
+00:21:38.820 --> 00:21:40.320
+I will call this friend.
+
+634
+00:21:40.320 --> 00:21:42.760
+If they don't answer, I will try this coping skill.
+
+635
+00:21:42.760 --> 00:21:45.340
+If that fails, I will call this hotline.
+
+636
+00:21:45.340 --> 00:21:46.600
+So it's actionable.
+
+637
+00:21:46.600 --> 00:21:47.440
+Exactly.
+
+638
+00:21:47.440 --> 00:21:50.400
+It gives the patient agency and concrete tools
+
+639
+00:21:50.400 --> 00:21:52.540
+rather than a coercive demand.
+
+640
+00:21:52.540 --> 00:21:55.580
+The framework also carefully separates suicidal intent
+
+641
+00:21:55.580 --> 00:21:58.860
+from non-suicidal self-injury, or an SSI.
+
+642
+00:21:58.880 --> 00:22:01.060
+When someone is cutting or burning themselves,
+
+643
+00:22:01.060 --> 00:22:02.680
+it's natural for people to panic
+
+644
+00:22:02.680 --> 00:22:04.420
+and assume it's a suicide attempt.
+
+645
+00:22:04.420 --> 00:22:07.080
+But NSSI has a completely different function.
+
+646
+00:22:07.080 --> 00:22:10.560
+The function of NSSI is almost always a motion regulation.
+
+647
+00:22:10.560 --> 00:22:13.280
+It is a deeply maladaptive physical way
+
+648
+00:22:13.280 --> 00:22:15.400
+to deal with unbearable emotional numbness
+
+649
+00:22:15.400 --> 00:22:16.840
+or overwhelming distress.
+
+650
+00:22:16.840 --> 00:22:18.120
+So it's not about dying?
+
+651
+00:22:18.120 --> 00:22:18.960
+No.
+
+652
+00:22:18.960 --> 00:22:21.040
+The physical pain is used to ground the person
+
+653
+00:22:21.040 --> 00:22:23.000
+or release internal pressure.
+
+654
+00:22:23.000 --> 00:22:24.960
+It is not an attempt to end a life.
+
+655
+00:22:24.960 --> 00:22:27.320
+You have to assess the function of the behavior
+
+656
+00:22:27.340 --> 00:22:28.660
+rather than just panicking
+
+657
+00:22:28.660 --> 00:22:30.300
+and immediately hospitalizing someone,
+
+658
+00:22:30.300 --> 00:22:32.300
+which honestly could traumatize them further.
+
+659
+00:22:32.300 --> 00:22:33.980
+Which leads right into the ethical rules
+
+660
+00:22:33.980 --> 00:22:35.460
+of engagement for clinicians.
+
+661
+00:22:35.460 --> 00:22:38.500
+Confidentiality is the absolute bedrock of therapy.
+
+662
+00:22:38.500 --> 00:22:39.340
+It has to be.
+
+663
+00:22:39.340 --> 00:22:40.900
+But it has hard limits.
+
+664
+00:22:40.900 --> 00:22:43.100
+The Terasov Duty is the most famous one.
+
+665
+00:22:43.100 --> 00:22:44.860
+The duty to warn and protect.
+
+666
+00:22:44.860 --> 00:22:45.700
+Right.
+
+667
+00:22:45.700 --> 00:22:48.140
+If a client makes a specific credible threat
+
+668
+00:22:48.140 --> 00:22:51.740
+of imminent violence against a specific identifiable victim,
+
+669
+00:22:51.740 --> 00:22:54.460
+the clinician is legally and ethically bound
+
+670
+00:22:54.460 --> 00:22:58.120
+to break confidentiality to warn that victim
+
+671
+00:22:58.120 --> 00:22:59.500
+and notify the police.
+
+672
+00:22:59.500 --> 00:23:01.400
+But it has to be a specific threat, right?
+
+673
+00:23:01.400 --> 00:23:03.940
+Like the clinician can't break confidentiality
+
+674
+00:23:03.940 --> 00:23:05.960
+just because a client is vaguely venting saying,
+
+675
+00:23:05.960 --> 00:23:07.080
+oh, I hate my boss.
+
+676
+00:23:07.080 --> 00:23:07.960
+I wish you were dead.
+
+677
+00:23:07.960 --> 00:23:08.800
+Correct.
+
+678
+00:23:08.800 --> 00:23:10.440
+Vague venting is not actionable.
+
+679
+00:23:10.440 --> 00:23:13.360
+The threat must be imminent and targeted.
+
+680
+00:23:13.360 --> 00:23:15.920
+And similar, very strict thresholds apply
+
+681
+00:23:15.920 --> 00:23:18.600
+to mandated reporting of child or elder abuse.
+
+682
+00:23:18.600 --> 00:23:19.800
+For mandated reporting,
+
+683
+00:23:19.800 --> 00:23:23.480
+the threshold is reasonable suspicion, not concrete proof.
+
+684
+00:23:23.480 --> 00:23:27.100
+The rule is basically you report, you do not investigate.
+
+685
+00:23:27.100 --> 00:23:28.220
+Let me try an analogy here.
+
+686
+00:23:28.220 --> 00:23:29.060
+Let's hear it.
+
+687
+00:23:29.060 --> 00:23:32.060
+So mandated reporting is like smelling smoke coming
+
+688
+00:23:32.060 --> 00:23:33.740
+from under a locked door.
+
+689
+00:23:33.740 --> 00:23:36.940
+My job is just to pull the fire alarm and wait outside.
+
+690
+00:23:36.940 --> 00:23:39.580
+If I kick open the door to investigate the fire myself
+
+691
+00:23:39.580 --> 00:23:41.920
+to gather evidence, I'm actually doing the wrong job
+
+692
+00:23:41.920 --> 00:23:43.260
+and wasting precious time.
+
+693
+00:23:43.260 --> 00:23:45.340
+That is an excellent way to conceptualize it.
+
+694
+00:23:45.340 --> 00:23:47.000
+You are not a detective.
+
+695
+00:23:47.000 --> 00:23:49.220
+If you delay protection to play investigator,
+
+696
+00:23:49.220 --> 00:23:52.260
+you risk the child's safety and you fail ethically.
+
+697
+00:23:53.120 --> 00:23:55.360
+But the nuance is in the word reasonable.
+
+698
+00:23:55.360 --> 00:23:56.600
+You don't pull the fire alarm just
+
+699
+00:23:56.600 --> 00:23:58.320
+because someone mentions the word fire.
+
+700
+00:23:58.320 --> 00:23:59.360
+Right, you have to assess.
+
+701
+00:23:59.360 --> 00:24:01.720
+You assess the situation, apply the code,
+
+702
+00:24:01.720 --> 00:24:03.320
+consult with the supervisor
+
+703
+00:24:03.320 --> 00:24:06.920
+and document every single step of your reasoning.
+
+704
+00:24:06.920 --> 00:24:09.640
+The measured answer is always the right one in ethics.
+
+705
+00:24:09.640 --> 00:24:11.420
+Okay, we've covered the engines of fear,
+
+706
+00:24:11.420 --> 00:24:14.100
+the timelines of reality, physical emergencies
+
+707
+00:24:14.100 --> 00:24:15.880
+and ethical crises.
+
+708
+00:24:15.880 --> 00:24:18.840
+How does a clinician capture all of this complexity
+
+709
+00:24:18.840 --> 00:24:19.940
+in real time?
+
+710
+00:24:19.960 --> 00:24:22.320
+The tool they use is called the mental status exam
+
+711
+00:24:22.320 --> 00:24:23.400
+or MSE, right?
+
+712
+00:24:23.400 --> 00:24:26.840
+Yes, the MSE is the ultimate clinical photograph.
+
+713
+00:24:26.840 --> 00:24:29.120
+It is a structured observation of exactly
+
+714
+00:24:29.120 --> 00:24:30.800
+how the client presents in the room
+
+715
+00:24:30.800 --> 00:24:32.560
+during that specific session.
+
+716
+00:24:32.560 --> 00:24:35.360
+It is not their history, it is the now.
+
+717
+00:24:35.360 --> 00:24:37.560
+And the MSE features a few distinctions
+
+718
+00:24:37.560 --> 00:24:38.720
+that are famously tricky.
+
+719
+00:24:38.720 --> 00:24:40.600
+First is mood versus affect.
+
+720
+00:24:40.600 --> 00:24:42.680
+I love the way this is conceptualized in the source.
+
+721
+00:24:42.680 --> 00:24:45.300
+Mood is the climate and affect is the weather.
+
+722
+00:24:45.300 --> 00:24:47.640
+That's a perfect shared shorthand.
+
+723
+00:24:47.640 --> 00:24:49.280
+Mood is subjective.
+
+724
+00:24:49.300 --> 00:24:51.480
+It is the overall climate the client tells you
+
+725
+00:24:51.480 --> 00:24:52.900
+they're experiencing.
+
+726
+00:24:52.900 --> 00:24:55.740
+I have been profoundly depressed for weeks.
+
+727
+00:24:55.740 --> 00:24:58.540
+But the affect is the weather outside the window right now.
+
+728
+00:24:58.540 --> 00:25:00.620
+It's subjective, it's the emotional expression
+
+729
+00:25:00.620 --> 00:25:02.020
+the clinician observes in the room.
+
+730
+00:25:02.020 --> 00:25:05.920
+Right, and you are watching for incongruence.
+
+731
+00:25:05.920 --> 00:25:09.140
+If a client tells you their climate is devastatingly sad
+
+732
+00:25:09.140 --> 00:25:12.380
+but their affect is a bright smiling,
+
+733
+00:25:12.380 --> 00:25:15.900
+laughing presentation while they discuss trauma.
+
+734
+00:25:15.900 --> 00:25:18.700
+That mismatch is highly clinically significant.
+
+735
+00:25:18.720 --> 00:25:19.800
+That's fascinating.
+
+736
+00:25:19.800 --> 00:25:21.440
+The other big distinction in the MSE
+
+737
+00:25:21.440 --> 00:25:24.160
+is thought process versus thought content.
+
+738
+00:25:24.160 --> 00:25:27.120
+Process is the form or the shape of the thinking.
+
+739
+00:25:27.120 --> 00:25:28.040
+Is it linear?
+
+740
+00:25:28.040 --> 00:25:30.140
+Is it racing so fast they can't breathe?
+
+741
+00:25:30.140 --> 00:25:32.520
+Or is it totally disorganized like a word salad?
+
+742
+00:25:32.520 --> 00:25:34.800
+In content is the actual substance of the words.
+
+743
+00:25:34.800 --> 00:25:36.180
+It's what they are thinking about.
+
+744
+00:25:36.180 --> 00:25:39.360
+The delusions, the obsessions, the suicidal ideation.
+
+745
+00:25:39.360 --> 00:25:41.520
+So you have to track both simultaneously.
+
+746
+00:25:41.520 --> 00:25:43.280
+This raises an important question.
+
+747
+00:25:44.280 --> 00:25:46.560
+The mental status exam requires the clinician
+
+748
+00:25:46.560 --> 00:25:48.700
+to hold two realities at once.
+
+749
+00:25:48.700 --> 00:25:49.980
+What the client is saying
+
+750
+00:25:49.980 --> 00:25:53.340
+and how the client is fundamentally operating in space.
+
+751
+00:25:53.340 --> 00:25:55.100
+It ensures they don't miss the truth
+
+752
+00:25:55.100 --> 00:25:56.540
+hidden behind the symptoms.
+
+753
+00:25:56.540 --> 00:25:58.380
+So what does this all mean?
+
+754
+00:25:58.380 --> 00:26:00.180
+It's the ultimate test of paying attention
+
+755
+00:26:00.180 --> 00:26:01.780
+and that really brings us full circle
+
+756
+00:26:01.780 --> 00:26:03.180
+because everything we've talked about today
+
+757
+00:26:03.180 --> 00:26:05.720
+proves that being well informed about mental health
+
+758
+00:26:05.720 --> 00:26:07.700
+isn't just about memorizing symptom lists.
+
+759
+00:26:07.700 --> 00:26:08.540
+Not at all.
+
+760
+00:26:08.540 --> 00:26:10.820
+It's about paying incredibly close attention
+
+761
+00:26:10.820 --> 00:26:14.020
+to context, to time, to the invisible targets of fear
+
+762
+00:26:14.020 --> 00:26:15.660
+and to those hidden motives.
+
+763
+00:26:15.680 --> 00:26:18.120
+But as we wrap up, I want to leave you listening at home
+
+764
+00:26:18.120 --> 00:26:20.640
+with one final thought to mull over.
+
+765
+00:26:20.640 --> 00:26:23.240
+We talked about how our current diagnostic system
+
+766
+00:26:23.240 --> 00:26:26.880
+is heavily, almost rigidly reliant on timelines.
+
+767
+00:26:26.880 --> 00:26:29.240
+Exactly one month to cross the boundary
+
+768
+00:26:29.240 --> 00:26:31.520
+from acute stress to PTSD.
+
+769
+00:26:31.520 --> 00:26:33.080
+Exactly six months to shift
+
+770
+00:26:33.080 --> 00:26:34.880
+from schizophrenia to schizophrenia.
+
+771
+00:26:34.880 --> 00:26:36.080
+But what happens to the person
+
+772
+00:26:36.080 --> 00:26:40.660
+who is suffering profoundly on day 29 or on day 179?
+
+773
+00:26:40.660 --> 00:26:43.780
+Does the human brain actually know what day it is?
+
+774
+00:26:43.780 --> 00:26:46.000
+As we learn more about neurobiology,
+
+775
+00:26:46.000 --> 00:26:47.520
+will the future of psychology
+
+776
+00:26:47.520 --> 00:26:50.520
+eventually abandon these strict calendar-based labels
+
+777
+00:26:50.520 --> 00:26:52.360
+entirely, moving toward a system
+
+778
+00:26:52.360 --> 00:26:54.400
+that treats the individual engine of distress
+
+779
+00:26:54.400 --> 00:26:56.480
+regardless of what the clock says?
+
+780
+00:26:56.480 --> 00:26:58.240
+It's something to explore on your own.
+
+781
+00:26:58.240 --> 00:26:59.200
+That's a profound question.
+
+782
+00:26:59.200 --> 00:27:02.160
+We started out talking about the messy, murky reality
+
+783
+00:27:02.160 --> 00:27:03.720
+of diagnosing the human mind
+
+784
+00:27:03.720 --> 00:27:05.140
+where the X-ray machine is broken
+
+785
+00:27:05.140 --> 00:27:07.260
+and all the boundaries are drawn in gray.
+
+786
+00:27:07.260 --> 00:27:09.460
+But hopefully today's deep dive gave you a glimpse
+
+787
+00:27:09.460 --> 00:27:11.780
+into exactly how professionals find clarity
+
+788
+00:27:11.780 --> 00:27:13.420
+inside all that complexity.
+
+789
+00:27:13.420 --> 00:27:15.640
+Thank you for joining us and stay curious.
