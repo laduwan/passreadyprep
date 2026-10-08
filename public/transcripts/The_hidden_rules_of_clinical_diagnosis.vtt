@@ -1,0 +1,1081 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.880
+Welcome to the deep dive. So the source is in front of us today. They essentially form this
+
+2
+00:00:06.000 --> 00:00:11.120
+hidden architecture of mental health diagnosis. Yeah, it's quite a stack of material. Right.
+
+3
+00:00:11.120 --> 00:00:15.760
+We're pulling from this massive 29 part collection of clinical review notes.
+
+4
+00:00:15.760 --> 00:00:19.840
+And this is the exact material that counselors and therapists use to, you know,
+
+5
+00:00:19.840 --> 00:00:24.720
+pass their licensing exams. Oh, absolutely. It's the master key to the diagnostic manual.
+
+6
+00:00:24.720 --> 00:00:31.200
+Exactly. But for you, the listener, this isn't just test prep. It acts as a secret decoder ring
+
+7
+00:00:31.200 --> 00:00:36.640
+for understanding human psychology. We're on a mission today to uncover the really fascinating
+
+8
+00:00:36.640 --> 00:00:40.880
+high stakes rules that clinicians use to categorize human behavior.
+
+9
+00:00:40.880 --> 00:00:46.480
+And to separate, you know, normal everyday distress from actual life threatening crises.
+
+10
+00:00:46.480 --> 00:00:49.760
+Right. And then choose the exact right interventions based on that. I promise you,
+
+11
+00:00:49.760 --> 00:00:54.160
+by the end of this deep dive, you'll understand the hidden fault lines of the human mind.
+
+12
+00:00:54.160 --> 00:00:58.080
+I think it's important to point out early on, though, that the ultimate goal of these rules,
+
+13
+00:00:58.080 --> 00:01:02.320
+which can seem really rigid, isn't just to slap a label on someone.
+
+14
+00:01:02.320 --> 00:01:05.760
+Yeah, people criticize the manual for putting folks into boxes all the time.
+
+15
+00:01:05.760 --> 00:01:11.760
+They do. Yeah. But looking at these clinical notes, the objective is clearly finding a precise
+
+16
+00:01:11.760 --> 00:01:18.000
+roadmap. It's about keeping people safe and helping them heal. Treating a symptom without
+
+17
+00:01:18.000 --> 00:01:22.560
+knowing the underlying structural diagnosis can honestly do a lot more harm than good.
+
+18
+00:01:22.560 --> 00:01:27.520
+OK, let's unpack this, starting with the engine of fear, the anxiety spectrum.
+
+19
+00:01:27.520 --> 00:01:31.920
+That's a great place to start. Because the clinical definition of anxiety isn't just like
+
+20
+00:01:31.920 --> 00:01:37.200
+a generalized feeling of being nervous. The manual actually categorizes anxiety disorders
+
+21
+00:01:37.200 --> 00:01:40.080
+based on the target of the fear. Right. The specific vector.
+
+22
+00:01:40.080 --> 00:01:46.080
+Exactly. So think of anxiety like a blaring security alarm. The clinician's job isn't just
+
+23
+00:01:46.080 --> 00:01:50.080
+to, you know, turn off the alarm. They have to figure out which window the burglar is
+
+24
+00:01:50.080 --> 00:01:54.640
+supposedly breaking through. Oh, I love that analogy. Because if the fear is pointed outward
+
+25
+00:01:54.640 --> 00:02:00.320
+at everything, like a persistent hum about work, health, family, and it lasts for over six months,
+
+26
+00:02:00.320 --> 00:02:05.760
+that's generalized anxiety disorder or G.A.D. But if the vector is pointed entirely inward
+
+27
+00:02:05.760 --> 00:02:10.720
+at the physical sensation of the anxiety itself, that changes it, right? It changes completely.
+
+28
+00:02:10.720 --> 00:02:16.080
+That's panic disorder. The person is terrified of the physical surge of the next attack.
+
+29
+00:02:16.080 --> 00:02:19.520
+And then there's agoraphobia, which I feel like is super misunderstood.
+
+30
+00:02:19.760 --> 00:02:22.320
+The assumption is just, oh, they're afraid of leaving the house.
+
+31
+00:02:22.320 --> 00:02:27.680
+Right. The shut in stereotype. But the clinical criteria say the fear is specifically about
+
+32
+00:02:27.680 --> 00:02:33.200
+being trapped in a situation where escape is difficult or where help is unavailable
+
+33
+00:02:33.200 --> 00:02:36.960
+if they have a panic attack. So it's the fear of being trapped without help.
+
+34
+00:02:36.960 --> 00:02:42.560
+Exactly. Whereas social anxiety disorder, you might see the same avoidance behaviors,
+
+35
+00:02:42.560 --> 00:02:47.840
+like skipping a crowded party. But the motive is rooted in the feel of being judged.
+
+36
+00:02:47.920 --> 00:02:49.520
+The fear of negative evaluation.
+
+37
+00:02:49.520 --> 00:02:54.640
+Yes. And the intervention changes entirely based on that motive. You can't treat the fear of
+
+38
+00:02:54.640 --> 00:02:58.880
+being trapped with the same cognitive restructuring you'd use for the fear of social scrutiny.
+
+39
+00:02:58.880 --> 00:03:03.120
+Wow. Yeah, that makes total sense. But the danger of misidentifying this stuff gets
+
+40
+00:03:03.120 --> 00:03:06.080
+literally life or death when we move to mood disorders.
+
+41
+00:03:06.080 --> 00:03:08.240
+It really does. The bipolar trap.
+
+42
+00:03:08.240 --> 00:03:13.280
+Right. The notes show that the most consequential distinction is separating unipolar depression
+
+43
+00:03:13.280 --> 00:03:18.240
+from bipolar depression. Because clinically, in the room, they look identical. The patient is
+
+44
+00:03:18.240 --> 00:03:23.680
+profoundly sad, lethargic, maybe having suicidal ideation.
+
+45
+00:03:23.680 --> 00:03:28.800
+And what's fascinating here is how patients unintentionally hide the most crucial data from
+
+46
+00:03:28.800 --> 00:03:31.360
+the clinician. Because they don't complain about the highs, right?
+
+47
+00:03:31.360 --> 00:03:35.120
+Exactly. People do not book therapy appointments because two years ago,
+
+48
+00:03:35.120 --> 00:03:39.360
+they spent three weeks feeling super energized, hyper productive, and sleeping two hours a night.
+
+49
+00:03:39.360 --> 00:03:41.680
+Right. They seek help when that wave crashes.
+
+50
+00:03:41.680 --> 00:03:47.440
+Exactly. But if the clinician only treats that crash, they risk causing a severe psychiatric
+
+51
+00:03:47.440 --> 00:03:50.880
+emergency. Wait, really? By just giving them an antidepressant?
+
+52
+00:03:50.880 --> 00:03:58.320
+Yes. Administering a standard SSRI, a selective serotonin reuptake inhibitor to a bipolar brain,
+
+53
+00:03:58.320 --> 00:04:00.800
+can actually trigger a manic episode. Oh, wow.
+
+54
+00:04:00.800 --> 00:04:06.720
+Because antidepressants alter neurotransmitters like serotonin, right? In a unipolar depressive
+
+55
+00:04:06.720 --> 00:04:12.000
+brain that restores the baseline. But in a bipolar brain, if you don't have a mood stabilizer
+
+56
+00:04:12.000 --> 00:04:16.480
+to anchor the circuitry, that sudden influx of serotonin is basically a catalyst.
+
+57
+00:04:16.480 --> 00:04:21.040
+It just launches them straight up. It propels them right out of depression into full-blown mania.
+
+58
+00:04:21.680 --> 00:04:26.720
+Reckless behavior, psychosis, severe impulsivity. It's incredibly dangerous.
+
+59
+00:04:26.720 --> 00:04:29.920
+So the clinician has to aggressively hunt for that history of mania.
+
+60
+00:04:29.920 --> 00:04:32.240
+Always. You always have to ask about the highs.
+
+61
+00:04:32.800 --> 00:04:35.760
+Okay, so moving from the targets of our emotions,
+
+62
+00:04:35.760 --> 00:04:38.400
+let's talk about the invisible clocks governing the mind.
+
+63
+00:04:39.200 --> 00:04:44.880
+The diagnostic manual relies so heavily on the calendar to change the reality of a diagnosis.
+
+64
+00:04:44.880 --> 00:04:46.480
+Timelines are everything in the manual.
+
+65
+00:04:46.480 --> 00:04:51.520
+Take trauma responses. A patient has a severe trauma. They have flashbacks, hypervigilance.
+
+66
+00:04:52.080 --> 00:04:56.720
+If that's happening within three days to one month after the event, it's acute stress disorder.
+
+67
+00:04:56.720 --> 00:04:56.960
+Right.
+
+68
+00:04:57.680 --> 00:05:02.480
+But the exact same symptoms past the one month mark magically become post-traumatic stress
+
+69
+00:05:02.480 --> 00:05:07.120
+disorder, PTSD. Wait, does the human brain actually know what a month is?
+
+70
+00:05:07.120 --> 00:05:10.640
+Why does crossing day 30 magically change the name of the disease?
+
+71
+00:05:10.640 --> 00:05:14.800
+Well, if we connect this to the bigger picture, it's not that the brain has a literal calendar.
+
+72
+00:05:14.800 --> 00:05:18.800
+Those timelines represent the brain's natural healing window.
+
+73
+00:05:18.800 --> 00:05:22.720
+The first 30 days, the brain is in an evolutionary survival mode.
+
+74
+00:05:23.360 --> 00:05:27.360
+The amygdala is blaring. The hippocampus is struggling to file the memory.
+
+75
+00:05:28.160 --> 00:05:33.600
+That acute distress is a biological response that needs time to process naturally.
+
+76
+00:05:33.600 --> 00:05:36.720
+So crossing the 30 day mark means the natural process failed?
+
+77
+00:05:36.720 --> 00:05:42.400
+Yes. The alarm got stuck in the on position. It goes from an acute state to a chronic one,
+
+78
+00:05:42.400 --> 00:05:47.120
+which requires a completely different level of intervention, like trauma focused therapy.
+
+79
+00:05:47.120 --> 00:05:50.000
+And psychosis is sorted by a stopwatch too, right?
+
+80
+00:05:50.000 --> 00:05:51.920
+The notes talk about this psychosis ladder.
+
+81
+00:05:51.920 --> 00:05:56.880
+Very much so. Under one month with a full recovery is brief psychotic disorder.
+
+82
+00:05:56.880 --> 00:05:59.200
+One to six months is schizophrenia disorder.
+
+83
+00:05:59.200 --> 00:06:03.040
+Right. And anything persisting past six months converts to schizophrenia.
+
+84
+00:06:03.040 --> 00:06:07.120
+It indicates how deeply entrenched the structural or neurochemical issue is.
+
+85
+00:06:07.120 --> 00:06:10.560
+The clinician also has to figure out how psychosis interacts with mood.
+
+86
+00:06:11.120 --> 00:06:14.880
+This part was wild. The difference between schizoaffective disorder and a mood
+
+87
+00:06:14.880 --> 00:06:18.320
+disorder with psychotic features. Yes. The standalone test.
+
+88
+00:06:18.320 --> 00:06:20.960
+Right. The clinician has to ask,
+
+89
+00:06:20.960 --> 00:06:25.120
+does the psychosis ever stand alone for two straight weeks without a mood episode?
+
+90
+00:06:25.760 --> 00:06:30.720
+If someone has delusions for two weeks while their mood is totally stable, it's schizoaffective.
+
+91
+00:06:30.720 --> 00:06:34.800
+But if the psychosis only shows up during the deepest depression or highest mania,
+
+92
+00:06:34.800 --> 00:06:37.360
+it's a mood disorder with psychotic features.
+
+93
+00:06:37.360 --> 00:06:41.040
+It's just so precise. Okay. Here's where it gets really interesting.
+
+94
+00:06:41.040 --> 00:06:47.120
+What happens when these mental timelines and distress manifest in the physical body?
+
+95
+00:06:47.120 --> 00:06:50.880
+Like with substance withdrawals. The contrast here is brutal, honestly.
+
+96
+00:06:50.880 --> 00:06:54.800
+The physiological realities are huge. Because society thinks of withdrawal
+
+97
+00:06:54.800 --> 00:07:00.560
+based on movies about opioids. Agonizing, sweating, nausea, intense cravings, which,
+
+98
+00:07:00.560 --> 00:07:05.920
+you know, is terrible. But the clinical notes are explicit. Opioid withdrawal rarely kills you.
+
+99
+00:07:05.920 --> 00:07:09.120
+It feels like death, but it's not. Alcohol and sedative withdrawal,
+
+100
+00:07:09.120 --> 00:07:11.520
+on the other hand, carry a massive mortality risk.
+
+101
+00:07:11.520 --> 00:07:14.000
+Because of how it impacts the nervous system. Exactly.
+
+102
+00:07:14.000 --> 00:07:16.800
+Alcohol acts as a central nervous system depressant.
+
+103
+00:07:16.800 --> 00:07:20.400
+It enhances GABA, which puts the brakes on your neurological activity,
+
+104
+00:07:20.400 --> 00:07:23.840
+and it suppresses glutamate, which is your excitatory neurotransmitter.
+
+105
+00:07:23.840 --> 00:07:26.880
+So if a heavy drinker just suddenly stops cold turkey.
+
+106
+00:07:26.880 --> 00:07:30.000
+The brain is suddenly flooded with glutamate, but it doesn't have
+
+107
+00:07:30.000 --> 00:07:34.720
+the protective dampening effect of the GABA anymore. It's a massive electrical storm.
+
+108
+00:07:34.720 --> 00:07:36.160
+Which causes fatal seizures.
+
+109
+00:07:36.160 --> 00:07:40.640
+And delirium tremens, yeah. It's why clinicians use benzodiazepines as a
+
+110
+00:07:40.640 --> 00:07:45.120
+first-line treatment there to artificially manage the nervous system so they don't basically short
+
+111
+00:07:45.120 --> 00:07:52.240
+circuit. And that untangling of physical and psychological leads to delirium versus dementia.
+
+112
+00:07:52.240 --> 00:07:54.560
+Which is a crucial medical rollout.
+
+113
+00:07:54.560 --> 00:07:58.960
+Dementia, like Alzheimer's, is a gradual, progressive decline over years.
+
+114
+00:07:59.600 --> 00:08:05.200
+But delirium is an acute, fluctuating medical emergency that happens in hours or days.
+
+115
+00:08:05.200 --> 00:08:07.760
+Like a severe impairment in attention.
+
+116
+00:08:07.760 --> 00:08:10.880
+The nose gave the example of a urinary tract infection in an
+
+117
+00:08:10.880 --> 00:08:15.120
+elderly patient causing profound delirium that mimics sudden psychosis.
+
+118
+00:08:15.120 --> 00:08:18.640
+And that's why medical rule-outs are mandatory before starting therapy.
+
+119
+00:08:18.640 --> 00:08:23.360
+You cannot treat a thyroid problem, or delirium from a UTI, with talk therapy.
+
+120
+00:08:23.360 --> 00:08:25.760
+Yeah, you need antibiotics, not a coping strategy.
+
+121
+00:08:25.760 --> 00:08:29.440
+But what about when physical symptoms aren't a medical crisis?
+
+122
+00:08:29.440 --> 00:08:33.920
+When people are actively faking it? The manual splits somatic deceptions into
+
+123
+00:08:33.920 --> 00:08:38.480
+two camps based entirely on motive, factitious disorder and malingering.
+
+124
+00:08:38.480 --> 00:08:42.080
+Right, the motive is everything. Both involve faking symptoms,
+
+125
+00:08:42.080 --> 00:08:48.000
+but malingering is for external gain, faking a back injury for workers' comp, or avoiding work.
+
+126
+00:08:48.000 --> 00:08:50.400
+So malingering is basically just a scam.
+
+127
+00:08:50.400 --> 00:08:54.320
+Legally and clinically, yes, it's actually not classified as a mental disorder.
+
+128
+00:08:54.320 --> 00:08:59.760
+But factitious disorder, which used to be munchausens, is driven by an internal motive.
+
+129
+00:08:59.760 --> 00:09:01.680
+They want to occupy the sick role.
+
+130
+00:09:01.680 --> 00:09:04.080
+Yes. There's no financial reward.
+
+131
+00:09:04.080 --> 00:09:07.920
+They might alter medical records or actually induce physical harm on themselves
+
+132
+00:09:07.920 --> 00:09:09.680
+just to get care and validation.
+
+133
+00:09:09.680 --> 00:09:13.280
+It's a tragic psychological hunger for care. That is so dark.
+
+134
+00:09:13.280 --> 00:09:17.360
+It's a severe pathology, for sure. Untangling motives is hard enough,
+
+135
+00:09:17.360 --> 00:09:22.320
+but differentiating deeply ingrained personality from acute episodes is even harder.
+
+136
+00:09:22.320 --> 00:09:24.880
+Right, we're diving into the personality matrix now,
+
+137
+00:09:24.880 --> 00:09:28.400
+like borderline personality disorder versus bipolar disorder.
+
+138
+00:09:28.400 --> 00:09:30.720
+A classic diagnostic challenge.
+
+139
+00:09:30.720 --> 00:09:35.440
+In the room, they look identical. Unstable emotions, extreme reactivity.
+
+140
+00:09:35.440 --> 00:09:37.360
+But the separator is tempo and trigger, right?
+
+141
+00:09:37.360 --> 00:09:40.960
+Precisely. Borderline shifts happen in minutes or hours,
+
+142
+00:09:40.960 --> 00:09:44.560
+and they are almost always triggered by interpersonal relationships,
+
+143
+00:09:44.560 --> 00:09:47.840
+specifically the fear of abandonment or rejection.
+
+144
+00:09:47.840 --> 00:09:52.240
+So a minor argument with a friend can make the emotional floor drop out instantly?
+
+145
+00:09:52.240 --> 00:09:55.360
+Yes. But bipolar episodes last for days or weeks.
+
+146
+00:09:55.360 --> 00:10:00.000
+They operate on an internal biological rhythm, not a relationship rupture.
+
+147
+00:10:00.000 --> 00:10:02.480
+Okay, that brings up OCD versus OCPD.
+
+148
+00:10:03.280 --> 00:10:06.320
+Obsessive compulsive disorder is an anxiety disorder.
+
+149
+00:10:06.320 --> 00:10:10.720
+That person has intrusive thoughts, they do rituals, and it's egotistonic.
+
+150
+00:10:10.720 --> 00:10:13.120
+Meaning the person hates their intrusive thoughts.
+
+151
+00:10:13.120 --> 00:10:15.040
+They feel tortured by the compulsion.
+
+152
+00:10:15.040 --> 00:10:20.560
+Right. But obsessive compulsive personality disorder, OCPD, is egosyntonic.
+
+153
+00:10:20.560 --> 00:10:25.840
+The rigid perfectionist genuinely believes their way is the absolute correct way to do things.
+
+154
+00:10:25.840 --> 00:10:27.760
+They don't suffer from unwanted rituals.
+
+155
+00:10:27.760 --> 00:10:30.880
+They just have an uncompromising need for ultimate control.
+
+156
+00:10:30.880 --> 00:10:34.400
+So if OCPE people think they are doing everything perfectly right,
+
+157
+00:10:35.040 --> 00:10:37.520
+how do they ever end up in a therapist's office?
+
+158
+00:10:37.520 --> 00:10:39.040
+Usually because of an ultimatum.
+
+159
+00:10:39.600 --> 00:10:43.040
+A spouse threatens divorce over their rigid household rules.
+
+160
+00:10:43.040 --> 00:10:47.600
+Or a boss mandates counseling because they can't delegate and it's ruining the team.
+
+161
+00:10:47.600 --> 00:10:50.480
+Oh, that makes sense. It's the people around them who are distressed.
+
+162
+00:10:50.480 --> 00:10:52.400
+Which, you know, this raises an important question
+
+163
+00:10:52.400 --> 00:10:55.440
+about how distress actually defines illness in the manual.
+
+164
+00:10:55.440 --> 00:10:59.120
+Yeah, distress is the fundamental dividing line, even with addictions.
+
+165
+00:10:59.680 --> 00:11:04.640
+Gambling is the only officially recognized behavioral addiction in the manual
+
+166
+00:11:04.640 --> 00:11:09.440
+because it hijacks the same reward circuitry as substances and causes severe impairment.
+
+167
+00:11:09.440 --> 00:11:12.640
+And that standard of distress applies to gender identity, too.
+
+168
+00:11:12.640 --> 00:11:17.840
+Right. The notes state unequivocally that being transgender is not a pathology.
+
+169
+00:11:17.840 --> 00:11:22.960
+The diagnosis of gender dysphoria is about the severe distress caused by the incongruence
+
+170
+00:11:22.960 --> 00:11:26.640
+between their experienced gender and assigned sex at birth.
+
+171
+00:11:26.640 --> 00:11:30.320
+The clinical goal is to alleviate the dysphoria, the distress,
+
+172
+00:11:30.320 --> 00:11:32.640
+not to pathologize the identity itself.
+
+173
+00:11:32.640 --> 00:11:35.920
+Same with paraphilias, those atypical sexual interests.
+
+174
+00:11:35.920 --> 00:11:38.720
+Just having an atypical interest isn't a disorder.
+
+175
+00:11:38.720 --> 00:11:42.560
+It only crosses the line if it causes significant distress to the self
+
+176
+00:11:42.560 --> 00:11:45.200
+or if it involves harm to non-consenting people.
+
+177
+00:11:45.200 --> 00:11:48.480
+Exactly. The pathology is located in the harm and the distress.
+
+178
+00:11:49.040 --> 00:11:52.800
+So what does this all mean when the distress turns into an acute threat?
+
+179
+00:11:52.800 --> 00:11:58.080
+Let's talk about the high-stakes rule books, crisis, ethics, and the clinical snapshot.
+
+180
+00:11:58.080 --> 00:12:01.760
+This is where intuition has to be replaced by evidence-based protocols.
+
+181
+00:12:01.760 --> 00:12:06.880
+Take suicide assessment. The old way was having clients sign a no-suicide contract.
+
+182
+00:12:06.880 --> 00:12:09.360
+Which are completely useless and not evidence-based.
+
+183
+00:12:09.360 --> 00:12:12.560
+Right. Asking someone whose brain is depleted by depression
+
+184
+00:12:12.560 --> 00:12:16.960
+to just rely on willpower to honor a contract, it offers zero protection.
+
+185
+00:12:16.960 --> 00:12:20.320
+It basically just functions as a liability shield for the clinic.
+
+186
+00:12:20.320 --> 00:12:24.560
+Modern practice uses collaborative safety planning, like the CSSRS scale.
+
+187
+00:12:24.560 --> 00:12:29.520
+You assess ideation, plan, intent, access to lethal means,
+
+188
+00:12:29.520 --> 00:12:32.800
+and protective factors in that exact order.
+
+189
+00:12:32.800 --> 00:12:36.720
+It's about building cognitive off-ramps, not demanding compliance.
+
+190
+00:12:36.720 --> 00:12:39.680
+And when the threat of violence is directed outward,
+
+191
+00:12:39.680 --> 00:12:43.280
+we have to look at the Tarasoff rule, the duty to warn.
+
+192
+00:12:43.280 --> 00:12:46.160
+Because confidentiality is the default, obviously.
+
+193
+00:12:46.160 --> 00:12:48.000
+It's the bedrock of therapy.
+
+194
+00:12:48.000 --> 00:12:53.120
+But it breaks if there is a serious, imminent threat to a reasonably identifiable victim.
+
+195
+00:12:53.120 --> 00:12:55.360
+The threshold is super specific.
+
+196
+00:12:55.360 --> 00:12:58.400
+Venting vague anger-like, saying,
+
+197
+00:12:58.400 --> 00:13:01.360
+I hate everyone at this job, doesn't cut it.
+
+198
+00:13:01.360 --> 00:13:03.680
+Right. It's not enough to breach confidentiality.
+
+199
+00:13:03.680 --> 00:13:08.640
+They have to name a specific person, have a plausible plan, and the means to execute it.
+
+200
+00:13:08.640 --> 00:13:11.840
+That's when you have to notify law enforcement and try to warn the victim.
+
+201
+00:13:11.840 --> 00:13:14.720
+And then there's mandated reporting for child or elder abuse.
+
+202
+00:13:14.720 --> 00:13:17.440
+In ethics, the boring answer is usually the right one.
+
+203
+00:13:17.440 --> 00:13:19.760
+The standard is reasonable suspicion.
+
+204
+00:13:19.760 --> 00:13:22.160
+You don't investigate yourself as a therapist.
+
+205
+00:13:22.160 --> 00:13:24.640
+Never. You don't call the family to verify claims.
+
+206
+00:13:24.640 --> 00:13:28.320
+Doing that can tip off an abuser and put the client in immediate danger.
+
+207
+00:13:28.320 --> 00:13:31.840
+You report the suspicion, you consult, you document,
+
+208
+00:13:31.840 --> 00:13:35.040
+and you let the trained state investigators do their job.
+
+209
+00:13:35.040 --> 00:13:37.920
+Okay, so to document all of this in a crisis,
+
+210
+00:13:37.920 --> 00:13:41.200
+clinicians use the mental status exam, the MSE.
+
+211
+00:13:41.200 --> 00:13:43.120
+It's a clinical snapshot of right now.
+
+212
+00:13:43.120 --> 00:13:46.480
+Yes. Stripping away history and just looking at the present state.
+
+213
+00:13:46.480 --> 00:13:49.920
+And here's where the climate and weather analogy comes in, which is so helpful.
+
+214
+00:13:50.640 --> 00:13:54.480
+The MSE forces clinicians to separate mood from affect.
+
+215
+00:13:55.040 --> 00:13:59.440
+Mood is the climate, what the client tells you they feel like I'm devastated.
+
+216
+00:13:59.440 --> 00:14:00.640
+And affect is the weather.
+
+217
+00:14:00.640 --> 00:14:05.280
+It's what you objectively observe on their face, their vocal tone, their body language.
+
+218
+00:14:05.280 --> 00:14:06.960
+So what does this all mean in practice?
+
+219
+00:14:07.600 --> 00:14:11.920
+It means it would be incredibly eerie to see a client with a self-reported,
+
+220
+00:14:12.800 --> 00:14:17.520
+devastated mood, but a bright, smiling, incongruent affect.
+
+221
+00:14:17.520 --> 00:14:19.760
+That mismatches massive diagnostic data.
+
+222
+00:14:19.760 --> 00:14:24.080
+It could mean severe dissociation or a manic state masking as depression.
+
+223
+00:14:24.080 --> 00:14:26.960
+You also have to separate thought process from thought content.
+
+224
+00:14:26.960 --> 00:14:28.720
+Thought process is the flow of thinking.
+
+225
+00:14:28.720 --> 00:14:31.760
+Is it logical? Tangential? Racing?
+
+226
+00:14:31.760 --> 00:14:34.080
+And thought content is the actual substance.
+
+227
+00:14:34.080 --> 00:14:36.960
+Are there delusions? Suicidal ideation?
+
+228
+00:14:36.960 --> 00:14:41.040
+Because someone could sit perfectly calmly with a totally linear thought process,
+
+229
+00:14:41.040 --> 00:14:44.720
+speaking in great paragraphs while explaining their absolute conviction
+
+230
+00:14:44.720 --> 00:14:47.520
+that federal agents are talking to them through streetlights.
+
+231
+00:14:47.520 --> 00:14:48.400
+Exactly.
+
+232
+00:14:48.400 --> 00:14:49.680
+Intact process.
+
+233
+00:14:49.680 --> 00:14:51.520
+Totally disturbed content.
+
+234
+00:14:51.520 --> 00:14:54.960
+Or they could be talking about a mundane trip to the grocery store,
+
+235
+00:14:54.960 --> 00:14:59.840
+but their process is completely derailed by word salad and it's unintelligible.
+
+236
+00:14:59.840 --> 00:15:00.400
+Wow.
+
+237
+00:15:00.400 --> 00:15:03.520
+The architecture of clinical diagnosis is just staggering.
+
+238
+00:15:03.520 --> 00:15:07.840
+We've mapped how the vector of a fear separates anxiety disorders.
+
+239
+00:15:07.920 --> 00:15:09.760
+We've looked at 30-day trauma boundaries,
+
+240
+00:15:09.760 --> 00:15:13.680
+the internal motives of factitious illness versus malingering.
+
+241
+00:15:13.680 --> 00:15:15.920
+It really highlights how much goes into this.
+
+242
+00:15:15.920 --> 00:15:21.920
+And honestly, this knowledge makes you as a listener infinitely more empathetic and observant.
+
+243
+00:15:21.920 --> 00:15:22.480
+For sure.
+
+244
+00:15:22.480 --> 00:15:25.600
+You now know to look for the climate versus weather in your friends.
+
+245
+00:15:26.240 --> 00:15:31.040
+Or you can understand that a colleague's rigid perfectionism might actually be egosyntonic,
+
+246
+00:15:31.040 --> 00:15:33.600
+which totally changes how you interact with them.
+
+247
+00:15:33.600 --> 00:15:36.480
+It fundamentally changes how you view human struggle,
+
+248
+00:15:36.480 --> 00:15:40.400
+which actually leaves me with a final, somewhat provocative thought to mull over.
+
+249
+00:15:40.400 --> 00:15:41.280
+Oh, let's hear it.
+
+250
+00:15:41.280 --> 00:15:45.200
+So the sources mention the criteria for prolonged grief disorder, right?
+
+251
+00:15:45.200 --> 00:15:48.400
+And it specifically says that the prolonged grief has to be weighed
+
+252
+00:15:48.400 --> 00:15:50.800
+against the individual's cultural norms.
+
+253
+00:15:50.800 --> 00:15:52.800
+Yes, the cultural context matters.
+
+254
+00:15:52.800 --> 00:15:57.280
+And similarly, ADHD requires symptoms to be present in multiple environments,
+
+255
+00:15:57.920 --> 00:15:59.600
+like struggling to focus at home,
+
+256
+00:15:59.600 --> 00:16:03.520
+but also struggling to remain perfectly seated at a desk in a classroom.
+
+257
+00:16:03.520 --> 00:16:04.240
+Right.
+
+258
+00:16:04.240 --> 00:16:08.080
+Well, if diagnoses depend so heavily on the culture we happen to live in,
+
+259
+00:16:08.080 --> 00:16:11.200
+or the highly artificial environments we are forced to perform in,
+
+260
+00:16:11.760 --> 00:16:13.440
+it raises a huge question.
+
+261
+00:16:13.440 --> 00:16:18.240
+How much of mental illness is actually a fixed biological flaw within the individual?
+
+262
+00:16:18.240 --> 00:16:22.240
+And how much is simply a mismatch between a purposely normal human brain
+
+263
+00:16:22.240 --> 00:16:25.040
+and a modern society that demands a very specific,
+
+264
+00:16:25.040 --> 00:16:27.200
+totally unnatural type of productivity?
+
+265
+00:16:27.200 --> 00:16:28.640
+That is a fascinating question.
+
+266
+00:16:28.640 --> 00:16:31.360
+It really shifts the lens on what we call pathology.
+
+267
+00:16:31.360 --> 00:16:32.080
+Exactly.
+
+268
+00:16:32.080 --> 00:16:34.080
+Something for you to explore on your own.
+
+269
+00:16:34.160 --> 00:16:36.640
+Keep analyzing the mechanisms behind the behavior.
+
+270
+00:16:37.280 --> 00:16:39.120
+Thanks for joining us on this Deep Dive.

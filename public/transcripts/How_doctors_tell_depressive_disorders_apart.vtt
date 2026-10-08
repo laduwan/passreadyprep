@@ -1,0 +1,941 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.560
+Welcome to this deep dive so imagine going to a clinic with like a clearly broken arm, right?
+
+2
+00:00:06.560 --> 00:00:11.160
+You're in a lot of pain exactly, but instead of taking an x-ray the doctor just hands you a calendar
+
+3
+00:00:11.160 --> 00:00:15.200
+That would be completely absurd. I mean in the world of physical medicine. It's ridiculous
+
+4
+00:00:15.200 --> 00:00:18.840
+You want to see the jagged white line on the bone you point to it and you fix it
+
+5
+00:00:18.840 --> 00:00:22.480
+Yeah, you want that visible binary category. It's either broken or it's not
+
+6
+00:00:22.840 --> 00:00:29.360
+But in the world of human emotion specifically, you know clinical sadness the calendar isn't just a tool
+
+7
+00:00:29.360 --> 00:00:36.800
+It is literally the ultimate judge. It really is. We we desperately want mental health to operate like orthopedics
+
+8
+00:00:37.640 --> 00:00:44.480
+But a psychiatric diagnosis involves mapping this totally invisible terrain, which is incredibly hard
+
+9
+00:00:44.480 --> 00:00:48.480
+Oh, it's incredibly hard. The challenge isn't figuring out if a patient is suffering
+
+10
+00:00:48.480 --> 00:00:55.800
+It's that near identical types of suffering require wildly different treatments and giving the wrong treatment can be disastrous
+
+11
+00:00:55.880 --> 00:01:01.960
+So today we are looking at how the medical establishment attempts to put a ruler next to that human suffering
+
+12
+00:01:02.360 --> 00:01:04.440
+We're diving into this really fascinating source
+
+13
+00:01:04.760 --> 00:01:05.000
+Yeah
+
+14
+00:01:05.000 --> 00:01:10.600
+It's an expert medical exam prep guide right by an instructor named keek from a program called pass ready prep
+
+15
+00:01:10.920 --> 00:01:15.640
+And her guide is designed for medical professionals focusing heavily on what she calls the traps
+
+16
+00:01:16.120 --> 00:01:23.080
+Looking at how doctors are actually tested is just a brilliant framework for understanding how medicine views depression because it's not just theory, right?
+
+17
+00:01:23.320 --> 00:01:27.560
+Exactly exam prep isn't about memorizing a list of symptoms in a vacuum
+
+18
+00:01:27.880 --> 00:01:29.880
+It is about learning the precise
+
+19
+00:01:30.120 --> 00:01:36.520
+Razor thin boundaries that separate one diagnosis from another and the exam writers know where people mess up. Oh, totally
+
+20
+00:01:36.840 --> 00:01:42.700
+They design questions specifically to fool test takers into making the exact same misdiagnoses
+
+21
+00:01:43.240 --> 00:01:45.880
+That happen every single day in real clinics. Wow
+
+22
+00:01:46.760 --> 00:01:52.280
+So our mission for this deep dive is to decode five specific depressive disorders from keek's guide, right?
+
+23
+00:01:52.520 --> 00:01:55.160
+We are going to bypass the heavy medical jargon
+
+24
+00:01:55.720 --> 00:02:03.000
+Examine those boundaries and uncover why misdiagnosing these conditions is an actual clinical danger. Not just a paperwork error
+
+25
+00:02:03.400 --> 00:02:09.160
+Exactly. So let's start with the baseline. The condition keek calls the anchor of all depressive diagnoses
+
+26
+00:02:09.960 --> 00:02:11.640
+major depressive disorder
+
+27
+00:02:11.640 --> 00:02:16.040
+Or mdd right so keek maps this out starting with the clinical codes
+
+28
+00:02:16.520 --> 00:02:20.440
+Uh, it's f32 for a single episode and f33 for recurrent
+
+29
+00:02:20.520 --> 00:02:26.360
+Okay, got it. And the clinical picture requires five or more symptoms to be present for a minimum of two weeks
+
+30
+00:02:26.920 --> 00:02:33.880
+But there is a totally non-negotiable rule buried in those symptoms, isn't there there is because a patient could have like
+
+31
+00:02:34.440 --> 00:02:36.440
+severe insomnia terrible fatigue
+
+32
+00:02:36.840 --> 00:02:41.480
+Drastic weight loss and inability to concentrate that's four symptoms right there, right
+
+33
+00:02:41.640 --> 00:02:45.320
+But if they don't have either a profoundly depressed mood or anhedonia
+
+34
+00:02:45.320 --> 00:02:49.560
+Which is the loss of interest in things they usually enjoy exactly if they don't have one of those two
+
+35
+00:02:49.560 --> 00:02:55.000
+It simply isn't major depressive disorder. That's fascinating. Yeah, anhedonia is the linchpin of the diagnosis
+
+36
+00:02:55.400 --> 00:03:01.080
+It is a complete mechanical failure of the brain's reward system. So they aren't just sad about missing a hobby
+
+37
+00:03:01.240 --> 00:03:06.520
+No, they literally cannot process the sensation of pleasure like the food they love tastes like cardboard
+
+38
+00:03:06.760 --> 00:03:08.760
+The music they love just sounds like static
+
+39
+00:03:09.320 --> 00:03:15.400
+So for treatment the guide outlines this dual ponged approach for moderate to severe
+
+40
+00:03:15.960 --> 00:03:23.560
+MDD right a combination of an ssri medication and psychotherapy typically cognitive behavioral therapy or cbt
+
+41
+00:03:23.800 --> 00:03:31.880
+Yeah, this dual approach attacks the mechanism of the disorder from two completely different angles. How so well the ssri works on the biological hardware
+
+42
+00:03:32.360 --> 00:03:34.840
+It gradually raises the neurochemical floor
+
+43
+00:03:34.920 --> 00:03:40.280
+So the patient has the physical energy to even engage and the cbt cbt operates on the software
+
+44
+00:03:40.520 --> 00:03:43.080
+It provides the architectural scaffolding to rebuild
+
+45
+00:03:43.560 --> 00:03:49.320
+Uh, you know a shattered self-esteem and correct the severe cognitive distortions that mdd creates
+
+46
+00:03:49.480 --> 00:03:52.440
+So you need the floor to stand on and the scaffolding to climb out?
+
+47
+00:03:52.600 --> 00:03:58.040
+That's a perfect way to put it but let me play devil's advocate here regarding the hardware of this diagnosis the two-week floor
+
+48
+00:03:58.200 --> 00:04:03.240
+Okay, sure. I look at an mdd episode as a sudden heavy anchor dropping on someone's chest
+
+49
+00:04:03.320 --> 00:04:09.480
+It just pulls them underwater. But why is the medical cut off exactly 14 days, right biologically speaking
+
+50
+00:04:09.720 --> 00:04:14.520
+Day 13 and day 14 feel completely identical to the person who's drowning. Oh, absolutely
+
+51
+00:04:14.840 --> 00:04:19.640
+So telling someone on day 13 to like come back tomorrow to be officially depressed
+
+52
+00:04:20.040 --> 00:04:23.400
+I mean that feels like a bureaucratic technicality not science
+
+53
+00:04:23.640 --> 00:04:30.120
+Well, you are hitting on the fundamental messiness of the dsm the diagnostic and statistical manual
+
+54
+00:04:30.660 --> 00:04:37.480
+Biology does not carry a stopwatch. Exactly. The two-week rule is not a law of nature. It's a consensus document
+
+55
+00:04:38.280 --> 00:04:44.520
+Human committees literally sat in rooms and argued over where to draw the line. So they just guessed I wouldn't say guest
+
+56
+00:04:45.000 --> 00:04:47.240
+They optimize for reliability. What do you mean?
+
+57
+00:04:47.640 --> 00:04:52.200
+Well in order to run a clinical trial to prove that a new SSRI actually works
+
+58
+00:04:52.520 --> 00:04:57.000
+You have to ensure that the people in the trial are experiencing a sustained state of pathology
+
+59
+00:04:57.240 --> 00:05:00.920
+Oh not just having a transient reaction to a really terrible week
+
+60
+00:05:01.000 --> 00:05:06.120
+Exactly because if doctors all use different timelines the research data just collapses
+
+61
+00:05:06.840 --> 00:05:09.400
+The 14 day floor is essentially the line in the sand
+
+62
+00:05:09.860 --> 00:05:15.160
+Separating a severe mood fluctuation from a condition that requires clinical intervention. That makes sense
+
+63
+00:05:15.400 --> 00:05:21.400
+And that actually brings us directly into the first major trap. Kick warns her test takers about the grief trap
+
+64
+00:05:21.720 --> 00:05:24.440
+Oh, this is a big one. Yeah a patient comes into the clinic
+
+65
+00:05:24.840 --> 00:05:31.720
+They are grieving a massive loss say the death of a spouse and they look profoundly depressed because they are in
+
+66
+00:05:32.180 --> 00:05:35.560
+Incredible pain right they hit all five symptoms on the checklist
+
+67
+00:05:35.720 --> 00:05:40.440
+They have the insomnia the weight loss the depressed mood and it's been over two weeks
+
+68
+00:05:40.840 --> 00:05:47.320
+A clinician's natural instinct there is to relieve pain. Of course when a doctor sees a patient in that much agony
+
+69
+00:05:47.960 --> 00:05:50.280
+The reflex is to reach for the prescription pad
+
+70
+00:05:51.000 --> 00:05:55.640
+But keek's guide explicitly warns against reflexively medicating morning
+
+71
+00:05:55.800 --> 00:06:04.120
+So the trap is failing to differentiate the mechanism of grief from the pathology of mdd precisely the source highlights two major separators here
+
+72
+00:06:04.520 --> 00:06:11.080
+First grief comes in waves like a wave hits you you feel entirely overwhelmed, but then the wave recedes slightly
+
+73
+00:06:11.240 --> 00:06:15.240
+Yeah, you might even laugh at a fond memory of the person you lost before the next wave hits, right?
+
+74
+00:06:15.400 --> 00:06:21.800
+But mdd doesn't recede that anchor stays dropped and the second even more critical separator is self-esteem
+
+75
+00:06:21.960 --> 00:06:28.920
+Oh, this part was really striking in normal grief a person's fundamental sense of self-worth usually stays intact
+
+76
+00:06:29.400 --> 00:06:31.560
+The pain is externally focused on the loss
+
+77
+00:06:32.040 --> 00:06:38.200
+They feel empty because the person is gone. But in a true major depressive episode the pain turns inward
+
+78
+00:06:38.360 --> 00:06:42.520
+Exactly. The self-esteem is pulverized the patient feels inherently
+
+79
+00:06:43.160 --> 00:06:46.920
+Worthless or toxic or like they're just a burden to those around them
+
+80
+00:06:47.240 --> 00:06:54.040
+So a doctor mistaking grief for mdd might throw an antidepressant at a patient who is simply experiencing the deeply human
+
+81
+00:06:54.260 --> 00:06:59.720
+Necessary process of mourning which is a powerful reminder that not all pain is a disease. Absolutely
+
+82
+00:07:00.040 --> 00:07:03.640
+So we've explored depression measured by a rigid 14-day calendar
+
+83
+00:07:04.200 --> 00:07:09.480
+But the diagnostic landscape shifts dramatically when we look at the limitations of that acute time frame, right?
+
+84
+00:07:09.480 --> 00:07:15.800
+What happens when the anchor isn't terribly heavy, but the chain is incredibly long that moves us into the chronic grind
+
+85
+00:07:16.120 --> 00:07:20.780
+Persistent depressive disorder or pdd the clinical code for this is f34.1
+
+86
+00:07:21.880 --> 00:07:28.840
+And keek defines the criteria here as a depressed mood of more days than not for a staggering two years in adults
+
+87
+00:07:29.240 --> 00:07:35.240
+Well one year in kids. Yes, the intensity of pdd is usually lower than a major depressive episode
+
+88
+00:07:36.120 --> 00:07:42.360
+People with pdd are often highly functional like they go to work. They pay their bills. They interact with their families
+
+89
+00:07:42.440 --> 00:07:46.840
+Yeah, but they are operating with a permanently altered baseline of joylessness
+
+90
+00:07:47.240 --> 00:07:52.680
+It's like if mdd is a sudden category five hurricane that rips the roof off your house
+
+91
+00:07:53.080 --> 00:07:57.320
+Pdd is a two year long dreary drizzle. That's a great analogy
+
+92
+00:07:57.480 --> 00:07:59.400
+It doesn't destroy the house in one afternoon
+
+93
+00:07:59.400 --> 00:08:05.160
+But after two years of constant gray skies dampness and rot it profoundly damages how you live
+
+94
+00:08:05.320 --> 00:08:11.800
+And because the nature of the beast is different the treatment priority shifts. Okay, so what changes well while antidepressants are still used
+
+95
+00:08:12.580 --> 00:08:17.560
+Psychotherapy becomes the absolute central pillar because it's a chronic issue, right?
+
+96
+00:08:17.640 --> 00:08:19.880
+You are not just pulling someone out of a sudden storm
+
+97
+00:08:20.280 --> 00:08:25.320
+You are trying to rewire thought patterns that have been entrenched in a low gray dampness for years
+
+98
+00:08:25.640 --> 00:08:29.160
+Here is where the clinical detective work gets incredibly difficult though
+
+99
+00:08:29.800 --> 00:08:33.720
+Keek warns test takers about a phenomenon called stacking. Yes
+
+100
+00:08:34.420 --> 00:08:35.480
+stacking
+
+101
+00:08:35.480 --> 00:08:41.800
+A patient can have pdd and mdd simultaneously also known in the field is double depression, right? Exactly
+
+102
+00:08:42.120 --> 00:08:47.800
+Let's walk through how a doctor actually untangles this in like a standard 15 minute appointment. It's really tough
+
+103
+00:08:48.120 --> 00:08:53.800
+Yeah, a patient sits down and says they can't get out of bed. They're missing work. They feel completely worthless
+
+104
+00:08:54.360 --> 00:09:00.280
+The doctor sees the hurricane and the trap is treating the acute hurricane and assuming the job is done
+
+105
+00:09:00.520 --> 00:09:01.160
+Oh wow
+
+106
+00:09:01.160 --> 00:09:03.160
+If the doctor prescribes an ssri
+
+107
+00:09:03.480 --> 00:09:09.080
+And a month later the severe mdd symptoms lift the doctor might declare the treatment a massive success
+
+108
+00:09:09.240 --> 00:09:12.120
+But the patient is still stuck in the dreary drizzle
+
+109
+00:09:12.200 --> 00:09:16.600
+Right the doctor missed the fact that the patient's normal baseline before the hurricane hit
+
+110
+00:09:17.000 --> 00:09:19.080
+Was actually a chronic state of pdd
+
+111
+00:09:19.560 --> 00:09:24.040
+So the exam wants the clinician to separate the duration from the acute presentation
+
+112
+00:09:24.440 --> 00:09:28.440
+They have to ask about the patient's mood two years ago. Not just two weeks ago
+
+113
+00:09:28.680 --> 00:09:33.400
+Yes, because if they miss the pdd underneath the mdd the patient will never fully recover
+
+114
+00:09:33.960 --> 00:09:39.240
+The underlying chronic condition was completely ignored. That is such a subtle but dangerous trap
+
+115
+00:09:39.720 --> 00:09:44.360
+So we have looked at timelines dictated by calendars 14 days versus two years
+
+116
+00:09:44.840 --> 00:09:47.960
+But calendars are you know, man-made constructs very true
+
+117
+00:09:48.120 --> 00:09:53.960
+Let's look at what happens when the timeline of sadness is dictated strictly by the body's own internal biological clock
+
+118
+00:09:54.280 --> 00:09:58.600
+Okay, this brings us to premenstrual dysphoric disorder or pmdd
+
+119
+00:09:59.160 --> 00:10:01.160
+Code f32.81
+
+120
+00:10:01.880 --> 00:10:10.440
+This diagnosis basically removes the calendar entirely and relies on the physiological cycle exactly the defining feature here is absolute precise timing
+
+121
+00:10:10.600 --> 00:10:15.640
+Because the mood symptoms like severe irritability crushing low mood extreme tension
+
+122
+00:10:15.960 --> 00:10:17.880
+They only appear during the luteal phase, right?
+
+123
+00:10:17.880 --> 00:10:24.120
+Which is the week or so before menstruation and the moment menstruation begins the symptoms lift almost entirely
+
+124
+00:10:24.360 --> 00:10:28.760
+The treatment for pmdd offers a really fascinating look at neurological mechanisms
+
+125
+00:10:29.080 --> 00:10:35.400
+The first line treatment is an ssri but unlike mdd where a patient has to take the pill every single day
+
+126
+00:10:35.880 --> 00:10:41.320
+A patient with pmdd can take the ssri intermittently like only during that luteal phase week
+
+127
+00:10:41.480 --> 00:10:48.440
+Yes, and that is a crucial distinction that specific detail just blew my mind. I thought ssris required like
+
+128
+00:10:49.240 --> 00:10:52.600
+Four to six weeks to build up in the brain to have any effect
+
+129
+00:10:52.760 --> 00:10:57.560
+How can taking it for just five days possibly work? It comes down to the mechanism of action
+
+130
+00:10:57.640 --> 00:11:00.680
+Okay, break that down for me. Well in major depressive disorder
+
+131
+00:11:01.160 --> 00:11:04.520
+The ssri is working to block serotonin reuptake
+
+132
+00:11:05.560 --> 00:11:09.800
+Which slowly causes the brain to rewire its own receptors over several weeks, right?
+
+133
+00:11:09.880 --> 00:11:15.320
+That's the standard understanding but in pmdd the severe mood drop isn't a serotonin deficiency
+
+134
+00:11:15.800 --> 00:11:19.960
+It's a severe sensitivity to the hormone fluctuations of the menstrual cycle. Oh, I see
+
+135
+00:11:20.200 --> 00:11:27.160
+So the ssri even in low doses rapidly alters a specific steroid macabolite in the brain that calms the nervous system
+
+136
+00:11:27.400 --> 00:11:29.480
+It works within hours or days not weeks
+
+137
+00:11:29.640 --> 00:11:34.040
+So it's using the exact same pill for an entirely different biological mechanism
+
+138
+00:11:34.520 --> 00:11:39.640
+But to get that pill cake emphasizes a super strict diagnostic rule
+
+139
+00:11:40.120 --> 00:11:47.320
+A patient must provide prospective daily ratings across at least two cycles. Yes, that's the rule. I really have to push back on this
+
+140
+00:11:47.400 --> 00:11:48.520
+Okay, let's hear it
+
+141
+00:11:48.520 --> 00:11:55.880
+If a woman comes into a clinic and says I have a completely debilitating life ruining week every single month right before my period
+
+142
+00:11:56.600 --> 00:11:58.840
+Why isn't her memory of that suffering enough?
+
+143
+00:11:59.400 --> 00:12:05.560
+It's a fair question because forcing someone to do daily charting homework for two months just to get medication
+
+144
+00:12:05.720 --> 00:12:09.560
+I mean that feels incredibly dismissive. It feels dismissive for sure
+
+145
+00:12:10.040 --> 00:12:16.600
+But the intent is actually to protect the patient from the medical system's historic tendency to just dismiss women's pain
+
+146
+00:12:16.840 --> 00:12:23.400
+How does charting protect them? Well human memory, especially when viewed through the lens of a current mood state is heavily distorted
+
+147
+00:12:23.560 --> 00:12:27.880
+Ah, it's like looking backward through a funhouse mirror. If you feel terrible today
+
+148
+00:12:27.880 --> 00:12:30.600
+You remember the entire last month is being terrible precisely
+
+149
+00:12:31.000 --> 00:12:35.240
+You blur the timing and if a doctor just listens to the retrospective memory
+
+150
+00:12:35.560 --> 00:12:43.080
+The trap is waving it off at standard pms or misdiagnosing it as a generalized anxiety disorder or mdd, right?
+
+151
+00:12:43.560 --> 00:12:51.160
+By requiring real-time daily charting the diagnostic tool becomes a seismograph. It maps the exact biological fault line
+
+152
+00:12:51.160 --> 00:12:57.160
+Okay, I see that now. It forces the medical establishment to acknowledge pmdd as a verifiable
+
+153
+00:12:57.780 --> 00:13:02.600
+Neuroendocrine disorder driven by a biological cycle not just some vague complaint
+
+154
+00:13:02.680 --> 00:13:10.760
+So it elevates the data so it literally can't be ignored exactly kik pairs this focus on biological windows the parapartum onset specifier
+
+155
+00:13:11.320 --> 00:13:17.720
+This is for a major depressive episode that begins either during pregnancy or in the four weeks following delivery, right?
+
+156
+00:13:17.800 --> 00:13:22.760
+The mechanism here involves a massive neurochemical cliff, which is just wild to think about it is
+
+157
+00:13:23.240 --> 00:13:25.800
+During pregnancy hormones like estrogen and progesterone
+
+158
+00:13:26.420 --> 00:13:34.040
+Absolutely skyrocket to sustain the fetus and then the moment the placenta is delivered those hormone levels essentially fall off a cliff back to zero
+
+159
+00:13:34.680 --> 00:13:39.560
+The brain experiences a massive withdrawal treating this requires therapy and medication
+
+160
+00:13:39.640 --> 00:13:43.960
+But the clinician has to constantly monitor what is crossing into the breast milk, right?
+
+161
+00:13:44.120 --> 00:13:48.840
+Yeah, they are treating the mother's brain chemistry while safeguarding the infant's developing system
+
+162
+00:13:49.000 --> 00:13:57.320
+It's a very delicate balance. However, keek places a massive flashing neon warning sign over this entire section
+
+163
+00:13:57.480 --> 00:14:01.160
+The ultimate emergency trap missing postpartum psychosis. Yes
+
+164
+00:14:01.960 --> 00:14:09.240
+The exam questions will try really hard to trick the test taker into confusing a severe parapartum depression with psychosis
+
+165
+00:14:09.480 --> 00:14:11.480
+But they are entirely different beasts
+
+166
+00:14:12.180 --> 00:14:17.320
+Completely different the guide is so emphatic about this postpartum psychosis is not the baby blues not at all
+
+167
+00:14:17.400 --> 00:14:21.800
+The baby blues are transient tearfulness as the brain recalibrates
+
+168
+00:14:22.360 --> 00:14:28.120
+Psychosis is the brain entirely short-circuiting. The mechanism of psychosis is a break from reality, isn't it?
+
+169
+00:14:28.360 --> 00:14:32.280
+Yes, the warning signs are severe confusion disorganized behavior
+
+170
+00:14:32.900 --> 00:14:37.320
+delusions or hallucinations and often those delusions center around the infant like
+
+171
+00:14:37.720 --> 00:14:44.360
+thoughts of harming the child or bizarre beliefs that the child is demonic and missing this distinction is literally the difference between
+
+172
+00:14:44.760 --> 00:14:48.040
+Prescribing an antidepressant and preventing a fatal tragedy
+
+173
+00:14:48.360 --> 00:14:51.320
+If a doctor sees a new mother who is deeply depressed
+
+174
+00:14:51.560 --> 00:14:55.480
+But also exhibiting severe confusion or stating bizarre beliefs about her baby
+
+175
+00:14:56.120 --> 00:15:00.920
+Keek's rule is absolute you screen for psychosis and you hospitalize immediately
+
+176
+00:15:01.320 --> 00:15:07.240
+It is a psychiatric emergency that requires immediate anti-psychotic medication and separation for safety
+
+177
+00:15:07.400 --> 00:15:11.560
+Notice how the severity of the intervention scales with the mechanism of the disorder
+
+178
+00:15:12.040 --> 00:15:19.880
+You validate grief you medicate pmdd cyclically you engage long-term therapy for pdd and you treat psychosis as a life or death crisis
+
+179
+00:15:20.040 --> 00:15:23.000
+It's all about matching the tool to the exact problem, right?
+
+180
+00:15:23.480 --> 00:15:28.360
+Let's shift our focus to a completely different demographic from the biological cycles of women
+
+181
+00:15:28.440 --> 00:15:35.480
+We move to a diagnosis that the dsm committee literally invented to protect children from a dangerous systemic medical error
+
+182
+00:15:35.640 --> 00:15:41.740
+This is a fascinating one. It's disruptive mood dysregulation disorder or dmdd code f3 4.81
+
+183
+00:15:42.360 --> 00:15:45.400
+The rules here are incredibly specific to pediatrics
+
+184
+00:15:45.640 --> 00:15:51.640
+The onset of symptoms must be before the age of 10 and the diagnosis can only be made between the ages of 6 and 18
+
+185
+00:15:51.960 --> 00:15:57.720
+Right and the hallmark isn't sadness. It is chronic severe persistent irritability
+
+186
+00:15:58.180 --> 00:16:02.840
+punctuated by frequent explosive temper outbursts and the first line treatment approach
+
+187
+00:16:03.400 --> 00:16:08.280
+Entirely avoids heavy mood stabilizers. Yes, it leans heavily on behavioral parent training
+
+188
+00:16:08.900 --> 00:16:12.940
+Psychotherapy for the child and treating any underlying issues like ADHD
+
+189
+00:16:13.160 --> 00:16:18.040
+I have to say I can hear every parent listening to this right now. Just rolling their eyes. Oh, sure
+
+190
+00:16:18.360 --> 00:16:22.920
+I mean kids throw tantrums eight-year-olds are frequently irritable. That's just childhood
+
+191
+00:16:23.160 --> 00:16:29.800
+Right. So how does a clinician look at a kid having a massive meltdown in a grocery store and decide it's a psychiatric disorder
+
+192
+00:16:29.960 --> 00:16:32.440
+Rather than just normal developmental acting out
+
+193
+00:16:32.680 --> 00:16:37.000
+The key is the word severe and you have to look at the baseline between the outbursts
+
+194
+00:16:37.160 --> 00:16:42.680
+What do you mean by the baseline? Well normal childhood tantrums are reactive and they end the child calms down
+
+195
+00:16:43.160 --> 00:16:47.960
+But a child with dmdd does not return to a calm baseline. Oh, they don't know
+
+196
+00:16:48.040 --> 00:16:53.240
+They simmer in a state of highly disruptive angry irritability most of the day nearly every day
+
+197
+00:16:53.320 --> 00:16:55.800
+It causes severe impairment in school and at home
+
+198
+00:16:55.960 --> 00:17:01.240
+But keek points out that the true reason dmdd exists in the manual isn't just to label angry kids
+
+199
+00:17:01.560 --> 00:17:06.280
+Not all it was added to stop doctors from falling into the pediatric bipolar trap, right?
+
+200
+00:17:06.360 --> 00:17:07.960
+So two decades ago
+
+201
+00:17:07.960 --> 00:17:15.560
+There's this massive spike in children being diagnosed with pediatric bipolar disorder just because they had severe explosive tempers
+
+202
+00:17:15.720 --> 00:17:20.760
+Exactly, but true bipolar disorder is defined by its mechanism. It is episodic
+
+203
+00:17:21.000 --> 00:17:26.760
+It features distinct separated waves of mania and depression and keek hammers this point home for the exam
+
+204
+00:17:26.920 --> 00:17:29.000
+Chronic irritability is not mania
+
+205
+00:17:29.320 --> 00:17:35.400
+It absolutely is not and if a doctor confuses chronic childhood irritability with a bipolar manic episode
+
+206
+00:17:35.800 --> 00:17:42.920
+The harm is profound because to treat bipolar disorder a clinician prescribes heavy atypical anti-psychotics or mood stabilizers
+
+207
+00:17:43.000 --> 00:17:43.800
+Yes
+
+208
+00:17:43.800 --> 00:17:50.600
+And giving those to an eight-year-old brain is devastating the metabolic side effects of those medications on developing body are just severe
+
+209
+00:17:50.840 --> 00:17:58.040
+Very severe. We were talking about rapid massive weight gain metabolic syndrome lethargy and serious neurological risks
+
+210
+00:17:58.360 --> 00:18:05.080
+The psychiatric community realized they were effectively using a sledgehammer to treat a behavioral condition. So they built a new box
+
+211
+00:18:05.780 --> 00:18:10.440
+Dmdd was created as a diagnostic safe harbor. That's a perfect way to describe it
+
+212
+00:18:10.520 --> 00:18:15.320
+It gives clinicians a code to validate the severe behavioral disruption the family is facing
+
+213
+00:18:15.720 --> 00:18:21.720
+But it actively steers the treatment away from heavy anti-psychotics and toward family behavioral therapy
+
+214
+00:18:22.040 --> 00:18:26.840
+It is truly fascinating to see the diagnostic manual acting as a living document
+
+215
+00:18:27.240 --> 00:18:29.960
+Correcting its own blind spots to prevent medical harm
+
+216
+00:18:30.200 --> 00:18:35.000
+It perfectly illustrates why keek's exam prep focuses so heavily on the separators
+
+217
+00:18:35.480 --> 00:18:41.240
+A misdiagnosis isn't just a theoretical mistake on a test. No, it changes the trajectory of a human life
+
+218
+00:18:41.480 --> 00:18:45.240
+So how do we pull all of this together if we zoom out from keek's guide?
+
+219
+00:18:45.320 --> 00:18:52.120
+We see that modern psychiatry relies on an incredibly specific grid to map the murky waters of human suffering
+
+220
+00:18:52.280 --> 00:18:57.160
+Yeah to tell near-identical sadness apart clinicians are hunting for the exact separators
+
+221
+00:18:57.320 --> 00:19:03.000
+They check the calendar for the 14-day floor of major depression or the two-year chronic dampness of pdd
+
+222
+00:19:03.320 --> 00:19:07.180
+They track the biological clock for the ludial timing of pmdd
+
+223
+00:19:07.420 --> 00:19:13.820
+They assess the baseline irritability of a child to utilize dmdd and avoid the bipolar track
+
+224
+00:19:13.900 --> 00:19:20.300
+And they monitor the neurochemical cliff of the peripartum window to catch the emergency of psychosis
+
+225
+00:19:20.380 --> 00:19:23.340
+Exactly, which leaves me with a final thought for you to ponder
+
+226
+00:19:24.140 --> 00:19:27.340
+We started by talking about the desire for a broken arm x-ray
+
+227
+00:19:27.660 --> 00:19:33.180
+Right and this prep guide highlights just how rigid the boundaries of mental health diagnosis have become
+
+228
+00:19:33.660 --> 00:19:40.700
+Exactly 14 days exactly two years exactly an age limit of 10 very structured but human emotion is fluid
+
+229
+00:19:40.940 --> 00:19:47.020
+It's messy and it's infinitely subjective. It doesn't know it's supposed to wait two weeks to be considered real
+
+230
+00:19:47.180 --> 00:19:52.220
+The clinical mechanisms are very real. Yeah, but the lines drawn between them are often just human compromises
+
+231
+00:19:52.460 --> 00:20:01.340
+Exactly. It makes you wonder are these five disorders truly distinct physically separate diseases living in different neighborhoods of the brain or is this highly specific
+
+232
+00:20:01.980 --> 00:20:05.100
+Rigid diagnostic grid simply the best
+
+233
+00:20:05.660 --> 00:20:10.780
+Safest system we have managed to invent just to figure out which therapy or which molecule
+
+234
+00:20:11.180 --> 00:20:15.660
+Will ultimately pull a patient out of the dark. We can't see the jagged white line on the bone
+
+235
+00:20:16.300 --> 00:20:21.200
+So we build the most precise calendar we can and we hope it leads to the right cure
