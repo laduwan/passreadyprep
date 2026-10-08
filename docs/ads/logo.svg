@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- PassReady Prep mark: graduation cap with the PRP monogram on its front band -->
+  <rect width="512" height="512" rx="112" fill="#0F172A"/>
+  <g fill="none" stroke="#34D399" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M256 74 L456 164 L256 254 L56 164 Z"/>
+    <path d="M118 192 V370 Q256 430 394 370 V192"/>
+    <path d="M456 164 V290"/>
+  </g>
+  <text x="256" y="355" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-weight="500" font-size="84" letter-spacing="10" fill="#F8FAFC">PRP</text>
+</svg>
