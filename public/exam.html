@@ -929,7 +929,7 @@ function narrativeHtml(c, ci, revealThrough, withIds){
   if(c.difficulty) h += '<span class="badge b-amber">'+esc(cap(c.difficulty))+'</span>';
   if(c.category)   h += '<span class="badge b-slate">'+esc(c.category)+'</span>';
   h += '</div></div>';
-  h += '<h2 style="margin:0 0 12px">'+esc(c.title)+'</h2><div class="vignette">';
+  h += '<h2 style="margin:0 0 12px">'+esc(c.title)+'</h2><div class="vignette" data-read-aloud data-read-aloud-label="case narrative">';
   SECTION_KEYS.forEach((k, si) => {
     const txt = c.narrative && c.narrative[k];
     if(si > revealThrough || !txt) return;
@@ -1002,7 +1002,8 @@ function render(){
     const ans = ea.questions[p.qi];
     const opts = q._opts || q.options;
     const struckSet = ea.struck[p.qi];
-    h += '<div class="qstem" style="margin-top:0">'+esc(q.question)+'</div>';
+    h += '<div class="qstem" style="margin-top:0" data-read-aloud data-read-aloud-label="question">'+esc(q.question)+'</div>';
+    h += '<div data-read-aloud data-read-aloud-label="answer options">';
     opts.forEach((o,idx) => {
       const sel = !!ans && ans.chosenId === o.id;
       const struck = struckSet.has(o.id);
@@ -1013,6 +1014,7 @@ function render(){
          + '<span class="otext">'+esc(o.text)+'</span></button>';
       h += '</div>';
     });
+    h += '</div>';
     h += '<div class="ag-wrap"><div style="font-size:12px;color:var(--slate-500);margin-bottom:8px">Answer grid — tap to jump</div>'+gridHtml(false, false)+'</div>';
   }
   h += '</div>';
@@ -1189,8 +1191,9 @@ function buildReview(caseResults){
       if(flagged)  h += '<span class="badge b-amber">Flagged</span>';
       h += '</div>';
       h += '<div style="font-size:12px;color:var(--slate-500);margin-bottom:2px">Q'+(qi+1)+'</div>';
-      h += '<div class="qstem" style="font-size:15px">'+esc(q.question)+'</div>';
+      h += '<div class="qstem" style="font-size:15px" data-read-aloud data-read-aloud-label="question">'+esc(q.question)+'</div>';
 
+      h += '<div data-read-aloud data-read-aloud-label="answer options">';
       opts.forEach((o,idx) => {
         let cls='opt', mark='';
         if(o.isCorrect){ cls+=' correct'; mark='<span class="mark">✓</span>'; }
@@ -1200,18 +1203,19 @@ function buildReview(caseResults){
            + '<span class="key">'+LETTERS[idx]+'</span>'
            + '<span class="otext">'+esc(o.text)+'</span>'+mark+'</button>';
       });
+      h += '</div>';
 
       if(!ok && chosenOpt && chosenOpt.rationale){
-        h += '<div class="fb-block"><div class="fb-label">Why your choice misleads</div>'+esc(chosenOpt.rationale)+'</div>';
+        h += '<div class="fb-block" data-read-aloud data-read-aloud-label="why your choice misleads"><div class="fb-label">Why your choice misleads</div>'+esc(chosenOpt.rationale)+'</div>';
       }
       if(!ok && correctOpt){
-        h += '<div class="fb-block"><div class="fb-label">Correct answer</div><strong>'+esc(correctOpt.text)+'</strong></div>';
+        h += '<div class="fb-block" data-read-aloud data-read-aloud-label="correct answer"><div class="fb-label">Correct answer</div><strong>'+esc(correctOpt.text)+'</strong></div>';
       }
       if(ex && ex.rationale){
-        h += '<div class="fb-block"><div class="fb-label">Why</div>'+esc(ex.rationale)+'</div>';
+        h += '<div class="fb-block" data-read-aloud data-read-aloud-label="rationale"><div class="fb-label">Why</div>'+esc(ex.rationale)+'</div>';
       }
       if(ex && ex.commonMistake){
-        h += '<div class="fb-block" style="background:rgba(239,68,68,.08);border-left:3px solid var(--red);padding:8px 10px;border-radius:0 8px 8px 0;margin-top:10px">'
+        h += '<div class="fb-block" data-read-aloud data-read-aloud-label="common mistake" style="background:rgba(239,68,68,.08);border-left:3px solid var(--red);padding:8px 10px;border-radius:0 8px 8px 0;margin-top:10px">'
            + '<div class="fb-label" style="color:var(--red-400)">Common mistake</div>'+esc(ex.commonMistake)+'</div>';
       }
       h += '</div>';

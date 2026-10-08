@@ -153,18 +153,29 @@ router.get('/me', requireAuth, async (req, res) => {
 router.patch('/prefs', requireAuth, async (req, res) => {
   try {
     const a = req.body && req.body.accessibility;
-    if (!a || typeof a !== 'object')
+    const v = req.body && req.body.voice;
+    const hasA = !!a && typeof a === 'object';
+    const hasV = !!v && typeof v === 'object';
+    if (!hasA && !hasV)
       return res.status(400).json({ error: 'No preferences provided' });
 
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ error: 'Account not found' });
 
     if (!user.prefs) user.prefs = {};
-    if (!user.prefs.accessibility) user.prefs.accessibility = {};
-    if (typeof a.highContrast === 'boolean') user.prefs.accessibility.highContrast = a.highContrast;
-    if (typeof a.dyslexiaFont === 'boolean') user.prefs.accessibility.dyslexiaFont = a.dyslexiaFont;
-    if (typeof a.reducedMotion === 'boolean') user.prefs.accessibility.reducedMotion = a.reducedMotion;
-    user.markModified('prefs.accessibility');
+    if (hasA) {
+      if (!user.prefs.accessibility) user.prefs.accessibility = {};
+      if (typeof a.highContrast === 'boolean') user.prefs.accessibility.highContrast = a.highContrast;
+      if (typeof a.dyslexiaFont === 'boolean') user.prefs.accessibility.dyslexiaFont = a.dyslexiaFont;
+      if (typeof a.reducedMotion === 'boolean') user.prefs.accessibility.reducedMotion = a.reducedMotion;
+      user.markModified('prefs.accessibility');
+    }
+    // Read-aloud speed (a11y.js widget). Clamped to 0.5–2.
+    if (hasV && typeof v.speed === 'number' && Number.isFinite(v.speed)) {
+      if (!user.prefs.voice) user.prefs.voice = {};
+      user.prefs.voice.speed = Math.min(2, Math.max(0.5, v.speed));
+      user.markModified('prefs.voice');
+    }
     await user.save();
 
     return res.json({ user: publicUser(user) });

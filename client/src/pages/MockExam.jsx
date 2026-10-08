@@ -177,7 +177,7 @@ function TimerBar({ secs, examSecs, caseIdx, totalCases, sectionLabel, qNum, qTo
 
 function Narrative({ c, revealThrough, segRefs }) {
   return (
-    <div className="space-y-3">
+    <div className="space-y-3" data-read-aloud data-read-aloud-label="case narrative">
       {SECTION_KEYS.map((seg, si) => si <= revealThrough && c.narrative?.[seg] && (
         <div key={seg} ref={segRefs ? (el) => { segRefs.current[si] = el; } : undefined}>
           <div className={`text-xs font-bold uppercase tracking-wide mb-1 ${SECTION_COLORS[si]}`}>
@@ -1084,8 +1084,8 @@ export default function MockExam({ navigate }) {
               </div>
             ) : (
               <div>
-                <p className="text-lg font-semibold text-white mb-4">{q.question}</p>
-                <div className="space-y-2.5">
+                <p className="text-lg font-semibold text-white mb-4" data-read-aloud data-read-aloud-label="question">{q.question}</p>
+                <div className="space-y-2.5" data-read-aloud data-read-aloud-label="answer options">
                   {(q.options || []).map((opt, idx) => {
                     const letter = 'ABCD'[idx];
                     const isChosen = currentAnswer === opt.id;

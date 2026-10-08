@@ -175,8 +175,8 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
                     </span>
                     <span className="text-xs text-slate-500">Question {i + 1} of {qs.length}</span>
                   </div>
-                  <p className="text-white font-semibold mb-3">{q.question}</p>
-                  <div className="space-y-2">
+                  <p className="text-white font-semibold mb-3" data-read-aloud data-read-aloud-label="question">{q.question}</p>
+                  <div className="space-y-2" data-read-aloud data-read-aloud-label="answer options">
                     {(q.options || []).map((opt, idx) => {
                       const letter = 'ABCD'[idx];
                       const isChosen = a && opt.id === a.chosenId;
@@ -199,7 +199,7 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
                     })}
                   </div>
                   {rationale && (
-                    <div className="mt-3 bg-blue-500/8 border border-blue-500/20 rounded-xl p-3">
+                    <div className="mt-3 bg-blue-500/8 border border-blue-500/20 rounded-xl p-3" data-read-aloud data-read-aloud-label="rationale">
                       <div className="text-xs font-bold uppercase tracking-wide text-blue-400 mb-1">Rationale</div>
                       <p className="text-sm text-slate-300 leading-relaxed">{rationale}</p>
                     </div>
@@ -305,7 +305,7 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
                 const rationale = (keyed && keyed.explanation && keyed.explanation.rationale) || (keyed && keyed.rationale);
                 return (
                   <div key={q.id || i} className="border-t border-slate-700/40 pt-3 first:border-t-0 first:pt-0">
-                    <div className="text-sm font-semibold text-white">Q{i + 1}. {q.question}</div>
+                    <div className="text-sm font-semibold text-white" data-read-aloud data-read-aloud-label="question">Q{i + 1}. {q.question}</div>
                     <div className={`text-sm mt-1 font-semibold ${ok ? 'text-emerald-400' : 'text-red-400'}`}>
                       {ok ? '✓ Correct' : '✗ Incorrect'}
                       <span className="font-normal text-slate-400"> — you chose: {chosen ? chosen.text : '(no answer)'}</span>
@@ -313,7 +313,7 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
                     {!ok && keyed && (
                       <div className="text-sm text-slate-300 mt-0.5">Best answer: {keyed.text}</div>
                     )}
-                    {rationale && <p className="text-sm text-slate-400 mt-1">{rationale}</p>}
+                    {rationale && <p className="text-sm text-slate-400 mt-1" data-read-aloud data-read-aloud-label="rationale">{rationale}</p>}
                   </div>
                 );
               })}
@@ -368,7 +368,7 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
       </div>
 
       {/* Vignette */}
-      <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5 space-y-3">
+      <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5 space-y-3" data-read-aloud data-read-aloud-label="case narrative">
         {['intake', 'session1', 'session2'].map((seg) => caseData.narrative?.[seg] && (
           <div key={seg}>
             <div className="text-xs font-bold uppercase tracking-wide text-emerald-400 mb-1">
@@ -390,8 +390,8 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
         <div className="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5">
           <div className="text-sm text-slate-500 mb-1">Question {qi + 1} of {qs.length}</div>
           <div className="h-1.5 bg-slate-700 rounded-full mb-4"><div className="h-full bg-emerald-500 rounded-full transition-all" style={{ width: `${(qi / qs.length) * 100}%` }} /></div>
-          <p className="text-lg font-semibold text-white mb-4">{currentQ.question}</p>
-          <div className="space-y-2.5">
+          <p className="text-lg font-semibold text-white mb-4" data-read-aloud data-read-aloud-label="question">{currentQ.question}</p>
+          <div className="space-y-2.5" data-read-aloud data-read-aloud-label="answer options">
             {(currentQ.options || []).map((opt, idx) => {
               const letter = 'ABCD'[idx];
               const isChosen = currentA && opt.id === currentA.chosenId;
@@ -427,11 +427,11 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
                 return (
                   <>
                     <div className={`font-bold ${ok ? 'text-emerald-400' : 'text-red-400'}`}>{ok ? '✓ Correct' : '✗ Not quite'}</div>
-                    {!ok && chosen?.rationale && <p className="text-sm text-slate-400">{chosen.rationale}</p>}
+                    {!ok && chosen?.rationale && <p className="text-sm text-slate-400" data-read-aloud data-read-aloud-label="why your choice misleads">{chosen.rationale}</p>}
                     {!ok && chosen?.explanation?.commonMistake && (
                       <p className="text-sm text-amber-400/80">Common mistake: {chosen.explanation.commonMistake}</p>
                     )}
-                    {correct?.explanation?.rationale && <p className="text-sm text-slate-300">{correct.explanation.rationale}</p>}
+                    {correct?.explanation?.rationale && <p className="text-sm text-slate-300" data-read-aloud data-read-aloud-label="rationale">{correct.explanation.rationale}</p>}
                     {correct?.explanation?.keyIndicators?.length > 0 && (
                       <div className="text-sm text-slate-400">
                         <span className="font-semibold text-slate-300">Key indicators: </span>
