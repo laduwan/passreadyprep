@@ -1,0 +1,2457 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.440
+You know how when you're working on your computer, right?
+
+2
+00:00:03.440 --> 00:00:05.160
+You're totally focused right in the zone.
+
+3
+00:00:05.160 --> 00:00:06.000
+Oh yeah.
+
+4
+00:00:06.000 --> 00:00:10.320
+And suddenly this like giant flashing red pop-up
+
+5
+00:00:10.320 --> 00:00:11.880
+just blocks your entire screen.
+
+6
+00:00:11.880 --> 00:00:13.520
+Oh yeah, like a malware warning.
+
+7
+00:00:13.520 --> 00:00:14.360
+Yeah.
+
+8
+00:00:14.360 --> 00:00:18.120
+Or some incredibly loud intrusive ad for, I don't know,
+
+9
+00:00:18.120 --> 00:00:19.240
+something you'd never buy.
+
+10
+00:00:19.240 --> 00:00:20.920
+It just completely freezes everything else
+
+11
+00:00:20.920 --> 00:00:21.840
+you were trying to do.
+
+12
+00:00:21.840 --> 00:00:24.000
+Right, and you click the little X to close it.
+
+13
+00:00:24.000 --> 00:00:25.320
+Another one instantly pops up.
+
+14
+00:00:25.320 --> 00:00:26.480
+Exactly, another one pops up.
+
+15
+00:00:26.480 --> 00:00:27.680
+And then three more.
+
+16
+00:00:27.680 --> 00:00:28.520
+Yeah.
+
+17
+00:00:28.680 --> 00:00:30.600
+You're frantically hitting escape,
+
+18
+00:00:30.600 --> 00:00:32.520
+trying to force quit the application
+
+19
+00:00:32.520 --> 00:00:34.680
+because you know those windows don't belong there.
+
+20
+00:00:34.680 --> 00:00:37.440
+Yeah, they are actively hijacking your system.
+
+21
+00:00:37.440 --> 00:00:40.440
+Right, and you desperately just want your clean desktop back
+
+22
+00:00:40.440 --> 00:00:41.840
+so you can actually function.
+
+23
+00:00:41.840 --> 00:00:45.400
+It's awful, that feeling of helplessness is so visceral.
+
+24
+00:00:45.400 --> 00:00:46.240
+Yeah.
+
+25
+00:00:46.240 --> 00:00:48.160
+I mean, you are completely derailed, held hostage
+
+26
+00:00:48.160 --> 00:00:50.000
+by this process you didn't initiate,
+
+27
+00:00:50.000 --> 00:00:52.200
+and you just, you can't easily override it.
+
+28
+00:00:52.200 --> 00:00:53.760
+Yeah, and that desperate feeling
+
+29
+00:00:53.760 --> 00:00:55.320
+of your system being hijacked,
+
+30
+00:00:55.320 --> 00:00:57.160
+that actually brings us straight to the core
+
+31
+00:00:57.160 --> 00:00:59.000
+of today's deep dive.
+
+32
+00:00:59.000 --> 00:01:00.520
+We're looking at how the human brain
+
+33
+00:01:00.520 --> 00:01:02.800
+essentially generates its own malware.
+
+34
+00:01:02.800 --> 00:01:06.920
+So we have this highly concentrated medical study prep guide.
+
+35
+00:01:06.920 --> 00:01:07.760
+From Pass Ready Prep.
+
+36
+00:01:07.760 --> 00:01:08.800
+Yeah, from Pass Ready Prep,
+
+37
+00:01:08.800 --> 00:01:10.880
+put together by an instructor named Keek.
+
+38
+00:01:10.880 --> 00:01:13.480
+And it maps out this incredibly detailed
+
+39
+00:01:13.480 --> 00:01:15.680
+clinical landscape of OCD
+
+40
+00:01:15.680 --> 00:01:17.640
+and its family of related conditions.
+
+41
+00:01:17.640 --> 00:01:19.440
+It's a really fantastic resource.
+
+42
+00:01:19.440 --> 00:01:20.280
+It really is.
+
+43
+00:01:20.280 --> 00:01:23.160
+And our ultimate mission today for you, the listener,
+
+44
+00:01:23.160 --> 00:01:25.440
+is to understand the fascinating nuances
+
+45
+00:01:25.440 --> 00:01:27.880
+of these conditions, and crucially,
+
+46
+00:01:27.880 --> 00:01:29.880
+what Keek calls the treatment split.
+
+47
+00:01:29.880 --> 00:01:31.040
+Yes, the treatment split.
+
+48
+00:01:31.040 --> 00:01:32.760
+Because if there is one thing,
+
+49
+00:01:32.760 --> 00:01:35.640
+this source material just hammers home over and over,
+
+50
+00:01:35.640 --> 00:01:38.600
+it's that a one-size-fits-all approach
+
+51
+00:01:38.600 --> 00:01:40.200
+absolutely does not work
+
+52
+00:01:40.200 --> 00:01:42.840
+for these related, yet distinct disorders.
+
+53
+00:01:42.840 --> 00:01:44.640
+No, treating them all exactly the same way
+
+54
+00:01:44.640 --> 00:01:46.920
+is honestly a guaranteed recipe for failure.
+
+55
+00:01:46.920 --> 00:01:47.760
+Wow, really?
+
+56
+00:01:47.760 --> 00:01:49.680
+Yeah, I mean, we're gonna look closely
+
+57
+00:01:49.680 --> 00:01:51.480
+at not just the surface-level symptoms,
+
+58
+00:01:51.480 --> 00:01:53.440
+but the underlying mechanisms.
+
+59
+00:01:53.440 --> 00:01:55.640
+Because when you understand the specific architecture
+
+60
+00:01:55.640 --> 00:01:59.160
+of the cognitive loop a person is trapped in,
+
+61
+00:01:59.160 --> 00:02:00.920
+you quickly realize why these conditions
+
+62
+00:02:00.920 --> 00:02:03.840
+require fundamentally different behavioral interventions.
+
+63
+00:02:03.840 --> 00:02:05.280
+All right, let's unpack this.
+
+64
+00:02:05.280 --> 00:02:08.520
+Keek starts us off with the anchor of this entire family,
+
+65
+00:02:08.520 --> 00:02:10.480
+which is obsessive-compulsive disorder.
+
+66
+00:02:10.480 --> 00:02:11.840
+Right, classic OCD.
+
+67
+00:02:11.840 --> 00:02:15.440
+And the notes list out clinical codes like F42.2
+
+68
+00:02:15.440 --> 00:02:17.160
+because medical students obviously need those
+
+69
+00:02:17.160 --> 00:02:18.000
+for their exams.
+
+70
+00:02:18.000 --> 00:02:18.960
+Sure, for the test.
+
+71
+00:02:18.960 --> 00:02:22.080
+But we are gonna focus entirely on the mechanics today
+
+72
+00:02:22.080 --> 00:02:23.880
+because people use the term OCD
+
+73
+00:02:23.880 --> 00:02:26.520
+so casually in everyday life.
+
+74
+00:02:26.520 --> 00:02:27.360
+Oh, constantly.
+
+75
+00:02:27.360 --> 00:02:31.920
+Yeah, usually to describe someone who likes a tidy desk
+
+76
+00:02:31.920 --> 00:02:33.720
+or organizes their books by color.
+
+77
+00:02:33.720 --> 00:02:35.720
+Right, and using it casually like that
+
+78
+00:02:35.720 --> 00:02:38.560
+really does a massive disservice
+
+79
+00:02:38.560 --> 00:02:41.720
+to the reality of the actual diagnosis.
+
+80
+00:02:41.720 --> 00:02:42.560
+Yeah.
+
+81
+00:02:42.560 --> 00:02:45.920
+In a clinical setting, true OCD requires
+
+82
+00:02:45.920 --> 00:02:48.640
+two major distinct components,
+
+83
+00:02:48.640 --> 00:02:50.360
+obsessions, and compulsions.
+
+84
+00:02:50.360 --> 00:02:51.800
+Okay, so break those down for us.
+
+85
+00:02:51.840 --> 00:02:54.720
+So obsessions are those intrusive, unwanted thoughts
+
+86
+00:02:54.720 --> 00:02:56.880
+or urges or images that just drive
+
+87
+00:02:56.880 --> 00:02:58.720
+this intense, paralyzing anxiety.
+
+88
+00:02:58.720 --> 00:03:00.360
+That's the malicious pop-up on your screen.
+
+89
+00:03:00.360 --> 00:03:01.720
+Exactly, that is the pop-up.
+
+90
+00:03:01.720 --> 00:03:04.040
+And then the compulsions are the repetitive behaviors
+
+91
+00:03:04.040 --> 00:03:05.560
+or mental acts the person performs
+
+92
+00:03:05.560 --> 00:03:09.000
+in this desperate attempt to neutralize that anxiety.
+
+93
+00:03:09.000 --> 00:03:11.480
+So that is you frantically clicking the X
+
+94
+00:03:11.480 --> 00:03:13.400
+over and over to make the pop-up go away.
+
+95
+00:03:13.400 --> 00:03:15.920
+Spot on, and it's exhausting for the patient.
+
+96
+00:03:15.920 --> 00:03:16.960
+I bet.
+
+97
+00:03:16.960 --> 00:03:18.280
+And the Prick Guide lays out
+
+98
+00:03:18.280 --> 00:03:20.840
+a very specific threshold for this, right?
+
+99
+00:03:20.840 --> 00:03:22.840
+To actually meet the criteria,
+
+100
+00:03:22.840 --> 00:03:25.560
+these compulsions have to be seriously time-consuming.
+
+101
+00:03:25.560 --> 00:03:26.400
+Yes.
+
+102
+00:03:26.400 --> 00:03:28.280
+Geek & Notes, they have to take up more than an hour a day
+
+103
+00:03:28.280 --> 00:03:31.240
+and they must actively impair the person's life.
+
+104
+00:03:31.240 --> 00:03:33.240
+So we aren't talking about, you know,
+
+105
+00:03:33.240 --> 00:03:35.280
+double-checking the locks on your front door
+
+106
+00:03:35.280 --> 00:03:36.440
+once before you leave.
+
+107
+00:03:36.440 --> 00:03:38.440
+No, no, we are talking about checking them
+
+108
+00:03:38.440 --> 00:03:40.600
+50 times until your hands bleed, right?
+
+109
+00:03:40.600 --> 00:03:43.520
+Making you two hours late for work every single day.
+
+110
+00:03:43.520 --> 00:03:44.360
+Jeez.
+
+111
+00:03:44.360 --> 00:03:46.240
+That's entirely debilitating.
+
+112
+00:03:46.240 --> 00:03:48.160
+The brain's thread detection system
+
+113
+00:03:48.160 --> 00:03:49.920
+has essentially gone rogue.
+
+114
+00:03:49.920 --> 00:03:50.760
+Wow.
+
+115
+00:03:50.760 --> 00:03:52.520
+That's sounding a life or death alarm
+
+116
+00:03:52.520 --> 00:03:54.320
+for something that is objectively harmless.
+
+117
+00:03:54.320 --> 00:03:55.160
+Yeah.
+
+118
+00:03:55.160 --> 00:03:57.480
+But the key to understanding this condition
+
+119
+00:03:57.480 --> 00:03:59.320
+lies in a clinical term.
+
+120
+00:03:59.320 --> 00:04:02.960
+Kick highlights here, which is egotistonic.
+
+121
+00:04:02.960 --> 00:04:05.240
+Egotistonic, okay, this is where the computer analogy
+
+122
+00:04:05.240 --> 00:04:06.680
+really solidifies things for me.
+
+123
+00:04:06.680 --> 00:04:07.520
+Yeah.
+
+124
+00:04:07.520 --> 00:04:08.720
+Yeah, because egotistonic basically means
+
+125
+00:04:08.720 --> 00:04:10.400
+the person actively does not want
+
+126
+00:04:10.400 --> 00:04:11.960
+these thoughts or behaviors, right?
+
+127
+00:04:11.960 --> 00:04:12.800
+That's exactly.
+
+128
+00:04:12.800 --> 00:04:13.840
+They know it's a virus.
+
+129
+00:04:13.840 --> 00:04:15.000
+They hate the pop-ups.
+
+130
+00:04:15.000 --> 00:04:18.120
+They are completely distressed by the rituals
+
+131
+00:04:18.120 --> 00:04:20.480
+they feel forced to perform,
+
+132
+00:04:21.120 --> 00:04:23.240
+which leads directly into that diagnostic trap
+
+133
+00:04:23.240 --> 00:04:24.080
+Keek warns about.
+
+134
+00:04:24.080 --> 00:04:25.560
+The confusion with OCPD.
+
+135
+00:04:25.560 --> 00:04:27.880
+Right, confusing OCD with OCPD,
+
+136
+00:04:27.880 --> 00:04:30.520
+which is obsessive compulsive personality disorder.
+
+137
+00:04:30.520 --> 00:04:32.720
+What's fascinating here is the tragic irony
+
+138
+00:04:32.720 --> 00:04:34.000
+of that confusion, really.
+
+139
+00:04:34.000 --> 00:04:34.840
+How so?
+
+140
+00:04:34.840 --> 00:04:36.440
+Well, OCD is egotistonic.
+
+141
+00:04:36.440 --> 00:04:39.480
+The patient is trapped in a loop they despise.
+
+142
+00:04:39.480 --> 00:04:42.360
+They are fully aware that their fears are irrational,
+
+143
+00:04:42.360 --> 00:04:43.840
+yet they're just powerless
+
+144
+00:04:43.840 --> 00:04:45.960
+to stop the physiological panic.
+
+145
+00:04:45.960 --> 00:04:47.800
+Right, their body's betraying them.
+
+146
+00:04:47.800 --> 00:04:48.800
+Exactly.
+
+147
+00:04:48.800 --> 00:04:51.760
+But OCPD, on the other hand, is egotistonic.
+
+148
+00:04:51.760 --> 00:04:55.040
+Okay, so if OCD is the malicious malware pop-up
+
+149
+00:04:55.040 --> 00:04:56.840
+you're desperately trying to close,
+
+150
+00:04:56.840 --> 00:05:00.640
+OCPD is like a hyper rigid organizational software
+
+151
+00:05:00.640 --> 00:05:02.200
+that you actively installed yourself.
+
+152
+00:05:02.200 --> 00:05:03.040
+Yes.
+
+153
+00:05:03.040 --> 00:05:03.860
+You love it.
+
+154
+00:05:03.860 --> 00:05:06.080
+You think it's making your system run perfectly.
+
+155
+00:05:06.080 --> 00:05:06.920
+Right.
+
+156
+00:05:06.920 --> 00:05:08.400
+And frankly, you think everyone else in the office
+
+157
+00:05:08.400 --> 00:05:10.960
+should be forced to install it on their computers too.
+
+158
+00:05:10.960 --> 00:05:13.840
+That is a perfect way to conceptualize it.
+
+159
+00:05:13.840 --> 00:05:16.560
+The person with OCPD doesn't see their rigidity
+
+160
+00:05:16.560 --> 00:05:18.160
+as a problem at all.
+
+161
+00:05:18.200 --> 00:05:20.680
+To them, it's a feature, not a bug.
+
+162
+00:05:20.680 --> 00:05:22.840
+So they agree with the rigid structure.
+
+163
+00:05:22.840 --> 00:05:23.680
+Exactly.
+
+164
+00:05:23.680 --> 00:05:25.240
+They believe their way of doing things
+
+165
+00:05:25.240 --> 00:05:26.800
+is the objectively correct way.
+
+166
+00:05:26.800 --> 00:05:29.220
+There's no anxiety-driven ritual happening there.
+
+167
+00:05:29.220 --> 00:05:31.480
+It's just a deeply ingrained personality trait.
+
+168
+00:05:31.480 --> 00:05:32.320
+Got it.
+
+169
+00:05:32.320 --> 00:05:35.640
+But with true OCD, the intrusive obsessions
+
+170
+00:05:35.640 --> 00:05:39.120
+and the compulsions are an unwanted hijacking.
+
+171
+00:05:39.120 --> 00:05:40.880
+And because it's a hijacking
+
+172
+00:05:40.880 --> 00:05:43.920
+driven by severe acute anxiety,
+
+173
+00:05:43.920 --> 00:05:47.000
+the first line treatment has to be highly specific.
+
+174
+00:05:47.040 --> 00:05:48.860
+Right, and the notes detail that the treatment
+
+175
+00:05:48.860 --> 00:05:50.360
+is cognitive behavioral therapy,
+
+176
+00:05:50.360 --> 00:05:52.560
+but it has to be built on this specific framework
+
+177
+00:05:52.560 --> 00:05:53.880
+called ERP, right?
+
+178
+00:05:53.880 --> 00:05:56.000
+Yes, exposure and response prevention.
+
+179
+00:05:56.000 --> 00:05:59.040
+And this is often paired with SSRI medications.
+
+180
+00:05:59.040 --> 00:06:01.400
+Which are surprisingly used at much higher doses
+
+181
+00:06:01.400 --> 00:06:02.680
+than you typically prescribe
+
+182
+00:06:02.680 --> 00:06:03.920
+for standard depression, actually.
+
+183
+00:06:03.920 --> 00:06:04.760
+Oh, really?
+
+184
+00:06:04.760 --> 00:06:05.760
+That's interesting.
+
+185
+00:06:05.760 --> 00:06:07.040
+But okay, looking at ERP,
+
+186
+00:06:07.040 --> 00:06:09.200
+I mean, if someone is absolutely terrified
+
+187
+00:06:09.200 --> 00:06:12.400
+of a specific trigger, say, I don't know, contamination,
+
+188
+00:06:12.400 --> 00:06:16.360
+forcing them to confront it, sounds honestly like torture.
+
+189
+00:06:16.360 --> 00:06:18.320
+It sounds incredibly harsh, yes.
+
+190
+00:06:18.320 --> 00:06:20.240
+Because you are exposing them to the fear
+
+191
+00:06:20.240 --> 00:06:22.120
+but preventing the neutralizing response.
+
+192
+00:06:22.120 --> 00:06:23.080
+Exactly.
+
+193
+00:06:23.080 --> 00:06:25.920
+You are intentionally triggering the obsession
+
+194
+00:06:25.920 --> 00:06:28.000
+while actively blocking the compulsion.
+
+195
+00:06:28.000 --> 00:06:28.960
+Wow.
+
+196
+00:06:28.960 --> 00:06:31.240
+So if their obsession is contamination
+
+197
+00:06:31.240 --> 00:06:34.280
+and their compulsion is washing their hands raw,
+
+198
+00:06:34.280 --> 00:06:38.920
+ERP involves having them touch a slightly dirty surface
+
+199
+00:06:38.920 --> 00:06:41.520
+and then actively preventing them from washing their hands.
+
+200
+00:06:41.520 --> 00:06:44.360
+So you're literally forcing them to sit
+
+201
+00:06:44.360 --> 00:06:46.520
+with the pop-up flashing on the screen,
+
+202
+00:06:46.520 --> 00:06:48.800
+the alarms blaring in their head
+
+203
+00:06:48.800 --> 00:06:51.040
+without letting them hit the escape key.
+
+204
+00:06:51.040 --> 00:06:51.880
+Yes.
+
+205
+00:06:51.880 --> 00:06:54.640
+How does that not just traumatize the patient even further?
+
+206
+00:06:54.640 --> 00:06:55.480
+It's a great question.
+
+207
+00:06:55.480 --> 00:06:58.320
+It relies on a biological process called habituation.
+
+208
+00:06:58.320 --> 00:06:59.560
+Habituation, okay.
+
+209
+00:06:59.560 --> 00:07:01.760
+See, the human nervous system cannot sustain a state
+
+210
+00:07:01.760 --> 00:07:04.000
+of maximum panic indefinitely.
+
+211
+00:07:04.000 --> 00:07:05.640
+It is biologically impossible.
+
+212
+00:07:05.640 --> 00:07:07.160
+Right, you just pass out eventually.
+
+213
+00:07:07.160 --> 00:07:09.320
+Exactly, you'd run out of adrenaline.
+
+214
+00:07:09.320 --> 00:07:12.080
+When a person with OCD performs a compulsion,
+
+215
+00:07:12.080 --> 00:07:14.480
+they artificially cut off the anxiety curve
+
+216
+00:07:14.480 --> 00:07:17.080
+before it can naturally peak and decline on its own.
+
+217
+00:07:17.080 --> 00:07:17.960
+Ah.
+
+218
+00:07:17.960 --> 00:07:19.680
+They essentially teach their brain,
+
+219
+00:07:19.680 --> 00:07:22.480
+hey, the only reason I survived that panic
+
+220
+00:07:22.480 --> 00:07:24.320
+is because I washed my hands.
+
+221
+00:07:24.320 --> 00:07:25.160
+Oh, wow.
+
+222
+00:07:25.160 --> 00:07:29.560
+So with ERP, you force them to ride that wave of anxiety
+
+223
+00:07:29.560 --> 00:07:32.680
+all the way up and more importantly, all the way down.
+
+224
+00:07:32.680 --> 00:07:33.920
+So they learn that the anxiety
+
+225
+00:07:33.920 --> 00:07:35.600
+will eventually subside on its own.
+
+226
+00:07:35.600 --> 00:07:37.800
+They physically experience it subsiding.
+
+227
+00:07:37.800 --> 00:07:40.760
+You break the cycle by proving to the brain
+
+228
+00:07:40.760 --> 00:07:43.760
+that the neutralizing behavior isn't the only way out.
+
+229
+00:07:43.760 --> 00:07:45.360
+The false link is severed.
+
+230
+00:07:45.360 --> 00:07:47.600
+The first link between the ritual and survival
+
+231
+00:07:47.600 --> 00:07:49.080
+is completely severed.
+
+232
+00:07:49.080 --> 00:07:51.040
+Man, that's powerful.
+
+233
+00:07:51.040 --> 00:07:53.360
+Okay, so we've just mapped out how the brain
+
+234
+00:07:53.360 --> 00:07:55.960
+gets trapped in this broad internal threat loop
+
+235
+00:07:55.960 --> 00:07:57.320
+with classic OCD.
+
+236
+00:07:57.320 --> 00:07:58.160
+Right.
+
+237
+00:07:58.160 --> 00:07:59.960
+But what happens when that exact same life
+
+238
+00:07:59.960 --> 00:08:02.640
+or death intensity gets projected externally,
+
+239
+00:08:02.640 --> 00:08:04.960
+like specifically onto the mirror?
+
+240
+00:08:04.960 --> 00:08:05.800
+Ah, yeah.
+
+241
+00:08:05.800 --> 00:08:08.240
+Because that brings us to body dysmorphic disorder,
+
+242
+00:08:08.240 --> 00:08:09.480
+or BDD.
+
+243
+00:08:09.480 --> 00:08:11.320
+And that shift from internal scenarios
+
+244
+00:08:11.320 --> 00:08:13.160
+to external form is profound.
+
+245
+00:08:13.160 --> 00:08:15.520
+Yeah, F45.22 in the notes.
+
+246
+00:08:15.520 --> 00:08:16.360
+Right.
+
+247
+00:08:16.360 --> 00:08:17.960
+BDD is defined as a preoccupation
+
+248
+00:08:17.960 --> 00:08:20.680
+with the perceived flaw in one's physical appearance.
+
+249
+00:08:20.680 --> 00:08:23.560
+But crucially, this flaw is completely invisible to others.
+
+250
+00:08:23.560 --> 00:08:24.800
+Or it appears so slight
+
+251
+00:08:24.800 --> 00:08:27.720
+that an outside observer wouldn't even notice it, right?
+
+252
+00:08:27.720 --> 00:08:32.720
+It's like looking into a carnival funhouse mirror.
+
+253
+00:08:33.080 --> 00:08:35.360
+But the person is absolutely convinced
+
+254
+00:08:35.360 --> 00:08:37.840
+that the distorted reflection is reality.
+
+255
+00:08:37.840 --> 00:08:38.760
+Yes.
+
+256
+00:08:38.760 --> 00:08:39.960
+And just like OCD,
+
+257
+00:08:39.960 --> 00:08:42.320
+it comes with a set of repetitive behaviors.
+
+258
+00:08:42.320 --> 00:08:44.720
+Right, the sourceless, endless mirror checking,
+
+259
+00:08:44.720 --> 00:08:46.280
+excessive grooming,
+
+260
+00:08:46.280 --> 00:08:48.840
+constantly comparing themselves to strangers,
+
+261
+00:08:48.840 --> 00:08:51.360
+and just relentless reassurance seeking.
+
+262
+00:08:51.360 --> 00:08:53.040
+Because the focus is entirely
+
+263
+00:08:53.040 --> 00:08:55.720
+on this perceived physical defect.
+
+264
+00:08:55.720 --> 00:08:58.800
+And the treatment aligns pretty closely with OCD.
+
+265
+00:08:58.800 --> 00:09:01.160
+First line is CBT plus an SSRI.
+
+266
+00:09:01.160 --> 00:09:02.600
+Okay, so similar toolset.
+
+267
+00:09:02.600 --> 00:09:03.440
+Yes.
+
+268
+00:09:03.440 --> 00:09:06.760
+But Keek includes two massive clinical warnings here
+
+269
+00:09:06.760 --> 00:09:08.120
+that fundamentally reframe
+
+270
+00:09:08.120 --> 00:09:09.800
+how we have to view this disorder.
+
+271
+00:09:09.800 --> 00:09:10.760
+Okay, what's the first one?
+
+272
+00:09:10.760 --> 00:09:12.360
+The first is that the suicide risk
+
+273
+00:09:12.360 --> 00:09:14.680
+associated with BDD is exceptionally high.
+
+274
+00:09:14.680 --> 00:09:15.520
+Wow.
+
+275
+00:09:15.520 --> 00:09:17.920
+Yeah, that really strips away any casual misunderstanding
+
+276
+00:09:17.920 --> 00:09:21.160
+that this disorder is just vanity or narcissism.
+
+277
+00:09:21.160 --> 00:09:22.560
+Absolutely, it's not vanity at all.
+
+278
+00:09:22.560 --> 00:09:25.720
+It's a severe life-threatening distortion of reality
+
+279
+00:09:25.720 --> 00:09:28.000
+where the person feels literally trapped
+
+280
+00:09:28.000 --> 00:09:29.840
+inside a monstrous version of themselves.
+
+281
+00:09:29.840 --> 00:09:31.200
+That is heartbreaking.
+
+282
+00:09:31.200 --> 00:09:32.560
+The distress is overwhelming
+
+283
+00:09:32.560 --> 00:09:35.040
+because you cannot escape your own physical form.
+
+284
+00:09:35.040 --> 00:09:35.880
+Right.
+
+285
+00:09:35.880 --> 00:09:37.440
+If your trigger is a dirty doorknob,
+
+286
+00:09:37.440 --> 00:09:38.680
+you can just walk away from the door.
+
+287
+00:09:38.680 --> 00:09:39.520
+Right.
+
+288
+00:09:39.520 --> 00:09:40.560
+If your trigger is your own face,
+
+289
+00:09:40.560 --> 00:09:41.760
+there is no escape.
+
+290
+00:09:41.760 --> 00:09:42.880
+You take it everywhere.
+
+291
+00:09:42.880 --> 00:09:44.720
+And that leads to the second major
+
+292
+00:09:44.720 --> 00:09:46.560
+clinical warning Keek notes.
+
+293
+00:09:46.560 --> 00:09:50.120
+Cosmetic procedures do not fix body dysmorphic disorder.
+
+294
+00:09:50.120 --> 00:09:52.680
+Okay, here's where it gets really interesting.
+
+295
+00:09:52.680 --> 00:09:55.360
+Because the study guide explicitly states
+
+296
+00:09:55.360 --> 00:09:58.480
+that if a patient with BDD undergoes plastic surgery
+
+297
+00:09:58.480 --> 00:10:00.880
+to fix the perceived flaw,
+
+298
+00:10:00.880 --> 00:10:03.360
+the preoccupation simply relocates.
+
+299
+00:10:03.360 --> 00:10:04.240
+It just moves.
+
+300
+00:10:04.240 --> 00:10:06.720
+It's like a nightmarish game of whack-a-mole.
+
+301
+00:10:06.720 --> 00:10:07.680
+That's exactly what it is.
+
+302
+00:10:07.680 --> 00:10:11.400
+Like someone agonizes over their nose for a decade.
+
+303
+00:10:11.400 --> 00:10:12.400
+They get surgery.
+
+304
+00:10:12.400 --> 00:10:15.360
+The nose is technically fixed by the surgeon,
+
+305
+00:10:15.360 --> 00:10:19.000
+but within days that intense debilitating anxiety
+
+306
+00:10:19.000 --> 00:10:22.480
+just pops up on their chin or their ears or their jawline.
+
+307
+00:10:22.480 --> 00:10:24.600
+Because you cannot use a surgical scalpel
+
+308
+00:10:24.600 --> 00:10:26.040
+to treat a cognitive loop.
+
+309
+00:10:26.040 --> 00:10:28.120
+Wow, put that on a T-shirt.
+
+310
+00:10:28.120 --> 00:10:29.240
+Seriously though,
+
+311
+00:10:29.240 --> 00:10:31.120
+the root issue is entirely
+
+312
+00:10:31.120 --> 00:10:33.240
+in the brain's processing centers, right?
+
+313
+00:10:33.240 --> 00:10:36.080
+It's not in the cartilage or the tissue of the body.
+
+314
+00:10:36.080 --> 00:10:38.960
+Altering the physical tissue does absolutely nothing
+
+315
+00:10:38.960 --> 00:10:40.920
+to rewire the neural pathways
+
+316
+00:10:40.920 --> 00:10:42.960
+that are actively generating the obsession.
+
+317
+00:10:42.960 --> 00:10:44.200
+That makes total sense.
+
+318
+00:10:44.200 --> 00:10:46.040
+And before we leave BDD,
+
+319
+00:10:46.040 --> 00:10:48.880
+Keek mentions a very specific diagnostic boundary
+
+320
+00:10:48.880 --> 00:10:50.240
+that I think is really important.
+
+321
+00:10:50.240 --> 00:10:51.760
+Of the eating disorder distinction.
+
+322
+00:10:51.760 --> 00:10:52.640
+Yeah.
+
+323
+00:10:52.640 --> 00:10:55.160
+The notes say if a patient's preoccupation
+
+324
+00:10:55.160 --> 00:10:58.520
+is focused strictly on their overall weight and body shape,
+
+325
+00:10:58.520 --> 00:11:01.760
+clinicians are instructed not to diagnose BDD.
+
+326
+00:11:01.760 --> 00:11:04.600
+Right, because that shifts the diagnostic path entirely
+
+327
+00:11:04.600 --> 00:11:06.200
+into the eating disorder category.
+
+328
+00:11:06.200 --> 00:11:07.920
+Like anorexia or bulimia.
+
+329
+00:11:07.920 --> 00:11:08.960
+Exactly.
+
+330
+00:11:08.960 --> 00:11:11.200
+The clinician has to be incredibly precise
+
+331
+00:11:11.200 --> 00:11:13.880
+about the exact nature of the perceived flaw
+
+332
+00:11:13.880 --> 00:11:15.360
+because miscategorizing it
+
+333
+00:11:15.360 --> 00:11:18.080
+could lead to the entirely wrong treatment protocol.
+
+334
+00:11:18.080 --> 00:11:18.920
+Got it.
+
+335
+00:11:18.920 --> 00:11:20.160
+Okay, let's follow that idea
+
+336
+00:11:20.160 --> 00:11:22.320
+of externalizing the anxiety a bit further.
+
+337
+00:11:22.320 --> 00:11:24.600
+We've gone from projecting onto the physical body
+
+338
+00:11:24.600 --> 00:11:26.400
+to projecting onto physical objects.
+
+339
+00:11:26.400 --> 00:11:27.240
+Ah, yes.
+
+340
+00:11:27.240 --> 00:11:28.960
+Which brings us to hoarding disorder.
+
+341
+00:11:28.960 --> 00:11:29.800
+Right.
+
+342
+00:11:29.800 --> 00:11:32.360
+The core definition here is a persistent difficulty
+
+343
+00:11:32.360 --> 00:11:33.520
+parting with possessions.
+
+344
+00:11:33.520 --> 00:11:36.120
+And the critical phrase Keek emphasizes
+
+345
+00:11:36.120 --> 00:11:37.200
+for clinicians to remember
+
+346
+00:11:37.200 --> 00:11:41.600
+is completely regardless of their actual value.
+
+347
+00:11:41.600 --> 00:11:43.320
+Regardless of actual value.
+
+348
+00:11:43.320 --> 00:11:46.360
+So it's the brain assigning massive vital importance
+
+349
+00:11:46.360 --> 00:11:48.720
+to things that are objectively valueless.
+
+350
+00:11:48.720 --> 00:11:49.560
+Yes.
+
+351
+00:11:49.560 --> 00:11:52.600
+We are talking about like stacks of old newspapers,
+
+352
+00:11:52.600 --> 00:11:56.480
+broken electronics, junk mail flyers from five years ago.
+
+353
+00:11:56.480 --> 00:11:57.320
+Exactly.
+
+354
+00:11:57.320 --> 00:11:58.600
+And the mechanism driving this
+
+355
+00:11:58.680 --> 00:12:01.200
+is a deeply felt need to save these items
+
+356
+00:12:01.200 --> 00:12:03.640
+and severe acute distress
+
+357
+00:12:03.640 --> 00:12:05.440
+at the mere thought of discarding them.
+
+358
+00:12:05.440 --> 00:12:07.480
+And the clinical result is just devastating, right?
+
+359
+00:12:07.480 --> 00:12:10.560
+The clutter completely fills and disables living spaces.
+
+360
+00:12:10.560 --> 00:12:11.440
+It's tragic.
+
+361
+00:12:11.440 --> 00:12:13.560
+The kitchen can no longer be used for cooking.
+
+362
+00:12:13.560 --> 00:12:15.640
+The bathtub is filled to the ceiling with doxxas
+
+363
+00:12:15.640 --> 00:12:16.800
+so they can't bathe.
+
+364
+00:12:16.800 --> 00:12:18.080
+The bed can't be slept in.
+
+365
+00:12:18.080 --> 00:12:21.400
+The possessions literally colonize the person's environment
+
+366
+00:12:21.400 --> 00:12:23.920
+until the home just ceases to function as a home.
+
+367
+00:12:23.920 --> 00:12:24.840
+That's a great way to put it.
+
+368
+00:12:24.840 --> 00:12:26.160
+They colonize the space.
+
+369
+00:12:26.160 --> 00:12:28.440
+Now Keek points out a major recent shift
+
+370
+00:12:28.520 --> 00:12:30.400
+in the medical field regarding hoarding.
+
+371
+00:12:30.400 --> 00:12:32.280
+Yes, a very important shift.
+
+372
+00:12:32.280 --> 00:12:34.840
+It's now its own distinct diagnosis.
+
+373
+00:12:34.840 --> 00:12:37.040
+It is no longer considered just a subset
+
+374
+00:12:37.040 --> 00:12:39.360
+or like a flavor of OCD.
+
+375
+00:12:39.360 --> 00:12:41.480
+But looking at the mechanics, I have a question.
+
+376
+00:12:41.480 --> 00:12:42.480
+True.
+
+377
+00:12:42.480 --> 00:12:45.720
+If someone is hoarding, say, broken toasters,
+
+378
+00:12:46.560 --> 00:12:49.600
+how is their distress overthrowing one away
+
+379
+00:12:49.600 --> 00:12:52.800
+different from a standard OCD compulsion?
+
+380
+00:12:52.800 --> 00:12:54.840
+Aren't they just trying to prevent a disaster
+
+381
+00:12:54.840 --> 00:12:56.560
+like in classic OCD?
+
+382
+00:12:56.560 --> 00:12:58.360
+It's a really good distinction to make.
+
+383
+00:12:58.360 --> 00:13:01.560
+The difference lies in where the value
+
+384
+00:13:01.560 --> 00:13:03.520
+and the fear are actually anchored.
+
+385
+00:13:03.520 --> 00:13:04.560
+Okay, what do you mean?
+
+386
+00:13:04.560 --> 00:13:07.880
+Well, in classic OCD, the compulsion is performed
+
+387
+00:13:07.880 --> 00:13:12.080
+to neutralize a specific terrifying intrusive thought
+
+388
+00:13:12.080 --> 00:13:14.840
+that is often completely unrelated to the object itself.
+
+389
+00:13:14.840 --> 00:13:16.080
+Okay, give me an example.
+
+390
+00:13:16.080 --> 00:13:19.200
+So if I don't tap this doorknob three times,
+
+391
+00:13:19.200 --> 00:13:20.680
+my family will die in a car crash.
+
+392
+00:13:20.680 --> 00:13:21.520
+Oh, right.
+
+393
+00:13:21.520 --> 00:13:22.720
+The doorknob has literally nothing to do
+
+394
+00:13:22.720 --> 00:13:23.560
+with the car crash.
+
+395
+00:13:23.560 --> 00:13:25.280
+It's just a magical thinking ritual.
+
+396
+00:13:25.280 --> 00:13:26.760
+Precisely, it's magical thinking.
+
+397
+00:13:26.760 --> 00:13:30.080
+But in hoarding, the distress is intrinsically tied
+
+398
+00:13:30.080 --> 00:13:31.480
+to the physical object itself.
+
+399
+00:13:31.480 --> 00:13:34.080
+The anxiety is about the loss of the item,
+
+400
+00:13:34.080 --> 00:13:36.520
+the perceived waste of throwing it away,
+
+401
+00:13:36.520 --> 00:13:38.720
+or, and this is a big one,
+
+402
+00:13:38.720 --> 00:13:42.880
+the terrifying belief that throwing away an old receipt
+
+403
+00:13:42.880 --> 00:13:44.880
+means permanently losing the memory
+
+404
+00:13:44.880 --> 00:13:46.160
+associated with that day.
+
+405
+00:13:46.160 --> 00:13:47.000
+Wow.
+
+406
+00:13:47.000 --> 00:13:49.000
+The cognitive error is in how the brain
+
+407
+00:13:49.000 --> 00:13:52.000
+calculates utility and emotional attachment.
+
+408
+00:13:52.000 --> 00:13:54.920
+So they essentially anthropomorphize the objects.
+
+409
+00:13:54.920 --> 00:13:56.760
+The junk mail isn't just paper.
+
+410
+00:13:56.760 --> 00:13:58.960
+It feels like an extension of their own identity
+
+411
+00:13:58.960 --> 00:13:59.960
+or their history.
+
+412
+00:13:59.960 --> 00:14:01.560
+Which is why Keek notes that hoarding
+
+413
+00:14:01.560 --> 00:14:03.800
+requires specialized CBT.
+
+414
+00:14:03.800 --> 00:14:05.920
+Standard exposure and response prevention
+
+415
+00:14:05.920 --> 00:14:06.880
+isn't sufficient here.
+
+416
+00:14:06.880 --> 00:14:08.680
+Because it's not a magical thinking loop.
+
+417
+00:14:08.680 --> 00:14:10.760
+Right, you can't just expose them to an empty room
+
+418
+00:14:10.760 --> 00:14:12.720
+and expect habituation to happen.
+
+419
+00:14:12.720 --> 00:14:13.560
+That wouldn't work?
+
+420
+00:14:13.560 --> 00:14:15.200
+No, you have to actively rebuild
+
+421
+00:14:15.200 --> 00:14:16.760
+their decision-making skills.
+
+422
+00:14:16.760 --> 00:14:19.240
+You have to rebuild their categorization abilities
+
+423
+00:14:19.240 --> 00:14:22.640
+and dismantle the very specific cognitive distortions
+
+424
+00:14:22.640 --> 00:14:24.840
+they hold regarding the meaning of possessions.
+
+425
+00:14:24.840 --> 00:14:27.640
+That reinforces the recurring theme perfectly.
+
+426
+00:14:27.640 --> 00:14:29.240
+The one-size-fits-all treatment approach
+
+427
+00:14:29.240 --> 00:14:30.560
+just utterly fails.
+
+428
+00:14:30.560 --> 00:14:31.400
+It does?
+
+429
+00:14:31.400 --> 00:14:33.560
+You really have to address the specific architecture
+
+430
+00:14:33.560 --> 00:14:34.680
+of the delusion.
+
+431
+00:14:34.680 --> 00:14:36.760
+Which brings us to the final two conditions
+
+432
+00:14:36.760 --> 00:14:38.680
+Keek covers in this guide.
+
+433
+00:14:38.680 --> 00:14:41.480
+The body-focused, repetitive behaviors.
+
+434
+00:14:41.480 --> 00:14:44.000
+Right, we are moving entirely away
+
+435
+00:14:44.000 --> 00:14:46.760
+from complex cognitive anxieties
+
+436
+00:14:46.760 --> 00:14:50.280
+like agonizing over perceived facial flaws
+
+437
+00:14:50.280 --> 00:14:52.360
+or saving junk mail to preserve a memory.
+
+438
+00:14:52.360 --> 00:14:53.880
+You're leaving the cognitive realm.
+
+439
+00:14:53.880 --> 00:14:56.000
+And entering the territory of pure,
+
+440
+00:14:56.000 --> 00:14:57.840
+raw, physical habit loops.
+
+441
+00:14:57.840 --> 00:15:00.000
+Yes, so we have trichotillomania,
+
+442
+00:15:00.000 --> 00:15:01.320
+which is recurrent hair pulling
+
+443
+00:15:01.320 --> 00:15:03.640
+leading to noticeable hair loss.
+
+444
+00:15:03.640 --> 00:15:05.520
+And we have excordiation disorder,
+
+445
+00:15:05.520 --> 00:15:06.880
+which is recurrent skin picking
+
+446
+00:15:06.880 --> 00:15:09.560
+resulting in actual skin lesions.
+
+447
+00:15:09.560 --> 00:15:12.200
+The detail in the notes that really stuck with me here
+
+448
+00:15:12.200 --> 00:15:16.920
+is the phrase, with repeated attempts to stop.
+
+449
+00:15:16.920 --> 00:15:19.240
+It is written right there in the diagnostic criteria
+
+450
+00:15:19.240 --> 00:15:20.760
+for both of these conditions.
+
+451
+00:15:20.760 --> 00:15:22.480
+And that detail alone, I mean,
+
+452
+00:15:22.480 --> 00:15:25.280
+it reveals how frustrating and isolating this must be.
+
+453
+00:15:25.280 --> 00:15:26.120
+It really does.
+
+454
+00:15:26.120 --> 00:15:27.760
+The person is trying over and over again
+
+455
+00:15:27.760 --> 00:15:29.360
+to stop pulling their eyebrows
+
+456
+00:15:29.360 --> 00:15:30.320
+or picking their skin
+
+457
+00:15:30.320 --> 00:15:32.560
+and they physically cannot stop themselves.
+
+458
+00:15:32.560 --> 00:15:33.800
+It's vital to recognize
+
+459
+00:15:33.800 --> 00:15:37.160
+that these are not deliberate acts of self-harm.
+
+460
+00:15:37.160 --> 00:15:38.960
+That's a huge misconception.
+
+461
+00:15:38.960 --> 00:15:40.880
+Right, they aren't doing it to hurt themselves.
+
+462
+00:15:40.880 --> 00:15:45.360
+No, they're deeply ingrained, almost automatic urges.
+
+463
+00:15:45.360 --> 00:15:47.740
+They often happen in this sort of trance-like state
+
+464
+00:15:47.740 --> 00:15:49.320
+when the person is bored
+
+465
+00:15:49.320 --> 00:15:51.640
+or reading a book or stressed.
+
+466
+00:15:51.640 --> 00:15:54.360
+And because these are automatic physical habits
+
+467
+00:15:54.360 --> 00:15:56.600
+rather than anxiety-driven rituals,
+
+468
+00:15:56.600 --> 00:15:59.520
+we see the most radical shift in the treatment protocol.
+
+469
+00:15:59.520 --> 00:16:01.240
+Yeah, the first line treatment here
+
+470
+00:16:01.240 --> 00:16:04.400
+is habit reversal training or HRT.
+
+471
+00:16:04.400 --> 00:16:06.480
+Which is a purely behavioral approach.
+
+472
+00:16:06.480 --> 00:16:08.740
+Right, and KICK specifically underlines
+
+473
+00:16:08.740 --> 00:16:10.840
+that this is not exposure therapy.
+
+474
+00:16:10.840 --> 00:16:12.080
+No, definitely not.
+
+475
+00:16:12.080 --> 00:16:14.980
+So if there's no fear, just a physical urge,
+
+476
+00:16:14.980 --> 00:16:16.680
+does that mean you can't use ERP?
+
+477
+00:16:16.680 --> 00:16:18.640
+I mean, you obviously can't expose someone
+
+478
+00:16:18.640 --> 00:16:21.480
+to their own hair to trigger a fear response.
+
+479
+00:16:21.480 --> 00:16:24.280
+So do you just have to physically block their hands
+
+480
+00:16:24.280 --> 00:16:26.040
+from reaching their head?
+
+481
+00:16:26.040 --> 00:16:27.660
+This raises an important question
+
+482
+00:16:27.660 --> 00:16:28.860
+and it goes right to the heart
+
+483
+00:16:28.860 --> 00:16:30.800
+of understanding these mechanisms.
+
+484
+00:16:30.800 --> 00:16:32.760
+You aren't just blocking the hands,
+
+485
+00:16:32.760 --> 00:16:36.120
+you are consciously rerouting the motor pathway.
+
+486
+00:16:36.120 --> 00:16:37.720
+As we established earlier,
+
+487
+00:16:37.720 --> 00:16:40.400
+exposure therapy is for confronting a fear.
+
+488
+00:16:40.400 --> 00:16:42.080
+Right, the contamination fear.
+
+489
+00:16:42.080 --> 00:16:45.000
+But with trichotillomania or excoriation,
+
+490
+00:16:45.000 --> 00:16:48.080
+there is no terrifying intrusive thought.
+
+491
+00:16:48.080 --> 00:16:51.720
+There is no malware pop-up warning of impending doom.
+
+492
+00:16:51.720 --> 00:16:52.720
+Right, so what is it?
+
+493
+00:16:52.720 --> 00:16:54.240
+It's just an itch in the brain.
+
+494
+00:16:54.240 --> 00:16:55.400
+Basically, yes.
+
+495
+00:16:55.400 --> 00:16:58.120
+It's a pure motor urge, a physical habit loop.
+
+496
+00:16:58.120 --> 00:17:01.000
+So exposing them to the trigger does absolutely nothing.
+
+497
+00:17:01.000 --> 00:17:03.260
+Okay, so how does habit reversal training
+
+498
+00:17:03.260 --> 00:17:04.640
+actually work then?
+
+499
+00:17:04.640 --> 00:17:08.080
+It involves bringing acute conscious awareness
+
+500
+00:17:08.080 --> 00:17:11.520
+to a process that has become totally subconscious.
+
+501
+00:17:11.520 --> 00:17:14.720
+The patient learns to recognize the exact micro-moment
+
+502
+00:17:14.720 --> 00:17:16.960
+their hand begins to move toward their scalp
+
+503
+00:17:16.960 --> 00:17:18.000
+or their arm.
+
+504
+00:17:18.800 --> 00:17:21.600
+But okay, so once they catch that movement in real time.
+
+505
+00:17:21.600 --> 00:17:23.640
+They are trained to immediately perform
+
+506
+00:17:23.640 --> 00:17:25.800
+a physically incompatible response.
+
+507
+00:17:25.800 --> 00:17:27.520
+A physically incompatible response.
+
+508
+00:17:27.520 --> 00:17:28.600
+Yes, for example,
+
+509
+00:17:28.600 --> 00:17:30.600
+the moment you feel the urge to pull your hair,
+
+510
+00:17:30.600 --> 00:17:32.820
+you are trained to firmly clench your fists
+
+511
+00:17:32.820 --> 00:17:34.480
+and press them down against your thighs.
+
+512
+00:17:34.480 --> 00:17:36.360
+Or like grip the arms of your chair
+
+513
+00:17:36.360 --> 00:17:38.360
+and just hold that incompatible posture
+
+514
+00:17:38.360 --> 00:17:39.900
+until the urge naturally passes.
+
+515
+00:17:39.900 --> 00:17:41.840
+Oh wow, so you are literally hacking
+
+516
+00:17:41.840 --> 00:17:43.160
+the physical motor pathway.
+
+517
+00:17:43.160 --> 00:17:44.680
+Because by clenching your fists,
+
+518
+00:17:44.680 --> 00:17:47.220
+you physically cannot pull your hair.
+
+519
+00:17:47.260 --> 00:17:48.980
+You replace the destructive habit
+
+520
+00:17:48.980 --> 00:17:50.580
+with a neutral physical action.
+
+521
+00:17:50.580 --> 00:17:54.040
+Exactly, you are rewriting the neurological habit loop
+
+522
+00:17:54.040 --> 00:17:55.900
+through physical repetition,
+
+523
+00:17:55.900 --> 00:17:58.540
+entirely bypassing the cognitive fear centers
+
+524
+00:17:58.540 --> 00:18:00.420
+that ERP targets.
+
+525
+00:18:00.420 --> 00:18:01.620
+So what does this all mean?
+
+526
+00:18:01.620 --> 00:18:03.420
+Let's bring all these individual pieces together
+
+527
+00:18:03.420 --> 00:18:04.980
+for the grand synthesis here.
+
+528
+00:18:04.980 --> 00:18:05.820
+Okay.
+
+529
+00:18:05.820 --> 00:18:08.100
+We've explored this entire family of disorders
+
+530
+00:18:08.100 --> 00:18:11.100
+and we've seen how wildly the interventions must vary
+
+531
+00:18:11.100 --> 00:18:13.420
+based on the specific nature of the loop.
+
+532
+00:18:13.420 --> 00:18:15.560
+If we connect this to the bigger picture,
+
+533
+00:18:15.560 --> 00:18:17.560
+you really have to praise the structure
+
+534
+00:18:17.560 --> 00:18:18.640
+of this study material.
+
+535
+00:18:18.640 --> 00:18:20.200
+Yeah, KICK did a great job.
+
+536
+00:18:20.200 --> 00:18:22.400
+Because by rigorously categorizing
+
+537
+00:18:22.400 --> 00:18:24.420
+the exact nature of the symptom,
+
+538
+00:18:24.420 --> 00:18:26.540
+the solution just naturally reveals itself.
+
+539
+00:18:26.540 --> 00:18:27.380
+Right.
+
+540
+00:18:27.380 --> 00:18:29.860
+Classic OCD driven by intrusive fears
+
+541
+00:18:29.860 --> 00:18:32.760
+and unwanted ego-distonic compulsions
+
+542
+00:18:32.760 --> 00:18:35.260
+requires exposure and response prevention
+
+543
+00:18:35.260 --> 00:18:36.520
+to break the fear cycle.
+
+544
+00:18:36.520 --> 00:18:39.500
+Right, sitting with the anxiety until it habituates.
+
+545
+00:18:39.500 --> 00:18:42.160
+Then we have body dysmorphic disorder
+
+546
+00:18:42.160 --> 00:18:45.480
+where someone is trapped in a perceived external flaw
+
+547
+00:18:45.480 --> 00:18:46.880
+that surgery cannot cure.
+
+548
+00:18:46.880 --> 00:18:48.360
+Right, the whack-a-mole effect.
+
+549
+00:18:48.360 --> 00:18:51.000
+And that gets CBT and SSRIs
+
+550
+00:18:51.000 --> 00:18:54.080
+to address the cognitive distortion of self-image.
+
+551
+00:18:54.080 --> 00:18:55.840
+Then there's hoarding disorder,
+
+552
+00:18:55.840 --> 00:18:58.720
+rooted in an inability to discard items
+
+553
+00:18:58.720 --> 00:19:00.600
+regardless of value.
+
+554
+00:19:00.600 --> 00:19:02.520
+That requires specialized CBT
+
+555
+00:19:02.520 --> 00:19:04.840
+focused on dismantling the emotional attachments
+
+556
+00:19:04.840 --> 00:19:08.200
+and actively rebuilding basic sorting skills.
+
+557
+00:19:08.200 --> 00:19:10.880
+And finally, the body-focused repetitive behavior,
+
+558
+00:19:10.880 --> 00:19:13.520
+so the hair pulling and skin picking,
+
+559
+00:19:13.520 --> 00:19:15.680
+they get habit reversal training,
+
+560
+00:19:15.680 --> 00:19:17.080
+no exposure therapy,
+
+561
+00:19:17.080 --> 00:19:21.160
+just hacking the motor pathways with incompatible responses.
+
+562
+00:19:21.160 --> 00:19:24.000
+Whether you are a medical student cramming for an exam
+
+563
+00:19:24.000 --> 00:19:26.040
+or just someone trying to understand a loved one
+
+564
+00:19:26.040 --> 00:19:28.780
+who is struggling with these invisible battles,
+
+565
+00:19:28.780 --> 00:19:32.120
+the biggest takeaway is recognizing the exact nature
+
+566
+00:19:32.120 --> 00:19:34.320
+of the behavioral loop before you try to intervene.
+
+567
+00:19:34.320 --> 00:19:35.160
+You have to.
+
+568
+00:19:35.160 --> 00:19:36.520
+You absolutely have to know
+
+569
+00:19:36.520 --> 00:19:38.200
+what kind of software you're dealing with
+
+570
+00:19:38.200 --> 00:19:40.380
+before you start trying to rewrite the code.
+
+571
+00:19:40.380 --> 00:19:41.760
+Perfectly said.
+
+572
+00:19:41.760 --> 00:19:43.760
+Approaching a pure physical habit loop
+
+573
+00:19:43.760 --> 00:19:46.400
+with a cognitive fear treatment is like,
+
+574
+00:19:46.400 --> 00:19:48.160
+well, it's like bringing a wrench
+
+575
+00:19:48.160 --> 00:19:49.760
+to fix a software glitch.
+
+576
+00:19:49.760 --> 00:19:50.960
+It's the wrong tool,
+
+577
+00:19:50.960 --> 00:19:53.120
+and it will only cause more frustration
+
+578
+00:19:53.120 --> 00:19:55.360
+for a patient who is already suffering immensely.
+
+579
+00:19:55.360 --> 00:19:56.640
+Well, that wraps up our time today.
+
+580
+00:19:56.640 --> 00:19:58.400
+Thank you for joining us on this deep dive
+
+581
+00:19:58.400 --> 00:20:01.200
+into the fascinating complex world of OCD
+
+582
+00:20:01.200 --> 00:20:03.280
+and its family of related conditions.
+
+583
+00:20:03.280 --> 00:20:04.120
+It's been great.
+
+584
+00:20:04.120 --> 00:20:06.180
+We've gone from the overwhelming malware popups
+
+585
+00:20:06.180 --> 00:20:07.840
+of classic obsessions
+
+586
+00:20:07.840 --> 00:20:10.240
+to the deeply ingrained physical loops
+
+587
+00:20:10.240 --> 00:20:11.880
+of body-focused habits.
+
+588
+00:20:11.880 --> 00:20:13.280
+It is a profound reminder
+
+589
+00:20:13.280 --> 00:20:16.140
+of how intricate the human mind truly is
+
+590
+00:20:16.140 --> 00:20:19.040
+and how precise the science of healing must be
+
+591
+00:20:19.040 --> 00:20:20.720
+to navigate all that complexity.
+
+592
+00:20:20.720 --> 00:20:21.640
+Absolutely.
+
+593
+00:20:21.640 --> 00:20:22.680
+And as we leave you today,
+
+594
+00:20:22.680 --> 00:20:26.140
+we want to offer a final lingering thought.
+
+595
+00:20:26.140 --> 00:20:27.920
+We spent this entire deep dive
+
+596
+00:20:27.920 --> 00:20:29.920
+exploring ego-dystonic behaviors,
+
+597
+00:20:29.920 --> 00:20:32.740
+actions people perform that they actively hate doing
+
+598
+00:20:32.740 --> 00:20:34.900
+driven by either deep cognitive fears
+
+599
+00:20:34.900 --> 00:20:36.960
+or automatic physical urges.
+
+600
+00:20:36.960 --> 00:20:38.160
+So consider this,
+
+601
+00:20:38.160 --> 00:20:40.800
+if an unwanted action can completely hijack
+
+602
+00:20:40.800 --> 00:20:43.420
+a person's daily life without their consent,
+
+603
+00:20:43.420 --> 00:20:46.560
+at what point does a simple, quirky daily routine
+
+604
+00:20:46.560 --> 00:20:49.160
+cross that invisible line into a compulsion?
+
+605
+00:20:49.160 --> 00:20:50.600
+Ooh, that's a good question.
+
+606
+00:20:50.600 --> 00:20:53.740
+Next time you catch yourself doing something repetitive,
+
+607
+00:20:53.740 --> 00:20:55.440
+whether it's obsessively refreshing
+
+608
+00:20:55.440 --> 00:20:56.680
+your phone notifications,
+
+609
+00:20:56.680 --> 00:20:58.240
+chewing your lip while reading,
+
+610
+00:20:58.240 --> 00:20:59.900
+or arranging the pens on your desk
+
+611
+00:20:59.900 --> 00:21:02.040
+until they are perfectly parallel,
+
+612
+00:21:02.040 --> 00:21:04.640
+ask yourself, who is really in the driver's seat?
+
+613
+00:21:04.640 --> 00:21:06.480
+Is it you or is it the pop-up?
+
+614
+00:21:06.480 --> 00:21:09.120
+Keep learning and we'll catch you on the next deep dive.
