@@ -152,7 +152,21 @@ app.use(require('./routes/blog')({ sendPage: (res, html) => res.type('html').sen
 
 // Explicit page routes — must come BEFORE express.static so the landing page
 // wins at / instead of public/index.html.
-app.get('/', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'landing.html')));
+// The Android app (TWA, com.gaitp.passreadyprep) launches at / with an
+// android-app:// referrer. Someone who just installed it shouldn't land on the
+// marketing page again — send them straight to the study tools, where they can
+// try a case before being asked to sign up. Browser visitors still get the
+// landing page. landing.html carries the same check client-side, for launches
+// where the referrer only reaches document.referrer.
+const ANDROID_APP_REFERRER = 'android-app://com.gaitp.passreadyprep';
+app.get('/', (req, res) => {
+  if ((req.get('referer') || '').startsWith(ANDROID_APP_REFERRER)) {
+    const qs = req.originalUrl.indexOf('?');
+    res.set('Cache-Control', 'no-store');
+    return res.redirect(302, '/study' + (qs === -1 ? '' : req.originalUrl.slice(qs)));
+  }
+  sendHtml(res, path.join(__dirname, 'public', 'landing.html'));
+});
 app.get('/study', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'index.html')));
 app.get('/skills', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'skills.html')));
 app.get('/book', (_req, res) => sendHtml(res, path.join(__dirname, 'public', 'book.html')));
