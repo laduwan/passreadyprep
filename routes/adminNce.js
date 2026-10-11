@@ -28,6 +28,9 @@ async function actorFor(req) {
   return (u && u.email) || `admin ${req.userId}`;
 }
 
+// 'current' | '2027' from a query/body value; anything else is the current outline.
+function specOf(v) { return v === '2027' ? '2027' : 'current'; }
+
 async function nextIds(n) {
   const last = await NceItem.find({ externalId: /^nce-\d+$/ }).sort({ externalId: -1 }).limit(1).select('externalId').lean();
   let max = last.length ? parseInt(last[0].externalId.slice(4), 10) || 0 : 0;
@@ -36,22 +39,22 @@ async function nextIds(n) {
 
 // Live (published + in review) count per domain, so generation fills the
 // domain furthest below its weighted target first.
-async function domainCounts() {
+async function domainCounts(spec = 'current') {
   const rows = await NceItem.aggregate([
-    { $match: { status: { $in: ['published', 'sme_review'] } } },
+    { $match: { status: { $in: ['published', 'sme_review'] }, ...bp.specMatch(spec) } },
     { $group: { _id: { domain: '$domain', status: '$status' }, n: { $sum: 1 } } },
   ]);
   const out = {};
-  bp.DOMAIN_KEYS.forEach((k) => { out[k] = { published: 0, sme_review: 0 }; });
+  bp.blueprintFor(spec).DOMAIN_KEYS.forEach((k) => { out[k] = { published: 0, sme_review: 0 }; });
   rows.forEach((r) => { if (out[r._id.domain]) out[r._id.domain][r._id.status] = r.n; });
   return out;
 }
 
-async function pickDomain() {
-  const counts = await domainCounts();
-  const targets = bp.bankTargets();
+async function pickDomain(spec = 'current') {
+  const counts = await domainCounts(spec);
+  const targets = bp.bankTargetsFor(spec);
   let best = null;
-  bp.DOMAIN_KEYS.forEach((k) => {
+  bp.blueprintFor(spec).DOMAIN_KEYS.forEach((k) => {
     const have = counts[k].published + counts[k].sme_review;
     const fill = have / targets[k];
     if (!best || fill < best.fill) best = { key: k, fill };
@@ -60,10 +63,10 @@ async function pickDomain() {
 }
 
 // Least-covered topics in a domain, so a batch spreads across the outline.
-async function pickTopics(domain, n) {
-  const dom = bp.DOMAINS.find((d) => d.key === domain);
+async function pickTopics(domain, n, spec = 'current') {
+  const dom = bp.blueprintFor(spec).DOMAINS.find((d) => d.key === domain);
   const rows = await NceItem.aggregate([
-    { $match: { domain, status: { $ne: 'retired' } } },
+    { $match: { domain, status: { $ne: 'retired' }, ...bp.specMatch(spec) } },
     { $group: { _id: '$topic', n: { $sum: 1 } } },
   ]);
   const used = {};
@@ -72,7 +75,8 @@ async function pickTopics(domain, n) {
   return ranked.slice(0, n);
 }
 
-function buildPrompt(domain, topics, difficulty, avoidStems) {
+function buildPrompt(domain, topics, difficulty, avoidStems, spec = 'current') {
+  if (spec === '2027') return buildPrompt2027(domain, topics, difficulty, avoidStems);
   const dom = bp.DOMAINS.find((d) => d.key === domain);
   return `You are a senior NCC/LPC item writer creating ORIGINAL practice questions for the National Counselor Examination (NCE). Do not reproduce real exam items.
 
@@ -97,6 +101,34 @@ Return ONE JSON object only, no markdown:
 {"items":[{"topic":string,"difficulty":"easy"|"medium"|"hard","cacrep":string,"stem":string,"options":[{"id":"a","text":string,"isCorrect":boolean,"rationale":string}],"rationale":string,"references":[{"source":string,"detail":string}]}]}`;
 }
 
+// 2027 specification: three options (a, b, c), the 2027 domains, and each
+// item anchored to one of NBCC's verbatim work tasks (utils/spec2027.js).
+function buildPrompt2027(domain, topics, difficulty, avoidStems) {
+  const dom = bp.EXAM_2027.domains.find((d) => d.key === domain);
+  return `You are a senior NCC/LPC item writer creating ORIGINAL practice questions for the National Counselor Examination (NCE), 2027 specification. Do not reproduce real exam items.
+
+Write ${topics.length} standalone multiple-choice questions for the NCE 2027 domain "${dom.label}".
+Write exactly one question per work task, in this order:
+${topics.map((t, i) => `  ${i + 1}. ${t}`).join('\n')}
+Difficulty: ${difficulty === 'mixed' ? 'a mix of easy, medium and hard' : difficulty}.
+Write to the 2027 NBCC outline: each item targets the listed work task. Where the task names AI, telemental health, ICD-11, the Counseling Compact, billing/CPT, EHR, or emergency preparedness, test that content directly.
+
+ITEM RULES (items breaking these are rejected automatically):
+- Exactly 3 options with ids "a","b","c" and exactly ONE correct answer. Vary which letter is correct.
+- NCE style: knowledge and applied-knowledge items. Short clinical scenarios are welcome but keep stems under 90 words.
+- OPTION BALANCE: all three options parallel in grammar and similar length — the longest option no more than 20% longer than the shortest. The correct option must NOT be the longest.
+- Distractors must be plausible to a partially prepared candidate. Never use "always", "never", "absolutely", "categorically" or "universally" in a distractor. No "all of the above" / "none of the above".
+- Every option gets a one- or two-sentence "rationale" saying why it is right or specifically why it is wrong. Add an item-level "rationale" that teaches the concept behind the key.
+- Tag each item with the single best-fitting CACREP core area key from: ${bp.CACREP_KEYS.join(', ')}.
+- Ground each item in 1-2 references using ONLY these exact source names: ${NCE_SOURCES.join('; ')}. Put the specific concept, criterion or code section in "detail".
+- Be factually exact (dates, theorists, test properties, code sections). If unsure of a fact, choose a different angle on the topic.${avoidStems.length ? `
+- Do NOT duplicate these existing questions:
+${avoidStems.map((s) => '    • ' + s.slice(0, 160)).join('\n')}` : ''}
+
+Return ONE JSON object only, no markdown:
+{"items":[{"topic":string,"difficulty":"easy"|"medium"|"hard","cacrep":string,"stem":string,"options":[{"id":"a","text":string,"isCorrect":boolean,"rationale":string},{"id":"b","text":string,"isCorrect":boolean,"rationale":string},{"id":"c","text":string,"isCorrect":boolean,"rationale":string}],"rationale":string,"references":[{"source":string,"detail":string}]}]}`;
+}
+
 async function callModel(prompt) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) { const e = new Error('ANTHROPIC_API_KEY is not set on the server'); e.status = 400; throw e; }
@@ -113,19 +145,21 @@ async function callModel(prompt) {
 }
 
 // ── GET /api/admin/nce/coverage ──────────────────────────────────────
-router.get('/coverage', async (_req, res) => {
+router.get('/coverage', async (req, res) => {
   try {
+    const spec = specOf(req.query.spec);
     const exam = await getNceExam();
-    const counts = await domainCounts();
-    const targets = bp.bankTargets();
+    const counts = await domainCounts(spec);
+    const targets = bp.bankTargetsFor(spec);
     const cacrep = await NceItem.aggregate([
-      { $match: { status: 'published' } },
+      { $match: { status: 'published', ...bp.specMatch(spec) } },
       { $group: { _id: '$cacrep', n: { $sum: 1 } } },
     ]);
     res.json({
+      spec,
       examStatus: exam.status,
       bankTarget: bp.BANK_TARGET,
-      domains: bp.DOMAINS.map((d) => ({
+      domains: bp.blueprintFor(spec).DOMAINS.map((d) => ({
         key: d.key, label: d.label, weight: d.weight, target: targets[d.key],
         published: counts[d.key].published, review: counts[d.key].sme_review,
       })),
@@ -139,21 +173,23 @@ router.get('/coverage', async (_req, res) => {
 });
 
 // ── POST /api/admin/nce/generate ─────────────────────────────────────
-// body: { domain?: key (default: furthest below target), count?: 1-10, difficulty?: easy|medium|hard|mixed }
+// body: { domain?: key (default: furthest below target), count?: 1-10, difficulty?: easy|medium|hard|mixed, spec?: current|2027 }
 router.post('/generate', async (req, res) => {
   try {
     const body = req.body || {};
-    const domain = body.domain || await pickDomain();
-    if (!bp.DOMAIN_KEYS.includes(domain)) return res.status(400).json({ error: 'Unknown NCE domain' });
+    const spec = specOf(body.spec);
+    const domain = body.domain || await pickDomain(spec);
+    if (!bp.blueprintFor(spec).DOMAIN_KEYS.includes(domain)) return res.status(400).json({ error: `Unknown NCE${spec === '2027' ? ' 2027' : ''} domain` });
     const count = Math.min(MAX_BATCH, Math.max(1, parseInt(body.count, 10) || 5));
     const difficulty = ['easy', 'medium', 'hard'].includes(body.difficulty) ? body.difficulty : 'mixed';
 
     const actor = await actorFor(req);
-    const topics = await pickTopics(domain, count);
+    const topics = await pickTopics(domain, count, spec);
+    // Near-duplicate corpus spans both specs: a 2027 item must not copy a current one.
     const corpus = await NceItem.find({ status: { $ne: 'retired' } }).select('externalId stem domain topic').lean();
     const avoid = corpus.filter((c) => c.domain === domain && topics.includes(c.topic)).slice(-15).map((c) => c.stem);
 
-    const raw = await callModel(buildPrompt(domain, topics, difficulty, avoid));
+    const raw = await callModel(buildPrompt(domain, topics, difficulty, avoid, spec));
     let parsed;
     try { parsed = extractJson(raw); } catch (_) {
       return res.status(422).json({ error: 'Could not parse JSON from the model response', raw: raw.slice(0, 800) });
@@ -169,6 +205,7 @@ router.post('/generate', async (req, res) => {
       const it = items[i] || {};
       const doc = {
         externalId: ids[i],
+        spec,
         domain,
         cacrep: it.cacrep,
         topic: it.topic || topics[i],
@@ -180,9 +217,9 @@ router.post('/generate', async (req, res) => {
         status: 'sme_review',
         generatedBy: MODEL_ID,
         origin: { method: 'generator', importedAt: new Date() },
-        history: [{ at: new Date(), action: 'generated', by: actor, note: `Generated by ${MODEL_ID}; passed the quality gate` }],
+        history: [{ at: new Date(), action: 'generated', by: actor, note: `Generated by ${MODEL_ID} (${spec} spec); passed the quality gate` }],
       };
-      const v = checkNceItem(doc, { corpusStems, allowedSources: NCE_SOURCES });
+      const v = checkNceItem(doc, { corpusStems, allowedSources: NCE_SOURCES, spec });
       if (!v.ok) { rejected.push({ topic: doc.topic, stem: doc.stem.slice(0, 140), errors: v.errors }); continue; }
       try {
         await NceItem.create(doc);
@@ -192,7 +229,7 @@ router.post('/generate', async (req, res) => {
         rejected.push({ topic: doc.topic, stem: doc.stem.slice(0, 140), errors: [e.code === 11000 ? 'id collision — run again' : e.message] });
       }
     }
-    res.json({ domain, requested: count, saved, rejected, model: MODEL_ID });
+    res.json({ spec, domain, requested: count, saved, rejected, model: MODEL_ID });
   } catch (err) {
     console.error('nce generate error', err);
     res.status(err.status || 500).json({ error: err.message || 'Generation failed' });
@@ -214,12 +251,13 @@ router.post('/import-seed', async (req, res) => {
   }
 });
 
-// ── GET /api/admin/nce/export?status=sme_review|published|all ───────
+// ── GET /api/admin/nce/export?status=sme_review|published|all&spec=current|2027
 // Printable hard copy for SME review (print / save as PDF from the browser).
 router.get('/export', async (req, res) => {
   try {
     const status = ['sme_review', 'published', 'all'].includes(req.query.status) ? req.query.status : 'sme_review';
-    const items = await NceItem.find(exportFilter(status)).lean();
+    const spec = specOf(req.query.spec);
+    const items = await NceItem.find({ ...exportFilter(status), ...bp.specMatch(spec) }).lean();
     res.type('html').send(renderHtml(items, { status }));
   } catch (err) {
     console.error('nce export error', err);
@@ -229,14 +267,15 @@ router.get('/export', async (req, res) => {
 
 // ── Review queue ─────────────────────────────────────────────────────
 
-// GET /api/admin/nce/items?status=sme_review&domain=&q=
+// GET /api/admin/nce/items?status=sme_review&domain=&q=&spec=current|2027
 router.get('/items', async (req, res) => {
   try {
-    const filter = { status: req.query.status || 'sme_review' };
+    const spec = specOf(req.query.spec);
+    const filter = { status: req.query.status || 'sme_review', ...bp.specMatch(spec) };
     if (req.query.domain) filter.domain = req.query.domain;
     if (req.query.q) filter.stem = new RegExp(String(req.query.q).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
     const items = await NceItem.find(filter).sort({ externalId: 1 }).limit(500).lean();
-    res.json({ count: items.length, items });
+    res.json({ spec, count: items.length, items });
   } catch (err) {
     console.error('nce list error', err);
     res.status(500).json({ error: 'Could not load NCE items' });
@@ -257,7 +296,7 @@ router.put('/items/:id', async (req, res) => {
     if (Array.isArray(b.references)) { item.references = b.references; changed.push('references'); }
 
     const others = await NceItem.find({ externalId: { $ne: item.externalId }, status: { $ne: 'retired' } }).select('externalId stem').lean();
-    const v = checkNceItem(item.toObject(), { corpusStems: others, allowedSources: NCE_SOURCES });
+    const v = checkNceItem(item.toObject(), { corpusStems: others, allowedSources: NCE_SOURCES, spec: specOf(item.spec) });
     if (!v.ok) return res.status(422).json({ error: 'Item failed the quality gate', validationErrors: v.errors });
     if (changed.length) {
       item.history.push({ at: new Date(), action: 'edited', by: await actorFor(req), note: `Changed: ${changed.join(', ')}${b.note ? ` — ${String(b.note).slice(0, 300)}` : ''}` });
@@ -297,17 +336,18 @@ router.post('/items/:id/status', async (req, res) => {
   }
 });
 
-// POST /api/admin/nce/publish-reviewed — { reviewer: {name, credential}, domain?, q?, note?, dryRun? }
+// POST /api/admin/nce/publish-reviewed — { reviewer: {name, credential}, domain?, q?, note?, dryRun?, spec? }
 // "Reviewed all": publishes every In-review item matching the same filter as
 // the list, stamped with the reviewer. Each item re-runs the quality gate and
 // is skipped (left in review) if it fails; each gets its own audit entry.
 router.post('/publish-reviewed', async (req, res) => {
   try {
     const { reviewer, domain, q, note, dryRun } = req.body || {};
+    const spec = specOf((req.body || {}).spec);
     const name = reviewer && String(reviewer.name || '').trim();
     if (!name && !dryRun) return res.status(400).json({ error: 'A reviewer name is required to sign off in bulk' });
     const credential = String((reviewer && reviewer.credential) || '').trim();
-    const filter = { status: 'sme_review' };
+    const filter = { status: 'sme_review', ...bp.specMatch(spec) };
     if (domain) filter.domain = String(domain);
     if (q) filter.stem = new RegExp(String(q).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
     const items = await NceItem.find(filter).sort({ externalId: 1 }).lean();
@@ -320,7 +360,7 @@ router.post('/publish-reviewed', async (req, res) => {
     const skipped = [];
     const ids = [];
     for (const it of items) {
-      const v = checkNceItem(it, { corpusStems: [], allowedSources: NCE_SOURCES });
+      const v = checkNceItem(it, { corpusStems: [], allowedSources: NCE_SOURCES, spec });
       if (v.ok) ids.push(it._id); else skipped.push({ id: it.externalId, errors: v.errors });
     }
     // Same sign-off and audit entry for every item, so one updateMany does it.
@@ -335,7 +375,7 @@ router.post('/publish-reviewed', async (req, res) => {
       );
       published = r.modifiedCount != null ? r.modifiedCount : (r.nModified || 0);
     }
-    res.json({ matched: items.length, published, skipped });
+    res.json({ spec, matched: items.length, published, skipped });
   } catch (err) {
     console.error('nce publish-reviewed error', err);
     res.status(500).json({ error: 'Could not publish the reviewed items' });
@@ -359,12 +399,13 @@ router.get('/items/:id/record', async (req, res) => {
   }
 });
 
-// GET /api/admin/nce/records?status=published|sme_review|retired|all — every
+// GET /api/admin/nce/records?status=published|sme_review|retired|all&spec=current|2027 — every
 // evidence record in one printable document (index + one record per page).
 router.get('/records', async (req, res) => {
   try {
     const status = ['sme_review', 'published', 'retired', 'all'].includes(req.query.status) ? req.query.status : 'all';
-    const items = await NceItem.find(status === 'all' ? {} : { status }).sort({ domain: 1, externalId: 1 }).lean();
+    const spec = specOf(req.query.spec);
+    const items = await NceItem.find({ ...(status === 'all' ? {} : { status }), ...bp.specMatch(spec) }).sort({ domain: 1, externalId: 1 }).lean();
     const live = await NceItem.find({ status: { $ne: 'retired' } }).select('externalId stem').lean();
     const records = items.map((item) => buildRecord(item, { corpusStems: live.filter((x) => x.externalId !== item.externalId) }));
     res.type('html').send(renderRecordsBookHtml(records, { subtitle: status === 'all' ? 'all statuses' : status.replace('sme_review', 'in review') }));

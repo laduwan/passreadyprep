@@ -14,10 +14,13 @@
 //
 // 2027 CHANGE — from 2027-07-01 NBCC moves to 170 items (140 scored + 30
 // field-test), THREE options per item, and six new domains (EXAM_2027 below).
-// Items written now are four-option; a three-option variant is needed before
-// candidates testing on or after the cutover are served. Verify all figures
+// Current items are four-option; 2027 items are three-option and carry
+// spec:'2027' (specFor/specMatch below pick the bank per candidate). Verify all figures
 // against the current NBCC handbook / content outline before relying on them.
 // ============================================================================
+
+const { CUTOVER } = require('./examVersion');
+const spec2027 = require('./spec2027');
 
 const SOURCE = 'NBCC NCE Content Outline (2023) and NCE candidate handbook; 2027 spec: NBCC NCE_exam_spec_2027';
 
@@ -119,27 +122,45 @@ const CACREP_AREAS = [
 ];
 const CACREP_KEYS = CACREP_AREAS.map((a) => a.key);
 
-// Announced 2027 exam (not yet served — kept here so the cutover is one edit).
+// 2027 exam (NBCC 2027 specification, served to candidates whose NCE date is on
+// or after CUTOVER — see specFor). Domain topics are the spec's verbatim work
+// tasks (utils/spec2027.js); scoredItems are NBCC's counts (sum 140).
+const SCORED_2027 = {
+  professional_development: 21, intake_assessment: 25, treatment_continuity: 21,
+  interventions: 28, indirect_care: 17, legal_ethical: 28,
+};
+const SHORT_2027 = {
+  professional_development: 'Prof. Dev. & Self-Awareness', intake_assessment: 'Intake & Assessment',
+  treatment_continuity: 'Treatment & Continuity', interventions: 'Interventions',
+  indirect_care: 'Indirect Care', legal_ethical: 'Legal & Ethical',
+};
 const EXAM_2027 = {
+  key: 'nce',
+  name: 'National Counselor Examination (NCE)',
   effective: '2027-07-01',
   totalItems: 170, scoredItems: 140, unscoredItems: 30, optionsPerItem: 3, minutes: 225,
-  domains: [
-    { key: 'professional_development', label: 'Professional Development and Counselor Self-Awareness', weight: 0.15 },
-    { key: 'intake_assessment', label: 'Intake and Assessment', weight: 0.18 },
-    { key: 'treatment_continuity', label: 'Treatment Planning and Continuity of Care', weight: 0.15 },
-    { key: 'interventions', label: 'Provision of Counseling Interventions', weight: 0.20 },
-    { key: 'indirect_care', label: 'Indirect Client Care', weight: 0.12 },
-    { key: 'legal_ethical', label: 'Legal and Ethical Compliance', weight: 0.20 },
-  ],
+  breakAfterItem: 85,
+  halves: true,
+  scale: { min: 100, max: 500, pass: 360 },
+  spanishForms: true,
+  domains: spec2027.DOMAINS_2027.map((d) => ({
+    key: d.nceKey,
+    label: d.label,
+    short: SHORT_2027[d.nceKey],
+    weight: d.weight,
+    scoredItems: SCORED_2027[d.nceKey],
+    topics: d.subdomains.reduce((all, sd) => all.concat(sd.tasks), []),
+  })),
 };
+const DOMAIN_KEYS_2027 = EXAM_2027.domains.map((d) => d.key);
 
 // Bank target: enough depth that a learner can take several full mocks without
 // heavy repetition. Per-domain targets follow the exam weights.
 const BANK_TARGET = 1600;
 
-// Split `total` across domains by weight, largest-remainder so it sums exactly.
-function apportion(total) {
-  const raw = DOMAINS.map((d) => ({ key: d.key, exact: total * d.weight }));
+// Split `total` across `domains` by weight, largest-remainder so it sums exactly.
+function apportionFor(domains, total) {
+  const raw = domains.map((d) => ({ key: d.key, exact: total * d.weight }));
   const out = {};
   let used = 0;
   raw.forEach((r) => { out[r.key] = Math.floor(r.exact); used += out[r.key]; });
@@ -148,6 +169,8 @@ function apportion(total) {
   return out;
 }
 
+function apportion(total) { return apportionFor(DOMAINS, total); }
+
 function bankTargets() { return apportion(BANK_TARGET); }
 
 // Mock exam sizes. 'full' is the real exam (scored counts are NBCC's exact
@@ -155,7 +178,8 @@ function bankTargets() { return apportion(BANK_TARGET); }
 // scored:unscored at 4:1 and the same per-item time.
 const MOCK_SIZES = { full: 200, 100: 100, 50: 50 };
 
-function mockPlan(size) {
+function mockPlan(size, spec = 'current') {
+  if (spec === '2027') return mockPlan2027(size);
   const n = MOCK_SIZES[size] || MOCK_SIZES.full;
   const unscored = Math.round(n * (EXAM.unscoredItems / EXAM.totalItems));
   // Scored items follow the weights exactly (NBCC's own counts on the full
@@ -181,7 +205,72 @@ function mockPlan(size) {
   };
 }
 
+// 2027 mock sizes: the full 170-item form, two halves of it, and a 50-item
+// quick form. Shorter forms keep the 140:30 scored:unscored ratio and the same
+// per-item time; every form splits into two halves at breakAfterItem.
+const MOCK_SIZES_2027 = { full: 170, 85: 85, 50: 50 };
+
+function mockPlan2027(size) {
+  const n = MOCK_SIZES_2027[size] || MOCK_SIZES_2027.full;
+  const doms = EXAM_2027.domains;
+  const unscored = Math.round(n * (EXAM_2027.unscoredItems / EXAM_2027.totalItems));
+  let scoredPerDomain;
+  if (n === EXAM_2027.totalItems) {
+    scoredPerDomain = {};
+    doms.forEach((d) => { scoredPerDomain[d.key] = d.scoredItems; });
+  } else {
+    scoredPerDomain = apportionFor(doms, n - unscored);
+  }
+  const unscoredPerDomain = apportionFor(doms, unscored);
+  const perDomain = {};
+  doms.forEach((d) => { perDomain[d.key] = scoredPerDomain[d.key] + unscoredPerDomain[d.key]; });
+  return {
+    size: n,
+    unscored,
+    minutes: Math.round(EXAM_2027.minutes * (n / EXAM_2027.totalItems)),
+    perDomain,
+    scoredPerDomain,
+    unscoredPerDomain,
+    breakAfterItem: Math.ceil(n / 2),
+    halves: true,
+    optionsPerItem: EXAM_2027.optionsPerItem,
+  };
+}
+
+// Which outline a candidate studies: '2027' when their NCE date is on or after
+// the cutover, else 'current' (no date → current). Same rule as
+// utils/examVersion.examKeyFor uses for the NCMHCE.
+function specFor(nceExamDate) {
+  if (!nceExamDate) return 'current';
+  const d = new Date(nceExamDate);
+  return !isNaN(d.getTime()) && d >= CUTOVER ? '2027' : 'current';
+}
+
+// The blueprint for one spec, in one shape, so callers don't branch.
+function blueprintFor(spec) {
+  if (spec === '2027') return { spec: '2027', EXAM: EXAM_2027, DOMAINS: EXAM_2027.domains, DOMAIN_KEYS: DOMAIN_KEYS_2027 };
+  return { spec: 'current', EXAM, DOMAINS, DOMAIN_KEYS };
+}
+
+// Mongo filter fragment for NceItem by spec. Items written before the 2027
+// work have no `spec` field, so 'current' is "anything not 2027" — no migration.
+function specMatch(spec) {
+  return spec === '2027' ? { spec: '2027' } : { spec: { $ne: '2027' } };
+}
+
+// Bank targets for a spec: BANK_TARGET apportioned by that spec's weights.
+function bankTargetsFor(spec) {
+  return spec === '2027' ? apportionFor(EXAM_2027.domains, BANK_TARGET) : bankTargets();
+}
+
+// ── Self-check (runs at require time) ────────────────────────────────────────
+(function selfCheck() {
+  const s27 = EXAM_2027.domains.reduce((s, d) => s + d.scoredItems, 0);
+  if (s27 !== EXAM_2027.scoredItems) throw new Error('nceBlueprint self-check: 2027 scoredItems sum to ' + s27 + ' (expected 140)');
+})();
+
 module.exports = {
   SOURCE, EXAM, EXAM_2027, DOMAINS, DOMAIN_KEYS, CACREP_AREAS, CACREP_KEYS,
   BANK_TARGET, apportion, bankTargets, mockPlan, MOCK_SIZES,
+  DOMAIN_KEYS_2027, MOCK_SIZES_2027, apportionFor, specFor, blueprintFor, specMatch, bankTargetsFor,
 };

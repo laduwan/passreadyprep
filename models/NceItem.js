@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-// One NCE practice question: a standalone four-option knowledge MCQ, tagged to
-// one of NBCC's six weighted NCE domains plus a CACREP core-area coverage tag
-// (utils/nceBlueprint.js).
+// One NCE practice question: a standalone knowledge MCQ — four options on the
+// current outline, three on the 2027 specification (`spec: '2027'`) — tagged to
+// one of the spec's six weighted NCE domains plus a CACREP core-area coverage
+// tag (utils/nceBlueprint.js).
 //
 // Kept in its own collection (`nceitems`) rather than ContentItem on purpose:
 // many NCMHCE routes, jobs and admin pages query ContentItem without an exam
@@ -16,7 +17,7 @@ const { Schema } = mongoose;
 // practice items, not real exam items.
 const OptionSchema = new Schema(
   {
-    id: { type: String, required: true },          // 'a' | 'b' | 'c' | 'd'
+    id: { type: String, required: true },          // 'a' | 'b' | 'c' | 'd' (d absent on 2027 items)
     text: { type: String, required: true, trim: true },
     isCorrect: { type: Boolean, default: false },
     rationale: { type: String, default: '', trim: true }, // why this option is right / wrong
@@ -27,6 +28,9 @@ const OptionSchema = new Schema(
 const NceItemSchema = new Schema(
   {
     externalId: { type: String, required: true, unique: true }, // 'nce-000123'
+    // Which NCE outline the item is written to. Items predating the 2027 work
+    // have no value stored; queries use nceBlueprint.specMatch so they count as current.
+    spec: { type: String, enum: ['current', '2027'], default: 'current', index: true },
     domain: { type: String, required: true, index: true },       // weighted NCE domain (nceBlueprint DOMAIN_KEYS)
     cacrep: { type: String, trim: true, index: true },           // CACREP core-area coverage tag (CACREP_KEYS)
     topic: { type: String, trim: true },                         // blueprint topic it was written for

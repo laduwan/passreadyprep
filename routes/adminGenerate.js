@@ -10,6 +10,8 @@ const { ALLOWED_SOURCES } = require('../tools/cases/references');
 const { SEED_CASES } = require('../tools/cases/seed-cases');
 const dedup = require('../tools/cases/dedup');
 const { validateExamDepth } = require('../tools/cases/examDepth');
+const bp2027 = require('../tools/cases/blueprint2027');
+const { checkCaseQuality, ITEM_CONSTRUCTION_RULES, STRUCTURAL_PARITY_CHECK } = require('../tools/cases/qualityGate');
 
 const router = express.Router();
 router.use(requireAdmin);
@@ -143,6 +145,44 @@ ${JSON.stringify(exemplar, null, 1)}
 Now output ONLY the JSON for the requested case.`;
 }
 
+// ── 2027-spec helpers (same plans, schema and gates as generate-deep.js --spec 2027)
+function specOf(v) { return v === '2027' ? '2027' : 'current'; }
+
+// The ncmhce-2027 Exam record, created on first use the way
+// tools/cases/seed-exam-2027.js does (profession copied from ncmhce, coming_soon).
+async function getExam2027({ create = false } = {}) {
+  const found = await Exam.findOne({ key: 'ncmhce-2027' });
+  if (found || !create) return found;
+  const source = await Exam.findOne({ key: 'ncmhce' }).lean();
+  return Exam.findOneAndUpdate(
+    { key: 'ncmhce-2027' },
+    { $setOnInsert: { key: 'ncmhce-2027', name: 'NCMHCE (2027 specification)', board: 'NBCC', profession: (source && source.profession) || 'counseling', formatsSupported: ['case_sim'], status: 'coming_soon' } },
+    { upsert: true, new: true }
+  );
+}
+
+function build2027Prompt(category, diagnosisName, diagnosisCode, difficulty, exemplar, plan) {
+  return `You are an expert psychometrician and NCMHCE item writer. Write a gold-standard deep NCMHCE case simulation.
+
+CASE PARAMETERS:
+- Category: "${category}"
+- Primary diagnosis: "${diagnosisName}"${diagnosisCode ? ' (' + diagnosisCode + ')' : ''}
+- Difficulty: ${difficulty}
+- This case is for the 2027 NCMHCE specification. Use the 2027 domain labels and section structure above.
+- Make the client demographically specific (name, age, race/ethnicity, occupation) and the clinical scenario distinct from common textbook presentations.
+
+${ITEM_CONSTRUCTION_RULES}
+
+${bp2027.buildSchema2027(plan)}
+
+${STRUCTURAL_PARITY_CHECK}
+
+EXAMPLE (different diagnosis — match this structure, depth, and item quality exactly):
+${JSON.stringify(exemplar, null, 1)}
+
+Now output ONLY the JSON for the requested case.`;
+}
+
 function parseCase(text) {
   let t = text.trim().replace(/^```(json)?/i, '').replace(/```$/, '').trim();
   const first = t.indexOf('{');
@@ -151,20 +191,41 @@ function parseCase(text) {
   return JSON.parse(t);
 }
 
-// ── GET /api/admin/generate/blueprint — returns categories + diagnoses for the UI
-router.get('/blueprint', (_req, res) => {
+// ── GET /api/admin/generate/blueprint[?spec=2027] — returns categories + diagnoses for the UI
+// (with spec=2027, also the 2027 domain labels, weights and work tasks).
+router.get('/blueprint', (req, res) => {
   const cats = bp.CATEGORIES.map((c) => ({
     category: c.category,
     target: c.target,
     diagnoses: c.diagnoses,
     difficulty: c.difficulty,
   }));
+  if (specOf(req.query.spec) === '2027') {
+    return res.json({
+      spec: '2027',
+      categories: cats,
+      domains: bp2027.DOMAINS_2027,
+      labels: bp2027.DOMAIN_LABELS_2027,
+      weights: bp2027.DOMAIN_WEIGHTS_2027,
+      workTasks: bp2027.WORK_TASKS_2027,
+    });
+  }
   res.json({ categories: cats });
 });
 
-// ── GET /api/admin/generate/coverage — returns current case counts vs targets
-router.get('/coverage', async (_req, res) => {
+// ── GET /api/admin/generate/coverage[?spec=2027] — returns current case counts vs targets
+// (spec=2027: the ncmhce-2027 exam's cases only, against the same category targets).
+router.get('/coverage', async (req, res) => {
   try {
+    if (specOf(req.query.spec) === '2027') {
+      const exam27 = await getExam2027();
+      const docs = exam27
+        ? await ContentItem.find({ examId: exam27._id, format: 'case_sim' }).select('externalId category caseSim').lean()
+        : [];
+      const list = docs.map((d) => ({ id: d.externalId, category: d.category || (d.caseSim && d.caseSim.category) }));
+      const t27 = bp.tally(list);
+      return res.json({ spec: '2027', examKey: 'ncmhce-2027', total: t27.total, target: bp.TOTAL_TARGET, gaps: bp.gaps(list) });
+    }
     const dbCases = await ContentItem.find({})
       .select('externalId category caseSim')
       .lean();
@@ -196,6 +257,88 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ error: 'Diagnosis name and code are required' });
 
   try {
+    // ── 2027-SPEC PATH (13 questions on the 2027 plan rotation) ───────
+    // Saved to the ncmhce-2027 exam as sme_review, after the same three gates
+    // generate-deep.js --spec 2027 runs: examDepth (2027 sections), the item
+    // quality gate, and near-duplicate against that exam's cases.
+    if (specOf(req.body && req.body.spec) === '2027') {
+      const exam27 = await getExam2027({ create: true });
+      const planIdx = await ContentItem.countDocuments({ examId: exam27._id });
+      const plan = bp2027.nextPlan2027(planIdx);
+
+      const pool = (await ContentItem.find({ examId: exam27._id, format: 'case_sim' }).select('caseSim').lean())
+        .map((d) => d.caseSim).filter(Boolean);
+      let exemplar = pool.find((c) => (c.questions || []).length >= 11) || null;
+      if (!exemplar) {
+        const cur = await Exam.findOne({ key: 'ncmhce' });
+        const exDoc = cur
+          ? await ContentItem.findOne({ examId: cur._id, format: 'case_sim', 'caseSim.questions.10': { $exists: true } }).select('caseSim').lean()
+          : null;
+        exemplar = (exDoc && exDoc.caseSim) || null;
+      }
+      if (!exemplar) {
+        try { exemplar = require('../tools/cases/exemplar-deep-mdd').CASES[0]; } catch (e) { exemplar = pickExemplar(category); }
+      }
+
+      const prompt = build2027Prompt(category, diagnosisName, diagnosisCode, difficulty, exemplar, plan);
+      const aRes = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
+        body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 16000, messages: [{ role: 'user', content: prompt }] }),
+      });
+      if (!aRes.ok) {
+        const t = await aRes.text().catch(() => '');
+        return res.status(502).json({ error: 'Anthropic API error (' + aRes.status + ')', detail: t.slice(0, 500) });
+      }
+      const aData = await aRes.json();
+      const aRaw = (aData.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('\n');
+      let c;
+      try { c = parseCase(aRaw); } catch (e) {
+        return res.status(422).json({ error: 'Could not parse JSON from model response', raw: aRaw.slice(0, 1000) });
+      }
+      c.category = category;
+      c.difficulty = c.difficulty || difficulty;
+      c.id = await nextDeepExternalId();
+
+      const preview = { title: c.title, category: c.category, questionCount: (c.questions || []).length };
+      const v = validateExamDepth(c, { spec: '2027' });
+      if (!v.ok) {
+        return res.status(422).json({ error: 'Generated 2027 case failed depth validation', validationErrors: (v.errors || []).slice(0, 10), warnings: (v.warnings || []).slice(0, 5), casePreview: preview });
+      }
+      const q = checkCaseQuality(c);
+      if (!q.ok) {
+        return res.status(422).json({ error: 'Generated 2027 case failed the quality gate', validationErrors: (q.errors || []).slice(0, 10), casePreview: preview });
+      }
+      const dup = dedup.isNearDuplicate(c, pool, { threshold: DUP_THRESHOLD });
+      if (dup && dup.dup) {
+        return res.status(409).json({ error: 'Generated 2027 case is a near-duplicate of ' + dup.against + '. Try again or pick a different diagnosis.', duplicateOf: dup.against });
+      }
+
+      let saved = null;
+      for (let attempt = 0; attempt < 5 && !saved; attempt++) {
+        if (await ContentItem.exists({ externalId: c.id })) { c.id = await nextDeepExternalId(); continue; }
+        try {
+          saved = await ContentItem.create({
+            examId: exam27._id, externalId: c.id, format: 'case_sim',
+            title: c.title, category: c.category, difficulty: c.difficulty,
+            references: c.references || [], status: 'sme_review', caseSim: c,
+          });
+        } catch (e) {
+          if (e && e.code === 11000) { c.id = await nextDeepExternalId(); continue; }
+          throw e;
+        }
+      }
+      if (!saved) return res.status(409).json({ error: 'Could not allocate a unique deep-case id (collision). Try again.' });
+
+      return res.json({
+        externalId: saved.externalId, title: saved.title, category: saved.category,
+        difficulty: saved.difficulty, status: saved.status, depth: 'deep',
+        spec: '2027', examKey: 'ncmhce-2027', plan: planIdx % bp2027.DOMAIN_PLANS_2027.length,
+        questionCount: (c.questions || []).length, warnings: v.warnings || [],
+      });
+    }
+    // ── end 2027 path ─────────────────────────────────────────────────
+
     // ── DEEP-CASE PATH (13 questions, 3 sections) ─────────────────────
     if (req.body && req.body.depth === 'deep') {
       let dexam = await Exam.findOne({ key: 'ncmhce' });

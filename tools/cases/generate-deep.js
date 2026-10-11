@@ -139,34 +139,7 @@ HARD REQUIREMENTS:
 - narrative.intake + session1 + session2 are three escalating clinical sections.
 - Output ONLY the JSON object.`;
 
-function buildSchema2027(plan) {
-  const domainSeq = plan.map((item) => `${item.domain}(section:${item.section})`).join(', ');
-  const domainNames = Object.entries(bp2027.DOMAIN_LABELS_2027).map(([k, v]) => `  ${k}: ${v}`).join('\n');
-  const workTaskLines = Object.entries(bp2027.WORK_TASKS_2027)
-    .map(([d, tasks]) => `  ${d}: ${tasks.slice(0, 3).join('; ')}`)
-    .join('\n');
-  return `Return ONE JSON object only (no markdown, no prose) shaped exactly like the EXAMPLE.
-Keys: id, title, category, difficulty, primaryDiagnosis{name,code}, diagnosis{name,code},
-differentialOptions[{id,name,isCorrect}], narrative{intake,session1,session2},
-diagnosticRationale, questions[], references[].
-
-HARD REQUIREMENTS (2027 NCMHCE specification):
-- EXACTLY 13 questions. In order q1..q13 each question must have BOTH a "domain" AND a "section" field.
-  The domain+section for each question in order MUST be: ${domainSeq}.
-- Sections unfold in order: intake (clinical intake / assessment) → session1 (treatment planning) → session2 (counseling interventions and ethics).
-  narrative.intake, narrative.session1, narrative.session2 are three escalating clinical sections of the case.
-- 2027 domain names and typical work tasks:
-${domainNames}
-Work task examples per domain:
-${workTaskLines}
-- Each question: 4 options with weights exactly {3, 0, -1, -2} (one of each).
-- Every option has: id, text, isCorrect (true only for weight 3), weight, rationale (short label).
-- Every option has: explanation:{approach (8+ chars), rationale (full sentence), keyIndicators:[..], commonMistake (20+ chars)}.
-- Each question carries "evidenceRef":["R1",..] pointing at references[].id.
-- "references" entries use ONLY these source names: ${ALLOWED_SOURCES.join('; ')}.
-- Make the client and scenario demographically diverse and distinct from previous cases in your training.
-- Output ONLY the JSON object.`;
-}
+const { buildSchema2027 } = require('./blueprint2027');
 
 const DIFFICULTY_GUIDE = `DIFFICULTY — this is not about how rare the diagnosis is. It is about how much
 the case HIDES.

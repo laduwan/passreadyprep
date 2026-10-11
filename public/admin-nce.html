@@ -65,6 +65,8 @@
       <div class="row" style="justify-content:space-between;align-items:center">
         <h2 style="margin:0">NCE bank coverage</h2>
         <div class="actions">
+          <label for="gSpec" class="muted" style="margin:0">Outline</label>
+          <select id="gSpec" style="width:auto" title="Applies to coverage, generation, the review list, printouts, records and bulk publish"><option value="current">Current outline</option><option value="2027">2027 specification</option></select>
           <span class="muted" id="examStatus"></span>
           <button id="toggleLive">…</button>
         </div>
@@ -103,7 +105,7 @@
         <div style="flex:0"><button id="seedRefreshBtn" title="Re-applies corrections from the seed files to seed questions that are still In review. Published and retired questions are not changed.">Update questions in review</button></div>
         <div class="muted" style="font-size:13px">No API cost: loads the hand-written question files shipped with the app into review. Safe to click again; only new questions are added.</div>
       </div>
-      <p class="muted" style="font-size:13px;margin:8px 0 0">Each item runs the shared quality gate (4 options, one key, length parity, no absolutes, rationales, approved sources, no near-duplicates). Passing items go to review; nothing is published automatically. Model: <span id="model"></span></p>
+      <p class="muted" style="font-size:13px;margin:8px 0 0">Each item runs the shared quality gate (4 options — 3 on 2027-specification items — one key, length parity, no absolutes, rationales, approved sources, no near-duplicates). Passing items go to review; nothing is published automatically. Model: <span id="model"></span></p>
       <div id="gOut" style="margin-top:10px"></div>
     </div>
 
@@ -133,6 +135,7 @@
 (function(){
   var DOMAINS = [];
   var examStatus = 'coming_soon';
+  var domainSpec = null; // spec the domain dropdowns were built for
   function $(id){ return document.getElementById(id); }
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
   function toast(msg, isErr){ var t=$('toast'); t.textContent=msg; t.className='toast show'+(isErr?' err':''); setTimeout(function(){ t.className='toast'; }, 2600); }
@@ -149,10 +152,12 @@
       });
     });
   }
+  // Page-level outline: every bank call below passes it.
+  function spec(){ return $('gSpec').value === '2027' ? '2027' : 'current'; }
   function domainLabel(k){ var d = DOMAINS.filter(function(x){ return x.key===k; })[0]; return d ? d.label : k; }
 
   function loadCoverage(){
-    return api('/coverage').then(function(c){
+    return api('/coverage?spec='+spec()).then(function(c){
       DOMAINS = c.domains;
       examStatus = c.examStatus;
       $('examStatus').textContent = 'Student status: ' + (examStatus === 'live' ? 'LIVE' : 'Coming soon');
@@ -166,7 +171,10 @@
       }).join('');
       $('cacrep').textContent = c.cacrep.map(function(a){ return a.label + ' ' + a.published; }).join(' · ');
       var opts = c.domains.map(function(d){ return '<option value="'+d.key+'">'+esc(d.label)+'</option>'; }).join('');
-      if ($('gDomain').options.length === 1) { $('gDomain').insertAdjacentHTML('beforeend', opts); $('fDomain').insertAdjacentHTML('beforeend', opts); }
+      if (domainSpec !== c.spec) {
+        domainSpec = c.spec;
+        [$('gDomain'), $('fDomain')].forEach(function(sel){ sel.length = 1; sel.insertAdjacentHTML('beforeend', opts); });
+      }
     });
   }
 
@@ -179,9 +187,9 @@
   $('gBtn').onclick = function(){
     var btn = $('gBtn'); btn.disabled = true; btn.textContent = 'Generating… (up to a few minutes)';
     $('gOut').innerHTML = '';
-    api('/generate', { method:'POST', body:{ domain: $('gDomain').value || undefined, count: $('gCount').value, difficulty: $('gDiff').value } })
+    api('/generate', { method:'POST', body:{ domain: $('gDomain').value || undefined, count: $('gCount').value, difficulty: $('gDiff').value, spec: spec() } })
       .then(function(r){
-        var html = '<p><b>'+r.saved.length+'</b> of '+r.requested+' saved to review in <b>'+esc(domainLabel(r.domain))+'</b>.</p>';
+        var html = '<p><b>'+r.saved.length+'</b> of '+r.requested+' saved to review in <b>'+esc(domainLabel(r.domain))+'</b> ('+(r.spec === '2027' ? '2027 specification' : 'current outline')+').</p>';
         if (r.rejected.length) html += '<p class="err">Rejected by the gate:</p><ul>' + r.rejected.map(function(x){
           return '<li><b>'+esc(x.topic)+'</b>: '+esc(x.errors.join('; '))+'</li>'; }).join('') + '</ul>';
         $('gOut').innerHTML = html;
@@ -228,7 +236,7 @@
   $('recAllBtn').onclick = function(){
     var btn = $('recAllBtn'); btn.disabled = true; btn.textContent = 'Building…';
     var win = window.open('', '_blank');
-    fetch('/api/admin/nce/records?status=' + encodeURIComponent($('recAllStatus').value), { headers: { 'Authorization': 'Bearer ' + token() } })
+    fetch('/api/admin/nce/records?status=' + encodeURIComponent($('recAllStatus').value) + '&spec=' + spec(), { headers: { 'Authorization': 'Bearer ' + token() } })
       .then(function(r){ if (!r.ok) throw new Error('Could not build the records (' + r.status + ')'); return r.text(); })
       .then(function(html){ var url = URL.createObjectURL(new Blob([html], { type: 'text/html' })); if (win) win.location = url; else location.href = url; })
       .catch(function(e){ if (win) win.close(); toast(e.message, true); })
@@ -250,7 +258,7 @@
     if (it.status !== 'sme_review') acts += '<button data-act="sme_review" data-id="'+it.externalId+'">Back to review</button>';
     if (it.status !== 'retired') acts += '<button class="danger" data-act="retired" data-id="'+it.externalId+'">Retire</button>';
     return '<div class="q">'+
-      '<div class="meta">'+esc(it.externalId)+' · '+esc(domainLabel(it.domain))+' · '+esc(it.cacrep||'—')+' · '+esc(it.topic||'')+' · '+esc(it.difficulty)+'</div>'+
+      '<div class="meta">'+esc(it.externalId)+' · '+esc(domainLabel(it.domain))+' · '+esc(it.cacrep||'—')+' · '+esc(it.topic||'')+' · '+esc(it.difficulty)+' · '+esc(it.spec||'current')+'</div>'+
       '<div class="stem">'+esc(it.stem)+'</div>'+
       '<ol type="a">'+(it.options||[]).map(function(o){
         return '<li class="'+(o.isCorrect?'key':'')+'">'+esc(o.text)+(o.isCorrect?' <b style="color:var(--emerald-400)">✔ KEY</b>':'')+'<small>'+esc(o.rationale)+'</small></li>'; }).join('')+'</ol>'+
@@ -261,7 +269,7 @@
   }
 
   function loadList(){
-    var q = '?status='+encodeURIComponent($('fStatus').value)+'&domain='+encodeURIComponent($('fDomain').value)+'&q='+encodeURIComponent($('fQ').value);
+    var q = '?status='+encodeURIComponent($('fStatus').value)+'&domain='+encodeURIComponent($('fDomain').value)+'&q='+encodeURIComponent($('fQ').value)+'&spec='+spec();
     return api('/items'+q).then(function(r){
       $('listCount').textContent = r.count + ' item' + (r.count===1?'':'s') + (r.count >= 500 ? ' (first 500)' : '');
       $('list').innerHTML = r.items.map(renderItem).join('') || '<p class="muted">Nothing here.</p>';
@@ -272,7 +280,7 @@
   $('pBtn').onclick = function(){
     var win = window.open('', '_blank');
     var st = $('fStatus').value === 'retired' ? 'all' : $('fStatus').value;
-    fetch('/api/admin/nce/export?status=' + encodeURIComponent(st), { headers: { 'Authorization': 'Bearer ' + token() } })
+    fetch('/api/admin/nce/export?status=' + encodeURIComponent(st) + '&spec=' + spec(), { headers: { 'Authorization': 'Bearer ' + token() } })
       .then(function(r){ if (!r.ok) throw new Error('Export failed (' + r.status + ')'); return r.text(); })
       .then(function(html){
         var url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
@@ -286,7 +294,7 @@
     if (!reviewer.name) { toast('Enter the reviewer name first (it is stamped on every question).', true); $('rvName').focus(); return; }
     var domain = $('fDomain').value, q = $('fQ').value;
     var btn = $('allBtn');
-    api('/publish-reviewed', { method:'POST', body:{ dryRun: true, domain: domain || undefined, q: q || undefined } }).then(function(r){
+    api('/publish-reviewed', { method:'POST', body:{ dryRun: true, domain: domain || undefined, q: q || undefined, spec: spec() } }).then(function(r){
       if (!r.matched) { toast('No questions are in review for these filters.'); return; }
       var flagged = r.flagged;
       var scope = (domain ? domainLabel(domain) : 'all domains') + (q ? ', matching "'+q+'"' : '');
@@ -297,7 +305,7 @@
       var note = '';
       if ($('rvAsk').checked) { note = prompt('Note for the audit trail (optional):', ''); if (note === null) return; }
       btn.disabled = true; btn.textContent = 'Publishing…';
-      return api('/publish-reviewed', { method:'POST', body:{ reviewer: reviewer, domain: domain || undefined, q: q || undefined, note: note || undefined } })
+      return api('/publish-reviewed', { method:'POST', body:{ reviewer: reviewer, domain: domain || undefined, q: q || undefined, note: note || undefined, spec: spec() } })
         .then(function(res){
           $('listCount').textContent = '';
           toast(res.published+' published'+(res.skipped.length ? ', '+res.skipped.length+' left in review (failed the gate)' : ''));
@@ -320,6 +328,8 @@
       .then(function(){ toast(b.getAttribute('data-id')+' → '+b.getAttribute('data-act')); loadList(); loadCoverage(); })
       .catch(function(err){ b.disabled = false; toast(err.message, true); });
   });
+
+  $('gSpec').onchange = function(){ loadCoverage().then(loadList).catch(function(e){ toast(e.message, true); }); };
 
   if (!token()) { $('gate').classList.remove('hidden'); return; }
   $('app').classList.remove('hidden');

@@ -9,6 +9,9 @@
 // two pipelines can coexist without ambiguity.
 // ============================================================================
 
+const { DOMAINS_2027: DOMAINS_2027_SPEC } = require('../../utils/spec2027');
+const { ALLOWED_SOURCES } = require('./references');
+
 // Domain keys for the 2027 specification
 const DOMAINS_2027 = ['profdev', 'assess', 'planning', 'interventions', 'indirect', 'legal'];
 
@@ -22,13 +25,14 @@ const DOMAIN_WEIGHTS_2027 = {
   legal:         0.20,
 };
 
+// Official NBCC 2027 domain labels (utils/spec2027.js holds the full outline).
 const DOMAIN_LABELS_2027 = {
-  profdev:       'Professional Development & Practice',
-  assess:        'Assessment & Diagnosis',
-  planning:      'Treatment Planning',
-  interventions: 'Counseling Interventions',
-  indirect:      'Indirect Client Services',
-  legal:         'Legal, Ethical & Professional Standards',
+  profdev:       'Professional Development & Counselor Self-Awareness',
+  assess:        'Intake & Assessment',
+  planning:      'Treatment Planning & Continuity of Care',
+  interventions: 'Provision of Counseling Interventions',
+  indirect:      'Indirect Client Care',
+  legal:         'Legal & Ethical Compliance',
 };
 
 // Section → domains mapping for 2027 spec.
@@ -45,55 +49,13 @@ const DOMAIN_SECTION_2027 = {
   legal:         'session2',
 };
 
-// Per-domain work-task topics drawn from the NBCC 2027 specification.
+// Per-domain work tasks, verbatim from the NBCC 2027 specification
+// (utils/spec2027.js), flattened across each domain's subdomains.
 // Used in the generation prompt to anchor questions to real exam content.
-const WORK_TASKS_2027 = {
-  profdev: [
-    'Maintaining professional identity and ongoing clinical competence',
-    'Self-care and recognizing countertransference',
-    'Supervision and consultation: when and how to seek it',
-    'Scope of practice and referral decisions',
-    'Cultural humility and multicultural counseling competencies',
-  ],
-  assess: [
-    'Conducting a clinical intake and gathering biopsychosocial history',
-    'Differential diagnosis using DSM-5-TR criteria and rule-outs',
-    'Selecting and interpreting standardized assessment tools',
-    'Suicide and self-harm risk assessment (C-SSRS, safety planning)',
-    'Substance use screening and level-of-care determination (ASAM)',
-    'Trauma-informed assessment and trauma history gathering',
-  ],
-  planning: [
-    'Formulating measurable treatment goals and objectives',
-    'Selecting evidence-based modalities matched to diagnosis and client factors',
-    'Level-of-care and step-down planning',
-    'Integrating collateral information into the treatment plan',
-    'Collaborative treatment planning with client and treatment team',
-  ],
-  interventions: [
-    'Applying CBT techniques: thought records, behavioral activation, exposure',
-    'Motivational interviewing: OARS, ambivalence, change talk',
-    'Trauma-focused interventions: CPT, EMDR framework, trauma processing',
-    'Crisis intervention and de-escalation',
-    'Group counseling facilitation and process',
-    'Termination planning and relapse prevention',
-  ],
-  indirect: [
-    'Case management and community resource coordination',
-    'Consultation and interdisciplinary collaboration',
-    'Psychoeducation delivery to clients and families',
-    'Documentation: progress notes, treatment plans, reports',
-    'Telehealth and technology-assisted service delivery',
-  ],
-  legal: [
-    'Confidentiality and its limits: mandated reporting, duty to warn/protect',
-    'Informed consent: elements, process, and special populations',
-    'HIPAA, privacy regulations, and records management',
-    'Boundaries, dual relationships, and professional ethics',
-    'Counseling Compact and jurisdictional licensure requirements',
-    'Responding to subpoenas and legal/court-related requests',
-  ],
-};
+const WORK_TASKS_2027 = {};
+DOMAINS_2027_SPEC.forEach((d) => {
+  WORK_TASKS_2027[d.ncmhceKey] = d.subdomains.reduce((all, sd) => all.concat(sd.tasks), []);
+});
 
 // ============================================================================
 // DOMAIN_PLANS_2027
@@ -291,6 +253,38 @@ function nextPlan2027(n) {
   return DOMAIN_PLANS_2027[n % DOMAIN_PLANS_2027.length];
 }
 
+// Generation schema for one 2027 case following `plan` (from nextPlan2027).
+// Lives here rather than in generate-deep.js because that script runs on load
+// and can't be required; routes/adminGenerate.js uses it too.
+function buildSchema2027(plan) {
+  const domainSeq = plan.map((item) => `${item.domain}(section:${item.section})`).join(', ');
+  const domainNames = Object.entries(DOMAIN_LABELS_2027).map(([k, v]) => `  ${k}: ${v}`).join('\n');
+  const workTaskLines = Object.entries(WORK_TASKS_2027)
+    .map(([d, tasks]) => `  ${d}: ${tasks.slice(0, 3).join('; ')}`)
+    .join('\n');
+  return `Return ONE JSON object only (no markdown, no prose) shaped exactly like the EXAMPLE.
+Keys: id, title, category, difficulty, primaryDiagnosis{name,code}, diagnosis{name,code},
+differentialOptions[{id,name,isCorrect}], narrative{intake,session1,session2},
+diagnosticRationale, questions[], references[].
+
+HARD REQUIREMENTS (2027 NCMHCE specification):
+- EXACTLY 13 questions. In order q1..q13 each question must have BOTH a "domain" AND a "section" field.
+  The domain+section for each question in order MUST be: ${domainSeq}.
+- Sections unfold in order: intake (clinical intake / assessment) → session1 (treatment planning) → session2 (counseling interventions and ethics).
+  narrative.intake, narrative.session1, narrative.session2 are three escalating clinical sections of the case.
+- 2027 domain names and typical work tasks:
+${domainNames}
+Work task examples per domain:
+${workTaskLines}
+- Each question: 4 options with weights exactly {3, 0, -1, -2} (one of each).
+- Every option has: id, text, isCorrect (true only for weight 3), weight, rationale (short label).
+- Every option has: explanation:{approach (8+ chars), rationale (full sentence), keyIndicators:[..], commonMistake (20+ chars)}.
+- Each question carries "evidenceRef":["R1",..] pointing at references[].id.
+- "references" entries use ONLY these source names: ${ALLOWED_SOURCES.join('; ')}.
+- Make the client and scenario demographically diverse and distinct from previous cases in your training.
+- Output ONLY the JSON object.`;
+}
+
 // ── Self-check (runs at require time) ────────────────────────────────────────
 // Verifies that DOMAIN_PLANS_2027 produces the exact per-domain totals the
 // NBCC 2027 spec requires over 10 plans. Throws on mismatch so a bad edit
@@ -352,4 +346,5 @@ module.exports = {
   WORK_TASKS_2027,
   DOMAIN_PLANS_2027,
   nextPlan2027,
+  buildSchema2027,
 };

@@ -332,6 +332,10 @@ a.choice{text-decoration:none}
       .catch(function(){});
     return Promise.all(ps).then(function(r){ return plans.then(function(){ return r; }); }).then(function(r){
       BP = r[0]; STATUS = r[1]; PROGRESS = r[2] || null;
+      // /status says which outline this account is served; 2027 candidates get the 2027 blueprint.
+      if (STATUS.spec === '2027' && BP.spec !== '2027') return api('/api/nce/blueprint?spec=2027').then(function(b){ BP = b; });
+    }).then(function(){
+      DOM = {};
       BP.domains.forEach(function(d){ DOM[d.key] = d; });
     });
   }
@@ -385,6 +389,8 @@ a.choice{text-decoration:none}
           '<button class="btn btn-s" id="go-mock2">Take a mock exam</button>'+
         '</div>'+
         (r && r.score >= 85 ? '<p class="hero-fine"><a href="/resume.html">You are exam ready. Build your résumé →</a></p>' : '')+
+        (STATUS.spec === '2027' ? '<p class="hero-fine">Your exam date is on or after July 1, 2027 — you\'re studying the 2027 NCE blueprint (170 questions, 3 options each, scaled score 100–500, passing 360).</p>'
+          : STATUS.specFallback ? '<p class="hero-fine">Your exam date is after July 1, 2027. The 2027 question bank is still filling, so you\'re seeing current-outline questions for now.</p>' : '')+
         '<p class="hero-fine">'+BP.exam.totalItems+' questions ('+BP.exam.scoredItems+' scored) · '+Math.floor(BP.exam.minutes/60)+' hrs '+(BP.exam.minutes%60)+' min · '+BP.exam.optionsPerItem+' options each, weighted to NBCC\'s NCE content outline.</p>'+
         (r ? '<details><summary>How readiness works</summary><p>Your accuracy in each NCE domain, weighted by NBCC\'s scored item counts'+(r.weights && r.weights.length ? ' ('+r.weights.map(function(w){ return esc(w.short)+' '+w.pct+'%'; }).join(', ')+')' : '')+', adjusted for how much you have practiced and whether your recent work is trending up.'+conf+' 70%+ = almost there, 85%+ = exam ready. A practice indicator, not a prediction of your NCE result.</p></details>' : '')+
       '</div></div>';
@@ -556,7 +562,7 @@ a.choice{text-decoration:none}
     stage.innerHTML = '<div class="card">Loading questions…</div>';
     api('/api/nce/practice?count=20&domain='+encodeURIComponent(domain)).then(function(r){
       if (!r.items.length) { stage.innerHTML = '<div class="card"><p>No questions are published here yet. Check back soon.</p><button class="btn btn-s" id="back">Back</button></div>'; document.getElementById('back').onclick = renderHome; return; }
-      P = { items: r.items, i: 0, answers: {}, teaser: r.teaser, startedAt: new Date().toISOString(), domain: domain };
+      P = { items: r.items, i: 0, answers: {}, teaser: r.teaser, startedAt: new Date().toISOString(), domain: domain, spec: r.spec || 'current' };
       renderPracticeQ();
     }).catch(function(e){ stage.innerHTML = '<div class="card">'+esc(e.message)+'</div>'; });
   }
@@ -608,7 +614,7 @@ a.choice{text-decoration:none}
       return { it: it, ok: key && key.id === P.answers[it.id] };
     });
     renderResults('Practice set complete', results, null);
-    saveAttempt('study', answered.map(function(it){ return { id: it.id, selected: P.answers[it.id], scored: true }; }), P.startedAt);
+    saveAttempt('study', answered.map(function(it){ return { id: it.id, selected: P.answers[it.id], scored: true }; }), P.startedAt, P.spec);
   }
 
   // ── Timed mock exam ───────────────────────────────────────────────
@@ -630,6 +636,16 @@ a.choice{text-decoration:none}
       { k:'100', n:100, t:'Half length · '+fmt(Math.round(BP.exam.minutes/2)*60) },
       { k:'50', n:50, t:'Quarter length · '+fmt(Math.round(BP.exam.minutes/4)*60) },
     ];
+    // 2027 forms (server: nceBlueprint MOCK_SIZES_2027), time scaled per item like the server.
+    if (BP.exam.halves) {
+      var t27 = function(n){ return fmt(Math.round(BP.exam.minutes * n / BP.exam.totalItems)*60); };
+      forms = [
+        { k:'full', n:BP.exam.totalItems, t:'Full length · '+t27(BP.exam.totalItems)+' · '+BP.exam.unscoredItems+' unscored items, two halves with an optional break, like the real exam' },
+        { k:'85', n:85, t:'Half length · '+t27(85) },
+        { k:'50', n:50, t:'Quarter length · '+t27(50) },
+      ];
+      if (!forms.some(function(f){ return f.k === mockSize; })) mockSize = 'full';
+    }
     stage.innerHTML = '<div class="card"><h2>Timed NCE mock exam</h2>'+
       '<p class="muted">Questions are drawn to NBCC\'s domain weights. No feedback until you submit. You can flag questions and jump around, like the real exam.</p>'+
       '<div class="grid2">'+forms.map(function(f){
@@ -644,7 +660,8 @@ a.choice{text-decoration:none}
     stage.innerHTML = '<div class="card">Building your exam…</div>';
     api('/api/nce/mock?size='+mockSize).then(function(r){
       if (!r.items.length) { stage.innerHTML = '<div class="card"><p>Not enough questions are published yet to build a mock exam.</p><button class="btn btn-s" id="back">Back</button></div>'; document.getElementById('back').onclick = renderHome; return; }
-      M = { items: r.items, i: 0, answers: {}, flags: {}, startedAt: new Date().toISOString(), shortfall: r.shortfall };
+      M = { items: r.items, i: 0, answers: {}, flags: {}, startedAt: new Date().toISOString(), shortfall: r.shortfall,
+        spec: r.spec || 'current', halves: !!r.halves, breakAfterItem: r.breakAfterItem || r.items.length, half: 1 };
       startTimer(r.minutes * 60);
       renderMockQ();
     }).catch(function(e){ stage.innerHTML = '<div class="card">'+esc(e.message)+'</div>'; });
@@ -664,33 +681,99 @@ a.choice{text-decoration:none}
     if (confirm('Exit this mock exam? Your answers will not be saved.')) { stopTimer(); M = null; renderHome(); }
   };
 
+  // 2027 exams run in two halves: navigation stays inside the current half
+  // (half 1 is locked once submitted). Single-section exams span every item.
+  function halfLo(){ return M.halves && M.half === 2 ? M.breakAfterItem : 0; }
+  function halfHi(){ return M.halves && M.half === 1 ? M.breakAfterItem - 1 : M.items.length - 1; }
+
   function renderMockQ(){
     var it = M.items[M.i], chosen = M.answers[it.id];
+    var lo = halfLo(), hi = halfHi();
     stage.innerHTML = '<div class="card">'+
       '<div class="nav-grid" aria-label="Question navigator">'+M.items.map(function(q,i){
+        if (i < lo || i > hi) return '';
         var c = 'ag-cell'+(i===M.i?' current':'')+(M.answers[q.id]?' answered':'')+(M.flags[q.id]?' flagged':'');
         return '<button class="'+c+'" data-go="'+i+'" aria-label="Question '+(i+1)+'">'+(i+1)+'</button>'; }).join('')+'</div>'+
-      '<div class="q-meta"><span class="q-num">Question '+(M.i+1)+' of '+M.items.length+'</span></div>'+
+      '<div class="q-meta"><span class="q-num">Question '+(M.i+1)+' of '+M.items.length+'</span>'+(M.halves ? '<span class="badge b-blue">Half '+M.half+' of 2</span>' : '')+'</div>'+
       '<p class="qstem">'+esc(it.stem)+'</p><div class="opts">'+
       it.options.map(function(o){
         return '<button class="opt'+(chosen===o.id?' selected':'')+'" data-opt="'+o.id+'"><span class="mk">'+o.id.toUpperCase()+'</span><span>'+esc(o.text)+'</span></button>'; }).join('')+'</div>'+
       '<div class="nav-row">'+
-        (M.i>0?'<button class="btn btn-s btn-sm" id="prev">Previous</button>':'')+
-        (M.i<M.items.length-1?'<button class="btn btn-sm" id="next">Next</button>':'')+
+        (M.i>lo?'<button class="btn btn-s btn-sm" id="prev">Previous</button>':'')+
+        (M.i<hi?'<button class="btn btn-sm" id="next">Next</button>':'')+
         '<button class="flag-btn'+(M.flags[it.id]?' flagged':'')+'" id="flag">'+(M.flags[it.id]?'Flagged':'Flag for review')+'</button>'+
-        '<button class="btn btn-sm" id="submit" style="margin-left:auto">Submit exam</button>'+
+        (M.halves && M.half === 1
+          ? '<button class="btn btn-sm" id="review-half" style="margin-left:auto">Review &amp; submit half 1</button>'
+          : '<button class="btn btn-sm" id="submit" style="margin-left:auto">Submit exam</button>')+
       '</div></div>';
     tick();
-    Array.prototype.forEach.call(stage.querySelectorAll('[data-opt]'), function(b){ b.onclick = function(){ M.answers[it.id] = b.getAttribute('data-opt'); renderMockQ(); }; });
+    Array.prototype.forEach.call(stage.querySelectorAll('[data-opt]'), function(b){ b.onclick = function(){ if (M.halves && it.half && it.half !== M.half) return; M.answers[it.id] = b.getAttribute('data-opt'); renderMockQ(); }; });
     Array.prototype.forEach.call(stage.querySelectorAll('[data-go]'), function(b){ b.onclick = function(){ M.i = +b.getAttribute('data-go'); renderMockQ(); }; });
     var x;
     if ((x = document.getElementById('prev'))) x.onclick = function(){ M.i--; renderMockQ(); };
     if ((x = document.getElementById('next'))) x.onclick = function(){ M.i++; renderMockQ(); };
     document.getElementById('flag').onclick = function(){ M.flags[it.id] = !M.flags[it.id]; renderMockQ(); };
-    document.getElementById('submit').onclick = function(){
+    if ((x = document.getElementById('review-half'))) x.onclick = renderHalfReview;
+    if ((x = document.getElementById('submit'))) x.onclick = function(){
       var left = M.items.length - Object.keys(M.answers).length;
       if (confirm(left ? 'You have '+left+' unanswered question'+(left===1?'':'s')+'. Submit anyway?' : 'Submit your exam?')) submitMock(false);
     };
+  }
+
+  // Review-before-submit for half 1: unanswered and flagged items, then submit.
+  // After submitting, half 1 can't be reopened (same as the real 2027 NCE).
+  function renderHalfReview(){
+    var lo = halfLo(), hi = halfHi(), unanswered = [], flagged = [];
+    for (var i = lo; i <= hi; i++) {
+      var q = M.items[i];
+      if (!M.answers[q.id]) unanswered.push(i);
+      if (M.flags[q.id]) flagged.push(i);
+    }
+    function cells(list){
+      return list.length ? '<div class="nav-grid">'+list.map(function(i){
+        return '<button class="ag-cell'+(M.answers[M.items[i].id]?' answered':'')+(M.flags[M.items[i].id]?' flagged':'')+'" data-go="'+i+'" aria-label="Question '+(i+1)+'">'+(i+1)+'</button>'; }).join('')+'</div>'
+        : '<p class="muted small">None.</p>';
+    }
+    stage.innerHTML = '<div class="card"><h2>Review half 1</h2>'+
+      '<p class="muted">Once you submit half 1 you can\'t return to these questions. Then you can take an optional 15-minute break before half 2.</p>'+
+      '<h3>Unanswered ('+unanswered.length+')</h3>'+cells(unanswered)+
+      '<h3>Flagged ('+flagged.length+')</h3>'+cells(flagged)+
+      '<div class="nav-row"><button class="btn" id="submit-half">Submit half 1</button><button class="btn btn-s" id="back-q">Back to questions</button></div></div>';
+    tick();
+    Array.prototype.forEach.call(stage.querySelectorAll('[data-go]'), function(b){ b.onclick = function(){ M.i = +b.getAttribute('data-go'); renderMockQ(); }; });
+    document.getElementById('back-q').onclick = renderMockQ;
+    document.getElementById('submit-half').onclick = function(){
+      if (confirm(unanswered.length ? 'You have '+unanswered.length+' unanswered question'+(unanswered.length===1?'':'s')+' in half 1. Submit half 1 anyway?' : 'Submit half 1?')) startBreak();
+    };
+  }
+
+  // Optional 15-minute break between halves. The exam clock is paused (the
+  // real exam's 225 minutes exclude the break) and resumes for half 2.
+  var breakIv = null;
+  function startBreak(){
+    var remaining = timerSecs;
+    stopTimer();
+    M.half = 2;
+    var breakSecs = 15 * 60;
+    function draw(){
+      var el = document.getElementById('break-clock');
+      if (el) el.textContent = fmt(Math.max(0, breakSecs));
+    }
+    function resume(){
+      if (breakIv) clearInterval(breakIv); breakIv = null;
+      if (!M) return;
+      M.i = halfLo();
+      startTimer(remaining);
+      renderMockQ();
+    }
+    stage.innerHTML = '<div class="score-card"><div class="muted small">Half 1 submitted</div>'+
+      '<h2 style="margin:8px 0 4px">Optional 15-minute break</h2>'+
+      '<div class="score-big" id="break-clock" role="timer">'+fmt(breakSecs)+'</div>'+
+      '<div class="muted small" style="margin-top:6px">Your exam timer is paused. Half 2 starts automatically when the break ends.</div>'+
+      '<div class="nav-row" style="justify-content:center"><button class="btn" id="skip-break">Skip break — start half 2</button></div></div>';
+    document.getElementById('skip-break').onclick = resume;
+    breakIv = setInterval(function(){ breakSecs--; draw(); if (breakSecs <= 0) resume(); }, 1000);
+    window.scrollTo({ top: 0 });
   }
 
   function submitMock(timeUp){
@@ -702,13 +785,13 @@ a.choice{text-decoration:none}
     });
     var unscoredN = M.items.length - scored.length;
     renderResults(timeUp ? 'Time\'s up — exam submitted' : 'Mock exam submitted', results,
-      unscoredN ? unscoredN+' unscored items (like the real NCE\'s field-test questions) are not counted.' : null);
-    saveAttempt('timed', M.items.map(function(it){ return { id: it.id, selected: M.answers[it.id] || null, scored: it.scored !== false }; }), M.startedAt);
+      unscoredN ? unscoredN+' unscored items (like the real NCE\'s field-test questions) are not counted.' : null, M.spec);
+    saveAttempt('timed', M.items.map(function(it){ return { id: it.id, selected: M.answers[it.id] || null, scored: it.scored !== false }; }), M.startedAt, M.spec);
     M = null;
   }
 
   // ── Results + review ──────────────────────────────────────────────
-  function renderResults(title, results, note){
+  function renderResults(title, results, note, spec){
     var right = results.filter(function(r){ return r.ok; }).length;
     var by = {};
     results.forEach(function(r){ var b = by[r.it.domain] = by[r.it.domain] || {c:0,t:0}; b.t++; if (r.ok) b.c++; });
@@ -716,7 +799,8 @@ a.choice{text-decoration:none}
     stage.innerHTML = '<div class="score-card"><div class="muted small">'+esc(title)+'</div><div class="score-big">'+right+' / '+results.length+'</div>'+
       '<div style="font-size:20px;font-weight:700;margin-top:4px">'+(p==null?'—':p+'%')+'</div>'+
       (note ? '<div class="muted small" style="margin-top:6px">'+esc(note)+'</div>' : '')+
-      '<div class="muted small" style="margin-top:6px">NBCC sets the passing score for each exam form, so use your weakest domains below to decide what to study next.</div></div>'+
+      '<div class="muted small" style="margin-top:6px">NBCC sets the passing score for each exam form, so use your weakest domains below to decide what to study next.</div>'+
+      (spec === '2027' ? '<div class="muted small" style="margin-top:6px">The 2027 NCE reports a scaled score (100–500, passing = 360) that can\'t be calculated from a practice raw score.</div>' : '')+'</div>'+
       '<div class="card"><h2>By domain</h2><table class="domain-table"><thead><tr><th>Domain</th><th>Correct</th><th>%</th></tr></thead><tbody>'+
       BP.domains.filter(function(d){ return by[d.key]; }).map(function(d){
         var b = by[d.key]; return '<tr><td>'+esc(d.label)+'</td><td>'+b.c+' / '+b.t+'</td><td>'+pct(b.c,b.t)+'%</td></tr>'; }).join('')+
@@ -734,9 +818,9 @@ a.choice{text-decoration:none}
     window.scrollTo({ top: 0 });
   }
 
-  function saveAttempt(mode, responses, startedAt){
+  function saveAttempt(mode, responses, startedAt, spec){
     if (!TOKEN) return;
-    api('/api/nce/attempts', { method:'POST', body:{ mode: mode, responses: responses, startedAt: startedAt } })
+    api('/api/nce/attempts', { method:'POST', body:{ mode: mode, responses: responses, startedAt: startedAt, spec: spec || 'current' } })
       .catch(function(e){ console.warn('Could not save NCE attempt', e.message); });
   }
 

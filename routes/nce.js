@@ -48,8 +48,9 @@ async function sampleItems(match, n) {
   return shuffle(docs);
 }
 
+// Always the current bank: anonymous visitors have no exam date.
 async function teaserItems() {
-  const docs = await NceItem.find({ status: 'published' })
+  const docs = await NceItem.find({ status: 'published', ...bp.specMatch('current') })
     .sort({ domain: 1, externalId: 1 })
     .lean();
   // Round-robin across domains so the sample shows the breadth of the exam.
@@ -64,11 +65,33 @@ async function teaserItems() {
 
 function locked(level) { return level === 'free' || level === 'expired' || level === 'gated'; }
 
-// GET /api/nce/blueprint — the exam format and domain weights (public).
-router.get('/blueprint', (_req, res) => {
+// Which NCE outline this request is served. The candidate's NCE date decides
+// (on/after 2027-07-01 → '2027'); `?spec=2027|current` overrides it where
+// `allowOverride` (admin preview). Mirrors routes/content.js: a 2027 candidate
+// is served the current bank, with specFallback, while no 2027 item is published.
+async function resolveSpec(req, { allowOverride = false } = {}) {
+  const q = req.query && req.query.spec;
+  let spec = allowOverride && (q === '2027' || q === 'current') ? q : bp.specFor(req.nceUser && req.nceUser.nceExamDate);
+  let specFallback = false;
+  if (spec === '2027') {
+    const n = await NceItem.countDocuments({ status: 'published', ...bp.specMatch('2027') });
+    if (n === 0) { spec = 'current'; specFallback = true; }
+  }
+  req.nceSpec = spec;
+  return { spec, specFallback };
+}
+
+// GET /api/nce/blueprint[?spec=2027|current] — the exam format and domain
+// weights (public). Stays outside resolveNceAccess so reading it never starts
+// the NCE trial clock; it defaults to the current outline, and nce.html asks
+// for ?spec=2027 once /status says that's the outline the candidate is served.
+router.get('/blueprint', (req, res) => {
+  const spec = req.query.spec === '2027' ? '2027' : 'current';
+  const b = bp.blueprintFor(spec);
   res.json({
-    exam: bp.EXAM,
-    domains: bp.DOMAINS.map((d) => ({ key: d.key, label: d.label, short: d.short, weight: d.weight, scoredItems: d.scoredItems })),
+    spec,
+    exam: b.EXAM,
+    domains: b.DOMAINS.map((d) => ({ key: d.key, label: d.label, short: d.short, weight: d.weight, scoredItems: d.scoredItems })),
     cacrepAreas: bp.CACREP_AREAS,
     exam2027: bp.EXAM_2027,
     source: bp.SOURCE,
@@ -103,8 +126,9 @@ router.get('/access', async (req, res) => {
 // GET /api/nce/status — access level, trial end, bank size per area.
 router.get('/status', resolveNceAccess, async (req, res) => {
   try {
+    const { spec, specFallback } = await resolveSpec(req);
     const counts = await NceItem.aggregate([
-      { $match: { status: 'published' } },
+      { $match: { status: 'published', ...bp.specMatch(spec) } },
       { $group: { _id: '$domain', n: { $sum: 1 } } },
     ]);
     const byDomain = {};
@@ -123,6 +147,9 @@ router.get('/status', resolveNceAccess, async (req, res) => {
       freeLimit: FREE_NCE_LIMIT,
       examDate: (req.nceUser && req.nceUser.nceExamDate) || null,
       bank: { total, byDomain },
+      spec,
+      specFallback,
+      cutover: '2027-07-01',
     });
   } catch (err) {
     console.error('nce status error', err);
@@ -137,13 +164,14 @@ router.get('/practice', resolveNceAccess, async (req, res) => {
       const items = await teaserItems();
       return res.json({ accessLevel: req.nceAccessLevel, teaser: true, items: items.map(publicItem) });
     }
+    const { spec, specFallback } = await resolveSpec(req, { allowOverride: true });
     const domain = req.query.domain && req.query.domain !== 'all' ? String(req.query.domain) : null;
-    if (domain && !bp.DOMAIN_KEYS.includes(domain)) return res.status(400).json({ error: 'Unknown NCE domain' });
+    if (domain && !bp.blueprintFor(spec).DOMAIN_KEYS.includes(domain)) return res.status(400).json({ error: 'Unknown NCE domain' });
     const count = Math.min(MAX_PRACTICE, Math.max(1, parseInt(req.query.count, 10) || 20));
-    const match = { status: 'published' };
+    const match = { status: 'published', ...bp.specMatch(spec) };
     if (domain) match.domain = domain;
     const docs = await sampleItems(match, count);
-    res.json({ accessLevel: req.nceAccessLevel, teaser: false, items: docs.map(publicItem) });
+    res.json({ accessLevel: req.nceAccessLevel, teaser: false, spec, specFallback, items: docs.map(publicItem) });
   } catch (err) {
     console.error('nce practice error', err);
     res.status(500).json({ error: 'Could not load practice questions' });
@@ -153,6 +181,8 @@ router.get('/practice', resolveNceAccess, async (req, res) => {
 // GET /api/nce/mock?size=full|100|50 — a timed exam drawn to the NCE weights.
 // size=full mirrors the real exam: 200 items, of which 40 are marked unscored
 // (the real NCE's field-test items) and left out of the score.
+// 2027 outline (size=full|85|50): 170 three-option items (30 unscored) in two
+// halves; each item carries `half` (1|2) and the response gives breakAfterItem.
 router.get('/mock', resolveNceAccess, async (req, res) => {
   try {
     if (locked(req.nceAccessLevel)) {
@@ -167,22 +197,32 @@ router.get('/mock', resolveNceAccess, async (req, res) => {
           : 'Your NCE trial has ended. Pick an NCE plan to keep taking timed exams.',
       });
     }
-    const plan = bp.mockPlan(req.query.size);
+    const { spec, specFallback } = await resolveSpec(req, { allowOverride: true });
+    const plan = bp.mockPlan(req.query.size, spec);
     const picked = [];
     const shortfall = {};
     for (const [domain, n] of Object.entries(plan.perDomain)) {
       if (!n) continue;
-      const docs = await sampleItems({ status: 'published', domain }, n);
+      const docs = await sampleItems({ status: 'published', domain, ...bp.specMatch(spec) }, n);
       if (docs.length < n) shortfall[domain] = n - docs.length;
       // The domain's scored quota is filled first; only its extras are unscored
       // (field-test style), so the score is always a true blueprint sample.
       const scoredN = plan.scoredPerDomain[domain];
       docs.forEach((d, i) => picked.push(Object.assign(publicItem(d), { scored: i < scoredN })));
     }
+    // Shuffled across the whole form, then split at the break, so each half
+    // gets a spread of domains (2027). The current form has no halves.
     const items = shuffle(picked);
+    const breakAfterItem = plan.halves ? Math.min(plan.breakAfterItem, Math.ceil(items.length / 2)) : null;
+    if (plan.halves) items.forEach((it, idx) => { it.half = idx < breakAfterItem ? 1 : 2; });
     res.json({
+      spec,
+      specFallback,
       size: plan.size,
       minutes: plan.minutes,
+      optionsPerItem: plan.optionsPerItem || bp.EXAM.optionsPerItem,
+      halves: !!plan.halves,
+      breakAfterItem,
       scoredItems: items.filter((i) => i.scored).length,
       items,
       shortfall: Object.keys(shortfall).length ? shortfall : null,
@@ -194,12 +234,14 @@ router.get('/mock', resolveNceAccess, async (req, res) => {
 });
 
 // POST /api/nce/attempts — save a finished practice set or mock exam.
-// body: { mode: 'study'|'timed', responses: [{ id, selected, scored }], startedAt }
+// body: { mode: 'study'|'timed', responses: [{ id, selected, scored }], startedAt, spec?: 'current'|'2027' }
 // Correctness is re-derived from the stored keys, so a tampered client can't
 // inflate its own progress.
 router.post('/attempts', requireAuth, async (req, res) => {
   try {
     const { mode, responses, startedAt } = req.body || {};
+    const spec = (req.body || {}).spec === '2027' ? '2027' : 'current';
+    const suffix = spec === '2027' ? '-2027' : '';
     if (!Array.isArray(responses) || !responses.length) return res.status(400).json({ error: 'responses are required' });
     if (responses.length > 250) return res.status(400).json({ error: 'Too many responses' });
 
@@ -228,7 +270,7 @@ router.post('/attempts', requireAuth, async (req, res) => {
     const attempt = await Attempt.create({
       userId: req.userId,
       examId: exam._id,
-      externalId: mode === 'timed' ? 'nce-mock' : 'nce-practice',
+      externalId: mode === 'timed' ? `nce-mock${suffix}` : `nce-practice${suffix}`,
       mode: mode === 'timed' ? 'timed' : 'study',
       responses: saved,
       score: scoredN ? correct / scoredN : 0,
@@ -236,22 +278,31 @@ router.post('/attempts', requireAuth, async (req, res) => {
       startedAt: startedAt ? new Date(startedAt) : undefined,
       completedAt: new Date(),
     });
-    res.status(201).json({ id: attempt._id, correct, scored: scoredN, score: attempt.score, breakdown });
+    res.status(201).json({ id: attempt._id, spec, correct, scored: scoredN, score: attempt.score, breakdown });
   } catch (err) {
     console.error('nce attempt save error', err);
     res.status(500).json({ error: 'Could not save this attempt' });
   }
 });
 
-// GET /api/nce/progress — rollup across this account's NCE attempts.
+// GET /api/nce/progress[?spec=2027|current] — rollup across this account's NCE
+// attempts on one outline (default: the outline /status serves this account).
+// 2027 attempts are stored with a '-2027' externalId suffix (POST /attempts).
 router.get('/progress', requireAuth, async (req, res) => {
   try {
+    let spec = req.query.spec === '2027' || req.query.spec === 'current' ? req.query.spec : null;
+    if (!spec) {
+      // Same outline /status serves this account (including the empty-bank fallback).
+      const u = await User.findById(req.userId).select('nceExamDate').lean();
+      spec = (await resolveSpec({ query: {}, nceUser: u })).spec;
+    }
+    const blueprint = bp.blueprintFor(spec);
     const exam = await getNceExam();
-    const attempts = await Attempt.find({ userId: req.userId, examId: exam._id })
+    const attempts = await Attempt.find({ userId: req.userId, examId: exam._id, externalId: spec === '2027' ? /-2027$/ : { $not: /-2027$/ } })
       .sort({ createdAt: -1 }).limit(200)
       .select('mode score domainBreakdown completedAt responses').lean();
     const byDomain = {};
-    bp.DOMAIN_KEYS.forEach((k) => { byDomain[k] = { correct: 0, total: 0 }; });
+    blueprint.DOMAIN_KEYS.forEach((k) => { byDomain[k] = { correct: 0, total: 0 }; });
     let answered = 0;
     attempts.forEach((a) => {
       answered += (a.responses || []).length;
@@ -261,9 +312,10 @@ router.get('/progress', requireAuth, async (req, res) => {
       });
     });
     res.json({
+      spec,
       answered,
       byDomain,
-      readiness: computeNceReadiness(byDomain, attempts), // null until anything is answered
+      readiness: computeNceReadiness(byDomain, attempts, blueprint), // null until anything is answered
       mocks: attempts.filter((a) => a.mode === 'timed').slice(0, 10)
         .map((a) => ({ score: a.score, completedAt: a.completedAt, n: (a.responses || []).length })),
     });
