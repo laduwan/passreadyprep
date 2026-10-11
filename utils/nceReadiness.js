@@ -25,13 +25,14 @@ function label(score) {
 
 // byDomain: { key: { correct, total } } summed over all attempts
 // attempts: newest first, each with domainBreakdown { key: { correct, total } }
-function computeNceReadiness(byDomain, attempts) {
+// blueprint: nceBlueprint.blueprintFor(spec); defaults to the current outline.
+function computeNceReadiness(byDomain, attempts, blueprint = bp) {
   let totC = 0, totT = 0;
   Object.values(byDomain).forEach((v) => { totC += v.correct; totT += v.total; });
   if (!totT) return null;
 
   let weighted = 0, weightTotal = 0;
-  bp.DOMAINS.forEach((d) => {
+  blueprint.DOMAINS.forEach((d) => {
     const v = byDomain[d.key];
     if (v && v.total > 0) { weighted += (v.correct / v.total) * d.weight; weightTotal += d.weight; }
   });
@@ -49,7 +50,7 @@ function computeNceReadiness(byDomain, attempts) {
 
   const score = Math.min(99, Math.round(raw * volumeFactor + recencyBoost));
 
-  const weakDomains = bp.DOMAINS
+  const weakDomains = blueprint.DOMAINS
     .map((d) => ({ key: d.key, label: d.label, total: (byDomain[d.key] || {}).total || 0, correct: (byDomain[d.key] || {}).correct || 0 }))
     .filter((d) => d.total >= WEAK_MIN_ANSWERS && (d.correct / d.total) * 100 < WEAK_BELOW)
     .map((d) => ({ key: d.key, label: d.label, pct: Math.round((d.correct / d.total) * 100) }))
@@ -63,7 +64,7 @@ function computeNceReadiness(byDomain, attempts) {
     trend: recentPct > overallPct ? 'up' : recentPct < overallPct - 5 ? 'down' : 'steady',
     weakDomains,
     // NBCC weight of each domain, heaviest first, for the dashboard's explanation.
-    weights: bp.DOMAINS.slice().sort((a, b) => b.weight - a.weight)
+    weights: blueprint.DOMAINS.slice().sort((a, b) => b.weight - a.weight)
       .map((d) => ({ key: d.key, short: d.short, pct: Math.round(d.weight * 100) })),
   };
 }

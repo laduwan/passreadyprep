@@ -40,15 +40,16 @@ function optCommonMistake(o) {
   return String((o && (o.commonMistake || (o.explanation && o.explanation.commonMistake))) || '').trim();
 }
 
-function checkItem(item, profile) {
+function checkItem(item, profile, { optionCount = 4 } = {}) {
   const errors = [];
   const warnings = [];
   const tag = (item && item.id) || itemStem(item).slice(0, 40);
   const at = (m) => `[${tag}] ${m}`;
 
   if (!item || typeof item !== 'object') { errors.push(at('not an object')); return { errors, warnings }; }
+  // optionCount defaults to 4; NCE 2027 items pass 3. The 1.25 ratio rule is independent of n (n options within LENGTH_BAND still worst-case at band²).
   const opts = item.options || [];
-  if (opts.length !== 4) { errors.push(at(`options.length ${opts.length}, need 4`)); return { errors, warnings }; }
+  if (opts.length !== optionCount) { errors.push(at(`options.length ${opts.length}, need ${optionCount}`)); return { errors, warnings }; }
 
   const texts = opts.map(optText);
   if (texts.some((t) => !t.trim())) errors.push(at('empty option text'));

@@ -11,13 +11,14 @@
 //   • domain is one of the six weighted NCE domains, and the CACREP tag (if
 //     present) is one of the eight core areas (utils/nceBlueprint.js)
 //   • a non-empty stem and a teaching rationale for the key
-//   • option ids a–d, unique
+//   • option ids a–d, unique (a–c on 2027-spec items: three options, 2027
+//     domain keys — pass spec: '2027')
 //   • references cite approved sources only (when allowedSources is passed)
 //   • the stem is not a near-copy of an item already in the bank
 // ============================================================================
 
 const { checkItem } = require('./bankGate');
-const { DOMAIN_KEYS, CACREP_KEYS } = require('./nceBlueprint');
+const { DOMAIN_KEYS, DOMAIN_KEYS_2027, CACREP_KEYS } = require('./nceBlueprint');
 
 function normalize(s) {
   return String(s || '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
@@ -53,12 +54,13 @@ function findDuplicate(stem, corpusStems, threshold = DUP_THRESHOLD) {
 }
 
 // item: { stem, domain, cacrep, options:[{id,text,isCorrect,rationale}], rationale }
-function checkNceItem(item, { corpusStems = [], allowedSources = null } = {}) {
+function checkNceItem(item, { corpusStems = [], allowedSources = null, spec = 'current' } = {}) {
+  const is2027 = spec === '2027';
   const errors = [];
   if (!item || typeof item !== 'object') return { ok: false, errors: ['not an object'] };
 
   if (!String(item.stem || '').trim()) errors.push('stem is empty');
-  if (!DOMAIN_KEYS.includes(item.domain)) errors.push(`domain "${item.domain}" is not an NCE domain`);
+  if (!(is2027 ? DOMAIN_KEYS_2027 : DOMAIN_KEYS).includes(item.domain)) errors.push(`domain "${item.domain}" is not an NCE${is2027 ? ' 2027' : ''} domain`);
   if (item.cacrep && !CACREP_KEYS.includes(item.cacrep)) errors.push(`cacrep "${item.cacrep}" is not a CACREP core area`);
   if (!String(item.rationale || '').trim()) errors.push('rationale for the key is missing');
 
@@ -69,10 +71,11 @@ function checkNceItem(item, { corpusStems = [], allowedSources = null } = {}) {
   }
 
   const ids = (item.options || []).map((o) => o && o.id);
-  if (ids.join(',') !== 'a,b,c,d') errors.push(`option ids must be a,b,c,d in order (got ${ids.join(',')})`);
+  const wantIds = is2027 ? 'a,b,c' : 'a,b,c,d';
+  if (ids.join(',') !== wantIds) errors.push(`option ids must be ${wantIds} in order (got ${ids.join(',')})`);
 
   // Shared structural standard (bankGate 'recall' profile).
-  const r = checkItem({ id: item.externalId, question: item.stem, options: item.options }, 'recall');
+  const r = checkItem({ id: item.externalId, question: item.stem, options: item.options }, 'recall', { optionCount: is2027 ? 3 : 4 });
   errors.push(...r.errors);
 
   const dup = findDuplicate(item.stem, corpusStems);

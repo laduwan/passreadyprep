@@ -344,12 +344,18 @@ async function loadBlueprint(){
   return BLUEPRINT;
 }
 
+// Which NCMHCE outline new cases are written to: 'current' (ncmhce exam) or
+// '2027' (ncmhce-2027 exam, 13 questions on the 2027 plan rotation).
+let GEN_SPEC = 'current';
+function genSpec(){ return GEN_SPEC === '2027' ? '2027' : 'current'; }
+function setGenSpec(v){ GEN_SPEC = v === '2027' ? '2027' : 'current'; showGenerate(); }
+
 async function showGenerate(){
   app.innerHTML = '<p class="lead">Loading blueprint…</p>';
   let bp, coverage;
   try{
     bp = await loadBlueprint();
-    coverage = await api('/api/admin/generate/coverage');
+    coverage = await api('/api/admin/generate/coverage?spec='+genSpec());
   } catch(e){ return gate(e.message); }
 
   let h = tabsHtml();
@@ -385,6 +391,9 @@ async function showGenerate(){
   h += '<option value="easy">Easy</option><option value="medium" selected>Medium</option><option value="hard">Hard</option>';
   h += '</select></div></div>';
 
+  h += '<label for="gen-spec">Specification</label>';
+  h += '<select id="gen-spec" onchange="setGenSpec(this.value)"><option value="current"'+(genSpec()==='current'?' selected':'')+'>Current NCMHCE outline</option><option value="2027"'+(genSpec()==='2027'?' selected':'')+'>2027 specification (saved to ncmhce-2027)</option></select>';
+  if(genSpec()==='2027') h += '<div class="key-note">2027 cases are always 13 questions in 3 sections on the 2027 domain plan; the Depth setting below is ignored. Coverage above counts ncmhce-2027 cases only.</div>';
   h += '<label for="gen-depth">Depth</label>';
   h += '<select id="gen-depth"><option value="shallow">Standard \u2014 5 questions</option><option value="deep">Deep \u2014 13 questions, 3 sections</option></select>';
   h += '<label for="gen-dx">Diagnosis</label>';
@@ -483,7 +492,7 @@ async function runSingle(){
   try{
     const data = await api('/api/admin/generate', {
       method: 'POST',
-      body: JSON.stringify({ category: cat, difficulty: diff, diagnosisName, diagnosisCode, apiKey, depth: genDepth() }),
+      body: JSON.stringify({ category: cat, difficulty: diff, diagnosisName, diagnosisCode, apiKey, depth: genDepth(), spec: genSpec() }),
     });
     result.innerHTML = successCard(data);
     status.innerHTML = '';
@@ -505,7 +514,7 @@ async function runBatch(){
   const count = Math.min(50, Math.max(1, parseInt(document.getElementById('gen-count').value)||5));
   const [diagnosisName, diagnosisCode] = dxVal.split('|');
 
-  await runLoop(count, ()=>({category:cat, difficulty:diff, diagnosisName, diagnosisCode, apiKey, depth: genDepth()}));
+  await runLoop(count, ()=>({category:cat, difficulty:diff, diagnosisName, diagnosisCode, apiKey, depth: genDepth(), spec: genSpec()}));
 }
 
 // ── Auto-fill: read coverage gaps, pick targets ─────────────────────
@@ -515,7 +524,7 @@ async function runAutoFill(){
 
   // Fetch gap-aware targets from the server's blueprint logic
   let coverage;
-  try{ coverage = await api('/api/admin/generate/coverage'); }
+  try{ coverage = await api('/api/admin/generate/coverage?spec='+genSpec()); }
   catch(e){ document.getElementById('gen-result').innerHTML = failCard(e.message); return; }
 
   const gapsWithNeed = coverage.gaps.filter(g => g.need > 0);
@@ -539,7 +548,7 @@ async function runAutoFill(){
       const dx = catObj.diagnoses[(round + filled) % catObj.diagnoses.length];
       const diffs = ['easy','medium','hard'];
       const diff = diffs[(round + filled) % 3] || 'medium';
-      targets.push({ category:g.category, difficulty:diff, diagnosisName:dx.name, diagnosisCode:dx.code, apiKey, depth: genDepth() });
+      targets.push({ category:g.category, difficulty:diff, diagnosisName:dx.name, diagnosisCode:dx.code, apiKey, depth: genDepth(), spec: genSpec() });
       added = true;
     }
     round++;
@@ -582,7 +591,7 @@ async function runLoop(total, getParams){
         body: JSON.stringify(params),
       });
       ok++;
-      log.push({i:i+1, ok:true, title:data.title, externalId:data.externalId, category:data.category, difficulty:data.difficulty, warnings:data.warnings});
+      log.push({i:i+1, ok:true, title:data.title, externalId:data.externalId, category:data.category, difficulty:data.difficulty, warnings:data.warnings, examKey:data.examKey || 'ncmhce'});
     } catch(e){
       fail++;
       log.push({i:i+1, ok:false, error:e.message, category:params.category, diagnosisName:params.diagnosisName});
@@ -618,6 +627,7 @@ async function runLoop(total, getParams){
       rh += '<span style="font-weight:600">'+esc(l.title)+'</span>';
       rh += '<span class="chip">'+esc(l.category)+'</span>';
       rh += '<span class="chip">'+esc(cap(l.difficulty))+'</span>';
+      rh += '<span class="chip">'+esc(l.examKey)+'</span>';
       rh += '<button class="btn ghost" style="padding:4px 10px;font-size:12px;margin-left:auto" onclick="openCase(\''+esc(l.externalId)+'\')">Review</button>';
       rh += '</div>';
       if(l.warnings && l.warnings.length) rh += '<div style="font-size:12px;color:var(--amber);margin-left:22px">⚠ '+l.warnings.map(esc).join(', ')+'</div>';
@@ -643,7 +653,8 @@ function successCard(data){
   rh += '<strong>'+esc(data.title)+'</strong> ('+esc(data.externalId)+')<br />';
   rh += '<span class="chip" style="margin-right:6px">'+esc(data.category)+'</span>';
   rh += '<span class="chip" style="margin-right:6px">'+esc(cap(data.difficulty))+'</span>';
-  rh += '<span class="chip">'+data.questionCount+' questions</span>';
+  rh += '<span class="chip" style="margin-right:6px">'+data.questionCount+' questions</span>';
+  rh += '<span class="chip">Saved to '+esc(data.examKey || 'ncmhce')+'</span>';
   if(data.warnings && data.warnings.length){
     rh += '<div style="margin-top:8px;font-size:13px;color:var(--amber)">⚠ '+data.warnings.map(esc).join('<br />')+'</div>';
   }

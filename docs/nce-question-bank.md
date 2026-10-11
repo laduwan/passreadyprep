@@ -33893,3 +33893,13 @@ A counselor has been asked to write a letter supporting a 27-year-old transgende
 ☐ Approve  ☐ Revise  ☐ Retire   Notes: ____________________
 
 ---
+
+## 2027 specification
+
+From 2027-07-01 the NCE follows NBCC's 2027 specification (shared with the NCMHCE). Items written to it live in the same `nceitems` collection, marked `spec: '2027'`; items with no `spec` (everything above) are the current outline.
+
+- **Format:** 3 options per item (ids `a`, `b`, `c`); 170 items (140 scored + 30 field-test), 225 minutes in two halves of 85 with an optional 15-minute break. Scaled score 100–500, passing 360.
+- **Domains** (`utils/nceBlueprint.js` `DOMAIN_KEYS_2027`, scored items of 140): `professional_development` 21 · `intake_assessment` 25 · `treatment_continuity` 21 · `interventions` 28 · `indirect_care` 17 · `legal_ethical` 28.
+- **Topics:** each item targets one of NBCC's verbatim work tasks for its domain (`utils/spec2027.js`), stored in `topic`.
+- **Quality gate:** the same gate as the current bank (`utils/nceGate.js` with `spec: '2027'`): one key, length ratio ≤ 1.25, key not the sole longest, no absolutes in distractors, a rationale on every option, approved sources only, no near-duplicate of any item in either spec.
+- **Hard copy:** print the 2027 bank from Admin → NCE Questions with the Outline selector set to "2027 specification".

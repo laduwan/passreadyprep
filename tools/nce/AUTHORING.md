@@ -92,3 +92,25 @@ listed.
 
 New sources must be added to `utils/nceSources.js` with a full citation before
 an item may cite them.
+
+## 2027 specification
+
+Items for candidates testing on or after 2027-07-01 follow NBCC's 2027
+specification and carry `spec: '2027'`:
+
+- Exactly **3** options, ids `a`,`b`,`c` in order, exactly one `isCorrect: true`.
+- `domain` is one of `DOMAIN_KEYS_2027` in `utils/nceBlueprint.js`:
+  `professional_development`, `intake_assessment`, `treatment_continuity`,
+  `interventions`, `indirect_care`, `legal_ethical`.
+- `topic` is one of that domain's work tasks, verbatim from `utils/spec2027.js`
+  (the task the item tests). Where the task names AI, telemental health, ICD-11,
+  the Counseling Compact, billing/CPT, EHR or emergency preparedness, test that
+  content directly.
+- Every other rule above (length parity, key not longest, no absolutes,
+  rationales, approved sources, no near-duplicates) is unchanged; the gate is
+  `checkNceItem(item, { spec: '2027' })`.
+
+For now 2027 items are written through Admin → NCE Questions → Generate with the
+Outline selector set to "2027 specification". The seed checker and importer
+(`check-nce.js`, `import-nce.js`) still check seed files against the current
+outline only.
