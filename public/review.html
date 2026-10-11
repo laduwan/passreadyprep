@@ -350,6 +350,49 @@ let GEN_SPEC = 'current';
 function genSpec(){ return GEN_SPEC === '2027' ? '2027' : 'current'; }
 function setGenSpec(v){ GEN_SPEC = v === '2027' ? '2027' : 'current'; showGenerate(); }
 
+// ── Import hand-authored cases ──────────────────────────────────────
+// Preview lists repo cases not yet in the bank; only cases that pass the
+// depth + quality gates get a checkbox. Import inserts the checked ones.
+async function previewImport(){
+  const box = document.getElementById('imp-box');
+  const btn = document.getElementById('imp-preview-btn');
+  box.innerHTML = '<p class="lead" style="margin:0">Checking…</p>';
+  btn.disabled = true;
+  let r;
+  try{ r = await api('/api/admin/generate/import-cases'); }
+  catch(e){ btn.disabled = false; box.innerHTML = '<div class="key-note">'+esc(e.message)+'</div>'; return; }
+  btn.disabled = false;
+  let h = '<p style="margin:0 0 8px">'+r.filesScanned+' batch files scanned · '+r.alreadyInBank+' cases already in the bank (left as is).</p>';
+  if(!r.ready.length && !r.failed.length){ box.innerHTML = h + '<p class="lead" style="margin:0">No new cases to import.</p>'; return; }
+  if(r.ready.length){
+    h += '<h3 style="margin:10px 0 6px">Ready to import ('+r.ready.length+')</h3>';
+    r.ready.forEach(c => {
+      h += '<label style="display:flex;gap:8px;align-items:flex-start;margin:4px 0"><input type="checkbox" class="imp-id" value="'+esc(c.id)+'" checked> <span><b>'+esc(c.id)+'</b> — '+esc(c.title)+' <span style="color:var(--muted)">('+esc(c.category)+' · '+esc(c.difficulty)+' · '+c.questions+' q · '+esc(c.file)+')</span></span></label>';
+    });
+    h += '<button class="btn" id="imp-run-btn" style="margin-top:8px" onclick="runImport()">Import checked to Pending Review</button>';
+  }
+  if(r.failed.length){
+    h += '<h3 style="margin:14px 0 6px">Not importable — failed today’s gates ('+r.failed.length+')</h3>';
+    r.failed.forEach(c => {
+      h += '<details style="margin:4px 0"><summary><b>'+esc(c.id)+'</b> — '+esc(c.title||'')+' <span style="color:var(--muted)">('+esc(c.file)+')</span></summary><ul style="margin:4px 0 0 18px">'+c.errors.map(e=>'<li>'+esc(e)+'</li>').join('')+'</ul></details>';
+    });
+  }
+  (r.loadErrors||[]).forEach(e => { h += '<div class="key-note">Could not read '+esc(e.file)+': '+esc(e.error)+'</div>'; });
+  box.innerHTML = h;
+}
+
+async function runImport(){
+  const ids = Array.prototype.map.call(document.querySelectorAll('.imp-id:checked'), el => el.value);
+  if(!ids.length){ alert('Check at least one case.'); return; }
+  if(!confirm('Import '+ids.length+' case'+(ids.length===1?'':'s')+' to Pending Review?')) return;
+  const btn = document.getElementById('imp-run-btn');
+  btn.disabled = true;
+  try{
+    const r = await api('/api/admin/generate/import-cases', { method:'POST', body: JSON.stringify({ ids }) });
+    document.getElementById('imp-box').innerHTML = '<p style="margin:0"><b>'+r.inserted.length+'</b> case'+(r.inserted.length===1?'':'s')+' added to Pending Review: '+esc(r.inserted.join(', '))+'</p>';
+  } catch(e){ btn.disabled = false; alert(e.message); }
+}
+
 async function showGenerate(){
   app.innerHTML = '<p class="lead">Loading blueprint…</p>';
   let bp, coverage;
@@ -373,6 +416,12 @@ async function showGenerate(){
        + '<span class="gn">'+g.have+'/'+g.target+'</span></div>';
   });
   h += '</div></div>';
+
+  // Import hand-authored cases (repo batch files → Pending Review, insert-only)
+  h += '<div class="card"><h2>Import hand-authored cases</h2>';
+  h += '<p class="lead" style="margin:0 0 10px">Loads cases from the repo’s case batch files that aren’t in the bank yet. Existing cases are never changed. New cases land in Pending Review.</p>';
+  h += '<button class="btn" id="imp-preview-btn" onclick="previewImport()">Check for new cases</button>';
+  h += '<div id="imp-box" style="margin-top:10px"></div></div>';
 
   // Form
   h += '<div class="card gen-form">';
