@@ -95,17 +95,18 @@
       <h2>Generate questions</h2>
       <div class="row">
         <div><label for="gDomain">Domain</label><select id="gDomain"><option value="">Auto (furthest below target)</option></select></div>
-        <div><label for="gCount">How many (1–10)</label><input id="gCount" type="number" min="1" max="10" value="5" /></div>
+        <div><label for="gCount">How many (1–200)</label><input id="gCount" type="number" min="1" max="200" value="5" /></div>
         <div><label for="gDiff">Difficulty</label>
           <select id="gDiff"><option value="mixed">Mixed</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></div>
         <div style="flex:0"><button class="primary" id="gBtn">Generate</button></div>
+        <div style="flex:0"><button id="gStop" style="display:none" title="Finishes the batch in progress, then stops">Stop</button></div>
       </div>
       <div class="row" style="margin-top:10px;align-items:center">
         <div style="flex:0"><button id="seedBtn" title="Loads the questions written into tools/nce/seed (no API cost) into the review queue">Import seed questions</button></div>
         <div style="flex:0"><button id="seedRefreshBtn" title="Re-applies corrections from the seed files to seed questions that are still In review. Published and retired questions are not changed.">Update questions in review</button></div>
         <div class="muted" style="font-size:13px">No API cost: loads the hand-written question files shipped with the app into review. Safe to click again; only new questions are added.</div>
       </div>
-      <p class="muted" style="font-size:13px;margin:8px 0 0">Each item runs the shared quality gate (4 options — 3 on 2027-specification items — one key, length parity, no absolutes, rationales, approved sources, no near-duplicates). Passing items go to review; nothing is published automatically. Model: <span id="model"></span></p>
+      <p class="muted" style="font-size:13px;margin:8px 0 0">Each item runs the shared quality gate (4 options — 3 on 2027-specification items — one key, length parity, no absolutes, rationales, approved sources, no near-duplicates). Passing items go to review; nothing is published automatically. Large runs are sent in small batches of 3, one after another, so no single request runs long. Model: <span id="model"></span></p>
       <div id="gOut" style="margin-top:10px"></div>
     </div>
 
@@ -184,19 +185,60 @@
     api('/exam-status', { method:'POST', body:{ status: next } }).then(function(){ toast('NCE is now ' + next); loadCoverage(); }).catch(function(e){ toast(e.message, true); });
   };
 
+  // Generation runs as a chain of small requests (GEN_CHUNK items each) rather
+  // than one long one: a single request that waits minutes for the model can be
+  // dropped before it answers (the browser shows "NetworkError"). With domain on
+  // Auto, each batch re-picks the domain furthest below target.
+  var GEN_CHUNK = 3, GEN_MAX = 200, genStop = false;
+  function genRequest(body, retried){
+    return api('/generate', { method:'POST', body: body }).catch(function(e){
+      // No HTTP status = the connection dropped; 5xx = server/model hiccup. Retry once.
+      if (!retried && (!e.status || e.status >= 500)) {
+        return new Promise(function(r){ setTimeout(r, 3000); }).then(function(){ return genRequest(body, true); });
+      }
+      throw e;
+    });
+  }
+  $('gStop').onclick = function(){ genStop = true; $('gStop').disabled = true; $('gStop').textContent = 'Stopping…'; };
   $('gBtn').onclick = function(){
-    var btn = $('gBtn'); btn.disabled = true; btn.textContent = 'Generating… (up to a few minutes)';
-    $('gOut').innerHTML = '';
-    api('/generate', { method:'POST', body:{ domain: $('gDomain').value || undefined, count: $('gCount').value, difficulty: $('gDiff').value, spec: spec() } })
-      .then(function(r){
-        var html = '<p><b>'+r.saved.length+'</b> of '+r.requested+' saved to review in <b>'+esc(domainLabel(r.domain))+'</b> ('+(r.spec === '2027' ? '2027 specification' : 'current outline')+').</p>';
-        if (r.rejected.length) html += '<p class="err">Rejected by the gate:</p><ul>' + r.rejected.map(function(x){
-          return '<li><b>'+esc(x.topic)+'</b>: '+esc(x.errors.join('; '))+'</li>'; }).join('') + '</ul>';
-        $('gOut').innerHTML = html;
-        loadCoverage(); if ($('fStatus').value === 'sme_review') loadList();
-      })
-      .catch(function(e){ $('gOut').innerHTML = '<p class="err">'+esc(e.message)+'</p>'; })
-      .then(function(){ btn.disabled = false; btn.textContent = 'Generate'; });
+    var total = Math.min(GEN_MAX, Math.max(1, parseInt($('gCount').value, 10) || 5));
+    var runSpec = spec(), domain = $('gDomain').value || undefined, difficulty = $('gDiff').value;
+    var btn = $('gBtn'), stop = $('gStop');
+    var saved = 0, rejected = [], failures = [], byDomain = {}, done = 0, batch = 0, batches = Math.ceil(total / GEN_CHUNK);
+    genStop = false;
+    btn.disabled = true; stop.disabled = false; stop.textContent = 'Stop'; stop.style.display = '';
+    function render(running){
+      var html = '<p>'+(running ? 'Batch '+batch+' of '+batches+' running… ' : (genStop ? 'Stopped. ' : 'Done. '))+
+        '<b>'+saved+'</b> saved to review from '+done+' of '+total+' requested ('+(runSpec === '2027' ? '2027 specification' : 'current outline')+').</p>';
+      var doms = Object.keys(byDomain);
+      if (doms.length) html += '<p class="muted" style="font-size:13px">'+doms.map(function(k){ return esc(domainLabel(k))+' '+byDomain[k]; }).join(' · ')+'</p>';
+      if (failures.length) html += '<p class="err">Batches that failed:</p><ul>'+failures.map(function(f){ return '<li>'+esc(f)+'</li>'; }).join('')+'</ul>';
+      if (rejected.length) html += '<p class="err">Rejected by the gate:</p><ul>' + rejected.map(function(x){
+        return '<li><b>'+esc(x.topic)+'</b>: '+esc(x.errors.join('; '))+'</li>'; }).join('') + '</ul>';
+      $('gOut').innerHTML = html;
+    }
+    function next(){
+      var left = total - done;
+      if (left <= 0 || genStop) return Promise.resolve();
+      var n = Math.min(GEN_CHUNK, left);
+      batch++; render(true);
+      return genRequest({ domain: domain, count: n, difficulty: difficulty, spec: runSpec })
+        .then(function(r){
+          saved += r.saved.length; rejected = rejected.concat(r.rejected);
+          if (r.saved.length) byDomain[r.domain] = (byDomain[r.domain] || 0) + r.saved.length;
+          loadCoverage();
+        }, function(e){
+          failures.push('Batch '+batch+': '+e.message);
+          // A 4xx (no API key, bad domain) will fail every batch the same way.
+          if (e.status && e.status < 500) genStop = true;
+        })
+        .then(function(){ done += n; return next(); });
+    }
+    next().then(function(){
+      render(false);
+      if ($('fStatus').value === 'sme_review') loadList();
+      btn.disabled = false; btn.textContent = 'Generate'; stop.style.display = 'none';
+    });
   };
 
   function runSeedImport(update){
