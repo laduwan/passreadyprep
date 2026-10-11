@@ -5,6 +5,7 @@
 //
 // Each seed file exports an array of items:
 //   { id: 'nce-s-eth-001', domain, cacrep, topic, difficulty,
+//     spec?: '2027',   // 2027-specification item: three options a..c, 2027 domain keys
 //     stem, options: [{ id:'a'..'d', text, isCorrect, rationale }],
 //     rationale, references: [{ source, detail }],
 //     reviewNote?: 'what a reviewer should double-check' }
@@ -29,6 +30,7 @@ function seedFiles() {
 function toDoc(it) {
   return {
     externalId: it.id,
+    spec: it.spec === '2027' ? '2027' : 'current',
     domain: it.domain,
     cacrep: it.cacrep,
     topic: it.topic,
@@ -61,23 +63,26 @@ function checkSeed(entries, { allEntries = entries } = {}) {
   // Duplicates are checked against the whole seed bank, earlier files first.
   allEntries.forEach((e) => { if (!entries.includes(e)) corpus.push({ externalId: e.doc.externalId, stem: e.doc.stem }); });
   const keyDist = { a: 0, b: 0, c: 0, d: 0 };
+  const keyDist2027 = { a: 0, b: 0, c: 0 };
   const perDomain = {};
   entries.forEach((e) => {
     const d = e.doc;
     const errs = [];
-    if (!/^nce-s-[a-z]+-\d{3}$/.test(d.externalId || '')) errs.push(`id "${d.externalId}" must look like nce-s-<domain>-001`);
+    if (!/^nce-s-[a-z0-9]+-\d{3}$/.test(d.externalId || '')) errs.push(`id "${d.externalId}" must look like nce-s-<domain>-001`);
     if (seen.has(d.externalId)) errs.push('duplicate id'); seen.add(d.externalId);
     if (!['easy', 'medium', 'hard'].includes(d.difficulty)) errs.push('difficulty must be easy|medium|hard');
     if (!d.cacrep) errs.push('cacrep tag is required');
     if (!d.topic) errs.push('topic is required');
-    const v = checkNceItem(d, { corpusStems: corpus, allowedSources: NCE_SOURCES });
+    const v = checkNceItem(d, { corpusStems: corpus, allowedSources: NCE_SOURCES, spec: d.spec });
     errs.push(...v.errors);
     if (errs.length) problems.push({ file: e.file, id: d.externalId, errors: errs });
     corpus.push({ externalId: d.externalId, stem: d.stem });
-    const k = (d.options.find((o) => o.isCorrect) || {}).id; if (keyDist[k] != null) keyDist[k]++;
+    const k = (d.options.find((o) => o.isCorrect) || {}).id;
+    const dist = d.spec === '2027' ? keyDist2027 : keyDist;
+    if (dist[k] != null) dist[k]++;
     perDomain[d.domain] = (perDomain[d.domain] || 0) + 1;
   });
-  return { ok: problems.length === 0, problems, keyDist, perDomain, count: entries.length };
+  return { ok: problems.length === 0, problems, keyDist, keyDist2027, perDomain, count: entries.length };
 }
 
 module.exports = { SEED_DIR, seedFiles, loadSeed, checkSeed, toDoc };
