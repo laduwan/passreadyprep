@@ -574,4 +574,25 @@ Now produce the JSON for the requested case. Make it a distinct scenario. Output
   }
 });
 
+// ── Import hand-authored deep cases (tools/cases/deep-cases-batch-*.js) ──
+// Insert-only: cases already in the bank are never touched. See tools/cases/caseImport.js.
+const { importCases } = require('../tools/cases/caseImport');
+
+// GET /api/admin/generate/import-cases — preview: which repo cases are not in
+// the bank yet, and whether each passes the depth + quality gates.
+router.get('/import-cases', async (_req, res) => {
+  try { res.json(await importCases({ write: false })); }
+  catch (err) { console.error('import-cases preview error', err); res.status(500).json({ error: err.message || 'Preview failed' }); }
+});
+
+// POST /api/admin/generate/import-cases — { ids: ['ncmhce-D901', ...] }
+// Inserts the listed cases (only those that passed the gates) as sme_review.
+router.post('/import-cases', async (req, res) => {
+  try {
+    const ids = req.body && Array.isArray(req.body.ids) ? req.body.ids.filter((x) => typeof x === 'string') : null;
+    if (!ids || !ids.length) return res.status(400).json({ error: 'Pick at least one case to import' });
+    res.json(await importCases({ write: true, ids }));
+  } catch (err) { console.error('import-cases error', err); res.status(500).json({ error: err.message || 'Import failed' }); }
+});
+
 module.exports = router;
