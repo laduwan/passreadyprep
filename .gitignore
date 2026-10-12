@@ -41,3 +41,6 @@ xcuserdata/
 
 # Per-question evidence records written by tools/nce/item-record.js
 docs/records/
+
+# tools/youtube/youtube.js scan output (channel listing)
+tools/youtube/out/

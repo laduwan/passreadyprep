@@ -1,0 +1,498 @@
+/*
+ * youtube.js — keep the PassReady Prep YouTube channel tidy without
+ * copy-pasting in YouTube Studio.
+ *
+ * You still upload videos in Studio (drag in a batch). Then this script:
+ *   - finds every video by the case code in its file name (e.g. "06 D140 P2 · ...")
+ *   - sets a clean title (config.js controls the wording)
+ *   - adds "▶ Part 1 / ▶ Part 2" links to the top of each two-part description
+ *     (the rest of your description is left exactly as it is)
+ *   - puts each video in the right playlist, in series order
+ *   - reports duplicates, hidden parts, and missing parts
+ *
+ * Nothing changes on YouTube unless you add --yes. Without it you get a preview.
+ *
+ * Usage (from the repo folder, on your Mac):
+ *   node tools/youtube/youtube.js auth                 one-time Google sign-in
+ *   node tools/youtube/youtube.js scan                 list what's on the channel
+ *   node tools/youtube/youtube.js fix                  preview the changes
+ *   node tools/youtube/youtube.js fix --yes            make the changes
+ *   node tools/youtube/youtube.js fix --yes --visibility
+ *        also make the main copy of each part Public and set extra copies to Unlisted
+ *   node tools/youtube/youtube.js report "Table data.csv"
+ *        offline: same report from a YouTube Studio analytics export, no sign-in needed
+ *
+ * Setup steps are in tools/youtube/README.md.
+ */
+
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+const http = require('http');
+const crypto = require('crypto');
+const { execFile } = require('child_process');
+const { PLAYLISTS, FULL_CASE_SUBJECTS, TITLE_OVERRIDES } = require('./config');
+
+const HOME_DIR = path.join(os.homedir(), '.passready-youtube');
+const CLIENT_FILE = path.join(HOME_DIR, 'client_secret.json');
+const TOKEN_FILE = path.join(HOME_DIR, 'token.json');
+const OUT_DIR = path.join(__dirname, 'out');
+const API = 'https://www.googleapis.com/youtube/v3';
+const SCOPE = 'https://www.googleapis.com/auth/youtube';
+const TITLE_MAX = 100;
+const LINK_LINE = /^▶ Part \d: https:\/\/youtu\.be\/\S+\s*$/;
+
+// ── Parsing: file name / title → series info ─────────────────────────────────
+
+// "06 D140 P2 · NCMHCE Full Case Walkthrough꞉ Shrinking world ... Part 2 of 2.mp4"
+// → { code: 'D140', kind: 'full', part: 2, seq: 6, subject: 'Shrinking world ...' }
+function parseName(name) {
+  if (!name) return null;
+  const s = name.replace(/\.(mp4|mov|m4v|mkv|webm)$/i, '').replace(/꞉/g, ':').replace(/\s+/g, ' ').trim();
+  const m = s.match(/(?:(\d{1,3})\s*[.·]?\s*)?\b([DG]\d{3})\b/);
+  if (!m) return null;
+  const code = m[2];
+  const seq = m[1] ? parseInt(m[1], 10) : null;
+  const after = s.slice(m.index + m[0].length);
+
+  let kind = null, part = null, q = null;
+  const tok = after.match(/^\s*(P([12])|q(\d+)|mini)\b/i);
+  if (tok) {
+    if (tok[2]) { kind = 'full'; part = +tok[2]; }
+    else if (tok[3]) { kind = 'practice'; q = +tok[3]; }
+    else kind = 'mini';
+  }
+  if (/Case Walkthrough Mini/i.test(s)) kind = 'mini';
+  else if (/Full Case/i.test(s)) kind = 'full';
+  else if (!kind && /Practice/i.test(s)) kind = 'practice';
+  if (!kind) return null;
+  if (!part) {
+    const pm = s.match(/\bPart ([12])\b/i) || s.match(/\bP([12])\b/);
+    if (pm) part = +pm[1];
+  }
+
+  // Everything after the "·" (or after the code tokens) is the readable title.
+  let rest = after.includes('·') ? after.slice(after.indexOf('·') + 1) : after.replace(/^\s*(P[12]|q\d+|mini)\b/i, '');
+  rest = rest.replace(/^[\s·.:]+/, '').trim();
+  const truncated = /(…|\.\.\.)$/.test(rest);
+  let subject = rest
+    .replace(/^NCMHCE (Full Case( Walkthrough)?|Case Walkthrough Mini|Practice)\s*:\s*/i, '')
+    .replace(/\s*\|?\s*Part\s*\d?(\s*of\s*\d)?\s*$/i, '')
+    .replace(/(…|\.\.\.)$/, '')
+    .trim();
+  return { code, kind, part, q, seq, subject, truncated };
+}
+
+function keyOf(p) {
+  if (p.kind === 'practice') return p.q ? `${p.code}-q${p.q}` : p.code;
+  return p.part ? `${p.code}-P${p.part}` : p.code;
+}
+
+function wantedTitle(p) {
+  const k = keyOf(p);
+  if (TITLE_OVERRIDES[k]) return TITLE_OVERRIDES[k];
+  if (p.truncated) return null; // file name was cut off; don't guess the rest
+  const partSuffix = p.part ? ` (Part ${p.part} of 2)` : '';
+  if (p.kind === 'full') {
+    const subj = FULL_CASE_SUBJECTS[p.code] || p.subject;
+    return `NCMHCE Full Case Walkthrough: ${subj}${partSuffix}`;
+  }
+  if (p.kind === 'mini') return `NCMHCE Case Walkthrough Mini: ${p.subject}${partSuffix}`;
+  if (p.kind === 'practice') return `NCMHCE Practice: ${p.subject}`;
+  return null;
+}
+
+// ── Grouping: pick the main copy of each part, flag the rest ────────────────
+
+// videos: [{ id, title, fileName, privacy, views, publishedAt, description, playlists }]
+function analyse(videos) {
+  const byKey = new Map();
+  const unmatched = [];
+  for (const v of videos) {
+    const p = parseName(v.fileName) || parseName(v.title);
+    if (!p) { unmatched.push(v); continue; }
+    v.series = p;
+    v.key = keyOf(p);
+    if (!byKey.has(v.key)) byKey.set(v.key, []);
+    byKey.get(v.key).push(v);
+  }
+  // Main copy: public first, then most views, then the oldest upload.
+  const rank = v => [v.privacy === 'public' ? 0 : 1, -(v.views || 0), v.publishedAt || ''];
+  const cmp = (a, b) => { const x = rank(a), y = rank(b); for (let i = 0; i < x.length; i++) { if (x[i] < y[i]) return -1; if (x[i] > y[i]) return 1; } return 0; };
+  const mains = [], dupes = [];
+  for (const list of byKey.values()) {
+    list.sort(cmp);
+    mains.push(list[0]);
+    list.slice(1).forEach(d => { d.duplicateOf = list[0]; dupes.push(d); });
+  }
+  // Two-part series: find the missing half.
+  const missing = [];
+  const codes = new Map();
+  for (const v of mains) if (v.series.part) {
+    const c = `${v.series.kind}:${v.series.code}`;
+    if (!codes.has(c)) codes.set(c, {});
+    codes.get(c)[v.series.part] = v;
+  }
+  for (const [c, parts] of codes) {
+    const any = parts[1] || parts[2];
+    for (const n of [1, 2]) if (!parts[n]) missing.push(`${any.series.code} Part ${n} (${any.series.kind === 'full' ? 'full case' : 'mini'})`);
+    for (const n of [1, 2]) if (parts[n]) parts[n].partners = parts;
+  }
+  return { mains, dupes, missing, unmatched };
+}
+
+function printReport({ mains, dupes, missing, unmatched }) {
+  const label = { full: 'Full case walkthroughs', mini: 'Mini walkthroughs', practice: 'Practice questions' };
+  for (const kind of ['full', 'mini', 'practice']) {
+    const rows = mains.filter(v => v.series.kind === kind).sort(seriesOrder);
+    if (!rows.length) continue;
+    console.log(`\n${label[kind]} (${rows.length})`);
+    for (const v of rows) {
+      const flag = v.privacy && v.privacy !== 'public' ? `  ⚠ ${v.privacy.toUpperCase()}` : '';
+      console.log(`  ${String(v.series.seq ?? '').padStart(3)}  ${v.key.padEnd(9)} ${v.id}  ${String(v.views ?? '').padStart(5)} views${flag}`);
+    }
+  }
+  if (dupes.length) {
+    console.log(`\nExtra copies (${dupes.length}) — the main copy is listed above:`);
+    for (const d of dupes) console.log(`  ${d.key.padEnd(9)} ${d.id}  ${d.privacy || '?'}  (main: ${d.duplicateOf.id})`);
+  }
+  if (missing.length) {
+    console.log(`\nMissing parts (${missing.length}):`);
+    missing.forEach(m => console.log(`  ${m}`));
+  }
+  const hidden = mains.filter(v => v.privacy && v.privacy !== 'public');
+  if (hidden.length) {
+    console.log(`\nMain copies that viewers can't see (${hidden.length}):`);
+    hidden.forEach(v => console.log(`  ${v.key.padEnd(9)} ${v.id}  ${v.privacy}`));
+  }
+  if (unmatched.length) console.log(`\nNot part of a numbered series (left alone): ${unmatched.length} videos`);
+}
+
+function seriesOrder(a, b) {
+  return (a.series.seq ?? 999) - (b.series.seq ?? 999) || a.key.localeCompare(b.key);
+}
+
+// ── Offline report from a Studio analytics export ───────────────────────────
+
+function parseCsv(text) {
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+      else if (c === '"') q = false;
+      else cell += c;
+    } else if (c === '"') q = true;
+    else if (c === ',') { row.push(cell); cell = ''; }
+    else if (c === '\n' || c === '\r') {
+      if (c === '\r' && text[i + 1] === '\n') i++;
+      row.push(cell); rows.push(row); row = []; cell = '';
+    } else cell += c;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  const [head, ...body] = rows.filter(r => r.length > 1);
+  return body.map(r => Object.fromEntries(head.map((h, i) => [h.replace(/^﻿/, ''), r[i]])));
+}
+
+function report(file) {
+  if (!file || !fs.existsSync(file)) die('Give the path to "Table data.csv" from a YouTube Studio Analytics export.');
+  const rows = parseCsv(fs.readFileSync(file, 'utf8')).filter(r => r.Content && r.Content !== 'Total');
+  const videos = rows.map(r => ({
+    id: r.Content.trim(), title: r['Video title'], fileName: null,
+    // The export leaves the publish date blank for videos that aren't public.
+    privacy: r['Video publish time'] ? 'public' : 'not public',
+    views: +r.Views || 0, publishedAt: '',
+  }));
+  printReport(analyse(videos));
+  console.log('\nNote: an analytics export only lists videos that got views in its date range.');
+  console.log('Videos with zero views are missing from it. `scan` (after `auth`) sees everything.');
+}
+
+// ── Google sign-in (OAuth for an installed app, loopback redirect) ──────────
+
+function readClient() {
+  if (!fs.existsSync(CLIENT_FILE)) die(`Missing ${CLIENT_FILE}\nFollow step 1 in tools/youtube/README.md to download it.`);
+  const j = JSON.parse(fs.readFileSync(CLIENT_FILE, 'utf8'));
+  const c = j.installed || j.web;
+  if (!c) die('client_secret.json is not an OAuth client file. Download it again as a "Desktop app" client.');
+  return c;
+}
+
+async function auth() {
+  const client = readClient();
+  const verifier = crypto.randomBytes(32).toString('base64url');
+  const challenge = crypto.createHash('sha256').update(verifier).digest('base64url');
+  const state = crypto.randomBytes(8).toString('hex');
+
+  const code = await new Promise((resolve, reject) => {
+    const server = http.createServer((req, res) => {
+      const u = new URL(req.url, 'http://127.0.0.1');
+      if (u.pathname !== '/') { res.writeHead(404).end(); return; }
+      const ok = u.searchParams.get('state') === state && u.searchParams.get('code');
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
+        .end(ok ? '<h2>Signed in. You can close this tab and go back to the terminal.</h2>' : '<h2>Sign-in failed. Go back to the terminal.</h2>');
+      server.close();
+      ok ? resolve(u.searchParams.get('code')) : reject(new Error(u.searchParams.get('error') || 'sign-in failed'));
+    });
+    server.listen(0, '127.0.0.1', () => {
+      const redirect = `http://127.0.0.1:${server.address().port}`;
+      server.redirect = redirect;
+      const url = 'https://accounts.google.com/o/oauth2/v2/auth?' + new URLSearchParams({
+        client_id: client.client_id, redirect_uri: redirect, response_type: 'code', scope: SCOPE,
+        access_type: 'offline', prompt: 'consent', state, code_challenge: challenge, code_challenge_method: 'S256',
+      });
+      console.log('Opening Google sign-in in your browser. If it does not open, paste this link:\n\n' + url + '\n');
+      execFile(process.platform === 'darwin' ? 'open' : 'xdg-open', [url], () => {});
+    });
+    auth.server = server;
+  });
+
+  const tok = await tokenRequest(client, {
+    grant_type: 'authorization_code', code, code_verifier: verifier, redirect_uri: auth.server.redirect,
+  });
+  saveToken(tok);
+  console.log(`Signed in. Saved to ${TOKEN_FILE}`);
+}
+
+async function tokenRequest(client, params) {
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ client_id: client.client_id, client_secret: client.client_secret, ...params }),
+  });
+  const j = await res.json();
+  if (!res.ok) {
+    if (j.error === 'invalid_grant') die('Your Google sign-in has expired. Run: node tools/youtube/youtube.js auth');
+    die(`Google sign-in error: ${j.error_description || j.error}`);
+  }
+  return j;
+}
+
+function saveToken(tok) {
+  fs.mkdirSync(HOME_DIR, { recursive: true, mode: 0o700 });
+  const prev = fs.existsSync(TOKEN_FILE) ? JSON.parse(fs.readFileSync(TOKEN_FILE, 'utf8')) : {};
+  const next = { ...prev, ...tok, expires_at: Date.now() + (tok.expires_in - 60) * 1000 };
+  fs.writeFileSync(TOKEN_FILE, JSON.stringify(next, null, 2), { mode: 0o600 });
+  return next;
+}
+
+let accessToken = null;
+async function getAccessToken() {
+  if (accessToken) return accessToken;
+  if (!fs.existsSync(TOKEN_FILE)) die('Not signed in yet. Run: node tools/youtube/youtube.js auth');
+  let tok = JSON.parse(fs.readFileSync(TOKEN_FILE, 'utf8'));
+  if (!tok.access_token || Date.now() > tok.expires_at) {
+    if (!tok.refresh_token) die('Sign-in is incomplete. Run: node tools/youtube/youtube.js auth');
+    tok = saveToken(await tokenRequest(readClient(), { grant_type: 'refresh_token', refresh_token: tok.refresh_token }));
+  }
+  return (accessToken = tok.access_token);
+}
+
+let quotaUsed = 0;
+async function yt(method, resource, params = {}, body, cost = 1) {
+  const url = `${API}/${resource}?` + new URLSearchParams(params);
+  const res = await fetch(url, {
+    method,
+    headers: { Authorization: `Bearer ${await getAccessToken()}`, ...(body ? { 'Content-Type': 'application/json' } : {}) },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  quotaUsed += cost;
+  if (res.status === 204) return {};
+  const j = await res.json();
+  if (!res.ok) {
+    const reason = j.error?.errors?.[0]?.reason;
+    if (reason === 'quotaExceeded') die('YouTube daily limit reached. Run the same command again tomorrow; it picks up where it left off.');
+    if (reason === 'youtubeSignupRequired' || res.status === 401) die('Google sign-in problem. Run: node tools/youtube/youtube.js auth');
+    throw new Error(`${method} ${resource}: ${j.error?.message || res.status}`);
+  }
+  return j;
+}
+
+async function listAll(resource, params) {
+  const items = [];
+  let pageToken;
+  do {
+    const j = await yt('GET', resource, { ...params, maxResults: 50, ...(pageToken ? { pageToken } : {}) });
+    items.push(...(j.items || []));
+    pageToken = j.nextPageToken;
+  } while (pageToken);
+  return items;
+}
+
+// ── Reading the channel ─────────────────────────────────────────────────────
+
+async function loadChannel() {
+  const ch = await yt('GET', 'channels', { part: 'contentDetails,snippet', mine: 'true' });
+  if (!ch.items?.length) die('This Google account has no YouTube channel. Sign in with the channel account: run auth again.');
+  console.log(`Channel: ${ch.items[0].snippet.title}`);
+  const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
+  const ids = (await listAll('playlistItems', { part: 'contentDetails', playlistId: uploads })).map(i => i.contentDetails.videoId);
+
+  const videos = [];
+  for (let i = 0; i < ids.length; i += 50) {
+    const j = await yt('GET', 'videos', { part: 'snippet,status,statistics,fileDetails', id: ids.slice(i, i + 50).join(',') });
+    for (const v of j.items) videos.push({
+      id: v.id, raw: v, title: v.snippet.title, description: v.snippet.description || '',
+      fileName: v.fileDetails?.fileName || null, privacy: v.status.privacyStatus,
+      views: +(v.statistics?.viewCount || 0), publishedAt: v.snippet.publishedAt,
+      madeForKids: v.status.madeForKids,
+    });
+  }
+
+  const playlists = await listAll('playlists', { part: 'snippet', mine: 'true' });
+  const plByTitle = new Map(playlists.map(p => [p.snippet.title, { id: p.id, items: null }]));
+  for (const title of Object.values(PLAYLISTS)) {
+    const pl = plByTitle.get(title);
+    if (pl) pl.items = await listAll('playlistItems', { part: 'snippet', playlistId: pl.id });
+  }
+  console.log(`${videos.length} videos, ${playlists.length} playlists\n`);
+  return { videos, plByTitle };
+}
+
+async function scan() {
+  const { videos } = await loadChannel();
+  const result = analyse(videos);
+  printReport(result);
+  const kids = videos.filter(v => v.madeForKids);
+  if (kids.length) console.log(`\n⚠ ${kids.length} videos are set as "Made for kids": ${kids.map(v => v.id).join(', ')}`);
+
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+  const file = path.join(OUT_DIR, 'channel.csv');
+  const esc = s => `"${String(s ?? '').replace(/"/g, '""')}"`;
+  const lines = ['id,key,kind,part,seq,privacy,views,main_copy,title,file_name'];
+  for (const v of videos) lines.push([v.id, v.key || '', v.series?.kind || '', v.series?.part || '', v.series?.seq ?? '',
+    v.privacy, v.views, v.duplicateOf ? `duplicate of ${v.duplicateOf.id}` : (v.key ? 'yes' : ''), v.title, v.fileName].map(esc).join(','));
+  fs.writeFileSync(file, lines.join('\n') + '\n');
+  console.log(`\nFull list saved to ${path.relative(process.cwd(), file)} (opens in Numbers or Excel).`);
+}
+
+// ── Fixing the channel ──────────────────────────────────────────────────────
+
+function withPartLinks(description, partners) {
+  const links = [1, 2].filter(n => partners[n]).map(n => `▶ Part ${n}: https://youtu.be/${partners[n].id}`);
+  if (links.length < 2) return description;
+  const lines = description.split('\n');
+  while (lines.length && (LINK_LINE.test(lines[0]) || (lines[0].trim() === '' && LINK_LINE.test(lines[1] || '')))) lines.shift();
+  while (lines.length && lines[0].trim() === '') lines.shift();
+  return [...links, '', ...lines].join('\n').trimEnd();
+}
+
+async function fix(args) {
+  const apply = args.includes('--yes');
+  const doVisibility = args.includes('--visibility');
+  const { videos, plByTitle } = await loadChannel();
+  const { mains, dupes } = analyse(videos);
+  let changes = 0;
+
+  console.log(apply ? 'Making changes…\n' : 'Preview — nothing is changed until you add --yes\n');
+
+  // 1. Titles, part links, visibility
+  for (const v of [...mains].sort((a, b) => a.series.kind.localeCompare(b.series.kind) || seriesOrder(a, b))) {
+    const notes = [];
+    const snippet = v.raw.snippet;
+    const title = wantedTitle(v.series);
+    let newTitle = snippet.title, newDesc = snippet.description || '';
+    if (!title) notes.push('title left as is (file name was cut off; add it to TITLE_OVERRIDES in config.js)');
+    else if (title.length > TITLE_MAX) notes.push(`title left as is (new one is ${title.length} characters, YouTube allows ${TITLE_MAX})`);
+    else if (title !== snippet.title) { newTitle = title; notes.push(`title: "${snippet.title}"\n             → "${title}"`); }
+    if (v.partners) {
+      const d = withPartLinks(newDesc, v.partners);
+      if (d !== newDesc) { newDesc = d; notes.push('description: add Part 1 / Part 2 links at the top'); }
+    }
+    if (!newDesc.trim()) notes.push('⚠ description is empty (set Upload defaults in Studio, see README)');
+    let newPrivacy = v.privacy;
+    if (doVisibility && v.privacy !== 'public') {
+      if (v.raw.status.publishAt) notes.push(`visibility left as is (scheduled to go public ${v.raw.status.publishAt})`);
+      else { newPrivacy = 'public'; notes.push(`visibility: ${v.privacy} → public`); }
+    }
+
+    const changed = newTitle !== snippet.title || newDesc !== (snippet.description || '') || newPrivacy !== v.privacy;
+    if (!notes.length) continue;
+    console.log(`${v.key.padEnd(9)} ${v.id}\n           ${notes.join('\n           ')}`);
+    if (changed) {
+      changes++;
+      if (apply) await updateVideo(v, { title: newTitle, description: newDesc, privacy: newPrivacy });
+    }
+  }
+
+  // 2. Extra copies
+  for (const d of dupes) {
+    const inPl = [...plByTitle.values()].some(pl => pl.items?.some(i => i.snippet.resourceId.videoId === d.id));
+    if (doVisibility && d.privacy === 'public') {
+      console.log(`${d.key.padEnd(9)} ${d.id}\n           extra copy of ${d.duplicateOf.id}: visibility public → unlisted`);
+      changes++;
+      if (apply) await updateVideo(d, { title: d.raw.snippet.title, description: d.raw.snippet.description, privacy: 'unlisted' });
+    } else if (d.privacy === 'public') {
+      console.log(`${d.key.padEnd(9)} ${d.id}\n           extra copy of ${d.duplicateOf.id} is public (add --visibility to set it to unlisted)`);
+    }
+    if (inPl) {
+      for (const pl of plByTitle.values()) for (const it of [...(pl.items || [])]) if (it.snippet.resourceId.videoId === d.id) {
+        console.log(`           remove extra copy from playlist`);
+        changes++;
+        if (apply) { await yt('DELETE', 'playlistItems', { id: it.id }, null, 50); pl.items.splice(pl.items.indexOf(it), 1); }
+      }
+    }
+  }
+
+  // 3. Playlists, in series order
+  for (const [kind, plTitle] of Object.entries(PLAYLISTS)) {
+    const wanted = mains.filter(v => v.series.kind === kind).sort(seriesOrder);
+    if (!wanted.length) continue;
+    let pl = plByTitle.get(plTitle);
+    const have = new Set((pl?.items || []).map(i => i.snippet.resourceId.videoId));
+    const toAdd = wanted.filter(v => !have.has(v.id));
+    if (!toAdd.length) continue;
+    console.log(`\nPlaylist "${plTitle}"${pl ? '' : ' (will be created)'}: add ${toAdd.length} — ${toAdd.map(v => v.key).join(', ')}`);
+    changes += toAdd.length;
+    if (!apply) continue;
+    if (!pl) {
+      const created = await yt('POST', 'playlists', { part: 'snippet,status' },
+        { snippet: { title: plTitle }, status: { privacyStatus: 'public' } }, 50);
+      pl = { id: created.id, items: [] };
+      plByTitle.set(plTitle, pl);
+    }
+    for (const v of toAdd) {
+      // Insert at the position it belongs in the series, so out-of-order uploads land in order.
+      const order = wanted.map(w => w.id);
+      const current = [...pl.items.map(i => i.snippet.resourceId.videoId)];
+      const pos = current.filter(id => order.indexOf(id) !== -1 && order.indexOf(id) < order.indexOf(v.id)).length
+        + current.filter(id => order.indexOf(id) === -1).length;
+      const body = { snippet: { playlistId: pl.id, resourceId: { kind: 'youtube#video', videoId: v.id }, position: pos } };
+      let item;
+      try { item = await yt('POST', 'playlistItems', { part: 'snippet' }, body, 50); }
+      catch (e) { delete body.snippet.position; item = await yt('POST', 'playlistItems', { part: 'snippet' }, body, 50); }
+      pl.items.splice(pos, 0, item);
+    }
+  }
+
+  if (!changes) console.log('Everything already matches. Nothing to change.');
+  else if (!apply) console.log(`\n${changes} change(s) shown. Run again with --yes to make them.`);
+  else console.log(`\nDone: ${changes} change(s) made. (YouTube quota used: about ${quotaUsed} of 10,000 for today.)`);
+}
+
+async function updateVideo(v, { title, description, privacy }) {
+  const s = v.raw.snippet, st = v.raw.status;
+  const snippet = { title, description, categoryId: s.categoryId };
+  for (const k of ['tags', 'defaultLanguage', 'defaultAudioLanguage']) if (s[k]) snippet[k] = s[k];
+  const status = { privacyStatus: privacy };
+  for (const k of ['embeddable', 'license', 'publicStatsViewable', 'selfDeclaredMadeForKids', 'containsSyntheticMedia']) if (st[k] !== undefined) status[k] = st[k];
+  if (st.publishAt && privacy === 'private') status.publishAt = st.publishAt;
+  await yt('PUT', 'videos', { part: 'snippet,status' }, { id: v.id, snippet, status }, 50);
+}
+
+// ── CLI ─────────────────────────────────────────────────────────────────────
+
+function die(msg) { console.error(msg); process.exit(1); }
+
+async function main() {
+  const [cmd, ...args] = process.argv.slice(2);
+  if (cmd === 'auth') return auth();
+  if (cmd === 'scan') return scan();
+  if (cmd === 'fix') return fix(args);
+  if (cmd === 'report') return report(args[0]);
+  console.log('Commands: auth | scan | fix [--yes] [--visibility] | report "Table data.csv"\nSee tools/youtube/README.md');
+}
+
+if (require.main === module) main().catch(e => die(e.message));
+
+module.exports = { parseName, keyOf, wantedTitle, analyse, withPartLinks, parseCsv };
