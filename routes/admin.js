@@ -9,6 +9,8 @@ const StudyActivity = require('../models/StudyActivity');
 const ReviewBatch = require('../models/ReviewBatch');
 const { logActivity } = require('../utils/activity');
 const { BATCH_NAME_RX, reviewSheetSummary } = require('../tools/cases/reviewRoundTrip');
+const { applyStoredBatch } = require('../tools/cases/batchApply');
+const { renderCasesHtml } = require('../utils/caseExport');
 const { computePassRates, computeIrr, DOMAIN_LABELS } = require('../lib/psychometrics');
 
 const router = express.Router();
@@ -90,6 +92,22 @@ router.get('/content', async (req, res) => {
   } catch (err) {
     console.error('admin list error', err);
     return res.status(500).json({ error: 'Could not load cases' });
+  }
+});
+
+// GET /api/admin/content-print?status=sme_review|published — printable hard
+// copy of every case in that list (same filter as GET /content), for SME review.
+router.get('/content-print', async (req, res) => {
+  try {
+    const status = ['sme_review', 'published', 'draft'].includes(req.query.status) ? req.query.status : 'sme_review';
+    const docs = await ContentItem.find({ status })
+      .select('externalId title category difficulty status reviewNote references caseSim')
+      .sort({ category: 1, externalId: 1 })
+      .lean();
+    res.type('html').send(renderCasesHtml(docs, { status }));
+  } catch (err) {
+    console.error('admin content-print error', err);
+    res.status(500).json({ error: 'Could not build the printable copy' });
   }
 });
 
@@ -369,6 +387,24 @@ router.post('/review-batches/:name/review', express.text({ type: ['text/csv', 't
   } catch (err) {
     console.error('admin review-batch upload error', err);
     return res.status(500).json({ error: 'Could not store the review sheet' });
+  }
+});
+
+// POST /api/admin/review-batches/:name/apply — { dryRun?: bool }
+// Applies the batch to the live cases with the same rules as
+// `rewrite-questions.js --from NAME --apply --keep-status`: the uploaded sheet
+// decides each question (no sheet = every proposal approved), stale or
+// gate-failing questions are skipped, and case status is left unchanged.
+router.post('/review-batches/:name/apply', async (req, res) => {
+  const name = batchParam(req, res);
+  if (!name) return undefined;
+  try {
+    const dryRun = !!(req.body && req.body.dryRun);
+    const r = await applyStoredBatch(name, { write: !dryRun, keepStatus: true });
+    return res.json(Object.assign({ dryRun }, r));
+  } catch (err) {
+    console.error('admin review-batch apply error', err);
+    return res.status(err.status || 500).json({ error: err.message || 'Could not apply that batch' });
   }
 });
 
