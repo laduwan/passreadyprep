@@ -242,6 +242,13 @@ async function showList(){
   catch(e){ return gate(e.message); }
   let h = tabsHtml();
   h += '<h1>'+(TAB==='sme_review'?'Pending review':'Published')+' <span style="color:var(--muted);font-weight:400">('+data.count+')</span></h1>';
+  if(TAB==='sme_review'){
+    // Import hand-authored cases (repo batch files → Pending Review, insert-only)
+    h += '<div class="card"><h2>Import hand-authored cases</h2>';
+    h += '<p class="lead" style="margin:0 0 10px">Loads cases from the repo’s case batch files that aren’t in the bank yet. Existing cases are never changed. New cases land in Pending Review.</p>';
+    h += '<button class="btn" id="imp-preview-btn" onclick="previewImport()">Check for new cases</button>';
+    h += '<div id="imp-box" style="margin-top:10px"></div></div>';
+  }
   if(!data.count){
     h += '<p class="lead">'+(TAB==='sme_review'?'Nothing waiting. Generated cases show up here after you import or generate them.':'No published cases yet.')+'</p>';
   }
@@ -389,7 +396,8 @@ async function runImport(){
   btn.disabled = true;
   try{
     const r = await api('/api/admin/generate/import-cases', { method:'POST', body: JSON.stringify({ ids }) });
-    document.getElementById('imp-box').innerHTML = '<p style="margin:0"><b>'+r.inserted.length+'</b> case'+(r.inserted.length===1?'':'s')+' added to Pending Review: '+esc(r.inserted.join(', '))+'</p>';
+    alert(r.inserted.length+' case'+(r.inserted.length===1?'':'s')+' added to Pending Review'+(r.inserted.length?': '+r.inserted.join(', '):'')+'.');
+    showList();
   } catch(e){ btn.disabled = false; alert(e.message); }
 }
 
@@ -416,12 +424,6 @@ async function showGenerate(){
        + '<span class="gn">'+g.have+'/'+g.target+'</span></div>';
   });
   h += '</div></div>';
-
-  // Import hand-authored cases (repo batch files → Pending Review, insert-only)
-  h += '<div class="card"><h2>Import hand-authored cases</h2>';
-  h += '<p class="lead" style="margin:0 0 10px">Loads cases from the repo’s case batch files that aren’t in the bank yet. Existing cases are never changed. New cases land in Pending Review.</p>';
-  h += '<button class="btn" id="imp-preview-btn" onclick="previewImport()">Check for new cases</button>';
-  h += '<div id="imp-box" style="margin-top:10px"></div></div>';
 
   // Form
   h += '<div class="card gen-form">';
