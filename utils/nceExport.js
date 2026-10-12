@@ -32,8 +32,13 @@ function cacrepLabel(key) {
 }
 
 // Blueprint order, then externalId, so the printout matches the admin coverage table.
+// Current-outline and 2027 domains have distinct keys, so one list covers both
+// specs (and a mixed export). Current domains first, then 2027, empty ones dropped.
+const ALL_DOMAINS = bp.DOMAINS.concat(bp.EXAM_2027.domains);
+const is2027Domain = (d) => bp.EXAM_2027.domains.includes(d);
+
 function groupByDomain(items) {
-  const groups = bp.DOMAINS.map((d) => ({ domain: d, items: [] }));
+  const groups = ALL_DOMAINS.map((d) => ({ domain: d, items: [] }));
   const other = { domain: { key: 'other', label: 'Unassigned domain', scoredItems: 0, weight: 0 }, items: [] };
   (items || []).forEach((it) => {
     const g = groups.find((x) => x.domain.key === it.domain) || other;
@@ -79,7 +84,7 @@ function renderHtml(items, { status = 'sme_review', generatedAt = new Date(), ti
   const body = groups.map((g) => (
     `<section class="bank"><h2>${esc(g.domain.label)}</h2>` +
     `<div class="meta">${g.items.length} item${g.items.length === 1 ? '' : 's'}` +
-    (g.domain.scoredItems ? ` · NCE weight ${Math.round(g.domain.weight * 100)}% (${g.domain.scoredItems} of ${bp.EXAM.scoredItems} scored items)` : '') +
+    (g.domain.scoredItems ? ` · NCE${is2027Domain(g.domain) ? ' 2027' : ''} weight ${Math.round(g.domain.weight * 100)}% (${g.domain.scoredItems} of ${(is2027Domain(g.domain) ? bp.EXAM_2027 : bp.EXAM).scoredItems} scored items)` : '') +
     `</div>` +
     g.items.map((it) => htmlItem(it, ++n, total)).join('') +
     `</section>`
@@ -131,6 +136,8 @@ h4 { font-size: 13px; margin: 18px 0 6px; color: #333; }
   <p>Check: one clearly best answer · factual accuracy (theorists, dates, test properties, code sections) · distractors plausible but defensibly wrong · no answer given away by length or wording · references support the key.</p>
   <h3 style="margin-top:8px">NCE domains (NBCC 2023 content outline)</h3>
   <p>${bp.DOMAINS.map((d) => `${esc(d.label)} ${d.scoredItems}`).join(' · ')} — of ${bp.EXAM.scoredItems} scored items</p>
+  ${groups.some((g) => is2027Domain(g.domain)) ? `<h3 style="margin-top:8px">NCE domains (NBCC 2027 specification, effective July 1, 2027)</h3>
+  <p>${bp.EXAM_2027.domains.map((d) => `${esc(d.label)} ${d.scoredItems}`).join(' · ')} — of ${bp.EXAM_2027.scoredItems} scored items</p>` : ''}
   ${total ? `<h3 style="margin-top:8px">In this copy</h3><p>${summary}${flagged ? ` · <b>${flagged}</b> flagged ⚑` : ''}</p>` : ''}
 </div>
 ${total ? body : '<div class="empty">No NCE questions match this filter yet. Generate questions from Admin → NCE Questions, then export again.</div>'}
