@@ -59,7 +59,7 @@ function renderCasesHtml(docs, { status = 'sme_review', generatedAt = new Date()
 <title>PassReady Prep — NCMHCE Cases · ${esc(label)}</title>
 <style>
 :root{color-scheme:light}
-body{font:10.5pt/1.45 Georgia,serif;color:#111;background:#fff;margin:24px;max-width:900px}
+body{font:10.5pt/1.45 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-variant-numeric:lining-nums slashed-zero;color:#111;background:#fff;margin:24px;max-width:900px}
 h1{font-size:18pt;margin:0 0 4px}h2{font-size:13pt;margin:0;border-bottom:2px solid #222}h3{font-size:12pt;margin:4px 0}h4{font-size:10.5pt;margin:10px 0 4px}h5{margin:6px 0 2px;font-size:10pt;text-transform:uppercase;letter-spacing:.04em}
 .st{font-weight:400;font-size:10pt;color:#666}.meta{color:#444;margin-bottom:6px}.nar p{margin:0 0 4px}
 .q{border-top:1px solid #bbb;padding-top:4px;break-inside:avoid;page-break-inside:avoid}.stem{font-weight:600;margin-bottom:4px}
