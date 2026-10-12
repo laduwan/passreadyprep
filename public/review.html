@@ -242,6 +242,7 @@ async function showList(){
   catch(e){ return gate(e.message); }
   let h = tabsHtml();
   h += '<h1>'+(TAB==='sme_review'?'Pending review':'Published')+' <span style="color:var(--muted);font-weight:400">('+data.count+')</span></h1>';
+  h += '<div class="row" style="margin:0 0 12px"><button class="btn ghost" onclick="printCases()">Print for review</button></div>';
   if(TAB==='sme_review'){
     // Import hand-authored cases (repo batch files → Pending Review, insert-only)
     h += '<div class="card"><h2>Import hand-authored cases</h2>';
@@ -263,6 +264,16 @@ async function showList(){
   });
   app.innerHTML = h;
 }
+// Hard copy of every case on this tab: fetch with the admin token, then open
+// the printable page in a new tab (save as PDF from the print dialog).
+function printCases(){
+  const win = window.open('', '_blank');
+  const token = sessionStorage.getItem('prp_admin_jwt') || '';
+  fetch('/api/admin/content-print?status='+encodeURIComponent(TAB), { headers: { 'Authorization': 'Bearer '+token } })
+    .then(r => { if(!r.ok) throw new Error('Print failed ('+r.status+')'); return r.text(); })
+    .then(html => { const url = URL.createObjectURL(new Blob([html], { type:'text/html' })); if(win) win.location = url; else location.href = url; })
+    .catch(e => { if(win) win.close(); alert(e.message); });
+}
 function setTab(t){ TAB=t; showList(); }
 
 // ── Review batches tab ──────────────────────────────────────────────
@@ -278,7 +289,7 @@ async function showBatches(){
   catch(e){ return gate(e.message); }
   let h = tabsHtml();
   h += '<h1>Review batches <span style="color:var(--muted);font-weight:400">('+data.count+')</span></h1>';
-  h += '<p class="lead">Each batch is a set of rewritten questions waiting for SME sign-off. Download the <b>HTML</b> (the review document: every question before and after) and the <b>CSV</b> (the decision sheet). Fill the sheet — <code>approve</code> N rejects a question; <code>weight_override</code>, <code>text_override</code>, <code>stem_override</code> change a proposal; blank accepts it — then upload it here. Nothing goes live until the batch is applied from the server shell.</p>';
+  h += '<p class="lead">Each batch is a set of rewritten questions waiting for SME sign-off. Download the <b>HTML</b> (the review document: every question before and after) and the <b>CSV</b> (the decision sheet). Fill the sheet — <code>approve</code> N rejects a question; <code>weight_override</code>, <code>text_override</code>, <code>stem_override</code> change a proposal; blank accepts it — then upload it here. Nothing changes until you click <b>Apply</b> on the batch (no sheet = approve every rewrite).</p>';
   if(!data.count) h += '<div class="card"><p class="lead" style="margin:0">No batches stored yet. In the Render shell: <code>node tools/cases/rewrite-questions.js --generate --count 15 --save tools/cases/review/rw1</code></p></div>';
   data.items.forEach(b=>{
     let state, cls;
@@ -299,6 +310,7 @@ async function showBatches(){
     h += '<button class="btn ghost" onclick="downloadBatch(\''+esc(b.name)+'\',\'json\')">⬇ JSON</button>';
     h += '</div>';
     h += '<div class="row" style="margin-top:10px"><label class="btn ghost" style="cursor:pointer">'+(b.hasReview?'⬆ Replace filled sheet':'⬆ Upload filled sheet')+'<input type="file" accept=".csv,text/csv" style="display:none" onchange="uploadReview(\''+esc(b.name)+'\',this)" /></label>';
+    if(!b.appliedAt && !generating) h += '<button class="btn" onclick="applyBatch(\''+esc(b.name)+'\')">'+(b.hasReview?'Apply decisions':'Approve all &amp; apply')+'</button>';
     if(!b.appliedAt) h += '<button class="btn ghost" onclick="deleteBatch(\''+esc(b.name)+'\')">Discard batch</button>';
     h += '<span id="batch-msg-'+esc(b.name)+'" class="key-note"></span></div>';
     if(b.hasReview && !b.appliedAt) h += '<div class="key-note" style="margin-top:8px">To apply: <code>node tools/cases/rewrite-questions.js --from '+esc(b.name)+'</code> (plan), then <code>--from '+esc(b.name)+' --apply --keep-status</code>.</div>';
@@ -335,6 +347,29 @@ async function uploadReview(name, input){
     setTimeout(showBatches, 1200);
   }catch(e){ msg.textContent = 'Upload failed: '+e.message; }
   input.value = '';
+}
+
+// Apply a batch from the admin panel (same rules as rewrite-questions.js
+// --from NAME --apply --keep-status). Plans first, confirms, then writes.
+async function applyBatch(name){
+  let plan;
+  try{ plan = await api('/api/admin/review-batches/'+encodeURIComponent(name)+'/apply', { method:'POST', body: JSON.stringify({ dryRun:true }) }); }
+  catch(e){ alert(e.message); return; }
+  const lines = [
+    plan.usedSheet ? 'Using the uploaded decision sheet.' : 'No sheet uploaded: every proposed rewrite counts as approved.',
+    plan.accepted+' question(s) will be replaced across '+plan.cases+' case(s).',
+    plan.rejected.length ? plan.rejected.length+' skipped (rejected or failing the quality gate).' : '',
+    plan.stale.length ? plan.stale.length+' skipped because the live question changed since this batch was made.' : '',
+    plan.missing.length ? plan.missing.length+' case(s) not found.' : '',
+    'Case status is left as is (published cases stay live).',
+  ].filter(Boolean);
+  if(!plan.accepted){ alert(lines.join('\n')+'\n\nNothing to apply.'); return; }
+  if(!confirm('Apply batch "'+name+'"?\n\n'+lines.join('\n'))) return;
+  try{
+    const r = await api('/api/admin/review-batches/'+encodeURIComponent(name)+'/apply', { method:'POST', body: JSON.stringify({}) });
+    alert('Applied: '+r.accepted+' question(s) replaced across '+r.cases+' case(s).');
+    showBatches();
+  } catch(e){ alert(e.message); }
 }
 
 async function deleteBatch(name){

@@ -94,7 +94,7 @@ const GENERATE = !FROM && !PUSH_DB && !LIST_BATCHES && (process.argv.includes('-
 const idi = process.argv.indexOf('--ids');
 const EXPLICIT = idi >= 0 ? (process.argv[idi + 1] || '').split(',').map((s) => s.trim()).filter(Boolean) : null;
 
-const ALL_WEIGHTS = '3,0,-1,-2';
+const { ALL_WEIGHTS, newSchemaErrors, rejectReasons, applyQuestionOverrides, liveMatchesProposal } = require('./batchApply');
 
 // ---------------------------------------------------------------------------
 // Prompt
@@ -179,24 +179,6 @@ function normalizeReply(oldQ, r) {
 
 // Errors validateCase reports with the candidate in place that it did not
 // report before: regressions this rewrite introduced.
-function newSchemaErrors(caseObj, qi, candidate) {
-  const before = new Set(validateCase(caseObj).errors);
-  const questions = caseObj.questions.slice();
-  questions[qi] = candidate;
-  return validateCase(Object.assign({}, caseObj, { questions })).errors.filter((e) => !before.has(e));
-}
-
-// null when the candidate is acceptable, else the reasons (string[]).
-function rejectReasons(caseObj, qi, candidate) {
-  const tag = 'q' + (qi + 1);
-  const reasons = checkQuestionQuality(candidate, tag);
-  const refIds = new Set((caseObj.references || []).map((r) => r && r.id).filter(Boolean));
-  if (!candidate.evidenceRef.length) reasons.push(tag + ': evidenceRef is empty');
-  candidate.evidenceRef.forEach((rid) => { if (refIds.size && !refIds.has(rid)) reasons.push(tag + ': evidenceRef "' + rid + '" is not a case reference id'); });
-  newSchemaErrors(caseObj, qi, candidate).forEach((e) => reasons.push(e));
-  return reasons.length ? reasons : null;
-}
-
 // ---------------------------------------------------------------------------
 // Length pass — for questions that fail ONLY on length (ratio / key-longest)
 // ---------------------------------------------------------------------------
@@ -293,36 +275,6 @@ function proposalCsvRows(p, q) {
     p.externalId, p.title, q.qi + 1, q.questionId, o.id, o.weight, TIER_LABEL[o.weight] || o.weight,
     o.text, (o.explanation && o.explanation.commonMistake) || '', '', '', '', '', q.after.question, '',
   ]);
-}
-
-// Apply a reviewer's decisions to a proposed question: stem override, per-
-// option weight/text overrides (the key may move: isCorrect follows weight 3).
-// Returns { question } or an error string.
-function applyQuestionOverrides(after, review) {
-  const overrides = (review && review.overrides) || {};
-  const options = after.options.map((o) => {
-    const ov = overrides[String(o.id)];
-    const next = Object.assign({}, o);
-    if (ov && ov.weight != null) next.weight = ov.weight;
-    if (ov && ov.text != null) next.text = ov.text;
-    return next;
-  });
-  const ws = options.map((o) => Number(o.weight)).sort((a, b) => b - a).join(',');
-  if (ws !== ALL_WEIGHTS) return 'weight overrides give [' + ws + '], must be exactly one each of 3, 0, -1, -2';
-  options.forEach((o) => { o.weight = Number(o.weight); o.isCorrect = o.weight === 3; });
-  const question = Object.assign({}, after, { options });
-  if (review && review.stem) question.question = review.stem;
-  return { question };
-}
-
-// Has the live question changed since the proposal was made?
-function liveMatchesProposal(liveQ, q) {
-  if (!liveQ || !Array.isArray(liveQ.options)) return false;
-  if (String(liveQ.id) !== String(q.questionId)) return false;
-  if (liveQ.question !== q.before.question) return false;
-  const liveIds = liveQ.options.map((o) => String(o.id)).sort().join('|');
-  const propIds = q.before.options.map((o) => String(o.id)).sort().join('|');
-  return liveIds === propIds;
 }
 
 function optionRows(options, cls) {
