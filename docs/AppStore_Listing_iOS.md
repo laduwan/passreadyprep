@@ -2,8 +2,9 @@
 
 Paste-ready text for App Store Connect. Character limits are Apple's; counts
 were checked when this was written. Launch plan: **United States only**, free
-download, full access purchased on passreadyprep.com (US-storefront external
-purchase link).
+download, plans sold in the app through **In-App Purchase** (the website keeps
+Stripe; people who bought there sign in). Product IDs and the App Store Connect
+setup are in `AppReview_Reply_v1.0_build2.md`.
 
 ---
 
@@ -63,7 +64,7 @@ PASS GUARANTEE
 Eligible plans include the PassReady pass guarantee. See passreadyprep.com for full terms.
 
 GETTING STARTED
-Download free and try sample cases. Create an account to start a free trial of the full library. Full access is available by subscription or one-time pass, purchased on passreadyprep.com.
+Download free and try sample cases. Create an account to start a free trial of the full library. Full access is available by monthly subscription, a one-time 3-month pass, or the one-time Pass Guarantee. Subscriptions renew automatically unless cancelled at least 24 hours before the end of the period; manage them in your App Store account settings.
 
 PassReady Prep is an independent study tool. It is not affiliated with, endorsed by, or sponsored by the National Board for Certified Counselors (NBCC). NCMHCE is a trademark of NBCC. Simulations are for exam preparation only and are not clinical advice.
 
@@ -102,12 +103,17 @@ Data types to declare — all **linked to the user**, **not used for tracking**:
 | Contact Info → Email Address | App Functionality | Account sign-in, password reset, account email (Brevo) |
 | Contact Info → Name | App Functionality | Optional name on registration |
 | Identifiers → User ID | App Functionality | Account ID tying progress to the account |
-| Purchases → Purchase History | App Functionality | Plan/tier and subscription status (payments processed by Stripe on the website) |
+| Purchases → Purchase History | App Functionality | Plan/tier, subscription status and App Store transaction IDs (Apple processes the payment; the website's payments are processed by Stripe) |
 | User Content → Other User Content | App Functionality | Case answers, typed/spoken responses in the intake and microskills tools (sent to Anthropic to generate feedback), feedback/suggestions |
 | Usage Data → Product Interaction | App Functionality, Analytics | Study activity, streaks, attempts, flashcard progress |
 
+**Every data type: "used for tracking" = No.** This is what the October 2026
+rejection (5.1.2(i)) was about: the label had these marked as tracking, which
+would require an App Tracking Transparency prompt the app does not (and must
+not) show. Only the Account Holder or an Admin can edit App Privacy.
+
 **Do not declare:**
-- **Payment Info** — card details are entered on Stripe's page on the website, never in the app.
+- **Payment Info** — Apple handles in-app payments; card details on the website are entered on Stripe's page, never in the app.
 - **Audio Data** — speech in the intake simulator is converted to text by the
   system speech service; the app sends only the text. *(Re-check if that
   feature ever uploads audio.)*
@@ -139,14 +145,16 @@ How to review:
 2. Open any case simulation, the timed mock exam, flashcards, decision trees, and
    the intake interview simulator (uses the microphone and speech recognition;
    typing also works).
-3. Account deletion: Start studying → scroll to the bottom of the dashboard →
-   "Delete account". Monthly subscribers can cancel from "Manage subscription"
-   in the same place.
+3. Account deletion: Start studying → sign in → "Account" (top right) →
+   "Delete my account…" → password → confirm. (Also at the bottom of the
+   dashboard: "Delete account".) Subscribers manage or cancel their plan from
+   "Manage subscription" on the same Account page.
 
-Purchases: This build is distributed on the United States storefront only.
-Subscriptions and passes are purchased on our website via an external link, as
-permitted for US storefront apps; no in-app purchase is offered. Users who
-already have an account can sign in to access what they purchased.
+Purchases: All plans are sold in the app through In-App Purchase (Pricing on
+the start page, "See plans" on a locked tool, "Choose" on the NCE page, "Buy"
+on the study guide page → in-app purchase screen → Apple's purchase sheet).
+Restore Purchases is on the purchase screen and the Account page. Users who
+bought on our website sign in to access what they purchased.
 
 AI features: Case, intake and microskills feedback is generated with Anthropic's
 API from the user's answers. Content is for exam preparation, not clinical advice.
@@ -158,7 +166,10 @@ Contact: support@passreadyprep.com
 ## 5. Before you press Submit
 
 - [ ] Demo account created and verified to have full access on production
-- [ ] Stripe Customer Portal enabled (Manage subscription works)
+- [ ] In-App Purchase products created, priced, and attached to the version (see `AppReview_Reply_v1.0_build2.md`)
+- [ ] Paid Apps agreement active; App Store Server Notifications URL set; `APPLE_APP_ID` set on Render
+- [ ] App Privacy: no data type marked "used for tracking"
+- [ ] Stripe Customer Portal enabled (Manage subscription works for website subscribers)
 - [ ] Build uploaded from Xcode (version 1.0, build 1) and tested via TestFlight on a real iPhone, including the intake mic
 - [ ] Screenshots: at least 3 for the 6.9" iPhone size (landing, a case question, results/readiness). ⌘S in the Simulator saves one.
 - [ ] Availability set to United States only

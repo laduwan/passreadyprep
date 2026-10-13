@@ -945,3 +945,6 @@ router.get('/plans', async (req, res) => {
 });
 
 module.exports = router;
+// The tier table is shared with the App Store In-App Purchase route
+// (routes/applePayment.js), so both stores grant access by the same rules.
+module.exports.TIERS = TIERS;

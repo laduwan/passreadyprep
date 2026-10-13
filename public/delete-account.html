@@ -97,6 +97,11 @@
       <li>Study streak and activity</li>
     </ul>
     <p class="err" id="del-err" role="alert"></p>
+    <p class="apple-note" id="apple-note" style="display:none;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:12px 14px;font-size:13.5px;line-height:1.55;color:var(--slate-300);margin:0 0 16px">
+      <strong style="color:var(--white)">Your <span id="apple-plan">Monthly</span> plan is billed by Apple.</strong>
+      Deleting your account does not cancel an App Store subscription. To avoid being charged again, cancel it in
+      Settings › your name › Subscriptions, or <a href="#" id="apple-manage" style="color:#FBBF24">manage it now</a>.
+    </p>
     <label for="del-password">Password</label>
     <input type="password" id="del-password" autocomplete="current-password" placeholder="••••••••"/>
     <div class="confirm-row">
@@ -192,9 +197,21 @@
   if (!token) {
     show('panel-signin');
   } else {
-    let email = '';
-    try { email = (JSON.parse(localStorage.getItem('prp_user') || '{}').email) || ''; } catch(_) {}
+    let email = '', u = {};
+    try { u = JSON.parse(localStorage.getItem('prp_user') || '{}') || {}; email = u.email || ''; } catch(_) {}
     document.getElementById('acct-email').textContent = email || 'your account';
+    // App Store subscriptions belong to the Apple ID: we cannot cancel them here.
+    const appleSubs = [u.subscription, u.nceAccess].filter(p => p && p.source === 'apple'
+      && (p.tier === 'monthly' || p.tier === 'nce_monthly') && ['active','past_due'].includes(p.status || 'active') && !p.cancelAtPeriodEnd);
+    if (appleSubs.length) {
+      document.getElementById('apple-plan').textContent = appleSubs.map(p => p.tier === 'nce_monthly' ? 'NCE Monthly' : 'Monthly').join(' and ');
+      document.getElementById('apple-manage').onclick = function(){
+        if (window.PRP_IAP) window.PRP_IAP.manageSubscriptions().catch(function(){});
+        else location.href = 'https://apps.apple.com/account/subscriptions';
+        return false;
+      };
+      document.getElementById('apple-note').style.display = 'block';
+    }
     show('panel-confirm');
   }
 </script>

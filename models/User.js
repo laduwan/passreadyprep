@@ -29,7 +29,7 @@ const UserSchema = new Schema(
     termsVersion: { type: String },          // e.g. 'june-2026'
     guaranteeTermsAcceptedAt: Date,          // set only for Pass Guarantee purchasers
     guidePurchasedAt: Date,                  // set when the standalone study guide is purchased
-    guideOrderId: String,                    // Stripe checkout session id for the guide purchase
+    guideOrderId: String,                    // Stripe checkout session id, or 'apple:<transactionId>' for an In-App Purchase
 
     // Extended free trial granted to this one account by an admin — used for
     // review swaps and comps. While trialEndsAt is in the future the account
@@ -75,11 +75,21 @@ const UserSchema = new Schema(
       adminNote: { type: String, trim: true, maxlength: 300 },
     },
 
+    // App Store In-App Purchase (iOS app). appleAccountToken is a UUID handed
+    // to StoreKit at purchase time so App Store Server Notifications can be
+    // matched back to this account (routes/applePayment.js).
+    appleAccountToken: { type: String, index: true, sparse: true },
+
     subscription: {
       tier: { type: String, default: 'free' },      // free | monthly | pass3 | guarantee
       status: { type: String, default: 'active' },  // active | past_due | canceled
+      // Who billed the current plan: 'stripe' (website) or 'apple' (iOS In-App
+      // Purchase). Unset means Stripe (accounts from before the iOS app).
+      source: { type: String, enum: ['stripe', 'apple'] },
       stripeCustomerId: String,
       stripeSubscriptionId: String,
+      appleOriginalTransactionId: String,  // Apple subscription / purchase this plan came from
+      appleProductId: String,
       cancelAtPeriodEnd: { type: Boolean, default: false }, // monthly: canceled, runs to period end
       lastPaymentIntentId: String,
       currentPeriodEnd: Date,
@@ -120,7 +130,10 @@ const UserSchema = new Schema(
     nceAccess: {
       tier: { type: String, default: 'free' },      // free | nce_monthly | nce_pass3 | nce_pass6
       status: { type: String, default: 'active' },  // active | past_due | canceled
+      source: { type: String, enum: ['stripe', 'apple'] }, // see subscription.source
       stripeSubscriptionId: String,
+      appleOriginalTransactionId: String,
+      appleProductId: String,
       cancelAtPeriodEnd: { type: Boolean, default: false },
       lastPaymentIntentId: String,
       currentPeriodEnd: Date,

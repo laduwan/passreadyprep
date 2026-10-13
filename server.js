@@ -34,6 +34,9 @@ app.get('/api/health', (req, res) =>
 
 // The front door (accounts + login) and the lockbox (saved progress).
 app.use('/api/auth', require('./routes/auth'));
+// App Store In-App Purchase (iOS app) — mounted before /api/payment so its
+// /products, /verify, /restore and /notifications paths are matched first.
+app.use('/api/payment/apple', require('./routes/applePayment'));
 app.use('/api/payment', require('./routes/payment'));
 app.use('/api/progress', require('./routes/progress'));
 app.use('/api/activity', require('./routes/activity'));

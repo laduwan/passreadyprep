@@ -47,8 +47,12 @@
 
   // Pages that live only on the web are opened absolutely. iOS Capacitor cancels
   // top-level navigation to a non-app host and hands it to the system browser.
-  var EXTERNAL = ['/checkout.html', '/book.html', '/book', '/policies.html', '/privacy.html',
+  // Buying is NOT on this list: in the app every plan is sold through App Store
+  // In-App Purchase (checkout.html forwards to purchase.html; native-iap.js).
+  var EXTERNAL = ['/book.html', '/book', '/policies.html', '/privacy.html',
                   '/score-report.html', '/accessibility.html'];
+  // Set before Stripe's Customer Portal opens in Safari (website subscriptions),
+  // so the app reloads the updated plan when the person comes back.
   var FLAG = 'prp_checkout_opened';
 
   document.addEventListener('click', function (e) {
@@ -60,13 +64,10 @@
     if (u.origin !== location.origin) return;
     if (EXTERNAL.indexOf(u.pathname) === -1) return;
     e.preventDefault();
-    if (u.pathname === '/checkout.html') {
-      try { sessionStorage.setItem(FLAG, '1'); } catch (err) {}
-    }
     window.location.href = ORIGIN + u.pathname + u.search + u.hash;
   }, true);
 
-  // Coming back from checkout: reload so the unlocked subscription state is picked up.
+  // Coming back from the Stripe portal: reload so the updated plan is picked up.
   document.addEventListener('visibilitychange', function () {
     if (document.visibilityState !== 'visible') return;
     var opened = false;

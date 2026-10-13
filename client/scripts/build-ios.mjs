@@ -18,13 +18,18 @@ const PAGES = [
   'guarantee.html', 'intake.html', 'flashcards.html', 'decision-trees.html', 'dsm.html',
   'timed-knowledge-exam.html', 'knowledge-drill.html', 'next-best-step.html',
   'core-attributes-quiz.html', 'theory.html', 'podcast.html', 'assess-next-case.html', 'games.html',
-  'delete-account.html',
+  'delete-account.html', 'account.html', 'nce.html', 'resume.html',
+  // In the app every plan is bought through App Store In-App Purchase:
+  // checkout.html forwards to purchase.html, which buys via native-iap.js.
+  'checkout.html', 'purchase.html',
 ];
 // Pages the shim opens on passreadyprep.com instead (keep in sync with EXTERNAL in native-shim.js).
-const EXTERNAL = new Set(['checkout.html', 'book.html', 'policies.html', 'privacy.html',
+const EXTERNAL = new Set(['book.html', 'policies.html', 'privacy.html',
   'score-report.html', 'accessibility.html']);
 const ASSET_EXT = /\.(js|css|json|pdf|png|jpe?g|gif|svg|webp|ico|mp3|mp4|m4a|woff2?|ttf|otf|webmanifest)$/i;
+// The shim goes first (it rewrites fetch); the In-App Purchase layer right after.
 const SHIM_TAG = '<script src="/native-shim.js"></script>';
+const IAP_TAG = '<script src="/native-iap.js"></script>';
 
 // Same tags server.js injectA11y() adds at serve time, minus the PWA manifest /
 // service worker (not wanted inside the native app). Keep in sync with server.js.
@@ -91,11 +96,12 @@ while (queue.length) {
 // Shim goes first in <head> of every HTML file in dist; the serve-time widgets
 // go where server.js puts them.
 fs.copyFileSync(path.join(root, 'native', 'native-shim.js'), path.join(dist, 'native-shim.js'));
+fs.copyFileSync(path.join(root, 'native', 'native-iap.js'), path.join(dist, 'native-iap.js'));
 for (const rel of htmlIn(dist)) {
   const f = path.join(dist, rel);
   let html = fs.readFileSync(f, 'utf8');
   if (html.includes(SHIM_TAG)) continue;
-  html = html.replace(/<head[^>]*>/i, (m) => `${m}\n${SHIM_TAG}`);
+  html = html.replace(/<head[^>]*>/i, (m) => `${m}\n${SHIM_TAG}\n${IAP_TAG}`);
   if (!html.includes(SHIM_TAG)) throw new Error(`No <head> in ${rel}`);
   if (!html.includes('/a11y.js')) {
     html = html.includes('</head>') ? html.replace('</head>', INJECT_HEAD + '</head>') : INJECT_HEAD + html;
@@ -137,3 +143,4 @@ if (fs.existsSync(splashSet)) {
 console.log('\nCopied into dist from ../public:');
 for (const f of [...copied].sort()) console.log('  ' + f);
 console.log('  native-shim.js');
+console.log('  native-iap.js');
