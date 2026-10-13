@@ -15,6 +15,57 @@
 //
 // The exported queue alternates NCMHCE and NCE topics so both exams get posts.
 const NCMHCE_TOPICS = [
+  // ── High-intent search topics (what candidates type into Google) ─────────
+  // These lead the queue on purpose: they answer the questions that bring new
+  // visitors, where the tool-feature pages cannot rank.
+  {
+    slug: 'how-to-pass-the-ncmhce',
+    title: 'How to Pass the NCMHCE: A Study Plan That Matches the Exam',
+    angle: 'A practical 8-to-12-week plan: learn the case-simulation format first, one case a day with full rationale review, drill the weakest domain, add timed mocks in the final two weeks, and use a readiness marker instead of a calendar. Explain why memorizing a question bank fails on a decision-sequencing exam. Do not state pass rates or cut scores; point readers to the NBCC candidate handbook for current figures.',
+    link: { path: '/study', label: 'NCMHCE case simulations' },
+  },
+  {
+    slug: 'ncmhce-exam-format-explained',
+    title: 'NCMHCE Exam Format Explained: Cases, Questions, Timing',
+    angle: 'What the current (2022+) NCMHCE looks like: 11 case studies with 10 scored and 1 unscored pretest case, 9 to 15 multiple-choice questions per case, intake narrative followed by clinical sessions, 225 minutes with a scheduled 15-minute break, and the six content areas NBCC scores. Mention that NBCC has published a 2027 outline and that candidates should check which outline applies to their test date. Pacing advice: about 20 minutes per case.',
+    link: { path: '/exam.html', label: 'timed NCMHCE mock exam' },
+  },
+  {
+    slug: 'nce-vs-ncmhce-which-exam',
+    title: 'NCE vs. NCMHCE: Which Counseling Exam Do You Need?',
+    angle: 'Plain comparison: the NCE is a 200-question general-knowledge exam across six domains; the NCMHCE is a clinical case-simulation exam. Which one a candidate takes depends on their state board (some require one, some accept either, some require both) and on whether they want the NCC credential. How to find the answer on a state board website. How preparation differs for each.',
+    link: { path: '/nce.html', label: 'NCE practice questions and mock exams' },
+  },
+  {
+    slug: 'failed-the-ncmhce-what-next',
+    title: 'Failed the NCMHCE? What to Do Differently Before You Retake',
+    angle: 'A warm, practical retake plan: read the score report by domain, identify whether points were lost on sequencing (next step, assessment order) or on knowledge (criteria, treatments), rebuild with timed case practice rather than rereading a book, and set a readiness marker before rebooking. Address the emotional side briefly without clichés. Tell readers to confirm NBCC retake waiting periods and fees in the candidate handbook rather than stating them.',
+    link: { path: '/study', label: 'NCMHCE case simulations' },
+  },
+  {
+    slug: 'ncmhce-scoring-how-it-works',
+    title: 'How the NCMHCE Is Scored (and Why Near Misses Matter)',
+    angle: 'What NBCC publishes about scaled scoring and the passing standard, without inventing numbers: direct readers to the candidate handbook for the current standard. Then explain what case-simulation scoring rewards: the best next decision, in order, with harmful choices costing more than merely weak ones. How to use a weighted readiness score during prep.',
+    link: { path: '/study', label: 'NCMHCE case simulations' },
+  },
+  {
+    slug: 'free-ncmhce-practice-test-guide',
+    title: 'Free NCMHCE Practice Test: How to Use One Well',
+    angle: 'How to get real value from a free practice case or mock exam: sit it untimed first and read every rationale, then timed for a baseline by domain, then decide what to drill. What a good practice case includes (intake narrative, sequenced decisions, weighted feedback) and red flags in low-quality free tests (recall-only items, no rationales, outdated pre-2022 format).',
+    link: { path: '/study', label: 'free NCMHCE practice case' },
+  },
+  {
+    slug: 'ncmhce-study-schedule-8-weeks',
+    title: 'An 8-Week NCMHCE Study Schedule You Can Actually Keep',
+    angle: 'A week-by-week plan: weeks 1-2 format and diagnostic reference, weeks 3-5 one case a day plus domain drills, weeks 6-7 timed mocks and ethics/risk review, week 8 light recall and rest. Include a shortened 4-week version for retakers and how to adapt when working full time.',
+    link: { path: '/study', label: 'NCMHCE case simulations and study plan' },
+  },
+  {
+    slug: 'ncmhce-common-mistakes',
+    title: '7 Mistakes Candidates Make on NCMHCE Case Simulations',
+    angle: 'Concrete, fixable mistakes: skipping the safety screen to reach treatment, diagnosing before ruling out medical and substance causes, promising confidentiality the counselor cannot keep, choosing the most intensive level of care by default, acting alone on an ethics question instead of consulting, running out of time on early intake sections, and reading rationales only for wrong answers.',
+    link: { path: '/next-best-step.html', label: 'next best step drill' },
+  },
   {
     slug: 'ncmhce-suicide-risk-assessment',
     title: 'Suicide Risk Assessment on the NCMHCE: What Cases Look For',
@@ -126,6 +177,35 @@ const NCMHCE_TOPICS = [
 ];
 
 const NCE_TOPICS = [
+  // ── High-intent search topics ─────────────────────────────────────────────
+  {
+    exam: 'NCE',
+    slug: 'how-to-pass-the-nce',
+    title: 'How to Pass the NCE: Study Plan, Domains, and Pacing',
+    angle: 'A practical plan for the 200-question NCE: baseline timed set, study the two weakest of the six domains first, weekly timed mocks in the last month, and how to pace 200 questions in 3 hours 45 minutes. Explain that 40 items are unscored pretest questions candidates cannot identify. Do not state pass rates or cut scores; point to the NBCC candidate handbook.',
+    link: { path: '/nce.html', label: 'NCE practice questions and mock exams' },
+  },
+  {
+    exam: 'NCE',
+    slug: 'nce-exam-format-and-domains',
+    title: 'NCE Exam Format: 200 Questions, Six Domains, What to Expect',
+    angle: 'The structure of the NCE: 200 multiple-choice questions, 160 scored, 3 hours 45 minutes, and NBCC\'s six content domains with a sentence on what each covers. How the exam is delivered and what the question styles look like. Where to confirm registration details and fees (NBCC handbook) rather than stating them.',
+    link: { path: '/nce.html', label: 'NCE practice questions and mock exams' },
+  },
+  {
+    exam: 'NCE',
+    slug: 'nce-study-schedule-6-weeks',
+    title: 'A 6-Week NCE Study Schedule by Domain',
+    angle: 'Week-by-week plan weighted to the six NCE domains, with a baseline mock in week 1, domain blocks in weeks 2-4, mixed timed sets in week 5, and two full mocks in week 6. Include how to adjust if a baseline shows one domain far below the others.',
+    link: { path: '/nce.html', label: 'NCE practice questions and mock exams' },
+  },
+  {
+    exam: 'NCE',
+    slug: 'free-nce-practice-questions-how-to-use',
+    title: 'Free NCE Practice Questions: How to Turn Them Into a Score Gain',
+    angle: 'Why most free NCE questions are used badly (answered once, rationales skipped). How to tag each miss by domain, keep an error log, and retest the same concept a week later. What makes a practice question realistic for the NCE and how to spot outdated or recall-only items.',
+    link: { path: '/nce.html', label: 'free NCE sample questions' },
+  },
   {
     exam: 'NCE',
     slug: 'nce-counseling-theories',

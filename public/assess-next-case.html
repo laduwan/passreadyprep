@@ -5,6 +5,7 @@
 <script src="/tool-gate.js" data-tool="What to Assess Next — Full Case"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>NCMHCE What to Assess Next: Full Case | PassReady Prep</title>
+<meta name="description" content="Follow one NCMHCE client through ten sequential assessment decisions, from safety screening to treatment planning. Write what you would assess next; each round is scored.">
 <link rel="canonical" href="https://www.passreadyprep.com/assess-next-case.html" />
 <style>
 :root{
@@ -158,6 +159,17 @@ textarea#inp:focus{border-color:var(--emerald)}
 :focus-visible{outline:2.5px solid var(--emerald-400); outline-offset:2px; border-radius:6px}
 @media(prefers-reduced-motion:reduce){*{transition:none !important}}
 @media(max-width:520px){h1{font-size:22px} .wrap{padding:16px 14px 56px} .card{padding:16px} .prompt{font-size:16px}}
+
+  /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
+  .tool-about{margin-top:36px}
+  .tool-about h2{font-size:18px; margin:0 0 8px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:20px 0 6px; color:var(--white); font-weight:700}
+  .tool-about p,.tool-about li{color:var(--slate-400); font-size:14.5px; line-height:1.6}
+  .tool-about p{margin:0 0 10px}
+  .tool-about ul,.tool-about ol{margin:0 0 12px; padding-left:20px}
+  .tool-about li{margin:0 0 5px}
+  .tool-about a{color:var(--emerald-400)}
+  .tool-about .lead{margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -185,6 +197,21 @@ textarea#inp:focus{border-color:var(--emerald)}
     <span class="exam-badge">ASSESS NEXT</span>
   </header>
   <main id="app" aria-live="polite"></main>
+  <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
+    <h2 id="tool-about-h">A full case of assessment decisions</h2>
+    <p class="lead">Follow one client through ten sequential clinical decisions, from the first safety screen through diagnosis, treatment planning, and ethics. At each step you write what you would assess next and why, your answer is scored, and new clinical information is revealed, the way a real case unfolds over sessions.</p>
+    <h3>Why the full-case format matters</h3>
+    <p>The single-item <a href="/assess-next.html">what to assess next drill</a> trains one decision at a time. The NCMHCE, though, scores a chain of decisions inside one case, and an early miss changes what you should do later. Working a whole client teaches you to hold the clinical picture in mind across rounds, update it when new information arrives, and resist re-assessing what you have already established.</p>
+    <h3>What a round looks like</h3>
+    <ul>
+      <li>Read the client&rsquo;s current presentation and everything revealed so far.</li>
+      <li>Write what you would assess next, with your reasoning, in your own words.</li>
+      <li>Get a score and a rationale that explains the strongest next assessment and why alternatives would be premature or redundant.</li>
+      <li>Receive the next piece of clinical information and continue.</li>
+    </ul>
+    <h3>How to use it</h3>
+    <p>Work one client at a time and read every rationale, including the rounds you scored well. Then run the same reasoning under multiple-choice conditions in the <a href="/study">NCMHCE case simulations</a>, where the exam-format questions sit inside the same kind of unfolding case. Use the <a href="/dsm.html">DSM-5-TR reference</a> for any diagnosis you need to rule in or out along the way.</p>
+  </section>
 </div>
 
 <script src="/js/assessNextCases.js"></script>

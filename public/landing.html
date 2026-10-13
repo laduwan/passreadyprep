@@ -37,7 +37,90 @@
       "name": "PassReady Prep",
       "url": "https://www.passreadyprep.com/",
       "description": "PassReady Prep provides NCMHCE practice cases, NCE practice questions, timed mock exams, flashcards, and a readiness predictor to prepare counselors for the National Clinical Mental Health Counseling Examination (NCMHCE) and the National Counselor Examination (NCE). Built by a board-approved continuing education provider.",
-      "parentOrganization": { "@type": "Organization", "name": "GA Integrated Therapeutic Perspectives LLC" }
+      "parentOrganization": { "@type": "Organization", "name": "GA Integrated Therapeutic Perspectives LLC" },
+      "founder": { "@id": "https://www.passreadyprep.com/#founder" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.passreadyprep.com/#founder",
+      "name": "Kejuiana Johnson",
+      "honorificSuffix": "MA, LPC, NCC, BC-TMH, CPCS",
+      "jobTitle": "Licensed Professional Counselor",
+      "description": "Licensed professional counselor, National Certified Counselor, board-certified telemental health provider, certified professional counselor supervisor, and author of The Complete NCMHCE Study Guide. Founder of PassReady Prep.",
+      "url": "https://www.passreadyprep.com/#about",
+      "worksFor": {
+        "@id": "https://www.passreadyprep.com/#org"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.passreadyprep.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the NCMHCE?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The National Clinical Mental Health Counseling Examination is NBCC’s clinical licensure exam, required by many state boards for the LPC or LMHC license. The current format, introduced in 2022, presents 11 case studies (10 scored and 1 unscored pretest case), each with 9 to 15 multiple-choice questions that follow a client from intake through treatment. You have 225 minutes plus a scheduled 15-minute break."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between the NCE and the NCMHCE?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The NCE is a 200-question multiple-choice exam on general counseling knowledge across six content domains. The NCMHCE is a clinical exam built from case simulations that score your decisions about assessment, diagnosis, treatment, and ethics. Which one you take depends on your state board; some states require one, some accept either, and some require both. PassReady Prep covers both exams under one account, each with its own free trial and plans."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is the NCMHCE scored, and what is a passing score?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NBCC reports a scaled score and sets the passing standard; it does not publish a fixed number of questions you must get right, so confirm the current details in your candidate handbook. PassReady Prep’s readiness score is our own estimate: it weights your accuracy by how heavily each domain counts on the exam, and every decision in a practice case is scored from −2 to +3 so you can see how close a near miss was."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long should I study for the NCMHCE?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most candidates do well with 8 to 12 weeks of one practice case a day plus focused drills on their weakest domain. Rather than counting weeks, watch two markers: a readiness score that holds above 60%, and two full timed mock exams in the final two weeks. Retakers usually need less time and a sharper focus on the domain that failed them."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a free NCMHCE practice test?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Your first NCMHCE case simulation is free and does not require an account, and the 3-day free trial includes the full timed mock exam. NCE candidates can try free sample questions before choosing a plan."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the pass guarantee work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Pass Guarantee plan is a one-time $149 purchase. Complete at least 20 cases and reach 60% or higher on the readiness predictor before your exam date. If you do not pass, we verify your result and add 3 more months of access at no charge, as many times as it takes. If you do pass, your first continuing education course on CounselorReady, our board-approved CE platform, is free."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the content current?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Every case follows the format NBCC introduced in 2022, and the bank already includes cases written to NBCC’s 2027 outline so your practice stays aligned as the exam changes. Diagnoses use DSM-5-TR criteria and current ICD-10-CM codes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who built PassReady Prep?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PassReady Prep was built by Kejuiana Johnson, MA, LPC, NCC, BC-TMH, CPCS, a licensed professional counselor and author of The Complete NCMHCE Study Guide, through GA Integrated Therapeutic Perspectives LLC, an NBCC-approved continuing education provider. PassReady Prep is not affiliated with or endorsed by NBCC."
+          }
+        }
+      ]
     }
   ]
 }
@@ -324,6 +407,23 @@
     color:var(--emerald-400); border:1px solid rgba(16,185,129,.3); padding:2px 8px; border-radius:999px; margin-left:6px; vertical-align:middle}
 
   :focus-visible{outline:2.5px solid var(--emerald-400); outline-offset:2px; border-radius:6px}
+
+  /* ---------- about + faq ---------- */
+  .about{background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-xl); padding:30px 28px}
+  .about h2{margin:8px 0 12px}
+  .about p{color:var(--slate-300); font-size:15.5px; line-height:1.65; margin:0 0 12px}
+  .about p a{color:var(--emerald-400)}
+  .about .about-note{color:var(--slate-500); font-size:12.5px; margin:14px 0 0}
+  .faq{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:10px}
+  .faq-item{background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-xl); padding:0 22px}
+  .faq-item summary{list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:14px; padding:16px 0}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary h3{font-size:16px; color:var(--white); font-weight:700; margin:0; line-height:1.35}
+  .faq-chev{flex:0 0 auto; width:10px; height:10px; border-right:2px solid var(--slate-400); border-bottom:2px solid var(--slate-400); transform:rotate(45deg); transition:transform .15s; margin-right:4px}
+  .faq-item[open] .faq-chev{transform:rotate(-135deg)}
+  .faq-item p{color:var(--slate-400); font-size:14.5px; line-height:1.6; margin:0; padding:0 0 18px}
+  .faq-more{text-align:center; color:var(--slate-500); font-size:13.5px; margin:22px 0 0}
+  .faq-more a{color:var(--emerald-400)}
 </style>
 </head>
 <body>
@@ -701,6 +801,62 @@
     </div>
   </section>
 
+  <!-- ===================== ABOUT + FAQ (indexable copy) ===================== -->
+  <section class="wrap band" id="about" aria-labelledby="about-h">
+    <div class="about">
+      <div class="about-text">
+        <span class="eyebrow">Who built this</span>
+        <h2 id="about-h">Built by a counselor, not a test company</h2>
+        <p>PassReady Prep was created by <strong>Kejuiana Johnson, MA, LPC, NCC, BC-TMH, CPCS</strong>, a licensed professional counselor, National Certified Counselor, board-certified telemental health provider, and certified professional counselor supervisor, and the author of <a href="/study-guide.html">The Complete NCMHCE Study Guide</a>.</p>
+        <p>Every case, rationale, and drill is written and reviewed under her supervision to match the way the NCMHCE actually scores clinical decisions. The company behind it, GA Integrated Therapeutic Perspectives LLC, is an NBCC-approved continuing education provider and runs CounselorReady, the CE platform you earn a free course on when you pass.</p>
+        <p class="about-note">NCE&reg; and NCMHCE&reg; are registered trademarks of the National Board for Certified Counselors, Inc. PassReady Prep is not affiliated with or endorsed by NBCC.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap band tight" id="faq" aria-labelledby="faq-h">
+    <div class="sec-head">
+      <span class="eyebrow">Questions candidates ask</span>
+      <h2 id="faq-h">NCMHCE and NCE prep, answered</h2>
+      <p>Straight answers on the exams, the study plan, and the guarantee.</p>
+    </div>
+    <div class="faq">
+      <details class="faq-item" open>
+        <summary><h3>What is the NCMHCE?</h3><span class="faq-chev" aria-hidden="true"></span></summary>
+        <p>The National Clinical Mental Health Counseling Examination is NBCC’s clinical licensure exam, required by many state boards for the LPC or LMHC license. The current format, introduced in 2022, presents 11 case studies (10 scored and 1 unscored pretest case), each with 9 to 15 multiple-choice questions that follow a client from intake through treatment. You have 225 minutes plus a scheduled 15-minute break.</p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>What is the difference between the NCE and the NCMHCE?</h3><span class="faq-chev" aria-hidden="true"></span></summary>
+        <p>The NCE is a 200-question multiple-choice exam on general counseling knowledge across six content domains. The NCMHCE is a clinical exam built from case simulations that score your decisions about assessment, diagnosis, treatment, and ethics. Which one you take depends on your state board; some states require one, some accept either, and some require both. PassReady Prep covers both exams under one account, each with its own free trial and plans.</p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>How is the NCMHCE scored, and what is a passing score?</h3><span class="faq-chev" aria-hidden="true"></span></summary>
+        <p>NBCC reports a scaled score and sets the passing standard; it does not publish a fixed number of questions you must get right, so confirm the current details in your candidate handbook. PassReady Prep’s readiness score is our own estimate: it weights your accuracy by how heavily each domain counts on the exam, and every decision in a practice case is scored from −2 to +3 so you can see how close a near miss was.</p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>How long should I study for the NCMHCE?</h3><span class="faq-chev" aria-hidden="true"></span></summary>
+        <p>Most candidates do well with 8 to 12 weeks of one practice case a day plus focused drills on their weakest domain. Rather than counting weeks, watch two markers: a readiness score that holds above 60%, and two full timed mock exams in the final two weeks. Retakers usually need less time and a sharper focus on the domain that failed them.</p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Is there a free NCMHCE practice test?</h3><span class="faq-chev" aria-hidden="true"></span></summary>
+        <p>Yes. Your first NCMHCE case simulation is free and does not require an account, and the 3-day free trial includes the full timed mock exam. NCE candidates can try free sample questions before choosing a plan.</p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>How does the pass guarantee work?</h3><span class="faq-chev" aria-hidden="true"></span></summary>
+        <p>The Pass Guarantee plan is a one-time $149 purchase. Complete at least 20 cases and reach 60% or higher on the readiness predictor before your exam date. If you do not pass, we verify your result and add 3 more months of access at no charge, as many times as it takes. If you do pass, your first continuing education course on CounselorReady, our board-approved CE platform, is free.</p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Is the content current?</h3><span class="faq-chev" aria-hidden="true"></span></summary>
+        <p>Yes. Every case follows the format NBCC introduced in 2022, and the bank already includes cases written to NBCC’s 2027 outline so your practice stays aligned as the exam changes. Diagnoses use DSM-5-TR criteria and current ICD-10-CM codes.</p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Who built PassReady Prep?</h3><span class="faq-chev" aria-hidden="true"></span></summary>
+        <p>PassReady Prep was built by Kejuiana Johnson, MA, LPC, NCC, BC-TMH, CPCS, a licensed professional counselor and author of The Complete NCMHCE Study Guide, through GA Integrated Therapeutic Perspectives LLC, an NBCC-approved continuing education provider. PassReady Prep is not affiliated with or endorsed by NBCC.</p>
+      </details>
+    </div>
+    <p class="faq-more">Want longer answers? Read the <a href="/blog">PassReady Prep blog</a> for study strategies, differentials, and ethics walk-throughs.</p>
+  </section>
+
   <!-- ===================== FINAL CTA ===================== -->
   <section class="wrap final">
     <h2>Find out where you actually stand.</h2>
@@ -768,6 +924,7 @@
         <a href="/book">NCMHCE study-guide bonuses</a>
         <a href="/podcast.html">NCMHCE clinical podcast</a>
         <a href="/blog">Blog</a>
+        <a href="#faq">FAQ</a>
         <a href="/accessibility.html">Accessibility</a>
         <a href="https://www.counselorready.com" target="_blank" rel="noopener">CounselorReady (CE)</a>
       </div>

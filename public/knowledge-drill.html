@@ -112,12 +112,21 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
 }
 
   /* Static "About" + Study tools footer — footer rules copied from landing.html */
-  .tool-about{margin-top:32px}
-  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
   footer.site{border-top:1px solid rgba(51,65,85,.4); margin-top:28px; padding:22px 0 0}
   .foot-col h4{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--slate-400); margin:0 0 10px; font-weight:700}
   .foot-col a{display:inline-block; color:var(--slate-300); text-decoration:none; font-size:14.5px; margin:4px 16px 4px 0}
   .foot-col a:hover{color:var(--emerald-400)}
+
+  /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
+  .tool-about{margin-top:36px}
+  .tool-about h2{font-size:18px; margin:0 0 8px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:20px 0 6px; color:var(--white); font-weight:700}
+  .tool-about p,.tool-about li{color:var(--slate-400); font-size:14.5px; line-height:1.6}
+  .tool-about p{margin:0 0 10px}
+  .tool-about ul,.tool-about ol{margin:0 0 12px; padding-left:20px}
+  .tool-about li{margin:0 0 5px}
+  .tool-about a{color:var(--emerald-400)}
+  .tool-about .lead{margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -154,9 +163,18 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
 
   <div class="scoreline"><span id="progress"></span><span id="score"></span></div>
   <div id="stage"></div>
-  <section class="tool-about" aria-labelledby="tool-about-h">
+  <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
     <h2 id="tool-about-h">About the knowledge drill</h2>
-    <p class="lead">Every question stands alone, so you can target a weak domain without working a full case, and every answer comes with a clinical rationale. When your domain scores hold steady, move on to full <a href="/study">NCMHCE case simulations</a> and the <a href="/exam.html">timed mock exam</a>; review missed theory items in <a href="/theory.html">theories &amp; pioneers</a>.</p>
+    <p class="lead">Every question stands alone, so you can target a weak domain without working a full case, and every answer comes with a clinical rationale. The drill holds 300 multiple-choice questions across the NCMHCE knowledge domains: counseling theories, pioneers, counseling skills, ethics, intake, assessment, diagnosis, and treatment planning.</p>
+    <h3>Filter by domain and difficulty</h3>
+    <p>Pick one domain and one difficulty level and drill until your accuracy holds, then move the difficulty up. The point is deliberate practice on the domain your study plan flags, not another pass through material you already know. Each rationale explains why the correct option is best and why the distractors are tempting, which is the reasoning the case simulations reward.</p>
+    <h3>Where the drill fits</h3>
+    <ol>
+      <li>Work a few <a href="/study">NCMHCE case simulations</a> to find your weak domain.</li>
+      <li>Drill that domain here until accuracy is steady, reviewing missed theory items in <a href="/theory.html">theories and pioneers</a> and diagnostic items in the <a href="/dsm.html">DSM-5-TR reference</a>.</li>
+      <li>Confirm the gain under time pressure in the <a href="/timed-knowledge-exam.html">timed knowledge exam</a>, then return to full cases and the <a href="/exam.html">timed mock exam</a>.</li>
+    </ol>
+    <p>Questions in the drill are written to the same standard as the case items: one defensible best answer, no trick wording, and a rationale that teaches the underlying concept rather than just naming the letter.</p>
   </section>
   <footer class="site">
     <nav class="foot-col" aria-label="Study tools">

@@ -2,7 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /checkout.html
 Disallow: /score-report.html
-Disallow: /review.html
 Disallow: /admin.html
 Disallow: /admin-dashboard.html
 Disallow: /admin-subscriptions.html

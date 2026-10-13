@@ -123,12 +123,21 @@
   }
 
   /* Static "About" + Study tools footer — footer rules copied from landing.html */
-  .tool-about{margin-top:32px}
-  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
   footer.site{border-top:1px solid rgba(51,65,85,.4); margin-top:28px; padding:22px 0 0}
   .foot-col h4{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--slate-400); margin:0 0 10px; font-weight:700}
   .foot-col a{display:inline-block; color:var(--slate-300); text-decoration:none; font-size:14.5px; margin:4px 16px 4px 0}
   .foot-col a:hover{color:var(--emerald-400)}
+
+  /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
+  .tool-about{margin-top:36px}
+  .tool-about h2{font-size:18px; margin:0 0 8px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:20px 0 6px; color:var(--white); font-weight:700}
+  .tool-about p,.tool-about li{color:var(--slate-400); font-size:14.5px; line-height:1.6}
+  .tool-about p{margin:0 0 10px}
+  .tool-about ul,.tool-about ol{margin:0 0 12px; padding-left:20px}
+  .tool-about li{margin:0 0 5px}
+  .tool-about a{color:var(--emerald-400)}
+  .tool-about .lead{margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -142,9 +151,18 @@
   </header>
   <h1>NCMHCE Decision Trees</h1><p class="lead">25+ interactive decision trees for clinical reasoning under exam conditions — risk assessment, differential diagnosis, treatment planning, and ethics. Work branch by branch the way the NCMHCE case simulations expect you to think.</p>
   <main id="app"></main>
-  <section class="tool-about" aria-labelledby="tool-about-h">
+  <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
     <h2 id="tool-about-h">About the decision trees</h2>
-    <p class="lead">Each tree walks one clinical scenario node by node, so you practice the order of decisions the case simulations score: safety first, then diagnosis, then treatment and ethics. Follow up with <a href="/next-best-step.html">next best step</a> for rapid decisions, <a href="/assess-next.html">what to assess next</a> for assessment sequencing, and the <a href="/dsm.html">DSM-5-TR reference</a> for differentials.</p>
+    <p class="lead">Each tree walks one clinical scenario node by node, so you practice the order of decisions the NCMHCE case simulations score: safety first, then diagnosis, then treatment, then ethics. There are 25+ trees covering suicide and homicide risk, level of care, differential diagnosis, treatment selection, confidentiality and duty to warn, mandated reporting, and boundary decisions.</p>
+    <h3>Why order matters on the NCMHCE</h3>
+    <p>Many candidates know the right intervention but choose it too early. The exam asks what you do <em>next</em>, and the scoring penalizes skipping a safety screen to get to treatment, or diagnosing before ruling out a medical or substance cause. A decision tree makes that sequence visible: at each branch you commit to a choice, see the consequence, and read why the alternative would have scored lower.</p>
+    <h3>How to use the trees</h3>
+    <ol>
+      <li>Start with the risk trees. Suicide risk assessment appears in nearly every form of the exam, and the safety-planning branch is where candidates lose the most points.</li>
+      <li>Work a differential tree for each diagnostic family you find hard, using the <a href="/dsm.html">DSM-5-TR reference</a> alongside it.</li>
+      <li>Finish with the ethics trees, where the trap is usually acting alone instead of consulting, documenting, and following the code of ethics.</li>
+    </ol>
+    <p>Follow up with <a href="/next-best-step.html">next best step</a> for rapid single decisions, <a href="/assess-next.html">what to assess next</a> for instrument and sequencing choices, and the full <a href="/study">case simulations</a> to practice the whole chain under case conditions.</p>
   </section>
   <footer class="site">
     <nav class="foot-col" aria-label="Study tools">

@@ -95,12 +95,21 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
 @media(max-width:520px){h1{font-size:22px}.qstem{font-size:15px}.opt{font-size:14px}.topic-grid{grid-template-columns:1fr}}
 
   /* Static "About" + Study tools footer — footer rules copied from landing.html */
-  .tool-about{margin-top:32px}
-  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
   footer.site{border-top:1px solid rgba(51,65,85,.4); margin-top:28px; padding:22px 0 0}
   .foot-col h4{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--slate-400); margin:0 0 10px; font-weight:700}
   .foot-col a{display:inline-block; color:var(--slate-300); text-decoration:none; font-size:14.5px; margin:4px 16px 4px 0}
   .foot-col a:hover{color:var(--emerald-400)}
+
+  /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
+  .tool-about{margin-top:36px}
+  .tool-about h2{font-size:18px; margin:0 0 8px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:20px 0 6px; color:var(--white); font-weight:700}
+  .tool-about p,.tool-about li{color:var(--slate-400); font-size:14.5px; line-height:1.6}
+  .tool-about p{margin:0 0 10px}
+  .tool-about ul,.tool-about ol{margin:0 0 12px; padding-left:20px}
+  .tool-about li{margin:0 0 5px}
+  .tool-about a{color:var(--emerald-400)}
+  .tool-about .lead{margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -123,9 +132,19 @@ h1{font-size:25px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
   <div class="flt" id="filters"></div>
   <div class="scoreline"><span id="progress"></span><span id="score"></span></div>
   <div id="stage"></div>
-  <section class="tool-about" aria-labelledby="tool-about-h">
+  <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
     <h2 id="tool-about-h">About the core attributes drill</h2>
-    <p class="lead">Core Counseling Attributes questions test how you convey empathy, unconditional positive regard, and congruence, how you build and repair the working alliance, and how you respond across cultures. Practice the same skills in your own words with the <a href="/skills.html">microskills responder</a> and the <a href="/intake.html">intake interview simulator</a>, and review the theories behind them in <a href="/theory.html">theories &amp; pioneers</a>.</p>
+    <p class="lead">Core Counseling Attributes questions test how you convey empathy, unconditional positive regard, and congruence, how you build and repair the working alliance, and how you respond across cultures. This drill holds 30 scenario-based questions with instant feedback and a rationale for each.</p>
+    <h3>What the domain covers</h3>
+    <p>Core Counseling Attributes is its own scored domain on the NCMHCE, weighted at roughly 15% of the exam. It draws on Rogers&rsquo; core conditions, Bordin&rsquo;s three-part working alliance (goals, tasks, bond), the stages of the counseling relationship, rupture and repair, cultural responsiveness and humility, and the ability to identify which theory a counselor is working from based on what they do. These questions look easy and are missed constantly, because every option sounds kind; only one is clinically best.</p>
+    <h3>How to tell the best response</h3>
+    <ul>
+      <li>It stays with the client&rsquo;s experience instead of reassuring, advising, or self-disclosing to fill a silence.</li>
+      <li>It names a rupture directly and takes responsibility rather than defending the counselor&rsquo;s intent.</li>
+      <li>It treats cultural difference as something to ask about and learn from, not something to assume or to avoid.</li>
+      <li>It is congruent: the counselor says what is true in a way the client can use.</li>
+    </ul>
+    <p>Practice the same skills in your own words with the <a href="/skills.html">microskills responder</a>, run a full conversation in the <a href="/intake.html">intake interview simulator</a>, and see how each attribute is scored in context in the <a href="/study">case simulations</a>.</p>
   </section>
   <footer class="site">
     <nav class="foot-col" aria-label="Study tools">
