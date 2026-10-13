@@ -1,0 +1,571 @@
+// tools/nce/seed/2027-profdev-6.js — 2027 NCE: Professional Development & Counselor Self-Awareness (30 original items)
+const T1 = 'Seek consultation from a colleague for assistance with a specific skill or modality';
+const T2 = 'Seek supervision from a Counseling supervisor';
+const T3 = 'Complete continuing education';
+const T4 = 'Develop knowledge of empirically supported Counseling interventions or approaches';
+const T5 = 'Engage in advocacy for the client and the Counseling profession';
+const T6 = 'Engage in training related to Counseling ethics';
+const T7 = 'Engage in training related to ethical and legal use of artificial intelligence (AI)';
+const T8 = 'Engage in training related to working with different cultures or populations';
+const T9 = 'Address your compassion fatigue (e.g., burnout) potential';
+const T10 = 'Assess your exposure to vicarious trauma';
+const T11 = 'Assess your need for specialized training and/or certification';
+const T12 = 'Assess your strengths and limitations as a Counselor';
+const T13 = 'Assess your suitability to work with a specific client based on their needs and sociocultural considerations';
+const T14 = 'Utilize self-regulation techniques';
+const T15 = 'Determine the client-Counselor suitability (e.g., Counselor has the skills and experience needed, availability, no conflict of interest)';
+const T16 = 'Determine your competency for administering assessments';
+const T17 = 'Maintain appropriate boundaries';
+const T18 = 'Practice self-care';
+const T19 = 'Practice self-reflection';
+
+module.exports = [
+  {
+    id: 'nce-s-p27f-001',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T1,
+    difficulty: 'medium',
+    stem: 'A counselor in a small town wants help applying Gottman Method interventions with a married couple. The only Gottman-trained clinician in town is the wife\'s cousin. A trained colleague in another county is also available for consultation. How should the counselor proceed?',
+    options: [
+      { id: 'a', text: 'Consult the cousin but leave out the couple\'s names', isCorrect: false, rationale: 'In a small town the cousin could easily recognize the couple, and a family tie to the wife compromises both privacy and objectivity.' },
+      { id: 'b', text: 'Consult the trained colleague who has no ties to them', isCorrect: true, rationale: 'Choosing a qualified consultant with no relationship to the clients protects confidentiality and yields objective input on the modality.' },
+      { id: 'c', text: 'Skip consultation so the couple\'s privacy is protected', isCorrect: false, rationale: 'Forgoing needed consultation shortchanges the couple; a safe consultation option exists.' },
+    ],
+    rationale: 'Consultation on a specific modality is valuable, but the counselor must protect client privacy and choose a consultant who can be objective. The ACA Code directs counselors not to disclose information that could identify a client during consultation without consent. When a consultant has a personal tie to the client, removing names is not enough; a different qualified colleague is the better choice.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Section B.7 — case consultation: respect for privacy; no identifying information without consent' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-002',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T2,
+    difficulty: 'medium',
+    stem: 'A provisionally licensed counselor at an agency hears an 8-year-old describe a bruise from "getting in trouble" at home. The counselor is unsure whether the account meets the reporting threshold. Her next scheduled supervision meeting is in five days. What should she do?',
+    options: [
+      { id: 'a', text: 'Contact her supervisor today and follow reporting law', isCorrect: true, rationale: 'Time-sensitive safety questions call for same-day supervision; the counselor still follows her state\'s mandated reporting law and agency protocol.' },
+      { id: 'b', text: 'Hold the question for her scheduled supervision meeting', isCorrect: false, rationale: 'Waiting five days could delay a required report and leave the child at risk.' },
+      { id: 'c', text: 'Ask the child for more detail to confirm abuse occurred', isCorrect: false, rationale: 'Reporters need reasonable suspicion, not proof; investigative questioning belongs to child protective services and can taint later interviews.' },
+    ],
+    rationale: 'Supervisees should seek supervision promptly, not only at scheduled meetings, when a situation involves possible harm. Mandated reporting laws vary by state, and in many states the duty to report rests with the individual who formed the suspicion and cannot be handed off, so the counselor checks state law and agency protocol while consulting her supervisor. Investigating to "confirm" abuse is outside the counselor\'s role.',
+    references: [
+      { source: 'State law', detail: 'Child abuse mandated reporting — reporting threshold (reasonable suspicion), timelines and who must report vary by state' },
+      { source: 'ACA Code of Ethics', detail: 'Section F.1 — counseling supervision and client welfare' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-003',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T2,
+    difficulty: 'easy',
+    stem: 'A newly hired counselor meets monthly with her program director, a nonclinical administrator, to review productivity targets, billing deadlines, and scheduling. She has no other supervision. To support the quality of her work with clients, what does she still need?',
+    options: [
+      { id: 'a', text: 'More frequent meetings with the program director', isCorrect: false, rationale: 'Extra administrative meetings still do not address clinical skills, case conceptualization, or client welfare.' },
+      { id: 'b', text: 'Informal peer chats in place of formal supervision', isCorrect: false, rationale: 'Peer consultation is useful but does not provide the evaluative, accountable oversight of clinical supervision.' },
+      { id: 'c', text: 'Clinical supervision focused on her counseling work', isCorrect: true, rationale: 'Clinical supervision addresses the counselor\'s clinical skills, case decisions, and client welfare, which administrative supervision does not cover.' },
+    ],
+    rationale: 'Administrative supervision addresses agency operations such as productivity, policies, and scheduling. Clinical supervision is provided by a qualified clinician and focuses on the counselor\'s clinical work, skill development, and client welfare. A counselor whose only supervision is administrative should seek clinical supervision, and pre-licensed counselors must also meet their board\'s supervision rules.',
+    references: [
+      { source: 'Gladding (Counseling: A Comprehensive Profession)', detail: 'Clinical versus administrative supervision' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-004',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T3,
+    difficulty: 'medium',
+    stem: 'A counselor completes a continuing education course on psychopharmacology. Soon after, a client taking sertraline reports nausea and low sex drive and asks whether she should stop the medication. How should the counselor use her new learning?',
+    options: [
+      { id: 'a', text: 'Suggest a gradual taper based on what the course taught', isCorrect: false, rationale: 'Advising on stopping or tapering medication is outside counselor scope, no matter how much CE she has completed.' },
+      { id: 'b', text: 'Decline to talk about her medication in any way at all', isCorrect: false, rationale: 'Refusing to discuss medication misses the chance to document side effects and support collaboration with the prescriber.' },
+      { id: 'c', text: 'Record her report and direct her to her prescriber', isCorrect: true, rationale: 'The counselor documents the client\'s self-reported effects, shares general information, and directs medication decisions to the prescriber.' },
+    ],
+    rationale: 'Continuing education keeps knowledge current but does not expand a counselor\'s legal scope of practice. Psychopharmacology training helps counselors recognize side effects, document what clients report, and coordinate with prescribers. Medication decisions such as stopping or tapering belong to the prescriber.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Section C.2.a — boundaries of competence; Section C.2.f — continuing education' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-005',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'assessment',
+    topic: T3,
+    difficulty: 'hard',
+    stem: 'After a continuing education course on DSM-5-TR changes, a counselor reviews her case of a 52-year-old man whose wife died 7 months ago. Nearly every day for the past two months he has felt intense yearning for her and has been preoccupied with memories of her, with marked impairment. Which conclusion is consistent with the updated criteria?',
+    options: [
+      { id: 'a', text: 'Too soon to diagnose prolonged grief disorder', isCorrect: true, rationale: 'For adults, DSM-5-TR requires that at least 12 months have passed since the death; only 7 months have passed.' },
+      { id: 'b', text: 'He meets the time rule, since 6 months have passed', isCorrect: false, rationale: 'The 6-month threshold applies to children and adolescents, not adults.' },
+      { id: 'c', text: 'He qualifies, since his symptoms have lasted a month', isCorrect: false, rationale: 'The one-month symptom duration is required in addition to, not instead of, the 12-month interval since the death.' },
+    ],
+    rationale: 'DSM-5-TR added prolonged grief disorder. For adults, at least 12 months must have passed since the death (at least 6 months for children and adolescents), and symptoms must be present most days, nearly every day, for at least the last month. CE on manual revisions helps counselors apply current criteria accurately, and the counselor should still assess for other conditions, such as major depression, that may apply now.',
+    references: [
+      { source: 'DSM-5-TR', detail: 'Prolonged Grief Disorder, Criterion A (12 months for adults; 6 months for children and adolescents)' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-006',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'helping_relationships',
+    topic: T4,
+    difficulty: 'medium',
+    stem: 'A counselor is building her knowledge of empirically supported care for a 15-year-old with anorexia nervosa who is medically stable for outpatient treatment and whose parents are closely involved. Which approach has the strongest research support for this client?',
+    options: [
+      { id: 'a', text: 'Individual supportive therapy that keeps parents out', isCorrect: false, rationale: 'Excluding engaged parents drops the component with the strongest evidence for adolescent anorexia.' },
+      { id: 'b', text: 'Eating disorder-focused family-based treatment', isCorrect: true, rationale: 'Family-based treatment, which enlists parents in restoring the adolescent\'s weight, is the best-supported approach for adolescents with anorexia.' },
+      { id: 'c', text: 'Family systems therapy that avoids talk about food', isCorrect: false, rationale: 'General family therapy that avoids eating and weight does not target the core behaviors addressed in family-based treatment.' },
+    ],
+    rationale: 'For adolescents with anorexia nervosa who have engaged caregivers, eating disorder-focused family-based treatment (often called the Maudsley approach) has the strongest evidence. Parents initially take charge of restoring weight, with control returned to the adolescent as health improves. Medical monitoring continues alongside counseling.',
+    references: [
+      { source: 'APA Practice Guidelines (Psychiatric)', detail: 'Practice Guideline for the Treatment of Patients With Eating Disorders (2023) — eating disorder-focused family-based treatment for adolescents with anorexia nervosa' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-007',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'helping_relationships',
+    topic: T4,
+    difficulty: 'medium',
+    stem: 'A counselor joining an outpatient addiction program reviews the research on psychosocial treatments for adults with methamphetamine use disorder. Which intervention has the strongest evidence for this population?',
+    options: [
+      { id: 'a', text: 'Psychoeducation on how methamphetamine affects the brain', isCorrect: false, rationale: 'Education alone is a reasonable adjunct but has weak evidence for reducing stimulant use.' },
+      { id: 'b', text: 'Nondirective supportive counseling offered every week', isCorrect: false, rationale: 'Supportive counseling without behavioral targets has not shown the effects of contingency management.' },
+      { id: 'c', text: 'Contingency management that rewards negative urine tests', isCorrect: true, rationale: 'Contingency management, which gives tangible incentives for verified abstinence, has the strongest evidence for stimulant use disorders.' },
+    ],
+    rationale: 'Contingency management reinforces verified abstinence, such as drug-negative urine tests, with vouchers or prizes. It is the psychosocial intervention with the strongest research support for stimulant use disorders, for which no medication currently has FDA approval. It is often combined with cognitive-behavioral and community reinforcement approaches.',
+    references: [
+      { source: 'NICE guidelines', detail: 'CG51 Drug misuse: psychosocial interventions — contingency management (incentives for drug-negative tests) for people who misuse stimulants' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-008',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'social_cultural',
+    topic: T5,
+    difficulty: 'hard',
+    stem: 'Several of a counselor\'s clients are farmworkers whose families suffer from repeated wage theft. Working alongside farmworker-led organizations across the state, she helps plan and run a public campaign, shaped by the workers themselves, on how wage theft harms family mental health. Under the 2018 ACA Advocacy Competencies, this is BEST classified as:',
+    options: [
+      { id: 'a', text: 'Collective action in the public arena domain', isCorrect: true, rationale: 'Collaborating with affected groups on large-scale public efforts is collective action, the "acting with" competency at the macro level.' },
+      { id: 'b', text: 'Social/political advocacy on the workers\' behalf', isCorrect: false, rationale: 'Social/political advocacy is the counselor acting on behalf of clients, such as lobbying; here she works with the affected group.' },
+      { id: 'c', text: 'Community collaboration at the meso level', isCorrect: false, rationale: 'Community collaboration is local, school or community level work; a statewide public campaign is at the public arena (macro) level.' },
+    ],
+    rationale: 'The 2018 update organizes advocacy by level (client/student, school/community, public arena) and by whether the counselor acts with or on behalf of clients. At the public arena level, collective action means joining with groups to address large-scale issues, while social/political advocacy means the counselor acts on their behalf. A statewide campaign shaped by the workers themselves is collective action.',
+    references: [
+      { source: 'ACA Advocacy Competencies', detail: '2018 update — public arena (macro) level: collective action (with) versus social/political advocacy (on behalf)' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-009',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T5,
+    difficulty: 'easy',
+    stem: 'For years, counseling organizations advocated in Congress for counselors to be recognized under Medicare. Which change took effect on January 1, 2024, as a result of that advocacy?',
+    options: [
+      { id: 'a', text: 'Counselors may bill Medicare only under a psychologist', isCorrect: false, rationale: 'The 2024 change allows counselors to bill Medicare in their own right; billing only under another provider was the old limitation.' },
+      { id: 'b', text: 'Qualified counselors may enroll and bill Medicare directly', isCorrect: true, rationale: 'Since January 1, 2024, qualified licensed counselors can enroll as Medicare mental health counselors (MHCs) and bill directly.' },
+      { id: 'c', text: 'Counselors may serve Medicare clients without a license', isCorrect: false, rationale: 'Medicare enrollment requires state licensure and other qualifications; the change did not remove licensure requirements.' },
+    ],
+    rationale: 'The Consolidated Appropriations Act, 2023 created Medicare coverage of services by mental health counselors (MHCs), including licensed professional counselors, and marriage and family therapists, effective January 1, 2024. The change resulted from long-standing advocacy for the profession. Counselors must meet Medicare\'s qualifications and enroll before billing.',
+    references: [
+      { source: 'Medicare (CMS)', detail: 'Mental health counselors (MHCs) and marriage and family therapists recognized as Medicare providers effective January 1, 2024 (Consolidated Appropriations Act, 2023)' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-010',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T6,
+    difficulty: 'medium',
+    stem: 'In an ethics training, a counselor describes adding evening hours and arranging professional interpreters so that clients who work days or speak limited English can get the same quality of care as others. Which ethical principle does this BEST illustrate?',
+    options: [
+      { id: 'a', text: 'Autonomy', isCorrect: false, rationale: 'Autonomy concerns clients\' right to make their own choices, not fair access to services.' },
+      { id: 'b', text: 'Beneficence', isCorrect: false, rationale: 'Beneficence is doing good for clients; the focus here is on fair and equal access across groups.' },
+      { id: 'c', text: 'Justice', isCorrect: true, rationale: 'Justice means treating people fairly and providing equal access to services, including adjusting for relevant differences.' },
+    ],
+    rationale: 'The ACA Code names autonomy, nonmaleficence, beneficence, justice, fidelity, and veracity as fundamental principles. Justice involves treating individuals equitably and fostering fairness, which can mean changing practices so that groups facing barriers receive equal access. Ethics training uses examples like this to link everyday practice decisions to the principles.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Preamble — fundamental principles of professional ethical behavior (justice)' },
+      { source: 'Forester-Miller & Davis (Practitioner\'s Guide to Ethical Decision Making)', detail: 'Moral principles: autonomy, justice, beneficence, nonmaleficence, fidelity' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-011',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T6,
+    difficulty: 'hard',
+    stem: 'At an ethics training, a hospice counselor asks about a client with terminal cancer who is considering hastening his death through means that may be lawful in his state. What does the ACA Code of Ethics say about confidentiality in this situation?',
+    options: [
+      { id: 'a', text: 'She must breach confidentiality to prevent his death', isCorrect: false, rationale: 'The Code treats end-of-life decisions separately from serious and foreseeable harm and does not require disclosure.' },
+      { id: 'b', text: 'She may keep it confidential, per law and consultation', isCorrect: true, rationale: 'The Code gives counselors the option to maintain confidentiality, depending on applicable laws and circumstances, after consultation or supervision.' },
+      { id: 'c', text: 'She must keep it confidential whatever the law says', isCorrect: false, rationale: 'The option is conditioned on applicable law and specific circumstances; it is not unconditional.' },
+    ],
+    rationale: 'The ACA Code addresses confidentiality for terminally ill clients considering hastening their own deaths. Counselors have the option to maintain confidentiality, depending on applicable laws and the specific circumstances, after seeking consultation or supervision from appropriate professional and legal parties. Laws on medical aid in dying differ by state, so the counselor checks state law.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Section B.2.b — confidentiality regarding end-of-life decisions' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-012',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T7,
+    difficulty: 'medium',
+    stem: 'A counselor\'s new electronic health record includes an AI assistant that reads her intake notes and suggests a diagnosis and ICD-10-CM code. The training session warns about automation bias. What practice BEST guards against it?',
+    options: [
+      { id: 'a', text: 'Check the criteria herself before accepting any code', isCorrect: true, rationale: 'Independently confirming the diagnostic criteria keeps clinical judgment with the counselor, who is accountable for the diagnosis.' },
+      { id: 'b', text: 'Accept codes the tool rates with high confidence', isCorrect: false, rationale: 'Trusting a confidence score is the automation bias the training warned about; high confidence can still be wrong.' },
+      { id: 'c', text: 'Ask the vendor to confirm each suggested diagnosis', isCorrect: false, rationale: 'The vendor has not assessed the client; responsibility for diagnosis stays with the counselor.' },
+    ],
+    rationale: 'Automation bias is the tendency to over-trust automated suggestions and under-use one\'s own judgment. AI tools may assist documentation, but the counselor remains responsible for an accurate diagnosis based on her own assessment and current criteria. Training on AI emphasizes verifying output before it enters the record or a claim.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Section E.5.a — proper diagnosis; Section C.2.a — boundaries of competence' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-013',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T7,
+    difficulty: 'medium',
+    stem: 'A group practice plans to offer clients an AI chatbot for support between sessions. During staff training on AI ethics, which requirement for the chatbot is MOST important?',
+    options: [
+      { id: 'a', text: 'It answers in the counselor\'s voice to build rapport', isCorrect: false, rationale: 'Letting clients believe they are talking with their counselor is deceptive and undermines informed consent.' },
+      { id: 'b', text: 'It serves as the practice\'s after-hours crisis line', isCorrect: false, rationale: 'A chatbot cannot replace human crisis response; clients need a clear route to emergency help.' },
+      { id: 'c', text: 'It makes clear it is AI and how to reach crisis help', isCorrect: true, rationale: 'Clients must know they are using an AI tool, what it can and cannot do, and how to reach human or crisis help such as 988.' },
+    ],
+    rationale: 'Ethical use of client-facing AI requires transparency: clients should know they are interacting with an automated tool, understand its limits and data handling, and consent to its use. Because AI tools can miss or mishandle risk, clients also need clear directions for reaching a human or crisis services. State laws on AI in mental health care are changing, so the practice should also check the rules where clients are located.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Section H.2.a — informed consent for technology-assisted services, including limitations' },
+      { source: 'SAMHSA 988 Lifeline', detail: '24/7 call, text, or chat crisis access' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-014',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'social_cultural',
+    topic: T8,
+    difficulty: 'easy',
+    stem: 'In a training on acculturation, counselors discuss an Ethiopian-born college student who speaks Amharic at home, attends an Ethiopian Orthodox church, and is also active in campus clubs with many U.S.-born friends. Using Berry\'s model, which strategy does she display?',
+    options: [
+      { id: 'a', text: 'Assimilation', isCorrect: false, rationale: 'Assimilation means adopting the host culture while letting go of the heritage culture; she keeps her heritage.' },
+      { id: 'b', text: 'Integration', isCorrect: true, rationale: 'Integration means keeping one\'s heritage culture while also taking part in the host culture, as she does.' },
+      { id: 'c', text: 'Separation', isCorrect: false, rationale: 'Separation means keeping the heritage culture while avoiding the host culture; she engages with both.' },
+    ],
+    rationale: 'Berry\'s model describes four acculturation strategies based on two questions: whether a person keeps the heritage culture and whether they engage with the host culture. Integration (both), assimilation (host only), separation (heritage only), and marginalization (neither) each carry different stressors. Knowing the strategy helps counselors understand a client\'s experience without assuming it.',
+    references: [
+      { source: 'Sue & Sue (Counseling the Culturally Diverse)', detail: 'Acculturation and Berry\'s acculturation strategies' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-015',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'social_cultural',
+    topic: T8,
+    difficulty: 'medium',
+    stem: 'After training on disability-affirming counseling, a counselor sees a client who is blind and is frustrated because her employer\'s new scheduling software does not work with her screen reader. Which conceptualization reflects the social model of disability?',
+    options: [
+      { id: 'a', text: 'The inaccessible software, not her blindness, limits her', isCorrect: true, rationale: 'The social model locates disability in barriers created by environments and systems rather than in the person\'s impairment.' },
+      { id: 'b', text: 'Her frustration mainly reflects grief over vision loss', isCorrect: false, rationale: 'Assuming the problem is unresolved loss treats her impairment as the issue, which reflects a medical or deficit view.' },
+      { id: 'c', text: 'Her blindness is the core problem that must be overcome', isCorrect: false, rationale: 'Framing the impairment as the problem is the medical model; the social model looks at environmental barriers.' },
+    ],
+    rationale: 'The medical model locates disability in the individual\'s impairment, while the social model sees disability as created by inaccessible environments, policies, and attitudes. Disability-affirming counselors explore barriers and supports, such as workplace accommodations, rather than assuming the impairment causes distress. Under the ADA, employers must provide reasonable accommodations to qualified employees unless doing so poses undue hardship.',
+    references: [
+      { source: 'ADA', detail: 'Title I — reasonable accommodation for qualified employees with disabilities' },
+      { source: 'Sue & Sue (Counseling the Culturally Diverse)', detail: 'Counseling individuals with disabilities — models of disability' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-016',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T9,
+    difficulty: 'medium',
+    stem: 'A counselor who works mainly with survivors of domestic violence completes the Professional Quality of Life scale. She scores high on secondary traumatic stress and average on burnout and compassion satisfaction. What is the MOST appropriate response?',
+    options: [
+      { id: 'a', text: 'Conclude that she has PTSD and stop seeing her clients', isCorrect: false, rationale: 'The ProQOL is a screening tool, not a diagnostic measure; one high subscale does not establish PTSD or require stopping practice.' },
+      { id: 'b', text: 'Dismiss the result because her burnout score is average', isCorrect: false, rationale: 'Secondary traumatic stress is a separate component of compassion fatigue and needs attention even when burnout is average.' },
+      { id: 'c', text: 'Take the result to supervision and adjust her supports', isCorrect: true, rationale: 'A high secondary traumatic stress score is a signal to seek supervision, review trauma load, and strengthen supports before effects grow.' },
+    ],
+    rationale: 'The ProQOL measures compassion satisfaction and two parts of compassion fatigue: burnout and secondary traumatic stress. A high secondary traumatic stress score signals elevated risk related to trauma exposure, even when burnout is average. Appropriate steps include supervision or consultation, balancing caseload, strengthening self-care, and seeking personal help if symptoms affect functioning.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Section C.2.g — impairment: monitoring for signs of impairment and seeking assistance' },
+      { source: 'SAMHSA TIP 57', detail: 'Secondary traumatic stress in behavioral health staff and strategies to address it' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-017',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T9,
+    difficulty: 'easy',
+    stem: 'A counselor wants to lower her compassion fatigue potential by strengthening compassion satisfaction, the sense of fulfillment that comes from helping others well. Which practice MOST directly builds it?',
+    options: [
+      { id: 'a', text: 'Noticing and recording moments of client progress', isCorrect: true, rationale: 'Deliberately attending to client gains and meaningful moments increases the satisfaction derived from the work.' },
+      { id: 'b', text: 'Adding more clients to feel more productive at work', isCorrect: false, rationale: 'A heavier caseload raises burnout risk rather than building satisfaction.' },
+      { id: 'c', text: 'Not discussing her cases with any of her colleagues', isCorrect: false, rationale: 'Isolation from colleagues removes support and shared meaning, increasing risk.' },
+    ],
+    rationale: 'In the professional quality of life framework, compassion satisfaction is the positive side of helping and acts as a buffer against compassion fatigue. Practices that help counselors notice the impact of their work, such as tracking client progress and sharing successes with colleagues, can strengthen it. Reasonable workload and collegial support also matter.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Section C — introduction: counselors engage in self-care to maintain their own well-being' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-018',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T10,
+    difficulty: 'medium',
+    stem: 'A river flood destroys a counselor\'s home. Three weeks later, she returns to her clinic, where most of her clients are flood survivors describing losses much like her own. How should she assess her exposure to vicarious trauma?',
+    options: [
+      { id: 'a', text: 'Focus on clients\' stories since her loss is separate', isCorrect: false, rationale: 'Her own direct exposure adds to the effect of hearing similar client stories; ignoring it underestimates her risk.' },
+      { id: 'b', text: 'Consider her own losses together with clients\' stories', isCorrect: true, rationale: 'When counselor and clients share the same disaster, her direct exposure and her clients\' accounts combine and both must be assessed.' },
+      { id: 'c', text: 'Assume her own loss will protect her from these effects', isCorrect: false, rationale: 'Shared experience may build empathy, but it raises rather than removes the risk of trauma-related effects.' },
+    ],
+    rationale: 'When counselors live through the same disaster as their clients, they face a shared traumatic reality: their own direct exposure and their clients\' stories add together. Responder guidance identifies being personally affected by the disaster as a risk factor for provider stress. Assessment should include her own losses, current stressors, and reactions, with supervision and support as needed.',
+    references: [
+      { source: 'Psychological First Aid Field Operations Guide (NCTSN/NCPTSD)', detail: 'Provider care — providers who are themselves affected by the disaster' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-019',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T10,
+    difficulty: 'easy',
+    stem: 'A clinical supervisor at a rape crisis center no longer carries her own caseload. Each week she reviews detailed case material with eight counselors. When assessing her exposure to vicarious trauma, what should she conclude?',
+    options: [
+      { id: 'a', text: 'She has no exposure, since she does not see clients', isCorrect: false, rationale: 'Exposure to trauma material is not limited to direct client contact.' },
+      { id: 'b', text: 'Her exposure is limited to the cases she once carried', isCorrect: false, rationale: 'Current case reviews are ongoing exposure, not just past caseload.' },
+      { id: 'c', text: 'Reviewing supervisees\' trauma cases is real exposure', isCorrect: true, rationale: 'Hearing detailed trauma material through supervision is indirect exposure that can lead to vicarious trauma.' },
+    ],
+    rationale: 'Vicarious trauma results from repeated empathic engagement with trauma material, whatever the channel. Supervisors in trauma-focused settings hear many detailed cases through their supervisees and should assess their own exposure. Trauma-informed organizations attend to secondary trauma at every staff level, including supervisors.',
+    references: [
+      { source: 'SAMHSA TIP 57', detail: 'Secondary traumatization in clinical staff and supervisors; organizational responsibility' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-020',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T11,
+    difficulty: 'easy',
+    stem: 'A licensed counselor with strong trauma training wants to help survivors after a tornado strikes a nearby city. She has no disaster mental health training. What should she do?',
+    options: [
+      { id: 'a', text: 'Join an organized response and complete its training', isCorrect: true, rationale: 'Disaster work is coordinated through response organizations that require specific training before deployment.' },
+      { id: 'b', text: 'Go to the shelter on her own and offer counseling', isCorrect: false, rationale: 'Self-deployment can strain the response system and skips required disaster training and coordination.' },
+      { id: 'c', text: 'Rely on her trauma training in place of disaster work', isCorrect: false, rationale: 'Trauma therapy skills differ from disaster mental health approaches such as Psychological First Aid.' },
+    ],
+    rationale: 'Disaster mental health work requires specialized training, such as Psychological First Aid and the policies of the responding organization. Clinicians should deploy through an organized response system rather than on their own. Trauma treatment skills are helpful, but they do not replace disaster-specific preparation.',
+    references: [
+      { source: 'Psychological First Aid Field Operations Guide (NCTSN/NCPTSD)', detail: 'Preparing to deliver PFA — working within an organized disaster response system' },
+      { source: 'ACA Code of Ethics', detail: 'Section C.2.b — new specialty areas of practice: education, training, and supervised experience first' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-021',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T11,
+    difficulty: 'medium',
+    stem: 'A counselor completes the 40-hour didactic training in a trauma modality. The training body\'s certification also requires supervised cases and consultation hours, which she has not completed. How should she describe her qualifications on her website?',
+    options: [
+      { id: 'a', text: 'Say she is certified, since the coursework is complete', isCorrect: false, rationale: 'Claiming certification before meeting all requirements misrepresents her credentials.' },
+      { id: 'b', text: 'List the training and say certification is in progress', isCorrect: true, rationale: 'Accurately stating completed training and pending certification gives the public a truthful picture of her qualifications.' },
+      { id: 'c', text: 'Leave out the training until certification is final', isCorrect: false, rationale: 'Completed training may be listed accurately; she need not hide it until certification.' },
+    ],
+    rationale: 'Counselors claim or imply only qualifications they have actually completed and correct misrepresentations by others. Completed training can be listed, but certification requires meeting all the certifying body\'s requirements, often including supervised practice. Assessing the gap between training and certification is part of determining what further preparation she needs.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Section C.4.a — accurate representation of professional qualifications' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-022',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'helping_relationships',
+    topic: T12,
+    difficulty: 'medium',
+    stem: 'Six months after a two-day motivational interviewing workshop, a counselor has her recorded sessions coded. The coding shows far more questions than reflections and few responses that draw out change talk. What is the BEST way to address this limitation?',
+    options: [
+      { id: 'a', text: 'Retake the same two-day MI workshop as a refresher', isCorrect: false, rationale: 'Workshop training alone tends to produce modest gains that fade without feedback.' },
+      { id: 'b', text: 'Reread the MI textbook and practice on her own time', isCorrect: false, rationale: 'Self-study without practice and feedback rarely changes in-session behavior.' },
+      { id: 'c', text: 'Get coaching with feedback on her own recordings', isCorrect: true, rationale: 'Research shows feedback and coaching on actual sessions improve MI proficiency beyond a workshop alone.' },
+    ],
+    rationale: 'Objective coding of sessions can reveal skill gaps that self-assessment misses. Studies of MI training found that workshops alone yield limited, fading gains, while individualized feedback and coaching improve and sustain proficiency. Addressing a limitation works best through targeted practice with expert feedback.',
+    references: [
+      { source: 'Miller & Rollnick (MI)', detail: 'Learning MI — feedback and coaching on practice samples improve proficiency (Miller et al., 2004)' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-023',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'helping_relationships',
+    topic: T12,
+    difficulty: 'medium',
+    stem: 'A counselor trained in couples counseling has seen only individual adults for the past 10 years. Her agency asks her to take on a couple in high conflict. How should she assess her readiness?',
+    options: [
+      { id: 'a', text: 'Treat her skills as lapsed and refresh them first', isCorrect: true, rationale: 'Competence can erode without practice; refreshing skills through training and consultation keeps care safe.' },
+      { id: 'b', text: 'Accept the couple since her training is still valid', isCorrect: false, rationale: 'Past training does not guarantee current competence after a decade without practice.' },
+      { id: 'c', text: 'Decline couples work for the rest of her career', isCorrect: false, rationale: 'A lapse can be remedied through training and consultation; permanently ruling it out is unnecessary.' },
+    ],
+    rationale: 'Competence is maintained through ongoing practice, education, and consultation, and it can decline when skills go unused. Before resuming couples work, especially with high-conflict couples, she should refresh her skills through continuing education and consultation or supervision. If she cannot do so in time, a referral serves the couple better.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Section C.2.a — boundaries of competence; Section C.2.f — continuing education to maintain competence' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-024',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'social_cultural',
+    topic: T13,
+    difficulty: 'hard',
+    stem: 'A counselor has been active in local police reform protests. A police officer seeks counseling for distress after a critical incident in which he fired his weapon. The counselor has trauma training and notices an urge to probe his use of force. What is the MOST appropriate way to judge her suitability?',
+    options: [
+      { id: 'a', text: 'Refer him elsewhere because their personal values conflict', isCorrect: false, rationale: 'Referring solely because of the counselor\'s personal values is inconsistent with the ACA Code.' },
+      { id: 'b', text: 'Examine her reactions and get consultation to serve him', isCorrect: true, rationale: 'She has the needed skills; examining her bias and using consultation helps keep her views from shaping the work.' },
+      { id: 'c', text: 'Disclose her activism so that he can decide about it', isCorrect: false, rationale: 'Self-disclosing her political views centers her needs and could harm the alliance; the task is managing her own reactions.' },
+    ],
+    rationale: 'Suitability rests on whether the counselor can meet the client\'s needs, not on whether she shares his views. The ACA Code asks counselors to avoid imposing their values and not to refer solely because of personal values. Her urge to probe his use of force is a cue for self-examination and consultation; referral is appropriate only if a true competence problem remains.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Section A.4.b — personal values; Section A.11.b — values within termination and referral' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-025',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'helping_relationships',
+    topic: T14,
+    difficulty: 'easy',
+    stem: 'During sessions with a new adult client, a counselor notices she feels sexually attracted to him. She has not acted on it in any way. What is the MOST appropriate response?',
+    options: [
+      { id: 'a', text: 'Tell the client so the feeling is out in the open', isCorrect: false, rationale: 'Disclosing attraction burdens the client and risks harmful boundary crossings.' },
+      { id: 'b', text: 'Transfer him to a colleague at the next session', isCorrect: false, rationale: 'Attraction alone does not require transfer; it can often be managed through awareness and supervision.' },
+      { id: 'c', text: 'Acknowledge it privately and take it to supervision', isCorrect: true, rationale: 'Recognizing the feeling without acting on it and exploring it in supervision keeps the focus on the client.' },
+    ],
+    rationale: 'Feeling attracted to a client is a common human reaction and is not unethical in itself; acting on it is. Self-regulation means noticing the feeling, keeping it out of the session, and exploring it in supervision or consultation. Referral becomes appropriate if the feelings begin to impair the counselor\'s objectivity.',
+    references: [
+      { source: 'Gelso & Hayes (Countertransference)', detail: 'Managing countertransference: self-insight and anxiety management' },
+      { source: 'ACA Code of Ethics', detail: 'Section A.5.a — sexual and/or romantic relationships with current clients prohibited' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-026',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T15,
+    difficulty: 'hard',
+    stem: 'A counselor who teaches as adjunct faculty receives a request for counseling from a woman she taught and graded in a graduate course two years ago. The woman is now a counselor in the same local professional community. What should the counselor do?',
+    options: [
+      { id: 'a', text: 'Weigh the prior role\'s risks and discuss options with her', isCorrect: true, rationale: 'The Code asks counselors to weigh the risks and benefits of a prior relationship, discuss them, and consult, before deciding.' },
+      { id: 'b', text: 'Accept her right away, since the course ended long ago', isCorrect: false, rationale: 'A past evaluative role and overlapping professional circles may still create conflicts that must be weighed.' },
+      { id: 'c', text: 'Decline, as former students are off-limits for five years', isCorrect: false, rationale: 'The Code sets no five-year ban on counseling former students; the five-year rule concerns romantic relationships with former clients.' },
+    ],
+    rationale: 'Suitability includes the absence of a conflict of interest. When a prospective client had a previous relationship with the counselor, such as a former student, the ACA Code asks the counselor to consider the risks and benefits, seek consultation, and document the decision. Ongoing professional overlap and her past evaluative power are key factors, and a referral may be best if they would interfere with the work.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Section A.6.a — previous relationships' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-027',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'assessment',
+    topic: T16,
+    difficulty: 'easy',
+    stem: 'A counselor plans to use a personality inventory that reports T-scores. To confirm she is competent to interpret it, she reviews score meaning. What does a T-score of 70 on a clinical scale indicate?',
+    options: [
+      { id: 'a', text: 'A score at the 70th percentile of the norm group', isCorrect: false, rationale: 'T-scores are not percentiles; a T of 70 falls at about the 98th percentile.' },
+      { id: 'b', text: 'Two standard deviations above the norm-group mean', isCorrect: true, rationale: 'T-scores have a mean of 50 and a standard deviation of 10, so 70 is two standard deviations above the mean.' },
+      { id: 'c', text: 'That 70 percent of the scale\'s items were endorsed', isCorrect: false, rationale: 'A T-score is a standardized score relative to norms, not a percentage of items endorsed.' },
+    ],
+    rationale: 'Competence to administer and interpret an instrument includes understanding its score metrics. T-scores have a mean of 50 and a standard deviation of 10, so a T of 70 is two standard deviations above the mean, roughly the 98th percentile in a normal distribution. Counselors who cannot interpret the scores correctly should not use the instrument without further training.',
+    references: [
+      { source: 'Hays (Assessment)', detail: 'Standard scores — T-scores (mean 50, SD 10) and their percentile equivalents' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-028',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T17,
+    difficulty: 'medium',
+    stem: 'A client mentions that she posts her paintings on a public social media account. Later, the counselor feels curious and wants to look at the account. What is the MOST appropriate approach?',
+    options: [
+      { id: 'a', text: 'Look, since the account is public and open to anyone', isCorrect: false, rationale: 'Public availability does not remove the need to respect the client\'s privacy within the counseling relationship.' },
+      { id: 'b', text: 'Follow the account from her own personal profile', isCorrect: false, rationale: 'Following a client from a personal account creates a social media relationship and blurs boundaries.' },
+      { id: 'c', text: 'Look only if the client agrees after they discuss it', isCorrect: true, rationale: 'The Code asks counselors to respect clients\' social media presence unless the client consents, ideally after discussing the purpose.' },
+    ],
+    rationale: 'The ACA Code asks counselors to respect the privacy of clients\' social media presence unless given consent to view it. Even public content can carry meaning in the relationship, so the counselor discusses the purpose and gets the client\'s consent first. A social media policy in informed consent helps set these expectations.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Section H.6.c — client virtual presence (view only with consent); H.6.b — social media as part of informed consent' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-029',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'professional_orientation',
+    topic: T18,
+    difficulty: 'easy',
+    stem: 'A counselor in solo private practice has not taken a vacation in three years because she believes no one can cover her clients. She feels increasingly irritable and tired. What self-care step is MOST appropriate?',
+    options: [
+      { id: 'a', text: 'Wait until her caseload slows before taking time off', isCorrect: false, rationale: 'Waiting for a lull lets depletion continue and often means rest never happens.' },
+      { id: 'b', text: 'Arrange colleague coverage and schedule time off', isCorrect: true, rationale: 'Planning coverage and notifying clients allows rest while keeping clients\' care continuous.' },
+      { id: 'c', text: 'Take days off without telling clients in advance', isCorrect: false, rationale: 'Unannounced absences leave clients without notice or coverage and can harm them.' },
+    ],
+    rationale: 'Regular time off is part of self-care that sustains counselor effectiveness. Solo practitioners can arrange coverage with a qualified colleague, give clients advance notice, and share emergency resources. This protects both the counselor\'s well-being and continuity of client care.',
+    references: [
+      { source: 'ACA Code of Ethics', detail: 'Section C — introduction (self-care); Section A.12 — abandonment and client neglect' },
+    ],
+  },
+  {
+    id: 'nce-s-p27f-030',
+    spec: '2027',
+    domain: 'professional_development',
+    cacrep: 'helping_relationships',
+    topic: T19,
+    difficulty: 'hard',
+    stem: 'A counselor keeps giving structured worksheets to a grieving client who says she wants to talk about what her loss means. Reflecting afterward, the counselor notices that structure eases her own discomfort with intense sadness. What is the MOST useful self-reflective question for her?',
+    options: [
+      { id: 'a', text: 'Whose needs does my reliance on structure serve here?', isCorrect: true, rationale: 'This question examines whether her approach meets the client\'s needs or manages her own discomfort.' },
+      { id: 'b', text: 'Which worksheet would get her to talk more about loss?', isCorrect: false, rationale: 'This keeps the same approach and avoids examining the counselor\'s own role.' },
+      { id: 'c', text: 'How can I help her accept the structure of sessions?', isCorrect: false, rationale: 'Trying to make the client fit the method reverses the purpose of self-reflection.' },
+    ],
+    rationale: 'Self-reflection includes examining how the counselor\'s own needs and reactions shape her choice of techniques. Leaning on structure to manage her discomfort with strong emotion can override the client\'s goals. Recognizing this pattern, and exploring it in supervision, lets her choose interventions for the client\'s benefit.',
+    references: [
+      { source: 'Corey (Theory & Practice)', detail: 'The counselor as a person — self-awareness of personal needs and their influence on therapeutic choices' },
+      { source: 'Gelso & Hayes (Countertransference)', detail: 'Countertransference driven by counselor anxiety — self-insight as the basis for managing it' },
+    ],
+  },
+];
