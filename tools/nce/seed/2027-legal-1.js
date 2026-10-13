@@ -97,12 +97,11 @@ module.exports = [
       { id: 'b', text: 'Report the concern per protocol based on suspicion', isCorrect: true, rationale: 'Reasonable suspicion of child abuse triggers the duty to report to child protective services or law enforcement.' },
       { id: 'c', text: 'Ask the parents for consent before making the report', isCorrect: false, rationale: 'Mandated reports do not require parent or client consent, and contacting caregivers first may increase risk.' },
     ],
-    rationale: 'Mandated reporting laws require counselors to report suspected child abuse or neglect when they have reasonable cause to suspect it. Certainty is not required, and investigation is the responsibility of child protective services. Consent is not needed, and good-faith reports are generally protected from liability.',
+    rationale: 'Mandated reporting laws require counselors to report suspected child abuse or neglect when they have reasonable cause to suspect it. Certainty is not required, and investigation is the responsibility of the designated agency, such as child protective services or law enforcement. Timelines, receiving agencies, and covered relationships are set by state law. Consent is not needed, and good-faith reports are generally protected from liability.',
     references: [
       { source: 'State law', detail: 'Child abuse mandated reporting — reasonable suspicion standard' },
       { source: 'ACA Code of Ethics', detail: 'Section B.2 — exceptions to confidentiality required by law' },
     ],
-    reviewNote: 'Reporting timelines, receiving agency, and the definition of a perpetrator vary by state; confirm the principle-level wording is accurate for all jurisdictions.',
   },
   {
     id: 'nce-s-l27a-006',
@@ -158,7 +157,6 @@ module.exports = [
       { source: 'ACA Code of Ethics', detail: 'Section B.6 — storage and disposal of records in accordance with laws and policies' },
       { source: 'State law', detail: 'Record retention requirements for adult and minor clients' },
     ],
-    reviewNote: 'Retention periods for adults and minors vary by state and by licensing board rule; item is written at the principle level.',
   },
   {
     id: 'nce-s-l27a-009',
@@ -178,7 +176,6 @@ module.exports = [
       { source: 'State law', detail: 'Duty to warn / duty to protect statutes and case law' },
       { source: 'ACA Code of Ethics', detail: 'Section B.2 — serious and foreseeable harm exception to confidentiality' },
     ],
-    reviewNote: 'Duty-to-warn/protect law varies by state (mandatory, permissive, or none); confirm the principle-level key is acceptable.',
   },
   {
     id: 'nce-s-l27a-010',
@@ -193,12 +190,11 @@ module.exports = [
       { id: 'b', text: 'FERPA', isCorrect: false, rationale: 'FERPA governs education records at schools receiving federal education funds.' },
       { id: 'c', text: 'The ADA', isCorrect: false, rationale: 'The ADA prohibits disability discrimination; it is not the confidentiality rule for SUD program records.' },
     ],
-    rationale: '42 CFR Part 2 provides heightened confidentiality protection for records that identify a person as receiving substance use disorder treatment from a federally assisted program. Even confirming that someone is a patient is a protected disclosure, which generally requires written consent meeting Part 2 requirements. Part 2 works alongside HIPAA rather than replacing it.',
+    rationale: '42 CFR Part 2 provides heightened confidentiality protection for records that identify a person as receiving substance use disorder treatment from a federally assisted program. Even confirming that someone is a patient is a protected disclosure, which generally requires written consent meeting Part 2 requirements. The 2024 final rule aligned several Part 2 provisions with HIPAA, but disclosure to an employer still requires the patient\'s written consent.',
     references: [
-      { source: 'HIPAA', detail: 'Relationship to 42 CFR Part 2 — confidentiality of substance use disorder patient records' },
+      { source: '42 CFR Part 2', detail: 'Protection of patient identity; written consent for disclosure (as amended by the 2024 final rule)' },
       { source: 'SAMHSA TIP 63', detail: 'Confidentiality of OTP patient records under 42 CFR Part 2' },
     ],
-    reviewNote: 'The 2024 Part 2 final rule aligned several provisions with HIPAA; confirm current consent requirements are described accurately.',
   },
   {
     id: 'nce-s-l27a-011',
@@ -376,12 +372,11 @@ module.exports = [
       { id: 'b', text: 'Joining a national professional counseling association', isCorrect: false, rationale: 'Association membership is valuable but is not a licensure renewal requirement.' },
       { id: 'c', text: 'Retaking the licensure exam within each renewal cycle', isCorrect: false, rationale: 'Licensure exams are passed once for initial licensure, not retaken at each renewal.' },
     ],
-    rationale: 'State boards require counselors to complete a set number of continuing education hours within each renewal period, often with mandated topics such as ethics, and to pay renewal fees on time. Counselors should keep CE certificates in case of audit. National certifications such as the NCC have their own separate recertification requirements.',
+    rationale: 'State boards require counselors to complete a set number of continuing education hours within each renewal period, often with mandated topics such as ethics, and to pay renewal fees on time. Hour totals, cycle length, and required topics vary by board. Counselors should keep CE certificates in case of audit. National certifications such as the NCC have their own separate recertification requirements.',
     references: [
       { source: 'State law', detail: 'Licensing board rules — renewal and continuing education requirements' },
       { source: 'ACA Code of Ethics', detail: 'Section C.2 — continuing education and maintaining competence' },
     ],
-    reviewNote: 'CE hour totals, renewal cycles, and mandated topics vary by state board.',
   },
   {
     id: 'nce-s-l27a-021',
@@ -401,7 +396,6 @@ module.exports = [
       { source: 'State law', detail: 'Board rules on qualified supervisors and supervised experience for licensure' },
       { source: 'ACA Code of Ethics', detail: 'Section F — supervision; Section C.4 — accurate representation of professional qualifications' },
     ],
-    reviewNote: 'Supervisor qualification and registration rules vary by state board.',
   },
   {
     id: 'nce-s-l27a-022',
@@ -410,7 +404,7 @@ module.exports = [
     cacrep: 'professional_orientation',
     topic: T6,
     difficulty: 'medium',
-    stem: 'While updating her insurance paneling, a counselor discovers that her state license expired three weeks ago because a renewal reminder went to an old email address. She has clients scheduled today. What is the MOST appropriate action?',
+    stem: 'While updating her insurance paneling, a counselor discovers that her state license expired three weeks ago because a renewal reminder went to an old email address. Her board does not permit practice during late renewal, and she has clients scheduled today. What is the MOST appropriate action?',
     options: [
       { id: 'a', text: 'See clients today and renew within the grace period', isCorrect: false, rationale: 'Unless a state rule expressly allows practice during a grace period, practicing on an expired license is unlicensed practice.' },
       { id: 'b', text: 'Continue sessions but stop billing insurers for now', isCorrect: false, rationale: 'Not billing does not change the fact that she would be practicing without an active license.' },
@@ -421,7 +415,6 @@ module.exports = [
       { source: 'State law', detail: 'Licensing board rules — expired license, reinstatement, and unlicensed practice' },
       { source: 'ACA Code of Ethics', detail: 'Section C.4 — accurate representation of professional qualifications' },
     ],
-    reviewNote: 'Some states provide grace periods or late-renewal windows with different rules on continued practice; confirm the key holds generally.',
   },
   {
     id: 'nce-s-l27a-023',
@@ -441,7 +434,6 @@ module.exports = [
       { source: 'ACA Code of Ethics', detail: 'Section A.2 — informed consent including fees and billing arrangements' },
       { source: 'Wiger (Documentation)', detail: 'Billing integrity — documenting services actually rendered' },
     ],
-    reviewNote: 'Some payer contracts (e.g., Medicaid) restrict charging no-show fees; confirm item wording stays accurate.',
   },
   {
     id: 'nce-s-l27a-024',
@@ -514,7 +506,6 @@ module.exports = [
     references: [
       { source: 'NBCC 2027 Spec', detail: 'Legal & Ethical Compliance — compliance-related training on insurance and credentialing' },
     ],
-    reviewNote: 'Re-attestation interval and specific CAQH workflow details are not tested; confirm the general description is current.',
   },
   {
     id: 'nce-s-l27a-028',
@@ -523,7 +514,7 @@ module.exports = [
     cacrep: 'professional_orientation',
     topic: T8,
     difficulty: 'hard',
-    stem: 'After completing the practice\'s annual billing compliance training, an associate counselor who is not yet credentialed with a commercial payer is told by the practice owner to submit the associate\'s sessions under the owner\'s name and NPI. What should the associate do?',
+    stem: 'After completing the practice\'s annual billing compliance training, an associate counselor who is not yet credentialed with a commercial payer is told by the practice owner to submit the associate\'s sessions under the owner\'s name and NPI. The payer has no provision for billing supervised services. What should the associate do?',
     options: [
       { id: 'a', text: 'Comply, because the owner holds the payer contract', isCorrect: false, rationale: 'Holding the contract does not permit listing the owner as the provider of services she did not render.' },
       { id: 'b', text: 'Decline, since claims must name the real provider', isCorrect: true, rationale: 'Claims must accurately identify who rendered the service; misidentifying the provider can constitute fraud.' },
@@ -534,7 +525,6 @@ module.exports = [
       { source: 'ACA Code of Ethics', detail: 'Section C — professional responsibility; honest representation of services and credentials' },
       { source: 'Wiger (Documentation)', detail: 'Billing compliance — accurate identification of rendering provider' },
     ],
-    reviewNote: 'Some payers allow supervised or incident-to billing under defined rules; the item assumes the payer does not.',
   },
   {
     id: 'nce-s-l27a-029',
@@ -564,15 +554,14 @@ module.exports = [
     stem: 'A counselor licensed only in Georgia sees a client by video. The client announces she has moved to Oregon for a six-month work assignment and wants to continue sessions. In general, what determines whether the counselor may continue?',
     options: [
       { id: 'a', text: 'Whether the counselor\'s home state permits telehealth', isCorrect: false, rationale: 'The counselor\'s home state rules alone do not authorize practice in another state.' },
-      { id: 'b', text: 'Whether she is authorized to practice in Oregon as well', isCorrect: true, rationale: 'Counseling is generally regulated where the client is located, so authorization in that state is needed.' },
+      { id: 'b', text: 'Whether the counselor may also practice in Oregon', isCorrect: true, rationale: 'Counseling is generally regulated where the client is located, so authorization in that state is needed.' },
       { id: 'c', text: 'Whether the platform is HIPAA compliant with a signed BAA', isCorrect: false, rationale: 'Platform compliance is necessary but does not grant licensure authority in another state.' },
     ],
-    rationale: 'Most states regulate counseling based on where the client is physically located during the session. A counselor needs a license, a compact privilege to practice, or a recognized temporary-practice provision in the client\'s state to continue. Otherwise, the counselor should help arrange a transition to a provider licensed in that state.',
+    rationale: 'Most states regulate counseling based on where the client is physically located during the session. A counselor needs a license, a Counseling Compact privilege to practice (where both states are members issuing privileges), or a recognized temporary-practice provision in the client\'s state to continue. Otherwise, the counselor should help arrange a transition to a provider licensed in that state.',
     references: [
       { source: 'State law', detail: 'Licensure jurisdiction for telehealth — client location rule; temporary practice provisions' },
       { source: 'ACA Code of Ethics', detail: 'Section H.1 — laws and statutes in both the counselor\'s and client\'s locations' },
     ],
-    reviewNote: 'Temporary practice allowances and compact participation vary by state and over time; item avoids naming specific state rules.',
   },
   {
     id: 'nce-s-l27a-031',
@@ -587,11 +576,10 @@ module.exports = [
       { id: 'b', text: 'Those of the Compact Commission only', isCorrect: false, rationale: 'The Commission administers the compact; it does not replace state practice laws.' },
       { id: 'c', text: 'Those of the state where the client is', isCorrect: true, rationale: 'Under the compact, counseling occurs where the client is located, and that state\'s laws apply.' },
     ],
-    rationale: 'The Counseling Compact lets counselors licensed in a member home state obtain a privilege to practice in other member states, including via telehealth. Practice is considered to occur in the state where the client is located, so the counselor must follow that remote state\'s laws and regulations and is subject to its jurisdiction. The home state license must remain active and unencumbered.',
+    rationale: 'The Counseling Compact lets counselors licensed in a member home state obtain a privilege to practice in other member states, including via telehealth. Practice is considered to occur in the state where the client is located, so the counselor must follow that remote state\'s laws and regulations and is subject to its jurisdiction. The home state license must remain active and unencumbered. Privileges are available only in member states that have begun issuing them, and remote states may impose jurisprudence requirements.',
     references: [
       { source: 'Counseling Compact', detail: 'Privilege to practice; practice occurs where the client is located; adherence to remote state laws' },
     ],
-    reviewNote: 'Confirm the current operational status of compact privilege issuance before release.',
   },
   {
     id: 'nce-s-l27a-032',
@@ -621,15 +609,14 @@ module.exports = [
     stem: 'A counselor\'s note documents a 40-minute individual psychotherapy session. The billing manager asks the counselor to submit the 60-minute psychotherapy code because that client\'s plan reimburses it at a higher rate. What should the counselor do?',
     options: [
       { id: 'a', text: 'Bill the code that matches the documented session time', isCorrect: true, rationale: 'Time-based psychotherapy codes must reflect the actual documented face-to-face time.' },
-      { id: 'b', text: 'Bill the longer code if added prep time reaches 60 minutes', isCorrect: false, rationale: 'Psychotherapy time codes count time with the client, not note-writing or preparation time.' },
+      { id: 'b', text: 'Bill the longer code if added prep time reaches 60 minutes', isCorrect: false, rationale: 'Psychotherapy time codes count face-to-face time with the client or family, not note-writing or preparation time.' },
       { id: 'c', text: 'Bill the longer code and add a note on clinical complexity', isCorrect: false, rationale: 'Complexity does not justify a time-based code the session did not meet; that is upcoding.' },
     ],
-    rationale: 'Psychotherapy CPT codes are selected primarily by documented session time (for example, 90832, 90834, and 90837 for progressively longer sessions; 90791 for a diagnostic evaluation). Billing a longer code than the documentation supports is upcoding and a misrepresentation of services. The record must support every element of the claim.',
+    rationale: 'Psychotherapy CPT codes are selected primarily by documented session time: 90832 (16–37 minutes), 90834 (38–52 minutes), and 90837 (53 minutes or more), so this 40-minute session supports 90834. Billing a longer code than the documentation supports is upcoding and a misrepresentation of services. The record must support every element of the claim.',
     references: [
-      { source: 'Wiger (Documentation)', detail: 'Billing and coding — time-based psychotherapy codes and documentation support' },
+      { source: 'AMA CPT', detail: 'Psychiatry section — psychotherapy time codes 90832, 90834, 90837 and their time thresholds' },
       { source: 'ACA Code of Ethics', detail: 'Section C — honest and accurate representation of services' },
     ],
-    reviewNote: 'CPT time thresholds are set by the AMA and may be revised; item is kept principle-level. Verify any code descriptors against current CPT.',
   },
   {
     id: 'nce-s-l27a-034',

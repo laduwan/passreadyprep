@@ -170,7 +170,9 @@ const NCE_EXTRA_LIBRARY = [
     use: 'Positive effects on counselors of witnessing clients\' resilience after trauma; protective counterpart to vicarious trauma.' },
   { key: 'Macneil et al. (Case Formulation)', tier: 'seminal', body: 'Macneil, Hasty, Conus & Berk',
     citation: 'Macneil, C. A., Hasty, M. K., Conus, P., & Berk, M. (2012). Is diagnosis enough to guide interventions in mental health? Using case formulation in clinical practice. BMC Medicine, 10, 111.',
-    use: 'Case formulation by presenting problem and predisposing, precipitating, perpetuating and protective factors.' },
+    use: 'Case formulation by presenting problem and predisposing, precipitating, perpetuating and protective factors.' },  { key: 'SAMHSA TIC Concept (2014)', tier: 'guideline', body: 'Substance Abuse and Mental Health Services Administration',
+    citation: 'Substance Abuse and Mental Health Services Administration. (2014). SAMHSA\u2019s Concept of Trauma and Guidance for a Trauma-Informed Approach (HHS Publication No. SMA 14-4884).',
+    use: 'The four Rs and six key principles of a trauma-informed approach.' },
 ];
 
 const NCE_REFERENCE_LIBRARY = [...REFERENCE_LIBRARY, ...NCE_EXTRA_LIBRARY];

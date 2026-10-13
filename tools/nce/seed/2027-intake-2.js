@@ -9,13 +9,15 @@ module.exports = [
     difficulty: 'easy',
     stem: 'A community agency is redesigning its intake process to be trauma-informed. Which of the following is one of the core principles of a trauma-informed approach identified by SAMHSA?',
     options: [
-      { id: 'a', text: 'Trustworthiness and transparency', isCorrect: true, rationale: 'SAMHSA lists trustworthiness and transparency among its six principles, alongside safety, peer support, collaboration, empowerment/choice, and cultural, historical, and gender issues.' },
+      { id: 'a', text: 'Trustworthiness and transparency', isCorrect: true, rationale: 'SAMHSA lists trustworthiness and transparency among its six principles, alongside safety, peer support, collaboration and mutuality, empowerment, voice, and choice, and cultural, historical, and gender issues.' },
       { id: 'b', text: 'Complete trauma narrative at intake', isCorrect: false, rationale: 'Requiring a detailed trauma account early can retraumatize clients; trauma-informed intake screens without demanding full disclosure.' },
       { id: 'c', text: 'Counselor-directed treatment goals', isCorrect: false, rationale: 'Trauma-informed care emphasizes collaboration and client choice rather than goals set unilaterally by the counselor.' },
     ],
-    rationale: 'A trauma-informed approach realizes the prevalence of trauma, recognizes its signs, responds by integrating that knowledge into practice, and resists retraumatization. SAMHSA organizes this around principles including safety, trustworthiness and transparency, peer support, collaboration and mutuality, empowerment and choice, and attention to cultural, historical, and gender issues.',
-    references: [{ source: 'SAMHSA TIP 57', detail: 'Trauma-informed care principles and trauma-informed intake practices' }],
-    reviewNote: 'The six key principles (safety; trustworthiness and transparency; peer support; collaboration and mutuality; empowerment, voice, and choice; cultural, historical, and gender issues) come from SAMHSA\'s 2014 Concept of Trauma and Guidance for a Trauma-Informed Approach, which is not on the allowed source list; TIP 57 frames its principles differently. Confirm the TIP 57 citation is acceptable.',
+    rationale: 'A trauma-informed approach realizes the prevalence of trauma, recognizes its signs, responds by integrating that knowledge into practice, and resists retraumatization. SAMHSA organizes this around principles including safety, trustworthiness and transparency, peer support, collaboration and mutuality, empowerment, voice, and choice, and attention to cultural, historical, and gender issues.',
+    references: [
+      { source: 'SAMHSA TIC Concept (2014)', detail: 'Four Rs and six key principles of a trauma-informed approach' },
+      { source: 'SAMHSA TIP 57', detail: 'Trauma-informed intake and screening practices' },
+    ],
   },
   {
     id: 'nce-s-i27b-002',
@@ -137,7 +139,6 @@ module.exports = [
       { source: 'ACA Code of Ethics', detail: 'Section B.2.a, Serious and Foreseeable Harm and Legal Requirements' },
       { source: 'State law', detail: 'Duty to warn or protect statutes (mandatory, permissive, or none)' },
     ],
-    reviewNote: 'Duty-to-warn/protect requirements vary by state (mandatory vs permissive); key written around the principle.',
   },
   {
     id: 'nce-s-i27b-009',

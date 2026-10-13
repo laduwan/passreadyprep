@@ -108,7 +108,6 @@ module.exports = [
       { source: 'ACA Code of Ethics', detail: 'Section F.1 — supervisors monitor client welfare and supervisee performance' },
       { source: 'Corey (Theory & Practice)', detail: 'Legal issues in supervision — vicarious liability' },
     ],
-    reviewNote: 'Scope of supervisor liability varies by state statute and case law; item tests the general principle.',
   },
   {
     id: 'nce-s-p27a-007',
@@ -141,7 +140,6 @@ module.exports = [
     ],
     rationale: 'Before enrolling, counselors should confirm the provider is approved by their licensing board or a recognized approver (such as an NBCC Approved Continuing Education Provider) and that the content rests on a sound evidence base. A workshop "certificate" does not by itself confer competence.',
     references: [{ source: 'NBCC Code of Ethics', detail: 'Maintaining competence through appropriate continuing education' }],
-    reviewNote: 'CE hour requirements and accepted approvers vary by state licensing board.',
   },
   {
     id: 'nce-s-p27a-009',
