@@ -213,30 +213,41 @@ router.get('/blueprint', (req, res) => {
   res.json({ categories: cats });
 });
 
-// ── GET /api/admin/generate/coverage[?spec=2027] — returns current case counts vs targets
-// (spec=2027: the ncmhce-2027 exam's cases only, against the same category targets).
+// ── GET /api/admin/generate/coverage[?spec=2027] — returns case counts vs targets.
+// Counts one bank only (current: exam 'ncmhce'; spec=2027: exam 'ncmhce-2027'),
+// case_sim items that are published or pending review. Drafts don't count.
+// The 2027 bank's goal is 100 cases (10 full mocks of 10 cases); its category
+// targets are the current blueprint's, scaled to 100 (largest remainder).
+const COVERAGE_STATUSES = ['published', 'sme_review'];
+const TARGET_2027 = 100;
+
+function scaledGaps(list, total) {
+  const { counts } = bp.tally(list);
+  const raw = bp.CATEGORIES.map((c) => ({ category: c.category, exact: (c.target * total) / bp.TOTAL_TARGET }));
+  raw.forEach((r) => { r.target = Math.floor(r.exact); });
+  let left = total - raw.reduce((s, r) => s + r.target, 0);
+  [...raw].sort((a, b) => (b.exact - b.target) - (a.exact - a.target)).forEach((r) => { if (left > 0) { r.target += 1; left -= 1; } });
+  return raw
+    .map((r) => ({ category: r.category, target: r.target, have: counts[r.category], need: Math.max(0, r.target - counts[r.category]) }))
+    .sort((a, b) => b.need - a.need);
+}
+
+async function bankCases(examKey) {
+  const exam = examKey === 'ncmhce-2027' ? await getExam2027() : await Exam.findOne({ key: examKey });
+  if (!exam) return [];
+  const docs = await ContentItem.find({ examId: exam._id, format: 'case_sim', status: { $in: COVERAGE_STATUSES } })
+    .select('externalId category caseSim.category').lean();
+  return docs.map((d) => ({ id: d.externalId, category: d.category || (d.caseSim && d.caseSim.category) }));
+}
+
 router.get('/coverage', async (req, res) => {
   try {
     if (specOf(req.query.spec) === '2027') {
-      const exam27 = await getExam2027();
-      const docs = exam27
-        ? await ContentItem.find({ examId: exam27._id, format: 'case_sim' }).select('externalId category caseSim').lean()
-        : [];
-      const list = docs.map((d) => ({ id: d.externalId, category: d.category || (d.caseSim && d.caseSim.category) }));
-      const t27 = bp.tally(list);
-      return res.json({ spec: '2027', examKey: 'ncmhce-2027', total: t27.total, target: bp.TOTAL_TARGET, gaps: bp.gaps(list) });
+      const list = await bankCases('ncmhce-2027');
+      return res.json({ spec: '2027', examKey: 'ncmhce-2027', total: list.length, target: TARGET_2027, gaps: scaledGaps(list, TARGET_2027) });
     }
-    const dbCases = await ContentItem.find({})
-      .select('externalId category caseSim')
-      .lean();
-    const casesList = dbCases.map((d) => ({
-      id: d.externalId,
-      category: d.category || (d.caseSim && d.caseSim.category),
-    }));
-    const allCases = [...SEED_CASES.map((c) => ({ id: c.id, category: c.category })), ...casesList];
-    const gapData = bp.gaps(allCases);
-    const t = bp.tally(allCases);
-    res.json({ total: t.total, target: bp.TOTAL_TARGET, gaps: gapData });
+    const list = await bankCases('ncmhce');
+    res.json({ examKey: 'ncmhce', total: list.length, target: bp.TOTAL_TARGET, gaps: bp.gaps(list) });
   } catch (err) {
     console.error('coverage error', err);
     res.status(500).json({ error: 'Could not compute coverage' });
