@@ -75,10 +75,17 @@
   .row{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap}
   .done{text-align:center;padding:28px 18px}
   .done .big{font-size:34px;font-weight:800;color:var(--white)}
-  .tool-about{margin-top:32px}
-  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
-  .tool-about h3{font-size:15px; margin:16px 0 4px; color:var(--white); font-weight:700}
-  .tool-about ul{margin:0 0 12px; padding-left:20px; color:var(--slate-400)}
+
+  /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
+  .tool-about{margin-top:36px}
+  .tool-about h2{font-size:18px; margin:0 0 8px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:20px 0 6px; color:var(--white); font-weight:700}
+  .tool-about p,.tool-about li{color:var(--slate-400); font-size:14.5px; line-height:1.6}
+  .tool-about p{margin:0 0 10px}
+  .tool-about ul,.tool-about ol{margin:0 0 12px; padding-left:20px}
+  .tool-about li{margin:0 0 5px}
+  .tool-about a{color:var(--emerald-400)}
+  .tool-about .lead{margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -97,17 +104,19 @@
   <div class="flt" id="filters"></div>
   <div class="scoreline"><span id="progress"></span><span id="score"></span></div>
   <div id="stage"></div>
-  <section class="tool-about" aria-labelledby="tool-about-h">
-    <h2 id="tool-about-h">About Next Best Step</h2>
-    <p class="lead">NCMHCE case questions rarely ask you to name a first-line treatment. They describe a client and ask what you do next, and one of the options is usually a tempting trap: a reasonable step taken in the wrong order. This drill gives you scenario questions across every diagnostic family, plus ethics, scope of practice, and cultural considerations. Each answer explains why the best step comes first, what makes the trap wrong, and the rule you can reuse on exam day.</p>
-    <h3>What you practice</h3>
-    <ul>
-      <li>Putting safety planning and risk assessment ahead of treatment changes</li>
-      <li>Choosing between psychotherapy, referral, and a medication evaluation</li>
-      <li>Handling ethical and scope-of-practice decisions mid-case</li>
-      <li>Spotting the answer that is correct in general but premature for this client</li>
-    </ul>
-    <p class="lead">Pair it with <a href="/assess-next.html">What to Assess Next</a> for the assessment step, walk the full reasoning chain in the <a href="/decision-trees.html">diagnostic decision trees</a>, and put it all together in the <a href="/study">NCMHCE case simulations</a> and <a href="/exam.html">timed mock exam</a>.</p>
+  <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
+    <h2 id="tool-about-h">The question the NCMHCE asks most: what do you do next?</h2>
+    <p class="lead">The NCMHCE rarely asks for a definition or a first-line treatment in the abstract. It gives you a client at a specific point in care and asks what the counselor should do next, and which options would be premature, outside scope, or harmful. This drill isolates that single decision so you can practice it dozens of times in a sitting.</p>
+    <h3>How to reason through a next-best-step item</h3>
+    <ol>
+      <li><strong>Safety first.</strong> If any detail signals risk to self or others, the next step is assessment of that risk, not treatment planning.</li>
+      <li><strong>Rule out before you rule in.</strong> Medical causes, substance effects, and missing history come before a diagnosis.</li>
+      <li><strong>Stay in sequence.</strong> Informed consent precedes intervention; assessment precedes treatment; consultation precedes a unilateral ethical decision.</li>
+      <li><strong>Pick the least intrusive effective step.</strong> The exam penalizes escalating to hospitalization or a referral when a lower level of care fits the risk.</li>
+    </ol>
+    <h3>The traps, named</h3>
+    <p>Each set tells you which trap the distractors represent: jumping to treatment, acting outside your scope, promising confidentiality you cannot keep, or over-reacting to a vague statement in a way that damages trust. Seeing the trap named is what stops you from falling for the same pattern in a different vignette.</p>
+    <p>Pair this drill with <a href="/assess-next.html">what to assess next</a> for the assessment-selection version of the same skill, the <a href="/decision-trees.html">decision trees</a> for the full sequence of decisions in one scenario, and the <a href="/study">case simulations</a> where every next step is scored from &minus;2 to +3.</p>
   </section>
 </div>
 

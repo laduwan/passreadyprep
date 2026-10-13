@@ -105,12 +105,21 @@ textarea#inp:focus{border-color:var(--emerald)}
 @media(max-width:520px){h1{font-size:22px} .wrap{padding:16px 14px 56px} .card{padding:16px}}
 
   /* Static "About" + Study tools footer — footer rules copied from landing.html */
-  .tool-about{margin-top:32px}
-  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
   footer.site{border-top:1px solid rgba(51,65,85,.4); margin-top:28px; padding:22px 0 0}
   .foot-col h4{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--slate-400); margin:0 0 10px; font-weight:700}
   .foot-col a{display:inline-block; color:var(--slate-300); text-decoration:none; font-size:14.5px; margin:4px 16px 4px 0}
   .foot-col a:hover{color:var(--emerald-400)}
+
+  /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
+  .tool-about{margin-top:36px}
+  .tool-about h2{font-size:18px; margin:0 0 8px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:20px 0 6px; color:var(--white); font-weight:700}
+  .tool-about p,.tool-about li{color:var(--slate-400); font-size:14.5px; line-height:1.6}
+  .tool-about p{margin:0 0 10px}
+  .tool-about ul,.tool-about ol{margin:0 0 12px; padding-left:20px}
+  .tool-about li{margin:0 0 5px}
+  .tool-about a{color:var(--emerald-400)}
+  .tool-about .lead{margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -139,9 +148,21 @@ textarea#inp:focus{border-color:var(--emerald)}
   </header>
   <h1>Microskills Responder</h1><p class="lead">Practice the exact clinical microskills the NCMHCE tests — reflection, reframing, confrontation, and immediacy — by responding to simulated client statements and getting instant feedback on technique.</p>
   <main id="app" aria-live="polite"></main>
-  <section class="tool-about" aria-labelledby="tool-about-h">
+  <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
     <h2 id="tool-about-h">About the microskills responder</h2>
-    <p class="lead">Microskills are the moment-to-moment responses a counselor uses in session: open questions, reflections of feeling, paraphrases, reframes, confrontation, and immediacy. You write each response in your own words and get coaching on the technique. Build on it with the <a href="/intake.html">intake interview simulator</a> and the <a href="/core-attributes-quiz.html">core attributes drill</a>.</p>
+    <p class="lead">Microskills are the moment-to-moment responses a counselor uses in session: open questions, reflections of feeling, paraphrases, summaries, reframes, confrontation, and immediacy. Here you write your response to a simulated client statement in your own words and get coaching on the technique you were asked to use.</p>
+    <h3>Why microskills matter on the NCMHCE</h3>
+    <p>Two scored domains depend on them. Counseling Skills and Interventions asks which response moves the session forward, and Core Counseling Attributes asks whether a response conveys empathy, genuineness, and respect. The exam presents several plausible counselor statements and asks for the best one; candidates who can name the skill in each option, and recognize when a reflection is really a disguised question or a reframe is really advice, pick correctly.</p>
+    <h3>The skills you will practice</h3>
+    <ul>
+      <li><strong>Reflection of feeling</strong>: naming the emotion under the client&rsquo;s words, tentatively, without adding interpretation.</li>
+      <li><strong>Paraphrase and summary</strong>: returning content accurately so the client feels heard and the session gains structure.</li>
+      <li><strong>Reframing</strong>: offering a new meaning for the same facts without dismissing the client&rsquo;s experience.</li>
+      <li><strong>Confrontation</strong>: pointing out a discrepancy between what the client says and does, respectfully and with the alliance intact.</li>
+      <li><strong>Immediacy</strong>: naming what is happening between counselor and client right now, often the highest-value response on the exam.</li>
+    </ul>
+    <h3>How the coaching works</h3>
+    <p>Each client statement arrives with an assigned skill. You write a response, and the feedback tells you whether the response used that skill, where it drifted into another one, and how a stronger version would read. Build on it with the <a href="/intake.html">intake interview simulator</a> for a full conversation, the <a href="/core-attributes-quiz.html">core attributes drill</a> for the scenario-based questions, and the <a href="/study">case simulations</a> where these responses are scored in context.</p>
   </section>
   <footer class="site">
     <nav class="foot-col" aria-label="Study tools">

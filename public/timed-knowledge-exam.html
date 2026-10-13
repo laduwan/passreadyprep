@@ -4,12 +4,12 @@
 <meta charset="utf-8" />
 <script src="/tool-gate.js" data-tool="Timed Knowledge Exam"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>NCMHCE Timed Knowledge Exam | PassReady Prep</title>
+<title>NCMHCE Practice Questions: Timed Knowledge Exam | PassReady Prep</title>
 <meta name="description" content="A timed multiple-choice exam for NCMHCE prep across all knowledge domains. Pick your length, then get a full domain breakdown and answer review.">
 <link rel="canonical" href="https://www.passreadyprep.com/timed-knowledge-exam.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PassReady Prep">
-<meta property="og:title" content="NCMHCE Timed Knowledge Exam | PassReady Prep">
+<meta property="og:title" content="NCMHCE Practice Questions: Timed Knowledge Exam | PassReady Prep">
 <meta property="og:description" content="A timed multiple-choice exam for NCMHCE prep across all knowledge domains. Pick your length, then get a full domain breakdown and answer review.">
 <meta property="og:url" content="https://www.passreadyprep.com/timed-knowledge-exam.html">
 <meta property="og:image" content="https://www.passreadyprep.com/og.png">
@@ -144,10 +144,17 @@ h1{font-size:24px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
   h1{font-size:20px}.qstem{font-size:15px}.opt{font-size:14px}
   .setup-grid{grid-template-columns:1fr 1fr}.timer-display{font-size:18px}
 }
-  .tool-about{margin-top:32px}
-  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
-  .tool-about h3{font-size:15px; margin:16px 0 4px; color:var(--white); font-weight:700}
-  .tool-about ul{margin:0 0 12px; padding-left:20px; color:var(--slate-400)}
+
+  /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
+  .tool-about{margin-top:36px}
+  .tool-about h2{font-size:18px; margin:0 0 8px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:20px 0 6px; color:var(--white); font-weight:700}
+  .tool-about p,.tool-about li{color:var(--slate-400); font-size:14.5px; line-height:1.6}
+  .tool-about p{margin:0 0 10px}
+  .tool-about ul,.tool-about ol{margin:0 0 12px; padding-left:20px}
+  .tool-about li{margin:0 0 5px}
+  .tool-about a{color:var(--emerald-400)}
+  .tool-about .lead{margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -176,16 +183,20 @@ h1{font-size:24px;margin:0 0 6px;color:var(--white);font-weight:700;letter-spaci
   </header>
 
   <div id="stage"></div>
-  <section class="tool-about" aria-labelledby="tool-about-h">
-    <h2 id="tool-about-h">About the timed knowledge exam</h2>
-    <p class="lead">A timed multiple-choice exam drawn from a 300-question bank that covers the knowledge behind the NCMHCE: counseling theories and pioneers, counseling skills and interventions, intake, assessment, diagnosis, treatment planning, and professional practice and ethics. Pick 25, 50, 75, or 100 questions (30 to 120 minutes), optionally narrow to one domain, and answer with no feedback until you submit, the same way the real exam works.</p>
-    <h3>How it works</h3>
-    <ul>
-      <li>A question grid and flag button, so you can return to items you were unsure of before you submit</li>
-      <li>Your overall score and a breakdown by knowledge domain after you submit</li>
-      <li>A full answer review with the rationale for every question</li>
-    </ul>
-    <p class="lead">Use the untimed <a href="/knowledge-drill.html">knowledge drill</a> to work on weak domains first, review frameworks in <a href="/theory.html">theories &amp; pioneers</a>, and move on to the case-based <a href="/exam.html">NCMHCE timed mock exam</a> when your domain scores hold steady.</p>
+  <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
+    <h2 id="tool-about-h">A timed NCMHCE knowledge exam, weighted like the real one</h2>
+    <p class="lead">Blueprint-weighted multiple-choice questions with no feedback until you submit, then a full domain breakdown and an answer review. Choose a length that fits the time you have and, optionally, a domain to focus on.</p>
+    <h3>What &ldquo;blueprint-weighted&rdquo; means</h3>
+    <p>NBCC publishes how much each content area counts on the NCMHCE. A random set of questions over-tests whatever the item bank has most of; a weighted set matches the exam&rsquo;s proportions, so your score tells you something about your real readiness instead of about the bank. Every set here is drawn to those proportions unless you deliberately narrow it to one domain.</p>
+    <h3>Why no feedback until the end</h3>
+    <p>Immediate feedback is for learning; withheld feedback is for measurement. On the exam you will not know how you are doing, and candidates who have only practiced with instant answers often misjudge their pace and confidence. Use the <a href="/knowledge-drill.html">knowledge drill</a> when you want to learn and this exam when you want to measure.</p>
+    <h3>How to use it</h3>
+    <ol>
+      <li>Take a full-length set for a baseline and note the two weakest domains.</li>
+      <li>Study those domains with the <a href="/theory.html">theories reference</a>, the <a href="/dsm.html">DSM-5-TR reference</a>, and focused drill sets.</li>
+      <li>Retest with a domain-focused timed set, then a full-length one. Repeat until the breakdown is even.</li>
+      <li>Move to the <a href="/exam.html">timed case-simulation mock exam</a>, which tests the same knowledge inside the clinical format the NCMHCE actually uses.</li>
+    </ol>
   </section>
 </div>
 

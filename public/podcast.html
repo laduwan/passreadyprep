@@ -61,10 +61,17 @@
   .tx-cue[aria-current="true"]{background:rgba(16,185,129,.16);color:var(--white)}
   .tx-time{display:inline-block;min-width:44px;margin-right:6px;color:var(--slate-500);font-size:12px;font-variant-numeric:tabular-nums}
   .tx-msg{padding:4px 8px;color:var(--slate-400)}
-  .tool-about{margin-top:32px}
-  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
-  .tool-about h3{font-size:15px; margin:16px 0 4px; color:var(--white); font-weight:700}
-  .tool-about ul{margin:0 0 12px; padding-left:20px; color:var(--slate-400)}
+
+  /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
+  .tool-about{margin-top:36px}
+  .tool-about h2{font-size:18px; margin:0 0 8px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:20px 0 6px; color:var(--white); font-weight:700}
+  .tool-about p,.tool-about li{color:var(--slate-400); font-size:14.5px; line-height:1.6}
+  .tool-about p{margin:0 0 10px}
+  .tool-about ul,.tool-about ol{margin:0 0 12px; padding-left:20px}
+  .tool-about li{margin:0 0 5px}
+  .tool-about a{color:var(--emerald-400)}
+  .tool-about .lead{margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -86,20 +93,17 @@
     <div class="flt" id="pctl"></div>
     <div id="list"></div>
   </main>
-  <section class="tool-about" aria-labelledby="tool-about-h">
-    <h2 id="tool-about-h">About the clinical podcast</h2>
-    <p class="lead">28 short audio episodes that talk through clinical reasoning out loud: how to tell look-alike diagnoses apart, which details in a case point to which disorder, and the treatment and safety traps the NCMHCE likes to test. Episodes can be saved for offline listening, so you can review on a commute or at the gym.</p>
+  <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
+    <h2 id="tool-about-h">Clinical audio for NCMHCE prep</h2>
+    <p class="lead">Short clinical deep-dives across the diagnostic families the NCMHCE tests, plus crisis protocols and the mental status exam. Listen on the go, then drill the same material in the cases, decision trees, and DSM reference.</p>
     <h3>What the episodes cover</h3>
     <ul>
-      <li>Foundations: the hidden rules of clinical diagnosis, telling identical behaviors apart, and the mental status exam</li>
-      <li>Depressive and bipolar disorders, including the antidepressant trap in bipolar presentations</li>
-      <li>Anxiety, OCD, and trauma, with the time thresholds that separate acute stress from PTSD</li>
-      <li>Substance use, including why alcohol withdrawal is more dangerous than opioid withdrawal</li>
-      <li>Personality disorder Clusters A, B, and C, and the psychotic spectrum timelines</li>
-      <li>Eating, neurodevelopmental, neurocognitive (delirium vs. dementia), disruptive, somatic, dissociative, sleep, and sexual and gender health</li>
-      <li>Crisis protocols for high-stakes situations</li>
+      <li><strong>Diagnostic families</strong>: how each disorder presents in an intake, the differentials that trip candidates, and the first-line treatment the exam expects you to pair with it.</li>
+      <li><strong>Crisis protocols</strong>: suicide and homicide risk assessment, safety planning, level-of-care decisions, and the order in which the exam expects them.</li>
+      <li><strong>The mental status exam</strong>: what each domain of the MSE tells you, and how MSE findings in a vignette point toward or away from a diagnosis.</li>
     </ul>
-    <p class="lead">Start with the foundations episodes, then listen to each diagnostic family before working its <a href="/study">NCMHCE case simulations</a>. Check codes and first-line treatments in the <a href="/dsm.html">DSM-5-TR quick reference</a> and lock in recall with the <a href="/flashcards.html">flashcards</a>.</p>
+    <h3>How to study with audio</h3>
+    <p>Audio works for consolidation, not first exposure. Listen to an episode after you have worked a case in that diagnostic family, so the episode attaches to a client you remember. Then open the matching <a href="/study">case simulations</a>, walk the relevant <a href="/decision-trees.html">decision tree</a>, and check any criteria you were unsure of in the <a href="/dsm.html">DSM-5-TR quick reference</a>. Commutes and walks are a good fit; repeated listening to the crisis episodes in the last week before the exam pays off because risk questions appear in nearly every case.</p>
   </section>
 </div>
 <script src="/podcast-data.js"></script>

@@ -73,10 +73,17 @@
   .row{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap}
   .done{text-align:center;padding:28px 18px}
   .done .big{font-size:34px;font-weight:800;color:var(--white)}
-  .tool-about{margin-top:32px}
-  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
-  .tool-about h3{font-size:15px; margin:16px 0 4px; color:var(--white); font-weight:700}
-  .tool-about ul{margin:0 0 12px; padding-left:20px; color:var(--slate-400)}
+
+  /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
+  .tool-about{margin-top:36px}
+  .tool-about h2{font-size:18px; margin:0 0 8px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:20px 0 6px; color:var(--white); font-weight:700}
+  .tool-about p,.tool-about li{color:var(--slate-400); font-size:14.5px; line-height:1.6}
+  .tool-about p{margin:0 0 10px}
+  .tool-about ul,.tool-about ol{margin:0 0 12px; padding-left:20px}
+  .tool-about li{margin:0 0 5px}
+  .tool-about a{color:var(--emerald-400)}
+  .tool-about .lead{margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -95,17 +102,19 @@
   <div class="flt" id="filters"></div>
   <div class="scoreline"><span id="progress"></span><span id="score"></span></div>
   <div id="stage"></div>
-  <section class="tool-about" aria-labelledby="tool-about-h">
-    <h2 id="tool-about-h">About What to Assess Next</h2>
-    <p class="lead">Many NCMHCE questions turn on sequence: before you diagnose or treat, what do you need to know, and which instrument or step gets it? This drill gives you 41 short vignettes. For each one you choose what to administer, screen, gather, or rule out next, then see why the right answer fits, why the other options are premature or the wrong tool, and the sequencing rule behind it.</p>
-    <h3>What you practice</h3>
+  <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
+    <h2 id="tool-about-h">Choosing what to assess next on the NCMHCE</h2>
+    <p class="lead">Assessment questions are where candidates with strong clinical instincts still lose points. The exam does not ask whether you would assess; it asks what you would screen for, which instrument you would use, and in what order. This drill presents a vignette and asks exactly that.</p>
+    <h3>What the items test</h3>
     <ul>
-      <li>Safety first: when a structured suicide or violence risk assessment has to come before anything else</li>
-      <li>Ruling out medical and substance causes before settling on a psychiatric diagnosis</li>
-      <li>Choosing the right screening or assessment instrument for the presenting problem</li>
-      <li>Gathering collateral and history at the right point in intake</li>
+      <li><strong>Screening choice.</strong> Matching the presenting picture to the right domain to screen: suicide risk, substance use, trauma exposure, mood, anxiety, cognition, or psychosis.</li>
+      <li><strong>Instrument choice.</strong> Knowing which standardized tool fits, for example a structured suicide risk interview versus a brief depression inventory, and what each one can and cannot tell you.</li>
+      <li><strong>Sequence.</strong> Risk and medical rule-outs come first; diagnostic specifiers and treatment-planning assessments come later. The exam scores the order.</li>
+      <li><strong>Rule-outs.</strong> Recognizing when a medical condition, medication, or substance could explain the symptoms and must be assessed before a psychiatric diagnosis is assigned.</li>
     </ul>
-    <p class="lead">When single vignettes feel easy, follow one client through ten connected decisions in <a href="/assess-next-case.html">What to Assess Next: Full Case</a>. Practice the step after assessment with <a href="/next-best-step.html">Next Best Step</a>, and run a live intake in the <a href="/intake.html">intake interview simulator</a>.</p>
+    <h3>A simple method</h3>
+    <p>Ask three questions in order. Is anyone unsafe? Could something other than a mental disorder explain this? What do I still need to know to diagnose and plan treatment? The correct next assessment is almost always the answer to the first of those three that is still open. Each rationale here walks that logic for the specific vignette.</p>
+    <p>When you want to follow one client through an entire sequence of assessment decisions, use the <a href="/assess-next-case.html">full-case version</a>. For the decision after the assessment, use <a href="/next-best-step.html">next best step</a>, and look up unfamiliar disorders in the <a href="/dsm.html">DSM-5-TR reference</a>.</p>
   </section>
 </div>
 
