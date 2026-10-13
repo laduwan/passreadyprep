@@ -38,12 +38,21 @@
   .note{font-size:12.5px;color:var(--slate-500);margin-top:14px}
 
   /* Static "About" + Study tools footer — footer rules copied from landing.html */
-  .tool-about{margin-top:32px}
-  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
   footer.site{border-top:1px solid rgba(51,65,85,.4); margin-top:28px; padding:22px 0 0}
   .foot-col h4{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--slate-400); margin:0 0 10px; font-weight:700}
   .foot-col a{display:inline-block; color:var(--slate-300); text-decoration:none; font-size:14.5px; margin:4px 16px 4px 0}
   .foot-col a:hover{color:var(--emerald-400)}
+
+  /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
+  .tool-about{margin-top:36px}
+  .tool-about h2{font-size:18px; margin:0 0 8px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:20px 0 6px; color:var(--white); font-weight:700}
+  .tool-about p,.tool-about li{color:var(--slate-400); font-size:14.5px; line-height:1.6}
+  .tool-about p{margin:0 0 10px}
+  .tool-about ul,.tool-about ol{margin:0 0 12px; padding-left:20px}
+  .tool-about li{margin:0 0 5px}
+  .tool-about a{color:var(--emerald-400)}
+  .tool-about .lead{margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -72,9 +81,19 @@
     <div class="msg" id="msg"></div>
     <p class="note">Your download is personalized and licensed to your account. Also on <a href="https://www.amazon.com/dp/B0H8CR7NLX" target="_blank" rel="noopener" style="color:var(--emerald-400);text-decoration:underline;">Kindle</a>.</p>
   </div>
-  <section class="tool-about" aria-labelledby="tool-about-h">
+  <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
     <h2 id="tool-about-h">About the study guide</h2>
-    <p class="lead">The guide teaches one repeatable method for every clinical vignette: read the case, rule in the diagnosis, decide what to assess, then choose the next best step. Practice that method under exam conditions with the free <a href="/study">NCMHCE case simulations</a>, review content by domain in the <a href="/knowledge-drill.html">knowledge drill</a>, and look up unfamiliar disorders in the <a href="/dsm.html">DSM-5-TR reference</a>.</p>
+    <p class="lead">The guide teaches one repeatable method for every clinical vignette: read the case, rule in the diagnosis, decide what to assess, then choose the next best step. It covers all 18 diagnostic families the NCMHCE draws from and includes 3 full-length practice exams: 33 cases and 429 scored questions with full rationales.</p>
+    <h3>What is inside</h3>
+    <ul>
+      <li><strong>Clinical reasoning.</strong> How the case-simulation format works, how decisions are scored, and the sequence (safety, rule-outs, diagnosis, assessment, treatment, ethics) that earns points.</li>
+      <li><strong>Diagnostic reference.</strong> Each family with its key criteria, differentials, ICD-10-CM codes, and first-line treatments, organized for fast review.</li>
+      <li><strong>Three practice exams.</strong> Full-length, in the current format, with an answer key and rationale for every question. Enter your answers from Practice Exam 1 at <a href="/practice-exams/1">the online answer key</a> for a scored report by domain.</li>
+    </ul>
+    <h3>Who it is for</h3>
+    <p>Candidates who want a complete, structured review they can work on paper, and retakers who need to see the method behind the exam rather than more questions. It stands alone: no subscription is required, and it pairs with the free <a href="/study">NCMHCE case simulations</a> for practice under exam conditions.</p>
+    <h3>Formats</h3>
+    <p>The digital edition is a $25 one-time purchase. The paperback is on Amazon for $29.99 and is also available on Kindle. Review content by domain in the <a href="/knowledge-drill.html">knowledge drill</a> and look up unfamiliar disorders in the <a href="/dsm.html">DSM-5-TR reference</a> as you work through the chapters.</p>
   </section>
   <footer class="site">
     <nav class="foot-col" aria-label="Study tools">

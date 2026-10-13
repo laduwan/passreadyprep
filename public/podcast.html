@@ -61,6 +61,17 @@
   .tx-cue[aria-current="true"]{background:rgba(16,185,129,.16);color:var(--white)}
   .tx-time{display:inline-block;min-width:44px;margin-right:6px;color:var(--slate-500);font-size:12px;font-variant-numeric:tabular-nums}
   .tx-msg{padding:4px 8px;color:var(--slate-400)}
+
+  /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
+  .tool-about{margin-top:36px}
+  .tool-about h2{font-size:18px; margin:0 0 8px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:20px 0 6px; color:var(--white); font-weight:700}
+  .tool-about p,.tool-about li{color:var(--slate-400); font-size:14.5px; line-height:1.6}
+  .tool-about p{margin:0 0 10px}
+  .tool-about ul,.tool-about ol{margin:0 0 12px; padding-left:20px}
+  .tool-about li{margin:0 0 5px}
+  .tool-about a{color:var(--emerald-400)}
+  .tool-about .lead{margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -82,6 +93,18 @@
     <div class="flt" id="pctl"></div>
     <div id="list"></div>
   </main>
+  <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
+    <h2 id="tool-about-h">Clinical audio for NCMHCE prep</h2>
+    <p class="lead">Short clinical deep-dives across the diagnostic families the NCMHCE tests, plus crisis protocols and the mental status exam. Listen on the go, then drill the same material in the cases, decision trees, and DSM reference.</p>
+    <h3>What the episodes cover</h3>
+    <ul>
+      <li><strong>Diagnostic families</strong>: how each disorder presents in an intake, the differentials that trip candidates, and the first-line treatment the exam expects you to pair with it.</li>
+      <li><strong>Crisis protocols</strong>: suicide and homicide risk assessment, safety planning, level-of-care decisions, and the order in which the exam expects them.</li>
+      <li><strong>The mental status exam</strong>: what each domain of the MSE tells you, and how MSE findings in a vignette point toward or away from a diagnosis.</li>
+    </ul>
+    <h3>How to study with audio</h3>
+    <p>Audio works for consolidation, not first exposure. Listen to an episode after you have worked a case in that diagnostic family, so the episode attaches to a client you remember. Then open the matching <a href="/study">case simulations</a>, walk the relevant <a href="/decision-trees.html">decision tree</a>, and check any criteria you were unsure of in the <a href="/dsm.html">DSM-5-TR quick reference</a>. Commutes and walks are a good fit; repeated listening to the crisis episodes in the last week before the exam pays off because risk questions appear in nearly every case.</p>
+  </section>
 </div>
 <script src="/podcast-data.js"></script>
 <script>

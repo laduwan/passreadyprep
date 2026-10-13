@@ -116,12 +116,21 @@ h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
 @media(max-width:520px){h1{font-size:22px} .wrap{padding:16px 14px 56px} .card{padding:16px} .chat{height:340px}}
 
   /* Static "About" + Study tools footer — footer rules copied from landing.html */
-  .tool-about{margin-top:32px}
-  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
   footer.site{border-top:1px solid rgba(51,65,85,.4); margin-top:28px; padding:22px 0 0}
   .foot-col h4{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--slate-400); margin:0 0 10px; font-weight:700}
   .foot-col a{display:inline-block; color:var(--slate-300); text-decoration:none; font-size:14.5px; margin:4px 16px 4px 0}
   .foot-col a:hover{color:var(--emerald-400)}
+
+  /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
+  .tool-about{margin-top:36px}
+  .tool-about h2{font-size:18px; margin:0 0 8px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:20px 0 6px; color:var(--white); font-weight:700}
+  .tool-about p,.tool-about li{color:var(--slate-400); font-size:14.5px; line-height:1.6}
+  .tool-about p{margin:0 0 10px}
+  .tool-about ul,.tool-about ol{margin:0 0 12px; padding-left:20px}
+  .tool-about li{margin:0 0 5px}
+  .tool-about a{color:var(--emerald-400)}
+  .tool-about .lead{margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -140,9 +149,20 @@ h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
   </header>
   <h1>Intake Interview Simulator</h1><p class="lead">Run a full clinical intake with an AI-simulated client, then get a supervisor-style debrief on your rapport-building, questioning technique, and risk screening — the skills the NCMHCE case simulations are built around.</p>
   <main id="app" aria-live="polite"></main>
-  <section class="tool-about" aria-labelledby="tool-about-h">
-    <h2 id="tool-about-h">About the intake simulator</h2>
-    <p class="lead">Each simulated client shares more as your rapport and questioning improve, the way a real client does at intake, and the debrief covers rapport, questioning technique, and risk screening. Sharpen individual responses with the <a href="/skills.html">microskills responder</a>, and practice choosing assessments with <a href="/assess-next.html">what to assess next</a>.</p>
+  <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
+    <h2 id="tool-about-h">About the intake interview simulator</h2>
+    <p class="lead">Each simulated client shares more as your rapport and questioning improve, the way a real client does at intake, and the debrief covers rapport, questioning technique, and risk screening. It is the closest thing to a supervised practice session you can do alone.</p>
+    <h3>Why intake is central to the NCMHCE</h3>
+    <p>Every case simulation on the exam opens with an intake, and the Intake, Assessment, and Diagnosis domain is one of the most heavily weighted. The exam checks whether you gather presenting problem, history, risk, and context in a clinically sound order, and whether you do it in a way that builds the alliance rather than running a checklist. Candidates who interview well in practice recognize good intake questions on the exam immediately.</p>
+    <h3>What the simulator trains</h3>
+    <ul>
+      <li><strong>Rapport.</strong> Opening the session, normalizing, and pacing disclosure so the client keeps talking.</li>
+      <li><strong>Questioning technique.</strong> Open questions before closed ones, following the client&rsquo;s lead, and avoiding leading or stacked questions.</li>
+      <li><strong>Risk screening.</strong> Asking directly and warmly about suicide, self-harm, violence, and substance use, and following up on indirect statements of hopelessness.</li>
+      <li><strong>Coverage.</strong> Presenting problem, history, medical and substance factors, supports, and goals, without losing the thread of the conversation.</li>
+    </ul>
+    <h3>The supervisor debrief</h3>
+    <p>When you end the interview you get a written debrief in the voice of a clinical supervisor: what you did well, what you missed, and the risk indicators you should have followed up. Run a second interview with a different client and compare. Sharpen individual responses with the <a href="/skills.html">microskills responder</a>, drill the alliance questions in the <a href="/core-attributes-quiz.html">core attributes drill</a>, and carry the skills into the <a href="/study">case simulations</a>, where intake decisions are scored.</p>
   </section>
   <footer class="site">
     <nav class="foot-col" aria-label="Study tools">
