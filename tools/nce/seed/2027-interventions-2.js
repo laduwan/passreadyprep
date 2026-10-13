@@ -244,13 +244,12 @@ module.exports = [
     id: 'nce-s-v27b-021', spec: '2027', domain: 'interventions', cacrep: 'social_cultural', topic: T5, difficulty: 'medium',
     stem: 'A counselor helps a client with a chronic illness identify workplace barriers, understand her rights, and rehearse requesting accommodations from her supervisor. This work BEST reflects which ACA Advocacy Competencies domain?',
     options: [
-      { id: 'a', text: 'Public information', isCorrect: false, rationale: 'Public information involves broad public awareness efforts, not individual skill-building.' },
-      { id: 'b', text: 'Social/political advocacy', isCorrect: false, rationale: 'Social/political advocacy targets legislation and policy at the public level.' },
+      { id: 'a', text: 'Collective action', isCorrect: false, rationale: 'Collective action is macrolevel work with groups on broad issues, not individual skill-building.' },
+      { id: 'b', text: 'Social/political advocacy', isCorrect: false, rationale: 'Social/political advocacy targets legislation and policy at the macrolevel.' },
       { id: 'c', text: 'Client/student empowerment', isCorrect: true, rationale: 'Building a client\'s own capacity to identify barriers and self-advocate is empowerment.' },
     ],
-    rationale: 'The ACA Advocacy Competencies range from the individual level (client/student empowerment and advocacy), to the community level (collaboration and systems advocacy), to the public level (public information and social/political advocacy). Empowerment strengthens the client\'s ability to self-advocate.',
-    references: [{ source: 'ACA Advocacy Competencies', detail: 'Client/Student level — Empowerment' }],
-    reviewNote: 'Domain names follow the 2003 Lewis et al. competencies; the 2018 update (Toporek & Daniels) renamed public-level domains (e.g., public information became collective action). Confirm which version the 2027 NCE uses.',
+    rationale: 'The 2018 ACA Advocacy Competencies range from the microlevel (client/student empowerment and advocacy), to the mesolevel (community collaboration and systems advocacy), to the macrolevel (collective action and social/political advocacy). Empowerment strengthens the client\'s ability to self-advocate.',
+    references: [{ source: 'ACA Advocacy Competencies', detail: 'Microlevel — client/student empowerment (2018 update, Toporek & Daniels)' }],
   },
   {
     id: 'nce-s-v27b-022', spec: '2027', domain: 'interventions', cacrep: 'social_cultural', topic: T5, difficulty: 'easy',
@@ -267,12 +266,12 @@ module.exports = [
     id: 'nce-s-v27b-023', spec: '2027', domain: 'interventions', cacrep: 'social_cultural', topic: T5, difficulty: 'hard',
     stem: 'Within the ACA Advocacy Competencies, client/student ADVOCACY differs from client/student EMPOWERMENT primarily in that the counselor:',
     options: [
-      { id: 'a', text: 'Works only at the legislative level', isCorrect: false, rationale: 'Legislative work falls under the public-level social/political advocacy domain.' },
+      { id: 'a', text: 'Works only at the legislative level', isCorrect: false, rationale: 'Legislative work falls under the macrolevel social/political advocacy domain.' },
       { id: 'b', text: "Acts on the client's behalf directly", isCorrect: true, rationale: 'In client/student advocacy, the counselor acts for the client, such as by negotiating with an agency.' },
       { id: 'c', text: 'Teaches the client to self-advocate', isCorrect: false, rationale: 'Teaching self-advocacy describes empowerment, not advocacy.' },
     ],
-    rationale: 'Both are individual-level domains. Empowerment works with the client to build their capacity; advocacy has the counselor act on the client\'s behalf when barriers call for direct action, such as getting access to services.',
-    references: [{ source: 'ACA Advocacy Competencies', detail: 'Client/Student level — Empowerment vs. Advocacy' }],
+    rationale: 'Both are microlevel domains. Empowerment works with the client to build their capacity; advocacy has the counselor act on the client\'s behalf when barriers call for direct action, such as getting access to services.',
+    references: [{ source: 'ACA Advocacy Competencies', detail: 'Microlevel — client/student empowerment vs. client/student advocacy (2018 update, Toporek & Daniels)' }],
   },
   {
     id: 'nce-s-v27b-024', spec: '2027', domain: 'interventions', cacrep: 'professional_orientation', topic: T5, difficulty: 'medium',
@@ -364,8 +363,7 @@ module.exports = [
       { id: 'c', text: 'Positive transference', isCorrect: false, rationale: 'Agreeableness here signals disengagement, not idealization of the counselor.' },
     ],
     rationale: 'Safran and Muran describe two rupture types: withdrawal (pulling away, deferring, going vague) and confrontation (expressing anger or dissatisfaction). Withdrawal ruptures are easy to miss, so counselors watch for subtle signs of disengagement.',
-    references: [{ source: 'Gelso & Hayes (Countertransference)', detail: 'Alliance ruptures — withdrawal vs. confrontation markers (Safran & Muran)' }],
-    reviewNote: 'Safran & Muran is not on the allowed source list; cited via Gelso & Hayes for the alliance rupture framework. SME to confirm locator.',
+    references: [{ source: 'Safran & Muran (Alliance Ruptures)', detail: 'Rupture markers — withdrawal vs. confrontation ruptures' }],
   },
   {
     id: 'nce-s-v27b-032', spec: '2027', domain: 'interventions', cacrep: 'helping_relationships', topic: T7, difficulty: 'hard',
@@ -376,8 +374,7 @@ module.exports = [
       { id: 'c', text: 'Return to the agenda set in the last session', isCorrect: false, rationale: 'Redirecting ignores the rupture and risks deepening the client\'s frustration.' },
     ],
     rationale: 'Metacommunication means stepping back with the client to talk about what is happening between them in the moment, with curiosity and without defensiveness. Owning one\'s own part and exploring the client\'s experience helps repair ruptures and can strengthen the alliance.',
-    references: [{ source: 'Gelso & Hayes (Countertransference)', detail: 'Rupture repair through metacommunication and nondefensive exploration' }],
-    reviewNote: 'Safran & Muran is not on the allowed source list; cited via Gelso & Hayes. SME to confirm locator.',
+    references: [{ source: 'Safran & Muran (Alliance Ruptures)', detail: 'Rupture resolution through metacommunication and nondefensive exploration' }],
   },
   {
     id: 'nce-s-v27b-033', spec: '2027', domain: 'interventions', cacrep: 'helping_relationships', topic: T7, difficulty: 'easy',

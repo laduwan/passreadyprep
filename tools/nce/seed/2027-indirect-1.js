@@ -122,12 +122,11 @@ module.exports = [
       { id: 'b', text: 'Disregard it, since attorneys hold no legal authority', isCorrect: false, rationale: 'A subpoena is a legal document that requires a timely response, even if records are not released.' },
       { id: 'c', text: 'Notify the client and seek legal advice on responding', isCorrect: true, rationale: 'The counselor informs the client and obtains legal guidance before any disclosure.' },
     ],
-    rationale: 'A subpoena requires a response but does not by itself authorize release of confidential records. Counselors notify the client, consult an attorney or licensing guidance, and release information only with client authorization or a court order, limiting disclosure to what is necessary. Asserting privilege on the client\'s behalf may be appropriate.',
+    rationale: 'A subpoena requires a response but does not by itself authorize release of confidential records. Counselors notify the client, consult an attorney or licensing guidance, and release information only as the law permits (typically with client authorization or a court order), limiting disclosure to what is necessary. Specific procedures, including asserting privilege on the client\'s behalf, vary by state.',
     references: [
       { source: 'ACA Code of Ethics', detail: 'Section B.2.d Court-ordered disclosure; B.2.e Minimal disclosure' },
       { source: 'HIPAA', detail: 'Privacy Rule — disclosures for judicial and administrative proceedings' },
     ],
-    reviewNote: 'Procedures for responding to subpoenas and asserting privilege vary by state; confirm item stays principle-level.',
   },
   {
     id: 'nce-s-x27a-008',
@@ -176,8 +175,8 @@ module.exports = [
       { id: 'b', text: 'systems advocacy', isCorrect: false, rationale: 'Systems advocacy targets changing institutional policies, not coaching one client.' },
       { id: 'c', text: 'social/political advocacy', isCorrect: false, rationale: 'Social/political advocacy addresses legislation and public policy at a broad level.' },
     ],
-    rationale: 'The ACA Advocacy Competencies span levels from individual to public arena and distinguish acting with clients from acting on their behalf. Client/student empowerment means helping the client recognize barriers and develop self-advocacy skills, often while linking to community resources. Acting for the client would be client/student advocacy.',
-    references: [{ source: 'ACA Advocacy Competencies', detail: 'Microlevel — client/student empowerment (acting with)' }],
+    rationale: 'The 2018 ACA Advocacy Competencies span microlevel, mesolevel, and macrolevel advocacy and distinguish acting with clients from acting on their behalf. Client/student empowerment means helping the client recognize barriers and develop self-advocacy skills, often while linking to community resources. Acting for the client would be client/student advocacy.',
+    references: [{ source: 'ACA Advocacy Competencies', detail: 'Microlevel — client/student empowerment (acting with); 2018 update, Toporek & Daniels' }],
   },
   {
     id: 'nce-s-x27a-011',
@@ -212,7 +211,6 @@ module.exports = [
     ],
     rationale: 'Under HIPAA, covered entities may disclose protected health information to other providers for treatment purposes without a signed authorization. Psychotherapy notes kept separately are an exception and generally need authorization. Many counselors still obtain client consent as an ethical best practice, and stricter state laws or Part 2 may apply.',
     references: [{ source: 'HIPAA', detail: 'Privacy Rule — treatment, payment, and health care operations (TPO); psychotherapy notes' }],
-    reviewNote: 'Some state mental health confidentiality laws are stricter than HIPAA TPO; item framed at the federal level.',
   },
   {
     id: 'nce-s-x27a-013',
@@ -227,12 +225,11 @@ module.exports = [
       { id: 'b', text: 'Part 2 bars all sharing of SUD records, even with consent', isCorrect: false, rationale: 'Part 2 permits disclosure with valid written consent and in limited exceptions.' },
       { id: 'c', text: 'Part 2 generally requires written consent for this sharing', isCorrect: true, rationale: 'Disclosure to an outside provider generally requires the client\'s written consent.' },
     ],
-    rationale: '42 CFR Part 2 protects records of federally assisted substance use disorder programs more strictly than HIPAA. Disclosure to outside treating providers generally requires the client\'s written consent, with narrow exceptions such as bona fide medical emergencies. Disclosed records carry restrictions on use against the client in proceedings.',
+    rationale: '42 CFR Part 2 protects records of federally assisted substance use disorder programs more strictly than HIPAA. Disclosure to outside treating providers generally requires the client\'s written consent, with narrow exceptions such as bona fide medical emergencies. Under the 2024 final rule, a single consent may cover all future uses and disclosures for treatment, payment, and health care operations, and recipients that are HIPAA covered entities or business associates may redisclose as HIPAA permits. Records still cannot be used in proceedings against the client without consent or a court order.',
     references: [
       { source: 'SAMHSA TIP 63', detail: 'Confidentiality of SUD treatment records (42 CFR Part 2) in opioid treatment programs' },
-      { source: 'HIPAA', detail: 'Relationship between Privacy Rule TPO disclosures and 42 CFR Part 2' },
+      { source: '42 CFR Part 2', detail: '2024 final rule — written consent; single consent for future TPO; HIPAA-aligned redisclosure; limits on use in proceedings' },
     ],
-    reviewNote: 'The 2024 Part 2 final rule permits a single consent for future TPO uses and aligns redisclosure with HIPAA for recipients; confirm key wording remains accurate under current rule.',
   },
   {
     id: 'nce-s-x27a-014',

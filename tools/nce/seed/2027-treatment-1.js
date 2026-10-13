@@ -243,9 +243,8 @@ module.exports = [
     rationale: 'Cultural adaptation keeps an evidence-based treatment intact while aligning it with the client\'s values. For scrupulosity, the counselor and client distinguish genuine religious practice from compulsive excess—sometimes with the client\'s chosen religious advisor, with consent—and design exposures around the excess.',
     references: [
       { source: 'Sue & Sue (Counseling the Culturally Diverse)', detail: 'Integrating religious and spiritual identity into treatment' },
-      { source: 'APA CPG', detail: 'Exposure and response prevention as first-line psychotherapy for OCD' },
+      { source: 'APA Practice Guidelines (Psychiatric)', detail: 'Practice Guideline for the Treatment of Patients With OCD (2007) — CBT with ERP as first-line psychotherapy' },
     ],
-    reviewNote: 'The OCD practice guideline recommending ERP is the American Psychiatric Association\'s (2007), not an American Psychological Association CPG; confirm which body "APA CPG" denotes for this citation.',
   },
   {
     id: 'nce-s-t27a-015',

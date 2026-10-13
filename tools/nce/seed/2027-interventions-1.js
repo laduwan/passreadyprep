@@ -500,9 +500,8 @@ module.exports = [
       { id: 'b', text: 'That texting gives a richer assessment', isCorrect: false, rationale: 'Text modality reduces nonverbal cues; it is not superior for assessment.' },
       { id: 'c', text: 'That the client\'s insurer pays for texts', isCorrect: false, rationale: 'Insurance coverage affects payment, not the counselor\'s legal authority to serve a client in another state.' },
     ],
-    rationale: 'ACA Section H requires counselors providing distance services to follow the laws and regulations of both their own and the client\'s location. Licensure portability mechanisms such as the Counseling Compact may apply where a state has joined.',
-    references: [{ source: 'ACA Code of Ethics', detail: 'Section H.1.b — laws and statutes for distance counseling' }, { source: 'Counseling Compact', detail: 'Privilege to practice across member states' }],
-    reviewNote: 'Counseling Compact privilege-to-practice availability depends on member-state implementation status; confirm current status.',
+    rationale: 'ACA Section H requires counselors providing distance services to follow the laws and regulations of both their own and the client\'s location. Licensure portability mechanisms such as a Counseling Compact privilege to practice may apply in member states that are issuing privileges.',
+    references: [{ source: 'ACA Code of Ethics', detail: 'Section H.1.b — laws and statutes for distance counseling' }, { source: 'Counseling Compact', detail: 'Privilege to practice in member states issuing privileges; law of the client location governs' }],
   },
 
   // ---------- T8: Culture in counselor–client relationship ----------

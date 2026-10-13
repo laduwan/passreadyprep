@@ -23,15 +23,14 @@ module.exports = [
     cacrep: 'helping_relationships',
     topic: 'Determine the appropriate level of care',
     difficulty: 'medium',
-    stem: 'An adult with alcohol use disorder has minimal withdrawal risk, no acute medical problems, and a stable home, but weekly outpatient sessions have not been enough structure to prevent return to use. Using the ASAM Criteria, which level is the BEST match?',
+    stem: 'An adult with alcohol use disorder has minimal withdrawal risk, no acute medical problems, and a stable home, but weekly outpatient sessions have not been enough structure to prevent return to use. Using the ASAM Criteria (3rd ed., 2013), which level is the BEST match?',
     options: [
       { id: 'a', text: 'Level 0.5, early intervention services', isCorrect: false, rationale: 'Early intervention targets at-risk individuals who do not yet meet criteria for a substance use disorder.' },
       { id: 'b', text: 'Level 4, medically managed intensive inpatient', isCorrect: false, rationale: 'Level 4 is for clients needing 24-hour medical and nursing care, such as severe withdrawal or acute medical instability.' },
       { id: 'c', text: 'Level 2.1, intensive outpatient services', isCorrect: true, rationale: 'Intensive outpatient adds structured hours while the client continues living at home, fitting low withdrawal and medical risk.' },
     ],
-    rationale: 'The ASAM Criteria match clients to a level of care by assessing multiple dimensions, including withdrawal potential, medical and emotional conditions, readiness, relapse potential, and recovery environment. When standard outpatient care is insufficient but medical risk is low and home is stable, intensive outpatient (Level 2.1) adds structure without residential placement.',
-    references: [{ source: 'ASAM Criteria', detail: 'Levels of care continuum; Level 2.1 intensive outpatient; multidimensional assessment' }],
-    reviewNote: 'ASAM Criteria 4th edition (2023) revised parts of the level structure (e.g., Level 0.5 status); confirm level labels align with the edition used for the 2027 NCE.',
+    rationale: 'The ASAM Criteria match clients to a level of care by assessing multiple dimensions, including withdrawal potential, medical and emotional conditions, readiness, relapse potential, and recovery environment. When standard outpatient care is insufficient but medical risk is low and home is stable, intensive outpatient (Level 2.1 in the 3rd edition) adds structure without residential placement.',
+    references: [{ source: 'ASAM Criteria', detail: '3rd ed. (2013) — levels of care continuum; Level 2.1 intensive outpatient; multidimensional assessment' }],
   },
   {
     id: 'nce-s-i27c-003',

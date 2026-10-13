@@ -286,12 +286,11 @@ module.exports = [
       { id: 'b', text: "Members agree to keep disclosures private, but it can't be assured", isCorrect: true, rationale: "Counselors explain that confidentiality is expected of members but cannot be guaranteed in groups." },
       { id: 'c', text: "What is shared stays private, since groups are exempt from reporting", isCorrect: false, rationale: "Group counseling carries the same mandated reporting and safety limits as individual counseling." },
     ],
-    rationale: "In group work, counselors explain the importance and parameters of confidentiality for that specific group and make clear that they cannot guarantee members will honor it. Consent should also cover standard limits such as abuse reporting and danger to self or others. These points are addressed during screening and again at the first session.",
+    rationale: "In group work, counselors explain the importance and parameters of confidentiality for that specific group and make clear that they cannot guarantee members will honor it. Consent should also cover standard limits such as abuse reporting and danger to self or others. These points are addressed during screening and again at the first session. If the program is federally assisted, 42 CFR Part 2 also limits the program's own disclosures of members' SUD information, but it does not bind fellow members.",
     references: [
       { source: 'ACA Code of Ethics', detail: 'B.4.a Group work' },
       { source: 'ASGW Best Practice Guidelines', detail: 'Informed consent and confidentiality in group planning' },
     ],
-    reviewNote: "If the IOP is federally assisted, 42 CFR Part 2 confidentiality rules may also apply to group members' SUD information; the item does not test Part 2.",
   },
   {
     id: 'nce-s-i27a-017',
@@ -340,15 +339,14 @@ module.exports = [
     stem: "A counselor licensed only in Georgia sees a client by video. The client says she will spend the next three months caring for a parent in another state and wants to keep weekly sessions from there. What should the counselor do FIRST?",
     options: [
       { id: 'a', text: "Continue as usual, since the counselor's license is in Georgia", isCorrect: false, rationale: "Jurisdiction generally follows the client's physical location, not only where the counselor is licensed." },
-      { id: 'b', text: "Check if she can legally practice in the client's new location", isCorrect: true, rationale: "Counselors confirm they are authorized under the laws where the client is located before continuing." },
+      { id: 'b', text: "Confirm authorization to practice in the client's new location", isCorrect: true, rationale: "Counselors confirm they are authorized under the laws where the client is located before continuing." },
       { id: 'c', text: "Switch to phone sessions, which licensure laws do not regulate", isCorrect: false, rationale: "Licensure applies to counseling by any modality, including telephone." },
     ],
-    rationale: "Distance counselors must understand that they may be subject to the laws and regulations of both the counselor's practice location and the client's location. Before continuing, the counselor checks the other state's rules, which may include temporary practice provisions or a privilege to practice through the Counseling Compact, and updates the consent and emergency plan for the new location.",
+    rationale: "Distance counselors must understand that they may be subject to the laws and regulations of both the counselor's practice location and the client's location. Before continuing, the counselor checks the other state's rules, which may include temporary practice provisions or a Counseling Compact privilege to practice when both states are members issuing privileges, and updates the consent and emergency plan for the new location.",
     references: [
       { source: 'ACA Code of Ethics', detail: 'H.1.b Laws and statutes' },
-      { source: 'Counseling Compact', detail: 'Privilege to practice in member states via telehealth' },
+      { source: 'Counseling Compact', detail: 'Privilege to practice via telehealth in member states issuing privileges; law of the client location governs' },
     ],
-    reviewNote: 'Interstate telehealth rules, temporary practice allowances, and Compact operational status vary by state and over time; principle tested is that the client location governs.',
   },
   {
     id: 'nce-s-i27a-020',

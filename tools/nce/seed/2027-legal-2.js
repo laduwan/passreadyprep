@@ -133,11 +133,10 @@ module.exports = [
       { id: "b", text: "A second full license issued by each remote member state", isCorrect: false, rationale: "The privilege is not a separate license; it lets the counselor avoid obtaining full licensure in each remote state." },
       { id: "c", text: "A temporary permit that lapses after 30 days of practice", isCorrect: false, rationale: "The privilege is not a short-term visitor permit; it remains valid while the home-state license and Compact requirements are maintained." },
     ],
-    rationale: "The Counseling Compact allows a counselor with an unencumbered home-state license to obtain a privilege to practice, which is legal authorization equivalent to a license to practice in a remote member state. It is not a separate full license and depends on keeping the home-state license active and in good standing.",
+    rationale: "The Counseling Compact allows a counselor with an unencumbered home-state license to obtain a privilege to practice, which is legal authorization equivalent to a license to practice in a remote member state. It is not a separate full license and depends on keeping the home-state license active and in good standing. Privileges are available only in member states that have begun issuing them.",
     references: [
       { source: "Counseling Compact", detail: "Definitions — privilege to practice; relationship to the home-state license" },
     ],
-    reviewNote: "Confirm current Counseling Compact operational status (privilege-to-practice issuance) and member-state list before publication; implementation has been phased.",
   },
   {
     id: "nce-s-l27b-008",
@@ -152,11 +151,10 @@ module.exports = [
       { id: "b", text: "Passing a new exam in each remote state", isCorrect: false, rationale: "Avoiding separate full licensure processes, including repeat exams, is the purpose of the Compact." },
       { id: "c", text: "Holding an unencumbered home-state license", isCorrect: true, rationale: "A full, unencumbered license in a member home state is the foundation for any privilege to practice." },
     ],
-    rationale: "The Compact builds on the home-state license. Counselors must hold an unencumbered license in their home member state, have no recent adverse action, and meet other uniform requirements, such as a qualifying exam and graduate degree.",
+    rationale: "The Compact builds on the home-state license. Counselors must hold an unencumbered license in their home member state, have no recent adverse action, and meet other uniform requirements, such as a qualifying exam and graduate degree. Remote states may also require completion of a jurisprudence requirement.",
     references: [
       { source: "Counseling Compact", detail: "Requirements for privilege to practice — unencumbered home-state license" },
     ],
-    reviewNote: "Confirm Compact implementation status and any jurisprudence or fee requirements set by the Compact Commission or remote states.",
   },
   {
     id: "nce-s-l27b-009",
@@ -171,11 +169,10 @@ module.exports = [
       { id: "b", text: "Apply for a license in her new home state", isCorrect: true, rationale: "When a licensee changes primary residence between member states, she must obtain licensure in the new home state." },
       { id: "c", text: "Hold only privileges to practice in both states", isCorrect: false, rationale: "Privileges to practice depend on a home-state license; they cannot replace it." },
     ],
-    rationale: "Under the Compact, the home state is the member state of primary residence. A counselor who relocates to another member state must apply for licensure in the new home state, after which privileges to practice continue from that license.",
+    rationale: "Under the Compact, the home state is the member state of primary residence. A counselor who relocates to another member state must apply for licensure in the new home state, after which privileges to practice continue from that license. A counselor may hold a home-state license in only one member state at a time.",
     references: [
       { source: "Counseling Compact", detail: "Change of primary state of residence between member states" },
     ],
-    reviewNote: "Confirm the Compact's change-of-residence provisions and current operational status before publication.",
   },
   {
     id: "nce-s-l27b-010",
@@ -190,11 +187,11 @@ module.exports = [
       { id: "b", text: "Add the interpreter's fee to the client's invoice", isCorrect: false, rationale: "Surcharging a client with a disability for a required auxiliary aid is not permitted." },
       { id: "c", text: "Hold sessions solely through written notes", isCorrect: false, rationale: "Written notes may not provide effective communication for complex, lengthy counseling exchanges." },
     ],
-    rationale: "Private counseling practices are public accommodations under ADA Title III and must provide auxiliary aids, such as qualified interpreters, for effective communication. Counselors also have an ethical duty to avoid discrimination based on disability.",
+    rationale: "Private counseling practices are public accommodations under ADA Title III and must provide auxiliary aids, such as qualified interpreters, for effective communication. The duty yields only where an aid would impose an undue burden or fundamentally alter the service, and the provider consults the client about which aid is effective. Counselors also have an ethical duty to avoid discrimination based on disability.",
     references: [
+      { source: "ADA", detail: "Title III, 28 CFR Part 36 — effective communication, auxiliary aids, no surcharge, undue-burden limit" },
       { source: "ACA Code of Ethics", detail: "C.5 nondiscrimination; A.2.c developmental and cultural sensitivity in communication" },
     ],
-    reviewNote: "ADA Title III effective-communication and undue-burden standards are federal law not on the source list; SME may confirm wording.",
   },
   {
     id: "nce-s-l27b-011",
@@ -323,7 +320,6 @@ module.exports = [
       { source: "ACA Code of Ethics", detail: "B.6.h storage and disposal of records" },
       { source: "HIPAA", detail: "Privacy and Security Rules — safeguards for disposal of protected health information" },
     ],
-    reviewNote: "Record retention periods vary by state; item tests disposal method only.",
   },
   {
     id: "nce-s-l27b-018",
@@ -372,15 +368,14 @@ module.exports = [
     difficulty: "medium",
     stem: "After a hearing, a judge signs an order directing a counselor to produce specific treatment records for a client in a civil case. The client tells the counselor she objects to the release. Which response is MOST appropriate?",
     options: [
-      { id: "a", text: "Decline to release because the client objects", isCorrect: false, rationale: "Unlike an attorney's subpoena, a court order compels disclosure; the client's objection does not by itself permit refusal and risks contempt." },
+      { id: "a", text: "Decline to release because the client objects", isCorrect: false, rationale: "A judge's order compels disclosure; the client's objection does not by itself permit refusal and risks contempt." },
       { id: "b", text: "Tell the client; release only what is ordered", isCorrect: true, rationale: "The counselor informs the client and limits disclosure to the records the order specifies." },
       { id: "c", text: "Release the entire file, including all notes", isCorrect: false, rationale: "Producing more than the order requires violates the duty to disclose only essential information." },
     ],
-    rationale: "A court order signed by a judge carries more legal force than a subpoena and generally must be obeyed. Under the ACA Code, the counselor seeks the client's consent or works, often through legal counsel, to limit the disclosure, and then releases only the information the order requires. Informing the client of what will be released maintains transparency.",
+    rationale: "A court order signed by a judge carries more legal force than a subpoena and generally must be obeyed. Under the ACA Code, the counselor seeks the client's consent or works, often through legal counsel, to limit the disclosure, and then releases only the information the order requires. Informing the client of what will be released maintains transparency. How an order may be contested or narrowed varies by jurisdiction.",
     references: [
       { source: "ACA Code of Ethics", detail: "B.2.d court-ordered disclosure; B.2.e minimal disclosure" },
     ],
-    reviewNote: "Mechanisms for contesting or narrowing a court order vary by state; principle-based item.",
   },
   {
     id: "nce-s-l27b-021",
@@ -395,11 +390,10 @@ module.exports = [
       { id: "b", text: "The judge presiding over the case", isCorrect: false, rationale: "A judge rules on whether privilege applies but does not hold it." },
       { id: "c", text: "The client receiving services", isCorrect: true, rationale: "Privilege belongs to the client, who can waive it." },
     ],
-    rationale: "Privileged communication is a legal concept protecting clients from having their disclosures revealed in court without consent. Only the client, or a legal representative, can waive it, although statutory exceptions exist.",
+    rationale: "Privileged communication is a legal concept protecting clients from having their disclosures revealed in court without consent. Only the client, or a legal representative, can waive it, although statutory exceptions exist and vary by state.",
     references: [
       { source: "Gladding (Counseling: A Comprehensive Profession)", detail: "Legal aspects — confidentiality versus privileged communication" },
     ],
-    reviewNote: "Privilege statutes and exceptions vary by state.",
   },
   {
     id: "nce-s-l27b-022",

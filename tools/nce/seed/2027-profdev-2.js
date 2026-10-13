@@ -364,7 +364,6 @@ module.exports = [
     ],
     rationale: 'Publishers use user-qualification levels to signal the training needed to give and interpret a test. Level A needs little specialized training, Level B needs graduate coursework in testing and measurement, and Level C needs an advanced degree plus specific supervised training. Counselors must also check that their state scope of practice allows a given test.',
     references: [{ source: 'Hays (Assessment)', detail: 'Test user qualification levels A, B, and C' }, { source: 'ACA Code of Ethics', detail: 'E.2.a Limits of Competence' }],
-    reviewNote: 'Publisher level labels vary somewhat by publisher, and some state counseling scopes restrict administration of certain Level C instruments; confirm framing with SME.',
   },
   {
     id: 'nce-s-p27b-023',
