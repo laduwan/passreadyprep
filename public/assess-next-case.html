@@ -217,13 +217,10 @@ textarea#inp:focus{border-color:var(--emerald)}
 <script src="/js/assessNextCases.js"></script>
 <script>
 // ---- auth gate: signed-in only (every round costs an AI call) ----
-(function () {
-  var t = null;
-  try { t = localStorage.getItem('prp_token'); } catch (e) { t = null; }
-  if (!t) {
-    window.location.href = '/register.html?next=' + encodeURIComponent(location.pathname + location.search);
-  }
-})();
+// tool-gate.js (top of <head>) shuts the tool for signed-out visitors and
+// shows the About preview with a sign-up box instead. No redirect here: a
+// redirect to /register.html (robots-disallowed, noindex) kept search engines
+// from ever seeing this page. A 401 from the scoring call still redirects.
 
 var CASES = (typeof ASSESS_NEXT_CASES !== 'undefined') ? ASSESS_NEXT_CASES : [];
 var COMPLETED_KEY = 'prp_assess_next_completed';
