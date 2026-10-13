@@ -59,6 +59,12 @@ The two monthly subscriptions go in **separate subscription groups**
 
 ### A. In-App Purchases (3.1.1)
 
+Steps 1–3 can be done by `node tools/apple/create-iap-products.js` on the Mac
+(uses the fastlane App Store Connect key plus `APPLE_APP_ID`; `--dry-run`
+first, `--screenshots DIR` to upload the review screenshots too). It creates
+the groups, products, names, descriptions, US prices and availability, and is
+safe to re-run. Then only steps 4–8 remain.
+
 1. App → **Monetization → In-App Purchases** → create the four non-subscription
    products above (two Non-Consumable, two Non-Renewing… see table), with
    display name, description and a review screenshot each.
