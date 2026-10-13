@@ -24,12 +24,28 @@ function normalize(s) {
   return String(s || '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-function shingles(s) {
+function buildShingles(s) {
   const w = normalize(s).split(' ').filter(Boolean);
   const out = new Set();
   for (let i = 0; i + 2 < w.length; i++) out.add(w[i] + ' ' + w[i + 1] + ' ' + w[i + 2]);
   if (!out.size && w.length) out.add(w.join(' '));
   return out;
+}
+
+// Whole-bank duplicate checks compare every stem with every other, so each
+// stem's trigram set is cached instead of rebuilt per comparison. Same result;
+// the cache is bounded and callers never mutate the returned Set.
+const SHINGLE_CACHE = new Map();
+const SHINGLE_CACHE_MAX = 20000;
+function shingles(s) {
+  const key = String(s || '');
+  let v = SHINGLE_CACHE.get(key);
+  if (!v) {
+    if (SHINGLE_CACHE.size >= SHINGLE_CACHE_MAX) SHINGLE_CACHE.clear();
+    v = buildShingles(key);
+    SHINGLE_CACHE.set(key, v);
+  }
+  return v;
 }
 
 // Jaccard similarity of word-trigram sets — cheap and good enough to catch a
