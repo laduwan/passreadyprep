@@ -5,6 +5,7 @@
 <script src="/tool-gate.js" data-tool="What to Assess Next — Full Case"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>NCMHCE What to Assess Next: Full Case | PassReady Prep</title>
+<meta name="description" content="Follow one client through ten connected NCMHCE decisions, from safety screening to treatment planning. Write what you would assess next and get scored feedback." />
 <link rel="canonical" href="https://www.passreadyprep.com/assess-next-case.html" />
 <style>
 :root{
@@ -158,6 +159,10 @@ textarea#inp:focus{border-color:var(--emerald)}
 :focus-visible{outline:2.5px solid var(--emerald-400); outline-offset:2px; border-radius:6px}
 @media(prefers-reduced-motion:reduce){*{transition:none !important}}
 @media(max-width:520px){h1{font-size:22px} .wrap{padding:16px 14px 56px} .card{padding:16px} .prompt{font-size:16px}}
+  .tool-about{margin-top:32px}
+  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:16px 0 4px; color:var(--white); font-weight:700}
+  .tool-about ul{margin:0 0 12px; padding-left:20px; color:var(--slate-400)}
 </style>
 </head>
 <body>
@@ -185,18 +190,28 @@ textarea#inp:focus{border-color:var(--emerald)}
     <span class="exam-badge">ASSESS NEXT</span>
   </header>
   <main id="app" aria-live="polite"></main>
+  <section class="tool-about" aria-labelledby="tool-about-h">
+    <h2 id="tool-about-h">About What to Assess Next: Full Case</h2>
+    <p class="lead">The NCMHCE presents each client as a case that unfolds over several questions, with new information revealed as you go. This tool works the same way: you follow one client through ten sequential clinical decisions, from safety screening and intake through diagnosis, treatment planning, and ethics. You write what you would assess next and why, each round is scored, and then the case moves forward with new clinical information.</p>
+    <h3>Cases included</h3>
+    <ul>
+      <li>Trauma: an adult client whose presentation needs careful trauma screening</li>
+      <li>Crisis and safety: a client where risk assessment drives every next step</li>
+      <li>Child and adolescent: assessment that involves family and school context</li>
+      <li>Substance use: sorting out use, withdrawal, and co-occurring disorders</li>
+      <li>Differential diagnosis: separating look-alike presentations before treating</li>
+    </ul>
+    <p class="lead">Warm up with the single-vignette <a href="/assess-next.html">What to Assess Next</a> drill, check differentials in the <a href="/dsm.html">DSM-5-TR quick reference</a>, and practice the full exam format with the <a href="/study">NCMHCE case simulations</a>.</p>
+  </section>
 </div>
 
 <script src="/js/assessNextCases.js"></script>
 <script>
 // ---- auth gate: signed-in only (every round costs an AI call) ----
-(function () {
-  var t = null;
-  try { t = localStorage.getItem('prp_token'); } catch (e) { t = null; }
-  if (!t) {
-    window.location.href = '/register.html?next=' + encodeURIComponent(location.pathname + location.search);
-  }
-})();
+// tool-gate.js (top of <head>) shuts the tool for signed-out visitors and
+// shows the About preview with a sign-up box instead. No redirect here: a
+// redirect to /register.html (robots-disallowed, noindex) kept search engines
+// from ever seeing this page. A 401 from the scoring call still redirects.
 
 var CASES = (typeof ASSESS_NEXT_CASES !== 'undefined') ? ASSESS_NEXT_CASES : [];
 var COMPLETED_KEY = 'prp_assess_next_completed';

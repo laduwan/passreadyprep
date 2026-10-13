@@ -43,6 +43,10 @@
   .dx-tx strong{color:var(--emerald-400);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
   .count{color:var(--slate-400);font-size:14px;margin-bottom:12px}
   .empty{text-align:center;padding:40px;color:var(--slate-400)}
+  .tool-about{margin-top:32px}
+  .tool-about h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
+  .tool-about h3{font-size:15px; margin:16px 0 4px; color:var(--white); font-weight:700}
+  .tool-about ul{margin:0 0 12px; padding-left:20px; color:var(--slate-400)}
 </style>
 </head>
 <body>
@@ -54,9 +58,9 @@
     </a>
     <a href="/" style="font-size:13px;font-weight:600;color:var(--slate-400);text-decoration:none">‹ Back to cases</a>
   </header>
+  <h1>DSM-5-TR quick reference</h1>
+  <p class="lead">92 diagnoses across 18 categories — search by name, code, or treatment. First-line treatment for each.</p>
   <main>
-    <h1>DSM-5-TR quick reference</h1>
-    <p class="lead">92 diagnoses across 18 categories — search by name, code, or treatment. First-line treatment for each.</p>
     <div style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:12px 16px;margin-bottom:14px;font-size:14px;color:var(--slate-300)">
       <strong style="color:var(--purple-400)">How to use this</strong> — Look up diagnoses you encounter in case simulations. After a case, search for the diagnosis here to review the ICD-10 code and first-line treatment. Use the category filter to study one diagnostic family at a time. Pair with flashcards for active recall and the <a href="/sheets/ncmhce-study-sheets.pdf" target="_blank" style="color:var(--emerald-400)">printable PDF study sheets</a> for offline review.
     </div>
@@ -65,6 +69,20 @@
     <div id="count" class="count"></div>
     <div id="list"></div>
   </main>
+  <section class="tool-about" aria-labelledby="tool-about-h">
+    <h2 id="tool-about-h">About the DSM-5-TR quick reference</h2>
+    <p class="lead">The NCMHCE case simulations expect you to land on the right diagnosis from a client's history and mental status, then pick a treatment that fits it. This reference puts 92 DSM-5-TR diagnoses in one searchable list, grouped into 18 diagnostic families, each with its ICD-10-CM code and a first-line treatment note, so you can check a differential in seconds instead of paging through the manual.</p>
+    <h3>Diagnostic families covered</h3>
+    <ul>
+      <li>Depressive, bipolar, anxiety, and obsessive-compulsive and related disorders</li>
+      <li>Trauma- and stressor-related, dissociative, and somatic symptom disorders</li>
+      <li>Substance-related and addictive disorders, and all three personality disorder clusters</li>
+      <li>Schizophrenia spectrum and other psychotic disorders, and eating disorders</li>
+      <li>Neurodevelopmental, neurocognitive, and disruptive, impulse-control, and conduct disorders</li>
+      <li>Sleep-wake, sexual dysfunction and gender dysphoria, plus crisis and ethics codes</li>
+    </ul>
+    <p class="lead">Study one family at a time with the category filter, then test the same reasoning in the <a href="/decision-trees.html">diagnostic decision trees</a> and full <a href="/study">NCMHCE case simulations</a>. For recall, pair it with the <a href="/flashcards.html">NCMHCE flashcards</a> and the matching episode of the <a href="/podcast.html">clinical podcast</a>.</p>
+  </section>
 </div>
 <script src="/dsm-data.js"></script>
 <script>
