@@ -43,6 +43,22 @@ const THEORY_DATA = [
         keyTerms: ['Present-moment awareness', 'Non-judgment', 'Body scan', 'Mindful movement', '8-week program'],
         techniques: ['Body scan', 'Sitting meditation', 'Mindful eating', 'STOP technique'],
         examTip: 'MBSR \u2260 relaxation. Non-judgmental observation is the key qualifier. Kabat-Zinn \u2014 not Hayes (ACT) or Linehan (DBT) \u2014 developed MBSR.'
+      },
+      {
+        name: 'Mindfulness-Based Cognitive Therapy (MBCT)',
+        founder: 'Zindel Segal, Mark Williams & John Teasdale',
+        core: 'Combines mindfulness training with cognitive therapy to prevent relapse in recurrent depression. Clients learn to step back from negative thinking rather than get caught in rumination.',
+        keyTerms: ['Decentering', 'Doing mode vs. being mode', 'Relapse prevention', 'Rumination', 'Nonjudgmental awareness'],
+        techniques: ['Three-minute breathing space', 'Body scan', 'Mindful movement', 'Eight-week group format'],
+        examTip: 'Built for people in remission from recurrent depression, to prevent relapse rather than treat an acute episode. The goal is a changed relationship to thoughts (decentering), not disputing their content.'
+      },
+      {
+        name: 'Cognitive Behavioral Therapy for Suicide Prevention (CBT-SP)',
+        founder: 'Barbara Stanley, Gregory Brown & colleagues',
+        core: 'A brief, structured therapy that targets suicidal behavior directly rather than only the underlying diagnosis. The most recent suicidal crisis is analyzed step by step to find points for intervention.',
+        keyTerms: ['Chain analysis', 'Suicidal crisis', 'Reasons for living', 'Relapse prevention task', 'Hopelessness'],
+        techniques: ['Safety planning', 'Chain analysis of the crisis', 'Problem-solving and coping skills', 'Guided imagery rehearsal of the crisis'],
+        examTip: 'Suicidal behavior is the treatment target in its own right. A safety plan comes first, and therapy ends with a relapse prevention task that rehearses getting through a future crisis.'
       }
     ]
   },
@@ -146,6 +162,14 @@ const THEORY_DATA = [
         keyTerms: ['Modeling', 'Self-efficacy', 'Vicarious reinforcement', 'Triadic reciprocal determinism', 'BASIC ID'],
         techniques: ['Behavioral rehearsal', 'Modeling', 'Role play', 'Self-efficacy enhancement', 'Assertiveness training'],
         examTip: 'Bandura: Bobo doll study, self-efficacy (most important predictor of behavior change). Self-efficacy \u2260 self-esteem. Lazarus extended to Multimodal Therapy (BASIC ID).'
+      },
+      {
+        name: 'Exposure and Response Prevention (ERP)',
+        founder: 'Victor Meyer; developed by Edna Foa & colleagues',
+        core: 'Clients face feared thoughts, images, or situations while refraining from the compulsions or rituals that usually reduce their anxiety, so they learn the feared outcome does not occur and distress subsides.',
+        keyTerms: ['Fear hierarchy', 'SUDS ratings', 'Rituals and compulsions', 'Habituation', 'Inhibitory learning'],
+        techniques: ['Graduated in vivo exposure', 'Imaginal exposure', 'Ritual blocking', 'Between-session practice'],
+        examTip: 'First-line psychotherapy for OCD. Reassurance seeking counts as a compulsion, so the counselor does not supply reassurance. Exposure without blocking the ritual is incomplete.'
       }
     ]
   },
@@ -228,6 +252,14 @@ const THEORY_DATA = [
         keyTerms: ['Attachment bonds', 'Negative cycle', 'Pursuer-withdrawer', 'Hold me tight', 'Bonding events'],
         techniques: ['Tracking negative cycles', 'Accessing primary emotions', 'Restructuring interactions', 'Enactment', 'Consolidation'],
         examTip: 'EFT = couples therapy grounded in attachment theory (Bowlby). 9-step, 3-phase model. Pursuer-withdrawer is the most common negative cycle. Bonding events create earned security.'
+      },
+      {
+        name: 'Gottman Method Couples Therapy',
+        founder: 'John Gottman & Julie Schwartz Gottman',
+        core: 'Grounded in observational research on stable and unstable couples. Therapy strengthens friendship, manages conflict, and builds shared meaning.',
+        keyTerms: ['Four Horsemen', 'Sound Relationship House', 'Bids for connection', 'Flooding', 'Perpetual vs. solvable problems'],
+        techniques: ['Antidotes to the Four Horsemen', 'Softened startup', 'Repair attempts', 'Self-soothing breaks of at least 20 minutes'],
+        examTip: 'The Four Horsemen are criticism, contempt, defensiveness, and stonewalling; contempt is the strongest predictor of divorce. About 5:1 positive to negative interactions during conflict marks stable couples.'
       }
     ]
   },
@@ -315,6 +347,106 @@ const THEORY_DATA = [
         keyTerms: ['The personal is political', 'Egalitarian relationship', 'Empowerment', 'Gender analysis', 'Social change'],
         techniques: ['Power analysis', 'Consciousness-raising', 'Social action', 'Reframing as political', 'Self-disclosure'],
         examTip: 'Feminist therapy is not only for women \u2014 it applies to all marginalized identities. The egalitarian relationship and social analysis of symptoms distinguish it from other humanistic approaches.'
+      },
+      {
+        name: 'Multicultural Orientation (MCO) Framework',
+        founder: 'Jesse Owen & colleagues',
+        core: 'Focuses on how counselors engage culture within sessions, not only what they know. Clients do better when counselors show humility and take up the cultural opportunities clients bring.',
+        keyTerms: ['Cultural humility', 'Cultural opportunities', 'Cultural comfort', 'Missed opportunities', 'Way of being'],
+        techniques: ['Inviting cultural exploration', 'Following up on cultural markers', 'Repairing cultural ruptures', 'Broaching'],
+        examTip: 'Three pillars: cultural humility, cultural opportunities, and cultural comfort. A missed cultural opportunity can damage the alliance even when the counselor is well informed.'
+      }
+    ]
+  },
+  {
+    cat: 'Trauma-Focused',
+    items: [
+      {
+        name: 'Trauma-Focused CBT (TF-CBT)',
+        founder: 'Judith Cohen, Anthony Mannarino & Esther Deblinger',
+        core: 'A components-based treatment for children and adolescents with trauma symptoms, delivered with a nonoffending caregiver. Coping skills come first, then gradual processing of the trauma.',
+        keyTerms: ['PRACTICE components', 'Gradual exposure', 'Nonoffending caregiver', 'Trauma narrative', 'Enhancing safety'],
+        techniques: ['Psychoeducation and parenting skills', 'Relaxation and affect modulation', 'Cognitive coping', 'In vivo mastery', 'Conjoint child-caregiver sessions'],
+        examTip: 'For youth roughly ages 3 to 18 with a caregiver involved. Skill-building comes before the trauma narrative, and the narrative is shared with the caregiver in conjoint sessions.'
+      },
+      {
+        name: 'Cognitive Processing Therapy (CPT)',
+        founder: 'Patricia Resick',
+        core: 'A trauma-focused cognitive therapy for PTSD. Clients identify and challenge the beliefs that keep them stuck, such as self-blame or overgeneralized danger.',
+        keyTerms: ['Stuck points', 'Assimilation', 'Over-accommodation', 'Impact statement', 'Five themes: safety, trust, power/control, esteem, intimacy'],
+        techniques: ['Impact statement', 'Challenging questions worksheets', 'Patterns of problematic thinking', 'Optional written trauma account'],
+        examTip: 'Typically about 12 sessions. CPT targets stuck points (cognitive); Prolonged Exposure (Foa) targets avoidance through imaginal and in vivo exposure. Both are first-line for PTSD.'
+      },
+      {
+        name: 'Somatic Experiencing',
+        founder: 'Peter Levine',
+        core: 'A body-oriented (bottom-up) approach to trauma. Clients track bodily sensations to complete interrupted defensive responses and restore nervous-system regulation.',
+        keyTerms: ['Felt sense', 'Titration', 'Pendulation', 'Resourcing', 'Window of tolerance'],
+        techniques: ['Body awareness tracking', 'Titrated contact with distress', 'Pendulating to resources', 'Grounding'],
+        examTip: 'Bottom-up, not top-down: work starts with sensation rather than thoughts or the trauma story. Titration keeps activation small enough to avoid overwhelm.'
+      }
+    ]
+  },
+  {
+    cat: 'Integrative & Physiological',
+    items: [
+      {
+        name: 'Internal Family Systems (IFS)',
+        founder: 'Richard Schwartz',
+        core: 'The mind is made up of subpersonalities, or parts, plus a core Self. Healing comes from the Self relating with compassion to protective parts and the wounded parts they protect.',
+        keyTerms: ['Parts', 'Managers', 'Firefighters', 'Exiles', 'The 8 Cs of Self'],
+        techniques: ['Unblending from parts', 'Getting to know protectors', 'Witnessing exiles', 'Unburdening'],
+        examTip: 'Protectors are managers (proactive) and firefighters (reactive); exiles carry the pain. The goal is Self-leadership, not getting rid of parts. Self qualities include calm, curiosity, compassion, and confidence.'
+      },
+      {
+        name: 'Biofeedback',
+        founder: 'Neal Miller (foundational research)',
+        core: 'Real-time feedback on a body signal such as heart rate, breathing, muscle tension, or skin temperature helps clients learn to regulate processes they could not consciously control.',
+        keyTerms: ['Heart rate variability (HRV)', 'Electromyography (EMG)', 'Thermal feedback', 'Neurofeedback', 'Self-regulation'],
+        techniques: ['HRV resonance breathing', 'EMG-guided muscle relaxation', 'Thermal hand-warming', 'Wearable-guided practice'],
+        examTip: 'Biofeedback is a learning process (operant self-regulation), not a passive treatment. Common uses include anxiety, stress, and tension or migraine headache. Wearable devices extend practice between sessions.'
+      }
+    ]
+  },
+  {
+    cat: 'Career Development',
+    items: [
+      {
+        name: 'Holland’s Theory of Vocational Personalities',
+        founder: 'John Holland',
+        core: 'People and work environments can be described by six types. Satisfaction and stability are highest when a person’s type matches their environment.',
+        keyTerms: ['RIASEC', 'Congruence', 'Consistency', 'Differentiation', 'Vocational identity'],
+        techniques: ['Self-Directed Search', 'Three-letter Holland code', 'Hexagon model', 'Occupational exploration'],
+        examTip: 'RIASEC: Realistic, Investigative, Artistic, Social, Enterprising, Conventional. Adjacent types on the hexagon are most consistent (e.g., R-I); opposite types are least (e.g., A-C).'
+      },
+      {
+        name: 'Life-Span, Life-Space Theory',
+        founder: 'Donald Super',
+        core: 'Career development unfolds across the life span as people implement their self-concept through work and balance multiple life roles.',
+        keyTerms: ['Self-concept', 'Career maturity', 'Career adaptability', 'Life-Career Rainbow', 'Recycling'],
+        techniques: ['Life-role salience exploration', 'Career maturity assessment', 'Life-Career Rainbow mapping'],
+        examTip: 'Stages: growth, exploration, establishment, maintenance, disengagement. Adults can recycle through earlier stages. The Rainbow shows life roles such as child, student, worker, and homemaker.'
+      },
+      {
+        name: 'Social Learning Theory of Career Decision Making / Happenstance Learning',
+        founder: 'John Krumboltz',
+        core: 'Career choices result from learning experiences, and unplanned events are opportunities. Counselors help clients learn, challenge limiting career beliefs, and act on chance events.',
+        keyTerms: ['Genetic endowment', 'Environmental conditions', 'Learning experiences', 'Task approach skills', 'Planned happenstance'],
+        techniques: ['Career Beliefs Inventory', 'Reinforcing exploratory behavior', 'Reframing indecision as open-mindedness', 'Acting on unplanned events'],
+        examTip: 'Planned happenstance skills: curiosity, persistence, flexibility, optimism, risk-taking. Indecision is reframed as open-mindedness, not a problem to eliminate.'
+      }
+    ]
+  },
+  {
+    cat: 'Group Work',
+    items: [
+      {
+        name: 'Interpersonal Group Psychotherapy',
+        founder: 'Irvin Yalom',
+        core: 'The group is a social microcosm: members’ interpersonal patterns appear in the room, where here-and-now feedback allows change.',
+        keyTerms: ['Therapeutic factors', 'Here-and-now', 'Social microcosm', 'Group cohesiveness', 'Corrective recapitulation of the primary family group'],
+        techniques: ['Process illumination', 'Here-and-now activation', 'Linking', 'Feedback exchange'],
+        examTip: 'Eleven therapeutic factors, including instillation of hope, universality, altruism, interpersonal learning, and cohesiveness. Cohesiveness is the group analogue of the therapeutic alliance; universality is often felt early.'
       }
     ]
   }
