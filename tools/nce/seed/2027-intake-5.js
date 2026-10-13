@@ -983,9 +983,8 @@ module.exports = [
     ],
     rationale: 'The 4 Ps model organizes biopsychosocial data into predisposing factors (vulnerabilities such as family history), precipitating factors (triggers such as a layoff), perpetuating factors (what maintains the problem, such as withdrawal), and protective factors (strengths such as supportive relationships). It turns assessment data into a case conceptualization that guides treatment planning.',
     references: [
-      { source: 'Wiger (Documentation)', detail: 'Case conceptualization from biopsychosocial data' },
+      { source: 'Macneil et al. (Case Formulation)', detail: 'Case formulation by predisposing, precipitating, perpetuating and protective factors' },
     ],
-    reviewNote: 'Wiger is cited for case conceptualization; the 4 Ps framework is widely taught but an SME may prefer a different supporting text.',
   },
   {
     id: 'nce-s-i27e-054',

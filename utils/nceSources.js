@@ -165,6 +165,12 @@ const NCE_EXTRA_LIBRARY = [
   { key: 'Safran & Muran (Alliance Ruptures)', tier: 'seminal', body: 'Safran & Muran',
     citation: 'Safran, J. D., & Muran, J. C. (2000). Negotiating the Therapeutic Alliance: A Relational Treatment Guide. Guilford Press.',
     use: 'Withdrawal and confrontation ruptures; rupture repair and alliance outcomes.' },
+  { key: 'Hernández et al. (Vicarious Resilience)', tier: 'seminal', body: 'Hernández, Gangsei & Engstrom',
+    citation: 'Hernández, P., Gangsei, D., & Engstrom, D. (2007). Vicarious resilience: A new concept in work with those who survive trauma. Family Process, 46(2), 229–241.',
+    use: 'Positive effects on counselors of witnessing clients\' resilience after trauma; protective counterpart to vicarious trauma.' },
+  { key: 'Macneil et al. (Case Formulation)', tier: 'seminal', body: 'Macneil, Hasty, Conus & Berk',
+    citation: 'Macneil, C. A., Hasty, M. K., Conus, P., & Berk, M. (2012). Is diagnosis enough to guide interventions in mental health? Using case formulation in clinical practice. BMC Medicine, 10, 111.',
+    use: 'Case formulation by presenting problem and predisposing, precipitating, perpetuating and protective factors.' },
 ];
 
 const NCE_REFERENCE_LIBRARY = [...REFERENCE_LIBRARY, ...NCE_EXTRA_LIBRARY];
