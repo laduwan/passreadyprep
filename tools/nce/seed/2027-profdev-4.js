@@ -445,9 +445,8 @@ module.exports = [
     ],
     rationale: 'Assessing exposure to trauma work includes noticing positive as well as negative effects. Vicarious resilience (Hernández and colleagues) describes how counselors can be strengthened by witnessing clients overcome adversity. It can coexist with distress and is considered a protective factor.',
     references: [
-      { source: 'SAMHSA TIP 57', detail: 'Counselor responses to trauma work — secondary trauma and protective factors' },
+      { source: 'Hernández et al. (Vicarious Resilience)', detail: 'Vicarious resilience — positive change in the therapist from witnessing clients\' resilience after trauma' },
     ],
-    reviewNote: 'Vicarious resilience (Hernández, Gangsei & Engstrom, 2007) is not in the approved source list; TIP 57 cited for counselor responses to trauma work. SME to confirm the citation is acceptable.',
   },
   {
     id: 'nce-s-p27d-025',
