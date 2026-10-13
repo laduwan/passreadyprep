@@ -409,14 +409,14 @@ async function previewImport(){
   if(r.ready.length){
     h += '<h3 style="margin:10px 0 6px">Ready to import ('+r.ready.length+')</h3>';
     r.ready.forEach(c => {
-      h += '<label style="display:flex;gap:8px;align-items:flex-start;margin:4px 0"><input type="checkbox" class="imp-id" value="'+esc(c.id)+'" checked> <span><b>'+esc(c.id)+'</b> — '+esc(c.title)+' <span style="color:var(--muted)">('+esc(c.category)+' · '+esc(c.difficulty)+' · '+c.questions+' q · '+esc(c.file)+')</span></span></label>';
+      h += '<label style="display:flex;gap:8px;align-items:flex-start;margin:4px 0"><input type="checkbox" class="imp-id" value="'+esc(c.key||c.id)+'" checked> <span><b>'+esc(c.id)+'</b> — '+esc(c.title)+' <span style="color:var(--muted)">('+(c.bankLabel?esc(c.bankLabel)+' · ':'')+esc(c.category)+' · '+esc(c.difficulty)+' · '+c.questions+' q · '+esc(c.file)+')</span></span></label>';
     });
     h += '<button class="btn" id="imp-run-btn" style="margin-top:8px" onclick="runImport()">Import checked to Pending Review</button>';
   }
   if(r.failed.length){
     h += '<h3 style="margin:14px 0 6px">Not importable — failed today’s gates ('+r.failed.length+')</h3>';
     r.failed.forEach(c => {
-      h += '<details style="margin:4px 0"><summary><b>'+esc(c.id)+'</b> — '+esc(c.title||'')+' <span style="color:var(--muted)">('+esc(c.file)+')</span></summary><ul style="margin:4px 0 0 18px">'+c.errors.map(e=>'<li>'+esc(e)+'</li>').join('')+'</ul></details>';
+      h += '<details style="margin:4px 0"><summary><b>'+esc(c.id)+'</b> — '+esc(c.title||'')+' <span style="color:var(--muted)">('+(c.bankLabel?esc(c.bankLabel)+' · ':'')+esc(c.file)+')</span></summary><ul style="margin:4px 0 0 18px">'+c.errors.map(e=>'<li>'+esc(e)+'</li>').join('')+'</ul></details>';
     });
   }
   (r.loadErrors||[]).forEach(e => { h += '<div class="key-note">Could not read '+esc(e.file)+': '+esc(e.error)+'</div>'; });
@@ -431,7 +431,7 @@ async function runImport(){
   btn.disabled = true;
   try{
     const r = await api('/api/admin/generate/import-cases', { method:'POST', body: JSON.stringify({ ids }) });
-    alert(r.inserted.length+' case'+(r.inserted.length===1?'':'s')+' added to Pending Review'+(r.inserted.length?': '+r.inserted.join(', '):'')+'.');
+    alert(r.inserted.length+' case'+(r.inserted.length===1?'':'s')+' added to Pending Review'+(r.inserted.length?': '+r.inserted.map(k => String(k).split('|').pop()).join(', '):'')+'.');
     showList();
   } catch(e){ btn.disabled = false; alert(e.message); }
 }

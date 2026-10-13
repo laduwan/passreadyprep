@@ -11,6 +11,7 @@
 
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const SECTION = { intake: 'Assessment', core: 'Assessment', treatment: 'Treatment Planning', counseling: 'Counseling & Ethics', ethics: 'Counseling & Ethics' };
+const SECTION_2027 = { intake: 'Intake', session1: 'Session 1', session2: 'Session 2' };
 const STATUS_LABELS = { sme_review: 'Pending review', published: 'Published', draft: 'Draft' };
 const L = 'ABCDEF';
 
@@ -36,7 +37,7 @@ function caseHtml(doc, ci, total) {
   const refs = (c.references || doc.references || []).map((r) => `<li><b>${esc(r.id)}</b> ${esc(r.source)}${r.detail ? ' — ' + esc(r.detail) : ''}</li>`).join('');
   const diffs = (c.differentialOptions || []).map((d) => `<li>${esc(d.name)}${d.isCorrect ? ' <b>✔</b>' : ''}</li>`).join('');
   const qs = (c.questions || []).map((q, qi) => (
-    `<div class="q"><h4>Q${qi + 1} · ${esc(q.domain || '')} <span class="sec">${SECTION[q.domain] ? '(' + SECTION[q.domain] + ')' : ''}</span>${(q.evidenceRef || []).length ? ' · evidence ' + esc(q.evidenceRef.join(', ')) : ''}</h4>` +
+    `<div class="q"><h4>Q${qi + 1} · ${esc(q.domain || '')} <span class="sec">${SECTION[q.domain] ? '(' + SECTION[q.domain] + ')' : (SECTION_2027[q.section] ? '(' + SECTION_2027[q.section] + ')' : '')}</span>${(q.evidenceRef || []).length ? ' · evidence ' + esc(q.evidenceRef.join(', ')) : ''}</h4>` +
     `<div class="stem">${esc(q.question || q.stem)}</div>${(q.options || []).map(optionHtml).join('')}` +
     `<div class="signoff"><span>☐ Approve</span><span>☐ Revise</span><span>☐ Retire</span><span class="notes">Notes:</span></div></div>`
   )).join('');
