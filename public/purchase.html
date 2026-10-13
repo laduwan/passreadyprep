@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Choose a plan — PassReady Prep</title>
+<meta name="robots" content="noindex, nofollow">
+<!-- The iOS app's checkout: plans are bought through Apple In-App Purchase
+     (native-iap.js → StoreKitPlugin.swift) and verified by the server before
+     anything unlocks. On the website this page simply forwards to checkout.html. -->
+<script>if(!window.PRP_NATIVE){location.replace('/checkout.html'+location.search+location.hash);}</script>
+<style>
+  :root{
+    --emerald:#10B981;--emerald-400:#34D399;--amber:#F59E0B;--amber-400:#FBBF24;
+    --blue-400:#60A5FA;--slate-900:#0F172A;--slate-800:#1E293B;--slate-700:#334155;
+    --slate-600:#475569;--slate-500:#64748B;--slate-400:#94A3B8;--slate-300:#CBD5E1;
+    --white:#F8FAFC;--red:#EF4444;
+    --card:rgba(30,41,59,.6);--card-border:rgba(51,65,85,.6);
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;
+    background:linear-gradient(160deg,#0F172A 0%,#1E293B 50%,#0F172A 100%);
+    background-attachment:fixed;font-family:var(--sans);color:var(--slate-300);padding:24px}
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:20px;
+    padding:36px;max-width:460px;width:100%;box-shadow:0 24px 60px -20px rgba(0,0,0,.5)}
+  .brand-wrap{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;margin-bottom:26px}
+  .brand-chip{width:36px;height:36px;border-radius:10px;background:rgba(16,185,129,.16);display:grid;place-items:center;flex:0 0 auto}
+  .brand-chip svg{width:20px;height:20px;color:var(--emerald-400)}
+  .brand{font-weight:700;font-size:17px;color:var(--white);letter-spacing:-.01em}
+  .brand .prep{color:var(--emerald-400)}
+  .tier-box{border-radius:14px;padding:18px 20px;margin-bottom:22px}
+  .tier-box.monthly{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.25)}
+  .tier-box.pass3{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3)}
+  .tier-box.guarantee{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.25)}
+  .tier-name{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px}
+  .tier-box.monthly .tier-name{color:var(--blue-400)}
+  .tier-box.pass3 .tier-name{color:var(--emerald-400)}
+  .tier-box.guarantee .tier-name{color:var(--amber-400)}
+  .tier-price{font-size:32px;font-weight:800;color:var(--white);line-height:1;margin-bottom:4px;letter-spacing:-.03em}
+  .tier-price small{font-size:14px;font-weight:600;color:var(--slate-400);letter-spacing:0}
+  .tier-desc{font-size:13.5px;color:var(--slate-400);line-height:1.5}
+  .tier-features{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+  .tier-features li{font-size:13px;color:var(--slate-300);display:flex;align-items:center;gap:7px}
+  .tier-features li::before{content:"✓";color:var(--emerald-400);font-weight:700;flex:0 0 auto}
+  .tier-box.guarantee .tier-features li::before{color:var(--amber-400)}
+  .divider{height:1px;background:var(--card-border);margin:20px 0}
+  .guar-ack{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:16px 18px;margin-bottom:20px;display:none}
+  .guar-ack.show{display:block}
+  .guar-ack-head{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--amber-400);margin-bottom:10px}
+  .guar-ack p{font-size:13px;color:var(--slate-400);line-height:1.6;margin:0 0 12px}
+  .guar-ack a{color:var(--amber-400)}
+  .check-row{display:flex;align-items:flex-start;gap:10px}
+  .check-row input[type=checkbox]{width:18px;height:18px;flex:0 0 auto;margin-top:1px;accent-color:var(--amber);cursor:pointer}
+  .check-row label{font-size:13px;color:var(--slate-300);line-height:1.55;cursor:pointer}
+  .btn{width:100%;border:none;border-radius:12px;padding:14px;font:700 16px/1 var(--sans);cursor:pointer;transition:background .15s;
+    display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+  .btn.emerald{background:var(--emerald);color:#04261C}
+  .btn.emerald:hover:not(:disabled){background:var(--emerald-400)}
+  .btn.amber{background:var(--amber);color:#1a0e00}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .links{text-align:center;font-size:13px;color:var(--slate-500);margin-top:16px;line-height:1.7}
+  .links a{color:var(--emerald-400);text-decoration:none;font-weight:600}
+  .legal{font-size:11.5px;color:var(--slate-500);line-height:1.55;margin-top:16px}
+  .legal a{color:var(--slate-400)}
+  .err{color:var(--red);font-size:13.5px;margin:0 0 14px;display:none;line-height:1.5;text-align:center}
+  .note{color:var(--slate-400);font-size:13.5px;margin:0 0 14px;display:none;line-height:1.5;text-align:center}
+  #loading{text-align:center;color:var(--slate-400);padding:20px 0}
+  .panel{display:none}
+  .panel.active{display:block}
+  :focus-visible{outline:2.5px solid var(--emerald-400);outline-offset:2px;border-radius:6px}
+</style>
+</head>
+<body>
+<div class="card">
+  <a class="brand-wrap" href="/landing.html" aria-label="PassReady Prep home">
+    <span class="brand-chip" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+        <path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+      </svg>
+    </span>
+    <span class="brand">PassReady <span class="prep">Prep</span></span>
+  </a>
+
+  <div id="loading">Loading plan…</div>
+
+  <!-- Signed out -->
+  <div class="panel" id="panel-signin">
+    <h1 style="font-size:22px;color:var(--white);margin:0 0 6px">Sign in to continue</h1>
+    <p class="tier-desc" style="margin-bottom:18px">Plans are tied to your PassReady Prep account, so sign in or create one first. If you already have a plan, signing in restores it.</p>
+    <a class="btn emerald" id="signin-link" href="/register.html">Sign in or create account</a>
+  </div>
+
+  <!-- Unavailable -->
+  <div class="panel" id="panel-unavailable">
+    <h1 style="font-size:22px;color:var(--white);margin:0 0 6px">Purchases are temporarily unavailable</h1>
+    <p class="tier-desc" style="margin-bottom:18px">We could not reach the App Store just now. Please try again in a moment. If you already have a plan, tap Restore purchases.</p>
+    <button class="btn emerald" onclick="location.reload()">Try again</button>
+    <div class="links"><a href="#" onclick="restore(this);return false">Restore purchases</a> · <a href="/study">Back to studying</a></div>
+  </div>
+
+  <!-- Purchase -->
+  <div class="panel" id="panel-buy">
+    <div id="tier-box" class="tier-box"></div>
+    <div class="guar-ack" id="guar-ack">
+      <div class="guar-ack-head">🛡️ Pass Guarantee — please read</div>
+      <p>Your access is unlimited — you will never need to pay again. To protect your account from being shared, we require a brief candidate verification check-in every 6 months: you confirm your scheduled exam date or submit your score report.</p>
+      <p>If you don't pass, your access is extended free. If you pass, your first CE course on CounselorReady is on us. <a href="/policies.html#guarantee">Full terms →</a></p>
+      <div class="check-row">
+        <input type="checkbox" id="guar-check"/>
+        <label for="guar-check">I understand the Pass Guarantee includes a 6-month candidate verification check-in. No repayment is ever required.</label>
+      </div>
+    </div>
+    <p class="err" id="buy-err" role="alert"></p>
+    <p class="note" id="buy-note" role="status"></p>
+    <button class="btn emerald" id="buy-btn" onclick="buy()">Buy</button>
+    <div class="links"><a href="#" onclick="restore(this);return false">Restore purchases</a> · <a href="/study" id="back-link">Keep studying</a></div>
+    <p class="legal" id="legal"></p>
+  </div>
+
+  <!-- Done -->
+  <div class="panel" id="panel-done">
+    <div class="tier-box pass3" style="text-align:center">
+      <div class="tier-name">Purchase confirmed ✓</div>
+      <div class="tier-price" style="font-size:26px;margin:6px 0 8px">Thank you!</div>
+      <div class="tier-desc" id="done-desc">Your plan is active.</div>
+    </div>
+    <div class="guar-ack" id="guar-done">
+      <div class="guar-ack-head">🛡️ Your Pass Guarantee is active</div>
+      <p>Study, take the exam, and come back if you don't pass the first time.</p>
+      <p>If you need an extension, submit your official score report from your account page.</p>
+    </div>
+    <a class="btn emerald" id="done-link" href="/study">Start studying ›</a>
+  </div>
+</div>
+
+<script>
+  // What each plan includes (the price comes from the App Store).
+  var TIERS = {
+    monthly:       { cls:'monthly',   name:'NCMHCE Monthly',          per:'per month', desc:'Full NCMHCE access. Renews monthly; cancel any time in your App Store settings.',
+                     features:['All 270+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan'], next:'/study' },
+    pass3:         { cls:'pass3',     name:'NCMHCE 3-Month Pass',     per:'one-time · 3 months of access', desc:'One payment, full NCMHCE access for 90 days. Does not renew.',
+                     features:['All 270+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan'], next:'/study' },
+    guarantee:     { cls:'guarantee', name:'NCMHCE Pass Guarantee',   per:'one-time', desc:'Unlimited NCMHCE access — one payment, no renewal.', guarantee:true,
+                     features:['All 270+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Pass guarantee — free CE on CounselorReady when you pass, or free extended access'], next:'/study' },
+    guide:         { cls:'pass3',     name:'The Complete NCMHCE Study Guide', per:'one-time', desc:'Digital edition, licensed to your account. Download it any time from the study guide page.',
+                     features:['18 diagnostic families','3 full-length practice exams','429 scored questions with full rationales'], next:'/study-guide.html' },
+    nce_monthly:   { cls:'monthly',   name:'NCE Monthly',             per:'per month', desc:'Full NCE access. Renews monthly; cancel any time in your App Store settings.',
+                     features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain'], next:'/nce.html' },
+    nce_pass3:     { cls:'pass3',     name:'NCE 3-Month Pass',        per:'one-time · 3 months of access', desc:'One payment, full NCE access for 90 days. Does not renew.',
+                     features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain'], next:'/nce.html' },
+    nce_pass6:     { cls:'pass3',     name:'NCE 6-Month Pass',        per:'one-time · 6 months of access', desc:'One payment, full NCE access for 180 days. Does not renew.',
+                     features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain','Room for a retake'], next:'/nce.html' },
+    nce_guarantee: { cls:'guarantee', name:'NCE Pass Guarantee',      per:'one-time', desc:'Unlimited NCE access — one payment, no renewal.', guarantee:true,
+                     features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain','Pass guarantee — free CE on CounselorReady when you pass, or free extended access'], next:'/nce.html' },
+  };
+  var SUBSCRIPTION_TERMS = 'Payment is charged to your Apple ID account when you confirm the purchase. The subscription renews automatically at the same price unless you cancel at least 24 hours before the end of the current period; your account is charged for renewal within 24 hours before the period ends. Manage or cancel it in your App Store account settings after purchase.';
+
+  var params = new URLSearchParams(location.search);
+  var tier = params.get('tier') || 'pass3';
+  var cfg = TIERS[tier] || TIERS.pass3;
+  if (!TIERS[tier]) tier = 'pass3';
+  var token = null;
+  try { token = localStorage.getItem('prp_token'); } catch (e) {}
+  var product = null;
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function show(id) {
+    document.getElementById('loading').style.display = 'none';
+    document.querySelectorAll('.panel').forEach(function (p) { p.classList.toggle('active', p.id === id); });
+  }
+  function msg(id, text) { var el = document.getElementById(id); el.textContent = text || ''; el.style.display = text ? 'block' : 'none'; }
+
+  function init() {
+    if (!token) {
+      document.getElementById('signin-link').href = '/register.html?next=' + encodeURIComponent(location.pathname + location.search);
+      show('panel-signin');
+      return;
+    }
+    if (!window.PRP_IAP) { show('panel-unavailable'); return; }
+    window.PRP_IAP.products().then(function (p) {
+      product = p.enabled ? p.byTier[tier] : null;
+      if (!product) { show('panel-unavailable'); return; }
+      var box = document.getElementById('tier-box');
+      box.className = 'tier-box ' + cfg.cls;
+      box.innerHTML =
+        '<div class="tier-name">' + esc(cfg.name) + '</div>' +
+        '<div class="tier-price">' + esc(product.displayPrice) + ' <small>' + esc(cfg.per) + '</small></div>' +
+        '<div class="tier-desc">' + esc(cfg.desc) + '</div>' +
+        '<ul class="tier-features">' + cfg.features.map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('') + '</ul>';
+      var btn = document.getElementById('buy-btn');
+      btn.textContent = 'Buy — ' + product.displayPrice;
+      if (cfg.guarantee) { btn.className = 'btn amber'; document.getElementById('guar-ack').classList.add('show'); }
+      document.getElementById('back-link').href = cfg.next;
+      document.getElementById('legal').innerHTML =
+        (product.type === 'autoRenewable' ? esc(SUBSCRIPTION_TERMS) + ' ' : '') +
+        'By purchasing you agree to the <a href="/policies.html#terms">Terms of Service</a>, the <a href="/privacy.html">Privacy Policy</a> and Apple\'s <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Licensed Application End User License Agreement</a>. Purchases are tied to your PassReady Prep account; use Restore purchases on a new device.';
+      show('panel-buy');
+    });
+  }
+
+  function buy() {
+    msg('buy-err', ''); msg('buy-note', '');
+    if (cfg.guarantee && !document.getElementById('guar-check').checked) {
+      msg('buy-err', 'Please acknowledge the Pass Guarantee terms to continue.');
+      return;
+    }
+    var btn = document.getElementById('buy-btn');
+    btn.disabled = true; btn.textContent = 'Opening App Store…';
+    window.PRP_IAP.buy(tier, { guaranteeTermsAccepted: cfg.guarantee }).then(function (r) {
+      if (r.state === 'purchased') {
+        var res = r.result || {};
+        document.getElementById('done-desc').textContent = res.action === 'already'
+          ? 'This purchase was already on your account — you\'re all set.'
+          : 'Your ' + cfg.name + ' is active. Good luck on the exam!';
+        if (cfg.guarantee) document.getElementById('guar-done').classList.add('show');
+        document.getElementById('done-link').href = cfg.next;
+        show('panel-done');
+        return;
+      }
+      btn.disabled = false; btn.textContent = 'Buy — ' + product.displayPrice;
+      if (r.state === 'pending') msg('buy-note', 'Your purchase is waiting for approval (Ask to Buy). Your plan unlocks automatically once it is approved.');
+      else if (r.state !== 'cancelled') msg('buy-err', 'The purchase did not complete. Please try again.');
+    }).catch(function (e) {
+      btn.disabled = false; btn.textContent = 'Buy — ' + product.displayPrice;
+      if (e.code === 'signin' || e.status === 401) { location.href = '/register.html?next=' + encodeURIComponent(location.pathname + location.search); return; }
+      msg('buy-err', e.message || 'The purchase did not complete. Please try again.');
+    });
+  }
+
+  function restore(link) {
+    if (!token) { location.href = '/register.html?next=' + encodeURIComponent(location.pathname + location.search); return; }
+    if (!window.PRP_IAP) return;
+    var label = link.textContent; link.textContent = 'Restoring…';
+    msg('buy-err', ''); msg('buy-note', '');
+    window.PRP_IAP.restore().then(function (v) {
+      link.textContent = label;
+      var granted = (v.results || []).filter(function (r) { return r.action === 'granted' || r.action === 'already'; });
+      var other = (v.results || []).find(function (r) { return r.action === 'error'; });
+      if (granted.length) { location.href = cfg.next; return; }
+      msg('buy-note', other ? other.error : 'No previous purchases were found for this Apple ID.');
+    }).catch(function (e) { link.textContent = label; msg('buy-err', e.message || 'Could not restore purchases.'); });
+  }
+
+  if (window.PRP_NATIVE) init();
+</script>
+</body>
+</html>

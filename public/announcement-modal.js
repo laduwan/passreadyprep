@@ -12,7 +12,7 @@
  */
 (function () {
   // Operator screens and the sign-in / payment flow are no place for a pop-up.
-  var EXCLUDED = /^\/(admin|review|checkout|register|forgot-password|reset-password)/i;
+  var EXCLUDED = /^\/(admin|review|checkout|purchase|account|delete-account|register|forgot-password|reset-password)/i;
   if (EXCLUDED.test(location.pathname || '/')) return;
   try { if (window.top !== window.self) return; } catch (e) { return; } // not inside admin iframes
 

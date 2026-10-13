@@ -857,12 +857,18 @@ async function showDashboard(){
   }
   h += '</div>';
 
-  // Account deletion (App Store 5.1.1(v)) — signed-in only, small and out of the way.
+  // Account links (App Store 5.1.1(v): deletion reachable in-app) — signed-in
+  // only. The Account page (header button) has the same actions in full.
   if(authHeaders().Authorization){
     const sub = (currentUser() || {}).subscription || {};
-    const renewing = sub.tier === 'monthly' && ['active','past_due'].includes(sub.status) && sub.stripeCustomerId;
+    const renewing = sub.tier === 'monthly' && ['active','past_due'].includes(sub.status);
+    const manage = !renewing ? ''
+      : sub.source === 'apple' && window.PRP_IAP ? '<a href="#" onclick="window.PRP_IAP.manageSubscriptions();return false" style="color:var(--slate-500)">Manage subscription</a> · '
+      : sub.stripeCustomerId ? '<a href="#" onclick="openBillingPortal(this);return false" style="color:var(--slate-500)">Manage subscription</a> · '
+      : '';
     h += '<p style="text-align:center;font-size:12px;color:var(--slate-500);margin:22px 0 4px">'
-      + (renewing ? '<a href="#" onclick="openBillingPortal(this);return false" style="color:var(--slate-500)">Manage subscription</a> · ' : '')
+      + '<a href="/account.html" style="color:var(--slate-500)">Account</a> · '
+      + manage
       + '<a href="/delete-account.html" style="color:var(--slate-500)">Delete account</a></p>';
   }
 
@@ -1401,6 +1407,7 @@ function renderAccount(){
     const badge = (tier && tier !== 'free') ? '<span class="exam-badge" style="font-size:11px;padding:3px 8px">'+esc(cap(tier))+'</span>' : '';
     el.innerHTML = badge
       + '<span class="acct-email" title="'+esc(u.email||'')+'">'+esc(u.email||'Signed in')+'</span>'
+      + '<a class="acct-btn" href="/account.html">Account</a>'
       + '<button class="acct-btn" onclick="logout()">Log out</button>';
   } else {
     el.innerHTML = '<button class="acct-btn primary" onclick="openAuth()">Sign in</button>';

@@ -580,8 +580,9 @@ a.choice{text-decoration:none}
 
   function buy(tier, btn){
     if (!TOKEN) { location.href = '/register.html?next=' + encodeURIComponent('/nce.html#pricing'); return; }
-    // The guarantee needs its terms acknowledged first; checkout.html has that step.
-    if (tier === 'nce_guarantee') { location.href = '/checkout.html?tier=nce_guarantee'; return; }
+    // The guarantee needs its terms acknowledged first; checkout.html has that
+    // step (purchase.html in the iOS app, where plans are App Store purchases).
+    if (tier === 'nce_guarantee') { location.href = (window.PRP_IAP ? '/purchase.html' : '/checkout.html') + '?tier=nce_guarantee'; return; }
     btn.disabled = true; btn.textContent = 'Opening checkout…';
     api('/api/payment/create-checkout-session', { method:'POST', body:{ tier: tier } })
       .then(function(r){ location.href = r.url; })

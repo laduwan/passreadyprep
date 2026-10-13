@@ -37,6 +37,7 @@ function signToken(user) {
 
 // Only the safe fields — never send the password hash to the browser.
 function publicUser(user) {
+  const nce = user.nceAccess || {};
   return {
     id: user._id,
     email: user.email,
@@ -44,6 +45,16 @@ function publicUser(user) {
     examDate: user.examDate || null,
     prefs: user.prefs,
     subscription: user.subscription,
+    // NCE plan summary (billed separately — see models/User.js), so the
+    // account page can show and manage both plans without a second call.
+    nceAccess: {
+      tier: nce.tier || 'free',
+      status: nce.status || 'active',
+      source: nce.source || null,
+      currentPeriodEnd: nce.currentPeriodEnd || null,
+      cancelAtPeriodEnd: !!nce.cancelAtPeriodEnd,
+    },
+    guidePurchasedAt: user.guidePurchasedAt || null,
   };
 }
 
@@ -306,7 +317,10 @@ router.delete('/account', requireAuth, async (req, res) => {
 
     const sub = user.subscription || {};
     // Canceled-but-running subscriptions (cancelAtPeriodEnd) won't bill again.
-    if (sub.tier === 'monthly' && ['active', 'past_due'].includes(sub.status) && !sub.cancelAtPeriodEnd) {
+    // A plan billed by Apple is not blocked: we cannot cancel it for them, and
+    // App Store rules say deletion must not depend on it — the page tells them
+    // to cancel it in their Apple ID settings (delete-account.html).
+    if (sub.tier === 'monthly' && sub.source !== 'apple' && ['active', 'past_due'].includes(sub.status) && !sub.cancelAtPeriodEnd) {
       return res.status(409).json({
         code: 'active_subscription',
         error: 'Your Monthly subscription is still active. Cancel it first so you are not billed again, then delete your account.',
@@ -318,12 +332,16 @@ router.delete('/account', requireAuth, async (req, res) => {
     const FlashcardProgress = require('../models/FlashcardProgress');
     const StudyHistorySync = require('../models/StudyHistorySync');
     const Suggestion = require('../models/Suggestion');
+    const AppleTransaction = require('../models/AppleTransaction');
 
     const email = user.email;
     await Attempt.deleteMany({ userId: user._id });
     await StudyActivity.deleteMany({ userId: user._id });
     await FlashcardProgress.deleteMany({ userId: user._id });
     await StudyHistorySync.deleteMany({ userId: user._id });
+    // Release any App Store purchases, so "Restore purchases" can bring them
+    // onto a new account later (the purchase itself belongs to the Apple ID).
+    await AppleTransaction.deleteMany({ userId: user._id });
     await Suggestion.updateMany({ userId: user._id }, { $set: { userId: null }, $unset: { email: 1 } });
     await User.findByIdAndDelete(user._id);
 
@@ -336,3 +354,4 @@ router.delete('/account', requireAuth, async (req, res) => {
 });
 
 module.exports = router;
+module.exports.publicUser = publicUser; // shared with routes/applePayment.js

@@ -107,6 +107,12 @@ services:
       - key: STRIPE_PRICE_NCE_GUARANTEE # optional: NCE Pass Guarantee stays hidden until set
         sync: false
 
+      # ── App Store In-App Purchase (iOS app) ───────────────────────────
+      - key: APPLE_APP_ID            # the app's numeric Apple ID in App Store Connect; in-app purchases are off until set
+        sync: false
+      - key: APPLE_IAP_BUNDLE_ID     # also the product-ID prefix (see .env.example)
+        value: com.gaitp.passreadyprep
+
       # ── AI features (optional) ────────────────────────────────────────
       - key: ANTHROPIC_API_KEY   # AI debrief (Dr. Claire Moreau) + case generation
         sync: false

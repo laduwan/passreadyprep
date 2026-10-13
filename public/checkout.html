@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Checkout — PassReady Prep</title>
 <meta name="robots" content="noindex, nofollow">
+<!-- iOS app: plans are sold through App Store In-App Purchase, never Stripe —
+     purchase.html handles it (client/native/native-iap.js). -->
+<script>if(window.PRP_NATIVE){location.replace('/purchase.html'+location.search+location.hash);}</script>
 <style>
   :root{
     --emerald:#10B981;--emerald-400:#34D399;--amber:#F59E0B;--amber-400:#FBBF24;
@@ -334,7 +337,7 @@
     }
   }
 
-  init();
+  if (!window.PRP_NATIVE) init();
 </script>
 </body>
 </html>
