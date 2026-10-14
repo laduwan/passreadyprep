@@ -221,6 +221,10 @@ async function ensureSubscription(p, group) {
     done(`${LOCALE} name/description set`);
   }
 
+  // Apple rejects a subscription price for a territory the subscription is not
+  // yet available in (UNSUPPORTED_TERRITORY), so availability goes first.
+  await ensureAvailability('subscriptionAvailabilities', 'subscription', 'subscriptions', sub.id, `/v1/subscriptions/${sub.id}/subscriptionAvailability`);
+
   const prices = await list(`/v1/subscriptions/${sub.id}/prices?filter[territory]=${TERRITORY}&limit=50`);
   if (!prices.length) {
     const point = await nearestPricePoint(`/v1/subscriptions/${sub.id}/pricePoints?filter[territory]=${TERRITORY}&limit=200`, usd);
@@ -237,7 +241,6 @@ async function ensureSubscription(p, group) {
     done('price already set');
   }
 
-  await ensureAvailability('subscriptionAvailabilities', 'subscription', 'subscriptions', sub.id, `/v1/subscriptions/${sub.id}/subscriptionAvailability`);
   await ensureScreenshot(p, 'subscriptionAppStoreReviewScreenshots', 'subscription', 'subscriptions', sub.id, `/v1/subscriptions/${sub.id}/appStoreReviewScreenshot`);
 }
 
