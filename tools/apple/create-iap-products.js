@@ -52,23 +52,25 @@ const SHOT_DIR = shotIdx !== -1 ? path.resolve(args[shotIdx + 1] || '') : null;
 const REVIEW_NOTE = 'PassReady Prep is an NCMHCE/NCE exam-prep study app. This product unlocks the plan named in its description inside the app; purchases are verified by our server and unlock immediately. Demo account with full access is in App Review Information.';
 
 // ── The catalog (must match utils/appleIap.js) ───────────────────────────────
+// App Store Connect limits: localized display name ≤ 30 characters,
+// localized description ≤ 55 characters (checked before anything is created).
 const PRODUCTS = [
   { tier: 'monthly',       sku: 'ncmhce.monthly',   type: 'subscription', group: 'NCMHCE', usd: 29.99,
-    name: 'NCMHCE Monthly', desc: 'Full access to every NCMHCE study tool: 270+ clinical case simulations with AI debrief, timed full-length mock exams, readiness score, flashcards, decision trees, DSM-5-TR reference and more. Renews monthly; cancel any time.' },
+    name: 'NCMHCE Monthly', desc: 'Full NCMHCE access, renews monthly. Cancel any time.' },
   { tier: 'pass3',         sku: 'ncmhce.pass3',     type: 'NON_RENEWING_SUBSCRIPTION', usd: 79.99,
-    name: 'NCMHCE 3-Month Pass', desc: '90 days of full access to every NCMHCE study tool: 270+ clinical case simulations with AI debrief, timed mock exams, readiness score, flashcards, decision trees and the DSM-5-TR reference. One payment; does not renew.' },
+    name: 'NCMHCE 3-Month Pass', desc: '90 days of full NCMHCE access. One payment, no renewal.' },
   { tier: 'guarantee',     sku: 'ncmhce.guarantee', type: 'NON_CONSUMABLE', usd: 149.99,
-    name: 'NCMHCE Pass Guarantee', desc: 'Unlimited access to every NCMHCE study tool until you pass, with the PassReady pass guarantee: free extended access if you do not pass, and a free CE course on CounselorReady when you do. One payment, no renewal. Includes a candidate check-in every 6 months.' },
+    name: 'NCMHCE Pass Guarantee', desc: 'Unlimited NCMHCE access until you pass. One payment.' },
   { tier: 'guide',         sku: 'guide',            type: 'NON_CONSUMABLE', usd: 24.99,
-    name: 'The Complete NCMHCE Study Guide', desc: 'Digital edition of The Complete NCMHCE Study Guide: 18 diagnostic families, 3 full-length practice exams and 429 scored questions with full rationales. Licensed to your account; download any time from the study guide page.' },
+    name: 'Complete NCMHCE Study Guide', desc: 'Digital study guide: 18 families, 3 practice exams.' },
   { tier: 'nce_monthly',   sku: 'nce.monthly',      type: 'subscription', group: 'NCE', usd: 24.99,
-    name: 'NCE Monthly', desc: 'Full access to NCE study: the complete NCE question bank, unlimited timed mock exams weighted to the six NCE domains, and progress by domain. Renews monthly; cancel any time.' },
+    name: 'NCE Monthly', desc: 'Full NCE access, renews monthly. Cancel any time.' },
   { tier: 'nce_pass3',     sku: 'nce.pass3',        type: 'NON_RENEWING_SUBSCRIPTION', usd: 59.99,
-    name: 'NCE 3-Month Pass', desc: '90 days of full access to NCE study: the complete NCE question bank, unlimited timed mock exams and progress by domain. One payment; does not renew.' },
+    name: 'NCE 3-Month Pass', desc: '90 days of full NCE access. One payment, no renewal.' },
   { tier: 'nce_pass6',     sku: 'nce.pass6',        type: 'NON_RENEWING_SUBSCRIPTION', usd: 89.99,
-    name: 'NCE 6-Month Pass', desc: '180 days of full access to NCE study: the complete NCE question bank, unlimited timed mock exams and progress by domain, with room for a retake. One payment; does not renew.' },
+    name: 'NCE 6-Month Pass', desc: '180 days of full NCE access. One payment, no renewal.' },
   { tier: 'nce_guarantee', sku: 'nce.guarantee',    type: 'NON_CONSUMABLE', usd: 149.99, optional: process.env.NCE_GUARANTEE === '0',
-    name: 'NCE Pass Guarantee', desc: 'Unlimited access to NCE study until you pass, with the PassReady pass guarantee: free extended access if you do not pass, and a free CE course on CounselorReady when you do. One payment, no renewal. Includes a candidate check-in every 6 months.' },
+    name: 'NCE Pass Guarantee', desc: 'Unlimited NCE access until you pass. One payment.' },
 ];
 const GROUPS = {
   NCMHCE: { referenceName: 'NCMHCE', displayName: 'NCMHCE Prep' },
@@ -78,6 +80,10 @@ let priceOverrides = {};
 try { priceOverrides = JSON.parse(process.env.IAP_PRICES || '{}'); } catch (e) { fail('IAP_PRICES is not valid JSON'); }
 
 function fail(msg) { console.error('✗ ' + msg); process.exit(1); }
+for (const p of PRODUCTS) {
+  if (p.name.length > 30) fail(`${p.tier}: display name is ${p.name.length} characters; Apple allows 30`);
+  if (p.desc.length > 55) fail(`${p.tier}: description is ${p.desc.length} characters; Apple allows 55`);
+}
 function productId(p) { return `${PREFIX}.${p.sku}`; }
 
 // ── App Store Connect API client ─────────────────────────────────────────────
