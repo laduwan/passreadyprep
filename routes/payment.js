@@ -24,6 +24,8 @@
  *   STRIPE_PRICE_NCE_PASS3   — price_xxx (NCE 3-month $59 one-time)
  *   STRIPE_PRICE_NCE_PASS6   — price_xxx (NCE 6-month $89 one-time)
  *   STRIPE_PRICE_NCE_GUARANTEE — price_xxx (NCE Pass Guarantee one-time; optional)
+ *   STRIPE_PRICE_GUIDE       — price_xxx (NCMHCE Study Guide one-time digital)
+ *   STRIPE_PRICE_GUIDE_NCE   — price_xxx (NCE Ownership Method one-time digital)
  *   CLIENT_URL              — https://passreadyprep-server.onrender.com (no trailing slash)
  */
 
@@ -112,7 +114,15 @@ const TIERS = {
     priceId: () => process.env.STRIPE_PRICE_GUIDE,
     mode: 'payment',
     tierName: 'guide',
-    entitlementOnly: true, // one-time PRODUCT (the study guide), NOT an access tier.
+    entitlementOnly: true, // one-time PRODUCT (the NCMHCE study guide), NOT an access tier.
+    entitlement: 'ncmhce',
+  },
+  guide_nce: {
+    priceId: () => process.env.STRIPE_PRICE_GUIDE_NCE,
+    mode: 'payment',
+    tierName: 'guide_nce',
+    entitlementOnly: true, // one-time PRODUCT (The NCE Ownership Method), NOT an access tier.
+    entitlement: 'nce',
   },
   // ── NCE plans ── billed separately from NCMHCE: the webhook writes these to
   // User.nceAccess, never to User.subscription, so buying one exam can't grant
@@ -252,11 +262,15 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
       };
     }
 
-    // The guide isn't app access — send the buyer back to the guide page,
+    // The guides aren't app access — send the buyer back to their guide page,
     // which flips to a download button once the webhook grants the entitlement.
     if (tier === 'guide') {
       sessionParams.success_url = `${process.env.CLIENT_URL}/study-guide.html?purchase=success&session_id={CHECKOUT_SESSION_ID}`;
       sessionParams.cancel_url = `${process.env.CLIENT_URL}/study-guide.html`;
+    }
+    if (tier === 'guide_nce') {
+      sessionParams.success_url = `${process.env.CLIENT_URL}/nce-study-guide.html?purchase=success&session_id={CHECKOUT_SESSION_ID}`;
+      sessionParams.cancel_url = `${process.env.CLIENT_URL}/nce-study-guide.html`;
     }
 
     // NCE plans return to the NCE study page.
@@ -394,13 +408,17 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         }
 
         // One-time PRODUCT (e.g. the study guide): grant an entitlement, never a tier.
+        // tierConfig.entitlement picks which guide SKU to grant:
+        //   'ncmhce' (default) → guidePurchasedAt / guideOrderId
+        //   'nce'              → guideNcePurchasedAt / guideNceOrderId
         if (tierConfig.entitlementOnly) {
-          await User.findByIdAndUpdate(userId, {
-            guidePurchasedAt: new Date(),
-            guideOrderId: session.id,
-          });
-          console.log(`✓ One-time product: user ${userId} → entitlement "${tier}"`);
-          logActivity({ type: 'payment.succeeded', severity: 'info', userId, email: session.customer_details?.email, message: `One-time product purchased: ${tier}`, meta: { tier, amount: session.amount_total, currency: session.currency }, req });
+          const entitlement = tierConfig.entitlement || 'ncmhce';
+          const update = entitlement === 'nce'
+            ? { guideNcePurchasedAt: new Date(), guideNceOrderId: session.id }
+            : { guidePurchasedAt: new Date(), guideOrderId: session.id };
+          await User.findByIdAndUpdate(userId, update);
+          console.log(`✓ One-time product: user ${userId} → entitlement "${tier}" (${entitlement})`);
+          logActivity({ type: 'payment.succeeded', severity: 'info', userId, email: session.customer_details?.email, message: `One-time product purchased: ${tier}`, meta: { tier, entitlement, amount: session.amount_total, currency: session.currency }, req });
           break;
         }
 

@@ -28,8 +28,10 @@ const UserSchema = new Schema(
     termsAcceptedAt: Date,
     termsVersion: { type: String },          // e.g. 'june-2026'
     guaranteeTermsAcceptedAt: Date,          // set only for Pass Guarantee purchasers
-    guidePurchasedAt: Date,                  // set when the standalone study guide is purchased
-    guideOrderId: String,                    // Stripe checkout session id, or 'apple:<transactionId>' for an In-App Purchase
+    guidePurchasedAt: Date,                  // set when the NCMHCE Study Guide (1E) is purchased
+    guideOrderId: String,                    // Stripe checkout session id for the NCMHCE guide purchase, or 'apple:<transactionId>' for an In-App Purchase
+    guideNcePurchasedAt: Date,               // set when The NCE Ownership Method (1E) is purchased
+    guideNceOrderId: String,                 // Stripe checkout session id for the NCE guide purchase
 
     // Extended free trial granted to this one account by an admin — used for
     // review swaps and comps. While trialEndsAt is in the future the account
