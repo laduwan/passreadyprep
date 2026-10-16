@@ -9,23 +9,22 @@ Demo account with full paid access: demo@passreadyprep.com (password in the Sign
 4. Timed mock exam: "Timed Mock Exam" on the dashboard, then "Begin Exam".
 5. Other tools on the dashboard: Flashcards, Decision Trees, DSM-5-TR Reference, Knowledge Drill, Intake Interview Simulator (microphone optional; typing also works).
 6. Account creation: "Create account" on the sign-in page. New accounts get a 3-day free trial of full access.
-7. Account deletion: dashboard → "Account" button (top right) → "Delete my account…" → enter password → tick the confirmation → "Delete my account" → confirmation screen. Deletion is immediate and permanent. The same link is at the bottom of the dashboard ("Delete account"). Subscribers manage or cancel their plan from "Manage subscription" on the Account page (Apple's subscription sheet for in-app subscriptions).
-8. In-App Purchase: start page → Pricing → any plan (or "See plans" on a locked study tool, "Choose" on the NCE page, "Buy" on the study guide page) opens the in-app purchase screen with the App Store price, terms and "Restore purchases"; "Buy" shows Apple's purchase sheet. Purchases are verified by our server and unlock immediately.
+7. Account deletion: dashboard → "Account" button (top right) → "Delete my account…" → enter password → tick the confirmation → "Delete my account" → confirmation screen. Deletion is immediate and permanent and does not require contacting us. The same link is at the bottom of the dashboard ("Delete account").
+8. Purchases: nothing is sold in the app. It is a companion to our web service at passreadyprep.com, where plans are bought. The app shows no prices, plans or checkout and does not link out to buy. People who already have a plan sign in here to use it; the demo account above has full access. Free sign-up and a free sample case are available in the app.
 No sample files are needed.
 
 EXTERNAL SERVICES
 - Anthropic (Claude API): generates AI feedback and case debriefs from the user's answers.
 - ElevenLabs: text-to-speech voice for intake-simulator replies.
 - iOS speech recognition (WebKit): converts spoken answers to text in the intake simulator.
-- Apple In-App Purchase (StoreKit 2): all purchases inside the app. Signed transactions are verified on our server with Apple's root certificates; App Store Server Notifications keep subscription status current.
-- Stripe: payments for plans bought on our website only; nothing in the app links to it.
+- Stripe: payments for plans bought on our website (passreadyprep.com). The app takes no payment and does not link to checkout.
 - Brevo: account emails (password reset, receipts).
 - MongoDB Atlas: database for accounts and study progress.
 - Render: hosting for our server at passreadyprep.com.
 - Google Translate widget: optional on-page translation when the user picks a language.
 
 REGIONAL DIFFERENCES
-The app is distributed on the United States storefront only and works the same for all users. All plans are sold in the app through In-App Purchase. Users who already purchased on our website can sign in to access their plan (guideline 3.1.3(b)).
+The app is distributed on the United States storefront only and works the same for all users. Nothing is sold in the app; it is a companion to our web service. People buy a plan on passreadyprep.com and sign in here to use it.
 
 TRACKING
 The app does not track users: no advertising SDK, no data brokers, no linking with third-party data. App Privacy answers are set accordingly (no data type is used for tracking), so no App Tracking Transparency prompt is shown.

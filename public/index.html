@@ -324,7 +324,7 @@
       <li><strong>Sit a timed mock.</strong> When readiness holds above 60%, take the <a href="/exam.html">timed NCMHCE mock exam</a> under the real clock and break schedule.</li>
     </ol>
     <h3>Who this is for</h3>
-    <p>First-time candidates who want to know they are ready before paying the exam fee, and counselors retaking the NCMHCE who need to see <em>why</em> they lost points last time. Full access starts with a 3-day free trial, and the <a href="/guarantee.html">pass guarantee</a> extends your access at no charge if you do not pass after meeting the study milestones.</p>
+    <p>First-time candidates who want to know they are ready before paying the exam fee, and counselors retaking the NCMHCE who need to see <em>why</em> they lost points last time.<!-- prp-web-only --> Full access starts with a 3-day free trial, and the <a href="/guarantee.html">pass guarantee</a> extends your access at no charge if you do not pass after meeting the study milestones.<!-- /prp-web-only --></p>
   </section>
   <p class="tm-note" style="margin:28px 0 8px; text-align:center; color:#64748B; font-size:12px; line-height:1.5">NCE&reg; and NCMHCE&reg; are registered trademarks of the National Board for Certified Counselors, Inc. (NBCC). PassReady Prep is not affiliated with or endorsed by NBCC.</p>
 </div>
@@ -524,8 +524,8 @@ function attemptToEntry(att){
 }
 
 // Stripe Customer Portal (POST /api/payment/portal): Monthly subscribers
-// cancel or update their card there. In the iOS app it opens in Safari and the
-// app reloads on return (native-shim.js reads prp_checkout_opened).
+// cancel or update their card there. Website only — the iOS app never links
+// to it (native-shim.js answers the call with a neutral notice).
 async function openBillingPortal(link){
   const label = link ? link.textContent : '';
   if(link) link.textContent = 'Opening…';
@@ -838,7 +838,13 @@ async function showDashboard(){
   h += '<a href="/dsm.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📖 NCMHCE DSM-5-TR Reference</span><span class="mc-desc">92 diagnoses with ICD-10 codes and first-line treatments. Search by name, code, or treatment keyword. Use alongside cases to look up unfamiliar disorders.</span></a>';
   h += '<a href="/sheets/ncmhce-study-sheets.pdf" target="_blank" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📄 NCMHCE Study Sheets (PDF)</span><span class="mc-desc">Printable one-pagers for all 18 categories. Download the combined 92-diagnosis reference or individual category sheets to study offline.</span></a>';
   h += '<a href="/nce.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🎓 NCE Study (new)</span><span class="mc-desc">Also sitting the National Counselor Examination? Practice questions and full-length timed mock exams weighted to NBCC\'s six NCE domains, with progress by domain. Separate NCE plans.</span></a>';
-  h += '<a href="/study-guide.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📘 The Complete NCMHCE Study Guide</span><span class="mc-desc">Now expanded: all 18 diagnostic families plus 3 full-length practice exams — 33 cases, 429 scored questions with full rationales. $25 one-time; also on Amazon Kindle.</span></a>';
+  // iOS app: nothing is sold in it, so the guide tile only appears for people
+  // who already own it (download), and without the price.
+  if(!window.PRP_NATIVE){
+    h += '<a href="/study-guide.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📘 The Complete NCMHCE Study Guide</span><span class="mc-desc">Now expanded: all 18 diagnostic families plus 3 full-length practice exams — 33 cases, 429 scored questions with full rationales. $25 one-time; also on Amazon Kindle.</span></a>';
+  } else if((currentUser() || {}).guidePurchasedAt){
+    h += '<a href="/study-guide.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📘 The Complete NCMHCE Study Guide</span><span class="mc-desc">Your copy: all 18 diagnostic families plus 3 full-length practice exams — 33 cases, 429 scored questions with full rationales. Download the PDF.</span></a>';
+  }
   h += '</div></div>';
 
   // Study plan generator
@@ -862,7 +868,9 @@ async function showDashboard(){
   if(authHeaders().Authorization){
     const sub = (currentUser() || {}).subscription || {};
     const renewing = sub.tier === 'monthly' && ['active','past_due'].includes(sub.status);
-    const manage = !renewing ? ''
+    // The iOS app shows no billing link at all; the Account page states where
+    // the plan is managed.
+    const manage = !renewing || window.PRP_NATIVE ? ''
       : sub.source === 'apple' && window.PRP_IAP ? '<a href="#" onclick="window.PRP_IAP.manageSubscriptions();return false" style="color:var(--slate-500)">Manage subscription</a> · '
       : sub.stripeCustomerId ? '<a href="#" onclick="openBillingPortal(this);return false" style="color:var(--slate-500)">Manage subscription</a> · '
       : '';

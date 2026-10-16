@@ -2,9 +2,12 @@
 
 Paste-ready text for App Store Connect. Character limits are Apple's; counts
 were checked when this was written. Launch plan: **United States only**, free
-download, plans sold in the app through **In-App Purchase** (the website keeps
-Stripe; people who bought there sign in). Product IDs and the App Store Connect
-setup are in `AppReview_Reply_v1.0_build2.md`.
+download. **Nothing is sold in the app** — it is a companion to the web service
+at passreadyprep.com, where plans are bought (Stripe). People who already have
+a plan sign in to use it; free sign-up and a free sample case work in the app.
+The App Store Connect setup for this build is in
+`AppReview_Reply_v1.0_build3.md`; the earlier In-App Purchase path is kept in
+`AppReview_Reply_v1.0_build2.md` as the fallback if Apple requires IAP.
 
 ---
 
@@ -64,7 +67,7 @@ PASS GUARANTEE
 Eligible plans include the PassReady pass guarantee. See passreadyprep.com for full terms.
 
 GETTING STARTED
-Download free and try sample cases. Create an account to start a free trial of the full library. Full access is available by monthly subscription, a one-time 3-month pass, or the one-time Pass Guarantee. Subscriptions renew automatically unless cancelled at least 24 hours before the end of the period; manage them in your App Store account settings.
+Download free and try a sample case. Create a free account to save your progress across your phone and the web. Plans are available at passreadyprep.com; sign in to the app to use what you've purchased.
 
 PassReady Prep is an independent study tool. It is not affiliated with, endorsed by, or sponsored by the National Board for Certified Counselors (NBCC). NCMHCE is a trademark of NBCC. Simulations are for exam preparation only and are not clinical advice.
 
@@ -82,7 +85,7 @@ Answer honestly for the content; these are the likely-relevant items:
 | Medical/Treatment Information | Frequent/Intense | The whole app is clinical mental-health case material |
 | Mature/Suggestive Themes | Infrequent/Mild | Vignettes reference suicide risk, abuse, substance use in a clinical context |
 | Violence, sexual content, profanity, gambling, horror | None | — |
-| Unrestricted web access | No | The app only opens its own pages; other sites open in Safari |
+| Unrestricted web access | No | The app only opens its own pages |
 | User-generated content shared with others | No | Answers are private to the user |
 
 Your privacy policy says the service is not for anyone under 18. Apple will
@@ -103,7 +106,7 @@ Data types to declare — all **linked to the user**, **not used for tracking**:
 | Contact Info → Email Address | App Functionality | Account sign-in, password reset, account email (Brevo) |
 | Contact Info → Name | App Functionality | Optional name on registration |
 | Identifiers → User ID | App Functionality | Account ID tying progress to the account |
-| Purchases → Purchase History | App Functionality | Plan/tier, subscription status and App Store transaction IDs (Apple processes the payment; the website's payments are processed by Stripe) |
+| Purchases → Purchase History | App Functionality | Plan/tier and subscription status, so the app knows what the account may use (payments are made on the website and processed by Stripe; the app takes no payment) |
 | User Content → Other User Content | App Functionality | Case answers, typed/spoken responses in the intake and microskills tools (sent to Anthropic to generate feedback), feedback/suggestions |
 | Usage Data → Product Interaction | App Functionality, Analytics | Study activity, streaks, attempts, flashcard progress |
 
@@ -150,11 +153,10 @@ How to review:
    dashboard: "Delete account".) Subscribers manage or cancel their plan from
    "Manage subscription" on the same Account page.
 
-Purchases: All plans are sold in the app through In-App Purchase (Pricing on
-the start page, "See plans" on a locked tool, "Choose" on the NCE page, "Buy"
-on the study guide page → in-app purchase screen → Apple's purchase sheet).
-Restore Purchases is on the purchase screen and the Account page. Users who
-bought on our website sign in to access what they purchased.
+Purchases: Nothing is sold in the app. It is a companion to our web service.
+People buy a plan on passreadyprep.com and sign in here to use it; the app
+shows no prices, plans or checkout, and does not link out to buy. Free sign-up
+and a free sample case are available in the app.
 
 AI features: Case, intake and microskills feedback is generated with Anthropic's
 API from the user's answers. Content is for exam preparation, not clinical advice.
@@ -166,7 +168,8 @@ Contact: support@passreadyprep.com
 ## 5. Before you press Submit
 
 - [ ] Demo account created and verified to have full access on production
-- [ ] In-App Purchase products created, priced, and attached to the version (see `AppReview_Reply_v1.0_build2.md`)
+- [ ] App Privacy: no data type marked "used for tracking" (the 5.1.2 fix)
+- [ ] Description, keywords and screenshots carry no price, plan or "subscribe"/"buy" wording
 - [ ] Paid Apps agreement active; App Store Server Notifications URL set; `APPLE_APP_ID` set on Render
 - [ ] App Privacy: no data type marked "used for tracking"
 - [ ] Stripe Customer Portal enabled (Manage subscription works for website subscribers)

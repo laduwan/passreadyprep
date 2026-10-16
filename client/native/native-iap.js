@@ -1,6 +1,11 @@
 /* PassReady Prep — App Store In-App Purchase layer (Capacitor iOS, local bundle).
- * Loaded right after native-shim.js in <head> of every bundled page
- * (scripts/build-ios.mjs). No-op in a normal browser.
+ *
+ * NOT BUNDLED since the companion build (docs/AppReview_Reply_v1.0_build3.md):
+ * nothing is sold in the app. Kept, with StoreKitPlugin.swift and
+ * routes/applePayment.js, as the fallback if App Review still requires
+ * In-App Purchase — to bring it back, build-ios.mjs loads it right after
+ * native-shim.js on every bundled page and bundles purchase.html again.
+ * No-op in a normal browser.
  *
  * Apple requires paid content in the app to be sold through In-App Purchase
  * (guideline 3.1.1), so in the app:

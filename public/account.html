@@ -63,7 +63,7 @@
 
   <div class="panel" id="panel-signin">
     <h1>Your account</h1>
-    <p class="sub">Sign in to see your plan, manage your subscription or delete your account.</p>
+    <p class="sub">Sign in to see your plan<!-- prp-web-only -->, manage your subscription<!-- /prp-web-only --> or delete your account.</p>
     <a class="btn primary" href="/register.html?tab=login&next=/account.html">Sign in</a>
   </div>
 
@@ -87,12 +87,15 @@
       <div class="row"><a class="btn" href="/study-guide.html">Download</a></div>
     </div>
 
+    <!-- prp-web-only: In-App Purchase restore (unused since nothing is sold in the app) -->
+    <!-- prp-web-only -->
     <div class="card" id="restore-card" style="display:none">
       <h2>Purchases on this device</h2>
       <p class="meta">Bought a plan on another iPhone or iPad with the same Apple ID? Restore it to this account.</p>
       <div class="row"><button class="btn" id="restore-btn" onclick="restorePurchases()">Restore purchases</button></div>
       <p class="msg" id="restore-msg"></p>
     </div>
+    <!-- /prp-web-only -->
 
     <div class="card">
       <h2>Sign-in</h2>
@@ -123,6 +126,10 @@
   function signOutLocal() { try { localStorage.removeItem('prp_token'); localStorage.removeItem('prp_user'); localStorage.removeItem('prp_gate'); } catch (e) {} }
   function logout() { signOutLocal(); location.href = '/study'; }
 
+  // iOS app (window.PRP_NATIVE): nothing is sold or linked to. A free account
+  // sees that it has no plan; a website subscriber sees where it is managed.
+  var APP = !!window.PRP_NATIVE;
+
   function planHtml(plan, exam) {
     plan = plan || {};
     var tier = plan.tier || 'free';
@@ -135,6 +142,7 @@
     var renewing = isSub && ['active', 'past_due'].indexOf(plan.status || 'active') !== -1 && !plan.cancelAtPeriodEnd && !expired;
     var h = '';
     if (tier === 'free') {
+      if (APP) return '<p class="plan">No plan on this account</p>';
       h += '<p class="plan">No plan yet</p><p class="meta">' + (exam === 'nce' ? 'NCE study starts with a free trial; plans are billed separately from NCMHCE.' : 'New accounts start with a free trial of everything.') + '</p>';
       h += '<div class="row"><a class="btn primary" href="' + (exam === 'nce' ? '/nce.html#pricing' : '/landing.html#pricing') + '">See plans</a></div>';
       return h;
@@ -148,16 +156,17 @@
     if (isGuar) lines.push(end ? (expired ? 'Candidate check-in due — submit your exam date or score report.' : 'Next candidate check-in by ' + fmtDate(end) + '.') : 'Access until you pass.');
     else if (isSub) lines.push(end ? ((renewing ? 'Renews ' : 'Access until ') + fmtDate(end) + '.') : '');
     else if (end) lines.push((expired ? 'Ended ' : 'Access until ') + fmtDate(end) + '.');
-    lines.push(apple ? 'Billed through the App Store (Apple ID).' : (isSub ? 'Billed on passreadyprep.com.' : ''));
+    lines.push(apple ? 'Billed through the App Store (Apple ID).' : (isSub ? (APP ? 'Your subscription is managed on passreadyprep.com.' : 'Billed on passreadyprep.com.') : ''));
     h += '<p class="meta">' + lines.filter(Boolean).map(esc).join('<br>') + '</p>';
     var btns = [];
     if (isSub && !expired) {
       if (apple) btns.push('<button class="btn" onclick="manageApple(this)">Manage subscription</button>');
+      else if (APP) {} // managed on the website; the line above says so, no link
       else if (exam !== 'nce' && plan.stripeCustomerId) btns.push('<button class="btn" onclick="openPortal(this)">Manage subscription</button>');
       else btns.push('<a class="btn" href="mailto:support@passreadyprep.com?subject=Manage%20my%20subscription">Contact support</a>');
     }
     if (isGuar) btns.push('<a class="btn" href="/score-report.html' + (exam === 'nce' ? '?exam=nce' : '') + '">Exam date / score report</a>');
-    if (expired || (!isSub && !isGuar)) btns.push('<a class="btn" href="' + (exam === 'nce' ? '/nce.html#pricing' : '/landing.html#pricing') + '">' + (expired ? 'Choose a plan' : 'Extend') + '</a>');
+    if (!APP && (expired || (!isSub && !isGuar))) btns.push('<a class="btn" href="' + (exam === 'nce' ? '/nce.html#pricing' : '/landing.html#pricing') + '">' + (expired ? 'Choose a plan' : 'Extend') + '</a>');
     if (btns.length) h += '<div class="row">' + btns.join('') + '</div>';
     h += '<p class="msg" id="msg-' + exam + '"></p>';
     return h;
@@ -168,12 +177,13 @@
     document.getElementById('ncmhce-plan').innerHTML = planHtml(user.subscription, 'ncmhce');
     document.getElementById('nce-plan').innerHTML = planHtml(user.nceAccess, 'nce');
     document.getElementById('guide-card').style.display = user.guidePurchasedAt ? 'block' : 'none';
-    document.getElementById('restore-card').style.display = window.PRP_IAP ? 'block' : 'none';
+    var restore = document.getElementById('restore-card');
+    if (restore) restore.style.display = window.PRP_IAP ? 'block' : 'none';
     show('panel-account');
   }
 
-  // Stripe's hosted Customer Portal (website subscriptions). In the iOS app it
-  // opens in Safari; the app reloads on return (native-shim.js).
+  // Stripe's hosted Customer Portal (website subscriptions). Website only:
+  // the iOS app never offers it.
   async function openPortal(btn) {
     btn.disabled = true; btn.textContent = 'Opening…';
     try {

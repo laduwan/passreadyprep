@@ -12,8 +12,9 @@ account, sign in, and have their work remembered across devices.
 - `models/Attempt.js` — one saved attempt; this is what remembers progress.
 - `routes/auth.js` — sign up, sign in, and "who am I".
 - `routes/progress.js` — save progress and load it back.
-- `routes/payment.js` — Stripe (website) and `routes/applePayment.js` — Apple
-  In-App Purchase (iOS app); both grant plans by the same tier rules.
+- `routes/payment.js` — Stripe (website) grants plans by tier. The iOS app
+  sells nothing (companion build); `routes/applePayment.js` is the kept Apple
+  In-App Purchase fallback (see docs/AppReview_Reply_v1.0_build3.md).
 - `middleware/auth.js` — the gatekeeper that checks you're signed in.
 
 ## What it can already do
