@@ -19,17 +19,26 @@ const PAGES = [
   'timed-knowledge-exam.html', 'knowledge-drill.html', 'next-best-step.html',
   'core-attributes-quiz.html', 'theory.html', 'podcast.html', 'assess-next-case.html', 'games.html',
   'delete-account.html', 'account.html', 'nce.html', 'resume.html',
-  // In the app every plan is bought through App Store In-App Purchase:
-  // checkout.html forwards to purchase.html, which buys via native-iap.js.
-  'checkout.html', 'purchase.html',
+  // Nothing is sold in the app (companion build): checkout.html and
+  // purchase.html are not bundled, and native-shim.js answers any link to
+  // them with a neutral notice. See docs/AppReview_Reply_v1.0_build3.md.
 ];
 // Pages the shim opens on passreadyprep.com instead (keep in sync with EXTERNAL in native-shim.js).
-const EXTERNAL = new Set(['book.html', 'policies.html', 'privacy.html',
-  'score-report.html', 'accessibility.html']);
+const EXTERNAL = new Set(['policies.html', 'privacy.html', 'score-report.html', 'accessibility.html']);
+// Purchase pages the shim blocks with a notice (keep in sync with BLOCKED in
+// native-shim.js). They are not bundled; links to them only appear in web-only
+// code branches that never run in the app, so they are allowed to be missing.
+const BLOCKED = new Set(['checkout.html', 'purchase.html', 'nce-study-guide.html', 'book.html']);
 const ASSET_EXT = /\.(js|css|json|pdf|png|jpe?g|gif|svg|webp|ico|mp3|mp4|m4a|woff2?|ttf|otf|webmanifest)$/i;
-// The shim goes first (it rewrites fetch); the In-App Purchase layer right after.
+// The shim goes first (it rewrites fetch and blocks the purchase URLs).
 const SHIM_TAG = '<script src="/native-shim.js"></script>';
-const IAP_TAG = '<script src="/native-iap.js"></script>';
+// Markup between these comments exists only on the website: pricing, plan
+// buttons, trial and price copy. It is removed from every bundled page.
+const WEB_ONLY = /<!--\s*prp-web-only\s*-->[\s\S]*?<!--\s*\/prp-web-only\s*-->/g;
+const WEB_ONLY_OPEN = /<!--\s*prp-web-only\s*-->/;
+// Copy that must not reach a reviewer's screen. Checked against the visible
+// text of every bundled page after the web-only blocks are removed.
+const FORBIDDEN = /\$\s?\d|free trial|\bsubscribe\b|upgrade|pricing|checkout|in-app purchase/i;
 
 // Same tags server.js injectA11y() adds at serve time, minus the PWA manifest /
 // service worker (not wanted inside the native app). Keep in sync with server.js.
@@ -94,14 +103,15 @@ while (queue.length) {
 }
 
 // Shim goes first in <head> of every HTML file in dist; the serve-time widgets
-// go where server.js puts them.
+// go where server.js puts them. Web-only blocks are cut out first.
 fs.copyFileSync(path.join(root, 'native', 'native-shim.js'), path.join(dist, 'native-shim.js'));
-fs.copyFileSync(path.join(root, 'native', 'native-iap.js'), path.join(dist, 'native-iap.js'));
 for (const rel of htmlIn(dist)) {
   const f = path.join(dist, rel);
   let html = fs.readFileSync(f, 'utf8');
   if (html.includes(SHIM_TAG)) continue;
-  html = html.replace(/<head[^>]*>/i, (m) => `${m}\n${SHIM_TAG}\n${IAP_TAG}`);
+  html = html.replace(WEB_ONLY, '');
+  if (WEB_ONLY_OPEN.test(html)) throw new Error(`Unclosed prp-web-only block in ${rel}`);
+  html = html.replace(/<head[^>]*>/i, (m) => `${m}\n${SHIM_TAG}`);
   if (!html.includes(SHIM_TAG)) throw new Error(`No <head> in ${rel}`);
   if (!html.includes('/a11y.js')) {
     html = html.includes('</head>') ? html.replace('</head>', INJECT_HEAD + '</head>') : INJECT_HEAD + html;
@@ -116,11 +126,30 @@ for (const rel of scanned) {
   if (!/\.(html|js)$/i.test(rel)) continue;
   for (const m of fs.readFileSync(path.join(dist, rel), 'utf8').matchAll(/["'`]\/([A-Za-z0-9_\-/]+\.html)/g)) {
     const page = m[1];
-    if (EXTERNAL.has(page) || fs.existsSync(path.join(dist, page))) continue;
+    if (EXTERNAL.has(page) || BLOCKED.has(page) || fs.existsSync(path.join(dist, page))) continue;
     missing.add(`${page} (linked from ${rel})`);
   }
 }
 if (missing.size) throw new Error('Unbundled pages linked from the app:\n  ' + [...missing].join('\n  '));
+
+// No price, trial or plan copy in the static text of any bundled page. Text
+// pages build at run time is handled by their own window.PRP_NATIVE branches.
+function visibleText(html) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<head[\s\S]*?<\/head>/i, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;|&middot;|&mdash;|&amp;|&#\d+;/g, ' ');
+}
+const leaked = [];
+for (const rel of htmlIn(dist)) {
+  const text = visibleText(fs.readFileSync(path.join(dist, rel), 'utf8'));
+  const m = text.match(FORBIDDEN);
+  if (m) leaked.push(`${rel}: "…${text.slice(Math.max(0, m.index - 40), m.index + 40).replace(/\s+/g, ' ')}…"`);
+}
+if (leaked.length) throw new Error('Purchase copy left in the app bundle (wrap it in <!-- prp-web-only --> … <!-- /prp-web-only -->):\n  ' + leaked.join('\n  '));
 
 // App icon: the website's graduation cap (public/icons), redrawn at the 1024px
 // Apple needs (native/AppIcon.svg is the source). Applied once `cap add ios` exists.
@@ -143,4 +172,3 @@ if (fs.existsSync(splashSet)) {
 console.log('\nCopied into dist from ../public:');
 for (const f of [...copied].sort()) console.log('  ' + f);
 console.log('  native-shim.js');
-console.log('  native-iap.js');

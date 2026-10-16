@@ -324,7 +324,7 @@ body.exam-active #prp-suggest-tab, body.exam-active #prp-suggest-panel{display:n
     </ul>
     <h3>When to take it</h3>
     <p>Take a mock early for a baseline, then do your real preparation in the untimed <a href="/study">case simulations</a>, where you can read every rationale. Return to the timed exam once your readiness score holds above 60%, and sit at least two full mocks in the final two weeks. If you are retaking the NCMHCE, start here: a timed mock shows which domain failed you last time more clearly than any study guide.</p>
-    <p>The timed mock exam is included in the 3-day free trial and in every plan, and completing timed cases counts toward the <a href="/guarantee.html">pass guarantee</a> milestones.</p>
+    <p>Completing timed cases counts toward the <a href="/guarantee.html">pass guarantee</a> milestones.<!-- prp-web-only --> The timed mock exam is included in the 3-day free trial and in every plan.<!-- /prp-web-only --></p>
   </section>
 </div>
 
@@ -870,17 +870,21 @@ function renderLoading(msg){
 
 // ---- render: access gate ----
 function renderGate(level){
+  // iOS app (window.PRP_NATIVE): nothing is sold or linked to, so an expired
+  // account sees a plain notice with no subscribe path.
+  const app = !!window.PRP_NATIVE;
   const g = level === 'gated'
     ? { title:'Your access is paused', body:'Submit your score report to restore access to timed mock exams.', href:'/score-report.html', cta:'Submit score report ›' }
     : level === 'expired'
-    ? { title:'Mock exams are for subscribers', body:'Your free trial has ended. Subscribe to take full-length timed mock exams with a domain breakdown and answer review.', href:'/checkout.html?tier=monthly', cta:'Subscribe ›' }
-    : { title:'Mock exams are for subscribers', body:'Create an account to start your free trial and take full-length timed mock exams with a domain breakdown and answer review.', href:'/register.html?next=/exam.html', cta:'Create an account ›' };
+    ? (app ? { title:'Not included in your account', body:'Timed mock exams are not part of your current account.' }
+           : { title:'Mock exams are for subscribers', body:'Your free trial has ended. Subscribe to take full-length timed mock exams with a domain breakdown and answer review.', href:'/checkout.html?tier=monthly', cta:'Subscribe ›' })
+    : { title:'Mock exams need an account', body:'Create a free account to take full-length timed mock exams with a domain breakdown and answer review.', href:'/register.html?next=/exam.html', cta:'Create an account ›' };
   let h = '<a href="/" class="back">‹ Dashboard</a>';
   h += '<div class="card" id="access-gate" style="text-align:center">';
   h += '<div style="margin-bottom:10px"><span class="badge b-amber">🔒 Mock exam</span></div>';
   h += '<h2>'+esc(g.title)+'</h2>';
   h += '<p class="lead" style="margin:6px auto 16px;max-width:460px">'+esc(g.body)+'</p>';
-  h += '<a href="'+g.href+'" class="btn">'+esc(g.cta)+'</a>';
+  if(g.href) h += '<a href="'+g.href+'" class="btn">'+esc(g.cta)+'</a>';
   h += '</div>';
   app.innerHTML = h;
 }

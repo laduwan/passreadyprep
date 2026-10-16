@@ -688,15 +688,19 @@ THEORY_DATA.forEach(function(c){ c.items.forEach(function(i){ THEORIES.push({ ca
   }
   function lockCard(panel, game, level, both){
     var next=encodeURIComponent('/games.html#'+panel.id);
+    // iOS app (window.PRP_NATIVE): nothing is sold or linked to — no plan,
+    // trial or checkout wording, and no button for an expired account.
+    var app = !!window.PRP_NATIVE;
     var g = level==='gated'
       ? {t:'Your access is paused', b:'Submit your score report to keep playing '+game+'.', href:'/score-report.html', cta:'Submit score report'}
       : level==='expired'
-      ? {t:'Your free trial has ended', b:'Subscribe to keep playing '+game+(both?' with an NCMHCE or NCE plan.':' and using every NCMHCE study tool.'), href: both?'/landing.html#pricing':'/checkout.html?tier=monthly', cta:'See plans'}
+      ? (app ? {t:'Not included in your account', b:game+' is not part of your current account. Code Match stays free for everyone.'}
+             : {t:'Your free trial has ended', b:'Subscribe to keep playing '+game+(both?' with an NCMHCE or NCE plan.':' and using every NCMHCE study tool.'), href: both?'/landing.html#pricing':'/checkout.html?tier=monthly', cta:'See plans'})
       : level==='signin'
       ? {t:'Sign in to play', b:'You were signed out. Sign in to keep playing '+game+'.', href:'/register.html?tab=login&next='+next, cta:'Sign in'}
-      : {t:'Free with your trial', b:'Create a free account to play '+game+' during your 3-day trial. Code Match stays free for everyone.', href:'/register.html?next='+next, cta:'Create a free account', alt:true};
+      : {t: app?'Create a free account':'Free with your trial', b: app?'Create a free account to play '+game+'. Code Match stays free for everyone.':'Create a free account to play '+game+' during your 3-day trial. Code Match stays free for everyone.', href:'/register.html?next='+next, cta:'Create a free account', alt:true};
     panel.innerHTML='<div class="lock in"><div class="lk">'+LOCK+'</div><div class="eyebrow">'+esc(game)+'</div><h1>'+esc(g.t)+'</h1><p>'+esc(g.b)+'</p>'+
-      '<div class="row"><a class="btn" href="'+g.href+'" style="text-decoration:none">'+esc(g.cta)+'</a>'+
+      '<div class="row">'+(g.href?'<a class="btn" href="'+g.href+'" style="text-decoration:none">'+esc(g.cta)+'</a>':'')+
       (g.alt?'<a class="btn ghost" style="text-decoration:none" href="/register.html?tab=login&next='+next+'">Sign in</a>':'')+
       '<button class="btn ghost" id="'+panel.id+'-free">Play Code Match</button></div></div>';
     $('#'+panel.id+'-free').onclick=function(){ show(tabs[0]); };

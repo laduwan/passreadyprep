@@ -25,10 +25,40 @@
     return;
   }
 
+  // Nothing is sold in the app (companion build): no plan, price or checkout
+  // is shown, and the pages' own purchase calls are answered here so they can
+  // never reach Stripe. Access comes from whatever the account already has.
+  var BLOCKED_API = /^\/api\/payment\/(create-checkout-session|portal)(\?|$)/;
+  var NOTICE = 'This page isn\u2019t available in the app.';
+
+  function notice() {
+    var el = document.getElementById('prp-notice');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'prp-notice';
+      el.setAttribute('role', 'status');
+      el.style.cssText = 'position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translateX(-50%);' +
+        'z-index:2147483647;max-width:calc(100% - 32px);background:#1E293B;color:#F8FAFC;border:1px solid rgba(148,163,184,.35);' +
+        'border-radius:12px;padding:12px 16px;font:500 14px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;' +
+        'box-shadow:0 12px 32px rgba(0,0,0,.45);opacity:0;transition:opacity .2s';
+      (document.body || document.documentElement).appendChild(el);
+    }
+    el.textContent = NOTICE;
+    clearTimeout(el._t);
+    requestAnimationFrame(function () { el.style.opacity = '1'; });
+    el._t = setTimeout(function () { el.style.opacity = '0'; }, 3200);
+  }
+  window.PRP_NOTICE = notice;
+
   // Relative API calls go to the live server (the bundle has no backend).
   var origFetch = window.fetch;
   if (typeof origFetch === 'function') {
     window.fetch = function (input, init) {
+      if (typeof input === 'string' && BLOCKED_API.test(input)) {
+        notice();
+        return Promise.resolve(new Response(JSON.stringify({ error: NOTICE, code: 'not_in_app' }),
+          { status: 403, headers: { 'Content-Type': 'application/json' } }));
+      }
       if (typeof input === 'string' && input.indexOf('/api') === 0) {
         input = ORIGIN + input;
       }
@@ -47,13 +77,17 @@
 
   // Pages that live only on the web are opened absolutely. iOS Capacitor cancels
   // top-level navigation to a non-app host and hands it to the system browser.
-  // Buying is NOT on this list: in the app every plan is sold through App Store
-  // In-App Purchase (checkout.html forwards to purchase.html; native-iap.js).
-  var EXTERNAL = ['/book.html', '/book', '/policies.html', '/privacy.html',
-                  '/score-report.html', '/accessibility.html'];
-  // Set before Stripe's Customer Portal opens in Safari (website subscriptions),
-  // so the app reloads the updated plan when the person comes back.
-  var FLAG = 'prp_checkout_opened';
+  // Nothing billing-related is on this list.
+  var EXTERNAL = ['/policies.html', '/privacy.html', '/score-report.html', '/accessibility.html'];
+  // Purchase pages and pricing anchors: not bundled, not opened anywhere else.
+  // A tap shows the neutral notice and stays on the page.
+  var BLOCKED = ['/checkout.html', '/purchase.html', '/nce-study-guide.html', '/book.html', '/book'];
+  function blocked(u) {
+    return BLOCKED.indexOf(u.pathname) !== -1 || u.hash === '#pricing';
+  }
+  window.PRP_BLOCKED = function (href) {
+    try { return blocked(new URL(href, location.href)); } catch (err) { return false; }
+  };
 
   document.addEventListener('click', function (e) {
     var el = e.target;
@@ -62,18 +96,9 @@
     var u;
     try { u = new URL(el.getAttribute('href'), location.href); } catch (err) { return; }
     if (u.origin !== location.origin) return;
+    if (blocked(u)) { e.preventDefault(); e.stopPropagation(); notice(); return; }
     if (EXTERNAL.indexOf(u.pathname) === -1) return;
     e.preventDefault();
     window.location.href = ORIGIN + u.pathname + u.search + u.hash;
   }, true);
-
-  // Coming back from the Stripe portal: reload so the updated plan is picked up.
-  document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState !== 'visible') return;
-    var opened = false;
-    try { opened = sessionStorage.getItem(FLAG) === '1'; } catch (err) {}
-    if (!opened) return;
-    try { sessionStorage.removeItem(FLAG); } catch (err) {}
-    location.reload();
-  });
 })();

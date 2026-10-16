@@ -49,6 +49,8 @@
   <p class="lead">Learn how to <strong>approach every NCMHCE vignette</strong> — a repeatable way to read a case, rule in the diagnosis, decide what to assess, and choose the next best step. Now expanded: all 18 diagnostic families <strong>plus 3 full-length practice exams</strong> — 33 clinical cases and 429 scored questions with complete answer keys and rationales.</p>
 
   <div class="card" id="buyCard">
+    <!-- prp-web-only: the iOS app sells nothing; the card fills in only for owners (showOwned) -->
+    <!-- prp-web-only -->
     <div class="price">$25 <small>· one-time · lifetime access to your copy</small></div>
     <ul>
       <li>Learn how to approach each vignette — a repeatable way to work any case</li>
@@ -61,6 +63,7 @@
     <button class="btn" id="buyBtn">Buy the study guide — $25</button>
     <div class="msg" id="msg"></div>
     <p class="note">Your download is personalized and licensed to your account. Also available as a Kindle ebook on Amazon.</p>
+    <!-- /prp-web-only -->
   </div>
 </div>
 
@@ -95,7 +98,8 @@
     };
   }
 
-  buyBtn.onclick = function(){
+  // No buy button in the iOS app (the card is empty until ownership is confirmed).
+  if (buyBtn) buyBtn.onclick = function(){
     if (!token){ msg.innerHTML = 'Please <a href="/register.html">sign in or create an account</a> first \u2014 your guide is tied to your account.'; return; }
     buyBtn.disabled = true; msg.textContent = 'Redirecting to secure checkout\u2026';
     fetch('/api/payment/create-checkout-session', {

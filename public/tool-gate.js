@@ -51,13 +51,17 @@
       var next = encodeURIComponent(location.pathname + location.search);
       var about = document.querySelector('.wrap > .tool-about');
       var hTag = about ? 'h2' : 'h1'; // preview keeps the page's own <h1>
+      // iOS app (window.PRP_NATIVE): nothing is sold or linked to, so a shut
+      // gate states the fact and offers no plan, trial or checkout.
+      var app = !!window.PRP_NATIVE;
       var g = level === 'gated'
         ? { title: 'Your access is paused', body: 'Submit your score report to restore access to ' + TOOL + '.', href: '/score-report.html', cta: 'Submit score report ›' }
         : level === 'expired'
-        ? { title: 'Your free trial has ended', body: 'Subscribe to keep using ' + TOOL + ' and every other NCMHCE study tool.', href: '/checkout.html?tier=monthly', cta: 'Subscribe ›' }
+        ? (app ? { title: 'Not included in your account', body: TOOL + ' is not part of your current account.' }
+               : { title: 'Your free trial has ended', body: 'Subscribe to keep using ' + TOOL + ' and every other NCMHCE study tool.', href: '/checkout.html?tier=monthly', cta: 'Subscribe ›' })
         : level === 'signin'
         ? { title: 'Sign in to continue', body: 'You were signed out. Sign in to keep using ' + TOOL + '.', href: '/register.html?tab=login&next=' + next, cta: 'Sign in ›' }
-        : { title: 'Start your free trial', body: 'Create a free account to start your free trial of ' + TOOL + ' and every other NCMHCE study tool.', href: '/register.html?next=' + next, cta: 'Create an account ›', alt: true };
+        : { title: app ? 'Create a free account' : 'Start your free trial', body: app ? 'Create a free account to use ' + TOOL + '.' : 'Create a free account to start your free trial of ' + TOOL + ' and every other NCMHCE study tool.', href: '/register.html?next=' + next, cta: 'Create an account ›', alt: true };
       var box = document.createElement('div');
       box.id = 'prp-gate';
       box.setAttribute('role', 'region');
@@ -70,7 +74,7 @@
           '<div style="margin-bottom:12px"><span style="display:inline-block;font-size:12px;font-weight:700;color:#FBBF24;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3);border-radius:999px;padding:3px 10px">🔒 ' + esc(TOOL) + '</span></div>' +
           '<' + hTag + ' tabindex="-1" style="font-size:22px;margin:0 0 8px;color:#F8FAFC">' + esc(g.title) + '</' + hTag + '>' +
           '<p style="margin:0 auto 18px;max-width:440px;color:#94A3B8">' + esc(g.body) + '</p>' +
-          '<a href="' + g.href + '" style="display:inline-block;background:#10B981;color:#04261C;font-weight:700;text-decoration:none;border-radius:10px;padding:12px 22px">' + esc(g.cta) + '</a>' +
+          (g.href ? '<a href="' + g.href + '" style="display:inline-block;background:#10B981;color:#04261C;font-weight:700;text-decoration:none;border-radius:10px;padding:12px 22px">' + esc(g.cta) + '</a>' : '') +
           (g.alt ? '<p style="margin:14px 0 0;font-size:14px;color:#94A3B8">Already have an account? <a href="/register.html?tab=login&next=' + next + '" style="color:#34D399">Sign in</a></p>' : '') +
         '</div>';
       if (about) {

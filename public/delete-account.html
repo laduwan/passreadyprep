@@ -148,8 +148,7 @@
   cb.addEventListener('change', syncBtn);
 
   // Stripe's hosted Customer Portal: the person cancels there themselves.
-  // In the iOS app this opens in Safari; the prp_checkout_opened flag makes the
-  // app reload when they come back (native-shim.js).
+  // Website only — the iOS app names the website instead (no link).
   async function openPortal(link){
     if (link) link.textContent = 'Opening…';
     try {
@@ -184,7 +183,9 @@
       }
       let msg = data.error || 'Could not delete your account. Please try again.';
       if (data.code === 'active_subscription') {
-        msg += ' <a href="#" onclick="openPortal(this);return false">Manage subscription</a> to cancel it, or email <a href="mailto:support@passreadyprep.com?subject=Cancel%20my%20subscription">support@passreadyprep.com</a>.';
+        msg += window.PRP_NATIVE
+          ? ' Cancel it from your account on passreadyprep.com, or email <a href="mailto:support@passreadyprep.com?subject=Cancel%20my%20subscription">support@passreadyprep.com</a>.'
+          : ' <a href="#" onclick="openPortal(this);return false">Manage subscription</a> to cancel it, or email <a href="mailto:support@passreadyprep.com?subject=Cancel%20my%20subscription">support@passreadyprep.com</a>.';
       }
       showErr(msg);
     } catch(_) {
