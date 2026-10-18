@@ -1,7 +1,8 @@
 // ============================================================================
 // Mailer — transactional email via Resend (https://resend.com/docs/api-reference),
-// with Brevo kept as a fallback during the switch-over, and SMS via Brevo
-// (Resend has no SMS). Uses global fetch (Node 18+), so it adds no dependencies.
+// with Brevo kept as a fallback during the switch-over. SMS goes via Twilio when
+// its credentials are set, otherwise Brevo. Uses global fetch (Node 18+), so it
+// adds no dependencies.
 //
 // Configure with environment variables:
 //   PRP_RESEND_API_KEY — PRP's Resend API key (re_xxx). When set, all email goes
@@ -9,7 +10,10 @@
 //                        is CounselorReady's key (jobs/broadcast-prp-crosspromo.js).
 //                        routes/inboundEmail.js uses this key too.
 //   BREVO_API_KEY      — used for email only while PRP_RESEND_API_KEY is unset,
-//                        and always for SMS alerts.
+//                        and for SMS only while Twilio is not configured.
+//   TWILIO_ACCOUNT_SID + TWILIO_AUTH_TOKEN, plus TWILIO_FROM or
+//                        TWILIO_MESSAGING_SERVICE_SID — when set, all SMS goes
+//                        through Twilio (see sendSms below).
 //   MAIL_FROM_EMAIL    — the sender address, on a domain verified in Resend,
 //                        e.g. noreply@passreadyprep.com
 //   MAIL_FROM_NAME     — display name, e.g. "PassReady Prep"
@@ -130,23 +134,71 @@ async function sendViaBrevo({ apiKey, fromEmail, fromName, to, subject, html, te
 
 module.exports = { sendMail, sendSms };
 
-// Transactional SMS via Brevo. Requires SMS credits and a registered sender.
-//   BREVO_API_KEY  — same key as email
-//   SMS_SENDER     — up to 11 alphanumeric chars shown as the sender (default "PassReady")
-// `to` must be international format without '+', e.g. 15551234567.
-// If not configured, logs instead of sending (so nothing errors during setup).
+// Transactional SMS. Prefers Twilio when its credentials are set, with Brevo
+// as a fallback (mirrors how email prefers Resend over Brevo).
+//   Twilio: TWILIO_ACCOUNT_SID + TWILIO_AUTH_TOKEN, and a sender — either
+//           TWILIO_FROM (an SMS-enabled number in E.164, e.g. +15551234567)
+//           or TWILIO_MESSAGING_SERVICE_SID.
+//   Brevo:  BREVO_API_KEY + SMS_SENDER (up to 11 chars, default "PassReady").
+// `to` may be given with or without a leading '+': it is normalized to E.164
+// for Twilio and stripped of any '+' for Brevo, so one ADMIN_ALERT_SMS_TO value
+// works for either. If no provider is configured, logs instead of sending (so
+// nothing errors during setup).
 async function sendSms({ to, text }) {
-  const apiKey = process.env.BREVO_API_KEY;
-  const sender = (process.env.SMS_SENDER || 'PassReady').slice(0, 11);
+  const twilioReady = !!(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN &&
+    (process.env.TWILIO_FROM || process.env.TWILIO_MESSAGING_SERVICE_SID));
+  const brevoKey = process.env.BREVO_API_KEY;
 
-  if (!apiKey || !to) {
-    console.log('[mailer] SMS not sent (missing BREVO_API_KEY or recipient). Would send to', to, ':', text);
+  if ((!twilioReady && !brevoKey) || !to) {
+    console.log('[mailer] SMS not sent (no SMS provider configured or no recipient). Would send to', to, ':', text);
     return { ok: true, dev: true };
   }
   if (typeof fetch !== 'function') {
     console.error('[mailer] global fetch unavailable (needs Node 18+). SMS not sent.');
     return { ok: false, error: 'fetch unavailable' };
   }
+  return twilioReady ? sendSmsViaTwilio({ to, text }) : sendSmsViaBrevo({ to, text });
+}
+
+// E.164: digits with a single leading '+'. Accepts "15551234567" or "+1555…".
+function toE164(n) {
+  const s = String(n == null ? '' : n).replace(/[^\d+]/g, '');
+  return s.startsWith('+') ? s : '+' + s;
+}
+
+async function sendSmsViaTwilio({ to, text }) {
+  const sid = process.env.TWILIO_ACCOUNT_SID;
+  const token = process.env.TWILIO_AUTH_TOKEN;
+  const params = new URLSearchParams();
+  params.set('To', toE164(to));
+  if (process.env.TWILIO_FROM) params.set('From', process.env.TWILIO_FROM);
+  else params.set('MessagingServiceSid', process.env.TWILIO_MESSAGING_SERVICE_SID);
+  params.set('Body', String(text || '').slice(0, 300));
+  try {
+    const res = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${encodeURIComponent(sid)}/Messages.json`, {
+      method: 'POST',
+      headers: {
+        Authorization: 'Basic ' + Buffer.from(`${sid}:${token}`).toString('base64'),
+        'content-type': 'application/x-www-form-urlencoded',
+        accept: 'application/json',
+      },
+      body: params.toString(),
+    });
+    if (!res.ok) {
+      const detail = await res.text().catch(() => '');
+      console.error('[mailer] Twilio SMS error', res.status, detail.slice(0, 300));
+      return { ok: false, status: res.status };
+    }
+    return { ok: true };
+  } catch (err) {
+    console.error('[mailer] Twilio SMS send failed:', err.message);
+    return { ok: false, error: err.message };
+  }
+}
+
+async function sendSmsViaBrevo({ to, text }) {
+  const apiKey = process.env.BREVO_API_KEY;
+  const sender = (process.env.SMS_SENDER || 'PassReady').slice(0, 11);
   try {
     const res = await fetch(BREVO_SMS_ENDPOINT, {
       method: 'POST',
@@ -154,7 +206,7 @@ async function sendSms({ to, text }) {
       body: JSON.stringify({
         type: 'transactional',
         sender,
-        recipient: String(to),
+        recipient: String(to).replace(/^\+/, ''), // Brevo wants no leading '+'
         content: String(text || '').slice(0, 300),
       }),
     });

@@ -8,6 +8,9 @@
 // Env vars:
 //   ADMIN_ALERT_EMAIL     — where alerts go (falls back to MAIL_FROM_EMAIL)
 //   ADMIN_ALERT_SMS_TO    — optional phone in intl format (e.g. 15551234567) for SMS alerts
+//   ADMIN_ALERT_SMS_EVENTS — comma list of event types that also send SMS. Unset =
+//                            SMS follows email. Set = only these types text, so a
+//                            signup can text you without errors paging your phone.
 //   ADMIN_ALERT_EVENTS    — comma list of event types to alert on (overrides the default set)
 //   ADMIN_ALERT_DISABLE   — set to 1 to silence all alerts (events are still logged)
 //   ADMIN_ALERT_THROTTLE_MIN — minutes between alerts of the same kind (default 10)
@@ -55,6 +58,26 @@ function decideNotify(ev) {
   if (typeof ev.notify === 'boolean') return ev.notify;
   if (ev.severity === 'error') return true;
   return notifyTypes().includes(ev.type);
+}
+
+// SMS can be scoped to a subset of event types via ADMIN_ALERT_SMS_EVENTS
+// (comma list). When unset, SMS follows email: any event that emails also
+// texts (unchanged behavior). When set, only the listed types text — so you
+// can get an SMS for a new signup without being paged by every server error.
+// Email is never affected by this. Errors text only if their type is listed
+// (http.error, server.error, server.unhandledRejection, server.uncaughtException).
+function smsTypes() {
+  if (process.env.ADMIN_ALERT_SMS_EVENTS) {
+    const list = process.env.ADMIN_ALERT_SMS_EVENTS.split(',').map((s) => s.trim()).filter(Boolean);
+    return list.length ? list : null; // set-but-empty (e.g. whitespace) → treat as unset
+  }
+  return null;
+}
+
+function decideSms(doc) {
+  const list = smsTypes();
+  if (!list) return true; // not configured → text whatever we email (back-compat)
+  return list.includes(doc.type);
 }
 
 function safeJson(v) {
@@ -130,7 +153,7 @@ async function notifyAdmin(doc, saved) {
 
   const results = [];
   if (to) results.push(await sendMail({ to, subject, html, text }));
-  if (smsTo) results.push(await sendSms({ to: smsTo, text: subject + (doc.message ? ' — ' + doc.message : '') }));
+  if (smsTo && decideSms(doc)) results.push(await sendSms({ to: smsTo, text: subject + (doc.message ? ' — ' + doc.message : '') }));
 
   // Only mark "alerted" when something actually went out — a rejected send or
   // no email key set (dev log-only mode) must not look like a sent alert.
