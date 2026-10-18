@@ -275,7 +275,21 @@ a.choice{text-decoration:none}
     </div>
   </header>
 
-  <div id="stage"></div>
+  <div id="stage">
+    <!-- Static hero: what visitors and search engines see before the NCE
+         status loads (and if it fails). renderHome() replaces it. -->
+    <div class="hero">
+      <div class="hero-body">
+        <div class="eyebrow"><span class="dot"></span>NCE study</div>
+        <h1>NCE Practice Questions &amp; Mock Exams</h1>
+        <p class="lead">Practice questions and full-length timed mock exams for the National Counselor Examination, weighted to NBCC&rsquo;s six content domains, with a readiness score that tracks every domain.</p>
+        <div class="hero-cta">
+          <a class="btn" id="hero-start" href="/register.html?next=/nce.html">Start free</a>
+          <a class="btn btn-s" href="#tool-about-h">What the NCE covers</a>
+        </div>
+      </div>
+    </div>
+  </div>
   <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
     <h2 id="tool-about-h">NCE practice questions: what the exam covers</h2>
     <p class="lead">The National Counselor Examination (NCE) is NBCC&rsquo;s 200-question, multiple-choice exam used for the National Certified Counselor credential and, in many states, for counselor licensure. You have 3 hours 45 minutes. NBCC scores 160 of the 200 items; the rest are unscored pretest questions you cannot identify, so treat every question as if it counts.</p>
@@ -333,7 +347,7 @@ a.choice{text-decoration:none}
   var timerProg = document.getElementById('timer-prog');
   var timerIv = null, timerSecs = 0;
 
-  if (TOKEN) document.getElementById('signin-link').classList.add('hidden');
+  if (TOKEN) { document.getElementById('signin-link').classList.add('hidden'); document.getElementById('hero-start').classList.add('hidden'); }
 
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
   function pct(c,t){ return t ? Math.round(100*c/t) : null; }
@@ -416,10 +430,11 @@ a.choice{text-decoration:none}
       '<div class="ring" style="--p:'+(r ? r.score : 0)+';--c:'+ringC+'"><div><b>'+(r ? r.score+'%' : '—')+'</b><span>Readiness</span></div></div>'+
       '<div class="hero-body">'+
         '<div class="eyebrow"><span class="dot"></span>'+eyebrow+'</div>'+
-        '<h1>NCE Study</h1>'+
+        '<h1>NCE Practice Questions &amp; Mock Exams</h1>'+
         '<p class="lead">'+lead+'</p>'+
         '<div class="hero-cta">'+
-          (focus ? '<button class="btn" id="go-focus">Practice '+esc(focus.d.short || focus.d.label)+'</button>' : '')+
+          (!TOKEN ? '<a class="btn" href="/register.html?next=/nce.html">Start free</a>' : '')+
+          (focus ? '<button class="btn'+(TOKEN ? '' : ' btn-s')+'" id="go-focus">Practice '+esc(focus.d.short || focus.d.label)+'</button>' : '')+
           '<button class="btn btn-s" id="go-mock2">Take a mock exam</button>'+
         '</div>'+
         (r && r.score >= 85 ? '<p class="hero-fine"><a href="/resume.html">You are exam ready. Build your résumé →</a></p>' : '')+
@@ -869,7 +884,11 @@ a.choice{text-decoration:none}
       stage.insertAdjacentHTML('afterbegin', '<div class="banner ok">Payment received. Your NCE plan is being activated. This page refreshes in a moment.</div>');
       setTimeout(function(){ loadAll().then(renderHome); }, 3000); // give the webhook a moment
     }
-  }).catch(function(e){ stage.innerHTML = '<div class="card">Could not load NCE study: '+esc(e.message)+'</div>'; });
+  }).catch(function(e){
+    // Keep the static hero and page copy; just say the live part didn't load.
+    console.warn('Could not load NCE study', e.message);
+    stage.insertAdjacentHTML('afterbegin', '<div class="banner warn" role="status">Your NCE progress couldn&rsquo;t load right now. Refresh the page to try again.</div>');
+  });
 })();
 </script>
 </body>
