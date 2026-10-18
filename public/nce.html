@@ -433,7 +433,8 @@ a.choice{text-decoration:none}
         '<h1>NCE Practice Questions &amp; Mock Exams</h1>'+
         '<p class="lead">'+lead+'</p>'+
         '<div class="hero-cta">'+
-          (focus ? '<button class="btn" id="go-focus">Practice '+esc(focus.d.short || focus.d.label)+'</button>' : '')+
+          (!TOKEN ? '<a class="btn" href="/register.html?next=/nce.html">Start free</a>' : '')+
+          (focus ? '<button class="btn'+(TOKEN ? '' : ' btn-s')+'" id="go-focus">Practice '+esc(focus.d.short || focus.d.label)+'</button>' : '')+
           '<button class="btn btn-s" id="go-mock2">Take a mock exam</button>'+
         '</div>'+
         (r && r.score >= 85 ? '<p class="hero-fine"><a href="/resume.html">You are exam ready. Build your résumé →</a></p>' : '')+
