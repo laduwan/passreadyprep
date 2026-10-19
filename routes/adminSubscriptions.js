@@ -18,7 +18,7 @@ function getStripe() {
   return _stripe;
 }
 
-const TIER_PRICES = { monthly: 29, pass3: 79, guarantee: 149 }; // USD, matches TIERS config in payment.js
+const TIER_PRICES = { monthly: 29, pass3: 79, guarantee: 249 }; // USD, matches TIERS config in payment.js
 
 // GET /api/admin-subscriptions?q=&tier=&status=&limit=50
 router.get('/', async (req, res) => {

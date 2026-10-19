@@ -8,7 +8,7 @@
  *   free       — default, no payment required
  *   monthly    — $29/mo recurring (Stripe subscription)
  *   pass3      — $79 one-time, 3 months access
- *   guarantee  — $149 one-time, access until passing
+ *   guarantee  — $249 one-time, access until passing (bundles NCMHCE study guide)
  *   test       — $1.00 one-time, admin-only live-payment smoke test (grants nothing)
  *   nce_monthly / nce_pass3 / nce_pass6 — NCE plans, written to User.nceAccess
  *   nce_guarantee — NCE Pass Guarantee, same rules as `guarantee`, written to
@@ -19,7 +19,7 @@
  *   STRIPE_WEBHOOK_SECRET   — whsec_xxx  (from Stripe dashboard → Webhooks)
  *   STRIPE_PRICE_MONTHLY    — price_xxx  (monthly $29 recurring price ID)
  *   STRIPE_PRICE_PASS3      — price_xxx  (3-month $79 one-time price ID)
- *   STRIPE_PRICE_GUARANTEE  — price_xxx  ($149 one-time price ID)
+ *   STRIPE_PRICE_GUARANTEE  — price_xxx  ($249 one-time price ID — update in Stripe to match)
  *   STRIPE_PRICE_NCE_MONTHLY — price_xxx (NCE monthly $24.99 recurring)
  *   STRIPE_PRICE_NCE_PASS3   — price_xxx (NCE 3-month $59 one-time)
  *   STRIPE_PRICE_NCE_PASS6   — price_xxx (NCE 6-month $89 one-time)
@@ -109,6 +109,9 @@ const TIERS = {
     // This isn't a payment gate — it's proof that one real person is using
     // one account to prepare for one NCMHCE. Extensions are free and unlimited.
     accessDays: 180,
+    // Bundles the NCMHCE study guide as part of the Pass Guarantee purchase;
+    // the webhook also grants `guidePurchasedAt` so the buyer can download it.
+    bundleGuide: 'ncmhce',
   },
   guide: {
     priceId: () => process.env.STRIPE_PRICE_GUIDE,
@@ -157,6 +160,9 @@ const TIERS = {
     exam: 'nce',
     guarantee: true,
     accessDays: 180,
+    // Bundles the NCE study guide ("The NCE Ownership Method") as part of the
+    // Pass Guarantee purchase; the webhook also grants `guideNcePurchasedAt`.
+    bundleGuide: 'nce',
   },
   // $1.00 test purchase for verifying the live Stripe flow end to end
   // (checkout → webhook → activity log). Priced inline so it needs no
@@ -429,14 +435,21 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
           const cur = u && u.nceAccess && u.nceAccess.currentPeriodEnd;
           const from = cur && cur > new Date() ? cur.getTime() : Date.now();
           const nceEnd = new Date(from + tierConfig.accessDays * 24 * 60 * 60 * 1000);
-          await User.findByIdAndUpdate(userId, {
+          const nceUpdate = {
             'nceAccess.tier': tier,
             'nceAccess.status': 'active',
             'nceAccess.currentPeriodEnd': nceEnd,
             'nceAccess.lastPaymentIntentId': session.payment_intent,
-          });
-          console.log(`✓ NCE one-time payment: user ${userId} → ${tier}, expires ${nceEnd}`);
-          logActivity({ type: 'payment.succeeded', severity: 'info', userId, email: session.customer_details?.email, message: `Purchased ${tier}`, meta: { tier, expires: nceEnd, amount: session.amount_total, currency: session.currency }, req });
+          };
+          // Pass Guarantee bundles the matching study guide; grant the
+          // entitlement so the buyer can download it from /nce-study-guide.html.
+          if (tierConfig.bundleGuide === 'nce') {
+            nceUpdate.guideNcePurchasedAt = new Date();
+            nceUpdate.guideNceOrderId = session.id;
+          }
+          await User.findByIdAndUpdate(userId, nceUpdate);
+          console.log(`✓ NCE one-time payment: user ${userId} → ${tier}, expires ${nceEnd}${tierConfig.bundleGuide ? ' (+ bundled guide)' : ''}`);
+          logActivity({ type: 'payment.succeeded', severity: 'info', userId, email: session.customer_details?.email, message: `Purchased ${tier}`, meta: { tier, expires: nceEnd, amount: session.amount_total, currency: session.currency, bundledGuide: tierConfig.bundleGuide || null }, req });
           break;
         }
 
@@ -445,15 +458,22 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
           ? new Date(Date.now() + accessDays * 24 * 60 * 60 * 1000)
           : null; // null = never expires (guarantee tier)
 
-        await User.findByIdAndUpdate(userId, {
+        const subUpdate = {
           'subscription.tier': tier,
           'subscription.status': 'active',
           'subscription.currentPeriodEnd': periodEnd,
           'subscription.lastPaymentIntentId': session.payment_intent,
-        });
+        };
+        // Pass Guarantee bundles the NCMHCE study guide; grant the entitlement
+        // so the buyer can download it from /study-guide.html.
+        if (tierConfig.bundleGuide === 'ncmhce') {
+          subUpdate.guidePurchasedAt = new Date();
+          subUpdate.guideOrderId = session.id;
+        }
+        await User.findByIdAndUpdate(userId, subUpdate);
 
-        console.log(`✓ One-time payment: user ${userId} → tier "${tier}", expires ${periodEnd || 'never'}`);
-        logActivity({ type: 'payment.succeeded', severity: 'info', userId, email: session.customer_details?.email, message: `Purchased ${tier}`, meta: { tier, expires: periodEnd, amount: session.amount_total, currency: session.currency }, req });
+        console.log(`✓ One-time payment: user ${userId} → tier "${tier}", expires ${periodEnd || 'never'}${tierConfig.bundleGuide ? ' (+ bundled guide)' : ''}`);
+        logActivity({ type: 'payment.succeeded', severity: 'info', userId, email: session.customer_details?.email, message: `Purchased ${tier}`, meta: { tier, expires: periodEnd, amount: session.amount_total, currency: session.currency, bundledGuide: tierConfig.bundleGuide || null }, req });
         break;
       }
 
@@ -674,10 +694,25 @@ router.post('/score-report', requireAuth, async (req, res) => {
     });
     await user.save();
 
+    // Admin alert on every submission so review can land inside the 48-hour
+    // SLA. notify:true forces email/SMS regardless of ADMIN_ALERT_EVENTS; SMS
+    // fires when ADMIN_ALERT_SMS_TO is set and the event matches
+    // ADMIN_ALERT_SMS_EVENTS (or that env is unset — SMS then mirrors email).
+    logActivity({
+      type: 'guarantee.score_report_submitted',
+      severity: 'info',
+      notify: true,
+      userId: user._id,
+      email: user.email,
+      message: `${g.name} ${result === 'scheduled' ? 'retest appointment' : result === 'fail' ? 'non-pass result' : 'pass result'} submitted — review in /admin/score-reports`,
+      meta: { exam: g.exam, result, examDate, extensionCount: (prev && prev.extensionCount) || 0 },
+      req,
+    });
+
     res.json({
       ok: true,
       retakePlan,
-      message: 'Score report submitted — we\'ll review it within 1 business day.',
+      message: 'Score report submitted — we\'ll review it within 48 hours.',
     });
   } catch (err) {
     console.error('score-report submit error:', err);
@@ -726,9 +761,12 @@ router.get('/score-report-status', requireAuth, async (req, res) => {
         submittedAt: sr.submittedAt || null,
         extensionCount: sr.extensionCount || 0,
       },
-      // The key flag: is the gate currently blocking access? An approved
+      // The key flag: is the gate currently blocking access? A 'pending'
+      // check-in (fail letter or retest appointment uploaded, awaiting admin
+      // review) counts as checked in — the gate releases immediately so the
+      // member isn't locked out while admin review runs. An approved
       // extension only lasts until the new currentPeriodEnd.
-      gated: sub.tier === g.tier && !!expired && sr.status !== 'passed',
+      gated: sub.tier === g.tier && !!expired && sr.status !== 'passed' && sr.status !== 'pending',
       // Any guarantee holder can report a result (within 14 days of the exam),
       // not only one whose access is currently paused.
       eligible: sub.tier === g.tier && sr.status !== 'passed' && !isForfeited(sr),
