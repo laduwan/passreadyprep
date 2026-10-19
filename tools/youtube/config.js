@@ -27,13 +27,13 @@ const FULL_CASE_SUBJECTS = {
 // Exact titles for single videos, by key (case code + part, e.g. "D140-P2",
 // or case code + question, e.g. "G134-q5"). These win over everything else.
 const TITLE_OVERRIDES = {
-  'G134-q5': "NCMHCE Practice: What's the Best Formulation? | Grief & Historical Trauma",
-  'G037-q1': 'NCMHCE Practice: What Do You Assess NEXT? | Combat Veteran with PTSD',
-  'G102-q3': 'NCMHCE Practice: What Do You Do FIRST? | Suicide Risk in an Older Adult',
-  'G125-q3': "NCMHCE Practice: What Do You Assess NEXT? | Depression That Won't Lift",
-  'D248-q1': 'NCMHCE Practice: What Do You Do FIRST? | Night Shifts & Drowsy Driving',
-  'D215-q1': 'NCMHCE Practice: What Do You Do FIRST? | Train Operator After a Fatality',
-  'G185-q3': 'NCMHCE Practice: What Do You Do FIRST? | College Student in Crisis',
+  'G134-q5': "NCMHCE Practice: What's the best formulation? | Grief & Historical Trauma",
+  'G037-q1': 'NCMHCE Practice: What do you assess NEXT? | Combat Veteran with PTSD',
+  'G102-q3': 'NCMHCE Practice: What do you do FIRST? | Suicide Risk in an Older Adult',
+  'G125-q3': "NCMHCE Practice: What do you assess NEXT? | Depression That Won't Lift",
+  'D248-q1': 'NCMHCE Practice: What do you do FIRST? | Night Shifts & Drowsy Driving',
+  'D215-q1': 'NCMHCE Practice: What do you do FIRST? | Train Operator After a Fatality',
+  'G185-q3': 'NCMHCE Practice: What do you do FIRST? | College Student in Crisis',
 };
 
 module.exports = { PLAYLISTS, FULL_CASE_SUBJECTS, TITLE_OVERRIDES };

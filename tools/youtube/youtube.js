@@ -76,7 +76,7 @@ function parseName(name) {
   rest = rest.replace(/^[\s·.:]+/, '').trim();
   const truncated = /(…|\.\.\.)$/.test(rest);
   let subject = rest
-    .replace(/^NCMHCE (Full Case( Walkthrough)?|Case Walkthrough Mini|Practice)\s*:\s*/i, '')
+    .replace(/^NCMHCE (Full Case( Walkthrough)?|Case Walkthrough\s*\(?Mini\)?|Practice)\s*:\s*/i, '')
     .replace(/\s*\|?\s*Part\s*\d?(\s*of\s*\d)?\s*$/i, '')
     .replace(/(…|\.\.\.)$/, '')
     .trim();
@@ -109,7 +109,14 @@ function analyse(videos) {
   const byKey = new Map();
   const unmatched = [];
   for (const v of videos) {
-    const p = parseName(v.fileName) || parseName(v.title);
+    const fromFile = parseName(v.fileName), fromTitle = parseName(v.title);
+    const p = fromFile || fromTitle;
+    if (fromFile && fromTitle) {
+      // The title says one case but the uploaded file is another: flag it, don't rename.
+      if (fromFile.code !== fromTitle.code) v.mismatch = fromTitle.code;
+      // File names sometimes leave out "Part N"; the title may still have it.
+      else if (!fromFile.part && fromTitle.part) p.part = fromTitle.part;
+    }
     if (!p) { unmatched.push(v); continue; }
     v.series = p;
     v.key = keyOf(p);
@@ -329,7 +336,8 @@ async function loadChannel() {
   if (!ch.items?.length) die('This Google account has no YouTube channel. Sign in with the channel account: run auth again.');
   console.log(`Channel: ${ch.items[0].snippet.title}`);
   const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
-  const ids = (await listAll('playlistItems', { part: 'contentDetails', playlistId: uploads })).map(i => i.contentDetails.videoId);
+  // The uploads list can return the same video more than once; count each video once.
+  const ids = [...new Set((await listAll('playlistItems', { part: 'contentDetails', playlistId: uploads })).map(i => i.contentDetails.videoId))];
 
   const videos = [];
   for (let i = 0; i < ids.length; i += 50) {
@@ -395,7 +403,8 @@ async function fix(args) {
     const snippet = v.raw.snippet;
     const title = wantedTitle(v.series);
     let newTitle = snippet.title, newDesc = snippet.description || '';
-    if (!title) notes.push('title left as is (file name was cut off; add it to TITLE_OVERRIDES in config.js)');
+    if (v.mismatch) notes.push(`⚠ title left as is: the title says ${v.mismatch} but the uploaded file is ${v.series.code}. Check this video in Studio.`);
+    else if (!title) notes.push('title left as is (file name was cut off; add it to TITLE_OVERRIDES in config.js)');
     else if (title.length > TITLE_MAX) notes.push(`title left as is (new one is ${title.length} characters, YouTube allows ${TITLE_MAX})`);
     else if (title !== snippet.title) { newTitle = title; notes.push(`title: "${snippet.title}"\n             → "${title}"`); }
     if (v.partners) {
@@ -439,7 +448,7 @@ async function fix(args) {
 
   // 3. Playlists, in series order
   for (const [kind, plTitle] of Object.entries(PLAYLISTS)) {
-    const wanted = mains.filter(v => v.series.kind === kind).sort(seriesOrder);
+    const wanted = mains.filter(v => v.series.kind === kind && !v.mismatch).sort(seriesOrder);
     if (!wanted.length) continue;
     let pl = plByTitle.get(plTitle);
     const have = new Set((pl?.items || []).map(i => i.snippet.resourceId.videoId));
