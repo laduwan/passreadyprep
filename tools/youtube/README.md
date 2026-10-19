@@ -95,6 +95,28 @@ No sign-in yet? You can still get the report from a Studio analytics export:
 node tools/youtube/youtube.js report ~/Downloads/"Table data.csv"
 ```
 
+## Thumbnails
+
+`tools/youtube/thumbnails/` has one 1280×720 thumbnail per full-case part and
+mini, made from the upload sheets in the same look as the video opening frames.
+Practice questions are Shorts, so they don't get one: YouTube shows a frame from
+the video instead.
+
+```
+node tools/youtube/youtube.js thumbs          # preview
+node tools/youtube/youtube.js thumbs --yes    # upload
+```
+
+Each upload uses 50 of the 10,000 daily units. Re-runs skip thumbnails already
+uploaded. Custom thumbnails need a phone-verified channel (Studio → Settings →
+Channel → Feature eligibility).
+
+To remake them after adding or changing sheets (needs `python3 -m pip install pillow`):
+
+```
+python3 tools/youtube/make-thumbnails.py
+```
+
 ## Changing titles
 
 Edit `config.js`:

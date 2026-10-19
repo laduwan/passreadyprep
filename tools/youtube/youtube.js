@@ -41,7 +41,7 @@ const API = 'https://www.googleapis.com/youtube/v3';
 const SCOPE = 'https://www.googleapis.com/auth/youtube';
 const TITLE_MAX = 100;
 // Shown on every run, so it's clear which version of the script ran.
-const VERSION = '2026-10-19d';
+const VERSION = '2026-10-19e';
 const LINK_LINE = /^▶ Part \d: https:\/\/youtu\.be\/\S+\s*$/;
 
 // ── Parsing: file name / title → series info ─────────────────────────────────
@@ -610,6 +610,53 @@ async function updateVideo(v, { title, description, privacy, tags }) {
   return false;
 }
 
+// ── Thumbnails ──────────────────────────────────────────────────────────────
+
+// Uploads tools/youtube/thumbnails/<key>.jpg to the main copy of each video.
+// Remembers what it uploaded (by file contents) so re-runs only send new or changed images.
+async function thumbs(args) {
+  const apply = args.includes('--yes');
+  const dir = path.join(__dirname, 'thumbnails');
+  if (!fs.existsSync(dir)) die('No thumbnails yet. Run: python3 tools/youtube/make-thumbnails.py');
+  const doneFile = path.join(OUT_DIR, 'thumbnails-uploaded.json');
+  let done = {};
+  try { done = JSON.parse(fs.readFileSync(doneFile, 'utf8')); } catch {}
+  const { videos } = await loadChannel();
+  const { mains } = analyse(videos);
+  const byKey = new Map(mains.map(v => [v.key, v]));
+  console.log(apply ? 'Uploading thumbnails…\n' : 'Preview — nothing is uploaded until you add --yes\n');
+  let n = 0, failed = 0;
+  for (const f of fs.readdirSync(dir).filter(f => f.endsWith('.jpg')).sort()) {
+    const key = f.replace(/\.jpg$/, '');
+    const v = byKey.get(key) || (!/-P\d$/.test(key) ? byKey.get(key + '-P1') : null);
+    if (!v) { console.log(`${key.padEnd(9)} no matching video on the channel`); continue; }
+    const img = fs.readFileSync(path.join(dir, f));
+    const hash = crypto.createHash('sha1').update(img).digest('hex');
+    if (done[v.id] === hash) continue;
+    console.log(`${key.padEnd(9)} ${v.id}  ${apply ? 'uploading' : 'would upload'} ${f}`);
+    n++;
+    if (!apply) continue;
+    const res = await fetch(`https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=${v.id}`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${await getAccessToken()}`, 'Content-Type': 'image/jpeg' },
+      body: img,
+    });
+    quotaUsed += 50;
+    if (res.ok) { done[v.id] = hash; fs.mkdirSync(OUT_DIR, { recursive: true }); fs.writeFileSync(doneFile, JSON.stringify(done, null, 2)); continue; }
+    const j = await res.json().catch(() => ({}));
+    const reason = j.error?.errors?.[0]?.reason;
+    if (reason === 'quotaExceeded') die('YouTube daily limit reached. Run the same command again tomorrow; it skips thumbnails already uploaded.');
+    if (res.status === 403 && /permission|verif|forbidden/i.test(j.error?.message || '')) {
+      die(`YouTube won't take custom thumbnails yet: ${j.error.message}\nVerify the channel with a phone number: studio.youtube.com → Settings → Channel → Feature eligibility.`);
+    }
+    console.log(`           ✗ ${j.error?.message || res.status}${reason ? ` (${reason})` : ''}`);
+    failed++;
+  }
+  if (!n) console.log('All thumbnails are already uploaded.');
+  else if (!apply) console.log(`\n${n} thumbnail(s) to upload. Run again with --yes to upload them.`);
+  else console.log(`\nDone: ${n - failed} uploaded${failed ? `, ${failed} failed` : ''}. (YouTube quota used: about ${quotaUsed} of 10,000 for today.)`);
+}
+
 // ── CLI ─────────────────────────────────────────────────────────────────────
 
 function die(msg) { console.error(msg); process.exit(1); }
@@ -620,7 +667,8 @@ async function main() {
   if (cmd === 'scan') return scan();
   if (cmd === 'fix') return fix(args);
   if (cmd === 'report') return report(args[0]);
-  console.log('Commands: auth | scan | fix [--yes] [--visibility] | report "Table data.csv"\nSee tools/youtube/README.md');
+  if (cmd === 'thumbs') return thumbs(args);
+  console.log('Commands: auth | scan | fix [--sheets <folder>] [--yes] [--visibility] | thumbs [--yes] | report "Table data.csv"\nSee tools/youtube/README.md');
 }
 
 if (require.main === module) main().catch(e => die(e.message));
