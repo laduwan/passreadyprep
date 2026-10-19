@@ -314,7 +314,9 @@ async function yt(method, resource, params = {}, body, cost = 1) {
     const reason = j.error?.errors?.[0]?.reason;
     if (reason === 'quotaExceeded') die('YouTube daily limit reached. Run the same command again tomorrow; it picks up where it left off.');
     if (reason === 'youtubeSignupRequired' || res.status === 401) die('Google sign-in problem. Run: node tools/youtube/youtube.js auth');
-    throw new Error(`${method} ${resource}: ${j.error?.message || res.status}`);
+    const err = new Error(`${method} ${resource}: ${j.error?.message || res.status}${reason ? ` (${reason})` : ''}`);
+    err.status = res.status;
+    throw err;
   }
   return j;
 }
@@ -544,8 +546,10 @@ async function fix(args) {
   if (!changes) console.log('Everything already matches. Nothing to change.');
   else if (!apply) console.log(`\n${changes} change(s) shown. Run again with --yes to make them.`);
   else console.log(`\nDone: ${changes} change(s) made. (YouTube quota used: about ${quotaUsed} of 10,000 for today.)`);
+  if (apply && failedUpdates) console.log(`⚠ ${failedUpdates} video(s) could not be updated; see the ✗ lines above.`);
 }
 
+let failedUpdates = 0;
 async function updateVideo(v, { title, description, privacy, tags }) {
   const s = v.raw.snippet, st = v.raw.status;
   const snippet = { title, description, categoryId: s.categoryId };
@@ -554,7 +558,30 @@ async function updateVideo(v, { title, description, privacy, tags }) {
   const status = { privacyStatus: privacy };
   for (const k of ['embeddable', 'license', 'publicStatsViewable', 'selfDeclaredMadeForKids', 'containsSyntheticMedia']) if (st[k] !== undefined) status[k] = st[k];
   if (st.publishAt && privacy === 'private') status.publishAt = st.publishAt;
-  await yt('PUT', 'videos', { part: 'snippet,status' }, { id: v.id, snippet, status }, 50);
+  const statusChanged = privacy !== st.privacyStatus;
+  // YouTube's "metadata is invalid" doesn't say which field. Retry with less, and say what was dropped.
+  const attempts = [
+    { part: 'snippet,status', body: { id: v.id, snippet, status }, dropped: null },
+    ...(statusChanged ? [] : [{ part: 'snippet', body: { id: v.id, snippet }, dropped: null }]),
+    { part: statusChanged ? 'snippet,status' : 'snippet',
+      body: { id: v.id, snippet: { ...snippet, tags: (snippet.tags || []).filter(t => !/[@<>]/.test(t)) }, ...(statusChanged ? { status: { privacyStatus: privacy } } : {}) },
+      dropped: 'tags with @ < >, extra status settings' },
+    { part: 'snippet', body: { id: v.id, snippet: { ...snippet, tags: undefined } }, dropped: 'all tags' + (statusChanged ? ' and the visibility change' : '') },
+  ];
+  let lastErr;
+  for (const a of attempts) {
+    try {
+      await yt('PUT', 'videos', { part: a.part }, a.body, 50);
+      if (a.dropped) console.log(`           ⚠ saved without: ${a.dropped} (YouTube rejected the full update)`);
+      return true;
+    } catch (e) {
+      if (e.status !== 400) throw e;
+      lastErr = e;
+    }
+  }
+  console.log(`           ✗ YouTube rejected this video's update: ${lastErr.message}`);
+  failedUpdates++;
+  return false;
 }
 
 // ── CLI ─────────────────────────────────────────────────────────────────────
