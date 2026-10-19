@@ -388,12 +388,55 @@ function withPartLinks(description, partners) {
   return [...links, '', ...lines].join('\n').trimEnd();
 }
 
+// ── Upload sheets (the .txt files with TITLE / DESCRIPTION / Tags / Playlist) ──
+
+// Reads every upload sheet in a folder. Returns Map key → sheet, plus problems found.
+function loadSheets(folder) {
+  if (!fs.existsSync(folder) || !fs.statSync(folder).isDirectory()) die(`Not a folder: ${folder}`);
+  const sheets = new Map(), problems = [];
+  for (const f of fs.readdirSync(folder).filter(n => n.toLowerCase().endsWith('.txt'))) {
+    const lines = fs.readFileSync(path.join(folder, f), 'utf8').replace(/\r/g, '').split('\n');
+    const at = re => lines.findIndex(l => re.test(l));
+    const caseLine = lines.find(l => /^Case:/.test(l));
+    const cm = caseLine && caseLine.match(/^Case:\s*(\S+)(?:.*Upload order:\s*#(\d+))?/);
+    const code = cm && cm[1].match(/\b([DG]\d{3})\b/);
+    if (!code) { problems.push(`${f}: no "Case:" line with a case code, skipped`); continue; }
+    const id = cm[1];
+    const part = id.match(/part(\d)/i), q = id.match(/\bq(\d+)/i);
+    const series = { code: code[1], kind: /full/i.test(id) ? 'full' : /mini/i.test(id) ? 'mini' : 'practice',
+      part: part ? +part[1] : null, q: q ? +q[1] : null };
+    const ti = at(/^TITLE/), di = at(/^DESCRIPTION:/), end = lines.findIndex((l, i) => i > di && l.trim() === '---');
+    const title = ti >= 0 ? (lines.slice(ti + 1).find(l => l.trim()) || '').trim() : '';
+    const description = di >= 0 ? lines.slice(di + 1, end >= 0 ? end : undefined).join('\n').trim() : '';
+    const playlist = (lines.find(l => /^Playlist:/.test(l)) || '').replace(/^Playlist:\s*/, '').trim();
+    // A category like "Crisis, Risk, and Safety" has commas of its own; keep it one tag.
+    const category = playlist.split(': ').slice(1).join(': ');
+    let tagLine = (lines.find(l => /^Tags:/.test(l)) || '').replace(/^Tags:\s*/, '');
+    if (category.includes(',')) tagLine = tagLine.split(category).join(category.replace(/,/g, ''));
+    const tags = tagLine.split(',').map(t => t.trim()).filter(Boolean);
+    const sheet = { file: f, title, description, tags, playlist, order: cm[2] ? +cm[2] : null, problems: [] };
+    if (/…|\.\.\.\s*\(/.test(title)) sheet.problems.push('title is cut off ("…")');
+    if (title.length > TITLE_MAX) sheet.problems.push(`title is ${title.length} characters, YouTube allows ${TITLE_MAX}`);
+    if (description.split('\n').some(l => /^\s*[\[\]{}]\s*$/.test(l) || /\{\{|\bundefined\b/.test(l))) sheet.problems.push('description has a broken line (a lone "[" or similar)');
+    if (tags.join(',').length > 500) sheet.problems.push('tags are over 500 characters');
+    sheets.set(keyOf(series), sheet);
+  }
+  return { sheets, problems };
+}
+
 async function fix(args) {
   const apply = args.includes('--yes');
   const doVisibility = args.includes('--visibility');
   const { videos, plByTitle } = await loadChannel();
   const { mains, dupes } = analyse(videos);
   let changes = 0;
+  const si = args.indexOf('--sheets');
+  const { sheets, problems } = si >= 0 ? loadSheets(args[si + 1] || '') : { sheets: new Map(), problems: [] };
+  if (si >= 0) {
+    console.log(`Upload sheets: ${sheets.size} read from ${args[si + 1]}`);
+    problems.forEach(p => console.log(`  ⚠ ${p}`));
+    console.log('');
+  }
 
   console.log(apply ? 'Making changes…\n' : 'Preview — nothing is changed until you add --yes\n');
 
@@ -401,16 +444,33 @@ async function fix(args) {
   for (const v of [...mains].sort((a, b) => a.series.kind.localeCompare(b.series.kind) || seriesOrder(a, b))) {
     const notes = [];
     const snippet = v.raw.snippet;
-    const title = wantedTitle(v.series);
+    // A mini's sheet has no part number, even if an old title said "Part 1 of 2".
+    // The sheet matches the uploaded file, so it also settles a title that names the wrong case.
+    const sheet = sheets.get(v.key) || (v.series.kind !== 'full' ? sheets.get(v.series.code) : null);
+    v.sheet = sheet;
+    if (sheet) sheet.used = true;
+    v.playlist = sheet?.playlist || PLAYLISTS[v.series.kind];
+    v.order = sheet?.order ?? v.series.seq;
+    if (sheet?.problems.length) notes.push(`⚠ upload sheet ${sheet.file}: ${sheet.problems.join('; ')}`);
+    const sheetTitleOk = sheet && sheet.title && !sheet.problems.some(p => p.startsWith('title'));
+    const title = sheetTitleOk ? sheet.title : (TITLE_OVERRIDES[v.key] || (sheet ? null : wantedTitle(v.series)));
     let newTitle = snippet.title, newDesc = snippet.description || '';
-    if (v.mismatch) notes.push(`⚠ title left as is: the title says ${v.mismatch} but the uploaded file is ${v.series.code}. Check this video in Studio.`);
-    else if (!title) notes.push('title left as is (file name was cut off; add it to TITLE_OVERRIDES in config.js)');
+    let newTags = snippet.tags || [];
+    if (sheet && sheet.description && !sheet.problems.some(p => p.startsWith('description'))) newDesc = sheet.description;
+    if (sheet && sheet.tags.length && sheet.tags.join(',') !== newTags.join(',')) { newTags = sheet.tags; notes.push('tags: from upload sheet'); }
+    if (v.mismatch && sheet) notes.push(`title said ${v.mismatch} but the uploaded file is ${v.series.code}; using the ${v.series.code} upload sheet`);
+    if (v.mismatch && !sheet) notes.push(`⚠ title left as is: the title says ${v.mismatch} but the uploaded file is ${v.series.code}. Check this video in Studio.`);
+    else if (!title) notes.push(sheet ? 'title left as is (fix the title in the upload sheet, or add it to TITLE_OVERRIDES in config.js)'
+      : 'title left as is (file name was cut off; add it to TITLE_OVERRIDES in config.js)');
     else if (title.length > TITLE_MAX) notes.push(`title left as is (new one is ${title.length} characters, YouTube allows ${TITLE_MAX})`);
     else if (title !== snippet.title) { newTitle = title; notes.push(`title: "${snippet.title}"\n             → "${title}"`); }
     if (v.partners) {
       const d = withPartLinks(newDesc, v.partners);
-      if (d !== newDesc) { newDesc = d; notes.push('description: add Part 1 / Part 2 links at the top'); }
+      newDesc = d;
     }
+    if (newDesc !== (snippet.description || '')) notes.push(sheet && newDesc.includes(sheet.description.slice(0, 40))
+      ? 'description: from upload sheet' + (v.partners ? ', with Part 1 / Part 2 links at the top' : '')
+      : 'description: add Part 1 / Part 2 links at the top');
     if (!newDesc.trim()) notes.push('⚠ description is empty (set Upload defaults in Studio, see README)');
     let newPrivacy = v.privacy;
     if (doVisibility && v.privacy !== 'public') {
@@ -418,14 +478,16 @@ async function fix(args) {
       else { newPrivacy = 'public'; notes.push(`visibility: ${v.privacy} → public`); }
     }
 
-    const changed = newTitle !== snippet.title || newDesc !== (snippet.description || '') || newPrivacy !== v.privacy;
+    const changed = newTitle !== snippet.title || newDesc !== (snippet.description || '') || newPrivacy !== v.privacy
+      || newTags.join(',') !== (snippet.tags || []).join(',');
     if (!notes.length) continue;
     console.log(`${v.key.padEnd(9)} ${v.id}\n           ${notes.join('\n           ')}`);
     if (changed) {
       changes++;
-      if (apply) await updateVideo(v, { title: newTitle, description: newDesc, privacy: newPrivacy });
+      if (apply) await updateVideo(v, { title: newTitle, description: newDesc, privacy: newPrivacy, tags: newTags });
     }
   }
+  for (const [k, sh] of sheets) if (!sh.used) console.log(`⚠ upload sheet ${sh.file} (${k}): no matching video on the channel`);
 
   // 2. Extra copies
   for (const d of dupes) {
@@ -447,8 +509,9 @@ async function fix(args) {
   }
 
   // 3. Playlists, in series order
-  for (const [kind, plTitle] of Object.entries(PLAYLISTS)) {
-    const wanted = mains.filter(v => v.series.kind === kind && !v.mismatch).sort(seriesOrder);
+  const byOrder = (a, b) => (a.order ?? 999) - (b.order ?? 999) || a.key.localeCompare(b.key);
+  for (const plTitle of new Set(mains.filter(v => !v.mismatch || v.sheet).map(v => v.playlist))) {
+    const wanted = mains.filter(v => v.playlist === plTitle && (!v.mismatch || v.sheet)).sort(byOrder);
     if (!wanted.length) continue;
     let pl = plByTitle.get(plTitle);
     const have = new Set((pl?.items || []).map(i => i.snippet.resourceId.videoId));
@@ -482,10 +545,11 @@ async function fix(args) {
   else console.log(`\nDone: ${changes} change(s) made. (YouTube quota used: about ${quotaUsed} of 10,000 for today.)`);
 }
 
-async function updateVideo(v, { title, description, privacy }) {
+async function updateVideo(v, { title, description, privacy, tags }) {
   const s = v.raw.snippet, st = v.raw.status;
   const snippet = { title, description, categoryId: s.categoryId };
   for (const k of ['tags', 'defaultLanguage', 'defaultAudioLanguage']) if (s[k]) snippet[k] = s[k];
+  if (tags) snippet.tags = tags;
   const status = { privacyStatus: privacy };
   for (const k of ['embeddable', 'license', 'publicStatsViewable', 'selfDeclaredMadeForKids', 'containsSyntheticMedia']) if (st[k] !== undefined) status[k] = st[k];
   if (st.publishAt && privacy === 'private') status.publishAt = st.publishAt;
@@ -507,4 +571,4 @@ async function main() {
 
 if (require.main === module) main().catch(e => die(e.message));
 
-module.exports = { parseName, keyOf, wantedTitle, analyse, withPartLinks, parseCsv };
+module.exports = { parseName, keyOf, wantedTitle, analyse, withPartLinks, parseCsv, loadSheets };

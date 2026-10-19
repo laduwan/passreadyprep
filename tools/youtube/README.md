@@ -63,6 +63,23 @@ node tools/youtube/youtube.js fix           # preview every change
 node tools/youtube/youtube.js fix --yes     # make the changes
 ```
 
+### Using your upload sheets
+
+If you have the `.txt` upload sheets (TITLE / DESCRIPTION / Tags / Playlist /
+Case), point the script at the folder they're in. Each video then gets its
+title, description (with chapters), tags and playlist straight from its sheet.
+No copy-paste needed:
+
+```
+node tools/youtube/youtube.js fix --sheets ~/Downloads/upload-sheets
+node tools/youtube/youtube.js fix --sheets ~/Downloads/upload-sheets --yes
+```
+
+Videos are matched by the `Case:` line, and playlists are ordered by `Upload order`.
+A sheet with a cut-off title ("…") or a broken description line is reported, and
+that part is skipped. Fix the sheet or add the title to `TITLE_OVERRIDES` in
+`config.js`. Videos without a sheet use the rules in `config.js`.
+
 Add `--visibility` to also make the main copy of each part **Public** and set
 extra copies to **Unlisted**:
 
