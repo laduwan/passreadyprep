@@ -65,14 +65,14 @@ node tools/youtube/youtube.js fix --yes     # make the changes
 
 ### Using your upload sheets
 
-If you have the `.txt` upload sheets (TITLE / DESCRIPTION / Tags / Playlist /
-Case), point the script at the folder they're in. Each video then gets its
+The `.txt` upload sheets (TITLE / DESCRIPTION / Tags / Playlist / Case) live in
+`tools/youtube/sheets/`, so `git pull` brings them to your Mac. Add new ones there. Each video then gets its
 title, description (with chapters), tags and playlist straight from its sheet.
 No copy-paste needed:
 
 ```
-node tools/youtube/youtube.js fix --sheets ~/Downloads/upload-sheets
-node tools/youtube/youtube.js fix --sheets ~/Downloads/upload-sheets --yes
+node tools/youtube/youtube.js fix --sheets tools/youtube/sheets
+node tools/youtube/youtube.js fix --sheets tools/youtube/sheets --yes
 ```
 
 Videos are matched by the `Case:` line, and playlists are ordered by `Upload order`.

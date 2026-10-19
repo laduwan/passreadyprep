@@ -30,6 +30,11 @@ const TITLE_OVERRIDES = {
   // The upload sheets cut these titles off at "career st…".
   'D150-P1': 'NCMHCE Full Case Walkthrough: Intense fear of flying blocking a career step (Part 1 of 2)',
   'D150-P2': 'NCMHCE Full Case Walkthrough: Intense fear of flying blocking a career step (Part 2 of 2)',
+  // The upload sheets cut these titles off ("…"); shortened to fit YouTube's 100 characters.
+  'G111-q3': 'NCMHCE Practice: What do you assess NEXT? | BPD with Comorbid MDD in a Korean American Woman',
+  'G183-q3': 'NCMHCE Practice: What do you assess NEXT? | Faith, Trust, and Disclosure in an Older Deacon',
+  'D264-q1': 'NCMHCE Practice: What do you do FIRST? | A Hotshot Firefighter and an Online Vial',
+  'G179-q3': 'NCMHCE Practice: What do you do FIRST? | Culturally Responsive Care: Older African American Woman',
   'G134-q5': "NCMHCE Practice: What's the best formulation? | Grief & Historical Trauma",
   'G037-q1': 'NCMHCE Practice: What do you assess NEXT? | Combat Veteran with PTSD',
   'G102-q3': 'NCMHCE Practice: What do you do FIRST? | Suicide Risk in an Older Adult',
