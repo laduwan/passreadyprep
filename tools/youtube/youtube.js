@@ -239,7 +239,7 @@ async function auth() {
       server.redirect = redirect;
       const url = 'https://accounts.google.com/o/oauth2/v2/auth?' + new URLSearchParams({
         client_id: client.client_id, redirect_uri: redirect, response_type: 'code', scope: SCOPE,
-        access_type: 'offline', prompt: 'consent', state, code_challenge: challenge, code_challenge_method: 'S256',
+        access_type: 'offline', prompt: 'select_account consent', state, code_challenge: challenge, code_challenge_method: 'S256',
       });
       console.log('Opening Google sign-in in your browser. If it does not open, paste this link:\n\n' + url + '\n');
       execFile(process.platform === 'darwin' ? 'open' : 'xdg-open', [url], () => {});
@@ -251,7 +251,10 @@ async function auth() {
     grant_type: 'authorization_code', code, code_verifier: verifier, redirect_uri: auth.server.redirect,
   });
   saveToken(tok);
-  console.log(`Signed in. Saved to ${TOKEN_FILE}`);
+  const ch = await yt('GET', 'channels', { part: 'snippet', mine: 'true' });
+  const name = ch.items?.[0]?.snippet?.title;
+  console.log(`Signed in to channel: ${name || '(this account has no channel)'}`);
+  console.log('Wrong channel? Run auth again and pick the other account or brand account.');
 }
 
 async function tokenRequest(client, params) {
