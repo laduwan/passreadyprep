@@ -7,7 +7,8 @@
 //
 // Env vars:
 //   ADMIN_ALERT_EMAIL     — where alerts go (falls back to MAIL_FROM_EMAIL)
-//   ADMIN_ALERT_SMS_TO    — optional phone in intl format (e.g. 15551234567) for SMS alerts
+//   ADMIN_ALERT_SMS_TO    — optional phone in intl format (e.g. 15551234567) for SMS alerts;
+//                           comma-separate several numbers to text more than one recipient
 //   ADMIN_ALERT_SMS_EVENTS — comma list of event types that also send SMS. Unset =
 //                            SMS follows email. Set = only these types text, so a
 //                            signup can text you without errors paging your phone.
@@ -153,7 +154,15 @@ async function notifyAdmin(doc, saved) {
 
   const results = [];
   if (to) results.push(await sendMail({ to, subject, html, text }));
-  if (smsTo && decideSms(doc)) results.push(await sendSms({ to: smsTo, text: subject + (doc.message ? ' — ' + doc.message : '') }));
+  // ADMIN_ALERT_SMS_TO may be a comma list so a submission can text more than
+  // one phone (e.g. the owner and the admin reviewing score reports).
+  if (smsTo && decideSms(doc)) {
+    const smsBody = subject + (doc.message ? ' — ' + doc.message : '');
+    const recipients = String(smsTo).split(',').map((n) => n.trim()).filter(Boolean);
+    for (const recipient of recipients) {
+      results.push(await sendSms({ to: recipient, text: smsBody }));
+    }
+  }
 
   // Only mark "alerted" when something actually went out — a rejected send or
   // no email key set (dev log-only mode) must not look like a sent alert.
