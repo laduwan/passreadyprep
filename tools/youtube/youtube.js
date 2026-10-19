@@ -41,7 +41,7 @@ const API = 'https://www.googleapis.com/youtube/v3';
 const SCOPE = 'https://www.googleapis.com/auth/youtube';
 const TITLE_MAX = 100;
 // Shown on every run, so it's clear which version of the script ran.
-const VERSION = '2026-10-19b';
+const VERSION = '2026-10-19c';
 const LINK_LINE = /^▶ Part \d: https:\/\/youtu\.be\/\S+\s*$/;
 
 // ── Parsing: file name / title → series info ─────────────────────────────────
@@ -519,6 +519,8 @@ async function fix(args) {
     const wanted = mains.filter(v => v.playlist === plTitle && (!v.mismatch || v.sheet)).sort(byOrder);
     if (!wanted.length) continue;
     let pl = plByTitle.get(plTitle);
+    // Playlists named in upload sheets weren't loaded up front; load their contents now.
+    if (pl && !pl.items) pl.items = await listAll('playlistItems', { part: 'snippet', playlistId: pl.id });
     const have = new Set((pl?.items || []).map(i => i.snippet.resourceId.videoId));
     const toAdd = wanted.filter(v => !have.has(v.id));
     if (!toAdd.length) continue;
@@ -568,6 +570,8 @@ async function updateVideo(v, { title, description, privacy, tags }) {
     { part: statusChanged ? 'snippet,status' : 'snippet',
       body: { id: v.id, snippet: { ...snippet, tags: (snippet.tags || []).filter(t => !/[@<>]/.test(t)) }, ...(statusChanged ? { status: { privacyStatus: privacy } } : {}) },
       dropped: 'tags with @ < >, extra status settings' },
+    { part: 'snippet', body: { id: v.id, snippet: { ...snippet, title: s.title } }, dropped: 'the new title (YouTube refused it; title left as it was)' },
+    { part: 'snippet', body: { id: v.id, snippet: { ...snippet, description: s.description || '' } }, dropped: 'the new description (YouTube refused it; description left as it was)' },
     { part: 'snippet', body: { id: v.id, snippet: { ...snippet, tags: undefined } }, dropped: 'all tags' + (statusChanged ? ' and the visibility change' : '') },
   ];
   let lastErr;
