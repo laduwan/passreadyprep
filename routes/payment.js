@@ -746,9 +746,12 @@ router.get('/score-report-status', requireAuth, async (req, res) => {
         submittedAt: sr.submittedAt || null,
         extensionCount: sr.extensionCount || 0,
       },
-      // The key flag: is the gate currently blocking access? An approved
+      // The key flag: is the gate currently blocking access? A 'pending'
+      // check-in (fail letter or retest appointment uploaded, awaiting admin
+      // review) counts as checked in — the gate releases immediately so the
+      // member isn't locked out while admin review runs. An approved
       // extension only lasts until the new currentPeriodEnd.
-      gated: sub.tier === g.tier && !!expired && sr.status !== 'passed',
+      gated: sub.tier === g.tier && !!expired && sr.status !== 'passed' && sr.status !== 'pending',
       // Any guarantee holder can report a result (within 14 days of the exam),
       // not only one whose access is currently paused.
       eligible: sub.tier === g.tier && sr.status !== 'passed' && !isForfeited(sr),

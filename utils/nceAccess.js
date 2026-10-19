@@ -36,9 +36,12 @@ function nceLevel(user, now = new Date()) {
   const end = a.currentPeriodEnd ? new Date(a.currentPeriodEnd) : null;
   if (tier === 'nce_guarantee' && end && end <= now) {
     const sr = (a.scoreReport && a.scoreReport.status) || 'none';
+    // A 'pending' report (unsuccessful result or retest appointment uploaded,
+    // awaiting admin review) counts as a completed check-in: access resumes
+    // immediately instead of locking members out while admin review runs.
     // An approved extension moves currentPeriodEnd 3 months out; once that
     // lapses the check-in is due again (same rule as routes/content.js).
-    return sr === 'passed' ? 'paid' : 'gated';
+    return (sr === 'passed' || sr === 'pending') ? 'paid' : 'gated';
   }
   if (tier !== 'free' && (!end || end > now)) return 'paid';
   const trialEnd = nceTrialEnd(user);
