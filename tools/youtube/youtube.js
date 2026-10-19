@@ -114,8 +114,9 @@ function analyse(videos) {
     if (fromFile && fromTitle) {
       // The title says one case but the uploaded file is another: flag it, don't rename.
       if (fromFile.code !== fromTitle.code) v.mismatch = fromTitle.code;
-      // File names sometimes leave out "Part N"; the title may still have it.
-      else if (!fromFile.part && fromTitle.part) p.part = fromTitle.part;
+      // Full-case file names sometimes leave out "Part N"; the title may still have it.
+      // (Minis have no parts, even if an old title said "Part 1 of 2".)
+      else if (fromFile.kind === 'full' && !fromFile.part && fromTitle.part) p.part = fromTitle.part;
     }
     if (!p) { unmatched.push(v); continue; }
     v.series = p;
