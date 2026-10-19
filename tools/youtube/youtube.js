@@ -41,7 +41,7 @@ const API = 'https://www.googleapis.com/youtube/v3';
 const SCOPE = 'https://www.googleapis.com/auth/youtube';
 const TITLE_MAX = 100;
 // Shown on every run, so it's clear which version of the script ran.
-const VERSION = '2026-10-19c';
+const VERSION = '2026-10-19d';
 const LINK_LINE = /^▶ Part \d: https:\/\/youtu\.be\/\S+\s*$/;
 
 // ── Parsing: file name / title → series info ─────────────────────────────────
@@ -429,9 +429,24 @@ function loadSheets(folder) {
   return { sheets, problems };
 }
 
+// YouTube stores tags its own way (case, quotes, and it may drop some like "@Name"),
+// so compare loosely: same set once lowercased, ignoring tags it may have dropped.
+function sameTags(a, b) {
+  const norm = list => new Set(list.map(t => t.toLowerCase().replace(/["']/g, '').trim()).filter(t => t && !/[@<>]/.test(t)));
+  const x = norm(a), y = norm(b);
+  return x.size === y.size && [...x].every(t => y.has(t));
+}
+
+// Videos YouTube refused to update; skipped on later runs (saves the daily quota).
+const BLOCKED_FILE = path.join(OUT_DIR, 'refused-videos.json');
+function readBlocked() { try { return JSON.parse(fs.readFileSync(BLOCKED_FILE, 'utf8')); } catch { return {}; } }
+function saveBlocked(b) { fs.mkdirSync(OUT_DIR, { recursive: true }); fs.writeFileSync(BLOCKED_FILE, JSON.stringify(b, null, 2)); }
+
 async function fix(args) {
   const apply = args.includes('--yes');
   const doVisibility = args.includes('--visibility');
+  const retryRefused = args.includes('--retry-refused');
+  const blocked = readBlocked();
   const { videos, plByTitle } = await loadChannel();
   const { mains, dupes } = analyse(videos);
   let changes = 0;
@@ -462,7 +477,7 @@ async function fix(args) {
     let newTitle = snippet.title, newDesc = snippet.description || '';
     let newTags = snippet.tags || [];
     if (sheet && sheet.description && !sheet.problems.some(p => p.startsWith('description'))) newDesc = sheet.description;
-    if (sheet && sheet.tags.length && sheet.tags.join(',') !== newTags.join(',')) { newTags = sheet.tags; notes.push('tags: from upload sheet'); }
+    if (sheet && sheet.tags.length && !sameTags(sheet.tags, newTags)) { newTags = sheet.tags; notes.push('tags: from upload sheet'); }
     if (v.mismatch && sheet) notes.push(`title said ${v.mismatch} but the uploaded file is ${v.series.code}; using the ${v.series.code} upload sheet`);
     if (v.mismatch && !sheet) notes.push(`⚠ title left as is: the title says ${v.mismatch} but the uploaded file is ${v.series.code}. Check this video in Studio.`);
     else if (!title) notes.push(sheet ? 'title left as is (fix the title in the upload sheet, or add it to TITLE_OVERRIDES in config.js)'
@@ -483,13 +498,21 @@ async function fix(args) {
       else { newPrivacy = 'public'; notes.push(`visibility: ${v.privacy} → public`); }
     }
 
+    if (blocked[v.id] && !retryRefused) {
+      if (notes.length) console.log(`${v.key.padEnd(9)} ${v.id}\n           skipped: YouTube refused edits to this video on ${blocked[v.id]} (add --retry-refused to try again)`);
+      continue;
+    }
     const changed = newTitle !== snippet.title || newDesc !== (snippet.description || '') || newPrivacy !== v.privacy
-      || newTags.join(',') !== (snippet.tags || []).join(',');
+      || !sameTags(newTags, snippet.tags || []);
     if (!notes.length) continue;
     console.log(`${v.key.padEnd(9)} ${v.id}\n           ${notes.join('\n           ')}`);
     if (changed) {
       changes++;
-      if (apply) await updateVideo(v, { title: newTitle, description: newDesc, privacy: newPrivacy, tags: newTags });
+      if (apply) {
+        const ok = await updateVideo(v, { title: newTitle, description: newDesc, privacy: newPrivacy, tags: newTags });
+        if (ok) delete blocked[v.id]; else blocked[v.id] = new Date().toISOString().slice(0, 10);
+        saveBlocked(blocked);
+      }
     }
   }
   for (const [k, sh] of sheets) if (!sh.used) console.log(`⚠ upload sheet ${sh.file} (${k}): no matching video on the channel`);
@@ -566,13 +589,10 @@ async function updateVideo(v, { title, description, privacy, tags }) {
   // YouTube's "metadata is invalid" doesn't say which field. Retry with less, and say what was dropped.
   const attempts = [
     { part: 'snippet,status', body: { id: v.id, snippet, status }, dropped: null },
-    ...(statusChanged ? [] : [{ part: 'snippet', body: { id: v.id, snippet }, dropped: null }]),
+    // One cheaper retry: no extra status settings, no tags YouTube might object to.
     { part: statusChanged ? 'snippet,status' : 'snippet',
       body: { id: v.id, snippet: { ...snippet, tags: (snippet.tags || []).filter(t => !/[@<>]/.test(t)) }, ...(statusChanged ? { status: { privacyStatus: privacy } } : {}) },
       dropped: 'tags with @ < >, extra status settings' },
-    { part: 'snippet', body: { id: v.id, snippet: { ...snippet, title: s.title } }, dropped: 'the new title (YouTube refused it; title left as it was)' },
-    { part: 'snippet', body: { id: v.id, snippet: { ...snippet, description: s.description || '' } }, dropped: 'the new description (YouTube refused it; description left as it was)' },
-    { part: 'snippet', body: { id: v.id, snippet: { ...snippet, tags: undefined } }, dropped: 'all tags' + (statusChanged ? ' and the visibility change' : '') },
   ];
   let lastErr;
   for (const a of attempts) {
@@ -585,7 +605,7 @@ async function updateVideo(v, { title, description, privacy, tags }) {
       lastErr = e;
     }
   }
-  console.log(`           ✗ YouTube rejected this video's update: ${lastErr.message}`);
+  console.log(`           ✗ YouTube refused any edit to this video: ${lastErr.message}. Skipped on later runs.`);
   failedUpdates++;
   return false;
 }
