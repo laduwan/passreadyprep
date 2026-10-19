@@ -40,6 +40,8 @@ const OUT_DIR = path.join(__dirname, 'out');
 const API = 'https://www.googleapis.com/youtube/v3';
 const SCOPE = 'https://www.googleapis.com/auth/youtube';
 const TITLE_MAX = 100;
+// Shown on every run, so it's clear which version of the script ran.
+const VERSION = '2026-10-19b';
 const LINK_LINE = /^▶ Part \d: https:\/\/youtu\.be\/\S+\s*$/;
 
 // ── Parsing: file name / title → series info ─────────────────────────────────
@@ -337,7 +339,7 @@ async function listAll(resource, params) {
 async function loadChannel() {
   const ch = await yt('GET', 'channels', { part: 'contentDetails,snippet', mine: 'true' });
   if (!ch.items?.length) die('This Google account has no YouTube channel. Sign in with the channel account: run auth again.');
-  console.log(`Channel: ${ch.items[0].snippet.title}`);
+  console.log(`Channel: ${ch.items[0].snippet.title}   (script version ${VERSION})`);
   const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
   // The uploads list can return the same video more than once; count each video once.
   const ids = [...new Set((await listAll('playlistItems', { part: 'contentDetails', playlistId: uploads })).map(i => i.contentDetails.videoId))];
@@ -575,7 +577,7 @@ async function updateVideo(v, { title, description, privacy, tags }) {
       if (a.dropped) console.log(`           ⚠ saved without: ${a.dropped} (YouTube rejected the full update)`);
       return true;
     } catch (e) {
-      if (e.status !== 400) throw e;
+      if (!(e.status >= 400 && e.status < 500)) throw e;
       lastErr = e;
     }
   }
