@@ -271,6 +271,7 @@ a.choice{text-decoration:none}
     <div class="hdr-r">
       <span class="badge b-blue">NCE</span>
       <a class="btn btn-s btn-sm" href="/study">NCMHCE study</a>
+      <a class="btn btn-s btn-sm" href="#pricing">Pricing</a>
       <a class="btn btn-s btn-sm" id="signin-link" href="/register.html?next=/nce.html">Sign in</a>
     </div>
   </header>
@@ -308,7 +309,7 @@ a.choice{text-decoration:none}
     <h3>Full-length timed mock exams</h3>
     <p>The mock exam follows the real structure: 200 questions, a 225-minute clock, and an optional break at the halfway point. You get no feedback until you submit, then a full domain breakdown and a review of every missed item. Take your first mock early for a baseline, then one per week in the final month.</p>
     <h3>Free sample questions and plans</h3>
-    <p>You can try free NCE sample questions without an account.<!-- prp-web-only --> Full access is $24.99 a month, or a one-time $59 for 3 months or $89 for 6 months.<!-- /prp-web-only --> Signing in once covers both exams: if you also need the NCMHCE, your <a href="/study">NCMHCE case simulations</a> live under the same account.</p>
+    <p>You can try free NCE sample questions without an account.<!-- prp-web-only --> Full access is $24.99 a month, one-time $59 for 3 months or $89 for 6 months, or <strong>$189 for the Pass Guarantee</strong> &mdash; access until you pass, with the digital NCE study guide included.<!-- /prp-web-only --> Signing in once covers both exams: if you also need the NCMHCE, your <a href="/study">NCMHCE case simulations</a> live under the same account.</p>
     <p>NCE&reg; is a registered trademark of the National Board for Certified Counselors, Inc. PassReady Prep is not affiliated with or endorsed by NBCC. Confirm which exam your state board requires before you register.</p>
   </section>
 </div>
@@ -331,9 +332,10 @@ a.choice{text-decoration:none}
       features:['Everything in Monthly','90 days of access','No renewal to cancel'] },
     { tier:'nce_pass6', name:'6-Month Pass', price:'$89', per:'one-time', note:'Best value',
       features:['Everything in Monthly','180 days of access','Room for a retake'] },
-    // Shown only once the server reports a Stripe price for it (see LIVE below).
-    { tier:'nce_guarantee', name:'Pass Guarantee', price:'', per:'one-time', note:'Pass guaranteed', liveOnly:true,
-      features:['Everything in Monthly','Access until you pass','Free CE course on CounselorReady when you pass'] },
+    // The NCE Pass Guarantee bundles the NCE digital study guide; the webhook
+    // grants `guideNcePurchasedAt` on purchase (see routes/payment.js).
+    { tier:'nce_guarantee', name:'Pass Guarantee', price:'$189', per:'one-time', note:'Study till you pass', best:true,
+      features:['Everything in Monthly','Access until you pass','Includes The NCE Ownership Method (digital study guide, $25 value)','Free CE course on CounselorReady when you pass'] },
   ];
   // Live prices from Stripe via /api/payment/plans, keyed by tier. When the
   // lookup fails the plans above show their listed prices and the guarantee
@@ -587,7 +589,7 @@ a.choice{text-decoration:none}
     if (STATUS.accessLevel === 'paid' || STATUS.accessLevel === 'gated') return '';
     return '<div class="card" id="pricing"><h2>NCE plans</h2>'+
       '<p class="muted small" style="margin-top:-4px">Billed separately from NCMHCE. One-time passes don\'t renew.</p><div class="plans">'+
-      PLANS.filter(function(p){ return !p.liveOnly || LIVE[p.tier]; }).map(function(p){
+      PLANS.map(function(p){
         var price = LIVE[p.tier] ? money(LIVE[p.tier].amount) : p.price;
         return '<div class="plan'+(p.best?' best':'')+'"><div class="pn">'+esc(p.name)+(p.note?' · '+esc(p.note):'')+'</div>'+
           '<div class="pp">'+esc(price)+' <small>'+esc(p.per)+'</small></div>'+
