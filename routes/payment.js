@@ -694,10 +694,25 @@ router.post('/score-report', requireAuth, async (req, res) => {
     });
     await user.save();
 
+    // Admin alert on every submission so review can land inside the 48-hour
+    // SLA. notify:true forces email/SMS regardless of ADMIN_ALERT_EVENTS; SMS
+    // fires when ADMIN_ALERT_SMS_TO is set and the event matches
+    // ADMIN_ALERT_SMS_EVENTS (or that env is unset — SMS then mirrors email).
+    logActivity({
+      type: 'guarantee.score_report_submitted',
+      severity: 'info',
+      notify: true,
+      userId: user._id,
+      email: user.email,
+      message: `${g.name} ${result === 'scheduled' ? 'retest appointment' : result === 'fail' ? 'non-pass result' : 'pass result'} submitted — review in /admin/score-reports`,
+      meta: { exam: g.exam, result, examDate, extensionCount: (prev && prev.extensionCount) || 0 },
+      req,
+    });
+
     res.json({
       ok: true,
       retakePlan,
-      message: 'Score report submitted — we\'ll review it within 1 business day.',
+      message: 'Score report submitted — we\'ll review it within 48 hours.',
     });
   } catch (err) {
     console.error('score-report submit error:', err);
