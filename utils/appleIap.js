@@ -57,6 +57,7 @@ const ROOT_CERT_URLS = [
 const CATALOG = [
   { tier: 'monthly',       sku: 'ncmhce.monthly',   kind: 'autoRenewable', name: 'NCMHCE Monthly' },
   { tier: 'pass3',         sku: 'ncmhce.pass3',     kind: 'nonRenewing',   name: 'NCMHCE 3-Month Pass' },
+  { tier: 'pass6',         sku: 'ncmhce.pass6',     kind: 'nonRenewing',   name: 'NCMHCE 6-Month Pass' },
   { tier: 'guarantee',     sku: 'ncmhce.guarantee', kind: 'nonConsumable', name: 'NCMHCE Pass Guarantee' },
   { tier: 'guide',         sku: 'guide',            kind: 'nonConsumable', name: 'The Complete NCMHCE Study Guide' },
   { tier: 'nce_monthly',   sku: 'nce.monthly',      kind: 'autoRenewable', name: 'NCE Monthly' },

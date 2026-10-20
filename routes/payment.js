@@ -19,6 +19,7 @@
  *   STRIPE_WEBHOOK_SECRET   — whsec_xxx  (from Stripe dashboard → Webhooks)
  *   STRIPE_PRICE_MONTHLY    — price_xxx  (monthly $29 recurring price ID)
  *   STRIPE_PRICE_PASS3      — price_xxx  (3-month $79 one-time price ID)
+ *   STRIPE_PRICE_PASS6      — price_xxx  (6-month $119 one-time price ID)
  *   STRIPE_PRICE_GUARANTEE  — price_xxx  ($249 one-time price ID — update in Stripe to match)
  *   STRIPE_PRICE_NCE_MONTHLY — price_xxx (NCE monthly $24.99 recurring)
  *   STRIPE_PRICE_NCE_PASS3   — price_xxx (NCE 3-month $59 one-time)
@@ -97,6 +98,12 @@ const TIERS = {
     mode: 'payment',
     tierName: 'pass3',
     accessDays: 90, // 3 months from purchase
+  },
+  pass6: {
+    priceId: () => process.env.STRIPE_PRICE_PASS6,
+    mode: 'payment',
+    tierName: 'pass6',
+    accessDays: 180, // 6 months from purchase
   },
   guarantee: {
     priceId: () => process.env.STRIPE_PRICE_GUARANTEE,
