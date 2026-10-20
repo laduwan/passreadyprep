@@ -30,9 +30,6 @@ const EXTERNAL = new Set(['policies.html', 'privacy.html', 'score-report.html', 
 // native-shim.js). They are not bundled; links to them only appear in web-only
 // code branches that never run in the app, so they are allowed to be missing.
 const BLOCKED = new Set(['nce-study-guide.html', 'book.html']);
-// Pages that legitimately contain purchase copy inside the app (the IAP flow).
-// They are exempted from the FORBIDDEN visible-text check.
-const PURCHASE_PAGES = new Set(['checkout.html', 'purchase.html']);
 const ASSET_EXT = /\.(js|css|json|pdf|png|jpe?g|gif|svg|webp|ico|mp3|mp4|m4a|woff2?|ttf|otf|webmanifest)$/i;
 // The shim goes first (it rewrites fetch and routes purchase URLs through IAP).
 // native-iap.js wires every "buy" path to StoreKit (ios/App/App/StoreKitPlugin.swift).
@@ -41,10 +38,6 @@ const SHIM_TAG = '<script src="/native-shim.js"></script><script src="/native-ia
 // buttons, trial and price copy. It is removed from every bundled page.
 const WEB_ONLY = /<!--\s*prp-web-only\s*-->[\s\S]*?<!--\s*\/prp-web-only\s*-->/g;
 const WEB_ONLY_OPEN = /<!--\s*prp-web-only\s*-->/;
-// Copy that must not reach a reviewer's screen. Checked against the visible
-// text of every bundled page after the web-only blocks are removed.
-const FORBIDDEN = /\$\s?\d|free trial|\bsubscribe\b|upgrade|pricing|checkout|in-app purchase/i;
-
 // Same tags server.js injectA11y() adds at serve time, minus the PWA manifest /
 // service worker (not wanted inside the native app). Keep in sync with server.js.
 const INJECTED = ['session-guard.js', 'a11y.css', 'translate.css', 'a11y.js', 'translate.js', 'visit-beacon.js', 'announcement-modal.js'];
@@ -138,25 +131,12 @@ for (const rel of scanned) {
 }
 if (missing.size) throw new Error('Unbundled pages linked from the app:\n  ' + [...missing].join('\n  '));
 
-// No price, trial or plan copy in the static text of any bundled page. Text
-// pages build at run time is handled by their own window.PRP_NATIVE branches.
-function visibleText(html) {
-  return html
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<!--[\s\S]*?-->/g, ' ')
-    .replace(/<head[\s\S]*?<\/head>/i, ' ')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;|&middot;|&mdash;|&amp;|&#\d+;/g, ' ');
-}
-const leaked = [];
-for (const rel of htmlIn(dist)) {
-  if (PURCHASE_PAGES.has(rel)) continue;
-  const text = visibleText(fs.readFileSync(path.join(dist, rel), 'utf8'));
-  const m = text.match(FORBIDDEN);
-  if (m) leaked.push(`${rel}: "…${text.slice(Math.max(0, m.index - 40), m.index + 40).replace(/\s+/g, ' ')}…"`);
-}
-if (leaked.length) throw new Error('Purchase copy left in the app bundle (wrap it in <!-- prp-web-only --> … <!-- /prp-web-only -->):\n  ' + leaked.join('\n  '));
+// The FORBIDDEN visible-text guard that lived here was a companion-build
+// anti-regression: in build 4 (reader/companion), no purchase copy could reach
+// the bundle. Build 5+ restored In-App Purchase, so pricing cards, "Pricing"
+// nav links and plan copy are intentional in the iOS bundle again. The guard
+// has been removed; <!-- prp-web-only --> markers still strip web-only copy
+// above (e.g. "free trial" lines or Stripe-only disclosures).
 
 // App icon: the website's graduation cap (public/icons), redrawn at the 1024px
 // Apple needs (native/AppIcon.svg is the source). Applied once `cap add ios` exists.
