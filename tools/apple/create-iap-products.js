@@ -331,7 +331,9 @@ async function ensureInAppPurchase(p, existing) {
     if (point.id === currentPointId) {
       done(`price already set: $${point.price.toFixed(2)}`);
     } else {
-      await del(`/v1/inAppPurchasePriceSchedules/${scheduleId}`);
+      // Apple's inAppPurchasePriceSchedules resource allows only CREATE and
+      // GET_INSTANCE — no DELETE, no PATCH. POSTing a new schedule for the
+      // same IAP replaces the active one.
       await setSchedule(point);
       done(`price updated: $${point.price.toFixed(2)}${point.price !== usd ? ` (nearest price point to $${usd})` : ''}`);
     }
