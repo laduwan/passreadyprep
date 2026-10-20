@@ -19,19 +19,24 @@ const PAGES = [
   'timed-knowledge-exam.html', 'knowledge-drill.html', 'next-best-step.html',
   'core-attributes-quiz.html', 'theory.html', 'podcast.html', 'assess-next-case.html', 'games.html',
   'delete-account.html', 'account.html', 'nce.html', 'resume.html',
-  // Nothing is sold in the app (companion build): checkout.html and
-  // purchase.html are not bundled, and native-shim.js answers any link to
-  // them with a neutral notice. See docs/AppReview_Reply_v1.0_build3.md.
+  // In-app purchase (App Store guideline 3.1.1): checkout.html forwards to
+  // purchase.html inside the app (client/native/native-iap.js), which runs
+  // the StoreKit flow. See docs/AppReview_Reply_v1.0_build2.md.
+  'checkout.html', 'purchase.html',
 ];
 // Pages the shim opens on passreadyprep.com instead (keep in sync with EXTERNAL in native-shim.js).
 const EXTERNAL = new Set(['policies.html', 'privacy.html', 'score-report.html', 'accessibility.html']);
-// Purchase pages the shim blocks with a notice (keep in sync with BLOCKED in
+// Pages the shim blocks with a notice (keep in sync with BLOCKED in
 // native-shim.js). They are not bundled; links to them only appear in web-only
 // code branches that never run in the app, so they are allowed to be missing.
-const BLOCKED = new Set(['checkout.html', 'purchase.html', 'nce-study-guide.html', 'book.html']);
+const BLOCKED = new Set(['nce-study-guide.html', 'book.html']);
+// Pages that legitimately contain purchase copy inside the app (the IAP flow).
+// They are exempted from the FORBIDDEN visible-text check.
+const PURCHASE_PAGES = new Set(['checkout.html', 'purchase.html']);
 const ASSET_EXT = /\.(js|css|json|pdf|png|jpe?g|gif|svg|webp|ico|mp3|mp4|m4a|woff2?|ttf|otf|webmanifest)$/i;
-// The shim goes first (it rewrites fetch and blocks the purchase URLs).
-const SHIM_TAG = '<script src="/native-shim.js"></script>';
+// The shim goes first (it rewrites fetch and routes purchase URLs through IAP).
+// native-iap.js wires every "buy" path to StoreKit (ios/App/App/StoreKitPlugin.swift).
+const SHIM_TAG = '<script src="/native-shim.js"></script><script src="/native-iap.js"></script>';
 // Markup between these comments exists only on the website: pricing, plan
 // buttons, trial and price copy. It is removed from every bundled page.
 const WEB_ONLY = /<!--\s*prp-web-only\s*-->[\s\S]*?<!--\s*\/prp-web-only\s*-->/g;
@@ -105,6 +110,7 @@ while (queue.length) {
 // Shim goes first in <head> of every HTML file in dist; the serve-time widgets
 // go where server.js puts them. Web-only blocks are cut out first.
 fs.copyFileSync(path.join(root, 'native', 'native-shim.js'), path.join(dist, 'native-shim.js'));
+fs.copyFileSync(path.join(root, 'native', 'native-iap.js'), path.join(dist, 'native-iap.js'));
 for (const rel of htmlIn(dist)) {
   const f = path.join(dist, rel);
   let html = fs.readFileSync(f, 'utf8');
@@ -145,6 +151,7 @@ function visibleText(html) {
 }
 const leaked = [];
 for (const rel of htmlIn(dist)) {
+  if (PURCHASE_PAGES.has(rel)) continue;
   const text = visibleText(fs.readFileSync(path.join(dist, rel), 'utf8'));
   const m = text.match(FORBIDDEN);
   if (m) leaked.push(`${rel}: "…${text.slice(Math.max(0, m.index - 40), m.index + 40).replace(/\s+/g, ' ')}…"`);
@@ -172,3 +179,4 @@ if (fs.existsSync(splashSet)) {
 console.log('\nCopied into dist from ../public:');
 for (const f of [...copied].sort()) console.log('  ' + f);
 console.log('  native-shim.js');
+console.log('  native-iap.js');

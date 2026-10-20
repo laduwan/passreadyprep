@@ -25,10 +25,10 @@
     return;
   }
 
-  // Nothing is sold in the app (companion build): no plan, price or checkout
-  // is shown, and the pages' own purchase calls are answered here so they can
-  // never reach Stripe. Access comes from whatever the account already has.
-  var BLOCKED_API = /^\/api\/payment\/(create-checkout-session|portal)(\?|$)/;
+  // Plans are sold in the app through Apple In-App Purchase (StoreKit 2); see
+  // client/native/native-iap.js, which answers these payment APIs locally so
+  // nothing reaches Stripe from the app. The shim keeps NOTICE for the
+  // handful of pages still blocked (study-guide landing, book).
   var NOTICE = 'This page isn\u2019t available in the app.';
 
   function notice() {
@@ -54,11 +54,6 @@
   var origFetch = window.fetch;
   if (typeof origFetch === 'function') {
     window.fetch = function (input, init) {
-      if (typeof input === 'string' && BLOCKED_API.test(input)) {
-        notice();
-        return Promise.resolve(new Response(JSON.stringify({ error: NOTICE, code: 'not_in_app' }),
-          { status: 403, headers: { 'Content-Type': 'application/json' } }));
-      }
       if (typeof input === 'string' && input.indexOf('/api') === 0) {
         input = ORIGIN + input;
       }
@@ -79,11 +74,12 @@
   // top-level navigation to a non-app host and hands it to the system browser.
   // Nothing billing-related is on this list.
   var EXTERNAL = ['/policies.html', '/privacy.html', '/score-report.html', '/accessibility.html'];
-  // Purchase pages and pricing anchors: not bundled, not opened anywhere else.
-  // A tap shows the neutral notice and stays on the page.
-  var BLOCKED = ['/checkout.html', '/purchase.html', '/nce-study-guide.html', '/book.html', '/book'];
+  // Study-guide marketing landing and the book page are not bundled; a tap
+  // shows the neutral notice and stays on the page. checkout.html and
+  // purchase.html are bundled and run the IAP flow — not blocked.
+  var BLOCKED = ['/nce-study-guide.html', '/book.html', '/book'];
   function blocked(u) {
-    return BLOCKED.indexOf(u.pathname) !== -1 || u.hash === '#pricing';
+    return BLOCKED.indexOf(u.pathname) !== -1;
   }
   window.PRP_BLOCKED = function (href) {
     try { return blocked(new URL(href, location.href)); } catch (err) { return false; }
