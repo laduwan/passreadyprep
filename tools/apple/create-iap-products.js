@@ -254,7 +254,8 @@ async function ensureSubscription(p, group) {
     if (point.id === currentPointId) {
       done(`price already set: $${point.price.toFixed(2)}`);
     } else {
-      await del(`/v1/subscriptionPrices/${current.id}`);
+      // POSTing a new subscriptionPrice supersedes the current one for the territory.
+      // Apple only allows deleting FUTURE scheduled changes, not the active price.
       await setPrice(point);
       done(`price updated: $${point.price.toFixed(2)}${point.price !== usd ? ` (nearest price point to $${usd})` : ''}`);
     }
@@ -295,7 +296,7 @@ async function ensureInAppPurchase(p, existing) {
   let scheduleId = null;
   let currentPointId = null;
   try {
-    const r = await get(`/v2/inAppPurchases/${iap.id}/iapPriceSchedule?include=manualPrices.inAppPurchasePricePoint`);
+    const r = await get(`/v2/inAppPurchases/${iap.id}/iapPriceSchedule?include=manualPrices`);
     scheduleId = r.data && r.data.id;
     const price = (r.included || []).find((inc) => inc.type === 'inAppPurchasePrices');
     currentPointId = price && price.relationships && price.relationships.inAppPurchasePricePoint
