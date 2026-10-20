@@ -55,22 +55,22 @@ const REVIEW_NOTE = 'PassReady Prep is an NCMHCE/NCE exam-prep study app. This p
 // App Store Connect limits: localized display name ≤ 30 characters,
 // localized description ≤ 55 characters (checked before anything is created).
 const PRODUCTS = [
-  { tier: 'monthly',       sku: 'ncmhce.monthly',   type: 'subscription', group: 'NCMHCE', usd: 29.99,
+  { tier: 'monthly',       sku: 'ncmhce.monthly',   type: 'subscription', group: 'NCMHCE', period: 'ONE_MONTH', usd: 29.99,
     name: 'NCMHCE Monthly', desc: 'Full NCMHCE access, renews monthly. Cancel any time.' },
-  { tier: 'pass3',         sku: 'ncmhce.pass3',     type: 'NON_RENEWING_SUBSCRIPTION', usd: 79.99,
-    name: 'NCMHCE 3-Month Pass', desc: '90 days of full NCMHCE access. One payment, no renewal.' },
-  { tier: 'pass6',         sku: 'ncmhce.pass6',     type: 'NON_RENEWING_SUBSCRIPTION', usd: 149.99,
-    name: 'NCMHCE 6-Month Pass', desc: '180 days of full NCMHCE access. One payment.' },
+  { tier: 'pass3',         sku: 'ncmhce.pass3',     type: 'subscription', group: 'NCMHCE', period: 'THREE_MONTHS', usd: 79.99,
+    name: 'NCMHCE 3-Month Pass', desc: 'Full NCMHCE access, renews every 3 months.' },
+  { tier: 'pass6',         sku: 'ncmhce.pass6',     type: 'subscription', group: 'NCMHCE', period: 'SIX_MONTHS',   usd: 149.99,
+    name: 'NCMHCE 6-Month Pass', desc: 'Full NCMHCE access, renews every 6 months.' },
   { tier: 'guarantee',     sku: 'ncmhce.guarantee', type: 'NON_CONSUMABLE', usd: 149.99,
     name: 'NCMHCE Pass Guarantee', desc: 'Unlimited NCMHCE access until you pass. One payment.' },
   { tier: 'guide',         sku: 'guide',            type: 'NON_CONSUMABLE', usd: 24.99,
     name: 'Complete NCMHCE Study Guide', desc: 'Digital study guide: 18 families, 3 practice exams.' },
-  { tier: 'nce_monthly',   sku: 'nce.monthly',      type: 'subscription', group: 'NCE', usd: 24.99,
+  { tier: 'nce_monthly',   sku: 'nce.monthly',      type: 'subscription', group: 'NCE', period: 'ONE_MONTH', usd: 24.99,
     name: 'NCE Monthly', desc: 'Full NCE access, renews monthly. Cancel any time.' },
-  { tier: 'nce_pass3',     sku: 'nce.pass3',        type: 'NON_RENEWING_SUBSCRIPTION', usd: 59.99,
-    name: 'NCE 3-Month Pass', desc: '90 days of full NCE access. One payment, no renewal.' },
-  { tier: 'nce_pass6',     sku: 'nce.pass6',        type: 'NON_RENEWING_SUBSCRIPTION', usd: 89.99,
-    name: 'NCE 6-Month Pass', desc: '180 days of full NCE access. One payment, no renewal.' },
+  { tier: 'nce_pass3',     sku: 'nce.pass3',        type: 'subscription', group: 'NCE', period: 'THREE_MONTHS', usd: 59.99,
+    name: 'NCE 3-Month Pass', desc: 'Full NCE access, renews every 3 months.' },
+  { tier: 'nce_pass6',     sku: 'nce.pass6',        type: 'subscription', group: 'NCE', period: 'SIX_MONTHS',   usd: 89.99,
+    name: 'NCE 6-Month Pass', desc: 'Full NCE access, renews every 6 months.' },
   { tier: 'nce_guarantee', sku: 'nce.guarantee',    type: 'NON_CONSUMABLE', usd: 149.99, optional: process.env.NCE_GUARANTEE === '0',
     name: 'NCE Pass Guarantee', desc: 'Unlimited NCE access until you pass. One payment.' },
 ];
@@ -197,16 +197,25 @@ async function nearestPricePoint(url, usd) {
   return priced[0];
 }
 
+// Apple requires each subscription in a group to have a unique groupLevel
+// (used for upgrade/downgrade ordering). Lower = higher tier of service in
+// Apple's UI. Ours are the same service at different billing frequencies, so
+// we just rank monthly=1, 3-month=2, 6-month=3 within each group.
+const GROUP_LEVELS = { ONE_MONTH: 1, THREE_MONTHS: 2, SIX_MONTHS: 3, ONE_YEAR: 4 };
+const PERIOD_LABELS = { ONE_MONTH: '1 month', THREE_MONTHS: '3 months', SIX_MONTHS: '6 months', ONE_YEAR: '1 year' };
+
 async function ensureSubscription(p, group) {
   const pid = productId(p);
   const usd = priceOverrides[p.tier] != null ? Number(priceOverrides[p.tier]) : p.usd;
+  const period = p.period || 'ONE_MONTH';
+  const groupLevel = GROUP_LEVELS[period] || 1;
   let sub = group.subscriptions.find((s) => s.attributes.productId === pid);
   if (!sub) {
-    plan(`create subscription ${pid} "${p.name}" in group ${group.attributes.referenceName}, 1 month`);
+    plan(`create subscription ${pid} "${p.name}" in group ${group.attributes.referenceName}, ${PERIOD_LABELS[period] || period}`);
     if (DRY) { plan(`price ${pid} at ~$${usd} (${TERRITORY}), ${LOCALE} name/description, availability ${TERRITORY}`); return; }
     sub = (await post('/v1/subscriptions', { data: {
       type: 'subscriptions',
-      attributes: { name: p.name, productId: pid, subscriptionPeriod: 'ONE_MONTH', familySharable: false, reviewNote: REVIEW_NOTE, groupLevel: 1 },
+      attributes: { name: p.name, productId: pid, subscriptionPeriod: period, familySharable: false, reviewNote: REVIEW_NOTE, groupLevel: groupLevel },
       relationships: { group: { data: { type: 'subscriptionGroups', id: group.id } } },
     } })).data;
     done(`subscription ${pid} (${sub.id})`);
