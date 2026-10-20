@@ -134,6 +134,7 @@ function request(method, url, body, extraHeaders) {
 const get = (url) => request('GET', url);
 const post = (url, body) => request('POST', url, body);
 const patch = (url, body) => request('PATCH', url, body);
+const del = (url) => request('DELETE', url);
 
 // Walks every page of a list endpoint.
 async function list(url) {
@@ -228,8 +229,12 @@ async function ensureSubscription(p, group) {
   await ensureAvailability('subscriptionAvailabilities', 'subscription', 'subscriptions', sub.id, `/v1/subscriptions/${sub.id}/subscriptionAvailability`);
 
   const prices = await list(`/v1/subscriptions/${sub.id}/prices?filter[territory]=${TERRITORY}&limit=50`);
-  if (!prices.length) {
-    const point = await nearestPricePoint(`/v1/subscriptions/${sub.id}/pricePoints?filter[territory]=${TERRITORY}&limit=200`, usd);
+  const overridden = priceOverrides[p.tier] != null;
+  const current = prices[0];
+  const currentPointId = current && current.relationships && current.relationships.subscriptionPricePoint
+    && current.relationships.subscriptionPricePoint.data && current.relationships.subscriptionPricePoint.data.id;
+
+  async function setPrice(point) {
     await post('/v1/subscriptionPrices', { data: {
       type: 'subscriptionPrices', attributes: { preserveCurrentPrice: false },
       relationships: {
@@ -238,7 +243,21 @@ async function ensureSubscription(p, group) {
         territory: { data: { type: 'territories', id: TERRITORY } },
       },
     } });
+  }
+
+  if (!current) {
+    const point = await nearestPricePoint(`/v1/subscriptions/${sub.id}/pricePoints?filter[territory]=${TERRITORY}&limit=200`, usd);
+    await setPrice(point);
     done(`price set: $${point.price.toFixed(2)}${point.price !== usd ? ` (nearest price point to $${usd})` : ''}`);
+  } else if (overridden) {
+    const point = await nearestPricePoint(`/v1/subscriptions/${sub.id}/pricePoints?filter[territory]=${TERRITORY}&limit=200`, usd);
+    if (point.id === currentPointId) {
+      done(`price already set: $${point.price.toFixed(2)}`);
+    } else {
+      await del(`/v1/subscriptionPrices/${current.id}`);
+      await setPrice(point);
+      done(`price updated: $${point.price.toFixed(2)}${point.price !== usd ? ` (nearest price point to $${usd})` : ''}`);
+    }
   } else {
     done('price already set');
   }
@@ -273,10 +292,18 @@ async function ensureInAppPurchase(p, existing) {
     done(`${LOCALE} name/description set`);
   }
 
-  let hasPrice = false;
-  try { const r = await get(`/v2/inAppPurchases/${iap.id}/iapPriceSchedule`); hasPrice = !!(r.data && r.data.id); } catch (e) { if (e.status !== 404) throw e; }
-  if (!hasPrice) {
-    const point = await nearestPricePoint(`/v2/inAppPurchases/${iap.id}/pricePoints?filter[territory]=${TERRITORY}&limit=200`, usd);
+  let scheduleId = null;
+  let currentPointId = null;
+  try {
+    const r = await get(`/v2/inAppPurchases/${iap.id}/iapPriceSchedule?include=manualPrices.inAppPurchasePricePoint`);
+    scheduleId = r.data && r.data.id;
+    const price = (r.included || []).find((inc) => inc.type === 'inAppPurchasePrices');
+    currentPointId = price && price.relationships && price.relationships.inAppPurchasePricePoint
+      && price.relationships.inAppPurchasePricePoint.data && price.relationships.inAppPurchasePricePoint.data.id;
+  } catch (e) { if (e.status !== 404) throw e; }
+  const overridden = priceOverrides[p.tier] != null;
+
+  async function setSchedule(point) {
     await post('/v1/inAppPurchasePriceSchedules', {
       data: {
         type: 'inAppPurchasePriceSchedules',
@@ -292,7 +319,21 @@ async function ensureInAppPurchase(p, existing) {
         relationships: { inAppPurchasePricePoint: { data: { type: 'inAppPurchasePricePoints', id: point.id } } },
       }],
     });
+  }
+
+  if (!scheduleId) {
+    const point = await nearestPricePoint(`/v2/inAppPurchases/${iap.id}/pricePoints?filter[territory]=${TERRITORY}&limit=200`, usd);
+    await setSchedule(point);
     done(`price set: $${point.price.toFixed(2)}${point.price !== usd ? ` (nearest price point to $${usd})` : ''}`);
+  } else if (overridden) {
+    const point = await nearestPricePoint(`/v2/inAppPurchases/${iap.id}/pricePoints?filter[territory]=${TERRITORY}&limit=200`, usd);
+    if (point.id === currentPointId) {
+      done(`price already set: $${point.price.toFixed(2)}`);
+    } else {
+      await del(`/v1/inAppPurchasePriceSchedules/${scheduleId}`);
+      await setSchedule(point);
+      done(`price updated: $${point.price.toFixed(2)}${point.price !== usd ? ` (nearest price point to $${usd})` : ''}`);
+    }
   } else {
     done('price already set');
   }
