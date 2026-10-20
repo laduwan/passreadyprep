@@ -57,20 +57,23 @@ const REVIEW_NOTE = 'PassReady Prep is an NCMHCE/NCE exam-prep study app. This p
 const PRODUCTS = [
   { tier: 'monthly',       sku: 'ncmhce.monthly',   type: 'subscription', group: 'NCMHCE', period: 'ONE_MONTH', usd: 29.99,
     name: 'NCMHCE Monthly', desc: 'Full NCMHCE access, renews monthly. Cancel any time.' },
-  { tier: 'pass3',         sku: 'ncmhce.pass3',     type: 'subscription', group: 'NCMHCE', period: 'THREE_MONTHS', usd: 79.99,
-    name: 'NCMHCE 3-Month Pass', desc: 'Full NCMHCE access, renews every 3 months.' },
-  { tier: 'pass6',         sku: 'ncmhce.pass6',     type: 'subscription', group: 'NCMHCE', period: 'SIX_MONTHS',   usd: 149.99,
-    name: 'NCMHCE 6-Month Pass', desc: 'Full NCMHCE access, renews every 6 months.' },
+  // SKU note: ncmhce.pass3 / ncmhce.pass6 are permanently reserved by Apple
+  // from an earlier Non-Renewing attempt; auto-renewable versions use .sub3mo
+  // / .sub6mo and the shorter 'NCMHCE 3-Month' / '6-Month' display names.
+  { tier: 'pass3',         sku: 'ncmhce.sub3mo',    type: 'subscription', group: 'NCMHCE', period: 'THREE_MONTHS', usd: 79.99,
+    name: 'NCMHCE 3-Month', desc: 'Full NCMHCE access, renews every 3 months.' },
+  { tier: 'pass6',         sku: 'ncmhce.sub6mo',    type: 'subscription', group: 'NCMHCE', period: 'SIX_MONTHS',   usd: 149.99,
+    name: 'NCMHCE 6-Month', desc: 'Full NCMHCE access, renews every 6 months.' },
   { tier: 'guarantee',     sku: 'ncmhce.guarantee', type: 'NON_CONSUMABLE', usd: 149.99,
     name: 'NCMHCE Pass Guarantee', desc: 'Unlimited NCMHCE access until you pass. One payment.' },
   { tier: 'guide',         sku: 'guide',            type: 'NON_CONSUMABLE', usd: 24.99,
     name: 'Complete NCMHCE Study Guide', desc: 'Digital study guide: 18 families, 3 practice exams.' },
   { tier: 'nce_monthly',   sku: 'nce.monthly',      type: 'subscription', group: 'NCE', period: 'ONE_MONTH', usd: 24.99,
     name: 'NCE Monthly', desc: 'Full NCE access, renews monthly. Cancel any time.' },
-  { tier: 'nce_pass3',     sku: 'nce.pass3',        type: 'subscription', group: 'NCE', period: 'THREE_MONTHS', usd: 59.99,
-    name: 'NCE 3-Month Pass', desc: 'Full NCE access, renews every 3 months.' },
-  { tier: 'nce_pass6',     sku: 'nce.pass6',        type: 'subscription', group: 'NCE', period: 'SIX_MONTHS',   usd: 89.99,
-    name: 'NCE 6-Month Pass', desc: 'Full NCE access, renews every 6 months.' },
+  { tier: 'nce_pass3',     sku: 'nce.sub3mo',       type: 'subscription', group: 'NCE', period: 'THREE_MONTHS', usd: 59.99,
+    name: 'NCE 3-Month', desc: 'Full NCE access, renews every 3 months.' },
+  { tier: 'nce_pass6',     sku: 'nce.sub6mo',       type: 'subscription', group: 'NCE', period: 'SIX_MONTHS',   usd: 89.99,
+    name: 'NCE 6-Month', desc: 'Full NCE access, renews every 6 months.' },
   { tier: 'nce_guarantee', sku: 'nce.guarantee',    type: 'NON_CONSUMABLE', usd: 149.99, optional: process.env.NCE_GUARANTEE === '0',
     name: 'NCE Pass Guarantee', desc: 'Unlimited NCE access until you pass. One payment.' },
 ];
