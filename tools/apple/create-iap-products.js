@@ -60,7 +60,7 @@ const PRODUCTS = [
   { tier: 'pass3',         sku: 'ncmhce.pass3',     type: 'NON_RENEWING_SUBSCRIPTION', usd: 79.99,
     name: 'NCMHCE 3-Month Pass', desc: '90 days of full NCMHCE access. One payment, no renewal.' },
   { tier: 'pass6',         sku: 'ncmhce.pass6',     type: 'NON_RENEWING_SUBSCRIPTION', usd: 149.99,
-    name: 'NCMHCE 6-Month Pass', desc: '180 days of full NCMHCE access. One payment, no renewal.' },
+    name: 'NCMHCE 6-Month Pass', desc: '180 days of full NCMHCE access. One payment.' },
   { tier: 'guarantee',     sku: 'ncmhce.guarantee', type: 'NON_CONSUMABLE', usd: 149.99,
     name: 'NCMHCE Pass Guarantee', desc: 'Unlimited NCMHCE access until you pass. One payment.' },
   { tier: 'guide',         sku: 'guide',            type: 'NON_CONSUMABLE', usd: 24.99,
