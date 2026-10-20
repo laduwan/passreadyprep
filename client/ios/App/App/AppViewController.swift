@@ -5,9 +5,8 @@ import Capacitor
 /// (rather than in a package) are registered here, before the web view loads.
 class AppViewController: CAPBridgeViewController {
     override func capacitorDidLoad() {
-        // StoreKitPlugin is not registered: nothing is sold in the app
-        // (companion build, docs/AppReview_Reply_v1.0_build3.md). Register it
-        // here again — bridge?.registerPluginInstance(StoreKitPlugin()) — if
-        // In-App Purchase comes back.
+        // StoreKit 2 In-App Purchase (App Store guideline 3.1.1).
+        // See docs/AppReview_Reply_v1.0_build2.md.
+        bridge?.registerPluginInstance(StoreKitPlugin())
     }
 }
