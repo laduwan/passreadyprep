@@ -56,13 +56,13 @@ const ROOT_CERT_URLS = [
 // stores can never drift apart. `kind` is the App Store product type to create.
 const CATALOG = [
   { tier: 'monthly',       sku: 'ncmhce.monthly',   kind: 'autoRenewable', name: 'NCMHCE Monthly' },
-  { tier: 'pass3',         sku: 'ncmhce.pass3',     kind: 'nonRenewing',   name: 'NCMHCE 3-Month Pass' },
-  { tier: 'pass6',         sku: 'ncmhce.pass6',     kind: 'nonRenewing',   name: 'NCMHCE 6-Month Pass' },
+  { tier: 'pass3',         sku: 'ncmhce.pass3',     kind: 'autoRenewable', name: 'NCMHCE 3-Month Pass' },
+  { tier: 'pass6',         sku: 'ncmhce.pass6',     kind: 'autoRenewable', name: 'NCMHCE 6-Month Pass' },
   { tier: 'guarantee',     sku: 'ncmhce.guarantee', kind: 'nonConsumable', name: 'NCMHCE Pass Guarantee' },
   { tier: 'guide',         sku: 'guide',            kind: 'nonConsumable', name: 'The Complete NCMHCE Study Guide' },
   { tier: 'nce_monthly',   sku: 'nce.monthly',      kind: 'autoRenewable', name: 'NCE Monthly' },
-  { tier: 'nce_pass3',     sku: 'nce.pass3',        kind: 'nonRenewing',   name: 'NCE 3-Month Pass' },
-  { tier: 'nce_pass6',     sku: 'nce.pass6',        kind: 'nonRenewing',   name: 'NCE 6-Month Pass' },
+  { tier: 'nce_pass3',     sku: 'nce.pass3',        kind: 'autoRenewable', name: 'NCE 3-Month Pass' },
+  { tier: 'nce_pass6',     sku: 'nce.pass6',        kind: 'autoRenewable', name: 'NCE 6-Month Pass' },
   // Mirrors the website: the NCE guarantee is only on sale once it is priced.
   { tier: 'nce_guarantee', sku: 'nce.guarantee',    kind: 'nonConsumable', name: 'NCE Pass Guarantee',
     offered: () => !!process.env.STRIPE_PRICE_NCE_GUARANTEE || process.env.APPLE_IAP_OFFER_NCE_GUARANTEE === '1' },

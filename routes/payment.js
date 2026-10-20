@@ -95,15 +95,16 @@ const TIERS = {
   },
   pass3: {
     priceId: () => process.env.STRIPE_PRICE_PASS3,
-    mode: 'payment',
+    mode: 'subscription',
     tierName: 'pass3',
-    accessDays: 90, // 3 months from purchase
+    // Auto-renews every 3 months (Stripe recurring interval = 3 months).
+    // Access expiry comes from Stripe (currentPeriodEnd), not accessDays.
   },
   pass6: {
     priceId: () => process.env.STRIPE_PRICE_PASS6,
-    mode: 'payment',
+    mode: 'subscription',
     tierName: 'pass6',
-    accessDays: 180, // 6 months from purchase
+    // Auto-renews every 6 months.
   },
   guarantee: {
     priceId: () => process.env.STRIPE_PRICE_GUARANTEE,
@@ -145,17 +146,17 @@ const TIERS = {
   },
   nce_pass3: {
     priceId: () => process.env.STRIPE_PRICE_NCE_PASS3,
-    mode: 'payment',
+    mode: 'subscription',
     tierName: 'nce_pass3',
     exam: 'nce',
-    accessDays: 90,
+    // Auto-renews every 3 months.
   },
   nce_pass6: {
     priceId: () => process.env.STRIPE_PRICE_NCE_PASS6,
-    mode: 'payment',
+    mode: 'subscription',
     tierName: 'nce_pass6',
     exam: 'nce',
-    accessDays: 180,
+    // Auto-renews every 6 months.
   },
   // NCE Pass Guarantee: the same promise as `guarantee` above (no repayment,
   // a candidate check-in every 6 months, pass → free CE course, fail → free
