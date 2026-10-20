@@ -22,13 +22,17 @@
 (function () {
   if (!window.PRP_NATIVE) return;
   var cap = window.Capacitor;
-  if (!cap || typeof cap.nativePromise !== 'function') return;
+  // Capacitor 8 exposes bridged plugins at Capacitor.Plugins.<jsName>.
+  // StoreKitPlugin.swift sets jsName = "StoreKit" and is registered in
+  // AppViewController.capacitorDidLoad() via bridge.registerPluginInstance.
+  var plugin = cap && cap.Plugins && cap.Plugins.StoreKit;
+  if (!plugin) return;
 
   var PLUGIN = 'StoreKit';
   var SYNC_KEY = 'prp_iap_sync';
   var SYNC_EVERY = 6 * 60 * 60 * 1000;
 
-  function native(method, opts) { return cap.nativePromise(PLUGIN, method, opts || {}); }
+  function native(method, opts) { return plugin[method](opts || {}); }
   function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function del(k) { try { localStorage.removeItem(k); } catch (e) {} }
@@ -176,8 +180,9 @@
 
   // Renewals and purchases completed while the app runs (Ask to Buy, another
   // device) arrive from StoreKit as events.
+  // Capacitor 8: addListener lives on the plugin instance, not the bridge.
   try {
-    cap.addListener(PLUGIN, 'transactionUpdated', function (tx) {
+    plugin.addListener('transactionUpdated', function (tx) {
       if (!tx || !tx.jws || !token()) return;
       verify(tx.jws, tx.transactionId).catch(function () {});
     });
