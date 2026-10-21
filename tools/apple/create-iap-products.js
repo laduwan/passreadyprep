@@ -28,6 +28,7 @@
  *   node tools/apple/create-iap-products.js --dry-run
  *   node tools/apple/create-iap-products.js
  *   node tools/apple/create-iap-products.js --screenshots ~/iap-screens
+ *   node tools/apple/create-iap-products.js --screenshots DIR --replace-screenshots  # swap an already-accepted image
  *   IAP_PRICES='{"monthly":27.99}' node tools/apple/create-iap-products.js   # override USD prices
  *   NCE_GUARANTEE=0 node tools/apple/create-iap-products.js                  # skip the NCE Pass Guarantee
  */
@@ -48,6 +49,10 @@ const args = process.argv.slice(2);
 const DRY = args.includes('--dry-run');
 const shotIdx = args.indexOf('--screenshots');
 const SHOT_DIR = shotIdx !== -1 ? path.resolve(args[shotIdx + 1] || '') : null;
+// --replace-screenshots: delete and re-upload even when Apple reports the
+// existing one as COMPLETE (e.g. it was accepted on upload but then rejected
+// in App Store Connect for the wrong dimensions).
+const REPLACE_SHOTS = args.includes('--replace-screenshots');
 
 const REVIEW_NOTE = 'PassReady Prep is an NCMHCE/NCE exam-prep study app. This product unlocks the plan named in its description inside the app; purchases are verified by our server and unlock immediately. Demo account with full access is in App Review Information.';
 
@@ -411,9 +416,10 @@ async function ensureScreenshot(p, type, relName, relType, id, readUrl) {
   try { const r = await get(readUrl); existing = r.data || null; } catch (e) { if (e.status !== 404) throw e; }
   if (existing && existing.id) {
     const state = existing.attributes && existing.attributes.assetDeliveryState && existing.attributes.assetDeliveryState.state;
-    if (state === 'COMPLETE' || state === 'UPLOAD_COMPLETE') { done(`review screenshot already uploaded (${state})`); return; }
+    const complete = state === 'COMPLETE' || state === 'UPLOAD_COMPLETE';
+    if (complete && !REPLACE_SHOTS) { done(`review screenshot already uploaded (${state})`); return; }
     await del(`/v1/${type}/${existing.id}`);
-    console.log(`  · removed stale screenshot reservation (${state || 'unknown state'})`);
+    console.log(`  · ${complete ? 'replacing' : 'removed stale'} screenshot (${state || 'unknown state'})`);
   }
 
   const bytes = fs.readFileSync(file);
