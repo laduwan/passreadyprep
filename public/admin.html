@@ -264,9 +264,11 @@
     });
   }
   function $(id){ return document.getElementById(id); }
-  function toast(msg, isErr){
+  var toastTimer;
+  function toast(msg, isErr, ms){
     var t=$('toast'); t.textContent=msg; t.className='toast show'+(isErr?' err':'');
-    setTimeout(function(){ t.className='toast'; }, 2600);
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(function(){ t.className='toast'; }, ms||2600);
   }
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 
@@ -645,8 +647,13 @@
   $('aSearch').addEventListener('keydown', function(e){ if(e.key==='Enter') loadActivity(); });
   $('aTest').onclick = function(){
     api('/activity/test',{method:'POST'}).then(function(r){
-      toast(r.message || 'Test event logged', r.delivered === false); loadActivity(); loadActivityStats();
-    }).catch(function(e){ toast(e.message, true); });
+      // Delivery errors (Twilio codes, missing env) need reading time — hold the
+      // toast open longer when anything failed, and mirror it to the console.
+      var failed = r.delivered === false || /FAILED|NOT sent|Config:/.test(r.message||'');
+      toast(r.message || 'Test event logged', failed, failed ? 20000 : 4000);
+      console.log('[test alert]', r);
+      loadActivity(); loadActivityStats();
+    }).catch(function(e){ toast(e.message, true, 8000); });
   };
 
   // ── Boot ──────────────────────────────────────────────────────────
