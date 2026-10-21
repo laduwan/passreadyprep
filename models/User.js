@@ -11,6 +11,15 @@ const UserSchema = new Schema(
     name: { type: String, trim: true },
     profession: { type: String }, // e.g. 'counseling'
 
+    // Optional mobile number + explicit SMS opt-in. Collected on register.html
+    // behind an unchecked, non-mandatory consent box with the carrier-required
+    // disclosure (frequency, rates, STOP/HELP). Both fields are stored only
+    // when the user actively opts in; smsOptedInAt timestamps the consent for
+    // audit (Twilio/Brevo toll-free registrations may request it).
+    phone: { type: String, trim: true, default: null },
+    smsOptedIn: { type: Boolean, default: false },
+    smsOptedInAt: Date,
+
     examsEnrolled: [{ type: Schema.Types.ObjectId, ref: 'Exam' }],
 
     // Incremented on every login. Embedded in the JWT so any session using

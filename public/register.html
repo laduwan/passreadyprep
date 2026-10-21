@@ -57,10 +57,12 @@
 
   label{display:block;font-size:12px;font-weight:700;letter-spacing:.04em;
     text-transform:uppercase;color:var(--slate-400);margin:0 0 6px}
-  input[type=text],input[type=email],input[type=password]{
+  input[type=text],input[type=email],input[type=password],input[type=tel]{
     width:100%;background:rgba(15,23,42,.55);border:1px solid var(--card-border);
     border-radius:10px;color:var(--white);font:inherit;font-size:15px;
     padding:11px 14px;outline:none;transition:border-color .15s;margin-bottom:16px}
+  .optional-tag{color:var(--slate-600);text-transform:none;letter-spacing:0;font-weight:400}
+  .sms-disclosure{font-size:12px;color:var(--slate-500);line-height:1.5;margin:-10px 0 16px}
   input:focus{border-color:var(--emerald)}
   input::placeholder{color:var(--slate-600)}
 
@@ -116,12 +118,27 @@
     <label for="reg-email">Email</label>
     <input type="email" id="reg-email" placeholder="you@example.com" autocomplete="email"/>
 
-    <label for="reg-password">Password <span style="color:var(--slate-600);text-transform:none;letter-spacing:0;font-weight:400">(8+ characters)</span></label>
+    <label for="reg-password">Password <span class="optional-tag">(8+ characters)</span></label>
     <input type="password" id="reg-password" placeholder="••••••••" autocomplete="new-password"/>
+
+    <label for="reg-phone">Mobile phone <span class="optional-tag">(optional, for SMS reminders)</span></label>
+    <input type="tel" id="reg-phone" placeholder="(555) 123-4567" autocomplete="tel" inputmode="tel"/>
+    <p class="sms-disclosure">
+      Message frequency varies. Message and data rates may apply. Reply STOP to cancel or HELP for help.
+      Your mobile information will not be sold or shared with third parties.
+    </p>
 
     <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true">
       <label for="reg-website">Leave this field blank</label>
       <input type="text" id="reg-website" name="website" tabindex="-1" autocomplete="off"/>
+    </div>
+
+    <div class="terms-row">
+      <input type="checkbox" id="reg-sms"/>
+      <label for="reg-sms">
+        Text me trial, billing, and exam-prep reminders from PassReady Prep at the number above.
+        Consent is not required to create an account.
+      </label>
     </div>
 
     <div class="terms-row">
@@ -176,12 +193,14 @@
   }
 
   async function register() {
-    const name     = document.getElementById('reg-name').value.trim();
-    const email    = document.getElementById('reg-email').value.trim();
-    const password = document.getElementById('reg-password').value;
-    const website  = document.getElementById('reg-website').value;
-    const terms    = document.getElementById('reg-terms').checked;
-    const btn      = document.getElementById('reg-btn');
+    const name       = document.getElementById('reg-name').value.trim();
+    const email      = document.getElementById('reg-email').value.trim();
+    const password   = document.getElementById('reg-password').value;
+    const phone      = document.getElementById('reg-phone').value.trim();
+    const smsOptedIn = document.getElementById('reg-sms').checked;
+    const website    = document.getElementById('reg-website').value;
+    const terms      = document.getElementById('reg-terms').checked;
+    const btn        = document.getElementById('reg-btn');
 
     document.getElementById('reg-err').style.display = 'none';
 
@@ -195,7 +214,7 @@
       const r = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, termsAccepted: true, website }),
+        body: JSON.stringify({ name, email, password, phone, smsOptedIn, termsAccepted: true, website }),
       });
       const data = await r.json();
       if (!r.ok) {
