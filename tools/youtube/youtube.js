@@ -41,7 +41,7 @@ const API = 'https://www.googleapis.com/youtube/v3';
 const SCOPE = 'https://www.googleapis.com/auth/youtube';
 const TITLE_MAX = 100;
 // Shown on every run, so it's clear which version of the script ran.
-const VERSION = '2026-10-21d';
+const VERSION = '2026-10-21e';
 const LINK_LINE = /^▶ Part \d: https:\/\/youtu\.be\/\S+\s*$/;
 
 // ── Parsing: file name / title → series info ─────────────────────────────────
@@ -126,8 +126,10 @@ function analyse(videos) {
     if (!byKey.has(v.key)) byKey.set(v.key, []);
     byKey.get(v.key).push(v);
   }
-  // Main copy: public first, then most views, then the oldest upload.
-  const rank = v => [v.privacy === 'public' ? 0 : 1, -(v.views || 0), v.publishedAt || ''];
+  // Main copy: public first, then one already scheduled to go public, then most
+  // views, then the oldest upload. (Never let an unscheduled private copy win over a
+  // scheduled one, or publish would schedule the same video twice.)
+  const rank = v => [v.privacy === 'public' ? 0 : v.raw?.status?.publishAt ? 1 : 2, -(v.views || 0), v.publishedAt || ''];
   const cmp = (a, b) => { const x = rank(a), y = rank(b); for (let i = 0; i < x.length; i++) { if (x[i] < y[i]) return -1; if (x[i] > y[i]) return 1; } return 0; };
   const mains = [], dupes = [];
   for (const list of byKey.values()) {
