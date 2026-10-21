@@ -139,6 +139,32 @@ const post = (url, body) => request('POST', url, body);
 const patch = (url, body) => request('PATCH', url, body);
 const del = (url) => request('DELETE', url);
 
+// Raw byte upload to Apple's asset store (itms-assets-*). These are pre-signed
+// URLs: they must receive ONLY the headers Apple returned in uploadOperations
+// (plus Content-Length) — adding the API JWT as Authorization makes the store
+// answer 400 "Invalid request". So this deliberately does not go through
+// request(), which always stamps the Bearer token on.
+function putAsset(method, url, bytes, headers) {
+  return new Promise((resolve, reject) => {
+    const u = new URL(url);
+    const h = Object.assign({}, headers, { 'Content-Length': bytes.length });
+    const req = https.request(u, { method, headers: h }, (res) => {
+      const chunks = [];
+      res.on('data', (c) => chunks.push(c));
+      res.on('end', () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) return resolve();
+        const text = Buffer.concat(chunks).toString('utf8');
+        const err = new Error(`${method} ${u.pathname} → ${res.statusCode} ${text.slice(0, 300)}`);
+        err.status = res.statusCode;
+        reject(err);
+      });
+    });
+    req.on('error', reject);
+    req.write(bytes);
+    req.end();
+  });
+}
+
 // Walks every page of a list endpoint.
 async function list(url) {
   const out = [];
@@ -377,9 +403,18 @@ async function ensureScreenshot(p, type, relName, relType, id, readUrl) {
   const file = [path.join(SHOT_DIR, `${p.tier}.png`), path.join(SHOT_DIR, `${p.tier}.jpg`), path.join(SHOT_DIR, 'default.png'), path.join(SHOT_DIR, 'default.jpg')]
     .find((f) => fs.existsSync(f));
   if (!file) { console.log(`  · no screenshot for ${p.tier} in ${SHOT_DIR} (expected ${p.tier}.png or default.png)`); return; }
-  let has = false;
-  try { const r = await get(readUrl); has = !!(r.data && r.data.id); } catch (e) { if (e.status !== 404) throw e; }
-  if (has) { done('review screenshot already uploaded'); return; }
+  // A previous run may have reserved a screenshot and then failed to upload the
+  // bytes, leaving the record stuck in AWAITING_UPLOAD / FAILED. Only a record
+  // whose asset reached COMPLETE counts as done; anything else is deleted and
+  // re-reserved so the stale reservation can't block the upload forever.
+  let existing = null;
+  try { const r = await get(readUrl); existing = r.data || null; } catch (e) { if (e.status !== 404) throw e; }
+  if (existing && existing.id) {
+    const state = existing.attributes && existing.attributes.assetDeliveryState && existing.attributes.assetDeliveryState.state;
+    if (state === 'COMPLETE' || state === 'UPLOAD_COMPLETE') { done(`review screenshot already uploaded (${state})`); return; }
+    await del(`/v1/${type}/${existing.id}`);
+    console.log(`  · removed stale screenshot reservation (${state || 'unknown state'})`);
+  }
 
   const bytes = fs.readFileSync(file);
   const reservation = (await post(`/v1/${type}`, { data: {
@@ -389,7 +424,7 @@ async function ensureScreenshot(p, type, relName, relType, id, readUrl) {
   for (const op of reservation.attributes.uploadOperations || []) {
     const headers = {};
     for (const h of op.requestHeaders || []) headers[h.name] = h.value;
-    await request(op.method || 'PUT', op.url, bytes.subarray(op.offset, op.offset + op.length), headers);
+    await putAsset(op.method || 'PUT', op.url, bytes.subarray(op.offset, op.offset + op.length), headers);
   }
   await patch(`/v1/${type}/${reservation.id}`, { data: {
     type, id: reservation.id,
