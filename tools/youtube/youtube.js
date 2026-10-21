@@ -41,7 +41,7 @@ const API = 'https://www.googleapis.com/youtube/v3';
 const SCOPE = 'https://www.googleapis.com/auth/youtube';
 const TITLE_MAX = 100;
 // Shown on every run, so it's clear which version of the script ran.
-const VERSION = '2026-10-21a';
+const VERSION = '2026-10-21b';
 const LINK_LINE = /^▶ Part \d: https:\/\/youtu\.be\/\S+\s*$/;
 
 // ── Parsing: file name / title → series info ─────────────────────────────────
@@ -315,6 +315,9 @@ async function yt(method, resource, params = {}, body, cost = 1) {
   if (!res.ok) {
     const reason = j.error?.errors?.[0]?.reason;
     if (reason === 'quotaExceeded') die('YouTube daily limit reached. Run the same command again tomorrow; it picks up where it left off.');
+    if (reason === 'rateLimitExceeded' || res.status === 429 || /RATE_LIMIT|exhausted/i.test(j.error?.message || '')) {
+      die('YouTube is limiting how fast this account can make changes (new playlists especially).\nWait a few hours, then run the same command again; it picks up where it left off.');
+    }
     if (reason === 'youtubeSignupRequired' || res.status === 401) die('Google sign-in problem. Run: node tools/youtube/youtube.js auth');
     const err = new Error(`${method} ${resource}: ${j.error?.message || res.status}${reason ? ` (${reason})` : ''}`);
     err.status = res.status;
