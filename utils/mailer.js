@@ -187,12 +187,25 @@ async function sendSmsViaTwilio({ to, text }) {
     if (!res.ok) {
       const detail = await res.text().catch(() => '');
       console.error('[mailer] Twilio SMS error', res.status, detail.slice(0, 300));
-      return { ok: false, status: res.status };
+      return { ok: false, status: res.status, provider: 'twilio', ...providerError(detail) };
     }
-    return { ok: true };
+    return { ok: true, provider: 'twilio' };
   } catch (err) {
     console.error('[mailer] Twilio SMS send failed:', err.message);
-    return { ok: false, error: err.message };
+    return { ok: false, provider: 'twilio', error: err.message };
+  }
+}
+
+// Twilio and Brevo both answer a rejected send with JSON carrying a numeric
+// code and a human message (e.g. Twilio 30034 "unregistered 10DLC number",
+// 21211 "invalid To number", 20003 "authentication failed"). Surface those so
+// the admin test-alert button can show the real reason, not just "failed".
+function providerError(detail) {
+  try {
+    const j = JSON.parse(detail);
+    return { code: j.code != null ? String(j.code) : undefined, message: j.message || undefined };
+  } catch (e) {
+    return { message: detail ? String(detail).slice(0, 200) : undefined };
   }
 }
 
@@ -213,11 +226,11 @@ async function sendSmsViaBrevo({ to, text }) {
     if (!res.ok) {
       const detail = await res.text().catch(() => '');
       console.error('[mailer] Brevo SMS error', res.status, detail.slice(0, 300));
-      return { ok: false, status: res.status };
+      return { ok: false, status: res.status, provider: 'brevo', ...providerError(detail) };
     }
-    return { ok: true };
+    return { ok: true, provider: 'brevo' };
   } catch (err) {
     console.error('[mailer] SMS send failed:', err.message);
-    return { ok: false, error: err.message };
+    return { ok: false, provider: 'brevo', error: err.message };
   }
 }

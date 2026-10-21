@@ -8,6 +8,7 @@ const ActivityEvent = require('../models/ActivityEvent');
 const StudyActivity = require('../models/StudyActivity');
 const ReviewBatch = require('../models/ReviewBatch');
 const { logActivity } = require('../utils/activity');
+const { sendMail, sendSms } = require('../utils/mailer');
 const { BATCH_NAME_RX, reviewSheetSummary } = require('../tools/cases/reviewRoundTrip');
 const { applyStoredBatch } = require('../tools/cases/batchApply');
 const { renderCasesHtml } = require('../utils/caseExport');
@@ -736,35 +737,75 @@ router.get('/activity/study', async (req, res) => {
   }
 });
 
-// POST /api/admin/activity/test — log a test event and force an admin alert,
-// so you can confirm email/SMS delivery end to end.
+// POST /api/admin/activity/test — log a test event and send one email and one
+// SMS to the admin, reporting each channel's result separately.
+//
+// Sends go through sendMail/sendSms directly rather than through the normal
+// alert pipeline: the pipeline's 10-minute throttle and the
+// ADMIN_ALERT_SMS_EVENTS scope both apply to real events, but a test button
+// that silently does nothing because of either is exactly what this exists to
+// avoid. The provider's own error (Twilio 30034, 21211, 20003…) is echoed back
+// so the reason shows in the admin toast, not just in the server logs.
 router.post('/activity/test', async (req, res) => {
   try {
     const saved = await logActivity({
       type: 'admin.test_alert',
       severity: 'warn',
       message: 'Test alert triggered from the admin panel.',
-      notify: true,
+      notify: false,
       req,
     });
-    // Say where it went and whether it actually left, so a missing key or a
-    // wrong recipient shows up here instead of as silence.
+
     const to = process.env.ADMIN_ALERT_EMAIL || process.env.MAIL_FROM_EMAIL || '';
-    const sms = process.env.ADMIN_ALERT_SMS_TO || '';
+    const smsTo = process.env.ADMIN_ALERT_SMS_TO || '';
+    const twilioReady = !!(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN &&
+      (process.env.TWILIO_FROM || process.env.TWILIO_MESSAGING_SERVICE_SID));
     const problems = [];
     if (!process.env.PRP_RESEND_API_KEY && !process.env.BREVO_API_KEY) problems.push('PRP_RESEND_API_KEY is not set (nor BREVO_API_KEY), so email is only logged, not sent');
     if (!process.env.ADMIN_ALERT_EMAIL) problems.push(`ADMIN_ALERT_EMAIL is not set, so alerts go to MAIL_FROM_EMAIL (${to || 'unset'})`);
-    if (process.env.ADMIN_ALERT_DISABLE === '1') problems.push('ADMIN_ALERT_DISABLE=1 silences all alerts');
-    const delivered = !!(saved && saved.notified);
+    if (process.env.ADMIN_ALERT_DISABLE === '1') problems.push('ADMIN_ALERT_DISABLE=1 silences all real alerts (this test still sends)');
+    if (!smsTo) problems.push('ADMIN_ALERT_SMS_TO is not set, so no SMS is attempted');
+    else if (!twilioReady && !process.env.BREVO_API_KEY) problems.push('ADMIN_ALERT_SMS_TO is set but no SMS provider is configured: need TWILIO_ACCOUNT_SID + TWILIO_AUTH_TOKEN + TWILIO_FROM (or TWILIO_MESSAGING_SERVICE_SID), or BREVO_API_KEY');
+    else if (!twilioReady && process.env.TWILIO_ACCOUNT_SID) problems.push('Twilio is only partly configured (SMS is falling back to Brevo): check TWILIO_AUTH_TOKEN and TWILIO_FROM / TWILIO_MESSAGING_SERVICE_SID');
+
+    const when = new Date().toISOString();
+    const subject = '[PassReady WARN] admin.test_alert';
+    const text = `Type: admin.test_alert\nSeverity: warn\nMessage: Test alert triggered from the admin panel.\nTime: ${when}`;
+    const html = '<pre style="font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap">' + text + '</pre>';
+
+    const email = to ? await sendMail({ to, subject, html, text }) : null;
+    const sms = [];
+    for (const n of String(smsTo).split(',').map((s) => s.trim()).filter(Boolean)) {
+      sms.push({ to: n, ...(await sendSms({ to: n, text: subject + ' — Test alert triggered from the admin panel.' })) });
+    }
+
+    const emailSent = !!(email && email.ok && !email.dev);
+    const smsSent = sms.filter((r) => r.ok && !r.dev);
+    const smsFailed = sms.filter((r) => !r.ok || r.dev);
+    const delivered = emailSent || smsSent.length > 0;
+    if (saved && delivered) { try { saved.notified = true; await saved.save(); } catch (e) {} }
+
+    const parts = [];
+    if (!to) parts.push('Email: no recipient');
+    else if (emailSent) parts.push(`Email: sent to ${to}`);
+    else if (email && email.dev) parts.push(`Email: NOT sent to ${to} (no email key, logged only)`);
+    else parts.push(`Email: FAILED to ${to}${email && email.status ? ' (HTTP ' + email.status + ')' : ''}`);
+    if (!smsTo) parts.push('SMS: not configured');
+    for (const r of smsSent) parts.push(`SMS: sent to ${r.to} via ${r.provider}`);
+    for (const r of smsFailed) {
+      if (r.dev) parts.push(`SMS: NOT sent to ${r.to} (no SMS provider configured, logged only)`);
+      else parts.push(`SMS: FAILED to ${r.to} — ${r.provider || 'provider'}${r.code ? ' ' + r.code : ''}${r.status ? ' (HTTP ' + r.status + ')' : ''}: ${r.message || r.error || 'rejected'}`);
+    }
+
     return res.json({
       ok: true,
       delivered,
       to: to || null,
-      sms: sms || null,
+      sms: smsTo || null,
+      email,
+      smsResults: sms,
       problems,
-      message: delivered
-        ? `Test alert sent to ${[to, sms].filter(Boolean).join(' and ')}.`
-        : 'Test alert was NOT delivered' + (problems.length ? ': ' + problems.join('; ') : ' (Brevo rejected it, or a test alert was already sent in the last few minutes; check the server logs).'),
+      message: parts.join('. ') + (problems.length ? '. Config: ' + problems.join('; ') : ''),
     });
   } catch (err) {
     console.error('admin activity test error', err);
