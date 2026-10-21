@@ -12,6 +12,9 @@
 //   ADMIN_ALERT_SMS_EVENTS — comma list of event types that also send SMS. Unset =
 //                            SMS follows email. Set = only these types text, so a
 //                            signup can text you without errors paging your phone.
+//                            Note: user.registered, payment.succeeded, and
+//                            payment.failed ALWAYS text (never throttled, never
+//                            scoped out) — see NEVER_THROTTLE / SMS_ALWAYS below.
 //   ADMIN_ALERT_EVENTS    — comma list of event types to alert on (overrides the default set)
 //   ADMIN_ALERT_DISABLE   — set to 1 to silence all alerts (events are still logged)
 //   ADMIN_ALERT_THROTTLE_MIN — minutes between alerts of the same kind (default 10)
@@ -42,7 +45,17 @@ function notifyTypes() {
 const THROTTLE_MS = (parseInt(process.env.ADMIN_ALERT_THROTTLE_MIN || '10', 10) || 10) * 60000;
 const lastSent = new Map(); // key -> { ts, suppressed }
 
-function throttleGate(key) {
+// Business events we never want collapsed by the throttle: every signup and
+// every payment should page the admin, even if several land back-to-back.
+// Errors still throttle (an error storm must not flood the inbox).
+const NEVER_THROTTLE = new Set([
+  'user.registered',
+  'payment.succeeded',
+  'payment.failed',
+]);
+
+function throttleGate(key, type) {
+  if (NEVER_THROTTLE.has(type)) return { send: true, suppressed: 0 };
   const now = Date.now();
   const rec = lastSent.get(key);
   if (!rec || now - rec.ts >= THROTTLE_MS) {
@@ -75,7 +88,16 @@ function smsTypes() {
   return null;
 }
 
+// Signups and payments always text (ADMIN_ALERT_SMS_TO permitting), regardless
+// of what ADMIN_ALERT_SMS_EVENTS is scoped to. Everything else obeys the scope.
+const SMS_ALWAYS = new Set([
+  'user.registered',
+  'payment.succeeded',
+  'payment.failed',
+]);
+
 function decideSms(doc) {
+  if (SMS_ALWAYS.has(doc.type)) return true;
   const list = smsTypes();
   if (!list) return true; // not configured → text whatever we email (back-compat)
   return list.includes(doc.type);
@@ -132,7 +154,7 @@ async function notifyAdmin(doc, saved) {
 
   // Throttle per (severity-scoped) type so repeats collapse into one alert.
   const key = (doc.severity === 'error' ? 'error:' : '') + doc.type;
-  const gate = throttleGate(key);
+  const gate = throttleGate(key, doc.type);
   if (!gate.send) return;
 
   const when = new Date().toISOString();
