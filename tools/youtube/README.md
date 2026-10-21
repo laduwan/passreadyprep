@@ -9,6 +9,33 @@ Then run the script. (Videos uploaded through the API by an unreviewed Google
 project are locked to Private by YouTube, so the script only edits videos, it
 doesn't upload them.)
 
+## Status (as of 2026-10-21)
+
+**Done:** every uploaded video has its sheet's title, description (with
+chapters) and tags; Part 1 / Part 2 links on full cases; all 22 uploaded full
+cases and minis public with thumbnails; practice Shorts scheduled one a day at
+7 pm through Dec 5; duplicate copies unlisted; videos sorted into playlists.
+
+**Still open:**
+1. Minis D257, D249, D250, D230, D242, D240 (sheets 23–28) are not uploaded yet.
+   Sheets and thumbnails are ready; after uploading, run the four steps below.
+2. `sheets/02-D106-full-part2.txt` has a broken description (a lone `[`, and the
+   "Part 2 of 2 … The case:" paragraph is missing). Fix the sheet, then run `fix`.
+3. Quiz posts (15, three per NCMHCE content area) are on a copy-paste page; post
+   each one after its video is public.
+4. Videos whose audio language is `zxx` in Studio are handled (the script leaves
+   that field out); YouTube's uploads list misses some private videos, so the
+   script also searches the channel.
+
+**Every new batch:** upload in Studio, add the sheets to `tools/youtube/sheets/`, then
+
+```
+node tools/youtube/youtube.js fix --sheets tools/youtube/sheets --yes
+python3 tools/youtube/make-thumbnails.py
+node tools/youtube/youtube.js thumbs --yes
+node tools/youtube/youtube.js publish --yes
+```
+
 ## What it does
 
 - Finds each video by the case code in its **file name**, e.g. `06 D140 P2 · …`
