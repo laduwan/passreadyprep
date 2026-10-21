@@ -74,7 +74,7 @@ function baseUrl(req) {
 // POST /api/auth/register — create an account
 router.post('/register', async (req, res) => {
   try {
-    const { email, password, name, termsAccepted, website } = req.body || {};
+    const { email, password, name, termsAccepted, website, phone, smsOptedIn } = req.body || {};
 
     // Honeypot: "website" is a hidden field real users never see or fill.
     // Bots that auto-fill every input populate it, so we quietly pretend to
@@ -105,10 +105,18 @@ router.post('/register', async (req, res) => {
       return res.status(409).json({ error: 'An account with that email already exists' });
 
     const passwordHash = await bcrypt.hash(password, 12);
+    // SMS opt-in is only recorded when the user both ticks the box AND provides
+    // a phone number — no number or no consent means we store neither, matching
+    // the carrier rule that consent cannot be pre-checked or implied.
+    const normalizedPhone = typeof phone === 'string' ? phone.replace(/[^\d+]/g, '').slice(0, 20) : '';
+    const opted = smsOptedIn === true && normalizedPhone.length >= 10;
     const user = await User.create({
       email, passwordHash, name,
       termsAcceptedAt: new Date(),
       termsVersion: 'june-2026',
+      phone: opted ? normalizedPhone : null,
+      smsOptedIn: opted,
+      smsOptedInAt: opted ? new Date() : undefined,
     });
 
     logActivity({ type: 'user.registered', severity: 'info', email: user.email, userId: user._id, message: 'New account created', req });
