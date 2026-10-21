@@ -23,3 +23,21 @@ then rejects in a later pass.
 **Rule:** never edit one constant without checking the other.
 The current safe ceiling is `sqrt(1.25) ≈ 1.118`; `1.11` leaves a small safety margin.
 A full explanation sits in the comment block above `LENGTH_BAND` in `fix-distractors.js`.
+
+## Git conventions (owner's rules — always follow)
+
+- **Branch names start with `Keke/`** and describe the change (e.g. `Keke/youtube-thumbnails`).
+  Use this even if the session was handed a `claude/...` branch name.
+- **No attribution of any kind:** no `Co-Authored-By`, no `Claude-Session` lines, no
+  "Generated with Claude Code" in commits, PR descriptions or comments. Commit as the
+  repo owner (`git config user.name laduwan`, `git config user.email kelajoh@gmail.com`).
+- **Don't open pull requests automatically.** Push the branch, then ask whether to open a PR.
+
+## YouTube tools (separate branch)
+
+The YouTube channel tools (titles, descriptions, playlists, thumbnails, scheduling from
+the upload sheets) live on branch `Keke/youtube-fix-preview-bugs` under `tools/youtube/`,
+kept off `main` on purpose. They run on the owner's Mac from a separate folder,
+`~/passreadyprep-youtube`. Status and per-batch steps are at the top of
+`tools/youtube/README.md` on that branch.
+
