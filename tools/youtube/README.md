@@ -95,6 +95,20 @@ No sign-in yet? You can still get the report from a Studio analytics export:
 node tools/youtube/youtube.js report ~/Downloads/"Table data.csv"
 ```
 
+## Publishing and scheduling
+
+```
+node tools/youtube/youtube.js publish                 # preview
+node tools/youtube/youtube.js publish --yes           # do it
+```
+
+- Full cases and minis: the main copy goes **public** now.
+- Practice Shorts that are private and not scheduled yet get **scheduled one a
+  day at 7 pm** (your Mac's time zone), in series order, skipping days that
+  already have one. Change with `--time 18:30` or `--per-day 2`.
+- Public extra copies are set to **unlisted**.
+- Videos YouTube refused to edit stay private; fix them in Studio first.
+
 ## Thumbnails
 
 `tools/youtube/thumbnails/` has one 1280×720 thumbnail per full-case part and

@@ -41,7 +41,7 @@ const API = 'https://www.googleapis.com/youtube/v3';
 const SCOPE = 'https://www.googleapis.com/auth/youtube';
 const TITLE_MAX = 100;
 // Shown on every run, so it's clear which version of the script ran.
-const VERSION = '2026-10-19e';
+const VERSION = '2026-10-21a';
 const LINK_LINE = /^▶ Part \d: https:\/\/youtu\.be\/\S+\s*$/;
 
 // ── Parsing: file name / title → series info ─────────────────────────────────
@@ -610,6 +610,68 @@ async function updateVideo(v, { title, description, privacy, tags }) {
   return false;
 }
 
+// ── Publishing ──────────────────────────────────────────────────────────────
+
+// Full cases and minis: make the main copy public now.
+// Practice Shorts that are private and not yet scheduled: schedule them, one a day
+// (or --per-day N) at --time HH:MM (default 19:00, this computer's time zone),
+// in series order, on days nothing else is already scheduled.
+// Extra copies that are public: set to unlisted.
+// Videos YouTube refused to edit (see fix) are left alone.
+async function publish(args) {
+  const apply = args.includes('--yes');
+  const opt = (name, dflt) => { const i = args.indexOf(name); return i >= 0 && args[i + 1] ? args[i + 1] : dflt; };
+  const time = opt('--time', '19:00');
+  const perDay = Math.max(1, parseInt(opt('--per-day', '1'), 10) || 1);
+  const tm = time.match(/^(\d{1,2}):(\d{2})$/);
+  if (!tm || +tm[1] > 23 || +tm[2] > 59) die('Use --time like 19:00 (24-hour clock).');
+  const blocked = readBlocked();
+  const { videos } = await loadChannel();
+  const { mains, dupes } = analyse(videos);
+  console.log(apply ? 'Making changes…\n' : 'Preview — nothing is changed until you add --yes\n');
+
+  const plan = [];
+  const usable = v => !blocked[v.id] && !(v.mismatch && !v.series);
+  for (const v of mains.filter(v => v.series.kind !== 'practice' && usable(v)).sort(seriesOrder)) {
+    if (v.privacy === 'public') continue;
+    if (v.raw.status.publishAt) { console.log(`${v.key.padEnd(9)} ${v.id}  already scheduled for ${new Date(v.raw.status.publishAt).toLocaleString()}`); continue; }
+    plan.push({ v, privacy: 'public', note: `${v.privacy} → public` });
+  }
+
+  // Days that already have something scheduled are skipped.
+  const dayKey = d => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+  const used = new Map();
+  for (const v of videos) if (v.raw.status.publishAt && v.privacy === 'private') {
+    const k = dayKey(new Date(v.raw.status.publishAt)); used.set(k, (used.get(k) || 0) + 1);
+  }
+  const day = new Date(); day.setDate(day.getDate() + 1); day.setHours(+tm[1], +tm[2], 0, 0);
+  const shorts = mains.filter(v => v.series.kind === 'practice' && usable(v) && v.privacy === 'private' && !v.raw.status.publishAt).sort(seriesOrder);
+  for (const v of shorts) {
+    while ((used.get(dayKey(day)) || 0) >= perDay) day.setDate(day.getDate() + 1);
+    used.set(dayKey(day), (used.get(dayKey(day)) || 0) + 1);
+    plan.push({ v, privacy: 'private', publishAt: new Date(day), note: `scheduled for ${day.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })} at ${time}` });
+  }
+
+  for (const d of dupes.filter(d => d.privacy === 'public' && !blocked[d.id])) plan.push({ v: d, privacy: 'unlisted', note: `extra copy of ${d.duplicateOf.id}: public → unlisted` });
+
+  const skipped = mains.filter(v => blocked[v.id] && v.privacy !== 'public');
+  let failed = 0;
+  for (const p of plan) {
+    console.log(`${p.v.key.padEnd(9)} ${p.v.id}  ${p.note}`);
+    if (!apply) continue;
+    const st = p.v.raw.status;
+    const status = { privacyStatus: p.privacy };
+    for (const k of ['embeddable', 'license', 'publicStatsViewable', 'selfDeclaredMadeForKids']) if (st[k] !== undefined) status[k] = st[k];
+    if (p.publishAt) status.publishAt = p.publishAt.toISOString();
+    try { await yt('PUT', 'videos', { part: 'status' }, { id: p.v.id, status }, 50); }
+    catch (e) { console.log(`           ✗ ${e.message}`); failed++; }
+  }
+  if (skipped.length) console.log(`\nLeft private (YouTube refused edits to these; fix them in Studio first): ${skipped.map(v => v.key).join(', ')}`);
+  if (!plan.length) console.log('Nothing to publish or schedule.');
+  else if (!apply) console.log(`\n${plan.length} change(s) shown. Run again with --yes to make them.`);
+  else console.log(`\nDone: ${plan.length - failed} change(s) made${failed ? `, ${failed} failed` : ''}. (YouTube quota used: about ${quotaUsed} of 10,000 for today.)`);
+}
+
 // ── Thumbnails ──────────────────────────────────────────────────────────────
 
 // Uploads tools/youtube/thumbnails/<key>.jpg to the main copy of each video.
@@ -668,7 +730,8 @@ async function main() {
   if (cmd === 'fix') return fix(args);
   if (cmd === 'report') return report(args[0]);
   if (cmd === 'thumbs') return thumbs(args);
-  console.log('Commands: auth | scan | fix [--sheets <folder>] [--yes] [--visibility] | thumbs [--yes] | report "Table data.csv"\nSee tools/youtube/README.md');
+  if (cmd === 'publish') return publish(args);
+  console.log('Commands: auth | scan | fix [--sheets <folder>] [--yes] [--visibility] | thumbs [--yes] | publish [--time 19:00] [--per-day 1] [--yes] | report "Table data.csv"\nSee tools/youtube/README.md');
 }
 
 if (require.main === module) main().catch(e => die(e.message));
