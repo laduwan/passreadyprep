@@ -41,7 +41,7 @@ const API = 'https://www.googleapis.com/youtube/v3';
 const SCOPE = 'https://www.googleapis.com/auth/youtube';
 const TITLE_MAX = 100;
 // Shown on every run, so it's clear which version of the script ran.
-const VERSION = '2026-10-21c';
+const VERSION = '2026-10-21d';
 const LINK_LINE = /^▶ Part \d: https:\/\/youtu\.be\/\S+\s*$/;
 
 // ── Parsing: file name / title → series info ─────────────────────────────────
@@ -346,6 +346,17 @@ async function loadChannel() {
   const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
   // The uploads list can return the same video more than once; count each video once.
   const ids = [...new Set((await listAll('playlistItems', { part: 'contentDetails', playlistId: uploads })).map(i => i.contentDetails.videoId))];
+  // The uploads list sometimes leaves videos out (seen with private ones), so also
+  // ask search for this channel's videos and add any that are missing.
+  try {
+    let pageToken, extra = 0;
+    do {
+      const j = await yt('GET', 'search', { part: 'id', forMine: 'true', type: 'video', maxResults: 50, ...(pageToken ? { pageToken } : {}) }, null, 100);
+      for (const it of j.items || []) if (it.id?.videoId && !ids.includes(it.id.videoId)) { ids.push(it.id.videoId); extra++; }
+      pageToken = j.nextPageToken;
+    } while (pageToken);
+    if (extra) console.log(`(found ${extra} video(s) missing from YouTube's uploads list)`);
+  } catch (e) { console.log(`(couldn't double-check the video list: ${e.message})`); }
 
   const videos = [];
   for (let i = 0; i < ids.length; i += 50) {
@@ -584,6 +595,10 @@ async function updateVideo(v, { title, description, privacy, tags }) {
   const s = v.raw.snippet, st = v.raw.status;
   const snippet = { title, description, categoryId: s.categoryId };
   for (const k of ['tags', 'defaultLanguage', 'defaultAudioLanguage']) if (s[k]) snippet[k] = s[k];
+  // Studio can store "zxx" (no spoken language) as the audio language, but the API
+  // rejects the whole update if it's sent back ("The request metadata is invalid").
+  // Leave it out; the narration language is then simply unset.
+  if (snippet.defaultAudioLanguage === 'zxx') delete snippet.defaultAudioLanguage;
   if (tags) snippet.tags = tags;
   const status = { privacyStatus: privacy };
   for (const k of ['embeddable', 'license', 'publicStatsViewable', 'selfDeclaredMadeForKids', 'containsSyntheticMedia']) if (st[k] !== undefined) status[k] = st[k];
