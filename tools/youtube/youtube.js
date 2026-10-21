@@ -41,7 +41,7 @@ const API = 'https://www.googleapis.com/youtube/v3';
 const SCOPE = 'https://www.googleapis.com/auth/youtube';
 const TITLE_MAX = 100;
 // Shown on every run, so it's clear which version of the script ran.
-const VERSION = '2026-10-21b';
+const VERSION = '2026-10-21c';
 const LINK_LINE = /^▶ Part \d: https:\/\/youtu\.be\/\S+\s*$/;
 
 // ── Parsing: file name / title → series info ─────────────────────────────────
@@ -613,6 +613,33 @@ async function updateVideo(v, { title, description, privacy, tags }) {
   return false;
 }
 
+// ── Inspect ─────────────────────────────────────────────────────────────────
+
+// Read-only: shows the stored settings of a few videos side by side, to see why
+// YouTube refuses edits to some of them. Also checks the videos exist.
+async function inspect(ids) {
+  if (!ids.length) die('Give one or more video IDs, e.g. node tools/youtube/youtube.js inspect unBl14UXz7w vVBNrBnnax8');
+  const j = await yt('GET', 'videos', { part: 'snippet,status,contentDetails,localizations,recordingDetails', id: ids.join(',') });
+  const found = new Set((j.items || []).map(v => v.id));
+  for (const id of ids) if (!found.has(id)) console.log(`${id}: NOT FOUND (deleted, removed by YouTube, or not on this channel)\n`);
+  for (const v of j.items || []) {
+    const s = v.snippet, st = v.status;
+    const show = {
+      title: s.title, titleLength: s.title.length, descriptionLength: (s.description || '').length,
+      tags: (s.tags || []).length, categoryId: s.categoryId, defaultLanguage: s.defaultLanguage, defaultAudioLanguage: s.defaultAudioLanguage,
+      localizations: v.localizations ? Object.keys(v.localizations) : undefined, liveBroadcastContent: s.liveBroadcastContent,
+      privacy: st.privacyStatus, publishAt: st.publishAt, uploadStatus: st.uploadStatus, rejectionReason: st.rejectionReason,
+      madeForKids: st.madeForKids, selfDeclaredMadeForKids: st.selfDeclaredMadeForKids, license: st.license, embeddable: st.embeddable,
+      containsSyntheticMedia: st.containsSyntheticMedia, duration: v.contentDetails?.duration, caption: v.contentDetails?.caption,
+      licensedContent: v.contentDetails?.licensedContent, regionRestriction: v.contentDetails?.regionRestriction,
+      recordingDetails: v.recordingDetails && Object.keys(v.recordingDetails).length ? v.recordingDetails : undefined,
+    };
+    console.log(`${v.id}`);
+    for (const [k, val] of Object.entries(show)) if (val !== undefined) console.log(`  ${k.padEnd(24)} ${typeof val === 'object' ? JSON.stringify(val) : val}`);
+    console.log('');
+  }
+}
+
 // ── Publishing ──────────────────────────────────────────────────────────────
 
 // Full cases and minis: make the main copy public now.
@@ -734,6 +761,7 @@ async function main() {
   if (cmd === 'report') return report(args[0]);
   if (cmd === 'thumbs') return thumbs(args);
   if (cmd === 'publish') return publish(args);
+  if (cmd === 'inspect') return inspect(args);
   console.log('Commands: auth | scan | fix [--sheets <folder>] [--yes] [--visibility] | thumbs [--yes] | publish [--time 19:00] [--per-day 1] [--yes] | report "Table data.csv"\nSee tools/youtube/README.md');
 }
 
