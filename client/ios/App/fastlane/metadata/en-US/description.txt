@@ -29,9 +29,13 @@ PASS GUARANTEE
 Eligible plans include the PassReady pass guarantee. See passreadyprep.com for full terms.
 
 GETTING STARTED
-Download free and try a sample case. Create a free account to save your progress across your phone and the web. Plans are available at passreadyprep.com; sign in to the app to use what you've purchased.
+Download free and try a sample case. Plans are available in the app through In-App Purchase, with no account needed. Creating a free account is optional: it saves your progress and lets you use your plan across your phone and the web.
+
+SUBSCRIPTIONS
+Monthly, 3-month and 6-month plans are auto-renewing subscriptions. Payment is charged to your Apple ID at confirmation of purchase. A subscription renews automatically at the same price unless it is cancelled at least 24 hours before the end of the current period. Manage or cancel it in your App Store account settings. The Pass Guarantee and the Study Guide are one-time purchases.
 
 PassReady Prep is an independent study tool. It is not affiliated with, endorsed by, or sponsored by the National Board for Certified Counselors (NBCC). NCMHCE is a trademark of NBCC. Simulations are for exam preparation only and are not clinical advice.
 
+Terms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 Terms: https://www.passreadyprep.com/policies.html#terms
 Privacy: https://www.passreadyprep.com/privacy.html
