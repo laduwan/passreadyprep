@@ -1,5 +1,5 @@
 PURPOSE AND AUDIENCE
-PassReady Prep is an exam-preparation app for counselors preparing for the NCMHCE (National Clinical Mental Health Counseling Examination), the case-based licensure exam required for LPC/LMHC licensure in most US states. Candidates often struggle because they have not practiced the exam's case format and weighted scoring. The app provides NCMHCE-style clinical case simulations with weighted scoring and explanations, timed full-length mock exams, a readiness score by exam domain, flashcards, decision trees and a DSM-5-TR quick reference. Audience: adults (18+) preparing for professional counseling licensure. It is study material only; it does not provide clinical care or clinical advice.
+PassReady Prep is an exam-preparation app for counselors preparing for the NCMHCE and NCE, the licensure exams required for LPC/LMHC licensure in most US states. The app provides NCMHCE-style clinical case simulations with weighted scoring and explanations, timed full-length mock exams, a readiness score by exam domain, flashcards, decision trees and a DSM-5-TR quick reference. Audience: adults (18+) preparing for professional counseling licensure. It is study material only; it does not provide clinical care or clinical advice.
 
 HOW TO ACCESS THE MAIN FEATURES
 Demo account with full paid access: demo@passreadyprep.com (password in the Sign-In Information above).
@@ -9,8 +9,8 @@ Demo account with full paid access: demo@passreadyprep.com (password in the Sign
 4. Timed mock exam: "Timed Mock Exam" on the dashboard, then "Begin Exam".
 5. Other tools on the dashboard: Flashcards, Decision Trees, DSM-5-TR Reference, Knowledge Drill, Intake Interview Simulator (microphone optional; typing also works).
 6. Account creation: "Create account" on the sign-in page. New accounts get a 3-day free trial of full access.
-7. Account deletion: dashboard → "Account" button (top right) → "Delete my account…" → enter password → tick the confirmation → "Delete my account" → confirmation screen. Deletion is immediate and permanent and does not require contacting us. The same link is at the bottom of the dashboard ("Delete account").
-8. Purchases (In-App Purchase): plans are sold through Apple In-App Purchase. Landing page → Pricing → choose a plan (or Dashboard → a locked tool → "See plans"), then Buy. No account or registration is needed to buy or to restore: a signed-out purchase is kept for this device, and the purchase screen and Account page explain that creating a free account is optional and lets the plan be used on the person's other devices. "Restore purchases" is on the purchase screen and on the Account page. Subscriptions can be managed from Account → "Manage subscription" (the App Store sheet).
+7. Account deletion: dashboard → "Account" (top right) → "Delete my account…" → enter password → confirm. Deletion is immediate and permanent.
+8. Purchases (In-App Purchase): Landing page → Pricing (or the NCE page → NCE plans) → choose a plan → Buy. No account or registration is needed to buy or restore. Creating a free account is optional and lets the plan be used on other devices. "Restore purchases" is on the purchase screen and the Account page; subscriptions are managed from Account → "Manage subscription".
 No sample files are needed.
 
 EXTERNAL SERVICES
