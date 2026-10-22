@@ -599,6 +599,9 @@ a.choice{text-decoration:none}
   }
 
   function buy(tier, btn){
+    // In the iOS app buying needs no account (App Store guideline 5.1.1(v)):
+    // purchase.html buys signed out, on a guest account for this device.
+    if (!TOKEN && window.PRP_IAP) { location.href = '/purchase.html?tier=' + encodeURIComponent(tier); return; }
     if (!TOKEN) { location.href = '/register.html?next=' + encodeURIComponent('/nce.html#pricing'); return; }
     // The guarantee needs its terms acknowledged first; checkout.html has that
     // step (purchase.html in the iOS app, where plans are App Store purchases).

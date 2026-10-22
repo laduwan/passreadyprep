@@ -85,13 +85,6 @@
 
   <div id="loading">Loading plan…</div>
 
-  <!-- Signed out -->
-  <div class="panel" id="panel-signin">
-    <h1 style="font-size:22px;color:var(--white);margin:0 0 6px">Sign in to continue</h1>
-    <p class="tier-desc" style="margin-bottom:18px">Plans are tied to your PassReady Prep account, so sign in or create one first. If you already have a plan, signing in restores it.</p>
-    <a class="btn emerald" id="signin-link" href="/register.html">Sign in or create account</a>
-  </div>
-
   <!-- Unavailable -->
   <div class="panel" id="panel-unavailable">
     <h1 style="font-size:22px;color:var(--white);margin:0 0 6px">Purchases are temporarily unavailable</h1>
@@ -116,6 +109,7 @@
     <p class="note" id="buy-note" role="status"></p>
     <button class="btn emerald" id="buy-btn" onclick="buy()">Buy</button>
     <div class="links"><a href="#" onclick="restore(this);return false">Restore purchases</a> · <a href="/study" id="back-link">Keep studying</a></div>
+    <p class="legal" id="account-note" style="display:none">No account needed to buy. You can <a href="#" class="acct-link">create a free account</a> at any time (optional) to use your plan on all your devices. Already have one? <a href="#" class="signin-link">Sign in</a>.</p>
     <p class="legal" id="legal"></p>
   </div>
 
@@ -132,6 +126,7 @@
       <p>If you need an extension, submit your official score report from your account page.</p>
     </div>
     <a class="btn emerald" id="done-link" href="/study">Start studying ›</a>
+    <p class="legal" id="done-account-note" style="display:none;text-align:center">Want this plan on your other devices too? <a href="#" class="acct-link">Create a free account</a> (optional) any time.</p>
   </div>
 </div>
 
@@ -174,12 +169,18 @@
   }
   function msg(id, text) { var el = document.getElementById(id); el.textContent = text || ''; el.style.display = text ? 'block' : 'none'; }
 
+  // Buying never requires an account (App Store guideline 5.1.1(v)): signed
+  // out, native-iap.js keeps the purchase on a guest account for this device.
+  // Creating an account is offered, never required.
+  function noAccount() { return !token || (window.PRP_IAP && window.PRP_IAP.isGuest()); }
+  function accountLinks() {
+    var back = '?next=' + encodeURIComponent(location.pathname + location.search);
+    document.querySelectorAll('.acct-link').forEach(function (a) { a.href = '/register.html' + back; });
+    document.querySelectorAll('.signin-link').forEach(function (a) { a.href = '/register.html' + back + '&tab=login'; });
+  }
+
   function init() {
-    if (!token) {
-      document.getElementById('signin-link').href = '/register.html?next=' + encodeURIComponent(location.pathname + location.search);
-      show('panel-signin');
-      return;
-    }
+    accountLinks();
     if (!window.PRP_IAP) { show('panel-unavailable'); return; }
     window.PRP_IAP.products().then(function (p) {
       product = p.enabled ? p.byTier[tier] : null;
@@ -197,7 +198,8 @@
       document.getElementById('back-link').href = cfg.next;
       document.getElementById('legal').innerHTML =
         (product.type === 'autoRenewable' ? esc(SUBSCRIPTION_TERMS) + ' ' : '') +
-        'By purchasing you agree to the <a href="/policies.html#terms">Terms of Service</a>, the <a href="/privacy.html">Privacy Policy</a> and Apple\'s <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Licensed Application End User License Agreement</a>. Purchases are tied to your PassReady Prep account; use Restore purchases on a new device.';
+        'By purchasing you agree to the <a href="/policies.html#terms">Terms of Service</a>, the <a href="/privacy.html">Privacy Policy</a> and Apple\'s <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Licensed Application End User License Agreement</a>. On a new device, use Restore purchases.';
+      document.getElementById('account-note').style.display = noAccount() ? 'block' : 'none';
       show('panel-buy');
     });
   }
@@ -218,6 +220,8 @@
           : 'Your ' + cfg.name + ' is active. Good luck on the exam!';
         if (cfg.guarantee) document.getElementById('guar-done').classList.add('show');
         document.getElementById('done-link').href = cfg.next;
+        try { token = localStorage.getItem('prp_token'); } catch (e) {}
+        document.getElementById('done-account-note').style.display = noAccount() ? 'block' : 'none';
         show('panel-done');
         return;
       }
@@ -226,13 +230,19 @@
       else if (r.state !== 'cancelled') msg('buy-err', 'The purchase did not complete. Please try again.');
     }).catch(function (e) {
       btn.disabled = false; btn.textContent = 'Buy — ' + product.displayPrice;
-      if (e.code === 'signin' || e.status === 401) { location.href = '/register.html?next=' + encodeURIComponent(location.pathname + location.search); return; }
+      if (e.status === 401) {
+        // The saved sign-in expired: drop it, so the next tap buys as a guest.
+        try { localStorage.removeItem('prp_token'); localStorage.removeItem('prp_user'); } catch (_) {}
+        token = null;
+        msg('buy-err', 'Your sign-in expired. Tap Buy again, or sign in first.');
+        document.getElementById('account-note').style.display = 'block';
+        return;
+      }
       msg('buy-err', e.message || 'The purchase did not complete. Please try again.');
     });
   }
 
   function restore(link) {
-    if (!token) { location.href = '/register.html?next=' + encodeURIComponent(location.pathname + location.search); return; }
     if (!window.PRP_IAP) return;
     var label = link.textContent; link.textContent = 'Restoring…';
     msg('buy-err', ''); msg('buy-note', '');

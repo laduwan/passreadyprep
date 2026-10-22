@@ -63,13 +63,23 @@ async function applyTransaction(user, tx, opts = {}) {
   // One Apple purchase belongs to one PassReady account.
   const owner = await AppleTransaction.findOne({ originalTransactionId: originalId }).select('userId');
   if (owner && String(owner.userId) !== String(user._id)) {
-    if (await User.exists({ _id: owner.userId })) {
+    const ownerUser = await User.findById(owner.userId).select('isGuest subscription nceAccess guideOrderId');
+    // Launch sync (opts.auto) on another guest account never takes it, or two
+    // guest devices on one Apple ID would pass it back and forth; tapping
+    // Restore purchases (or signing in) moves it.
+    if (ownerUser && ownerUser.isGuest && !(opts.auto && user.isGuest)) {
+      // Bought as a guest in the iOS app, now restored (or synced at launch)
+      // on a signed-in account or a fresh guest: the purchase moves here and
+      // the guest account keeps nothing from it.
+      await releaseFromGuest(ownerUser, originalId);
+    } else if (ownerUser) {
       throw new apple.VerifyError(
         'This purchase is already linked to a different PassReady Prep account. Sign in to that account to use it.',
         'owned_by_other', 409
       );
     }
-    // The owning account was deleted outside the normal flow: release it.
+    // A guest's purchase moving here, or the owning account was deleted
+    // outside the normal flow: release it.
     await AppleTransaction.deleteMany({ originalTransactionId: originalId });
   }
 
@@ -169,6 +179,26 @@ async function applyTransaction(user, tx, opts = {}) {
   await User.findByIdAndUpdate(user._id, update);
   logActivity({ type: 'payment.succeeded', severity: 'info', userId: user._id, email: user.email, message: `Purchased ${entry.tier} (App Store)`, meta: { tier: entry.tier, source: 'apple', transactionId, expires, environment: tx.environment } });
   return { ...base, action: 'granted', expires };
+}
+
+// Takes a guest account's grant from one App Store purchase back, before that
+// purchase is applied to another account (see applyTransaction).
+async function releaseFromGuest(guest, originalId) {
+  const ids = (await AppleTransaction.find({ originalTransactionId: originalId }).select('transactionId'))
+    .map((r) => 'apple:' + r.transactionId);
+  const update = {};
+  ['subscription', 'nceAccess'].forEach((path) => {
+    const plan = guest[path] || {};
+    if (plan.source === 'apple' && plan.appleOriginalTransactionId === originalId) {
+      update[`${path}.tier`] = 'free';
+      update[`${path}.status`] = 'canceled';
+      update[`${path}.currentPeriodEnd`] = new Date();
+    }
+  });
+  if (guest.guideOrderId && ids.includes(guest.guideOrderId)) {
+    update.$unset = { guidePurchasedAt: 1, guideOrderId: 1 };
+  }
+  if (Object.keys(update).length) await User.findByIdAndUpdate(guest._id, update);
 }
 
 // Refund / revoke: take back what this transaction granted (and only that).
@@ -291,6 +321,7 @@ router.post('/verify', requireAuth, async (req, res) => {
 router.post('/restore', requireAuth, async (req, res) => {
   try {
     let list = (req.body && req.body.transactions) || [];
+    const auto = !!(req.body && req.body.auto); // native-iap.js launch sync, not a tap
     if (!Array.isArray(list)) return res.status(400).json({ error: 'transactions must be a list' });
     list = list.filter(apple.isJws).slice(0, MAX_RESTORE);
     const user = await User.findById(req.userId);
@@ -302,7 +333,7 @@ router.post('/restore', requireAuth, async (req, res) => {
         const tx = await apple.verifyTransaction(jws);
         // Re-read so a pass bought twice extends from the first grant's end.
         const current = await User.findById(req.userId);
-        results.push(await applyTransaction(current, tx, { viaRestore: true }));
+        results.push(await applyTransaction(current, tx, { viaRestore: true, auto }));
       } catch (err) {
         if (err instanceof apple.VerifyError) results.push({ action: 'error', code: err.code, error: err.message });
         else throw err;

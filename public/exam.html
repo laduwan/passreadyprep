@@ -870,13 +870,14 @@ function renderLoading(msg){
 
 // ---- render: access gate ----
 function renderGate(level){
-  // iOS app (window.PRP_NATIVE): nothing is sold or linked to, so an expired
-  // account sees a plain notice with no subscribe path.
-  const app = !!window.PRP_NATIVE;
+  // iOS app (window.PRP_NATIVE): plans are App Store purchases on the landing
+  // page, and buying needs no account (App Store guideline 5.1.1(v)).
+  // (isApp, not app: app is the page container this function renders into.)
+  const isApp = !!window.PRP_NATIVE;
   const g = level === 'gated'
     ? { title:'Your access is paused', body:'Submit your score report to restore access to timed mock exams.', href:'/score-report.html', cta:'Submit score report ›' }
     : level === 'expired'
-    ? (app ? { title:'Not included in your account', body:'Timed mock exams are not part of your current account.' }
+    ? (isApp ? { title:'Choose a plan', body:'Timed mock exams are included in every plan.', href:'/landing.html#pricing', cta:'See plans ›' }
            : { title:'Mock exams are for subscribers', body:'Your free trial has ended. Subscribe to take full-length timed mock exams with a domain breakdown and answer review.', href:'/checkout.html?tier=monthly', cta:'Subscribe ›' })
     : { title:'Mock exams need an account', body:'Create a free account to take full-length timed mock exams with a domain breakdown and answer review.', href:'/register.html?next=/exam.html', cta:'Create an account ›' };
   let h = '<a href="/" class="back">‹ Dashboard</a>';
@@ -885,6 +886,7 @@ function renderGate(level){
   h += '<h2>'+esc(g.title)+'</h2>';
   h += '<p class="lead" style="margin:6px auto 16px;max-width:460px">'+esc(g.body)+'</p>';
   if(g.href) h += '<a href="'+g.href+'" class="btn">'+esc(g.cta)+'</a>';
+  if(isApp && level !== 'gated' && level !== 'expired') h += '<p style="margin:14px 0 0;font-size:14px">Or <a href="/landing.html#pricing">choose a plan</a>, no account needed.</p>';
   h += '</div>';
   app.innerHTML = h;
 }

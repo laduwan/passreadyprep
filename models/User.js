@@ -8,6 +8,14 @@ const UserSchema = new Schema(
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     passwordHash: { type: String, required: true },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
+
+    // Guest account (iOS app): made by POST /api/auth/guest when someone buys
+    // or restores without signing up (App Store guideline 5.1.1(v): purchases
+    // must not require registration). It has a placeholder email on
+    // GUEST_EMAIL_DOMAIN (routes/auth.js) and a random password nobody knows;
+    // the device keeps its token. Registering from the app turns this same
+    // account into a normal one, so the purchases stay on it.
+    isGuest: { type: Boolean, default: false },
     name: { type: String, trim: true },
     profession: { type: String }, // e.g. 'counseling'
 

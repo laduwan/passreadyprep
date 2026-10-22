@@ -51,13 +51,14 @@
       var next = encodeURIComponent(location.pathname + location.search);
       var about = document.querySelector('.wrap > .tool-about');
       var hTag = about ? 'h2' : 'h1'; // preview keeps the page's own <h1>
-      // iOS app (window.PRP_NATIVE): nothing is sold or linked to, so a shut
-      // gate states the fact and offers no plan, trial or checkout.
+      // iOS app (window.PRP_NATIVE): plans are App Store purchases on the
+      // landing page's pricing section, and buying needs no account (App
+      // Store guideline 5.1.1(v)), so a signed-out gate offers both.
       var app = !!window.PRP_NATIVE;
       var g = level === 'gated'
         ? { title: 'Your access is paused', body: 'Submit your score report to restore access to ' + TOOL + '.', href: '/score-report.html', cta: 'Submit score report ›' }
         : level === 'expired'
-        ? (app ? { title: 'Not included in your account', body: TOOL + ' is not part of your current account.' }
+        ? (app ? { title: 'Choose a plan', body: TOOL + ' and every other NCMHCE study tool are included in every plan.', href: '/landing.html#pricing', cta: 'See plans ›' }
                : { title: 'Your free trial has ended', body: 'Subscribe to keep using ' + TOOL + ' and every other NCMHCE study tool.', href: '/checkout.html?tier=monthly', cta: 'Subscribe ›' })
         : level === 'signin'
         ? { title: 'Sign in to continue', body: 'You were signed out. Sign in to keep using ' + TOOL + '.', href: '/register.html?tab=login&next=' + next, cta: 'Sign in ›' }
@@ -76,6 +77,7 @@
           '<p style="margin:0 auto 18px;max-width:440px;color:#94A3B8">' + esc(g.body) + '</p>' +
           (g.href ? '<a href="' + g.href + '" style="display:inline-block;background:#10B981;color:#04261C;font-weight:700;text-decoration:none;border-radius:10px;padding:12px 22px">' + esc(g.cta) + '</a>' : '') +
           (g.alt ? '<p style="margin:14px 0 0;font-size:14px;color:#94A3B8">Already have an account? <a href="/register.html?tab=login&next=' + next + '" style="color:#34D399">Sign in</a></p>' : '') +
+          (g.alt && app ? '<p style="margin:8px 0 0;font-size:14px;color:#94A3B8">Or <a href="/landing.html#pricing" style="color:#34D399">choose a plan</a>, no account needed.</p>' : '') +
         '</div>';
       if (about) {
         about.parentNode.insertBefore(box, about);

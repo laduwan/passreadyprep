@@ -175,6 +175,7 @@
   // Where to go after auth — checkout?tier=X if coming from pricing, otherwise the app
   const params = new URLSearchParams(location.search);
   const next = params.get('next') || '/';
+  const guest = (function(){ try { return !!(JSON.parse(localStorage.getItem('prp_user') || 'null') || {}).isGuest; } catch(_) { return false; } })();
 
   function showTab(tab) {
     ['register','login'].forEach(t => {
@@ -211,9 +212,13 @@
     btn.disabled = true; btn.textContent = 'Creating account…';
 
     try {
+      // A guest account (iOS app, bought without signing up) sends its token,
+      // and the server turns that same account into this one.
+      const headers = { 'Content-Type': 'application/json' };
+      if (guest) headers.Authorization = 'Bearer ' + localStorage.getItem('prp_token');
       const r = await fetch('/api/auth/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ name, email, password, phone, smsOptedIn, termsAccepted: true, website }),
       });
       const data = await r.json();
@@ -276,9 +281,10 @@
   // ?tab=login opens the Sign in tab (e.g. from the signed-out banner)
   if (params.get('tab') === 'login') showTab('login');
 
-  // If already logged in, skip straight to destination
+  // If already logged in, skip straight to destination — except a guest
+  // account, which is here to create a real account or sign in.
   const token = localStorage.getItem('prp_token');
-  if (token) window.location.href = next;
+  if (token && !guest) window.location.href = next;
 </script>
 </body>
 </html>

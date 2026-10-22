@@ -143,7 +143,10 @@
   const pw = document.getElementById('del-password');
   const cb = document.getElementById('del-confirm');
   const btn = document.getElementById('del-btn');
-  function syncBtn(){ btn.disabled = !(pw.value && cb.checked); }
+  // A guest account (iOS app, bought without signing up) has no password.
+  const isGuest = (function(){ try { return !!(JSON.parse(localStorage.getItem('prp_user') || '{}') || {}).isGuest; } catch(_) { return false; } })();
+  if (isGuest) { pw.style.display = 'none'; const l = document.querySelector('label[for="del-password"]'); if (l) l.style.display = 'none'; }
+  function syncBtn(){ btn.disabled = !((isGuest || pw.value) && cb.checked); }
   pw.addEventListener('input', syncBtn);
   cb.addEventListener('change', syncBtn);
 
@@ -200,7 +203,7 @@
   } else {
     let email = '', u = {};
     try { u = JSON.parse(localStorage.getItem('prp_user') || '{}') || {}; email = u.email || ''; } catch(_) {}
-    document.getElementById('acct-email').textContent = email || 'your account';
+    document.getElementById('acct-email').textContent = isGuest ? 'the account on this device' : (email || 'your account');
     // App Store subscriptions belong to the Apple ID: we cannot cancel them here.
     const appleSubs = [u.subscription, u.nceAccess].filter(p => p && p.source === 'apple'
       && (p.tier === 'monthly' || p.tier === 'nce_monthly') && ['active','past_due'].includes(p.status || 'active') && !p.cancelAtPeriodEnd);
