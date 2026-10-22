@@ -1415,7 +1415,7 @@ function renderAccount(){
     const tier = (u.subscription && u.subscription.tier) || u.tier;
     const badge = (tier && tier !== 'free') ? '<span class="exam-badge" style="font-size:11px;padding:3px 8px">'+esc(cap(tier))+'</span>' : '';
     el.innerHTML = badge
-      + '<span class="acct-email" title="'+esc(u.email||'')+'">'+esc(u.email||'Signed in')+'</span>'
+      + '<span class="acct-email" title="'+esc(u.email||'')+'">'+esc(u.email||(u.isGuest?'No account':'Signed in'))+'</span>'
       + '<a class="acct-btn" href="/account.html">Account</a>'
       + '<button class="acct-btn" onclick="logout()">Log out</button>';
   } else {

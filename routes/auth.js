@@ -25,6 +25,38 @@ function checkRegisterRateLimit(ip) {
   return true;
 }
 
+// Guest accounts (iOS app — see isGuest in models/User.js) get a placeholder
+// address on this reserved domain. utils/mailer.js never sends to it.
+const GUEST_EMAIL_DOMAIN = 'guest.passreadyprep.invalid';
+
+// POST /api/auth/guest is called once per device, on the first purchase or
+// restore, so it gets its own small allowance per IP per hour.
+const guestRateLimitStore = new Map();
+const GUEST_HOURLY_LIMIT = 10;
+
+function checkGuestRateLimit(ip) {
+  const hourBucket = Math.floor(Date.now() / (60 * 60 * 1000));
+  const key = `${ip}:${hourBucket}`;
+  if (guestRateLimitStore.size > 10000) guestRateLimitStore.clear();
+  const count = guestRateLimitStore.get(key) || 0;
+  if (count >= GUEST_HOURLY_LIMIT) return false;
+  guestRateLimitStore.set(key, count + 1);
+  return true;
+}
+
+// The guest account behind a request's Bearer token, or null (no token, a
+// stale token, or a normal account).
+async function guestFromRequest(req) {
+  const header = req.headers.authorization || '';
+  const token = header.startsWith('Bearer ') ? header.slice(7) : null;
+  if (!token) return null;
+  let payload;
+  try { payload = jwt.verify(token, process.env.JWT_SECRET); } catch (_) { return null; }
+  const user = await User.findById(payload.sub);
+  if (!user || !user.isGuest || user.sessionVersion !== payload.sv) return null;
+  return user;
+}
+
 // Makes the signed token a new account/sign-in hands back to the browser.
 // Embeds sessionVersion (sv) so the middleware can detect stale sessions.
 function signToken(user) {
@@ -40,7 +72,8 @@ function publicUser(user) {
   const nce = user.nceAccess || {};
   return {
     id: user._id,
-    email: user.email,
+    email: user.isGuest ? '' : user.email,
+    isGuest: !!user.isGuest,
     name: user.name,
     examDate: user.examDate || null,
     prefs: user.prefs,
@@ -110,6 +143,29 @@ router.post('/register', async (req, res) => {
     // the carrier rule that consent cannot be pre-checked or implied.
     const normalizedPhone = typeof phone === 'string' ? phone.replace(/[^\d+]/g, '').slice(0, 20) : '';
     const opted = smsOptedIn === true && normalizedPhone.length >= 10;
+    const profile = {
+      email, passwordHash, name,
+      termsAcceptedAt: new Date(),
+      termsVersion: 'june-2026',
+      phone: opted ? normalizedPhone : null,
+      smsOptedIn: opted,
+      smsOptedInAt: opted ? new Date() : undefined,
+    };
+
+    // Signing up from the iOS app while using a guest account: that account
+    // becomes the real one, so anything bought as a guest stays with it.
+    // createdAt restarts so the free trial runs from now (utils/trial.js).
+    const guest = await guestFromRequest(req);
+    if (guest) {
+      // Straight to the collection: Mongoose treats createdAt as immutable.
+      const fields = { ...profile, email: email.toLowerCase().trim(), isGuest: false, createdAt: new Date(), updatedAt: new Date() };
+      Object.keys(fields).forEach((k) => fields[k] === undefined && delete fields[k]);
+      await User.collection.updateOne({ _id: guest._id }, { $set: fields });
+      const user = await User.findById(guest._id);
+      logActivity({ type: 'user.registered', severity: 'info', email: user.email, userId: user._id, message: 'New account created (from an app guest account)', req });
+      return res.status(201).json({ token: signToken(user), user: publicUser(user) });
+    }
+
     const user = await User.create({
       email, passwordHash, name,
       termsAcceptedAt: new Date(),
@@ -124,6 +180,29 @@ router.post('/register', async (req, res) => {
   } catch (err) {
     console.error('register error', err);
     return res.status(500).json({ error: 'Something went wrong creating your account' });
+  }
+});
+
+// POST /api/auth/guest — a guest account for the iOS app (App Store guideline
+// 5.1.1(v): buying must not require registration). native-iap.js calls this
+// on the first purchase or restore when nobody is signed in, keeps the token
+// on the device, and the purchase is recorded against this account. No
+// personal information is asked for or stored. Registering later from the
+// app upgrades this same account (see /register above).
+router.post('/guest', async (req, res) => {
+  try {
+    const ip = req.ip || req.headers['x-forwarded-for'] || 'unknown';
+    if (!checkGuestRateLimit(ip)) {
+      return res.status(429).json({ error: 'Too many attempts. Please try again in a bit.' });
+    }
+    const id = crypto.randomBytes(12).toString('hex');
+    const passwordHash = await bcrypt.hash(crypto.randomBytes(32).toString('hex'), 12);
+    const user = await User.create({ email: `guest-${id}@${GUEST_EMAIL_DOMAIN}`, passwordHash, isGuest: true });
+    logActivity({ type: 'user.guest_created', severity: 'info', userId: user._id, message: 'Guest account created in the iOS app (purchase without sign-up)', req });
+    return res.status(201).json({ token: signToken(user), user: publicUser(user) });
+  } catch (err) {
+    console.error('guest account error', err);
+    return res.status(500).json({ error: 'Something went wrong. Please try again.' });
   }
 });
 
@@ -312,12 +391,13 @@ router.post('/reset-password', async (req, res) => {
 router.delete('/account', requireAuth, async (req, res) => {
   try {
     const { password } = req.body || {};
-    if (!password) return res.status(400).json({ error: 'Enter your password to delete your account' });
-
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ error: 'Account not found' });
 
-    const ok = await bcrypt.compare(password, user.passwordHash);
+    // A guest account has no password anyone knows; holding its token on the
+    // device is the proof of ownership.
+    if (!user.isGuest && !password) return res.status(400).json({ error: 'Enter your password to delete your account' });
+    const ok = user.isGuest || await bcrypt.compare(password, user.passwordHash);
     if (!ok) {
       logActivity({ type: 'user.delete_failed', severity: 'warn', email: user.email, userId: user._id, message: 'Wrong password on account deletion', req });
       return res.status(401).json({ code: 'wrong_password', error: 'Password is incorrect' });
@@ -363,3 +443,4 @@ router.delete('/account', requireAuth, async (req, res) => {
 
 module.exports = router;
 module.exports.publicUser = publicUser; // shared with routes/applePayment.js
+module.exports.GUEST_EMAIL_DOMAIN = GUEST_EMAIL_DOMAIN;

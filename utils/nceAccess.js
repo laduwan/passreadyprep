@@ -23,7 +23,7 @@ const DAY = 24 * 60 * 60 * 1000;
 
 function nceTrialEnd(user) {
   const a = (user && user.nceAccess) || {};
-  if (!a.trialStartedAt) return null;
+  if (!a.trialStartedAt || user.isGuest) return null; // guests get no trial (utils/trial.js)
   const standard = new Date(new Date(a.trialStartedAt).getTime() + NCE_TRIAL_DAYS * DAY);
   // An admin-granted account trial (User.trialEndsAt) also covers NCE.
   const granted = user.trialEndsAt ? new Date(user.trialEndsAt) : null;

@@ -71,6 +71,16 @@
     <h1>Your account</h1>
     <p class="sub" id="acct-email"></p>
 
+    <!-- Guest account (iOS app, bought without signing up): registering is optional -->
+    <div class="card" id="guest-card" style="display:none">
+      <h2>No account needed</h2>
+      <p class="meta">Purchases work in this app without an account. If you like, create a free account to use it on all your devices; you can do this any time.</p>
+      <div class="row">
+        <a class="btn primary" href="/register.html?next=/account.html">Create a free account</a>
+        <a class="btn" href="/register.html?tab=login&next=/account.html">Sign in</a>
+      </div>
+    </div>
+
     <div class="card">
       <h2>NCMHCE plan</h2>
       <div id="ncmhce-plan"></div>
@@ -87,20 +97,18 @@
       <div class="row"><a class="btn" href="/study-guide.html">Download</a></div>
     </div>
 
-    <!-- prp-web-only: In-App Purchase restore (unused since nothing is sold in the app) -->
-    <!-- prp-web-only -->
+    <!-- In-App Purchase restore: shown only in the iOS app (render()) -->
     <div class="card" id="restore-card" style="display:none">
       <h2>Purchases on this device</h2>
       <p class="meta">Bought a plan on another iPhone or iPad with the same Apple ID? Restore it to this account.</p>
       <div class="row"><button class="btn" id="restore-btn" onclick="restorePurchases()">Restore purchases</button></div>
       <p class="msg" id="restore-msg"></p>
     </div>
-    <!-- /prp-web-only -->
 
     <div class="card">
       <h2>Sign-in</h2>
       <div class="row">
-        <a class="btn" href="/forgot-password.html">Change password</a>
+        <a class="btn" id="change-pw" href="/forgot-password.html">Change password</a>
         <button class="btn" onclick="logout()">Log out</button>
       </div>
     </div>
@@ -173,7 +181,9 @@
   }
 
   function render() {
-    document.getElementById('acct-email').textContent = user.email || '';
+    document.getElementById('acct-email').textContent = user.isGuest ? 'Using the app without an account' : (user.email || '');
+    document.getElementById('guest-card').style.display = user.isGuest ? 'block' : 'none';
+    document.getElementById('change-pw').style.display = user.isGuest ? 'none' : '';
     document.getElementById('ncmhce-plan').innerHTML = planHtml(user.subscription, 'ncmhce');
     document.getElementById('nce-plan').innerHTML = planHtml(user.nceAccess, 'nce');
     document.getElementById('guide-card').style.display = user.guidePurchasedAt ? 'block' : 'none';

@@ -14,6 +14,9 @@ const TRIAL_DAYS = Math.max(1, parseInt(process.env.TRIAL_DAYS || '3', 10) || 3)
 // paywall — unless an admin granted this one account a longer trial, which wins
 // for as long as it lasts and then falls back to the standard rule.
 function trialEndFor(user) {
+  // Guest accounts (iOS app, see models/User.js) exist to hold a purchase, so
+  // they get no free trial; registering starts the normal one from signup.
+  if (user.isGuest) return new Date(0);
   const granted = user.trialEndsAt ? new Date(user.trialEndsAt) : null;
   const created = user.createdAt ? new Date(user.createdAt) : new Date(0);
   const standard = new Date(created.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000);

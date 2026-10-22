@@ -1,11 +1,7 @@
 /* PassReady Prep — App Store In-App Purchase layer (Capacitor iOS, local bundle).
  *
- * NOT BUNDLED since the companion build (docs/AppReview_Reply_v1.0_build3.md):
- * nothing is sold in the app. Kept, with StoreKitPlugin.swift and
- * routes/applePayment.js, as the fallback if App Review still requires
- * In-App Purchase — to bring it back, build-ios.mjs loads it right after
- * native-shim.js on every bundled page and bundles purchase.html again.
- * No-op in a normal browser.
+ * Loaded right after native-shim.js on every bundled page (build-ios.mjs).
+ * No-op in a normal browser. Buying needs no account: see ensureAccount().
  *
  * Apple requires paid content in the app to be sold through In-App Purchase
  * (guideline 3.1.1), so in the app:
@@ -110,10 +106,11 @@
       });
   }
 
-  function sendRestore(list) {
+  // auto: the launch sync, not a tap on Restore purchases (see routes/applePayment.js).
+  function sendRestore(list, auto) {
     var jwsList = (list || []).map(function (t) { return t.jws; }).filter(Boolean);
     if (!jwsList.length) return Promise.resolve({ ok: true, results: [] });
-    return api('/api/payment/apple/restore', { method: 'POST', body: { transactions: jwsList } })
+    return api('/api/payment/apple/restore', { method: 'POST', body: { transactions: jwsList, auto: !!auto } })
       .then(function (v) {
         remember(v.user);
         list.forEach(function (t) { finish(t.transactionId); });
@@ -121,12 +118,33 @@
       });
   }
 
+  // ── No sign-up needed (App Store guideline 5.1.1(v)) ──────────────────
+  // Buying or restoring while signed out first makes a guest account
+  // (POST /api/auth/guest — no personal information) and keeps its token on
+  // this device, so the purchase has somewhere to live. Creating an account
+  // later from register.html upgrades that same guest account.
+  var guestPromise = null;
+  function ensureAccount() {
+    if (token()) return Promise.resolve();
+    if (!guestPromise) {
+      guestPromise = api('/api/auth/guest', { method: 'POST', body: {} }).then(function (r) {
+        set('prp_token', r.token);
+        remember(r.user);
+      }).catch(function (e) { guestPromise = null; throw e; });
+    }
+    return guestPromise;
+  }
+  function isGuest() {
+    try { return !!(JSON.parse(get('prp_user') || 'null') || {}).isGuest; } catch (e) { return false; }
+  }
+
   // ── Public API ─────────────────────────────────────────────────────────
   // buy(tier, { guaranteeTermsAccepted }) → { state: 'purchased'|'pending'|'cancelled', result, user }
   function buy(tier, opts) {
     opts = opts || {};
-    if (!token()) return Promise.reject(fail('Sign in to purchase.', 'signin', 401));
-    return api('/api/payment/apple/prepare', { method: 'POST', body: { tier: tier, guaranteeTermsAccepted: !!opts.guaranteeTermsAccepted } })
+    return ensureAccount().then(function () {
+      return api('/api/payment/apple/prepare', { method: 'POST', body: { tier: tier, guaranteeTermsAccepted: !!opts.guaranteeTermsAccepted } });
+    })
       .then(function (p) { return native('purchase', { id: p.productId, appAccountToken: p.appAccountToken }); })
       .then(function (r) {
         if (r.state !== 'purchased') return { state: r.state || 'unknown' };
@@ -136,8 +154,11 @@
 
   // Restore Purchases: everything this Apple ID owns → the signed-in account.
   function restore() {
-    if (!token()) return Promise.reject(fail('Sign in first, then restore your purchases.', 'signin', 401));
-    return native('restore').then(function (r) { return sendRestore(r.transactions || []); });
+    return native('restore').then(function (r) {
+      var list = r.transactions || [];
+      if (!list.length) return { ok: true, results: [] }; // nothing to restore: no guest account needed
+      return ensureAccount().then(function () { return sendRestore(list); });
+    });
   }
 
   function manageSubscriptions() { return native('manageSubscriptions'); }
@@ -173,7 +194,7 @@
     try { last = JSON.parse(get(SYNC_KEY) || 'null'); } catch (e) {}
     if (last && last.t === tag && Date.now() - last.at < SYNC_EVERY) return;
     native('currentEntitlements')
-      .then(function (r) { return sendRestore((r && r.transactions) || []); })
+      .then(function (r) { return sendRestore((r && r.transactions) || [], true); })
       .then(function () { set(SYNC_KEY, JSON.stringify({ t: tag, at: Date.now() })); })
       .catch(function () {});
   }
@@ -197,7 +218,7 @@
     var url = typeof input === 'string' ? input : (input && input.url) || '';
     var path = url.replace(/^https?:\/\/[^/]+/, '');
     if (path.indexOf('/api/payment/create-checkout-session') === 0) {
-      if (!token()) return jsonResponse(401, { error: 'Not signed in' });
+      // No sign-in check: purchase.html buys without an account.
       var tier = 'pass3';
       try { tier = JSON.parse((init && init.body) || '{}').tier || tier; } catch (e) {}
       return jsonResponse(200, { url: '/purchase.html?tier=' + encodeURIComponent(tier) });
@@ -228,6 +249,7 @@
   window.PRP_IAP = {
     products: products,
     buy: buy,
+    isGuest: isGuest,
     verify: verify,
     restore: restore,
     manageSubscriptions: manageSubscriptions,

@@ -33,6 +33,11 @@ const BREVO_SMS_ENDPOINT = 'https://api.brevo.com/v3/transactionalSMS/sms';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function sendMail({ to, subject, html, text, replyTo }) {
+  // Guest accounts (iOS app) have a placeholder address that cannot receive
+  // mail; skip it here so no job or route ever sends to one.
+  if (typeof to === 'string' && to.toLowerCase().endsWith('@guest.passreadyprep.invalid')) {
+    return { ok: true, skipped: 'guest' };
+  }
   const fromEmail = process.env.MAIL_FROM_EMAIL || 'noreply@passreadyprep.com';
   const fromName = process.env.MAIL_FROM_NAME || 'PassReady Prep';
   const resendKey = process.env.PRP_RESEND_API_KEY;
