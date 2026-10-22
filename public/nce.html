@@ -321,7 +321,8 @@ a.choice{text-decoration:none}
 
   var BP = null, STATUS = null, PROGRESS = null;
   var DOM = {}; // key -> domain meta
-  // iOS app: nothing is sold or linked to — no plan, price, trial or checkout.
+  // iOS app: plans are App Store purchases (native-iap.js answers the plans
+  // and checkout calls), and buying needs no account (guideline 5.1.1(v)).
   var APP = !!window.PRP_NATIVE;
 
   // Shown on the page; the charge itself is the Stripe price behind each tier.
@@ -393,10 +394,10 @@ a.choice{text-decoration:none}
   function accessBanner(){
     var s = STATUS, msg = '', cls = 'info';
     if (s.examStatus !== 'live') { msg = '<b>NCE study is in early access.</b> The question bank is still growing. New questions are added every week.'; }
-    if (s.accessLevel === 'free') { cls='info'; msg += (msg?'<br>':'') + 'You\'re previewing '+s.freeLimit+' sample questions. <a href="/register.html?next=/nce.html">Create a free account</a>' + (APP ? '.' : ' for a '+s.trialDays+'-day NCE trial with full access.'); }
-    else if (s.accessLevel === 'trial') { cls='ok'; msg += (msg?'<br>':'') + (APP ? 'NCE access active' : 'NCE free trial active') + (s.trialEndsAt && !APP ? ' until <b>'+new Date(s.trialEndsAt).toLocaleDateString()+'</b>' : '') + (APP ? '.' : '. <a href="#pricing">See NCE plans</a>.'); }
+    if (s.accessLevel === 'free') { cls='info'; msg += (msg?'<br>':'') + 'You\'re previewing '+s.freeLimit+' sample questions. <a href="/register.html?next=/nce.html">Create a free account</a> for a '+s.trialDays+'-day NCE trial with full access' + (APP ? ', or <a href="#pricing">choose a plan</a> (no account needed).' : '.'); }
+    else if (s.accessLevel === 'trial') { cls='ok'; msg += (msg?'<br>':'') + 'NCE free trial active' + (s.trialEndsAt ? ' until <b>'+new Date(s.trialEndsAt).toLocaleDateString()+'</b>' : '') + '. <a href="#pricing">See NCE plans</a>.'; }
     else if (s.accessLevel === 'gated') { cls='warn'; msg += (msg?'<br>':'') + 'Your NCE Pass Guarantee check-in is due. <a href="/score-report.html?exam=nce">Submit your exam date or score report</a> to restore full access.'; }
-    else if (s.accessLevel === 'expired') { cls='warn'; msg += (msg?'<br>':'') + (APP ? 'Full NCE access is not part of your current account. Practice is limited to '+s.freeLimit+' sample questions.' : 'Your NCE trial has ended. Practice is limited to '+s.freeLimit+' sample questions. <a href="#pricing">Pick an NCE plan</a> to unlock everything.'); }
+    else if (s.accessLevel === 'expired') { cls='warn'; msg += (msg?'<br>':'') + 'Your NCE trial has ended. Practice is limited to '+s.freeLimit+' sample questions. <a href="#pricing">Pick an NCE plan</a> to unlock everything.'; }
     else if (s.accessLevel === 'paid' && s.currentPeriodEnd) { cls='ok'; msg += (msg?'<br>':'') + 'NCE plan active' + (s.cancelAtPeriodEnd ? ' — ends ' : ' through ') + new Date(s.currentPeriodEnd).toLocaleDateString() + '.'; }
     return msg ? '<div class="banner '+cls+'">'+msg+'</div>' : '';
   }
@@ -585,7 +586,6 @@ a.choice{text-decoration:none}
   }
 
   function pricingHtml(){
-    if (APP) return ''; // nothing is sold in the app
     if (STATUS.accessLevel === 'paid' || STATUS.accessLevel === 'gated') return '';
     return '<div class="card" id="pricing"><h2>NCE plans</h2>'+
       '<p class="muted small" style="margin-top:-4px">Billed separately from NCMHCE. Cancel any time.</p><div class="plans">'+
@@ -680,8 +680,8 @@ a.choice{text-decoration:none}
     if (STATUS.accessLevel === 'free' || STATUS.accessLevel === 'expired') {
       stage.innerHTML = '<div class="card"><h2>Timed mock exams</h2><p>'+(STATUS.accessLevel==='free'
         ? 'Create a free account to take a timed NCE mock exam. Your '+STATUS.trialDays+'-day NCE trial starts the first time you open this page signed in.'
-        : (APP ? 'Full NCE access is not part of your current account.' : 'Your NCE trial has ended. Pick an NCE plan to keep taking timed mock exams.'))+'</p>'+
-        '<div class="nav-row">'+(STATUS.accessLevel==='free' ? '<a class="btn" href="/register.html?next=/nce.html">Create free account</a>' : (APP ? '' : '<a class="btn" href="#pricing" id="to-pricing">See NCE plans</a>'))+
+        : 'Your NCE trial has ended. Pick an NCE plan to keep taking timed mock exams.')+'</p>'+
+        '<div class="nav-row">'+(STATUS.accessLevel==='free' ? '<a class="btn" href="/register.html?next=/nce.html">Create free account</a>' : '<a class="btn" href="#pricing" id="to-pricing">See NCE plans</a>')+
         '<button class="btn btn-s" id="back">Back</button></div></div>';
       document.getElementById('back').onclick = renderHome;
       var tp = document.getElementById('to-pricing'); if (tp) tp.onclick = function(e){ e.preventDefault(); renderHome(); document.getElementById('pricing').scrollIntoView(); };
