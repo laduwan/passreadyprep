@@ -6,6 +6,7 @@ const User = require('../models/User');
 const requireAuth = require('../middleware/auth');
 const { sendMail } = require('../utils/mailer');
 const { logActivity } = require('../utils/activity');
+const { verifyUnsubscribeToken } = require('../utils/unsubscribe');
 
 const router = express.Router();
 
@@ -438,6 +439,48 @@ router.delete('/account', requireAuth, async (req, res) => {
   } catch (err) {
     console.error('account delete error', err);
     return res.status(500).json({ error: 'Could not delete your account' });
+  }
+});
+
+// GET/POST /api/auth/unsubscribe?u=<userId>&t=<token> — marketing email
+// opt-out link (utils/unsubscribe.js). GET shows a confirm button; POST sets
+// prefs.digestOptOut. No sign-in needed; the token proves the link is real.
+function unsubscribePage(title, body, form) {
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${title} · PassReady Prep</title></head>
+<body style="margin:0;background:#0F172A;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#E2E8F0">
+<div style="max-width:440px;margin:60px auto;padding:28px;background:#1E293B;border-radius:16px;text-align:center">
+<div style="font-size:20px;font-weight:800;color:#34D399;margin-bottom:16px">PassReady Prep</div>
+<h1 style="font-size:19px;margin:0 0 10px">${title}</h1>
+<p style="color:#CBD5E1;font-size:15px;line-height:1.6;margin:0 0 18px">${body}</p>${form || ''}
+</div></body></html>`;
+}
+
+router.get('/unsubscribe', (req, res) => {
+  const { u, t } = req.query;
+  if (!verifyUnsubscribeToken(u, t)) {
+    return res.status(400).type('html').send(unsubscribePage('Link not valid', 'This unsubscribe link is incomplete or has been changed. Reply to any of our emails and we will take you off the list.'));
+  }
+  const action = `/api/auth/unsubscribe?u=${encodeURIComponent(u)}&t=${encodeURIComponent(t)}`;
+  res.type('html').send(unsubscribePage(
+    'Unsubscribe from PassReady Prep emails?',
+    'You will stop getting study reminders and news. Password resets and receipts still come through.',
+    `<form method="post" action="${action}"><button type="submit" style="background:#34D399;color:#0F172A;font-weight:700;font-size:15px;border:0;border-radius:12px;padding:12px 28px;cursor:pointer">Unsubscribe</button></form>`
+  ));
+});
+
+router.post('/unsubscribe', async (req, res) => {
+  const { u, t } = req.query;
+  if (!verifyUnsubscribeToken(u, t)) {
+    return res.status(400).type('html').send(unsubscribePage('Link not valid', 'This unsubscribe link is incomplete or has been changed. Reply to any of our emails and we will take you off the list.'));
+  }
+  try {
+    const user = await User.findByIdAndUpdate(u, { $set: { 'prefs.digestOptOut': true } }, { new: true }).select('email');
+    if (user) logActivity({ type: 'user.unsubscribed', severity: 'info', userId: user._id, email: user.email, message: 'Unsubscribed from marketing email', req });
+    res.type('html').send(unsubscribePage('You are unsubscribed', 'You will not get any more study reminders or news from us. Your account and study progress are untouched.'));
+  } catch (err) {
+    console.error('unsubscribe error', err);
+    res.status(500).type('html').send(unsubscribePage('Something went wrong', 'Please try the link again in a minute, or reply to the email and we will remove you.'));
   }
 });
 
