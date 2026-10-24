@@ -4,6 +4,7 @@ const Attempt = require('../models/Attempt');
 const adminOrAdminUser = require('../middleware/adminOrAdminUser');
 const { logActivity } = require('../utils/activity');
 const { trialEndFor } = require('../utils/trial');
+const { nceTrialEnd } = require('../utils/nceAccess');
 
 const router = express.Router();
 router.use(adminOrAdminUser);
@@ -18,36 +19,63 @@ function getStripe() {
   return _stripe;
 }
 
-const TIER_PRICES = { monthly: 29, pass3: 79, guarantee: 249 }; // USD, matches TIERS config in payment.js
+const TIER_PRICES = { monthly: 29, pass3: 79, pass6: 119, guarantee: 249 }; // USD, matches TIERS config in payment.js
+// NCE plans live on User.nceAccess, billed separately from NCMHCE (payment.js).
+const NCE_TIER_PRICES = { nce_monthly: 24.99, nce_pass3: 59, nce_pass6: 89, nce_guarantee: null };
 
-// GET /api/admin-subscriptions?q=&tier=&status=&limit=50
+// A paid plan on each product line. NCMHCE is User.subscription, NCE is
+// User.nceAccess. Same rule as the paywalls: any tier but 'free' is paid.
+const PAID_NCMHCE = { 'subscription.tier': { $nin: ['free', null] } };
+const PAID_NCE = { 'nceAccess.tier': { $nin: ['free', null] } };
+
+// Adds effectiveStatus (NCMHCE), nceStatus and products (paid lines) to a user.
+function withPlanStatus(u, now = new Date()) {
+  const tier = u.subscription && u.subscription.tier;
+  const status = u.subscription && u.subscription.status;
+  let effectiveStatus;
+  if (tier && tier !== 'free') {
+    effectiveStatus = status || 'active';
+  } else {
+    effectiveStatus = trialEndFor(u) > now ? 'trial' : 'expired';
+  }
+  // NCE trial only starts on the first NCE visit, so "never opened NCE"
+  // is its own state rather than an expired trial.
+  const nce = u.nceAccess || {};
+  let nceStatus;
+  if (nce.tier && nce.tier !== 'free') nceStatus = nce.status || 'active';
+  else if (!nce.trialStartedAt) nceStatus = 'none';
+  else nceStatus = nceTrialEnd(u) > now ? 'trial' : 'expired';
+
+  const products = [];
+  if (tier && tier !== 'free') products.push('NCMHCE');
+  if (nce.tier && nce.tier !== 'free') products.push('NCE');
+  return Object.assign({}, u, { effectiveStatus, nceStatus, products });
+}
+
+// GET /api/admin-subscriptions?q=&product=&tier=&status=&limit=50
+// product: ncmhce | nce | both (paid on that line). tier/status read the NCE
+// plan for an nce_* tier (or product=nce with no tier), else the NCMHCE plan.
 router.get('/', async (req, res) => {
   try {
-    const { q, tier, status } = req.query;
+    const { q, tier, status, product } = req.query;
     const filter = {};
     if (q) filter.email = { $regex: q, $options: 'i' };
-    if (tier) filter['subscription.tier'] = tier;
-    if (status) filter['subscription.status'] = status;
+    if (product === 'ncmhce') Object.assign(filter, PAID_NCMHCE);
+    if (product === 'nce') Object.assign(filter, PAID_NCE);
+    if (product === 'both') filter.$and = [PAID_NCMHCE, PAID_NCE];
+    const plan = (tier ? /^nce_/.test(tier) : product === 'nce') ? 'nceAccess' : 'subscription';
+    if (tier) filter[plan + '.tier'] = tier;
+    if (status) filter[plan + '.status'] = status;
     const limit = Math.min(parseInt(req.query.limit, 10) || 50, 200);
 
     const users = await User.find(filter)
-      .select('email name subscription createdAt trialEndsAt')
+      .select('email name isGuest subscription nceAccess guidePurchasedAt guideNcePurchasedAt createdAt trialEndsAt')
       .sort({ createdAt: -1 })
       .limit(limit)
       .lean();
 
     const now = new Date();
-    const usersWithStatus = users.map(u => {
-      const tier = u.subscription && u.subscription.tier;
-      const status = u.subscription && u.subscription.status;
-      let effectiveStatus;
-      if (tier && tier !== 'free') {
-        effectiveStatus = status || 'active';
-      } else {
-        effectiveStatus = trialEndFor(u) > now ? 'trial' : 'expired';
-      }
-      return Object.assign({}, u, { effectiveStatus });
-    });
+    const usersWithStatus = users.map(u => withPlanStatus(u, now));
     res.json({ users: usersWithStatus, count: usersWithStatus.length });
   } catch (err) {
     console.error('admin-subscriptions list error', err);
@@ -59,12 +87,35 @@ router.get('/', async (req, res) => {
 router.get('/revenue', async (req, res) => {
   try {
     const activeMonthly = await User.countDocuments({ 'subscription.tier': 'monthly', 'subscription.status': 'active' });
-    const pastDue = await User.countDocuments({ 'subscription.status': 'past_due' });
+    const pastDue = await User.countDocuments({ $or: [{ 'subscription.status': 'past_due' }, { 'nceAccess.status': 'past_due' }] });
     const byTier = {};
     for (const t of Object.keys(TIER_PRICES)) {
       byTier[t] = await User.countDocuments({ 'subscription.tier': t, 'subscription.status': { $in: ['active', 'canceled'] } });
     }
-    const mrrEstimate = activeMonthly * TIER_PRICES.monthly;
+    const activeNceMonthly = await User.countDocuments({ 'nceAccess.tier': 'nce_monthly', 'nceAccess.status': 'active' });
+    const nceByTier = {};
+    for (const t of Object.keys(NCE_TIER_PRICES)) {
+      nceByTier[t] = await User.countDocuments({ 'nceAccess.tier': t, 'nceAccess.status': { $in: ['active', 'canceled'] } });
+    }
+    const ncmhceMrr = activeMonthly * TIER_PRICES.monthly;
+    const nceMrr = Math.round(activeNceMonthly * NCE_TIER_PRICES.nce_monthly * 100) / 100;
+    const mrrEstimate = Math.round((ncmhceMrr + nceMrr) * 100) / 100;
+
+    // Paid accounts per product line (any non-free plan, any status), plus
+    // guide sales and how many accounts have at least opened NCE study.
+    const [ncmhcePaid, ncePaid, bothPaid, ncmhceGuides, nceGuides, nceTrialsStarted] = await Promise.all([
+      User.countDocuments(PAID_NCMHCE),
+      User.countDocuments(PAID_NCE),
+      User.countDocuments({ $and: [PAID_NCMHCE, PAID_NCE] }),
+      User.countDocuments({ guidePurchasedAt: { $ne: null } }),
+      User.countDocuments({ guideNcePurchasedAt: { $ne: null } }),
+      User.countDocuments({ 'nceAccess.trialStartedAt': { $ne: null } }),
+    ]);
+    const byProduct = {
+      ncmhce: { paid: ncmhcePaid, onlyThis: ncmhcePaid - bothPaid, byTier, mrr: ncmhceMrr, guides: ncmhceGuides },
+      nce: { paid: ncePaid, onlyThis: ncePaid - bothPaid, byTier: nceByTier, mrr: nceMrr, guides: nceGuides, trialsStarted: nceTrialsStarted },
+      both: bothPaid,
+    };
 
     let last30dGross = null;
     try {
@@ -78,7 +129,7 @@ router.get('/revenue', async (req, res) => {
       console.error('revenue: stripe charges list failed', e.message);
     }
 
-    res.json({ mrrEstimate, activeMonthlyCount: activeMonthly, pastDueCount: pastDue, byTier, last30dGross });
+    res.json({ mrrEstimate, activeMonthlyCount: activeMonthly + activeNceMonthly, pastDueCount: pastDue, byTier, byProduct, last30dGross });
   } catch (err) {
     console.error('admin-subscriptions revenue error', err);
     res.status(500).json({ error: 'Could not compute revenue' });
@@ -91,7 +142,7 @@ router.get('/:userId', async (req, res) => {
     const user = await User.findById(req.params.userId).select('-passwordHash').lean();
     if (!user) return res.status(404).json({ error: 'User not found' });
     const attemptCount = await Attempt.countDocuments({ userId: user._id });
-    res.json({ user, attemptCount });
+    res.json({ user: withPlanStatus(user), attemptCount });
   } catch (err) {
     console.error('admin-subscriptions detail error', err);
     res.status(500).json({ error: 'Could not load subscriber' });

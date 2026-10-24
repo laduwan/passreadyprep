@@ -65,6 +65,9 @@
   .badge.canceled{color:var(--slate-400);border-color:var(--slate-500);background:rgba(100,116,139,.12)}
   .badge.trial{color:var(--blue-400);border-color:var(--blue-400);background:rgba(96,165,250,.12)}
   .badge.expired{color:var(--slate-500);border-color:var(--slate-600);background:rgba(100,116,139,.08)}
+  .badge.none{color:var(--slate-500);border-color:transparent;background:transparent;padding-left:0}
+  .stat-sub{font-size:12px;color:var(--slate-400);margin-top:2px}
+  .plan-tier{font-size:13px;margin-bottom:3px}
 
   .overlay{position:fixed;inset:0;background:rgba(2,6,14,.6);display:flex;justify-content:flex-end;z-index:20}
   .panel{width:min(420px,100%);height:100%;background:var(--slate-900);border-left:1px solid var(--card-border);
@@ -113,6 +116,14 @@
     <div class="card stat-card"><div class="stat-label">Last 30 days gross</div><div class="stat-value" id="statGross">—</div></div>
   </div>
 
+  <!-- Which product line people pay for: NCMHCE (User.subscription) vs NCE (User.nceAccess). -->
+  <div class="stat-row" id="productRow">
+    <div class="card stat-card"><div class="stat-label">NCMHCE paid</div><div class="stat-value" id="statNcmhce">—</div><div class="stat-sub" id="statNcmhceSub"></div></div>
+    <div class="card stat-card"><div class="stat-label">NCE paid</div><div class="stat-value" id="statNce">—</div><div class="stat-sub" id="statNceSub"></div></div>
+    <div class="card stat-card"><div class="stat-label">Both</div><div class="stat-value" id="statBoth">—</div></div>
+    <div class="card stat-card"><div class="stat-label">NCE trials started</div><div class="stat-value" id="statNceTrials">—</div><div class="stat-sub">opened NCE study at least once</div></div>
+  </div>
+
   <div class="card">
     <div class="actions" style="justify-content:flex-end;margin-bottom:12px">
       <button class="primary" id="newAccountBtn">+ New account</button>
@@ -139,13 +150,28 @@
     </div>
     <div class="filter-row">
       <input id="searchQ" type="text" placeholder="Search by email…" />
+      <select id="filterProduct">
+        <option value="">All products</option>
+        <option value="ncmhce">NCMHCE paid</option>
+        <option value="nce">NCE paid</option>
+        <option value="both">Both paid</option>
+      </select>
       <select id="filterTier">
         <option value="">All tiers</option>
-        <option value="free">free</option>
-        <option value="monthly">monthly</option>
-        <option value="pass3">pass3</option>
-        <option value="guarantee">guarantee</option>
-        <option value="guide">guide</option>
+        <optgroup label="NCMHCE">
+          <option value="free">free</option>
+          <option value="monthly">monthly</option>
+          <option value="pass3">pass3</option>
+          <option value="pass6">pass6</option>
+          <option value="guarantee">guarantee</option>
+          <option value="guide">guide</option>
+        </optgroup>
+        <optgroup label="NCE">
+          <option value="nce_monthly">nce_monthly</option>
+          <option value="nce_pass3">nce_pass3</option>
+          <option value="nce_pass6">nce_pass6</option>
+          <option value="nce_guarantee">nce_guarantee</option>
+        </optgroup>
       </select>
       <select id="filterStatus">
         <option value="">All statuses</option>
@@ -158,7 +184,7 @@
     <div style="overflow-x:auto">
       <table>
         <thead>
-          <tr><th>Email</th><th>Name</th><th>Tier</th><th>Status</th><th>Period end</th></tr>
+          <tr><th>Email</th><th>Name</th><th>Product</th><th>NCMHCE plan</th><th>NCE plan</th></tr>
         </thead>
         <tbody id="listBody"></tbody>
       </table>
@@ -281,13 +307,38 @@
       pastDueEl.textContent = data.pastDueCount != null ? data.pastDueCount : '—';
       pastDueEl.classList.toggle('warn', !!data.pastDueCount);
       $('statGross').textContent = currency(data.last30dGross);
+      var bp = data.byProduct;
+      if (bp) {
+        $('statNcmhce').textContent = bp.ncmhce.paid;
+        $('statNcmhceSub').textContent = bp.ncmhce.onlyThis + ' only · ' + tierSummary(bp.ncmhce.byTier) + ' · ' + bp.ncmhce.guides + ' guides';
+        $('statNce').textContent = bp.nce.paid;
+        $('statNceSub').textContent = bp.nce.onlyThis + ' only · ' + tierSummary(bp.nce.byTier) + ' · ' + bp.nce.guides + ' guides';
+        $('statBoth').textContent = bp.both;
+        $('statNceTrials').textContent = bp.nce.trialsStarted;
+      }
     } catch (e) {
       // Revenue is a nice-to-have; don't block the rest of the page on it.
     }
   }
 
+  // "monthly 3 · pass3 1" — only tiers that have anyone on them.
+  function tierSummary(byTier){
+    var parts = Object.keys(byTier || {}).filter(function(t){ return byTier[t]; })
+      .map(function(t){ return t.replace(/^nce_/, '') + ' ' + byTier[t]; });
+    return parts.length ? parts.join(', ') : 'no plans';
+  }
+
   // ── list ───────────────────────────────────────────────────────
   var searchTimer = null;
+
+  // One product's plan cell: tier, status badge, period end.
+  function planCell(tier, status, periodEnd, neverExpires){
+    var paid = tier && tier !== 'free';
+    return '<div class="plan-tier">' + esc(paid ? tier : 'free') + '</div>' +
+      '<span class="badge ' + esc(status) + '">' + esc(status === 'none' ? 'not opened' : status) + '</span>' +
+      (paid ? '<div class="muted" style="font-size:12px;margin-top:3px">' +
+        esc((neverExpires || !periodEnd) ? 'never expires' : 'until ' + dateStr(periodEnd)) + '</div>' : '');
+  }
 
   function renderList(users){
     var body = $('listBody');
@@ -295,13 +346,14 @@
     $('listEmpty').classList.toggle('hidden', !!users.length);
     users.forEach(function(u){
       var sub = u.subscription || {};
+      var nce = u.nceAccess || {};
       var tr = document.createElement('tr');
       tr.innerHTML =
         '<td>' + esc(u.email) + '</td>' +
         '<td>' + esc(u.name || '—') + '</td>' +
-        '<td>' + esc(sub.tier || 'free') + '</td>' +
-        '<td><span class="badge ' + esc(u.effectiveStatus || 'expired') + '">' + esc(u.effectiveStatus || 'expired') + '</span></td>' +
-        '<td>' + esc((sub.tier === 'guarantee' || !sub.currentPeriodEnd) ? 'never expires' : dateStr(sub.currentPeriodEnd)) + '</td>';
+        '<td>' + esc((u.products && u.products.length) ? u.products.join(' + ') : '—') + '</td>' +
+        '<td>' + planCell(sub.tier, u.effectiveStatus || 'expired', sub.currentPeriodEnd, sub.tier === 'guarantee') + '</td>' +
+        '<td>' + planCell(nce.tier, u.nceStatus || 'none', nce.currentPeriodEnd, nce.tier === 'nce_guarantee') + '</td>';
       tr.addEventListener('click', function(){ openDetail(u._id); });
       body.appendChild(tr);
     });
@@ -312,9 +364,11 @@
     try {
       var params = new URLSearchParams();
       var q = $('searchQ').value.trim();
+      var product = $('filterProduct').value;
       var tier = $('filterTier').value;
       var status = $('filterStatus').value;
       if (q) params.set('q', q);
+      if (product) params.set('product', product);
       if (tier) params.set('tier', tier);
       if (status) params.set('status', status);
       var data = await api('/api/admin-subscriptions?' + params.toString());
@@ -330,6 +384,7 @@
     searchTimer = setTimeout(loadList, 350);
   });
   $('searchQ').addEventListener('keydown', function(e){ if (e.key === 'Enter') { clearTimeout(searchTimer); loadList(); } });
+  $('filterProduct').addEventListener('change', loadList);
   $('filterTier').addEventListener('change', loadList);
   $('filterStatus').addEventListener('change', loadList);
 
@@ -388,6 +443,7 @@
   function renderDetail(userId, data){
     var u = data.user || {};
     var sub = u.subscription || {};
+    var nce = u.nceAccess || {};
     var body = $('detailBody');
     if (!body) return; // panel was closed mid-fetch
 
@@ -403,12 +459,24 @@
       '<h2>' + esc(u.email || '') + '</h2>' +
       '<p class="muted" style="margin:0 0 12px">' + esc(u.name || '') + '</p>' +
 
+      '<div class="section-title">NCMHCE plan</div>' +
       '<div class="kv"><span>Tier</span><span>' + esc(sub.tier || 'free') + '</span></div>' +
       '<div class="kv"><span>Status</span><span>' + esc(u.effectiveStatus || 'expired') + '</span></div>' +
       '<div class="kv"><span>Period end</span><span>' + esc(dateStr(sub.currentPeriodEnd)) + '</span></div>' +
       '<div class="kv"><span>Stripe customer</span><span>' + esc(sub.stripeCustomerId || '—') + '</span></div>' +
       '<div class="kv"><span>Stripe subscription</span><span>' + esc(sub.stripeSubscriptionId || '—') + '</span></div>' +
       '<div class="kv"><span>Last payment intent</span><span>' + esc(sub.lastPaymentIntentId || '—') + '</span></div>' +
+      '<div class="kv"><span>NCMHCE guide</span><span>' + esc(u.guidePurchasedAt ? dateStr(u.guidePurchasedAt) : '—') + '</span></div>' +
+
+      '<div class="section-title">NCE plan</div>' +
+      '<div class="kv"><span>Tier</span><span>' + esc(nce.tier || 'free') + '</span></div>' +
+      '<div class="kv"><span>Status</span><span>' + esc(u.nceStatus === 'none' ? 'not opened' : (u.nceStatus || '—')) + '</span></div>' +
+      '<div class="kv"><span>Billed by</span><span>' + esc(nce.source || '—') + '</span></div>' +
+      '<div class="kv"><span>Period end</span><span>' + esc(nce.tier && nce.tier !== 'free' ? dateStr(nce.currentPeriodEnd) : '—') + '</span></div>' +
+      '<div class="kv"><span>NCE trial started</span><span>' + esc(nce.trialStartedAt ? dateStr(nce.trialStartedAt) : 'never opened NCE') + '</span></div>' +
+      '<div class="kv"><span>NCE guide</span><span>' + esc(u.guideNcePurchasedAt ? dateStr(u.guideNcePurchasedAt) : '—') + '</span></div>' +
+
+      '<div class="section-title">Account</div>' +
       '<div class="kv"><span>Attempts</span><span>' + esc(data.attemptCount != null ? data.attemptCount : '—') + '</span></div>' +
       '<div class="kv"><span>Joined</span><span>' + esc(dateStr(u.createdAt)) + '</span></div>' +
       '<div class="kv"><span>Trial granted until</span><span>' +
