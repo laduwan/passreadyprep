@@ -217,6 +217,14 @@ function monitor(req, res, next) {
 
 // Final Express error handler — catches thrown errors and next(err) calls.
 function errorHandler(err, req, res, next) {
+  // Client errors Express/body-parser already tagged as 4xx (a malformed URL
+  // like /%c0 from a scanner, a bad JSON body) aren't server faults: answer
+  // with that status and don't log or alert.
+  const status = err && (err.status || err.statusCode);
+  if (status >= 400 && status < 500) {
+    if (res.headersSent) return next(err);
+    return res.status(status).json({ error: 'Bad request' });
+  }
   try {
     res.locals._activityLogged = true; // avoid a duplicate from monitor()
     logActivity({
