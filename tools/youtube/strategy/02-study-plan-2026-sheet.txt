@@ -29,4 +29,7 @@ Chapters
 ---
 Tags: NCMHCE, NCMHCE study plan, how to study for the NCMHCE, NCMHCE 2026, NCMHCE study schedule, NCMHCE prep, NCMHCE practice, how long to study for NCMHCE, counselor exam, LPC exam, LCMHC, PassReady Prep, passreadyprep.com, @PassReadyPrep
 Playlist: NCMHCE Strategy & Study Plans
+Thumbnail: thumbnail-study-plan-2026.jpg
+Synthetic: yes
+Visibility: public
 Note: strategy video — upload in Studio and paste this title/description by hand (no case code, so youtube.js skips it). Fill in real chapter timestamps after the edit. Link the format video in an end screen + pinned comment.

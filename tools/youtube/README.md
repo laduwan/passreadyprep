@@ -55,9 +55,14 @@ node tools/youtube/youtube.js upload ~/Videos/next-batch --sheets tools/youtube/
 node tools/youtube/youtube.js upload ~/Videos/next-batch --sheets tools/youtube/sheets --yes
 ```
 
-Each upload costs 1,600 quota (about 6/day on the default 10,000). Videos arrive
-Private; run `fix`, `thumbs`, `publish` as usual afterwards. Files already on
-the channel are skipped, so re-runs are safe.
+Each upload costs 1,600 quota (about 6/day on the default 10,000). Case videos
+arrive Private; run `fix`, `thumbs`, `publish` as usual afterwards. Files
+already on the channel are skipped, so re-runs are safe.
+
+Sheets without a `Case:` line (the strategy videos) are "named sheets":
+matched to a video file by name, and their `Thumbnail:`, `Synthetic: yes` and
+`Visibility: public` lines are applied in the same run — no fix/thumbs pass
+needed.
 
 ## Title scheme (since 2026-10-28)
 

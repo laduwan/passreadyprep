@@ -9,10 +9,17 @@ Two scripted videos that catch candidates searching "how hard is the NCMHCE" /
 Each has a word-for-word script (`-script.md`), an upload sheet (`-sheet.txt`)
 and two thumbnail options: `thumbnail-*.jpg` (presenter photo + title — use these) or `strategy-*.jpg` (flat brand cards, for A/B tests).
 
-These are NOT managed by `youtube.js` (no case code): upload in Studio, paste
-the sheet's title and description by hand, set the thumbnail, and fix the
-chapter timestamps to match the final edit. Record the format video first and
-link it from the study-plan video (card + end screen + pinned comment).
+Two ways to publish:
+- **Before the API audit is approved**: upload in Studio, paste the sheet's
+  title and description, set the thumbnail, tick the altered-content
+  disclosure, make the playlist. (API uploads are locked Private until then.)
+- **After the audit**: one command does all of it (title, description, tags,
+  thumbnail, playlist, synthetic-media disclosure, public visibility):
+  `node tools/youtube/youtube.js upload tools/youtube/strategy/video --sheets tools/youtube/strategy --yes`
+  The sheets' `Thumbnail:`, `Synthetic:` and `Visibility:` lines drive it.
+
+Either way: end screens and pinned comments are Studio-only — link the format
+video from the study-plan video, and pin a comment on each.
 
 Keep the priority ladder as a tease — one rung on camera, the full ladder
 stays inside the product. In January, refresh both titles to 2027 and re-shoot

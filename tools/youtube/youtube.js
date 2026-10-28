@@ -768,9 +768,56 @@ async function thumbs(args) {
 
 // ── Uploading ───────────────────────────────────────────────────────────────
 
+// Named sheets: upload sheets without a "Case:" line (the strategy videos).
+// Matched to a video file by name: sheet "01-format-2026-sheet.txt" matches
+// any video whose file name contains "format-2026". These sheets may also
+// carry "Thumbnail:", "Synthetic: yes" and "Visibility: public" lines, which
+// the upload command applies directly (no fix/thumbs/publish pass needed).
+function loadNamedSheets(folder) {
+  const out = [];
+  if (!folder || !fs.existsSync(folder)) return out;
+  for (const f of fs.readdirSync(folder).filter(n => n.toLowerCase().endsWith('.txt'))) {
+    const lines = fs.readFileSync(path.join(folder, f), 'utf8').replace(/\r/g, '').split('\n');
+    if (lines.some(l => /^Case:/.test(l))) continue; // case sheets: handled by loadSheets
+    const at = re => lines.findIndex(l => re.test(l));
+    const ti = at(/^TITLE/), di = at(/^DESCRIPTION:/);
+    if (ti < 0 || di < 0) continue;
+    const end = lines.findIndex((l, i) => i > di && l.trim() === '---');
+    const field = re => (lines.find(l => re.test(l)) || '').replace(re, '').trim();
+    out.push({
+      file: f,
+      stem: f.replace(/\.txt$/i, '').replace(/^\d+-/, '').replace(/-sheet$/i, '').toLowerCase(),
+      title: (lines.slice(ti + 1).find(l => l.trim()) || '').trim(),
+      description: lines.slice(di + 1, end >= 0 ? end : undefined).join('\n').trim(),
+      tags: field(/^Tags:\s*/).split(',').map(t => t.trim()).filter(Boolean),
+      playlist: field(/^Playlist:\s*/),
+      thumbnail: field(/^Thumbnail:\s*/),
+      synthetic: /yes/i.test(field(/^Synthetic:\s*/)),
+      visibility: field(/^Visibility:\s*/).toLowerCase() || 'private',
+      folder,
+    });
+  }
+  return out;
+}
+
+async function addToPlaylist(plByTitle, plTitle, videoId) {
+  if (!plTitle) return;
+  let pl = plByTitle.get(plTitle);
+  if (!pl) {
+    const created = await yt('POST', 'playlists', { part: 'snippet,status' },
+      { snippet: { title: plTitle } , status: { privacyStatus: 'public' } }, 50);
+    pl = { id: created.id, items: [] };
+    plByTitle.set(plTitle, pl);
+  }
+  await yt('POST', 'playlistItems', { part: 'snippet' },
+    { snippet: { playlistId: pl.id, resourceId: { kind: 'youtube#video', videoId } } }, 50);
+}
+
 // Uploads every video file in a folder (file names carry the case code, same as
-// Studio uploads). Title/description/tags come from the upload sheets; videos
-// arrive Private, so the usual fix / thumbs / publish steps still apply.
+// Studio uploads, or match a named sheet). Title/description/tags come from the
+// upload sheets; case videos arrive Private for the usual fix / thumbs / publish
+// steps, named-sheet videos also get their thumbnail, playlist, synthetic-media
+// disclosure and visibility applied in the same run.
 //
 // IMPORTANT: until the Google Cloud project passes YouTube's API audit, API
 // uploads are locked to Private forever. Studio uploads are not. Don't use this
@@ -788,15 +835,28 @@ async function upload(args) {
   const files = fs.readdirSync(folder).filter(f => /\.(mp4|mov|m4v|mkv|webm)$/i.test(f)).sort();
   if (!files.length) die(`No video files in ${folder}`);
 
-  // Skip anything already on the channel (matched by case code + part/question).
-  const { videos } = await loadChannel();
+  const named = loadNamedSheets(si >= 0 ? args[si + 1] : null);
+
+  // Skip anything already on the channel (matched by case code + part/question,
+  // or for named sheets, by exact title).
+  const { videos, plByTitle } = await loadChannel();
   const { mains } = analyse(videos);
   const onChannel = new Set(mains.map(v => v.key));
+  const titlesOnChannel = new Set(videos.map(v => v.title));
 
   const plan = [];
   for (const f of files) {
     const series = parseName(f);
-    if (!series) { console.log(`${f}: no case code in the file name, skipped`); continue; }
+    if (!series) {
+      const stem = f.replace(/\.[^.]+$/, '').toLowerCase();
+      const ns = named.find(s => stem.includes(s.stem));
+      if (!ns) { console.log(`${f}: no case code and no matching named sheet, skipped`); continue; }
+      if (titlesOnChannel.has(ns.title)) { console.log(`${ns.stem.padEnd(9)} already on the channel (same title), skipped`); continue; }
+      plan.push({ file: f, key: ns.stem, title: ns.title, description: ns.description, tags: ns.tags,
+        playlist: ns.playlist, synthetic: ns.synthetic, visibility: ns.visibility,
+        thumbnail: ns.thumbnail ? path.join(ns.folder, ns.thumbnail) : null });
+      continue;
+    }
     const key = keyOf(series);
     if (onChannel.has(key)) { console.log(`${key.padEnd(9)} already on the channel, skipped`); continue; }
     const sheet = sheets.get(key);
@@ -817,7 +877,11 @@ async function upload(args) {
     try {
       const meta = {
         snippet: { title: p.title, description: p.description, tags: p.tags, categoryId: '27' },
-        status: { privacyStatus: 'private', selfDeclaredMadeForKids: false },
+        status: {
+          privacyStatus: p.visibility || 'private',
+          selfDeclaredMadeForKids: false,
+          ...(p.synthetic ? { containsSyntheticMedia: true } : {}),
+        },
       };
       const start = await fetch(`https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status`, {
         method: 'POST',
@@ -846,7 +910,21 @@ async function upload(args) {
       });
       const j = await put.json().catch(() => ({}));
       if (!put.ok) throw new Error(j.error?.message || `HTTP ${put.status}`);
-      console.log(`           ✓ uploaded as ${j.id} (private)`);
+      console.log(`           ✓ uploaded as ${j.id} (${p.visibility || 'private'})`);
+      if (p.thumbnail && fs.existsSync(p.thumbnail)) {
+        const img = fs.readFileSync(p.thumbnail);
+        const tres = await fetch(`https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=${j.id}`, {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${await getAccessToken()}`, 'Content-Type': 'image/jpeg' },
+          body: img,
+        });
+        quotaUsed += 50;
+        console.log(`           ${tres.ok ? '✓ thumbnail set' : '✗ thumbnail failed'}`);
+      }
+      if (p.playlist) {
+        try { await addToPlaylist(plByTitle, p.playlist, j.id); console.log(`           ✓ added to "${p.playlist}"`); }
+        catch (e) { console.log(`           ✗ playlist: ${e.message}`); }
+      }
       n++;
     } catch (e) { console.log(`           ✗ ${e.message}`); failed++; }
   }
@@ -878,4 +956,4 @@ async function main() {
 
 if (require.main === module) main().catch(e => die(e.message));
 
-module.exports = { parseName, keyOf, wantedTitle, analyse, withPartLinks, parseCsv, loadSheets };
+module.exports = { parseName, keyOf, wantedTitle, analyse, withPartLinks, parseCsv, loadSheets, loadNamedSheets };
