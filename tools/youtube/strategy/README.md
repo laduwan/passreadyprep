@@ -7,7 +7,7 @@ Two scripted videos that catch candidates searching "how hard is the NCMHCE" /
 2. `02-study-plan-2026` — How I'd Study for the NCMHCE in 2026
 
 Each has a word-for-word script (`-script.md`), an upload sheet (`-sheet.txt`)
-and a thumbnail (`strategy-*.jpg`).
+and two thumbnail options: `thumbnail-*.jpg` (presenter photo + title — use these) or `strategy-*.jpg` (flat brand cards, for A/B tests).
 
 These are NOT managed by `youtube.js` (no case code): upload in Studio, paste
 the sheet's title and description by hand, set the thumbnail, and fix the
