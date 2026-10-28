@@ -36,6 +36,29 @@ node tools/youtube/youtube.js thumbs --yes
 node tools/youtube/youtube.js publish --yes
 ```
 
+## Uploading by API (after the audit)
+
+`youtube.js upload` can upload a folder of videos with titles/descriptions/tags
+from the sheets — but ONLY use it once Google approves the project's YouTube API
+audit. Until then, API uploads are permanently locked to Private (Studio uploads
+are not), which is why the normal flow uploads in Studio.
+
+One-time: apply for the audit with the Google account that owns the
+`PassReady YouTube` Cloud project — search "YouTube API Services - Audit and
+Quota Extension Form", describe it as a private CLI managing the owner's own
+channel. Approval usually takes days to a few weeks.
+
+Then, instead of dragging files into Studio:
+
+```
+node tools/youtube/youtube.js upload ~/Videos/next-batch --sheets tools/youtube/sheets
+node tools/youtube/youtube.js upload ~/Videos/next-batch --sheets tools/youtube/sheets --yes
+```
+
+Each upload costs 1,600 quota (about 6/day on the default 10,000). Videos arrive
+Private; run `fix`, `thumbs`, `publish` as usual afterwards. Files already on
+the channel are skipped, so re-runs are safe.
+
 ## Title scheme (since 2026-10-28)
 
 Titles lead with the diagnosis so the videos rank for what candidates search

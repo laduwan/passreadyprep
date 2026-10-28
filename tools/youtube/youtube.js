@@ -766,6 +766,99 @@ async function thumbs(args) {
   else console.log(`\nDone: ${n - failed} uploaded${failed ? `, ${failed} failed` : ''}. (YouTube quota used: about ${quotaUsed} of 10,000 for today.)`);
 }
 
+// ── Uploading ───────────────────────────────────────────────────────────────
+
+// Uploads every video file in a folder (file names carry the case code, same as
+// Studio uploads). Title/description/tags come from the upload sheets; videos
+// arrive Private, so the usual fix / thumbs / publish steps still apply.
+//
+// IMPORTANT: until the Google Cloud project passes YouTube's API audit, API
+// uploads are locked to Private forever. Studio uploads are not. Don't use this
+// before the audit is approved (README has the steps).
+async function upload(args) {
+  const apply = args.includes('--yes');
+  const folder = args.find(a => !a.startsWith('--') && a !== (args[args.indexOf('--sheets') + 1] || ''));
+  if (!folder || !fs.existsSync(folder) || !fs.statSync(folder).isDirectory()) {
+    die('Usage: node tools/youtube/youtube.js upload <folder-with-videos> --sheets tools/youtube/sheets [--yes]');
+  }
+  const si = args.indexOf('--sheets');
+  const { sheets, problems } = si >= 0 ? loadSheets(args[si + 1] || '') : { sheets: new Map(), problems: [] };
+  for (const p of problems) console.log(`⚠ ${p}`);
+
+  const files = fs.readdirSync(folder).filter(f => /\.(mp4|mov|m4v|mkv|webm)$/i.test(f)).sort();
+  if (!files.length) die(`No video files in ${folder}`);
+
+  // Skip anything already on the channel (matched by case code + part/question).
+  const { videos } = await loadChannel();
+  const { mains } = analyse(videos);
+  const onChannel = new Set(mains.map(v => v.key));
+
+  const plan = [];
+  for (const f of files) {
+    const series = parseName(f);
+    if (!series) { console.log(`${f}: no case code in the file name, skipped`); continue; }
+    const key = keyOf(series);
+    if (onChannel.has(key)) { console.log(`${key.padEnd(9)} already on the channel, skipped`); continue; }
+    const sheet = sheets.get(key);
+    const sheetOk = sheet && sheet.title && !sheet.problems.some(p => p.startsWith('title'));
+    const title = sheetOk ? sheet.title : (TITLE_OVERRIDES[key] || wantedTitle(series));
+    if (!title) { console.log(`${key.padEnd(9)} no usable title (add an upload sheet), skipped`); continue; }
+    plan.push({ file: f, key, title, description: sheet?.description || '', tags: sheet?.tags || [] });
+  }
+  if (!plan.length) { console.log('Nothing to upload.'); return; }
+
+  const cost = plan.length * 1600;
+  console.log(apply ? `Uploading ${plan.length} video(s)…\n` : `Preview — nothing is uploaded until you add --yes\n`);
+  let n = 0, failed = 0;
+  for (const p of plan) {
+    const size = fs.statSync(path.join(folder, p.file)).size;
+    console.log(`${p.key.padEnd(9)} ${apply ? 'uploading' : 'would upload'} ${p.file} (${Math.round(size / 1e6)} MB)\n           title: ${p.title}`);
+    if (!apply) continue;
+    try {
+      const meta = {
+        snippet: { title: p.title, description: p.description, tags: p.tags, categoryId: '27' },
+        status: { privacyStatus: 'private', selfDeclaredMadeForKids: false },
+      };
+      const start = await fetch(`https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${await getAccessToken()}`,
+          'Content-Type': 'application/json',
+          'X-Upload-Content-Type': 'video/*',
+          'X-Upload-Content-Length': String(size),
+        },
+        body: JSON.stringify(meta),
+      });
+      quotaUsed += 1600;
+      if (!start.ok) {
+        const j = await start.json().catch(() => ({}));
+        const reason = j.error?.errors?.[0]?.reason;
+        if (reason === 'quotaExceeded') die('YouTube daily limit reached (each upload costs 1,600 of 10,000). Run again tomorrow; already-uploaded videos are skipped.');
+        if (reason === 'uploadLimitExceeded') die('YouTube says this channel has hit its upload limit for today. Try again in 24 hours.');
+        throw new Error(j.error?.message || `HTTP ${start.status}`);
+      }
+      const session = start.headers.get('location');
+      const put = await fetch(session, {
+        method: 'PUT',
+        headers: { 'Content-Length': String(size), 'Content-Type': 'video/*' },
+        body: fs.createReadStream(path.join(folder, p.file)),
+        duplex: 'half',
+      });
+      const j = await put.json().catch(() => ({}));
+      if (!put.ok) throw new Error(j.error?.message || `HTTP ${put.status}`);
+      console.log(`           ✓ uploaded as ${j.id} (private)`);
+      n++;
+    } catch (e) { console.log(`           ✗ ${e.message}`); failed++; }
+  }
+  if (!apply) {
+    console.log(`\n${plan.length} video(s) to upload, about ${cost} quota (of 10,000/day). Run again with --yes.`);
+    console.log('Reminder: only use this after the API audit is approved, or the videos stay locked Private.');
+  } else {
+    console.log(`\nDone: ${n} uploaded${failed ? `, ${failed} failed` : ''}. (YouTube quota used: about ${quotaUsed} of 10,000 for today.)`);
+    if (n) console.log('They are Private while YouTube processes them. Next: fix --sheets … --yes, thumbs --yes, publish --yes.');
+  }
+}
+
 // ── CLI ─────────────────────────────────────────────────────────────────────
 
 function die(msg) { console.error(msg); process.exit(1); }
@@ -779,7 +872,8 @@ async function main() {
   if (cmd === 'thumbs') return thumbs(args);
   if (cmd === 'publish') return publish(args);
   if (cmd === 'inspect') return inspect(args);
-  console.log('Commands: auth | scan | fix [--sheets <folder>] [--yes] [--visibility] | thumbs [--yes] | publish [--time 19:00] [--per-day 1] [--yes] | report "Table data.csv"\nSee tools/youtube/README.md');
+  if (cmd === 'upload') return upload(args);
+  console.log('Commands: auth | scan | fix [--sheets <folder>] [--yes] [--visibility] | thumbs [--yes] | publish [--time 19:00] [--per-day 1] [--yes] | upload <folder> --sheets <folder> [--yes] | report "Table data.csv"\nSee tools/youtube/README.md');
 }
 
 if (require.main === module) main().catch(e => die(e.message));
