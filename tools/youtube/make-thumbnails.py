@@ -174,15 +174,28 @@ def make(sheet, overrides):
     # Main text, beside a green accent bar.
     top = 170
     if sheet['kind'] == 'practice':
-        m = re.match(r'NCMHCE Practice:\s*(.+?)\s*\|\s*(.+)$', title)
-        question, topic = (m.group(1), m.group(2)) if m else (title, '')
+        # Diagnosis-first titles: "<Dx> NCMHCE Practice: <question> | <vignette>"
+        # (vignette optional); older sheets: "NCMHCE Practice: <question> | <vignette>".
+        m = re.match(r'(?:(.+?)\s+)?NCMHCE Practice:\s*(.+?)(?:\s*\|\s*(.+))?$', title)
+        if m:
+            dx, question, vignette = m.group(1) or '', m.group(2), m.group(3) or ''
+            topic = f'{dx} — {vignette}' if dx and vignette else (vignette or dx)
+        else:
+            question, topic = title, ''
         fq, ql, _ = fit(d, question, 'ExtraBold', width, 2, range(118, 70, -4))
         y = draw_lines(d, left + 40, top, ql, fq, NAVY, highlight={'FIRST', 'NEXT'})
         ft, tl, _ = fit(d, topic, 'SemiBold', width, 3, range(56, 34, -2))
         end = draw_lines(d, left + 40, y + 24, tl, ft, NAVY, gap=1.22)
     else:
-        subject = re.sub(r'^NCMHCE (Full Case Walkthrough|Case Walkthrough \(Mini\)):\s*', '', title)
-        subject = re.sub(r'\s*\(Part \d of \d\)\s*$', '', subject)
+        # Diagnosis-first titles: "<Dx> NCMHCE Case Walkthrough — Full Case, Part N | <hook>"
+        # and "<Dx> NCMHCE (Mini )Case: <story>"; older sheets keep the NCMHCE-first wording.
+        m = (re.match(r'(.+?)\s+NCMHCE Case Walkthrough — Full Case, Part \d\s*\|\s*(.+)$', title)
+             or re.match(r'(.+?)\s+NCMHCE (?:Mini )?Case:\s*(.+)$', title))
+        if m:
+            subject = f'{m.group(1)}: {m.group(2)}'
+        else:
+            subject = re.sub(r'^NCMHCE (Full Case Walkthrough|Case Walkthrough \(Mini\)):\s*', '', title)
+            subject = re.sub(r'\s*\(Part \d of \d\)\s*$', '', subject)
         subject = subject[:1].upper() + subject[1:]
         fs, sl, size = fit(d, subject, 'ExtraBold', width, 3, range(96, 60, -4))
         if size == 64 and len(sl) == 3 and sl[-1].endswith('…'):
