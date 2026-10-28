@@ -27,21 +27,20 @@ const FULL_CASE_SUBJECTS = {
 // Exact titles for single videos, by key (case code + part, e.g. "D140-P2",
 // or case code + question, e.g. "G134-q5"). These win over everything else.
 const TITLE_OVERRIDES = {
-  // The upload sheets cut these titles off at "career st…".
-  'D150-P1': 'NCMHCE Full Case Walkthrough: Intense fear of flying blocking a career step (Part 1 of 2)',
-  'D150-P2': 'NCMHCE Full Case Walkthrough: Intense fear of flying blocking a career step (Part 2 of 2)',
-  // The upload sheets cut these titles off ("…"); shortened to fit YouTube's 100 characters.
-  'G111-q3': 'NCMHCE Practice: What do you assess NEXT? | BPD with Comorbid MDD in a Korean American Woman',
-  'G183-q3': 'NCMHCE Practice: What do you assess NEXT? | Faith, Trust, and Disclosure in an Older Deacon',
-  'D264-q1': 'NCMHCE Practice: What do you do FIRST? | A Hotshot Firefighter and an Online Vial',
-  'G179-q3': 'NCMHCE Practice: What do you do FIRST? | Culturally Responsive Care: Older African American Woman',
-  'G134-q5': "NCMHCE Practice: What's the best formulation? | Grief & Historical Trauma",
-  'G037-q1': 'NCMHCE Practice: What do you assess NEXT? | Combat Veteran with PTSD',
-  'G102-q3': 'NCMHCE Practice: What do you do FIRST? | Suicide Risk in an Older Adult',
-  'G125-q3': "NCMHCE Practice: What do you assess NEXT? | Depression That Won't Lift",
-  'D248-q1': 'NCMHCE Practice: What do you do FIRST? | Night Shifts & Drowsy Driving',
-  'D215-q1': 'NCMHCE Practice: What do you do FIRST? | Train Operator After a Fatality',
-  'G185-q3': 'NCMHCE Practice: What do you do FIRST? | College Student in Crisis',
+  // Kept in sync with the rewritten sheets (diagnosis-first titles).
+  'D150-P1': 'Specific Phobia NCMHCE Case Walkthrough — Full Case, Part 1 | Fear of Flying Blocks a Career Step',
+  'D150-P2': 'Specific Phobia NCMHCE Case Walkthrough — Full Case, Part 2 | Fear of Flying Blocks a Career Step',
+  'G111-q3': 'Borderline Personality Disorder NCMHCE Practice: What do you assess NEXT?',
+  'G183-q3': 'Schizophrenia NCMHCE Practice: What do you assess NEXT?',
+  'D264-q1': 'Gender Dysphoria NCMHCE Practice: What do you do FIRST? | A Hotshot Firefighter and an Online Vial',
+  'G179-q3': 'Alcohol Use Disorder NCMHCE Practice: What do you do FIRST?',
+  'G134-q5': 'Major Depressive Disorder NCMHCE Practice: What\'s the best formulation?',
+  'G037-q1': 'PTSD NCMHCE Practice: What do you assess NEXT? | Combat Veteran with Posttraumatic Stress',
+  'G102-q3': 'Major Depressive Disorder NCMHCE Practice: What do you do FIRST? | Hopelessness in an Older Adult',
+  'G125-q3': 'Major Depressive Disorder NCMHCE Practice: What do you assess NEXT?',
+  'D248-q1': 'Hypersomnolence Disorder NCMHCE Practice: What do you do FIRST? | Night Shifts and Drowsy Driving',
+  'D215-q1': 'Acute Stress Disorder NCMHCE Practice: What do you do FIRST? | A Train Operator in Acute Crisis',
+  'G185-q3': 'Suicide Risk Assessment NCMHCE Practice: What do you do FIRST? | A College Student\'s Hidden Crisis',
 };
 
 module.exports = { PLAYLISTS, FULL_CASE_SUBJECTS, TITLE_OVERRIDES };

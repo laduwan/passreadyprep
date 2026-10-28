@@ -36,6 +36,19 @@ node tools/youtube/youtube.js thumbs --yes
 node tools/youtube/youtube.js publish --yes
 ```
 
+## Title scheme (since 2026-10-28)
+
+Titles lead with the diagnosis so the videos rank for what candidates search
+("panic disorder NCMHCE"), with the hook after it:
+
+- Full cases: `<Diagnosis> NCMHCE Case Walkthrough — Full Case, Part N | <hook>`
+- Minis: `<Diagnosis> NCMHCE Mini Case: <story title>`
+- Practice Shorts: `<Diagnosis> NCMHCE Practice: <question> | <vignette>` (vignette dropped if over 100 chars)
+
+The first description line is a keyword hook; the passreadyprep.com link sits
+right under it. Diagnosis is also in the tags. To apply any later edits, run
+`fix` as usual.
+
 ## What it does
 
 - Finds each video by the case code in its **file name**, e.g. `06 D140 P2 · …`
