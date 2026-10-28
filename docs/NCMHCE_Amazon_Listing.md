@@ -14,7 +14,7 @@ The NCMHCE doesn't test whether you can recite DSM criteria. In the case-simulat
 <b>Inside you'll find:</b>
 
 <ul>
-<li><b>The Universal Priority Ladder</b> — the seven-rung decision framework (safety → medical rule-outs → stabilization → alliance → assessment → treatment → ethics) that resolves nearly every "two answers look right" dilemma</li>
+<li><b>Rung Wise™ — the Universal Priority Ladder</b> — the seven-rung decision framework (safety → medical rule-outs → stabilization → alliance → assessment → treatment → ethics) that resolves nearly every "two answers look right" dilemma</li>
 <li><b>All 18 diagnostic families, 92 diagnoses</b> — each with quick-reference tables (ICD-10 codes, first-line treatments) framed by narrative discussion</li>
 <li><b>"The Clinical Picture"</b> — prose descriptions of how each disorder actually presents inside a case simulation, not just criteria lists</li>
 <li><b>Differentials with the deciding feature</b> — MDD vs. bipolar depression, BPD vs. Bipolar II, OCD vs. OCPD, schizoid vs. avoidant, delirium vs. dementia — every look-alike pair, with the one feature that settles it</li>
@@ -65,7 +65,7 @@ Your license is waiting on the other side of this exam. Prepare like a clinician
 >
 > In the NCMHCE's case-simulation format, the diagnosis is usually given. What's scored is the clinical reasoning that follows — what you assess, what you rule out, what you say next. This guide teaches that reasoning.
 >
-> - The **Universal Priority Ladder**: the seven-rung framework that resolves every "two answers look right" dilemma
+> - **Rung Wise™ — the Universal Priority Ladder**: the seven-rung framework that resolves every "two answers look right" dilemma
 > - **92 diagnoses across 18 families** — reference tables framed by the clinical picture, key differentials, and first-line treatments
 > - **What the exam rewards — and what it punishes** — in every chapter, with the reason why
 > - **Worked cases** with full reasoning chains and **60 practice questions** with expanded rationales

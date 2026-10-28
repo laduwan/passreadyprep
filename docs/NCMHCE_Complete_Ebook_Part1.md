@@ -23,9 +23,9 @@ The chapters ahead do something different. Every diagnosis family gets:
 - **Worked mini-cases** — a vignette, the reasoning chain, and *why each distractor loses*
 - **Practice questions** with expanded rationales
 
-### The Priority Ladder
+### Rung Wise™ — The Priority Ladder
 
-One framework governs every scored decision in the NCMHCE. Memorize this and apply it before you pick any answer.
+One framework governs every scored decision in the NCMHCE. We call this approach **Rung Wise™**: before you pick any answer, you place it on the priority ladder below and ask which rung it belongs to. Memorize the ladder and apply it to every scored decision in this book — and on exam day.
 
 | Rung | Priority | Clinical Translation |
 |------|----------|----------------------|
@@ -37,7 +37,7 @@ One framework governs every scored decision in the NCMHCE. Memorize this and app
 | 6 | Evidence-based treatment | The right modality for the right diagnosis |
 | 7 | Ethics throughout | Confidentiality, mandated reporting, competence — woven into every rung |
 
-When two answers both seem correct, ask: which rung is higher? The higher-rung action wins.
+When two answers both seem correct, ask: which rung is higher? The higher-rung action wins. That single habit — thinking Rung Wise before you answer — resolves nearly every "two answers look right" dilemma on this exam.
 
 ---
 
@@ -572,7 +572,7 @@ Once safety is cleared, medical rule-out is initiated, substance use is assessed
 | Assessment | 5 | PHQ-9, AUDIT, further history |
 | Treatment | 6 | CBT/behavioral activation + substance treatment if indicated |
 
-The case illustrates that clinical sophistication on the NCMHCE is not about knowing more diagnoses — it is about holding the Priority Ladder correctly under the pressure of a complex presentation.
+The case illustrates that clinical sophistication on the NCMHCE is not about knowing more diagnoses — it is about staying Rung Wise™: holding the priority ladder correctly under the pressure of a complex presentation.
 
 ---
 

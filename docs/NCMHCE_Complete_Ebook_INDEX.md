@@ -9,7 +9,7 @@ This ebook is organized across three content files plus this index.
 
 | File | Contents |
 |------|---------|
-| `NCMHCE_Complete_Ebook_Part1.md` | Front Matter · How to Use · Priority Ladder · **Part One: Foundations, Theories & Skills** (Ch 1–5) |
+| `NCMHCE_Complete_Ebook_Part1.md` | Front Matter · How to Use · Rung Wise™ Priority Ladder · **Part One: Foundations, Theories & Skills** (Ch 1–5) |
 | `NCMHCE_Complete_Ebook_Part2A.md` | **Part Two: Diagnostic Reference**, Chapters 6–12 (Depressive · Anxiety · Trauma · Substance · Personality · Bipolar · Neurodevelopmental) |
 | `NCMHCE_Complete_Ebook_Part2B.md` | **Part Two: Diagnostic Reference**, Chapters 13–23 (Neurocognitive · OCD · Schizophrenia · Eating · Crisis/Safety · Disruptive · Somatic · Dissociative · Sleep · Sexual/Gender · Ethics) |
 | `NCMHCE_Complete_Ebook_Part3_BackMatter.md` | **Part Three: Clinical Quick Reference** (Defense Mechanisms · Cognitive Distortions · Assessment Compendium) · **Back Matter** (Full Answer Key Q1–60 · Alphabetical Diagnosis Index · References) |

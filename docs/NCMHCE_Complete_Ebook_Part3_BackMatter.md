@@ -464,4 +464,6 @@ This guide taught you the reasoning. **PassReadyPrep** puts it under exam condit
 *The Complete NCMHCE Study Guide — CounselorReady™ Exam Prep Series*
 *GA Integrated Therapeutic Perspectives LLC · Copyright © 2026 · All rights reserved.*
 
+*Rung Wise™ and CounselorReady™ are trademarks of GA Integrated Therapeutic Perspectives LLC.*
+
 *This guide is intended for educational preparation purposes. It does not constitute clinical supervision or licensed professional advice. Clinical decisions must be made by qualified, licensed practitioners in accordance with applicable professional standards, codes of ethics, and state laws.*
