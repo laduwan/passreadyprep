@@ -9,13 +9,16 @@ The NCMHCE tests clinical sequencing, not recall — so this plan is built on re
 
 Chapters
 0:00 Start by failing on purpose
-0:30 What the exam actually tests
-1:30 Weeks 1–2: baseline mock + weak areas
-3:30 Weeks 3–6: the case-a-day engine
-5:30 The rules notebook
-6:30 Weeks 7–8: simulate, then taper
-8:00 Three mistakes that fail prepared people
-9:00 Start your first rep today
+0:18 What the exam actually tests
+0:45 Week 1: baseline mock
+1:00 The three buckets
+1:20 Week 2: weakest areas
+1:32 Weeks 3-6: the case-a-day engine
+2:29 The rules notebook
+2:55 Week 7: simulate
+3:17 Week 8: taper
+3:36 Three mistakes that fail prepared people
+4:02 Start your first rep today
 
 🆓 Free NCMHCE study guide: https://passreadyprep.com
 📖 The Complete NCMHCE Study Guide (92 diagnoses · 3 full exams · 429 scored questions): https://kekethelpc.gumroad.com/l/frktch
