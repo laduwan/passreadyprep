@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <script>/* Android app launch → study tools (server.js does the same via the Referer header) */if(document.referrer.indexOf('android-app://com.gaitp.passreadyprep')===0)location.replace('/study'+location.search);</script>
+<script>/* Signed-in members who open the home page go straight to their study dashboard. /landing.html (pricing, plan comparison) and any #section link still show this page. */try{if(location.pathname==='/'&&!location.hash&&localStorage.getItem('prp_token')&&!((JSON.parse(localStorage.getItem('prp_user')||'null')||{}).isGuest))location.replace('/study'+location.search);}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-site-verification" content="vx_qOgnlLQA9FBRFUFGz9_-V1_2smF05iDPv79ljtNY" />
 <title>NCMHCE &amp; NCE Exam Prep, Practice Cases &amp; Questions | PassReady Prep</title>
@@ -711,7 +712,7 @@
           <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Pass guarantee</li>
         </ul>
         <div class="price-cta">
-          <a class="btn ghost" href="/register.html">Start free trial</a>
+          <a class="btn ghost" href="/register.html?next=/study">Start free trial</a>
           <p class="price-note">No card required · 3 days, then choose a plan</p>
         </div>
       </div>
