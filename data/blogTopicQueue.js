@@ -1,17 +1,22 @@
 // Topic queue for the weekly blog auto-drafter (jobs/blogAutoDraft.js).
 //
-// Each week the job takes the FIRST topic whose slug is not already used by a
-// blog post (draft or published) and asks Claude to draft it. Deleting a draft
-// frees its slug, so that topic can be drafted again; to skip a topic for good,
-// remove it from this list. Add new topics anywhere — order = priority.
+// Each week the job takes the FIRST topic that is not retired, whose slug is
+// not already used by a blog post (draft or published), and whose title does
+// not restate the subject of an existing post (the job compares titles, so a
+// topic that repeats a starter post under a new slug is skipped, not drafted
+// twice). Deleting a draft frees its slug, so that topic can be drafted again;
+// to skip a topic for good, set `retired: true` (keep the entry so the history
+// stays readable). Add new topics anywhere — order = priority.
 //
 // Fields:
-//   slug   unique, lowercase-hyphen (becomes /blog/<slug>)
-//   title  post title (≤ 70 chars reads best in search results)
-//   angle  what the post should cover — the drafter writes only from this
-//   link   the ONE internal study-tool link the post must include
-//   exam   'NCE' for NCE posts (omitted = NCMHCE). NCE posts link to /nce.html,
-//          get the NCE call to action, and skip the NCMHCE study-guide teaser.
+//   slug     unique, lowercase-hyphen (becomes /blog/<slug>)
+//   title    post title (≤ 70 chars reads best in search results)
+//   angle    what the post should cover — the drafter writes only from this
+//   link     the ONE internal study-tool link the post must include
+//   exam     'NCE' for NCE posts (omitted = NCMHCE). NCE posts link to /nce.html,
+//            get the NCE call to action, and skip the NCMHCE study-guide teaser.
+//   keywords optional search phrases to weave in naturally (not stuffed)
+//   retired  true = never draft this (e.g. a starter post already covers it)
 //
 // The exported queue alternates NCMHCE and NCE topics so both exams get posts.
 const NCMHCE_TOPICS = [
@@ -31,6 +36,7 @@ const NCMHCE_TOPICS = [
     link: { path: '/exam.html', label: 'timed NCMHCE mock exam' },
   },
   {
+    retired: true, // already covered by the starter post /blog/ncmhce-vs-nce
     slug: 'nce-vs-ncmhce-which-exam',
     title: 'NCE vs. NCMHCE: Which Counseling Exam Do You Need?',
     angle: 'Plain comparison: the NCE is a 200-question general-knowledge exam across six domains; the NCMHCE is a clinical case-simulation exam. Which one a candidate takes depends on their state board (some require one, some accept either, some require both) and on whether they want the NCC credential. How to find the answer on a state board website. How preparation differs for each.',
@@ -43,6 +49,7 @@ const NCMHCE_TOPICS = [
     link: { path: '/study', label: 'NCMHCE case simulations' },
   },
   {
+    retired: true, // already covered by the starter post /blog/how-ncmhce-is-scored
     slug: 'ncmhce-scoring-how-it-works',
     title: 'How the NCMHCE Is Scored (and Why Near Misses Matter)',
     angle: 'What NBCC publishes about scaled scoring and the passing standard, without inventing numbers: direct readers to the candidate handbook for the current standard. Then explain what case-simulation scoring rewards: the best next decision, in order, with harmful choices costing more than merely weak ones. How to use a weighted readiness score during prep.',
@@ -55,6 +62,7 @@ const NCMHCE_TOPICS = [
     link: { path: '/study', label: 'free NCMHCE practice case' },
   },
   {
+    retired: true, // already covered by /blog/ncmhce-study-plan and /blog/how-to-pass-the-ncmhce
     slug: 'ncmhce-study-schedule-8-weeks',
     title: 'An 8-Week NCMHCE Study Schedule You Can Actually Keep',
     angle: 'A week-by-week plan: weeks 1-2 format and diagnostic reference, weeks 3-5 one case a day plus domain drills, weeks 6-7 timed mocks and ethics/risk review, week 8 light recall and rest. Include a shortened 4-week version for retakers and how to adapt when working full time.',
