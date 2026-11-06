@@ -9,6 +9,10 @@ const UserSchema = new Schema(
     passwordHash: { type: String, required: true },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
 
+    // Admin only: per-event alert channel toggles, { "<eventType>": { email, sms } }.
+    // A missing key keeps the default behaviour (utils/activity.js).
+    adminAlertPrefs: { type: mongoose.Schema.Types.Mixed, default: undefined },
+
     // Guest account (iOS app): made by POST /api/auth/guest when someone buys
     // or restores without signing up (App Store guideline 5.1.1(v): purchases
     // must not require registration). It has a placeholder email on

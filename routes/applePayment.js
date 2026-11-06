@@ -145,7 +145,11 @@ async function applyTransaction(user, tx, opts = {}) {
     stamp();
     await User.findByIdAndUpdate(user._id, update);
     if (!alreadyApplied) {
-      logActivity({ type: 'payment.succeeded', severity: 'info', userId: user._id, email: user.email, message: `${cfg.exam === 'nce' ? 'NCE m' : 'M'}onthly subscription ${opts.viaNotification ? 'renewed' : 'started'} (App Store)`, meta: { tier: entry.tier, source: 'apple', transactionId, expires, environment: tx.environment } });
+      // A renewal carries a new transactionId under the original purchase's
+      // id (or arrives as a DID_RENEW notification); a first purchase that
+      // reaches us by notification (SUBSCRIBED) is still "started".
+      const isRenewal = transactionId !== originalId || opts.renewal === true;
+      logActivity({ type: 'payment.succeeded', severity: 'info', userId: user._id, email: user.email, message: `${cfg.exam === 'nce' ? 'NCE m' : 'M'}onthly subscription ${isRenewal ? 'renewed' : 'started'} (App Store)`, meta: { tier: entry.tier, source: 'apple', transactionId, expires, environment: tx.environment } });
     }
     return { ...base, action: alreadyApplied ? 'already' : 'granted', expires };
   }
@@ -411,7 +415,7 @@ router.post('/notifications', async (req, res) => {
         // EXPIRED, GRACE_PERIOD_EXPIRED, OFFER_REDEEMED, RENEWAL_EXTENDED,
         // REFUND_REVERSED, ONE_TIME_CHARGE — the transaction says what is true now.
         const autoRenewStatus = renewal && typeof renewal.autoRenewStatus === 'number' ? renewal.autoRenewStatus : undefined;
-        await applyTransaction(user, tx, { viaNotification: true, autoRenewStatus });
+        await applyTransaction(user, tx, { viaNotification: true, autoRenewStatus, renewal: type === 'DID_RENEW' });
         if (cfg.mode === 'subscription') {
           const path = planPath(cfg);
           const fresh = await User.findById(user._id).select(path);
