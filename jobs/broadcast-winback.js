@@ -333,7 +333,7 @@ async function run() {
   const now = new Date();
   const lastStudy = await lastStudyByUser();
   const users = await User.find({})
-    .select('email name role isGuest termsVersion prefs broadcastsSent subscription nceAccess examDate nceExamDate trialEndsAt createdAt')
+    .select('email name role isGuest termsVersion prefs broadcastsSent subscription nceAccess examDate nceExamDate trialStartedAt trialEndsAt createdAt')
     .sort({ createdAt: 1 })
     .lean();
 

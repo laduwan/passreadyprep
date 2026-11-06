@@ -172,9 +172,11 @@
 </div>
 
 <script>
-  // Where to go after auth — checkout?tier=X if coming from pricing, otherwise the app
+  // Where to go after auth — checkout?tier=X if coming from pricing, otherwise
+  // the study tools (a new account from the homepage should land in the app,
+  // not back on the marketing page).
   const params = new URLSearchParams(location.search);
-  const next = params.get('next') || '/';
+  const next = params.get('next') || '/study';
   const guest = (function(){ try { return !!(JSON.parse(localStorage.getItem('prp_user') || 'null') || {}).isGuest; } catch(_) { return false; } })();
 
   function showTab(tab) {

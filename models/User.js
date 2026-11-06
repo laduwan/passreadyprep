@@ -58,8 +58,15 @@ const UserSchema = new Schema(
     trialEndsAt: Date,
     trialNote: { type: String, trim: true, maxlength: 300 },
 
-    // Which trial reminder emails have already gone out — 'ending_soon' |
-    // 'ended'. Prevents re-sending the same email on every hourly check
+    // When the standard free trial started: the first time this account
+    // opened a case (routes/content.js), not signup. Unset until then, so an
+    // account that signs up and comes back a week later still gets a full
+    // trial (utils/trial.js). Separate from nceAccess.trialStartedAt, which is
+    // the NCE trial and starts on the first NCE visit.
+    trialStartedAt: Date,
+
+    // Which trial reminder emails have already gone out — 'first_case' |
+    // 'ending_soon' | 'ended'. Prevents re-sending the same email on every hourly check
     // (see jobs/trialReminders.js). Cleared whenever an admin grants, changes,
     // or clears a trial, so a renewed trial can earn a fresh reminder.
     trialEmailsSent: { type: [String], default: [] },
