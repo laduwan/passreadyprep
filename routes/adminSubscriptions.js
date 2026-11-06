@@ -35,6 +35,10 @@ function withPlanStatus(u, now = new Date()) {
   let effectiveStatus;
   if (tier && tier !== 'free') {
     effectiveStatus = status || 'active';
+  } else if (!u.trialStartedAt && !u.isGuest) {
+    // The standard trial only starts on the first case, so "never opened a
+    // case" is its own state rather than an active or expired trial.
+    effectiveStatus = 'not started';
   } else {
     effectiveStatus = trialEndFor(u) > now ? 'trial' : 'expired';
   }
@@ -69,7 +73,7 @@ router.get('/', async (req, res) => {
     const limit = Math.min(parseInt(req.query.limit, 10) || 50, 200);
 
     const users = await User.find(filter)
-      .select('email name isGuest subscription nceAccess guidePurchasedAt guideNcePurchasedAt createdAt trialEndsAt')
+      .select('email name isGuest subscription nceAccess guidePurchasedAt guideNcePurchasedAt createdAt trialStartedAt trialEndsAt')
       .sort({ createdAt: -1 })
       .limit(limit)
       .lean();
