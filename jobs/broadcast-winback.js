@@ -398,4 +398,4 @@ async function run() {
 
 if (require.main === module) run().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { run, emailFor, pickProduct, classify, excludedReason };
+module.exports = { run, emailFor, pickProduct, classify, excludedReason, frame, button, P, esc, footNote, TEST_EMAIL };
