@@ -7,7 +7,7 @@ const Attempt = require('../models/Attempt');
 const ActivityEvent = require('../models/ActivityEvent');
 const StudyActivity = require('../models/StudyActivity');
 const ReviewBatch = require('../models/ReviewBatch');
-const { logActivity } = require('../utils/activity');
+const { logActivity, EVENT_CONFIG, eventConfig, effectiveDefaults, buildAlertEmail, invalidateAlertPrefs } = require('../utils/activity');
 const { sendMail, sendSms } = require('../utils/mailer');
 const { BATCH_NAME_RX, reviewSheetSummary } = require('../tools/cases/reviewRoundTrip');
 const { applyStoredBatch } = require('../tools/cases/batchApply');
@@ -737,6 +737,57 @@ router.get('/activity/study', async (req, res) => {
   }
 });
 
+// GET /api/admin/alert-prefs — every alert event with its emoji/label and the
+// channels it currently reaches (saved pref, or today's default when unset).
+router.get('/alert-prefs', async (_req, res) => {
+  try {
+    const admin = await User.findOne({ role: 'admin' }).sort({ createdAt: 1 }).select('adminAlertPrefs').lean();
+    const saved = (admin && admin.adminAlertPrefs && typeof admin.adminAlertPrefs === 'object') ? admin.adminAlertPrefs : {};
+    const events = Object.keys(EVENT_CONFIG).map((type) => {
+      const cfg = eventConfig(type);
+      const def = effectiveDefaults(type);
+      const p = saved[type] || {};
+      return {
+        type, label: cfg.label, emoji: cfg.emoji, tone: cfg.tone,
+        email: typeof p.email === 'boolean' ? p.email : def.email,
+        sms: typeof p.sms === 'boolean' ? p.sms : def.sms,
+        defaults: def,
+      };
+    });
+    return res.json({ events, smsConfigured: !!process.env.ADMIN_ALERT_SMS_TO, disabled: process.env.ADMIN_ALERT_DISABLE === '1' });
+  } catch (err) {
+    console.error('admin alert-prefs load error', err);
+    return res.status(500).json({ error: 'Could not load alert settings' });
+  }
+});
+
+// PUT /api/admin/alert-prefs — body { events: { "<type>": { email, sms } } }
+// (or { "<type>": { email, sms } } directly). Saves the whole map onto the
+// first admin account; utils/activity.js reads it (cached 60 s) before sending.
+router.put('/alert-prefs', async (req, res) => {
+  try {
+    const body = req.body || {};
+    const incoming = (body.events && typeof body.events === 'object' && !Array.isArray(body.events)) ? body.events : body;
+    const prefs = {};
+    for (const type of Object.keys(incoming)) {
+      if (!EVENT_CONFIG[type]) continue;
+      const v = incoming[type] || {};
+      const entry = {};
+      if (typeof v.email === 'boolean') entry.email = v.email;
+      if (typeof v.sms === 'boolean') entry.sms = v.sms;
+      if (Object.keys(entry).length) prefs[type] = entry;
+    }
+    const admin = await User.findOne({ role: 'admin' }).sort({ createdAt: 1 }).select('_id');
+    if (!admin) return res.status(404).json({ error: 'No admin account found to save settings on' });
+    await User.updateOne({ _id: admin._id }, { $set: { adminAlertPrefs: prefs } });
+    invalidateAlertPrefs();
+    return res.json({ ok: true, saved: Object.keys(prefs).length });
+  } catch (err) {
+    console.error('admin alert-prefs save error', err);
+    return res.status(500).json({ error: 'Could not save alert settings' });
+  }
+});
+
 // POST /api/admin/activity/test — log a test event and send one email and one
 // SMS to the admin, reporting each channel's result separately.
 //
@@ -768,15 +819,17 @@ router.post('/activity/test', async (req, res) => {
     else if (!twilioReady && !process.env.BREVO_API_KEY) problems.push('ADMIN_ALERT_SMS_TO is set but no SMS provider is configured: need TWILIO_ACCOUNT_SID + TWILIO_AUTH_TOKEN + TWILIO_FROM (or TWILIO_MESSAGING_SERVICE_SID), or BREVO_API_KEY');
     else if (!twilioReady && process.env.TWILIO_ACCOUNT_SID) problems.push('Twilio is only partly configured (SMS is falling back to Brevo): check TWILIO_AUTH_TOKEN and TWILIO_FROM / TWILIO_MESSAGING_SERVICE_SID');
 
-    const when = new Date().toISOString();
-    const subject = '[PassReady WARN] admin.test_alert';
-    const text = `Type: admin.test_alert\nSeverity: warn\nMessage: Test alert triggered from the admin panel.\nTime: ${when}`;
-    const html = '<pre style="font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap">' + text + '</pre>';
+    const card = buildAlertEmail({
+      type: 'admin.test_alert', severity: 'warn',
+      message: 'Test alert triggered from the admin panel.',
+      path: req.originalUrl,
+    });
+    const { subject, html, text } = card;
 
     const email = to ? await sendMail({ to, subject, html, text }) : null;
     const sms = [];
     for (const n of String(smsTo).split(',').map((s) => s.trim()).filter(Boolean)) {
-      sms.push({ to: n, ...(await sendSms({ to: n, text: subject + ' — Test alert triggered from the admin panel.' })) });
+      sms.push({ to: n, ...(await sendSms({ to: n, text: card.sms })) });
     }
 
     const emailSent = !!(email && email.ok && !email.dev);

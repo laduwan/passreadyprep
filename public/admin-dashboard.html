@@ -1036,5 +1036,25 @@
   if (savedJwt && savedEmail) showApp(savedEmail);
 })();
 </script>
+<script>
+// Deep links from admin alert emails: /admin-dashboard.html#subscribers opens
+// that tab. Runs on load, on hash change, and again once the sign-in gate
+// closes (showApp lands on Overview, so a fresh sign-in needs the second pass).
+(function(){
+  function openHashTab(){
+    var tab = (location.hash || '').replace(/^#/, '');
+    if (!tab) return;
+    var btn = document.querySelector('.tab[data-tab="' + tab.replace(/"/g, '') + '"]');
+    if (btn && !btn.classList.contains('active')) btn.click();
+  }
+  openHashTab();
+  window.addEventListener('hashchange', openHashTab);
+  var gate = document.getElementById('gate');
+  if (gate && window.MutationObserver) {
+    new MutationObserver(function(){ if (gate.classList.contains('hidden')) openHashTab(); })
+      .observe(gate, { attributes: true, attributeFilter: ['class'] });
+  }
+})();
+</script>
 </body>
 </html>
