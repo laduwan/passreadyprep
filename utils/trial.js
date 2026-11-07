@@ -9,7 +9,7 @@
 // Individual accounts can be granted a longer one (see trialEndsAt on the
 // User model); this is the default that applies to everyone else.
 // TRIAL_DAYS in the environment overrides it without a code deploy.
-const TRIAL_DAYS = Math.max(1, parseInt(process.env.TRIAL_DAYS || '3', 10) || 3);
+const TRIAL_DAYS = Math.max(1, parseInt(process.env.TRIAL_DAYS || '7', 10) || 7);
 
 // Registered accounts get full access for TRIAL_DAYS from the first case they
 // open (trialStartedAt, set once by routes/content.js), then hit the paywall —

@@ -1,7 +1,7 @@
 /**
  * Trial Reminder Emails
  *
- * PassReady Prep's free trial is short (TRIAL_DAYS, default 3), and until now
+ * PassReady Prep's free trial is short (TRIAL_DAYS, default 7), and until now
  * it was purely reactive — a user only found out it had ended when they hit a
  * gated case and got a 402 from routes/content.js. This job proactively emails
  * accounts before and after that happens, so people don't just go quiet and
