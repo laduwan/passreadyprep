@@ -197,7 +197,7 @@
             <label for="m-refund">Refund</label>
           </div>
         </div>
-        <p class="hint" style="margin-top:-6px">A refund is your Pass Guarantee price minus the $25 study guide you keep ($224 at the standard $249 price). It ends your guarantee and your access. One refund per account. <a href="/guarantee.html#refund" target="_blank" style="color:var(--emerald-400)">Refund terms</a></p>
+        <p class="hint" style="margin-top:-6px">A refund is your Pass Guarantee price minus the $25 study guide you keep (<span id="refundStd">$224 at the standard $249 price</span>). It ends your guarantee and your access. One refund per exam per account. <a id="refundTerms" href="/guarantee.html#refund" target="_blank" style="color:var(--emerald-400)">Refund terms</a></p>
         <ul class="checks" id="refundChecks"></ul>
       </div>
       <label>Score letter</label>
@@ -235,7 +235,11 @@
   // ?exam=nce → the NCE Pass Guarantee check-in; otherwise NCMHCE, as before.
   const EXAM = new URLSearchParams(location.search).get('exam') === 'nce' ? 'nce' : 'ncmhce';
   const HOME = EXAM === 'nce' ? '/nce.html' : '/';
-  if (EXAM === 'nce') document.querySelectorAll('.exam-name').forEach(el => { el.textContent = 'NCE'; });
+  if (EXAM === 'nce') {
+    document.querySelectorAll('.exam-name').forEach(el => { el.textContent = 'NCE'; });
+    document.getElementById('refundStd').textContent = '$164 at the standard $189 price';
+    document.getElementById('refundTerms').href = '/guarantee.html#nce-refund';
+  }
 
   // The exam's domains, in the order the score letter lists them
   // (keys match utils/retakePlan.js).
@@ -303,12 +307,12 @@
     el.classList.add('show');
   }
 
-  // NCMHCE non-pass: offer the refund next to the 3-month extension, with the
+  // Non-pass: offer the refund next to the 3-month extension, with the
   // member's own numbers against each refund condition.
   async function updateRemedy() {
     const box = document.getElementById('remedyBox');
     const fail = document.querySelector('input[name="result"]:checked')?.value === 'fail';
-    const show = EXAM === 'ncmhce' && REFUND_OFFERED && fail;
+    const show = REFUND_OFFERED && fail;
     box.style.display = show ? 'block' : 'none';
     if (!show) return;
     const refundRadio = document.getElementById('m-refund');
@@ -319,7 +323,7 @@
     if (!date) { list.innerHTML = '<li><small>Enter your exam date to see if this result qualifies for a refund.</small></li>'; syncRemedy(); return; }
     list.innerHTML = '<li><small>Checking…</small></li>';
     try {
-      const r = await fetch('/api/payment/refund-eligibility?examDate=' + encodeURIComponent(date), {
+      const r = await fetch('/api/payment/refund-eligibility?exam=' + EXAM + '&examDate=' + encodeURIComponent(date), {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('prp_token') },
       });
       const d = await r.json();
@@ -420,7 +424,7 @@
         showErr('Enter the domain scores from your letter so we can build your retake plan.'); return;
       }
       try { letter = await readFile(file); } catch (e) { showErr('Could not read that file. Please try another.'); return; }
-      if (result === 'fail' && EXAM === 'ncmhce' && REFUND_OFFERED) {
+      if (result === 'fail' && REFUND_OFFERED) {
         remedy = document.querySelector('input[name="remedy"]:checked')?.value || 'extend';
         if (remedy === 'refund' && !REFUND_OK) { showErr('This result doesn’t qualify for a refund. Choose 3 more months instead.'); return; }
         if (remedy === 'refund' && !confirm('Request a refund? Once it is approved, your Pass Guarantee and your access end. This can’t be undone.')) return;

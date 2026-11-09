@@ -49,9 +49,11 @@ const UserSchema = new Schema(
     termsAcceptedAt: Date,
     termsVersion: { type: String },          // e.g. 'june-2026'
     guaranteeTermsAcceptedAt: Date,          // set only for Pass Guarantee purchasers
-    // Set when an NCMHCE Pass Guarantee was refunded after a non-pass. One
-    // refund per account, ever (utils/guaranteeRefund.js).
+    // Set when the NCMHCE Pass Guarantee was refunded after a non-pass. One
+    // refund per exam per account (utils/guaranteeRefund.js).
     guaranteeRefundedAt: Date,
+    // Same, for the NCE Pass Guarantee (one refund per exam per account).
+    nceGuaranteeRefundedAt: Date,
     guidePurchasedAt: Date,                  // set when the NCMHCE Study Guide (1E) is purchased
     guideOrderId: String,                    // Stripe checkout session id for the NCMHCE guide purchase, or 'apple:<transactionId>' for an In-App Purchase
     guideNcePurchasedAt: Date,               // set when The NCE Ownership Method (1E) is purchased
@@ -182,13 +184,14 @@ const UserSchema = new Schema(
       lastPaymentIntentId: String,
       currentPeriodEnd: Date,
       trialStartedAt: Date,
+      guaranteePurchasedAt: Date,   // NCE Pass Guarantee purchase (see subscription.guaranteePurchasedAt)
       // Score report gate for the NCE Pass Guarantee (nce_guarantee) — same
       // rules as subscription.scoreReport, kept separate so a report for one
       // exam never clears the other exam's check-in.
       scoreReport: {
         status: {
           type: String,
-          enum: ['none', 'pending', 'approved_extension', 'passed'],
+          enum: ['none', 'pending', 'approved_extension', 'passed', 'refunded'],
           default: 'none',
         },
         submittedAt: Date,
@@ -202,6 +205,11 @@ const UserSchema = new Schema(
         reopenedAt: Date,           // admin reopened a forfeited guarantee (restarts the 90 days)
         domainScores: mongoose.Schema.Types.Mixed,
         retakePlan: mongoose.Schema.Types.Mixed,
+        // Non-pass remedy and refund record, as on subscription.scoreReport.
+        remedy: { type: String, enum: ['extend', 'refund'] },
+        refundCheck: mongoose.Schema.Types.Mixed,
+        refundId: String,
+        refundAmount: Number,       // cents
       },
       scoreReportHistory: [mongoose.Schema.Types.Mixed],
     },

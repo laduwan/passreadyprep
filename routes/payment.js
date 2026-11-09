@@ -40,7 +40,7 @@ const Attempt = require('../models/Attempt');
 const { getNceExam } = require('../utils/nceExam');
 const { cleanDomainScores, buildRetakePlan } = require('../utils/retakePlan');
 const { isForfeited, nextRequestDue, RESULT_WINDOW_DAYS } = require('../utils/guaranteeRules');
-const { refundEligibility, REFUND_RULES } = require('../utils/guaranteeRefund');
+const { refundEligibility, REFUND_RULES, REFUND_PLAN } = require('../utils/guaranteeRefund');
 
 // Lazy init: construct the Stripe client on first use, not at module load.
 // Building it at require-time meant a missing STRIPE_SECRET_KEY crashed the
@@ -456,6 +456,11 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
             nceUpdate.guideNcePurchasedAt = new Date();
             nceUpdate.guideNceOrderId = session.id;
           }
+          // The refund option's timing rules start from the purchase date.
+          if (tierConfig.guarantee) {
+            nceUpdate['nceAccess.guaranteePurchasedAt'] = new Date();
+            nceUpdate['nceAccess.source'] = 'stripe';
+          }
           await User.findByIdAndUpdate(userId, nceUpdate);
           console.log(`✓ NCE one-time payment: user ${userId} → ${tier}, expires ${nceEnd}${tierConfig.bundleGuide ? ' (+ bundled guide)' : ''}`);
           logActivity({ type: 'payment.succeeded', severity: 'info', userId, email: session.customer_details?.email, message: `Purchased ${tier}`, meta: { tier, expires: nceEnd, amount: session.amount_total, currency: session.currency, bundledGuide: tierConfig.bundleGuide || null }, req });
@@ -688,14 +693,14 @@ router.post('/score-report', requireAuth, async (req, res) => {
       retakePlan = buildRetakePlan(g.exam, clean.scores, await practiceByDomain(user._id, g.exam));
     }
 
-    // NCMHCE non-pass: the member picks the 3-month extension (default) or a
-    // refund. A refund request must meet the refund terms now; an admin
-    // re-checks them before paying (utils/guaranteeRefund.js).
-    const wantsRefund = result === 'fail' && g.exam === 'ncmhce' && remedy === 'refund';
+    // Non-pass: the member picks the 3-month extension (default) or a refund.
+    // A refund request must meet the refund terms now; an admin re-checks
+    // them before paying (utils/guaranteeRefund.js).
+    const wantsRefund = result === 'fail' && remedy === 'refund';
     let refundCheck = null;
     if (wantsRefund) {
       const prior = [...(g.plan.scoreReportHistory || []), g.plan.scoreReport].filter(Boolean);
-      refundCheck = await refundEligibility(user, examDate, prior);
+      refundCheck = await refundEligibility(user, examDate, prior, g.exam);
       if (!refundCheck.eligible) {
         return res.status(400).json({
           error: 'This result doesn’t qualify for a refund: ' + refundCheck.checks.filter((c) => !c.ok).map((c) => c.label).join('; ') + '. You can choose the 3-month extension instead.',
@@ -723,7 +728,7 @@ router.post('/score-report', requireAuth, async (req, res) => {
       letterType: letter.slice(5, letter.indexOf(';')),
       domainScores: Object.keys(clean.scores).length ? clean.scores : undefined,
       retakePlan: retakePlan || undefined,
-      remedy: result === 'fail' && g.exam === 'ncmhce' ? (wantsRefund ? 'refund' : 'extend') : undefined,
+      remedy: result === 'fail' ? (wantsRefund ? 'refund' : 'extend') : undefined,
       refundCheck: refundCheck ? { checks: refundCheck.checks, stats: refundCheck.stats, at: new Date() } : undefined,
     });
     await user.save();
@@ -775,19 +780,20 @@ async function practiceByDomain(userId, exam) {
   return out;
 }
 
-// ── GET /api/payment/refund-eligibility?examDate=YYYY-MM-DD ───────────────────
-// The NCMHCE refund checks for a non-pass on that date, so score-report.html can
-// show the member where they stand before they choose a refund or an extension.
+// ── GET /api/payment/refund-eligibility?examDate=YYYY-MM-DD&exam=nce ──────────
+// The refund checks for a non-pass on that date, so score-report.html can show
+// the member where they stand before they choose a refund or an extension.
 router.get('/refund-eligibility', requireAuth, async (req, res) => {
   try {
-    const user = await User.findById(req.userId).select('subscription guaranteeTermsAcceptedAt guaranteeRefundedAt');
+    const user = await User.findById(req.userId).select('subscription nceAccess guaranteeTermsAcceptedAt guaranteeRefundedAt nceGuaranteeRefundedAt');
     if (!user) return res.status(404).json({ error: 'User not found' });
-    const sub = user.subscription || {};
-    if (sub.tier !== 'guarantee') return res.status(403).json({ error: 'Refunds only apply to the NCMHCE Pass Guarantee' });
+    const g = guaranteePlan(user, req.query.exam);
+    const sub = g.plan;
+    if (sub.tier !== g.tier) return res.status(403).json({ error: `Refunds only apply to the ${g.name} Pass Guarantee` });
     const examDate = req.query.examDate;
     if (!examDate || isNaN(new Date(examDate).getTime())) return res.status(400).json({ error: 'examDate is required' });
     const prior = [...(sub.scoreReportHistory || []), sub.scoreReport].filter(Boolean);
-    const check = await refundEligibility(user, examDate, prior);
+    const check = await refundEligibility(user, examDate, prior, g.exam);
     res.json({ ...check, guideCents: REFUND_RULES.GUIDE_CENTS });
   } catch (err) {
     console.error('refund-eligibility error:', err);
@@ -799,7 +805,7 @@ router.get('/refund-eligibility', requireAuth, async (req, res) => {
 // Returns the user's current gate state so the frontend knows what to show.
 router.get('/score-report-status', requireAuth, async (req, res) => {
   try {
-    const user = await User.findById(req.userId).select('subscription nceAccess guaranteeRefundedAt');
+    const user = await User.findById(req.userId).select('subscription nceAccess guaranteeRefundedAt nceGuaranteeRefundedAt');
     if (!user) return res.status(404).json({ error: 'User not found' });
 
     const g = guaranteePlan(user, req.query.exam);
@@ -833,9 +839,9 @@ router.get('/score-report-status', requireAuth, async (req, res) => {
       lastResult: sr.result || null,
       examDate: sr.examDate || null,
       retakePlan: sr.retakePlan || null,
-      // NCMHCE only: whether a non-pass can be taken as a refund at all
-      // (per-result rules are checked by /refund-eligibility).
-      refundOffered: g.exam === 'ncmhce' && sub.tier === g.tier && sub.source !== 'apple' && !user.guaranteeRefundedAt,
+      // Whether a non-pass can be taken as a refund at all (per-result rules
+      // are checked by /refund-eligibility).
+      refundOffered: sub.tier === g.tier && sub.source !== 'apple' && !user[REFUND_PLAN[g.exam].refundedField],
       remedy: sr.remedy || null,
     });
   } catch (err) {
@@ -959,13 +965,13 @@ router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
     }
 
     if (action === 'refund') {
-      // Verified non-pass taken as a refund (NCMHCE only): re-check the terms,
-      // refund the purchase minus the study guide the member keeps, and end the
+      // Verified non-pass taken as a refund: re-check the terms, refund the
+      // purchase minus the study guide the member keeps, and end the
       // guarantee. Extend instead if the checks no longer pass.
-      if (g.exam !== 'ncmhce' || sr.result !== 'fail' || sr.remedy !== 'refund') {
+      if (sr.result !== 'fail' || sr.remedy !== 'refund') {
         return res.status(400).json({ error: 'This report did not request a refund' });
       }
-      const check = await refundEligibility(user, sr.examDate, g.plan.scoreReportHistory || []);
+      const check = await refundEligibility(user, sr.examDate, g.plan.scoreReportHistory || [], g.exam);
       if (!check.eligible) {
         return res.status(400).json({
           error: 'Refund checks no longer pass: ' + check.checks.filter((c) => !c.ok).map((c) => `${c.label}${c.detail ? ` (${c.detail})` : ''}`).join('; ') + '. Use Extend instead.',
@@ -983,28 +989,28 @@ router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
       );
 
       const now = new Date();
-      user.set('subscription.tier', 'free');
-      user.set('subscription.status', 'canceled');
-      user.set('subscription.currentPeriodEnd', now);
-      user.set('subscription.scoreReport.status', 'refunded');
-      user.set('subscription.scoreReport.reviewedAt', now);
-      user.set('subscription.scoreReport.notes', notes || '');
-      user.set('subscription.scoreReport.refundId', refund.id);
-      user.set('subscription.scoreReport.refundAmount', amount);
-      user.set('guaranteeRefundedAt', now);
+      user.set(`${g.path}.tier`, 'free');
+      user.set(`${g.path}.status`, 'canceled');
+      user.set(`${g.path}.currentPeriodEnd`, now);
+      user.set(`${g.path}.scoreReport.status`, 'refunded');
+      user.set(`${g.path}.scoreReport.reviewedAt`, now);
+      user.set(`${g.path}.scoreReport.notes`, notes || '');
+      user.set(`${g.path}.scoreReport.refundId`, refund.id);
+      user.set(`${g.path}.scoreReport.refundAmount`, amount);
+      user.set(REFUND_PLAN[g.exam].refundedField, now);
       await user.save();
 
       const dollars = `$${(amount / 100).toFixed(2)}`;
-      logActivity({ type: 'guarantee.refunded', severity: 'warn', userId: user._id, email: user.email, message: `NCMHCE Pass Guarantee refunded after a verified non-pass: ${dollars}`, meta: { refundId: refund.id, amount, paymentIntent: pi.id }, req });
+      logActivity({ type: 'guarantee.refunded', severity: 'warn', userId: user._id, email: user.email, message: `${g.name} Pass Guarantee refunded after a verified non-pass: ${dollars}`, meta: { exam: g.exam, refundId: refund.id, amount, paymentIntent: pi.id }, req });
       const { sendMail } = require('../utils/mailer');
       sendMail({
         to: user.email,
         subject: 'Your PassReady Prep refund is on its way',
         text: `Hi${user.name ? ' ' + user.name : ''},
 
-We verified your NCMHCE result and refunded ${dollars} to your original payment method (your Pass Guarantee price minus the $25 study guide, which is yours to keep). It usually shows up within 5–10 business days.
+We verified your ${g.name} result and refunded ${dollars} to your original payment method (your Pass Guarantee price minus the $25 study guide, which is yours to keep). It usually shows up within 5–10 business days.
 
-Your Pass Guarantee has now ended. If you decide to try again, you're welcome back any time.
+Your ${g.name} Pass Guarantee has now ended. If you decide to try again, you're welcome back any time.
 
 PassReady Prep`,
       }).catch((e) => console.error('refund email failed:', e.message));
