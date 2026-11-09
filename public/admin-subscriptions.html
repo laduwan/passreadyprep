@@ -64,6 +64,7 @@
   .badge.past_due{color:var(--amber-400);border-color:var(--amber-400);background:rgba(251,191,36,.12)}
   .badge.canceled{color:var(--slate-400);border-color:var(--slate-500);background:rgba(100,116,139,.12)}
   .badge.trial{color:var(--blue-400);border-color:var(--blue-400);background:rgba(96,165,250,.12)}
+  .badge.sandbox{color:var(--amber-400);border-color:var(--amber-400);background:rgba(251,191,36,.10);margin-left:6px}
   .badge.expired{color:var(--slate-500);border-color:var(--slate-600);background:rgba(100,116,139,.08)}
   .badge.none{color:var(--slate-500);border-color:transparent;background:transparent;padding-left:0}
   .stat-sub{font-size:12px;color:var(--slate-400);margin-top:2px}
@@ -316,6 +317,10 @@
         $('statBoth').textContent = bp.both;
         $('statNceTrials').textContent = bp.nce.trialsStarted;
       }
+      if (data.appleSandboxTests) {
+        var note = data.appleSandboxTests + ' Apple test account' + (data.appleSandboxTests === 1 ? '' : 's') + ' not counted';
+        $('statNcmhceSub').textContent += ' · ' + note;
+      }
     } catch (e) {
       // Revenue is a nice-to-have; don't block the rest of the page on it.
     }
@@ -340,6 +345,9 @@
         esc((neverExpires || !periodEnd) ? 'never expires' : 'until ' + dateStr(periodEnd)) + '</div>' : '');
   }
 
+  // App Review / TestFlight purchase: free, not counted as paid (utils/appleSandbox.js).
+  var SANDBOX_BADGE = '<span class="badge sandbox" title="Paid plan came only from Apple\'s sandbox (App Review or TestFlight). No money was charged; not counted in paid totals.">Test (Apple sandbox)</span>';
+
   function renderList(users){
     var body = $('listBody');
     body.innerHTML = '';
@@ -349,7 +357,7 @@
       var nce = u.nceAccess || {};
       var tr = document.createElement('tr');
       tr.innerHTML =
-        '<td>' + esc(u.email) + '</td>' +
+        '<td>' + esc(u.email) + (u.appleSandbox ? SANDBOX_BADGE : '') + '</td>' +
         '<td>' + esc(u.name || '—') + '</td>' +
         '<td>' + esc((u.products && u.products.length) ? u.products.join(' + ') : '—') + '</td>' +
         '<td>' + planCell(sub.tier, u.effectiveStatus || 'expired', sub.currentPeriodEnd, sub.tier === 'guarantee') + '</td>' +
@@ -456,7 +464,8 @@
     var periodEndValue = sub.currentPeriodEnd ? new Date(sub.currentPeriodEnd).toISOString().slice(0,10) : '';
 
     body.innerHTML =
-      '<h2>' + esc(u.email || '') + '</h2>' +
+      '<h2>' + esc(u.email || '') + (u.appleSandbox ? SANDBOX_BADGE : '') + '</h2>' +
+      (u.appleSandbox ? '<p class="muted" style="margin:0 0 8px">This plan came from an Apple sandbox purchase (App Review or TestFlight). No money was charged, and it isn\'t counted in paid totals.</p>' : '') +
       '<p class="muted" style="margin:0 0 12px">' + esc(u.name || '') + '</p>' +
 
       '<div class="section-title">NCMHCE plan</div>' +
