@@ -49,6 +49,9 @@ const UserSchema = new Schema(
     termsAcceptedAt: Date,
     termsVersion: { type: String },          // e.g. 'june-2026'
     guaranteeTermsAcceptedAt: Date,          // set only for Pass Guarantee purchasers
+    // Set when an NCMHCE Pass Guarantee was refunded after a non-pass. One
+    // refund per account, ever (utils/guaranteeRefund.js).
+    guaranteeRefundedAt: Date,
     guidePurchasedAt: Date,                  // set when the NCMHCE Study Guide (1E) is purchased
     guideOrderId: String,                    // Stripe checkout session id for the NCMHCE guide purchase, or 'apple:<transactionId>' for an In-App Purchase
     guideNcePurchasedAt: Date,               // set when The NCE Ownership Method (1E) is purchased
@@ -123,6 +126,9 @@ const UserSchema = new Schema(
       cancelAtPeriodEnd: { type: Boolean, default: false }, // monthly: canceled, runs to period end
       lastPaymentIntentId: String,
       currentPeriodEnd: Date,
+      // When the NCMHCE Pass Guarantee was bought (Stripe webhook). The refund
+      // option's timing rules use it (utils/guaranteeRefund.js).
+      guaranteePurchasedAt: Date,
 
       // Score report gate — only used for the 'guarantee' tier.
       // When currentPeriodEnd passes, access is blocked until a score report
@@ -130,7 +136,8 @@ const UserSchema = new Schema(
       scoreReport: {
         status: {
           type: String,
-          enum: ['none', 'pending', 'approved_extension', 'passed'],
+          // 'refunded' — a non-pass the member took as a refund (NCMHCE only)
+          enum: ['none', 'pending', 'approved_extension', 'passed', 'refunded'],
           default: 'none',
         },
         submittedAt: Date,
@@ -148,6 +155,13 @@ const UserSchema = new Schema(
         domainScores: mongoose.Schema.Types.Mixed,
         // utils/retakePlan.js output for a non-passing result
         retakePlan: mongoose.Schema.Types.Mixed,
+        // NCMHCE non-pass only: what the member asked for — 'extend' (3 months)
+        // or 'refund' — plus the eligibility checks at submission
+        // (utils/guaranteeRefund.js) and, once paid, the Stripe refund.
+        remedy: { type: String, enum: ['extend', 'refund'] },
+        refundCheck: mongoose.Schema.Types.Mixed,
+        refundId: String,
+        refundAmount: Number,       // cents
       },
       // Earlier reports (without the letter), newest last.
       scoreReportHistory: [mongoose.Schema.Types.Mixed],
