@@ -13,12 +13,19 @@ const PageViewSchema = new Schema(
     referrerHost: { type: String, default: '' },            // hostname only — no full referring URL
     day: { type: String, required: true },                  // YYYY-MM-DD (UTC)
     visitorHash: { type: String, required: true },          // day-salted, one-way, non-reversible
+    // Campaign tags from the link that brought the visitor (?utm_source=…),
+    // so a YouTube video, a newsletter or an ad can each get its own link and
+    // its own numbers. Campaign-level labels only, nothing about the person.
+    utmSource: { type: String, default: '', maxlength: 80 },
+    utmMedium: { type: String, default: '', maxlength: 80 },
+    utmCampaign: { type: String, default: '', maxlength: 80 },
   },
   { timestamps: true }
 );
 
 // The stats endpoint slices by day, then by path/referrer within a day range.
 PageViewSchema.index({ day: 1, path: 1 });
+PageViewSchema.index({ day: 1, utmSource: 1 });
 PageViewSchema.index({ day: 1, visitorHash: 1 });
 PageViewSchema.index({ createdAt: -1 });
 

@@ -151,6 +151,10 @@ router.get('/', resolveAccess, async (req, res) => {
       // The end of THIS account's trial, which may be an admin-granted
       // extension rather than the standard TRIAL_DAYS from the first case.
       trialEndsAt: req.trialEndsAt || null,
+      // False for a signed-in account that has not opened a case yet: its
+      // clock has not started, so the study page shows what the trial is
+      // rather than a countdown (resolveAccess sets trialNotStarted).
+      trialStarted: !req.trialNotStarted,
       outline: outlineFor(servedKey || req.query.exam || 'ncmhce'),
       outlineFallback,
     });

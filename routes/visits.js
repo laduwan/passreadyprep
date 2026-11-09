@@ -1,6 +1,8 @@
 const express = require('express');
 const crypto = require('crypto');
 const PageView = require('../models/PageView');
+const User = require('../models/User');
+const ActivityEvent = require('../models/ActivityEvent');
 const requireAdmin = require('../middleware/adminOrAdminUser');
 
 const router = express.Router();
@@ -77,6 +79,14 @@ function referrerHost(raw) {
   }
 }
 
+// Campaign tags (utm_source / utm_medium / utm_campaign) are kept as short,
+// lower-case labels: letters, digits, space, dash, underscore and dot. Anything
+// else is dropped so a crafted link can't write arbitrary text into the log.
+function utmValue(raw) {
+  if (typeof raw !== 'string' || !raw) return '';
+  return raw.trim().toLowerCase().replace(/[^a-z0-9 _.-]/g, '').slice(0, 80);
+}
+
 // ============================================
 // PUBLIC — record one pageview
 // ============================================
@@ -93,11 +103,15 @@ router.post('/beacon', async (req, res) => {
     if (!underRateLimit(clientIp(req))) return;
 
     const day = utcDay();
+    const utm = body.utm && typeof body.utm === 'object' ? body.utm : {};
     await PageView.create({
       path,
       referrerHost: referrerHost(body.referrer),
       day,
       visitorHash: visitorHash(req, day),
+      utmSource: utmValue(utm.source),
+      utmMedium: utmValue(utm.medium),
+      utmCampaign: utmValue(utm.campaign),
     });
   } catch (err) {
     // Never let analytics noise reach the visitor or the error log's alerting.
@@ -117,7 +131,7 @@ router.get('/stats', requireAdmin, async (req, res) => {
     const from = new Date(Date.now() - (days - 1) * 86400 * 1000).toISOString().slice(0, 10);
     const range = { day: { $gte: from, $lte: to } };
 
-    const [perDay, topPages, topReferrers] = await Promise.all([
+    const [perDay, topPages, topReferrers, topCampaigns] = await Promise.all([
       // Two-stage group: collapse to one row per (day, visitor) first, so the
       // second stage can count both views and distinct visitors in one pass.
       PageView.aggregate([
@@ -137,6 +151,19 @@ router.get('/stats', requireAdmin, async (req, res) => {
         { $group: { _id: '$referrerHost', views: { $sum: 1 } } },
         { $sort: { views: -1 } },
         { $limit: 20 },
+      ]),
+      // Tagged links: one row per source / medium / campaign, with views and
+      // distinct visitor-days, so each YouTube video or ad can be compared.
+      PageView.aggregate([
+        { $match: { ...range, utmSource: { $nin: ['', null] } } },
+        { $group: {
+          _id: { source: '$utmSource', medium: { $ifNull: ['$utmMedium', ''] }, campaign: { $ifNull: ['$utmCampaign', ''] } },
+          views: { $sum: 1 },
+          visitors: { $addToSet: '$visitorHash' },
+        } },
+        { $project: { views: 1, visitors: { $size: '$visitors' } } },
+        { $sort: { views: -1 } },
+        { $limit: 30 },
       ]),
     ]);
 
@@ -162,10 +189,72 @@ router.get('/stats', requireAdmin, async (req, res) => {
       daily,
       topPages: topPages.map((r) => ({ path: r._id, views: r.views })),
       topReferrers: topReferrers.map((r) => ({ host: r._id, views: r.views })),
+      topCampaigns: topCampaigns.map((r) => ({ source: r._id.source, medium: r._id.medium, campaign: r._id.campaign, views: r.views, visitors: r.visitors })),
     });
   } catch (err) {
     console.error('visit stats error', err);
     return res.status(500).json({ error: 'Could not load visit stats' });
+  }
+});
+
+// ============================================
+// ADMIN — the funnel: visitors → study → register → checkout → sign-ups → payments
+// ============================================
+// GET /api/visits/funnel?days=30 → per day, how many distinct visitors reached
+// each step, plus accounts created and payments taken that day. Visitors are
+// counted once per day (the hash is day-scoped). Sign-ups leave out admin-made
+// and guest accounts; payments leave out the $1 admin test and App Store
+// sandbox transactions (those are logged as payment.sandbox).
+const FUNNEL_STEPS = { landing: '/', study: '/study', nce: '/nce.html', register: '/register.html', checkout: '/checkout.html' };
+
+router.get('/funnel', requireAdmin, async (req, res) => {
+  try {
+    const days = Math.min(Math.max(parseInt(req.query.days, 10) || 30, 1), 90);
+    const to = utcDay();
+    const from = new Date(Date.now() - (days - 1) * 86400 * 1000).toISOString().slice(0, 10);
+    const fromDate = new Date(from + 'T00:00:00Z');
+    const dayOf = { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } };
+
+    const stepSums = {};
+    for (const [step, path] of Object.entries(FUNNEL_STEPS)) {
+      stepSums[step] = { $sum: { $cond: [{ $in: [path, '$paths'] }, 1, 0] } };
+    }
+
+    const [perDay, signups, payments] = await Promise.all([
+      PageView.aggregate([
+        { $match: { day: { $gte: from, $lte: to } } },
+        { $group: { _id: { day: '$day', visitor: '$visitorHash' }, paths: { $addToSet: '$path' } } },
+        { $group: { _id: '$_id.day', visitors: { $sum: 1 }, ...stepSums } },
+      ]),
+      User.aggregate([
+        { $match: { createdAt: { $gte: fromDate }, role: 'user', isGuest: { $ne: true }, termsVersion: { $ne: 'admin-created' } } },
+        { $group: { _id: dayOf, n: { $sum: 1 } } },
+      ]),
+      ActivityEvent.aggregate([
+        { $match: { type: 'payment.succeeded', createdAt: { $gte: fromDate }, 'meta.tier': { $ne: 'test' }, 'meta.environment': { $ne: 'Sandbox' } } },
+        { $group: { _id: dayOf, n: { $sum: 1 } } },
+      ]),
+    ]);
+
+    const byDay = new Map(perDay.map((r) => [r._id, r]));
+    const signupsByDay = new Map(signups.map((r) => [r._id, r.n]));
+    const paymentsByDay = new Map(payments.map((r) => [r._id, r.n]));
+    const start = new Date(to + 'T00:00:00Z');
+    const daily = [];
+    const totals = { visitors: 0, landing: 0, study: 0, nce: 0, register: 0, checkout: 0, signups: 0, payments: 0 };
+    for (let i = days - 1; i >= 0; i--) {
+      const day = new Date(start.getTime() - i * 86400 * 1000).toISOString().slice(0, 10);
+      const row = byDay.get(day) || {};
+      const d = { day, visitors: row.visitors || 0, signups: signupsByDay.get(day) || 0, payments: paymentsByDay.get(day) || 0 };
+      for (const step of Object.keys(FUNNEL_STEPS)) d[step] = row[step] || 0;
+      for (const k of Object.keys(totals)) totals[k] += d[k];
+      daily.push(d);
+    }
+
+    return res.json({ days, from, to, steps: FUNNEL_STEPS, totals, daily });
+  } catch (err) {
+    console.error('visit funnel error', err);
+    return res.status(500).json({ error: 'Could not load the funnel' });
   }
 });
 

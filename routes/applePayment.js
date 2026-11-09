@@ -37,6 +37,14 @@ const { TIERS } = require('./payment');
 const { publicUser } = require('./auth');
 
 const DAY = 24 * 60 * 60 * 1000;
+
+// App Store sandbox purchases (App Review, TestFlight, the owner's test device)
+// grant access like real ones so reviewers can test, but they are not revenue:
+// they are logged under their own type so they never page the admin as a sale
+// (utils/activity.js alerts on payment.succeeded) and never count as a payment
+// in the admin funnel (routes/visits.js). Sandbox subscriptions also renew
+// every few minutes to hours, which made the old alerts especially noisy.
+const paymentEventType = (tx) => (tx && tx.environment === 'Sandbox' ? 'payment.sandbox' : 'payment.succeeded');
 const MAX_RESTORE = 25;
 
 const date = (ms) => (typeof ms === 'number' && ms > 0 ? new Date(ms) : null);
@@ -113,7 +121,7 @@ async function applyTransaction(user, tx, opts = {}) {
       update.guidePurchasedAt = date(tx.purchaseDate) || now;
       update.guideOrderId = 'apple:' + transactionId;
       await User.findByIdAndUpdate(user._id, update);
-      logActivity({ type: 'payment.succeeded', severity: 'info', userId: user._id, email: user.email, message: `One-time product purchased: ${entry.tier} (App Store)`, meta: { tier: entry.tier, source: 'apple', transactionId, environment: tx.environment } });
+      logActivity({ type: paymentEventType(tx), severity: 'info', userId: user._id, email: user.email, message: `One-time product purchased: ${entry.tier} (App Store)`, meta: { tier: entry.tier, source: 'apple', transactionId, environment: tx.environment } });
       return { ...base, action: 'granted' };
     }
     return { ...base, action: 'already' };
@@ -149,7 +157,7 @@ async function applyTransaction(user, tx, opts = {}) {
       // id (or arrives as a DID_RENEW notification); a first purchase that
       // reaches us by notification (SUBSCRIBED) is still "started".
       const isRenewal = transactionId !== originalId || opts.renewal === true;
-      logActivity({ type: 'payment.succeeded', severity: 'info', userId: user._id, email: user.email, message: `${cfg.exam === 'nce' ? 'NCE m' : 'M'}onthly subscription ${isRenewal ? 'renewed' : 'started'} (App Store)`, meta: { tier: entry.tier, source: 'apple', transactionId, expires, environment: tx.environment } });
+      logActivity({ type: paymentEventType(tx), severity: 'info', userId: user._id, email: user.email, message: `${cfg.exam === 'nce' ? 'NCE m' : 'M'}onthly subscription ${isRenewal ? 'renewed' : 'started'} (App Store)`, meta: { tier: entry.tier, source: 'apple', transactionId, expires, environment: tx.environment } });
     }
     return { ...base, action: alreadyApplied ? 'already' : 'granted', expires };
   }
@@ -165,7 +173,7 @@ async function applyTransaction(user, tx, opts = {}) {
     stamp();
     if (!user.guaranteeTermsAcceptedAt) update.guaranteeTermsAcceptedAt = now;
     await User.findByIdAndUpdate(user._id, update);
-    logActivity({ type: 'payment.succeeded', severity: 'info', userId: user._id, email: user.email, message: `Purchased ${entry.tier} (App Store)`, meta: { tier: entry.tier, source: 'apple', transactionId, expires, environment: tx.environment } });
+    logActivity({ type: paymentEventType(tx), severity: 'info', userId: user._id, email: user.email, message: `Purchased ${entry.tier} (App Store)`, meta: { tier: entry.tier, source: 'apple', transactionId, expires, environment: tx.environment } });
     return { ...base, action: 'granted', expires };
   }
 
@@ -181,7 +189,7 @@ async function applyTransaction(user, tx, opts = {}) {
   set('cancelAtPeriodEnd', false);
   stamp();
   await User.findByIdAndUpdate(user._id, update);
-  logActivity({ type: 'payment.succeeded', severity: 'info', userId: user._id, email: user.email, message: `Purchased ${entry.tier} (App Store)`, meta: { tier: entry.tier, source: 'apple', transactionId, expires, environment: tx.environment } });
+  logActivity({ type: paymentEventType(tx), severity: 'info', userId: user._id, email: user.email, message: `Purchased ${entry.tier} (App Store)`, meta: { tier: entry.tier, source: 'apple', transactionId, expires, environment: tx.environment } });
   return { ...base, action: 'granted', expires };
 }
 

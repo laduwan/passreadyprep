@@ -231,6 +231,17 @@
   .hero .lead{margin-bottom:14px}
   .guar-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--emerald-400);text-decoration:none;margin-top:8px}
   .guar-link:hover{text-decoration:underline}
+  a.btn{text-decoration:none}
+  /* access prompts: trial countdown, end-of-trial plan card, sign-up card, locked list tail */
+  .trial-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:var(--r-md);padding:10px 14px;margin-bottom:12px;font-size:14px;color:var(--amber-400);font-weight:600}
+  .trial-bar a{color:var(--white);font-weight:700;text-decoration:none}
+  .trial-bar a:hover{text-decoration:underline}
+  .gate-card{border-color:rgba(16,185,129,.35);background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(59,130,246,.08));margin-bottom:16px}
+  .gate-card h2{margin:8px 0 6px}
+  .gate-tag{display:inline-block;font-size:12px;font-weight:700;color:var(--amber-400);background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3);border-radius:999px;padding:3px 10px}
+  .lock-row{margin-top:10px;padding:14px 16px;border:1px dashed var(--card-border);border-radius:var(--r-xl);color:var(--slate-400);font-size:14px;line-height:1.5}
+  .lock-row a{color:var(--emerald-400);font-weight:700;text-decoration:none}
+  .lock-row strong{color:var(--white)}
 
   /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
   .tool-about{margin-top:36px}
@@ -365,6 +376,7 @@ async function fetchList(){
     const j = await r.json();
     if(!j.items || !j.items.length) throw 0;
     DATA_SOURCE = 'api';
+    ACCESS = { level: j.accessLevel || 'free', trialEndsAt: j.trialEndsAt || null, trialStarted: j.trialStarted !== false, total: j.total || j.items.length, freeLimit: j.freeLimit || 5, trialDays: j.trialDays || 7 };
     return j.items;
   }catch(_){
     DATA_SOURCE = 'embedded';
@@ -374,7 +386,13 @@ async function fetchList(){
 async function fetchCase(externalId){
   if(DATA_SOURCE === 'api'){
     const r = await fetch('/api/content/' + encodeURIComponent(externalId), { headers: authHeaders() });
-    const j = await r.json();
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok || !j.item){
+      // 402 = paywall (routes/content.js): trial_expired, upgrade_required, or a guarantee check-in
+      const e = new Error(j.message || j.error || 'Could not load this case.');
+      e.gate = j.gateReason || '';
+      throw e;
+    }
     CASE_EXAM_ID = (j.item && j.item.examId) || null;
     CASE_ITEM_ID = (j.item && j.item._id) || null;
     return j.item.caseSim;
@@ -402,6 +420,7 @@ const weightText = w => (w>0?'+':'')+w;
 let CASE=null, qi=0, answers=[];
 let CASE_EXAM_ID=null, CASE_ITEM_ID=null; // captured per case, for server-side progress sync
 let LIST_ITEMS=[], LIST_FILTER='all', LIST_STATUS='all';
+let ACCESS=null;           // access level, trial end and bank size from the case list (routes/content.js)
 let MODE='new';            // 'new' (diagnosis given) | 'classic' (diagnose first)
 let EXAM_FB=false;         // false = study (feedback each Q) | true = exam (held to end)
 let dxChoice=null;         // classic: chosen differential id
@@ -695,6 +714,98 @@ function computeReadiness(){
   };
 }
 
+// ---- access prompts: trial countdown, end-of-trial plan card, sign-up card ----
+// Plan links: the website checks out through Stripe (checkout.html); the iOS
+// app buys through the App Store (purchase.html), no account needed.
+function planHref(tier){ return (window.PRP_NATIVE ? '/purchase.html' : '/checkout.html') + '?tier=' + encodeURIComponent(tier); }
+const PLAN_LABELS = { pass3: '3-Month Pass', monthly: 'Monthly', pass6: '6-Month Pass', guarantee: 'Access Until You Pass' };
+let PLANS = null;          // live prices from /api/payment/plans (the same source nce.html uses), loaded once
+function fmtPrice(p){
+  const d = p.amount / 100;
+  const s = '$' + (d % 1 ? d.toFixed(2) : d);
+  if(!p.interval) return s;
+  return s + (p.tier === 'pass3' ? '/3 mo' : p.tier === 'pass6' ? '/6 mo' : '/mo');
+}
+async function loadPlans(){
+  if(PLANS) return PLANS;
+  try{
+    const r = await fetch('/api/payment/plans?exam=ncmhce');
+    const j = r.ok ? await r.json() : null;
+    PLANS = (j && Array.isArray(j.plans)) ? j.plans : [];
+  }catch(_){ PLANS = []; }
+  return PLANS;
+}
+function planButtons(){
+  const order = ['pass3','monthly','pass6','guarantee'];
+  const plans = (PLANS || []).filter(p => PLAN_LABELS[p.tier]).sort((a,b) => order.indexOf(a.tier) - order.indexOf(b.tier));
+  let h = '<div class="row" style="margin-top:14px">';
+  if(plans.length){
+    plans.forEach((p,i) => { h += '<a class="btn'+(i ? ' secondary' : '')+'" href="'+planHref(p.tier)+'">'+esc(PLAN_LABELS[p.tier])+' · '+esc(fmtPrice(p))+'</a>'; });
+  } else {
+    h += '<a class="btn" href="'+planHref('pass3')+'">Get the 3-Month Pass</a>';
+  }
+  h += '<a class="btn secondary" href="/landing.html#pricing">Compare all plans</a></div>';
+  return '<div id="gate-plan-btns">' + h + '</div>';
+}
+// Fills the plan buttons with live prices once they arrive (the card renders
+// first with a generic button, so nothing waits on the network).
+function fillPlanButtons(){
+  if(PLANS) return;
+  loadPlans().then(() => { const el = document.getElementById('gate-plan-btns'); if(el) el.outerHTML = planButtons(); });
+}
+function bankSize(){ return (ACCESS && ACCESS.total ? ACCESS.total : 270) + '+'; }
+function trialDays(){ return ACCESS && ACCESS.trialDays ? ACCESS.trialDays : 7; }
+// Signed-in member whose trial is over (or whose guarantee check-in is due).
+function accessCard(level, message){
+  if(level === 'expired'){
+    const guest = !!(currentUser() || {}).isGuest; // iOS guest: never had a trial, buys without an account
+    fillPlanButtons();
+    return '<div class="card gate-card"><div class="gate-tag">🔒 '+(guest ? 'Choose a plan' : 'Free trial ended')+'</div>'
+      + '<h2>'+(guest ? 'Choose a plan to keep studying' : 'Your free trial has ended')+'</h2>'
+      + '<p class="lead" style="margin-bottom:0">'+(guest ? '' : 'Your progress and readiness score are saved. ')+'Pick a plan to keep working all '+bankSize()+' cases, the timed mock exam and the AI debrief.</p>'
+      + planButtons() + '</div>';
+  }
+  if(level === 'gated'){
+    return '<div class="card gate-card"><div class="gate-tag">🔒 Access paused</div><h2>Check-in needed</h2>'
+      + '<p class="lead" style="margin-bottom:0">'+esc(message || 'Your access period has ended. Upload your exam appointment or score letter to continue.')+'</p>'
+      + '<div class="row" style="margin-top:14px"><a class="btn" href="/score-report.html">Submit score report</a></div></div>';
+  }
+  return signupCard('next');
+}
+// Trial countdown for the dashboard, signed-in trial members only.
+function trialBar(){
+  if(!ACCESS || ACCESS.level !== 'trial') return '';
+  // The clock starts at the first case opened (utils/trial.js), so until then
+  // say what the trial is instead of counting down something that hasn't begun.
+  if(ACCESS.trialStarted === false){
+    return '<div class="trial-bar"><span>Free trial · '+trialDays()+' days of full access, starting when you open your first case</span><a href="#" onclick="goCases();return false">Open a case ›</a></div>';
+  }
+  if(!ACCESS.trialEndsAt) return '';
+  const ms = Date.parse(ACCESS.trialEndsAt) - Date.now();
+  if(isNaN(ms)) return '';
+  const days = Math.ceil(ms / 864e5);
+  const when = days <= 1 ? 'less than a day left' : days + ' days left';
+  let date = '';
+  try{ date = ' (ends ' + new Date(ACCESS.trialEndsAt).toLocaleDateString(undefined, { weekday:'short', month:'short', day:'numeric' }) + ')'; }catch(_){}
+  return '<div class="trial-bar"><span>Free trial · '+esc(when)+esc(date)+'</span><a href="'+planHref('pass3')+'">Choose a plan ›</a></div>';
+}
+// Signed-out visitor: the ask for the free account that starts the trial.
+// 'done' = shown on the results screen of the free case; 'next' = they tried
+// to open a second case.
+function signupCard(why){
+  const next = encodeURIComponent('/study');
+  const lead = why === 'done'
+    ? 'That was your free case. A free account unlocks all '+bankSize()+' cases, the timed mock exam and your readiness score for '+trialDays()+' days. No card required, and this result comes with you.'
+    : 'Your first case was free. Create a free account to unlock all '+bankSize()+' cases, the timed mock exam and your readiness score for '+trialDays()+' days. No card required.';
+  return '<div class="card gate-card"><div class="gate-tag">✨ Free '+trialDays()+'-day trial</div>'
+    + '<h2>'+(why === 'done' ? 'Keep going — it\'s free' : 'Create a free account to continue')+'</h2>'
+    + '<p class="lead" style="margin-bottom:0">'+lead+'</p>'
+    + '<div class="row" style="margin-top:14px"><a class="btn" href="/register.html?next='+next+'">Create free account ›</a>'
+    + '<button class="btn secondary" onclick="openAuth()">Sign in</button>'
+    + (window.PRP_NATIVE ? '<a class="btn secondary" href="/landing.html#pricing">Choose a plan</a>' : '')
+    + '</div></div>';
+}
+
 // ---- dashboard ----
 // Static #study-intro: visible on the dashboard for signed-out visitors only.
 function setIntro(show){
@@ -718,13 +829,28 @@ async function showDashboard(){
 
   let h = '';
 
-  // Free sample hero (shown when not connected to API or always as branding)
-  h += '<div class="hero">';
-  h += '<h2>Try a free clinical simulation</h2>';
-  h += '<p class="lead">Work through a full NCMHCE-format case — read the vignette, answer 5 clinical questions, and get evidence-based feedback with weighted scoring after each one. No signup required.</p>';
-  h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Start free case ›</button>';
-  h += '<br /><a href="/guarantee.html" class="guar-link">✓ Access extensions until you pass — pass and get a free CE course, or we extend your access</a>';
-  h += '</div>';
+  // Top of the dashboard depends on access: trial over → plan card; signed in →
+  // trial countdown + "pick up where you left off"; signed out → the free case.
+  const level = ACCESS ? ACCESS.level : (authHeaders().Authorization ? 'paid' : 'free');
+  if(level === 'expired' || level === 'gated'){
+    h += accessCard(level);
+  } else if(authHeaders().Authorization){
+    h += trialBar();
+    h += '<div class="hero">';
+    h += '<h2>Pick up where you left off</h2>';
+    h += '<p class="lead">Work a case, get scored on every clinical decision, and watch your readiness climb.</p>';
+    h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Choose a case ›</button>';
+    h += '<br /><a href="/guarantee.html" class="guar-link">✓ Access extensions until you pass — pass and get a free CE course, or we extend your access</a>';
+    h += '</div>';
+  } else {
+    // Free sample hero for signed-out visitors: the first case needs no sign-up.
+    h += '<div class="hero">';
+    h += '<h2>Try a free clinical simulation</h2>';
+    h += '<p class="lead">Work through a full NCMHCE-format case — read the vignette, answer the clinical questions, and get evidence-based feedback with weighted scoring after each one. Your first case needs no sign-up; a free account then unlocks all '+bankSize()+' cases for '+trialDays()+' days.</p>';
+    h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Start free case ›</button>';
+    h += '<br /><a href="/guarantee.html" class="guar-link">✓ Access extensions until you pass — pass and get a free CE course, or we extend your access</a>';
+    h += '</div>';
+  }
 
   // Readiness predictor
   const rd = computeReadiness();
@@ -849,19 +975,17 @@ async function showDashboard(){
   }
   h += '</div></div>';
 
-  // Study plan generator
+  // Study plan generator. The exam date field is always here (the sign-up form
+  // and the welcome email point people at it); the plan itself needs 3 cases.
   h += '<div class="card" style="margin-top:16px"><h2>Study plan</h2>';
   h += '<div style="font-size:13px;color:var(--slate-400);margin-bottom:10px">Set your exam date and we\'ll build a 3-phase plan based on your actual domain performance: focused practice on weak areas first, then full-length timed exams, then light review before test day. Updates as your scores change.</div>';
-  if(!rd || rd.totalCases < 3){
-    h += '<p class="lead" style="margin:0">Complete at least 3 cases to unlock your personalized study plan.</p>';
-  } else {
-    const examDateKey = 'prp_exam_date';
-    const savedDate = localStorage.getItem(examDateKey) || '';
+  {
+    const savedDate = localStorage.getItem('prp_exam_date') || '';
     h += '<div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap">';
-    h += '<label style="font-size:13px;color:var(--slate-400)">Exam date:</label>';
-    h += '<input type="date" id="exam-date" value="'+esc(savedDate)+'" style="font:inherit;padding:8px 12px;border:1.5px solid rgba(51,65,85,.6);border-radius:10px;background:rgba(30,41,59,.6);color:var(--white)" onchange="genPlan()" />';
+    h += '<label for="exam-date" style="font-size:13px;color:var(--slate-400)">Exam date:</label>';
+    h += '<input type="date" id="exam-date" value="'+esc(savedDate)+'" style="font:inherit;padding:8px 12px;border:1.5px solid rgba(51,65,85,.6);border-radius:10px;background:rgba(30,41,59,.6);color:var(--white);color-scheme:dark" onchange="genPlan()" />';
     h += '</div>';
-    h += '<div id="study-plan"></div>';
+    h += '<div id="study-plan">' + (!rd || rd.totalCases < 3 ? PLAN_LOCKED : '') + '</div>';
   }
   h += '</div>';
 
@@ -962,6 +1086,16 @@ function renderList(){
        + (status==='review' ? '<span style="display:block;font-size:12px;color:var(--amber-400);margin-top:5px">Scored under '+NEEDS_WORK_BELOW+'% — worth another pass.</span>' : '')
        + '</button>';
   });
+  // Teaser lists (signed out, or trial over) stop short of the full bank: say
+  // how much sits behind the gate and where it opens.
+  if(ACCESS && ACCESS.total > LIST_ITEMS.length){
+    const more = ACCESS.total - LIST_ITEMS.length;
+    h += '<div class="lock-row">🔒 <strong>'+more+' more cases</strong> — '
+       + (authHeaders().Authorization
+            ? '<a href="'+planHref('pass3')+'">choose a plan</a> to unlock the full bank.'
+            : '<a href="/register.html?next='+encodeURIComponent('/study')+'">create a free account</a> for a '+trialDays()+'-day trial of everything.')
+       + '</div>';
+  }
   app.innerHTML = h;
 }
 function setFilter(d){ LIST_FILTER=d; renderList(); }
@@ -971,8 +1105,25 @@ function setStatusFilter(s){ LIST_STATUS=s; renderList(); }
 async function startCase(externalId){
   OPEN_CASE_ID = externalId;
   setIntro(false);
+  // Signed-out visitors get one free case (retrying that case stays open).
+  // The second case asks for the free account that starts the trial.
+  if(!authHeaders().Authorization && Object.keys(caseStats()).length >= 1 && !caseStats()[externalId]){
+    app.innerHTML = '<button class="back" onclick="goCases()">‹ All cases</button>' + signupCard('next');
+    window.scrollTo({top:0,behavior:'smooth'});
+    return;
+  }
   app.innerHTML = '<p class="lead">Loading…</p>';
-  CASE = await fetchCase(externalId);
+  try{ CASE = await fetchCase(externalId); }
+  catch(e){
+    // The paywall answered: show the matching prompt instead of a blank screen.
+    const card = e.gate === 'trial_expired' ? accessCard('expired')
+               : e.gate === 'upgrade_required' ? signupCard('next')
+               : e.gate ? accessCard('gated', e.message)
+               : '<p class="lead">'+esc(e.message)+'</p>';
+    app.innerHTML = '<button class="back" onclick="goCases()">‹ All cases</button>' + card;
+    window.scrollTo({top:0,behavior:'smooth'});
+    return;
+  }
   CASE.questions.forEach(q => { q._opts = shuffle(q.options.slice()); });
   // Order the case into the three NCMHCE sections (stable within each section)
   CASE.questions = CASE.questions
@@ -1227,6 +1378,10 @@ function finish(){
        })())
      + '</div>';
 
+  // Signed-out visitor: the free case is done, so make the ask here, with the
+  // result on screen, instead of after the fifth case.
+  if(!authHeaders().Authorization) h += '<div style="margin-top:14px">' + signupCard('done') + '</div>';
+
   h += '<div class="card" style="margin-top:14px"><h2>Question summary</h2>';
   rows.forEach(r => {
     h += '<div class="summary-row"><span class="sm-mark '+(r.isOk?'ok':'no')+'" aria-hidden="true">'+(r.isOk?'✓':'✗')+'</span>'
@@ -1337,6 +1492,7 @@ async function getDebrief(){
 }
 
 // ---- study plan generator ----
+const PLAN_LOCKED = '<p class="lead" style="margin:0">Complete at least 3 cases to unlock your personalized study plan.</p>';
 function genPlan(){
   var dateEl = document.getElementById('exam-date');
   var planEl = document.getElementById('study-plan');
@@ -1347,7 +1503,7 @@ function genPlan(){
   if(!dateVal){ planEl.innerHTML = '<p style="color:var(--slate-400);font-size:14px;margin:0">Set your exam date to generate a plan.</p>'; return; }
 
   var rd = computeReadiness();
-  if(!rd){ planEl.innerHTML = ''; return; }
+  if(!rd || rd.totalCases < 3){ planEl.innerHTML = PLAN_LOCKED.replace('Complete', 'Exam date saved. Complete'); return; }
 
   var examDate = new Date(dateVal + 'T12:00:00');
   var now = new Date();

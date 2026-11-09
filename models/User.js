@@ -34,9 +34,9 @@ const UserSchema = new Schema(
 
     examsEnrolled: [{ type: Schema.Types.ObjectId, ref: 'Exam' }],
 
-    // Incremented on every login. Embedded in the JWT so any session using
-    // an older version is rejected immediately — effectively one active
-    // session per account, which blocks credential sharing.
+    // Embedded in the JWT; any session carrying an older version is rejected.
+    // Bumped by a password reset and by an admin "sign out everywhere", not by
+    // an ordinary sign-in, so one member can use several devices at once.
     sessionVersion: { type: Number, default: 0 },
 
     // Password reset — a one-time link. We store ONLY the SHA-256 hash of the

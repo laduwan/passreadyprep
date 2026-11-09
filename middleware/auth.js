@@ -2,9 +2,10 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 // Gatekeeper. Reads the Bearer token, confirms it's valid, and verifies
-// the session version matches the database. If another device has logged in
-// since this token was issued, the session version won't match and this
-// request is rejected — effectively one active session per account.
+// the session version matches the database. The version is bumped by a
+// password reset or an admin "sign out everywhere", so tokens from before that
+// moment are rejected. An ordinary sign-in on another device does not bump it:
+// a member can be signed in on their phone and laptop at the same time.
 module.exports = async function requireAuth(req, res, next) {
   const header = req.headers.authorization || '';
   const token = header.startsWith('Bearer ') ? header.slice(7) : null;
@@ -18,16 +19,15 @@ module.exports = async function requireAuth(req, res, next) {
     return res.status(401).json({ error: 'Session expired — please sign in again' });
   }
 
-  // Check session version against the database.
-  // If someone else logged in on another device, their login bumped the version
-  // and this token is now stale — reject it.
+  // Check session version against the database. A password reset or an admin
+  // reset bumped it, so this token is stale — reject it.
   try {
     const user = await User.findById(payload.sub).select('sessionVersion');
     if (!user) return res.status(401).json({ error: 'Account not found' });
 
     if (user.sessionVersion !== payload.sv) {
       return res.status(401).json({
-        error: 'Session invalidated — your account was signed in on another device. Please sign in again.',
+        error: 'Your session is no longer valid. Please sign in again.',
         code: 'SESSION_INVALIDATED',
       });
     }

@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <script>/* Android app launch → study tools (server.js does the same via the Referer header) */if(document.referrer.indexOf('android-app://com.gaitp.passreadyprep')===0)location.replace('/study'+location.search);</script>
+<script>/* Signed-in members who open the home page go straight to their study dashboard. /landing.html (pricing, plan comparison) and any #section link still show this page. */try{if(location.pathname==='/'&&!location.hash&&localStorage.getItem('prp_token')&&!((JSON.parse(localStorage.getItem('prp_user')||'null')||{}).isGuest))location.replace('/study'+location.search);}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-site-verification" content="vx_qOgnlLQA9FBRFUFGz9_-V1_2smF05iDPv79ljtNY" />
 <title>NCMHCE &amp; NCE Exam Prep, Practice Cases &amp; Questions | PassReady Prep</title>
@@ -480,7 +481,8 @@
         <a class="btn lg" href="/study">Start NCMHCE prep</a>
         <a class="btn lg ghost" href="/guarantee.html">How access extensions work</a>
       </div>
-      <p class="hero-alt reveal d3">Taking the NCE? <a href="/nce.html">Try free NCE practice questions &rarr;</a></p>
+      <p class="hero-alt reveal d3" style="margin-top:12px">🛡️ Access Extensions Until You Pass: one payment, and if you don't pass, your access is extended free. <a href="/guarantee.html">How it works &rarr;</a></p>
+      <p class="hero-alt reveal d3" style="margin-top:6px">Taking the NCE? <a href="/nce.html">Try free NCE practice questions &rarr;</a></p>
       <div class="hero-app reveal d3">
         <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.gaitp.passreadyprep" target="_blank" rel="noopener"><img src="/assets/google-play-badge.png" alt="Get it on Google Play" width="150" height="58"></a>
         <span>Study on your Android phone, same account.</span>
@@ -698,7 +700,7 @@
       <span class="eyebrow">Pricing</span>
       <h2>Start free. Go deeper when you're ready.</h2>
       <p>Monthly, 3-month and 6-month plans renew automatically until you cancel, and you can cancel any time. The Access Extensions Until You Pass plan is a one-time payment that never renews.</p>
-      <p style="margin-top:10px; font-size:14.5px;">These are NCMHCE plans. Studying for the NCE? <a href="/nce.html">See NCE plans</a> &mdash; from $24.99/mo, $59 every 3 months or $89 every 6 months, or <strong>$189 Access Extensions Until You Pass</strong> (study till you pass, includes digital guide, one-time payment).</p>
+      <p style="margin-top:10px; font-size:14.5px;">These are NCMHCE plans. Studying for the NCE? <a href="/nce.html">See NCE plans</a> &mdash; from $24.99/mo, $59.99 every 3 months or $89 every 6 months, or <strong>$189 Access Extensions Until You Pass</strong> (study till you pass, includes digital guide, one-time payment).</p>
     </div>
 
     <div class="price-grid">
@@ -714,8 +716,8 @@
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Readiness score on your results</li>
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Flashcards, decision trees &amp; the full drill set</li>
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>DSM-5-TR quick reference</li>
-          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>AI debrief with Dr. Claire Moreau</li>
-          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Timed mock exams</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>AI debrief with Dr. Claire Moreau</li>
+          <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Timed mock exams</li>
           <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Access extensions until you pass</li>
         </ul>
         <div class="price-cta">
