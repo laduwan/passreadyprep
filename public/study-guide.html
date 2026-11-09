@@ -129,6 +129,12 @@
 
   function authHeaders(){ return token ? { Authorization: 'Bearer ' + token } : {}; }
 
+  // Signing up or signing in from here comes back to this page (query string
+  // and all), instead of dropping the buyer on the case list.
+  var back = encodeURIComponent(location.pathname + location.search);
+  var signupLink = '<a href="/register.html?next=' + back + '">create an account</a>';
+  var signinLink = '<a href="/register.html?tab=login&next=' + back + '">sign in</a>';
+
   // If signed in, check whether they already own it → show a download button instead.
   if (token){
     fetch('/api/guide/status', { headers: authHeaders() })
@@ -152,7 +158,7 @@
   }
 
   buyBtn.onclick = function(){
-    if (!token){ msg.innerHTML = 'Please <a href="/register.html">sign in or create an account</a> first \u2014 your guide is tied to your account.'; return; }
+    if (!token){ msg.innerHTML = 'Please ' + signupLink + ' or ' + signinLink + ' first \u2014 your guide is tied to your account, and you\u2019ll come straight back here to buy it.'; return; }
     buyBtn.disabled = true; msg.textContent = 'Redirecting to secure checkout\u2026';
     fetch('/api/payment/create-checkout-session', {
       method: 'POST',
@@ -160,7 +166,7 @@
       body: JSON.stringify({ tier: 'guide' })
     })
       .then(function(r){
-        if (r.status === 401){ localStorage.removeItem('prp_token'); msg.innerHTML='Your session expired \u2014 please <a href="/register.html">sign in</a> again.'; buyBtn.disabled=false; return null; }
+        if (r.status === 401){ localStorage.removeItem('prp_token'); msg.innerHTML='Your session expired \u2014 please ' + signinLink + ' again.'; buyBtn.disabled=false; return null; }
         return r.json();
       })
       .then(function(d){ if (d && d.url){ window.location.href = d.url; } else if (d){ msg.textContent = d.error || 'Could not start checkout.'; buyBtn.disabled=false; } })
