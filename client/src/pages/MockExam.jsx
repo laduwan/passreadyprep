@@ -336,7 +336,7 @@ function Lobby({ onStart, totalInBank, onBack, spec }) {
 
       <div className="grid sm:grid-cols-3 gap-3">
         {[
-          { label: `${cfg.size} cases`, sub: `from ${totalInBank || '270+'}+ in bank`, icon: Shuffle, color: 'text-blue-400' },
+          { label: `${cfg.size} cases`, sub: `from ${totalInBank ? totalInBank + '+' : '290+'} in bank`, icon: Shuffle, color: 'text-blue-400' },
           { label: `${cfg.minutes} min`, sub: 'official exam window', icon: Clock, color: 'text-amber-400' },
           { label: 'Blueprint-weighted', sub: spec === '2027' ? '6 NCMHCE domains' : '5 NCMHCE domains', icon: BarChart3, color: 'text-emerald-400' },
         ].map((s) => (
