@@ -46,9 +46,15 @@ The site's admin page (Visits tab, Campaigns table) then shows how many
 visitors each video sent. Practice Shorts use `utm_medium=short`; YouTube does
 not make links in Shorts descriptions clickable, so expect few visits from those.
 
-`node tools/youtube/tag-links.js` tags any bare link in `sheets/` and
-`strategy/`. It is safe to re-run: links that are already tagged are left alone.
-Run it before `fix` whenever you add sheets. Case videos pick up the tagged
+The 📖 Complete NCMHCE Study Guide line points at the site's own
+`study-guide.html` (sold through Stripe, so PASSREADY10 is redeemed at that
+checkout), not Gumroad, and every sheet has a 🆓 line linking the free sample PDF
+on Google Drive. Keep that file shared as "Anyone with the link".
+
+`node tools/youtube/tag-links.js` applies all of this to `sheets/` and
+`strategy/`: tags bare site links, moves a Gumroad guide link to the site and
+adds a missing 🆓 line. It is safe to re-run: sheets already in shape are left
+alone. Run it before `fix` whenever you add sheets. Case videos pick up the tagged
 description on the next `fix --sheets … --yes`. The strategy videos read their
 sheets only at `upload`; if one is already live, paste its new description in
 Studio.
