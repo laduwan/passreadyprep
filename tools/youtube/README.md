@@ -30,11 +30,28 @@ cases and minis public with thumbnails; practice Shorts scheduled one a day at
 **Every new batch:** upload in Studio, add the sheets to `tools/youtube/sheets/`, then
 
 ```
+node tools/youtube/tag-links.js
 node tools/youtube/youtube.js fix --sheets tools/youtube/sheets --yes
 python3 tools/youtube/make-thumbnails.py
 node tools/youtube/youtube.js thumbs --yes
 node tools/youtube/youtube.js publish --yes
 ```
+
+## Tracked links
+
+Every `https://passreadyprep.com` link in the sheets carries that video's own
+campaign tag, for example
+`https://www.passreadyprep.com/?utm_source=youtube&utm_medium=video&utm_campaign=d241-mini`.
+The site's admin page (Visits tab, Campaigns table) then shows how many
+visitors each video sent. Practice Shorts use `utm_medium=short`; YouTube does
+not make links in Shorts descriptions clickable, so expect few visits from those.
+
+`node tools/youtube/tag-links.js` tags any bare link in `sheets/` and
+`strategy/`. It is safe to re-run: links that are already tagged are left alone.
+Run it before `fix` whenever you add sheets. Case videos pick up the tagged
+description on the next `fix --sheets … --yes`. The strategy videos read their
+sheets only at `upload`; if one is already live, paste its new description in
+Studio.
 
 ## Uploading by API (after the audit)
 
