@@ -5,6 +5,7 @@ const adminOrAdminUser = require('../middleware/adminOrAdminUser');
 const { logActivity } = require('../utils/activity');
 const { trialEndFor } = require('../utils/trial');
 const { nceTrialEnd } = require('../utils/nceAccess');
+const { appleSandboxUserIds } = require('../utils/appleSandbox');
 
 const router = express.Router();
 router.use(adminOrAdminUser);
@@ -79,7 +80,8 @@ router.get('/', async (req, res) => {
       .lean();
 
     const now = new Date();
-    const usersWithStatus = users.map(u => withPlanStatus(u, now));
+    const tests = new Set((await appleSandboxUserIds()).map(String));
+    const usersWithStatus = users.map(u => Object.assign(withPlanStatus(u, now), { appleSandbox: tests.has(String(u._id)) }));
     res.json({ users: usersWithStatus, count: usersWithStatus.length });
   } catch (err) {
     console.error('admin-subscriptions list error', err);
@@ -90,16 +92,20 @@ router.get('/', async (req, res) => {
 // GET /api/admin-subscriptions/revenue — MRR estimate + last-30d gross from Stripe
 router.get('/revenue', async (req, res) => {
   try {
-    const activeMonthly = await User.countDocuments({ 'subscription.tier': 'monthly', 'subscription.status': 'active' });
-    const pastDue = await User.countDocuments({ $or: [{ 'subscription.status': 'past_due' }, { 'nceAccess.status': 'past_due' }] });
+    // Apple sandbox test accounts (App Review, TestFlight) paid nothing, so
+    // they stay out of every paid count below (utils/appleSandbox.js).
+    const testIds = await appleSandboxUserIds();
+    const real = (f) => Object.assign({ _id: { $nin: testIds } }, f);
+    const activeMonthly = await User.countDocuments(real({ 'subscription.tier': 'monthly', 'subscription.status': 'active' }));
+    const pastDue = await User.countDocuments(real({ $or: [{ 'subscription.status': 'past_due' }, { 'nceAccess.status': 'past_due' }] }));
     const byTier = {};
     for (const t of Object.keys(TIER_PRICES)) {
-      byTier[t] = await User.countDocuments({ 'subscription.tier': t, 'subscription.status': { $in: ['active', 'canceled'] } });
+      byTier[t] = await User.countDocuments(real({ 'subscription.tier': t, 'subscription.status': { $in: ['active', 'canceled'] } }));
     }
-    const activeNceMonthly = await User.countDocuments({ 'nceAccess.tier': 'nce_monthly', 'nceAccess.status': 'active' });
+    const activeNceMonthly = await User.countDocuments(real({ 'nceAccess.tier': 'nce_monthly', 'nceAccess.status': 'active' }));
     const nceByTier = {};
     for (const t of Object.keys(NCE_TIER_PRICES)) {
-      nceByTier[t] = await User.countDocuments({ 'nceAccess.tier': t, 'nceAccess.status': { $in: ['active', 'canceled'] } });
+      nceByTier[t] = await User.countDocuments(real({ 'nceAccess.tier': t, 'nceAccess.status': { $in: ['active', 'canceled'] } }));
     }
     const ncmhceMrr = activeMonthly * TIER_PRICES.monthly;
     const nceMrr = Math.round(activeNceMonthly * NCE_TIER_PRICES.nce_monthly * 100) / 100;
@@ -108,11 +114,11 @@ router.get('/revenue', async (req, res) => {
     // Paid accounts per product line (any non-free plan, any status), plus
     // guide sales and how many accounts have at least opened NCE study.
     const [ncmhcePaid, ncePaid, bothPaid, ncmhceGuides, nceGuides, nceTrialsStarted] = await Promise.all([
-      User.countDocuments(PAID_NCMHCE),
-      User.countDocuments(PAID_NCE),
-      User.countDocuments({ $and: [PAID_NCMHCE, PAID_NCE] }),
-      User.countDocuments({ guidePurchasedAt: { $ne: null } }),
-      User.countDocuments({ guideNcePurchasedAt: { $ne: null } }),
+      User.countDocuments(real(PAID_NCMHCE)),
+      User.countDocuments(real(PAID_NCE)),
+      User.countDocuments(real({ $and: [PAID_NCMHCE, PAID_NCE] })),
+      User.countDocuments(real({ guidePurchasedAt: { $ne: null } })),
+      User.countDocuments(real({ guideNcePurchasedAt: { $ne: null } })),
       User.countDocuments({ 'nceAccess.trialStartedAt': { $ne: null } }),
     ]);
     const byProduct = {
@@ -133,7 +139,7 @@ router.get('/revenue', async (req, res) => {
       console.error('revenue: stripe charges list failed', e.message);
     }
 
-    res.json({ mrrEstimate, activeMonthlyCount: activeMonthly + activeNceMonthly, pastDueCount: pastDue, byTier, byProduct, last30dGross });
+    res.json({ mrrEstimate, activeMonthlyCount: activeMonthly + activeNceMonthly, pastDueCount: pastDue, byTier, byProduct, last30dGross, appleSandboxTests: testIds.length });
   } catch (err) {
     console.error('admin-subscriptions revenue error', err);
     res.status(500).json({ error: 'Could not compute revenue' });
@@ -146,7 +152,8 @@ router.get('/:userId', async (req, res) => {
     const user = await User.findById(req.params.userId).select('-passwordHash').lean();
     if (!user) return res.status(404).json({ error: 'User not found' });
     const attemptCount = await Attempt.countDocuments({ userId: user._id });
-    res.json({ user: withPlanStatus(user), attemptCount });
+    const appleSandbox = (await appleSandboxUserIds()).some((id) => String(id) === String(user._id));
+    res.json({ user: Object.assign(withPlanStatus(user), { appleSandbox }), attemptCount });
   } catch (err) {
     console.error('admin-subscriptions detail error', err);
     res.status(500).json({ error: 'Could not load subscriber' });

@@ -13,6 +13,7 @@ const { BATCH_NAME_RX, reviewSheetSummary } = require('../tools/cases/reviewRoun
 const { applyStoredBatch } = require('../tools/cases/batchApply');
 const { renderCasesHtml } = require('../utils/caseExport');
 const { computePassRates, computeIrr, DOMAIN_LABELS } = require('../lib/psychometrics');
+const { appleSandboxUserIds } = require('../utils/appleSandbox');
 
 const router = express.Router();
 router.use(requireAdmin);
@@ -463,11 +464,15 @@ router.get('/stats', async (_req, res) => {
     const d30 = new Date(now - 30 * 864e5);
     const d7 = new Date(now - 7 * 864e5);
     const users = await User.find({}).select('subscription guaranteeTermsAcceptedAt createdAt').lean();
+    // Apple sandbox test accounts (App Review, TestFlight) count as free.
+    const tests = new Set((await appleSandboxUserIds()).map(String));
     out.users.total = users.length;
+    out.users.appleSandboxTests = tests.size;
     for (const u of users) {
-      const tier = (u.subscription && u.subscription.tier) || 'free';
+      const test = tests.has(String(u._id));
+      const tier = (!test && u.subscription && u.subscription.tier) || 'free';
       out.users.byTier[tier] = (out.users.byTier[tier] || 0) + 1;
-      if (u.guaranteeTermsAcceptedAt) out.users.guaranteeAccepted += 1;
+      if (u.guaranteeTermsAcceptedAt && !test) out.users.guaranteeAccepted += 1;
       if (u.createdAt && u.createdAt >= d30) out.users.signups30d += 1;
       if (u.createdAt && u.createdAt >= d7) out.users.signups7d += 1;
     }
