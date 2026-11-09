@@ -205,7 +205,7 @@ router.get('/:externalId', resolveAccess, async (req, res) => {
         return res.status(402).json({
           error: 'Free limit reached',
           gateReason: 'upgrade_required',
-          message: `Free access includes ${FREE_CASE_LIMIT} cases. Create an account for a ${TRIAL_DAYS}-day trial of all 270+.`,
+          message: `Free access includes ${FREE_CASE_LIMIT} cases. Create an account for a ${TRIAL_DAYS}-day trial of all 290+.`,
         });
       }
     }

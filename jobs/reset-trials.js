@@ -104,7 +104,7 @@ function emailFor({ firstName, unsubUrl, postalAddress }) {
   const preheader = `We made the free trial ${TRIAL_DAYS} days and reset yours. It starts the next time you open a case.`;
   const body = [
     P(`Good news: the PassReady Prep free trial is now <strong style="color:#E2E8F0;">${TRIAL_DAYS} days</strong> instead of 3, and we have reset yours so you get the full ${TRIAL_DAYS} days from scratch, even if your old trial had already ended.`),
-    P(`The clock starts the <strong style="color:#E2E8F0;">next time you open a case</strong>, not today, so nothing is lost if you cannot study right now. Once you do, you have ${TRIAL_DAYS} days of full access: all 270+ NCMHCE cases in the 2022+ format, the timed mock exam, flashcards, decision trees, and the DSM-5-TR reference.`),
+    P(`The clock starts the <strong style="color:#E2E8F0;">next time you open a case</strong>, not today, so nothing is lost if you cannot study right now. Once you do, you have ${TRIAL_DAYS} days of full access: all 290+ NCMHCE cases in the 2022+ format, the timed mock exam, flashcards, decision trees, and the DSM-5-TR reference.`),
     P(`Studying for the NCE? That trial has been reset too, and it starts the next time you open NCE study.`),
     `<div style="text-align:center;margin:24px 0 8px;">${button(`${SITE}/study`, 'Open a case')}</div>`,
     footNote(['No card needed. When the trial ends you can pick a plan, or just keep your account.']),
