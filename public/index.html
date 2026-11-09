@@ -336,7 +336,7 @@
       <li><strong>Sit a timed mock.</strong> When readiness holds above 60%, take the <a href="/exam.html">timed NCMHCE mock exam</a> under the real clock and break schedule.</li>
     </ol>
     <h3>Who this is for</h3>
-    <p>First-time candidates who want to know they are ready before paying the exam fee, and counselors retaking the NCMHCE who need to see <em>why</em> they lost points last time.<!-- prp-web-only --> Full access starts with a 3-day free trial. Plans start at $29/mo; the <a href="/guarantee.html">Pass Guarantee is $249 one-time</a> &mdash; study until you pass, and the digital study guide is included. <a href="/landing.html#pricing">See all NCMHCE plans</a> or <a href="/nce.html#pricing">NCE plans ($189 Pass Guarantee)</a>.<!-- /prp-web-only --></p>
+    <p>First-time candidates who want to know they are ready before paying the exam fee, and counselors retaking the NCMHCE who need to see <em>why</em> they lost points last time.<!-- prp-web-only --> Full access starts with a 7-day free trial. Plans start at $29/mo; the <a href="/guarantee.html">Access Extensions Until You Pass plan is $249 one-time</a> &mdash; study until you pass, and the digital study guide is included. <a href="/landing.html#pricing">See all NCMHCE plans</a> or <a href="/nce.html#pricing">NCE plans ($189 Access Extensions Until You Pass)</a>.<!-- /prp-web-only --></p>
   </section>
   <p class="tm-note" style="margin:28px 0 8px; text-align:center; color:#64748B; font-size:12px; line-height:1.5">NCE&reg; and NCMHCE&reg; are registered trademarks of the National Board for Certified Counselors, Inc. (NBCC). PassReady Prep is not affiliated with or endorsed by NBCC.</p>
 </div>
@@ -351,7 +351,7 @@
     <div class="auth-err" id="auth-err" role="alert"></div>
     <button class="btn" id="auth-submit" onclick="submitAuth()">Sign in</button>
     <p class="modal-foot"><a href="/forgot-password.html">Forgot your password?</a></p>
-    <p class="modal-foot">New here? <a href="/register.html?next=/study">Create an account &rsaquo;</a></p>
+    <p class="modal-foot">New here? <a href="/register.html?next=%2Fstudy%3Fview%3Dcases" onclick="this.href=signupHref()">Create an account &rsaquo;</a></p>
   </div>
 </div>
 
@@ -376,7 +376,7 @@ async function fetchList(){
     const j = await r.json();
     if(!j.items || !j.items.length) throw 0;
     DATA_SOURCE = 'api';
-    ACCESS = { level: j.accessLevel || 'free', trialEndsAt: j.trialEndsAt || null, total: j.total || j.items.length, freeLimit: j.freeLimit || 5, trialDays: j.trialDays || 3 };
+    ACCESS = { level: j.accessLevel || 'free', trialEndsAt: j.trialEndsAt || null, trialStarted: j.trialStarted !== false, total: j.total || j.items.length, freeLimit: j.freeLimit || 5, trialDays: j.trialDays || 7 };
     return j.items;
   }catch(_){
     DATA_SOURCE = 'embedded';
@@ -636,7 +636,7 @@ function serverSaveAttempt(caseObj, ans, domainsObj, pct){
 
 // Readiness weights for the five practice areas, matching NBCC's current NCMHCE
 // content outline (Counseling 30%, Intake 25%, Treatment/Ethics/Core 15% each).
-// The pass guarantee's 60% threshold is measured with them, and
+// The access extensions until you pass's 60% threshold is measured with them, and
 // utils/ncmhceReadiness.js keeps a server copy, so change both together.
 const DOMAIN_WEIGHTS = { counseling: 0.30, intake: 0.25, treatment: 0.15, ethics: 0.15, core: 0.15 };
 
@@ -718,7 +718,7 @@ function computeReadiness(){
 // Plan links: the website checks out through Stripe (checkout.html); the iOS
 // app buys through the App Store (purchase.html), no account needed.
 function planHref(tier){ return (window.PRP_NATIVE ? '/purchase.html' : '/checkout.html') + '?tier=' + encodeURIComponent(tier); }
-const PLAN_LABELS = { pass3: '3-Month Pass', monthly: 'Monthly', pass6: '6-Month Pass', guarantee: 'Pass Guarantee' };
+const PLAN_LABELS = { pass3: '3-Month Pass', monthly: 'Monthly', pass6: '6-Month Pass', guarantee: 'Access Until You Pass' };
 let PLANS = null;          // live prices from /api/payment/plans (the same source nce.html uses), loaded once
 function fmtPrice(p){
   const d = p.amount / 100;
@@ -754,7 +754,7 @@ function fillPlanButtons(){
   loadPlans().then(() => { const el = document.getElementById('gate-plan-btns'); if(el) el.outerHTML = planButtons(); });
 }
 function bankSize(){ return (ACCESS && ACCESS.total ? ACCESS.total : 270) + '+'; }
-function trialDays(){ return ACCESS && ACCESS.trialDays ? ACCESS.trialDays : 3; }
+function trialDays(){ return ACCESS && ACCESS.trialDays ? ACCESS.trialDays : 7; }
 // Signed-in member whose trial is over (or whose guarantee check-in is due).
 function accessCard(level, message){
   if(level === 'expired'){
@@ -774,7 +774,13 @@ function accessCard(level, message){
 }
 // Trial countdown for the dashboard, signed-in trial members only.
 function trialBar(){
-  if(!ACCESS || ACCESS.level !== 'trial' || !ACCESS.trialEndsAt) return '';
+  if(!ACCESS || ACCESS.level !== 'trial') return '';
+  // The clock starts at the first case opened (utils/trial.js), so until then
+  // say what the trial is instead of counting down something that hasn't begun.
+  if(ACCESS.trialStarted === false){
+    return '<div class="trial-bar"><span>Free trial · '+trialDays()+' days of full access, starting when you open your first case</span><a href="#" onclick="goCases();return false">Open a case ›</a></div>';
+  }
+  if(!ACCESS.trialEndsAt) return '';
   const ms = Date.parse(ACCESS.trialEndsAt) - Date.now();
   if(isNaN(ms)) return '';
   const days = Math.ceil(ms / 864e5);
@@ -811,6 +817,7 @@ function setIntro(show){
 }
 
 async function showDashboard(){
+  OPEN_CASE_ID = null;
   setIntro(true);
   app.innerHTML = '<p class="lead">Loading…</p>';
   if(!LIST_ITEMS.length){ LIST_ITEMS = await fetchList(); }
@@ -833,7 +840,7 @@ async function showDashboard(){
     h += '<h2>Pick up where you left off</h2>';
     h += '<p class="lead">Work a case, get scored on every clinical decision, and watch your readiness climb.</p>';
     h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Choose a case ›</button>';
-    h += '<br /><a href="/guarantee.html" class="guar-link">✓ Pass guarantee — pass and get a free CE course, or we extend your access</a>';
+    h += '<br /><a href="/guarantee.html" class="guar-link">✓ Access extensions until you pass — pass and get a free CE course, or we extend your access</a>';
     h += '</div>';
   } else {
     // Free sample hero for signed-out visitors: the first case needs no sign-up.
@@ -841,7 +848,7 @@ async function showDashboard(){
     h += '<h2>Try a free clinical simulation</h2>';
     h += '<p class="lead">Work through a full NCMHCE-format case — read the vignette, answer the clinical questions, and get evidence-based feedback with weighted scoring after each one. Your first case needs no sign-up; a free account then unlocks all '+bankSize()+' cases for '+trialDays()+' days.</p>';
     h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Start free case ›</button>';
-    h += '<br /><a href="/guarantee.html" class="guar-link">✓ Pass guarantee — pass and get a free CE course, or we extend your access</a>';
+    h += '<br /><a href="/guarantee.html" class="guar-link">✓ Access extensions until you pass — pass and get a free CE course, or we extend your access</a>';
     h += '</div>';
   }
 
@@ -1013,7 +1020,7 @@ function modeCard(m, title, desc, tag){
 }
 function setMode(m){ MODE = m; showDashboard(); }
 function setExamFb(v){ EXAM_FB = !!v; showDashboard(); }
-function goCases(){ setIntro(false); renderList(); window.scrollTo({top:0,behavior:'smooth'}); }
+function goCases(){ OPEN_CASE_ID = null; setIntro(false); renderList(); window.scrollTo({top:0,behavior:'smooth'}); }
 
 // ---- case list ----
 function renderList(){
@@ -1096,6 +1103,7 @@ function setStatusFilter(s){ LIST_STATUS=s; renderList(); }
 
 // ---- a case ----
 async function startCase(externalId){
+  OPEN_CASE_ID = externalId;
   setIntro(false);
   // Signed-out visitors get one free case (retrying that case stays open).
   // The second case asks for the free account that starts the trial.
@@ -1547,7 +1555,7 @@ function genPlan(){
   var casesPerDay = Math.max(2, Math.min(5, Math.ceil((20 - rd.totalCases) / Math.max(1, phase1))));
   h += '<div style="margin-top:12px;padding:12px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px">';
   h += '<strong style="color:var(--emerald-400)">Daily targets:</strong> ' + casesPerDay + ' cases + 15 min flashcards + 10 min DSM review';
-  if(rd.totalCases < 20) h += '<br><span style="color:var(--amber-400);font-size:13px">You need ' + (20 - rd.totalCases) + ' more cases for pass guarantee eligibility</span>';
+  if(rd.totalCases < 20) h += '<br><span style="color:var(--amber-400);font-size:13px">You need ' + (20 - rd.totalCases) + ' more cases for access extensions until you pass eligibility</span>';
   h += '</div>';
 
   h += '</div>';
@@ -1571,6 +1579,17 @@ function renderAccount(){
   } else {
     el.innerHTML = '<button class="acct-btn primary" onclick="openAuth()">Sign in</button>';
   }
+}
+
+// The case on screen, so "Create an account" can bring a new member straight
+// back to it. Null on the dashboard and the case list.
+let OPEN_CASE_ID = null;
+
+// Where register.html sends someone after they create an account from here:
+// back into the case they had open, otherwise to the case list.
+function signupHref(){
+  const dest = OPEN_CASE_ID ? '/study?case=' + encodeURIComponent(OPEN_CASE_ID) : '/study?view=cases';
+  return '/register.html?next=' + encodeURIComponent(dest);
 }
 
 function openAuth(){
@@ -1635,7 +1654,21 @@ document.addEventListener('keydown', function(ev){
   await hydrateFromServer();   // pulls account history when signed in; no-op otherwise
   await syncExamDate();
   renderAccount();             // syncExamDate refreshes prp_user, so a token with no cached user still shows as signed in
-  showDashboard();
+  // ?case=<id> reopens a case and ?view=cases opens the case list — register.html
+  // sends new members here. Drop them from the URL so a refresh lands on the dashboard.
+  const q = new URLSearchParams(location.search);
+  const wantCase = q.get('case'), wantView = q.get('view');
+  if(wantCase || wantView){
+    q.delete('case'); q.delete('view');
+    const qs = q.toString();
+    history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+  }
+  await showDashboard();
+  if(wantCase){
+    try{ await startCase(wantCase); }catch(_){ goCases(); }
+  } else if(wantView === 'cases'){
+    goCases();
+  }
 })();
 </script>
 <script src="/activity-tracker.js" defer></script>

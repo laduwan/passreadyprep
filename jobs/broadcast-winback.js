@@ -338,7 +338,7 @@ async function run() {
   const now = new Date();
   const lastStudy = await lastStudyByUser();
   const users = await User.find({})
-    .select('email name role isGuest termsVersion prefs broadcastsSent subscription nceAccess examDate nceExamDate trialEndsAt createdAt')
+    .select('email name role isGuest termsVersion prefs broadcastsSent subscription nceAccess examDate nceExamDate trialStartedAt trialEndsAt createdAt')
     .sort({ createdAt: 1 })
     .lean();
 
@@ -403,4 +403,4 @@ async function run() {
 
 if (require.main === module) run().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { run, emailFor, pickProduct, classify, excludedReason, lastStudyByUser };
+module.exports = { run, emailFor, pickProduct, classify, excludedReason, lastStudyByUser, frame, button, P, esc, footNote, TEST_EMAIL };

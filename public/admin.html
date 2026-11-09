@@ -198,6 +198,17 @@
         </div>
       </div>
     </div>
+    <div class="card" style="margin-bottom:14px">
+      <div style="font-weight:700;margin-bottom:4px">Alert settings</div>
+      <div class="muted" style="font-size:13px;margin-bottom:8px" id="alertPrefsNote">Choose which events email or text you. Unchecked rows are still logged here.</div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>Event</th><th>Email</th><th>Text</th></tr></thead>
+          <tbody id="alertPrefRows"><tr><td colspan="3" class="muted" style="padding:18px">Loading…</td></tr></tbody>
+        </table>
+      </div>
+      <div class="actions" style="margin-top:10px"><button class="primary" id="alertPrefsSave">Save alert settings</button></div>
+    </div>
     <div class="card">
       <div id="actCount" class="muted" style="font-size:13px;margin-bottom:8px"></div>
       <div style="overflow-x:auto">
@@ -338,7 +349,7 @@
       $('overview').classList.toggle('hidden', tab!=='overview');
       $('cases').classList.toggle('hidden', tab!=='cases');
       $('activity').classList.toggle('hidden', tab!=='activity');
-      if(tab==='activity'){ loadActivity(); loadActivityStats(); loadStudyActivity(); }
+      if(tab==='activity'){ loadActivity(); loadActivityStats(); loadStudyActivity(); loadAlertPrefs(); }
     };
   });
   $('refreshBtn').onclick = function(){
@@ -654,6 +665,37 @@
       console.log('[test alert]', r);
       loadActivity(); loadActivityStats();
     }).catch(function(e){ toast(e.message, true, 8000); });
+  };
+
+  // ── Alert settings (per-event email / text toggles) ───────────────
+  function loadAlertPrefs(){
+    api('/alert-prefs').then(function(d){
+      var rows = (d.events||[]).map(function(e){
+        return '<tr>'+
+          '<td>'+esc(e.emoji)+' '+esc(e.label)+' <code class="muted" style="font-size:11px">'+esc(e.type)+'</code></td>'+
+          '<td><input type="checkbox" data-pref-type="'+esc(e.type)+'" data-pref-channel="email" style="width:auto"'+(e.email?' checked':'')+' aria-label="Email for '+esc(e.label)+'"></td>'+
+          '<td><input type="checkbox" data-pref-type="'+esc(e.type)+'" data-pref-channel="sms" style="width:auto"'+(e.sms?' checked':'')+' aria-label="Text for '+esc(e.label)+'"></td>'+
+        '</tr>';
+      }).join('');
+      $('alertPrefRows').innerHTML = rows || '<tr><td colspan="3" class="muted" style="padding:18px">No events.</td></tr>';
+      var note = 'Choose which events email or text you. Unchecked rows are still logged here.';
+      if (d.disabled) note += ' ADMIN_ALERT_DISABLE=1 is set, so nothing sends right now.';
+      else if (!d.smsConfigured) note += ' Text alerts need ADMIN_ALERT_SMS_TO.';
+      $('alertPrefsNote').textContent = note;
+    }).catch(function(e){ $('alertPrefRows').innerHTML = '<tr><td colspan="3" class="muted" style="padding:18px">'+esc(e.message)+'</td></tr>'; });
+  }
+  $('alertPrefsSave').onclick = function(){
+    var events = {};
+    Array.prototype.forEach.call(document.querySelectorAll('#alertPrefRows input[data-pref-type]'), function(cb){
+      var t = cb.getAttribute('data-pref-type'), ch = cb.getAttribute('data-pref-channel');
+      events[t] = events[t] || {};
+      events[t][ch] = cb.checked;
+    });
+    $('alertPrefsSave').disabled = true;
+    api('/alert-prefs',{method:'PUT', body:{ events: events }}).then(function(){
+      toast('Alert settings saved');
+    }).catch(function(e){ toast(e.message, true, 8000); })
+      .then(function(){ $('alertPrefsSave').disabled = false; });
   };
 
   // ── Boot ──────────────────────────────────────────────────────────

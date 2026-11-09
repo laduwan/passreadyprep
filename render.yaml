@@ -71,8 +71,8 @@ services:
         sync: false
 
       # ── Free trial ────────────────────────────────────────────────────
-      - key: TRIAL_DAYS          # STANDARD trial length in days (default 3); per-person
-        value: "3"               # extensions are granted in Admin → Subscribers
+      - key: TRIAL_DAYS          # STANDARD trial length in days (default 7); per-person
+        value: "7"               # extensions are granted in Admin → Subscribers
 
       # ── Email (Resend; Brevo kept for SMS + as fallback) ──────────────
       - key: PRP_RESEND_API_KEY  # PRP's Resend key; all email goes via Resend once set

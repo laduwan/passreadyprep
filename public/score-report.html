@@ -105,6 +105,12 @@
   .wk .when{font-size:12px;color:var(--emerald-400);font-weight:700}
   .wk p{margin:6px 0}
   .wk a{display:inline-block;white-space:nowrap;font-size:13px;color:var(--emerald-400);margin-right:12px}
+  /* refund option (NCMHCE non-pass) */
+  .result-opt input[type=radio]:disabled + label{opacity:.45;cursor:not-allowed}
+  .checks{list-style:none;padding:0;margin:0 0 16px;font-size:13px;line-height:1.5}
+  .checks li{padding:3px 0;color:var(--slate-300)}
+  .checks li.no{color:#F87171}
+  .checks small{color:var(--slate-400)}
 
   /* success */
   .success-icon{font-size:48px;text-align:center;margin-bottom:12px}
@@ -122,8 +128,8 @@
   <!-- FORFEITED -->
   <div class="state" id="state-forfeited">
     <div class="pending-icon">⌛</div>
-    <p class="pending-msg">This Pass Guarantee has ended.</p>
-    <p class="pending-note">No new request was made within 90 days of your last exam, so the guarantee was forfeited. You can still <a id="forfeitPlans" href="/" style="color:var(--emerald-400)">pick a plan</a> to keep studying, or contact support with questions.</p>
+    <p class="pending-msg">This Access Extensions Until You Pass plan has ended.</p>
+    <p class="pending-note">No new request was made within 90 days of your last exam, so your access extensions plan ended. You can still <a id="forfeitPlans" href="/" style="color:var(--emerald-400)">pick a plan</a> to keep studying, or contact support with questions.</p>
   </div>
 
   <!-- PENDING -->
@@ -179,6 +185,21 @@
           <label for="r-fail">✗ Not yet</label>
         </div>
       </div>
+      <div id="remedyBox" style="display:none">
+        <label>If you didn't pass, you can choose</label>
+        <div class="result-row">
+          <div class="result-opt">
+            <input type="radio" name="remedy" id="m-extend" value="extend" checked/>
+            <label for="m-extend">3 more months</label>
+          </div>
+          <div class="result-opt">
+            <input type="radio" name="remedy" id="m-refund" value="refund"/>
+            <label for="m-refund">Refund</label>
+          </div>
+        </div>
+        <p class="hint" style="margin-top:-6px">A refund is your Access Extensions Until You Pass price minus the $25 study guide you keep (<span id="refundStd">$224 at the standard $249 price</span>). It ends your plan and your access. One refund per exam per account. <a id="refundTerms" href="/guarantee.html#refund" target="_blank" style="color:var(--emerald-400)">Refund terms</a></p>
+        <ul class="checks" id="refundChecks"></ul>
+      </div>
       <label>Score letter</label>
       <input type="file" id="letter" accept="application/pdf,image/png,image/jpeg,image/webp,image/heic" />
       <p class="hint">PDF or a clear photo, under 5 MB. The name on it must match your account.</p>
@@ -209,10 +230,16 @@
 
 <script>
   let currentTab = 'scheduled';
-  // ?exam=nce → the NCE Pass Guarantee check-in; otherwise NCMHCE, as before.
+  let REFUND_OFFERED = false;   // from /score-report-status (NCMHCE guarantee bought on the website)
+  let REFUND_OK = false;        // this result meets the refund terms
+  // ?exam=nce → the NCE Access Extensions Until You Pass check-in; otherwise NCMHCE, as before.
   const EXAM = new URLSearchParams(location.search).get('exam') === 'nce' ? 'nce' : 'ncmhce';
   const HOME = EXAM === 'nce' ? '/nce.html' : '/';
-  if (EXAM === 'nce') document.querySelectorAll('.exam-name').forEach(el => { el.textContent = 'NCE'; });
+  if (EXAM === 'nce') {
+    document.querySelectorAll('.exam-name').forEach(el => { el.textContent = 'NCE'; });
+    document.getElementById('refundStd').textContent = '$164 at the standard $189 price';
+    document.getElementById('refundTerms').href = '/guarantee.html#nce-refund';
+  }
 
   // The exam's domains, in the order the score letter lists them
   // (keys match utils/retakePlan.js).
@@ -280,6 +307,43 @@
     el.classList.add('show');
   }
 
+  // Non-pass: offer the refund next to the 3-month extension, with the
+  // member's own numbers against each refund condition.
+  async function updateRemedy() {
+    const box = document.getElementById('remedyBox');
+    const fail = document.querySelector('input[name="result"]:checked')?.value === 'fail';
+    const show = REFUND_OFFERED && fail;
+    box.style.display = show ? 'block' : 'none';
+    if (!show) return;
+    const refundRadio = document.getElementById('m-refund');
+    const list = document.getElementById('refundChecks');
+    const date = document.getElementById('takenDate').value;
+    REFUND_OK = false;
+    refundRadio.disabled = true;
+    if (!date) { list.innerHTML = '<li><small>Enter your exam date to see if this result qualifies for a refund.</small></li>'; syncRemedy(); return; }
+    list.innerHTML = '<li><small>Checking…</small></li>';
+    try {
+      const r = await fetch('/api/payment/refund-eligibility?exam=' + EXAM + '&examDate=' + encodeURIComponent(date), {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('prp_token') },
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || 'Could not check');
+      REFUND_OK = !!d.eligible;
+      list.innerHTML = d.checks.map(c => '<li class="' + (c.ok ? 'ok' : 'no') + '">' + (c.ok ? '✓ ' : '✗ ') + esc(c.label)
+        + (c.detail ? ' <small>(' + esc(c.detail) + ')</small>' : '') + '</li>').join('')
+        + (REFUND_OK ? '' : '<li><small>This result doesn’t qualify for a refund. The 3-month extension still applies.</small></li>');
+    } catch (e) {
+      list.innerHTML = '<li><small>' + esc(e.message) + '</small></li>';
+    }
+    refundRadio.disabled = !REFUND_OK;
+    syncRemedy();
+  }
+  function syncRemedy() {
+    if (document.getElementById('m-refund').disabled) document.getElementById('m-extend').checked = true;
+  }
+  document.querySelectorAll('input[name="result"]').forEach(r => r.addEventListener('change', updateRemedy));
+  document.getElementById('takenDate').addEventListener('change', updateRemedy);
+
   function switchTab(tab) {
     currentTab = tab;
     document.getElementById('tab-scheduled').classList.toggle('active', tab === 'scheduled');
@@ -308,13 +372,14 @@
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await r.json();
+      REFUND_OFFERED = !!data.refundOffered;
       if (data.forfeited) { document.getElementById('forfeitPlans').href = HOME; show('state-forfeited'); return; }
       if (!data.eligible && !data.gated) { window.location = HOME; return; }
       show(data.scoreReport.status === 'pending' ? 'state-pending' : 'state-form');
       if (data.nextRequestDue) {
         const due = new Date(data.nextRequestDue).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
         document.querySelector('#state-form .info-box p').textContent =
-          'Upload your next exam appointment confirmation by ' + due + ' (90 days after your last exam) to keep your Pass Guarantee. Each verified upload adds 3 months.';
+          'Upload your next exam appointment confirmation by ' + due + ' (90 days after your last exam) to keep your Access Extensions Until You Pass. Each verified upload adds 3 months.';
       }
       if (data.lastResult === 'fail') renderPlan(data.retakePlan);
     } catch (e) {
@@ -331,7 +396,7 @@
     const token = localStorage.getItem('prp_token');
     const btn = document.getElementById('submitBtn');
 
-    let examDate, result, notes, letter, domainScores;
+    let examDate, result, notes, letter, domainScores, remedy;
 
     if (currentTab === 'scheduled') {
       examDate = document.getElementById('scheduledDate').value;
@@ -359,6 +424,11 @@
         showErr('Enter the domain scores from your letter so we can build your retake plan.'); return;
       }
       try { letter = await readFile(file); } catch (e) { showErr('Could not read that file. Please try another.'); return; }
+      if (result === 'fail' && REFUND_OFFERED) {
+        remedy = document.querySelector('input[name="remedy"]:checked')?.value || 'extend';
+        if (remedy === 'refund' && !REFUND_OK) { showErr('This result doesn’t qualify for a refund. Choose 3 more months instead.'); return; }
+        if (remedy === 'refund' && !confirm('Request a refund? Once it is approved, your Access Extensions Until You Pass and your access end. This can’t be undone.')) return;
+      }
     }
 
     btn.disabled = true;
@@ -368,13 +438,19 @@
       const r = await fetch('/api/payment/score-report', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ examDate, result, notes, exam: EXAM, letter, domainScores }),
+        body: JSON.stringify({ examDate, result, notes, exam: EXAM, letter, domainScores, remedy }),
       });
       const data = await r.json();
       if (!r.ok) {
         showErr(data.error || 'Something went wrong. Please try again.');
         btn.disabled = false;
         btn.textContent = 'Confirm check-in →';
+        return;
+      }
+      if (data.remedy === 'refund') {
+        document.querySelector('#state-success .success-h').textContent = 'Refund request received.';
+        document.querySelector('#state-success .success-p').textContent = 'We\'ll verify your score letter within 1 business day and email you when the refund is sent. Your access stays on until then.';
+        show('state-success');
         return;
       }
       show('state-success');

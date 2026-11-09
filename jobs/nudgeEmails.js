@@ -9,8 +9,10 @@
  *
  * Every hour it checks whether the current UTC hour is the send hour
  * (NUDGE_SEND_HOUR_UTC, default 15 = 10am Eastern / 7am Pacific), and then:
- *   new      accounts 1 to 30 days old with no paid plan and nothing studied
- *            in the last day. "Did you find what you were looking for?" Once.
+ *   new      accounts 3 to 30 days old with no paid plan and nothing studied
+ *            in the last 3 days. "Did you find what you were looking for?"
+ *            Once. It follows the welcome email (sign-up) and the first-case
+ *            nudge that jobs/trialReminders.js sends on day 1 to 2.
  *   winback  accounts older than 30 days whose last study was 14 to 180 days
  *            ago. "Your prep is right where you left it." Once.
  *   checkin  the same group when their exam date has passed. "How did it go?"
@@ -44,7 +46,7 @@ const EXCLUDE = new Set((process.env.MAIL_EXCLUDE_EMAILS || '').split(',').map((
 const isoDay = (d) => new Date(d).toISOString().slice(0, 10);
 
 const AUDIENCES = [
-  { audience: 'new', minDays: 1, maxDays: 30, keyFor: () => 'nudge_new' },
+  { audience: 'new', minDays: 3, maxDays: 30, keyFor: () => 'nudge_new' },
   { audience: 'winback', minDays: 14, maxDays: 180, keyFor: (q) => (q.kind === 'checkin' ? 'nudge_checkin_' + isoDay(q.examDate) : 'nudge_winback') },
 ];
 

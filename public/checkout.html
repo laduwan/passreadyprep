@@ -118,14 +118,14 @@
 
     <div class="divider"></div>
 
-    <!-- Pass Guarantee specific acknowledgment -->
+    <!-- Access Extensions Until You Pass specific acknowledgment -->
     <div class="guar-ack" id="guar-ack">
-      <div class="guar-ack-head">🛡️ Pass Guarantee — please read</div>
+      <div class="guar-ack-head">🛡️ Access Extensions Until You Pass — please read</div>
       <p>Your access is unlimited — you will never need to pay again. To protect your account from being shared, we require a brief candidate verification check-in every 6 months: you confirm your scheduled exam date or submit your score report.</p>
       <p>If you don't pass, your access is extended free. If you pass, your first CE course on CounselorReady is on us. <a href="/policies.html#guarantee" target="_blank">Full terms →</a></p>
       <div class="check-row">
         <input type="checkbox" id="guar-check"/>
-        <label for="guar-check">I understand the Pass Guarantee includes a 6-month candidate verification check-in. No repayment is ever required.</label>
+        <label for="guar-check">I understand the Access Extensions Until You Pass plan includes a 6-month candidate verification check-in. No repayment is ever required.</label>
       </div>
     </div>
 
@@ -158,7 +158,7 @@
       <div class="tier-desc" id="success-desc">Your purchase is complete and your access is active.</div>
     </div>
     <div class="guar-ack" id="guar-success">
-      <div class="guar-ack-head">🛡️ Your Pass Guarantee is active</div>
+      <div class="guar-ack-head">🛡️ Your Access Extensions Until You Pass plan is active</div>
       <p>Study, take the NCMHCE, and come back here if you don't pass the first time.</p>
       <p>If you need an extension, submit your official score report at <a href="/score-report.html">passreadyprep.com/score-report</a>.</p>
       <p>We'll review it within 48 hours and extend your access — no questions asked.</p>
@@ -192,17 +192,17 @@
     },
     guarantee: {
       cls: 'guarantee',
-      name: 'Pass Guarantee',
+      name: 'Access Extensions Until You Pass',
       price: '$249',
       desc: 'Unlimited access — one payment, forever. Includes the digital study guide.',
-      features: ['All 290+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Includes The Complete NCMHCE Study Guide (digital, $25 value)','Pass guarantee — free CE on CounselorReady when you pass'],
+      features: ['All 290+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Includes The Complete NCMHCE Study Guide (digital, $25 value)','Access extensions until you pass — free CE on CounselorReady when you pass'],
     },
     nce_guarantee: {
       cls: 'guarantee',
-      name: 'NCE Pass Guarantee',
+      name: 'NCE Access Extensions Until You Pass',
       price: '$189',
       desc: 'Unlimited NCE access — one payment, no renewal. Includes the digital NCE study guide.',
-      features: ['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain','Includes The NCE Ownership Method (digital study guide, $25 value)','Pass guarantee — free CE on CounselorReady when you pass, or free extended access'],
+      features: ['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain','Includes The NCE Ownership Method (digital study guide, $25 value)','Access extensions until you pass — free CE on CounselorReady when you pass, or free extended access'],
     },
     test: {
       cls: 'pass3',
@@ -245,7 +245,7 @@
       <ul class="tier-features">${tierCfg.features.map(f => `<li>${f}</li>`).join('')}</ul>
     `;
 
-    // NCE Pass Guarantee: its price lives only in Stripe, so show what the
+    // NCE Access Extensions Until You Pass: its price lives only in Stripe, so show what the
     // server reports — and don't offer it at all until a price is set.
     if (tier === 'nce_guarantee') {
       const priceEl = box.querySelector('.tier-price');
@@ -301,7 +301,7 @@
     if (isGuarantee) {
       const checked = document.getElementById('guar-check').checked;
       if (!checked) {
-        showErr('Please acknowledge the Pass Guarantee terms to continue.');
+        showErr('Please acknowledge the Access Extensions Until You Pass terms to continue.');
         return;
       }
     }

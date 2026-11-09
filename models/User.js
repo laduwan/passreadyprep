@@ -9,6 +9,10 @@ const UserSchema = new Schema(
     passwordHash: { type: String, required: true },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
 
+    // Admin only: per-event alert channel toggles, { "<eventType>": { email, sms } }.
+    // A missing key keeps the default behaviour (utils/activity.js).
+    adminAlertPrefs: { type: mongoose.Schema.Types.Mixed, default: undefined },
+
     // Guest account (iOS app): made by POST /api/auth/guest when someone buys
     // or restores without signing up (App Store guideline 5.1.1(v): purchases
     // must not require registration). It has a placeholder email on
@@ -45,6 +49,11 @@ const UserSchema = new Schema(
     termsAcceptedAt: Date,
     termsVersion: { type: String },          // e.g. 'june-2026'
     guaranteeTermsAcceptedAt: Date,          // set only for Pass Guarantee purchasers
+    // Set when the NCMHCE Pass Guarantee was refunded after a non-pass. One
+    // refund per exam per account (utils/guaranteeRefund.js).
+    guaranteeRefundedAt: Date,
+    // Same, for the NCE Pass Guarantee (one refund per exam per account).
+    nceGuaranteeRefundedAt: Date,
     guidePurchasedAt: Date,                  // set when the NCMHCE Study Guide (1E) is purchased
     guideOrderId: String,                    // Stripe checkout session id for the NCMHCE guide purchase, or 'apple:<transactionId>' for an In-App Purchase
     guideNcePurchasedAt: Date,               // set when The NCE Ownership Method (1E) is purchased
@@ -58,8 +67,15 @@ const UserSchema = new Schema(
     trialEndsAt: Date,
     trialNote: { type: String, trim: true, maxlength: 300 },
 
-    // Which trial reminder emails have already gone out — 'ending_soon' |
-    // 'ended'. Prevents re-sending the same email on every hourly check
+    // When the standard free trial started: the first time this account
+    // opened a case (routes/content.js), not signup. Unset until then, so an
+    // account that signs up and comes back a week later still gets a full
+    // trial (utils/trial.js). Separate from nceAccess.trialStartedAt, which is
+    // the NCE trial and starts on the first NCE visit.
+    trialStartedAt: Date,
+
+    // Which trial reminder emails have already gone out — 'first_case' |
+    // 'ending_soon' | 'ended'. Prevents re-sending the same email on every hourly check
     // (see jobs/trialReminders.js). Cleared whenever an admin grants, changes,
     // or clears a trial, so a renewed trial can earn a fresh reminder.
     trialEmailsSent: { type: [String], default: [] },
@@ -112,6 +128,9 @@ const UserSchema = new Schema(
       cancelAtPeriodEnd: { type: Boolean, default: false }, // monthly: canceled, runs to period end
       lastPaymentIntentId: String,
       currentPeriodEnd: Date,
+      // When the NCMHCE Pass Guarantee was bought (Stripe webhook). The refund
+      // option's timing rules use it (utils/guaranteeRefund.js).
+      guaranteePurchasedAt: Date,
 
       // Score report gate — only used for the 'guarantee' tier.
       // When currentPeriodEnd passes, access is blocked until a score report
@@ -119,7 +138,8 @@ const UserSchema = new Schema(
       scoreReport: {
         status: {
           type: String,
-          enum: ['none', 'pending', 'approved_extension', 'passed'],
+          // 'refunded' — a non-pass the member took as a refund (NCMHCE only)
+          enum: ['none', 'pending', 'approved_extension', 'passed', 'refunded'],
           default: 'none',
         },
         submittedAt: Date,
@@ -137,6 +157,13 @@ const UserSchema = new Schema(
         domainScores: mongoose.Schema.Types.Mixed,
         // utils/retakePlan.js output for a non-passing result
         retakePlan: mongoose.Schema.Types.Mixed,
+        // NCMHCE non-pass only: what the member asked for — 'extend' (3 months)
+        // or 'refund' — plus the eligibility checks at submission
+        // (utils/guaranteeRefund.js) and, once paid, the Stripe refund.
+        remedy: { type: String, enum: ['extend', 'refund'] },
+        refundCheck: mongoose.Schema.Types.Mixed,
+        refundId: String,
+        refundAmount: Number,       // cents
       },
       // Earlier reports (without the letter), newest last.
       scoreReportHistory: [mongoose.Schema.Types.Mixed],
@@ -157,13 +184,14 @@ const UserSchema = new Schema(
       lastPaymentIntentId: String,
       currentPeriodEnd: Date,
       trialStartedAt: Date,
+      guaranteePurchasedAt: Date,   // NCE Pass Guarantee purchase (see subscription.guaranteePurchasedAt)
       // Score report gate for the NCE Pass Guarantee (nce_guarantee) — same
       // rules as subscription.scoreReport, kept separate so a report for one
       // exam never clears the other exam's check-in.
       scoreReport: {
         status: {
           type: String,
-          enum: ['none', 'pending', 'approved_extension', 'passed'],
+          enum: ['none', 'pending', 'approved_extension', 'passed', 'refunded'],
           default: 'none',
         },
         submittedAt: Date,
@@ -177,6 +205,11 @@ const UserSchema = new Schema(
         reopenedAt: Date,           // admin reopened a forfeited guarantee (restarts the 90 days)
         domainScores: mongoose.Schema.Types.Mixed,
         retakePlan: mongoose.Schema.Types.Mixed,
+        // Non-pass remedy and refund record, as on subscription.scoreReport.
+        remedy: { type: String, enum: ['extend', 'refund'] },
+        refundCheck: mongoose.Schema.Types.Mixed,
+        refundId: String,
+        refundAmount: Number,       // cents
       },
       scoreReportHistory: [mongoose.Schema.Types.Mixed],
     },

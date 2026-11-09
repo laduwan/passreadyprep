@@ -1,18 +1,25 @@
 /**
  * Trial Reminder Emails
  *
- * PassReady Prep's free trial is short (TRIAL_DAYS, default 3), and until now
+ * PassReady Prep's free trial is short (TRIAL_DAYS, default 7), and until now
  * it was purely reactive — a user only found out it had ended when they hit a
  * gated case and got a 402 from routes/content.js. This job proactively emails
  * accounts before and after that happens, so people don't just go quiet and
  * churn without ever seeing a call to action.
  *
- * Two emails, each sent at most once per account (tracked in
+ * Three emails, each sent at most once per account (tracked in
  * User.trialEmailsSent so re-runs don't duplicate):
+ *   - 'first_case'  — the account was created 20–48 hours ago and has not
+ *                     opened a case yet, so its trial hasn't started (the
+ *                     trial clock runs from the first case, utils/trial.js)
  *   - 'ending_soon' — trial ends within the next ~24 hours
  *   - 'ended'       — trial ended within the last ENDED_WINDOW_DAYS, and the
  *                     account is still on the free tier (anyone who upgraded
  *                     is never a candidate)
+ *
+ * 'ending_soon' and 'ended' only go to accounts whose trial has actually
+ * started (trialStartedAt set) — nobody is told their trial ended when it
+ * never began.
  *
  * The 'ended' look-back window matters: without it, the very first run after
  * deploy would email every free-tier account that has ever lapsed, including
@@ -42,6 +49,8 @@ const CHECK_INTERVAL_MS = 60 * 60 * 1000;   // hourly
 const FIRST_RUN_DELAY_MS = 30 * 1000;       // let the Mongo connection settle after boot
 const ENDING_SOON_WINDOW_MS = DAY_MS;       // "ends within 24h"
 const ENDED_WINDOW_MS = 7 * DAY_MS;         // only email about a trial that ended recently
+const FIRST_CASE_MIN_AGE_MS = 20 * 60 * 60 * 1000; // 'first_case' goes to accounts created 20–48h ago
+const FIRST_CASE_MAX_AGE_MS = 48 * 60 * 60 * 1000;
 const MAX_PER_RUN = 200;                    // a sane ceiling on one hour's sending
 
 const APP_URL = (process.env.APP_URL || 'https://www.passreadyprep.com').replace(/\/+$/, '');
@@ -50,14 +59,33 @@ function firstName(user) {
   return (user.name || '').trim().split(/\s+/)[0] || 'there';
 }
 
-function ctaButton() {
+function ctaButton(href = `${APP_URL}/checkout.html`, label = 'Choose a plan') {
   return `
         <div style="text-align:center;margin:30px 0;">
-          <a href="${APP_URL}/checkout.html"
+          <a href="${href}"
              style="display:inline-block;background:#0F172A;color:#fff;padding:14px 28px;text-decoration:none;border-radius:8px;font-weight:600;">
-            Choose a plan
+            ${label}
           </a>
         </div>`;
+}
+
+function firstCaseEmail(user) {
+  const name = firstName(user);
+  return {
+    subject: 'Your first PassReady case is waiting',
+    html: `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <h2 style="color:#0F172A;margin-top:0;">Your first case is waiting, ${name}</h2>
+        <p style="color:#4a4a4a;line-height:1.6;">
+          Your ${TRIAL_DAYS}-day free trial starts the moment you open your first case — not before.
+          Open one today and you'll have full access to all 290+ cases, flashcards, decision trees,
+          and the DSM-5-TR reference for ${TRIAL_DAYS} days.
+        </p>${ctaButton(`${APP_URL}/study`, 'Open your first case')}
+        <p style="color:#888;font-size:12px;text-align:center;">PassReady Prep</p>
+      </div>
+    `,
+    text: `Your first case is waiting, ${name}. Your ${TRIAL_DAYS}-day free trial starts the moment you open your first case — not before. Open one today: ${APP_URL}/study`,
+  };
 }
 
 function endingSoonEmail(user, trialEnd) {
@@ -99,11 +127,14 @@ function endedEmail(user) {
   };
 }
 
-// Narrows the scan to accounts whose trial could plausibly be inside either
-// window. An account's effective trial end is the LATER of its granted
-// trialEndsAt and (createdAt + TRIAL_DAYS), so if that end is in range then at
-// least one of the two dates is in range — which makes this $or a superset of
-// the accounts we want. Each candidate is still checked exactly below.
+// Narrows the scan to accounts that could plausibly be due one of the three
+// emails. For the reminders, an account's effective trial end is the LATER of
+// its granted trialEndsAt and (trialStartedAt + TRIAL_DAYS), so if that end is
+// in range then at least one of the two dates is in range — which makes the
+// first two $or clauses a superset of the accounts we want. The third clause is
+// the 'first_case' window: created 20–48h ago, trial not started. Each
+// candidate is still checked exactly below. Guests (iOS placeholder accounts,
+// models/User.js) never get any of these.
 function candidateFilter(now) {
   const standardOffsetMs = TRIAL_DAYS * DAY_MS;
   const earliestEnd = new Date(now.getTime() - ENDED_WINDOW_MS);
@@ -111,21 +142,29 @@ function candidateFilter(now) {
   return {
     'subscription.tier': 'free',
     role: 'user',
+    isGuest: { $ne: true },
     $or: [
       {
-        createdAt: {
+        trialStartedAt: {
           $gte: new Date(earliestEnd.getTime() - standardOffsetMs),
           $lte: new Date(latestEnd.getTime() - standardOffsetMs),
         },
       },
-      { trialEndsAt: { $gte: earliestEnd, $lte: latestEnd } },
+      { trialStartedAt: { $ne: null }, trialEndsAt: { $gte: earliestEnd, $lte: latestEnd } },
+      {
+        trialStartedAt: null,
+        createdAt: {
+          $gte: new Date(now.getTime() - FIRST_CASE_MAX_AGE_MS),
+          $lte: new Date(now.getTime() - FIRST_CASE_MIN_AGE_MS),
+        },
+      },
     ],
   };
 }
 
 async function checkAndSendTrialReminders() {
   const now = new Date();
-  const stats = { checked: 0, endingSoonSent: 0, endedSent: 0, errors: 0 };
+  const stats = { checked: 0, firstCaseSent: 0, endingSoonSent: 0, endedSent: 0, errors: 0 };
 
   if (process.env.TRIAL_REMINDERS_DISABLE === '1') return stats;
 
@@ -133,7 +172,7 @@ async function checkAndSendTrialReminders() {
     // Only free-tier accounts are trial candidates — anyone on a paid tier has
     // already converted and shouldn't get "your trial ended" copy.
     const candidates = await User.find(candidateFilter(now))
-      .select('email name createdAt trialEndsAt trialEmailsSent')
+      .select('email name createdAt trialStartedAt trialEndsAt trialEmailsSent')
       .limit(MAX_PER_RUN);
 
     stats.checked = candidates.length;
@@ -143,16 +182,25 @@ async function checkAndSendTrialReminders() {
         const sent = user.trialEmailsSent || [];
         const trialEnd = trialEndFor(user);
         const msLeft = trialEnd - now;
+        const ageMs = now - new Date(user.createdAt);
 
         let kind = null;
-        if (!sent.includes('ending_soon') && msLeft > 0 && msLeft <= ENDING_SOON_WINDOW_MS) {
+        if (!user.trialStartedAt) {
+          // Trial not started: the only email that applies is the nudge to
+          // open a first case. Never 'ending_soon' / 'ended' for these.
+          if (!sent.includes('first_case') && ageMs >= FIRST_CASE_MIN_AGE_MS && ageMs <= FIRST_CASE_MAX_AGE_MS) {
+            kind = 'first_case';
+          }
+        } else if (!sent.includes('ending_soon') && msLeft > 0 && msLeft <= ENDING_SOON_WINDOW_MS) {
           kind = 'ending_soon';
         } else if (!sent.includes('ended') && msLeft <= 0 && -msLeft <= ENDED_WINDOW_MS) {
           kind = 'ended';
         }
         if (!kind) continue;
 
-        const { subject, html, text } = kind === 'ending_soon'
+        const { subject, html, text } = kind === 'first_case'
+          ? firstCaseEmail(user)
+          : kind === 'ending_soon'
           ? endingSoonEmail(user, trialEnd)
           : endedEmail(user);
 
@@ -162,7 +210,8 @@ async function checkAndSendTrialReminders() {
         await User.updateOne({ _id: user._id }, { $addToSet: { trialEmailsSent: kind } });
         await sendMail({ to: user.email, subject, html, text });
 
-        if (kind === 'ending_soon') stats.endingSoonSent++;
+        if (kind === 'first_case') stats.firstCaseSent++;
+        else if (kind === 'ending_soon') stats.endingSoonSent++;
         else stats.endedSent++;
       } catch (userErr) {
         stats.errors++;
@@ -174,12 +223,12 @@ async function checkAndSendTrialReminders() {
     console.error(`${LOG} Top-level error:`, err.message);
   }
 
-  if (stats.endingSoonSent || stats.endedSent || stats.errors) {
-    console.log(`${LOG} checked=${stats.checked} endingSoon=${stats.endingSoonSent} ended=${stats.endedSent} errors=${stats.errors}`);
+  if (stats.firstCaseSent || stats.endingSoonSent || stats.endedSent || stats.errors) {
+    console.log(`${LOG} checked=${stats.checked} firstCase=${stats.firstCaseSent} endingSoon=${stats.endingSoonSent} ended=${stats.endedSent} errors=${stats.errors}`);
     logActivity({
       type: 'trial.reminders_run',
       severity: stats.errors ? 'warn' : 'info',
-      message: `Trial reminders: ${stats.endingSoonSent} ending-soon, ${stats.endedSent} ended`,
+      message: `Trial reminders: ${stats.firstCaseSent} first-case, ${stats.endingSoonSent} ending-soon, ${stats.endedSent} ended`,
       meta: stats,
     });
   }

@@ -5,7 +5,9 @@
 // trial ends tomorrow". This one lands while the sign-up is still on screen:
 // what the free trial includes and when it ends, the one thing to do first
 // (work a case), and a nudge to add an exam date when they skipped it, since
-// the study plan and the exam-date emails all hang off that date.
+// the study plan and the exam-date emails all hang off that date. The trial
+// clock starts at the first case opened (utils/trial.js), so the email says
+// that rather than quoting an end date that has not begun.
 //
 // It is about the account they just made, so it is transactional and carries
 // no unsubscribe link (the scheduled nudges in jobs/nudgeEmails.js do). It
@@ -14,7 +16,7 @@
 // ============================================================================
 
 const { sendMail } = require('./mailer');
-const { TRIAL_DAYS, trialEndFor } = require('./trial');
+const { TRIAL_DAYS } = require('./trial');
 
 const DAY = 24 * 60 * 60 * 1000;
 const SITE = (process.env.APP_URL || 'https://www.passreadyprep.com').replace(/\/+$/, '');
@@ -46,10 +48,9 @@ function examDateStep(user, now) {
 
 function welcomeEmail(user) {
   const now = Date.now();
-  const trialEnd = trialEndFor(user);
   const name = firstName(user);
-  const subject = 'Welcome to PassReady Prep: your free trial has started';
-  const preheader = `${TRIAL_DAYS} days of full access, ending ${fmtDate(trialEnd)}. Start with one case.`;
+  const subject = 'Welcome to PassReady Prep: your free trial is ready';
+  const preheader = `${TRIAL_DAYS} days of full access, starting with your first case.`;
   const html = `
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -59,14 +60,14 @@ function welcomeEmail(user) {
 <div style="text-align:center;margin-bottom:28px;"><span style="font-size:22px;font-weight:800;color:#34D399;">PassReady Prep</span></div>
 <div style="background:#1E293B;border-radius:16px;padding:28px;margin-bottom:16px;">
   <div style="color:#E2E8F0;font-size:17px;margin-bottom:20px;">Hi ${esc(name)},</div>
-  ${P(`Your account is ready, and your free trial runs until <strong style="color:#E2E8F0;">${esc(fmtDate(trialEnd))}</strong>: ${TRIAL_DAYS} days of full access to every NCMHCE study tool. All 290+ case simulations, the timed mock exam, the AI debrief with Dr. Claire Moreau, flashcards, decision trees and the DSM-5-TR reference.`)}
-  ${step(1, 'Work your first case', 'Read the intake, make the clinical calls across each domain, and see how every decision scores from -2 to +3. One case takes about 20 minutes.')}
+  ${P(`Your account is ready. Your <strong style="color:#E2E8F0;">${TRIAL_DAYS}-day free trial starts the moment you open your first case</strong>, and from then on you have full access to every NCMHCE study tool: all 290+ case simulations, the timed mock exam, the AI debrief with Dr. Claire Moreau, flashcards, decision trees and the DSM-5-TR reference.`)}
+  ${step(1, 'Open your first case: that starts your trial', 'Read the intake, make the clinical calls across each domain, and see how every decision scores from -2 to +3. One case takes about 20 minutes.')}
   ${examDateStep(user, now)}
   ${step(3, 'Sit a timed mock when readiness holds above 60%', 'The full-length exam runs under the real 225-minute clock with the break after case 5, so the real day feels familiar.')}
   <div style="text-align:center;margin:22px 0 8px;">${button(SITE + '/study', 'Start your first case')}</div>
   <div style="color:#64748B;font-size:13px;text-align:center;margin-top:18px;line-height:1.5;">
     Taking the NCE as well? Your separate NCE trial starts the first time you open <a href="${SITE}/nce.html" style="color:#34D399;">NCE practice</a>.<br>
-    After the trial, plans start at $29 a month, and the Pass Guarantee is one payment with access until you pass. <a href="${SITE}/landing.html#pricing" style="color:#34D399;">See plans</a>.<br>
+    After the trial, plans start at $29 a month, and Access Extensions Until You Pass is one payment with access until you pass. <a href="${SITE}/landing.html#pricing" style="color:#34D399;">See plans</a>.<br>
     Stuck on anything? Just reply to this email.
   </div>
 </div>
@@ -78,9 +79,9 @@ function welcomeEmail(user) {
   const text = [
     `Hi ${name},`,
     '',
-    `Your account is ready, and your free trial runs until ${fmtDate(trialEnd)}: ${TRIAL_DAYS} days of full access to every NCMHCE study tool.`,
+    `Your account is ready. Your ${TRIAL_DAYS}-day free trial starts the moment you open your first case, with full access to every NCMHCE study tool.`,
     '',
-    `1. Work your first case: ${SITE}/study`,
+    `1. Open your first case (that starts your trial): ${SITE}/study`,
     user.examDate ? `2. Your study plan is keyed to your exam date (${fmtDate(user.examDate)}).` : '2. Add your exam date on the Study plan card so everything paces itself to it.',
     '3. Sit a timed mock exam when your readiness holds above 60%.',
     '',

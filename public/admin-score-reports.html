@@ -27,6 +27,8 @@
   .pill.fail{background:#FEF3F2;color:var(--red)}
   .pill.pass{background:#ECFDF3;color:#067647}
   .pill.scheduled{background:#FFFAEB;color:var(--amber)}
+  .checks{list-style:none;padding:0;margin:8px 0;font-size:13px}
+  .checks li.no{color:var(--red)}
   table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
   th,td{text-align:left;padding:5px 6px;border-top:1px solid var(--border)}
   th{color:var(--muted);font-weight:600;border-top:none}
@@ -45,8 +47,8 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>Pass Guarantee check-ins</h1>
-  <p class="sub">Verify the document against the account name, then approve. <b>Extend</b> adds 3 months (appointment confirmation or verified non-pass). <b>Passed</b> closes the guarantee and emails you to issue the CE course. Forfeited guarantees are listed last; <b>Reopen</b> gives 3 more months and a fresh 90 days to book.</p>
+  <h1>Access Extensions Until You Pass check-ins</h1>
+  <p class="sub">Verify the document against the account name, then approve. <b>Extend</b> adds 3 months (appointment confirmation or verified non-pass). <b>Passed</b> closes the guarantee and emails you to issue the CE course. <b>Approve refund</b> (non-pass, when the member asked for one) re-checks the refund terms, refunds the payment minus the $25 study guide through Stripe, ends access, and emails the member; use <b>Extend</b> instead if the checks fail. Forfeited guarantees are listed last; <b>Reopen</b> gives 3 more months and a fresh 90 days to book.</p>
   <div id="list"><p class="empty">Loading…</p></div>
 </div>
 <script>
@@ -76,6 +78,15 @@ function card(rep){
     + '<div class="muted">Exam date ' + day(rep.examDate) + ' · submitted ' + day(rep.submittedAt) + ' · access ends ' + day(rep.currentPeriodEnd)
     + ' · extensions so far ' + (rep.extensionCount || 0) + '</div>';
   if (rep.notes) h += '<p>' + esc(rep.notes) + '</p>';
+  var wantsRefund = !rep.forfeited && rep.result === 'fail' && rep.remedy === 'refund';
+  if (wantsRefund) {
+    h += '<div><span class="pill fail">Refund requested</span></div>';
+    if (rep.refundCheck && rep.refundCheck.checks) {
+      h += '<ul class="checks">' + rep.refundCheck.checks.map(function(c){
+        return '<li class="' + (c.ok ? 'ok' : 'no') + '">' + (c.ok ? '✓ ' : '✗ ') + esc(c.label) + (c.detail ? ' (' + esc(c.detail) + ')' : '') + '</li>';
+      }).join('') + '</ul><div class="muted">Checked at submission; re-checked when you approve.</div>';
+    }
+  }
   if (rep.retakePlan && rep.retakePlan.domains) {
     h += '<table><thead><tr><th>Domain</th><th class="n">Exam</th><th class="n">Practice</th><th>Status</th></tr></thead><tbody>';
     rep.retakePlan.domains.forEach(function(d){
@@ -90,6 +101,8 @@ function card(rep){
       ? '<button class="primary" data-act="reopen">Reopen guarantee</button>'
       : rep.result === 'pass'
       ? '<button class="primary" data-act="pass">Mark passed</button>'
+      : wantsRefund
+      ? '<button class="primary" data-act="refund">Approve refund</button><button data-act="extend">Extend 3 months instead</button>'
       : '<button class="primary" data-act="extend">Extend 3 months</button>')
     + '</div><div class="doc"></div><p class="err"></p>';
   el.innerHTML = h;
@@ -116,6 +129,7 @@ function card(rep){
       }).catch(function(x){ err.textContent = x.message; e.target.disabled = false; });
       return;
     }
+    if (act === 'refund' && !confirm('Refund ' + (rep.name || rep.email) + ' through Stripe and end their access? This can\'t be undone.')) return;
     var note = el.querySelector('[data-note]').value.trim();
     el.querySelectorAll('button').forEach(function(b){ b.disabled = true; });
     api('/api/payment/score-report/' + rep.userId + '/review', {

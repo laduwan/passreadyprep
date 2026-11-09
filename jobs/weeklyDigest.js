@@ -69,7 +69,7 @@ async function sendDigests() {
     'prefs.digestOptOut': { $ne: true },
     email: { $regex: /@/ },
     // Already sent this week? Check weeklyDigestSentAt
-  }).select('email name subscription createdAt trialEndsAt weeklyDigestSentAt');
+  }).select('email name subscription createdAt trialStartedAt trialEndsAt weeklyDigestSentAt');
 
   let sent = 0;
   for (const user of users) {

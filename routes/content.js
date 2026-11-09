@@ -13,7 +13,8 @@ const FREE_CASE_LIMIT = 5;
 
 // Middleware: resolves subscription tier and attaches req.accessLevel.
 // 'free'    — no token (anonymous visitor): 5-case teaser
-// 'trial'   — registered account within TRIAL_DAYS of signup: full access
+// 'trial'   — registered account within TRIAL_DAYS of its first case (or
+//             one that hasn't opened a case yet): full access
 // 'expired' — registered account past the trial with no active paid tier
 // 'paid'    — active monthly, pass3, or guarantee with valid access
 // 'gated'   — guarantee tier past 6 months, score report not yet approved
@@ -27,7 +28,7 @@ async function resolveAccess(req, res, next) {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = payload.sub;
 
-    const user = await User.findById(req.userId).select('subscription createdAt trialEndsAt sessionVersion bookAccess.status examDate');
+    const user = await User.findById(req.userId).select('subscription createdAt isGuest trialStartedAt trialEndsAt sessionVersion bookAccess.status examDate');
     if (!user) { req.accessLevel = 'free'; return next(); }
 
     req.bookAccess = user.bookAccess?.status || 'none';
@@ -63,6 +64,11 @@ async function resolveAccess(req, res, next) {
         return next();
       }
     }
+
+    // The standard trial starts on the first case (utils/trial.js). Flag an
+    // account whose access rests on that clock but hasn't started it, so the
+    // single-case route below can start it — only there, never from a list.
+    req.trialNotStarted = !user.isGuest && !user.trialStartedAt;
 
     // Monthly / pass3: if expired, fall back to the trial clock (long past → 'expired')
     if (['monthly', 'pass3'].includes(tier) && expired) {
@@ -143,8 +149,12 @@ router.get('/', resolveAccess, async (req, res) => {
       freeLimit: FREE_CASE_LIMIT,
       trialDays: TRIAL_DAYS,
       // The end of THIS account's trial, which may be an admin-granted
-      // extension rather than the standard TRIAL_DAYS from signup.
+      // extension rather than the standard TRIAL_DAYS from the first case.
       trialEndsAt: req.trialEndsAt || null,
+      // False for a signed-in account that has not opened a case yet: its
+      // clock has not started, so the study page shows what the trial is
+      // rather than a countdown (resolveAccess sets trialNotStarted).
+      trialStarted: !req.trialNotStarted,
       outline: outlineFor(servedKey || req.query.exam || 'ncmhce'),
       outlineFallback,
     });
@@ -165,7 +175,7 @@ router.get('/:externalId', resolveAccess, async (req, res) => {
         message: req.gateReason === 'score_report_pending'
           ? 'Your score report is under review. Access will be restored within 1 business day.'
           : req.gateReason === 'guarantee_forfeited'
-          ? 'Your Pass Guarantee was forfeited: no new request was made within 90 days of your last exam. Pick a plan to keep studying.'
+          ? 'Your Access Extensions Until You Pass plan was forfeited: no new request was made within 90 days of your last exam. Pick a plan to keep studying.'
           : 'Your access period has ended. Upload your exam appointment or score letter to continue.',
       });
     }
@@ -202,6 +212,17 @@ router.get('/:externalId', resolveAccess, async (req, res) => {
           message: `Free access includes ${FREE_CASE_LIMIT} cases. Create an account for a ${TRIAL_DAYS}-day trial of all 290+.`,
         });
       }
+    }
+
+    // First case for a registered account on the trial clock: start the
+    // standard free trial now. The filter makes this a one-time write even if
+    // two requests race — whichever lands first sets the date and the other
+    // matches nothing.
+    if (req.userId && req.accessLevel === 'trial' && req.trialNotStarted) {
+      await User.updateOne(
+        { _id: req.userId, trialStartedAt: { $exists: false } },
+        { $set: { trialStartedAt: new Date() } }
+      );
     }
 
     return res.json({ item });

@@ -114,15 +114,15 @@
           "name": "Is there a free NCMHCE practice test?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Your first NCMHCE case simulation is free and does not require an account, and the 3-day free trial includes the full timed mock exam. NCE candidates can try free sample questions before choosing a plan."
+            "text": "Yes. Your first NCMHCE case simulation is free and does not require an account, and the 7-day free trial includes the full timed mock exam. NCE candidates can try free sample questions before choosing a plan."
           }
         },
         {
           "@type": "Question",
-          "name": "How does the pass guarantee work?",
+          "name": "How do access extensions until you pass work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The Pass Guarantee plan is a one-time $249 purchase and includes The Complete NCMHCE Study Guide (digital, a $25 value). Complete at least 20 cases and reach 60% or higher on the readiness predictor before your exam date. If you do not pass, we verify your result and add 3 more months of access at no charge, as many times as it takes. If you do pass, your first continuing education course on CounselorReady, our board-approved CE platform, is free."
+            "text": "The Access Extensions Until You Pass plan is a one-time $249 purchase and includes The Complete NCMHCE Study Guide (digital, a $25 value). Complete at least 20 cases and reach 60% or higher on the readiness predictor before your exam date. If you do not pass, we verify your result and add 3 more months of access at no charge, as many times as it takes. If you do pass, your first continuing education course on CounselorReady, our board-approved CE platform, is free."
           }
         },
         {
@@ -208,8 +208,8 @@
   .sec-head p{color:var(--slate-400); font-size:16.5px; margin:0}
 
   /* ---------- hero ---------- */
-  .hero{padding:64px 0 36px; display:grid; gap:40px; align-items:center}
-  @media (min-width:900px){ .hero{grid-template-columns:1.05fr .95fr; gap:48px; padding:84px 0 52px} }
+  .hero{padding-top:64px; padding-bottom:36px; display:grid; gap:40px; align-items:center}
+  @media (min-width:900px){ .hero{grid-template-columns:1.05fr .95fr; gap:48px; padding-top:84px; padding-bottom:52px} }
   .hero-copy h1{font-size:clamp(33px,5.4vw,52px); line-height:1.08; letter-spacing:-.025em; color:var(--white); font-weight:800; margin:18px 0 16px}
   .hero-copy h1 em{font-style:normal; color:var(--emerald-400)}
   .hero-copy .lead{font-size:18.5px; color:var(--slate-300); line-height:1.55; margin:0 0 26px; max-width:540px}
@@ -271,7 +271,7 @@
   .stat-lbl{font-size:13px; color:var(--slate-400); margin-top:6px}
 
   /* ---------- generic section spacing ---------- */
-  .band{padding:60px 0}
+  .band{padding-top:60px; padding-bottom:60px}
   .band.tight{padding:46px 0}
 
   /* ---------- why ---------- */
@@ -325,6 +325,10 @@
   .exam-note{margin-top:16px; text-align:center; color:var(--slate-400); font-size:14px}
   .hero-alt{margin-top:14px; font-size:14.5px; color:var(--slate-400)}
   .hero-alt a{font-weight:700; color:var(--blue-400); text-decoration:none}
+  /* Google Play badge (Google's artwork has its own padding, so no extra margin) */
+  .play-badge{display:inline-block; line-height:0}
+  .play-badge img{height:58px; width:auto}
+  .hero-app{margin-top:10px; margin-left:-9px; display:flex; align-items:center; gap:6px; font-size:13.5px; color:var(--slate-400)}
   .hero-alt a:hover{text-decoration:underline}
   .also{margin-top:18px; text-align:center; color:var(--slate-400); font-size:15px}
   .also strong{color:var(--slate-200); font-weight:700}
@@ -354,7 +358,7 @@
   .guar-box p{color:var(--slate-400); font-size:13.5px; margin:0; max-width:none}
 
   /* ---------- final cta ---------- */
-  .final{text-align:center; padding:64px 0 24px}
+  .final{text-align:center; padding-top:64px; padding-bottom:24px}
   .final h2{font-size:clamp(26px,4.4vw,36px); color:var(--white); letter-spacing:-.025em; margin:0 0 12px; line-height:1.15}
   .final p{color:var(--slate-400); font-size:17px; margin:0 0 26px}
 
@@ -459,7 +463,7 @@
     <nav class="nav-links">
       <a class="navlink" href="#exams">NCMHCE &amp; NCE</a>
       <a class="navlink" href="#pricing">Pricing</a>
-      <a class="navlink mid" href="/guarantee.html">NCMHCE guarantee</a>
+      <a class="navlink mid" href="/guarantee.html">Access until you pass</a>
       <!-- prp-web-only --><a class="navlink mid" href="/study-guide.html">NCMHCE study guide</a><!-- /prp-web-only -->
       <a class="btn" href="/study"><span class="sm-hide">Start&nbsp;</span>NCMHCE prep</a>
     </nav>
@@ -472,13 +476,17 @@
     <div class="hero-copy">
       <span class="eyebrow reveal">NCMHCE -Practice til you pass· 2022+ format</span>
       <h1 class="reveal d1">Know you're ready <em>before</em> you sit for the NCMHCE.</h1>
-      <p class="lead reveal d2">Practice the NCMHCE — the clinical mental health counseling licensure exam for LPCs and LMHCs — with realistic cases in the current 2022+ format. A readiness number tracks where you actually stand, and a pass guarantee has your back either way.</p>
+      <p class="lead reveal d2">Practice the NCMHCE — the clinical mental health counseling licensure exam for LPCs and LMHCs — with realistic cases in the current 2022+ format. A readiness number tracks where you actually stand, and access extensions until you pass have your back either way.</p>
       <div class="hero-cta reveal d3">
         <a class="btn lg" href="/study">Start NCMHCE prep</a>
-        <a class="btn lg ghost" href="/guarantee.html">How the guarantee works</a>
+        <a class="btn lg ghost" href="/guarantee.html">How access extensions work</a>
       </div>
-      <p class="hero-alt reveal d3" style="margin-top:12px">🛡️ Pass Guarantee plan: study until you pass, and if you don't, your access is extended free. <a href="/guarantee.html">How it works &rarr;</a></p>
+      <p class="hero-alt reveal d3" style="margin-top:12px">🛡️ Access Extensions Until You Pass: one payment, and if you don't pass, your access is extended free. <a href="/guarantee.html">How it works &rarr;</a></p>
       <p class="hero-alt reveal d3" style="margin-top:6px">Taking the NCE? <a href="/nce.html">Try free NCE practice questions &rarr;</a></p>
+      <div class="hero-app reveal d3">
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.gaitp.passreadyprep" target="_blank" rel="noopener"><img src="/assets/google-play-badge.png" alt="Get it on Google Play" width="150" height="58"></a>
+        <span>Study on your Android phone, same account.</span>
+      </div>
       <div class="trust reveal d4">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         Built by a board-approved continuing education provider
@@ -551,7 +559,7 @@
         </ul>
         <div class="exam-foot">
           <a class="btn" href="/study">Study for the NCMHCE</a>
-          <!-- prp-web-only --><span class="from">From <b>$29</b>/mo &middot; 3-day free trial</span><!-- /prp-web-only -->
+          <!-- prp-web-only --><span class="from">From <b>$29</b>/mo &middot; 7-day free trial</span><!-- /prp-web-only -->
         </div>
       </div>
       <div class="exam-card nce">
@@ -691,8 +699,8 @@
     <div class="sec-head">
       <span class="eyebrow">Pricing</span>
       <h2>Start free. Go deeper when you're ready.</h2>
-      <p>Monthly, 3-month and 6-month plans renew automatically until you cancel, and you can cancel any time. The Pass Guarantee is a one-time payment that never renews.</p>
-      <p style="margin-top:10px; font-size:14.5px;">These are NCMHCE plans. Studying for the NCE? <a href="/nce.html">See NCE plans</a> &mdash; from $24.99/mo, $59.99 every 3 months or $89 every 6 months, or <strong>$189 Pass Guarantee</strong> (study till you pass, includes digital guide, one-time payment).</p>
+      <p>Monthly, 3-month and 6-month plans renew automatically until you cancel, and you can cancel any time. The Access Extensions Until You Pass plan is a one-time payment that never renews.</p>
+      <p style="margin-top:10px; font-size:14.5px;">These are NCMHCE plans. Studying for the NCE? <a href="/nce.html">See NCE plans</a> &mdash; from $24.99/mo, $59.99 every 3 months or $89 every 6 months, or <strong>$189 Access Extensions Until You Pass</strong> (study till you pass, includes digital guide, one-time payment).</p>
     </div>
 
     <div class="price-grid">
@@ -701,7 +709,7 @@
       <div class="price-card">
         <div class="price-tier t-free">Free trial</div>
         <div class="price-amount"><span class="amt">$0</span></div>
-        <p class="price-tagline">Full access for 3 days — then pick a plan.</p>
+        <p class="price-tagline">Full access for 7 days — then pick a plan.</p>
         <div class="price-divider"></div>
         <ul class="price-features">
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>All 290+ clinical case simulations</li>
@@ -710,11 +718,11 @@
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>DSM-5-TR quick reference</li>
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>AI debrief with Dr. Claire Moreau</li>
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Timed mock exams</li>
-          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Pass guarantee</li>
+          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Access extensions until you pass</li>
         </ul>
         <div class="price-cta">
-          <a class="btn ghost" href="/register.html?next=/study">Start free trial</a>
-          <p class="price-note">No card required · 3 days, then choose a plan</p>
+          <a class="btn ghost" href="/register.html">Start free trial</a>
+          <p class="price-note">No card required · 7 days, then choose a plan</p>
         </div>
       </div>
 
@@ -731,7 +739,7 @@
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Full readiness predictor</li>
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>250+ flashcards + study plan</li>
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Decision trees &amp; DSM reference</li>
-          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Pass guarantee</li>
+          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Access extensions until you pass</li>
         </ul>
         <div class="price-cta">
           <a class="btn secondary" href="/checkout.html?tier=monthly">Get monthly</a>
@@ -753,7 +761,7 @@
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Full readiness predictor</li>
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>250+ flashcards + study plan</li>
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Decision trees &amp; DSM reference</li>
-          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Pass guarantee</li>
+          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Access extensions until you pass</li>
         </ul>
         <div class="price-cta">
           <a class="btn" href="/checkout.html?tier=pass3">Get 3-month pass</a>
@@ -774,7 +782,7 @@
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Full readiness predictor</li>
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>250+ flashcards + study plan</li>
           <li><svg class="check-em" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Decision trees &amp; DSM reference</li>
-          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Pass guarantee</li>
+          <li class="dim"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>Access extensions until you pass</li>
         </ul>
         <div class="price-cta">
           <a class="btn" href="/checkout.html?tier=pass6">Get 6-month pass</a>
@@ -782,10 +790,10 @@
         </div>
       </div>
 
-      <!-- PASS GUARANTEE -->
+      <!-- ACCESS EXTENSIONS UNTIL YOU PASS -->
       <div class="price-card premium">
-        <span class="price-badge guar">🛡️ Pass guaranteed</span>
-        <div class="price-tier t-guar">Pass Guarantee</div>
+        <span class="price-badge guar">🛡️ Access until you pass</span>
+        <div class="price-tier t-guar">Access Extensions Until You Pass</div>
         <div class="price-amount" data-iap-tier="guarantee"><span class="cent">$</span><span class="amt">249</span></div>
         <p class="price-tagline">Everything, until you pass — plus the digital study guide. Win either way.</p>
         <div class="price-divider"></div>
@@ -796,12 +804,12 @@
           <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Full readiness predictor</li>
           <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>250+ flashcards + study plan</li>
           <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>Decision trees &amp; DSM reference</li>
-          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg><strong style="color:var(--white)">Pass guarantee</strong> — pass or extend free</li>
-          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg><strong style="color:var(--white)">Includes the digital study guide</strong> ($25 value) &mdash; download instantly</li>
-          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg><strong style="color:var(--white)">Free CE course</strong> on CounselorReady when you pass</li>
+          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg><span><strong style="color:var(--white)">Access extensions</strong> until you pass, or a refund</span></li>
+          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg><span><strong style="color:var(--white)">Includes the digital study guide</strong> ($25 value) &mdash; download instantly</span></li>
+          <li><svg class="check-am" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg><span><strong style="color:var(--white)">Free CE course</strong> on CounselorReady when you pass</span></li>
         </ul>
         <div class="price-cta">
-          <a class="btn" style="background:var(--amber);color:#1a0e00;" href="/checkout.html?tier=guarantee">Get pass guarantee</a>
+          <a class="btn" style="background:var(--amber);color:#1a0e00;" href="/checkout.html?tier=guarantee">Get access until you pass</a>
           <p class="price-note">One-time · never renews · access until you pass</p>
         </div>
       </div>
@@ -842,7 +850,7 @@
   <section class="wrap band">
     <div class="guar">
       <div class="shield" aria-hidden="true">🛡️</div>
-      <h2>The NCMHCE pass guarantee</h2>
+      <h2>Access extensions until you pass</h2>
       <p class="promise">You pass, you win. You don't, we've got you.</p>
       <div class="guar-split">
         <div class="guar-box win">
@@ -851,10 +859,10 @@
         </div>
         <div class="guar-box cover">
           <div class="gb-h"><span class="dot"></span>If you don't</div>
-          <p>Your access is extended at no extra cost so you can keep working cases and walk back in ready.</p>
+          <p>Your access is extended at no extra cost so you can keep working cases and walk back in ready. Did the work and still didn't pass? You can <a href="/guarantee.html#refund" style="color:var(--emerald-400)">take a refund</a> instead.</p>
         </div>
       </div>
-      <a class="btn lg" href="/guarantee.html">See the full guarantee</a>
+      <a class="btn lg" href="/guarantee.html">How access extensions work</a>
     </div>
   </section>
 
@@ -875,7 +883,7 @@
     <div class="sec-head">
       <span class="eyebrow">Questions candidates ask</span>
       <h2 id="faq-h">NCMHCE and NCE prep, answered</h2>
-      <p>Straight answers on the exams, the study plan, and the guarantee.</p>
+      <p>Straight answers on the exams, the study plan, and access extensions.</p>
     </div>
     <div class="faq">
       <details class="faq-item" open>
@@ -897,11 +905,11 @@
       <!-- prp-web-only -->
       <details class="faq-item">
         <summary><h3>Is there a free NCMHCE practice test?</h3><span class="faq-chev" aria-hidden="true"></span></summary>
-        <p>Yes. Your first NCMHCE case simulation is free and does not require an account, and the 3-day free trial includes the full timed mock exam. NCE candidates can try free sample questions before choosing a plan.</p>
+        <p>Yes. Your first NCMHCE case simulation is free and does not require an account, and the 7-day free trial includes the full timed mock exam. NCE candidates can try free sample questions before choosing a plan.</p>
       </details>
       <details class="faq-item">
-        <summary><h3>How does the pass guarantee work?</h3><span class="faq-chev" aria-hidden="true"></span></summary>
-        <p>The Pass Guarantee plan is a one-time $249 purchase and includes The Complete NCMHCE Study Guide (digital, a $25 value). Complete at least 20 cases and reach 60% or higher on the readiness predictor before your exam date. If you do not pass, we verify your result and add 3 more months of access at no charge, as many times as it takes. If you do pass, your first continuing education course on CounselorReady, our board-approved CE platform, is free.</p>
+        <summary><h3>How do access extensions until you pass work?</h3><span class="faq-chev" aria-hidden="true"></span></summary>
+        <p>The Access Extensions Until You Pass plan is a one-time $249 purchase and includes The Complete NCMHCE Study Guide (digital, a $25 value). Complete at least 20 cases and reach 60% or higher on the readiness predictor before your exam date. If you do not pass, we verify your result and add 3 more months of access at no charge, as many times as it takes. If you do pass, your first continuing education course on CounselorReady, our board-approved CE platform, is free.</p>
       </details>
       <!-- /prp-web-only -->
       <details class="faq-item">
@@ -925,6 +933,9 @@
       <a class="btn lg" href="/study">Start NCMHCE prep</a>
       <a class="btn lg blue" href="/nce.html">Start NCE prep</a>
     </div>
+    <div style="margin-top:14px">
+      <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.gaitp.passreadyprep" target="_blank" rel="noopener"><img src="/assets/google-play-badge.png" alt="Get it on Google Play" width="150" height="58"></a>
+    </div>
   </section>
 </main>
 
@@ -937,7 +948,7 @@
           <span class="brand-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
           <span class="brand">PassReady <span class="prep">Prep</span></span>
         </a>
-        <p>NCMHCE clinical simulations and NCE practice questions for counselor licensure — showing you when you're ready to sit, backed by a guarantee.</p>
+        <p>NCMHCE clinical simulations and NCE practice questions for counselor licensure — showing you when you're ready to sit, with access extensions until you pass.</p>
       </div>
       <div class="foot-col">
         <h4>NCMHCE</h4>
@@ -955,7 +966,7 @@
         <a href="/flashcards.html">NCMHCE flashcards</a>
         <a href="/dsm.html">NCMHCE DSM-5-TR reference</a>
         <a href="/theory.html">NCMHCE theories &amp; pioneers</a>
-        <a href="/guarantee.html">NCMHCE pass guarantee</a>
+        <a href="/guarantee.html">NCMHCE access extensions until you pass</a>
       </div>
       <div class="foot-col">
         <h4>NCE</h4>
@@ -992,7 +1003,7 @@
     <div class="foot-legal">
       <span class="prov">GA Integrated Therapeutic Perspectives LLC</span>
       <span><a href="/policies.html" style="color:var(--slate-500)">Policies &amp; Terms</a> &nbsp;·&nbsp; <a href="/policies.html#privacy" style="color:var(--slate-500)">Privacy Policy</a> &nbsp;·&nbsp; © 2026 GA Integrated Therapeutic Perspectives LLC. All rights reserved.</span>
-      <span class="tm" style="flex-basis:100%">NCE&reg; and NCMHCE&reg; are registered trademarks of the National Board for Certified Counselors, Inc. (NBCC). PassReady Prep is not affiliated with or endorsed by NBCC.</span>
+      <span class="tm" style="flex-basis:100%">NCE&reg; and NCMHCE&reg; are registered trademarks of the National Board for Certified Counselors, Inc. (NBCC). PassReady Prep is not affiliated with or endorsed by NBCC. Google Play and the Google Play logo are trademarks of Google LLC.</span>
     </div>
   </div>
 </footer>

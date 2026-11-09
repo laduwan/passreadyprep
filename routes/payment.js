@@ -11,7 +11,7 @@
  *   guarantee  — $249 one-time, access until passing (bundles NCMHCE study guide)
  *   test       — $1.00 one-time, admin-only live-payment smoke test (grants nothing)
  *   nce_monthly / nce_pass3 / nce_pass6 — NCE plans, written to User.nceAccess
- *   nce_guarantee — NCE Pass Guarantee, same rules as `guarantee`, written to
+ *   nce_guarantee — NCE Access Extensions Until You Pass, same rules as `guarantee`, written to
  *                   User.nceAccess. Off until STRIPE_PRICE_NCE_GUARANTEE is set.
  *
  * ENV vars required (add to .env and Render dashboard):
@@ -24,7 +24,7 @@
  *   STRIPE_PRICE_NCE_MONTHLY — price_xxx (NCE monthly $24.99 recurring)
  *   STRIPE_PRICE_NCE_PASS3   — price_xxx (NCE 3-month $59 one-time)
  *   STRIPE_PRICE_NCE_PASS6   — price_xxx (NCE 6-month $89 one-time)
- *   STRIPE_PRICE_NCE_GUARANTEE — price_xxx (NCE Pass Guarantee one-time; optional)
+ *   STRIPE_PRICE_NCE_GUARANTEE — price_xxx (NCE Access Extensions Until You Pass one-time; optional)
  *   STRIPE_PRICE_GUIDE       — price_xxx (NCMHCE Study Guide one-time digital)
  *   STRIPE_PRICE_GUIDE_NCE   — price_xxx (NCE Ownership Method one-time digital)
  *   CLIENT_URL              — https://passreadyprep-server.onrender.com (no trailing slash)
@@ -40,6 +40,7 @@ const Attempt = require('../models/Attempt');
 const { getNceExam } = require('../utils/nceExam');
 const { cleanDomainScores, buildRetakePlan } = require('../utils/retakePlan');
 const { isForfeited, nextRequestDue, RESULT_WINDOW_DAYS } = require('../utils/guaranteeRules');
+const { refundEligibility, REFUND_RULES, REFUND_PLAN } = require('../utils/guaranteeRefund');
 
 // Lazy init: construct the Stripe client on first use, not at module load.
 // Building it at require-time meant a missing STRIPE_SECRET_KEY crashed the
@@ -117,7 +118,7 @@ const TIERS = {
     // This isn't a payment gate — it's proof that one real person is using
     // one account to prepare for one NCMHCE. Extensions are free and unlimited.
     accessDays: 180,
-    // Bundles the NCMHCE study guide as part of the Pass Guarantee purchase;
+    // Bundles the NCMHCE study guide as part of the Access Extensions Until You Pass purchase;
     // the webhook also grants `guidePurchasedAt` so the buyer can download it.
     bundleGuide: 'ncmhce',
   },
@@ -158,7 +159,7 @@ const TIERS = {
     exam: 'nce',
     // Auto-renews every 6 months.
   },
-  // NCE Pass Guarantee: the same promise as `guarantee` above (no repayment,
+  // NCE Access Extensions Until You Pass: the same promise as `guarantee` above (no repayment,
   // a candidate check-in every 6 months, pass → free CE course, fail → free
   // extension), on User.nceAccess. Not offered until its price is configured.
   nce_guarantee: {
@@ -169,7 +170,7 @@ const TIERS = {
     guarantee: true,
     accessDays: 180,
     // Bundles the NCE study guide ("The NCE Ownership Method") as part of the
-    // Pass Guarantee purchase; the webhook also grants `guideNcePurchasedAt`.
+    // Access Extensions Until You Pass purchase; the webhook also grants `guideNcePurchasedAt`.
     bundleGuide: 'nce',
   },
   // $1.00 test purchase for verifying the live Stripe flow end to end
@@ -200,10 +201,10 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
       return res.status(400).json({ error: 'Invalid tier' });
     }
 
-    // Pass Guarantee requires explicit acknowledgment of the check-in terms
+    // Access Extensions Until You Pass plan requires explicit acknowledgment of the check-in terms
     if (TIERS[tier].guarantee && !guaranteeTermsAccepted) {
       return res.status(400).json({
-        error: 'You must acknowledge the Pass Guarantee candidate verification terms to proceed',
+        error: 'You must acknowledge the Access Extensions Until You Pass candidate verification terms to proceed',
         code: 'GUARANTEE_TERMS_REQUIRED',
       });
     }
@@ -449,11 +450,16 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
             'nceAccess.currentPeriodEnd': nceEnd,
             'nceAccess.lastPaymentIntentId': session.payment_intent,
           };
-          // Pass Guarantee bundles the matching study guide; grant the
+          // Access Extensions Until You Pass plan bundles the matching study guide; grant the
           // entitlement so the buyer can download it from /nce-study-guide.html.
           if (tierConfig.bundleGuide === 'nce') {
             nceUpdate.guideNcePurchasedAt = new Date();
             nceUpdate.guideNceOrderId = session.id;
+          }
+          // The refund option's timing rules start from the purchase date.
+          if (tierConfig.guarantee) {
+            nceUpdate['nceAccess.guaranteePurchasedAt'] = new Date();
+            nceUpdate['nceAccess.source'] = 'stripe';
           }
           await User.findByIdAndUpdate(userId, nceUpdate);
           console.log(`✓ NCE one-time payment: user ${userId} → ${tier}, expires ${nceEnd}${tierConfig.bundleGuide ? ' (+ bundled guide)' : ''}`);
@@ -472,11 +478,17 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
           'subscription.currentPeriodEnd': periodEnd,
           'subscription.lastPaymentIntentId': session.payment_intent,
         };
-        // Pass Guarantee bundles the NCMHCE study guide; grant the entitlement
+        // Access Extensions Until You Pass plan bundles the NCMHCE study guide; grant the entitlement
         // so the buyer can download it from /study-guide.html.
         if (tierConfig.bundleGuide === 'ncmhce') {
           subUpdate.guidePurchasedAt = new Date();
           subUpdate.guideOrderId = session.id;
+        }
+        // The refund option's timing rules start from the purchase date, and
+        // only website purchases can be refunded from here.
+        if (tierConfig.guarantee) {
+          subUpdate['subscription.guaranteePurchasedAt'] = new Date();
+          subUpdate['subscription.source'] = 'stripe';
         }
         await User.findByIdAndUpdate(userId, subUpdate);
 
@@ -602,7 +614,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
   }
 });
 
-// Which Pass Guarantee a score report belongs to: the NCMHCE guarantee lives
+// Which Access Extensions Until You Pass a score report belongs to: the NCMHCE guarantee lives
 // on User.subscription, the NCE guarantee on User.nceAccess. Requests name the
 // exam with `exam: 'nce'`; anything else means NCMHCE, as before.
 function guaranteePlan(user, exam) {
@@ -612,12 +624,12 @@ function guaranteePlan(user, exam) {
 }
 
 // ── POST /api/payment/score-report ───────────────────────────────────────────
-// User submits a check-in or an exam result for their Pass Guarantee.
+// User submits a check-in or an exam result for their Access Extensions Until You Pass.
 // Puts the guarantee into 'pending' state for admin review.
 // Accepts: { examDate, result: 'pass'|'fail'|'scheduled', notes?, exam ('nce' | default NCMHCE),
 //            letter (data URI, always required), domainScores? { key: { earned, possible } } }
 // Every check-in comes with a document so it can be verified against the
-// account (Pass Guarantee terms, policies.html#guarantee): the exam appointment
+// account (Access Extensions Until You Pass terms, policies.html#guarantee): the exam appointment
 // confirmation for 'scheduled', the score letter for 'pass' / 'fail'. An
 // approved 'scheduled' or 'fail' adds 3 months. A fail also needs the
 // per-domain scores from the letter; they build the retake plan.
@@ -629,11 +641,11 @@ router.post('/score-report', requireAuth, async (req, res) => {
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ error: 'User not found' });
 
-    const { examDate, result, notes, exam, letter, domainScores } = req.body || {};
+    const { examDate, result, notes, exam, letter, domainScores, remedy } = req.body || {};
     const g = guaranteePlan(user, exam);
 
     if (g.plan.tier !== g.tier) {
-      return res.status(403).json({ error: `Score report only applies to the ${g.name} Pass Guarantee` });
+      return res.status(403).json({ error: `Score report only applies to the ${g.name} Access Extensions Until You Pass` });
     }
 
     if (!examDate || !['pass', 'fail', 'scheduled'].includes(result)) {
@@ -643,7 +655,7 @@ router.post('/score-report', requireAuth, async (req, res) => {
     // No request within 90 days of a verified non-pass forfeits the guarantee.
     if (isForfeited(g.plan.scoreReport)) {
       return res.status(403).json({
-        error: 'This Pass Guarantee was forfeited: no new request was made within 90 days of your last exam. Contact support with any questions.',
+        error: 'This Access Extensions Until You Pass plan was forfeited: no new request was made within 90 days of your last exam. Contact support with any questions.',
         code: 'GUARANTEE_FORFEITED',
       });
     }
@@ -660,7 +672,7 @@ router.post('/score-report', requireAuth, async (req, res) => {
       return res.status(400).json({ error: 'That file is too large. Please attach a file under 5 MB.' });
     }
     if (taken) {
-      // A result is claimed within 14 days of the exam (Pass Guarantee terms).
+      // A result is claimed within 14 days of the exam (Access Extensions Until You Pass terms).
       const days = (Date.now() - new Date(examDate).getTime()) / 86400000;
       if (!(days >= -1)) return res.status(400).json({ error: 'The exam date for a result can’t be in the future.' });
       if (days > RESULT_WINDOW_DAYS) {
@@ -681,6 +693,23 @@ router.post('/score-report', requireAuth, async (req, res) => {
       retakePlan = buildRetakePlan(g.exam, clean.scores, await practiceByDomain(user._id, g.exam));
     }
 
+    // Non-pass: the member picks the 3-month extension (default) or a refund.
+    // A refund request must meet the refund terms now; an admin re-checks
+    // them before paying (utils/guaranteeRefund.js).
+    const wantsRefund = result === 'fail' && remedy === 'refund';
+    let refundCheck = null;
+    if (wantsRefund) {
+      const prior = [...(g.plan.scoreReportHistory || []), g.plan.scoreReport].filter(Boolean);
+      refundCheck = await refundEligibility(user, examDate, prior, g.exam);
+      if (!refundCheck.eligible) {
+        return res.status(400).json({
+          error: 'This result doesn’t qualify for a refund: ' + refundCheck.checks.filter((c) => !c.ok).map((c) => c.label).join('; ') + '. You can choose the 3-month extension instead.',
+          code: 'REFUND_NOT_ELIGIBLE',
+          checks: refundCheck.checks,
+        });
+      }
+    }
+
     // Keep the previous report (minus its letter) so each attempt stays on record.
     const prev = g.plan.scoreReport;
     if (prev && prev.status && prev.status !== 'none') {
@@ -699,6 +728,8 @@ router.post('/score-report', requireAuth, async (req, res) => {
       letterType: letter.slice(5, letter.indexOf(';')),
       domainScores: Object.keys(clean.scores).length ? clean.scores : undefined,
       retakePlan: retakePlan || undefined,
+      remedy: result === 'fail' ? (wantsRefund ? 'refund' : 'extend') : undefined,
+      refundCheck: refundCheck ? { checks: refundCheck.checks, stats: refundCheck.stats, at: new Date() } : undefined,
     });
     await user.save();
 
@@ -712,15 +743,18 @@ router.post('/score-report', requireAuth, async (req, res) => {
       notify: true,
       userId: user._id,
       email: user.email,
-      message: `${g.name} ${result === 'scheduled' ? 'retest appointment' : result === 'fail' ? 'non-pass result' : 'pass result'} submitted — review in /admin/score-reports`,
-      meta: { exam: g.exam, result, examDate, extensionCount: (prev && prev.extensionCount) || 0 },
+      message: `${g.name} ${result === 'scheduled' ? 'retest appointment' : result === 'fail' ? (wantsRefund ? 'non-pass result (refund requested)' : 'non-pass result') : 'pass result'} submitted — review in /admin/score-reports`,
+      meta: { exam: g.exam, result, examDate, remedy: wantsRefund ? 'refund' : undefined, extensionCount: (prev && prev.extensionCount) || 0 },
       req,
     });
 
     res.json({
       ok: true,
       retakePlan,
-      message: 'Score report submitted — we\'ll review it within 48 hours.',
+      remedy: wantsRefund ? 'refund' : undefined,
+      message: wantsRefund
+        ? 'Result submitted with your refund request — we\'ll review it within 48 hours.'
+        : 'Score report submitted — we\'ll review it within 48 hours.',
     });
   } catch (err) {
     console.error('score-report submit error:', err);
@@ -746,11 +780,32 @@ async function practiceByDomain(userId, exam) {
   return out;
 }
 
+// ── GET /api/payment/refund-eligibility?examDate=YYYY-MM-DD&exam=nce ──────────
+// The refund checks for a non-pass on that date, so score-report.html can show
+// the member where they stand before they choose a refund or an extension.
+router.get('/refund-eligibility', requireAuth, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select('subscription nceAccess guaranteeTermsAcceptedAt guaranteeRefundedAt nceGuaranteeRefundedAt');
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    const g = guaranteePlan(user, req.query.exam);
+    const sub = g.plan;
+    if (sub.tier !== g.tier) return res.status(403).json({ error: `Refunds only apply to the ${g.name} Access Extensions Until You Pass` });
+    const examDate = req.query.examDate;
+    if (!examDate || isNaN(new Date(examDate).getTime())) return res.status(400).json({ error: 'examDate is required' });
+    const prior = [...(sub.scoreReportHistory || []), sub.scoreReport].filter(Boolean);
+    const check = await refundEligibility(user, examDate, prior, g.exam);
+    res.json({ ...check, guideCents: REFUND_RULES.GUIDE_CENTS });
+  } catch (err) {
+    console.error('refund-eligibility error:', err);
+    res.status(500).json({ error: 'Could not check refund eligibility' });
+  }
+});
+
 // ── GET /api/payment/score-report-status?exam=nce ─────────────────────────────
 // Returns the user's current gate state so the frontend knows what to show.
 router.get('/score-report-status', requireAuth, async (req, res) => {
   try {
-    const user = await User.findById(req.userId).select('subscription nceAccess');
+    const user = await User.findById(req.userId).select('subscription nceAccess guaranteeRefundedAt nceGuaranteeRefundedAt');
     if (!user) return res.status(404).json({ error: 'User not found' });
 
     const g = guaranteePlan(user, req.query.exam);
@@ -784,6 +839,10 @@ router.get('/score-report-status', requireAuth, async (req, res) => {
       lastResult: sr.result || null,
       examDate: sr.examDate || null,
       retakePlan: sr.retakePlan || null,
+      // Whether a non-pass can be taken as a refund at all (per-result rules
+      // are checked by /refund-eligibility).
+      refundOffered: sub.tier === g.tier && sub.source !== 'apple' && !user[REFUND_PLAN[g.exam].refundedField],
+      remedy: sr.remedy || null,
     });
   } catch (err) {
     console.error('score-report-status error:', err);
@@ -792,7 +851,7 @@ router.get('/score-report-status', requireAuth, async (req, res) => {
 });
 
 // ── GET /api/payment/score-reports  (admin only) ─────────────────────────────
-// Pending Pass Guarantee check-ins for both exams, oldest first, without the
+// Pending Access Extensions Until You Pass check-ins for both exams, oldest first, without the
 // documents (fetch each with the letter route below), then forfeited
 // guarantees (forfeited: true) so an admin can reopen one.
 router.get('/score-reports', requireAuth, async (req, res) => {
@@ -819,6 +878,7 @@ router.get('/score-reports', requireAuth, async (req, res) => {
           letterType: sr.letterType || null, domainScores: sr.domainScores || null,
           retakePlan: sr.retakePlan || null, extensionCount: sr.extensionCount || 0,
           currentPeriodEnd: plan.currentPeriodEnd || null,
+          remedy: sr.remedy || null, refundCheck: sr.refundCheck || null,
         });
       });
     });
@@ -860,8 +920,8 @@ router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
     }
 
     const { action, notes, exam } = req.body || {};
-    if (!['extend', 'pass', 'reopen'].includes(action)) {
-      return res.status(400).json({ error: 'action must be "extend", "pass" or "reopen"' });
+    if (!['extend', 'pass', 'reopen', 'refund'].includes(action)) {
+      return res.status(400).json({ error: 'action must be "extend", "pass", "reopen" or "refund"' });
     }
 
     const user = await User.findById(req.params.userId);
@@ -902,6 +962,60 @@ router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
         ok: true,
         message: `${g.name} access extended 90 days (extension #${count}). New expiry: ${newEnd.toDateString()}`,
       });
+    }
+
+    if (action === 'refund') {
+      // Verified non-pass taken as a refund: re-check the terms, refund the
+      // purchase minus the study guide the member keeps, and end the
+      // guarantee. Extend instead if the checks no longer pass.
+      if (sr.result !== 'fail' || sr.remedy !== 'refund') {
+        return res.status(400).json({ error: 'This report did not request a refund' });
+      }
+      const check = await refundEligibility(user, sr.examDate, g.plan.scoreReportHistory || [], g.exam);
+      if (!check.eligible) {
+        return res.status(400).json({
+          error: 'Refund checks no longer pass: ' + check.checks.filter((c) => !c.ok).map((c) => `${c.label}${c.detail ? ` (${c.detail})` : ''}`).join('; ') + '. Use Extend instead.',
+        });
+      }
+      const stripe = getStripe();
+      const pi = await stripe.paymentIntents.retrieve(g.plan.lastPaymentIntentId, { expand: ['latest_charge'] });
+      const paid = pi.amount_received || 0;
+      const already = (pi.latest_charge && pi.latest_charge.amount_refunded) || 0;
+      const amount = Math.min(paid - already, paid - REFUND_RULES.GUIDE_CENTS);
+      if (!(amount > 0)) return res.status(400).json({ error: 'Nothing left to refund on this payment' });
+      const refund = await stripe.refunds.create(
+        { payment_intent: pi.id, amount, metadata: { userId: String(user._id), reason: 'pass_guarantee_non_pass' } },
+        { idempotencyKey: `guarantee-refund-${user._id}-${pi.id}` },
+      );
+
+      const now = new Date();
+      user.set(`${g.path}.tier`, 'free');
+      user.set(`${g.path}.status`, 'canceled');
+      user.set(`${g.path}.currentPeriodEnd`, now);
+      user.set(`${g.path}.scoreReport.status`, 'refunded');
+      user.set(`${g.path}.scoreReport.reviewedAt`, now);
+      user.set(`${g.path}.scoreReport.notes`, notes || '');
+      user.set(`${g.path}.scoreReport.refundId`, refund.id);
+      user.set(`${g.path}.scoreReport.refundAmount`, amount);
+      user.set(REFUND_PLAN[g.exam].refundedField, now);
+      await user.save();
+
+      const dollars = `$${(amount / 100).toFixed(2)}`;
+      logActivity({ type: 'guarantee.refunded', severity: 'warn', userId: user._id, email: user.email, message: `${g.name} Access Extensions Until You Pass plan refunded after a verified non-pass: ${dollars}`, meta: { exam: g.exam, refundId: refund.id, amount, paymentIntent: pi.id }, req });
+      const { sendMail } = require('../utils/mailer');
+      sendMail({
+        to: user.email,
+        subject: 'Your PassReady Prep refund is on its way',
+        text: `Hi${user.name ? ' ' + user.name : ''},
+
+We verified your ${g.name} result and refunded ${dollars} to your original payment method (your Access Extensions Until You Pass price minus the $25 study guide, which is yours to keep). It usually shows up within 5–10 business days.
+
+Your ${g.name} Access Extensions Until You Pass plan has now ended. If you decide to try again, you're welcome back any time.
+
+PassReady Prep`,
+      }).catch((e) => console.error('refund email failed:', e.message));
+
+      return res.json({ ok: true, message: `Refunded ${dollars} (Stripe ${refund.id}). Plan closed and access ended.` });
     }
 
     if (action === 'pass') {
@@ -974,7 +1088,7 @@ router.get('/pending-score-reports', requireAuth, async (req, res) => {
 // ── GET /api/payment/plans?exam=nce ─────────────────────────────────────────
 // Live prices for an exam's plans, read from Stripe using the price IDs in the
 // environment, so pages show what Stripe will charge. A plan whose price ID is
-// not set is left out — that is how the NCE Pass Guarantee stays hidden until
+// not set is left out — that is how the NCE Access Extensions Until You Pass plan stays hidden until
 // STRIPE_PRICE_NCE_GUARANTEE exists. Cached for 10 minutes.
 const PLAN_CACHE_MS = 10 * 60 * 1000;
 const planCache = {};
