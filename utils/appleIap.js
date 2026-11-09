@@ -63,7 +63,10 @@ const CATALOG = [
   { tier: 'pass3',         sku: 'ncmhce.sub3mo',    kind: 'autoRenewable', name: 'NCMHCE 3-Month' },
   { tier: 'pass6',         sku: 'ncmhce.sub6mo',    kind: 'autoRenewable', name: 'NCMHCE 6-Month' },
   { tier: 'guarantee',     sku: 'ncmhce.guarantee', kind: 'nonConsumable', name: 'NCMHCE Access Until You Pass' },
-  { tier: 'guide',         sku: 'guide',            kind: 'nonConsumable', name: 'The Complete NCMHCE Study Guide' },
+  // The study guide is sold on the website only, never in the app. The entry
+  // stays so a guide transaction (earlier sandbox testing) still verifies.
+  { tier: 'guide',         sku: 'guide',            kind: 'nonConsumable', name: 'The Complete NCMHCE Study Guide',
+    offered: () => false },
   { tier: 'nce_monthly',   sku: 'nce.monthly',      kind: 'autoRenewable', name: 'NCE Monthly' },
   { tier: 'nce_pass3',     sku: 'nce.sub3mo',       kind: 'autoRenewable', name: 'NCE 3-Month' },
   { tier: 'nce_pass6',     sku: 'nce.sub6mo',       kind: 'autoRenewable', name: 'NCE 6-Month' },
