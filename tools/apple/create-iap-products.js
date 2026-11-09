@@ -30,7 +30,7 @@
  *   node tools/apple/create-iap-products.js --screenshots ~/iap-screens
  *   node tools/apple/create-iap-products.js --screenshots DIR --replace-screenshots  # swap an already-accepted image
  *   IAP_PRICES='{"monthly":27.99}' node tools/apple/create-iap-products.js   # override USD prices
- *   NCE_GUARANTEE=0 node tools/apple/create-iap-products.js                  # skip the NCE Pass Guarantee
+ *   NCE_GUARANTEE=0 node tools/apple/create-iap-products.js                  # skip NCE Access Until You Pass
  */
 'use strict';
 
@@ -70,7 +70,7 @@ const PRODUCTS = [
   { tier: 'pass6',         sku: 'ncmhce.sub6mo',    type: 'subscription', group: 'NCMHCE', period: 'SIX_MONTHS',   usd: 149.99,
     name: 'NCMHCE 6-Month', desc: 'Full NCMHCE access, renews every 6 months.' },
   { tier: 'guarantee',     sku: 'ncmhce.guarantee', type: 'NON_CONSUMABLE', usd: 149.99,
-    name: 'NCMHCE Pass Guarantee', desc: 'Unlimited NCMHCE access until you pass. One payment.' },
+    name: 'NCMHCE Access Until You Pass', desc: 'Extends NCMHCE access until you pass. One payment.' },
   { tier: 'guide',         sku: 'guide',            type: 'NON_CONSUMABLE', usd: 24.99,
     name: 'Complete NCMHCE Study Guide', desc: 'Digital study guide: 18 families, 3 practice exams.' },
   { tier: 'nce_monthly',   sku: 'nce.monthly',      type: 'subscription', group: 'NCE', period: 'ONE_MONTH', usd: 24.99,
@@ -80,7 +80,7 @@ const PRODUCTS = [
   { tier: 'nce_pass6',     sku: 'nce.sub6mo',       type: 'subscription', group: 'NCE', period: 'SIX_MONTHS',   usd: 89.99,
     name: 'NCE 6-Month', desc: 'Full NCE access, renews every 6 months.' },
   { tier: 'nce_guarantee', sku: 'nce.guarantee',    type: 'NON_CONSUMABLE', usd: 149.99, optional: process.env.NCE_GUARANTEE === '0',
-    name: 'NCE Pass Guarantee', desc: 'Unlimited NCE access until you pass. One payment.' },
+    name: 'NCE Access Until You Pass', desc: 'Extends NCE access until you pass. One payment.' },
 ];
 const GROUPS = {
   NCMHCE: { referenceName: 'NCMHCE', displayName: 'NCMHCE Prep' },
