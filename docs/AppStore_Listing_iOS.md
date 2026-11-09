@@ -63,8 +63,8 @@ MORE WAYS TO STUDY
 • DSM-5-TR quick reference with 90+ diagnoses
 • Next Best Step and What to Assess Next drills, theories and pioneers, and a clinical podcast
 
-PASS GUARANTEE
-Eligible plans include the PassReady pass guarantee. See passreadyprep.com for full terms.
+ACCESS EXTENSIONS UNTIL YOU PASS
+Eligible plans include the PassReady access extensions until you pass. See passreadyprep.com for full terms.
 
 GETTING STARTED
 Download free and try a sample case. Create a free account to save your progress across your phone and the web. Plans are available at passreadyprep.com; sign in to the app to use what you've purchased.

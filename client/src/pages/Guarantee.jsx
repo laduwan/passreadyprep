@@ -18,7 +18,7 @@ const ELIGIBILITY = [
 
 const FAQ = [
   { q: 'How do I claim my free CE course after passing?', a: 'Email your unofficial score report within 14 days. We\'ll send a coupon code for TMH 601 or Mandated Reporter. Sign up at CounselorReady.com, apply your code, and enable reminders. We\'ll email at 60, 30, and 7 days before the 90-day window closes.' },
-  { q: 'Can I get a refund instead of extended access?', a: 'The guarantee covers extended access, not a refund. We want to keep helping you pass.' },
+  { q: 'Can I get a refund instead of extended access?', a: 'Yes, on the Access Extensions Until You Pass plan, if you did the work and meet the refund conditions. See the full terms on passreadyprep.com/guarantee.html.' },
   { q: 'How long is the extension if I don\'t pass?', a: 'Equal to your original subscription. 3-month plan = 3 more months.' },
   { q: 'What counts as a completed case?', a: 'A case where you answered all questions and saw the results screen.' },
   { q: 'What is CounselorReady?', a: 'Our board-approved CE platform. Once licensed, you\'ll need CE credits — your free course gets you started.' },
@@ -29,7 +29,7 @@ export default function Guarantee() {
     <div className="space-y-5">
       <div className="text-center py-4">
         <Shield className="w-16 h-16 text-emerald-400 mx-auto mb-3" />
-        <h1 className="text-2xl font-bold text-white">Pass guarantee</h1>
+        <h1 className="text-2xl font-bold text-white">Access extensions until you pass</h1>
         <p className="text-emerald-400 font-semibold mt-1">You pass, you win. You don't, we've got you.</p>
       </div>
 

@@ -154,7 +154,7 @@ async function applyTransaction(user, tx, opts = {}) {
     return { ...base, action: alreadyApplied ? 'already' : 'granted', expires };
   }
 
-  // ── Pass Guarantee ──
+  // ── Access Extensions Until You Pass ──
   if (cfg.guarantee) {
     if (alreadyApplied) return { ...base, action: 'already' };
     expires = new Date(now.getTime() + cfg.accessDays * DAY); // 6-month check-in window, as the webhook
@@ -283,7 +283,7 @@ router.post('/prepare', requireAuth, async (req, res) => {
     if (!user) return res.status(404).json({ error: 'User not found' });
 
     if (cfg.guarantee && !guaranteeTermsAccepted && !user.guaranteeTermsAcceptedAt) {
-      return res.status(400).json({ error: 'Please acknowledge the Pass Guarantee terms to continue.', code: 'guarantee_terms' });
+      return res.status(400).json({ error: 'Please acknowledge the Access Extensions Until You Pass terms to continue.', code: 'guarantee_terms' });
     }
     const update = {};
     if (cfg.guarantee && !user.guaranteeTermsAcceptedAt) update.guaranteeTermsAcceptedAt = new Date();
