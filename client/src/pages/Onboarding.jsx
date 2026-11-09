@@ -119,7 +119,7 @@ export default function Onboarding({ onComplete, navigate }) {
 
       <div className="bg-emerald-500/8 border border-emerald-500/20 rounded-xl p-4 text-center text-sm text-emerald-300">
         <span className="font-bold">Your target:</span> {casesPerDay} cases/day + 15 min flashcards.
-        Complete 20 cases before exam day to qualify for the pass guarantee.
+        Complete 20 cases before exam day to qualify for the access extensions until you pass.
       </div>
 
       <div className="space-y-4">

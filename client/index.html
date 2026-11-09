@@ -623,7 +623,7 @@ async function showDashboard(){
   h += '<h2>Try a free clinical simulation</h2>';
   h += '<p class="lead">Work through a full NCMHCE-format case — read the vignette, answer 5 clinical questions, and get evidence-based feedback with weighted scoring after each one. No signup required.</p>';
   h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Start free case ›</button>';
-  h += '<br /><a href="/guarantee.html" class="guar-link">✓ Pass guarantee — pass and get a free CE course, or we extend your access</a>';
+  h += '<br /><a href="/guarantee.html" class="guar-link">✓ Access extensions until you pass — pass and get a free CE course, or we extend your access</a>';
   h += '</div>';
 
   // Readiness predictor
@@ -1280,7 +1280,7 @@ function genPlan(){
   var casesPerDay = Math.max(2, Math.min(5, Math.ceil((20 - rd.totalCases) / Math.max(1, phase1))));
   h += '<div style="margin-top:12px;padding:12px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px">';
   h += '<strong style="color:var(--emerald-400)">Daily targets:</strong> ' + casesPerDay + ' cases + 15 min flashcards + 10 min DSM review';
-  if(rd.totalCases < 20) h += '<br><span style="color:var(--amber-400);font-size:13px">You need ' + (20 - rd.totalCases) + ' more cases for pass guarantee eligibility</span>';
+  if(rd.totalCases < 20) h += '<br><span style="color:var(--amber-400);font-size:13px">You need ' + (20 - rd.totalCases) + ' more cases for access extensions until you pass eligibility</span>';
   h += '</div>';
 
   h += '</div>';

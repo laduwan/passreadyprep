@@ -189,7 +189,7 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
         </div>
         <div className="mt-3">
           <button onClick={() => navigate('guarantee')} className="text-emerald-400 text-sm hover:underline">
-            ✓ Pass guarantee — pass and get a free CE course, or we extend your access
+            ✓ Access extensions until you pass — pass and get a free CE course, or we extend your access
           </button>
         </div>
       </div>
@@ -344,7 +344,7 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
             { id: 'core', icon: FileText, label: 'Core Attributes', desc: 'Alliance, theories, microskills, group work, defenses, distortions — the foundational concepts the exam tests.' },
             { id: 'coretutor', icon: Zap, label: 'Core Tutor', desc: 'AI-scored scenario practice — type or speak your response and get clinical reasoning feedback from Dr. Moreau.' },
             { id: 'strategy', icon: Target, label: 'Exam Strategy', desc: 'Timeline-based study plan, the IG scoring rules, the Golden Formula, and common mistakes by domain.' },
-            { id: 'guarantee', icon: Award, label: 'Pass Guarantee', desc: 'Pass and get a free CE course. Don\'t pass and we extend your access.' },
+            { id: 'guarantee', icon: Award, label: 'Access Extensions Until You Pass', desc: 'Pass and get a free CE course. Don\'t pass and we extend your access.' },
           ].map((tool) => (
             <button
               key={tool.id}
@@ -430,7 +430,7 @@ function StudyPlan({ rd, examDate }) {
         <span className="text-slate-300"> {casesPerDay} cases + 15 min flashcards + 10 min DSM</span>
         {totalCases < 20 && (
           <div className="text-xs text-amber-400 mt-1">
-            {20 - totalCases} more cases needed for pass guarantee eligibility
+            {20 - totalCases} more cases needed for access extensions until you pass eligibility
           </div>
         )}
       </div>

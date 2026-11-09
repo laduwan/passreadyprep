@@ -193,7 +193,7 @@ router.get('/mock', resolveNceAccess, async (req, res) => {
         message: req.nceAccessLevel === 'free'
           ? `Create a free account to take a timed NCE mock exam (${NCE_TRIAL_DAYS}-day trial).`
           : req.nceAccessLevel === 'gated'
-          ? 'Your NCE Pass Guarantee check-in is due. Submit your exam date or score report to restore access.'
+          ? 'Your NCE Access Extensions Until You Pass check-in is due. Submit your exam date or score report to restore access.'
           : 'Your NCE trial has ended. Pick an NCE plan to keep taking timed exams.',
       });
     }
