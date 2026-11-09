@@ -72,7 +72,7 @@ function endingSoonEmail(user, trialEnd) {
         <h2 style="color:#0F172A;margin-top:0;">Your trial ends tomorrow, ${name}</h2>
         <p style="color:#4a4a4a;line-height:1.6;">
           Your PassReady Prep free trial ends <strong>${friendlyDate}</strong>. Pick a plan now to keep
-          full access to all 270+ cases, flashcards, decision trees, and the DSM-5-TR reference.
+          full access to all 290+ cases, flashcards, decision trees, and the DSM-5-TR reference.
         </p>${ctaButton()}
         <p style="color:#888;font-size:12px;text-align:center;">PassReady Prep</p>
       </div>

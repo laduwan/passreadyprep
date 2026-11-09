@@ -257,34 +257,39 @@ function hasAccess(product, user, now) {
   return trialEndFor(user) > now;
 }
 
+// The command-line run's settings. jobs/nudgeEmails.js (the scheduled
+// version of this script) passes its own audience, windows and exclusions,
+// and checks its own sent keys, so it sends key: null.
+const CLI = { audience: AUDIENCE, minDays: MIN_DAYS, maxDays: MAX_DAYS, onlyProduct: ONLY_PRODUCT, key: BROADCAST_KEY, exclude: EXCLUDE };
+
 // Why an account should never get marketing email, or null if it can.
-function excludedReason(user) {
+function excludedReason(user, opts = CLI) {
   const email = (user.email || '').toLowerCase();
   if (user.isGuest) return 'guest';
   if (user.role === 'admin') return 'admin';
   if (user.termsVersion === 'admin-created') return 'made by admin (tester/comp)';
   if (TEST_EMAIL.test(email)) return 'test/demo address';
-  if (EXCLUDE.has(email)) return 'excluded by list';
+  if (opts.exclude && opts.exclude.has(email)) return 'excluded by list';
   if (user.prefs && user.prefs.digestOptOut) return 'unsubscribed';
-  if (user.broadcastsSent && user.broadcastsSent[BROADCAST_KEY]) return 'already sent this email';
+  if (opts.key && user.broadcastsSent && user.broadcastsSent[opts.key]) return 'already sent this email';
   return null;
 }
 
 const isPaid = (plan) => !!(plan && plan.tier && plan.tier !== 'free');
 
 // One queue entry per eligible account, or { skip: reason }.
-function classify(user, row, now) {
-  const reason = excludedReason(user);
+function classify(user, row, now, opts = CLI) {
+  const reason = excludedReason(user, opts);
   if (reason) return { skip: reason };
   const firstName = (user.name || '').trim().split(/\s+/)[0] || '';
   const ageDays = (now - new Date(user.createdAt)) / DAY;
   const last = row ? latest(row) : null;
 
-  if (AUDIENCE === 'new') {
-    if (ageDays > MAX_DAYS) return { skip: `account older than ${MAX_DAYS} days` };
+  if (opts.audience === 'new') {
+    if (ageDays > opts.maxDays) return { skip: `account older than ${opts.maxDays} days` };
     if (isPaid(user.subscription) || isPaid(user.nceAccess)) return { skip: 'has a paid plan' };
     const quietSince = last || new Date(user.createdAt);
-    if (now - quietSince < MIN_DAYS * DAY) return { skip: `active in the last ${MIN_DAYS} day(s)` };
+    if (now - quietSince < opts.minDays * DAY) return { skip: `active in the last ${opts.minDays} day(s)` };
     const trialEnd = trialEndFor(user);
     return {
       kind: 'new', user, firstName,
@@ -297,10 +302,10 @@ function classify(user, row, now) {
   if (ageDays <= NEW_ACCOUNT_DAYS) return { skip: 'new account (use --audience=new)' };
   if (!last) return { skip: 'never studied' };
   const daysAway = (now - last) / DAY;
-  if (daysAway < MIN_DAYS) return { skip: `studied in the last ${MIN_DAYS} days` };
-  if (daysAway > MAX_DAYS) return { skip: `last studied over ${MAX_DAYS} days ago` };
+  if (daysAway < opts.minDays) return { skip: `studied in the last ${opts.minDays} days` };
+  if (daysAway > opts.maxDays) return { skip: `last studied over ${opts.maxDays} days ago` };
   const product = pickProduct(row, user);
-  if (ONLY_PRODUCT && product !== ONLY_PRODUCT) return { skip: `studies ${product.toUpperCase()}` };
+  if (opts.onlyProduct && product !== opts.onlyProduct) return { skip: `studies ${product.toUpperCase()}` };
   const plan = product === 'nce' ? user.nceAccess : user.subscription;
   if (plan && plan.scoreReport && plan.scoreReport.status === 'passed') return { skip: 'reported passing' };
   const examDate = product === 'nce' ? user.nceExamDate : user.examDate;
@@ -398,4 +403,4 @@ async function run() {
 
 if (require.main === module) run().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { run, emailFor, pickProduct, classify, excludedReason };
+module.exports = { run, emailFor, pickProduct, classify, excludedReason, lastStudyByUser };

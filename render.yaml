@@ -21,7 +21,11 @@
 #   ADMIN_ALERT_THROTTLE_MIN, ACTIVITY_TTL_DAYS, VISIT_TTL_DAYS, CLIENT_URL,
 #   ADMIN_EMAIL, TRIAL_REMINDERS_DISABLE (set to 1 to stop the trial reminder
 #   emails without a deploy), BLOG_AUTODRAFT_DISABLE (set to 1 to stop the
-#   weekly AI blog drafts), BLOG_DRAFT_MODEL (model for those drafts).
+#   weekly AI blog drafts), BLOG_DRAFT_MODEL (model for those drafts),
+#   MAIL_POSTAL_ADDRESS (required before the scheduled nudge emails send:
+#   commercial email must show a mailing address), MAIL_REPLY_TO,
+#   MAIL_EXCLUDE_EMAILS, NUDGE_EMAILS_DISABLE (set to 1 to stop the nudge
+#   emails), NUDGE_SEND_HOUR_UTC (hour they go out, default 15 = 10am Eastern).
 # See .env.example for the full documented list.
 # ---------------------------------------------------------------------------
 

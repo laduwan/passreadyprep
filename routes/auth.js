@@ -7,6 +7,7 @@ const requireAuth = require('../middleware/auth');
 const { sendMail } = require('../utils/mailer');
 const { logActivity } = require('../utils/activity');
 const { verifyUnsubscribeToken } = require('../utils/unsubscribe');
+const { sendWelcomeEmail } = require('../utils/welcomeEmail');
 
 const router = express.Router();
 
@@ -105,10 +106,24 @@ function baseUrl(req) {
   return host ? 'https://' + host : '';
 }
 
+// Optional exam date from the sign-up form (YYYY-MM-DD). The study plan, the
+// dashboard countdown and the post-exam check-in email all key off it, so it
+// is asked for up front. Anything odd is ignored rather than failing the
+// sign-up: the field is a convenience, never a requirement.
+const SIGNUP_EXAM_DATE_DAY = 24 * 60 * 60 * 1000;
+function parseSignupExamDate(raw) {
+  if (typeof raw !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(raw)) return null;
+  const d = new Date(raw + 'T00:00:00Z');
+  if (isNaN(d.getTime())) return null;
+  const now = Date.now();
+  if (d.getTime() < now - 365 * SIGNUP_EXAM_DATE_DAY || d.getTime() > now + 3 * 365 * SIGNUP_EXAM_DATE_DAY) return null;
+  return d;
+}
+
 // POST /api/auth/register — create an account
 router.post('/register', async (req, res) => {
   try {
-    const { email, password, name, termsAccepted, website, phone, smsOptedIn } = req.body || {};
+    const { email, password, name, termsAccepted, website, phone, smsOptedIn, examDate } = req.body || {};
 
     // Honeypot: "website" is a hidden field real users never see or fill.
     // Bots that auto-fill every input populate it, so we quietly pretend to
@@ -144,6 +159,7 @@ router.post('/register', async (req, res) => {
     // the carrier rule that consent cannot be pre-checked or implied.
     const normalizedPhone = typeof phone === 'string' ? phone.replace(/[^\d+]/g, '').slice(0, 20) : '';
     const opted = smsOptedIn === true && normalizedPhone.length >= 10;
+    const examDateAt = parseSignupExamDate(examDate);
     const profile = {
       email, passwordHash, name,
       termsAcceptedAt: new Date(),
@@ -151,6 +167,7 @@ router.post('/register', async (req, res) => {
       phone: opted ? normalizedPhone : null,
       smsOptedIn: opted,
       smsOptedInAt: opted ? new Date() : undefined,
+      examDate: examDateAt || undefined,
     };
 
     // Signing up from the iOS app while using a guest account: that account
@@ -164,19 +181,14 @@ router.post('/register', async (req, res) => {
       await User.collection.updateOne({ _id: guest._id }, { $set: fields });
       const user = await User.findById(guest._id);
       logActivity({ type: 'user.registered', severity: 'info', email: user.email, userId: user._id, message: 'New account created (from an app guest account)', req });
+      sendWelcomeEmail(user); // not awaited: the sign-up never waits on email
       return res.status(201).json({ token: signToken(user), user: publicUser(user) });
     }
 
-    const user = await User.create({
-      email, passwordHash, name,
-      termsAcceptedAt: new Date(),
-      termsVersion: 'june-2026',
-      phone: opted ? normalizedPhone : null,
-      smsOptedIn: opted,
-      smsOptedInAt: opted ? new Date() : undefined,
-    });
+    const user = await User.create(profile);
 
     logActivity({ type: 'user.registered', severity: 'info', email: user.email, userId: user._id, message: 'New account created', req });
+    sendWelcomeEmail(user); // not awaited: the sign-up never waits on email
     return res.status(201).json({ token: signToken(user), user: publicUser(user) });
   } catch (err) {
     console.error('register error', err);
@@ -226,11 +238,12 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Email or password is incorrect' });
     }
 
-    // Bump session version — invalidates any tokens issued before this login.
-    // Anyone sharing credentials gets kicked out the moment the real user signs in.
-    user.sessionVersion = (user.sessionVersion || 0) + 1;
-    await user.save();
-
+    // Signing in does NOT bump sessionVersion any more. It used to, which
+    // signed the laptop out the moment the same person opened the app on their
+    // phone; candidates study on both, and that was the biggest sign-in
+    // complaint. Account sharing is now handled by the Pass Guarantee's
+    // check-in instead. A password reset (below) and an admin reset
+    // (routes/adminSubscriptions.js) still sign every device out.
     logActivity({ type: 'user.login', severity: 'info', email: user.email, userId: user._id, message: 'Signed in', req });
     return res.json({ token: signToken(user), user: publicUser(user) });
   } catch (err) {

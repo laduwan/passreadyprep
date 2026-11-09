@@ -1,6 +1,6 @@
 /* PassReady Prep — signed-out banner.
- * One account can be signed in on one device at a time (middleware/auth.js).
- * When another device signs in, this device's requests come back 401 with
+ * A password reset or an admin reset signs every device out (middleware/auth.js).
+ * When that happens, this device's requests come back 401 with
  * code SESSION_INVALIDATED. Instead of each page showing a raw error, this
  * clears the stale sign-in and shows one banner with a Sign in button.
  * Injected on every page (server.js injectA11y, client/scripts/build-ios.mjs).
@@ -27,7 +27,7 @@
       'background:#1E293B;border:1px solid rgba(52,211,153,.45);border-radius:14px;padding:12px 14px;' +
       'box-shadow:0 18px 40px -12px rgba(0,0,0,.6);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#E2E8F0';
     bar.innerHTML =
-      '<span style="flex:1 1 220px">You were signed out because your account was signed in on another device.</span>' +
+      '<span style="flex:1 1 220px">You were signed out. Please sign in again to continue.</span>' +
       '<a href="/register.html?tab=login&next=' + next + '" style="background:#10B981;color:#04261C;font-weight:700;' +
       'text-decoration:none;border-radius:10px;padding:8px 14px;white-space:nowrap">Sign in</a>' +
       '<button type="button" aria-label="Dismiss" style="background:none;border:none;color:#94A3B8;font-size:20px;line-height:1;cursor:pointer;padding:2px 4px">&times;</button>';

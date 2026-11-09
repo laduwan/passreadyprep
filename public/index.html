@@ -345,7 +345,7 @@
   <div class="modal">
     <button class="modal-x" aria-label="Close" onclick="closeAuth()">&times;</button>
     <h2>Sign in</h2>
-    <p class="modal-sub">Sign in to unlock all 270+ cases and sync your readiness, history, and study plan across devices.</p>
+    <p class="modal-sub">Sign in to unlock all 290+ cases and sync your readiness, history, and study plan across devices.</p>
     <input id="auth-email" type="email" autocomplete="email" placeholder="Email" />
     <input id="auth-pass" type="password" autocomplete="current-password" placeholder="Password" />
     <div class="auth-err" id="auth-err" role="alert"></div>
@@ -968,19 +968,17 @@ async function showDashboard(){
   }
   h += '</div></div>';
 
-  // Study plan generator
+  // Study plan generator. The exam date field is always here (the sign-up form
+  // and the welcome email point people at it); the plan itself needs 3 cases.
   h += '<div class="card" style="margin-top:16px"><h2>Study plan</h2>';
   h += '<div style="font-size:13px;color:var(--slate-400);margin-bottom:10px">Set your exam date and we\'ll build a 3-phase plan based on your actual domain performance: focused practice on weak areas first, then full-length timed exams, then light review before test day. Updates as your scores change.</div>';
-  if(!rd || rd.totalCases < 3){
-    h += '<p class="lead" style="margin:0">Complete at least 3 cases to unlock your personalized study plan.</p>';
-  } else {
-    const examDateKey = 'prp_exam_date';
-    const savedDate = localStorage.getItem(examDateKey) || '';
+  {
+    const savedDate = localStorage.getItem('prp_exam_date') || '';
     h += '<div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap">';
-    h += '<label style="font-size:13px;color:var(--slate-400)">Exam date:</label>';
-    h += '<input type="date" id="exam-date" value="'+esc(savedDate)+'" style="font:inherit;padding:8px 12px;border:1.5px solid rgba(51,65,85,.6);border-radius:10px;background:rgba(30,41,59,.6);color:var(--white)" onchange="genPlan()" />';
+    h += '<label for="exam-date" style="font-size:13px;color:var(--slate-400)">Exam date:</label>';
+    h += '<input type="date" id="exam-date" value="'+esc(savedDate)+'" style="font:inherit;padding:8px 12px;border:1.5px solid rgba(51,65,85,.6);border-radius:10px;background:rgba(30,41,59,.6);color:var(--white);color-scheme:dark" onchange="genPlan()" />';
     h += '</div>';
-    h += '<div id="study-plan"></div>';
+    h += '<div id="study-plan">' + (!rd || rd.totalCases < 3 ? PLAN_LOCKED : '') + '</div>';
   }
   h += '</div>';
 
@@ -1486,6 +1484,7 @@ async function getDebrief(){
 }
 
 // ---- study plan generator ----
+const PLAN_LOCKED = '<p class="lead" style="margin:0">Complete at least 3 cases to unlock your personalized study plan.</p>';
 function genPlan(){
   var dateEl = document.getElementById('exam-date');
   var planEl = document.getElementById('study-plan');
@@ -1496,7 +1495,7 @@ function genPlan(){
   if(!dateVal){ planEl.innerHTML = '<p style="color:var(--slate-400);font-size:14px;margin:0">Set your exam date to generate a plan.</p>'; return; }
 
   var rd = computeReadiness();
-  if(!rd){ planEl.innerHTML = ''; return; }
+  if(!rd || rd.totalCases < 3){ planEl.innerHTML = PLAN_LOCKED.replace('Complete', 'Exam date saved. Complete'); return; }
 
   var examDate = new Date(dateVal + 'T12:00:00');
   var now = new Date();

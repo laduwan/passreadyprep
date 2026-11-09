@@ -57,11 +57,12 @@
 
   label{display:block;font-size:12px;font-weight:700;letter-spacing:.04em;
     text-transform:uppercase;color:var(--slate-400);margin:0 0 6px}
-  input[type=text],input[type=email],input[type=password],input[type=tel]{
+  input[type=text],input[type=email],input[type=password],input[type=tel],input[type=date]{
     width:100%;background:rgba(15,23,42,.55);border:1px solid var(--card-border);
     border-radius:10px;color:var(--white);font:inherit;font-size:15px;
     padding:11px 14px;outline:none;transition:border-color .15s;margin-bottom:16px}
   .optional-tag{color:var(--slate-600);text-transform:none;letter-spacing:0;font-weight:400}
+  input[type=date]{color-scheme:dark;min-height:44px}
   .sms-disclosure{font-size:12px;color:var(--slate-500);line-height:1.5;margin:-10px 0 16px}
   input:focus{border-color:var(--emerald)}
   input::placeholder{color:var(--slate-600)}
@@ -120,6 +121,8 @@
 
     <label for="reg-password">Password <span class="optional-tag">(8+ characters)</span></label>
     <input type="password" id="reg-password" placeholder="••••••••" autocomplete="new-password"/>
+    <label for="reg-exam-date">NCMHCE exam date <span class="optional-tag">(optional — builds your study plan)</span></label>
+    <input type="date" id="reg-exam-date" autocomplete="off"/>
 
     <label for="reg-phone">Mobile phone <span class="optional-tag">(optional, for SMS reminders)</span></label>
     <input type="tel" id="reg-phone" placeholder="(555) 123-4567" autocomplete="tel" inputmode="tel"/>
@@ -199,6 +202,7 @@
     const email      = document.getElementById('reg-email').value.trim();
     const password   = document.getElementById('reg-password').value;
     const phone      = document.getElementById('reg-phone').value.trim();
+    const examDate   = document.getElementById('reg-exam-date').value; // '' when skipped
     const smsOptedIn = document.getElementById('reg-sms').checked;
     const website    = document.getElementById('reg-website').value;
     const terms      = document.getElementById('reg-terms').checked;
@@ -220,7 +224,7 @@
       const r = await fetch('/api/auth/register', {
         method: 'POST',
         headers,
-        body: JSON.stringify({ name, email, password, phone, smsOptedIn, termsAccepted: true, website }),
+        body: JSON.stringify({ name, email, password, phone, smsOptedIn, termsAccepted: true, website, examDate }),
       });
       const data = await r.json();
       if (!r.ok) {
@@ -232,6 +236,9 @@
       localStorage.setItem('prp_user', JSON.stringify(data.user));
       // /conversions.js reports the sign_up on the next page, after the redirect.
       localStorage.setItem('prp_signup_pending', String(Date.now()));
+      // The dashboard reads the exam date from this key, so the study plan
+      // knows it on the very first visit instead of waiting for a sync.
+      if (examDate) localStorage.setItem('prp_exam_date', examDate);
       window.location.href = next;
     } catch (e) {
       showErr('reg-err','Network error. Please try again.');

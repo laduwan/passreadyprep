@@ -249,6 +249,10 @@ async function start() {
   // Proactive trial "ending soon" / "ended" emails (hourly, in-process).
   require('./jobs/trialReminders').start();
 
+  // New sign-up check-in, win-back and post-exam check-in emails, once per
+  // account, sent daily at NUDGE_SEND_HOUR_UTC (needs MAIL_POSTAL_ADDRESS).
+  require('./jobs/nudgeEmails').start();
+
   // Weekly study digest — sends Monday, 12h check cycle.
   require('./jobs/weeklyDigest').start();
 

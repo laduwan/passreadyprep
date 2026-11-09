@@ -3,16 +3,29 @@
  * Injected into every HTML page by server.js (alongside a11y.js / translate.js),
  * so no page needs a manual <script> tag.
  *
- * Sends one tiny POST per page view to /api/visits/beacon: the pathname and the
- * referring site's hostname, nothing else. No cookies, no localStorage, no ids,
- * no user info — the server never sees who you are, only that a page was
- * opened. Fails silently and can never block or break the page.
+ * Sends one tiny POST per page view to /api/visits/beacon: the pathname, the
+ * referring site's hostname, and the campaign tags from the link that brought
+ * the visitor here (utm_source / utm_medium / utm_campaign), nothing else. No
+ * cookies, no localStorage, no ids, no user info — the server never sees who
+ * you are, only that a page was opened and which link it came from. Fails
+ * silently and can never block or break the page.
  */
 (function () {
   // Admin and review screens are the operator's own tools, not visitor traffic.
   var EXCLUDED = /^\/(admin|review)/i;
 
   var sent = {}; // one beacon per path per page load
+
+  // Campaign tags from the landing URL. Read once: the query string travels
+  // with in-page navigation but is dropped by the server from the path anyway.
+  var utm = {};
+  try {
+    var q = new URLSearchParams(location.search);
+    ['source', 'medium', 'campaign'].forEach(function (k) {
+      var v = q.get('utm_' + k);
+      if (v) utm[k] = String(v).slice(0, 80);
+    });
+  } catch (e) { /* no URLSearchParams — tags are just not reported */ }
 
   function send(path) {
     if (!path || EXCLUDED.test(path) || sent[path]) return;
@@ -22,6 +35,7 @@
       path: path,
       // document.referrer is '' for direct visits and for same-page navigation.
       referrer: document.referrer || '',
+      utm: utm,
     });
 
     try {

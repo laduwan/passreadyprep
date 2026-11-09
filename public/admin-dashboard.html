@@ -177,6 +177,23 @@
 
       <div class="spacer"></div>
       <div class="card">
+        <div class="stat-label" style="margin-bottom:4px">Funnel</div>
+        <p class="muted" style="margin:0 0 12px;font-size:13px">Distinct visitors reaching each step, counted once per day. Sign-ups leave out admin-made and guest accounts; payments leave out the $1 test and App Store sandbox.</p>
+        <div class="err-line" id="funnelErr"></div>
+        <div class="stat-row" id="funnelCards"><p class="empty">Loading…</p></div>
+        <button class="ghost" id="funnelToggle" aria-expanded="false">Show daily funnel</button>
+        <div id="funnelTableWrap" class="hidden" style="margin-top:10px"></div>
+      </div>
+
+      <div class="spacer"></div>
+      <div class="card">
+        <div class="stat-label" style="margin-bottom:4px">Campaigns</div>
+        <p class="muted" style="margin:0 0 10px;font-size:13px">Tagged links. Add <code>?utm_source=youtube&amp;utm_campaign=video-name</code> to a link and it shows up here with its own numbers.</p>
+        <div id="topCampaigns"></div>
+      </div>
+
+      <div class="spacer"></div>
+      <div class="card">
         <button class="ghost" id="dailyToggle" aria-expanded="false">Show daily numbers</button>
         <div id="dailyTableWrap" class="hidden" style="margin-top:10px"></div>
       </div>
@@ -507,6 +524,7 @@
     } catch (e) {
       $('visitErr').textContent = e.message || 'Could not load visit stats';
     }
+    loadFunnel(); // same range, its own request and error line
   }
 
   function renderVisits(data){
@@ -531,8 +549,72 @@
 
     $('topPages').innerHTML = rankTable(data.topPages || [], 'path', 'Page');
     $('topRefs').innerHTML = rankTable(data.topReferrers || [], 'host', 'Referrer');
+    $('topCampaigns').innerHTML = campaignTable(data.topCampaigns || []);
     $('dailyTableWrap').innerHTML = dailyTable(daily);
   }
+
+  function campaignTable(rows){
+    if (!rows.length) return '<p class="empty">No tagged links yet.</p>';
+    var h = '<table><thead><tr><th>Source</th><th>Medium</th><th>Campaign</th><th class="num">Visitors</th><th class="num">Views</th></tr></thead><tbody>';
+    rows.forEach(function(r){
+      h += '<tr><td class="path">' + esc(r.source) + '</td><td class="path">' + esc(r.medium || '—') + '</td><td class="path">' + esc(r.campaign || '—') +
+           '</td><td class="num">' + num(r.visitors) + '</td><td class="num">' + num(r.views) + '</td></tr>';
+    });
+    return h + '</tbody></table>';
+  }
+
+  // ── Funnel (GET /api/visits/funnel) ─────────────────────────────────
+  async function loadFunnel(){
+    var days = $('visitRange').value;
+    $('funnelErr').textContent = '';
+    try {
+      var token = sessionStorage.getItem('prp_admin_jwt');
+      var res = await fetch('/api/visits/funnel?days=' + encodeURIComponent(days), {
+        headers: { 'Authorization': 'Bearer ' + token },
+      });
+      if (!res.ok) {
+        var err = await res.json().catch(function(){ return {}; });
+        throw new Error(err.error || ('Error ' + res.status));
+      }
+      renderFunnel(await res.json());
+    } catch (e) {
+      $('funnelErr').textContent = e.message || 'Could not load the funnel';
+      $('funnelCards').innerHTML = '';
+    }
+  }
+
+  function pct(part, whole){ return whole ? (Math.round(part / whole * 1000) / 10) + '%' : '—'; }
+
+  function renderFunnel(data){
+    var t = data.totals || {};
+    var cards = [
+      ['Visitors', t.visitors, 'once per day'],
+      ['Opened /study', t.study, pct(t.study, t.visitors) + ' of visitors'],
+      ['Opened NCE', t.nce, pct(t.nce, t.visitors) + ' of visitors'],
+      ['Register page', t.register, pct(t.register, t.visitors) + ' of visitors'],
+      ['Checkout page', t.checkout, pct(t.checkout, t.visitors) + ' of visitors'],
+      ['Sign-ups', t.signups, pct(t.signups, t.register) + ' of register visits'],
+      ['Payments', t.payments, pct(t.payments, t.signups) + ' of sign-ups'],
+    ];
+    $('funnelCards').innerHTML = cards.map(function(c){
+      return '<div class="card stat-card"><div class="stat-label">' + c[0] + '</div><div class="stat-value">' + num(c[1]) +
+             '</div><div class="stat-sub">' + esc(c[2]) + '</div></div>';
+    }).join('');
+    var rows = (data.daily || []).slice().reverse();
+    var h = '<table><thead><tr><th>Day</th><th class="num">Visitors</th><th class="num">/study</th><th class="num">NCE</th><th class="num">Register</th><th class="num">Checkout</th><th class="num">Sign-ups</th><th class="num">Payments</th></tr></thead><tbody>';
+    rows.forEach(function(d){
+      h += '<tr><td>' + esc(d.day) + '</td><td class="num">' + num(d.visitors) + '</td><td class="num">' + num(d.study) + '</td><td class="num">' + num(d.nce) +
+           '</td><td class="num">' + num(d.register) + '</td><td class="num">' + num(d.checkout) + '</td><td class="num">' + num(d.signups) + '</td><td class="num">' + num(d.payments) + '</td></tr>';
+    });
+    $('funnelTableWrap').innerHTML = h + '</tbody></table>';
+  }
+
+  $('funnelToggle').addEventListener('click', function(){
+    var wrap = $('funnelTableWrap');
+    var open = wrap.classList.toggle('hidden') === false;
+    this.setAttribute('aria-expanded', String(open));
+    this.textContent = open ? 'Hide daily funnel' : 'Show daily funnel';
+  });
 
   function rankTable(rows, key, label){
     if (!rows.length) return '<p class="empty">Nothing recorded yet.</p>';
