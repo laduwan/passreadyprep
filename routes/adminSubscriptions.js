@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../models/User');
 const Attempt = require('../models/Attempt');
+const AppleTransaction = require('../models/AppleTransaction');
 const adminOrAdminUser = require('../middleware/adminOrAdminUser');
 const { logActivity } = require('../utils/activity');
 const { trialEndFor } = require('../utils/trial');
@@ -89,52 +90,94 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET /api/admin-subscriptions/revenue — MRR estimate + last-30d gross from Stripe
+// GET /api/admin-subscriptions/revenue — MRR + paid counts + last-30d gross.
+// Only REAL, CURRENT, PAYING plans count. A plan is left out when it is:
+//   - on an admin/owner account (role 'admin')
+//   - a comp/tester plan with no billing behind it (no Stripe subscription or
+//     payment, no App Store transaction)
+//   - an App Store Sandbox purchase (only 'Production' transactions count)
+//   - past its currentPeriodEnd (expired, even if status still says 'active')
+// Last-30d gross counts live-mode Stripe charges only, net of refunds, and
+// skips charges on admin accounts' Stripe customers.
 router.get('/revenue', async (req, res) => {
   try {
-    // Apple sandbox test accounts (App Review, TestFlight) paid nothing, so
-    // they stay out of every paid count below (utils/appleSandbox.js).
-    const testIds = await appleSandboxUserIds();
-    const real = (f) => Object.assign({ _id: { $nin: testIds } }, f);
-    const activeMonthly = await User.countDocuments(real({ 'subscription.tier': 'monthly', 'subscription.status': 'active' }));
-    const pastDue = await User.countDocuments(real({ $or: [{ 'subscription.status': 'past_due' }, { 'nceAccess.status': 'past_due' }] }));
+    const now = new Date();
+    const users = await User.find({ $or: [PAID_NCMHCE, PAID_NCE, { 'subscription.status': 'past_due' }, { 'nceAccess.status': 'past_due' }] })
+      .select('role subscription nceAccess guidePurchasedAt guideNcePurchasedAt')
+      .lean();
+
+    // App Store purchases that were made in Production (not Sandbox/TestFlight).
+    const appleIds = [];
+    for (const u of users) {
+      for (const p of [u.subscription, u.nceAccess]) {
+        if (p && p.source === 'apple' && p.appleOriginalTransactionId) appleIds.push(p.appleOriginalTransactionId);
+      }
+    }
+    const prodApple = new Set(
+      appleIds.length
+        ? await AppleTransaction.distinct('originalTransactionId', { originalTransactionId: { $in: appleIds }, environment: 'Production' })
+        : []
+    );
+
+    // Is there real billing behind this plan?
+    const isBilled = (p) => {
+      if (!p || !p.tier || p.tier === 'free') return false;
+      if (p.source === 'apple') return prodApple.has(p.appleOriginalTransactionId);
+      return !!(p.stripeSubscriptionId || p.lastPaymentIntentId);
+    };
+    // Still inside the paid period?
+    const isCurrent = (p) => !p.currentPeriodEnd || new Date(p.currentPeriodEnd) > now;
+    const realPaid = (u, p) => u.role !== 'admin' && isBilled(p) && isCurrent(p);
+
+    const ncmhce = users.filter(u => realPaid(u, u.subscription));
+    const nce = users.filter(u => realPaid(u, u.nceAccess));
+    const ncmhceIds = new Set(ncmhce.map(u => String(u._id)));
+    const bothPaid = nce.filter(u => ncmhceIds.has(String(u._id))).length;
+
+    const activeMonthly = ncmhce.filter(u => u.subscription.tier === 'monthly' && u.subscription.status === 'active').length;
+    const activeNceMonthly = nce.filter(u => u.nceAccess.tier === 'nce_monthly' && u.nceAccess.status === 'active').length;
+    const pastDue = users.filter(u => u.role !== 'admin' && (
+      (u.subscription && u.subscription.status === 'past_due' && isBilled(u.subscription)) ||
+      (u.nceAccess && u.nceAccess.status === 'past_due' && isBilled(u.nceAccess))
+    )).length;
+
     const byTier = {};
     for (const t of Object.keys(TIER_PRICES)) {
-      byTier[t] = await User.countDocuments(real({ 'subscription.tier': t, 'subscription.status': { $in: ['active', 'canceled'] } }));
+      byTier[t] = ncmhce.filter(u => u.subscription.tier === t && ['active', 'canceled'].includes(u.subscription.status)).length;
     }
-    const activeNceMonthly = await User.countDocuments(real({ 'nceAccess.tier': 'nce_monthly', 'nceAccess.status': 'active' }));
     const nceByTier = {};
     for (const t of Object.keys(NCE_TIER_PRICES)) {
-      nceByTier[t] = await User.countDocuments(real({ 'nceAccess.tier': t, 'nceAccess.status': { $in: ['active', 'canceled'] } }));
+      nceByTier[t] = nce.filter(u => u.nceAccess.tier === t && ['active', 'canceled'].includes(u.nceAccess.status)).length;
     }
+
     const ncmhceMrr = activeMonthly * TIER_PRICES.monthly;
     const nceMrr = Math.round(activeNceMonthly * NCE_TIER_PRICES.nce_monthly * 100) / 100;
     const mrrEstimate = Math.round((ncmhceMrr + nceMrr) * 100) / 100;
 
-    // Paid accounts per product line (any non-free plan, any status), plus
-    // guide sales and how many accounts have at least opened NCE study.
-    const [ncmhcePaid, ncePaid, bothPaid, ncmhceGuides, nceGuides, nceTrialsStarted] = await Promise.all([
-      User.countDocuments(real(PAID_NCMHCE)),
-      User.countDocuments(real(PAID_NCE)),
-      User.countDocuments(real({ $and: [PAID_NCMHCE, PAID_NCE] })),
-      User.countDocuments(real({ guidePurchasedAt: { $ne: null } })),
-      User.countDocuments(real({ guideNcePurchasedAt: { $ne: null } })),
-      User.countDocuments({ 'nceAccess.trialStartedAt': { $ne: null } }),
+    // Guide sales and NCE trials are not billing-plan counts; admin accounts
+    // and Apple sandbox test accounts (utils/appleSandbox.js) excluded.
+    const testIds = await appleSandboxUserIds();
+    const [ncmhceGuides, nceGuides, nceTrialsStarted] = await Promise.all([
+      User.countDocuments({ role: { $ne: 'admin' }, _id: { $nin: testIds }, guidePurchasedAt: { $ne: null } }),
+      User.countDocuments({ role: { $ne: 'admin' }, _id: { $nin: testIds }, guideNcePurchasedAt: { $ne: null } }),
+      User.countDocuments({ role: { $ne: 'admin' }, 'nceAccess.trialStartedAt': { $ne: null } }),
     ]);
     const byProduct = {
-      ncmhce: { paid: ncmhcePaid, onlyThis: ncmhcePaid - bothPaid, byTier, mrr: ncmhceMrr, guides: ncmhceGuides },
-      nce: { paid: ncePaid, onlyThis: ncePaid - bothPaid, byTier: nceByTier, mrr: nceMrr, guides: nceGuides, trialsStarted: nceTrialsStarted },
+      ncmhce: { paid: ncmhce.length, onlyThis: ncmhce.length - bothPaid, byTier, mrr: ncmhceMrr, guides: ncmhceGuides },
+      nce: { paid: nce.length, onlyThis: nce.length - bothPaid, byTier: nceByTier, mrr: nceMrr, guides: nceGuides, trialsStarted: nceTrialsStarted },
       both: bothPaid,
     };
 
     let last30dGross = null;
     try {
       const stripe = getStripe();
+      const admins = await User.find({ role: 'admin' }).select('subscription.stripeCustomerId').lean();
+      const adminCustomers = new Set(admins.map(a => a.subscription && a.subscription.stripeCustomerId).filter(Boolean));
       const since = Math.floor((Date.now() - 30 * 24 * 60 * 60 * 1000) / 1000);
-      const charges = await stripe.charges.list({ created: { gte: since }, limit: 100 });
-      last30dGross = charges.data
-        .filter(c => c.paid && !c.refunded)
-        .reduce((sum, c) => sum + c.amount, 0) / 100;
+      const charges = await stripe.charges.list({ created: { gte: since }, limit: 100 }).autoPagingToArray({ limit: 1000 });
+      last30dGross = charges
+        .filter(c => c.livemode && c.paid && c.status === 'succeeded' && !adminCustomers.has(c.customer))
+        .reduce((sum, c) => sum + (c.amount - (c.amount_refunded || 0)), 0) / 100;
     } catch (e) {
       console.error('revenue: stripe charges list failed', e.message);
     }
