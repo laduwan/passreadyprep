@@ -340,7 +340,7 @@
     <div class="auth-err" id="auth-err" role="alert"></div>
     <button class="btn" id="auth-submit" onclick="submitAuth()">Sign in</button>
     <p class="modal-foot"><a href="/forgot-password.html">Forgot your password?</a></p>
-    <p class="modal-foot">New here? <a href="/register.html?next=/study">Create an account &rsaquo;</a></p>
+    <p class="modal-foot">New here? <a href="/register.html?next=%2Fstudy%3Fview%3Dcases" onclick="this.href=signupHref()">Create an account &rsaquo;</a></p>
   </div>
 </div>
 
@@ -706,6 +706,7 @@ function setIntro(show){
 }
 
 async function showDashboard(){
+  OPEN_CASE_ID = null;
   setIntro(true);
   app.innerHTML = '<p class="lead">Loading…</p>';
   if(!LIST_ITEMS.length){ LIST_ITEMS = await fetchList(); }
@@ -895,7 +896,7 @@ function modeCard(m, title, desc, tag){
 }
 function setMode(m){ MODE = m; showDashboard(); }
 function setExamFb(v){ EXAM_FB = !!v; showDashboard(); }
-function goCases(){ setIntro(false); renderList(); window.scrollTo({top:0,behavior:'smooth'}); }
+function goCases(){ OPEN_CASE_ID = null; setIntro(false); renderList(); window.scrollTo({top:0,behavior:'smooth'}); }
 
 // ---- case list ----
 function renderList(){
@@ -968,6 +969,7 @@ function setStatusFilter(s){ LIST_STATUS=s; renderList(); }
 
 // ---- a case ----
 async function startCase(externalId){
+  OPEN_CASE_ID = externalId;
   setIntro(false);
   app.innerHTML = '<p class="lead">Loading…</p>';
   CASE = await fetchCase(externalId);
@@ -1423,6 +1425,17 @@ function renderAccount(){
   }
 }
 
+// The case on screen, so "Create an account" can bring a new member straight
+// back to it. Null on the dashboard and the case list.
+let OPEN_CASE_ID = null;
+
+// Where register.html sends someone after they create an account from here:
+// back into the case they had open, otherwise to the case list.
+function signupHref(){
+  const dest = OPEN_CASE_ID ? '/study?case=' + encodeURIComponent(OPEN_CASE_ID) : '/study?view=cases';
+  return '/register.html?next=' + encodeURIComponent(dest);
+}
+
 function openAuth(){
   const m = document.getElementById('auth-modal');
   document.getElementById('auth-err').textContent = '';
@@ -1485,7 +1498,21 @@ document.addEventListener('keydown', function(ev){
   await hydrateFromServer();   // pulls account history when signed in; no-op otherwise
   await syncExamDate();
   renderAccount();             // syncExamDate refreshes prp_user, so a token with no cached user still shows as signed in
-  showDashboard();
+  // ?case=<id> reopens a case and ?view=cases opens the case list — register.html
+  // sends new members here. Drop them from the URL so a refresh lands on the dashboard.
+  const q = new URLSearchParams(location.search);
+  const wantCase = q.get('case'), wantView = q.get('view');
+  if(wantCase || wantView){
+    q.delete('case'); q.delete('view');
+    const qs = q.toString();
+    history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+  }
+  await showDashboard();
+  if(wantCase){
+    try{ await startCase(wantCase); }catch(_){ goCases(); }
+  } else if(wantView === 'cases'){
+    goCases();
+  }
 })();
 </script>
 <script src="/activity-tracker.js" defer></script>

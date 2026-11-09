@@ -177,6 +177,9 @@
   // not back on the marketing page).
   const params = new URLSearchParams(location.search);
   const next = params.get('next') || '/study';
+  // A new account with no destination goes straight to the case list rather
+  // than the dashboard; sign-in keeps the dashboard.
+  const regNext = params.get('next') || '/study?view=cases';
   const guest = (function(){ try { return !!(JSON.parse(localStorage.getItem('prp_user') || 'null') || {}).isGuest; } catch(_) { return false; } })();
 
   function showTab(tab) {
@@ -233,7 +236,7 @@
       localStorage.setItem('prp_user', JSON.stringify(data.user));
       // /conversions.js reports the sign_up on the next page, after the redirect.
       localStorage.setItem('prp_signup_pending', String(Date.now()));
-      window.location.href = next;
+      window.location.href = regNext;
     } catch (e) {
       showErr('reg-err','Network error. Please try again.');
       btn.disabled = false; btn.textContent = 'Create account';
