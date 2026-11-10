@@ -68,8 +68,9 @@ const near = (a, b, tol = 5000) => Math.abs(new Date(a).getTime() - b) < tol;
 (async () => {
   // catalog
   const offered = apple.offeredProducts().map((p) => p.tier);
-  assert.deepStrictEqual(offered, ['monthly', 'pass3', 'guarantee', 'guide', 'nce_monthly', 'nce_pass3', 'nce_pass6', 'nce_guarantee']);
-  assert.strictEqual(apple.entryForProductId(pid('ncmhce.pass3')).tier, 'pass3');
+  assert.deepStrictEqual(offered, ['monthly', 'pass3', 'pass6', 'guarantee', 'nce_monthly', 'nce_pass3', 'nce_pass6', 'nce_guarantee']);
+  assert.strictEqual(apple.entryForProductId(pid('ncmhce.sub3mo')).tier, 'pass3');
+  assert.strictEqual(apple.entryForProductId(pid('guide')).tier, 'guide'); // not on sale, still verifiable
   assert.strictEqual(apple.entryForProductId('com.other.thing'), null);
 
   // monthly: grant, idempotent re-send, renewal with new id
@@ -90,16 +91,14 @@ const near = (a, b, tol = 5000) => Math.abs(new Date(a).getTime() - b) < tol;
   user('u2');
   await assert.rejects(() => applyTransaction(users.get('u2'), m2), (e) => e.code === 'owned_by_other' && e.status === 409);
 
-  // pass3 twice extends, never resets
+  // 3-month subscription: access runs to Apple's expiry date
   user('u3');
-  r = await applyTransaction(users.get('u3'), tx('ncmhce.pass3')); assert.strictEqual(r.action, 'granted');
+  r = await applyTransaction(users.get('u3'), tx('ncmhce.sub3mo', { expiresDate: now + 90 * DAY })); assert.strictEqual(r.action, 'granted');
   assert(near(users.get('u3').subscription.currentPeriodEnd, now + 90 * DAY));
-  r = await applyTransaction(users.get('u3'), tx('ncmhce.pass3')); assert.strictEqual(r.action, 'granted');
-  assert(near(users.get('u3').subscription.currentPeriodEnd, now + 180 * DAY));
   assert.strictEqual(users.get('u3').subscription.tier, 'pass3');
 
-  // NCE pass lands on nceAccess only
-  r = await applyTransaction(users.get('u3'), tx('nce.pass6')); assert.strictEqual(r.action, 'granted');
+  // NCE 6-month subscription lands on nceAccess only
+  r = await applyTransaction(users.get('u3'), tx('nce.sub6mo', { expiresDate: now + 180 * DAY })); assert.strictEqual(r.action, 'granted');
   u = users.get('u3'); assert.strictEqual(u.nceAccess.tier, 'nce_pass6'); assert(near(u.nceAccess.currentPeriodEnd, now + 180 * DAY)); assert.strictEqual(u.subscription.tier, 'pass3');
 
   // guarantee: 6-month window, terms stamped, a later stale monthly cannot replace it
@@ -137,6 +136,8 @@ const near = (a, b, tol = 5000) => Math.abs(new Date(a).getTime() - b) < tol;
   // JWS input validation
   await assert.rejects(() => apple.verifyTransaction('not a jws'), (e) => e.code === 'bad_request');
 
-  assert(logged.some((e) => e.type === 'payment.succeeded'));
+  // test transactions are Sandbox, so they are logged as payment.sandbox (kept out of paid counts)
+  assert(logged.some((e) => e.type === 'payment.sandbox'));
+  assert(!logged.some((e) => e.type === 'payment.succeeded'));
   console.log('apple-payment: all checks passed');
 })().catch((e) => { console.error(e); process.exit(1); });
