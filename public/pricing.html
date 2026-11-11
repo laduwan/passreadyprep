@@ -227,8 +227,8 @@
   //
   // The AI debrief belongs to the Pass Guarantee plan
   // (routes/debrief.js enforces it), so only the NCMHCE plans mention it.
-  // The NCE side has no debrief in the product yet, so NCE plans claim
-  // nothing about it either way.
+  // There is no NCE debrief and none is planned, so NCE plans say nothing
+  // about it either way.
   var PLANS = {
     ncmhce: [
       { tier: 'monthly', name: 'Monthly', price: 2900, per: '/ month', tag: 'Cancel anytime',
@@ -451,8 +451,8 @@
       .catch(function () { return null; });
   }
 
-  // The NCMHCE side has the AI debrief; the NCE side does not, so each exam
-  // gets its own line rather than one that over-promises.
+  // The AI debrief is NCMHCE-only, so each exam gets its own line rather
+  // than one that over-promises.
   var SUBCOPY = {
     ncmhce: 'Everything you’ve done is saved. Choose a plan to unlock all cases, mock exams and the AI debrief again.',
     nce: 'Everything you’ve done is saved. Choose a plan to unlock the full question bank, timed mock exams and your readiness by domain again.',
