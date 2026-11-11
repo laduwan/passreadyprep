@@ -24,8 +24,8 @@ async function requireDebriefPlan(req, res, next) {
   const signedIn = !!req.userId;
   return res.status(403).json({
     error: signedIn
-      ? 'The AI debrief comes with the Access Extensions Until You Pass plan.'
-      : 'Sign in with an Access Extensions Until You Pass plan to get the AI debrief.',
+      ? 'The AI debrief comes with the Pass Guarantee plan.'
+      : 'Sign in with an Pass Guarantee plan to get the AI debrief.',
     code: 'DEBRIEF_REQUIRES_GUARANTEE',
     requiredTier: DEBRIEF_TIER,
     upgradeUrl: '/pricing.html?exam=ncmhce&tier=guarantee',

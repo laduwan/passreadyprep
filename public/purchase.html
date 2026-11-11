@@ -97,12 +97,12 @@
   <div class="panel" id="panel-buy">
     <div id="tier-box" class="tier-box"></div>
     <div class="guar-ack" id="guar-ack">
-      <div class="guar-ack-head">🛡️ Access Extensions Until You Pass — please read</div>
+      <div class="guar-ack-head">🛡️ Pass Guarantee — please read</div>
       <p>Your access is unlimited — you will never need to pay again. To protect your account from being shared, we require a brief candidate verification check-in every 6 months: you confirm your scheduled exam date or submit your score report.</p>
       <p>If you don't pass, your access is extended free. If you pass, your first CE course on CounselorReady is on us. <a href="/policies.html#guarantee">Full terms →</a></p>
       <div class="check-row">
         <input type="checkbox" id="guar-check"/>
-        <label for="guar-check">I understand the Access Extensions Until You Pass plan includes a 6-month candidate verification check-in. No repayment is ever required.</label>
+        <label for="guar-check">I understand the Pass Guarantee includes a 6-month candidate verification check-in. No repayment is ever required.</label>
       </div>
     </div>
     <p class="err" id="buy-err" role="alert"></p>
@@ -121,7 +121,7 @@
       <div class="tier-desc" id="done-desc">Your plan is active.</div>
     </div>
     <div class="guar-ack" id="guar-done">
-      <div class="guar-ack-head">🛡️ Your Access Extensions Until You Pass plan is active</div>
+      <div class="guar-ack-head">🛡️ Your Pass Guarantee is active</div>
       <p>Study, take the exam, and come back if you don't pass the first time.</p>
       <p>If you need an extension, submit your official score report from your account page.</p>
     </div>
@@ -139,16 +139,16 @@
                      features:['All 290+ case simulations','No AI debrief','Timed mock exams','Readiness predictor','250+ flashcards + study plan'], next:'/study' },
     pass6:         { cls:'pass3',     name:'NCMHCE 6-Month Pass',     per:'per 6 months', desc:'Full NCMHCE access, renews every 6 months. Cancel any time in your App Store settings.',
                      features:['All 290+ case simulations','No AI debrief','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Room for a retake'], next:'/study' },
-    guarantee:     { cls:'guarantee', name:'NCMHCE Access Extensions Until You Pass',   per:'one-time', desc:'Unlimited NCMHCE access — one payment, no renewal.', guarantee:true,
-                     features:['All 290+ case simulations','AI debrief with Dr. Claire Moreau after every case','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Access extensions until you pass — free CE on CounselorReady when you pass, or free extended access'], next:'/study' },
+    guarantee:     { cls:'guarantee', name:'NCMHCE Pass Guarantee',   per:'one-time', desc:'Unlimited NCMHCE access — one payment, no renewal.', guarantee:true,
+                     features:['All 290+ case simulations','AI debrief with Dr. Claire Moreau after every case','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Pass guarantee — free CE on CounselorReady when you pass, or free extended access'], next:'/study' },
     nce_monthly:   { cls:'monthly',   name:'NCE Monthly',             per:'per month', desc:'Full NCE access. Renews monthly; cancel any time in your App Store settings.',
                      features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain'], next:'/nce.html' },
     nce_pass3:     { cls:'pass3',     name:'NCE 3-Month Pass',        per:'per 3 months', desc:'Full NCE access, renews every 3 months. Cancel any time in your App Store settings.',
                      features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain'], next:'/nce.html' },
     nce_pass6:     { cls:'pass3',     name:'NCE 6-Month Pass',        per:'per 6 months', desc:'Full NCE access, renews every 6 months. Cancel any time in your App Store settings.',
                      features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain','Room for a retake'], next:'/nce.html' },
-    nce_guarantee: { cls:'guarantee', name:'NCE Access Extensions Until You Pass',      per:'one-time', desc:'Unlimited NCE access — one payment, no renewal.', guarantee:true,
-                     features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain','Access extensions until you pass — free CE on CounselorReady when you pass, or free extended access'], next:'/nce.html' },
+    nce_guarantee: { cls:'guarantee', name:'NCE Pass Guarantee',      per:'one-time', desc:'Unlimited NCE access — one payment, no renewal.', guarantee:true,
+                     features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain','Pass guarantee — free CE on CounselorReady when you pass, or free extended access'], next:'/nce.html' },
   };
   var SUBSCRIPTION_TERMS = 'Payment is charged to your Apple ID account when you confirm the purchase. The subscription renews automatically at the same price unless you cancel at least 24 hours before the end of the current period; your account is charged for renewal within 24 hours before the period ends. Manage or cancel it in your App Store account settings after purchase.';
 
@@ -205,7 +205,7 @@
   function buy() {
     msg('buy-err', ''); msg('buy-note', '');
     if (cfg.guarantee && !document.getElementById('guar-check').checked) {
-      msg('buy-err', 'Please acknowledge the Access Extensions Until You Pass terms to continue.');
+      msg('buy-err', 'Please acknowledge the Pass Guarantee terms to continue.');
       return;
     }
     var btn = document.getElementById('buy-btn');

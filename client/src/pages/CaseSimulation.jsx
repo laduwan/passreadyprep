@@ -134,7 +134,7 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
-        // The debrief is sold with the Access Extensions Until You Pass plan
+        // The debrief is sold with the Pass Guarantee plan
         // only (routes/debrief.js): show the locked card instead of an error.
         if (res.status === 403 && body.code === 'DEBRIEF_REQUIRES_GUARANTEE') {
           setDebriefLocked(body.upgradeUrl || '/pricing.html?exam=ncmhce&tier=guarantee');
@@ -342,9 +342,9 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
           </p>
           {debriefLocked && (
             <div className="bg-amber-500/8 border border-amber-500/20 rounded-xl p-4" role="note">
-              <div className="text-xs font-bold text-amber-400 mb-1">🔒 Access Extensions Until You Pass plan</div>
+              <div className="text-xs font-bold text-amber-400 mb-1">🔒 Pass Guarantee plan</div>
               <p className="text-sm text-slate-300 mb-3">
-                The AI debrief comes with the Access Extensions Until You Pass plan: one payment, access until you pass, and Dr. Moreau's written debrief after every case.
+                The AI debrief comes with the Pass Guarantee plan: one payment, access until you pass, and Dr. Moreau's written debrief after every case.
               </p>
               <a href={debriefLocked} className="inline-block bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-4 py-2 rounded-xl text-sm transition-colors">
                 See the plan ›

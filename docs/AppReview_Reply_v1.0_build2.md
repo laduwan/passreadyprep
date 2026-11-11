@@ -74,13 +74,11 @@ set; it is set in production, so the plan is live.
 The two monthly subscriptions go in **separate subscription groups**
 (NCMHCE and NCE are billed independently on the website too).
 
-**Display names may be out of step.** The Plan column above uses the names
-App Review quoted back to us, which is what App Store Connect holds. The
-catalog calls the same two products "NCMHCE Access Until You Pass" and
-"NCE Access Until You Pass", after the plan was renamed away from "Pass
-Guarantee" on the website. The App Store Connect display name is what a buyer
-sees in the purchase sheet, so it should be renamed to match, or the rename
-reverted — the product IDs stay as they are either way.
+**The plan is called the Pass Guarantee.** "Access until you pass" describes
+what it does and belongs in the description, not in the name. An earlier
+rename turned the phrase into the product name across the site and in the
+catalog; that was reverted, so the names here, in `utils/appleIap.js` and in
+App Store Connect all read "Pass Guarantee" again.
 
 ---
 

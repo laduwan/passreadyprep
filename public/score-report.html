@@ -128,8 +128,8 @@
   <!-- FORFEITED -->
   <div class="state" id="state-forfeited">
     <div class="pending-icon">⌛</div>
-    <p class="pending-msg">This Access Extensions Until You Pass plan has ended.</p>
-    <p class="pending-note">No new request was made within 90 days of your last exam, so your access extensions plan ended. You can still <a id="forfeitPlans" href="/" style="color:var(--emerald-400)">pick a plan</a> to keep studying, or contact support with questions.</p>
+    <p class="pending-msg">This Pass Guarantee has ended.</p>
+    <p class="pending-note">No new request was made within 90 days of your last exam, so the guarantee was forfeited. You can still <a id="forfeitPlans" href="/" style="color:var(--emerald-400)">pick a plan</a> to keep studying, or contact support with questions.</p>
   </div>
 
   <!-- PENDING -->
@@ -197,7 +197,7 @@
             <label for="m-refund">Refund</label>
           </div>
         </div>
-        <p class="hint" style="margin-top:-6px">A refund is your Access Extensions Until You Pass price minus the $25 study guide you keep (<span id="refundStd">$224 at the standard $249 price</span>). It ends your plan and your access. One refund per exam per account. <a id="refundTerms" href="/guarantee.html#refund" target="_blank" style="color:var(--emerald-400)">Refund terms</a></p>
+        <p class="hint" style="margin-top:-6px">A refund is your Pass Guarantee price minus the $25 study guide you keep (<span id="refundStd">$224 at the standard $249 price</span>). It ends your guarantee and your access. One refund per exam per account. <a id="refundTerms" href="/guarantee.html#refund" target="_blank" style="color:var(--emerald-400)">Refund terms</a></p>
         <ul class="checks" id="refundChecks"></ul>
       </div>
       <label>Score letter</label>
@@ -232,7 +232,7 @@
   let currentTab = 'scheduled';
   let REFUND_OFFERED = false;   // from /score-report-status (NCMHCE guarantee bought on the website)
   let REFUND_OK = false;        // this result meets the refund terms
-  // ?exam=nce → the NCE Access Extensions Until You Pass check-in; otherwise NCMHCE, as before.
+  // ?exam=nce → the NCE Pass Guarantee check-in; otherwise NCMHCE, as before.
   const EXAM = new URLSearchParams(location.search).get('exam') === 'nce' ? 'nce' : 'ncmhce';
   const HOME = EXAM === 'nce' ? '/nce.html' : '/';
   if (EXAM === 'nce') {
@@ -379,7 +379,7 @@
       if (data.nextRequestDue) {
         const due = new Date(data.nextRequestDue).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
         document.querySelector('#state-form .info-box p').textContent =
-          'Upload your next exam appointment confirmation by ' + due + ' (90 days after your last exam) to keep your Access Extensions Until You Pass. Each verified upload adds 3 months.';
+          'Upload your next exam appointment confirmation by ' + due + ' (90 days after your last exam) to keep your Pass Guarantee. Each verified upload adds 3 months.';
       }
       if (data.lastResult === 'fail') renderPlan(data.retakePlan);
     } catch (e) {
@@ -427,7 +427,7 @@
       if (result === 'fail' && REFUND_OFFERED) {
         remedy = document.querySelector('input[name="remedy"]:checked')?.value || 'extend';
         if (remedy === 'refund' && !REFUND_OK) { showErr('This result doesn’t qualify for a refund. Choose 3 more months instead.'); return; }
-        if (remedy === 'refund' && !confirm('Request a refund? Once it is approved, your Access Extensions Until You Pass and your access end. This can’t be undone.')) return;
+        if (remedy === 'refund' && !confirm('Request a refund? Once it is approved, your Pass Guarantee and your access end. This can’t be undone.')) return;
       }
     }
 

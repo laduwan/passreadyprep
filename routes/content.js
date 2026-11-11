@@ -80,7 +80,7 @@ async function resolveAccess(req, res, next) {
     req.trialEndsAt = trialEndFor(user);
     req.accessLevel = tier === 'free' ? trialLevel(user) : 'paid';
     // The plan behind that level, for features sold on one plan only (the
-    // AI debrief comes with the Access Extensions Until You Pass plan).
+    // AI debrief comes with the Pass Guarantee plan).
     req.subscriptionTier = req.accessLevel === 'paid' ? tier : 'free';
     next();
   } catch (err) {
@@ -180,7 +180,7 @@ router.get('/:externalId', resolveAccess, async (req, res) => {
         message: req.gateReason === 'score_report_pending'
           ? 'Your score report is under review. Access will be restored within 1 business day.'
           : req.gateReason === 'guarantee_forfeited'
-          ? 'Your Access Extensions Until You Pass plan was forfeited: no new request was made within 90 days of your last exam. Pick a plan to keep studying.'
+          ? 'Your Pass Guarantee was forfeited: no new request was made within 90 days of your last exam. Pick a plan to keep studying.'
           : 'Your access period has ended. Upload your exam appointment or score letter to continue.',
       });
     }

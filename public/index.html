@@ -336,7 +336,7 @@
       <li><strong>Sit a timed mock.</strong> When readiness holds above 60%, take the <a href="/exam.html">timed NCMHCE mock exam</a> under the real clock and break schedule.</li>
     </ol>
     <h3>Who this is for</h3>
-    <p>First-time candidates who want to know they are ready before paying the exam fee, and counselors retaking the NCMHCE who need to see <em>why</em> they lost points last time.<!-- prp-web-only --> Full access starts with a 7-day free trial. Plans start at $29/mo; the <a href="/guarantee.html">Access Extensions Until You Pass plan is $249 one-time</a> &mdash; study until you pass, and the digital study guide is included. <a href="/landing.html#pricing">See all NCMHCE plans</a> or <a href="/nce.html#pricing">NCE plans ($189 Access Extensions Until You Pass)</a>.<!-- /prp-web-only --></p>
+    <p>First-time candidates who want to know they are ready before paying the exam fee, and counselors retaking the NCMHCE who need to see <em>why</em> they lost points last time.<!-- prp-web-only --> Full access starts with a 7-day free trial. Plans start at $29/mo; the <a href="/guarantee.html">Pass Guarantee is $249 one-time</a> &mdash; study until you pass, and the digital study guide is included. <a href="/landing.html#pricing">See all NCMHCE plans</a> or <a href="/nce.html#pricing">NCE plans ($189 Pass Guarantee)</a>.<!-- /prp-web-only --></p>
   </section>
   <p class="tm-note" style="margin:28px 0 8px; text-align:center; color:#64748B; font-size:12px; line-height:1.5">NCE&reg; and NCMHCE&reg; are registered trademarks of the National Board for Certified Counselors, Inc. (NBCC). PassReady Prep is not affiliated with or endorsed by NBCC.</p>
 </div>
@@ -636,7 +636,7 @@ function serverSaveAttempt(caseObj, ans, domainsObj, pct){
 
 // Readiness weights for the five practice areas, matching NBCC's current NCMHCE
 // content outline (Counseling 30%, Intake 25%, Treatment/Ethics/Core 15% each).
-// The access extensions until you pass's 60% threshold is measured with them, and
+// The pass guarantee's 60% threshold is measured with them, and
 // utils/ncmhceReadiness.js keeps a server copy, so change both together.
 const DOMAIN_WEIGHTS = { counseling: 0.30, intake: 0.25, treatment: 0.15, ethics: 0.15, core: 0.15 };
 
@@ -726,7 +726,7 @@ function accessCard(level, message){
     const guest = !!(currentUser() || {}).isGuest; // iOS guest: never had a trial, buys without an account
     return '<div class="card gate-card"><div class="gate-tag">🔒 '+(guest ? 'Choose a plan' : 'Free trial ended')+'</div>'
       + '<h2>'+(guest ? 'Choose a plan to keep studying' : 'Your free trial has ended')+'</h2>'
-      + '<p class="lead" style="margin-bottom:0">'+(guest ? '' : 'Your progress and readiness score are saved. ')+'Pick a plan to keep working all '+bankSize()+' cases and the timed mock exam. The AI debrief comes with the Access Extensions Until You Pass plan.</p>'
+      + '<p class="lead" style="margin-bottom:0">'+(guest ? '' : 'Your progress and readiness score are saved. ')+'Pick a plan to keep working all '+bankSize()+' cases and the timed mock exam. The AI debrief comes with the Pass Guarantee plan.</p>'
       + '<div class="row" style="margin-top:14px"><a class="btn" href="'+planHref()+'">Choose a plan ›</a></div></div>';
   }
   if(level === 'gated'){
@@ -804,7 +804,7 @@ async function showDashboard(){
     h += '<h2>Pick up where you left off</h2>';
     h += '<p class="lead">Work a case, get scored on every clinical decision, and watch your readiness climb.</p>';
     h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Choose a case ›</button>';
-    h += '<br /><a href="/guarantee.html" class="guar-link">✓ Access extensions until you pass — pass and get a free CE course, or we extend your access</a>';
+    h += '<br /><a href="/guarantee.html" class="guar-link">✓ Pass guarantee — pass and get a free CE course, or we extend your access</a>';
     h += '</div>';
   } else {
     // Free sample hero for signed-out visitors: the first case needs no sign-up.
@@ -812,7 +812,7 @@ async function showDashboard(){
     h += '<h2>Try a free clinical simulation</h2>';
     h += '<p class="lead">Work through a full NCMHCE-format case — read the vignette, answer the clinical questions, and get evidence-based feedback with weighted scoring after each one. Your first case needs no sign-up; a free account then unlocks all '+bankSize()+' cases for '+trialDays()+' days.</p>';
     h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Start free case ›</button>';
-    h += '<br /><a href="/guarantee.html" class="guar-link">✓ Access extensions until you pass — pass and get a free CE course, or we extend your access</a>';
+    h += '<br /><a href="/guarantee.html" class="guar-link">✓ Pass guarantee — pass and get a free CE course, or we extend your access</a>';
     h += '</div>';
   }
 
@@ -1433,7 +1433,7 @@ function finish(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// The AI debrief is part of the Access Extensions Until You Pass plan only
+// The AI debrief is part of the Pass Guarantee plan only
 // (routes/debrief.js enforces it). Everyone else sees a locked card that says
 // what the debrief is and where to get it; admins keep it for support.
 function debriefUnlocked(){
@@ -1444,8 +1444,8 @@ function debriefLockedHtml(){
   const signedIn = !!(currentUser() || {}).email;
   const href = signedIn ? '/pricing.html?exam=ncmhce&tier=guarantee' : '/register.html?next=' + encodeURIComponent('/pricing.html?exam=ncmhce&tier=guarantee');
   return '<div class="debrief-lock" role="note">'
-    + '<div class="gate-tag">🔒 Access Extensions Until You Pass plan</div>'
-    + '<p style="margin:8px 0 10px;font-size:14px;color:var(--slate-300)">The AI debrief comes with the Access Extensions Until You Pass plan: one payment, access until you pass, and Dr. Moreau\'s written debrief after every case.</p>'
+    + '<div class="gate-tag">🔒 Pass Guarantee plan</div>'
+    + '<p style="margin:8px 0 10px;font-size:14px;color:var(--slate-300)">The AI debrief comes with the Pass Guarantee plan: one payment, access until you pass, and Dr. Moreau\'s written debrief after every case.</p>'
     + '<a class="btn" href="' + href + '">' + (signedIn ? 'See the plan ›' : 'Sign in or upgrade ›') + '</a></div>';
 }
 async function getDebrief(){
@@ -1540,7 +1540,7 @@ function genPlan(){
   var casesPerDay = Math.max(2, Math.min(5, Math.ceil((20 - rd.totalCases) / Math.max(1, phase1))));
   h += '<div style="margin-top:12px;padding:12px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px">';
   h += '<strong style="color:var(--emerald-400)">Daily targets:</strong> ' + casesPerDay + ' cases + 15 min flashcards + 10 min DSM review';
-  if(rd.totalCases < 20) h += '<br><span style="color:var(--amber-400);font-size:13px">You need ' + (20 - rd.totalCases) + ' more cases for access extensions until you pass eligibility</span>';
+  if(rd.totalCases < 20) h += '<br><span style="color:var(--amber-400);font-size:13px">You need ' + (20 - rd.totalCases) + ' more cases for pass guarantee eligibility</span>';
   h += '</div>';
 
   h += '</div>';
