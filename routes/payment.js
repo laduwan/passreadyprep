@@ -7,7 +7,8 @@
  * Tiers:
  *   free       — default, no payment required
  *   monthly    — $29/mo recurring (Stripe subscription)
- *   pass3      — $79 one-time, 3 months access
+ *   pass3      — $79 recurring every 3 months (Stripe subscription)
+ *   pass6      — $119 recurring every 6 months (Stripe subscription)
  *   guarantee  — $249 one-time, access until passing (bundles NCMHCE study guide)
  *   test       — $1.00 one-time, admin-only live-payment smoke test (grants nothing)
  *   nce_monthly / nce_pass3 / nce_pass6 — NCE plans, written to User.nceAccess
@@ -18,16 +19,22 @@
  *   STRIPE_SECRET_KEY       — sk_live_xxx  (or sk_test_xxx for dev)
  *   STRIPE_WEBHOOK_SECRET   — whsec_xxx  (from Stripe dashboard → Webhooks)
  *   STRIPE_PRICE_MONTHLY    — price_xxx  (monthly $29 recurring price ID)
- *   STRIPE_PRICE_PASS3      — price_xxx  (3-month $79 one-time price ID)
- *   STRIPE_PRICE_PASS6      — price_xxx  (6-month $119 one-time price ID)
+ *   STRIPE_PRICE_PASS3      — price_xxx  (3-month $79 recurring, interval 3 months)
+ *   STRIPE_PRICE_PASS6      — price_xxx  (6-month $119 recurring, interval 6 months)
  *   STRIPE_PRICE_GUARANTEE  — price_xxx  ($249 one-time price ID — update in Stripe to match)
  *   STRIPE_PRICE_NCE_MONTHLY — price_xxx (NCE monthly $24.99 recurring)
- *   STRIPE_PRICE_NCE_PASS3   — price_xxx (NCE 3-month $59 one-time)
- *   STRIPE_PRICE_NCE_PASS6   — price_xxx (NCE 6-month $89 one-time)
+ *   STRIPE_PRICE_NCE_PASS3   — price_xxx (NCE 3-month $59.99 recurring, interval 3 months)
+ *   STRIPE_PRICE_NCE_PASS6   — price_xxx (NCE 6-month $89 recurring, interval 6 months)
  *   STRIPE_PRICE_NCE_GUARANTEE — price_xxx (NCE Access Extensions Until You Pass one-time; optional)
  *   STRIPE_PRICE_GUIDE       — price_xxx (NCMHCE Study Guide one-time digital)
  *   STRIPE_PRICE_GUIDE_NCE   — price_xxx (NCE Ownership Method one-time digital)
  *   CLIENT_URL              — https://passreadyprep-server.onrender.com (no trailing slash)
+ *
+ * The recurring plans bill on a multi-month interval, not monthly: the 3-month
+ * passes must be `every 3 months` in Stripe and the 6-month passes `every 6
+ * months`. A price whose interval disagrees with the plan is reported by
+ * GET /api/payment/plans as `intervalMismatch` and logged on startup of that
+ * lookup, because Stripe would otherwise charge the pass price every month.
  */
 
 const express = require('express');
@@ -92,12 +99,14 @@ const TIERS = {
     priceId: () => process.env.STRIPE_PRICE_MONTHLY,
     mode: 'subscription',
     tierName: 'monthly',
+    billingMonths: 1,
     // access expires when Stripe says subscription ends
   },
   pass3: {
     priceId: () => process.env.STRIPE_PRICE_PASS3,
     mode: 'subscription',
     tierName: 'pass3',
+    billingMonths: 3,
     // Auto-renews every 3 months (Stripe recurring interval = 3 months).
     // Access expiry comes from Stripe (currentPeriodEnd), not accessDays.
   },
@@ -105,6 +114,7 @@ const TIERS = {
     priceId: () => process.env.STRIPE_PRICE_PASS6,
     mode: 'subscription',
     tierName: 'pass6',
+    billingMonths: 6,
     // Auto-renews every 6 months.
   },
   guarantee: {
@@ -144,12 +154,14 @@ const TIERS = {
     mode: 'subscription',
     tierName: 'nce_monthly',
     exam: 'nce',
+    billingMonths: 1,
   },
   nce_pass3: {
     priceId: () => process.env.STRIPE_PRICE_NCE_PASS3,
     mode: 'subscription',
     tierName: 'nce_pass3',
     exam: 'nce',
+    billingMonths: 3,
     // Auto-renews every 3 months.
   },
   nce_pass6: {
@@ -157,6 +169,7 @@ const TIERS = {
     mode: 'subscription',
     tierName: 'nce_pass6',
     exam: 'nce',
+    billingMonths: 6,
     // Auto-renews every 6 months.
   },
   // NCE Access Extensions Until You Pass: the same promise as `guarantee` above (no repayment,
@@ -1103,14 +1116,31 @@ router.get('/plans', async (req, res) => {
       return (c.exam || 'ncmhce') === exam && !!c.priceId();
     });
     const plans = await Promise.all(tiers.map(async (t) => {
-      const price = await getStripe().prices.retrieve(TIERS[t].priceId());
+      const cfg = TIERS[t];
+      const price = await getStripe().prices.retrieve(cfg.priceId());
+      const rec = price.recurring || null;
+      // How many months this plan is meant to bill on (1, 3, 6). A one-time
+      // plan has none. Stripe states its own interval as a unit plus a count,
+      // so "every 3 months" is month × 3 — a price left at month × 1 would
+      // charge the 3-month price monthly, which is why the mismatch is
+      // reported rather than quietly rendered as "per month".
+      const months = rec ? (rec.interval === 'year' ? rec.interval_count * 12
+        : rec.interval === 'month' ? rec.interval_count : 0) : null;
+      const expected = cfg.billingMonths || null;
+      const intervalMismatch = !!(expected && months !== expected);
+      if (intervalMismatch) {
+        console.warn(`plans: Stripe price for "${t}" bills every ${rec ? rec.interval_count + ' ' + rec.interval : 'one-time'}, expected every ${expected} month(s)`);
+      }
       return {
         tier: t,
         amount: price.unit_amount,          // in cents
         currency: price.currency,
-        interval: (price.recurring && price.recurring.interval) || null,
-        guarantee: !!TIERS[t].guarantee,
-        accessDays: TIERS[t].accessDays || null,
+        interval: (rec && rec.interval) || null,
+        intervalCount: (rec && rec.interval_count) || null,
+        billingMonths: expected,            // what the plan is sold as
+        intervalMismatch,                   // true when Stripe disagrees with it
+        guarantee: !!cfg.guarantee,
+        accessDays: cfg.accessDays || null,
       };
     }));
     const body = { exam, plans };

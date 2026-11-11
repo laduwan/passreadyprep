@@ -79,6 +79,9 @@ async function resolveAccess(req, res, next) {
 
     req.trialEndsAt = trialEndFor(user);
     req.accessLevel = tier === 'free' ? trialLevel(user) : 'paid';
+    // The plan behind that level, for features sold on one plan only (the
+    // AI debrief comes with the Access Extensions Until You Pass plan).
+    req.subscriptionTier = req.accessLevel === 'paid' ? tier : 'free';
     next();
   } catch (err) {
     req.accessLevel = 'free';
@@ -94,6 +97,7 @@ router.get('/access', resolveAccess, (req, res) => {
   res.set('Cache-Control', 'no-store');
   res.json({
     accessLevel: req.accessLevel,
+    tier: req.subscriptionTier || 'free',
     trialEndsAt: req.trialEndsAt || null,
     gateReason: req.gateReason || null,
   });
@@ -146,6 +150,7 @@ router.get('/', resolveAccess, async (req, res) => {
       total: items.length,
       items: limited,
       accessLevel: req.accessLevel,
+      tier: req.subscriptionTier || 'free',
       freeLimit: FREE_CASE_LIMIT,
       trialDays: TRIAL_DAYS,
       // The end of THIS account's trial, which may be an admin-granted

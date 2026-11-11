@@ -36,6 +36,7 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
   const [debrief, setDebrief] = useState(null);
   const [debriefLoading, setDebriefLoading] = useState(false);
   const [debriefError, setDebriefError] = useState(null);
+  const [debriefLocked, setDebriefLocked] = useState(null); // upgrade URL once the server says the plan lacks it
   const [caseCategory, setCaseCategory] = useState(null);
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
   const [showReview, setShowReview] = useState(false);
@@ -131,7 +132,16 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ caseData, answers, mode }),
       });
-      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Request failed');
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        // The debrief is sold with the Access Extensions Until You Pass plan
+        // only (routes/debrief.js): show the locked card instead of an error.
+        if (res.status === 403 && body.code === 'DEBRIEF_REQUIRES_GUARANTEE') {
+          setDebriefLocked(body.upgradeUrl || '/pricing.html?exam=ncmhce&tier=guarantee');
+          return;
+        }
+        throw new Error(body.error || 'Request failed');
+      }
       const data = await res.json();
       setDebrief(data.debrief);
     } catch (e) {
@@ -330,7 +340,18 @@ export default function CaseSimulation({ caseId, mode, examMode = false, onBack,
           <p className="text-xs text-slate-500 mb-3">
             Dr. Claire Moreau reviews your answers — strengths, growth areas, and an NCMHCE exam tip for this case.
           </p>
-          {!debrief && (
+          {debriefLocked && (
+            <div className="bg-amber-500/8 border border-amber-500/20 rounded-xl p-4" role="note">
+              <div className="text-xs font-bold text-amber-400 mb-1">🔒 Access Extensions Until You Pass plan</div>
+              <p className="text-sm text-slate-300 mb-3">
+                The AI debrief comes with the Access Extensions Until You Pass plan: one payment, access until you pass, and Dr. Moreau's written debrief after every case.
+              </p>
+              <a href={debriefLocked} className="inline-block bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-4 py-2 rounded-xl text-sm transition-colors">
+                See the plan ›
+              </a>
+            </div>
+          )}
+          {!debrief && !debriefLocked && (
             <button
               onClick={runDebrief}
               disabled={debriefLoading}

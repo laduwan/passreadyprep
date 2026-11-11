@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Choose a plan — PassReady Prep</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="/prp-ui.css">
+<style>
+  /* Page layout. Everything visual comes from prp-ui.css tokens; this file
+     only places things on the grid. Desktop is the 6a card row, phone is the
+     6b plan-row list — the same markup, re-laid-out. */
+
+  /* The layout sets display on several elements that are also toggled with
+     [hidden], which would otherwise win over it. */
+  [hidden]{display:none !important}
+
+  .pp-head{
+    display:flex; justify-content:space-between; align-items:center; gap:16px;
+    padding:16px 32px; border-bottom:var(--prp-rule) solid var(--prp-divider);
+  }
+  .pp-head-left{display:flex; align-items:center; gap:16px; min-width:0}
+  .pp-head-right{display:flex; align-items:center; gap:20px; flex-wrap:wrap}
+  .pp-logo{width:32px; height:32px; flex:none; display:grid; place-items:center; color:var(--prp-accent-text)}
+  .pp-logo svg{width:26px; height:26px; display:block}
+
+  .pp-hero{
+    padding:48px 40px 32px; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+    gap:48px; align-items:end; border-bottom:var(--prp-rule) solid var(--prp-divider);
+  }
+  .pp-hero-copy{display:flex; flex-direction:column; gap:14px}
+  .pp-hero-copy p{margin:0; max-width:520px}
+  .pp-stats{display:grid; grid-template-columns:repeat(3,1fr); border-top:var(--prp-rule) solid var(--prp-divider)}
+  .pp-stats > div{padding:14px 0}
+
+  /* Plans — equal-width columns on desktop. */
+  .pp-plans{display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr)}
+  .pp-plan{
+    text-align:left; padding:32px; border:0;
+    border-right:var(--prp-rule) solid var(--prp-divider);
+    border-top:3px solid transparent;           /* the selected plan fills this */
+    background:transparent; color:var(--prp-text); font:inherit; cursor:pointer;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .pp-plan:last-child{border-right:0}
+  .pp-plan[aria-checked="true"]{border-top-color:var(--prp-accent); background:var(--prp-accent-tint)}
+  .pp-plan-head{display:flex; justify-content:space-between; align-items:center; gap:8px}
+  .pp-plan-name{font-weight:600; font-size:17px}
+  .pp-plan-price{display:flex; align-items:baseline; gap:6px}
+  .pp-plan-amount{font-size:44px; font-weight:500; letter-spacing:-0.04em; font-variant-numeric:tabular-nums}
+  .pp-plan-per{font-size:14px; color:var(--prp-muted)}
+  .pp-plan-desc{font-size:14px; color:var(--prp-text-2); line-height:1.5}
+  .pp-plan-feats{
+    display:flex; flex-direction:column; gap:6px; padding-top:12px;
+    border-top:var(--prp-rule) solid var(--prp-divider); margin:0; list-style:none;
+  }
+  .pp-plan-feats li{font-size:13px; color:var(--prp-text-2)}
+  .pp-plan-pick{font-size:13px; font-weight:600; color:var(--prp-muted); margin-top:auto; padding-top:4px}
+  .pp-plan[aria-checked="true"] .pp-plan-pick{color:var(--prp-accent-text)}
+  /* The radio dot belongs to the phone layout only. */
+  .pp-plan-dot{display:none}
+
+  .pp-summary{
+    padding:24px 40px; border-top:var(--prp-rule) solid var(--prp-divider);
+    display:flex; justify-content:space-between; align-items:center; gap:24px;
+    flex-wrap:wrap; background:var(--prp-surface);
+  }
+  .pp-summary-right{display:flex; gap:16px; align-items:center; flex-wrap:wrap}
+  .pp-terms{display:flex; gap:8px; align-items:center; font-size:13px; color:var(--prp-text-2); cursor:pointer}
+  .pp-cta{min-width:240px}
+
+  .pp-note{padding:0 40px 32px; font-size:12px; color:var(--prp-muted); line-height:1.5; max-width:760px}
+  .pp-msg{margin:0 40px 20px; padding:12px 14px; font-size:14px; border:var(--prp-rule) solid var(--prp-danger); color:var(--prp-danger)}
+  .pp-loading{padding:48px 40px; color:var(--prp-muted)}
+
+  /* Shown only inside the iPhone app (body.is-app), set by JS. */
+  .app-only{display:none}
+  body.is-app .app-only{display:revert}
+  body.is-app .web-only{display:none}
+
+  /* ── Phone: the 6b layout ───────────────────────────────────────────── */
+  @media (max-width: 860px){
+    /* Header stacks: brand and Sign out on one row, the exam switch below. */
+    /* The right-hand group dissolves so its children wrap against the header
+       itself: brand and Sign out share the first row, the exam switch takes
+       the second. */
+    .pp-head{padding:8px 20px; flex-wrap:wrap; gap:8px 12px}
+    .pp-head-left{flex:1 1 auto}
+    .pp-head-right{display:contents}
+    .pp-head-right .prp-meta{display:none}
+    .pp-head .prp-seg{order:3; flex:1 0 100%}
+    .pp-hero{padding:24px 20px 20px; grid-template-columns:1fr; gap:16px; align-items:start}
+    .pp-stats{grid-template-columns:repeat(3,1fr)}
+
+    .pp-plans{grid-auto-flow:row; grid-auto-columns:auto; border-bottom:var(--prp-rule) solid var(--prp-divider)}
+    .pp-plan{
+      display:grid; grid-template-columns:22px minmax(0,1fr) auto; gap:12px; align-items:center;
+      min-height:68px; padding:12px 20px; border-right:0; border-top:var(--prp-rule) solid var(--prp-divider);
+    }
+    .pp-plan[aria-checked="true"]{border-top-color:var(--prp-divider)}
+    .pp-plan-dot{
+      display:block; width:18px; height:18px; border:2px solid var(--prp-muted); background:transparent;
+    }
+    .pp-plan[aria-checked="true"] .pp-plan-dot{
+      border-color:var(--prp-accent); background:var(--prp-accent);
+      box-shadow:inset 0 0 0 3px var(--prp-bg);
+    }
+    .pp-plan-head{flex-direction:column; align-items:flex-start; gap:2px}
+    .pp-plan-price{flex-direction:column; align-items:flex-end; gap:0}
+    .pp-plan-amount{font-size:17px; font-weight:600; letter-spacing:0}
+    .pp-plan-per{font-size:11px}
+    .pp-plan-desc,
+    .pp-plan-feats,
+    .pp-plan-pick,
+    .pp-plan .prp-tag{display:none}     /* the row shows the short line instead */
+    .pp-plan-short{font-size:12px; color:var(--prp-muted)}
+    .pp-stats{gap:8px}
+    .prp-stat-label{font-size:11px; line-height:1.3}
+
+    .pp-summary{
+      position:sticky; bottom:0; padding:12px 20px 20px; flex-direction:column; align-items:stretch; gap:8px;
+    }
+    .pp-summary-line{font-size:13px; color:var(--prp-text-2)}
+    .pp-summary-right{flex-direction:column; align-items:stretch; gap:8px}
+    .pp-cta{min-width:0; width:100%}
+    .pp-note{padding:0 20px 24px}
+    .pp-msg{margin:0 20px 16px}
+  }
+  /* On desktop the short line is only for the phone rows. */
+  @media (min-width: 861px){ .pp-plan-short{display:none} }
+</style>
+</head>
+<body class="prp">
+
+<header class="pp-head">
+  <div class="pp-head-left">
+    <span class="pp-logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+        <path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+      </svg>
+    </span>
+    <a class="prp-btn prp-btn-ghost" id="back-link" href="/study">← Dashboard</a>
+  </div>
+  <div class="pp-head-right">
+    <span class="prp-meta">Plans for</span>
+    <div class="prp-seg" id="exam-seg" role="group" aria-label="Choose an exam">
+      <button type="button" data-exam="nce" aria-pressed="false">NCE</button>
+      <button type="button" data-exam="ncmhce" aria-pressed="true">NCMHCE</button>
+    </div>
+    <button type="button" class="prp-btn prp-btn-ghost" id="signout" hidden>Sign out</button>
+  </div>
+</header>
+
+<main id="main" hidden>
+  <section class="pp-hero">
+    <div class="pp-hero-copy">
+      <span class="prp-eyebrow" id="eyebrow">Your free trial has ended</span>
+      <h1 class="prp-hero-title" id="headline">Pick up where you left off.</h1>
+      <p class="prp-body" id="subcopy"></p>
+    </div>
+    <div class="pp-stats" id="stats" hidden>
+      <div>
+        <div class="prp-stat-value" id="stat-completed">—</div>
+        <div class="prp-stat-label" id="stat-completed-label">cases completed</div>
+      </div>
+      <div>
+        <div class="prp-stat-value" id="stat-readiness">—</div>
+        <div class="prp-stat-label">readiness</div>
+      </div>
+      <div>
+        <div class="prp-stat-value" id="stat-days">—</div>
+        <div class="prp-stat-label">days to exam</div>
+      </div>
+    </div>
+  </section>
+
+  <p class="pp-msg" id="msg" role="alert" hidden></p>
+
+  <div class="pp-plans" id="plans" role="radiogroup" aria-label="Plans"></div>
+
+  <p class="pp-note" id="footnote"></p>
+  <div class="pp-summary">
+    <span class="pp-summary-line" id="summary">Choose a plan to continue.</span>
+    <div class="pp-summary-right">
+      <label class="pp-terms" id="terms-wrap" hidden>
+        <input type="checkbox" id="terms"> I accept the check-in terms
+      </label>
+      <span class="prp-meta web-only">Secure checkout by Stripe</span>
+      <span class="prp-meta app-only">Billed through your Apple ID</span>
+      <button type="button" class="prp-btn prp-btn-primary pp-cta" id="cta">
+        <span id="cta-label">Continue to checkout</span> <span aria-hidden="true">→</span>
+      </button>
+      <button type="button" class="prp-btn prp-btn-ghost app-only" id="restore">Restore purchase</button>
+    </div>
+  </div>
+
+</main>
+
+<p class="pp-loading" id="loading">Loading plans…</p>
+
+<script>
+(function () {
+  'use strict';
+
+  // In the iPhone app plans are App Store purchases (native-iap.js →
+  // StoreKitPlugin.swift); on the website they go through Stripe Checkout.
+  var APP = !!window.PRP_NATIVE;
+  if (APP) document.body.classList.add('is-app');
+
+  function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function user() { try { return JSON.parse(get('prp_user') || 'null') || {}; } catch (e) { return {}; } }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+  var $ = function (id) { return document.getElementById(id); };
+
+  // ── Plans ──────────────────────────────────────────────────────────────
+  // Listed prices and copy. Live amounts from /api/payment/plans replace the
+  // price and the billing period whenever Stripe answers, so the page always
+  // states what the card will actually be charged.
+  //
+  // The AI debrief belongs to the Access Extensions Until You Pass plan
+  // (routes/debrief.js enforces it), so only the NCMHCE plans mention it.
+  // The NCE side has no debrief in the product yet, so NCE plans claim
+  // nothing about it either way.
+  var PLANS = {
+    ncmhce: [
+      { tier: 'monthly', name: 'Monthly', price: 2900, per: '/ month', tag: 'Cancel anytime',
+        short: 'Cancel anytime', note: 'cancel anytime',
+        desc: 'Full NCMHCE practice, billed monthly.',
+        feats: ['All case simulations', 'Timed mock exams', 'Readiness by domain', 'No AI debrief'] },
+      { tier: 'pass3', name: '3-month pass', price: 7900, per: '/ 3 months', tag: 'Most popular',
+        short: 'Billed every 3 months', note: 'billed every 3 months, cancel anytime',
+        desc: '3 months of full NCMHCE access. Billed every 3 months until you cancel.',
+        feats: ['Everything in Monthly', 'Billed every 3 months', 'Cancel any time', 'No AI debrief'] },
+      { tier: 'pass6', name: '6-month pass', price: 11900, per: '/ 6 months', tag: 'Room for a retake',
+        short: 'Billed every 6 months', note: 'billed every 6 months, cancel anytime',
+        desc: '6 months of full NCMHCE access. Billed every 6 months until you cancel.',
+        feats: ['Everything in Monthly', 'Billed every 6 months', 'Room for a retake', 'No AI debrief'] },
+      { tier: 'guarantee', name: 'Until you pass', price: 24900, per: 'one time', tag: 'Guaranteed',
+        short: 'Until you pass · free check-ins', note: 'one payment, never renews', terms: true,
+        desc: 'One payment, full NCMHCE access plus the AI debrief until you pass. Check in every 6 months with your exam date or score report.',
+        feats: ['AI debrief after every case', 'Free 3-month extension if you don’t pass',
+                'Refund option on a first-attempt fail', 'The Complete NCMHCE Study Guide (digital, $25 value)',
+                'Free CE course when you pass'] },
+    ],
+    nce: [
+      { tier: 'nce_monthly', name: 'Monthly', price: 2499, per: '/ month', tag: 'Cancel anytime',
+        short: 'Cancel anytime', note: 'cancel anytime',
+        desc: 'Full NCE practice, billed monthly. Billed separately from NCMHCE.',
+        feats: ['Full NCE question bank', 'Unlimited timed mock exams', 'Progress by NCE domain'] },
+      { tier: 'nce_pass3', name: '3-month pass', price: 5999, per: '/ 3 months', tag: 'Most popular',
+        short: 'Billed every 3 months', note: 'billed every 3 months, cancel anytime',
+        desc: '3 months of full NCE access. Billed every 3 months until you cancel.',
+        feats: ['Everything in Monthly', 'Billed every 3 months', 'Cancel any time'] },
+      { tier: 'nce_pass6', name: '6-month pass', price: 8900, per: '/ 6 months', tag: 'Best value',
+        short: 'Billed every 6 months', note: 'billed every 6 months, cancel anytime',
+        desc: '6 months of full NCE access. Billed every 6 months until you cancel.',
+        feats: ['Everything in Monthly', 'Billed every 6 months', 'Room for a retake'] },
+      // Hidden until STRIPE_PRICE_NCE_GUARANTEE exists: /api/payment/plans
+      // leaves out a tier with no price, and `liveOnly` keeps it off the page
+      // until that lookup says it is on sale.
+      { tier: 'nce_guarantee', name: 'Until you pass', price: 18900, per: 'one time', tag: 'Guaranteed',
+        short: 'Until you pass · free check-ins', note: 'one payment, never renews',
+        terms: true, liveOnly: true,
+        desc: 'One payment, full NCE access until you pass. Check in every 6 months with your exam date or score report.',
+        feats: ['Free 3-month extension if you don’t pass', 'Refund option on a first-attempt fail',
+                'The NCE Ownership Method guide ($25 value)', 'Free CE course when you pass'] },
+    ],
+  };
+  var DEFAULT_TIER = { ncmhce: 'pass3', nce: 'nce_pass3' };
+  var STUDY_HOME = { ncmhce: '/study', nce: '/nce.html' };
+
+  var params = new URLSearchParams(location.search);
+  var exam = params.get('exam') === 'nce' ? 'nce' : 'ncmhce';
+  var selected = null;
+  var live = {};        // tier → the plan as Stripe reports it
+  var offered = null;   // tiers Stripe is actually selling, or null before it answers
+
+  function money(cents) { return '$' + (cents / 100).toFixed(cents % 100 ? 2 : 0); }
+
+  // What Stripe will really charge, in words. A price whose interval does not
+  // match the plan it is sold as (the server flags this as intervalMismatch)
+  // is still described truthfully here, so the page can never promise a
+  // 3-month price that bills monthly.
+  function periodLabel(cfg) {
+    var l = live[cfg.tier];
+    if (!l || !l.interval) return l ? 'one time' : cfg.per;
+    var n = l.intervalCount || 1;
+    return n > 1 ? '/ ' + n + ' ' + l.interval + 's' : '/ ' + l.interval;
+  }
+  function amount(cfg) { return live[cfg.tier] ? money(live[cfg.tier].amount) : money(cfg.price); }
+
+  function visiblePlans() {
+    return PLANS[exam].filter(function (p) {
+      if (offered) return offered.indexOf(p.tier) !== -1;
+      return !p.liveOnly;   // before Stripe answers, show only what is always on sale
+    });
+  }
+  function planFor(tier) {
+    var all = PLANS.ncmhce.concat(PLANS.nce);
+    for (var i = 0; i < all.length; i++) if (all[i].tier === tier) return all[i];
+    return null;
+  }
+
+  // ── Render ─────────────────────────────────────────────────────────────
+  function renderPlans() {
+    var list = visiblePlans();
+    if (list.map(function (p) { return p.tier; }).indexOf(selected) === -1) {
+      selected = (list[0] || {}).tier || null;
+    }
+    $('plans').innerHTML = list.map(function (p) {
+      var on = p.tier === selected;
+      return '<button type="button" class="pp-plan" role="radio" aria-checked="' + (on ? 'true' : 'false') + '"'
+        + ' data-tier="' + esc(p.tier) + '">'
+        + '<span class="pp-plan-dot" aria-hidden="true"></span>'
+        + '<span class="pp-plan-head">'
+          + '<span class="pp-plan-name">' + esc(p.name) + '</span>'
+          + '<span class="prp-tag' + (on ? ' prp-tag-accent' : '') + '">' + esc(p.tag) + '</span>'
+          + '<span class="pp-plan-short">' + esc(p.short) + '</span>'
+        + '</span>'
+        + '<span class="pp-plan-price">'
+          + '<span class="pp-plan-amount">' + esc(amount(p)) + '</span>'
+          + '<span class="pp-plan-per">' + esc(periodLabel(p)) + '</span>'
+        + '</span>'
+        + '<span class="pp-plan-desc">' + esc(p.desc) + '</span>'
+        + '<ul class="pp-plan-feats">'
+          + p.feats.map(function (f) { return '<li>✓ ' + esc(f) + '</li>'; }).join('')
+        + '</ul>'
+        + '<span class="pp-plan-pick">' + (on ? '✓ Selected' : 'Select') + '</span>'
+        + '</button>';
+    }).join('');
+    renderSummary();
+  }
+
+  function renderSummary() {
+    var cfg = planFor(selected);
+    if (!cfg) {
+      $('summary').textContent = 'No plans are on sale for this exam right now.';
+      $('cta').disabled = true;
+      $('terms-wrap').hidden = true;
+      return;
+    }
+    $('summary').innerHTML = '<strong>' + esc(cfg.name) + '</strong> · ' + esc(amount(cfg)) + ' '
+      + esc(periodLabel(cfg)) + ' <span class="prp-meta">· ' + esc(cfg.note) + '</span>';
+    // The check-in terms are acknowledged only for the until-you-pass plan.
+    $('terms-wrap').hidden = !cfg.terms;
+    $('cta').disabled = false;
+    $('cta-label').textContent = APP ? 'Subscribe' : 'Continue to checkout';
+    $('footnote').innerHTML = cfg.terms
+      ? 'One payment, and it never renews. Free check-in every 6 months (your exam date or your score report). '
+        + 'If you don’t pass, your access is extended free for 3 months; you can take a refund instead on a '
+        + 'first-attempt fail, minus the study guide. Pass and your first CE course on CounselorReady is free. '
+        + '<a href="/policies.html#guarantee">Full terms</a>.'
+      : (APP
+          ? 'Payment is charged to your Apple ID when you confirm. It renews at the same price unless you cancel at '
+            + 'least 24 hours before the period ends. Manage or cancel it in your App Store settings.'
+          : 'Renews automatically until you cancel. Cancel any time from your account page.');
+  }
+
+  function renderStats(s) {
+    if (!s) return;
+    var has = (s.completed || 0) > 0 || s.readiness != null || s.daysToExam != null;
+    if (!has) return;
+    $('stats').hidden = false;
+    $('stat-completed').textContent = s.completed || 0;
+    $('stat-completed-label').textContent = (s.unit || 'cases') + ' completed';
+    var r = $('stat-readiness');
+    if (s.readiness == null) { r.textContent = '—'; r.style.color = ''; }
+    else {
+      r.textContent = s.readiness;
+      // Readiness always pairs a number with a colour, never colour alone —
+      // the label underneath names it either way.
+      r.style.color = s.readiness >= 70 ? 'var(--prp-accent-text)'
+        : s.readiness >= 50 ? 'var(--prp-warn)' : 'var(--prp-danger)';
+    }
+    $('stat-days').textContent = s.daysToExam == null ? '—' : s.daysToExam;
+  }
+
+  function showMsg(text) {
+    var el = $('msg');
+    if (!text) { el.hidden = true; return; }
+    el.textContent = text;
+    el.hidden = false;
+  }
+
+  // ── Data ───────────────────────────────────────────────────────────────
+  function authHeaders() {
+    var t = get('prp_token');
+    return t ? { authorization: 'Bearer ' + t } : {};
+  }
+
+  function loadPrices() {
+    return fetch('/api/payment/plans?exam=' + exam)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('no plans')); })
+      .then(function (d) {
+        live = {};
+        offered = [];
+        (d.plans || []).forEach(function (p) { live[p.tier] = p; offered.push(p.tier); });
+      })
+      .catch(function () { live = {}; offered = null; });   // fall back to the listed prices
+  }
+
+  function loadStats() {
+    if (!get('prp_token')) return Promise.resolve(null);
+    return fetch('/api/progress/summary?exam=' + exam, { headers: authHeaders() })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; });
+  }
+
+  // The NCMHCE side has the AI debrief; the NCE side does not, so each exam
+  // gets its own line rather than one that over-promises.
+  var SUBCOPY = {
+    ncmhce: 'Everything you’ve done is saved. Choose a plan to unlock all cases, mock exams and the AI debrief again.',
+    nce: 'Everything you’ve done is saved. Choose a plan to unlock the full question bank, timed mock exams and your readiness by domain again.',
+  };
+  var SUBCOPY_NEW = {
+    ncmhce: 'Full access to every case simulation, timed mock exams and your readiness score. The AI debrief comes with the until-you-pass plan.',
+    nce: 'Full access to the NCE question bank, timed mock exams and your readiness by domain. Billed separately from NCMHCE.',
+  };
+
+  function loadExam() {
+    showMsg('');
+    $('subcopy').textContent = (get('prp_token') ? SUBCOPY : SUBCOPY_NEW)[exam];
+    $('back-link').href = STUDY_HOME[exam];
+    Array.prototype.forEach.call($('exam-seg').children, function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-exam') === exam ? 'true' : 'false');
+    });
+    $('stats').hidden = true;
+    return loadPrices().then(function () {
+      renderPlans();
+      $('loading').hidden = true;
+      $('main').hidden = false;
+      return loadStats().then(renderStats);
+    });
+  }
+
+  // ── Buying ─────────────────────────────────────────────────────────────
+  function needTerms(cfg) {
+    if (!cfg.terms) return false;
+    if ($('terms').checked) return false;
+    showMsg('Please accept the check-in terms to continue with this plan.');
+    $('terms').focus();
+    return true;
+  }
+
+  function buy() {
+    var cfg = planFor(selected);
+    if (!cfg) return;
+    showMsg('');
+    if (needTerms(cfg)) return;
+
+    var btn = $('cta');
+    var label = $('cta-label').textContent;
+    btn.disabled = true;
+    $('cta-label').textContent = APP ? 'Opening App Store…' : 'Opening checkout…';
+
+    function fail(m) {
+      showMsg(m);
+      btn.disabled = false;
+      $('cta-label').textContent = label;
+    }
+
+    // In the app, buying needs no account (App Store guideline 5.1.1(v)):
+    // native-iap.js keeps the purchase on a guest account for this device.
+    if (APP) {
+      if (!window.PRP_IAP) return fail('The App Store is not reachable right now. Please try again in a moment.');
+      window.PRP_IAP.buy(cfg.tier, { guaranteeTermsAccepted: !!cfg.terms })
+        .then(function (r) {
+          if (r.state === 'purchased') { location.href = STUDY_HOME[exam]; return; }
+          if (r.state === 'pending') return fail('Your purchase is waiting for approval. We will unlock your plan as soon as it clears.');
+          fail('Purchase cancelled.');
+        })
+        .catch(function (e) { fail(e.message || 'The purchase could not be completed.'); });
+      return;
+    }
+
+    // Website: sign in first, keeping the plan selected across the round trip.
+    if (!get('prp_token')) {
+      var back = '/pricing.html?exam=' + exam + '&tier=' + encodeURIComponent(cfg.tier);
+      location.href = '/register.html?next=' + encodeURIComponent(back);
+      return;
+    }
+
+    fetch('/api/payment/create-checkout-session', {
+      method: 'POST',
+      headers: Object.assign({ 'content-type': 'application/json' }, authHeaders()),
+      body: JSON.stringify({ tier: cfg.tier, guaranteeTermsAccepted: !!cfg.terms }),
+    })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (!res.ok) {
+          if (res.j && res.j.code === 'SESSION_INVALIDATED') {
+            try { localStorage.removeItem('prp_token'); localStorage.removeItem('prp_user'); } catch (e) {}
+            location.href = '/register.html?next=' + encodeURIComponent(location.pathname + location.search);
+            return;
+          }
+          return fail((res.j && res.j.error) || 'Could not start checkout. Please try again.');
+        }
+        location.href = res.j.url;
+      })
+      .catch(function () { fail('Network error. Please check your connection and try again.'); });
+  }
+
+  // ── Wiring ─────────────────────────────────────────────────────────────
+  $('plans').addEventListener('click', function (e) {
+    var b = e.target.closest('.pp-plan');
+    if (!b) return;
+    selected = b.getAttribute('data-tier');
+    showMsg('');
+    renderPlans();
+  });
+
+  $('exam-seg').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-exam]');
+    if (!b) return;
+    var next = b.getAttribute('data-exam');
+    if (next === exam) return;
+    exam = next;
+    selected = DEFAULT_TIER[exam];
+    history.replaceState({}, '', '/pricing.html?exam=' + exam);
+    $('loading').hidden = false;
+    loadExam();
+  });
+
+  $('cta').addEventListener('click', buy);
+
+  $('restore').addEventListener('click', function () {
+    if (!window.PRP_IAP) return;
+    var b = $('restore');
+    b.disabled = true;
+    b.textContent = 'Restoring…';
+    window.PRP_IAP.restore()
+      .then(function (r) {
+        b.textContent = (r && r.results && r.results.length) ? 'Restored ✓' : 'Nothing to restore';
+        if (r && r.results && r.results.length) setTimeout(function () { location.href = STUDY_HOME[exam]; }, 800);
+      })
+      .catch(function () { b.disabled = false; b.textContent = 'Restore purchase'; });
+  });
+
+  $('signout').addEventListener('click', function () {
+    try { localStorage.removeItem('prp_token'); localStorage.removeItem('prp_user'); } catch (e) {}
+    location.href = '/landing.html';
+  });
+
+  // ── Start ──────────────────────────────────────────────────────────────
+  var u = user();
+  if (u && u.email) $('signout').hidden = false;
+  if (!get('prp_token')) {
+    $('eyebrow').textContent = 'Plans';
+    $('headline').textContent = 'Pick the plan that fits your exam date.';
+  }
+  selected = params.get('tier') || DEFAULT_TIER[exam];
+  loadExam();
+})();
+</script>
+</body>
+</html>

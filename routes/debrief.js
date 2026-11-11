@@ -1,6 +1,36 @@
 const express = require('express');
+const User = require('../models/User');
+// The same NCMHCE trial / plan rule the case paywall uses (routes/content.js).
+const { resolveAccess } = require('./content');
 
 const router = express.Router();
+
+// Of the paid plans, the AI debrief belongs to Access Extensions Until You
+// Pass alone: monthly, the 3- and 6-month passes, an expired account and an
+// anonymous visitor all get a 403 with a code the results screens turn into a
+// locked card and an upgrade link. A free trial is full access, so it includes
+// the debrief — that is what the trial-ended screen means by unlocking it
+// "again". Admins keep it for support and review.
+const DEBRIEF_TIER = 'guarantee';
+async function requireDebriefPlan(req, res, next) {
+  if (req.accessLevel === 'trial') return next();
+  if (req.accessLevel === 'paid' && req.subscriptionTier === DEBRIEF_TIER) return next();
+  if (req.userId) {
+    try {
+      const u = await User.findById(req.userId).select('role');
+      if (u && u.role === 'admin') return next();
+    } catch (_) { /* fall through to the 403 */ }
+  }
+  const signedIn = !!req.userId;
+  return res.status(403).json({
+    error: signedIn
+      ? 'The AI debrief comes with the Access Extensions Until You Pass plan.'
+      : 'Sign in with an Access Extensions Until You Pass plan to get the AI debrief.',
+    code: 'DEBRIEF_REQUIRES_GUARANTEE',
+    requiredTier: DEBRIEF_TIER,
+    upgradeUrl: '/pricing.html?exam=ncmhce&tier=guarantee',
+  });
+}
 
 // Calls Anthropic with the SERVER's key — learners never supply one.
 async function callAnthropic(system, messages, maxTokens) {
@@ -65,7 +95,7 @@ function buildPerformance(caseData, answers) {
 
 // POST /api/debrief  { caseData, answers, mode }
 // Returns { debrief } — Dr. Claire Moreau's spoken-style written feedback.
-router.post('/', async (req, res) => {
+router.post('/', resolveAccess, requireDebriefPlan, async (req, res) => {
   try {
     const { caseData, answers, mode } = req.body || {};
     if (!caseData || !Array.isArray(caseData.questions) || !Array.isArray(answers)) {

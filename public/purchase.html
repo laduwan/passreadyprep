@@ -134,13 +134,13 @@
   // What each plan includes (the price comes from the App Store).
   var TIERS = {
     monthly:       { cls:'monthly',   name:'NCMHCE Monthly',          per:'per month', desc:'Full NCMHCE access. Renews monthly; cancel any time in your App Store settings.',
-                     features:['All 290+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan'], next:'/study' },
+                     features:['All 290+ case simulations','No AI debrief','Timed mock exams','Readiness predictor','250+ flashcards + study plan'], next:'/study' },
     pass3:         { cls:'pass3',     name:'NCMHCE 3-Month Pass',     per:'per 3 months', desc:'Full NCMHCE access, renews every 3 months. Cancel any time in your App Store settings.',
-                     features:['All 290+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan'], next:'/study' },
+                     features:['All 290+ case simulations','No AI debrief','Timed mock exams','Readiness predictor','250+ flashcards + study plan'], next:'/study' },
     pass6:         { cls:'pass3',     name:'NCMHCE 6-Month Pass',     per:'per 6 months', desc:'Full NCMHCE access, renews every 6 months. Cancel any time in your App Store settings.',
-                     features:['All 290+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Room for a retake'], next:'/study' },
+                     features:['All 290+ case simulations','No AI debrief','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Room for a retake'], next:'/study' },
     guarantee:     { cls:'guarantee', name:'NCMHCE Access Extensions Until You Pass',   per:'one-time', desc:'Unlimited NCMHCE access — one payment, no renewal.', guarantee:true,
-                     features:['All 290+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Access extensions until you pass — free CE on CounselorReady when you pass, or free extended access'], next:'/study' },
+                     features:['All 290+ case simulations','AI debrief with Dr. Claire Moreau after every case','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Access extensions until you pass — free CE on CounselorReady when you pass, or free extended access'], next:'/study' },
     nce_monthly:   { cls:'monthly',   name:'NCE Monthly',             per:'per month', desc:'Full NCE access. Renews monthly; cancel any time in your App Store settings.',
                      features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain'], next:'/nce.html' },
     nce_pass3:     { cls:'pass3',     name:'NCE 3-Month Pass',        per:'per 3 months', desc:'Full NCE access, renews every 3 months. Cancel any time in your App Store settings.',

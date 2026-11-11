@@ -294,7 +294,7 @@
     <div class="hdr-right">
       <span class="exam-badge">NCMHCE</span>
       <a class="acct-btn" href="/nce.html">NCE study</a>
-      <a class="acct-btn" href="/landing.html#pricing">Pricing</a>
+      <a class="acct-btn" href="/pricing.html?exam=ncmhce">Pricing</a>
       <span id="acct" class="acct"></span>
     </div>
   </header>
@@ -376,7 +376,7 @@ async function fetchList(){
     const j = await r.json();
     if(!j.items || !j.items.length) throw 0;
     DATA_SOURCE = 'api';
-    ACCESS = { level: j.accessLevel || 'free', trialEndsAt: j.trialEndsAt || null, trialStarted: j.trialStarted !== false, total: j.total || j.items.length, freeLimit: j.freeLimit || 5, trialDays: j.trialDays || 7 };
+    ACCESS = { level: j.accessLevel || 'free', tier: j.tier || 'free', trialEndsAt: j.trialEndsAt || null, trialStarted: j.trialStarted !== false, total: j.total || j.items.length, freeLimit: j.freeLimit || 5, trialDays: j.trialDays || 7 };
     return j.items;
   }catch(_){
     DATA_SOURCE = 'embedded';
@@ -715,55 +715,19 @@ function computeReadiness(){
 }
 
 // ---- access prompts: trial countdown, end-of-trial plan card, sign-up card ----
-// Plan links: the website checks out through Stripe (checkout.html); the iOS
-// app buys through the App Store (purchase.html), no account needed.
-function planHref(tier){ return (window.PRP_NATIVE ? '/purchase.html' : '/checkout.html') + '?tier=' + encodeURIComponent(tier); }
-const PLAN_LABELS = { pass3: '3-Month Pass', monthly: 'Monthly', pass6: '6-Month Pass', guarantee: 'Access Until You Pass' };
-let PLANS = null;          // live prices from /api/payment/plans (the same source nce.html uses), loaded once
-function fmtPrice(p){
-  const d = p.amount / 100;
-  const s = '$' + (d % 1 ? d.toFixed(2) : d);
-  if(!p.interval) return s;
-  return s + (p.tier === 'pass3' ? '/3 mo' : p.tier === 'pass6' ? '/6 mo' : '/mo');
-}
-async function loadPlans(){
-  if(PLANS) return PLANS;
-  try{
-    const r = await fetch('/api/payment/plans?exam=ncmhce');
-    const j = r.ok ? await r.json() : null;
-    PLANS = (j && Array.isArray(j.plans)) ? j.plans : [];
-  }catch(_){ PLANS = []; }
-  return PLANS;
-}
-function planButtons(){
-  const order = ['pass3','monthly','pass6','guarantee'];
-  const plans = (PLANS || []).filter(p => PLAN_LABELS[p.tier]).sort((a,b) => order.indexOf(a.tier) - order.indexOf(b.tier));
-  let h = '<div class="row" style="margin-top:14px">';
-  if(plans.length){
-    plans.forEach((p,i) => { h += '<a class="btn'+(i ? ' secondary' : '')+'" href="'+planHref(p.tier)+'">'+esc(PLAN_LABELS[p.tier])+' · '+esc(fmtPrice(p))+'</a>'; });
-  } else {
-    h += '<a class="btn" href="'+planHref('pass3')+'">Get the 3-Month Pass</a>';
-  }
-  h += '<a class="btn secondary" href="/landing.html#pricing">Compare all plans</a></div>';
-  return '<div id="gate-plan-btns">' + h + '</div>';
-}
-// Fills the plan buttons with live prices once they arrive (the card renders
-// first with a generic button, so nothing waits on the network).
-function fillPlanButtons(){
-  if(PLANS) return;
-  loadPlans().then(() => { const el = document.getElementById('gate-plan-btns'); if(el) el.outerHTML = planButtons(); });
-}
+// Plan links go to the pricing page, which checks out through Stripe on the
+// website and through the App Store in the iOS app (no account needed there).
+function planHref(tier){ return '/pricing.html?exam=ncmhce' + (tier ? '&tier=' + encodeURIComponent(tier) : ''); }
 function bankSize(){ return (ACCESS && ACCESS.total ? ACCESS.total : 270) + '+'; }
 function trialDays(){ return ACCESS && ACCESS.trialDays ? ACCESS.trialDays : 7; }
 // Signed-in member whose trial is over (or whose guarantee check-in is due).
 function accessCard(level, message){
   if(level === 'expired'){
     const guest = !!(currentUser() || {}).isGuest; // iOS guest: never had a trial, buys without an account
-    fillPlanButtons();
     return '<div class="card gate-card"><div class="gate-tag">🔒 '+(guest ? 'Choose a plan' : 'Free trial ended')+'</div>'
       + '<h2>'+(guest ? 'Choose a plan to keep studying' : 'Your free trial has ended')+'</h2>'
-      + '<p class="lead" style="margin-bottom:0">'+(guest ? '' : 'Your progress and readiness score are saved. ')+'Pick a plan to keep working all '+bankSize()+' cases, the timed mock exam and the AI debrief.</p>'
-      + planButtons() + '</div>';
+      + '<p class="lead" style="margin-bottom:0">'+(guest ? '' : 'Your progress and readiness score are saved. ')+'Pick a plan to keep working all '+bankSize()+' cases and the timed mock exam. The AI debrief comes with the Access Extensions Until You Pass plan.</p>'
+      + '<div class="row" style="margin-top:14px"><a class="btn" href="'+planHref()+'">Choose a plan ›</a></div></div>';
   }
   if(level === 'gated'){
     return '<div class="card gate-card"><div class="gate-tag">🔒 Access paused</div><h2>Check-in needed</h2>'
@@ -787,7 +751,7 @@ function trialBar(){
   const when = days <= 1 ? 'less than a day left' : days + ' days left';
   let date = '';
   try{ date = ' (ends ' + new Date(ACCESS.trialEndsAt).toLocaleDateString(undefined, { weekday:'short', month:'short', day:'numeric' }) + ')'; }catch(_){}
-  return '<div class="trial-bar"><span>Free trial · '+esc(when)+esc(date)+'</span><a href="'+planHref('pass3')+'">Choose a plan ›</a></div>';
+  return '<div class="trial-bar"><span>Free trial · '+esc(when)+esc(date)+'</span><a href="'+planHref()+'">Choose a plan ›</a></div>';
 }
 // Signed-out visitor: the ask for the free account that starts the trial.
 // 'done' = shown on the results screen of the free case; 'next' = they tried
@@ -802,7 +766,7 @@ function signupCard(why){
     + '<p class="lead" style="margin-bottom:0">'+lead+'</p>'
     + '<div class="row" style="margin-top:14px"><a class="btn" href="/register.html?next='+next+'">Create free account ›</a>'
     + '<button class="btn secondary" onclick="openAuth()">Sign in</button>'
-    + (window.PRP_NATIVE ? '<a class="btn secondary" href="/landing.html#pricing">Choose a plan</a>' : '')
+    + (window.PRP_NATIVE ? '<a class="btn secondary" href="'+planHref()+'">Choose a plan</a>' : '')
     + '</div></div>';
 }
 
@@ -1092,7 +1056,7 @@ function renderList(){
     const more = ACCESS.total - LIST_ITEMS.length;
     h += '<div class="lock-row">🔒 <strong>'+more+' more cases</strong> — '
        + (authHeaders().Authorization
-            ? '<a href="'+planHref('pass3')+'">choose a plan</a> to unlock the full bank.'
+            ? '<a href="'+planHref()+'">choose a plan</a> to unlock the full bank.'
             : '<a href="/register.html?next='+encodeURIComponent('/study')+'">create a free account</a> for a '+trialDays()+'-day trial of everything.')
        + '</div>';
   }
@@ -1456,9 +1420,11 @@ function finish(){
   }
   h += '</div>';
 
-  h += '<div class="card" style="margin-top:14px"><h2>AI clinical debrief</h2>'
+  h += '<div class="card" id="debrief-card" style="margin-top:14px"><h2>AI clinical debrief</h2>'
      + '<div style="font-size:12px;color:var(--slate-500);margin-bottom:10px">Dr. Claire Moreau reviews your answers — strengths, growth areas, and an NCMHCE exam tip for this case.</div>'
-     + '<button class="btn" id="debrief-btn" onclick="getDebrief()">Get debrief</button>'
+     + (debriefUnlocked()
+        ? '<button class="btn" id="debrief-btn" onclick="getDebrief()">Get debrief</button>'
+        : debriefLockedHtml())
      + '<div id="debrief-out"></div></div>';
 
   h += '<div class="row"><button class="btn" onclick="startCase(\''+esc(CASE.id)+'\')">Retry this case</button>'
@@ -1467,6 +1433,21 @@ function finish(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+// The AI debrief is part of the Access Extensions Until You Pass plan only
+// (routes/debrief.js enforces it). Everyone else sees a locked card that says
+// what the debrief is and where to get it; admins keep it for support.
+function debriefUnlocked(){
+  if(ACCESS && (ACCESS.tier === 'guarantee' || ACCESS.level === 'trial')) return true;
+  return (currentUser() || {}).role === 'admin';
+}
+function debriefLockedHtml(){
+  const signedIn = !!(currentUser() || {}).email;
+  const href = signedIn ? '/pricing.html?exam=ncmhce&tier=guarantee' : '/register.html?next=' + encodeURIComponent('/pricing.html?exam=ncmhce&tier=guarantee');
+  return '<div class="debrief-lock" role="note">'
+    + '<div class="gate-tag">🔒 Access Extensions Until You Pass plan</div>'
+    + '<p style="margin:8px 0 10px;font-size:14px;color:var(--slate-300)">The AI debrief comes with the Access Extensions Until You Pass plan: one payment, access until you pass, and Dr. Moreau\'s written debrief after every case.</p>'
+    + '<a class="btn" href="' + href + '">' + (signedIn ? 'See the plan ›' : 'Sign in or upgrade ›') + '</a></div>';
+}
 async function getDebrief(){
   const btn = document.getElementById('debrief-btn');
   const out = document.getElementById('debrief-out');
@@ -1479,6 +1460,10 @@ async function getDebrief(){
       body: JSON.stringify({ caseData: CASE, answers, mode: MODE })
     });
     const j = await r.json().catch(()=>({}));
+    if(r.status === 403 && j.code === 'DEBRIEF_REQUIRES_GUARANTEE'){
+      btn.outerHTML = debriefLockedHtml();
+      return;
+    }
     if(!r.ok) throw new Error(j.error || 'Request failed');
     out.innerHTML = '<div class="feedback" style="margin-top:12px">'
       + '<div class="fb-label" style="color:var(--purple-400)">Dr. Claire Moreau — Clinical Debrief</div>'
