@@ -583,6 +583,16 @@ a.choice{text-decoration:none}
     var pm = document.getElementById('plan-mock');
     if (pm) pm.onclick = renderMockSetup;
     if (location.hash === '#pricing') { var el = document.getElementById('pricing'); if (el) el.scrollIntoView(); }
+    // ?domain=<key> starts that domain's drill straight away. The dashboard's
+    // "Next up" card sends people here, so the drill has to be the one the
+    // card named rather than a generic one. Unknown keys are ignored.
+    try {
+      var want = new URLSearchParams(location.search).get('domain');
+      if (want && DOM && DOM[want]) {
+        history.replaceState(null, '', location.pathname);
+        startPractice(want);
+      }
+    } catch (e) { /* no targeting, ordinary page */ }
   }
 
   function pricingHtml(){

@@ -360,7 +360,7 @@
   var S = null;     // progress summary
   var A = null;     // access / trial status
   var streak = null;
-  var focusKey = null;
+  var focusKey = null;   // the domain the learner pinned, kept across the round trip
 
   // ── Helpers ────────────────────────────────────────────────────────────
   function cfg() { return EXAMS[exam]; }
@@ -385,6 +385,22 @@
     set(taskKey(), JSON.stringify(d));
   }
   function started() { return !!(S && S.completed > 0); }
+  // The pinned domain outlives a visit to the drill, so coming back to the
+  // dashboard still shows the session that was started.
+  function focusStoreKey() { return 'prp_focus_' + exam; }
+  function saveFocus() {
+    if (focusKey) set(focusStoreKey(), focusKey);
+    else { try { localStorage.removeItem(focusStoreKey()); } catch (e) {} }
+  }
+  // Where a session actually begins. The card names a domain, so the link has
+  // to carry it: /nce.html and /study both read ?domain= and open that work.
+  function sessionHref(domainKey) {
+    var base = cfg().home;
+    if (!domainKey) return base;
+    return exam === 'nce'
+      ? '/nce.html?domain=' + encodeURIComponent(domainKey)
+      : '/study?domain=' + encodeURIComponent(domainKey);
+  }
 
   // ── Render ─────────────────────────────────────────────────────────────
   function renderNav() {
@@ -500,7 +516,8 @@
           : 'A mixed session across every domain.') + '</p>'
       + '<div class="db-tags">' + tags.map(function (t) { return '<span class="prp-tag">' + esc(t) + '</span>'; }).join('') + '</div>'
       + '<div class="db-actions">'
-        + '<a class="prp-btn prp-btn-primary" href="' + esc(c.home) + '">' + esc(c.startLabel) + ' <span aria-hidden="true">→</span></a>'
+        + '<a class="prp-btn prp-btn-primary" href="' + esc(sessionHref(d && d.key)) + '">'
+        + esc(c.startLabel) + ' <span aria-hidden="true">→</span></a>'
         + '<a class="prp-btn prp-btn-ghost" href="' + esc(c.home) + '">Choose something else</a>'
       + '</div>';
   }
@@ -626,7 +643,7 @@
   // ── Load ───────────────────────────────────────────────────────────────
   function load() {
     var c = cfg();
-    focusKey = null;
+    focusKey = get('prp_focus_' + exam) || null;
     $('loading').hidden = false;
     return Promise.all([
       getJSON('/api/progress/summary?exam=' + exam),
@@ -636,6 +653,10 @@
       S = r[0] || { exam: exam, completed: 0, readiness: null, daysToExam: null, unit: c.unit, domains: [] };
       A = r[1];
       streak = r[2] && r[2].currentStreak ? r[2].currentStreak : null;
+      if (focusKey && !(S.domains || []).some(function (d) { return d.key === focusKey; })) {
+        focusKey = null;
+        saveFocus();
+      }
       if (!r[0]) $('msg').hidden = false, $('msg').textContent =
         'Signed out, so this is the empty dashboard. Sign in to see your own progress.';
       else $('msg').hidden = true;
@@ -663,6 +684,7 @@
     if (dom) {
       var k = dom.getAttribute('data-key');
       focusKey = focusKey === k ? null : k;   // clicking the focused row clears it
+      saveFocus();
       renderDomains();
       renderNextUp();
       return;

@@ -420,6 +420,10 @@ const weightText = w => (w>0?'+':'')+w;
 let CASE=null, qi=0, answers=[];
 let CASE_EXAM_ID=null, CASE_ITEM_ID=null; // captured per case, for server-side progress sync
 let LIST_ITEMS=[], LIST_FILTER='all', LIST_STATUS='all';
+// Set by ?domain=<key> from the dashboard's "Next up" card, so the list shows
+// the domain that card named instead of every case (DOMAIN_CATEGORY_MAP maps
+// a domain to the case categories that exercise it).
+let LIST_DOMAIN='all';
 let ACCESS=null;           // access level, trial end and bank size from the case list (routes/content.js)
 let MODE='new';            // 'new' (diagnosis given) | 'classic' (diagnose first)
 let EXAM_FB=false;         // false = study (feedback each Q) | true = exam (held to end)
@@ -989,9 +993,11 @@ function goCases(){ OPEN_CASE_ID = null; setIntro(false); renderList(); window.s
 // ---- case list ----
 function renderList(){
   const stats = caseStats();
+  const domainCats = LIST_DOMAIN !== 'all' ? (DOMAIN_CATEGORY_MAP[LIST_DOMAIN] || null) : null;
   const items = LIST_ITEMS.filter(it => {
     if(LIST_FILTER!=='all' && (it.difficulty||'').toLowerCase()!==LIST_FILTER) return false;
     if(LIST_STATUS!=='all' && caseStatus(stats[it.externalId])!==LIST_STATUS) return false;
+    if(domainCats && domainCats.indexOf(it.category) === -1) return false;
     return true;
   });
   const doneCount = LIST_ITEMS.filter(it => !!stats[it.externalId]).length;
@@ -1001,6 +1007,10 @@ function renderList(){
 
   let h = '<button class="back" onclick="showDashboard()">‹ Dashboard</button>';
   h += '<h1>Choose a case</h1>';
+  if(domainCats){
+    h += '<p class="lead">Showing cases for <strong style="color:var(--white)">'+esc(cap(LIST_DOMAIN))+'</strong> · '
+       + '<button class="fbtn" onclick="clearDomainFilter()">Show all cases</button></p>';
+  }
   h += '<p class="lead">Mode: <strong style="color:var(--white)">'
      + (MODE==='classic' ? 'Classic — you diagnose first' : 'New format — diagnosis given')
      + '</strong></p>';
@@ -1064,6 +1074,7 @@ function renderList(){
 }
 function setFilter(d){ LIST_FILTER=d; renderList(); }
 function setStatusFilter(s){ LIST_STATUS=s; renderList(); }
+function clearDomainFilter(){ LIST_DOMAIN='all'; renderList(); }
 
 // ---- a case ----
 async function startCase(externalId){
@@ -1642,16 +1653,17 @@ document.addEventListener('keydown', function(ev){
   // ?case=<id> reopens a case and ?view=cases opens the case list — register.html
   // sends new members here. Drop them from the URL so a refresh lands on the dashboard.
   const q = new URLSearchParams(location.search);
-  const wantCase = q.get('case'), wantView = q.get('view');
-  if(wantCase || wantView){
-    q.delete('case'); q.delete('view');
+  const wantCase = q.get('case'), wantView = q.get('view'), wantDomain = q.get('domain');
+  if(wantDomain && DOMAIN_CATEGORY_MAP[wantDomain]) LIST_DOMAIN = wantDomain;
+  if(wantCase || wantView || wantDomain){
+    q.delete('case'); q.delete('view'); q.delete('domain');
     const qs = q.toString();
     history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
   }
   await showDashboard();
   if(wantCase){
     try{ await startCase(wantCase); }catch(_){ goCases(); }
-  } else if(wantView === 'cases'){
+  } else if(wantView === 'cases' || LIST_DOMAIN !== 'all'){
     goCases();
   }
 })();
