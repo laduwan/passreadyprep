@@ -1445,7 +1445,7 @@ function debriefLockedHtml(){
   const href = signedIn ? '/pricing.html?exam=ncmhce&tier=guarantee' : '/register.html?next=' + encodeURIComponent('/pricing.html?exam=ncmhce&tier=guarantee');
   return '<div class="debrief-lock" role="note">'
     + '<div class="gate-tag">🔒 Pass Guarantee plan</div>'
-    + '<p style="margin:8px 0 10px;font-size:14px;color:var(--slate-300)">The AI debrief comes with the Pass Guarantee plan: one payment, access until you pass, and Dr. Moreau\'s written debrief after every case.</p>'
+    + '<p style="margin:8px 0 10px;font-size:14px;color:var(--slate-300)">The AI debrief comes with the Pass Guarantee plan: one payment, free access extensions until you pass, and Dr. Moreau\'s written debrief after every case.</p>'
     + '<a class="btn" href="' + href + '">' + (signedIn ? 'See the plan ›' : 'Sign in or upgrade ›') + '</a></div>';
 }
 async function getDebrief(){

@@ -122,11 +122,15 @@ const TIERS = {
     mode: 'payment',
     tierName: 'guarantee',
     guarantee: true,
-    // Access is unlimited — no re-payment ever.
-    // After 6 months the account requires a candidate verification checkpoint:
-    // they submit an exam date (scheduled) or a score report (taken).
-    // This isn't a payment gate — it's proof that one real person is using
-    // one account to prepare for one NCMHCE. Extensions are free and unlimited.
+    // No re-payment, ever — but access is NOT open-ended. It runs in 6-month
+    // periods (accessDays below) and the member requests a free extension at
+    // each one by submitting an exam date (scheduled) or a score report
+    // (taken). That checkpoint is the only thing stopping one purchase being
+    // shared around, so it is a real gate, not a formality: without it a
+    // single payment would buy permanent access for any number of people.
+    // It is not a payment gate — extensions are free and unlimited until the
+    // member passes. routes/content.js turns a lapsed period with no check-in
+    // into accessLevel 'gated'.
     accessDays: 180,
     // Bundles the NCMHCE study guide as part of the Pass Guarantee purchase;
     // the webhook also grants `guidePurchasedAt` so the buyer can download it.
@@ -483,7 +487,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         const accessDays = tierConfig.accessDays;
         const periodEnd = accessDays
           ? new Date(Date.now() + accessDays * 24 * 60 * 60 * 1000)
-          : null; // null = never expires (guarantee tier)
+          : null; // null = no expiry set; the guarantee tiers set accessDays, so they land 6 months out
 
         const subUpdate = {
           'subscription.tier': tier,
