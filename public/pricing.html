@@ -280,22 +280,34 @@
   var params = new URLSearchParams(location.search);
   var exam = params.get('exam') === 'nce' ? 'nce' : 'ncmhce';
   var selected = null;
-  var live = {};        // tier → the plan as Stripe reports it
-  var offered = null;   // tiers Stripe is actually selling, or null before it answers
+  var live = {};        // tier → the price as the active store reports it
+  var offered = null;   // tiers that store is actually selling, or null before it answers
+  var storeDown = false; // the App Store could not be reached
 
   function money(cents) { return '$' + (cents / 100).toFixed(cents % 100 ? 2 : 0); }
 
-  // What Stripe will really charge, in words. A price whose interval does not
-  // match the plan it is sold as (the server flags this as intervalMismatch)
-  // is still described truthfully here, so the page can never promise a
-  // 3-month price that bills monthly.
+  // What the store will really charge, in words. On the web a Stripe price
+  // whose interval does not match the plan it is sold as (the server flags it
+  // as intervalMismatch) is still described truthfully, so the page can never
+  // promise a 3-month price that bills monthly. In the app the period comes
+  // from the plan itself, since the App Store product types mirror it
+  // (utils/appleIap.js) and StoreKit's own price string carries no period.
   function periodLabel(cfg) {
     var l = live[cfg.tier];
+    if (l && l.display) return cfg.per;
     if (!l || !l.interval) return l ? 'one time' : cfg.per;
     var n = l.intervalCount || 1;
     return n > 1 ? '/ ' + n + ' ' + l.interval + 's' : '/ ' + l.interval;
   }
-  function amount(cfg) { return live[cfg.tier] ? money(live[cfg.tier].amount) : money(cfg.price); }
+  // App Store prices are set in App Store Connect and are NOT the Stripe
+  // prices, so in the app the only honest figure is the one StoreKit returns:
+  // already formatted, and in the viewer's own currency and region.
+  function amount(cfg) {
+    var l = live[cfg.tier];
+    if (l && l.display) return l.display;
+    if (l && typeof l.amount === 'number') return money(l.amount);
+    return money(cfg.price);
+  }
 
   function visiblePlans() {
     return PLANS[exam].filter(function (p) {
@@ -342,7 +354,9 @@
   function renderSummary() {
     var cfg = planFor(selected);
     if (!cfg) {
-      $('summary').textContent = 'No plans are on sale for this exam right now.';
+      $('summary').textContent = storeDown
+        ? 'The App Store could not be reached, so prices are not available right now.'
+        : 'No plans are on sale for this exam right now.';
       $('cta').disabled = true;
       $('terms-wrap').hidden = true;
       return;
@@ -397,14 +411,37 @@
   }
 
   function loadPrices() {
+    live = {};
+    storeDown = false;
+
+    // In the app the price must come from StoreKit, never from Stripe: the
+    // two stores are priced separately, so showing the website's price over
+    // an App Store purchase would quote one figure and charge another. If
+    // StoreKit cannot be reached the page shows no price at all rather than
+    // falling back to the website's.
+    if (APP) {
+      if (!window.PRP_IAP) { offered = []; storeDown = true; return Promise.resolve(); }
+      return window.PRP_IAP.products().then(function (p) {
+        offered = [];
+        if (p && p.enabled) {
+          PLANS[exam].forEach(function (cfg) {
+            var prod = p.byTier && p.byTier[cfg.tier];
+            if (!prod || !prod.displayPrice) return;
+            live[cfg.tier] = { display: prod.displayPrice };
+            offered.push(cfg.tier);
+          });
+        }
+        storeDown = !offered.length;
+      }).catch(function () { offered = []; storeDown = true; });
+    }
+
     return fetch('/api/payment/plans?exam=' + exam)
       .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('no plans')); })
       .then(function (d) {
-        live = {};
         offered = [];
         (d.plans || []).forEach(function (p) { live[p.tier] = p; offered.push(p.tier); });
       })
-      .catch(function () { live = {}; offered = null; });   // fall back to the listed prices
+      .catch(function () { offered = null; });   // fall back to the listed prices
   }
 
   function loadStats() {
@@ -435,6 +472,7 @@
     $('stats').hidden = true;
     return loadPrices().then(function () {
       renderPlans();
+      if (storeDown) showMsg('The App Store could not be reached, so prices cannot be shown. Please try again in a moment, or tap Restore purchase if you already have a plan.');
       $('loading').hidden = true;
       $('main').hidden = false;
       return loadStats().then(renderStats);
