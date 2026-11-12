@@ -139,6 +139,10 @@ html.theme-light{
   --purple-400:#7c3aed; --purple:#7c3aed;
   --card:rgba(241,245,249,.7); --card-border:rgba(203,213,225,.8);
 }
+/* Pages that paint <body> with a hard-coded dark gradient (the study page and
+   most tool pages) would otherwise keep it under the light palette, leaving
+   the remapped dark text unreadable. */
+html.theme-light body{ background:#f1f5f9 !important; background-image:none !important; }
 /* A11y panel itself stays dark in light theme for consistency */
 html.theme-light .a11y-panel{ background:#0F172A; color:#E2E8F0; border-color:#334155; }
 html.theme-light .a11y-panel *{ color:#E2E8F0; }

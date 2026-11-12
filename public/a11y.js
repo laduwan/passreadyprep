@@ -109,7 +109,8 @@
 
   // ---- skip link ------------------------------------------------------------
   function mainTarget() {
-    return document.querySelector('main, [role="main"], #main, #app, #root, .app-main, .wrap, .content');
+    return document.querySelector('main, [role="main"]') ||
+      document.querySelector('#main, #app, #root, .app-main, .wrap, .content');
   }
   function wireSkipLink() {
     var link = document.querySelector('[data-a11y-skip]');
