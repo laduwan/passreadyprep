@@ -762,7 +762,7 @@ function accessCard(level, message){
     fillPlanButtons();
     return '<div class="card gate-card"><div class="gate-tag">🔒 '+(guest ? 'Choose a plan' : 'Free trial ended')+'</div>'
       + '<h2>'+(guest ? 'Choose a plan to keep studying' : 'Your free trial has ended')+'</h2>'
-      + '<p class="lead" style="margin-bottom:0">'+(guest ? '' : 'Your progress and readiness score are saved. ')+'Pick a plan to keep working all '+bankSize()+' cases, the timed mock exam and the AI debrief.</p>'
+      + '<p class="lead" style="margin-bottom:0">'+(guest ? '' : 'Your progress and readiness score are saved. ')+'Pick a plan to keep working all '+bankSize()+' cases, the timed mock exam and your readiness score.</p>'
       + planButtons() + '</div>';
   }
   if(level === 'gated'){
@@ -1456,15 +1456,12 @@ function finish(){
   }
   h += '</div>';
 
-  // The debrief comes with Access Extensions Until You Pass only. Everyone
-  // else sees what it is and how to get it, rather than a button that 402s.
+  // The debrief comes with the free trial and with Access Extensions Until You
+  // Pass. Anyone who can't run it sees the way to get it (debriefPrompt), not
+  // a button that fails.
   h += '<div class="card" style="margin-top:14px"><h2>AI clinical debrief</h2>'
      + '<div style="font-size:12px;color:var(--slate-500);margin-bottom:10px">Dr. Claire Moreau reviews your answers — strengths, growth areas, and an NCMHCE exam tip for this case.</div>'
-     + (hasDebriefPlan()
-         ? '<button class="btn" id="debrief-btn" onclick="getDebrief()">Get debrief</button>'
-         : '<div class="feedback" style="margin-top:2px"><div class="fb-label" style="color:var(--amber-400)">Included with Access Extensions Until You Pass</div>'
-           + '<div style="font-size:13px;color:var(--slate-400);margin:6px 0 10px">One payment, access until you pass, and a debrief after every case.</div>'
-           + '<a class="btn" href="'+planHref('guarantee')+'">See the plan</a></div>')
+     + (hasDebriefPlan() ? '<button class="btn" id="debrief-btn" onclick="getDebrief()">Get debrief</button>' : debriefPrompt())
      + '<div id="debrief-out"></div></div>';
 
   h += '<div class="row"><button class="btn" onclick="startCase(\''+esc(CASE.id)+'\')">Retry this case</button>'
@@ -1479,8 +1476,32 @@ function finish(){
 // paywall runs on, so the card and the server agree on when the trial ends.
 function hasDebriefPlan(){
   var tier = ((currentUser() || {}).subscription || {}).tier || 'free';
-  if (tier === 'guarantee') return true;
+  // A guarantee member who owes a check-in is 'gated' for cases too.
+  if (tier === 'guarantee') return !(ACCESS && ACCESS.level === 'gated');
   return tier === 'free' && !!ACCESS && ACCESS.level === 'trial';
+}
+
+// What the debrief card offers someone who can't run it yet. Signed out: the
+// free account, because the trial includes the debrief — this is the visitor
+// who just worked the free case from the home page, and $249 is the wrong
+// first ask. Signed in without it: the plan it comes with. planHref sends the
+// iOS app to purchase.html, where a guest can buy without an account.
+function debriefPrompt(message, gateReason){
+  if(!authHeaders().Authorization){
+    return '<div class="feedback" style="margin-top:2px"><div class="fb-label" style="color:var(--amber-400)">Free during your '+trialDays()+'-day trial</div>'
+      + '<div style="font-size:13px;color:var(--slate-400);margin:6px 0 10px">Create a free account and Dr. Claire Moreau debriefs this case, and every case you work during your trial. No card required.</div>'
+      + '<a class="btn" href="/register.html?next='+encodeURIComponent('/study')+'">Create free account ›</a></div>';
+  }
+  // A guarantee member who owes a check-in already has the plan: the ask is
+  // the score report, the same card the case list shows them.
+  var tier = ((currentUser() || {}).subscription || {}).tier || 'free';
+  if(gateReason === 'score_report_required' || gateReason === 'guarantee_forfeited'
+     || (tier === 'guarantee' && ACCESS && ACCESS.level === 'gated')){
+    return accessCard('gated', message);
+  }
+  return '<div class="feedback" style="margin-top:2px"><div class="fb-label" style="color:var(--amber-400)">Included with Access Extensions Until You Pass</div>'
+    + '<div style="font-size:13px;color:var(--slate-400);margin:6px 0 10px">'+esc(message || 'One payment, access until you pass, and a debrief after every case.')+'</div>'
+    + '<a class="btn" href="'+planHref('guarantee')+'">See the plan</a></div>';
 }
 
 async function getDebrief(){
@@ -1495,12 +1516,15 @@ async function getDebrief(){
       body: JSON.stringify({ caseData: CASE, answers, mode: MODE })
     });
     const j = await r.json().catch(()=>({}));
-    // The plan lapsed since this page loaded: show the same prompt the card
-    // starts with, not a raw error.
-    if(r.status === 402){
-      out.innerHTML = '<div class="feedback" style="margin-top:12px"><div class="fb-label" style="color:var(--amber-400)">Included with Access Extensions Until You Pass</div>'
-        + '<div style="font-size:13px;color:var(--slate-400);margin:6px 0 10px">'+esc(j.message || 'The AI debrief is part of Access Extensions Until You Pass.')+'</div>'
-        + '<a class="btn" href="'+planHref('guarantee')+'">See the plan</a></div>';
+    // Entitlement changed since this page loaded (the trial or plan lapsed,
+    // or the session expired): show the same prompt the card starts with,
+    // not a raw error.
+    if(r.status === 402 || r.status === 401){
+      // 401 with a token on this device means the session itself expired.
+      out.innerHTML = (r.status === 401 && authHeaders().Authorization)
+        ? '<div class="feedback" style="margin-top:12px"><div style="font-size:13px;color:var(--slate-400);margin:0 0 10px">Your session has expired. Sign in again to get this debrief.</div>'
+          + '<a class="btn" href="/register.html?tab=login&next='+encodeURIComponent('/study')+'">Sign in ›</a></div>'
+        : debriefPrompt(r.status === 402 ? j.message : '', r.status === 402 ? j.gateReason : '');
       btn.style.display = 'none';
       return;
     }

@@ -1210,11 +1210,25 @@ async function getDebrief(){
       body: JSON.stringify({ caseData: CASE, answers, mode: MODE })
     });
     const j = await r.json().catch(()=>({}));
-    // Not on the trial and not on Access Extensions Until You Pass.
-    if(r.status === 402){
-      out.innerHTML = '<div class="feedback" style="margin-top:12px"><div class="fb-label" style="color:var(--amber-400)">Included with Access Extensions Until You Pass</div>'
-        + '<div style="font-size:13px;color:var(--slate-400);margin:6px 0 10px">'+esc(j.message || 'The AI debrief is free during your trial and comes with Access Extensions Until You Pass.')+'</div>'
-        + '<a class="btn" href="/checkout.html?tier=guarantee">See the plan</a></div>';
+    // The server decides entitlement (routes/debrief.js). Signed out: the free
+    // account, since the trial includes the debrief. Signed in without it: the
+    // plan it comes with. A 401 with a token on this device is an expired session.
+    if(r.status === 401 || r.status === 402){
+      const signedIn = !!authHeaders().Authorization;
+      out.innerHTML = (r.status === 401 && !signedIn)
+        ? '<div class="feedback" style="margin-top:12px"><div class="fb-label" style="color:var(--amber-400)">Free during your trial</div>'
+          + '<div style="font-size:13px;color:var(--slate-400);margin:6px 0 10px">Create a free account and Dr. Claire Moreau debriefs this case, and every case you work during your trial. No card required.</div>'
+          + '<a class="btn" href="/register.html?next='+encodeURIComponent('/study')+'">Create free account ›</a></div>'
+        : (r.status === 401)
+        ? '<div class="feedback" style="margin-top:12px"><div style="font-size:13px;color:var(--slate-400);margin:0 0 10px">Your session has expired. Sign in again to get this debrief.</div>'
+          + '<a class="btn" href="/register.html?tab=login&next='+encodeURIComponent('/study')+'">Sign in ›</a></div>'
+        : (j.gateReason === 'score_report_required' || j.gateReason === 'guarantee_forfeited')
+        ? '<div class="feedback" style="margin-top:12px"><div class="fb-label" style="color:var(--amber-400)">Check-in needed</div>'
+          + '<div style="font-size:13px;color:var(--slate-400);margin:6px 0 10px">'+esc(j.message || 'Your access period has ended. Upload your exam appointment or score letter to continue.')+'</div>'
+          + '<a class="btn" href="/score-report.html">Submit score report</a></div>'
+        : '<div class="feedback" style="margin-top:12px"><div class="fb-label" style="color:var(--amber-400)">Included with Access Extensions Until You Pass</div>'
+          + '<div style="font-size:13px;color:var(--slate-400);margin:6px 0 10px">'+esc(j.message || 'One payment, access until you pass, and a debrief after every case.')+'</div>'
+          + '<a class="btn" href="/checkout.html?tier=guarantee">See the plan</a></div>';
       btn.style.display = 'none';
       return;
     }

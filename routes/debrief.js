@@ -120,7 +120,7 @@ function buildPerformance(caseData, answers) {
 
 // POST /api/debrief  { caseData, answers, mode }
 // Returns { debrief } — Dr. Claire Moreau's spoken-style written feedback.
-// Access Extensions Until You Pass only (see requireDebriefPlan above).
+// Free trial and Access Extensions Until You Pass only (requireDebriefPlan above).
 router.post('/', requireAuth, requireDebriefPlan, async (req, res) => {
   try {
     const { caseData, answers, mode } = req.body || {};
