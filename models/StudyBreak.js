@@ -29,7 +29,8 @@ const StudyBreakSchema = new Schema(
     // good for LINK_TTL_MS after sentAt (utils/studyBreak.js). Short enough
     // that the whole text stays near one carrier segment.
     linkToken: { type: String, unique: true, sparse: true },
-    exam: { type: String, enum: ['ncmhce', 'nce'], required: true },
+    // A key from utils/examProducts.js (required lazily to avoid a load cycle).
+    exam: { type: String, required: true, validate: { validator: (v) => require('../utils/examProducts').isExamKey(v), message: 'Unknown exam product' } },
     domain: { type: String, required: true },     // the weakest domain the questions were drawn from
     domainLabel: { type: String, required: true },
     count: { type: Number, required: true },

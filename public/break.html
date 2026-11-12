@@ -95,7 +95,7 @@
   }
 
   function renderQuiz() {
-    $('q-eyebrow').textContent = (S.exam === 'nce' ? 'NCE' : 'NCMHCE') + ' · your weakest area · ' + S.domainLabel;
+    $('q-eyebrow').textContent = (S.examName || S.exam.toUpperCase()) + ' · your weakest area · ' + S.domainLabel;
     $('q-title').textContent = S.count + ' quick ' + S.domainLabel + ' question' + (S.count === 1 ? '' : 's');
     $('q-list').innerHTML = S.items.map(function (it, i) {
       return '<li class="bk-q" data-item="' + esc(it.id) + '"><p class="bk-stem"><b>' + (i + 1) + '.</b>' + esc(it.stem) + '</p><div class="bk-opts" role="group" aria-label="Question ' + (i + 1) + '">'
@@ -129,8 +129,8 @@
       }
       return '<li class="bk-q"><p class="bk-stem"><b>' + (i + 1) + '.</b>' + esc(it.stem) + '</p><div class="bk-opts">' + opts + '</div>' + why + '</li>';
     }).join('');
-    $('r-dash').href = '/dashboard.html?exam=' + encodeURIComponent(S.exam);
-    $('r-more').href = S.exam === 'nce' ? '/nce.html?domain=' + encodeURIComponent(S.domain) : '/study?domain=' + encodeURIComponent(S.domain);
+    $('r-dash').href = S.dashboardHref || '/dashboard.html?exam=' + encodeURIComponent(S.exam);
+    $('r-more').href = S.practiceHref || '/dashboard.html';
     show('results');
     window.scrollTo(0, 0);
   }

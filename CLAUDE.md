@@ -39,13 +39,31 @@ does. Never re-derive the rule from `subscription.currentPeriodEnd` and
 `scoreReport.status` in another route: two copies drift, and the drift reads
 as a member keeping a feature the rest of the app has already gated.
 
+## Exam products live in one registry
+
+**File:** `utils/examProducts.js`
+
+One entry per exam product sold (today `ncmhce` and `nce`): its name, how
+access to it is decided, the account's exam-date field, its `Exam` record,
+its progress summary, where its questions come from, the tally shape its
+readiness reads, and where a member practises a domain. A revision of an exam
+(the 2027 outlines) is not a product; `nceBlueprint.specFor` handles that
+inside the product. `sold: false` keeps a product resolvable but not offered.
+
+**Rule:** a feature that serves every exam (the fast study break first)
+iterates this registry and never branches on `'nce'` / `'ncmhce'`. Selling a
+new exam is one entry here plus its bank and summary. Older exam switches
+(`dashboard.html`'s `EXAMS`, `routes/content.js`, `progressSummary`) predate
+the registry and should be moved onto it when touched.
+
 ## Fast study break (text or email with a link)
 
-**Files:** `utils/studyBreak.js` (what to send, the picker, the scorer),
-`jobs/studyBreaks.js` (who is due, every 5 min), `routes/studyBreak.js`,
-`routes/sms.js` (Twilio STOP/START webhook), `models/StudyBreak.js`,
-`public/break.html` (the page the link opens), the `#break` panel in
-`public/dashboard.html`, `User.studyBreak` (the member's choices).
+**Files:** `utils/studyBreak.js` (what to send, the scorer), `utils/examProducts.js`
+(per-exam access, summary, bank, links), `jobs/studyBreaks.js` (who is due,
+every 5 min), `routes/studyBreak.js`, `routes/sms.js` (Twilio STOP/START
+webhook), `models/StudyBreak.js`, `public/break.html` (the page the link
+opens), the `#break` panel in `public/dashboard.html`, `User.studyBreak`
+(the member's choices).
 
 A member turns it on in the dashboard and picks the exam, days, local time
 (07:00–21:00), 3–5 questions and text or email. The link carries a random
@@ -55,10 +73,11 @@ token or lengthen `smsText` without checking `sendSms`'s 300-character cap.
 Answers are recorded as an `Attempt` in mode `'break'`, which moves domain
 scores and readiness but is excluded from case counts
 (`utils/ncmhceReadiness.js`, `utils/guaranteeRefund.js`). Eligibility is
-`trial` or `paid` for the chosen exam, decided by `utils/access.js`
-`accessFor` (NCMHCE, the same rule `resolveAccess` uses) and
-`utils/nceAccess.js` `nceLevel` (NCE). Texts need the account's
-`smsOptedIn` number; otherwise the break goes by email.
+`trial` or `paid` for the chosen exam by that product's own rule in the
+registry (`accessFor` for the NCMHCE, the same rule `resolveAccess` uses;
+`nceLevel` for the NCE). The dashboard's exam picker is built from the
+products the API lists and hides when only one is on sale. Texts need the
+account's `smsOptedIn` number; otherwise the break goes by email.
 
 ## Plan naming
 

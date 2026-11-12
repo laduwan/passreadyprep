@@ -94,7 +94,9 @@ const UserSchema = new Schema(
     // clock in `timezone`; `lastSentDay` is that day's YYYY-MM-DD once sent.
     studyBreak: {
       enabled: { type: Boolean, default: false },
-      exam: { type: String, enum: ['ncmhce', 'nce'], default: 'ncmhce' },
+      // A key from utils/examProducts.js (required lazily: that file reads
+      // this model through the access rules).
+      exam: { type: String, default: 'ncmhce', validate: { validator: (v) => require('../utils/examProducts').isExamKey(v), message: 'Unknown exam product' } },
       channel: { type: String, enum: ['sms', 'email'], default: 'email' },
       time: String,
       days: { type: [Number], default: undefined },

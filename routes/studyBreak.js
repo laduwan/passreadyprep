@@ -14,13 +14,14 @@ const express = require('express');
 const requireAuth = require('../middleware/auth');
 const User = require('../models/User');
 const sb = require('../utils/studyBreak');
+const { examProduct, publicExamProducts, productUserFields } = require('../utils/examProducts');
 
 const router = express.Router();
 
 function publicPrefs(user) {
   const p = user.studyBreak && user.studyBreak.time ? user.studyBreak : sb.defaultPrefs(user);
   return {
-    enabled: !!p.enabled, exam: p.exam || 'ncmhce', channel: p.channel || 'email', time: p.time,
+    enabled: !!p.enabled, exam: sb.isExamKey(p.exam) ? p.exam : sb.defaultPrefs(user).exam, channel: p.channel || 'email', time: p.time,
     days: Array.isArray(p.days) && p.days.length ? p.days : sb.DEFAULT_DAYS, count: p.count || 5, timezone: p.timezone || null,
     lastSentDay: p.lastSentDay || null,
   };
@@ -31,7 +32,7 @@ router.get('/', requireAuth, async (req, res) => {
     const user = await User.findById(req.userId).select('email phone smsOptedIn studyBreak').lean();
     if (!user) return res.status(404).json({ error: 'Account not found' });
     res.set('Cache-Control', 'no-store');
-    res.json({ prefs: publicPrefs(user), canSms: !!(user.phone && user.smsOptedIn), earliest: sb.EARLIEST, latest: sb.LATEST, counts: sb.COUNTS });
+    res.json({ prefs: publicPrefs(user), canSms: !!(user.phone && user.smsOptedIn), exams: publicExamProducts(), earliest: sb.EARLIEST, latest: sb.LATEST, counts: sb.COUNTS });
   } catch (err) {
     console.error('study-break get error', err);
     res.status(500).json({ error: 'Could not load your study break settings' });
@@ -60,7 +61,7 @@ router.put('/', requireAuth, async (req, res) => {
 // button cannot run up the SMS bill.
 router.post('/test', requireAuth, async (req, res) => {
   try {
-    const user = await User.findById(req.userId).select('email phone smsOptedIn isGuest subscription trialStartedAt trialEndsAt nceAccess nceExamDate examDate studyBreak').lean();
+    const user = await User.findById(req.userId).select(['email', 'phone', 'smsOptedIn', 'studyBreak', ...productUserFields()].join(' ')).lean();
     if (!user) return res.status(404).json({ error: 'Account not found' });
     if (!user.studyBreak || !user.studyBreak.time) return res.status(400).json({ error: 'Save your study break settings first.' });
     const last = user.studyBreak.lastTestAt ? new Date(user.studyBreak.lastTestAt).getTime() : 0;
@@ -77,8 +78,12 @@ router.post('/test', requireAuth, async (req, res) => {
 function loadSession(token) { return sb.findSessionByToken(token); }
 
 function sessionView(session) {
+  const product = examProduct(session.exam);
   return {
-    exam: session.exam, domain: session.domain, domainLabel: session.domainLabel, count: session.items.length,
+    exam: session.exam, examName: product ? product.name : session.exam.toUpperCase(),
+    practiceHref: product ? product.practiceHref(session.domain) : '/dashboard.html',
+    dashboardHref: product ? product.dashboardHref : '/dashboard.html',
+    domain: session.domain, domainLabel: session.domainLabel, count: session.items.length,
     sentAt: session.sentAt, answered: !!session.answeredAt,
     items: session.items.map((i) => ({ id: i.id, stem: i.stem, options: i.options })),
   };

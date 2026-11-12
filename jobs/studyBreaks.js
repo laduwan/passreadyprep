@@ -8,15 +8,15 @@
  *
  * A member is due once per local day, within an hour of their chosen time,
  * so a missed tick or a restart catches up without ever sending twice. Only
- * accounts with access to the chosen exam get one: a lapsed trial or an
- * expired plan is skipped, and starts again when access does.
+ * accounts with access to the chosen exam get one (each product's own rule,
+ * utils/examProducts.js): a lapsed trial or an expired plan is skipped, and
+ * starts again when access does.
  *
  * Runs on a plain setInterval in-process, like the other jobs here.
  * STUDY_BREAKS_DISABLE=1 turns it off without a deploy.
  */
 const User = require('../models/User');
-const { accessFor } = require('../utils/access');
-const { nceLevel } = require('../utils/nceAccess');
+const { examProduct, productUserFields } = require('../utils/examProducts');
 const { isDue, sendBreak } = require('../utils/studyBreak');
 
 const LOG = '[studyBreaks]';
@@ -32,14 +32,14 @@ async function runStudyBreaks({ now = new Date() } = {}) {
   const out = { due: 0, sent: 0, noAccess: 0, failed: 0 };
   try {
     const users = await User.find({ 'studyBreak.enabled': true })
-      .select('email phone smsOptedIn isGuest subscription trialStartedAt trialEndsAt nceAccess nceExamDate examDate studyBreak')
+      .select(['email', 'phone', 'smsOptedIn', 'studyBreak', ...productUserFields()].join(' '))
       .lean();
     for (const user of users) {
       const pref = user.studyBreak || {};
       if (!isDue(pref, now)) continue;
       out.due += 1;
-      const level = pref.exam === 'nce' ? nceLevel(user, now) : accessFor(user, now).accessLevel;
-      if (!HAS_ACCESS.has(level)) { out.noAccess += 1; continue; }
+      const product = examProduct(pref.exam);
+      if (!product || !product.sold || !HAS_ACCESS.has(product.accessLevel(user, now))) { out.noAccess += 1; continue; }
       try {
         const r = await sendBreak(user, { now });
         if (r.sendResult && r.sendResult.ok === false) out.failed += 1; else out.sent += 1;

@@ -10,19 +10,16 @@
 //
 // Everything that decides *what* to send lives here, so the scheduled job,
 // the "send one now" button and any later channel (a reply-by-text version,
-// for instance) share one picker, one session shape and one scorer.
-const fs = require('fs');
-const path = require('path');
-const vm = require('vm');
+// for instance) share one session shape and one scorer. What differs by exam
+// (access, the summary, the bank, the attempt's tally shape, where to
+// practise) comes from utils/examProducts.js, so every exam product sold,
+// now or later, gets study breaks from the same code.
 const crypto = require('crypto');
-const NceItem = require('../models/NceItem');
-const Exam = require('../models/Exam');
 const Attempt = require('../models/Attempt');
 const StudyBreak = require('../models/StudyBreak');
 const User = require('../models/User');
-const bp = require('./nceBlueprint');
-const { getNceExam } = require('./nceExam');
-const { summarize, NCMHCE_DOMAIN_LABELS } = require('./progressSummary');
+const { NCMHCE_DOMAIN_LABELS } = require('./progressSummary');
+const { examProduct, isExamKey, soldExamProducts, knowledgeBank, NCMHCE_TOPICS_BY_DOMAIN } = require('./examProducts');
 const { sendMail, sendSms } = require('./mailer');
 
 const COUNTS = [3, 4, 5];
@@ -32,30 +29,6 @@ const LATEST = '21:00';
 const SEND_WINDOW_MIN = 60;                      // a break still goes out up to an hour late (a missed tick, a restart)
 const LINK_TTL_MS = 3 * 24 * 60 * 60 * 1000;     // how long the link in the message works
 const TEST_COOLDOWN_MS = 10 * 60 * 1000;         // "send one now" at most every 10 minutes
-
-// The NCMHCE knowledge bank (public/knowledge-data.js) tags items by topic,
-// not by the five case domains readiness scores. This maps each domain to the
-// topics that exercise it, so "your weakest domain" can be drawn from the bank.
-const NCMHCE_TOPICS_BY_DOMAIN = {
-  counseling: ['skills', 'skills_interventions', 'theories', 'pioneers'],
-  intake: ['intake', 'assessment', 'diagnosis'],
-  treatment: ['treatment_planning'],
-  ethics: ['ethics', 'professional_ethics'],
-  core: ['skills', 'theories'],
-};
-
-// ── Knowledge bank ───────────────────────────────────────────────────────
-// public/knowledge-data.js is a browser file: `const KNOWLEDGE_ITEMS = [ … ];`.
-// It is read once and evaluated in an empty sandbox, never required.
-let bankCache = null;
-function knowledgeBank() {
-  if (bankCache) return bankCache;
-  const src = fs.readFileSync(path.join(__dirname, '..', 'public', 'knowledge-data.js'), 'utf8');
-  const sandbox = {};
-  vm.runInNewContext(src + '\n;__out = KNOWLEDGE_ITEMS;', sandbox, { timeout: 5000 });
-  bankCache = Array.isArray(sandbox.__out) ? sandbox.__out : [];
-  return bankCache;
-}
 
 // ── Preferences ──────────────────────────────────────────────────────────
 const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
@@ -68,7 +41,8 @@ function validTimezone(tz) {
 
 function defaultPrefs(user) {
   const canSms = !!(user && user.phone && user.smsOptedIn);
-  return { enabled: false, exam: 'ncmhce', channel: canSms ? 'sms' : 'email', time: '12:00', days: DEFAULT_DAYS.slice(), count: 5, timezone: null };
+  const first = soldExamProducts()[0];
+  return { enabled: false, exam: first ? first.key : 'ncmhce', channel: canSms ? 'sms' : 'email', time: '12:00', days: DEFAULT_DAYS.slice(), count: 5, timezone: null };
 }
 
 // Returns { value } or { error }. Keeps nothing the member did not send.
@@ -76,7 +50,11 @@ function validatePrefs(body, { canSms }) {
   const b = body || {};
   const v = {};
   v.enabled = !!b.enabled;
-  v.exam = b.exam === 'nce' ? 'nce' : 'ncmhce';
+  // No exam given means the first product on sale; a key that is not a
+  // product on sale is refused.
+  const product = b.exam == null || b.exam === '' ? soldExamProducts()[0] : examProduct(b.exam);
+  if (!product || !product.sold) return { error: 'Pick an exam.' };
+  v.exam = product.key;
   v.channel = b.channel === 'sms' ? 'sms' : 'email';
   if (v.channel === 'sms' && !canSms) return { error: 'Add a mobile number and opt in to texts on your account first, or choose email.' };
   if (!TIME_RE.test(String(b.time || ''))) return { error: 'Pick a time.' };
@@ -135,37 +113,11 @@ function weakestDomain(summary) {
   return ds[0] || null;
 }
 
-function sessionItemFromNce(d) {
-  const key = (d.options || []).find((o) => o.isCorrect) || {};
-  const rationale = {};
-  (d.options || []).forEach((o) => { rationale[o.id] = o.rationale || ''; });
-  return { id: d.externalId, stem: d.stem, options: (d.options || []).map((o) => ({ id: o.id, text: o.text })), correct: key.id || '', rationale, explanation: d.rationale || '' };
-}
-
-function sessionItemFromBank(i) {
-  const key = (i.options || []).find((o) => o.isCorrect) || {};
-  const rationale = {};
-  (i.options || []).forEach((o) => { rationale[o.id] = o.rationale || ''; });
-  return { id: i.id, stem: i.question, options: (i.options || []).map((o) => ({ id: o.id, text: o.text })), correct: key.id || '', rationale, explanation: i.rationale || '' };
-}
-
+// Each product draws from its own bank (utils/examProducts.js).
 async function pickItems(exam, domain, count, user) {
-  if (exam === 'nce') {
-    let spec = bp.specFor(user && user.nceExamDate);
-    let match = { status: 'published', ...bp.specMatch(spec), domain };
-    let ids = await NceItem.find(match).select('_id').lean();
-    if (!ids.length && spec === '2027') {               // the 2027 bank is still filling
-      spec = 'current';
-      match = { status: 'published', ...bp.specMatch(spec), domain };
-      ids = await NceItem.find(match).select('_id').lean();
-    }
-    const chosen = shuffle(ids).slice(0, count).map((d) => d._id);
-    const docs = await NceItem.find({ _id: { $in: chosen } }).lean();
-    return shuffle(docs).map(sessionItemFromNce);
-  }
-  const topics = NCMHCE_TOPICS_BY_DOMAIN[domain] || [];
-  const pool = knowledgeBank().filter((i) => topics.includes(i.domain) && Array.isArray(i.options) && i.options.length >= 2);
-  return shuffle(pool).slice(0, count).map(sessionItemFromBank);
+  const product = examProduct(exam);
+  if (!product) return [];
+  return product.pickItems(domain, count, user);
 }
 
 // ── Building and sending one break ───────────────────────────────────────
@@ -195,8 +147,7 @@ function smsText(session, link) {
   return `PassReady Prep study break: ${session.count} ${session.domainLabel} questions. ${link} Reply STOP to end.`;
 }
 
-function emailHtml(session, link, exam) {
-  const examName = exam === 'nce' ? 'NCE' : 'NCMHCE';
+function emailHtml(session, link, examName) {
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   return `<div style="font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#0f172a">
   <p style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#047857;margin:0 0 8px">Fast study break · ${esc(examName)}</p>
@@ -211,12 +162,14 @@ function emailHtml(session, link, exam) {
 // the schedule and does not mark the day as done.
 async function sendBreak(user, { now = new Date(), test = false, channel } = {}) {
   const pref = user.studyBreak || {};
-  const exam = pref.exam === 'nce' ? 'nce' : 'ncmhce';
+  const product = examProduct(pref.exam) || soldExamProducts()[0];
+  if (!product) throw new Error('No exam products');
+  const exam = product.key;
   const count = COUNTS.includes(Number(pref.count)) ? Number(pref.count) : 5;
   const canSms = !!(user.phone && user.smsOptedIn);
   const via = (channel || pref.channel) === 'sms' && canSms ? 'sms' : 'email';
 
-  const summary = await summarize(user._id, exam);
+  const summary = await product.summarize(user._id);
   const weakest = weakestDomain(summary);
   if (!weakest) throw new Error('No domains to draw from');
   const items = await pickItems(exam, weakest.key, count, user);
@@ -227,6 +180,7 @@ async function sendBreak(user, { now = new Date(), test = false, channel } = {})
     count: items.length, channel: via, test, items, sentAt: now, linkToken: newLinkToken(),
   });
   const link = `${linkBase()}/break.html?t=${session.linkToken}`;
+  const examName = product.name;
 
   let sendResult;
   if (via === 'sms') {
@@ -235,7 +189,7 @@ async function sendBreak(user, { now = new Date(), test = false, channel } = {})
     sendResult = await sendMail({
       to: user.email,
       subject: `Your study break: ${items.length} quick ${session.domainLabel} questions`,
-      html: emailHtml(session, link, exam),
+      html: emailHtml(session, link, examName),
       text: `${items.length} quick ${session.domainLabel} questions, your weakest area right now: ${link}`,
       replyTo: process.env.MAIL_REPLY_TO || undefined,
     });
@@ -271,20 +225,13 @@ function scoreSession(session, answers) {
 }
 
 async function recordAttempt(session, scored, now = new Date()) {
-  let examId = null;
-  if (session.exam === 'nce') {
-    const nce = await getNceExam().catch(() => null);
-    examId = nce && nce._id;
-  } else {
-    const ex = await Exam.findOne({ key: 'ncmhce' }).select('_id').lean();
-    examId = ex && ex._id;
-  }
+  const product = examProduct(session.exam);
+  if (!product) return null;
+  const ex = await product.examDoc().catch(() => null);
+  const examId = ex && ex._id;
   if (!examId) return null;
-  // Readiness reads { correct, total } per domain for the NCE and { ok, total }
-  // for the NCMHCE (utils/nceReadiness.js, utils/ncmhceReadiness.js).
-  const domainBreakdown = session.exam === 'nce'
-    ? { [session.domain]: { correct: scored.correct, total: scored.total } }
-    : { [session.domain]: { ok: scored.correct, total: scored.total } };
+  // Each product's readiness reads its own tally shape per domain.
+  const domainBreakdown = { [session.domain]: product.breakdown(scored.correct, scored.total) };
   const attempt = await Attempt.create({
     userId: session.userId,
     examId,
@@ -303,4 +250,5 @@ module.exports = {
   COUNTS, DEFAULT_DAYS, EARLIEST, LATEST, SEND_WINDOW_MIN, TEST_COOLDOWN_MS, LINK_TTL_MS, NCMHCE_TOPICS_BY_DOMAIN,
   knowledgeBank, defaultPrefs, validatePrefs, localParts, isDue,
   weakestDomain, pickItems, newLinkToken, findSessionByToken, smsText, emailHtml, sendBreak, scoreSession, recordAttempt,
+  isExamKey,
 };

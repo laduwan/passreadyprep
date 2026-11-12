@@ -260,7 +260,7 @@
           </div>
         </div>
         <div class="db-break-form" id="break-form" hidden>
-          <div class="db-break-field"><span>Exam</span><div class="prp-seg" id="bk-exam" role="group" aria-label="Exam"><button type="button" data-v="ncmhce">NCMHCE</button><button type="button" data-v="nce">NCE</button></div></div>
+          <div class="db-break-field"><span>Exam</span><div class="prp-seg" id="bk-exam" role="group" aria-label="Exam"></div></div>
           <div class="db-break-field"><span>Days</span><div class="db-break-days" id="bk-days" role="group" aria-label="Days of the week"></div></div>
           <div class="db-break-field"><span>Time</span><select id="bk-time" aria-label="Time of day"></select><span class="prp-meta" id="bk-tz"></span></div>
           <div class="db-break-field"><span>Questions</span><div class="prp-seg" id="bk-count" role="group" aria-label="How many questions"><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div></div>
@@ -721,6 +721,14 @@
     var p = bkDraft;
     setSeg('break-on', p.enabled ? 'on' : 'off');
     $('break-form').hidden = !p.enabled;
+    // One button per exam product on sale (the server's list); the row hides
+    // when there is only one to choose from.
+    var exams = BK.exams || [];
+    if (!exams.some(function (x) { return x.key === p.exam; }) && exams.length) p.exam = exams[0].key;
+    $('bk-exam').innerHTML = exams.map(function (x) {
+      return '<button type="button" data-v="' + esc(x.key) + '" title="' + esc(x.longName || x.name) + '">' + esc(x.name) + '</button>';
+    }).join('');
+    $('bk-exam').closest('.db-break-field').hidden = exams.length < 2;
     setSeg('bk-exam', p.exam);
     setSeg('bk-count', String(p.count));
     setSeg('bk-channel', p.channel);
