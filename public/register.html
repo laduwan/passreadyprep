@@ -33,6 +33,12 @@
   .card{background:var(--card);border:1px solid var(--card-border);border-radius:20px;
     padding:40px 36px;max-width:440px;width:100%;box-shadow:0 24px 60px -20px rgba(0,0,0,.5)}
 
+  /* Back out of sign-up. The native apps have no browser chrome, so the page
+     carries its own way back; prp-back.js points it at the referring page. */
+  .backlink{display:inline-flex;align-items:center;gap:7px;min-height:44px;
+    color:var(--slate-400);text-decoration:none;font-size:14px;font-weight:600}
+  .backlink:hover{color:var(--white)}
+
   /* brand */
   .brand-wrap{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;margin-bottom:28px}
   .brand-chip{width:36px;height:36px;border-radius:10px;background:rgba(16,185,129,.16);
@@ -95,6 +101,7 @@
 </head>
 <body>
 <div class="card">
+  <a class="backlink" data-prp-back href="/landing.html">&larr; Back</a>
   <a class="brand-wrap" href="/landing.html" aria-label="PassReady Prep home">
     <span class="brand-chip" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -298,5 +305,6 @@
   const token = localStorage.getItem('prp_token');
   if (token && !guest) window.location.href = next;
 </script>
+<script src="/prp-back.js"></script>
 </body>
 </html>
