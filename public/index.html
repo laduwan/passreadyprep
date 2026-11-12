@@ -1473,10 +1473,14 @@ function finish(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// Access Extensions Until You Pass is the plan the AI debrief belongs to.
-// routes/debrief.js enforces it; this only decides what the card shows.
+// The AI debrief comes with the free trial and with Access Extensions Until
+// You Pass. routes/debrief.js enforces that; this only decides what the card
+// shows. ACCESS.level comes from routes/content.js, the same source the case
+// paywall runs on, so the card and the server agree on when the trial ends.
 function hasDebriefPlan(){
-  return (((currentUser() || {}).subscription || {}).tier || 'free') === 'guarantee';
+  var tier = ((currentUser() || {}).subscription || {}).tier || 'free';
+  if (tier === 'guarantee') return true;
+  return tier === 'free' && !!ACCESS && ACCESS.level === 'trial';
 }
 
 async function getDebrief(){

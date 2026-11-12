@@ -2,34 +2,35 @@ const express = require('express');
 const requireAuth = require('../middleware/auth');
 const User = require('../models/User');
 const { checkInGate } = require('../utils/guaranteeRules');
+const { trialLevel } = require('../utils/trial');
 
 const router = express.Router();
 
-// The AI debrief ships with Access Extensions Until You Pass only — not with
-// Monthly, the 3-month pass or the 6-month pass. The plan copy says so, and
-// this is what makes it true: the route calls Anthropic on the server's own
-// key, so without a check here any visitor could spend it, signed out.
+// Who gets the AI debrief:
+//
+//   • the free trial — it is one of the things the trial is there to show off;
+//   • Access Extensions Until You Pass.
+//
+// Not Monthly, the 3-month pass or the 6-month pass: those plans say "No AI
+// debrief" and picking one is choosing the plan without it, so the trial
+// clock stops mattering once a plan is on the account.
+//
+// The route calls Anthropic on the server's own key, so this check is also
+// what stops a signed-out visitor spending it.
 //
 // A guarantee member who owes a check-in is held here exactly as they are for
 // case access, through the shared gate in utils/guaranteeRules.js — otherwise
 // the debrief would stay open to an account the rest of the app has gated.
 async function requireDebriefPlan(req, res, next) {
   try {
-    const user = await User.findById(req.userId).select('subscription');
-    const sub = (user && user.subscription) || {};
+    const user = await User.findById(req.userId).select('subscription isGuest trialStartedAt trialEndsAt');
+    if (!user) return res.status(401).json({ error: 'Account not found' });
+    const sub = user.subscription || {};
+    const tier = sub.tier || 'free';
 
-    if ((sub.tier || 'free') !== 'guarantee') {
-      // 402 with a gateReason, the same shape routes/content.js uses for a
-      // paywall, so the case player can show its upgrade prompt.
-      return res.status(402).json({
-        error: 'Upgrade required',
-        gateReason: 'debrief_requires_guarantee',
-        message: 'The AI debrief with Dr. Claire Moreau is part of Access Extensions Until You Pass.',
-      });
-    }
-
-    const gate = checkInGate(sub);
-    if (gate) {
+    if (tier === 'guarantee') {
+      const gate = checkInGate(sub);
+      if (!gate) return next();
       return res.status(402).json({
         error: 'Access gated',
         gateReason: gate,
@@ -39,7 +40,18 @@ async function requireDebriefPlan(req, res, next) {
       });
     }
 
-    return next();
+    // On the free trial, before any plan is chosen. trialLevel is the same
+    // clock the case paywall runs on (utils/trial.js), so the debrief stops
+    // the day the trial does — not a day either side of it.
+    if (tier === 'free' && trialLevel(user) === 'trial') return next();
+
+    // 402 with a gateReason, the same shape routes/content.js uses for a
+    // paywall, so the case player can show its upgrade prompt.
+    return res.status(402).json({
+      error: 'Upgrade required',
+      gateReason: 'debrief_requires_guarantee',
+      message: 'The AI debrief with Dr. Claire Moreau is free during your trial and comes with Access Extensions Until You Pass.',
+    });
   } catch (e) {
     return res.status(500).json({ error: 'Could not verify your plan' });
   }
