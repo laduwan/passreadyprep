@@ -26,6 +26,8 @@ const PAGES = [
   // The redesigned plan picker. Inside the app it drives StoreKit through
   // native-iap.js, exactly as purchase.html does.
   'pricing.html',
+  // The NCMHCE dashboard (screens 3 and 7), linked from the study header.
+  'dashboard.html',
 ];
 // Pages the shim opens on passreadyprep.com instead (keep in sync with EXTERNAL in native-shim.js).
 const EXTERNAL = new Set(['policies.html', 'privacy.html', 'score-report.html', 'accessibility.html']);

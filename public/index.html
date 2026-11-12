@@ -293,6 +293,7 @@
     </a>
     <div class="hdr-right">
       <span class="exam-badge">NCMHCE</span>
+      <a class="acct-btn" href="/dashboard.html">Dashboard</a>
       <a class="acct-btn" href="/nce.html">NCE study</a>
       <a class="acct-btn" href="/pricing.html?exam=ncmhce">Pricing</a>
       <span id="acct" class="acct"></span>
@@ -1452,12 +1453,22 @@ function debriefUnlocked(){
   return (currentUser() || {}).role === 'admin';
 }
 function debriefLockedHtml(){
-  const signedIn = !!(currentUser() || {}).email;
-  const href = signedIn ? '/pricing.html?exam=ncmhce&tier=guarantee' : '/register.html?next=' + encodeURIComponent('/pricing.html?exam=ncmhce&tier=guarantee');
+  // A guarantee member who owes a check-in already has the plan: the ask is
+  // the score report, the same card the case list shows them.
+  if(ACCESS && ACCESS.level === 'gated') return accessCard('gated');
+  // Signed out: the free account, because the trial includes the debrief.
+  // This is the visitor the home page just sent over, and the plan is the
+  // wrong first ask.
+  if(!authHeaders().Authorization){
+    return '<div class="debrief-lock" role="note">'
+      + '<div class="gate-tag">✨ Free during your '+trialDays()+'-day trial</div>'
+      + '<p style="margin:8px 0 10px;font-size:14px;color:var(--slate-300)">Create a free account and Dr. Claire Moreau debriefs this case, and every case you work during your trial. No card required.</p>'
+      + '<a class="btn" href="/register.html?next=' + encodeURIComponent('/study') + '">Create free account ›</a></div>';
+  }
   return '<div class="debrief-lock" role="note">'
     + '<div class="gate-tag">🔒 Pass Guarantee plan</div>'
     + '<p style="margin:8px 0 10px;font-size:14px;color:var(--slate-300)">The AI debrief comes with the Pass Guarantee plan: one payment, free access extensions until you pass, and Dr. Moreau\'s written debrief after every case.</p>'
-    + '<a class="btn" href="' + href + '">' + (signedIn ? 'See the plan ›' : 'Sign in or upgrade ›') + '</a></div>';
+    + '<a class="btn" href="/pricing.html?exam=ncmhce&tier=guarantee">See the plan ›</a></div>';
 }
 async function getDebrief(){
   const btn = document.getElementById('debrief-btn');
@@ -1473,6 +1484,14 @@ async function getDebrief(){
     const j = await r.json().catch(()=>({}));
     if(r.status === 403 && j.code === 'DEBRIEF_REQUIRES_GUARANTEE'){
       btn.outerHTML = debriefLockedHtml();
+      return;
+    }
+    // 401 with a token on this device means the session itself expired.
+    if(r.status === 401){
+      btn.outerHTML = authHeaders().Authorization
+        ? '<div class="debrief-lock" role="note"><p style="margin:0 0 10px;font-size:14px;color:var(--slate-300)">Your session has expired. Sign in again to get this debrief.</p>'
+          + '<a class="btn" href="/register.html?tab=login&next=' + encodeURIComponent('/study') + '">Sign in ›</a></div>'
+        : debriefLockedHtml();
       return;
     }
     if(!r.ok) throw new Error(j.error || 'Request failed');
