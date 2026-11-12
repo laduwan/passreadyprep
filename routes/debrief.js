@@ -1,6 +1,7 @@
 const express = require('express');
 const requireAuth = require('../middleware/auth');
 const User = require('../models/User');
+const { checkInGate } = require('../utils/guaranteeRules');
 
 const router = express.Router();
 
@@ -8,17 +9,37 @@ const router = express.Router();
 // Monthly, the 3-month pass or the 6-month pass. The plan copy says so, and
 // this is what makes it true: the route calls Anthropic on the server's own
 // key, so without a check here any visitor could spend it, signed out.
+//
+// A guarantee member who owes a check-in is held here exactly as they are for
+// case access, through the shared gate in utils/guaranteeRules.js — otherwise
+// the debrief would stay open to an account the rest of the app has gated.
 async function requireDebriefPlan(req, res, next) {
   try {
-    const user = await User.findById(req.userId).select('subscription.tier');
-    if ((user?.subscription?.tier || 'free') === 'guarantee') return next();
-    // 402 with a gateReason, the same shape routes/content.js uses for a
-    // paywall, so the case player can show its upgrade prompt.
-    return res.status(402).json({
-      error: 'Upgrade required',
-      gateReason: 'debrief_requires_guarantee',
-      message: 'The AI debrief with Dr. Claire Moreau is part of Access Extensions Until You Pass.',
-    });
+    const user = await User.findById(req.userId).select('subscription');
+    const sub = (user && user.subscription) || {};
+
+    if ((sub.tier || 'free') !== 'guarantee') {
+      // 402 with a gateReason, the same shape routes/content.js uses for a
+      // paywall, so the case player can show its upgrade prompt.
+      return res.status(402).json({
+        error: 'Upgrade required',
+        gateReason: 'debrief_requires_guarantee',
+        message: 'The AI debrief with Dr. Claire Moreau is part of Access Extensions Until You Pass.',
+      });
+    }
+
+    const gate = checkInGate(sub);
+    if (gate) {
+      return res.status(402).json({
+        error: 'Access gated',
+        gateReason: gate,
+        message: gate === 'guarantee_forfeited'
+          ? 'Your Access Extensions Until You Pass plan was forfeited: no new request was made within 90 days of your last exam. Pick a plan to keep studying.'
+          : 'Your access period has ended. Upload your exam appointment or score letter to continue.',
+      });
+    }
+
+    return next();
   } catch (e) {
     return res.status(500).json({ error: 'Could not verify your plan' });
   }

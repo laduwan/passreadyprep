@@ -24,6 +24,43 @@ then rejects in a later pass.
 The current safe ceiling is `sqrt(1.25) ≈ 1.118`; `1.11` leaves a small safety margin.
 A full explanation sits in the comment block above `LENGTH_BAND` in `fix-distractors.js`.
 
+### The guarantee check-in gate
+
+**Files:** `utils/guaranteeRules.js` (`checkInGate`), `routes/content.js`, `routes/debrief.js`
+
+Past the paid period, a guarantee member is held until they check in with an
+exam appointment or a score letter. `pending` counts as checked in; `passed`
+never gates. That rule lives in `checkInGate` and nowhere else.
+
+**Rule:** any feature the guarantee tier unlocks calls `checkInGate`. Do not
+re-derive it from `subscription.currentPeriodEnd` and `scoreReport.status` in a
+route — two copies will drift, and the drift reads as a member keeping a
+feature the rest of the app has already gated.
+
+## The React app under `client/src` does not ship — do not edit it
+
+`client/src` (`main.jsx`, `App.jsx`, `pages/*.jsx`) is **unused code**. Nothing
+imports it:
+
+- `client/index.html` has no `type="module"` script and no reference to `src/`.
+- `vite.config.js` sets no entry, so Vite builds `client/index.html` as a plain
+  HTML page. A build transforms 3 modules and emits no JS bundle.
+- Nothing anywhere references `main.jsx` or `App.jsx`.
+
+So editing a `.jsx` file changes nothing that runs. The pages that actually
+ship are vanilla HTML with inline script:
+
+| What | File | Served at |
+|---|---|---|
+| Study dashboard and case player | `public/index.html` | `/study` (explicit route in `server.js`) |
+| Older copy of the same page | `client/index.html` → `client/dist/index.html` | `/index.html` and the SPA fallback |
+| Home page | `public/landing.html` | `/` |
+
+A change to the case player usually belongs in **both** `public/index.html` and
+`client/index.html`. In the iOS bundle the question doesn't arise:
+`client/scripts/build-ios.mjs` copies `public/index.html` over
+`client/dist/index.html`.
+
 ## Git conventions (owner's rules — always follow)
 
 - **Branch names start with `Keke/`** and describe the change (e.g. `Keke/youtube-thumbnails`).

@@ -21,4 +21,25 @@ function isForfeited(sr, now = new Date()) {
   return !!due && now.getTime() > due.getTime();
 }
 
-module.exports = { isForfeited, nextRequestDue, RESULT_WINDOW_DAYS, NEXT_REQUEST_DAYS };
+// The check-in gate on the guarantee tier, shared by every feature that gate
+// covers (routes/content.js for case access, routes/debrief.js for the AI
+// debrief) so they can't drift apart.
+//
+// Past the paid period, access is held until the member checks in with an exam
+// appointment or a score letter. 'pending' counts as checked in — admin review
+// runs in the background and the member isn't held hostage to its latency —
+// and 'passed' never gates, because there is nothing left to gate. An approved
+// extension sets a new currentPeriodEnd 3 months out, so once that lapses the
+// gate returns.
+//
+// Takes a user's `subscription` (or `nceAccess`) sub-document. Returns the
+// gateReason to report, or null when access holds.
+function checkInGate(sub, now = new Date()) {
+  if (!sub || (sub.tier || 'free') !== 'guarantee') return null;
+  if (!sub.currentPeriodEnd || new Date(sub.currentPeriodEnd) >= now) return null;
+  const status = (sub.scoreReport && sub.scoreReport.status) || 'none';
+  if (status === 'pending' || status === 'passed') return null;
+  return isForfeited(sub.scoreReport, now) ? 'guarantee_forfeited' : 'score_report_required';
+}
+
+module.exports = { isForfeited, nextRequestDue, checkInGate, RESULT_WINDOW_DAYS, NEXT_REQUEST_DAYS };

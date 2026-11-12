@@ -5,7 +5,7 @@ const User = require('../models/User');
 const { TRIAL_DAYS, trialEndFor, trialLevel } = require('../utils/trial');
 const { BOOK_CASE_IDS } = require('./book');
 const { examKeyFor, outlineFor } = require('../utils/examVersion');
-const { isForfeited } = require('../utils/guaranteeRules');
+const { checkInGate } = require('../utils/guaranteeRules');
 
 const router = express.Router();
 
@@ -48,21 +48,14 @@ async function resolveAccess(req, res, next) {
     const now = new Date();
     const expired = sub.currentPeriodEnd && sub.currentPeriodEnd < now;
 
-    // Guarantee tier gate: past the current period and no check-in on file →
-    // blocked until the next check-in lands (an uploaded score letter or exam
-    // appointment confirmation). A 'pending' report means the member has met
-    // the check-in requirement — access resumes immediately while admin review
-    // runs in the background; the member isn't held hostage to review latency.
-    // An approved extension sets a new currentPeriodEnd 3 months out, so once
-    // that lapses the gate returns. 'passed' never gates (nothing to gate).
-    if (tier === 'guarantee' && expired) {
-      const srStatus = sub.scoreReport?.status || 'none';
-      const checkedIn = srStatus === 'pending' || srStatus === 'passed';
-      if (!checkedIn) {
-        req.accessLevel = 'gated';
-        req.gateReason = isForfeited(sub.scoreReport) ? 'guarantee_forfeited' : 'score_report_required';
-        return next();
-      }
+    // Guarantee tier gate: past the current period with no check-in on file,
+    // access is held. The rule itself lives in utils/guaranteeRules.js, shared
+    // with routes/debrief.js so the two can't drift.
+    const checkIn = checkInGate(sub, now);
+    if (checkIn) {
+      req.accessLevel = 'gated';
+      req.gateReason = checkIn;
+      return next();
     }
 
     // The standard trial starts on the first case (utils/trial.js). Flag an
