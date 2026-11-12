@@ -39,6 +39,8 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/payment/apple', require('./routes/applePayment'));
 app.use('/api/payment', require('./routes/payment'));
 app.use('/api/progress', require('./routes/progress'));
+app.use('/api/study-break', require('./routes/studyBreak'));   // fast study break settings + the link's session
+app.use('/api/sms', require('./routes/sms'));                   // Twilio inbound (STOP / START)
 app.use('/api/activity', require('./routes/activity'));
 app.use('/api/content', require('./routes/content'));
 app.use('/api/book', require('./routes/book'));
@@ -261,6 +263,10 @@ async function start() {
 
   // Weekly blog auto-draft — saves one DRAFT post on Mondays for admin review.
   require('./jobs/blogAutoDraft').start();
+
+  // Fast study breaks — a few weakest-area questions by text or email at the
+  // time each member chose (5-minute check cycle).
+  require('./jobs/studyBreaks').start();
 
   app.listen(PORT, () => console.log(`PassReady Prep API listening on port ${PORT}`));
 }

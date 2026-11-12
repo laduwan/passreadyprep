@@ -39,6 +39,27 @@ does. Never re-derive the rule from `subscription.currentPeriodEnd` and
 `scoreReport.status` in another route: two copies drift, and the drift reads
 as a member keeping a feature the rest of the app has already gated.
 
+## Fast study break (text or email with a link)
+
+**Files:** `utils/studyBreak.js` (what to send, the picker, the scorer),
+`jobs/studyBreaks.js` (who is due, every 5 min), `routes/studyBreak.js`,
+`routes/sms.js` (Twilio STOP/START webhook), `models/StudyBreak.js`,
+`public/break.html` (the page the link opens), the `#break` panel in
+`public/dashboard.html`, `User.studyBreak` (the member's choices).
+
+A member turns it on in the dashboard and picks the exam, days, local time
+(07:00–21:00), 3–5 questions and text or email. The link carries a random
+16-character `linkToken` that opens one session for 3 days with no sign-in,
+and the text stays within one carrier segment: do not swap it for a signed
+token or lengthen `smsText` without checking `sendSms`'s 300-character cap.
+Answers are recorded as an `Attempt` in mode `'break'`, which moves domain
+scores and readiness but is excluded from case counts
+(`utils/ncmhceReadiness.js`, `utils/guaranteeRefund.js`). Eligibility is
+`trial` or `paid` for the chosen exam, decided by `utils/access.js`
+`accessFor` (NCMHCE, the same rule `resolveAccess` uses) and
+`utils/nceAccess.js` `nceLevel` (NCE). Texts need the account's
+`smsOptedIn` number; otherwise the break goes by email.
+
 ## Plan naming
 
 The one-time plan is the **Pass Guarantee** (a product name, capitalised; `$249`

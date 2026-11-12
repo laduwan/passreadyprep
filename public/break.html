@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Study break — PassReady Prep</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="/prp-ui.css">
+<style>
+  /* The page a study break's link opens: a few questions from the member's
+     weakest area, answered in a couple of minutes, usually on a phone and
+     usually signed out. The token in the link is the only credential, so
+     there is no header chrome beyond the brand. Visuals come from prp-ui.css. */
+  [hidden]{display:none !important}
+  html,body{margin:0; background:var(--prp-bg); color:var(--prp-text); font-family:var(--prp-font)}
+  .bk-head{display:flex; justify-content:space-between; align-items:center; gap:16px; padding:14px 20px; border-bottom:var(--prp-rule) solid var(--prp-divider)}
+  a.bk-brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--prp-text); font-weight:600; font-size:17px}
+  .bk-brand svg{width:26px; height:26px; color:var(--prp-accent-text)}
+  .bk-main{max-width:720px; margin:0 auto; padding:28px 20px 56px}
+  .bk-main > section{display:flex; flex-direction:column; gap:14px}
+  .bk-list{list-style:none; margin:8px 0 0; padding:0; display:flex; flex-direction:column; border-top:var(--prp-rule) solid var(--prp-divider)}
+  .bk-q{padding:20px 0; border-bottom:var(--prp-rule) solid var(--prp-divider); display:flex; flex-direction:column; gap:10px}
+  .bk-stem{font-size:16px; line-height:1.5; font-weight:500; margin:0}
+  .bk-stem b{color:var(--prp-muted); font-weight:500; margin-right:6px}
+  .bk-opts{display:flex; flex-direction:column; gap:6px}
+  .bk-opt{display:grid; grid-template-columns:28px minmax(0,1fr); gap:10px; align-items:start; text-align:left; width:100%;
+    min-height:var(--prp-touch); padding:11px 12px; border:var(--prp-rule) solid var(--prp-divider); background:transparent; color:var(--prp-text); font:inherit; font-size:15px; line-height:1.45; cursor:pointer}
+  .bk-opt .k{font-weight:600; color:var(--prp-muted); text-transform:uppercase}
+  .bk-opt[aria-pressed="true"]{border-color:var(--prp-accent); background:var(--prp-accent-tint)}
+  .bk-opt[aria-pressed="true"] .k{color:var(--prp-accent-text)}
+  .bk-opt.is-key{border-color:var(--prp-accent); background:var(--prp-accent-tint)}
+  .bk-opt.is-miss{border-color:var(--prp-danger)}
+  .bk-opt:disabled{cursor:default}
+  .bk-why{font-size:14px; line-height:1.55; color:var(--prp-text-2); margin:0}
+  .bk-why b{color:var(--prp-text)}
+  .bk-actions{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:8px}
+  .bk-score{font-size:56px; font-weight:300; letter-spacing:-0.05em; line-height:1; margin:4px 0 0}
+  .bk-score small{font-size:16px; font-weight:500; letter-spacing:0; color:var(--prp-muted); margin-left:8px}
+</style>
+</head>
+<body class="prp">
+<header class="bk-head">
+  <a class="bk-brand" href="/" aria-label="PassReady Prep home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
+    PassReady Prep
+  </a>
+  <span class="prp-meta">Fast study break</span>
+</header>
+
+<main class="bk-main" id="main">
+  <p class="prp-meta" id="loading">Loading your questions…</p>
+
+  <section id="gone" hidden aria-labelledby="gone-title">
+    <h1 class="prp-h2" id="gone-title">This link has expired</h1>
+    <p class="prp-body">Study break links work for three days. Your next break will come at the time you chose, and you can change that in your dashboard.</p>
+    <div class="bk-actions"><a class="prp-btn prp-btn-primary" href="/dashboard.html">Open your dashboard →</a></div>
+  </section>
+
+  <section id="quiz" hidden aria-labelledby="q-title">
+    <span class="prp-eyebrow" id="q-eyebrow"></span>
+    <h1 class="prp-h2" id="q-title"></h1>
+    <p class="prp-body">Pick an answer for each one, then check them. Your answers count toward your readiness score.</p>
+    <ol class="bk-list" id="q-list"></ol>
+    <div class="bk-actions">
+      <button type="button" class="prp-btn prp-btn-primary" id="q-check" disabled>Check answers</button>
+      <span class="prp-meta" id="q-status" aria-live="polite"></span>
+    </div>
+  </section>
+
+  <section id="results" hidden aria-labelledby="r-title">
+    <span class="prp-eyebrow" id="r-eyebrow">Study break done</span>
+    <p class="bk-score" id="r-score"></p>
+    <h1 class="prp-h2" id="r-title"></h1>
+    <ol class="bk-list" id="r-list"></ol>
+    <div class="bk-actions">
+      <a class="prp-btn prp-btn-primary" id="r-dash" href="/dashboard.html">Open your dashboard →</a>
+      <a class="prp-btn prp-btn-secondary" id="r-more" href="/study">Keep practicing</a>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var token = new URLSearchParams(location.search).get('t') || '';
+  var S = null;                 // the session as the server sent it
+  var picks = {};               // itemId → optionId
+
+  function show(id) {
+    ['loading', 'gone', 'quiz', 'results'].forEach(function (k) { $(k).hidden = k !== id; });
+  }
+
+  function renderQuiz() {
+    $('q-eyebrow').textContent = (S.exam === 'nce' ? 'NCE' : 'NCMHCE') + ' · your weakest area · ' + S.domainLabel;
+    $('q-title').textContent = S.count + ' quick ' + S.domainLabel + ' question' + (S.count === 1 ? '' : 's');
+    $('q-list').innerHTML = S.items.map(function (it, i) {
+      return '<li class="bk-q" data-item="' + esc(it.id) + '"><p class="bk-stem"><b>' + (i + 1) + '.</b>' + esc(it.stem) + '</p><div class="bk-opts" role="group" aria-label="Question ' + (i + 1) + '">'
+        + it.options.map(function (o) {
+            return '<button type="button" class="bk-opt" data-opt="' + esc(o.id) + '" aria-pressed="false"><span class="k">' + esc(o.id) + '</span><span>' + esc(o.text) + '</span></button>';
+          }).join('')
+        + '</div></li>';
+    }).join('');
+    show('quiz');
+  }
+
+  function renderResults(r) {
+    var byId = {};
+    r.results.forEach(function (x) { byId[x.id] = x; });
+    $('r-score').innerHTML = esc(r.correct) + '<small>of ' + esc(r.total) + ' correct</small>';
+    $('r-title').textContent = r.correct === r.total ? 'All of them. Nice work.'
+      : r.correct >= Math.ceil(r.total / 2) ? 'Solid. Read the ones you missed.'
+      : 'Worth another pass at ' + S.domainLabel + '.';
+    $('r-list').innerHTML = S.items.map(function (it, i) {
+      var x = byId[it.id] || {};
+      var opts = it.options.map(function (o) {
+        var cls = 'bk-opt' + (o.id === x.correct ? ' is-key' : '') + (o.id === x.selected && !x.ok ? ' is-miss' : '');
+        return '<button type="button" class="' + cls + '" disabled aria-pressed="' + (o.id === x.selected ? 'true' : 'false') + '"><span class="k">' + esc(o.id) + '</span><span>' + esc(o.text) + '</span></button>';
+      }).join('');
+      var why = '';
+      if (x.ok) why += '<p class="bk-why"><b>✓ Correct.</b> ' + esc(x.keyRationale || x.explanation) + '</p>';
+      else {
+        if (x.selected && x.yourRationale) why += '<p class="bk-why"><b>✗ Your pick, ' + esc(x.selected).toUpperCase() + ':</b> ' + esc(x.yourRationale) + '</p>';
+        else if (!x.selected) why += '<p class="bk-why"><b>✗ Not answered.</b></p>';
+        why += '<p class="bk-why"><b>Best answer, ' + esc(x.correct).toUpperCase() + ':</b> ' + esc(x.keyRationale || x.explanation) + '</p>';
+      }
+      return '<li class="bk-q"><p class="bk-stem"><b>' + (i + 1) + '.</b>' + esc(it.stem) + '</p><div class="bk-opts">' + opts + '</div>' + why + '</li>';
+    }).join('');
+    $('r-dash').href = '/dashboard.html?exam=' + encodeURIComponent(S.exam);
+    $('r-more').href = S.exam === 'nce' ? '/nce.html?domain=' + encodeURIComponent(S.domain) : '/study?domain=' + encodeURIComponent(S.domain);
+    show('results');
+    window.scrollTo(0, 0);
+  }
+
+  document.addEventListener('click', function (e) {
+    var opt = e.target.closest('#q-list .bk-opt');
+    if (opt) {
+      var li = opt.closest('.bk-q');
+      picks[li.getAttribute('data-item')] = opt.getAttribute('data-opt');
+      Array.prototype.forEach.call(li.querySelectorAll('.bk-opt'), function (b) { b.setAttribute('aria-pressed', b === opt ? 'true' : 'false'); });
+      var answered = Object.keys(picks).length;
+      $('q-check').disabled = answered < S.items.length;
+      $('q-status').textContent = answered < S.items.length ? (S.items.length - answered) + ' to go' : '';
+      return;
+    }
+    if (e.target.closest('#q-check')) {
+      var btn = $('q-check'); btn.disabled = true; $('q-status').textContent = 'Checking…';
+      fetch('/api/study-break/session/answers', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ t: token, answers: picks }) })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, body: j }; }); })
+        .then(function (r) {
+          if (r.body && r.body.results) return renderResults(r.body.results);
+          $('q-status').textContent = (r.body && r.body.error) || 'Could not check your answers. Try again.'; btn.disabled = false;
+        })
+        .catch(function () { $('q-status').textContent = 'Could not reach the server. Try again.'; btn.disabled = false; });
+    }
+  });
+
+  if (!token) { show('gone'); return; }
+  fetch('/api/study-break/session?t=' + encodeURIComponent(token))
+    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+    .then(function (r) {
+      if (!r.ok) return show('gone');
+      S = r.body;
+      if (S.answered && S.results) return renderResults(S.results);
+      renderQuiz();
+    })
+    .catch(function () { show('gone'); });
+})();
+</script>
+</body>
+</html>

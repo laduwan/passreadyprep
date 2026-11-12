@@ -111,6 +111,21 @@
   .db-setting{display:flex; align-items:center; gap:10px}
   .db-setting > span{font-size:13px; color:var(--prp-muted)}
 
+  /* Fast study break (settings saved on the account) */
+  .db-break{padding:28px 32px; border-bottom:var(--prp-rule) solid var(--prp-divider)}
+  .db-break-head{display:flex; justify-content:space-between; align-items:flex-start; gap:24px; flex-wrap:wrap}
+  .db-break-head h2{font-size:22px; font-weight:600; letter-spacing:-0.03em; margin:6px 0 6px}
+  .db-break-head p{margin:0; max-width:560px}
+  .db-break-form{display:flex; flex-direction:column; gap:14px; margin-top:20px}
+  .db-break-field{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+  .db-break-field > span:first-child{min-width:88px; font-size:13px; color:var(--prp-muted)}
+  .db-break-days{display:flex; gap:6px; flex-wrap:wrap}
+  .db-break-days button{min-width:44px; min-height:var(--prp-touch); border:var(--prp-rule) solid var(--prp-divider); background:transparent; color:var(--prp-text-2); font:inherit; font-size:13px; font-weight:500; cursor:pointer}
+  .db-break-days button[aria-pressed="true"]{background:var(--prp-accent); color:var(--prp-on-accent); border-color:var(--prp-accent)}
+  .db-break-actions{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:6px}
+  #bk-time{min-height:var(--prp-touch); padding:8px 12px; font:inherit; font-size:14px; background:var(--prp-surface); color:var(--prp-text); border:var(--prp-rule) solid var(--prp-divider)}
+  #bk-status{max-width:560px; word-break:break-word}
+
   /* Tools */
   .db-tools{display:grid; grid-template-columns:repeat(4,minmax(0,1fr))}
   a.db-tool{
@@ -231,6 +246,32 @@
       </div>
 
       <div class="db-settings" id="settings"></div>
+
+      <section class="db-break" id="break" hidden aria-labelledby="break-title">
+        <div class="db-break-head">
+          <div>
+            <span class="prp-eyebrow">Fast study break</span>
+            <h2 id="break-title">A few questions from your weakest area, when you want them</h2>
+            <p class="prp-meta">Pick the days and the time. We text or email a link to 3–5 questions, and your answers count toward your readiness score.</p>
+          </div>
+          <div class="prp-seg" id="break-on" role="group" aria-label="Study breaks on or off">
+            <button type="button" data-v="off" aria-pressed="true">Off</button>
+            <button type="button" data-v="on" aria-pressed="false">On</button>
+          </div>
+        </div>
+        <div class="db-break-form" id="break-form" hidden>
+          <div class="db-break-field"><span>Exam</span><div class="prp-seg" id="bk-exam" role="group" aria-label="Exam"><button type="button" data-v="ncmhce">NCMHCE</button><button type="button" data-v="nce">NCE</button></div></div>
+          <div class="db-break-field"><span>Days</span><div class="db-break-days" id="bk-days" role="group" aria-label="Days of the week"></div></div>
+          <div class="db-break-field"><span>Time</span><select id="bk-time" aria-label="Time of day"></select><span class="prp-meta" id="bk-tz"></span></div>
+          <div class="db-break-field"><span>Questions</span><div class="prp-seg" id="bk-count" role="group" aria-label="How many questions"><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div></div>
+          <div class="db-break-field"><span>Send by</span><div class="prp-seg" id="bk-channel" role="group" aria-label="Send by"><button type="button" data-v="sms">Text</button><button type="button" data-v="email">Email</button></div><span class="prp-meta" id="bk-sms-note"></span></div>
+          <div class="db-break-actions">
+            <button type="button" class="prp-btn prp-btn-primary" id="bk-save">Save</button>
+            <button type="button" class="prp-btn prp-btn-secondary" id="bk-test">Send one now</button>
+            <span class="prp-meta" id="bk-status" aria-live="polite"></span>
+          </div>
+        </div>
+      </section>
       <div class="db-tools" id="tools"></div>
     </div>
 
@@ -640,6 +681,99 @@
     renderTools();
   }
 
+  // ── Fast study break ─────────────────────────────────────────────────
+  // Settings live on the account (routes/studyBreak.js), not in this browser,
+  // because the job that sends them runs on the server. The panel is a draft
+  // until Save.
+  var BK = null;        // what the server answered: { prefs, canSms, earliest, latest, counts }
+  var bkDraft = null;
+  var DAY_LABELS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  var DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+  function bkApi(method, path, body) {
+    return fetch('/api/study-break' + (path || ''), {
+      method: method,
+      headers: Object.assign({ 'content-type': 'application/json' }, authHeaders()),
+      body: body ? JSON.stringify(body) : undefined,
+    }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, status: r.status, body: j }; }); });
+  }
+  function fmtTime(hhmm) { var h = +hhmm.slice(0, 2), m = hhmm.slice(3); var h12 = h % 12 || 12; return h12 + ':' + m + ' ' + (h >= 12 ? 'PM' : 'AM'); }
+  function bkTimes(earliest, latest) {
+    var out = [], a = +earliest.slice(0, 2) * 60 + +earliest.slice(3), b = +latest.slice(0, 2) * 60 + +latest.slice(3);
+    for (var t = a; t <= b; t += 15) out.push(('0' + Math.floor(t / 60)).slice(-2) + ':' + ('0' + (t % 60)).slice(-2));
+    return out;
+  }
+  function setSeg(id, value) {
+    Array.prototype.forEach.call(document.querySelectorAll('#' + id + ' button'), function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-v') === value ? 'true' : 'false');
+    });
+  }
+  function nextBreakText(p) {
+    var days = DAY_NAMES.filter(function (_, i) { return p.days.indexOf(i) !== -1; }).map(function (n) { return n.slice(0, 3); });
+    return (days.length === 7 ? 'Every day' : days.join(', ')) + ' at ' + fmtTime(p.time) + ' by ' + (p.channel === 'sms' ? 'text' : 'email') + '.';
+  }
+  function bkStatus(msg, bad) { var s = $('bk-status'); s.textContent = msg || ''; s.style.color = bad ? 'var(--prp-danger)' : 'var(--prp-accent-text)'; }
+
+  function renderBreak() {
+    var el = $('break');
+    if (!BK || !bkDraft) { el.hidden = true; return; }
+    el.hidden = false;
+    var p = bkDraft;
+    setSeg('break-on', p.enabled ? 'on' : 'off');
+    $('break-form').hidden = !p.enabled;
+    setSeg('bk-exam', p.exam);
+    setSeg('bk-count', String(p.count));
+    setSeg('bk-channel', p.channel);
+    $('bk-days').innerHTML = DAY_LABELS.map(function (l, i) {
+      return '<button type="button" data-day="' + i + '" aria-label="' + DAY_NAMES[i] + '" aria-pressed="' + (p.days.indexOf(i) !== -1 ? 'true' : 'false') + '">' + l + '</button>';
+    }).join('');
+    $('bk-time').innerHTML = bkTimes(BK.earliest, BK.latest).map(function (t) {
+      return '<option value="' + t + '"' + (t === p.time ? ' selected' : '') + '>' + fmtTime(t) + '</option>';
+    }).join('');
+    $('bk-tz').textContent = p.timezone ? 'your time, ' + p.timezone.replace(/_/g, ' ') : '';
+    $('bk-sms-note').textContent = BK.canSms ? '' : 'Texts need a mobile number with the SMS opt-in on your account.';
+    var smsBtn = document.querySelector('#bk-channel button[data-v="sms"]');
+    if (smsBtn) smsBtn.disabled = !BK.canSms;
+  }
+
+  function loadBreak() {
+    if (!authHeaders().authorization) { $('break').hidden = true; return; }
+    bkApi('GET').then(function (r) {
+      if (!r.ok || !r.body || !r.body.prefs) { $('break').hidden = true; return; }
+      BK = r.body;
+      bkDraft = Object.assign({}, BK.prefs);
+      bkDraft.days = (BK.prefs.days || []).slice();
+      if (!bkDraft.timezone) { try { bkDraft.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) {} }
+      if (!BK.prefs.enabled) bkDraft.exam = exam;     // until saved, follow the exam on screen
+      renderBreak();
+    });
+  }
+
+  function saveBreak() {
+    bkDraft.time = $('bk-time').value;
+    bkStatus('Saving…');
+    bkApi('PUT', '', bkDraft).then(function (r) {
+      if (!r.ok) { bkStatus((r.body && r.body.error) || 'Could not save.', true); return; }
+      BK.prefs = r.body.prefs; BK.canSms = r.body.canSms;
+      bkDraft = Object.assign({}, r.body.prefs); bkDraft.days = (r.body.prefs.days || []).slice();
+      renderBreak();
+      bkStatus(bkDraft.enabled ? 'Saved. ' + nextBreakText(bkDraft) : 'Saved. Study breaks are off.');
+    });
+  }
+
+  function testBreak() {
+    bkStatus('Sending…');
+    bkApi('POST', '/test', {}).then(function (r) {
+      if (!r.ok) { bkStatus((r.body && r.body.error) || 'Could not send.', true); return; }
+      var dev = r.body.sendResult && r.body.sendResult.dev;
+      bkStatus('Sent by ' + (r.body.channel === 'sms' ? 'text' : 'email') + '.' + (dev ? ' No message provider is configured yet, so it was logged rather than delivered.' : '') + ' Open it here: ' + r.body.link);
+    });
+  }
+
+  document.addEventListener('change', function (e) {
+    if (e.target && e.target.id === 'bk-time' && bkDraft) bkDraft.time = e.target.value;
+  });
+
   // ── Load ───────────────────────────────────────────────────────────────
   function load() {
     var c = cfg();
@@ -661,6 +795,7 @@
         'Signed out, so this is the empty dashboard. Sign in to see your own progress.';
       else $('msg').hidden = true;
       render();
+      loadBreak();
       $('loading').hidden = true;
       $('view').hidden = false;
     });
@@ -677,6 +812,23 @@
 
   // ── Wiring ─────────────────────────────────────────────────────────────
   document.addEventListener('click', function (e) {
+    var bk = e.target.closest('#break button');
+    if (bk && bkDraft) {
+      var pid = bk.parentNode && bk.parentNode.id;
+      if (pid === 'break-on') { bkDraft.enabled = bk.getAttribute('data-v') === 'on'; renderBreak(); return; }
+      if (pid === 'bk-exam') { bkDraft.exam = bk.getAttribute('data-v'); renderBreak(); return; }
+      if (pid === 'bk-count') { bkDraft.count = +bk.getAttribute('data-v'); renderBreak(); return; }
+      if (pid === 'bk-channel') { if (!bk.disabled) { bkDraft.channel = bk.getAttribute('data-v'); renderBreak(); } return; }
+      if (pid === 'bk-days') {
+        var d = +bk.getAttribute('data-day'), i = bkDraft.days.indexOf(d);
+        if (i === -1) bkDraft.days.push(d); else bkDraft.days.splice(i, 1);
+        bkDraft.days.sort(function (a, b) { return a - b; });
+        renderBreak(); return;
+      }
+      if (bk.id === 'bk-save') { saveBreak(); return; }
+      if (bk.id === 'bk-test') { testBreak(); return; }
+    }
+
     var seg = e.target.closest('#exam-seg button, #exam-seg-m button');
     if (seg) return switchExam(seg.getAttribute('data-exam'));
 

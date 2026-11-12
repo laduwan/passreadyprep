@@ -11,7 +11,9 @@ const AttemptSchema = new Schema(
     contentItemId: { type: Schema.Types.ObjectId, ref: 'ContentItem' },
     externalId: String, // e.g. 'ncmhce-G031'
 
-    mode: { type: String, enum: ['study', 'timed'], default: 'study' },
+    // 'break' is a fast study break (utils/studyBreak.js): it moves domain
+    // accuracy and readiness but never counts as a completed case.
+    mode: { type: String, enum: ['study', 'timed', 'break'], default: 'study' },
 
     responses: [
       {
