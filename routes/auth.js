@@ -8,6 +8,7 @@ const { sendMail } = require('../utils/mailer');
 const { logActivity } = require('../utils/activity');
 const { verifyUnsubscribeToken } = require('../utils/unsubscribe');
 const { sendWelcomeEmail } = require('../utils/welcomeEmail');
+const { sendUserSms, toE164, TEMPLATES } = require('../utils/sms');
 
 const router = express.Router();
 
@@ -67,6 +68,25 @@ function signToken(user) {
     process.env.JWT_SECRET,
     { expiresIn: '30d' }
   );
+}
+
+// The opt-in confirmation text, sent once, right after someone ticks the SMS
+// consent box at sign-up. Carriers expect a subscriber to get an immediate
+// confirmation naming the brand and the way out (CTIA Messaging Principles
+// 5.2.1), and it is also the fastest way to find out a number was mistyped.
+//
+// Not awaited by the caller, for the same reason sendWelcomeEmail is not: a
+// slow or failing SMS provider must never hold up or fail a registration.
+// utils/sms.js re-checks consent before sending, so this cannot text someone
+// who did not opt in even if it is called by mistake.
+function sendOptInConfirmation(user) {
+  sendUserSms(user, TEMPLATES.optInConfirm(), { type: 'opt_in_confirm' })
+    .then((result) => {
+      if (!result.sent) return;
+      // Recorded so nothing ever sends a second confirmation to this account.
+      return User.updateOne({ _id: user._id }, { $set: { 'smsSent.opt_in_confirm': new Date() } });
+    })
+    .catch((err) => console.error('[auth] opt-in confirmation failed:', err.message));
 }
 
 // Only the safe fields — never send the password hash to the browser.
@@ -157,8 +177,13 @@ router.post('/register', async (req, res) => {
     // SMS opt-in is only recorded when the user both ticks the box AND provides
     // a phone number — no number or no consent means we store neither, matching
     // the carrier rule that consent cannot be pre-checked or implied.
-    const normalizedPhone = typeof phone === 'string' ? phone.replace(/[^\d+]/g, '').slice(0, 20) : '';
-    const opted = smsOptedIn === true && normalizedPhone.length >= 10;
+    // Stored in E.164 ("+15551234567") so the number we text and the number
+    // Twilio reports on an inbound STOP are the same string — see the phone
+    // shape note in utils/sms.js. The length check runs on the digits the user
+    // actually typed, before a country code is assumed.
+    const typedDigits = typeof phone === 'string' ? phone.replace(/\D/g, '') : '';
+    const normalizedPhone = typedDigits.length >= 10 ? toE164(phone).slice(0, 20) : '';
+    const opted = smsOptedIn === true && !!normalizedPhone;
     const examDateAt = parseSignupExamDate(examDate);
     const profile = {
       email, passwordHash, name,
@@ -167,6 +192,12 @@ router.post('/register', async (req, res) => {
       phone: opted ? normalizedPhone : null,
       smsOptedIn: opted,
       smsOptedInAt: opted ? new Date() : undefined,
+      // A new, explicit tick of the box is a fresh consent, so any opt-out
+      // recorded against this number is cleared. Note that if they texted STOP
+      // to our number, the CARRIER also holds that block: Twilio will refuse
+      // the send (error 21610) until they text START. Nothing we store here
+      // overrides that, which is the correct order of authority.
+      smsOptedOutAt: null,
       examDate: examDateAt || undefined,
     };
 
@@ -182,6 +213,7 @@ router.post('/register', async (req, res) => {
       const user = await User.findById(guest._id);
       logActivity({ type: 'user.registered', severity: 'info', email: user.email, userId: user._id, message: 'New account created (from an app guest account)', req });
       sendWelcomeEmail(user); // not awaited: the sign-up never waits on email
+      if (opted) sendOptInConfirmation(user); // nor on SMS
       return res.status(201).json({ token: signToken(user), user: publicUser(user) });
     }
 
@@ -189,6 +221,7 @@ router.post('/register', async (req, res) => {
 
     logActivity({ type: 'user.registered', severity: 'info', email: user.email, userId: user._id, message: 'New account created', req });
     sendWelcomeEmail(user); // not awaited: the sign-up never waits on email
+    if (opted) sendOptInConfirmation(user); // nor on SMS
     return res.status(201).json({ token: signToken(user), user: publicUser(user) });
   } catch (err) {
     console.error('register error', err);

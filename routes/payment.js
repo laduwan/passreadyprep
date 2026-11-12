@@ -48,6 +48,7 @@ const { getNceExam } = require('../utils/nceExam');
 const { cleanDomainScores, buildRetakePlan } = require('../utils/retakePlan');
 const { isForfeited, nextRequestDue, RESULT_WINDOW_DAYS } = require('../utils/guaranteeRules');
 const { refundEligibility, REFUND_RULES, REFUND_PLAN } = require('../utils/guaranteeRefund');
+const { sendUserSms, canText, TEMPLATES } = require('../utils/sms');
 
 // Lazy init: construct the Stripe client on first use, not at module load.
 // Building it at require-time meant a missing STRIPE_SECRET_KEY crashed the
@@ -90,6 +91,33 @@ function subPeriodEnd(sub) {
   if (raw === null) return null;
   const d = new Date(raw * 1000);
   return isNaN(d.getTime()) ? null : d;
+}
+
+/**
+ * Text a member that their card was declined, if they opted in to SMS.
+ *
+ * This is the "billing" half of the consent people gave at sign-up, and the
+ * most useful of the three: a failed renewal is silent otherwise, and Stripe
+ * will retry and then cancel the plan while the member has no idea.
+ *
+ * Stripe retries a failed invoice several times over about two weeks, firing
+ * invoice.payment_failed each time. One text per fortnight is a reminder; four
+ * is harassment and gets a campaign reported, so a send is suppressed if one
+ * already went out inside PAYMENT_SMS_QUIET_DAYS.
+ *
+ * Never awaited by the webhook: Stripe retries anything that does not answer
+ * promptly, and a slow SMS provider must not cause a webhook replay.
+ */
+const PAYMENT_SMS_QUIET_DAYS = 10;
+
+function textPaymentFailed(user) {
+  if (!canText(user)) return;
+  const last = (user.smsSent || {}).payment_failed;
+  if (last && Date.now() - new Date(last).getTime() < PAYMENT_SMS_QUIET_DAYS * 24 * 60 * 60 * 1000) return;
+
+  User.updateOne({ _id: user._id }, { $set: { 'smsSent.payment_failed': new Date() } })
+    .then(() => sendUserSms(user, TEMPLATES.paymentFailed(), { type: 'payment_failed' }))
+    .catch((err) => console.error('[payment] payment-failed SMS failed:', err.message));
 }
 
 // ── Tier config ──────────────────────────────────────────────────────────────
@@ -606,6 +634,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
           await User.findByIdAndUpdate(user._id, { 'nceAccess.status': 'past_due' });
           console.log(`✓ NCE payment failed: user ${user._id}`);
           logActivity({ type: 'payment.failed', severity: 'warn', userId: user._id, email: user.email, message: 'NCE monthly payment failed', meta: { customerId }, req });
+          textPaymentFailed(user);
           break;
         }
 
@@ -615,6 +644,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
 
         console.log(`✓ Payment failed: user ${user._id}`);
         logActivity({ type: 'payment.failed', severity: 'warn', userId: user._id, email: user.email, message: 'Monthly payment failed', meta: { customerId }, req });
+        textPaymentFailed(user);
         break;
       }
 

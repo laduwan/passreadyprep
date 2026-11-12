@@ -20,6 +20,9 @@ app.use(cors({ origin: corsOrigin }));
 app.use('/api/payment/webhook', express.raw({ type: 'application/json' }));
 // Resend inbound-email webhook: raw body too, for its Svix signature check.
 app.use('/api/inbound-email/webhook', express.raw({ type: 'application/json' }));
+// Twilio posts inbound SMS form-encoded, and its signature is computed over
+// the parsed parameters, so this path needs a urlencoded parser.
+app.use('/api/sms/webhook', express.urlencoded({ extended: false }));
 // Score-report check-ins carry the member's score letter as a data URI (~5 MB).
 app.use('/api/payment/score-report', express.json({ limit: '8mb' }));
 app.use(express.json());
@@ -67,6 +70,8 @@ app.use('/api/nce', require('./routes/nce'));
 app.use('/api/admin/blog', require('./routes/adminBlog'));
 app.use('/api/resume', require('./routes/resume'));
 app.use('/api/inbound-email', require('./routes/inboundEmail'));
+// Inbound SMS — keeps User.smsOptedIn in step with STOP (see routes/inboundSms.js).
+app.use('/api/sms', require('./routes/inboundSms'));
 
 // ── Accessibility + translation widget injection ────────────────────
 // Every HTML page gets the shared accessibility widget (a11y.css + a11y.js),
@@ -248,6 +253,10 @@ async function start() {
 
   // Proactive trial "ending soon" / "ended" emails (hourly, in-process).
   require('./jobs/trialReminders').start();
+
+  // Exam-date reminder texts (14 and 3 days out) to members who opted in to
+  // SMS, sent daily at SMS_SEND_HOUR_UTC.
+  require('./jobs/examReminders').start();
 
   // New sign-up check-in, win-back and post-exam check-in emails, once per
   // account, sent daily at NUDGE_SEND_HOUR_UTC (needs MAIL_POSTAL_ADDRESS).
