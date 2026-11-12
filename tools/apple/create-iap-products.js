@@ -7,7 +7,7 @@
  * What it does (idempotent — re-run any time, it only adds what is missing):
  *   - two subscription groups, "NCMHCE" and "NCE", with their display names
  *   - the six auto-renewable subscriptions (monthly, 3-month, 6-month), three per group
- *   - the two non-consumables (NCMHCE and NCE Access Until You Pass). The study
+ *   - the two non-consumables (NCMHCE and NCE Pass Guarantee). The study
  *     guide is sold on the website only, so it is not an In-App Purchase.
  *   - en-US name + description on every product and group
  *   - US price (nearest Apple price point to the table below)
@@ -31,7 +31,7 @@
  *   node tools/apple/create-iap-products.js --screenshots ~/iap-screens
  *   node tools/apple/create-iap-products.js --screenshots DIR --replace-screenshots  # swap an already-accepted image
  *   IAP_PRICES='{"monthly":27.99}' node tools/apple/create-iap-products.js   # override USD prices
- *   NCE_GUARANTEE=0 node tools/apple/create-iap-products.js                  # skip NCE Access Until You Pass
+ *   NCE_GUARANTEE=0 node tools/apple/create-iap-products.js                  # skip NCE Pass Guarantee
  */
 'use strict';
 
@@ -71,7 +71,7 @@ const PRODUCTS = [
   { tier: 'pass6',         sku: 'ncmhce.sub6mo',    type: 'subscription', group: 'NCMHCE', period: 'SIX_MONTHS',   usd: 149.99,
     name: 'NCMHCE 6-Month', desc: 'Full NCMHCE access, renews every 6 months.' },
   { tier: 'guarantee',     sku: 'ncmhce.guarantee', type: 'NON_CONSUMABLE', usd: 149.99,
-    name: 'NCMHCE Access Until You Pass', desc: 'Extends NCMHCE access until you pass. One payment.' },
+    name: 'NCMHCE Pass Guarantee', desc: 'Free NCMHCE access extensions until you pass. One payment.' },
   { tier: 'nce_monthly',   sku: 'nce.monthly',      type: 'subscription', group: 'NCE', period: 'ONE_MONTH', usd: 24.99,
     name: 'NCE Monthly', desc: 'Full NCE access, renews monthly. Cancel any time.' },
   { tier: 'nce_pass3',     sku: 'nce.sub3mo',       type: 'subscription', group: 'NCE', period: 'THREE_MONTHS', usd: 59.99,
@@ -79,7 +79,7 @@ const PRODUCTS = [
   { tier: 'nce_pass6',     sku: 'nce.sub6mo',       type: 'subscription', group: 'NCE', period: 'SIX_MONTHS',   usd: 89.99,
     name: 'NCE 6-Month', desc: 'Full NCE access, renews every 6 months.' },
   { tier: 'nce_guarantee', sku: 'nce.guarantee',    type: 'NON_CONSUMABLE', usd: 149.99, optional: process.env.NCE_GUARANTEE === '0',
-    name: 'NCE Access Until You Pass', desc: 'Extends NCE access until you pass. One payment.' },
+    name: 'NCE Pass Guarantee', desc: 'Free NCE access extensions until you pass. One payment.' },
 ];
 const GROUPS = {
   NCMHCE: { referenceName: 'NCMHCE', displayName: 'NCMHCE Prep' },

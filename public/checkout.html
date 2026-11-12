@@ -125,14 +125,14 @@
 
     <div class="divider"></div>
 
-    <!-- Access Extensions Until You Pass specific acknowledgment -->
+    <!-- Pass Guarantee specific acknowledgment -->
     <div class="guar-ack" id="guar-ack">
-      <div class="guar-ack-head">🛡️ Access Extensions Until You Pass — please read</div>
-      <p>Your access is unlimited — you will never need to pay again. To protect your account from being shared, we require a brief candidate verification check-in every 6 months: you confirm your scheduled exam date or submit your score report.</p>
+      <div class="guar-ack-head">🛡️ Pass Guarantee — please read</div>
+      <p>You will never need to pay again. Access runs in 6-month periods: at each one you request a free extension by confirming your exam date or submitting your score report. Extensions are free and unlimited until you pass, but they are not automatic.</p>
       <p>If you don't pass, your access is extended free. If you pass, your first CE course on CounselorReady is on us. <a href="/policies.html#guarantee" target="_blank">Full terms →</a></p>
       <div class="check-row">
         <input type="checkbox" id="guar-check"/>
-        <label for="guar-check">I understand the Access Extensions Until You Pass plan includes a 6-month candidate verification check-in. No repayment is ever required.</label>
+        <label for="guar-check">I understand the Pass Guarantee includes a 6-month candidate verification check-in. No repayment is ever required.</label>
       </div>
     </div>
 
@@ -165,7 +165,7 @@
       <div class="tier-desc" id="success-desc">Your purchase is complete and your access is active.</div>
     </div>
     <div class="guar-ack" id="guar-success">
-      <div class="guar-ack-head">🛡️ Your Access Extensions Until You Pass plan is active</div>
+      <div class="guar-ack-head">🛡️ Your Pass Guarantee is active</div>
       <p>Study, take the NCMHCE, and come back here if you don't pass the first time.</p>
       <p>If you need an extension, submit your official score report at <a href="/score-report.html">passreadyprep.com/score-report</a>.</p>
       <p>We'll review it within 48 hours and extend your access — no questions asked.</p>
@@ -181,35 +181,35 @@
       name: 'Monthly Plan',
       price: '$29/mo',
       desc: 'Full access, cancel any time.',
-      features: ['All 290+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan'],
+      features: ['All 290+ case simulations','No AI debrief','Timed mock exams','Readiness predictor','250+ flashcards + study plan'],
     },
     pass3: {
       cls: 'pass3',
       name: '3-Month Pass',
       price: '$79 every 3 months',
       desc: 'Full access, billed every 3 months. Cancel any time.',
-      features: ['All 290+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan'],
+      features: ['All 290+ case simulations','No AI debrief','Timed mock exams','Readiness predictor','250+ flashcards + study plan'],
     },
     pass6: {
       cls: 'pass3',
       name: '6-Month Pass',
       price: '$119 every 6 months',
       desc: 'Full access, billed every 6 months. Room for a retake.',
-      features: ['All 290+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Room for a retake'],
+      features: ['All 290+ case simulations','No AI debrief','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Room for a retake'],
     },
     guarantee: {
       cls: 'guarantee',
-      name: 'Access Extensions Until You Pass',
+      name: 'Pass Guarantee',
       price: '$249',
-      desc: 'Unlimited access — one payment, forever. Includes the digital study guide.',
-      features: ['All 290+ case simulations','AI debrief with Dr. Claire Moreau','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Includes The Complete NCMHCE Study Guide (digital, $25 value)','Access extensions until you pass — free CE on CounselorReady when you pass'],
+      desc: 'One payment, then free access extensions until you pass. Includes the digital study guide.',
+      features: ['All 290+ case simulations','AI debrief with Dr. Claire Moreau after every case','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Includes The Complete NCMHCE Study Guide (digital, $25 value)','Pass guarantee — free CE on CounselorReady when you pass'],
     },
     nce_guarantee: {
       cls: 'guarantee',
-      name: 'NCE Access Extensions Until You Pass',
+      name: 'NCE Pass Guarantee',
       price: '$189',
-      desc: 'Unlimited NCE access — one payment, no renewal. Includes the digital NCE study guide.',
-      features: ['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain','Includes The NCE Ownership Method (digital study guide, $25 value)','Access extensions until you pass — free CE on CounselorReady when you pass, or free extended access'],
+      desc: 'One payment, then free NCE access extensions until you pass. Includes the digital NCE study guide.',
+      features: ['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain','Includes The NCE Ownership Method (digital study guide, $25 value)','Pass guarantee — free CE on CounselorReady when you pass, or free extended access'],
     },
     test: {
       cls: 'pass3',
@@ -252,7 +252,7 @@
       <ul class="tier-features">${tierCfg.features.map(f => `<li>${f}</li>`).join('')}</ul>
     `;
 
-    // NCE Access Extensions Until You Pass: its price lives only in Stripe, so show what the
+    // NCE Pass Guarantee: its price lives only in Stripe, so show what the
     // server reports — and don't offer it at all until a price is set.
     if (tier === 'nce_guarantee') {
       const priceEl = box.querySelector('.tier-price');
@@ -308,7 +308,7 @@
     if (isGuarantee) {
       const checked = document.getElementById('guar-check').checked;
       if (!checked) {
-        showErr('Please acknowledge the Access Extensions Until You Pass terms to continue.');
+        showErr('Please acknowledge the Pass Guarantee terms to continue.');
         return;
       }
     }

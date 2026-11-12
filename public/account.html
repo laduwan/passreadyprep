@@ -124,8 +124,8 @@
 <script>
   var token = null, user = null;
   try { token = localStorage.getItem('prp_token'); user = JSON.parse(localStorage.getItem('prp_user') || 'null'); } catch (e) {}
-  var NAMES = { free:'Free', monthly:'Monthly', pass3:'3-Month Pass', guarantee:'Access Extensions Until You Pass',
-                nce_monthly:'NCE Monthly', nce_pass3:'NCE 3-Month Pass', nce_pass6:'NCE 6-Month Pass', nce_guarantee:'NCE Access Extensions Until You Pass' };
+  var NAMES = { free:'Free', monthly:'Monthly', pass3:'3-Month Pass', guarantee:'Pass Guarantee',
+                nce_monthly:'NCE Monthly', nce_pass3:'NCE 3-Month Pass', nce_pass6:'NCE 6-Month Pass', nce_guarantee:'NCE Pass Guarantee' };
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function show(id) { document.querySelectorAll('.panel').forEach(function (p) { p.classList.toggle('active', p.id === id); }); }
@@ -161,7 +161,7 @@
       : '<span class="badge b-ok">Active</span>';
     h += '<p class="plan">' + esc(NAMES[tier] || tier) + badge + '</p>';
     var lines = [];
-    if (isGuar) lines.push(end ? (expired ? 'Candidate check-in due — submit your exam date or score report.' : 'Next candidate check-in by ' + fmtDate(end) + '.') : 'Access until you pass.');
+    if (isGuar) lines.push(end ? (expired ? 'Candidate check-in due — submit your exam date or score report.' : 'Next candidate check-in by ' + fmtDate(end) + '.') : 'Pass guarantee.');
     else if (isSub) lines.push(end ? ((renewing ? 'Renews ' : 'Access until ') + fmtDate(end) + '.') : '');
     else if (end) lines.push((expired ? 'Ended ' : 'Access until ') + fmtDate(end) + '.');
     lines.push(apple ? 'Billed through the App Store (Apple ID).' : (isSub ? (APP ? 'Your subscription is managed on passreadyprep.com.' : 'Billed on passreadyprep.com.') : ''));

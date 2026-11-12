@@ -202,7 +202,7 @@ const HEADER = `<header class="site">
       <a class="navlink" href="/#features">Features</a>
       <a class="navlink" href="/#how">How it works</a>
       <a class="navlink" href="/#pricing">Pricing</a>
-      <a class="navlink" href="/guarantee.html">Access until you pass</a>
+      <a class="navlink" href="/guarantee.html">Guarantee</a>
       <a class="navlink" href="/study-guide.html">Study guide</a>
       <a class="btn" href="/study">Start studying</a>
     </nav>
@@ -218,7 +218,7 @@ const FOOTER = `<footer class="site">
           <span class="brand-chip" aria-hidden="true">${BRAND_SVG}</span>
           <span class="brand">PassReady <span class="prep">Prep</span></span>
         </a>
-        <p>NCMHCE clinical simulations and NCE practice questions for counselor licensure — showing you when you're ready to sit, with access extensions until you pass.</p>
+        <p>NCMHCE clinical simulations and NCE practice questions for counselor licensure — showing you when you're ready to sit, backed by a guarantee.</p>
       </div>
       <div class="foot-col">
         <h4>NCMHCE</h4>
@@ -236,7 +236,7 @@ const FOOTER = `<footer class="site">
         <a href="/flashcards.html">NCMHCE flashcards</a>
         <a href="/dsm.html">NCMHCE DSM-5-TR reference</a>
         <a href="/theory.html">NCMHCE theories &amp; pioneers</a>
-        <a href="/guarantee.html">NCMHCE access extensions until you pass</a>
+        <a href="/guarantee.html">NCMHCE pass guarantee</a>
       </div>
       <div class="foot-col">
         <h4>NCE</h4>

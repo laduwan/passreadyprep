@@ -23,6 +23,9 @@ const PAGES = [
   // purchase.html inside the app (client/native/native-iap.js), which runs
   // the StoreKit flow. See docs/AppReview_Reply_v1.0_build2.md.
   'checkout.html', 'purchase.html',
+  // The redesigned plan picker. Inside the app it drives StoreKit through
+  // native-iap.js, exactly as purchase.html does.
+  'pricing.html',
 ];
 // Pages the shim opens on passreadyprep.com instead (keep in sync with EXTERNAL in native-shim.js).
 const EXTERNAL = new Set(['policies.html', 'privacy.html', 'score-report.html', 'accessibility.html']);

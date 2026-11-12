@@ -283,7 +283,7 @@ function AccessGate({ accessLevel, onBack }) {
   const gate = accessLevel === 'gated'
     ? { title: 'Your access is paused', body: 'Submit your score report to restore access to timed mock exams.', href: '/score-report.html', cta: 'Submit score report →' }
     : accessLevel === 'expired'
-    ? { title: 'Mock exams are for subscribers', body: 'Your free trial has ended. Subscribe to take full-length timed mock exams with a domain breakdown and answer review.', href: '/checkout.html?tier=monthly', cta: 'Subscribe →' }
+    ? { title: 'Mock exams are for subscribers', body: 'Your free trial has ended. Subscribe to take full-length timed mock exams with a domain breakdown and answer review.', href: '/pricing.html?exam=ncmhce', cta: 'Subscribe →' }
     : { title: 'Mock exams are for subscribers', body: 'Create an account to start your free trial and take full-length timed mock exams with a domain breakdown and answer review.', href: '/register.html', cta: 'Create an account →' };
   return (
     <div className="space-y-5">

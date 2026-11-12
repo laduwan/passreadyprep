@@ -324,7 +324,7 @@ body.exam-active #prp-suggest-tab, body.exam-active #prp-suggest-panel{display:n
     </ul>
     <h3>When to take it</h3>
     <p>Take a mock early for a baseline, then do your real preparation in the untimed <a href="/study">case simulations</a>, where you can read every rationale. Return to the timed exam once your readiness score holds above 60%, and sit at least two full mocks in the final two weeks. If you are retaking the NCMHCE, start here: a timed mock shows which domain failed you last time more clearly than any study guide.</p>
-    <p>Completing timed cases counts toward the <a href="/guarantee.html">access extensions until you pass</a> milestones.<!-- prp-web-only --> The timed mock exam is included in the 7-day free trial and in every plan.<!-- /prp-web-only --></p>
+    <p>Completing timed cases counts toward the <a href="/guarantee.html">pass guarantee</a> milestones.<!-- prp-web-only --> The timed mock exam is included in the 7-day free trial and in every plan.<!-- /prp-web-only --></p>
   </section>
 </div>
 
@@ -877,8 +877,8 @@ function renderGate(level){
   const g = level === 'gated'
     ? { title:'Your access is paused', body:'Submit your score report to restore access to timed mock exams.', href:'/score-report.html', cta:'Submit score report ›' }
     : level === 'expired'
-    ? (isApp ? { title:'Choose a plan', body:'Timed mock exams are included in every plan.', href:'/landing.html#pricing', cta:'See plans ›' }
-           : { title:'Mock exams are for subscribers', body:'Your free trial has ended. Subscribe to take full-length timed mock exams with a domain breakdown and answer review.', href:'/checkout.html?tier=monthly', cta:'Subscribe ›' })
+    ? (isApp ? { title:'Choose a plan', body:'Timed mock exams are included in every plan.', href:'/pricing.html?exam=ncmhce', cta:'See plans ›' }
+           : { title:'Mock exams are for subscribers', body:'Your free trial has ended. Subscribe to take full-length timed mock exams with a domain breakdown and answer review.', href:'/pricing.html?exam=ncmhce', cta:'See plans ›' })
     : { title:'Mock exams need an account', body:'Create a free account to take full-length timed mock exams with a domain breakdown and answer review.', href:'/register.html?next=/exam.html', cta:'Create an account ›' };
   let h = '<a href="/" class="back">‹ Dashboard</a>';
   h += '<div class="card" id="access-gate" style="text-align:center">';
@@ -886,7 +886,7 @@ function renderGate(level){
   h += '<h2>'+esc(g.title)+'</h2>';
   h += '<p class="lead" style="margin:6px auto 16px;max-width:460px">'+esc(g.body)+'</p>';
   if(g.href) h += '<a href="'+g.href+'" class="btn">'+esc(g.cta)+'</a>';
-  if(isApp && level !== 'gated' && level !== 'expired') h += '<p style="margin:14px 0 0;font-size:14px">Or <a href="/landing.html#pricing">choose a plan</a>, no account needed.</p>';
+  if(isApp && level !== 'gated' && level !== 'expired') h += '<p style="margin:14px 0 0;font-size:14px">Or <a href="/pricing.html?exam=ncmhce">choose a plan</a>, no account needed.</p>';
   h += '</div>';
   app.innerHTML = h;
 }
@@ -1176,7 +1176,7 @@ function renderResults(){
   let signedIn = false;
   try { signedIn = !!localStorage.getItem('prp_token'); } catch(_){}
   if(signedIn){
-    h += '<p style="font-size:13.5px;color:var(--slate-400);margin-top:14px">On Access Extensions Until You Pass? <a href="/score-report.html">Submit your score report →</a></p>';
+    h += '<p style="font-size:13.5px;color:var(--slate-400);margin-top:14px">On the Guarantee plan? <a href="/score-report.html">Submit your score report →</a></p>';
   }
 
   // Review section (hidden until toggled)

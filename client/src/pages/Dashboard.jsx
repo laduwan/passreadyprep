@@ -72,7 +72,7 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
           total: d.total || null,
           accessLevel: d.accessLevel,
           trialEndsAt: d.trialEndsAt || null,
-          trialDays: d.trialDays || 3,
+          trialDays: d.trialDays || 7,
           freeLimit: d.freeLimit || 5,
         });
       })
@@ -120,7 +120,7 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
       if (daysLeft <= 2) return { type: 'trial', daysLeft, total };
     }
     if (accessLevel === 'free') {
-      return { type: 'free', freeLimit, total };
+      return { type: 'free', freeLimit, total, trialDays: catalogMeta.trialDays };
     }
     return null;
   })();
@@ -135,7 +135,7 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
             <div className="font-bold text-red-400 text-sm">Your free trial has ended</div>
             <div className="text-xs text-slate-400 mt-0.5">Upgrade to keep studying all {trialBanner.total ? `${trialBanner.total}+` : '290+'} cases.</div>
           </div>
-          <a href="/checkout.html?tier=monthly" className="shrink-0 bg-red-500 hover:bg-red-400 text-white font-bold px-4 py-2 rounded-xl text-sm transition-colors">
+          <a href="/pricing.html?exam=ncmhce" className="shrink-0 bg-red-500 hover:bg-red-400 text-white font-bold px-4 py-2 rounded-xl text-sm transition-colors">
             Upgrade →
           </a>
         </div>
@@ -148,7 +148,7 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
             </div>
             <div className="text-xs text-slate-400 mt-0.5">Upgrade to keep access to all {trialBanner.total ? `${trialBanner.total}+` : '290+'} cases.</div>
           </div>
-          <a href="/checkout.html?tier=monthly" className="shrink-0 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold px-4 py-2 rounded-xl text-sm transition-colors">
+          <a href="/pricing.html?exam=ncmhce" className="shrink-0 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold px-4 py-2 rounded-xl text-sm transition-colors">
             Upgrade →
           </a>
         </div>
@@ -157,7 +157,7 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
         <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 flex items-center justify-between gap-3">
           <div>
             <div className="font-bold text-white text-sm">{trialBanner.freeLimit} free cases available</div>
-            <div className="text-xs text-slate-400 mt-0.5">Create an account for a 3-day trial of all {trialBanner.total ? `${trialBanner.total}+` : '290+'} cases.</div>
+            <div className="text-xs text-slate-400 mt-0.5">Create an account for a {trialBanner.trialDays || 7}-day trial of all {trialBanner.total ? `${trialBanner.total}+` : '290+'} cases.</div>
           </div>
           <a href="/register.html" className="shrink-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-4 py-2 rounded-xl text-sm transition-colors">
             Sign up free →
@@ -189,7 +189,7 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
         </div>
         <div className="mt-3">
           <button onClick={() => navigate('guarantee')} className="text-emerald-400 text-sm hover:underline">
-            ✓ Access extensions until you pass — pass and get a free CE course, or we extend your access
+            ✓ Pass guarantee — pass and get a free CE course, or we extend your access
           </button>
         </div>
       </div>
@@ -344,7 +344,7 @@ export default function Dashboard({ navigate, mode, setMode, examMode, setExamMo
             { id: 'core', icon: FileText, label: 'Core Attributes', desc: 'Alliance, theories, microskills, group work, defenses, distortions — the foundational concepts the exam tests.' },
             { id: 'coretutor', icon: Zap, label: 'Core Tutor', desc: 'AI-scored scenario practice — type or speak your response and get clinical reasoning feedback from Dr. Moreau.' },
             { id: 'strategy', icon: Target, label: 'Exam Strategy', desc: 'Timeline-based study plan, the IG scoring rules, the Golden Formula, and common mistakes by domain.' },
-            { id: 'guarantee', icon: Award, label: 'Access Extensions Until You Pass', desc: 'Pass and get a free CE course. Don\'t pass and we extend your access.' },
+            { id: 'guarantee', icon: Award, label: 'Pass Guarantee', desc: 'Pass and get a free CE course. Don\'t pass and we extend your access.' },
           ].map((tool) => (
             <button
               key={tool.id}
@@ -430,7 +430,7 @@ function StudyPlan({ rd, examDate }) {
         <span className="text-slate-300"> {casesPerDay} cases + 15 min flashcards + 10 min DSM</span>
         {totalCases < 20 && (
           <div className="text-xs text-amber-400 mt-1">
-            {20 - totalCases} more cases needed for access extensions until you pass eligibility
+            {20 - totalCases} more cases needed for pass guarantee eligibility
           </div>
         )}
       </div>
