@@ -39,6 +39,20 @@ does. Never re-derive the rule from `subscription.currentPeriodEnd` and
 `scoreReport.status` in another route: two copies drift, and the drift reads
 as a member keeping a feature the rest of the app has already gated.
 
+## Plan naming
+
+The one-time plan is the **Pass Guarantee** (a product name, capitalised; `$249`
+NCMHCE, `$189` NCE). What it gives is **access extensions until you pass**, a
+benefit phrase in lower case. Write "the Pass Guarantee includes free access
+extensions until you pass", never "the Access Extensions Until You Pass plan".
+This matches the App Store listing and the FAQ.
+
+## Where sign-in lands
+
+A signed-in member lands on `dashboard.html`: the home page's signed-in redirect,
+and `register.html`'s default `next`, both go there. Flows that pass their own
+`?next=` (the NCE page, checkout) keep it. The case list stays at `/study`.
+
 ## NCE and NCMHCE are separate products, offered equally
 
 Two products, one account. Each exam has its own study pages (`/study` and

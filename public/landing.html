@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <script>/* Android app launch → study tools (server.js does the same via the Referer header) */if(document.referrer.indexOf('android-app://com.gaitp.passreadyprep')===0)location.replace('/study'+location.search);</script>
-<script>/* Signed-in members who open the home page go straight to their study dashboard. /landing.html (pricing, plan comparison) and any #section link still show this page. */try{if(location.pathname==='/'&&!location.hash&&localStorage.getItem('prp_token')&&!((JSON.parse(localStorage.getItem('prp_user')||'null')||{}).isGuest))location.replace('/study'+location.search);}catch(e){}</script>
+<script>/* Signed-in members who open the home page go straight to their dashboard. /landing.html (pricing, plan comparison) and any #section link still show this page. */try{if(location.pathname==='/'&&!location.hash&&localStorage.getItem('prp_token')&&!((JSON.parse(localStorage.getItem('prp_user')||'null')||{}).isGuest))location.replace('/dashboard.html'+location.search);}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-site-verification" content="vx_qOgnlLQA9FBRFUFGz9_-V1_2smF05iDPv79ljtNY" />
 <title>NCMHCE &amp; NCE Exam Prep: Case Simulations &amp; Practice Tests | PassReady Prep</title>
@@ -93,7 +93,7 @@
         { "@type": "Offer", "name": "Monthly", "price": "29.00", "priceCurrency": "USD", "category": "Subscription", "url": "https://www.passreadyprep.com/#pricing" },
         { "@type": "Offer", "name": "3-month pass", "price": "79.00", "priceCurrency": "USD", "category": "Subscription", "url": "https://www.passreadyprep.com/#pricing" },
         { "@type": "Offer", "name": "6-month pass", "price": "119.00", "priceCurrency": "USD", "category": "Subscription", "url": "https://www.passreadyprep.com/#pricing" },
-        { "@type": "Offer", "name": "Access Extensions Until You Pass", "price": "249.00", "priceCurrency": "USD", "category": "One-time", "url": "https://www.passreadyprep.com/guarantee.html" }
+        { "@type": "Offer", "name": "Pass Guarantee", "price": "249.00", "priceCurrency": "USD", "category": "One-time", "url": "https://www.passreadyprep.com/guarantee.html" }
       ]
     },
     {
@@ -110,7 +110,7 @@
         { "@type": "Offer", "name": "Monthly", "price": "24.99", "priceCurrency": "USD", "category": "Subscription", "url": "https://www.passreadyprep.com/nce.html#pricing" },
         { "@type": "Offer", "name": "3-month pass", "price": "59.99", "priceCurrency": "USD", "category": "Subscription", "url": "https://www.passreadyprep.com/nce.html#pricing" },
         { "@type": "Offer", "name": "6-month pass", "price": "89.00", "priceCurrency": "USD", "category": "Subscription", "url": "https://www.passreadyprep.com/nce.html#pricing" },
-        { "@type": "Offer", "name": "Access Extensions Until You Pass", "price": "189.00", "priceCurrency": "USD", "category": "One-time", "url": "https://www.passreadyprep.com/guarantee.html" }
+        { "@type": "Offer", "name": "Pass Guarantee", "price": "189.00", "priceCurrency": "USD", "category": "One-time", "url": "https://www.passreadyprep.com/guarantee.html" }
       ]
     },
     {
@@ -122,7 +122,7 @@
         { "@type": "Question", "name": "How is the NCMHCE scored, and what is a passing score?", "acceptedAnswer": { "@type": "Answer", "text": "NBCC reports a scaled score and sets the passing standard; it does not publish a fixed number of questions you must get right, so confirm the current details in your candidate handbook. PassReady Prep’s readiness score is our own estimate: it weights your accuracy by how heavily each domain counts on the exam, and every decision in a practice case is scored from −2 to +3 so you can see how close a near miss was." } },
         { "@type": "Question", "name": "How long should I study for the NCMHCE?", "acceptedAnswer": { "@type": "Answer", "text": "Most candidates do well with 8 to 12 weeks of one practice case a day plus focused drills on their weakest domain. Rather than counting weeks, watch two markers: a readiness score that holds above 60%, and two full timed mock exams in the final two weeks. Retakers usually need less time and a sharper focus on the domain that failed them." } },
         { "@type": "Question", "name": "Is there a free NCMHCE practice test?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your first NCMHCE case simulation is free and does not require an account, and the 7-day free trial includes the full timed mock exam. NCE candidates can try free sample questions before choosing a plan." } },
-        { "@type": "Question", "name": "How do access extensions until you pass work?", "acceptedAnswer": { "@type": "Answer", "text": "It’s a one-time purchase, $249 for the NCMHCE or $189 for the NCE, and includes the digital study guide. Complete at least 20 cases and reach 60% or higher on the readiness predictor before your exam date. If you do not pass, we verify your result and add 3 more months of access at no charge, as many times as it takes. If you pass, your first continuing education course on CounselorReady, our board-approved CE platform, is free." } },
+        { "@type": "Question", "name": "How does the pass guarantee work?", "acceptedAnswer": { "@type": "Answer", "text": "The Pass Guarantee is a one-time purchase, $249 for the NCMHCE or $189 for the NCE, and includes the digital study guide. Complete at least 20 cases and reach 60% or higher on the readiness predictor before your exam date. If you do not pass, we verify your result and add 3 more months of access at no charge, as many times as it takes. If you pass, your first continuing education course on CounselorReady, our board-approved CE platform, is free." } },
         { "@type": "Question", "name": "Is the content current?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every case follows the format NBCC introduced in 2022, and the bank already includes cases written to NBCC’s 2027 outline so your practice stays aligned as the exam changes. Diagnoses use DSM-5-TR criteria and current ICD-10-CM codes." } },
         { "@type": "Question", "name": "Who built PassReady Prep?", "acceptedAnswer": { "@type": "Answer", "text": "PassReady Prep was built by Kejuiana Johnson, MA, LPC, NCC, BC-TMH, CPCS, a licensed professional counselor and author of The Complete NCMHCE Study Guide, through GA Integrated Therapeutic Perspectives LLC, an NBCC-approved continuing education provider. PassReady Prep is not affiliated with or endorsed by NBCC." } }
       ]
@@ -200,7 +200,7 @@
   .btn.secondary:hover{background:var(--surface); color:var(--text); border-color:var(--muted)}
   .btn.block{width:100%}
   /* Short buttons carry no arrow, so the label and price sit together. */
-  .btn.sm{min-height:40px; padding:10px 16px; font-size:14px; justify-content:flex-start; gap:6px}
+  .btn.sm{min-height:40px; padding:10px 16px; font-size:14px; justify-content:flex-start; gap:6px; white-space:normal}
   .link{font-size:14px; font-weight:500; text-decoration:underline; text-underline-offset:3px}
 
   /* Segmented exam switch */
@@ -340,6 +340,10 @@
   .guide{display:flex; gap:20px; align-items:flex-start; padding:24px 24px 24px 0}
   .guide + .guide{border-left:1px solid var(--divider); padding-left:24px; padding-right:0}
   .guide img{flex:0 0 auto; width:88px; height:123px; object-fit:cover; border:1px solid var(--divider)}
+  /* The text column must be allowed to shrink, or a no-wrap button inside it
+     sets the row's minimum width and the page scrolls sideways once the
+     accessibility widget enlarges text on a phone. */
+  .guide > div{min-width:0}
   .guide h3{font-size:17px; margin-bottom:6px}
   .guide p{font-size:13.5px; line-height:1.55; color:var(--muted); margin-bottom:12px}
   .guide .acts{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
@@ -630,7 +634,7 @@
       </div>
       <div class="feat-grid">
         <div class="feat"><h3>Real clinical simulations</h3><p>290+ cases in the current 2022+ format, following a client from intake through treatment. The diagnosis is given, just like the exam; your job is the clinical decisions.</p></div>
-        <div class="feat"><h3>Debrief with Dr. Claire Moreau</h3><p>An AI clinical supervisor explains why each answer was weighted the way it was, where the distractors trap you, and where your reasoning drifted.</p><span class="note">Free during your trial, then with Access Extensions Until You Pass</span></div>
+        <div class="feat"><h3>Debrief with Dr. Claire Moreau</h3><p>An AI clinical supervisor explains why each answer was weighted the way it was, where the distractors trap you, and where your reasoning drifted.</p><span class="note">Free during your trial, then with the Pass Guarantee</span></div>
         <div class="feat"><h3>Timed mock exams</h3><p>11 cases on the real 225-minute clock with the 15-minute break after case 5, section by section, just like the real NCMHCE.</p></div>
         <div class="feat"><h3>Readiness predictor</h3><p>One score, weighted by how heavily each domain counts on the exam, plus spaced repetition that resurfaces what you keep missing.</p></div>
         <div class="feat"><h3>250+ flashcards</h3><p>Spaced repetition for diagnoses, codes, treatments and clinical concepts, so high-yield facts move into long-term memory.</p></div>
@@ -685,7 +689,7 @@
       <div class="sec-head" style="margin-bottom:24px">
         <div class="col" style="gap:8px">
           <h2 id="pricing-h">Start free. Go deeper when you're ready.</h2>
-          <p class="lede"><!-- prp-web-only -->7-day free trial on both exams. <!-- /prp-web-only -->Monthly, 3-month and 6-month plans renew until you cancel; the until-you-pass plan is one payment.</p>
+          <p class="lede"><!-- prp-web-only -->7-day free trial on both exams. <!-- /prp-web-only -->Monthly, 3-month and 6-month plans renew until you cancel; the Pass Guarantee is one payment.</p>
         </div>
         <div class="seg lg" role="group" aria-label="Choose an exam's plans" data-seg="plans">
           <button type="button" data-exam="ncmhce" aria-pressed="true">NCMHCE plans</button>
@@ -720,11 +724,11 @@
           <span class="fine">Renews every 6 months · cancel any time</span>
         </div>
         <div class="plan">
-          <div class="plan-head"><h3>Until you pass</h3><span class="tag">Guaranteed</span></div>
+          <div class="plan-head"><h3>Pass Guarantee</h3><span class="tag">Until you pass</span></div>
           <div class="price" data-iap-tier="guarantee"><span class="amt num">$249</span><span class="per">one time</span></div>
           <p class="desc">One payment, full NCMHCE access plus the AI debrief until you pass. Check in every 6 months with your exam date or score report.</p>
           <ul><li>AI debrief after every case</li><li>Access extensions until you pass</li><li>Free 3-month extension if you don't pass</li><li>Refund option on a first-attempt fail</li><li>Digital NCMHCE study guide ($25 value)</li><li>Free CE course when you pass</li></ul>
-          <a class="btn secondary" href="/checkout.html?tier=guarantee">Get access until you pass <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn secondary" href="/checkout.html?tier=guarantee">Get the Pass Guarantee <span class="arr" aria-hidden="true">→</span></a>
           <span class="fine">One-time · never renews</span>
         </div>
       </div>
@@ -756,11 +760,11 @@
           <span class="fine">Renews every 6 months · cancel any time</span>
         </div>
         <div class="plan">
-          <div class="plan-head"><h3>Until you pass</h3><span class="tag">Guaranteed</span></div>
+          <div class="plan-head"><h3>Pass Guarantee</h3><span class="tag">Until you pass</span></div>
           <div class="price" data-iap-tier="nce_guarantee"><span class="amt num">$189</span><span class="per">one time</span></div>
           <p class="desc">One payment, full NCE access until you pass. Check in every 6 months with your exam date or score report.</p>
           <ul><li>Access extensions until you pass</li><li>Free 3-month extension if you don't pass</li><li>Refund option on a first-attempt fail</li><li>The NCE Ownership Method guide ($25 value)</li><li>Free CE course when you pass</li></ul>
-          <a class="btn secondary" href="/checkout.html?tier=nce_guarantee">Get access until you pass <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn secondary" href="/checkout.html?tier=nce_guarantee">Get the Pass Guarantee <span class="arr" aria-hidden="true">→</span></a>
           <span class="fine">One-time · never renews</span>
         </div>
       </div>
@@ -867,8 +871,8 @@
             <p>Yes. Your first NCMHCE case simulation is free and does not require an account, and the 7-day free trial includes the full timed mock exam. NCE candidates can try free sample questions before choosing a plan.</p>
           </details>
           <details class="faq-item">
-            <summary><h3>How do access extensions until you pass work?</h3></summary>
-            <p>It’s a one-time purchase, $249 for the NCMHCE or $189 for the NCE, and includes the digital study guide. Complete at least 20 cases and reach 60% or higher on the readiness predictor before your exam date. If you do not pass, we verify your result and add 3 more months of access at no charge, as many times as it takes. If you pass, your first continuing education course on CounselorReady, our board-approved CE platform, is free.</p>
+            <summary><h3>How does the pass guarantee work?</h3></summary>
+            <p>The Pass Guarantee is a one-time purchase, $249 for the NCMHCE or $189 for the NCE, and includes the digital study guide. Complete at least 20 cases and reach 60% or higher on the readiness predictor before your exam date. If you do not pass, we verify your result and add 3 more months of access at no charge, as many times as it takes. If you pass, your first continuing education course on CounselorReady, our board-approved CE platform, is free.</p>
           </details>
           <!-- /prp-web-only -->
           <details class="faq-item">
