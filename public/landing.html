@@ -297,6 +297,7 @@
   .feat-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid var(--divider)}
   .feat{padding:24px 24px 24px 0; border-bottom:1px solid var(--divider); display:flex; flex-direction:column; gap:8px}
   .feat p{font-size:14px; line-height:1.55; color:var(--muted)}
+  .feat .note{font-size:12px; font-weight:500; color:var(--warn)}
 
   /* ---------- NCE 2027 ---------- */
   .stat-pair{display:grid; grid-template-columns:1fr 1fr; border-top:2px solid var(--divider)}
@@ -332,6 +333,8 @@
   .plan .desc{font-size:13px; line-height:1.5; color:var(--body2)}
   .plan ul{padding-top:10px; border-top:1px solid var(--divider); display:flex; flex-direction:column; gap:5px}
   .plan li{font-size:13px; color:var(--body2)}
+  /* A feature the plan does not include, dimmed so the contrast is readable. */
+  .plan li.off{color:var(--muted)}
   .plan .btn{margin-top:auto}
   .plan .fine{font-size:12px; color:var(--muted)}
   .guides{display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--divider); border-bottom:1px solid var(--divider); margin-top:32px}
@@ -572,7 +575,7 @@
         <ul>
           <li>290+ case simulations in the current 2022+ format</li>
           <li>Full-length timed mock exams with the real 225-minute clock</li>
-          <li>AI case debriefs, 250+ flashcards and a DSM-5-TR reference</li>
+          <li>250+ flashcards and a DSM-5-TR reference</li>
           <li>Readiness score weighted to the five NCMHCE domains</li>
         </ul>
         <div class="exam-foot">
@@ -628,7 +631,7 @@
       </div>
       <div class="feat-grid">
         <div class="feat"><h3>Real clinical simulations</h3><p>290+ cases in the current 2022+ format, following a client from intake through treatment. The diagnosis is given, just like the exam; your job is the clinical decisions.</p></div>
-        <div class="feat"><h3>Debrief with Dr. Claire Moreau</h3><p>An AI clinical supervisor explains why each answer was weighted the way it was, where the distractors trap you, and where your reasoning drifted.</p></div>
+        <div class="feat"><h3>Debrief with Dr. Claire Moreau</h3><p>An AI clinical supervisor explains why each answer was weighted the way it was, where the distractors trap you, and where your reasoning drifted.</p><span class="note">Included with Access Extensions Until You Pass</span></div>
         <div class="feat"><h3>Timed mock exams</h3><p>11 cases on the real 225-minute clock with the 15-minute break after case 5, section by section, just like the real NCMHCE.</p></div>
         <div class="feat"><h3>Readiness predictor</h3><p>One score, weighted by how heavily each domain counts on the exam, plus spaced repetition that resurfaces what you keep missing.</p></div>
         <div class="feat"><h3>250+ flashcards</h3><p>Spaced repetition for diagnoses, codes, treatments and clinical concepts, so high-yield facts move into long-term memory.</p></div>
@@ -697,7 +700,7 @@
           <div class="plan-head"><h3>Monthly</h3><span class="tag">Cancel anytime</span></div>
           <div class="price" data-iap-tier="monthly"><span class="amt num">$29</span><span class="per">/ month</span></div>
           <p class="desc">Full NCMHCE practice, cancel any time. Good for last-minute prep.</p>
-          <ul><li>All 290+ case simulations</li><li>AI debrief with Dr. Claire Moreau</li><li>Timed full-length mock exams</li><li>Full readiness predictor</li><li>250+ flashcards + study plan</li></ul>
+          <ul><li>All 290+ case simulations</li><li>Timed full-length mock exams</li><li>Full readiness predictor</li><li>250+ flashcards + study plan</li><li class="off">No AI debrief</li></ul>
           <a class="btn secondary" href="/checkout.html?tier=monthly">Get monthly <span class="arr" aria-hidden="true">→</span></a>
           <span class="fine">Renews monthly · cancel any time</span>
         </div>
@@ -721,7 +724,7 @@
           <div class="plan-head"><h3>Until you pass</h3><span class="tag">Guaranteed</span></div>
           <div class="price" data-iap-tier="guarantee"><span class="amt num">$249</span><span class="per">one time</span></div>
           <p class="desc">One payment, full NCMHCE access plus the AI debrief until you pass. Check in every 6 months with your exam date or score report.</p>
-          <ul><li>Access extensions until you pass</li><li>Free 3-month extension if you don't pass</li><li>Refund option on a first-attempt fail</li><li>Digital NCMHCE study guide ($25 value)</li><li>Free CE course when you pass</li></ul>
+          <ul><li>AI debrief after every case</li><li>Access extensions until you pass</li><li>Free 3-month extension if you don't pass</li><li>Refund option on a first-attempt fail</li><li>Digital NCMHCE study guide ($25 value)</li><li>Free CE course when you pass</li></ul>
           <a class="btn secondary" href="/checkout.html?tier=guarantee">Get access until you pass <span class="arr" aria-hidden="true">→</span></a>
           <span class="fine">One-time · never renews</span>
         </div>

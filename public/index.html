@@ -1456,15 +1456,27 @@ function finish(){
   }
   h += '</div>';
 
+  // The debrief comes with Access Extensions Until You Pass only. Everyone
+  // else sees what it is and how to get it, rather than a button that 402s.
   h += '<div class="card" style="margin-top:14px"><h2>AI clinical debrief</h2>'
      + '<div style="font-size:12px;color:var(--slate-500);margin-bottom:10px">Dr. Claire Moreau reviews your answers — strengths, growth areas, and an NCMHCE exam tip for this case.</div>'
-     + '<button class="btn" id="debrief-btn" onclick="getDebrief()">Get debrief</button>'
+     + (hasDebriefPlan()
+         ? '<button class="btn" id="debrief-btn" onclick="getDebrief()">Get debrief</button>'
+         : '<div class="feedback" style="margin-top:2px"><div class="fb-label" style="color:var(--amber-400)">Included with Access Extensions Until You Pass</div>'
+           + '<div style="font-size:13px;color:var(--slate-400);margin:6px 0 10px">One payment, access until you pass, and a debrief after every case.</div>'
+           + '<a class="btn" href="'+planHref('guarantee')+'">See the plan</a></div>')
      + '<div id="debrief-out"></div></div>';
 
   h += '<div class="row"><button class="btn" onclick="startCase(\''+esc(CASE.id)+'\')">Retry this case</button>'
      + '<button class="btn secondary" onclick="goCases()">More cases</button></div>';
   app.innerHTML = h;
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Access Extensions Until You Pass is the plan the AI debrief belongs to.
+// routes/debrief.js enforces it; this only decides what the card shows.
+function hasDebriefPlan(){
+  return (((currentUser() || {}).subscription || {}).tier || 'free') === 'guarantee';
 }
 
 async function getDebrief(){
@@ -1479,6 +1491,15 @@ async function getDebrief(){
       body: JSON.stringify({ caseData: CASE, answers, mode: MODE })
     });
     const j = await r.json().catch(()=>({}));
+    // The plan lapsed since this page loaded: show the same prompt the card
+    // starts with, not a raw error.
+    if(r.status === 402){
+      out.innerHTML = '<div class="feedback" style="margin-top:12px"><div class="fb-label" style="color:var(--amber-400)">Included with Access Extensions Until You Pass</div>'
+        + '<div style="font-size:13px;color:var(--slate-400);margin:6px 0 10px">'+esc(j.message || 'The AI debrief is part of Access Extensions Until You Pass.')+'</div>'
+        + '<a class="btn" href="'+planHref('guarantee')+'">See the plan</a></div>';
+      btn.style.display = 'none';
+      return;
+    }
     if(!r.ok) throw new Error(j.error || 'Request failed');
     out.innerHTML = '<div class="feedback" style="margin-top:12px">'
       + '<div class="fb-label" style="color:var(--purple-400)">Dr. Claire Moreau — Clinical Debrief</div>'

@@ -1,6 +1,28 @@
 const express = require('express');
+const requireAuth = require('../middleware/auth');
+const User = require('../models/User');
 
 const router = express.Router();
+
+// The AI debrief ships with Access Extensions Until You Pass only — not with
+// Monthly, the 3-month pass or the 6-month pass. The plan copy says so, and
+// this is what makes it true: the route calls Anthropic on the server's own
+// key, so without a check here any visitor could spend it, signed out.
+async function requireDebriefPlan(req, res, next) {
+  try {
+    const user = await User.findById(req.userId).select('subscription.tier');
+    if ((user?.subscription?.tier || 'free') === 'guarantee') return next();
+    // 402 with a gateReason, the same shape routes/content.js uses for a
+    // paywall, so the case player can show its upgrade prompt.
+    return res.status(402).json({
+      error: 'Upgrade required',
+      gateReason: 'debrief_requires_guarantee',
+      message: 'The AI debrief with Dr. Claire Moreau is part of Access Extensions Until You Pass.',
+    });
+  } catch (e) {
+    return res.status(500).json({ error: 'Could not verify your plan' });
+  }
+}
 
 // Calls Anthropic with the SERVER's key — learners never supply one.
 async function callAnthropic(system, messages, maxTokens) {
@@ -65,7 +87,8 @@ function buildPerformance(caseData, answers) {
 
 // POST /api/debrief  { caseData, answers, mode }
 // Returns { debrief } — Dr. Claire Moreau's spoken-style written feedback.
-router.post('/', async (req, res) => {
+// Access Extensions Until You Pass only (see requireDebriefPlan above).
+router.post('/', requireAuth, requireDebriefPlan, async (req, res) => {
   try {
     const { caseData, answers, mode } = req.body || {};
     if (!caseData || !Array.isArray(caseData.questions) || !Array.isArray(answers)) {
