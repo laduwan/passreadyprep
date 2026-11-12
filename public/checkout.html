@@ -25,6 +25,12 @@
   .card{background:var(--card);border:1px solid var(--card-border);border-radius:20px;
     padding:36px;max-width:460px;width:100%;box-shadow:0 24px 60px -20px rgba(0,0,0,.5)}
 
+  /* Back out of checkout. The native apps have no browser chrome, so the page
+     carries its own way back; prp-back.js points it at the referring page. */
+  .backlink{display:inline-flex;align-items:center;gap:7px;min-height:44px;
+    color:var(--slate-400);text-decoration:none;font-size:14px;font-weight:600}
+  .backlink:hover{color:var(--white)}
+
   .brand-wrap{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;margin-bottom:26px}
   .brand-chip{width:36px;height:36px;border-radius:10px;background:rgba(16,185,129,.16);
     display:grid;place-items:center;flex:0 0 auto}
@@ -100,6 +106,7 @@
 </head>
 <body>
 <div class="card">
+  <a class="backlink" data-prp-back href="/landing.html#pricing">&larr; Back</a>
   <a class="brand-wrap" href="/landing.html" aria-label="PassReady Prep home">
     <span class="brand-chip" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -351,5 +358,6 @@
 
   if (!window.PRP_NATIVE) init();
 </script>
+<script src="/prp-back.js"></script>
 </body>
 </html>

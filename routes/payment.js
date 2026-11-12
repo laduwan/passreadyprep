@@ -22,7 +22,7 @@
  *   STRIPE_PRICE_PASS6      — price_xxx  (6-month $119 one-time price ID)
  *   STRIPE_PRICE_GUARANTEE  — price_xxx  ($249 one-time price ID — update in Stripe to match)
  *   STRIPE_PRICE_NCE_MONTHLY — price_xxx (NCE monthly $24.99 recurring)
- *   STRIPE_PRICE_NCE_PASS3   — price_xxx (NCE 3-month $59 one-time)
+ *   STRIPE_PRICE_NCE_PASS3   — price_xxx (NCE 3-month $59.99, recurring every 3 months)
  *   STRIPE_PRICE_NCE_PASS6   — price_xxx (NCE 6-month $89 one-time)
  *   STRIPE_PRICE_NCE_GUARANTEE — price_xxx (NCE Access Extensions Until You Pass one-time; optional)
  *   STRIPE_PRICE_GUIDE       — price_xxx (NCMHCE Study Guide one-time digital)
