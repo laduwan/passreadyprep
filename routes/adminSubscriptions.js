@@ -23,7 +23,7 @@ function getStripe() {
 
 const TIER_PRICES = { monthly: 29, pass3: 79, pass6: 119, guarantee: 249 }; // USD, matches TIERS config in payment.js
 // NCE plans live on User.nceAccess, billed separately from NCMHCE (payment.js).
-const NCE_TIER_PRICES = { nce_monthly: 24.99, nce_pass3: 59, nce_pass6: 89, nce_guarantee: null };
+const NCE_TIER_PRICES = { nce_monthly: 24.99, nce_pass3: 59.99, nce_pass6: 89, nce_guarantee: null };
 
 // A paid plan on each product line. NCMHCE is User.subscription, NCE is
 // User.nceAccess. Same rule as the paywalls: any tier but 'free' is paid.

@@ -1,4 +1,4 @@
-// Access Extensions Until You Pass refund option (NCMHCE and NCE). A member who does not pass can
+// Pass Guarantee refund option (NCMHCE and NCE). A member who does not pass can
 // take either the 3-month extension or a refund — never both — if they did the
 // work the guarantee asks for. Terms: guarantee.html and policies.html#guarantee.
 //
@@ -53,7 +53,7 @@ const PLAN = {
   nce: { path: 'nceAccess', refundedField: 'nceGuaranteeRefundedAt', otherTier: ['subscription', 'guarantee'] },
 };
 
-// The day the Access Extensions Until You Pass plan was bought. Purchases from before this field
+// The day the Pass Guarantee was bought. Purchases from before this field
 // existed fall back to when the member accepted the guarantee terms at
 // checkout, but only when that can't be the other exam's guarantee.
 function guaranteePurchasedAt(user, exam = 'ncmhce') {
@@ -125,9 +125,9 @@ async function refundEligibility(user, examDate, priorReports = [], examKey = 'n
     { key: 'stripe', label: 'Bought on the website',
       ok: sub.source !== 'apple' && !!sub.lastPaymentIntentId,
       detail: sub.source === 'apple' ? 'App Store purchases are refunded by Apple' : (sub.lastPaymentIntentId ? '' : 'No payment on file') },
-    { key: 'once', label: `No earlier ${isNce ? 'NCE' : 'NCMHCE'} refund on this account`,
+    { key: 'once', label: `No earlier ${isNce ? 'NCE' : 'NCMHCE'} guarantee refund on this account`,
       ok: !user[P.refundedField], detail: '' },
-    { key: 'first', label: 'First exam attempt since buying the plan',
+    { key: 'first', label: 'First exam attempt since buying the guarantee',
       ok: !earlierFail, detail: earlierFail ? 'An earlier non-pass was already claimed' : '' },
     { key: 'bought', label: `Bought at least ${R.MIN_DAYS_BEFORE_EXAM} days before the exam`,
       ok: daysBefore != null && daysBefore >= R.MIN_DAYS_BEFORE_EXAM,

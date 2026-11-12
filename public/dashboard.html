@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Dashboard — PassReady Prep</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="/prp-ui.css">
+<style>
+  /* One dashboard for both exams. The exam switch changes the domains and
+     their weights, the readiness model, the nav and the tools — everything
+     else is the same furniture. Visuals come from prp-ui.css; this file only
+     places things on the grid. */
+
+  [hidden]{display:none !important}
+
+  .db{display:grid; grid-template-columns:232px minmax(0,1fr); min-height:100vh}
+
+  /* ── Sidebar ───────────────────────────────────────────────────────── */
+  .db-side{
+    display:flex; flex-direction:column; gap:20px; padding:20px 16px;
+    border-right:var(--prp-rule) solid var(--prp-divider);
+  }
+  /* `a.` so these beat prp-ui.css's link colour: the brand and the tool
+     titles are body text, not links to be tinted. */
+  a.db-brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--prp-text)}
+  .db-brand span.mark{width:28px; height:28px; flex:none; display:grid; place-items:center; color:var(--prp-accent-text)}
+  .db-brand span.mark svg{width:24px; height:24px; display:block}
+  .db-brand b{font-size:17px; font-weight:600; letter-spacing:-0.01em}
+  .db-nav{display:flex; flex-direction:column}
+  .db-nav a{
+    display:block; padding:10px 12px; min-height:var(--prp-touch);
+    font-size:14px; color:var(--prp-text-2); text-decoration:none; line-height:1.5;
+  }
+  .db-nav a:hover{background:color-mix(in srgb, var(--prp-text) 7%, transparent)}
+  .db-nav a[aria-current="page"]{
+    background:var(--prp-accent-tint); color:var(--prp-text); font-weight:600;
+    box-shadow:inset 3px 0 0 var(--prp-accent);
+  }
+  .db-side-foot{margin-top:auto; padding-top:16px; border-top:var(--prp-rule) solid var(--prp-divider)}
+  .db-trial{font-size:12px; font-weight:600; color:var(--prp-warn)}
+  .db-trial a{display:inline-block; margin-top:4px; font-size:12px}
+
+  /* ── Header ────────────────────────────────────────────────────────── */
+  .db-head{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap;
+    padding:24px 32px; border-bottom:var(--prp-rule) solid var(--prp-divider);
+  }
+  .db-head h1{font-size:28px; font-weight:600; letter-spacing:-0.03em; margin-top:4px}
+  .db-head-stats{display:flex; gap:28px}
+  .db-head-stat{display:flex; align-items:baseline; gap:6px}
+  .db-head-stat b{font-size:22px; font-weight:500; font-variant-numeric:tabular-nums}
+
+  /* ── Panels ────────────────────────────────────────────────────────── */
+  .db-row{display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); border-bottom:var(--prp-rule) solid var(--prp-divider)}
+  .db-panel{padding:28px 32px}
+  .db-panel + .db-panel{border-left:var(--prp-rule) solid var(--prp-divider)}
+  .db-panel-head{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:16px}
+
+  /* Next up */
+  .db-next h2{font-size:26px; font-weight:600; letter-spacing:-0.03em; margin:8px 0 10px}
+  .db-tags{display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 18px}
+  .db-actions{display:flex; gap:16px; align-items:center; flex-wrap:wrap}
+
+  /* Readiness */
+  .db-ready-num{display:flex; align-items:center; gap:18px; flex-wrap:wrap}
+  .db-ready-note{font-size:14px; color:var(--prp-text-2); line-height:1.5; max-width:280px}
+  .db-ready-note b{color:var(--prp-text)}
+  .db-ready-foot{display:flex; justify-content:space-between; gap:12px; margin-top:8px}
+  .db-bar-wrap{margin-top:18px}
+
+  /* Domains */
+  .db-dom{
+    display:grid; grid-template-columns:minmax(0,1fr) minmax(90px,200px) 78px; gap:16px; align-items:center;
+    width:100%; text-align:left; padding:12px; border:0; border-top:var(--prp-rule) solid var(--prp-divider);
+    background:transparent; color:var(--prp-text); font:inherit; cursor:pointer;
+  }
+  .db-dom:first-of-type{border-top:0}
+  .db-dom[aria-pressed="true"]{background:var(--prp-accent-tint)}
+  .db-dom-name{display:block; font-size:14px; font-weight:500; line-height:1.3}
+  .db-dom-share{display:block; font-size:12px; color:var(--prp-muted); margin-top:2px}
+  .db-dom-score{font-size:14px; font-weight:500; text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+  .db-dom-empty{height:6px; border:1px dashed var(--prp-divider)}
+
+  /* Today */
+  .db-task{
+    display:flex; align-items:center; gap:12px; width:100%; min-height:var(--prp-touch);
+    padding:10px 0; border:0; border-top:var(--prp-rule) solid var(--prp-divider);
+    background:transparent; color:var(--prp-text); font:inherit; text-align:left; cursor:pointer;
+  }
+  .db-task:first-of-type{border-top:0}
+  .db-task-box{
+    width:20px; height:20px; flex:none; border:var(--prp-rule) solid var(--prp-muted);
+    display:grid; place-items:center; font-size:13px; line-height:1;
+  }
+  .db-task[aria-pressed="true"] .db-task-box{background:var(--prp-accent); border-color:var(--prp-accent); color:var(--prp-on-accent)}
+  .db-task[aria-pressed="true"] .db-task-label{text-decoration:line-through; color:var(--prp-muted)}
+  .db-task-label{flex:1; font-size:14px}
+  .db-task-meta{font-size:12px; color:var(--prp-muted)}
+  .db-goal{margin-top:18px; padding-top:14px; border-top:var(--prp-rule) solid var(--prp-divider)}
+  .db-goal-head{display:flex; justify-content:space-between; gap:12px; font-size:13px; margin-bottom:8px}
+
+  /* Settings */
+  .db-settings{
+    display:flex; align-items:center; gap:24px; flex-wrap:wrap;
+    padding:16px 32px; border-bottom:var(--prp-rule) solid var(--prp-divider);
+  }
+  .db-setting{display:flex; align-items:center; gap:10px}
+  .db-setting > span{font-size:13px; color:var(--prp-muted)}
+
+  /* Tools */
+  .db-tools{display:grid; grid-template-columns:repeat(4,minmax(0,1fr))}
+  a.db-tool{
+    display:block; padding:20px 24px; border-right:var(--prp-rule) solid var(--prp-divider);
+    text-decoration:none; color:var(--prp-text);
+  }
+  .db-tool:last-child{border-right:0}
+  .db-tool:hover{background:var(--prp-surface)}
+  .db-tool b{display:block; font-size:15px; font-weight:600; margin-bottom:4px}
+  .db-tool span{font-size:13px; color:var(--prp-muted); line-height:1.5}
+
+  .db-loading{padding:48px 32px; color:var(--prp-muted)}
+  .db-msg{margin:20px 32px; padding:12px 14px; font-size:14px; border:var(--prp-rule) solid var(--prp-warn); color:var(--prp-warn)}
+
+  /* Mobile top bar, trial strip and tab bar replace the sidebar. */
+  .db-topbar, .db-tabs, .db-trial-m{display:none}
+
+  @media (max-width: 900px){
+    .db{grid-template-columns:1fr}
+    .db-side{display:none}
+    .db-topbar{
+      display:flex; justify-content:space-between; align-items:center; gap:12px;
+      padding:10px 16px; border-bottom:var(--prp-rule) solid var(--prp-divider);
+    }
+    .db-trial-m{
+      display:flex; justify-content:space-between; align-items:center; gap:12px;
+      padding:8px 16px; font-size:12px; font-weight:600; color:var(--prp-warn);
+      border-bottom:var(--prp-rule) solid var(--prp-divider);
+    }
+    .db-trial-m[hidden]{display:none !important}
+    .db-head{padding:16px; align-items:flex-start}
+    .db-head h1{font-size:24px}
+    .db-head-stats{gap:20px}
+    .db-row{grid-template-columns:1fr}
+    .db-panel{padding:20px 16px}
+    .db-panel + .db-panel{border-left:0; border-top:var(--prp-rule) solid var(--prp-divider)}
+    .db-next h2{font-size:22px}
+    .db-settings{padding:16px; gap:16px}
+    .db-setting{flex:1 1 100%; justify-content:space-between}
+    .db-tools{grid-template-columns:1fr 1fr}
+    .db-tool{border-top:var(--prp-rule) solid var(--prp-divider)}
+    .db-tool:nth-child(2n){border-right:0}
+    .db-dom{grid-template-columns:minmax(0,1fr) 72px 44px; gap:10px}
+    /* Thumb-reach nav. */
+    .db-tabs{
+      display:grid; grid-auto-flow:column; grid-auto-columns:1fr; position:sticky; bottom:0;
+      background:var(--prp-surface); border-top:var(--prp-rule) solid var(--prp-divider);
+    }
+    .db-tabs a{
+      min-height:56px; display:grid; place-items:center; padding:6px 2px;
+      font-size:11px; line-height:1.25; text-align:center; text-decoration:none;
+      color:var(--prp-text-2); white-space:nowrap;
+    }
+    .db-tabs a[aria-current="page"]{color:var(--prp-accent-text); font-weight:600}
+    main{padding-bottom:0}
+  }
+</style>
+</head>
+<body class="prp">
+
+<div class="db">
+  <aside class="db-side">
+    <a class="db-brand" href="/">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+          <path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+        </svg>
+      </span>
+      <b>PassReady Prep</b>
+    </a>
+    <div class="prp-seg" id="exam-seg" role="group" aria-label="Choose an exam">
+      <button type="button" data-exam="nce" aria-pressed="false">NCE</button>
+      <button type="button" data-exam="ncmhce" aria-pressed="true">NCMHCE</button>
+    </div>
+    <nav class="db-nav" id="nav" aria-label="Study"></nav>
+    <div class="db-side-foot" id="side-foot"></div>
+  </aside>
+
+  <main>
+    <div class="db-topbar">
+      <a class="db-brand" href="/">
+        <span class="mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+            <path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+          </svg>
+        </span>
+      </a>
+      <div class="prp-seg" id="exam-seg-m" role="group" aria-label="Choose an exam">
+        <button type="button" data-exam="nce" aria-pressed="false">NCE</button>
+        <button type="button" data-exam="ncmhce" aria-pressed="true">NCMHCE</button>
+      </div>
+    </div>
+    <div class="db-trial-m" id="trial-m" hidden></div>
+
+    <p class="db-loading" id="loading">Loading your dashboard…</p>
+
+    <div id="view" hidden>
+      <header class="db-head">
+        <div>
+          <span class="prp-meta" id="head-meta"></span>
+          <h1 id="greeting">Dashboard</h1>
+        </div>
+        <div class="db-head-stats" id="head-stats"></div>
+      </header>
+
+      <p class="db-msg" id="msg" role="status" hidden></p>
+
+      <div class="db-row">
+        <section class="db-panel db-next" id="next-up" aria-labelledby="next-up-title"></section>
+        <section class="db-panel" id="readiness" aria-labelledby="readiness-title"></section>
+      </div>
+
+      <div class="db-row">
+        <section class="db-panel" id="domains" aria-labelledby="domains-title"></section>
+        <section class="db-panel" id="today" aria-labelledby="today-title"></section>
+      </div>
+
+      <div class="db-settings" id="settings"></div>
+      <div class="db-tools" id="tools"></div>
+    </div>
+
+    <nav class="db-tabs" id="tabs" aria-label="Study"></nav>
+  </main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (id) { return document.getElementById(id); };
+  function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function user() { try { return JSON.parse(get('prp_user') || 'null') || {}; } catch (e) { return {}; } }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+  function authHeaders() {
+    var t = get('prp_token');
+    return t ? { authorization: 'Bearer ' + t } : {};
+  }
+  function getJSON(url) {
+    return fetch(url, { headers: authHeaders() })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; });
+  }
+
+  // ── What differs between the two exams ─────────────────────────────────
+  // Everything the switch changes lives here: the nav, the tools, the
+  // settings row, the readiness wording and what "one session" means.
+  var EXAMS = {
+    nce: {
+      name: 'NCE',
+      full: 'National Counselor Examination',
+      unit: 'questions',
+      readyNote: 'Reach 70 to be almost there; 85 is exam ready.',
+      statusUrl: '/api/nce/status',
+      home: '/nce.html',
+      nav: [
+        { label: 'Dashboard', tab: 'Home', href: '/dashboard.html?exam=nce', here: true },
+        { label: 'Domain drills', tab: 'Drills', href: '/nce.html' },
+        { label: 'Mock exam', tab: 'Mock', href: '/nce.html#mock' },
+        { label: 'Knowledge drill', tab: 'Knowledge', href: '/knowledge-drill.html' },
+        { label: 'Flashcards', tab: 'Cards', href: '/flashcards.html' },
+        { label: 'Theories & pioneers', href: '/theory.html' },
+        { label: 'Pass guarantee', href: '/guarantee.html' },
+      ],
+      tools: [
+        { label: 'Mock exam', href: '/nce.html#mock', desc: '50, 100 or 200 items, blueprint-weighted' },
+        { label: 'Knowledge drill', href: '/knowledge-drill.html', desc: 'Rapid recall across the 8 CACREP areas' },
+        { label: 'Flashcards', href: '/flashcards.html', desc: 'Spaced repetition for theories and terms' },
+        { label: 'Theories & pioneers', href: '/theory.html', desc: 'Who said what, and why it matters' },
+      ],
+      settings: [
+        { key: 'prp_nce_mock_size', label: 'Mock length', options: ['50', '100', '200'], def: '100' },
+        { key: 'prp_nce_explain', label: 'Explanations', options: ['After each', 'At the end'], def: 'After each' },
+      ],
+      settingNote: function () {
+        var n = get('prp_nce_mock_size') || '100';
+        var mins = { '50': 56, '100': 113, '200': 225 }[n] || 113;
+        return 'A ' + n + '-item mock takes about ' + mins + ' minutes.';
+      },
+      // Daily target: clamp(25..60) questions a day (the onboarding plan).
+      dailyTarget: function (daysLeft, done, goal) {
+        var left = Math.max(0, (goal || 300) - (done || 0));
+        return Math.max(25, Math.min(60, Math.ceil(left / Math.max(1, daysLeft || 30))));
+      },
+      sessionLabel: function (domain, n) { return (domain ? domain + ' drill' : 'Mixed drill') + ': ' + n + ' questions'; },
+      startLabel: 'Start drill',
+      emptyTitle: 'Take a 20-question baseline',
+      emptyBlurb: 'About 18 minutes across all eight CACREP areas. We use it to find your weakest domain and build today’s plan.',
+      emptyCta: 'Start baseline',
+      emptyHref: '/nce.html',
+      emptyReadyNote: 'Your score appears after your first drill and firms up as you near 300 questions.',
+    },
+    ncmhce: {
+      name: 'NCMHCE',
+      full: 'National Clinical Mental Health Counseling Examination',
+      unit: 'cases',
+      readyNote: 'Reach 60 for the guarantee threshold; 70 is almost there.',
+      statusUrl: '/api/content?exam=ncmhce',
+      home: '/study',
+      nav: [
+        { label: 'Dashboard', tab: 'Home', href: '/dashboard.html?exam=ncmhce', here: true },
+        { label: 'Case practice', tab: 'Cases', href: '/study' },
+        { label: 'Mock exam', tab: 'Mock', href: '/exam.html' },
+        { label: 'Intake simulator', tab: 'Intake', href: '/intake.html' },
+        { label: 'Flashcards', tab: 'Cards', href: '/flashcards.html' },
+        { label: 'Decision trees', href: '/decision-trees.html' },
+        { label: 'DSM-5-TR reference', href: '/dsm.html' },
+        { label: 'Pass guarantee', href: '/guarantee.html' },
+      ],
+      tools: [
+        { label: 'Mock exam', href: '/exam.html', desc: 'Full-length timed simulation, section by section' },
+        { label: 'Intake simulator', href: '/intake.html', desc: 'Practice the clinical interview' },
+        { label: 'Decision trees', href: '/decision-trees.html', desc: 'Walk the reasoning for tricky differentials' },
+        { label: 'DSM-5-TR reference', href: '/dsm.html', desc: 'Diagnoses, codes and first-line treatments' },
+      ],
+      settings: [
+        { key: 'prp_mode', label: 'Format', options: ['New', 'Classic'], def: 'New' },
+        { key: 'prp_feedback', label: 'Feedback', options: ['Study', 'Exam'], def: 'Study' },
+      ],
+      settingNote: function () {
+        return get('prp_feedback') === 'Exam'
+          ? 'Exam mode holds all feedback until the case ends.'
+          : 'Study mode explains each answer as you go.';
+      },
+      // Daily target: clamp(3..5) cases a day.
+      dailyTarget: function (daysLeft, done, goal) {
+        var left = Math.max(0, (goal || 20) - (done || 0));
+        return Math.max(3, Math.min(5, Math.ceil(left / Math.max(1, daysLeft || 30))));
+      },
+      sessionLabel: function (domain, n) { return (domain ? domain + ' cases' : 'Case practice') + ': ' + n + ' to work'; },
+      startLabel: 'Start case',
+      emptyTitle: 'Work your first case',
+      emptyBlurb: 'A full NCMHCE-format simulation: read the vignette, answer the clinical questions, and see how each choice scores.',
+      emptyCta: 'Start first case',
+      emptyHref: '/study',
+      emptyReadyNote: 'Your score appears after your first case. Three cases unlock your study plan.',
+    },
+  };
+
+  var exam = 'ncmhce';
+  var S = null;     // progress summary
+  var A = null;     // access / trial status
+  var streak = null;
+  var focusKey = null;   // the domain the learner pinned, kept across the round trip
+
+  // ── Helpers ────────────────────────────────────────────────────────────
+  function cfg() { return EXAMS[exam]; }
+  function readyColor(v) {
+    return v >= 70 ? 'var(--prp-accent-text)' : v >= 50 ? 'var(--prp-warn)' : 'var(--prp-danger)';
+  }
+  function greet() {
+    var h = new Date().getHours();
+    return h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+  }
+  function today() { return new Date().toISOString().slice(0, 10); }
+  // The checklist is per person, per day, and lives in this browser — there
+  // is no server model for a day's plan.
+  function taskKey() { return 'prp_today_' + exam + '_' + today(); }
+  function doneTasks() {
+    try { return JSON.parse(get(taskKey()) || '[]') || []; } catch (e) { return []; }
+  }
+  function toggleTask(id) {
+    var d = doneTasks();
+    var i = d.indexOf(id);
+    if (i === -1) d.push(id); else d.splice(i, 1);
+    set(taskKey(), JSON.stringify(d));
+  }
+  function started() { return !!(S && S.completed > 0); }
+  // The pinned domain outlives a visit to the drill, so coming back to the
+  // dashboard still shows the session that was started.
+  function focusStoreKey() { return 'prp_focus_' + exam; }
+  function saveFocus() {
+    if (focusKey) set(focusStoreKey(), focusKey);
+    else { try { localStorage.removeItem(focusStoreKey()); } catch (e) {} }
+  }
+  // Where a session actually begins. The card names a domain, so the link has
+  // to carry it: /nce.html and /study both read ?domain= and open that work.
+  function sessionHref(domainKey) {
+    var base = cfg().home;
+    if (!domainKey) return base;
+    return exam === 'nce'
+      ? '/nce.html?domain=' + encodeURIComponent(domainKey)
+      : '/study?domain=' + encodeURIComponent(domainKey);
+  }
+
+  // ── Render ─────────────────────────────────────────────────────────────
+  function renderNav() {
+    var c = cfg();
+    $('nav').innerHTML = c.nav.map(function (n) {
+      return '<a href="' + esc(n.href) + '"' + (n.here ? ' aria-current="page"' : '') + '>' + esc(n.label) + '</a>';
+    }).join('');
+    $('tabs').innerHTML = c.nav.filter(function (n) { return n.tab; }).slice(0, 5).map(function (n) {
+      return '<a href="' + esc(n.href) + '"' + (n.here ? ' aria-current="page"' : '') + '>' + esc(n.tab) + '</a>';
+    }).join('');
+    Array.prototype.forEach.call(document.querySelectorAll('#exam-seg button, #exam-seg-m button'), function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-exam') === exam ? 'true' : 'false');
+    });
+  }
+
+  // The sidebar footer carries the trial notice; on a phone the sidebar is
+  // hidden, so the same notice goes in a strip under the header. Losing the
+  // upgrade prompt on mobile would hide it from most of the people who see it.
+  function renderTrial() {
+    var el = $('side-foot');
+    var m = $('trial-m');
+    var mobile = function (text, href, cta) {
+      if (!text) { m.hidden = true; return; }
+      m.hidden = false;
+      m.innerHTML = '<span>' + esc(text) + '</span><a href="' + esc(href) + '">' + esc(cta) + ' →</a>';
+    };
+    if (!A) { el.innerHTML = ''; mobile(null); return; }
+    var level = A.accessLevel;
+    if (level === 'paid') {
+      el.innerHTML = '<span class="prp-meta">' + esc(cfg().name) + ' plan active</span>';
+      mobile(null);
+      return;
+    }
+    if (level === 'trial') {
+      var days = A.trialEndsAt ? Math.max(0, Math.ceil((new Date(A.trialEndsAt) - Date.now()) / 86400000)) : (A.trialDays || 7);
+      var txt = days + ' day' + (days === 1 ? '' : 's') + ' left in trial';
+      el.innerHTML = '<div class="db-trial">' + txt + '</div>'
+        + '<a href="/pricing.html?exam=' + exam + '">Upgrade →</a>';
+      mobile(txt, '/pricing.html?exam=' + exam, 'Upgrade');
+      return;
+    }
+    if (level === 'gated') {
+      el.innerHTML = '<div class="db-trial">Check-in needed</div><a href="/score-report.html">Submit score report →</a>';
+      mobile('Check-in needed', '/score-report.html', 'Submit score report');
+      return;
+    }
+    var t = level === 'expired' ? 'Trial ended' : 'Free preview';
+    el.innerHTML = '<div class="db-trial">' + t + '</div>'
+      + '<a href="/pricing.html?exam=' + exam + '">See plans →</a>';
+    mobile(t, '/pricing.html?exam=' + exam, 'See plans');
+  }
+
+  function renderHead() {
+    var c = cfg();
+    var name = (user().name || '').split(' ')[0];
+    var date = new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+    var days = S && S.daysToExam;
+
+    if (!started()) {
+      $('head-meta').textContent = 'Day 1' + (days != null ? ' · ' + days + ' days to exam' : '') + ' · ' + c.full;
+      $('greeting').textContent = name ? 'Welcome, ' + name : 'Welcome';
+    } else {
+      $('head-meta').textContent = date + ' · ' + c.full;
+      $('greeting').textContent = greet() + (name ? ', ' + name : '');
+    }
+
+    var stats = [];
+    if (streak) stats.push('<div class="db-head-stat"><b>' + streak + '</b><span class="prp-stat-label">day streak</span></div>');
+    if (days != null) stats.push('<div class="db-head-stat"><b>' + days + '</b><span class="prp-stat-label">days to exam</span></div>');
+    $('head-stats').innerHTML = stats.join('');
+  }
+
+  // The weakest domain with enough answers behind it to mean something.
+  function weakest() {
+    var ds = (S && S.domains) || [];
+    var scored = ds.filter(function (d) { return d.score != null; });
+    if (!scored.length) return null;
+    if (focusKey) {
+      for (var i = 0; i < ds.length; i++) if (ds[i].key === focusKey) return ds[i];
+    }
+    return scored.slice().sort(function (a, b) { return a.score - b.score; })[0];
+  }
+
+  function renderNextUp() {
+    var c = cfg();
+    var el = $('next-up');
+
+    if (!started()) {
+      el.innerHTML = '<span class="prp-eyebrow">Start here</span>'
+        + '<h2 id="next-up-title">' + esc(c.emptyTitle) + '</h2>'
+        + '<p class="prp-body">' + esc(c.emptyBlurb) + '</p>'
+        + '<div class="db-actions"><a class="prp-btn prp-btn-primary" href="' + esc(c.emptyHref) + '">'
+        + esc(c.emptyCta) + ' <span aria-hidden="true">→</span></a></div>';
+      return;
+    }
+
+    var d = weakest();
+    var target = c.dailyTarget(S.daysToExam, S.completed, S.forFullConfidence);
+    var done = doneTasks().length;
+    var per = exam === 'nce' ? 20 : 1;
+    var tags = exam === 'nce'
+      ? ['20 items', '~18 min', 'Explanations ' + ((get('prp_nce_explain') || 'After each') === 'After each' ? 'on' : 'at the end')]
+      : ['1 case', '~25 min', (get('prp_feedback') || 'Study') + ' feedback'];
+
+    el.innerHTML = '<div class="db-panel-head">'
+        + '<span class="prp-eyebrow">Next up' + (d ? ' · ' + esc(d.short) : '') + '</span>'
+        + '<span class="prp-meta">Session ' + Math.min(done + 1, Math.max(1, Math.ceil(target / per)))
+        + ' of ' + Math.max(1, Math.ceil(target / per)) + ' today</span>'
+      + '</div>'
+      + '<h2 id="next-up-title">' + esc(c.sessionLabel(d && d.short, per === 1 ? 1 : 20)) + '</h2>'
+      + '<p class="prp-body">' + (d
+          ? 'Targets your lowest-scoring work in ' + esc(d.label) + '. Each answer comes with an explanation and the area it is tagged to.'
+          : 'A mixed session across every domain.') + '</p>'
+      + '<div class="db-tags">' + tags.map(function (t) { return '<span class="prp-tag">' + esc(t) + '</span>'; }).join('') + '</div>'
+      + '<div class="db-actions">'
+        + '<a class="prp-btn prp-btn-primary" href="' + esc(sessionHref(d && d.key)) + '">'
+        + esc(c.startLabel) + ' <span aria-hidden="true">→</span></a>'
+        + '<a class="prp-btn prp-btn-ghost" href="' + esc(c.home) + '">Choose something else</a>'
+      + '</div>';
+  }
+
+  function renderReadiness() {
+    var c = cfg();
+    var el = $('readiness');
+    var head = '<div class="db-panel-head"><h2 class="prp-h4" id="readiness-title">' + esc(c.name)
+      + ' readiness</h2><a class="prp-meta" href="' + esc(c.home) + '">Full analytics</a></div>';
+
+    if (!started() || S.readiness == null) {
+      el.innerHTML = head
+        + '<div class="db-ready-num"><span class="prp-bignum" aria-hidden="true">—</span>'
+        + '<p class="db-ready-note">' + esc(c.emptyReadyNote) + '</p></div>'
+        + '<div class="db-bar-wrap"><div class="prp-bar"><span style="width:0"></span></div></div>'
+        + '<div class="db-ready-foot"><span class="prp-meta">No score yet</span>'
+        + '<span class="prp-meta">' + esc(c.name === 'NCE' ? '85 exam ready' : '60 guarantee threshold') + '</span></div>';
+      return;
+    }
+
+    var v = S.readiness;
+    var goal = S.forFullConfidence || (exam === 'nce' ? 300 : 20);
+    var mark = S.examReady || (exam === 'nce' ? 85 : 60);
+    var label = v >= 70 ? 'Almost there.' : v >= 50 ? 'Building momentum.' : 'Early days.';
+
+    el.innerHTML = head
+      + '<div class="db-ready-num">'
+        + '<span class="prp-bignum" style="color:' + readyColor(v) + '">' + v + '</span>'
+        + '<p class="db-ready-note"><b>' + esc(label) + '</b> ' + esc(c.readyNote) + '</p>'
+      + '</div>'
+      + '<div class="db-bar-wrap"><div class="prp-bar">'
+        + '<span style="width:' + Math.min(100, v) + '%;background:' + readyColor(v) + '"></span>'
+        + '<i class="prp-bar-mark" style="left:' + mark + '%"></i>'
+      + '</div></div>'
+      + '<div class="db-ready-foot">'
+        + '<span class="prp-meta">' + S.completed + ' of ' + goal + ' ' + esc(S.unit) + ' for full confidence'
+        + (S.trend ? ' · ' + esc(S.trend) : '') + '</span>'
+        + '<span class="prp-meta">' + mark + ' ' + esc(exam === 'nce' ? 'exam ready' : 'guarantee') + '</span>'
+      + '</div>';
+  }
+
+  function renderDomains() {
+    var el = $('domains');
+    var ds = (S && S.domains) || [];
+    var any = started();
+    el.innerHTML = '<div class="db-panel-head"><h2 class="prp-h4" id="domains-title">Domains</h2>'
+      + '<span class="prp-meta">' + (any ? 'Weighted by exam share · click to focus' : 'Scores fill in as you practice') + '</span></div>'
+      + ds.map(function (d) {
+        var on = d.key === focusKey;
+        var bar = d.score == null
+          ? '<div class="db-dom-empty"></div>'
+          : '<div class="prp-bar"><span style="width:' + d.score + '%;background:'
+            + (d.score >= 70 ? 'var(--prp-accent)' : d.score >= 50 ? 'var(--prp-warn)' : 'var(--prp-danger)') + '"></span></div>';
+        return '<button type="button" class="db-dom" data-key="' + esc(d.key) + '" aria-pressed="' + (on ? 'true' : 'false') + '">'
+          + '<span><span class="db-dom-name">' + esc(d.label) + '</span>'
+          + '<span class="db-dom-share">' + d.share + '% of scored items</span></span>'
+          + bar
+          + '<span class="db-dom-score"' + (d.score == null ? ' style="color:var(--prp-muted);font-size:12px"' : '') + '>'
+          + (d.score == null ? 'Not started' : d.score + '%') + '</span>'
+          + '</button>';
+      }).join('');
+  }
+
+  function renderToday() {
+    var c = cfg();
+    var el = $('today');
+    var goal = S && S.forFullConfidence || (exam === 'nce' ? 300 : 20);
+    var target = c.dailyTarget(S && S.daysToExam, S && S.completed, goal);
+    var per = exam === 'nce' ? 20 : 1;
+    var sessions = Math.max(1, Math.ceil(target / per));
+    var done = doneTasks();
+
+    var tasks = [];
+    for (var i = 0; i < sessions; i++) {
+      tasks.push({ id: 's' + i, label: exam === 'nce' ? 'Drill · 20 questions' : 'Case ' + (i + 1), meta: '~' + (exam === 'nce' ? 18 : 25) + ' min' });
+    }
+    tasks.push({ id: 'flash', label: 'Flashcards', meta: '15 min' });
+
+    el.innerHTML = '<div class="db-panel-head"><h2 class="prp-h4" id="today-title">Today</h2>'
+      + '<span class="prp-meta">' + target + ' ' + esc(c.unit) + ' target</span></div>'
+      + tasks.map(function (t) {
+        var on = done.indexOf(t.id) !== -1;
+        return '<button type="button" class="db-task" data-task="' + esc(t.id) + '" aria-pressed="' + (on ? 'true' : 'false') + '">'
+          + '<span class="db-task-box" aria-hidden="true">' + (on ? '✓' : '') + '</span>'
+          + '<span class="db-task-label">' + esc(t.label) + '</span>'
+          + '<span class="db-task-meta">' + (on ? 'Done' : esc(t.meta)) + '</span></button>';
+      }).join('')
+      + '<div class="db-goal"><div class="db-goal-head"><span>Full-confidence readiness</span>'
+      + '<span class="prp-meta">' + ((S && S.completed) || 0) + ' / ' + goal + ' ' + esc(c.unit) + '</span></div>'
+      + '<div class="prp-bar"><span style="width:' + Math.min(100, Math.round((((S && S.completed) || 0) / goal) * 100)) + '%"></span></div></div>';
+  }
+
+  function renderSettings() {
+    var c = cfg();
+    $('settings').innerHTML = c.settings.map(function (s) {
+      var cur = get(s.key) || s.def;
+      return '<div class="db-setting"><span>' + esc(s.label) + '</span><div class="prp-seg" data-setting="' + esc(s.key) + '">'
+        + s.options.map(function (o) {
+            return '<button type="button" data-value="' + esc(o) + '" aria-pressed="' + (o === cur ? 'true' : 'false') + '">' + esc(o) + '</button>';
+          }).join('')
+        + '</div></div>';
+    }).join('') + '<span class="prp-meta">' + esc(c.settingNote()) + '</span>';
+  }
+
+  function renderTools() {
+    $('tools').innerHTML = cfg().tools.map(function (t) {
+      return '<a class="db-tool" href="' + esc(t.href) + '"><b>' + esc(t.label) + '</b><span>' + esc(t.desc) + '</span></a>';
+    }).join('');
+  }
+
+  function render() {
+    renderNav();
+    renderTrial();
+    renderHead();
+    renderNextUp();
+    renderReadiness();
+    renderDomains();
+    renderToday();
+    renderSettings();
+    renderTools();
+  }
+
+  // ── Load ───────────────────────────────────────────────────────────────
+  function load() {
+    var c = cfg();
+    focusKey = get('prp_focus_' + exam) || null;
+    $('loading').hidden = false;
+    return Promise.all([
+      getJSON('/api/progress/summary?exam=' + exam),
+      getJSON(c.statusUrl),
+      getJSON('/api/activity/summary?days=7'),
+    ]).then(function (r) {
+      S = r[0] || { exam: exam, completed: 0, readiness: null, daysToExam: null, unit: c.unit, domains: [] };
+      A = r[1];
+      streak = r[2] && r[2].currentStreak ? r[2].currentStreak : null;
+      if (focusKey && !(S.domains || []).some(function (d) { return d.key === focusKey; })) {
+        focusKey = null;
+        saveFocus();
+      }
+      if (!r[0]) $('msg').hidden = false, $('msg').textContent =
+        'Signed out, so this is the empty dashboard. Sign in to see your own progress.';
+      else $('msg').hidden = true;
+      render();
+      $('loading').hidden = true;
+      $('view').hidden = false;
+    });
+  }
+
+  function switchExam(next) {
+    if (next === exam) return;
+    exam = next;
+    set('prp_exam', exam);
+    history.replaceState({}, '', '/dashboard.html?exam=' + exam);
+    $('view').hidden = true;
+    load();
+  }
+
+  // ── Wiring ─────────────────────────────────────────────────────────────
+  document.addEventListener('click', function (e) {
+    var seg = e.target.closest('#exam-seg button, #exam-seg-m button');
+    if (seg) return switchExam(seg.getAttribute('data-exam'));
+
+    var dom = e.target.closest('.db-dom');
+    if (dom) {
+      var k = dom.getAttribute('data-key');
+      focusKey = focusKey === k ? null : k;   // clicking the focused row clears it
+      saveFocus();
+      renderDomains();
+      renderNextUp();
+      return;
+    }
+
+    var task = e.target.closest('.db-task');
+    if (task) {
+      toggleTask(task.getAttribute('data-task'));
+      renderToday();
+      renderNextUp();
+      return;
+    }
+
+    var opt = e.target.closest('.prp-seg[data-setting] button');
+    if (opt) {
+      set(opt.parentNode.getAttribute('data-setting'), opt.getAttribute('data-value'));
+      renderSettings();
+      renderNextUp();
+    }
+  });
+
+  // ── Start ──────────────────────────────────────────────────────────────
+  var params = new URLSearchParams(location.search);
+  var want = params.get('exam') || get('prp_exam');
+  exam = want === 'nce' ? 'nce' : 'ncmhce';
+  load();
+})();
+</script>
+</body>
+</html>

@@ -37,21 +37,48 @@ into the App Review reply, and the screen-recording checklist.
 
 Prefix = bundle ID `com.gaitp.passreadyprep` (env `APPLE_IAP_PRODUCT_PREFIX`).
 
-| Product ID | Type in App Store Connect | Plan | Suggested price (USD) |
-|---|---|---|---|
-| `com.gaitp.passreadyprep.ncmhce.monthly` | Auto-Renewable Subscription (1 month) | NCMHCE Monthly | $29.99 |
-| `com.gaitp.passreadyprep.ncmhce.pass3` | Non-Renewing Subscription | NCMHCE 3-Month Pass (90 days) | $79.99 |
-| `com.gaitp.passreadyprep.ncmhce.guarantee` | Non-Consumable | NCMHCE Pass Guarantee | $149.99 |
-| `com.gaitp.passreadyprep.guide` | Non-Consumable | The Complete NCMHCE Study Guide (digital) | $24.99 |
-| `com.gaitp.passreadyprep.nce.monthly` | Auto-Renewable Subscription (1 month) | NCE Monthly | $24.99 |
-| `com.gaitp.passreadyprep.nce.pass3` | Non-Renewing Subscription | NCE 3-Month Pass (90 days) | $59.99 |
-| `com.gaitp.passreadyprep.nce.pass6` | Non-Renewing Subscription | NCE 6-Month Pass (180 days) | $89.99 |
-| `com.gaitp.passreadyprep.nce.guarantee` | Non-Consumable | NCE Pass Guarantee — only on sale once `STRIPE_PRICE_NCE_GUARANTEE` (or `APPLE_IAP_OFFER_NCE_GUARANTEE=1`) is set | — |
+`utils/appleIap.js` (`CATALOG`) is the source of truth for the IDs and types;
+this table mirrors it. Prices below are the live App Store prices, confirmed
+with App Review on November 11 2026.
 
-Apple's price tiers end in .99, so the in-app prices differ slightly from the
-website; the app shows the App Store price everywhere (`data-iap-tier`).
+| Product ID | Type in App Store Connect | Plan | App Store price (USD) |
+|---|---|---|---|
+| `com.gaitp.passreadyprep.ncmhce.monthly` | Auto-Renewable Subscription (1 month) | NCMHCE Monthly | $39.99 / month |
+| `com.gaitp.passreadyprep.ncmhce.sub3mo` | Auto-Renewable Subscription (3 months) | NCMHCE 3-Month | $119.99 / 3 months |
+| `com.gaitp.passreadyprep.ncmhce.sub6mo` | Auto-Renewable Subscription (6 months) | NCMHCE 6-Month | $169.99 / 6 months |
+| `com.gaitp.passreadyprep.ncmhce.guarantee` | Non-Consumable | NCMHCE Pass Guarantee | $329.99 one-time |
+| `com.gaitp.passreadyprep.nce.monthly` | Auto-Renewable Subscription (1 month) | NCE Monthly | $34.99 / month |
+| `com.gaitp.passreadyprep.nce.sub3mo` | Auto-Renewable Subscription (3 months) | NCE 3-Month | $89.99 / 3 months |
+| `com.gaitp.passreadyprep.nce.sub6mo` | Auto-Renewable Subscription (6 months) | NCE 6-Month | $119.99 / 6 months |
+| `com.gaitp.passreadyprep.nce.guarantee` | Non-Consumable | NCE Pass Guarantee | $249.99 one-time |
+| `com.gaitp.passreadyprep.guide` | Non-Consumable | The Complete NCMHCE Study Guide (digital) | Not sold in the app |
+
+**The SKUs for the passes are `sub3mo` / `sub6mo`, not `pass3` / `pass6`.** The
+`pass3` and `pass6` IDs were registered in an earlier attempt as Non-Renewing
+Subscriptions. Apple locks a product ID permanently once registered, even after
+the product is removed, so the auto-renewable versions had to take fresh SKUs.
+
+**The App Store prices are higher than the website's on purpose**, to absorb
+Apple's commission — they are not the Stripe prices rounded to a .99 tier. The
+website charges $29, $79, $119 and $249 for NCMHCE and $24.99, $59.99, $89 and
+$189 for NCE. Nothing in the app may state a price that did not come from
+StoreKit: the plan amounts carry `data-iap-tier` and `native-iap.js` replaces
+them at runtime, `pricing.html` reads `displayPrice` directly, and any other
+price copy sits inside `<!-- prp-web-only -->` so the iOS build strips it.
+
+The study guide is sold on the website only (`offered: () => false` in the
+catalog), so it has no App Store price. The NCE Pass Guarantee goes on sale
+once `STRIPE_PRICE_NCE_GUARANTEE` (or `APPLE_IAP_OFFER_NCE_GUARANTEE=1`) is
+set; it is set in production, so the plan is live.
+
 The two monthly subscriptions go in **separate subscription groups**
 (NCMHCE and NCE are billed independently on the website too).
+
+**The plan is called the Pass Guarantee.** "Access until you pass" describes
+what it does and belongs in the description, not in the name. An earlier
+rename turned the phrase into the product name across the site and in the
+catalog; that was reverted, so the names here, in `utils/appleIap.js` and in
+App Store Connect all read "Pass Guarantee" again.
 
 ---
 

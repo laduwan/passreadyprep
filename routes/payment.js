@@ -7,27 +7,34 @@
  * Tiers:
  *   free       — default, no payment required
  *   monthly    — $29/mo recurring (Stripe subscription)
- *   pass3      — $79 one-time, 3 months access
+ *   pass3      — $79 recurring every 3 months (Stripe subscription)
+ *   pass6      — $119 recurring every 6 months (Stripe subscription)
  *   guarantee  — $249 one-time, access until passing (bundles NCMHCE study guide)
  *   test       — $1.00 one-time, admin-only live-payment smoke test (grants nothing)
  *   nce_monthly / nce_pass3 / nce_pass6 — NCE plans, written to User.nceAccess
- *   nce_guarantee — NCE Access Extensions Until You Pass, same rules as `guarantee`, written to
+ *   nce_guarantee — NCE Pass Guarantee, same rules as `guarantee`, written to
  *                   User.nceAccess. Off until STRIPE_PRICE_NCE_GUARANTEE is set.
  *
  * ENV vars required (add to .env and Render dashboard):
  *   STRIPE_SECRET_KEY       — sk_live_xxx  (or sk_test_xxx for dev)
  *   STRIPE_WEBHOOK_SECRET   — whsec_xxx  (from Stripe dashboard → Webhooks)
  *   STRIPE_PRICE_MONTHLY    — price_xxx  (monthly $29 recurring price ID)
- *   STRIPE_PRICE_PASS3      — price_xxx  (3-month $79 one-time price ID)
- *   STRIPE_PRICE_PASS6      — price_xxx  (6-month $119 one-time price ID)
+ *   STRIPE_PRICE_PASS3      — price_xxx  (3-month $79 recurring, interval 3 months)
+ *   STRIPE_PRICE_PASS6      — price_xxx  (6-month $119 recurring, interval 6 months)
  *   STRIPE_PRICE_GUARANTEE  — price_xxx  ($249 one-time price ID — update in Stripe to match)
  *   STRIPE_PRICE_NCE_MONTHLY — price_xxx (NCE monthly $24.99 recurring)
- *   STRIPE_PRICE_NCE_PASS3   — price_xxx (NCE 3-month $59.99, recurring every 3 months)
- *   STRIPE_PRICE_NCE_PASS6   — price_xxx (NCE 6-month $89 one-time)
- *   STRIPE_PRICE_NCE_GUARANTEE — price_xxx (NCE Access Extensions Until You Pass one-time; optional)
+ *   STRIPE_PRICE_NCE_PASS3   — price_xxx (NCE 3-month $59.99 recurring, interval 3 months)
+ *   STRIPE_PRICE_NCE_PASS6   — price_xxx (NCE 6-month $89 recurring, interval 6 months)
+ *   STRIPE_PRICE_NCE_GUARANTEE — price_xxx (NCE Pass Guarantee one-time; optional)
  *   STRIPE_PRICE_GUIDE       — price_xxx (NCMHCE Study Guide one-time digital)
  *   STRIPE_PRICE_GUIDE_NCE   — price_xxx (NCE Ownership Method one-time digital)
  *   CLIENT_URL              — https://passreadyprep-server.onrender.com (no trailing slash)
+ *
+ * The recurring plans bill on a multi-month interval, not monthly: the 3-month
+ * passes must be `every 3 months` in Stripe and the 6-month passes `every 6
+ * months`. A price whose interval disagrees with the plan is reported by
+ * GET /api/payment/plans as `intervalMismatch` and logged on startup of that
+ * lookup, because Stripe would otherwise charge the pass price every month.
  */
 
 const express = require('express');
@@ -92,12 +99,14 @@ const TIERS = {
     priceId: () => process.env.STRIPE_PRICE_MONTHLY,
     mode: 'subscription',
     tierName: 'monthly',
+    billingMonths: 1,
     // access expires when Stripe says subscription ends
   },
   pass3: {
     priceId: () => process.env.STRIPE_PRICE_PASS3,
     mode: 'subscription',
     tierName: 'pass3',
+    billingMonths: 3,
     // Auto-renews every 3 months (Stripe recurring interval = 3 months).
     // Access expiry comes from Stripe (currentPeriodEnd), not accessDays.
   },
@@ -105,6 +114,7 @@ const TIERS = {
     priceId: () => process.env.STRIPE_PRICE_PASS6,
     mode: 'subscription',
     tierName: 'pass6',
+    billingMonths: 6,
     // Auto-renews every 6 months.
   },
   guarantee: {
@@ -112,13 +122,17 @@ const TIERS = {
     mode: 'payment',
     tierName: 'guarantee',
     guarantee: true,
-    // Access is unlimited — no re-payment ever.
-    // After 6 months the account requires a candidate verification checkpoint:
-    // they submit an exam date (scheduled) or a score report (taken).
-    // This isn't a payment gate — it's proof that one real person is using
-    // one account to prepare for one NCMHCE. Extensions are free and unlimited.
+    // No re-payment, ever — but access is NOT open-ended. It runs in 6-month
+    // periods (accessDays below) and the member requests a free extension at
+    // each one by submitting an exam date (scheduled) or a score report
+    // (taken). That checkpoint is the only thing stopping one purchase being
+    // shared around, so it is a real gate, not a formality: without it a
+    // single payment would buy permanent access for any number of people.
+    // It is not a payment gate — extensions are free and unlimited until the
+    // member passes. routes/content.js turns a lapsed period with no check-in
+    // into accessLevel 'gated'.
     accessDays: 180,
-    // Bundles the NCMHCE study guide as part of the Access Extensions Until You Pass purchase;
+    // Bundles the NCMHCE study guide as part of the Pass Guarantee purchase;
     // the webhook also grants `guidePurchasedAt` so the buyer can download it.
     bundleGuide: 'ncmhce',
   },
@@ -144,12 +158,14 @@ const TIERS = {
     mode: 'subscription',
     tierName: 'nce_monthly',
     exam: 'nce',
+    billingMonths: 1,
   },
   nce_pass3: {
     priceId: () => process.env.STRIPE_PRICE_NCE_PASS3,
     mode: 'subscription',
     tierName: 'nce_pass3',
     exam: 'nce',
+    billingMonths: 3,
     // Auto-renews every 3 months.
   },
   nce_pass6: {
@@ -157,9 +173,10 @@ const TIERS = {
     mode: 'subscription',
     tierName: 'nce_pass6',
     exam: 'nce',
+    billingMonths: 6,
     // Auto-renews every 6 months.
   },
-  // NCE Access Extensions Until You Pass: the same promise as `guarantee` above (no repayment,
+  // NCE Pass Guarantee: the same promise as `guarantee` above (no repayment,
   // a candidate check-in every 6 months, pass → free CE course, fail → free
   // extension), on User.nceAccess. Not offered until its price is configured.
   nce_guarantee: {
@@ -170,7 +187,7 @@ const TIERS = {
     guarantee: true,
     accessDays: 180,
     // Bundles the NCE study guide ("The NCE Ownership Method") as part of the
-    // Access Extensions Until You Pass purchase; the webhook also grants `guideNcePurchasedAt`.
+    // Pass Guarantee purchase; the webhook also grants `guideNcePurchasedAt`.
     bundleGuide: 'nce',
   },
   // $1.00 test purchase for verifying the live Stripe flow end to end
@@ -201,10 +218,10 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
       return res.status(400).json({ error: 'Invalid tier' });
     }
 
-    // Access Extensions Until You Pass plan requires explicit acknowledgment of the check-in terms
+    // Pass Guarantee requires explicit acknowledgment of the check-in terms
     if (TIERS[tier].guarantee && !guaranteeTermsAccepted) {
       return res.status(400).json({
-        error: 'You must acknowledge the Access Extensions Until You Pass candidate verification terms to proceed',
+        error: 'You must acknowledge the Pass Guarantee candidate verification terms to proceed',
         code: 'GUARANTEE_TERMS_REQUIRED',
       });
     }
@@ -450,7 +467,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
             'nceAccess.currentPeriodEnd': nceEnd,
             'nceAccess.lastPaymentIntentId': session.payment_intent,
           };
-          // Access Extensions Until You Pass plan bundles the matching study guide; grant the
+          // Pass Guarantee bundles the matching study guide; grant the
           // entitlement so the buyer can download it from /nce-study-guide.html.
           if (tierConfig.bundleGuide === 'nce') {
             nceUpdate.guideNcePurchasedAt = new Date();
@@ -470,7 +487,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         const accessDays = tierConfig.accessDays;
         const periodEnd = accessDays
           ? new Date(Date.now() + accessDays * 24 * 60 * 60 * 1000)
-          : null; // null = never expires (guarantee tier)
+          : null; // null = no expiry set; the guarantee tiers set accessDays, so they land 6 months out
 
         const subUpdate = {
           'subscription.tier': tier,
@@ -478,7 +495,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
           'subscription.currentPeriodEnd': periodEnd,
           'subscription.lastPaymentIntentId': session.payment_intent,
         };
-        // Access Extensions Until You Pass plan bundles the NCMHCE study guide; grant the entitlement
+        // Pass Guarantee bundles the NCMHCE study guide; grant the entitlement
         // so the buyer can download it from /study-guide.html.
         if (tierConfig.bundleGuide === 'ncmhce') {
           subUpdate.guidePurchasedAt = new Date();
@@ -614,7 +631,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
   }
 });
 
-// Which Access Extensions Until You Pass a score report belongs to: the NCMHCE guarantee lives
+// Which Pass Guarantee a score report belongs to: the NCMHCE guarantee lives
 // on User.subscription, the NCE guarantee on User.nceAccess. Requests name the
 // exam with `exam: 'nce'`; anything else means NCMHCE, as before.
 function guaranteePlan(user, exam) {
@@ -624,12 +641,12 @@ function guaranteePlan(user, exam) {
 }
 
 // ── POST /api/payment/score-report ───────────────────────────────────────────
-// User submits a check-in or an exam result for their Access Extensions Until You Pass.
+// User submits a check-in or an exam result for their Pass Guarantee.
 // Puts the guarantee into 'pending' state for admin review.
 // Accepts: { examDate, result: 'pass'|'fail'|'scheduled', notes?, exam ('nce' | default NCMHCE),
 //            letter (data URI, always required), domainScores? { key: { earned, possible } } }
 // Every check-in comes with a document so it can be verified against the
-// account (Access Extensions Until You Pass terms, policies.html#guarantee): the exam appointment
+// account (Pass Guarantee terms, policies.html#guarantee): the exam appointment
 // confirmation for 'scheduled', the score letter for 'pass' / 'fail'. An
 // approved 'scheduled' or 'fail' adds 3 months. A fail also needs the
 // per-domain scores from the letter; they build the retake plan.
@@ -645,7 +662,7 @@ router.post('/score-report', requireAuth, async (req, res) => {
     const g = guaranteePlan(user, exam);
 
     if (g.plan.tier !== g.tier) {
-      return res.status(403).json({ error: `Score report only applies to the ${g.name} Access Extensions Until You Pass` });
+      return res.status(403).json({ error: `Score report only applies to the ${g.name} Pass Guarantee` });
     }
 
     if (!examDate || !['pass', 'fail', 'scheduled'].includes(result)) {
@@ -655,7 +672,7 @@ router.post('/score-report', requireAuth, async (req, res) => {
     // No request within 90 days of a verified non-pass forfeits the guarantee.
     if (isForfeited(g.plan.scoreReport)) {
       return res.status(403).json({
-        error: 'This Access Extensions Until You Pass plan was forfeited: no new request was made within 90 days of your last exam. Contact support with any questions.',
+        error: 'This Pass Guarantee was forfeited: no new request was made within 90 days of your last exam. Contact support with any questions.',
         code: 'GUARANTEE_FORFEITED',
       });
     }
@@ -672,7 +689,7 @@ router.post('/score-report', requireAuth, async (req, res) => {
       return res.status(400).json({ error: 'That file is too large. Please attach a file under 5 MB.' });
     }
     if (taken) {
-      // A result is claimed within 14 days of the exam (Access Extensions Until You Pass terms).
+      // A result is claimed within 14 days of the exam (Pass Guarantee terms).
       const days = (Date.now() - new Date(examDate).getTime()) / 86400000;
       if (!(days >= -1)) return res.status(400).json({ error: 'The exam date for a result can’t be in the future.' });
       if (days > RESULT_WINDOW_DAYS) {
@@ -789,7 +806,7 @@ router.get('/refund-eligibility', requireAuth, async (req, res) => {
     if (!user) return res.status(404).json({ error: 'User not found' });
     const g = guaranteePlan(user, req.query.exam);
     const sub = g.plan;
-    if (sub.tier !== g.tier) return res.status(403).json({ error: `Refunds only apply to the ${g.name} Access Extensions Until You Pass` });
+    if (sub.tier !== g.tier) return res.status(403).json({ error: `Refunds only apply to the ${g.name} Pass Guarantee` });
     const examDate = req.query.examDate;
     if (!examDate || isNaN(new Date(examDate).getTime())) return res.status(400).json({ error: 'examDate is required' });
     const prior = [...(sub.scoreReportHistory || []), sub.scoreReport].filter(Boolean);
@@ -851,7 +868,7 @@ router.get('/score-report-status', requireAuth, async (req, res) => {
 });
 
 // ── GET /api/payment/score-reports  (admin only) ─────────────────────────────
-// Pending Access Extensions Until You Pass check-ins for both exams, oldest first, without the
+// Pending Pass Guarantee check-ins for both exams, oldest first, without the
 // documents (fetch each with the letter route below), then forfeited
 // guarantees (forfeited: true) so an admin can reopen one.
 router.get('/score-reports', requireAuth, async (req, res) => {
@@ -1001,21 +1018,21 @@ router.post('/score-report/:userId/review', requireAuth, async (req, res) => {
       await user.save();
 
       const dollars = `$${(amount / 100).toFixed(2)}`;
-      logActivity({ type: 'guarantee.refunded', severity: 'warn', userId: user._id, email: user.email, message: `${g.name} Access Extensions Until You Pass plan refunded after a verified non-pass: ${dollars}`, meta: { exam: g.exam, refundId: refund.id, amount, paymentIntent: pi.id }, req });
+      logActivity({ type: 'guarantee.refunded', severity: 'warn', userId: user._id, email: user.email, message: `${g.name} Pass Guarantee refunded after a verified non-pass: ${dollars}`, meta: { exam: g.exam, refundId: refund.id, amount, paymentIntent: pi.id }, req });
       const { sendMail } = require('../utils/mailer');
       sendMail({
         to: user.email,
         subject: 'Your PassReady Prep refund is on its way',
         text: `Hi${user.name ? ' ' + user.name : ''},
 
-We verified your ${g.name} result and refunded ${dollars} to your original payment method (your Access Extensions Until You Pass price minus the $25 study guide, which is yours to keep). It usually shows up within 5–10 business days.
+We verified your ${g.name} result and refunded ${dollars} to your original payment method (your Pass Guarantee price minus the $25 study guide, which is yours to keep). It usually shows up within 5–10 business days.
 
-Your ${g.name} Access Extensions Until You Pass plan has now ended. If you decide to try again, you're welcome back any time.
+Your ${g.name} Pass Guarantee has now ended. If you decide to try again, you're welcome back any time.
 
 PassReady Prep`,
       }).catch((e) => console.error('refund email failed:', e.message));
 
-      return res.json({ ok: true, message: `Refunded ${dollars} (Stripe ${refund.id}). Plan closed and access ended.` });
+      return res.json({ ok: true, message: `Refunded ${dollars} (Stripe ${refund.id}). Guarantee closed and access ended.` });
     }
 
     if (action === 'pass') {
@@ -1088,7 +1105,7 @@ router.get('/pending-score-reports', requireAuth, async (req, res) => {
 // ── GET /api/payment/plans?exam=nce ─────────────────────────────────────────
 // Live prices for an exam's plans, read from Stripe using the price IDs in the
 // environment, so pages show what Stripe will charge. A plan whose price ID is
-// not set is left out — that is how the NCE Access Extensions Until You Pass plan stays hidden until
+// not set is left out — that is how the NCE Pass Guarantee stays hidden until
 // STRIPE_PRICE_NCE_GUARANTEE exists. Cached for 10 minutes.
 const PLAN_CACHE_MS = 10 * 60 * 1000;
 const planCache = {};
@@ -1103,14 +1120,31 @@ router.get('/plans', async (req, res) => {
       return (c.exam || 'ncmhce') === exam && !!c.priceId();
     });
     const plans = await Promise.all(tiers.map(async (t) => {
-      const price = await getStripe().prices.retrieve(TIERS[t].priceId());
+      const cfg = TIERS[t];
+      const price = await getStripe().prices.retrieve(cfg.priceId());
+      const rec = price.recurring || null;
+      // How many months this plan is meant to bill on (1, 3, 6). A one-time
+      // plan has none. Stripe states its own interval as a unit plus a count,
+      // so "every 3 months" is month × 3 — a price left at month × 1 would
+      // charge the 3-month price monthly, which is why the mismatch is
+      // reported rather than quietly rendered as "per month".
+      const months = rec ? (rec.interval === 'year' ? rec.interval_count * 12
+        : rec.interval === 'month' ? rec.interval_count : 0) : null;
+      const expected = cfg.billingMonths || null;
+      const intervalMismatch = !!(expected && months !== expected);
+      if (intervalMismatch) {
+        console.warn(`plans: Stripe price for "${t}" bills every ${rec ? rec.interval_count + ' ' + rec.interval : 'one-time'}, expected every ${expected} month(s)`);
+      }
       return {
         tier: t,
         amount: price.unit_amount,          // in cents
         currency: price.currency,
-        interval: (price.recurring && price.recurring.interval) || null,
-        guarantee: !!TIERS[t].guarantee,
-        accessDays: TIERS[t].accessDays || null,
+        interval: (rec && rec.interval) || null,
+        intervalCount: (rec && rec.interval_count) || null,
+        billingMonths: expected,            // what the plan is sold as
+        intervalMismatch,                   // true when Stripe disagrees with it
+        guarantee: !!cfg.guarantee,
+        accessDays: cfg.accessDays || null,
       };
     }));
     const body = { exam, plans };

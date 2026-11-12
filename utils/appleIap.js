@@ -62,7 +62,7 @@ const CATALOG = [
   // so the auto-renewable versions use fresh SKUs (ncmhce.sub3mo / ncmhce.sub6mo).
   { tier: 'pass3',         sku: 'ncmhce.sub3mo',    kind: 'autoRenewable', name: 'NCMHCE 3-Month' },
   { tier: 'pass6',         sku: 'ncmhce.sub6mo',    kind: 'autoRenewable', name: 'NCMHCE 6-Month' },
-  { tier: 'guarantee',     sku: 'ncmhce.guarantee', kind: 'nonConsumable', name: 'NCMHCE Access Until You Pass' },
+  { tier: 'guarantee',     sku: 'ncmhce.guarantee', kind: 'nonConsumable', name: 'NCMHCE Pass Guarantee' },
   // The study guide is sold on the website only, never in the app. The entry
   // stays so a guide transaction (earlier sandbox testing) still verifies.
   { tier: 'guide',         sku: 'guide',            kind: 'nonConsumable', name: 'The Complete NCMHCE Study Guide',
@@ -71,7 +71,7 @@ const CATALOG = [
   { tier: 'nce_pass3',     sku: 'nce.sub3mo',       kind: 'autoRenewable', name: 'NCE 3-Month' },
   { tier: 'nce_pass6',     sku: 'nce.sub6mo',       kind: 'autoRenewable', name: 'NCE 6-Month' },
   // Mirrors the website: the NCE guarantee is only on sale once it is priced.
-  { tier: 'nce_guarantee', sku: 'nce.guarantee',    kind: 'nonConsumable', name: 'NCE Access Until You Pass',
+  { tier: 'nce_guarantee', sku: 'nce.guarantee',    kind: 'nonConsumable', name: 'NCE Pass Guarantee',
     offered: () => !!process.env.STRIPE_PRICE_NCE_GUARANTEE || process.env.APPLE_IAP_OFFER_NCE_GUARANTEE === '1' },
 ];
 

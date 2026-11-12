@@ -1,0 +1,323 @@
+/* ===========================================================================
+   prp-ui.css — the redesign's shared design tokens and primitives.
+
+   Opt-in: a page links this file (plus the Archivo webfont) to get the new
+   visual language. Older pages keep their own styles, so adding this file
+   changes nothing until a page asks for it.
+
+   The three themes follow the classes public/a11y.js already puts on <html>,
+   so the accessibility panel and the React ThemeToggle keep driving them:
+     (default)            dark
+     html.theme-light     light
+     html.a11y-contrast   high contrast
+
+   a11y.css also forces its own high-contrast colours with !important on
+   buttons, inputs and cards. That is deliberate and site-wide; the contrast
+   tokens below cover everything it does not reach.
+
+   Visual language: slate + emerald on a strict grid. Archivo, 0px corner
+   radius everywhere, 1px rules (2px for emphasis), labels left-aligned —
+   including inside buttons, where the arrow sits at the right edge.
+   =========================================================================== */
+
+:root {
+  /* ── Surface ─────────────────────────────────────────────────────────── */
+  --prp-bg: #0f172a;
+  --prp-surface: #162033;
+  --prp-text: #f1f5f9;
+  --prp-text-2: #cbd5e1;          /* secondary body copy */
+  --prp-muted: #94a3b8;           /* labels, meta */
+  --prp-divider: rgba(148, 163, 184, 0.26);
+  --prp-track: #273449;           /* empty progress bar */
+
+  /* ── Accent ──────────────────────────────────────────────────────────── */
+  --prp-accent: #10b981;
+  --prp-accent-text: #6ee7b7;     /* accent on a dark background */
+  --prp-accent-tint: color-mix(in srgb, #10b981 14%, #0f172a);
+  --prp-accent-tint-border: color-mix(in srgb, #10b981 26%, #0f172a);
+  --prp-on-accent: #0f172a;       /* text on an emerald fill */
+
+  /* ── Status ──────────────────────────────────────────────────────────── */
+  --prp-warn: #fbbf24;
+  --prp-danger: #f87171;
+  --prp-phase-1: #60a5fa;
+  --prp-phase-2: #a78bfa;
+  --prp-phase-3: #10b981;
+
+  /* ── Type ────────────────────────────────────────────────────────────── */
+  --prp-font: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* ── Shape ───────────────────────────────────────────────────────────── */
+  --prp-radius: 0px;
+  --prp-rule: 1px;
+  --prp-rule-strong: 2px;
+  --prp-pad-card: 32px;           /* 28–40 desktop; 20 on mobile, below */
+  --prp-touch: 44px;              /* minimum touch target */
+}
+
+html.theme-light {
+  --prp-bg: #f8fafc;
+  --prp-surface: #eef2f7;
+  --prp-text: #0f172a;
+  --prp-text-2: #334155;
+  --prp-muted: #475569;
+  --prp-divider: rgba(100, 116, 139, 0.35);
+  --prp-track: #d7dee8;
+  --prp-accent: #059669;
+  --prp-accent-text: #047857;
+  --prp-accent-tint: color-mix(in srgb, #059669 10%, #f8fafc);
+  --prp-accent-tint-border: color-mix(in srgb, #059669 30%, #f8fafc);
+  --prp-on-accent: #f8fafc;
+  --prp-warn: #b45309;
+  --prp-danger: #dc2626;
+  --prp-phase-1: #2563eb;
+  --prp-phase-2: #7c3aed;
+  --prp-phase-3: #059669;
+}
+
+html.a11y-contrast {
+  --prp-bg: #000;
+  --prp-surface: #0b0b0b;
+  --prp-text: #fff;
+  --prp-text-2: #fff;
+  --prp-muted: #e2e8f0;
+  --prp-divider: #cbd5e1;
+  --prp-track: #475569;
+  --prp-accent: #34d399;
+  --prp-accent-text: #6ee7b7;
+  --prp-accent-tint: #052e22;
+  --prp-accent-tint-border: #065f46;
+  --prp-on-accent: #000;
+  --prp-warn: #fcd34d;
+  --prp-danger: #fca5a5;
+}
+
+/* ── Page ──────────────────────────────────────────────────────────────── */
+
+.prp *,
+.prp *::before,
+.prp *::after { box-sizing: border-box; }
+
+body.prp {
+  margin: 0;
+  background: var(--prp-bg);
+  color: var(--prp-text);
+  font-family: var(--prp-font);
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+.prp h1, .prp h2, .prp h3, .prp h4 { margin: 0; font-weight: 600; }
+.prp a { color: var(--prp-accent-text); text-underline-offset: 3px; }
+
+/* Hero: 54px desktop, 34px on a phone. */
+.prp-hero-title {
+  font-size: 54px;
+  line-height: 1.04;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+.prp-h2 {
+  font-size: 38px;
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+.prp-h4 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.prp-body { font-size: 16px; line-height: 1.6; color: var(--prp-text-2); }
+.prp-meta { font-size: 12px; color: var(--prp-muted); }
+
+/* Eyebrow: the small uppercase label above a heading. */
+.prp-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--prp-accent-text);
+}
+
+/* The oversized readiness / countdown numbers are light-weight on purpose. */
+.prp-bignum {
+  font-size: 84px;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.06em;
+  font-variant-numeric: tabular-nums;
+}
+.prp-stat-value {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.prp-stat-label { font-size: 12px; color: var(--prp-muted); }
+
+/* ── Rules and surfaces ────────────────────────────────────────────────── */
+
+.prp-rule { height: var(--prp-rule); border: 0; margin: 0; background: var(--prp-divider); }
+.prp-rule-strong { height: var(--prp-rule-strong); border: 0; margin: 0; background: var(--prp-divider); }
+
+.prp-card {
+  background: var(--prp-surface);
+  border-radius: var(--prp-radius);
+  padding: var(--prp-pad-card);
+}
+.prp-tint {
+  background: var(--prp-accent-tint);
+  border: var(--prp-rule) solid var(--prp-accent-tint-border);
+}
+
+/* ── Buttons ───────────────────────────────────────────────────────────── */
+/* Label left, arrow at the right edge. Short buttons never wrap. */
+
+.prp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: var(--prp-touch);
+  padding: 14px 18px;
+  border: var(--prp-rule) solid transparent;
+  border-radius: var(--prp-radius);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  color: var(--prp-text);
+}
+.prp-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.prp-btn-primary { background: var(--prp-accent); color: var(--prp-on-accent); }
+.prp-btn-primary:hover:not(:disabled) { background: var(--prp-accent-text); }
+.prp-btn-secondary { border-color: var(--prp-divider); color: var(--prp-text); }
+.prp-btn-secondary:hover:not(:disabled) { background: color-mix(in srgb, var(--prp-text) 8%, transparent); }
+.prp-btn-ghost { padding-inline: 0; color: var(--prp-text-2); border-color: transparent; }
+.prp-btn-ghost:hover:not(:disabled) { color: var(--prp-text); }
+.prp-btn-block { display: flex; width: 100%; }
+
+/* ── Segmented control (exam switch, mode switch) ──────────────────────── */
+
+.prp-seg {
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  border: var(--prp-rule) solid var(--prp-divider);
+  border-radius: var(--prp-radius);
+}
+.prp-seg button {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  color: var(--prp-text-2);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.prp-seg button[aria-pressed="true"],
+.prp-seg button[aria-selected="true"] {
+  background: var(--prp-accent);
+  color: var(--prp-on-accent);
+}
+
+/* ── Tags ──────────────────────────────────────────────────────────────── */
+
+.prp-tag {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  background: color-mix(in srgb, var(--prp-text) 10%, transparent);
+  color: var(--prp-text-2);
+  border-radius: var(--prp-radius);
+}
+.prp-tag-accent { background: var(--prp-accent); color: var(--prp-on-accent); }
+
+/* ── Progress bar with an optional threshold marker ────────────────────── */
+
+.prp-bar { position: relative; height: 6px; background: var(--prp-track); }
+.prp-bar > span { display: block; height: 100%; background: var(--prp-accent); }
+.prp-bar > .prp-bar-mark {
+  position: absolute;
+  top: -3px;
+  width: 2px;
+  height: 12px;
+  background: var(--prp-text);
+}
+
+/* ── Forms ─────────────────────────────────────────────────────────────── */
+
+.prp-field label { display: block; font-size: 12px; margin-bottom: 6px; color: var(--prp-muted); }
+.prp-input {
+  width: 100%;
+  min-height: var(--prp-touch);
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--prp-text);
+  background: var(--prp-surface);
+  border: var(--prp-rule) solid var(--prp-divider);
+  border-radius: var(--prp-radius);
+}
+.prp-input[aria-invalid="true"] { border-color: var(--prp-danger); }
+/* Errors sit under the field, say how to fix it, and are announced politely. */
+.prp-error { display: block; margin-top: 6px; font-size: 13px; color: var(--prp-danger); }
+
+.prp input[type="checkbox"],
+.prp input[type="radio"] { width: 18px; height: 18px; accent-color: var(--prp-accent); cursor: pointer; }
+
+/* ── Focus: visible on every control ───────────────────────────────────── */
+
+.prp :focus { outline: none; }
+.prp :focus-visible { outline: 2px solid var(--prp-accent); outline-offset: 2px; }
+
+/* ── Not by colour alone ───────────────────────────────────────────────── */
+/* Right/wrong always carries a symbol and a word, never just a hue. */
+
+.prp-verdict { display: inline-flex; align-items: baseline; gap: 6px; font-size: 13px; font-weight: 600; }
+.prp-verdict-best { color: var(--prp-accent-text); }
+.prp-verdict-miss { color: var(--prp-danger); }
+
+/* ── Motion ────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .prp *, .prp *::before, .prp *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+html.a11y-reduce-motion .prp *,
+html.a11y-reduce-motion .prp *::before,
+html.a11y-reduce-motion .prp *::after {
+  animation-duration: 0.001ms !important;
+  transition-duration: 0.001ms !important;
+}
+
+/* ── Phone ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 720px) {
+  :root { --prp-pad-card: 20px; }
+  .prp-hero-title { font-size: 34px; letter-spacing: -0.03em; }
+  .prp-h2 { font-size: 28px; }
+  .prp-bignum { font-size: 64px; }
+}
+
+/* At 200% text the layout reflows to one column with nothing clipped. */
+@media (max-width: 480px) {
+  .prp-bignum { font-size: 56px; }
+}

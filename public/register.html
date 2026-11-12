@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Create Account — PassReady Prep</title>
 <meta name="robots" content="noindex,follow">
-<meta name="description" content="Create your PassReady Prep account and start preparing for the NCMHCE with clinical case simulations and a access extensions until you pass.">
+<meta name="description" content="Create your PassReady Prep account and start preparing for the NCMHCE with clinical case simulations and a pass guarantee.">
 <link rel="canonical" href="https://www.passreadyprep.com/register.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PassReady Prep">
 <meta property="og:title" content="Create Account — PassReady Prep">
-<meta property="og:description" content="Create your PassReady Prep account and start preparing for the NCMHCE with clinical case simulations and a access extensions until you pass.">
+<meta property="og:description" content="Create your PassReady Prep account and start preparing for the NCMHCE with clinical case simulations and a pass guarantee.">
 <meta property="og:url" content="https://www.passreadyprep.com/register.html">
 <meta property="og:image" content="https://www.passreadyprep.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Create Account — PassReady Prep">
-<meta name="twitter:description" content="Create your PassReady Prep account and start preparing for the NCMHCE with clinical case simulations and a access extensions until you pass.">
+<meta name="twitter:description" content="Create your PassReady Prep account and start preparing for the NCMHCE with clinical case simulations and a pass guarantee.">
 <meta name="twitter:image" content="https://www.passreadyprep.com/og.png">
 <style>
   :root{
@@ -186,10 +186,10 @@
   // the study tools (a new account from the homepage should land in the app,
   // not back on the marketing page).
   const params = new URLSearchParams(location.search);
-  const next = params.get('next') || '/study';
+  const next = params.get('next') || '/dashboard.html';
   // A new account with no destination goes straight to the case list rather
   // than the dashboard; sign-in keeps the dashboard.
-  const regNext = params.get('next') || '/study?view=cases';
+  const regNext = params.get('next') || '/dashboard.html';
   const guest = (function(){ try { return !!(JSON.parse(localStorage.getItem('prp_user') || 'null') || {}).isGuest; } catch(_) { return false; } })();
 
   function showTab(tab) {

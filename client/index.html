@@ -623,7 +623,7 @@ async function showDashboard(){
   h += '<h2>Try a free clinical simulation</h2>';
   h += '<p class="lead">Work through a full NCMHCE-format case — read the vignette, answer 5 clinical questions, and get evidence-based feedback with weighted scoring after each one. No signup required.</p>';
   h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Start free case ›</button>';
-  h += '<br /><a href="/guarantee.html" class="guar-link">✓ Access extensions until you pass — pass and get a free CE course, or we extend your access</a>';
+  h += '<br /><a href="/guarantee.html" class="guar-link">✓ Pass guarantee — pass and get a free CE course, or we extend your access</a>';
   h += '</div>';
 
   // Readiness predictor
@@ -1206,6 +1206,24 @@ async function getDebrief(){
       body: JSON.stringify({ caseData: CASE, answers, mode: MODE })
     });
     const j = await r.json().catch(()=>({}));
+    // routes/debrief.js decides entitlement. Signed out: the free account,
+    // since the trial includes the debrief. Signed in without it: the plan.
+    // A 401 with a token on this device is an expired session.
+    if(r.status === 401 || (r.status === 403 && j.code === 'DEBRIEF_REQUIRES_GUARANTEE')){
+      const signedIn = !!authHeaders().Authorization;
+      out.innerHTML = (!signedIn)
+        ? '<div class="feedback" style="margin-top:12px"><div class="fb-label" style="color:var(--amber-400)">Free during your trial</div>'
+          + '<div style="font-size:13px;color:var(--slate-400);margin:6px 0 10px">Create a free account and Dr. Claire Moreau debriefs this case, and every case you work during your trial. No card required.</div>'
+          + '<a class="btn" href="/register.html?next='+encodeURIComponent('/study')+'">Create free account ›</a></div>'
+        : (r.status === 401)
+        ? '<div class="feedback" style="margin-top:12px"><div style="font-size:13px;color:var(--slate-400);margin:0 0 10px">Your session has expired. Sign in again to get this debrief.</div>'
+          + '<a class="btn" href="/register.html?tab=login&next='+encodeURIComponent('/study')+'">Sign in ›</a></div>'
+        : '<div class="feedback" style="margin-top:12px"><div class="fb-label" style="color:var(--amber-400)">Pass Guarantee plan</div>'
+          + '<div style="font-size:13px;color:var(--slate-400);margin:6px 0 10px">'+esc(j.error || 'The AI debrief comes with the Pass Guarantee plan.')+'</div>'
+          + '<a class="btn" href="/pricing.html?exam=ncmhce&tier=guarantee">See the plan</a></div>';
+      btn.style.display = 'none';
+      return;
+    }
     if(!r.ok) throw new Error(j.error || 'Request failed');
     out.innerHTML = '<div class="feedback" style="margin-top:12px">'
       + '<div class="fb-label" style="color:var(--purple-400)">Dr. Claire Moreau — Clinical Debrief</div>'
@@ -1280,7 +1298,7 @@ function genPlan(){
   var casesPerDay = Math.max(2, Math.min(5, Math.ceil((20 - rd.totalCases) / Math.max(1, phase1))));
   h += '<div style="margin-top:12px;padding:12px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px">';
   h += '<strong style="color:var(--emerald-400)">Daily targets:</strong> ' + casesPerDay + ' cases + 15 min flashcards + 10 min DSM review';
-  if(rd.totalCases < 20) h += '<br><span style="color:var(--amber-400);font-size:13px">You need ' + (20 - rd.totalCases) + ' more cases for access extensions until you pass eligibility</span>';
+  if(rd.totalCases < 20) h += '<br><span style="color:var(--amber-400);font-size:13px">You need ' + (20 - rd.totalCases) + ' more cases for pass guarantee eligibility</span>';
   h += '</div>';
 
   h += '</div>';

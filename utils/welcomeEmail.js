@@ -67,7 +67,7 @@ function welcomeEmail(user) {
   <div style="text-align:center;margin:22px 0 8px;">${button(SITE + '/study', 'Start your first case')}</div>
   <div style="color:#64748B;font-size:13px;text-align:center;margin-top:18px;line-height:1.5;">
     Taking the NCE as well? Your separate NCE trial starts the first time you open <a href="${SITE}/nce.html" style="color:#34D399;">NCE practice</a>.<br>
-    After the trial, plans start at $29 a month, and Access Extensions Until You Pass is one payment with access until you pass. <a href="${SITE}/landing.html#pricing" style="color:#34D399;">See plans</a>.<br>
+    After the trial, plans start at $29 a month, and the Pass Guarantee is one payment with free access extensions until you pass. <a href="${SITE}/landing.html#pricing" style="color:#34D399;">See plans</a>.<br>
     Stuck on anything? Just reply to this email.
   </div>
 </div>
