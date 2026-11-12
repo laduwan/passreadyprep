@@ -91,7 +91,7 @@ async function callClaude(system, userPrompt) {
 
 // ── Prompts ──────────────────────────────────────────────────────────────────
 
-const SYSTEM_PROMPT = `You write blog posts for PassReady Prep, an exam-prep site for counselors preparing for the NCMHCE and NCE licensure exams. Each request names which exam the post is about. Posts are drafts that the site owner, Kejuiana Johnson, MA, LPC, NCC, reviews and edits before publishing. Write in a plain, warm, practical voice for counselors-in-training. No emojis.
+const SYSTEM_PROMPT = `You write blog posts for PassReady Prep, an exam-prep site for counselors preparing for the NCMHCE and NCE licensure exams. Each request names which exam the post is about. Posts are drafts that the site owner, a licensed professional counselor, reviews and edits before publishing. Never name the owner or any individual as the author. Write in a plain, warm, practical voice for counselors-in-training. No emojis.
 
 The blog exists to help readers and to bring them to PassReady Prep's paid study tools. It must not give away the paid product's method. These rules matter more than anything else here:
 

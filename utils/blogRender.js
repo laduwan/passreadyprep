@@ -297,6 +297,10 @@ const CTA = `<section class="guar" style="margin-top:40px">
   </div>
 </section>`;
 
+// Posts are published under the site, not a person: the owner does not want
+// their name on the site. The stored post.author is ignored on purpose.
+const BYLINE = 'PassReady Prep, reviewed by a licensed professional counselor (LPC, NCC)';
+
 // "Practice this" links under each post: 3 tool pages picked by keyword from
 // the post's title and tags, topped up from the exam's defaults.
 const TOOLS = {
@@ -464,7 +468,7 @@ function renderPost(post) {
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/blog">Blog</a> &rsaquo; <span>${esc(post.title)}</span></nav>
     ${tags.length ? `<span class="eyebrow">${esc(tags[0])}</span>` : ''}
     <h1>${esc(post.title)}</h1>
-    <p class="meta">By ${esc(post.author)}${published ? ` &middot; <time datetime="${esc(published)}">${esc(fmtDate(post.publishedAt))}</time>` : ''}</p>
+    <p class="meta">By ${esc(BYLINE)}${published ? ` &middot; <time datetime="${esc(published)}">${esc(fmtDate(post.publishedAt))}</time>` : ''}</p>
     ${cover ? `<img class="cover" src="${esc(cover)}" alt="">` : ''}
     <div class="prose">
 ${renderMarkdown(post.bodyMarkdown)}
@@ -482,7 +486,7 @@ ${renderMarkdown(post.bodyMarkdown)}
     description,
     datePublished: published,
     dateModified: modified,
-    author: { '@type': 'Person', name: post.author },
+    author: { '@type': 'Organization', name: 'PassReady Prep', url: SITE + '/' },
     publisher: { '@type': 'Organization', name: 'PassReady Prep', url: SITE + '/' },
     mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
     image: absUrl(cover) || OG_IMAGE,
