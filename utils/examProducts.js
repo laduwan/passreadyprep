@@ -88,7 +88,15 @@ const PRODUCTS = [
     sold: true,
     // The fields on User that accessLevel / examDateOf / pickItems read.
     userFields: ['isGuest', 'subscription', 'trialStartedAt', 'trialEndsAt', 'examDate'],
-    accessLevel: (user, now = new Date()) => accessFor(user, now).accessLevel,
+    // The NCMHCE trial clock starts on the member's first case (utils/trial.js),
+    // and until then resolveAccess still answers 'trial' so that first case can
+    // start it. For a product feature the member has not registered for the
+    // NCMHCE yet, so an unstarted trial reads as 'free' here, the same way an
+    // NCE trial does not exist until the first NCE visit.
+    accessLevel: (user, now = new Date()) => {
+      const a = accessFor(user, now);
+      return a.accessLevel === 'trial' && a.trialNotStarted ? 'free' : a.accessLevel;
+    },
     examDateOf: (user) => (user && user.examDate) || null,
     examDoc: () => Exam.findOne({ key: 'ncmhce' }).select('_id').lean(),
     summarize: (userId) => summarize(userId, 'ncmhce'),
@@ -126,8 +134,15 @@ function soldExamProducts() { return PRODUCTS.filter((p) => p.sold); }
 function productUserFields() { return [...new Set(PRODUCTS.flatMap((p) => p.userFields))]; }
 // What a page needs to show the choice.
 function publicExamProducts() { return soldExamProducts().map((p) => ({ key: p.key, name: p.name, longName: p.longName })); }
+// The products this member can study right now: a trial or a plan for that
+// exam. A member gets features such as study breaks for the exam they
+// registered for, not for every exam on sale.
+const STUDY_LEVELS = new Set(['trial', 'paid']);
+function accessibleExamProducts(user, now = new Date()) {
+  return soldExamProducts().filter((p) => STUDY_LEVELS.has(p.accessLevel(user, now)));
+}
 
 module.exports = {
-  PRODUCTS, examProduct, isExamKey, soldExamProducts, productUserFields, publicExamProducts,
+  PRODUCTS, examProduct, isExamKey, soldExamProducts, accessibleExamProducts, productUserFields, publicExamProducts,
   knowledgeBank, NCMHCE_TOPICS_BY_DOMAIN, sessionItem,
 };

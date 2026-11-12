@@ -75,9 +75,14 @@ scores and readiness but is excluded from case counts
 (`utils/ncmhceReadiness.js`, `utils/guaranteeRefund.js`). Eligibility is
 `trial` or `paid` for the chosen exam by that product's own rule in the
 registry (`accessFor` for the NCMHCE, the same rule `resolveAccess` uses;
-`nceLevel` for the NCE). The dashboard's exam picker is built from the
-products the API lists and hides when only one is on sale. Texts need the
-account's `smsOptedIn` number; otherwise the break goes by email.
+`nceLevel` for the NCE). A member gets breaks for the exam they registered
+for: the dashboard's exam picker lists only the exams they have a trial or
+plan for (`accessibleExamProducts`), hides the row when that is one exam, and
+explains when it is none; saving an exam without access is refused. An
+NCMHCE trial that has not started (no first case yet) counts as not
+registered here, the way an NCE trial does not exist before the first NCE
+visit. Texts need the account's `smsOptedIn` number; otherwise the break
+goes by email.
 
 ## Plan naming
 

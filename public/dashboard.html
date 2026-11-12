@@ -117,6 +117,7 @@
   .db-break-head h2{font-size:22px; font-weight:600; letter-spacing:-0.03em; margin:6px 0 6px}
   .db-break-head p{margin:0; max-width:560px}
   .db-break-form{display:flex; flex-direction:column; gap:14px; margin-top:20px}
+  #bk-fields{display:contents}
   .db-break-field{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
   .db-break-field > span:first-child{min-width:88px; font-size:13px; color:var(--prp-muted)}
   .db-break-days{display:flex; gap:6px; flex-wrap:wrap}
@@ -260,6 +261,8 @@
           </div>
         </div>
         <div class="db-break-form" id="break-form" hidden>
+          <p class="prp-meta" id="bk-none" hidden>Study breaks come with a trial or plan. Open the exam you are studying for to start yours, then come back here.</p>
+          <div id="bk-fields">
           <div class="db-break-field"><span>Exam</span><div class="prp-seg" id="bk-exam" role="group" aria-label="Exam"></div></div>
           <div class="db-break-field"><span>Days</span><div class="db-break-days" id="bk-days" role="group" aria-label="Days of the week"></div></div>
           <div class="db-break-field"><span>Time</span><select id="bk-time" aria-label="Time of day"></select><span class="prp-meta" id="bk-tz"></span></div>
@@ -269,6 +272,7 @@
             <button type="button" class="prp-btn prp-btn-primary" id="bk-save">Save</button>
             <button type="button" class="prp-btn prp-btn-secondary" id="bk-test">Send one now</button>
             <span class="prp-meta" id="bk-status" aria-live="polite"></span>
+          </div>
           </div>
         </div>
       </section>
@@ -723,12 +727,16 @@
     $('break-form').hidden = !p.enabled;
     // One button per exam product on sale (the server's list); the row hides
     // when there is only one to choose from.
+    // Only the exams this member has a trial or plan for: study breaks come
+    // with the exam they registered for. None → the form explains and waits.
     var exams = BK.exams || [];
     if (!exams.some(function (x) { return x.key === p.exam; }) && exams.length) p.exam = exams[0].key;
     $('bk-exam').innerHTML = exams.map(function (x) {
       return '<button type="button" data-v="' + esc(x.key) + '" title="' + esc(x.longName || x.name) + '">' + esc(x.name) + '</button>';
     }).join('');
     $('bk-exam').closest('.db-break-field').hidden = exams.length < 2;
+    $('bk-none').hidden = exams.length > 0;
+    $('bk-fields').hidden = exams.length === 0;
     setSeg('bk-exam', p.exam);
     setSeg('bk-count', String(p.count));
     setSeg('bk-channel', p.channel);

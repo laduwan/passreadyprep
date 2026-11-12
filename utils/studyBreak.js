@@ -46,14 +46,20 @@ function defaultPrefs(user) {
 }
 
 // Returns { value } or { error }. Keeps nothing the member did not send.
-function validatePrefs(body, { canSms }) {
+// `accessible` is the list of products the member may study (examProducts
+// accessibleExamProducts); when given, an exam outside it is refused.
+function validatePrefs(body, { canSms, accessible }) {
   const b = body || {};
   const v = {};
   v.enabled = !!b.enabled;
   // No exam given means the first product on sale; a key that is not a
   // product on sale is refused.
-  const product = b.exam == null || b.exam === '' ? soldExamProducts()[0] : examProduct(b.exam);
+  const choices = accessible || soldExamProducts();
+  const product = b.exam == null || b.exam === '' ? choices[0] : examProduct(b.exam);
   if (!product || !product.sold) return { error: 'Pick an exam.' };
+  if (accessible && !accessible.some((p) => p.key === product.key)) {
+    return { error: `Study breaks come with a trial or plan for the ${product.name}. Open ${product.name} study first.` };
+  }
   v.exam = product.key;
   v.channel = b.channel === 'sms' ? 'sms' : 'email';
   if (v.channel === 'sms' && !canSms) return { error: 'Add a mobile number and opt in to texts on your account first, or choose email.' };

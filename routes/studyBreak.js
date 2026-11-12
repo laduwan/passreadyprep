@@ -14,7 +14,11 @@ const express = require('express');
 const requireAuth = require('../middleware/auth');
 const User = require('../models/User');
 const sb = require('../utils/studyBreak');
-const { examProduct, publicExamProducts, productUserFields } = require('../utils/examProducts');
+const { examProduct, accessibleExamProducts, productUserFields } = require('../utils/examProducts');
+
+const USER_FIELDS = ['email', 'phone', 'smsOptedIn', 'studyBreak', ...productUserFields()].join(' ');
+// The exams this member may pick: the ones they have a trial or plan for.
+function examChoices(user) { return accessibleExamProducts(user).map((p) => ({ key: p.key, name: p.name, longName: p.longName })); }
 
 const router = express.Router();
 
@@ -29,10 +33,10 @@ function publicPrefs(user) {
 
 router.get('/', requireAuth, async (req, res) => {
   try {
-    const user = await User.findById(req.userId).select('email phone smsOptedIn studyBreak').lean();
+    const user = await User.findById(req.userId).select(USER_FIELDS).lean();
     if (!user) return res.status(404).json({ error: 'Account not found' });
     res.set('Cache-Control', 'no-store');
-    res.json({ prefs: publicPrefs(user), canSms: !!(user.phone && user.smsOptedIn), exams: publicExamProducts(), earliest: sb.EARLIEST, latest: sb.LATEST, counts: sb.COUNTS });
+    res.json({ prefs: publicPrefs(user), canSms: !!(user.phone && user.smsOptedIn), exams: examChoices(user), earliest: sb.EARLIEST, latest: sb.LATEST, counts: sb.COUNTS });
   } catch (err) {
     console.error('study-break get error', err);
     res.status(500).json({ error: 'Could not load your study break settings' });
@@ -41,10 +45,10 @@ router.get('/', requireAuth, async (req, res) => {
 
 router.put('/', requireAuth, async (req, res) => {
   try {
-    const user = await User.findById(req.userId).select('email phone smsOptedIn studyBreak');
+    const user = await User.findById(req.userId).select(USER_FIELDS);
     if (!user) return res.status(404).json({ error: 'Account not found' });
     const canSms = !!(user.phone && user.smsOptedIn);
-    const v = sb.validatePrefs(req.body, { canSms });
+    const v = sb.validatePrefs(req.body, { canSms, accessible: accessibleExamProducts(user) });
     if (v.error) return res.status(400).json({ error: v.error });
     const prev = user.studyBreak || {};
     user.studyBreak = { ...v.value, lastSentDay: prev.lastSentDay || null, lastTestAt: prev.lastTestAt || null, updatedAt: new Date() };
@@ -61,7 +65,7 @@ router.put('/', requireAuth, async (req, res) => {
 // button cannot run up the SMS bill.
 router.post('/test', requireAuth, async (req, res) => {
   try {
-    const user = await User.findById(req.userId).select(['email', 'phone', 'smsOptedIn', 'studyBreak', ...productUserFields()].join(' ')).lean();
+    const user = await User.findById(req.userId).select(USER_FIELDS).lean();
     if (!user) return res.status(404).json({ error: 'Account not found' });
     if (!user.studyBreak || !user.studyBreak.time) return res.status(400).json({ error: 'Save your study break settings first.' });
     const last = user.studyBreak.lastTestAt ? new Date(user.studyBreak.lastTestAt).getTime() : 0;
