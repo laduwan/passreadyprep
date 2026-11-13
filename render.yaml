@@ -25,7 +25,12 @@
 #   MAIL_POSTAL_ADDRESS (required before the scheduled nudge emails send:
 #   commercial email must show a mailing address), MAIL_REPLY_TO,
 #   MAIL_EXCLUDE_EMAILS, NUDGE_EMAILS_DISABLE (set to 1 to stop the nudge
-#   emails), NUDGE_SEND_HOUR_UTC (hour they go out, default 15 = 10am Eastern).
+#   emails), NUDGE_SEND_HOUR_UTC (hour they go out, default 15 = 10am Eastern),
+#   SMS_WEBHOOK_URL (only if inbound STOP signature checks fail behind the
+#   proxy), SMS_WEBHOOK_REPLY (1 = answer HELP ourselves; leave unset while
+#   Twilio's Advanced Opt-Out is on), SMS_SEND_HOUR_UTC (hour the exam-date
+#   reminder texts go out, default 18 = 1pm Eastern / 8am Hawaii),
+#   EXAM_REMINDERS_DISABLE (set to 1 to stop them).
 # See .env.example for the full documented list.
 # ---------------------------------------------------------------------------
 
