@@ -14,7 +14,7 @@ function computeNcmhceReadiness(attempts) {
       const ok = +(db[d] || {}).ok || 0, tot = +(db[d] || {}).total || 0;
       domains[d] = { ok, total: tot }; correct += ok; total += tot;
     });
-    return { correct, total, domains };
+    return { correct, total, domains, mode: a.mode };
   }).filter((e) => e.total > 0);
   if (!h.length) return null;
 
@@ -41,7 +41,8 @@ function computeNcmhceReadiness(attempts) {
   const raw = weightTotal ? (weightedSum / weightTotal) * 100 : overallPct;
   const score = Math.min(99, Math.round(raw * volumeFactor + recencyBoost));
 
-  return { score, cases: h.length, agg };
+  // Study breaks (mode 'break') shape the domain scores above but are not cases.
+  return { score, cases: h.filter((e) => e.mode !== 'break').length, agg };
 }
 
 module.exports = { computeNcmhceReadiness, DOMAIN_WEIGHTS };

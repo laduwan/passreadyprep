@@ -100,6 +100,25 @@ const UserSchema = new Schema(
     // for pacing calculations on the dashboard and in weekly digest emails.
     examDate: Date,
 
+    // Fast study break: a few questions from the weakest area, texted or
+    // emailed at a time the member chose (utils/studyBreak.js, jobs/studyBreaks.js).
+    // `days` are 0–6 (Sunday first); `time` is HH:MM on the member's own
+    // clock in `timezone`; `lastSentDay` is that day's YYYY-MM-DD once sent.
+    studyBreak: {
+      enabled: { type: Boolean, default: false },
+      // A key from utils/examProducts.js (required lazily: that file reads
+      // this model through the access rules).
+      exam: { type: String, default: 'ncmhce', validate: { validator: (v) => require('../utils/examProducts').isExamKey(v), message: 'Unknown exam product' } },
+      channel: { type: String, enum: ['sms', 'email'], default: 'email' },
+      time: String,
+      days: { type: [Number], default: undefined },
+      count: { type: Number, default: 5 },
+      timezone: String,
+      lastSentDay: String,
+      lastTestAt: Date,
+      updatedAt: Date,
+    },
+
     // One-time broadcast emails already sent to this account, keyed by an
     // idempotency key (e.g. 'sept2026_features') to the Date it was sent.
     // Lets a one-off broadcast script (see jobs/broadcast-sept2026.js) be

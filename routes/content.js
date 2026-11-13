@@ -6,6 +6,7 @@ const { TRIAL_DAYS, trialEndFor, trialLevel } = require('../utils/trial');
 const { BOOK_CASE_IDS } = require('./book');
 const { examKeyFor, outlineFor } = require('../utils/examVersion');
 const { isForfeited } = require('../utils/guaranteeRules');
+const { accessFor } = require('../utils/access');
 
 const router = express.Router();
 
@@ -43,45 +44,14 @@ async function resolveAccess(req, res, next) {
       });
     }
 
-    const sub = user.subscription || {};
-    const tier = sub.tier || 'free';
-    const now = new Date();
-    const expired = sub.currentPeriodEnd && sub.currentPeriodEnd < now;
-
-    // Guarantee tier gate: past the current period and no check-in on file →
-    // blocked until the next check-in lands (an uploaded score letter or exam
-    // appointment confirmation). A 'pending' report means the member has met
-    // the check-in requirement — access resumes immediately while admin review
-    // runs in the background; the member isn't held hostage to review latency.
-    // An approved extension sets a new currentPeriodEnd 3 months out, so once
-    // that lapses the gate returns. 'passed' never gates (nothing to gate).
-    if (tier === 'guarantee' && expired) {
-      const srStatus = sub.scoreReport?.status || 'none';
-      const checkedIn = srStatus === 'pending' || srStatus === 'passed';
-      if (!checkedIn) {
-        req.accessLevel = 'gated';
-        req.gateReason = isForfeited(sub.scoreReport) ? 'guarantee_forfeited' : 'score_report_required';
-        return next();
-      }
-    }
-
-    // The standard trial starts on the first case (utils/trial.js). Flag an
-    // account whose access rests on that clock but hasn't started it, so the
-    // single-case route below can start it — only there, never from a list.
-    req.trialNotStarted = !user.isGuest && !user.trialStartedAt;
-
-    // Monthly / pass3: if expired, fall back to the trial clock (long past → 'expired')
-    if (['monthly', 'pass3'].includes(tier) && expired) {
-      req.trialEndsAt = trialEndFor(user);
-      req.accessLevel = trialLevel(user);
-      return next();
-    }
-
-    req.trialEndsAt = trialEndFor(user);
-    req.accessLevel = tier === 'free' ? trialLevel(user) : 'paid';
-    // The plan behind that level, for features sold on one plan only (the
-    // AI debrief comes with the Pass Guarantee plan).
-    req.subscriptionTier = req.accessLevel === 'paid' ? tier : 'free';
+    // The access rule itself lives in utils/access.js, shared with the
+    // background jobs that need the same answer without a request.
+    const a = accessFor(user, new Date());
+    req.accessLevel = a.accessLevel;
+    if (a.gateReason) req.gateReason = a.gateReason;
+    req.trialEndsAt = a.trialEndsAt || undefined;
+    req.trialNotStarted = a.trialNotStarted;
+    req.subscriptionTier = a.subscriptionTier;
     next();
   } catch (err) {
     req.accessLevel = 'free';
