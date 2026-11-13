@@ -31,6 +31,18 @@ const UserSchema = new Schema(
     phone: { type: String, trim: true, default: null },
     smsOptedIn: { type: Boolean, default: false },
     smsOptedInAt: Date,
+    // Set when the member texts STOP (or an admin opts them out). smsOptedIn
+    // is flipped to false at the same time; this timestamp is the audit trail
+    // a carrier audit asks for, and utils/sms.js treats either one as a bar on
+    // sending. Cleared only by a fresh, explicit opt-in.
+    smsOptedOutAt: Date,
+    // Which customer texts have already gone to this account, keyed the way
+    // broadcastsSent is: 'opt_in_confirm' | 'trial_ending_soon' |
+    // 'payment_failed' | 'exam_<exam>_<days>_<YYYY-MM-DD>' -> when it was sent.
+    // Every scheduled send checks this first, so an hourly job cannot text the
+    // same person twice. Keyed by exam date as well as window so that moving
+    // an exam date earns a fresh reminder.
+    smsSent: { type: Schema.Types.Mixed, default: {} },
 
     examsEnrolled: [{ type: Schema.Types.ObjectId, ref: 'Exam' }],
 

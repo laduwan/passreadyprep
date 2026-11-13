@@ -21,6 +21,11 @@
  * started (trialStartedAt set) — nobody is told their trial ended when it
  * never began.
  *
+ * 'ending_soon' ALSO sends a text, but only to accounts that opted in to SMS at
+ * sign-up (utils/sms.js decides; this job never checks consent itself). It is
+ * the only one of the three that texts: it is the only one where the deadline
+ * is tomorrow and acting today changes the outcome.
+ *
  * The 'ended' look-back window matters: without it, the very first run after
  * deploy would email every free-tier account that has ever lapsed, including
  * signups from months ago. The window keeps this to people whose trial just
@@ -41,6 +46,7 @@ const User = require('../models/User');
 const { sendMail } = require('../utils/mailer');
 const { logActivity } = require('../utils/activity');
 const { TRIAL_DAYS, trialEndFor } = require('../utils/trial');
+const { sendUserSms, canText, TEMPLATES } = require('../utils/sms');
 
 const LOG = '[TrialReminders]';
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -164,7 +170,7 @@ function candidateFilter(now) {
 
 async function checkAndSendTrialReminders() {
   const now = new Date();
-  const stats = { checked: 0, firstCaseSent: 0, endingSoonSent: 0, endedSent: 0, errors: 0 };
+  const stats = { checked: 0, firstCaseSent: 0, endingSoonSent: 0, endedSent: 0, smsSent: 0, errors: 0 };
 
   if (process.env.TRIAL_REMINDERS_DISABLE === '1') return stats;
 
@@ -172,7 +178,7 @@ async function checkAndSendTrialReminders() {
     // Only free-tier accounts are trial candidates — anyone on a paid tier has
     // already converted and shouldn't get "your trial ended" copy.
     const candidates = await User.find(candidateFilter(now))
-      .select('email name createdAt trialStartedAt trialEndsAt trialEmailsSent')
+      .select('email name createdAt trialStartedAt trialEndsAt trialEmailsSent phone smsOptedIn smsOptedOutAt smsSent')
       .limit(MAX_PER_RUN);
 
     stats.checked = candidates.length;
@@ -210,6 +216,18 @@ async function checkAndSendTrialReminders() {
         await User.updateOne({ _id: user._id }, { $addToSet: { trialEmailsSent: kind } });
         await sendMail({ to: user.email, subject, html, text });
 
+        // The one trial text, to members who opted in: the trial ends tomorrow
+        // and there is something to do about it today. Deliberately only this
+        // one of the three — 'first_case' and 'ended' are not time-critical,
+        // and message frequency is what gets a 10DLC campaign complained
+        // about. Marked before sending, like the email above, because a
+        // duplicate text costs money and annoys where a missed one does not.
+        if (kind === 'ending_soon' && canText(user) && !(user.smsSent || {}).trial_ending_soon) {
+          await User.updateOne({ _id: user._id }, { $set: { 'smsSent.trial_ending_soon': new Date() } });
+          const sms = await sendUserSms(user, TEMPLATES.trialEndingSoon(), { type: 'trial_ending_soon' });
+          if (sms.sent) stats.smsSent++;
+        }
+
         if (kind === 'first_case') stats.firstCaseSent++;
         else if (kind === 'ending_soon') stats.endingSoonSent++;
         else stats.endedSent++;
@@ -224,7 +242,7 @@ async function checkAndSendTrialReminders() {
   }
 
   if (stats.firstCaseSent || stats.endingSoonSent || stats.endedSent || stats.errors) {
-    console.log(`${LOG} checked=${stats.checked} firstCase=${stats.firstCaseSent} endingSoon=${stats.endingSoonSent} ended=${stats.endedSent} errors=${stats.errors}`);
+    console.log(`${LOG} checked=${stats.checked} firstCase=${stats.firstCaseSent} endingSoon=${stats.endingSoonSent} ended=${stats.endedSent} sms=${stats.smsSent} errors=${stats.errors}`);
     logActivity({
       type: 'trial.reminders_run',
       severity: stats.errors ? 'warn' : 'info',
