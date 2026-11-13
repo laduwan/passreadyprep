@@ -10,7 +10,8 @@
  * broken or the server is down.
  *
  * So this route is not the opt-out mechanism; it is how our DATABASE learns
- * about it. Without it, User.smsOptedIn stays true for someone who has opted
+ * about it — clearing the consent flag and switching off any scheduled study
+ * break, so nothing keeps queueing texts to a number that has opted out. Without it, User.smsOptedIn stays true for someone who has opted
  * out, every scheduled job keeps queueing texts to them, and each one comes
  * back as Twilio error 21610. Those rejections count against the campaign's
  * error rate, which is exactly what carriers look at. Keeping the flag in sync
@@ -136,8 +137,13 @@ async function applyKeyword(from, optingOut) {
   const variants = phoneVariants(from);
   if (!variants.length) return { matched: 0 };
 
+  // A STOP also switches off a scheduled study break (jobs/studyBreaks.js).
+  // sendUserSms() would refuse the text anyway, but leaving the schedule armed
+  // would show it as "on" in the dashboard while nothing was ever sent. START
+  // does NOT switch it back on: re-arming something on the member's behalf is
+  // not what they asked for, and the dashboard toggle is one tap.
   const update = optingOut
-    ? { $set: { smsOptedIn: false, smsOptedOutAt: new Date() } }
+    ? { $set: { smsOptedIn: false, smsOptedOutAt: new Date(), 'studyBreak.enabled': false } }
     // An inbound START is an explicit, logged consent from the handset, which
     // is exactly what a carrier wants to see. It only ever re-enables a number
     // that was already in our records; it cannot enrol a stranger.

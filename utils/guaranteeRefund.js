@@ -113,7 +113,7 @@ async function refundEligibility(user, examDate, priorReports = [], examKey = 'n
   if (isNce) {
     ({ questions, mocks, readiness: score } = ncePractice(attempts));
   } else {
-    cases = new Set(attempts.map((a) => String(a.externalId || a.contentItemId || a._id))).size;
+    cases = new Set(attempts.filter((a) => a.mode !== 'break').map((a) => String(a.externalId || a.contentItemId || a._id))).size // a study break is not a case;
     mocks = countMockExams(attempts.filter((a) => a.mode === 'timed'));
     const readiness = computeNcmhceReadiness(attempts);
     score = readiness ? readiness.score : 0;
