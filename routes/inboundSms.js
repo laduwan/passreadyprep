@@ -52,10 +52,22 @@ const { phoneVariants } = require('../utils/sms');
 
 const LOG = '[inbound-sms]';
 
-// The CTIA-mandated keyword sets. Twilio recognises the same words, so these
-// must match what it acts on or our records drift from its block list.
+// The keyword sets. These mirror the Messaging Service's Opt-Out Management
+// settings, but the two lists are NOT symmetrical, because getting them wrong
+// fails in opposite directions.
+//
+// OPT_OUT may be a SUPERSET of what Twilio acts on. If we treat a word as a
+// STOP that Twilio does not, we stop sending to someone who meant to leave —
+// which is the error worth making.
+//
+// OPT_IN must be a SUBSET of Twilio's opt-in keywords. Twilio's block is the
+// one that actually governs delivery, so if we re-subscribe someone it still
+// has blocked, every later send is rejected (error 21610) and that error rate
+// is what carriers measure. 'yes' was here and is not one of Twilio's
+// (Start / Unstop): it is also far too common a reply to mean "resubscribe
+// me". If you add a word here, add it in the console first.
 const OPT_OUT = new Set(['stop', 'stopall', 'unsubscribe', 'cancel', 'end', 'quit', 'stop all', 'revoke', 'optout', 'opt-out']);
-const OPT_IN = new Set(['start', 'yes', 'unstop', 'optin', 'opt-in']);
+const OPT_IN = new Set(['start', 'unstop']);
 const HELP = new Set(['help', 'info']);
 
 const HELP_TEXT =
