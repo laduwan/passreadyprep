@@ -43,7 +43,6 @@ app.use('/api/payment/apple', require('./routes/applePayment'));
 app.use('/api/payment', require('./routes/payment'));
 app.use('/api/progress', require('./routes/progress'));
 app.use('/api/study-break', require('./routes/studyBreak'));   // fast study break settings + the link's session
-app.use('/api/sms', require('./routes/sms'));                   // Twilio inbound (STOP / START)
 app.use('/api/activity', require('./routes/activity'));
 app.use('/api/content', require('./routes/content'));
 app.use('/api/book', require('./routes/book'));

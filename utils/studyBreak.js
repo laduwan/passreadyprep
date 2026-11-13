@@ -20,7 +20,12 @@ const StudyBreak = require('../models/StudyBreak');
 const User = require('../models/User');
 const { NCMHCE_DOMAIN_LABELS } = require('./progressSummary');
 const { examProduct, isExamKey, soldExamProducts, knowledgeBank, NCMHCE_TOPICS_BY_DOMAIN } = require('./examProducts');
-const { sendMail, sendSms } = require('./mailer');
+const { sendMail } = require('./mailer');
+// Member texts go through the guarded sender, never mailer's raw sendSms:
+// canText() is the single definition of "may we text this person" (opted in,
+// not opted out, usable number), so this file cannot drift from it. See the
+// header of utils/sms.js.
+const { sendUserSms, canText } = require('./sms');
 
 const COUNTS = [3, 4, 5];
 const DEFAULT_DAYS = [1, 2, 3, 4, 5];           // Mon–Fri; 0 = Sunday
@@ -40,7 +45,7 @@ function validTimezone(tz) {
 }
 
 function defaultPrefs(user) {
-  const canSms = !!(user && user.phone && user.smsOptedIn);
+  const canSms = canText(user);
   const first = soldExamProducts()[0];
   return { enabled: false, exam: first ? first.key : 'ncmhce', channel: canSms ? 'sms' : 'email', time: '12:00', days: DEFAULT_DAYS.slice(), count: 5, timezone: null };
 }
@@ -172,7 +177,7 @@ async function sendBreak(user, { now = new Date(), test = false, channel } = {})
   if (!product) throw new Error('No exam products');
   const exam = product.key;
   const count = COUNTS.includes(Number(pref.count)) ? Number(pref.count) : 5;
-  const canSms = !!(user.phone && user.smsOptedIn);
+  const canSms = canText(user);
   const via = (channel || pref.channel) === 'sms' && canSms ? 'sms' : 'email';
 
   const summary = await product.summarize(user._id);
@@ -190,7 +195,8 @@ async function sendBreak(user, { now = new Date(), test = false, channel } = {})
 
   let sendResult;
   if (via === 'sms') {
-    sendResult = await sendSms({ to: user.phone, text: smsText(session, link) });
+    const sms = await sendUserSms(user, smsText(session, link), { type: 'study_break' });
+    sendResult = { ok: sms.sent, dev: !!sms.dev, error: sms.reason || null };
   } else {
     sendResult = await sendMail({
       to: user.email,

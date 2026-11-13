@@ -14,6 +14,7 @@ const express = require('express');
 const requireAuth = require('../middleware/auth');
 const User = require('../models/User');
 const sb = require('../utils/studyBreak');
+const { canText } = require('../utils/sms');
 const { examProduct, accessibleExamProducts, productUserFields } = require('../utils/examProducts');
 
 const USER_FIELDS = ['email', 'phone', 'smsOptedIn', 'studyBreak', ...productUserFields()].join(' ');
@@ -36,7 +37,7 @@ router.get('/', requireAuth, async (req, res) => {
     const user = await User.findById(req.userId).select(USER_FIELDS).lean();
     if (!user) return res.status(404).json({ error: 'Account not found' });
     res.set('Cache-Control', 'no-store');
-    res.json({ prefs: publicPrefs(user), canSms: !!(user.phone && user.smsOptedIn), exams: examChoices(user), earliest: sb.EARLIEST, latest: sb.LATEST, counts: sb.COUNTS });
+    res.json({ prefs: publicPrefs(user), canSms: canText(user), exams: examChoices(user), earliest: sb.EARLIEST, latest: sb.LATEST, counts: sb.COUNTS });
   } catch (err) {
     console.error('study-break get error', err);
     res.status(500).json({ error: 'Could not load your study break settings' });
@@ -47,7 +48,7 @@ router.put('/', requireAuth, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select(USER_FIELDS);
     if (!user) return res.status(404).json({ error: 'Account not found' });
-    const canSms = !!(user.phone && user.smsOptedIn);
+    const canSms = canText(user);
     const v = sb.validatePrefs(req.body, { canSms, accessible: accessibleExamProducts(user) });
     if (v.error) return res.status(400).json({ error: v.error });
     const prev = user.studyBreak || {};
