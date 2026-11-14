@@ -234,15 +234,15 @@
       { tier: 'monthly', name: 'Monthly', price: 2900, per: '/ month', tag: 'Cancel anytime',
         short: 'Cancel anytime', note: 'cancel anytime',
         desc: 'Full NCMHCE practice, billed monthly.',
-        feats: ['All case simulations', 'Timed mock exams', 'Readiness by domain', 'No AI debrief'] },
+        feats: ['All case simulations', 'Timed mock exams', 'Readiness by domain', 'Free CE course when you pass', 'No AI debrief'] },
       { tier: 'pass3', name: '3-month pass', price: 7900, per: '/ 3 months', tag: 'Most popular',
         short: 'Billed every 3 months', note: 'billed every 3 months, cancel anytime',
         desc: '3 months of full NCMHCE access. Billed every 3 months until you cancel.',
-        feats: ['Everything in Monthly', 'Billed every 3 months', 'Cancel any time', 'No AI debrief'] },
+        feats: ['Everything in Monthly', 'Billed every 3 months', 'Cancel any time', 'Free CE course when you pass', 'No AI debrief'] },
       { tier: 'pass6', name: '6-month pass', price: 11900, per: '/ 6 months', tag: 'Room for a retake',
         short: 'Billed every 6 months', note: 'billed every 6 months, cancel anytime',
         desc: '6 months of full NCMHCE access. Billed every 6 months until you cancel.',
-        feats: ['Everything in Monthly', 'Billed every 6 months', 'Room for a retake', 'No AI debrief'] },
+        feats: ['Everything in Monthly', 'Billed every 6 months', 'Room for a retake', 'Free CE course when you pass', 'No AI debrief'] },
       { tier: 'guarantee', name: 'Until you pass', price: 24900, per: 'one time', tag: 'Guaranteed',
         short: 'Free extensions until you pass', note: 'one payment, never renews', terms: true,
         desc: 'One payment, then free access extensions until you pass, with the AI debrief after every case. You check in every 6 months with your exam date or score report.',
@@ -254,15 +254,15 @@
       { tier: 'nce_monthly', name: 'Monthly', price: 2499, per: '/ month', tag: 'Cancel anytime',
         short: 'Cancel anytime', note: 'cancel anytime',
         desc: 'Full NCE practice, billed monthly. Billed separately from NCMHCE.',
-        feats: ['Full NCE question bank', 'Unlimited timed mock exams', 'Progress by NCE domain'] },
+        feats: ['Full NCE question bank', 'Unlimited timed mock exams', 'Progress by NCE domain', 'Free CE course when you pass'] },
       { tier: 'nce_pass3', name: '3-month pass', price: 5999, per: '/ 3 months', tag: 'Most popular',
         short: 'Billed every 3 months', note: 'billed every 3 months, cancel anytime',
         desc: '3 months of full NCE access. Billed every 3 months until you cancel.',
-        feats: ['Everything in Monthly', 'Billed every 3 months', 'Cancel any time'] },
+        feats: ['Everything in Monthly', 'Billed every 3 months', 'Cancel any time', 'Free CE course when you pass'] },
       { tier: 'nce_pass6', name: '6-month pass', price: 8900, per: '/ 6 months', tag: 'Best value',
         short: 'Billed every 6 months', note: 'billed every 6 months, cancel anytime',
         desc: '6 months of full NCE access. Billed every 6 months until you cancel.',
-        feats: ['Everything in Monthly', 'Billed every 6 months', 'Room for a retake'] },
+        feats: ['Everything in Monthly', 'Billed every 6 months', 'Room for a retake', 'Free CE course when you pass'] },
       // Hidden until STRIPE_PRICE_NCE_GUARANTEE exists: /api/payment/plans
       // leaves out a tier with no price, and `liveOnly` keeps it off the page
       // until that lookup says it is on sale.
@@ -375,7 +375,8 @@
       : (APP
           ? 'Payment is charged to your Apple ID when you confirm. It renews at the same price unless you cancel at '
             + 'least 24 hours before the period ends. Manage or cancel it in your App Store settings.'
-          : 'Renews automatically until you cancel. Cancel any time from your account page.');
+          : 'Renews automatically until you cancel. Cancel any time from your account page. Pass and your first CE '
+            + 'course on CounselorReady is free: just come back and tell us you passed.');
   }
 
   function renderStats(s) {

@@ -376,11 +376,11 @@ html.theme-light .facts input,html.theme-light .plan-date{color-scheme:light}
   // Shown on the page; the charge itself is the Stripe price behind each tier.
   var PLANS = [
     { tier:'nce_monthly', name:'Monthly', price:'$24.99', per:'/month', note:'Cancel anytime',
-      features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain'] },
+      features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain','Free CE course on CounselorReady when you pass'] },
     { tier:'nce_pass3', name:'3-Month Pass', price:'$59.99', per:'/3 months', note:'Most popular', best:true,
-      features:['Everything in Monthly','Billed every 3 months','Cancel any time'] },
+      features:['Everything in Monthly','Billed every 3 months','Cancel any time','Free CE course on CounselorReady when you pass'] },
     { tier:'nce_pass6', name:'6-Month Pass', price:'$89', per:'/6 months', note:'Best value',
-      features:['Everything in Monthly','Billed every 6 months','Room for a retake'] },
+      features:['Everything in Monthly','Billed every 6 months','Room for a retake','Free CE course on CounselorReady when you pass'] },
     // The NCE Pass Guarantee bundles the NCE digital study guide; the webhook
     // grants `guideNcePurchasedAt` on purchase (see routes/payment.js).
     { tier:'nce_guarantee', name:'Pass Guarantee', price:'$189', per:'one-time', note:'Study till you pass', best:true,
@@ -681,7 +681,7 @@ html.theme-light .facts input,html.theme-light .plan-date{color-scheme:light}
   function pricingHtml(){
     if (STATUS.accessLevel === 'paid' || STATUS.accessLevel === 'gated') return '';
     return '<div class="card" id="pricing"><h2>NCE plans</h2>'+
-      '<p class="muted small" style="margin-top:-4px">Billed separately from NCMHCE. Cancel any time.</p><div class="plans">'+
+      '<p class="muted small" style="margin-top:-4px">Billed separately from NCMHCE. Cancel any time. Pass on any plan and your first CE course on CounselorReady is free: just come back and tell us you passed.</p><div class="plans">'+
       PLANS.map(function(p){
         var price = LIVE[p.tier] ? money(LIVE[p.tier].amount) : p.price;
         return '<div class="plan'+(p.best?' best':'')+'"><div class="pn">'+esc(p.name)+(p.note?' · '+esc(p.note):'')+'</div>'+
