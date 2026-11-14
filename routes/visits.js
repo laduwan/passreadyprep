@@ -152,17 +152,37 @@ router.get('/stats', requireAdmin, async (req, res) => {
         { $sort: { views: -1 } },
         { $limit: 20 },
       ]),
-      // Tagged links: one row per source / medium / campaign, with views and
-      // distinct visitor-days, so each YouTube video or ad can be compared.
+      // Tagged links: one row per source / medium / campaign. Only the page a
+      // visitor lands on carries the tag (links inside the site don't), so
+      // each visitor-day is rolled up with everything it opened that day.
+      // "wentFurther" counts the visitor-days that also opened an untagged
+      // page, i.e. clicked on into the site (a case, sign-up, checkout…).
+      // YouTube's link checker opens every description link whenever a
+      // description changes, sometimes several from one address, but only
+      // ever tagged links, so it adds to visitors and never to wentFurther,
+      // which is what the table sorts by.
       PageView.aggregate([
-        { $match: { ...range, utmSource: { $nin: ['', null] } } },
+        { $match: range },
         { $group: {
-          _id: { source: '$utmSource', medium: { $ifNull: ['$utmMedium', ''] }, campaign: { $ifNull: ['$utmCampaign', ''] } },
-          views: { $sum: 1 },
-          visitors: { $addToSet: '$visitorHash' },
+          _id: { day: '$day', visitor: '$visitorHash' },
+          tags: { $addToSet: { $cond: [
+            { $gt: [{ $strLenCP: { $ifNull: ['$utmSource', ''] } }, 0] },
+            { source: '$utmSource', medium: { $ifNull: ['$utmMedium', ''] }, campaign: { $ifNull: ['$utmCampaign', ''] } },
+            null,
+          ] } },
+          taggedViews: { $sum: { $cond: [{ $gt: [{ $strLenCP: { $ifNull: ['$utmSource', ''] } }, 0] }, 1, 0] } },
+          untaggedViews: { $sum: { $cond: [{ $gt: [{ $strLenCP: { $ifNull: ['$utmSource', ''] } }, 0] }, 0, 1] } },
         } },
-        { $project: { views: 1, visitors: { $size: '$visitors' } } },
-        { $sort: { views: -1 } },
+        { $project: { taggedViews: 1, untaggedViews: 1, tags: { $filter: { input: '$tags', cond: { $ne: ['$$this', null] } } } } },
+        { $match: { 'tags.0': { $exists: true } } },
+        { $unwind: '$tags' },
+        { $group: {
+          _id: '$tags',
+          visitors: { $sum: 1 },
+          wentFurther: { $sum: { $cond: [{ $gt: ['$untaggedViews', 0] }, 1, 0] } },
+          views: { $sum: '$taggedViews' },
+        } },
+        { $sort: { wentFurther: -1, visitors: -1 } },
         { $limit: 30 },
       ]),
     ]);
@@ -189,7 +209,7 @@ router.get('/stats', requireAdmin, async (req, res) => {
       daily,
       topPages: topPages.map((r) => ({ path: r._id, views: r.views })),
       topReferrers: topReferrers.map((r) => ({ host: r._id, views: r.views })),
-      topCampaigns: topCampaigns.map((r) => ({ source: r._id.source, medium: r._id.medium, campaign: r._id.campaign, views: r.views, visitors: r.visitors })),
+      topCampaigns: topCampaigns.map((r) => ({ source: r._id.source, medium: r._id.medium, campaign: r._id.campaign, views: r.views, visitors: r.visitors, wentFurther: r.wentFurther })),
     });
   } catch (err) {
     console.error('visit stats error', err);
