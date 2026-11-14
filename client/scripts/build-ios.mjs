@@ -28,13 +28,16 @@ const PAGES = [
   'pricing.html',
   // The NCMHCE dashboard (screens 3 and 7), linked from the study header.
   'dashboard.html',
+  // The two books, sold in the app as In-App Purchases (tiers guide and
+  // guide_nce); their buy buttons land on purchase.html.
+  'study-guide.html', 'nce-study-guide.html',
 ];
 // Pages the shim opens on passreadyprep.com instead (keep in sync with EXTERNAL in native-shim.js).
 const EXTERNAL = new Set(['policies.html', 'privacy.html', 'score-report.html', 'accessibility.html']);
 // Pages the shim blocks with a notice (keep in sync with BLOCKED in
 // native-shim.js). They are not bundled; links to them only appear in web-only
 // code branches that never run in the app, so they are allowed to be missing.
-const BLOCKED = new Set(['nce-study-guide.html', 'book.html']);
+const BLOCKED = new Set(['book.html']);
 const ASSET_EXT = /\.(js|css|json|pdf|png|jpe?g|gif|svg|webp|ico|mp3|mp4|m4a|woff2?|ttf|otf|webmanifest)$/i;
 // The shim goes first (it rewrites fetch and routes purchase URLs through IAP).
 // native-iap.js wires every "buy" path to StoreKit (ios/App/App/StoreKitPlugin.swift).
@@ -62,6 +65,9 @@ execSync('npx vite build', { cwd: root, stdio: 'inherit' });
 // client/index.html. In the app every extension-less path (/study) loads
 // index.html, so it must be the same page the website shows.
 fs.copyFileSync(path.join(pub, 'index.html'), path.join(dist, 'index.html'));
+// Same for the NCMHCE study guide: client/public holds an older copy; the app
+// ships the page the website shows.
+fs.copyFileSync(path.join(pub, 'study-guide.html'), path.join(dist, 'study-guide.html'));
 
 // Every quoted local path in a file that resolves to an existing public asset.
 function refsIn(text) {

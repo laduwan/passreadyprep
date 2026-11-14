@@ -229,7 +229,7 @@
       return products().then(function (p) {
         if (!p.enabled) return origFetch.apply(self, args);
         var plans = Object.keys(p.byTier).filter(function (t) {
-          return (t.indexOf('nce_') === 0 ? 'nce' : 'ncmhce') === exam && t !== 'guide';
+          return (t.indexOf('nce_') === 0 ? 'nce' : 'ncmhce') === exam && t.indexOf('guide') !== 0; // the books are not plans
         }).map(function (t) {
           var prod = p.byTier[t];
           return {

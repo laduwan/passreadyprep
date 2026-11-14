@@ -57,6 +57,14 @@ function hasActiveGuarantee(plan, cfg) {
   return plan && plan.tier === guaranteeTierFor(cfg) && plan.status !== 'canceled';
 }
 
+// Which account fields a study-guide purchase sets. Same split the Stripe
+// webhook uses (routes/payment.js): TIERS[tier].entitlement picks the book.
+const GUIDE_FIELDS = {
+  ncmhce: { at: 'guidePurchasedAt', order: 'guideOrderId' },
+  nce: { at: 'guideNcePurchasedAt', order: 'guideNceOrderId' },
+};
+function guideFields(cfg) { return GUIDE_FIELDS[cfg.entitlement] || GUIDE_FIELDS.ncmhce; }
+
 // Applies one verified transaction to the account. Idempotent: the same
 // transaction can be sent any number of times. Returns a small summary.
 async function applyTransaction(user, tx, opts = {}) {
@@ -71,7 +79,7 @@ async function applyTransaction(user, tx, opts = {}) {
   // One Apple purchase belongs to one PassReady account.
   const owner = await AppleTransaction.findOne({ originalTransactionId: originalId }).select('userId');
   if (owner && String(owner.userId) !== String(user._id)) {
-    const ownerUser = await User.findById(owner.userId).select('isGuest subscription nceAccess guideOrderId');
+    const ownerUser = await User.findById(owner.userId).select('isGuest subscription nceAccess guideOrderId guideNceOrderId');
     // Launch sync (opts.auto) on another guest account never takes it, or two
     // guest devices on one Apple ID would pass it back and forth; tapping
     // Restore purchases (or signing in) moves it.
@@ -115,11 +123,12 @@ async function applyTransaction(user, tx, opts = {}) {
   const now = new Date();
   const update = {};
 
-  // ── Study guide: an entitlement, never a tier ──
+  // ── Study guides: an entitlement, never a tier ──
   if (cfg.entitlementOnly) {
-    if (!user.guidePurchasedAt) {
-      update.guidePurchasedAt = date(tx.purchaseDate) || now;
-      update.guideOrderId = 'apple:' + transactionId;
+    const g = guideFields(cfg);
+    if (!user[g.at]) {
+      update[g.at] = date(tx.purchaseDate) || now;
+      update[g.order] = 'apple:' + transactionId;
       await User.findByIdAndUpdate(user._id, update);
       logActivity({ type: paymentEventType(tx), severity: 'info', userId: user._id, email: user.email, message: `One-time product purchased: ${entry.tier} (App Store)`, meta: { tier: entry.tier, source: 'apple', transactionId, environment: tx.environment } });
       return { ...base, action: 'granted' };
@@ -207,9 +216,11 @@ async function releaseFromGuest(guest, originalId) {
       update[`${path}.currentPeriodEnd`] = new Date();
     }
   });
-  if (guest.guideOrderId && ids.includes(guest.guideOrderId)) {
-    update.$unset = { guidePurchasedAt: 1, guideOrderId: 1 };
-  }
+  [GUIDE_FIELDS.ncmhce, GUIDE_FIELDS.nce].forEach((g) => {
+    if (guest[g.order] && ids.includes(guest[g.order])) {
+      update.$unset = Object.assign(update.$unset || {}, { [g.at]: 1, [g.order]: 1 });
+    }
+  });
   if (Object.keys(update).length) await User.findByIdAndUpdate(guest._id, update);
 }
 
@@ -219,8 +230,9 @@ async function revokeTransaction(user, entry, cfg, record) {
   const transactionId = record ? record.transactionId : null;
   const update = {};
   if (cfg.entitlementOnly) {
-    if (transactionId && String(user.guideOrderId || '') === 'apple:' + transactionId) {
-      update.$unset = { guidePurchasedAt: 1, guideOrderId: 1 };
+    const g = guideFields(cfg);
+    if (transactionId && String(user[g.order] || '') === 'apple:' + transactionId) {
+      update.$unset = { [g.at]: 1, [g.order]: 1 };
     }
   } else {
     const path = planPath(cfg);
