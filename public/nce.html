@@ -73,6 +73,7 @@ header.nce-head{display:flex;align-items:center;justify-content:space-between;ga
 .hdr-r{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .prp a.nav-link{display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-weight:600;color:var(--prp-text-2);text-decoration:none}
 .prp a.nav-link:hover{color:var(--prp-text)}
+.back-link{gap:8px;margin-right:auto;padding-left:16px;border-left:1px solid var(--prp-divider)}
 .exam-seg{display:flex;border:1px solid var(--prp-divider)}
 .prp .exam-seg a{display:flex;align-items:center;min-height:36px;padding:0 14px;font-size:13px;font-weight:500;color:var(--prp-text-2);text-decoration:none}
 .prp .exam-seg a[aria-current="page"]{background:var(--prp-accent);color:var(--prp-on-accent)}
@@ -311,6 +312,7 @@ html.theme-light .facts input,html.theme-light .plan-date{color-scheme:light}
       <svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#0F172A"/><g fill="none" stroke="#34D399" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"><path d="M256 74 L456 164 L256 254 L56 164 Z"/><path d="M118 192 V370 Q256 430 394 370 V192"/><path d="M456 164 V290"/></g><text x="256" y="355" text-anchor="middle" font-family="Archivo, Inter, system-ui, sans-serif" font-weight="500" font-size="84" letter-spacing="10" fill="#F8FAFC">PRP</text></svg>
       <span>PassReady<span class="p"> Prep</span></span>
     </a>
+    <a class="nav-link back-link hidden" id="nce-back" href="/nce.html"><span aria-hidden="true">&larr;</span> Back to NCE home</a>
     <nav class="hdr-r" aria-label="Main">
       <div class="exam-seg" role="group" aria-label="Choose an exam">
         <a href="/nce.html" aria-current="page">NCE</a>
@@ -391,6 +393,15 @@ html.theme-light .facts input,html.theme-light .plan-date{color-scheme:light}
   function money(cents){ return '$' + (cents / 100).toFixed(cents % 100 ? 2 : 0); }
 
   var stage = document.getElementById('stage');
+  // "Back to NCE home" shows on every screen but the home itself and a mock
+  // in progress, which leaves through the timer bar's Exit (it asks first).
+  var backLink = document.getElementById('nce-back');
+  function syncBack(){
+    var home = !!stage.querySelector('.nce-hero');
+    var inMock = document.getElementById('timer-bar').style.display === 'block';
+    backLink.classList.toggle('hidden', home || inMock);
+  }
+  new MutationObserver(syncBack).observe(stage, { childList: true });
   var timerBar = document.getElementById('timer-bar');
   var timerDisplay = document.getElementById('timer-display');
   var timerProg = document.getElementById('timer-prog');
