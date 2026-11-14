@@ -113,6 +113,53 @@ header.nce-head{display:flex;align-items:center;justify-content:space-between;ga
 .hero-body{display:flex;flex-direction:column;gap:20px;min-width:0}
 .hero-body h1{margin:0;text-wrap:balance}
 .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+/* signed-out home: the selling version (sample item, proof numbers, how it
+   works, guarantee) above the domain list. Same pattern as /study. */
+.nce-hero.sell{align-items:center;gap:40px 64px;margin-bottom:56px}
+.prp .nce-hero.sell h1{font-size:52px;line-height:1.08;letter-spacing:-.025em;margin:0}
+.nce-hero.sell h1 em{font-style:normal;color:var(--prp-accent-text)}
+.nce-hero.sell .lead{font-size:18px;line-height:1.55;max-width:560px}
+.nce-hero.sell .hero-cta .btn{min-height:56px;min-width:240px;font-size:17px}
+.sell-ticks{display:flex;flex-wrap:wrap;gap:8px 24px;margin:0;padding:0;list-style:none;font-size:14px;color:var(--prp-text-2)}
+.sell-ticks li::before{content:"\2713";color:var(--prp-accent-text);font-weight:600;margin-right:8px}
+.sell-sample{background:var(--prp-surface);border:1px solid var(--prp-divider);border-top:3px solid var(--prp-accent);padding:28px}
+.sell-sample .kick{display:flex;justify-content:space-between;gap:12px;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--prp-accent-text);margin-bottom:12px}
+.sell-sample .kick span + span{color:var(--prp-muted);letter-spacing:0;text-transform:none;text-align:right}
+.sell-sample .stem{font-size:15px;line-height:1.55;color:var(--prp-text-2);margin:0 0 8px}
+.sell-sample .ask{font-size:17px;font-weight:600;color:var(--prp-text);margin:0 0 12px}
+.sell-opt{display:flex;align-items:center;gap:12px;padding:11px 12px;border-top:1px solid var(--prp-divider);font-size:15px;color:var(--prp-text-2)}
+.sell-opt b{color:var(--prp-muted);font-weight:600;min-width:14px}
+.sell-opt span{flex:1}
+.sell-opt i{font-style:normal;font-weight:600;font-size:14px;min-width:20px;text-align:right;color:var(--prp-danger)}
+.sell-opt.best{background:var(--prp-accent-tint);border:1px solid var(--prp-accent);color:var(--prp-text)}
+.sell-opt.best i{color:var(--prp-accent-text)}
+.sell-opt.best + .sell-opt{border-top-color:transparent}
+.sell-sample .why{font-size:14px;line-height:1.55;color:var(--prp-text-2);margin:16px 0 0;padding-top:16px;border-top:1px solid var(--prp-divider)}
+.sell-sample .why strong{color:var(--prp-text)}
+.sell-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));border-top:2px solid var(--prp-divider);border-bottom:1px solid var(--prp-divider);margin-bottom:72px}
+.sell-stats > div{padding:28px 24px 28px 0}
+.sell-stats > div + div{padding-left:24px;border-left:1px solid var(--prp-divider)}
+.sell-stats b{display:block;font-size:40px;line-height:1.05;font-weight:500;letter-spacing:-.03em;color:var(--prp-text);margin-bottom:8px}
+.sell-stats span{font-size:14px;line-height:1.45;color:var(--prp-text-2)}
+.sell-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:16px;margin-bottom:72px}
+.sell-steps > div{background:var(--prp-surface);padding:28px}
+.sell-steps .n{font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--prp-accent-text);margin-bottom:16px}
+.sell-steps h3{font-size:19px;line-height:1.3;font-weight:600;color:var(--prp-text);margin:0 0 8px}
+.sell-steps p{font-size:15px;line-height:1.55;color:var(--prp-text-2);margin:0}
+.sell-guar{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr));gap:24px 56px;align-items:center;background:var(--prp-accent-tint);border:1px solid var(--prp-accent-tint-border);padding:40px;margin-bottom:72px}
+.prp .sell-guar h2{font-size:34px;line-height:1.15;font-weight:500;letter-spacing:-.015em;margin:8px 0 12px}
+.sell-guar p{font-size:16px;line-height:1.55;color:var(--prp-text-2);margin:0}
+.sell-guar .acts{display:flex;flex-direction:column;gap:12px}
+.sell-guar .acts .btn{min-height:52px;width:100%}
+.sell-guar .fine{font-size:13px;color:var(--prp-text-2)}
+@media (max-width:720px){
+  .prp .nce-hero.sell h1{font-size:36px}
+  .prp .sell-guar h2{font-size:26px}
+  .nce-hero.sell .hero-cta .btn{width:100%;min-width:0}
+  .sell-stats > div,.sell-stats > div + div{padding:20px 0;border-left:0;border-top:1px solid var(--prp-divider)}
+  .sell-stats > div:first-child{border-top:0}
+  .sell-guar,.sell-sample{padding:24px}
+}
 .hero-cta .btn{min-height:52px;min-width:220px}
 .hero-body .banner{margin:0}
 .hero-fine{font-size:13px;color:var(--prp-muted);margin:0;max-width:560px}
@@ -476,7 +523,59 @@ html.theme-light .facts input,html.theme-light .plan-date{color-scheme:light}
   // Dashboard hero: readiness (score from utils/nceReadiness.js), countdown
   // and a one-click start on the weakest domain, beside the exam facts
   // (signed out) or the member's own numbers (signed in).
+  // Signed-out home. The sample is the same item as the home page's NCE
+  // sample (public/landing.html); every number comes from the blueprint and
+  // the bank, so nothing here can drift from the product.
+  function sellHtml(){
+    var s = STATUS, ex = BP.exam, arrow = ' <span aria-hidden="true">→</span>';
+    var bank = (s.bank.total || 0).toLocaleString('en-US');
+    var time = Math.floor(ex.minutes/60)+' hrs '+(ex.minutes%60)+' min';
+    function opt(k, t, best){ return '<div class="sell-opt'+(best?' best':'')+'"><b>'+k+'</b><span>'+t+'</span><i>'+(best?'✓':'✗')+'</i></div>'; }
+    return '<section class="nce-hero sell">'+
+      '<div class="hero-body">'+
+        '<span class="prp-eyebrow">NCE practice questions &amp; mock exams</span>'+
+        '<h1>Practice the NCE until <em>you know you\'re ready.</em></h1>'+
+        '<p class="lead">'+bank+' original practice questions weighted to NBCC\'s '+BP.domains.length+' NCE domains, each with the reason behind the answer, plus timed mock exams built like the real '+ex.totalItems+'-question exam. Try '+s.freeLimit+' sample questions now, no account needed.</p>'+
+        '<div class="hero-cta">'+
+          '<button class="btn" id="go-try">Try free questions'+arrow+'</button>'+
+          '<button class="btn btn-s" id="go-mock2">Take a mock exam'+arrow+'</button>'+
+        '</div>'+
+        '<ul class="sell-ticks"><li>No account for sample questions</li><li>'+s.trialDays+'-day free trial</li><li>Pass Guarantee</li></ul>'+
+        accessBanner()+
+      '</div>'+
+      '<div class="sell-sample" aria-label="A sample question, answered">'+
+        '<div class="kick"><span>Sample question · answered</span><span>Intake, Assessment, and Diagnosis</span></div>'+
+        '<p class="stem">A counselor gives the same anxiety inventory to a group of clients twice, two weeks apart, and correlates the two sets of scores.</p>'+
+        '<p class="ask">This procedure estimates which of the following?</p>'+
+        opt('A','Test-retest reliability',true)+opt('B','Internal consistency')+opt('C','Concurrent validity')+opt('D','Inter-rater reliability')+
+        '<p class="why"><strong>Why A.</strong> Correlating scores from two administrations of the same test estimates stability over time. Every question shows its rationale as soon as you answer.</p>'+
+      '</div>'+
+    '</section>'+
+    '<div class="sell-stats">'+
+      '<div><b>'+bank+'</b><span>practice questions in the bank, each with a rationale</span></div>'+
+      '<div><b>'+ex.totalItems+'</b><span>questions on the real NCE, '+ex.scoredItems+' scored. Full-length mocks match it</span></div>'+
+      '<div><b>'+time+'</b><span>on the clock, the same as exam day</span></div>'+
+      '<div><b>'+BP.domains.length+' domains</b><span>in your readiness score, weighted by NBCC\'s scored item counts</span></div>'+
+    '</div>'+
+    '<section class="sec"><div class="sec-head"><h2 class="prp-h2">Practice, sit a mock, watch readiness climb</h2></div>'+
+    '<div class="sell-steps">'+
+      '<div><div class="n">01</div><h3>Practice by domain</h3><p>Twenty questions at a time, with feedback and the rationale after each one. Start with any domain or mix them all.</p></div>'+
+      '<div><div class="n">02</div><h3>Sit a timed mock exam</h3><p>Weighted like the real NCE, full length or a shorter form, and scored at the end with a breakdown by domain.</p></div>'+
+      '<div><div class="n">03</div><h3>Know when you are ready</h3><p>Your readiness score shows your accuracy in every domain and which one to work on next.</p></div>'+
+    '</div></section>'+
+    '<div class="sell-guar"><div>'+
+      '<span class="prp-eyebrow">The Pass Guarantee</span>'+
+      '<h2>Pass, or keep studying free.</h2>'+
+      '<p>Pass and your first CE course on CounselorReady is free: just come back and tell us you passed. On the Pass Guarantee, if you don\'t pass we extend your NCE access at no charge until you do.</p>'+
+    '</div><div class="acts">'+
+      '<a class="btn" href="#pricing">See NCE plans'+arrow+'</a>'+
+      '<a class="btn btn-s" href="/guarantee.html">How the guarantee works'+arrow+'</a>'+
+      (APP ? '' : '<span class="fine">Plans from $24.99 a month. '+s.trialDays+'-day free trial, no card needed.</span>')+
+    '</div></div>';
+  }
+
   function heroHtml(by, dLeft, focus){
+    if (!TOKEN) return sellHtml();
     var r = PROGRESS && PROGRESS.readiness;
     var trend = r ? (r.trend === 'up' ? '<span class="trend up">↑ Trending up</span>' : r.trend === 'down' ? '<span class="trend down">↓ Trending down</span>' : '<span class="trend flat">Steady</span>') : '';
     var eyebrow = dLeft == null ? 'NCE study' : dLeft === 0 ? 'NCE · exam day' : 'NCE · '+dLeft+' day'+(dLeft===1?'':'s')+' to go';
@@ -654,6 +753,8 @@ html.theme-light .facts input,html.theme-light .plan-date{color-scheme:light}
     document.getElementById('go-practice').onclick = function(){ startPractice('all'); };
     document.getElementById('go-mock').onclick = renderMockSetup;
     document.getElementById('go-mock2').onclick = renderMockSetup;
+    var gt = document.getElementById('go-try');
+    if (gt) gt.onclick = function(){ startPractice('all'); };
     var gf = document.getElementById('go-focus');
     if (gf) gf.onclick = function(){ startPractice(focus.d.key); };
     Array.prototype.forEach.call(stage.querySelectorAll('[data-practice]'), function(b){ b.onclick = function(){ startPractice(b.getAttribute('data-practice')); }; });
