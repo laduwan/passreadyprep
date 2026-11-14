@@ -69,6 +69,47 @@
   .home-tools .mc-head::after{content:"\2192"; color:var(--prp-accent-text); font-weight:500; flex:none}
   .home-rest{max-width:860px}
 
+  /* signed-out study home: the selling version (sample scored case, proof
+     numbers, how it works, guarantee) above the practice settings */
+  .sell-hero{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(440px,100%),1fr)); gap:40px 64px; align-items:center; margin-bottom:56px}
+  .prp .sell-hero h2{font-size:52px; line-height:1.08; font-weight:500; letter-spacing:-.025em; margin:0 0 20px}
+  .sell-hero h2 em{font-style:normal; color:var(--prp-accent-text)}
+  .sell-hero .lead{font-size:18px; max-width:560px; margin-bottom:28px}
+  .sell-cta{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+  .sell-cta .btn{min-height:56px; min-width:260px; font-size:17px; padding:0 22px}
+  .sell-ticks{display:flex; flex-wrap:wrap; gap:8px 24px; margin:24px 0 0; padding:0; list-style:none; font-size:14px; color:var(--prp-text-2)}
+  .sell-ticks li::before{content:"\2713"; color:var(--prp-accent-text); font-weight:600; margin-right:8px}
+  .sell-sample{background:var(--prp-surface); border:1px solid var(--prp-divider); border-top:3px solid var(--prp-accent); padding:28px}
+  .sell-sample .kick{display:flex; justify-content:space-between; gap:12px; font-size:12px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--prp-accent-text); margin-bottom:12px}
+  .sell-sample .kick span + span{color:var(--prp-muted); letter-spacing:0; text-transform:none}
+  .sell-sample .stem{font-size:15px; line-height:1.55; color:var(--prp-text-2); margin:0 0 8px}
+  .sell-sample .ask{font-size:17px; font-weight:600; color:var(--prp-text); margin:0 0 12px}
+  .sell-opt{display:flex; align-items:center; gap:12px; padding:11px 12px; border-top:1px solid var(--prp-divider); font-size:15px; color:var(--prp-text-2)}
+  .sell-opt b{color:var(--prp-muted); font-weight:600; min-width:14px}
+  .sell-opt span{flex:1}
+  .sell-opt i{font-style:normal; font-weight:600; font-size:14px; min-width:28px; text-align:right}
+  .sell-opt.best{background:var(--prp-accent-tint); border:1px solid var(--prp-accent); color:var(--prp-text)}
+  .sell-opt.best + .sell-opt{border-top-color:transparent}
+  .sell-sample .why{font-size:14px; line-height:1.55; color:var(--prp-text-2); margin:16px 0 0; padding-top:16px; border-top:1px solid var(--prp-divider)}
+  .sell-sample .why strong{color:var(--prp-text)}
+  .sell-stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr)); border-top:2px solid var(--prp-divider); border-bottom:1px solid var(--prp-divider); margin-bottom:72px}
+  .sell-stats > div{padding:28px 24px 28px 0}
+  .sell-stats > div + div{padding-left:24px; border-left:1px solid var(--prp-divider)}
+  .sell-stats b{display:block; font-size:40px; line-height:1.05; font-weight:500; letter-spacing:-.03em; color:var(--prp-text); margin-bottom:8px}
+  .sell-stats span{font-size:14px; line-height:1.45; color:var(--prp-text-2)}
+  .sell-h,.prp .sell-h{font-size:34px; line-height:1.18; font-weight:500; letter-spacing:-.015em; margin:0 0 28px}
+  .sell-steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr)); gap:16px; margin-bottom:72px}
+  .sell-steps > div{background:var(--prp-surface); padding:28px}
+  .sell-steps .n{font-size:13px; font-weight:600; letter-spacing:.06em; color:var(--prp-accent-text); margin-bottom:16px}
+  .sell-steps h3{font-size:19px; line-height:1.3; font-weight:600; color:var(--prp-text); margin:0 0 8px}
+  .sell-steps p{font-size:15px; line-height:1.55; color:var(--prp-text-2); margin:0}
+  .sell-guar{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr)); gap:24px 56px; align-items:center; background:var(--prp-accent-tint); border:1px solid var(--prp-accent-tint-border); padding:40px; margin-bottom:72px}
+  .prp .sell-guar h2{font-size:34px; line-height:1.15; font-weight:500; letter-spacing:-.015em; margin:0 0 12px}
+  .sell-guar p{font-size:16px; line-height:1.55; color:var(--prp-text-2); margin:0}
+  .sell-guar .acts{display:flex; flex-direction:column; gap:12px}
+  .sell-guar .acts .btn{min-height:52px; width:100%}
+  .sell-guar .fine{font-size:13px; color:var(--prp-text-2)}
+
   /* header */
   header.site{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px 16px; padding:16px 0; border-bottom:1px solid var(--prp-divider); margin-bottom:48px}
   .prp a.brand-wrap{display:flex; align-items:center; gap:11px; min-height:44px; text-decoration:none; color:var(--prp-text)}
@@ -289,6 +330,13 @@
     .qstem{font-size:17px}
     .hero .btn{width:100%}
     .home-session{grid-template-columns:1fr}
+    .prp .sell-hero h2{font-size:36px}
+    .prp .sell-h,.prp .sell-guar h2{font-size:26px}
+    .sell-cta .btn{width:100%; min-width:0}
+    .sell-stats > div,.sell-stats > div + div{padding:20px 0; border-left:0; border-top:1px solid var(--prp-divider)}
+    .sell-stats > div:first-child{border-top:0}
+    .sell-guar{padding:24px}
+    .sell-sample{padding:20px}
     .prp .home-tools-h{font-size:26px}
     .home-pair a,.prp .home-pair a{padding:24px}
   }
@@ -854,14 +902,9 @@ async function showDashboard(){
     h += '<br /><a href="/guarantee.html" class="guar-link">Pass guarantee — pass and get a free CE course, or we extend your access</a>';
     h += '</div>' + practiceSettings() + '</div>';
   } else {
-    // Free sample hero for signed-out visitors: the first case needs no sign-up.
-    h += '<div class="home-top"><div class="hero">';
-    h += '<p class="home-eyebrow">NCMHCE study</p>';
-    h += '<h2>Try a free clinical simulation</h2>';
-    h += '<p class="lead">Work through a full NCMHCE-format case — read the vignette, answer the clinical questions, and get evidence-based feedback with weighted scoring after each one. Your first case needs no sign-up; a free account then unlocks all '+bankSize()+' cases for '+trialDays()+' days.</p>';
-    h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 20px">Start free case <span aria-hidden="true">→</span></button>';
-    h += '<br /><a href="/guarantee.html" class="guar-link">Pass guarantee — pass and get a free CE course, or we extend your access</a>';
-    h += '</div>' + practiceSettings() + '</div>';
+    // Signed-out visitors get the selling version: what a scored case looks
+    // like, the numbers, how it works and the guarantee, then the settings.
+    h += sellTop();
   }
 
   // Readiness predictor
@@ -1007,6 +1050,60 @@ async function showDashboard(){
   // Auto-render study plan if exam date is saved
   var rd2 = computeReadiness();
   if(rd2 && rd2.totalCases >= 3) setTimeout(genPlan, 50);
+}
+// Top of the study home for signed-out visitors. The sample is the same case
+// and the same weights as the home page's sample (public/landing.html).
+function sellTop(){
+  const opt = (k, t, w, best) => '<div class="sell-opt'+(best?' best':'')+'"><b>'+k+'</b><span>'+t+'</span><i class="'+(w>0?'w-pos':w<0?'w-neg':'w-zero')+'">'+(w>0?'+'+w:w<0?'−'+(-w):'0')+'</i></div>';
+  let h = '<div class="sell-hero"><div>'
+    + '<p class="home-eyebrow">NCMHCE case simulations</p>'
+    + '<h2>Work real NCMHCE cases. <em>See exactly how you\'d score.</em></h2>'
+    + '<p class="lead">On the NCMHCE every answer carries a weight, so a confident wrong choice costs you points. Practice on '+bankSize()+' full cases scored the same way, with the reasoning behind every option. Try a free clinical simulation now: your first case needs no sign-up.</p>'
+    + '<div class="sell-cta"><button class="btn" onclick="goCases()">Start a free case <span aria-hidden="true">→</span></button>'
+    + '<a class="btn secondary" href="/pricing.html?exam=ncmhce" style="min-height:56px">See plans <span aria-hidden="true">→</span></a></div>'
+    + '<ul class="sell-ticks"><li>First case free, no sign-up</li><li>'+trialDays()+'-day free trial</li><li>Pass Guarantee</li></ul>'
+    + '</div>'
+    + '<div class="sell-sample" aria-label="A sample question, scored">'
+    + '<div class="kick"><span>Sample case · scored</span><span>Intake &amp; assessment</span></div>'
+    + '<p class="stem">Maria, 34, presents with three weeks of insomnia and low mood following a job loss. Near the end of intake she says, "Some nights I hope I just don\'t wake up."</p>'
+    + '<p class="ask">What should the counselor do first?</p>'
+    + opt('A','Conduct a structured suicide risk assessment',3,true)
+    + opt('B','Refer for a psychiatric medication evaluation',0)
+    + opt('C','Begin CBT for insomnia',-1)
+    + opt('D','Schedule next week and provide a crisis line',-2)
+    + '<p class="why"><strong>Why A.</strong> Passive ideation calls for a structured risk assessment before anything else. Every option carries a weight from −2 to +3, and you see all of them after you answer.</p>'
+    + '</div></div>';
+
+  h += '<div class="sell-stats">'
+    + '<div><b>'+bankSize()+'</b><span>full case simulations, in the 2027 format and the classic format</span></div>'
+    + '<div><b>−2 to +3</b><span>weighted scoring on every decision, the way the exam scores you</span></div>'
+    + '<div><b>225 min</b><span>timed mock exam: 11 cases, section by section, with the real break</span></div>'
+    + '<div><b>5 domains</b><span>in your readiness score, so you know where you are losing points</span></div>'
+    + '</div>';
+
+  h += '<h2 class="sell-h">Practice, get scored, watch readiness climb</h2>'
+    + '<div class="sell-steps">'
+    + '<div><div class="n">01</div><h3>Work a full case</h3><p>Read the vignette and make the calls a counselor makes: what to assess, what to treat first, what stays in scope.</p></div>'
+    + '<div><div class="n">02</div><h3>See every decision scored</h3><p>Each option shows its weight and the reason behind it, so you learn why the tempting answer loses points.</p></div>'
+    + '<div><div class="n">03</div><h3>Know when you are ready</h3><p>Your readiness score tracks five practice areas and your recent trend. Sit the timed mock exam when it holds.</p></div>'
+    + '</div>';
+
+  h += '<div class="sell-guar"><div>'
+    + '<p class="home-eyebrow">The Pass Guarantee</p><h2>Pass, or keep studying free.</h2>'
+    + '<p>Pass and your first CE course on CounselorReady is free: just come back and tell us you passed. On the Pass Guarantee, if you don\'t pass we extend your access at no charge until you do.</p>'
+    + '</div><div class="acts">'
+    + '<a class="btn" href="/pricing.html?exam=ncmhce">See plans <span aria-hidden="true">→</span></a>'
+    + '<a class="btn secondary" href="/guarantee.html">How the guarantee works <span aria-hidden="true">→</span></a>'
+    + (window.PRP_NATIVE ? '' : '<span class="fine">Plans from $29 a month. '+trialDays()+'-day free trial, no card needed.</span>')
+    + '</div></div>';
+
+  h += '<div class="home-top"><div class="hero">'
+    + '<p class="home-eyebrow">Set up your practice</p>'
+    + '<h2 style="font-size:34px">Choose how you want to practice, then start.</h2>'
+    + '<p class="lead">Pick the exam format and when you see feedback. You can change both any time.</p>'
+    + '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 20px">Start free case <span aria-hidden="true">→</span></button>'
+    + '</div>' + practiceSettings() + '</div>';
+  return h;
 }
 // Right-hand column of the study home: practice mode and feedback timing.
 function practiceSettings(){
