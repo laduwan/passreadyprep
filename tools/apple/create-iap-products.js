@@ -72,7 +72,9 @@ const PRODUCTS = [
     name: 'NCMHCE 6-Month', desc: 'Full NCMHCE access, renews every 6 months.' },
   { tier: 'guarantee',     sku: 'ncmhce.guarantee', type: 'NON_CONSUMABLE', usd: 149.99,
     name: 'NCMHCE Pass Guarantee', desc: 'NCMHCE access extensions until you pass. One payment.' },
-  { tier: 'guide',         sku: 'guide',            type: 'NON_CONSUMABLE', usd: 24.99,
+  // SKU note: the plain `guide` product ID is permanently reserved by Apple
+  // (created, then removed), so the guide is guide.ncmhce.
+  { tier: 'guide',         sku: 'guide.ncmhce',     type: 'NON_CONSUMABLE', usd: 24.99,
     name: 'Complete NCMHCE Study Guide', desc: 'Digital study guide: 18 families, 3 practice exams.' },
   { tier: 'nce_monthly',   sku: 'nce.monthly',      type: 'subscription', group: 'NCE', period: 'ONE_MONTH', usd: 24.99,
     name: 'NCE Monthly', desc: 'Full NCE access, renews monthly. Cancel any time.' },

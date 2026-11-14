@@ -70,7 +70,9 @@ const near = (a, b, tol = 5000) => Math.abs(new Date(a).getTime() - b) < tol;
   const offered = apple.offeredProducts().map((p) => p.tier);
   assert.deepStrictEqual(offered, ['monthly', 'pass3', 'pass6', 'guarantee', 'guide', 'guide_nce', 'nce_monthly', 'nce_pass3', 'nce_pass6', 'nce_guarantee']);
   assert.strictEqual(apple.entryForProductId(pid('ncmhce.sub3mo')).tier, 'pass3');
-  assert.strictEqual(apple.entryForProductId(pid('guide')).tier, 'guide');
+  assert.strictEqual(apple.entryForProductId(pid('guide.ncmhce')).tier, 'guide');
+  assert.strictEqual(apple.entryForProductId(pid('guide')).tier, 'guide'); // retired ID, not on sale, still verifiable
+  assert.strictEqual(apple.offeredProducts().find((p) => p.tier === 'guide').productId, pid('guide.ncmhce'));
   assert.strictEqual(apple.entryForProductId(pid('guide.nce')).tier, 'guide_nce');
   assert.strictEqual(apple.entryForProductId('com.other.thing'), null);
 
@@ -115,7 +117,7 @@ const near = (a, b, tol = 5000) => Math.abs(new Date(a).getTime() - b) < tol;
 
   // guide entitlement + refund
   user('u5');
-  const g = tx('guide');
+  const g = tx('guide.ncmhce');
   r = await applyTransaction(users.get('u5'), g); assert.strictEqual(r.action, 'granted');
   assert(users.get('u5').guidePurchasedAt); assert.strictEqual(users.get('u5').guideOrderId, 'apple:' + g.transactionId);
   r = await applyTransaction(users.get('u5'), g); assert.strictEqual(r.action, 'already');
@@ -127,7 +129,7 @@ const near = (a, b, tol = 5000) => Math.abs(new Date(a).getTime() - b) < tol;
   r = await applyTransaction(users.get('u5'), gn); assert.strictEqual(r.action, 'granted');
   assert(users.get('u5').guideNcePurchasedAt); assert.strictEqual(users.get('u5').guideNceOrderId, 'apple:' + gn.transactionId);
   assert.strictEqual(users.get('u5').guidePurchasedAt, undefined);
-  const g2 = tx('guide');
+  const g2 = tx('guide.ncmhce');
   r = await applyTransaction(users.get('u5'), g2); assert.strictEqual(r.action, 'granted');
   r = await applyTransaction(users.get('u5'), { ...gn, revocationDate: now }); assert.strictEqual(r.action, 'revoked');
   assert.strictEqual(users.get('u5').guideNcePurchasedAt, undefined);
