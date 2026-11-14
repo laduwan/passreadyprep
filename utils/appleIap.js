@@ -65,7 +65,13 @@ const CATALOG = [
   { tier: 'guarantee',     sku: 'ncmhce.guarantee', kind: 'nonConsumable', name: 'NCMHCE Pass Guarantee' },
   // The two books: one-time products, each unlocks its own PDF download
   // (routes/guide.js), never plan access.
-  { tier: 'guide',         sku: 'guide',            kind: 'nonConsumable', name: 'The Complete NCMHCE Study Guide' },
+  // SKU note: the original `guide` product ID was created and later removed in
+  // App Store Connect, and Apple never frees a product ID, so the guide is
+  // sold as guide.ncmhce. The old entry stays, not on sale, so a transaction
+  // from earlier sandbox testing still verifies.
+  { tier: 'guide',         sku: 'guide.ncmhce',     kind: 'nonConsumable', name: 'The Complete NCMHCE Study Guide' },
+  { tier: 'guide',         sku: 'guide',            kind: 'nonConsumable', name: 'The Complete NCMHCE Study Guide',
+    offered: () => false },
   { tier: 'guide_nce',     sku: 'guide.nce',        kind: 'nonConsumable', name: 'The NCE Ownership Method' },
   { tier: 'nce_monthly',   sku: 'nce.monthly',      kind: 'autoRenewable', name: 'NCE Monthly' },
   { tier: 'nce_pass3',     sku: 'nce.sub3mo',       kind: 'autoRenewable', name: 'NCE 3-Month' },
