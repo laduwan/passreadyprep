@@ -188,7 +188,7 @@
       <div class="spacer"></div>
       <div class="card">
         <div class="stat-label" style="margin-bottom:4px">Campaigns</div>
-        <p class="muted" style="margin:0 0 10px;font-size:13px">Tagged links. Add <code>?utm_source=youtube&amp;utm_campaign=video-name</code> to a link and it shows up here with its own numbers.</p>
+        <p class="muted" style="margin:0 0 10px;font-size:13px">Tagged links. Add <code>?utm_source=youtube&amp;utm_campaign=video-name</code> to a link and it shows up here with its own numbers. <strong>Went further</strong> counts visitors who clicked on into the site (a case, sign-up, checkout); YouTube's link checker opens every description link after an edit but never clicks on, so it only adds to Visitors.</p>
         <div id="topCampaigns"></div>
       </div>
 
@@ -555,10 +555,10 @@
 
   function campaignTable(rows){
     if (!rows.length) return '<p class="empty">No tagged links yet.</p>';
-    var h = '<table><thead><tr><th>Source</th><th>Medium</th><th>Campaign</th><th class="num">Visitors</th><th class="num">Views</th></tr></thead><tbody>';
+    var h = '<table><thead><tr><th>Source</th><th>Medium</th><th>Campaign</th><th class="num">Went further</th><th class="num">Visitors</th><th class="num">Views</th></tr></thead><tbody>';
     rows.forEach(function(r){
       h += '<tr><td class="path">' + esc(r.source) + '</td><td class="path">' + esc(r.medium || '—') + '</td><td class="path">' + esc(r.campaign || '—') +
-           '</td><td class="num">' + num(r.visitors) + '</td><td class="num">' + num(r.views) + '</td></tr>';
+           '</td><td class="num"><strong>' + num(r.wentFurther) + '</strong></td><td class="num">' + num(r.visitors) + '</td><td class="num">' + num(r.views) + '</td></tr>';
     });
     return h + '</tbody></table>';
   }
