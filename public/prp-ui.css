@@ -112,18 +112,18 @@ body.prp {
 .prp h1, .prp h2, .prp h3, .prp h4 { margin: 0; font-weight: 600; }
 .prp a { color: var(--prp-accent-text); text-underline-offset: 3px; }
 
-/* Hero: 54px desktop, 34px on a phone. */
+/* Hero: 46px desktop, 32px on a phone. */
 .prp-hero-title {
-  font-size: 54px;
-  line-height: 1.04;
-  font-weight: 600;
-  letter-spacing: -0.04em;
+  font-size: 46px;
+  line-height: 1.14;
+  font-weight: 500;
+  letter-spacing: -0.02em;
 }
 .prp-h2 {
-  font-size: 38px;
-  line-height: 1.08;
-  font-weight: 600;
-  letter-spacing: -0.035em;
+  font-size: 34px;
+  line-height: 1.18;
+  font-weight: 500;
+  letter-spacing: -0.015em;
 }
 .prp-h4 {
   font-size: 17px;
@@ -312,8 +312,8 @@ html.a11y-reduce-motion .prp *::after {
 
 @media (max-width: 720px) {
   :root { --prp-pad-card: 20px; }
-  .prp-hero-title { font-size: 34px; letter-spacing: -0.03em; }
-  .prp-h2 { font-size: 28px; }
+  .prp-hero-title { font-size: 32px; letter-spacing: -0.02em; }
+  .prp-h2 { font-size: 26px; }
   .prp-bignum { font-size: 64px; }
 }
 
