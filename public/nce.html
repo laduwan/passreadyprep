@@ -155,13 +155,13 @@ html.theme-light .facts input,html.theme-light .plan-date{color-scheme:light}
 .weak-tag{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--prp-warn);margin-left:8px}
 
 /* choice cards: the three study routes, and the mock-size picker */
-.ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:1px;background:var(--prp-divider);border:1px solid var(--prp-divider)}
+.ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px;margin:16px 0}
 .choice{display:flex;flex-direction:column;align-items:stretch;gap:8px;min-width:0;padding:20px;cursor:pointer;
   font:inherit;text-align:left;text-decoration:none;border:1px solid var(--prp-divider);border-radius:0;
   background:transparent;color:var(--prp-text-2)}
 .prp a.choice{color:var(--prp-text-2);text-decoration:none}
-.ways .choice{padding:32px;border:0;background:var(--prp-surface)}
+.ways .choice{padding:28px;border:0;background:var(--prp-surface)}
 .choice:hover{color:var(--prp-text)}
 .choice.selected{border:2px solid var(--prp-accent);background:var(--prp-accent-tint);padding:19px}
 .choice b{display:block;font-size:17px;font-weight:600;letter-spacing:-0.01em;color:var(--prp-text)}
@@ -641,6 +641,8 @@ html.theme-light .facts input,html.theme-light .plan-date{color-scheme:light}
         '<a class="choice" href="/sheets/nce-study-sheets.pdf" target="_blank" rel="noopener"><b>Study sheets (PDF)</b><span>Printable quick reference: key theories, names and facts across all 8 CACREP content areas.</span><i class="go"><span>Open the PDF</span><span aria-hidden="true">→</span></i></a>'+
         '<div class="choice games"><b>Study games</b><span>Need a break? Learn by playing.</span>'+
           '<div class="game-links"><a href="/games.html#clue">Theory Clue</a><a href="/games.html">Code Match · free</a><a href="/games.html#rush">Triage Rush · NCMHCE</a></div></div>'+
+        // The book is sold on the web only; the iOS bundle leaves its page out.
+        (APP ? '' : '<a class="choice" href="/nce-study-guide.html"><b>The NCE Ownership Method</b><span>A complete NCE study guide: 22 chapters, 380 term-to-owner pairs and 3 full-length practice exams with 600 scored questions. $25 one-time.</span><i class="go"><span>See the study guide</span><span aria-hidden="true">→</span></i></a>')+
       '</div></section>'+
       planHtml(by, dLeft)+
       (PROGRESS && PROGRESS.mocks && PROGRESS.mocks.length ? '<div class="card"><h2>Recent mock exams</h2>'+PROGRESS.mocks.map(function(m){
