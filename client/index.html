@@ -691,7 +691,7 @@ async function showDashboard(){
 
   h += '<h2>Practice mode</h2>';
   h += '<div class="mode-grid" role="group" aria-label="Practice mode">';
-  h += modeCard('new','New format','Diagnosis is given — focus on treatment, counseling & ethics decisions.','Current exam');
+  h += modeCard('new','New format','Diagnosis is given — focus on treatment, counseling & ethics decisions.','2027 format');
   h += modeCard('classic','Classic format','Work out the diagnosis yourself first, then answer. Extra diagnostic practice.','');
   h += '<div class="mode-card" style="grid-column:1/-1;cursor:default">'
      + '<span class="mc-head">Feedback timing</span>'
@@ -705,7 +705,7 @@ async function showDashboard(){
   h += '</div>';
 
   h += '<div class="row" style="margin-top:14px"><button class="btn" style="width:100%" onclick="goCases()">Start practicing — '
-     + (MODE==='classic' ? 'Classic format' : 'New format') + ' ›</button></div>';
+     + (MODE==='classic' ? 'Classic format' : '2027 format') + ' ›</button></div>';
 
   h += '<div class="card" style="margin-top:16px"><h2>This session</h2>';
   h += '<div style="font-size:12px;color:var(--slate-500);margin-bottom:8px">Running score for this browser session. Your full history (readiness, flashcards, study plan) is saved locally in this browser — clearing browser data or switching devices will reset it. Create an account for cross-device sync.</div>';
@@ -780,7 +780,7 @@ function renderList(){
   let h = '<button class="back" onclick="showDashboard()">‹ Dashboard</button>';
   h += '<h1>Choose a case</h1>';
   h += '<p class="lead">Mode: <strong style="color:var(--white)">'
-     + (MODE==='classic' ? 'Classic — you diagnose first' : 'New format — diagnosis given')
+     + (MODE==='classic' ? 'Classic — you diagnose first' : '2027 format — diagnosis given')
      + '</strong></p>';
 
   // Progress across the whole bank, plus a one-tap way back in.
@@ -858,7 +858,7 @@ function renderCase(){
   h += '<div class="chips" style="margin-bottom:16px">'
      + '<span class="badge '+diffBadgeClass((c.difficulty||'').toLowerCase())+'">'+esc(cap(c.difficulty||''))+'</span>'
      + (c.category ? '<span class="badge b-slate">'+esc(c.category)+'</span>' : '')
-     + '<span class="badge '+(MODE==='classic'?'b-blue':'b-emerald')+'">'+(MODE==='classic'?'Classic':'New format')+'</span></div>';
+     + '<span class="badge '+(MODE==='classic'?'b-blue':'b-emerald')+'">'+(MODE==='classic'?'Classic':'2027 format')+'</span></div>';
 
   // case vignette (full-width when diagnosing; sticky/side pane when answering)
   const seg = (cls,label,txt) => txt ? '<div class="seg"><div class="seg-label '+cls+'">'+label+'</div><div class="seg-text">'+esc(txt)+'</div></div>' : '';

@@ -16,243 +16,252 @@
 <meta name="twitter:title" content="Free NCMHCE Practice Case &amp; Study Tools | PassReady Prep">
 <meta name="twitter:description" content="Study for the NCMHCE with clinical case simulations, a timed mock exam, decision trees, flashcards, and a DSM-5-TR reference, all in one place.">
 <meta name="twitter:image" content="https://www.passreadyprep.com/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="/prp-ui.css">
 <style>
+  /* Page layout for the NCMHCE study page and case player. Colours, type and
+     shape come from prp-ui.css. The old variable names stay defined, mapped
+     onto those tokens, because the page's script writes them into inline
+     styles; that way the light and high-contrast themes reach those too. */
   :root{
-    --slate-900:#0F172A; --slate-800:#1E293B; --slate-700:#334155; --slate-600:#475569;
-    --slate-500:#64748B; --slate-400:#94A3B8; --slate-300:#CBD5E1; --slate-200:#E2E8F0; --white:#F8FAFC;
-    --emerald:#10B981; --emerald-400:#34D399;
-    --blue-400:#60A5FA; --blue:#3B82F6;
-    --amber-400:#FBBF24; --amber:#F59E0B;
-    --red-400:#F87171; --red:#EF4444; --red-600:#DC2626;
-    --purple-400:#A78BFA; --purple:#8B5CF6;
-    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    --r-xl:16px; --r-lg:12px; --r-md:10px;
-    --card:rgba(30,41,59,.55); --card-border:rgba(51,65,85,.6);
+    --slate-900:var(--prp-bg); --slate-800:var(--prp-surface); --slate-700:var(--prp-track); --slate-600:var(--prp-divider);
+    --slate-500:var(--prp-muted); --slate-400:var(--prp-muted); --slate-300:var(--prp-text-2); --slate-200:var(--prp-text-2); --white:var(--prp-text);
+    --emerald:var(--prp-accent); --emerald-400:var(--prp-accent-text);
+    --blue-400:var(--prp-phase-1); --blue:var(--prp-phase-1);
+    --amber-400:var(--prp-warn); --amber:var(--prp-warn);
+    --red-400:var(--prp-danger); --red:var(--prp-danger); --red-600:var(--prp-danger);
+    --purple-400:var(--prp-phase-2); --purple:var(--prp-phase-2);
+    --sans:var(--prp-font);
+    --r-xl:0px; --r-lg:0px; --r-md:0px;
+    --card:var(--prp-surface); --card-border:var(--prp-divider);
   }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0; min-height:100vh;
-    background:linear-gradient(160deg,#0F172A 0%,#1E293B 50%,#0F172A 100%); background-attachment:fixed;
-    color:var(--slate-200); font-family:var(--sans); font-size:16px; line-height:1.55;
-  }
-  .wrap{max-width:760px; margin:0 auto; padding:18px 16px 64px}
-  a{color:var(--emerald-400)}
+  [hidden]{display:none !important}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 32px 80px}
+  #app{max-width:860px}
+  #app:has(.case-split){max-width:none}
 
   /* header */
-  header.site{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; padding:4px 2px 20px}
-  .brand-wrap{display:flex; align-items:center; gap:11px; text-decoration:none}
-  .brand-chip{width:38px; height:38px; border-radius:11px; background:rgba(16,185,129,.16); display:grid; place-items:center; flex:0 0 auto}
-  .brand-chip svg{width:21px; height:21px; color:var(--emerald-400)}
-  .brand{font-weight:700; font-size:18px; color:var(--white); letter-spacing:-.01em; line-height:1.1}
-  .brand .prep{color:var(--emerald-400)}
-  .brand small{display:block; font-weight:600; font-size:11.5px; color:var(--emerald-400); letter-spacing:.02em; margin-top:1px}
-  .exam-badge{font-size:12px; font-weight:700; color:var(--emerald-400); background:rgba(16,185,129,.14);
-    border:1px solid rgba(16,185,129,.3); padding:5px 11px; border-radius:999px}
+  header.site{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px 16px; padding:16px 0; border-bottom:1px solid var(--prp-divider); margin-bottom:48px}
+  .prp a.brand-wrap{display:flex; align-items:center; gap:11px; min-height:44px; text-decoration:none; color:var(--prp-text)}
+  .brand-wrap svg{width:38px; height:38px; flex:none; display:block}
+  .brand{font-weight:700; font-size:18px; color:var(--prp-text); letter-spacing:-.01em; line-height:1.1}
+  .brand .prep{color:var(--prp-accent-text)}
+  .brand small{display:block; font-weight:400; font-size:11px; color:var(--prp-muted); margin-top:3px}
+  .hdr-right{display:flex; align-items:center; flex-wrap:wrap; gap:8px 20px}
+  .exam-seg{display:flex; border:1px solid var(--prp-divider)}
+  .prp .exam-seg a{display:flex; align-items:center; min-height:36px; padding:0 14px; font-size:13px; font-weight:500; color:var(--prp-text-2); text-decoration:none}
+  .prp .exam-seg a[aria-current="page"]{background:var(--prp-accent); color:var(--prp-on-accent)}
+  .prp a.nav-link{display:inline-flex; align-items:center; min-height:44px; font-size:15px; font-weight:600; color:var(--prp-text-2); text-decoration:none}
+  .prp a.nav-link:hover{color:var(--prp-text)}
+  .acct{display:flex; align-items:center; flex-wrap:wrap; gap:8px 12px}
+  .acct-email{font-size:12px; color:var(--prp-muted); max-width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .acct-btn,.prp a.acct-btn{display:inline-flex; align-items:center; min-height:44px; padding:0 14px; white-space:nowrap; cursor:pointer;
+    font:inherit; font-size:14px; font-weight:600; text-decoration:none; border:1px solid var(--prp-divider); border-radius:0; background:transparent; color:var(--prp-text)}
+  .acct-btn:hover{background:color-mix(in srgb,var(--prp-text) 8%,transparent)}
+  .acct-btn.primary,.prp a.acct-btn.primary{border-color:transparent; background:var(--prp-accent); color:var(--prp-on-accent)}
 
-  h1{font-size:25px; line-height:1.15; margin:0 0 6px; color:var(--white); font-weight:700; letter-spacing:-.01em}
-  h2{font-size:18px; margin:0 0 6px; color:var(--white); font-weight:700}
-  .lead{color:var(--slate-400); margin:0 0 18px}
+  /* type */
+  .prp h1{font-size:46px; line-height:1.14; margin:0 0 12px; font-weight:500; letter-spacing:-.02em}
+  .prp h2{font-size:20px; line-height:1.3; margin:0 0 8px; font-weight:600; letter-spacing:-.01em}
+  .lead{color:var(--prp-text-2); margin:0 0 20px; line-height:1.6}
 
-  /* cards */
-  .hdr-right{display:flex; align-items:center; flex-wrap:wrap; gap:8px 12px}
-  .acct{display:flex; align-items:center; flex-wrap:wrap; gap:8px}
-  .acct-email{font-size:12px; color:var(--slate-400); max-width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-  a.acct-btn{text-decoration:none; white-space:nowrap}
-  .acct-btn{font:inherit; font-size:12px; font-weight:700; padding:6px 12px; border-radius:9px; border:1.5px solid var(--card-border); background:rgba(30,41,59,.6); color:var(--slate-200); cursor:pointer}
-  .acct-btn.primary{border-color:var(--emerald-400); background:rgba(16,185,129,.16); color:var(--emerald-400)}
+  /* sign-in dialog */
   .modal-bg{position:fixed; inset:0; background:rgba(2,6,23,.72); display:none; place-items:center; z-index:50; padding:20px}
   .modal-bg.open{display:grid}
-  .modal{background:var(--slate-900); border:1px solid var(--card-border); border-radius:16px; padding:24px; max-width:380px; width:100%; position:relative; box-shadow:0 24px 60px rgba(0,0,0,.5)}
-  .modal h2{margin:0 0 4px; font-size:20px}
-  .modal-sub{font-size:13px; color:var(--slate-400); margin:0 0 16px}
-  .modal input{width:100%; font:inherit; padding:11px 13px; border:1.5px solid var(--card-border); border-radius:10px; background:rgba(30,41,59,.6); color:var(--white); margin-bottom:10px; box-sizing:border-box}
+  .modal{background:var(--prp-bg); border:1px solid var(--prp-divider); padding:32px; max-width:400px; width:100%; position:relative}
+  .prp .modal h2{margin:0 0 4px; font-size:28px; font-weight:500; letter-spacing:-.015em}
+  .modal-sub{font-size:13px; color:var(--prp-muted); margin:0 0 16px}
+  .modal input{width:100%; font:inherit; min-height:44px; padding:10px 12px; border:1px solid var(--prp-divider); border-radius:0; background:var(--prp-surface); color:var(--prp-text); margin-bottom:10px; box-sizing:border-box}
   .modal .btn{width:100%}
-  .modal-x{position:absolute; top:10px; right:14px; background:none; border:none; color:var(--slate-400); font-size:24px; cursor:pointer; line-height:1}
-  .modal-foot{font-size:13px; color:var(--slate-400); text-align:center; margin:14px 0 0}
-  .modal-foot a{color:var(--emerald-400); text-decoration:none}
-  .auth-err{color:var(--red-400); font-size:13px; min-height:18px; margin-bottom:4px}
-  .card{background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-xl); padding:18px 20px}
-  .stack > * + *{margin-top:14px}
+  .modal-x{position:absolute; top:6px; right:6px; width:44px; height:44px; background:none; border:none; color:var(--prp-muted); font-size:24px; cursor:pointer; line-height:1}
+  .modal-foot{font-size:13px; color:var(--prp-muted); margin:14px 0 0}
+  .auth-err{color:var(--prp-danger); font-size:13px; min-height:18px; margin-bottom:4px}
 
-  /* badges */
-  .badge{display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.03em; padding:4px 10px; border-radius:999px; text-transform:uppercase}
-  .b-emerald{color:var(--emerald-400); background:rgba(16,185,129,.15)}
-  .b-blue{color:var(--blue-400); background:rgba(59,130,246,.15)}
-  .b-amber{color:var(--amber-400); background:rgba(245,158,11,.15)}
-  .b-red{color:var(--red-400); background:rgba(239,68,68,.15)}
-  .b-purple{color:var(--purple-400); background:rgba(139,92,246,.15)}
-  .b-slate{color:var(--slate-300); background:rgba(51,65,85,.5)}
-  .chips{display:flex; gap:8px; flex-wrap:wrap}
+  /* surfaces */
+  .card{background:var(--prp-surface); padding:28px}
+  .stack > * + *{margin-top:16px}
 
-  /* mode toggle (dashboard) */
-  .mode-grid{display:grid; gap:12px}
-  @media(min-width:560px){ .mode-grid{grid-template-columns:1fr 1fr} }
-  .mode-card{display:flex; flex-direction:column; gap:6px; text-align:left; cursor:pointer; font:inherit; color:inherit;
-    background:var(--card); border:1.5px solid var(--card-border); border-radius:var(--r-lg); padding:16px 18px; transition:.15s}
-  .mode-card:hover{border-color:var(--slate-600)}
-  .mode-card.sel{border-color:var(--emerald); background:rgba(16,185,129,.08)}
-  .mc-head{font-weight:700; color:var(--white); font-size:15px; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
-  .mc-desc{color:var(--slate-400); font-size:14px; line-height:1.45}
-  .mc-sel{font-size:12px; font-weight:700; color:var(--slate-500); margin-top:2px}
-  .mode-card.sel .mc-sel{color:var(--emerald-400)}
+  /* tags */
+  .badge{display:inline-block; font-size:11px; font-weight:500; letter-spacing:.03em; padding:4px 8px; text-transform:uppercase;
+    background:color-mix(in srgb,var(--prp-text) 10%,transparent); color:var(--prp-text-2)}
+  .b-emerald{background:var(--prp-accent); color:var(--prp-on-accent)}
+  .b-amber{color:var(--prp-warn)}
+  .b-red{color:var(--prp-danger)}
+  .chips{display:flex; gap:6px; flex-wrap:wrap}
 
-  /* session stats */
-  .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; text-align:center}
-  .stat-num{font-size:26px; font-weight:800; color:var(--white); line-height:1}
-  .stat-lbl{font-size:12px; color:var(--slate-400); margin-top:3px}
+  /* practice-mode cards and the study-tool grid */
+  .mode-grid{display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))}
+  .mode-card,.prp a.mode-card{display:flex; flex-direction:column; gap:8px; text-align:left; cursor:pointer; font:inherit; color:var(--prp-text-2);
+    background:transparent; border:1px solid var(--prp-divider); border-radius:0; padding:20px; text-decoration:none}
+  .mode-card:hover{background:color-mix(in srgb,var(--prp-text) 4%,transparent)}
+  .mode-card.sel{border:2px solid var(--prp-accent); background:var(--prp-accent-tint); padding:19px}
+  .mc-head{font-weight:600; color:var(--prp-text); font-size:17px; letter-spacing:-.01em; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+  .mc-desc{color:var(--prp-text-2); font-size:14px; line-height:1.5}
+  .mc-sel{font-size:12px; font-weight:500; color:var(--prp-muted)}
+  .mode-card.sel .mc-sel{color:var(--prp-accent-text)}
 
-  /* difficulty filter */
-  .filter{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:0 2px 16px}
-  .filter .flabel{font-size:13px; color:var(--slate-400); margin-right:2px}
-  .fbtn{cursor:pointer; font:inherit; font-size:13px; font-weight:600; border-radius:999px; padding:6px 14px;
-    border:1px solid var(--card-border); background:rgba(51,65,85,.4); color:var(--slate-300); transition:.15s}
-  .fbtn:hover{background:rgba(51,65,85,.7)}
-  .fbtn[aria-pressed="true"]{background:var(--emerald); color:#04261C; border-color:var(--emerald)}
+  /* session numbers */
+  .stats{display:grid; grid-template-columns:repeat(3,1fr); border-top:2px solid var(--prp-divider); border-bottom:1px solid var(--prp-divider)}
+  .stats > *{padding:16px 16px 16px 0}
+  .stats > * + *{padding-left:16px; border-left:1px solid var(--prp-divider)}
+  .stat-num{font-size:28px; font-weight:500; letter-spacing:-.03em; color:var(--prp-text); line-height:1.1}
+  .stat-lbl{font-size:12px; color:var(--prp-muted); margin-top:2px}
 
-  /* case list */
+  /* filters */
+  .filter{display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin:0 0 12px}
+  .filter .flabel{font-size:12px; color:var(--prp-muted); width:72px}
+  .fbtn{cursor:pointer; font:inherit; font-size:13px; font-weight:500; min-height:44px; padding:0 14px; border-radius:0;
+    border:1px solid var(--prp-divider); background:transparent; color:var(--prp-text-2)}
+  .fbtn:hover{background:color-mix(in srgb,var(--prp-text) 6%,transparent)}
+  .fbtn[aria-pressed="true"]{background:var(--prp-accent); color:var(--prp-on-accent); border-color:transparent}
+
+  /* case list: rows on a rule, not cards */
   .case-btn{display:block; width:100%; text-align:left; cursor:pointer; font:inherit; color:inherit;
-    background:var(--card); border:1px solid var(--card-border); border-radius:var(--r-lg);
-    padding:16px 18px; margin-bottom:12px; transition:border-color .15s, transform .12s}
-  .case-btn:hover{border-color:rgba(16,185,129,.5); transform:translateY(-1px)}
+    background:transparent; border:0; border-bottom:1px solid var(--prp-divider); border-radius:0; padding:18px 0; margin:0}
+  .case-btn:hover{background:color-mix(in srgb,var(--prp-text) 4%,transparent)}
   .case-btn .row-top{display:flex; align-items:center; justify-content:space-between; gap:10px}
-  .case-btn .t{font-size:17px; font-weight:700; color:var(--white); margin-top:10px; display:block}
-  .chev{color:var(--slate-400); font-size:20px; flex:0 0 auto; line-height:1}
+  .case-btn .t{font-size:17px; font-weight:600; letter-spacing:-.01em; color:var(--prp-text); margin-top:8px; display:block}
+  .chev{color:var(--prp-accent-text); font-size:20px; flex:0 0 auto; line-height:1}
 
-  /* vignette */
-  .vignette .seg{margin-top:15px}
-  .vignette .seg:first-child{margin-top:0}
-  .seg-label{font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:4px}
-  .seg-intake{color:var(--emerald-400)} .seg-s1{color:var(--blue-400)} .seg-s2{color:var(--amber-400)}
-  .seg-text{color:var(--slate-200); line-height:1.62}
-
-  /* diagnosis banner (purple) */
-  .dx{background:rgba(139,92,246,.13); border:1px solid rgba(139,92,246,.32); border-radius:var(--r-lg); padding:13px 15px}
-  .dx .seg-label{color:var(--purple-400)}
-  .dx .dx-name{font-size:17px; font-weight:700; color:var(--white)}
-  .dx .dx-code{color:var(--slate-400); font-weight:500; font-size:14px}
+  /* case screen: narrative left, question right, like the exam */
+  .case-split{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:32px 48px; align-items:start}
+  .case-left{position:sticky; top:16px; max-height:calc(100vh - 32px); overflow-y:auto}
+  .case-right{min-width:0}
+  .case-right > .card{margin-top:16px !important}
+  .vignette .seg{margin-top:20px; padding-top:20px; border-top:1px solid var(--prp-divider)}
+  .vignette .seg:first-child{margin-top:0; padding-top:0; border-top:0}
+  .seg-label{font-size:11px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; margin-bottom:6px; color:var(--prp-accent-text)}
+  .seg-text{color:var(--prp-text-2); line-height:1.65}
+  .dx{background:var(--prp-accent-tint); border:1px solid var(--prp-accent-tint-border); padding:16px 20px}
+  .dx .seg-label{color:var(--prp-muted)}
+  .dx .dx-name{font-size:17px; font-weight:600; color:var(--prp-text)}
+  .dx .dx-code{color:var(--prp-muted); font-weight:400; font-size:14px}
 
   /* progress */
-  .progress{display:flex; align-items:center; justify-content:space-between; margin:22px 2px 8px; font-size:13px; font-weight:600; color:var(--slate-400)}
-  .bar{height:8px; background:var(--slate-700); border-radius:999px; overflow:hidden; margin:0 2px}
-  .bar > i{display:block; height:100%; background:var(--emerald); transition:width .25s}
+  .progress{display:flex; align-items:center; justify-content:space-between; margin:0 0 8px; font-size:13px; color:var(--prp-muted)}
+  .bar{height:6px; background:var(--prp-track); overflow:hidden}
+  .bar > i{display:block; height:100%; background:var(--prp-accent); transition:width .25s}
 
   /* question + options */
-  .qstem{font-size:18px; line-height:1.4; margin:12px 0 16px; color:var(--white); font-weight:600}
-  .opt{display:flex; gap:12px; align-items:flex-start; width:100%; text-align:left; cursor:pointer; font:inherit; color:inherit;
-    background:rgba(30,41,59,.5); border:1.5px solid var(--card-border); border-radius:var(--r-md);
-    padding:13px 15px; margin-bottom:10px; transition:border-color .15s, background .15s}
-  .opt:hover:not(:disabled){border-color:var(--slate-600); background:rgba(30,41,59,.85)}
+  .qstem{font-size:20px; line-height:1.4; margin:12px 0 20px; color:var(--prp-text); font-weight:500; letter-spacing:-.01em}
+  .opt{display:flex; gap:14px; align-items:flex-start; width:100%; min-height:56px; text-align:left; cursor:pointer; font:inherit; font-size:15px; color:var(--prp-text);
+    background:transparent; border:1px solid var(--prp-divider); border-radius:0; padding:14px 16px; margin-bottom:10px}
+  .opt:hover:not(:disabled){background:color-mix(in srgb,var(--prp-text) 6%,transparent)}
   .opt:disabled{cursor:default}
-  .opt .key{flex:0 0 auto; width:28px; height:28px; border-radius:8px; background:var(--slate-700); color:var(--slate-300);
-    display:grid; place-items:center; font-weight:700; font-size:14px}
+  .opt .key{flex:0 0 auto; min-width:20px; font-weight:600; color:var(--prp-muted)}
   .opt .otext{flex:1}
-  .opt .mark{margin-left:8px; font-weight:700; flex:0 0 auto}
-  .opt.correct{border-color:rgba(16,185,129,.55); background:rgba(16,185,129,.13)}
-  .opt.incorrect{border-color:rgba(239,68,68,.5); background:rgba(239,68,68,.12)}
-  .opt.dim{opacity:.5}
-  .opt.correct .key{background:var(--emerald); color:#04261C}
-  .opt.incorrect .key{background:var(--red-600); color:#fff}
-  .opt.correct .mark{color:var(--emerald-400)}
-  .opt.incorrect .mark{color:var(--red-400)}
-  .opt-weight{font-size:12.5px; font-weight:700; margin-top:6px}
-  .w-pos{color:var(--emerald-400)} .w-neg{color:var(--red-400)} .w-zero{color:var(--slate-400)}
+  .opt .mark{margin-left:8px; font-weight:600; flex:0 0 auto}
+  .opt.picked{border:2px solid var(--prp-accent); background:var(--prp-accent-tint); padding:13px 15px}
+  .opt.correct{border:2px solid var(--prp-accent); background:var(--prp-accent-tint); padding:13px 15px}
+  .opt.incorrect{border:2px solid var(--prp-danger); padding:13px 15px}
+  .opt.dim{color:var(--prp-muted)}
+  .opt.correct .mark{color:var(--prp-accent-text)}
+  .opt.incorrect .mark{color:var(--prp-danger)}
+  .opt-weight{font-size:12px; font-weight:500; margin-top:4px}
+  .w-pos{color:var(--prp-accent-text)} .w-neg{color:var(--prp-danger)} .w-zero{color:var(--prp-muted)}
 
   /* feedback */
-  .opt.picked{border-color:var(--blue-400); background:rgba(96,165,250,.10)}
-  .sec-head{font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--emerald-400); margin-bottom:10px}
-  .feedback{margin-top:8px}
-  .verdict{font-weight:700; font-size:16px; margin-bottom:6px}
-  .verdict.ok{color:var(--emerald-400)} .verdict.no{color:var(--red-400)}
-  .fb-block{margin-top:12px}
-  .fb-label{font-size:11.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--slate-400); margin-bottom:3px}
-  .fb-block strong{color:var(--white)}
+  .sec-head{font-size:11px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--prp-accent-text); margin-bottom:10px}
+  .feedback{margin-top:16px; padding-top:8px; border-top:2px solid var(--prp-divider)}
+  .verdict{font-weight:500; font-size:20px; margin:12px 0 4px}
+  .verdict.ok{color:var(--prp-accent-text)} .verdict.no{color:var(--prp-danger)}
+  .fb-block{margin-top:14px; padding-top:14px; border-top:1px solid var(--prp-divider); font-size:15px; color:var(--prp-text-2)}
+  .fb-label{font-size:12px; color:var(--prp-muted); margin-bottom:4px}
+  .fb-block strong{color:var(--prp-text); font-weight:600}
   .fb-list{margin:4px 0 0; padding-left:20px}
   .fb-list li{margin:3px 0}
-  .mistake{background:rgba(239,68,68,.1); border-left:3px solid var(--red); padding:9px 12px; border-radius:0 8px 8px 0}
-  .mistake .fb-label{color:var(--red-400)}
+  .mistake{border:1px solid var(--prp-warn); padding:14px 18px}
+  .mistake .fb-label{color:var(--prp-warn)}
+  .sources{margin-top:14px; padding-top:14px; border-top:1px solid var(--prp-divider)}
+  .source{display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap; padding:8px 0}
+  .source .src-name{font-weight:600; color:var(--prp-text); font-size:13px; white-space:nowrap}
+  .source .src-detail{font-size:14px; color:var(--prp-text-2)}
 
-  /* evidence — the signature element */
-  .sources{margin-top:14px}
-  .source{display:flex; gap:10px; align-items:flex-start; background:rgba(245,158,11,.1);
-    border:1px solid rgba(245,158,11,.28); border-radius:9px; padding:10px 12px; margin-top:8px}
-  .source .src-name{font-weight:700; color:var(--amber-400); font-size:12.5px; white-space:nowrap}
-  .source .src-detail{font-size:14px; color:var(--slate-200)}
-
-  /* buttons */
-  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; font:inherit; font-weight:700;
-    background:var(--emerald); color:#04261C; border:none; border-radius:var(--r-md); padding:13px 22px; transition:background .15s}
-  .btn:hover{background:var(--emerald-400)}
-  .btn.secondary{background:rgba(51,65,85,.5); color:var(--slate-200)}
-  .btn.secondary:hover{background:rgba(51,65,85,.85)}
-  .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
-  .back{background:none; border:none; cursor:pointer; font:inherit; color:var(--slate-400); font-weight:600; padding:6px 0; margin-bottom:8px}
-  .back:hover{color:var(--white)}
+  /* buttons: label left */
+  .btn,.prp a.btn{display:inline-flex; align-items:center; justify-content:space-between; gap:16px; min-height:48px; cursor:pointer;
+    font:inherit; font-size:15px; font-weight:600; line-height:1.2; text-align:left; text-decoration:none;
+    background:var(--prp-accent); color:var(--prp-on-accent); border:1px solid transparent; border-radius:0; padding:12px 18px}
+  .btn:hover{background:var(--prp-accent-text)}
+  .btn.secondary,.prp a.btn.secondary{background:transparent; border-color:var(--prp-divider); color:var(--prp-text)}
+  .btn.secondary:hover{background:color-mix(in srgb,var(--prp-text) 8%,transparent)}
+  .row{display:flex; gap:12px; flex-wrap:wrap; margin-top:20px}
+  .back{display:inline-flex; align-items:center; min-height:44px; background:none; border:none; cursor:pointer; font:inherit; font-size:15px; font-weight:600; color:var(--prp-text-2); padding:0; margin-bottom:8px}
+  .back:hover{color:var(--prp-text)}
 
   /* results */
-  .score-card{text-align:center; border-radius:var(--r-xl); padding:26px 20px; border:1px solid}
-  .score-card.pass{background:rgba(16,185,129,.1); border-color:rgba(16,185,129,.3)}
-  .score-card.partial{background:rgba(245,158,11,.1); border-color:rgba(245,158,11,.3)}
-  .score-icon{font-size:34px; line-height:1; margin-bottom:6px}
-  .score-big{font-size:42px; font-weight:800; color:var(--white); line-height:1}
-  .score-sub{color:var(--slate-300); margin-top:6px}
-  .summary-row{display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--card-border); font-size:14px}
+  .score-card{padding:32px; background:var(--prp-surface); border:0}
+  .score-card.pass{background:var(--prp-accent-tint); border:1px solid var(--prp-accent-tint-border)}
+  .score-icon{display:none}
+  .score-big{font-size:84px; font-weight:300; letter-spacing:-.06em; color:var(--prp-text); line-height:1; font-variant-numeric:tabular-nums}
+  .score-sub{color:var(--prp-text-2); margin-top:10px}
+  .summary-row{display:flex; align-items:center; gap:12px; min-height:48px; border-bottom:1px solid var(--prp-divider); font-size:15px}
   .summary-row:last-child{border-bottom:none}
-  .summary-row .sm-mark{flex:0 0 auto; font-weight:700}
-  .summary-row .sm-mark.ok{color:var(--emerald-400)} .summary-row .sm-mark.no{color:var(--red-400)}
-  .summary-row .sm-dom{flex:1; color:var(--slate-300)}
-  .dom-row{display:flex; align-items:center; justify-content:space-between; padding:9px 0; border-bottom:1px solid var(--card-border); font-size:15px; color:var(--slate-200)}
+  .summary-row .sm-mark{flex:0 0 auto; font-weight:600}
+  .summary-row .sm-mark.ok{color:var(--prp-accent-text)} .summary-row .sm-mark.no{color:var(--prp-danger)}
+  .summary-row .sm-dom{flex:1; color:var(--prp-text-2)}
+  .dom-row{display:flex; align-items:center; justify-content:space-between; min-height:48px; border-bottom:1px solid var(--prp-divider); font-size:15px; color:var(--prp-text-2)}
   .dom-row:last-child{border-bottom:none}
-  .dom-score{font-weight:700; color:var(--white)}
+  .dom-score{font-weight:600; color:var(--prp-text)}
+  .hint{font-size:13px; color:var(--prp-muted); margin-top:20px}
 
-  .hint{font-size:13px; color:var(--slate-500); margin-top:18px; text-align:center}
-
-  /* accessibility */
-  :focus-visible{outline:2.5px solid var(--emerald-400); outline-offset:2px; border-radius:6px}
   .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0}
   @media (prefers-reduced-motion:reduce){*{transition:none !important}}
-  @media (max-width:520px){ h1{font-size:22px} .wrap{padding:16px 14px 56px} .card{padding:16px} .acct-email{display:none} }
 
-  /* readiness dashboard */
-  .ready-ring{position:relative;width:120px;height:120px;margin:0 auto 8px}
+  /* readiness */
+  .ready-ring{position:relative;width:120px;height:120px;margin:0 0 8px}
   .ready-ring svg{transform:rotate(-90deg)}
   .ready-ring .rlabel{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-  .ready-ring .rnum{font-size:28px;font-weight:800;color:var(--white);line-height:1}
-  .ready-ring .rtag{font-size:11px;color:var(--slate-400);margin-top:2px}
-  .dom-bar-wrap{margin:6px 0}
-  .dom-bar-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px}
-  .dom-bar-label span:first-child{color:var(--slate-300)}
-  .dom-bar-label span:last-child{font-weight:700;color:var(--white)}
-  .dom-bar{height:8px;background:var(--slate-700);border-radius:999px;overflow:hidden}
-  .dom-bar > i{display:block;height:100%;border-radius:999px;transition:width .4s}
-  .weak-tag{display:inline-block;font-size:12px;font-weight:700;color:var(--amber-400);background:rgba(245,158,11,.15);padding:4px 10px;border-radius:999px;margin:2px 4px 2px 0}
-  .hero{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(59,130,246,.08));border:1px solid rgba(16,185,129,.25);border-radius:var(--r-xl);padding:22px 24px;margin-bottom:16px;text-align:center}
-  .hero h2{color:var(--emerald-400);margin-bottom:6px}
-  .hero .lead{margin-bottom:14px}
-  .guar-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--emerald-400);text-decoration:none;margin-top:8px}
-  .guar-link:hover{text-decoration:underline}
-  a.btn{text-decoration:none}
-  /* access prompts: trial countdown, end-of-trial plan card, sign-up card, locked list tail */
-  .trial-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:var(--r-md);padding:10px 14px;margin-bottom:12px;font-size:14px;color:var(--amber-400);font-weight:600}
-  .trial-bar a{color:var(--white);font-weight:700;text-decoration:none}
-  .trial-bar a:hover{text-decoration:underline}
-  .gate-card{border-color:rgba(16,185,129,.35);background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(59,130,246,.08));margin-bottom:16px}
-  .gate-card h2{margin:8px 0 6px}
-  .gate-tag{display:inline-block;font-size:12px;font-weight:700;color:var(--amber-400);background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3);border-radius:999px;padding:3px 10px}
-  .lock-row{margin-top:10px;padding:14px 16px;border:1px dashed var(--card-border);border-radius:var(--r-xl);color:var(--slate-400);font-size:14px;line-height:1.5}
-  .lock-row a{color:var(--emerald-400);font-weight:700;text-decoration:none}
-  .lock-row strong{color:var(--white)}
+  .ready-ring .rnum{font-size:28px;font-weight:500;letter-spacing:-.03em;color:var(--prp-text);line-height:1}
+  .ready-ring .rtag{font-size:11px;color:var(--prp-muted);margin-top:2px}
+  .dom-bar-wrap{margin:10px 0}
+  .dom-bar-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px}
+  .dom-bar-label span:first-child{color:var(--prp-text-2)}
+  .dom-bar-label span:last-child{font-weight:600;color:var(--prp-text)}
+  .dom-bar{height:6px;background:var(--prp-track);overflow:hidden}
+  .dom-bar > i{display:block;height:100%;transition:width .4s}
+  .weak-tag{display:inline-block;font-size:12px;font-weight:500;color:var(--prp-warn);background:color-mix(in srgb,var(--prp-text) 10%,transparent);padding:4px 8px;margin:2px 4px 2px 0}
+  .hero{padding:0 0 40px;margin-bottom:32px;border-bottom:2px solid var(--prp-divider);text-align:left}
+  .prp .hero h2{font-size:46px;line-height:1.14;font-weight:500;letter-spacing:-.02em;color:var(--prp-text);margin:0 0 12px}
+  .hero .lead{margin-bottom:20px;max-width:640px}
+  .hero .btn{min-height:52px;min-width:240px}
+  .prp a.guar-link{display:flex;align-items:center;gap:6px;min-height:44px;font-size:13px;color:var(--prp-accent-text);margin-top:8px}
 
-  /* ---------- about / explainer copy (server-rendered, indexable) ---------- */
-  .tool-about{margin-top:36px}
-  .tool-about h2{font-size:18px; margin:0 0 8px; color:var(--white); font-weight:700}
-  .tool-about h3{font-size:15px; margin:20px 0 6px; color:var(--white); font-weight:700}
-  .tool-about p,.tool-about li{color:var(--slate-400); font-size:14.5px; line-height:1.6}
+  /* access prompts */
+  .trial-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid var(--prp-warn);padding:12px 16px;margin-bottom:16px;font-size:14px;color:var(--prp-text-2)}
+  .prp .trial-bar a{color:var(--prp-text);font-weight:600}
+  .gate-card{background:var(--prp-accent-tint);border:1px solid var(--prp-accent-tint-border);margin-bottom:16px}
+  .gate-card h2{margin:8px 0 6px}
+  .gate-tag{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--prp-accent-text)}
+  .lock-row{margin-top:16px;padding:16px 20px;background:var(--prp-accent-tint);border:1px solid var(--prp-accent-tint-border);color:var(--prp-text-2);font-size:14px;line-height:1.5}
+  .prp .lock-row a{color:var(--prp-accent-text);font-weight:600}
+  .lock-row strong{color:var(--prp-text)}
+
+  /* explainer copy (server-rendered, indexable) */
+  .tool-about{margin-top:64px;padding-top:40px;border-top:2px solid var(--prp-divider);max-width:860px}
+  .prp .tool-about h2{font-size:20px; margin:0 0 8px}
+  .prp .tool-about h3{font-size:16px; margin:24px 0 6px; font-weight:600}
+  .tool-about p,.tool-about li{color:var(--prp-muted); font-size:14.5px; line-height:1.6}
   .tool-about p{margin:0 0 10px}
   .tool-about ul,.tool-about ol{margin:0 0 12px; padding-left:20px}
   .tool-about li{margin:0 0 5px}
-  .tool-about a{color:var(--emerald-400)}
-  .tool-about .lead{margin:0 0 10px}
+  .tool-about .lead{margin:0 0 10px; color:var(--prp-text-2)}
+
+  @media (max-width:900px){
+    .case-split{grid-template-columns:minmax(0,1fr)}
+    .case-left{position:static; max-height:none; overflow:visible}
+  }
+  @media (max-width:720px){
+    .wrap{padding:0 20px 64px}
+    header.site{margin-bottom:32px}
+    .prp h1,.prp .hero h2{font-size:32px}
+    .card,.score-card{padding:20px}
+    .acct-email{display:none}
+    .score-big{font-size:64px}
+    .qstem{font-size:17px}
+    .hero .btn{width:100%}
+  }
 </style>
 
 <script type="application/ld+json">
@@ -284,20 +293,22 @@
 }
 </script>
 </head>
-<body>
+<body class="prp">
 <div class="wrap">
   <header class="site">
     <a class="brand-wrap" href="/landing.html" aria-label="PassReady Prep home">
-      <span class="brand-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
+      <svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#0F172A"/><g fill="none" stroke="#34D399" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"><path d="M256 74 L456 164 L256 254 L56 164 Z"/><path d="M118 192 V370 Q256 430 394 370 V192"/><path d="M456 164 V290"/></g><text x="256" y="355" text-anchor="middle" font-family="Archivo, Inter, system-ui, sans-serif" font-weight="500" font-size="84" letter-spacing="10" fill="#F8FAFC">PRP</text></svg>
       <span class="brand">PassReady <span class="prep">Prep</span><small>NCE &amp; NCMHCE exam practice and simulations</small></span>
     </a>
-    <div class="hdr-right">
-      <span class="exam-badge">NCMHCE</span>
-      <a class="acct-btn" href="/dashboard.html">Dashboard</a>
-      <a class="acct-btn" href="/nce.html">NCE study</a>
-      <a class="acct-btn" href="/pricing.html?exam=ncmhce">Pricing</a>
+    <nav class="hdr-right" aria-label="Main">
+      <div class="exam-seg" role="group" aria-label="Choose an exam">
+        <a href="/nce.html">NCE</a>
+        <a href="/study" aria-current="page">NCMHCE</a>
+      </div>
+      <a class="nav-link" href="/dashboard.html">Dashboard</a>
+      <a class="nav-link" href="/pricing.html?exam=ncmhce">Pricing</a>
       <span id="acct" class="acct"></span>
-    </div>
+    </nav>
   </header>
   <main id="app" aria-live="polite"></main>
   <!-- Static, pre-login intro: in the raw HTML so crawlers see the tool
@@ -766,7 +777,7 @@ function signupCard(why){
   const lead = why === 'done'
     ? 'That was your free case. A free account unlocks all '+bankSize()+' cases, the timed mock exam and your readiness score for '+trialDays()+' days. No card required, and this result comes with you.'
     : 'Your first case was free. Create a free account to unlock all '+bankSize()+' cases, the timed mock exam and your readiness score for '+trialDays()+' days. No card required.';
-  return '<div class="card gate-card"><div class="gate-tag">✨ Free '+trialDays()+'-day trial</div>'
+  return '<div class="card gate-card"><div class="gate-tag">Free '+trialDays()+'-day trial</div>'
     + '<h2>'+(why === 'done' ? 'Keep going — it\'s free' : 'Create a free account to continue')+'</h2>'
     + '<p class="lead" style="margin-bottom:0">'+lead+'</p>'
     + '<div class="row" style="margin-top:14px"><a class="btn" href="/register.html?next='+next+'">Create free account ›</a>'
@@ -887,7 +898,7 @@ async function showDashboard(){
 
   h += '<h2>Practice mode</h2>';
   h += '<div class="mode-grid" role="group" aria-label="Practice mode">';
-  h += modeCard('new','New format','Diagnosis is given — focus on treatment, counseling & ethics decisions.','Current exam');
+  h += modeCard('new','New format','Diagnosis is given — focus on treatment, counseling & ethics decisions.','2027 format');
   h += modeCard('classic','Classic format','Work out the diagnosis yourself first, then answer. Extra diagnostic practice.','');
   h += '<div class="mode-card" style="grid-column:1/-1;cursor:default">'
      + '<span class="mc-head">Feedback timing</span>'
@@ -896,12 +907,12 @@ async function showDashboard(){
      + '<button class="badge '+(!EXAM_FB?'b-emerald':'b-slate')+'" style="cursor:pointer;border:none;font:inherit" aria-pressed="'+(!EXAM_FB)+'" onclick="setExamFb(false)">Study — after each Q</button>'
      + '<button class="badge '+(EXAM_FB?'b-amber':'b-slate')+'" style="cursor:pointer;border:none;font:inherit" aria-pressed="'+EXAM_FB+'" onclick="setExamFb(true)">Exam — held to the end</button>'
      + '</div></div>';
-  h += '<a href="/exam.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">📝 NCMHCE Timed Mock Exam</span><span class="mc-desc">A full 11-case exam (10 on the 2027 format) under a 225-minute clock, blueprint-weighted and run section by section like the real NCMHCE, with the 15-minute break after case 5. No feedback until you finish — then a full domain breakdown and answer review.</span></a>';
-  h += '<a href="/intake.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">🎙️ NCMHCE Intake Interview Simulator</span><span class="mc-desc">Practice the clinical interview with an AI client who reveals their story the way a real one does — guarded until you earn trust. Five clients including a court-mandated and a returning-veteran case. Speak or type; get a supervisor debrief on rapport, questioning, and risk screening.</span></a>';
+  h += '<a href="/exam.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">NCMHCE Timed Mock Exam</span><span class="mc-desc">A full 11-case exam (10 on the 2027 format) under a 225-minute clock, blueprint-weighted and run section by section like the real NCMHCE, with the 15-minute break after case 5. No feedback until you finish — then a full domain breakdown and answer review.</span></a>';
+  h += '<a href="/intake.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">NCMHCE Intake Interview Simulator</span><span class="mc-desc">Practice the clinical interview with an AI client who reveals their story the way a real one does — guarded until you earn trust. Five clients including a court-mandated and a returning-veteran case. Speak or type; get a supervisor debrief on rapport, questioning, and risk screening.</span></a>';
   h += '</div>';
 
   h += '<div class="row" style="margin-top:14px"><button class="btn" style="width:100%" onclick="goCases()">Start practicing — '
-     + (MODE==='classic' ? 'Classic format' : 'New format') + ' ›</button></div>';
+     + (MODE==='classic' ? 'Classic format' : '2027 format') + ' ›</button></div>';
 
   h += '<div class="card" style="margin-top:16px"><h2>This session</h2>';
   h += '<div style="font-size:12px;color:var(--slate-500);margin-bottom:8px">Running score for this browser session. Your full history (readiness, flashcards, study plan) is saved locally in this browser — clearing browser data or switching devices will reset it. Create an account for cross-device sync.</div>';
@@ -922,25 +933,25 @@ async function showDashboard(){
   // Study tools nav
   h += '<div class="card" style="margin-top:16px"><h2>Study tools</h2>';
   h += '<div class="mode-grid">';
-  h += '<a href="/games.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🎮 NCE &amp; NCMHCE Study Games</span><span class="mc-desc">NCE &amp; NCMHCE study games to break the monotony: drag-and-drop Code Match (free), Triage Rush for next-best-step decisions against the clock, and Theory Clue for counseling theories.</span></a>';
-  h += '<a href="/podcast.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🎧 NCMHCE Clinical Podcast</span><span class="mc-desc">13 audio deep-dives (~4 hrs) on the diagnoses and decisions the exam tests — anxiety, mood, psychotic-spectrum timing, the personality clusters, OCD, addictions, eating disorders, and how clinicians tell look-alikes apart. Listen on the go.</span></a>';
-  h += '<a href="/flashcards.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📇 NCMHCE Flashcards</span><span class="mc-desc">258 cards with spaced repetition. Covers ICD-10 codes, first-line treatments, differentials, ethics, and crisis. Cards you miss come back sooner.</span></a>';
-  h += '<a href="/decision-trees.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🌳 NCMHCE Decision Trees</span><span class="mc-desc">25 branching clinical scenarios — risk and safety, differential diagnosis, ethics, and treatment selection. Walk each one node by node to drill the reasoning the exam rewards.</span></a>';
-  h += '<a href="/next-best-step.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🎯 NCMHCE Next Best Step</span><span class="mc-desc">28 rapid clinical decisions: pick the correct next step and dodge the trap. Drills stage-of-change, sequencing, scope of practice, safety, and contraindications — the "what do you do next / what do you avoid" reasoning the exam actually scores.</span></a>';
-  h += '<a href="/assess-next.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📋 NCMHCE What to Assess Next</span><span class="mc-desc">26 vignettes: pick the right instrument or assessment step next — the right tool, the right order, and the rule behind it. Completes the drill trio with Which Diagnosis? and Next Best Step.</span></a>';
-  h += '<a href="/assess-next-case.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🧭 NCMHCE What to Assess Next — Full Case</span><span class="mc-desc">Follow one client through 10 sequential rounds — safety screening to treatment planning and ethics. You write what you would assess next and why; an AI evaluator scores your clinical reasoning, then new information is revealed and you decide again. 5 cases.</span></a>';
-  h += '<a href="/knowledge-drill.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🧠 NCMHCE Knowledge Drill</span><span class="mc-desc">300 standalone MCQs across all 10 NCMHCE knowledge domains — theories, pioneers, counseling skills, ethics, intake, assessment, diagnosis, and treatment planning. Filter by domain and difficulty. Instant feedback with full clinical rationale on every question.</span></a>';
-  h += '<a href="/skills.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🗣️ NCMHCE Microskills Responder</span><span class="mc-desc">Respond in your own words to 14 realistic client statements using an assigned microskill — open questions, reflections of feeling, paraphrases, reframes, immediacy, and more. An AI coach evaluates each response and shows you a stronger version.</span></a>';
-  h += '<a href="/theory.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🧬 NCMHCE Theories & Pioneers</span><span class="mc-desc">34 counseling theories and frameworks — founder, core premise, key terms, techniques, and what the NCMHCE actually tests. Search CBT, REBT, DBT, ACT, PCT, Gestalt, psychodynamic, family systems, skills frameworks, and more.</span></a>';
-  h += '<a href="/dsm.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📖 NCMHCE DSM-5-TR Reference</span><span class="mc-desc">92 diagnoses with ICD-10 codes and first-line treatments. Search by name, code, or treatment keyword. Use alongside cases to look up unfamiliar disorders.</span></a>';
-  h += '<a href="/sheets/ncmhce-study-sheets.pdf" target="_blank" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📄 NCMHCE Study Sheets (PDF)</span><span class="mc-desc">Printable one-pagers for all 18 categories. Download the combined 92-diagnosis reference or individual category sheets to study offline.</span></a>';
-  h += '<a href="/nce.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">🎓 NCE Study (new)</span><span class="mc-desc">Also sitting the National Counselor Examination? Practice questions and full-length timed mock exams weighted to NBCC\'s six NCE domains, with progress by domain. Separate NCE plans.</span></a>';
+  h += '<a href="/games.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCE &amp; NCMHCE Study Games</span><span class="mc-desc">NCE &amp; NCMHCE study games to break the monotony: drag-and-drop Code Match (free), Triage Rush for next-best-step decisions against the clock, and Theory Clue for counseling theories.</span></a>';
+  h += '<a href="/podcast.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCMHCE Clinical Podcast</span><span class="mc-desc">13 audio deep-dives (~4 hrs) on the diagnoses and decisions the exam tests — anxiety, mood, psychotic-spectrum timing, the personality clusters, OCD, addictions, eating disorders, and how clinicians tell look-alikes apart. Listen on the go.</span></a>';
+  h += '<a href="/flashcards.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCMHCE Flashcards</span><span class="mc-desc">258 cards with spaced repetition. Covers ICD-10 codes, first-line treatments, differentials, ethics, and crisis. Cards you miss come back sooner.</span></a>';
+  h += '<a href="/decision-trees.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCMHCE Decision Trees</span><span class="mc-desc">25 branching clinical scenarios — risk and safety, differential diagnosis, ethics, and treatment selection. Walk each one node by node to drill the reasoning the exam rewards.</span></a>';
+  h += '<a href="/next-best-step.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCMHCE Next Best Step</span><span class="mc-desc">28 rapid clinical decisions: pick the correct next step and dodge the trap. Drills stage-of-change, sequencing, scope of practice, safety, and contraindications — the "what do you do next / what do you avoid" reasoning the exam actually scores.</span></a>';
+  h += '<a href="/assess-next.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCMHCE What to Assess Next</span><span class="mc-desc">26 vignettes: pick the right instrument or assessment step next — the right tool, the right order, and the rule behind it. Completes the drill trio with Which Diagnosis? and Next Best Step.</span></a>';
+  h += '<a href="/assess-next-case.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCMHCE What to Assess Next — Full Case</span><span class="mc-desc">Follow one client through 10 sequential rounds — safety screening to treatment planning and ethics. You write what you would assess next and why; an AI evaluator scores your clinical reasoning, then new information is revealed and you decide again. 5 cases.</span></a>';
+  h += '<a href="/knowledge-drill.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCMHCE Knowledge Drill</span><span class="mc-desc">300 standalone MCQs across all 10 NCMHCE knowledge domains — theories, pioneers, counseling skills, ethics, intake, assessment, diagnosis, and treatment planning. Filter by domain and difficulty. Instant feedback with full clinical rationale on every question.</span></a>';
+  h += '<a href="/skills.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCMHCE Microskills Responder</span><span class="mc-desc">Respond in your own words to 14 realistic client statements using an assigned microskill — open questions, reflections of feeling, paraphrases, reframes, immediacy, and more. An AI coach evaluates each response and shows you a stronger version.</span></a>';
+  h += '<a href="/theory.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCMHCE Theories & Pioneers</span><span class="mc-desc">34 counseling theories and frameworks — founder, core premise, key terms, techniques, and what the NCMHCE actually tests. Search CBT, REBT, DBT, ACT, PCT, Gestalt, psychodynamic, family systems, skills frameworks, and more.</span></a>';
+  h += '<a href="/dsm.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCMHCE DSM-5-TR Reference</span><span class="mc-desc">92 diagnoses with ICD-10 codes and first-line treatments. Search by name, code, or treatment keyword. Use alongside cases to look up unfamiliar disorders.</span></a>';
+  h += '<a href="/sheets/ncmhce-study-sheets.pdf" target="_blank" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCMHCE Study Sheets (PDF)</span><span class="mc-desc">Printable one-pagers for all 18 categories. Download the combined 92-diagnosis reference or individual category sheets to study offline.</span></a>';
+  h += '<a href="/nce.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCE Study (new)</span><span class="mc-desc">Also sitting the National Counselor Examination? Practice questions and full-length timed mock exams weighted to NBCC\'s six NCE domains, with progress by domain. Separate NCE plans.</span></a>';
   // iOS app: nothing is sold in it, so the guide tile only appears for people
   // who already own it (download), and without the price.
   if(!window.PRP_NATIVE){
-    h += '<a href="/study-guide.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📘 The Complete NCMHCE Study Guide</span><span class="mc-desc">Now expanded: all 18 diagnostic families plus 3 full-length practice exams — 33 cases, 429 scored questions with full rationales. $25 one-time; also on Amazon Kindle.</span></a>';
+    h += '<a href="/study-guide.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">The Complete NCMHCE Study Guide</span><span class="mc-desc">Now expanded: all 18 diagnostic families plus 3 full-length practice exams — 33 cases, 429 scored questions with full rationales. $25 one-time; also on Amazon Kindle.</span></a>';
   } else if((currentUser() || {}).guidePurchasedAt){
-    h += '<a href="/study-guide.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">📘 The Complete NCMHCE Study Guide</span><span class="mc-desc">Your copy: all 18 diagnostic families plus 3 full-length practice exams — 33 cases, 429 scored questions with full rationales. Download the PDF.</span></a>';
+    h += '<a href="/study-guide.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">The Complete NCMHCE Study Guide</span><span class="mc-desc">Your copy: all 18 diagnostic families plus 3 full-length practice exams — 33 cases, 429 scored questions with full rationales. Download the PDF.</span></a>';
   }
   h += '</div></div>';
 
@@ -1013,7 +1024,7 @@ function renderList(){
        + '<button class="fbtn" onclick="clearDomainFilter()">Show all cases</button></p>';
   }
   h += '<p class="lead">Mode: <strong style="color:var(--white)">'
-     + (MODE==='classic' ? 'Classic — you diagnose first' : 'New format — diagnosis given')
+     + (MODE==='classic' ? 'Classic — you diagnose first' : '2027 format — diagnosis given')
      + '</strong></p>';
 
   // Progress across the whole bank, plus a one-tap way back in.
@@ -1121,10 +1132,10 @@ function renderCase(){
   h += '<div class="chips" style="margin-bottom:16px">'
      + '<span class="badge '+diffBadgeClass((c.difficulty||'').toLowerCase())+'">'+esc(cap(c.difficulty||''))+'</span>'
      + (c.category ? '<span class="badge b-slate">'+esc(c.category)+'</span>' : '')
-     + '<span class="badge '+(MODE==='classic'?'b-blue':'b-emerald')+'">'+(MODE==='classic'?'Classic':'New format')+'</span></div>';
+     + '<span class="badge '+(MODE==='classic'?'b-blue':'b-emerald')+'">'+(MODE==='classic'?'Classic':'2027 format')+'</span></div>';
 
   // vignette
-  h += '<div class="card stack"><div class="vignette">';
+  h += '<div class="case-split"><div class="case-left"><div class="card stack"><div class="vignette">';
   const seg = (cls,label,txt) => txt ? '<div class="seg"><div class="seg-label '+cls+'">'+label+'</div><div class="seg-text">'+esc(txt)+'</div></div>' : '';
   h += seg('seg-intake','Intake', c.narrative && c.narrative.intake);
   h += seg('seg-s1','Session 1', c.narrative && c.narrative.session1);
@@ -1134,11 +1145,11 @@ function renderCase(){
     h += '<div class="dx"><div class="seg-label">Working diagnosis</div>'
        + '<div class="dx-name">'+esc(dx.name)+(dx.code?' <span class="dx-code">('+esc(dx.code)+')</span>':'')+'</div></div>';
   }
-  h += '</div>';
+  h += '</div></div><div class="case-right">';
 
   // classic: diagnose first
   if(MODE==='classic' && phase==='diagnose'){
-    h += '<div style="margin-top:14px">'+renderDiagnosis()+'</div>';
+    h += renderDiagnosis()+'</div></div>';
     app.innerHTML = h;
     return;
   }
@@ -1147,7 +1158,7 @@ function renderCase(){
   const answered = answers.filter(a=>a).length;
   h += '<div class="progress"><span>Question '+(qi+1)+' of '+n+'</span><span>'+answered+'/'+n+' answered</span></div>';
   h += '<div class="bar"><i style="width:'+Math.round((qi)/(n)*100)+'%"></i></div>';
-  h += '<div class="card" style="margin-top:14px">'+renderQuestion(qi)+'</div>';
+  h += '<div class="card" style="margin-top:14px">'+renderQuestion(qi)+'</div></div></div>';
   app.innerHTML = h;
 }
 
@@ -1461,7 +1472,7 @@ function debriefLockedHtml(){
   // wrong first ask.
   if(!authHeaders().Authorization){
     return '<div class="debrief-lock" role="note">'
-      + '<div class="gate-tag">✨ Free during your '+trialDays()+'-day trial</div>'
+      + '<div class="gate-tag">Free during your '+trialDays()+'-day trial</div>'
       + '<p style="margin:8px 0 10px;font-size:14px;color:var(--slate-300)">Create a free account and Dr. Claire Moreau debriefs this case, and every case you work during your trial. No card required.</p>'
       + '<a class="btn" href="/register.html?next=' + encodeURIComponent('/study') + '">Create free account ›</a></div>';
   }

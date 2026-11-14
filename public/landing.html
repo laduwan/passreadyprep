@@ -160,7 +160,7 @@
   a{color:var(--accent-text)}
   a:hover{color:var(--accent)}
   h1,h2,h3,h4{font-weight:600; letter-spacing:-.025em; margin:0; color:var(--text)}
-  h2{font-size:34px; line-height:1.1; letter-spacing:-.035em}
+  h2{font-size:34px; line-height:1.18; letter-spacing:-.015em; font-weight:500}
   h3{font-size:17px}
   p{margin:0}
   ul,ol{margin:0; padding:0; list-style:none}
@@ -227,7 +227,7 @@
   .hero-wrap::after{content:""; position:absolute; inset:0 0 0 50%; background:var(--surface); border-left:1px solid var(--divider); pointer-events:none}
   .hero{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); position:relative; z-index:1}
   .hero-copy{padding:80px 56px 72px 0; display:flex; flex-direction:column; gap:22px}
-  .hero-copy h1{font-size:52px; line-height:1.05; letter-spacing:-.04em; font-weight:600; text-wrap:balance}
+  .hero-copy h1{font-size:46px; line-height:1.14; letter-spacing:-.02em; font-weight:500; text-wrap:balance}
   .hero-copy .sub{font-size:18px; line-height:1.55; max-width:500px; color:var(--muted)}
   .hero-cta{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:6px}
   .hero-cta .btn.primary{min-width:230px}
@@ -380,7 +380,7 @@
 
   /* ---------- final ---------- */
   .final{display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:40px; align-items:end}
-  .final h2{font-size:48px; line-height:1.02; letter-spacing:-.04em}
+  .final h2{font-size:42px; line-height:1.12; letter-spacing:-.02em}
   .final .col{gap:12px}
   .final .copy{font-size:15px; color:var(--body2)}
   .play-badge{display:inline-block; line-height:0}
@@ -419,7 +419,7 @@
     h2{font-size:24px; line-height:1.15}
     .hero{grid-template-columns:1fr}
     .hero-copy{padding:28px 0; gap:14px}
-    .hero-copy h1{font-size:32px; line-height:1.08}
+    .hero-copy h1{font-size:32px; line-height:1.14}
     .hero-copy .sub{font-size:15px}
     .hero-cta .btn{width:100%}
     .hero-wrap::after{display:none}
@@ -705,7 +705,7 @@
           <div class="plan-head"><h3>Monthly</h3><span class="tag">Cancel anytime</span></div>
           <div class="price" data-iap-tier="monthly"><span class="amt num">$29</span><span class="per">/ month</span></div>
           <p class="desc">Full NCMHCE practice, cancel any time. Good for last-minute prep.</p>
-          <ul><li>All 290+ case simulations</li><li>Timed full-length mock exams</li><li>Full readiness predictor</li><li>250+ flashcards + study plan</li><li class="off">No AI debrief</li></ul>
+          <ul><li>All 290+ case simulations</li><li>Timed full-length mock exams</li><li>Full readiness predictor</li><li>250+ flashcards + study plan</li><li>Free CE course when you pass</li><li class="off">No AI debrief</li></ul>
           <a class="btn secondary" href="/checkout.html?tier=monthly">Get monthly <span class="arr" aria-hidden="true">→</span></a>
           <span class="fine">Renews monthly · cancel any time</span>
         </div>
@@ -713,7 +713,7 @@
           <div class="plan-head"><h3>3-month pass</h3><span class="tag">Most popular</span></div>
           <div class="price" data-iap-tier="pass3"><span class="amt num">$79</span><span class="per">/ 3 months</span></div>
           <p class="desc">Full NCMHCE access, billed every 3 months. Save $8 vs monthly.</p>
-          <ul><li>Everything in Monthly</li><li>Decision trees + DSM reference</li><li>Billed every 3 months</li></ul>
+          <ul><li>Everything in Monthly</li><li>Decision trees + DSM reference</li><li>Billed every 3 months</li><li>Free CE course when you pass</li></ul>
           <a class="btn" href="/checkout.html?tier=pass3">Get 3-month pass <span class="arr" aria-hidden="true">→</span></a>
           <span class="fine">Renews every 3 months · cancel any time</span>
         </div>
@@ -721,7 +721,7 @@
           <div class="plan-head"><h3>6-month pass</h3><span class="tag">Room for a retake</span></div>
           <div class="price" data-iap-tier="pass6"><span class="amt num">$119</span><span class="per">/ 6 months</span></div>
           <p class="desc">Full NCMHCE access, billed every 6 months. Room for a retake.</p>
-          <ul><li>Everything in 3-month</li><li>Room for a retake</li><li>Billed every 6 months</li></ul>
+          <ul><li>Everything in 3-month</li><li>Room for a retake</li><li>Billed every 6 months</li><li>Free CE course when you pass</li></ul>
           <a class="btn secondary" href="/checkout.html?tier=pass6">Get 6-month pass <span class="arr" aria-hidden="true">→</span></a>
           <span class="fine">Renews every 6 months · cancel any time</span>
         </div>
@@ -741,7 +741,7 @@
           <div class="plan-head"><h3>Monthly</h3><span class="tag">Cancel anytime</span></div>
           <div class="price" data-iap-tier="nce_monthly"><span class="amt num">$24.99</span><span class="per">/ month</span></div>
           <p class="desc">Full NCE practice, billed monthly. Billed separately from NCMHCE.</p>
-          <ul><li>Full NCE question bank</li><li>Unlimited timed mock exams</li><li>Progress by NCE domain</li></ul>
+          <ul><li>Full NCE question bank</li><li>Unlimited timed mock exams</li><li>Progress by NCE domain</li><li>Free CE course when you pass</li></ul>
           <a class="btn secondary" href="/nce.html#pricing">Get monthly <span class="arr" aria-hidden="true">→</span></a>
           <span class="fine">Renews monthly · cancel any time</span>
         </div>
@@ -749,7 +749,7 @@
           <div class="plan-head"><h3>3-month pass</h3><span class="tag">Most popular</span></div>
           <div class="price" data-iap-tier="nce_pass3"><span class="amt num">$59.99</span><span class="per">/ 3 months</span></div>
           <p class="desc">3 months of full NCE access. Billed every 3 months until you cancel.</p>
-          <ul><li>Everything in Monthly</li><li>Billed every 3 months</li><li>Cancel any time</li></ul>
+          <ul><li>Everything in Monthly</li><li>Billed every 3 months</li><li>Cancel any time</li><li>Free CE course when you pass</li></ul>
           <a class="btn" href="/nce.html#pricing">Get 3-month pass <span class="arr" aria-hidden="true">→</span></a>
           <span class="fine">Renews every 3 months · cancel any time</span>
         </div>
@@ -757,7 +757,7 @@
           <div class="plan-head"><h3>6-month pass</h3><span class="tag">Best value</span></div>
           <div class="price" data-iap-tier="nce_pass6"><span class="amt num">$89</span><span class="per">/ 6 months</span></div>
           <p class="desc">6 months of full NCE access. Billed every 6 months until you cancel.</p>
-          <ul><li>Everything in Monthly</li><li>Billed every 6 months</li><li>Room for a retake</li></ul>
+          <ul><li>Everything in Monthly</li><li>Billed every 6 months</li><li>Room for a retake</li><li>Free CE course when you pass</li></ul>
           <a class="btn secondary" href="/nce.html#pricing">Get 6-month pass <span class="arr" aria-hidden="true">→</span></a>
           <span class="fine">Renews every 6 months · cancel any time</span>
         </div>
