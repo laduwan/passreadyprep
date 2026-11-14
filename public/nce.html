@@ -641,8 +641,8 @@ html.theme-light .facts input,html.theme-light .plan-date{color-scheme:light}
         '<a class="choice" href="/sheets/nce-study-sheets.pdf" target="_blank" rel="noopener"><b>Study sheets (PDF)</b><span>Printable quick reference: key theories, names and facts across all 8 CACREP content areas.</span><i class="go"><span>Open the PDF</span><span aria-hidden="true">→</span></i></a>'+
         '<div class="choice games"><b>Study games</b><span>Need a break? Learn by playing.</span>'+
           '<div class="game-links"><a href="/games.html#clue">Theory Clue</a><a href="/games.html">Code Match · free</a><a href="/games.html#rush">Triage Rush · NCMHCE</a></div></div>'+
-        // The book is sold on the web only; the iOS bundle leaves its page out.
-        (APP ? '' : '<a class="choice" href="/nce-study-guide.html"><b>The NCE Ownership Method</b><span>A complete NCE study guide: 22 chapters, 380 term-to-owner pairs and 3 full-length practice exams with 600 scored questions. $25 one-time.</span><i class="go"><span>See the study guide</span><span aria-hidden="true">→</span></i></a>')+
+        // In the app the price comes from the App Store, on the book's own page.
+        '<a class="choice" href="/nce-study-guide.html"><b>The NCE Ownership Method</b><span>A complete NCE study guide: 22 chapters, 380 term-to-owner pairs and 3 full-length practice exams with 600 scored questions. '+(APP ? 'One-time purchase.' : '$25 one-time.')+'</span><i class="go"><span>See the study guide</span><span aria-hidden="true">→</span></i></a>'+
       '</div></section>'+
       planHtml(by, dLeft)+
       (PROGRESS && PROGRESS.mocks && PROGRESS.mocks.length ? '<div class="card"><h2>Recent mock exams</h2>'+PROGRESS.mocks.map(function(m){

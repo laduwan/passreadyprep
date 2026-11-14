@@ -82,15 +82,17 @@
       <li>Instant PDF download after purchase (581 pages)</li>
     </ul>
     <button class="btn" id="buyBtn">Buy the study guide — <span data-iap-tier="guide">$25</span></button>
-    <a class="btn btn-alt" href="https://www.amazon.com/dp/B0H8CR7NLX" target="_blank" rel="noopener">Paperback on Amazon — $29.99</a>
+    <!-- prp-web-only --><a class="btn btn-alt" href="https://www.amazon.com/dp/B0H8CR7NLX" target="_blank" rel="noopener">Paperback on Amazon — $29.99</a><!-- /prp-web-only -->
     <div class="msg" id="msg"></div>
-    <p class="note">Your download is personalized and licensed to your account. Also on <a href="https://www.amazon.com/dp/B0H8CR7NLX" target="_blank" rel="noopener" style="color:var(--emerald-400);text-decoration:underline;">Kindle</a>.</p>
+    <p class="note">Your download is personalized and licensed to your account.<!-- prp-web-only --> Also on <a href="https://www.amazon.com/dp/B0H8CR7NLX" target="_blank" rel="noopener" style="color:var(--emerald-400);text-decoration:underline;">Kindle</a>.<!-- /prp-web-only --></p>
   </div>
 
+  <!-- prp-web-only -->
   <div class="cross">
     <strong>Testing on or after July 1, 2027?</strong>
     NBCC changes the NCMHCE on that date — new domain weights, Indirect Client Care added, ICD-11 codes beside every diagnosis. The <a href="https://gaintegratedperspectives.com/bookstore.html" target="_blank" rel="noopener">2nd edition of The Complete NCMHCE Study Guide</a> is built to the 2027 specification and is available from GA Integrated Therapeutic Perspectives.
   </div>
+  <!-- /prp-web-only -->
 
   <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
     <h2 id="tool-about-h">About the study guide</h2>
@@ -99,12 +101,12 @@
     <ul>
       <li><strong>Clinical reasoning.</strong> How the case-simulation format works, how decisions are scored, and the sequence (safety, rule-outs, diagnosis, assessment, treatment, ethics) that earns points.</li>
       <li><strong>Diagnostic reference.</strong> Each family with its key criteria, differentials, ICD-10-CM codes, and first-line treatments, organized for fast review.</li>
-      <li><strong>Three practice exams.</strong> Full-length, in the current format, with an answer key and rationale for every question. Enter your answers from Practice Exam 1 at <a href="/practice-exams/1">the online answer key</a> for a scored report by domain.</li>
+      <li><strong>Three practice exams.</strong> Full-length, in the current format, with an answer key and rationale for every question.<!-- prp-web-only --> Enter your answers from Practice Exam 1 at <a href="/practice-exams/1">the online answer key</a> for a scored report by domain.<!-- /prp-web-only --></li>
     </ul>
     <h3>Who it is for</h3>
     <p>Candidates who want a complete, structured review they can work on paper, and retakers who need to see the method behind the exam rather than more questions. It stands alone: no subscription is required, and it pairs with the free <a href="/study">NCMHCE case simulations</a> for practice under exam conditions.</p>
     <h3>Formats</h3>
-    <p>The digital edition is a $25 one-time purchase. The paperback is on Amazon for $29.99 and is also available on Kindle. Review content by domain in the <a href="/knowledge-drill.html">knowledge drill</a> and look up unfamiliar disorders in the <a href="/dsm.html">DSM-5-TR reference</a> as you work through the chapters.</p>
+    <p><!-- prp-web-only -->The digital edition is a $25 one-time purchase. The paperback is on Amazon for $29.99 and is also available on Kindle. <!-- /prp-web-only -->Review content by domain in the <a href="/knowledge-drill.html">knowledge drill</a> and look up unfamiliar disorders in the <a href="/dsm.html">DSM-5-TR reference</a> as you work through the chapters.</p>
   </section>
   <footer class="site">
     <nav class="foot-col" aria-label="Study tools">
@@ -152,13 +154,15 @@
       var m = document.getElementById('msg2'); m.textContent = 'Preparing your personalized copy\u2026';
       fetch('/api/guide/link', { headers: authHeaders() })
         .then(function(r){ return r.json(); })
-        .then(function(d){ if (d.url){ m.textContent=''; window.location.href = d.url; } else { m.textContent = d.error || 'Could not create the download link.'; } })
+        .then(function(d){ if (d.url){ m.textContent=''; window.location.href = (window.PRP_NATIVE ? 'https://www.passreadyprep.com' : '') + d.url; } else { m.textContent = d.error || 'Could not create the download link.'; } })
         .catch(function(){ m.textContent = 'Something went wrong. Please try again.'; });
     };
   }
 
   buyBtn.onclick = function(){
-    if (!token){ msg.innerHTML = 'Please ' + signupLink + ' or ' + signinLink + ' first \u2014 your guide is tied to your account, and you\u2019ll come straight back here to buy it.'; return; }
+    // In the iOS app the guide is an In-App Purchase and needs no account
+    // (purchase.html keeps it on a guest account for this device).
+    if (!token && !window.PRP_NATIVE){ msg.innerHTML = 'Please ' + signupLink + ' or ' + signinLink + ' first \u2014 your guide is tied to your account, and you\u2019ll come straight back here to buy it.'; return; }
     buyBtn.disabled = true; msg.textContent = 'Redirecting to secure checkout\u2026';
     fetch('/api/payment/create-checkout-session', {
       method: 'POST',

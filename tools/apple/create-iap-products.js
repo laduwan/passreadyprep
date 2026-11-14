@@ -7,8 +7,8 @@
  * What it does (idempotent — re-run any time, it only adds what is missing):
  *   - two subscription groups, "NCMHCE" and "NCE", with their display names
  *   - the six auto-renewable subscriptions (monthly, 3-month, 6-month), three per group
- *   - the two non-consumables (NCMHCE and NCE Pass Guarantee). The study
- *     guide is sold on the website only, so it is not an In-App Purchase.
+ *   - the four non-consumables: the NCMHCE and NCE Pass Guarantee, and the
+ *     two books (The Complete NCMHCE Study Guide, The NCE Ownership Method)
  *   - en-US name + description on every product and group
  *   - US price (nearest Apple price point to the table below)
  *   - availability: United States
@@ -71,7 +71,9 @@ const PRODUCTS = [
   { tier: 'pass6',         sku: 'ncmhce.sub6mo',    type: 'subscription', group: 'NCMHCE', period: 'SIX_MONTHS',   usd: 149.99,
     name: 'NCMHCE 6-Month', desc: 'Full NCMHCE access, renews every 6 months.' },
   { tier: 'guarantee',     sku: 'ncmhce.guarantee', type: 'NON_CONSUMABLE', usd: 149.99,
-    name: 'NCMHCE Pass Guarantee', desc: 'Free NCMHCE access extensions until you pass. One payment.' },
+    name: 'NCMHCE Pass Guarantee', desc: 'NCMHCE access extensions until you pass. One payment.' },
+  { tier: 'guide',         sku: 'guide',            type: 'NON_CONSUMABLE', usd: 24.99,
+    name: 'Complete NCMHCE Study Guide', desc: 'Digital study guide: 18 families, 3 practice exams.' },
   { tier: 'nce_monthly',   sku: 'nce.monthly',      type: 'subscription', group: 'NCE', period: 'ONE_MONTH', usd: 24.99,
     name: 'NCE Monthly', desc: 'Full NCE access, renews monthly. Cancel any time.' },
   { tier: 'nce_pass3',     sku: 'nce.sub3mo',       type: 'subscription', group: 'NCE', period: 'THREE_MONTHS', usd: 59.99,
@@ -80,6 +82,8 @@ const PRODUCTS = [
     name: 'NCE 6-Month', desc: 'Full NCE access, renews every 6 months.' },
   { tier: 'nce_guarantee', sku: 'nce.guarantee',    type: 'NON_CONSUMABLE', usd: 149.99, optional: process.env.NCE_GUARANTEE === '0',
     name: 'NCE Pass Guarantee', desc: 'Free NCE access extensions until you pass. One payment.' },
+  { tier: 'guide_nce',     sku: 'guide.nce',        type: 'NON_CONSUMABLE', usd: 24.99,
+    name: 'The NCE Ownership Method', desc: 'Digital NCE study guide: 22 chapters, 3 practice exams.' },
 ];
 const GROUPS = {
   NCMHCE: { referenceName: 'NCMHCE', displayName: 'NCMHCE Prep' },

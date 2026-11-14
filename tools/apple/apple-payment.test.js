@@ -68,9 +68,10 @@ const near = (a, b, tol = 5000) => Math.abs(new Date(a).getTime() - b) < tol;
 (async () => {
   // catalog
   const offered = apple.offeredProducts().map((p) => p.tier);
-  assert.deepStrictEqual(offered, ['monthly', 'pass3', 'pass6', 'guarantee', 'nce_monthly', 'nce_pass3', 'nce_pass6', 'nce_guarantee']);
+  assert.deepStrictEqual(offered, ['monthly', 'pass3', 'pass6', 'guarantee', 'guide', 'guide_nce', 'nce_monthly', 'nce_pass3', 'nce_pass6', 'nce_guarantee']);
   assert.strictEqual(apple.entryForProductId(pid('ncmhce.sub3mo')).tier, 'pass3');
-  assert.strictEqual(apple.entryForProductId(pid('guide')).tier, 'guide'); // not on sale, still verifiable
+  assert.strictEqual(apple.entryForProductId(pid('guide')).tier, 'guide');
+  assert.strictEqual(apple.entryForProductId(pid('guide.nce')).tier, 'guide_nce');
   assert.strictEqual(apple.entryForProductId('com.other.thing'), null);
 
   // monthly: grant, idempotent re-send, renewal with new id
@@ -120,6 +121,18 @@ const near = (a, b, tol = 5000) => Math.abs(new Date(a).getTime() - b) < tol;
   r = await applyTransaction(users.get('u5'), g); assert.strictEqual(r.action, 'already');
   r = await applyTransaction(users.get('u5'), { ...g, revocationDate: now }); assert.strictEqual(r.action, 'revoked');
   assert.strictEqual(users.get('u5').guidePurchasedAt, undefined);
+
+  // the NCE book is its own entitlement: buying or refunding one book never touches the other
+  const gn = tx('guide.nce');
+  r = await applyTransaction(users.get('u5'), gn); assert.strictEqual(r.action, 'granted');
+  assert(users.get('u5').guideNcePurchasedAt); assert.strictEqual(users.get('u5').guideNceOrderId, 'apple:' + gn.transactionId);
+  assert.strictEqual(users.get('u5').guidePurchasedAt, undefined);
+  const g2 = tx('guide');
+  r = await applyTransaction(users.get('u5'), g2); assert.strictEqual(r.action, 'granted');
+  r = await applyTransaction(users.get('u5'), { ...gn, revocationDate: now }); assert.strictEqual(r.action, 'revoked');
+  assert.strictEqual(users.get('u5').guideNcePurchasedAt, undefined);
+  assert(users.get('u5').guidePurchasedAt); assert.strictEqual(users.get('u5').guideOrderId, 'apple:' + g2.transactionId);
+  assert.strictEqual(users.get('u5').subscription.tier, 'free'); assert.strictEqual(users.get('u5').nceAccess.tier, 'free');
 
   // refund of a guarantee drops the plan to free; refund of a pass ends it
   const entry = apple.entryForProductId(pid('ncmhce.guarantee'));

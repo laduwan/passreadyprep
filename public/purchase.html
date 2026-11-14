@@ -141,6 +141,10 @@
                      features:['All 290+ case simulations','No AI debrief','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Room for a retake'], next:'/study' },
     guarantee:     { cls:'guarantee', name:'NCMHCE Pass Guarantee',   per:'one-time', desc:'One payment, then free NCMHCE access extensions until you pass.', guarantee:true,
                      features:['All 290+ case simulations','AI debrief with Dr. Claire Moreau after every case','Timed mock exams','Readiness predictor','250+ flashcards + study plan','Pass guarantee — free CE on CounselorReady when you pass, or free extended access'], next:'/study' },
+    guide:         { cls:'pass3',     name:'The Complete NCMHCE Study Guide', per:'one-time', desc:'Digital edition (PDF), licensed to your account. Download it any time from the study guide page.', book:true,
+                     features:['18 diagnostic families','3 full-length practice exams','429 scored questions with full rationales'], next:'/study-guide.html' },
+    guide_nce:     { cls:'pass3',     name:'The NCE Ownership Method', per:'one-time', desc:'Digital edition (PDF), licensed to your account. Download it any time from the study guide page.', book:true,
+                     features:['22 chapters','380 term-to-owner pairs','3 full-length practice exams, 600 scored questions','For exams through June 2027'], next:'/nce-study-guide.html' },
     nce_monthly:   { cls:'monthly',   name:'NCE Monthly',             per:'per month', desc:'Full NCE access. Renews monthly; cancel any time in your App Store settings.',
                      features:['Full NCE question bank','Unlimited timed mock exams','Progress by NCE domain'], next:'/nce.html' },
     nce_pass3:     { cls:'pass3',     name:'NCE 3-Month Pass',        per:'per 3 months', desc:'Full NCE access, renews every 3 months. Cancel any time in your App Store settings.',
@@ -215,9 +219,10 @@
         var res = r.result || {};
         document.getElementById('done-desc').textContent = res.action === 'already'
           ? 'This purchase was already on your account — you\'re all set.'
-          : 'Your ' + cfg.name + ' is active. Good luck on the exam!';
+          : (cfg.book ? 'Your copy of ' + cfg.name + ' is ready to download.' : 'Your ' + cfg.name + ' is active. Good luck on the exam!');
         if (cfg.guarantee) document.getElementById('guar-done').classList.add('show');
         document.getElementById('done-link').href = cfg.next;
+        if (cfg.book) document.getElementById('done-link').textContent = 'Download my guide ›';
         try { token = localStorage.getItem('prp_token'); } catch (e) {}
         document.getElementById('done-account-note').style.display = noAccount() ? 'block' : 'none';
         show('panel-done');

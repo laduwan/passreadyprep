@@ -11,6 +11,7 @@ Demo account with full paid access: demo@passreadyprep.com (password in the Sign
 6. Account creation: "Create account" on the sign-in page. New accounts get a 3-day free trial of full access.
 7. Account deletion: dashboard → "Account" (top right) → "Delete my account…" → enter password → confirm. Deletion is immediate and permanent.
 8. Purchases (In-App Purchase): Landing page → Pricing (or the NCE page → NCE plans) → choose a plan → Buy. No account or registration is needed to buy or restore. Creating a free account is optional and lets the plan be used on other devices. "Restore purchases" is on the purchase screen and the Account page; subscriptions are managed from Account → "Manage subscription".
+9. Study guides (In-App Purchase, non-consumable): two digital books. The Complete NCMHCE Study Guide: study dashboard → "The Complete NCMHCE Study Guide" tile (also on the landing page under the plans) → Buy. The NCE Ownership Method: NCE page → "The NCE Ownership Method" card → Buy. No account is needed. After purchase the same page shows "Download my guide (PDF)", which opens the buyer's PDF. "Restore purchases" brings both back.
 No sample files are needed.
 
 EXTERNAL SERVICES

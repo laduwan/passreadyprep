@@ -86,10 +86,12 @@
     <p class="note">Your download is personalized and licensed to your account.</p>
   </div>
 
+  <!-- prp-web-only -->
   <div class="cross">
     <strong>Testing on or after July 1, 2027?</strong>
     NBCC releases a new NCE on that date — different format, new domain weights, and new content. The <a href="https://gaintegratedperspectives.com/bookstore.html" target="_blank" rel="noopener">2nd edition of The NCE Ownership Method</a> is built to the 2027 specification and is available from GA Integrated Therapeutic Perspectives.
   </div>
+  <!-- /prp-web-only -->
 
   <section class="tool-about" aria-labelledby="tool-about-h" data-seo="v1">
     <h2 id="tool-about-h">About the study guide</h2>
@@ -104,7 +106,7 @@
     <h3>Who it is for</h3>
     <p>Counselor-licensure candidates who want a complete, structured review they can work on paper, and retakers who need to see the method behind the exam rather than more questions. It stands alone: no subscription is required, and it pairs with the free <a href="/nce.html">NCE practice questions</a> for timed practice under exam conditions.</p>
     <h3>Which edition to pick</h3>
-    <p>This 1st edition is for candidates whose exam date is <strong>on or before June 30, 2027</strong>. If you are testing after that, buy the <a href="https://gaintegratedperspectives.com/bookstore.html" target="_blank" rel="noopener">2nd edition</a> instead — it is built to the 2027 content outline and format.</p>
+    <p>This 1st edition is for candidates whose exam date is <strong>on or before June 30, 2027</strong>.<!-- prp-web-only --> If you are testing after that, buy the <a href="https://gaintegratedperspectives.com/bookstore.html" target="_blank" rel="noopener">2nd edition</a> instead — it is built to the 2027 content outline and format.<!-- /prp-web-only --></p>
   </section>
 
   <footer class="site">
@@ -147,13 +149,15 @@
       var m = document.getElementById('msg2'); m.textContent = 'Preparing your personalized copy…';
       fetch('/api/guide/link?sku=nce', { headers: authHeaders() })
         .then(function(r){ return r.json(); })
-        .then(function(d){ if (d.url){ m.textContent=''; window.location.href = d.url; } else { m.textContent = d.error || 'Could not create the download link.'; } })
+        .then(function(d){ if (d.url){ m.textContent=''; window.location.href = (window.PRP_NATIVE ? 'https://www.passreadyprep.com' : '') + d.url; } else { m.textContent = d.error || 'Could not create the download link.'; } })
         .catch(function(){ m.textContent = 'Something went wrong. Please try again.'; });
     };
   }
 
   buyBtn.onclick = function(){
-    if (!token){ msg.innerHTML = 'Please <a href="/register.html">sign in or create an account</a> first — your guide is tied to your account.'; return; }
+    // In the iOS app the guide is an In-App Purchase and needs no account
+    // (purchase.html keeps it on a guest account for this device).
+    if (!token && !window.PRP_NATIVE){ msg.innerHTML = 'Please <a href="/register.html">sign in or create an account</a> first — your guide is tied to your account.'; return; }
     buyBtn.disabled = true; msg.textContent = 'Redirecting to secure checkout…';
     fetch('/api/payment/create-checkout-session', {
       method: 'POST',
