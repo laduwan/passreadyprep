@@ -40,7 +40,34 @@
   [hidden]{display:none !important}
   .wrap{max-width:1160px; margin:0 auto; padding:0 32px 80px}
   #app{max-width:860px}
-  #app:has(.case-split){max-width:none}
+  #app:has(.case-split),#app:has(.home){max-width:none}
+
+  /* study home: hero beside the practice settings, then two-up cards, the
+     session row and the tool grid (canvas artboard "Study") */
+  .home-top{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr)); gap:40px 56px; align-items:start; margin-bottom:48px}
+  .home-top .hero{border-bottom:0; padding:0; margin:0}
+  .home-eyebrow{font-size:12px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--prp-accent-text); margin:0 0 16px}
+  .home-set h2{font-size:17px; margin:0 0 16px}
+  .home-set .mode-grid{grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr)); padding-bottom:16px; margin-bottom:24px; border-bottom:1px solid var(--prp-divider)}
+  .mc-tag{font-size:12px; font-weight:400; color:var(--prp-text-2); background:color-mix(in srgb,var(--prp-text) 12%,transparent); padding:3px 8px; margin-left:auto}
+  .fb-seg{display:inline-flex; flex-wrap:wrap; border:1px solid var(--prp-divider); margin-top:12px}
+  .fb-seg button{font:inherit; font-size:14px; font-weight:500; min-height:44px; padding:0 16px; cursor:pointer; border:0; background:transparent; color:var(--prp-text)}
+  .fb-seg button + button{border-left:1px solid var(--prp-divider)}
+  .fb-seg button[aria-pressed="true"]{background:var(--prp-accent); color:var(--prp-on-accent)}
+  .home-pair{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr)); gap:16px; margin-bottom:64px}
+  .home-pair a,.prp .home-pair a{display:flex; flex-direction:column; gap:10px; background:var(--prp-surface); padding:32px; text-decoration:none; color:var(--prp-text-2)}
+  .home-pair a:hover{background:color-mix(in srgb,var(--prp-text) 6%,var(--prp-surface))}
+  .home-pair .mc-desc{font-size:15px; line-height:1.5}
+  .home-go{display:flex; justify-content:space-between; align-items:center; gap:16px; margin-top:auto; padding-top:4px; font-weight:600; color:var(--prp-accent-text)}
+  .home-session{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2.2fr); gap:16px 32px; padding:32px 0; border-top:2px solid var(--prp-divider); border-bottom:1px solid var(--prp-divider); margin-bottom:64px}
+  .home-session h2{margin:0}
+  .home-session .fine{font-size:13px; color:var(--prp-muted); line-height:1.55; margin:8px 0 0}
+  .home-tools-h,.prp .home-tools-h{font-size:34px; line-height:1.18; font-weight:500; letter-spacing:-.015em; margin:0 0 24px}
+  .mode-grid.home-tools{display:grid; gap:0; grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr)); border-top:1px solid var(--prp-divider); border-left:1px solid var(--prp-divider); margin-bottom:48px}
+  .home-tools .mode-card,.prp .home-tools a.mode-card{border:0; border-right:1px solid var(--prp-divider); border-bottom:1px solid var(--prp-divider); padding:24px}
+  .home-tools .mc-head{flex-wrap:nowrap; justify-content:space-between; align-items:flex-start}
+  .home-tools .mc-head::after{content:"\2192"; color:var(--prp-accent-text); font-weight:500; flex:none}
+  .home-rest{max-width:860px}
 
   /* header */
   header.site{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px 16px; padding:16px 0; border-bottom:1px solid var(--prp-divider); margin-bottom:48px}
@@ -261,6 +288,9 @@
     .score-big{font-size:64px}
     .qstem{font-size:17px}
     .hero .btn{width:100%}
+    .home-session{grid-template-columns:1fr}
+    .prp .home-tools-h{font-size:26px}
+    .home-pair a,.prp .home-pair a{padding:24px}
   }
 </style>
 
@@ -807,29 +837,31 @@ async function showDashboard(){
   const total = LIST_ITEMS.length;
   const acc = SESSION.total ? Math.round(SESSION.correct/SESSION.total*100) : 0;
 
-  let h = '';
+  let h = '<div class="home">';
 
   // Top of the dashboard depends on access: trial over → plan card; signed in →
   // trial countdown + "pick up where you left off"; signed out → the free case.
   const level = ACCESS ? ACCESS.level : (authHeaders().Authorization ? 'paid' : 'free');
   if(level === 'expired' || level === 'gated'){
-    h += accessCard(level);
+    h += '<div class="home-top"><div>' + accessCard(level) + '</div>' + practiceSettings() + '</div>';
   } else if(authHeaders().Authorization){
     h += trialBar();
-    h += '<div class="hero">';
+    h += '<div class="home-top"><div class="hero">';
+    h += '<p class="home-eyebrow">NCMHCE study</p>';
     h += '<h2>Pick up where you left off</h2>';
     h += '<p class="lead">Work a case, get scored on every clinical decision, and watch your readiness climb.</p>';
-    h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Choose a case ›</button>';
-    h += '<br /><a href="/guarantee.html" class="guar-link">✓ Pass guarantee — pass and get a free CE course, or we extend your access</a>';
-    h += '</div>';
+    h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 20px">Choose a case <span aria-hidden="true">→</span></button>';
+    h += '<br /><a href="/guarantee.html" class="guar-link">Pass guarantee — pass and get a free CE course, or we extend your access</a>';
+    h += '</div>' + practiceSettings() + '</div>';
   } else {
     // Free sample hero for signed-out visitors: the first case needs no sign-up.
-    h += '<div class="hero">';
+    h += '<div class="home-top"><div class="hero">';
+    h += '<p class="home-eyebrow">NCMHCE study</p>';
     h += '<h2>Try a free clinical simulation</h2>';
     h += '<p class="lead">Work through a full NCMHCE-format case — read the vignette, answer the clinical questions, and get evidence-based feedback with weighted scoring after each one. Your first case needs no sign-up; a free account then unlocks all '+bankSize()+' cases for '+trialDays()+' days.</p>';
-    h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 28px">Start free case ›</button>';
-    h += '<br /><a href="/guarantee.html" class="guar-link">✓ Pass guarantee — pass and get a free CE course, or we extend your access</a>';
-    h += '</div>';
+    h += '<button class="btn" onclick="goCases()" style="font-size:16px;padding:14px 20px">Start free case <span aria-hidden="true">→</span></button>';
+    h += '<br /><a href="/guarantee.html" class="guar-link">Pass guarantee — pass and get a free CE course, or we extend your access</a>';
+    h += '</div>' + practiceSettings() + '</div>';
   }
 
   // Readiness predictor
@@ -896,26 +928,12 @@ async function showDashboard(){
     h += '</div></div></div>';
   }
 
-  h += '<h2>Practice mode</h2>';
-  h += '<div class="mode-grid" role="group" aria-label="Practice mode">';
-  h += modeCard('new','New format','Diagnosis is given — focus on treatment, counseling & ethics decisions.','2027 format');
-  h += modeCard('classic','Classic format','Work out the diagnosis yourself first, then answer. Extra diagnostic practice.','');
-  h += '<div class="mode-card" style="grid-column:1/-1;cursor:default">'
-     + '<span class="mc-head">Feedback timing</span>'
-     + '<span class="mc-desc">Study shows the answer after each question. Exam holds all feedback until you finish the case — like the real NCMHCE.</span>'
-     + '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">'
-     + '<button class="badge '+(!EXAM_FB?'b-emerald':'b-slate')+'" style="cursor:pointer;border:none;font:inherit" aria-pressed="'+(!EXAM_FB)+'" onclick="setExamFb(false)">Study — after each Q</button>'
-     + '<button class="badge '+(EXAM_FB?'b-amber':'b-slate')+'" style="cursor:pointer;border:none;font:inherit" aria-pressed="'+EXAM_FB+'" onclick="setExamFb(true)">Exam — held to the end</button>'
-     + '</div></div>';
-  h += '<a href="/exam.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">NCMHCE Timed Mock Exam</span><span class="mc-desc">A full 11-case exam (10 on the 2027 format) under a 225-minute clock, blueprint-weighted and run section by section like the real NCMHCE, with the 15-minute break after case 5. No feedback until you finish — then a full domain breakdown and answer review.</span></a>';
-  h += '<a href="/intake.html" class="mode-card" style="text-decoration:none;color:inherit;grid-column:1/-1"><span class="mc-head">NCMHCE Intake Interview Simulator</span><span class="mc-desc">Practice the clinical interview with an AI client who reveals their story the way a real one does — guarded until you earn trust. Five clients including a court-mandated and a returning-veteran case. Speak or type; get a supervisor debrief on rapport, questioning, and risk screening.</span></a>';
+  h += '<div class="home-pair">';
+  h += '<a href="/exam.html"><span class="mc-head">NCMHCE Timed Mock Exam</span><span class="mc-desc">A full 11-case exam (10 on the 2027 format) under a 225-minute clock, blueprint-weighted and run section by section like the real NCMHCE, with the 15-minute break after case 5. No feedback until you finish — then a full domain breakdown and answer review.</span><span class="home-go">Open the mock exam <span aria-hidden="true">→</span></span></a>';
+  h += '<a href="/intake.html"><span class="mc-head">NCMHCE Intake Interview Simulator</span><span class="mc-desc">Practice the clinical interview with an AI client who reveals their story the way a real one does — guarded until you earn trust. Five clients including a court-mandated and a returning-veteran case. Speak or type; get a supervisor debrief on rapport, questioning, and risk screening.</span><span class="home-go">Open the simulator <span aria-hidden="true">→</span></span></a>';
   h += '</div>';
 
-  h += '<div class="row" style="margin-top:14px"><button class="btn" style="width:100%" onclick="goCases()">Start practicing — '
-     + (MODE==='classic' ? 'Classic format' : '2027 format') + ' ›</button></div>';
-
-  h += '<div class="card" style="margin-top:16px"><h2>This session</h2>';
-  h += '<div style="font-size:12px;color:var(--slate-500);margin-bottom:8px">Running score for this browser session. Your full history (readiness, flashcards, study plan) is saved locally in this browser — clearing browser data or switching devices will reset it. Create an account for cross-device sync.</div>';
+  h += '<div class="home-session"><h2>This session</h2><div>';
   if(SESSION.total){
     h += '<div class="stats">'
        + '<div class="stat"><div class="stat-num">'+SESSION.correct+'</div><div class="stat-lbl">Correct</div></div>'
@@ -925,14 +943,12 @@ async function showDashboard(){
   } else {
     h += '<p class="lead" style="margin:0">No questions answered yet — your running score will show up here.</p>';
   }
-  h += '</div>';
-
-  h += '<div class="row"><button class="btn" style="width:100%" onclick="goCases()">Start practicing — '
-     + total + ' case' + (total===1?'':'s') + ' ›</button></div>';
+  h += '<p class="fine">Running score for this browser session. Your full history (readiness, flashcards, study plan) is saved locally in this browser — clearing browser data or switching devices will reset it. Create an account for cross-device sync.</p>';
+  h += '</div></div>';
 
   // Study tools nav
-  h += '<div class="card" style="margin-top:16px"><h2>Study tools</h2>';
-  h += '<div class="mode-grid">';
+  h += '<h2 class="home-tools-h">Study tools</h2>';
+  h += '<div class="mode-grid home-tools">';
   h += '<a href="/games.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCE &amp; NCMHCE Study Games</span><span class="mc-desc">NCE &amp; NCMHCE study games to break the monotony: drag-and-drop Code Match (free), Triage Rush for next-best-step decisions against the clock, and Theory Clue for counseling theories.</span></a>';
   h += '<a href="/podcast.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCMHCE Clinical Podcast</span><span class="mc-desc">13 audio deep-dives (~4 hrs) on the diagnoses and decisions the exam tests — anxiety, mood, psychotic-spectrum timing, the personality clusters, OCD, addictions, eating disorders, and how clinicians tell look-alikes apart. Listen on the go.</span></a>';
   h += '<a href="/flashcards.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">NCMHCE Flashcards</span><span class="mc-desc">258 cards with spaced repetition. Covers ICD-10 codes, first-line treatments, differentials, ethics, and crisis. Cards you miss come back sooner.</span></a>';
@@ -953,11 +969,11 @@ async function showDashboard(){
   } else {
     h += '<a href="/study-guide.html" class="mode-card" style="text-decoration:none;color:inherit"><span class="mc-head">The Complete NCMHCE Study Guide</span><span class="mc-desc">Now expanded: all 18 diagnostic families plus 3 full-length practice exams — 33 cases, 429 scored questions with full rationales. ' + (window.PRP_NATIVE ? 'One-time purchase.' : '$25 one-time; also on Amazon Kindle.') + '</span></a>';
   }
-  h += '</div></div>';
+  h += '</div>';
 
   // Study plan generator. The exam date field is always here (the sign-up form
   // and the welcome email point people at it); the plan itself needs 3 cases.
-  h += '<div class="card" style="margin-top:16px"><h2>Study plan</h2>';
+  h += '<div class="home-rest"><div class="card"><h2>Study plan</h2>';
   h += '<div style="font-size:13px;color:var(--slate-400);margin-bottom:10px">Set your exam date and we\'ll build a 3-phase plan based on your actual domain performance: focused practice on weak areas first, then full-length timed exams, then light review before test day. Updates as your scores change.</div>';
   {
     const savedDate = localStorage.getItem('prp_exam_date') || '';
@@ -986,17 +1002,32 @@ async function showDashboard(){
       + '<a href="/delete-account.html" style="color:var(--slate-500)">Delete account</a></p>';
   }
 
+  h += '</div></div>';
   app.innerHTML = h;
   // Auto-render study plan if exam date is saved
   var rd2 = computeReadiness();
   if(rd2 && rd2.totalCases >= 3) setTimeout(genPlan, 50);
 }
+// Right-hand column of the study home: practice mode and feedback timing.
+function practiceSettings(){
+  return '<div class="home-set"><h2>Practice mode</h2>'
+    + '<div class="mode-grid" role="group" aria-label="Practice mode">'
+    + modeCard('new','New format','Diagnosis is given — focus on treatment, counseling & ethics decisions.','2027 format')
+    + modeCard('classic','Classic format','Work out the diagnosis yourself first, then answer. Extra diagnostic practice.','')
+    + '</div>'
+    + '<h2 style="margin-bottom:8px">Feedback timing</h2>'
+    + '<p class="mc-desc" style="margin:0">Study shows the answer after each question. Exam holds all feedback until you finish the case — like the real NCMHCE.</p>'
+    + '<div class="fb-seg" role="group" aria-label="Feedback timing">'
+    + '<button aria-pressed="'+(!EXAM_FB)+'" onclick="setExamFb(false)">Study — after each Q</button>'
+    + '<button aria-pressed="'+EXAM_FB+'" onclick="setExamFb(true)">Exam — held to the end</button>'
+    + '</div></div>';
+}
 function modeCard(m, title, desc, tag){
   const sel = MODE === m;
   return '<button class="mode-card'+(sel?' sel':'')+'" aria-pressed="'+sel+'" onclick="setMode(\''+m+'\')">'
-       + '<span class="mc-head">'+title+(tag?' <span class="badge b-amber">'+tag+'</span>':'')+'</span>'
+       + '<span class="mc-head">'+title+(tag?' <span class="mc-tag">'+tag+'</span>':'')+'</span>'
        + '<span class="mc-desc">'+desc+'</span>'
-       + '<span class="mc-sel">'+(sel?'● Selected':'Tap to select')+'</span></button>';
+       + '<span class="mc-sel">'+(sel?'Selected':'Tap to select')+'</span></button>';
 }
 function setMode(m){ MODE = m; showDashboard(); }
 function setExamFb(v){ EXAM_FB = !!v; showDashboard(); }
