@@ -88,15 +88,11 @@ const PRODUCTS = [
     sold: true,
     // The fields on User that accessLevel / examDateOf / pickItems read.
     userFields: ['isGuest', 'subscription', 'trialStartedAt', 'trialEndsAt', 'examDate'],
-    // The NCMHCE trial clock starts on the member's first case (utils/trial.js),
-    // and until then resolveAccess still answers 'trial' so that first case can
-    // start it. For a product feature the member has not registered for the
-    // NCMHCE yet, so an unstarted trial reads as 'free' here, the same way an
-    // NCE trial does not exist until the first NCE visit.
-    accessLevel: (user, now = new Date()) => {
-      const a = accessFor(user, now);
-      return a.accessLevel === 'trial' && a.trialNotStarted ? 'free' : a.accessLevel;
-    },
+    // The same rule resolveAccess uses: a trial exists only once it has been
+    // started in checkout (or granted by an admin), so an account that has
+    // not started one reads as 'expired' here, like an NCE account without a
+    // trial.
+    accessLevel: (user, now = new Date()) => accessFor(user, now).accessLevel,
     examDateOf: (user) => (user && user.examDate) || null,
     examDoc: () => Exam.findOne({ key: 'ncmhce' }).select('_id').lean(),
     summarize: (userId) => summarize(userId, 'ncmhce'),

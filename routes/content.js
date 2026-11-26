@@ -14,10 +14,13 @@ const FREE_CASE_LIMIT = 5;
 
 // Middleware: resolves subscription tier and attaches req.accessLevel.
 // 'free'    — no token (anonymous visitor): 5-case teaser
-// 'trial'   — registered account within TRIAL_DAYS of its first case (or
-//             one that hasn't opened a case yet): full access
-// 'expired' — registered account past the trial with no active paid tier
-// 'paid'    — active monthly, pass3, or guarantee with valid access
+// 'trial'   — registered account on a running trial: a Stripe free trial
+//             started in checkout with a card (req.cardTrial), a legacy
+//             no-card trial, or an admin grant. Full access.
+// 'expired' — registered account with no running trial and no active paid
+//             tier, including a new account that has not started its trial
+//             yet (req.trialEligible says it may): 5-case teaser
+// 'paid'    — active monthly, pass3, pass6 or guarantee with valid access
 // 'gated'   — guarantee tier past 6 months, score report not yet approved
 async function resolveAccess(req, res, next) {
   const header = req.headers.authorization || '';
@@ -50,7 +53,8 @@ async function resolveAccess(req, res, next) {
     req.accessLevel = a.accessLevel;
     if (a.gateReason) req.gateReason = a.gateReason;
     req.trialEndsAt = a.trialEndsAt || undefined;
-    req.trialNotStarted = a.trialNotStarted;
+    req.cardTrial = !!a.cardTrial;
+    req.trialEligible = !!a.trialEligible;
     req.subscriptionTier = a.subscriptionTier;
     next();
   } catch (err) {
@@ -69,6 +73,10 @@ router.get('/access', resolveAccess, (req, res) => {
     accessLevel: req.accessLevel,
     tier: req.subscriptionTier || 'free',
     trialEndsAt: req.trialEndsAt || null,
+    cardTrial: !!req.cardTrial,
+    // A signed-in account with no trial behind it may start the card-up-front
+    // free trial from the plan picker (one per account, utils/access.js).
+    trialEligible: !!req.trialEligible,
     gateReason: req.gateReason || null,
   });
 });
@@ -123,13 +131,16 @@ router.get('/', resolveAccess, async (req, res) => {
       tier: req.subscriptionTier || 'free',
       freeLimit: FREE_CASE_LIMIT,
       trialDays: TRIAL_DAYS,
-      // The end of THIS account's trial, which may be an admin-granted
-      // extension rather than the standard TRIAL_DAYS from the first case.
+      // The end of THIS account's trial: the day a Stripe trial bills the
+      // card, or an admin-granted extension.
       trialEndsAt: req.trialEndsAt || null,
-      // False for a signed-in account that has not opened a case yet: its
-      // clock has not started, so the study page shows what the trial is
-      // rather than a countdown (resolveAccess sets trialNotStarted).
-      trialStarted: !req.trialNotStarted,
+      // True while the trial is a Stripe subscription with a card on file
+      // (the plan is already chosen; the page offers to manage it, not to
+      // pick one).
+      cardTrial: !!req.cardTrial,
+      // True for a signed-in account that may start the card-up-front free
+      // trial from the plan picker (utils/access.js cardTrialEligible).
+      trialEligible: !!req.trialEligible,
       outline: outlineFor(servedKey || req.query.exam || 'ncmhce'),
       outlineFallback,
     });
@@ -184,20 +195,9 @@ router.get('/:externalId', resolveAccess, async (req, res) => {
         return res.status(402).json({
           error: 'Free limit reached',
           gateReason: 'upgrade_required',
-          message: `Free access includes ${FREE_CASE_LIMIT} cases. Create an account for a ${TRIAL_DAYS}-day trial of all 290+.`,
+          message: `Free access includes ${FREE_CASE_LIMIT} cases. Create an account and start a ${TRIAL_DAYS}-day free trial of all 290+.`,
         });
       }
-    }
-
-    // First case for a registered account on the trial clock: start the
-    // standard free trial now. The filter makes this a one-time write even if
-    // two requests race — whichever lands first sets the date and the other
-    // matches nothing.
-    if (req.userId && req.accessLevel === 'trial' && req.trialNotStarted) {
-      await User.updateOne(
-        { _id: req.userId, trialStartedAt: { $exists: false } },
-        { $set: { trialStartedAt: new Date() } }
-      );
     }
 
     return res.json({ item });

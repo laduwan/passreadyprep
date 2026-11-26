@@ -1,8 +1,9 @@
 /* PassReady Prep — NCMHCE study-tool gate.
  * Include first thing in <head> of a members-only NCMHCE tool page:
  *   <script src="/tool-gate.js" data-tool="Clinical podcast"></script>
- * Registered accounts can use every tool during the free trial (utils/trial.js);
- * after that an active NCMHCE plan is needed. The level comes from
+ * Registered accounts can use every tool during the free trial (started from
+ * the plan picker with a card on file, utils/access.js); after that an active
+ * NCMHCE plan is needed. The level comes from
  * GET /api/content/access, the same rules as the case paywall. NCE has its own
  * gate (utils/nceAccess.js). Flashcards and the study guide stay free and do not
  * include this script.
@@ -44,7 +45,7 @@
     if (g) g.parentNode.removeChild(g);
   }
 
-  function shut(level) {
+  function shut(level, eligible) {
     function render() {
       [].forEach.call(document.querySelectorAll('audio,video'), function (m) { try { m.pause(); } catch (e) {} });
       if (document.getElementById('prp-gate')) return;
@@ -59,10 +60,11 @@
         ? { title: 'Your access is paused', body: 'Submit your score report to restore access to ' + TOOL + '.', href: '/score-report.html', cta: 'Submit score report ›' }
         : level === 'expired'
         ? (app ? { title: 'Choose a plan', body: TOOL + ' and every other NCMHCE study tool are included in every plan.', href: '/pricing.html?exam=ncmhce', cta: 'See plans ›' }
+               : eligible ? { title: 'Start your free trial', body: TOOL + ' and every other NCMHCE study tool come with the 7-day free trial. Pick a plan to start it; your card isn\u2019t charged until the trial ends.', href: '/pricing.html?exam=ncmhce&trial=1', cta: 'Start free trial ›' }
                : { title: 'Your free trial has ended', body: 'Subscribe to keep using ' + TOOL + ' and every other NCMHCE study tool.', href: '/pricing.html?exam=ncmhce', cta: 'See plans ›' })
         : level === 'signin'
         ? { title: 'Sign in to continue', body: 'You were signed out. Sign in to keep using ' + TOOL + '.', href: '/register.html?tab=login&next=' + next, cta: 'Sign in ›' }
-        : { title: app ? 'Create a free account' : 'Start your free trial', body: app ? 'Create a free account to use ' + TOOL + '.' : 'Create a free account to start your free trial of ' + TOOL + ' and every other NCMHCE study tool.', href: '/register.html?next=' + next, cta: 'Create an account ›', alt: true };
+        : { title: app ? 'Create a free account' : 'Start your free trial', body: app ? 'Create a free account to use ' + TOOL + '.' : 'Create a free account and start a 7-day free trial of ' + TOOL + ' and every other NCMHCE study tool.', href: '/register.html?next=' + next, cta: 'Create an account ›', alt: true };
       var box = document.createElement('div');
       box.id = 'prp-gate';
       box.setAttribute('role', 'region');
@@ -92,7 +94,7 @@
     if (document.body) render(); else document.addEventListener('DOMContentLoaded', render);
   }
 
-  function decide(level) { if (allowed(level)) open(); else shut(level); }
+  function decide(level, eligible) { if (allowed(level)) open(); else shut(level, eligible); }
 
   // Signed out: nothing to check.
   if (!token) { shut('free'); return; }
@@ -107,7 +109,7 @@
     // unless the last answer for this sign-in was a denial.
     if (done) return;
     done = true;
-    if (cached && !allowed(cached.level)) shut(cached.level); else open();
+    if (cached && !allowed(cached.level)) shut(cached.level, cached.eligible); else open();
   }
   setTimeout(fallback, TIMEOUT_MS);
 
@@ -121,9 +123,9 @@
       var level = d && d.accessLevel;
       if (level === 'signin') { done = true; shut('signin'); return; }
       var until = level === 'trial' && d.trialEndsAt ? Date.parse(d.trialEndsAt) : null;
-      set(KEY, JSON.stringify({ t: tag, level: level, at: Date.now(), until: until }));
+      set(KEY, JSON.stringify({ t: tag, level: level, at: Date.now(), until: until, eligible: !!d.trialEligible }));
       done = true;
-      decide(level); // the server's answer wins, even after the offline fallback
+      decide(level, !!d.trialEligible); // the server's answer wins, even after the offline fallback
     })
     .catch(fallback);
 })();

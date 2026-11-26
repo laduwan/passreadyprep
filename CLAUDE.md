@@ -79,10 +79,8 @@ registry (`accessFor` for the NCMHCE, the same rule `resolveAccess` uses;
 for: the dashboard's exam picker lists only the exams they have a trial or
 plan for (`accessibleExamProducts`), hides the row when that is one exam, and
 explains when it is none; saving an exam without access is refused. An
-NCMHCE trial that has not started (no first case yet) counts as not
-registered here, the way an NCE trial does not exist before the first NCE
-visit. Texts need the account's `smsOptedIn` number; otherwise the break
-goes by email.
+account with no trial or plan on an exam is not registered for it. Texts need
+the account's `smsOptedIn` number; otherwise the break goes by email.
 
 ## Plan naming
 
@@ -92,11 +90,55 @@ benefit phrase in lower case. Write "the Pass Guarantee includes free access
 extensions until you pass", never "the Access Extensions Until You Pass plan".
 This matches the App Store listing and the FAQ.
 
+## Free trial: card up front, one per account per exam
+
+**Files:** `utils/trial.js` (`TRIAL_DAYS`, the legacy clock), `utils/access.js`
+(`accessFor`, `cardTrialEligible`, `RECURRING_TIERS`), `utils/nceAccess.js`
+(`nceLevel`, `nceTrialEligible`), `routes/payment.js` (checkout + webhook),
+`jobs/trialReminders.js`, `public/pricing.html`, `public/checkout.html`.
+
+There is no no-card trial. A trial is a Stripe subscription on a recurring plan
+opened from checkout with `trial: true`: `trial_period_days` is `TRIAL_DAYS`
+(`NCE_TRIAL_DAYS` for NCE), the card is collected, nothing is charged until the
+trial ends. The webhook stores status `'trialing'`, `trialUsedAt` and
+`planAmount`; `accessFor` / `nceLevel` read `'trialing'` as level `'trial'`
+with `cardTrial: true`. A new account is `'expired'` with `trialEligible: true`
+until it starts one, and every paywall offers "Start free trial" in that state
+instead of "Your trial has ended".
+
+Rules the code keeps, and that must stay true together:
+
+- **One trial per account per exam.** Eligibility is `cardTrialEligible` /
+  `nceTrialEligible`: no guest, no plan ever on that exam, no `trialUsedAt`,
+  no legacy `trialStartedAt`, no admin grant running. The checkout route
+  refuses `trial` otherwise (`TRIAL_NOT_AVAILABLE`), and the pages fall back
+  to a plain purchase.
+- **A declined card at trial end stops access now.** On
+  `customer.subscription.updated` with `previous_attributes.status ===
+  'trialing'` and a non-active status, the webhook sets `currentPeriodEnd` to
+  now. `customer.subscription.deleted` never writes a later `currentPeriodEnd`
+  over one already on file.
+- **A Pass Guarantee outranks a recurring plan.** Buying one cancels a
+  trialing subscription at once (nothing paid) or sets a paid one to end at
+  period end, and subscription events are ignored while the guarantee tier is
+  on the account.
+- **One live subscription per exam.** `create-checkout-session` answers
+  `ALREADY_SUBSCRIBED` while one runs; plan changes go through the billing
+  portal. The pricing page disables recurring plans for members on one.
+- The legacy clock (`trialStartedAt`, `nceAccess.trialStartedAt`) and admin
+  grants (`trialEndsAt`) still run out on their own; nothing sets the clocks.
+- The iOS app has no Stripe: it keeps selling through In-App Purchase, and a
+  free trial there is an App Store introductory offer on the product, not
+  this code. Web-only trial copy stays inside `prp-web-only` markers.
+
 ## Where sign-in lands
 
 A signed-in member lands on `dashboard.html`: the home page's signed-in redirect,
-and `register.html`'s default `next`, both go there. Flows that pass their own
-`?next=` (the NCE page, checkout) keep it. The case list stays at `/study`.
+and `register.html`'s default `next` for a *sign-in*, both go there. A new
+account with no `next` goes to `pricing.html?exam=…&trial=1` to start its free
+trial, because nothing is studyable until a trial or plan is on the account.
+Flows that pass their own `?next=` (the NCE page, checkout) keep it. The case
+list stays at `/study`.
 
 ## NCE and NCMHCE are separate products, offered equally
 

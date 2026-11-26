@@ -79,11 +79,12 @@ const UserSchema = new Schema(
     trialEndsAt: Date,
     trialNote: { type: String, trim: true, maxlength: 300 },
 
-    // When the standard free trial started: the first time this account
-    // opened a case (routes/content.js), not signup. Unset until then, so an
-    // account that signs up and comes back a week later still gets a full
-    // trial (utils/trial.js). Separate from nceAccess.trialStartedAt, which is
-    // the NCE trial and starts on the first NCE visit.
+    // Legacy: when this account's no-card NCMHCE trial started (its first
+    // case), from before trials moved into Stripe Checkout with a card on
+    // file. Still honoured while it runs (utils/trial.js) and still counts as
+    // the one trial this account gets (utils/access.js cardTrialEligible).
+    // Nothing sets it any more. Separate from nceAccess.trialStartedAt, the
+    // legacy NCE clock.
     trialStartedAt: Date,
 
     // Which trial reminder emails have already gone out — 'first_case' |
@@ -147,8 +148,8 @@ const UserSchema = new Schema(
     appleAccountToken: { type: String, index: true, sparse: true },
 
     subscription: {
-      tier: { type: String, default: 'free' },      // free | monthly | pass3 | guarantee
-      status: { type: String, default: 'active' },  // active | past_due | canceled
+      tier: { type: String, default: 'free' },      // free | monthly | pass3 | pass6 | guarantee
+      status: { type: String, default: 'active' },  // active | trialing | past_due | canceled
       // Who billed the current plan: 'stripe' (website) or 'apple' (iOS In-App
       // Purchase). Unset means Stripe (accounts from before the iOS app).
       source: { type: String, enum: ['stripe', 'apple'] },
@@ -156,9 +157,19 @@ const UserSchema = new Schema(
       stripeSubscriptionId: String,
       appleOriginalTransactionId: String,  // Apple subscription / purchase this plan came from
       appleProductId: String,
-      cancelAtPeriodEnd: { type: Boolean, default: false }, // monthly: canceled, runs to period end
+      cancelAtPeriodEnd: { type: Boolean, default: false }, // recurring plan canceled, runs to period end
       lastPaymentIntentId: String,
       currentPeriodEnd: Date,
+      // Card-up-front free trial: when this account's Stripe trial began
+      // (routes/payment.js webhook, from the subscription's trial_start). One
+      // trial per account, so once set no checkout may start another
+      // (utils/access.js). While the trial runs, `status` is 'trialing' and
+      // currentPeriodEnd is the day the card is charged.
+      trialUsedAt: Date,
+      // What the recurring plan bills each period, in cents, as Stripe reports
+      // it. Lets the trial-ending reminder and the account page say what the
+      // card will be charged without a Stripe call.
+      planAmount: Number,
       // When the NCMHCE Pass Guarantee was bought (Stripe webhook). The refund
       // option's timing rules use it (utils/guaranteeRefund.js).
       guaranteePurchasedAt: Date,
@@ -202,11 +213,11 @@ const UserSchema = new Schema(
 
     // NCE access — billed separately from the NCMHCE `subscription` above, so
     // buying one exam never grants or overwrites the other (routes/payment.js
-    // routes nce_* tiers here). The NCE trial starts the first time the
-    // account opens NCE study, not at signup (see utils/nceAccess.js).
+    // routes nce_* tiers here). The NCE free trial is a Stripe trial on an
+    // NCE plan, started in checkout with a card (see utils/nceAccess.js).
     nceAccess: {
-      tier: { type: String, default: 'free' },      // free | nce_monthly | nce_pass3 | nce_pass6
-      status: { type: String, default: 'active' },  // active | past_due | canceled
+      tier: { type: String, default: 'free' },      // free | nce_monthly | nce_pass3 | nce_pass6 | nce_guarantee
+      status: { type: String, default: 'active' },  // active | trialing | past_due | canceled
       source: { type: String, enum: ['stripe', 'apple'] }, // see subscription.source
       stripeSubscriptionId: String,
       appleOriginalTransactionId: String,
@@ -214,7 +225,9 @@ const UserSchema = new Schema(
       cancelAtPeriodEnd: { type: Boolean, default: false },
       lastPaymentIntentId: String,
       currentPeriodEnd: Date,
-      trialStartedAt: Date,
+      trialStartedAt: Date,         // legacy no-card NCE trial clock; nothing sets it any more (utils/nceAccess.js)
+      trialUsedAt: Date,            // Stripe free trial began (see subscription.trialUsedAt)
+      planAmount: Number,           // cents per period (see subscription.planAmount)
       guaranteePurchasedAt: Date,   // NCE Pass Guarantee purchase (see subscription.guaranteePurchasedAt)
       // Score report gate for the NCE Pass Guarantee (nce_guarantee) — same
       // rules as subscription.scoreReport, kept separate so a report for one

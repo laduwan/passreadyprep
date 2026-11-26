@@ -2,31 +2,33 @@
 // Free-trial rules — shared by the content paywall (routes/content.js) and the
 // trial reminder emails (jobs/trialReminders.js) so both agree on exactly when
 // an account's trial ends.
+//
+// The free trial now starts in Stripe Checkout with a card on file: the member
+// picks a recurring plan, Stripe opens the subscription in 'trialing' status
+// for TRIAL_DAYS, and charges the card when the trial ends unless they cancel.
+// That trial is read from User.subscription (utils/access.js), not from the
+// dates here. What this file still decides:
+//   - the legacy no-card trial, for accounts whose clock started on their
+//     first case before card-up-front trials shipped (User.trialStartedAt),
+//   - an admin-granted trial (User.trialEndsAt: review swaps, comps),
+//   - TRIAL_DAYS, which is also the length of the Stripe trial.
+// An account with neither has no trial: it is 'expired' until it starts one
+// through checkout, and nothing starts a clock on its first case any more.
 // ============================================================================
 
-// The standard free trial every registered account gets, counted from the
-// first case it opens (User.trialStartedAt), not from signup.
-// Individual accounts can be granted a longer one (see trialEndsAt on the
-// User model); this is the default that applies to everyone else.
 // TRIAL_DAYS in the environment overrides it without a code deploy.
 const TRIAL_DAYS = Math.max(1, parseInt(process.env.TRIAL_DAYS || '7', 10) || 7);
 
-// Registered accounts get full access for TRIAL_DAYS from the first case they
-// open (trialStartedAt, set once by routes/content.js), then hit the paywall —
-// unless an admin granted this one account a longer trial, which wins for as
-// long as it lasts and then falls back to the standard rule.
-//
-// An account with no trialStartedAt hasn't started its trial yet. It counts as
-// active (TRIAL_DAYS from now) so nothing is gated before the first case; the
-// clock only begins when that case is opened.
+// When this account's no-card trial ends (legacy clock or admin grant,
+// whichever is later). An account that never started one gets the epoch, so
+// it reads as expired. Guest accounts (iOS app, see models/User.js) exist to
+// hold a purchase and never get a trial.
 function trialEndFor(user) {
-  // Guest accounts (iOS app, see models/User.js) exist to hold a purchase, so
-  // they get no free trial; registering turns one into a normal account whose
-  // trial starts on its first case.
   if (user.isGuest) return new Date(0);
   const granted = user.trialEndsAt ? new Date(user.trialEndsAt) : null;
-  const started = user.trialStartedAt ? new Date(user.trialStartedAt) : new Date();
-  const standard = new Date(started.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
+  const standard = user.trialStartedAt
+    ? new Date(new Date(user.trialStartedAt).getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000)
+    : new Date(0);
   return granted && granted > standard ? granted : standard;
 }
 

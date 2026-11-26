@@ -182,14 +182,16 @@
 </div>
 
 <script>
-  // Where to go after auth — checkout?tier=X if coming from pricing, otherwise
-  // the study tools (a new account from the homepage should land in the app,
-  // not back on the marketing page).
+  // Where to go after auth — checkout?tier=X if coming from pricing, a page's
+  // own ?next= when it sent us here, otherwise the dashboard for a sign-in.
   const params = new URLSearchParams(location.search);
   const next = params.get('next') || '/dashboard.html';
-  // A new account with no destination goes straight to the case list rather
-  // than the dashboard; sign-in keeps the dashboard.
-  const regNext = params.get('next') || '/dashboard.html';
+  // A new account with no destination goes to the plan picker to start its
+  // free trial (card up front, nothing charged for 7 days): there is no
+  // access to study until a trial or plan is on the account. ?exam=nce picks
+  // the NCE plans; the NCMHCE is the default.
+  const examParam = params.get('exam') === 'nce' ? 'nce' : 'ncmhce';
+  const regNext = params.get('next') || ('/pricing.html?exam=' + examParam + '&trial=1');
   const guest = (function(){ try { return !!(JSON.parse(localStorage.getItem('prp_user') || 'null') || {}).isGuest; } catch(_) { return false; } })();
 
   function showTab(tab) {

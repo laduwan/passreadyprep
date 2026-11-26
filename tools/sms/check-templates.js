@@ -57,6 +57,7 @@ function badChars(text) {
 const RENDERED = {
   optInConfirm: TEMPLATES.optInConfirm(),
   trialEndingSoon: TEMPLATES.trialEndingSoon(),
+  cardTrialEndingSoon: TEMPLATES.cardTrialEndingSoon(),
   paymentFailed: TEMPLATES.paymentFailed(),
   examApproaching: TEMPLATES.examApproaching(14),
 };

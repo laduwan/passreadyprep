@@ -3,7 +3,7 @@ const NceItem = require('../models/NceItem');
 const Attempt = require('../models/Attempt');
 const User = require('../models/User');
 const requireAuth = require('../middleware/auth');
-const { resolveNceAccess, nceLevel, NCE_TRIAL_DAYS } = require('../utils/nceAccess');
+const { resolveNceAccess, nceLevel, nceTrialEnd, nceTrialEligible, cardTrialing, NCE_TRIAL_DAYS } = require('../utils/nceAccess');
 const bp = require('../utils/nceBlueprint');
 const { getNceExam } = require('../utils/nceExam');
 const { computeNceReadiness } = require('../utils/nceReadiness');
@@ -98,10 +98,9 @@ router.get('/blueprint', (req, res) => {
   });
 });
 
-// GET /api/nce/access — the caller's NCE access level only, read without
-// starting the NCE trial clock (resolveNceAccess starts it on first visit).
-// Used by pages outside NCE study, such as the games page, so merely opening
-// them never spends an account's NCE trial.
+// GET /api/nce/access — the caller's NCE access level and trial state, with
+// no content. Used by pages outside NCE study (the games page, the plan
+// picker) that only need to know whether the account is in.
 router.get('/access', async (req, res) => {
   res.set('Cache-Control', 'no-store');
   const header = req.headers.authorization || '';
@@ -111,12 +110,18 @@ router.get('/access', async (req, res) => {
   try { payload = require('jsonwebtoken').verify(token, process.env.JWT_SECRET); }
   catch (_) { return res.json({ accessLevel: 'free' }); }
   try {
-    const user = await User.findById(payload.sub).select('nceAccess trialEndsAt sessionVersion');
+    const user = await User.findById(payload.sub).select('nceAccess trialEndsAt sessionVersion isGuest');
     if (!user) return res.json({ accessLevel: 'free' });
     if (user.sessionVersion != null && user.sessionVersion !== payload.sv) {
       return res.status(401).json({ error: 'Session invalidated', code: 'SESSION_INVALIDATED' });
     }
-    res.json({ accessLevel: nceLevel(user) });
+    const level = nceLevel(user);
+    res.json({
+      accessLevel: level,
+      trialEndsAt: level === 'trial' ? nceTrialEnd(user) : null,
+      cardTrial: level === 'trial' && cardTrialing(user.nceAccess || {}),
+      trialEligible: nceTrialEligible(user),
+    });
   } catch (err) {
     console.error('nce access error', err);
     res.status(500).json({ error: 'Could not check NCE access' });
@@ -143,6 +148,9 @@ router.get('/status', resolveNceAccess, async (req, res) => {
       currentPeriodEnd: a.currentPeriodEnd || null,
       cancelAtPeriodEnd: !!a.cancelAtPeriodEnd,
       trialEndsAt: req.nceTrialEndsAt || null,
+      cardTrial: !!req.nceCardTrial,
+      trialEligible: !!req.nceTrialEligible,
+      planAmount: a.planAmount || null,
       trialDays: NCE_TRIAL_DAYS,
       freeLimit: FREE_NCE_LIMIT,
       examDate: (req.nceUser && req.nceUser.nceExamDate) || null,

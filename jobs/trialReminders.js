@@ -1,30 +1,33 @@
 /**
  * Trial Reminder Emails
  *
- * PassReady Prep's free trial is short (TRIAL_DAYS, default 7), and until now
- * it was purely reactive — a user only found out it had ended when they hit a
- * gated case and got a 402 from routes/content.js. This job proactively emails
- * accounts before and after that happens, so people don't just go quiet and
- * churn without ever seeing a call to action.
+ * The free trial is short (TRIAL_DAYS, default 7) and starts in Stripe
+ * Checkout with a card on file: when it ends the plan bills the card unless
+ * the member cancelled. This job emails accounts around those moments, so
+ * nobody is charged without warning and nobody who signed up quietly goes
+ * dark without being told how to start.
  *
- * Three emails, each sent at most once per account (tracked in
- * User.trialEmailsSent so re-runs don't duplicate):
- *   - 'first_case'  — the account was created 20–48 hours ago and has not
- *                     opened a case yet, so its trial hasn't started (the
- *                     trial clock runs from the first case, utils/trial.js)
- *   - 'ending_soon' — trial ends within the next ~24 hours
- *   - 'ended'       — trial ended within the last ENDED_WINDOW_DAYS, and the
- *                     account is still on the free tier (anyone who upgraded
- *                     is never a candidate)
- *
- * 'ending_soon' and 'ended' only go to accounts whose trial has actually
- * started (trialStartedAt set) — nobody is told their trial ended when it
- * never began.
+ * Emails, each sent at most once per account (tracked in User.trialEmailsSent
+ * so re-runs don't duplicate):
+ *   - 'start_trial'  — the account was created 20–48 hours ago and has no
+ *                      trial or plan on it yet: a nudge to pick a plan and
+ *                      start the free trial
+ *   - 'ending_soon'  — a trial ends within the next ~24 hours. For a Stripe
+ *                      trial (status 'trialing') the email names the plan,
+ *                      the amount and the day the card is charged, and where
+ *                      to cancel. For a legacy no-card trial or an admin grant
+ *                      it asks them to pick a plan, as before.
+ *   - 'ended'        — a legacy or granted trial ended within the last
+ *                      ENDED_WINDOW_DAYS and the account is still on the free
+ *                      tier. A Stripe trial never gets this: it converts (the
+ *                      receipt comes from Stripe) or the card is declined (the
+ *                      payment-failed text and Stripe's own emails cover it).
  *
  * 'ending_soon' ALSO sends a text, but only to accounts that opted in to SMS at
  * sign-up (utils/sms.js decides; this job never checks consent itself). It is
- * the only one of the three that texts: it is the only one where the deadline
- * is tomorrow and acting today changes the outcome.
+ * the only one that texts: it is the only one where the deadline is tomorrow
+ * and acting today changes the outcome, and for a card trial it is the
+ * pre-charge notice.
  *
  * The 'ended' look-back window matters: without it, the very first run after
  * deploy would email every free-tier account that has ever lapsed, including
@@ -46,6 +49,8 @@ const User = require('../models/User');
 const { sendMail } = require('../utils/mailer');
 const { logActivity } = require('../utils/activity');
 const { TRIAL_DAYS, trialEndFor } = require('../utils/trial');
+const { RECURRING_TIERS } = require('../utils/access');
+const { NCE_RECURRING_TIERS } = require('../utils/nceAccess');
 const { sendUserSms, canText, TEMPLATES } = require('../utils/sms');
 
 const LOG = '[TrialReminders]';
@@ -55,8 +60,8 @@ const CHECK_INTERVAL_MS = 60 * 60 * 1000;   // hourly
 const FIRST_RUN_DELAY_MS = 30 * 1000;       // let the Mongo connection settle after boot
 const ENDING_SOON_WINDOW_MS = DAY_MS;       // "ends within 24h"
 const ENDED_WINDOW_MS = 7 * DAY_MS;         // only email about a trial that ended recently
-const FIRST_CASE_MIN_AGE_MS = 20 * 60 * 60 * 1000; // 'first_case' goes to accounts created 20–48h ago
-const FIRST_CASE_MAX_AGE_MS = 48 * 60 * 60 * 1000;
+const START_MIN_AGE_MS = 20 * 60 * 60 * 1000;    // 'start_trial' goes to accounts created 20–48h ago
+const START_MAX_AGE_MS = 48 * 60 * 60 * 1000;
 const MAX_PER_RUN = 200;                    // a sane ceiling on one hour's sending
 
 const APP_URL = (process.env.APP_URL || 'https://www.passreadyprep.com').replace(/\/+$/, '');
@@ -75,29 +80,37 @@ function ctaButton(href = `${APP_URL}/checkout.html`, label = 'Choose a plan') {
         </div>`;
 }
 
-function firstCaseEmail(user) {
+const PLAN_NAMES = {
+  monthly: 'Monthly', pass3: '3-Month Pass', pass6: '6-Month Pass',
+  nce_monthly: 'NCE Monthly', nce_pass3: 'NCE 3-Month Pass', nce_pass6: 'NCE 6-Month Pass',
+};
+const PLAN_MONTHS = { monthly: 1, pass3: 3, pass6: 6, nce_monthly: 1, nce_pass3: 3, nce_pass6: 6 };
+function money(cents) { return '$' + (cents / 100).toFixed(cents % 100 ? 2 : 0); }
+function friendly(d) { return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); }
+
+function startTrialEmail(user) {
   const name = firstName(user);
   return {
-    subject: 'Your first PassReady case is waiting',
+    subject: 'Your free trial is waiting',
     html: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color:#0F172A;margin-top:0;">Your first case is waiting, ${name}</h2>
+        <h2 style="color:#0F172A;margin-top:0;">Your free trial is waiting, ${name}</h2>
         <p style="color:#4a4a4a;line-height:1.6;">
-          Your ${TRIAL_DAYS}-day free trial starts the moment you open your first case — not before.
-          Open one today and you'll have full access to all 290+ cases, flashcards, decision trees,
-          and the DSM-5-TR reference for ${TRIAL_DAYS} days.
-        </p>${ctaButton(`${APP_URL}/study`, 'Open your first case')}
+          You created your PassReady Prep account but haven't started your ${TRIAL_DAYS}-day free trial yet.
+          Pick a plan and you get full access to all 290+ cases, timed mock exams, flashcards, decision trees
+          and the DSM-5-TR reference for ${TRIAL_DAYS} days. Your card isn't charged until the trial ends,
+          and you can cancel before then from your account page.
+        </p>${ctaButton(`${APP_URL}/pricing.html?exam=ncmhce&trial=1`, 'Start your free trial')}
         <p style="color:#888;font-size:12px;text-align:center;">PassReady Prep</p>
       </div>
     `,
-    text: `Your first case is waiting, ${name}. Your ${TRIAL_DAYS}-day free trial starts the moment you open your first case — not before. Open one today: ${APP_URL}/study`,
+    text: `Your free trial is waiting, ${name}. Pick a plan to start your ${TRIAL_DAYS}-day free trial of everything; your card isn't charged until it ends, and you can cancel before then. ${APP_URL}/pricing.html?exam=ncmhce&trial=1`,
   };
 }
 
+// Legacy no-card trial or admin grant: a plan still has to be picked.
 function endingSoonEmail(user, trialEnd) {
-  const friendlyDate = trialEnd.toLocaleDateString('en-US', {
-    weekday: 'long', month: 'long', day: 'numeric',
-  });
+  const friendlyDate = friendly(trialEnd);
   const name = firstName(user);
   return {
     subject: 'Your PassReady Prep trial ends tomorrow',
@@ -112,6 +125,37 @@ function endingSoonEmail(user, trialEnd) {
       </div>
     `,
     text: `Your trial ends tomorrow, ${name}. Your PassReady Prep free trial ends ${friendlyDate}. Pick a plan to keep full access: ${APP_URL}/checkout.html`,
+  };
+}
+
+// Stripe trial: the plan is chosen and bills tomorrow. This is the pre-charge
+// notice, so it carries the plan, the amount, the date and how to cancel.
+function cardTrialEndingSoonEmail(user, plan, trialEnd) {
+  const name = firstName(user);
+  const planName = PLAN_NAMES[plan.tier] || plan.tier;
+  const months = PLAN_MONTHS[plan.tier] || 1;
+  const amount = plan.planAmount ? money(plan.planAmount) : 'the plan price';
+  const cadence = months === 1 ? 'every month' : `every ${months} months`;
+  const friendlyDate = friendly(trialEnd);
+  return {
+    subject: `Your free trial ends tomorrow — ${planName} starts ${friendlyDate}`,
+    html: `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <h2 style="color:#0F172A;margin-top:0;">Your free trial ends tomorrow, ${name}</h2>
+        <p style="color:#4a4a4a;line-height:1.6;">
+          Your PassReady Prep free trial ends <strong>${friendlyDate}</strong>. On that day your
+          <strong>${planName}</strong> starts and the card on file is charged <strong>${amount}</strong>,
+          then ${amount} ${cadence} until you cancel. Nothing else changes: your progress, readiness
+          score and study plan carry straight on.
+        </p>
+        <p style="color:#4a4a4a;line-height:1.6;">
+          Not ready to continue? Cancel before ${friendlyDate} from <strong>Manage subscription</strong> on
+          your account page and your card will not be charged.
+        </p>${ctaButton(`${APP_URL}/account.html`, 'Manage my plan')}
+        <p style="color:#888;font-size:12px;text-align:center;">PassReady Prep</p>
+      </div>
+    `,
+    text: `Your free trial ends tomorrow, ${name}. On ${friendlyDate} your ${planName} starts and the card on file is charged ${amount}, then ${amount} ${cadence} until you cancel. To cancel before then, open Manage subscription on your account page: ${APP_URL}/account.html`,
   };
 }
 
@@ -133,52 +177,73 @@ function endedEmail(user) {
   };
 }
 
-// Narrows the scan to accounts that could plausibly be due one of the three
-// emails. For the reminders, an account's effective trial end is the LATER of
-// its granted trialEndsAt and (trialStartedAt + TRIAL_DAYS), so if that end is
-// in range then at least one of the two dates is in range — which makes the
-// first two $or clauses a superset of the accounts we want. The third clause is
-// the 'first_case' window: created 20–48h ago, trial not started. Each
-// candidate is still checked exactly below. Guests (iOS placeholder accounts,
-// models/User.js) never get any of these.
+// Narrows the scan to accounts that could plausibly be due one of the emails.
+// Three shapes of account:
+//   - a Stripe trial on either exam ending within the next day
+//   - a legacy or granted no-card trial (free NCMHCE tier) whose effective end
+//     — the LATER of trialEndsAt and trialStartedAt + TRIAL_DAYS — falls in
+//     range, so at least one of those two dates does
+//   - the 'start_trial' window: created 20–48h ago, free tier, no trial at all
+// Each candidate is still checked exactly below. Guests (iOS placeholder
+// accounts, models/User.js) never get any of these.
 function candidateFilter(now) {
   const standardOffsetMs = TRIAL_DAYS * DAY_MS;
   const earliestEnd = new Date(now.getTime() - ENDED_WINDOW_MS);
   const latestEnd = new Date(now.getTime() + ENDING_SOON_WINDOW_MS);
   return {
-    'subscription.tier': 'free',
     role: 'user',
     isGuest: { $ne: true },
     $or: [
+      { 'subscription.status': 'trialing', 'subscription.currentPeriodEnd': { $gte: now, $lte: latestEnd } },
+      { 'nceAccess.status': 'trialing', 'nceAccess.currentPeriodEnd': { $gte: now, $lte: latestEnd } },
       {
+        'subscription.tier': 'free',
         trialStartedAt: {
           $gte: new Date(earliestEnd.getTime() - standardOffsetMs),
           $lte: new Date(latestEnd.getTime() - standardOffsetMs),
         },
       },
-      { trialStartedAt: { $ne: null }, trialEndsAt: { $gte: earliestEnd, $lte: latestEnd } },
+      { 'subscription.tier': 'free', trialEndsAt: { $gte: earliestEnd, $lte: latestEnd } },
       {
+        'subscription.tier': 'free',
         trialStartedAt: null,
+        trialEndsAt: null,
+        'subscription.trialUsedAt': null,
         createdAt: {
-          $gte: new Date(now.getTime() - FIRST_CASE_MAX_AGE_MS),
-          $lte: new Date(now.getTime() - FIRST_CASE_MIN_AGE_MS),
+          $gte: new Date(now.getTime() - START_MAX_AGE_MS),
+          $lte: new Date(now.getTime() - START_MIN_AGE_MS),
         },
       },
     ],
   };
 }
 
+// The Stripe trial on this account that ends within the window, if any: the
+// NCMHCE plan first, then the NCE plan. Each exam's trial is its own reminder
+// key ('ending_soon' / 'ending_soon_nce') so having both does not silence one.
+function cardTrialDue(user, now) {
+  const checks = [
+    ['subscription', RECURRING_TIERS, 'ending_soon'],
+    ['nceAccess', NCE_RECURRING_TIERS, 'ending_soon_nce'],
+  ];
+  for (const [path, tiers, key] of checks) {
+    const plan = user[path] || {};
+    if (plan.status !== 'trialing' || !tiers.includes(plan.tier) || !plan.currentPeriodEnd) continue;
+    const msLeft = new Date(plan.currentPeriodEnd) - now;
+    if (msLeft > 0 && msLeft <= ENDING_SOON_WINDOW_MS) return { plan, key, end: new Date(plan.currentPeriodEnd) };
+  }
+  return null;
+}
+
 async function checkAndSendTrialReminders() {
   const now = new Date();
-  const stats = { checked: 0, firstCaseSent: 0, endingSoonSent: 0, endedSent: 0, smsSent: 0, errors: 0 };
+  const stats = { checked: 0, startTrialSent: 0, endingSoonSent: 0, endedSent: 0, smsSent: 0, errors: 0 };
 
   if (process.env.TRIAL_REMINDERS_DISABLE === '1') return stats;
 
   try {
-    // Only free-tier accounts are trial candidates — anyone on a paid tier has
-    // already converted and shouldn't get "your trial ended" copy.
     const candidates = await User.find(candidateFilter(now))
-      .select('email name createdAt trialStartedAt trialEndsAt trialEmailsSent phone smsOptedIn smsOptedOutAt smsSent')
+      .select('email name createdAt isGuest subscription nceAccess trialStartedAt trialEndsAt trialEmailsSent phone smsOptedIn smsOptedOutAt smsSent')
       .limit(MAX_PER_RUN);
 
     stats.checked = candidates.length;
@@ -186,49 +251,60 @@ async function checkAndSendTrialReminders() {
     for (const user of candidates) {
       try {
         const sent = user.trialEmailsSent || [];
-        const trialEnd = trialEndFor(user);
-        const msLeft = trialEnd - now;
         const ageMs = now - new Date(user.createdAt);
+        const sub = user.subscription || {};
+        const onFreeTier = !sub.tier || sub.tier === 'free';
 
         let kind = null;
-        if (!user.trialStartedAt) {
-          // Trial not started: the only email that applies is the nudge to
-          // open a first case. Never 'ending_soon' / 'ended' for these.
-          if (!sent.includes('first_case') && ageMs >= FIRST_CASE_MIN_AGE_MS && ageMs <= FIRST_CASE_MAX_AGE_MS) {
-            kind = 'first_case';
-          }
-        } else if (!sent.includes('ending_soon') && msLeft > 0 && msLeft <= ENDING_SOON_WINDOW_MS) {
+        let key = null;
+        let mail = null;
+        let smsTemplate = null;
+
+        // Stripe trial billing tomorrow: the pre-charge notice, per exam.
+        const card = cardTrialDue(user, now);
+        if (card && !sent.includes(card.key)) {
           kind = 'ending_soon';
-        } else if (!sent.includes('ended') && msLeft <= 0 && -msLeft <= ENDED_WINDOW_MS) {
-          kind = 'ended';
+          key = card.key;
+          mail = cardTrialEndingSoonEmail(user, card.plan, card.end);
+          smsTemplate = TEMPLATES.cardTrialEndingSoon;
+        } else if (onFreeTier) {
+          // Legacy / granted no-card trial, or no trial at all.
+          const trialEnd = trialEndFor(user);
+          const hasTrial = trialEnd > new Date(0);
+          const msLeft = trialEnd - now;
+          if (!hasTrial && !sub.trialUsedAt) {
+            if (!sent.includes('start_trial') && !sent.includes('first_case') && ageMs >= START_MIN_AGE_MS && ageMs <= START_MAX_AGE_MS) {
+              kind = 'start_trial'; key = 'start_trial'; mail = startTrialEmail(user);
+            }
+          } else if (hasTrial && !sent.includes('ending_soon') && msLeft > 0 && msLeft <= ENDING_SOON_WINDOW_MS) {
+            kind = 'ending_soon'; key = 'ending_soon'; mail = endingSoonEmail(user, trialEnd);
+            smsTemplate = TEMPLATES.trialEndingSoon;
+          } else if (hasTrial && !sent.includes('ended') && msLeft <= 0 && -msLeft <= ENDED_WINDOW_MS) {
+            kind = 'ended'; key = 'ended'; mail = endedEmail(user);
+          }
         }
         if (!kind) continue;
-
-        const { subject, html, text } = kind === 'first_case'
-          ? firstCaseEmail(user)
-          : kind === 'ending_soon'
-          ? endingSoonEmail(user, trialEnd)
-          : endedEmail(user);
 
         // Mark first, then send: a duplicate email is worse for the recipient
         // than a missed one, so if the process dies mid-send we err toward not
         // re-sending on the next run.
-        await User.updateOne({ _id: user._id }, { $addToSet: { trialEmailsSent: kind } });
-        await sendMail({ to: user.email, subject, html, text });
+        await User.updateOne({ _id: user._id }, { $addToSet: { trialEmailsSent: key } });
+        await sendMail({ to: user.email, subject: mail.subject, html: mail.html, text: mail.text });
 
         // The one trial text, to members who opted in: the trial ends tomorrow
-        // and there is something to do about it today. Deliberately only this
-        // one of the three — 'first_case' and 'ended' are not time-critical,
-        // and message frequency is what gets a 10DLC campaign complained
-        // about. Marked before sending, like the email above, because a
-        // duplicate text costs money and annoys where a missed one does not.
-        if (kind === 'ending_soon' && canText(user) && !(user.smsSent || {}).trial_ending_soon) {
+        // and there is something to do about it today (for a card trial, the
+        // card is charged tomorrow). Deliberately only this one — the others
+        // are not time-critical, and message frequency is what gets a 10DLC
+        // campaign complained about. Marked before sending, like the email
+        // above, because a duplicate text costs money and annoys where a
+        // missed one does not. One text per account however many trials.
+        if (kind === 'ending_soon' && smsTemplate && canText(user) && !(user.smsSent || {}).trial_ending_soon) {
           await User.updateOne({ _id: user._id }, { $set: { 'smsSent.trial_ending_soon': new Date() } });
-          const sms = await sendUserSms(user, TEMPLATES.trialEndingSoon(), { type: 'trial_ending_soon' });
+          const sms = await sendUserSms(user, smsTemplate(), { type: 'trial_ending_soon' });
           if (sms.sent) stats.smsSent++;
         }
 
-        if (kind === 'first_case') stats.firstCaseSent++;
+        if (kind === 'start_trial') stats.startTrialSent++;
         else if (kind === 'ending_soon') stats.endingSoonSent++;
         else stats.endedSent++;
       } catch (userErr) {
@@ -241,12 +317,12 @@ async function checkAndSendTrialReminders() {
     console.error(`${LOG} Top-level error:`, err.message);
   }
 
-  if (stats.firstCaseSent || stats.endingSoonSent || stats.endedSent || stats.errors) {
-    console.log(`${LOG} checked=${stats.checked} firstCase=${stats.firstCaseSent} endingSoon=${stats.endingSoonSent} ended=${stats.endedSent} sms=${stats.smsSent} errors=${stats.errors}`);
+  if (stats.startTrialSent || stats.endingSoonSent || stats.endedSent || stats.errors) {
+    console.log(`${LOG} checked=${stats.checked} startTrial=${stats.startTrialSent} endingSoon=${stats.endingSoonSent} ended=${stats.endedSent} sms=${stats.smsSent} errors=${stats.errors}`);
     logActivity({
       type: 'trial.reminders_run',
       severity: stats.errors ? 'warn' : 'info',
-      message: `Trial reminders: ${stats.firstCaseSent} first-case, ${stats.endingSoonSent} ending-soon, ${stats.endedSent} ended`,
+      message: `Trial reminders: ${stats.startTrialSent} start-trial, ${stats.endingSoonSent} ending-soon, ${stats.endedSent} ended`,
       meta: stats,
     });
   }

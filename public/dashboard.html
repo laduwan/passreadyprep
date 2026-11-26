@@ -261,7 +261,7 @@
           </div>
         </div>
         <div class="db-break-form" id="break-form" hidden>
-          <p class="prp-meta" id="bk-none" hidden>Study breaks come with a trial or plan. Open the exam you are studying for to start yours, then come back here.</p>
+          <p class="prp-meta" id="bk-none" hidden>Study breaks come with a trial or plan. Start a free trial or plan for the exam you are studying for, then come back here.</p>
           <div id="bk-fields">
           <div class="db-break-field"><span>Exam</span><div class="prp-seg" id="bk-exam" role="group" aria-label="Exam"></div></div>
           <div class="db-break-field"><span>Days</span><div class="db-break-days" id="bk-days" role="group" aria-label="Days of the week"></div></div>
@@ -482,14 +482,27 @@
     if (level === 'trial') {
       var days = A.trialEndsAt ? Math.max(0, Math.ceil((new Date(A.trialEndsAt) - Date.now()) / 86400000)) : (A.trialDays || 7);
       var txt = days + ' day' + (days === 1 ? '' : 's') + ' left in trial';
+      // A card trial already has its plan, which bills when the trial ends
+      // unless cancelled: the link manages it. A legacy or granted trial
+      // still has a plan to pick.
+      var href = A.cardTrial ? '/account.html' : '/pricing.html?exam=' + exam;
+      var cta = A.cardTrial ? 'Manage plan' : 'Upgrade';
       el.innerHTML = '<div class="db-trial">' + txt + '</div>'
-        + '<a href="/pricing.html?exam=' + exam + '">Upgrade →</a>';
-      mobile(txt, '/pricing.html?exam=' + exam, 'Upgrade');
+        + '<a href="' + href + '">' + cta + ' →</a>';
+      mobile(txt, href, cta);
       return;
     }
     if (level === 'gated') {
       el.innerHTML = '<div class="db-trial">Check-in needed</div><a href="/score-report.html">Submit score report →</a>';
       mobile('Check-in needed', '/score-report.html', 'Submit score report');
+      return;
+    }
+    // A new account has not started its free trial yet (card up front, from
+    // the plan picker); a lapsed one picks a plan.
+    if (level === 'expired' && A.trialEligible) {
+      el.innerHTML = '<div class="db-trial">Free trial not started</div>'
+        + '<a href="/pricing.html?exam=' + exam + '&trial=1">Start free trial →</a>';
+      mobile('Free trial not started', '/pricing.html?exam=' + exam + '&trial=1', 'Start free trial');
       return;
     }
     var t = level === 'expired' ? 'Trial ended' : 'Free preview';

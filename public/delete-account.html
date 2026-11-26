@@ -205,10 +205,11 @@
     try { u = JSON.parse(localStorage.getItem('prp_user') || '{}') || {}; email = u.email || ''; } catch(_) {}
     document.getElementById('acct-email').textContent = isGuest ? 'the account on this device' : (email || 'your account');
     // App Store subscriptions belong to the Apple ID: we cannot cancel them here.
+    const RECURRING = ['monthly','pass3','pass6','nce_monthly','nce_pass3','nce_pass6'];
     const appleSubs = [u.subscription, u.nceAccess].filter(p => p && p.source === 'apple'
-      && (p.tier === 'monthly' || p.tier === 'nce_monthly') && ['active','past_due'].includes(p.status || 'active') && !p.cancelAtPeriodEnd);
+      && RECURRING.includes(p.tier) && ['active','trialing','past_due'].includes(p.status || 'active') && !p.cancelAtPeriodEnd);
     if (appleSubs.length) {
-      document.getElementById('apple-plan').textContent = appleSubs.map(p => p.tier === 'nce_monthly' ? 'NCE Monthly' : 'Monthly').join(' and ');
+      document.getElementById('apple-plan').textContent = appleSubs.map(p => (p.tier.startsWith('nce_') ? 'NCE ' : '') + (/monthly/.test(p.tier) ? 'Monthly' : /pass3/.test(p.tier) ? '3-Month Pass' : '6-Month Pass')).join(' and ');
       document.getElementById('apple-manage').onclick = function(){
         if (window.PRP_IAP) window.PRP_IAP.manageSubscriptions().catch(function(){});
         else location.href = 'https://apps.apple.com/account/subscriptions';

@@ -81,7 +81,7 @@ async function sendDigests() {
       const sub = user.subscription || {};
       const tier = sub.tier || 'free';
       const trialEnd = trialEndFor(user);
-      const hasPaidAccess = ['monthly', 'pass3', 'guarantee'].includes(tier) &&
+      const hasPaidAccess = ['monthly', 'pass3', 'pass6', 'guarantee'].includes(tier) &&
         sub.currentPeriodEnd && sub.currentPeriodEnd > now;
       const hasTrialAccess = trialEnd && trialEnd > now;
       if (!hasPaidAccess && !hasTrialAccess) continue;

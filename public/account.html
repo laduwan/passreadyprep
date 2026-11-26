@@ -124,8 +124,12 @@
 <script>
   var token = null, user = null;
   try { token = localStorage.getItem('prp_token'); user = JSON.parse(localStorage.getItem('prp_user') || 'null'); } catch (e) {}
-  var NAMES = { free:'Free', monthly:'Monthly', pass3:'3-Month Pass', guarantee:'Pass Guarantee',
+  var NAMES = { free:'Free', monthly:'Monthly', pass3:'3-Month Pass', pass6:'6-Month Pass', guarantee:'Pass Guarantee',
                 nce_monthly:'NCE Monthly', nce_pass3:'NCE 3-Month Pass', nce_pass6:'NCE 6-Month Pass', nce_guarantee:'NCE Pass Guarantee' };
+  var RECURRING = ['monthly', 'pass3', 'pass6', 'nce_monthly', 'nce_pass3', 'nce_pass6'];
+  var MONTHS = { monthly: 1, pass3: 3, pass6: 6, nce_monthly: 1, nce_pass3: 3, nce_pass6: 6 };
+  function money(cents) { return '$' + (cents / 100).toFixed(cents % 100 ? 2 : 0); }
+  function every(tier) { var m = MONTHS[tier] || 1; return m === 1 ? 'a month' : 'every ' + m + ' months'; }
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function show(id) { document.querySelectorAll('.panel').forEach(function (p) { p.classList.toggle('active', p.id === id); }); }
@@ -144,25 +148,33 @@
     var end = plan.currentPeriodEnd ? new Date(plan.currentPeriodEnd) : null;
     var now = new Date();
     var expired = end && end < now;
-    var isSub = tier === 'monthly' || tier === 'nce_monthly';
+    var isSub = RECURRING.indexOf(tier) !== -1;
     var isGuar = tier === 'guarantee' || tier === 'nce_guarantee';
     var apple = plan.source === 'apple';
-    var renewing = isSub && ['active', 'past_due'].indexOf(plan.status || 'active') !== -1 && !plan.cancelAtPeriodEnd && !expired;
+    // A free trial (card on file) bills on currentPeriodEnd unless cancelled
+    // before then; cancelling runs it to that date with no charge.
+    var trialing = isSub && plan.status === 'trialing' && !expired;
+    var renewing = isSub && ['active', 'trialing', 'past_due'].indexOf(plan.status || 'active') !== -1 && !plan.cancelAtPeriodEnd && !expired;
     var h = '';
     if (tier === 'free') {
       if (APP) return '<p class="plan">No plan on this account</p>';
-      h += '<p class="plan">No plan yet</p><p class="meta">' + (exam === 'nce' ? 'NCE study starts with a free trial; plans are billed separately from NCMHCE.' : 'New accounts start with a free trial of everything.') + '</p>';
-      h += '<div class="row"><a class="btn primary" href="' + (exam === 'nce' ? '/nce.html#pricing' : '/landing.html#pricing') + '">See plans</a></div>';
+      h += '<p class="plan">No plan yet</p><p class="meta">' + (exam === 'nce' ? 'Every NCE plan starts with a 7-day free trial; NCE plans are billed separately from NCMHCE.' : 'Every recurring plan starts with a 7-day free trial of everything.') + ' Your card isn\u2019t charged until the trial ends, and you can cancel before then.</p>';
+      h += '<div class="row"><a class="btn primary" href="/pricing.html?exam=' + exam + '&trial=1">Start free trial or choose a plan</a></div>';
       return h;
     }
     var badge = expired ? '<span class="badge b-off">Ended</span>'
       : plan.status === 'past_due' ? '<span class="badge b-warn">Payment issue</span>'
-      : (isSub && (plan.cancelAtPeriodEnd || plan.status === 'canceled')) ? '<span class="badge b-warn">Cancels at period end</span>'
+      : (isSub && (plan.cancelAtPeriodEnd || plan.status === 'canceled')) ? '<span class="badge b-warn">' + (trialing ? 'Trial, cancelled' : 'Cancels at period end') + '</span>'
+      : trialing ? '<span class="badge b-ok">Free trial</span>'
       : '<span class="badge b-ok">Active</span>';
     h += '<p class="plan">' + esc(NAMES[tier] || tier) + badge + '</p>';
     var lines = [];
+    var charge = plan.planAmount ? money(plan.planAmount) + ' ' + every(tier) : null;
     if (isGuar) lines.push(end ? (expired ? 'Candidate check-in due — submit your exam date or score report.' : 'Next candidate check-in by ' + fmtDate(end) + '.') : 'Pass guarantee.');
-    else if (isSub) lines.push(end ? ((renewing ? 'Renews ' : 'Access until ') + fmtDate(end) + '.') : '');
+    else if (trialing) lines.push(end ? (renewing
+        ? 'Free trial ends ' + fmtDate(end) + '. Your card is then charged ' + (charge || 'the plan price') + ' unless you cancel before then.'
+        : 'Cancelled: your free trial runs until ' + fmtDate(end) + ' and your card will not be charged.') : '');
+    else if (isSub) lines.push(end ? ((renewing ? 'Renews ' : 'Access until ') + fmtDate(end) + (renewing && charge ? ' at ' + charge : '') + '.') : '');
     else if (end) lines.push((expired ? 'Ended ' : 'Access until ') + fmtDate(end) + '.');
     lines.push(apple ? 'Billed through the App Store (Apple ID).' : (isSub ? (APP ? 'Your subscription is managed on passreadyprep.com.' : 'Billed on passreadyprep.com.') : ''));
     h += '<p class="meta">' + lines.filter(Boolean).map(esc).join('<br>') + '</p>';
@@ -170,7 +182,9 @@
     if (isSub && !expired) {
       if (apple) btns.push('<button class="btn" onclick="manageApple(this)">Manage subscription</button>');
       else if (APP) {} // managed on the website; the line above says so, no link
-      else if (exam !== 'nce' && plan.stripeCustomerId) btns.push('<button class="btn" onclick="openPortal(this)">Manage subscription</button>');
+      // Both exams bill the same Stripe customer (routes/payment.js), so the
+      // portal manages an NCE plan too; the NCE summary carries no customer id.
+      else if (plan.stripeCustomerId || (user.subscription && user.subscription.stripeCustomerId)) btns.push('<button class="btn" onclick="openPortal(this)">' + (trialing ? 'Manage or cancel trial' : 'Manage subscription') + '</button>');
       else btns.push('<a class="btn" href="mailto:support@passreadyprep.com?subject=Manage%20my%20subscription">Contact support</a>');
     }
     if (isGuar) btns.push('<a class="btn" href="/score-report.html' + (exam === 'nce' ? '?exam=nce' : '') + '">Exam date / score report</a>');
