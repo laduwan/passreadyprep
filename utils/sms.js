@@ -99,7 +99,7 @@ async function sendUserSms(user, text, { type = 'unspecified' } = {}) {
  * The message templates. Kept in one place so the text the carrier approved
  * and the text we actually send stay the same thing.
  *
- * RULES — `node tools/sms/check-templates.js` checks all four:
+ * RULES — `node tools/sms/check-templates.js` checks all of them:
  *   - name the brand, so nobody gets an unidentified text
  *   - carry "STOP" (the opt-in confirmation carries HELP too, as required)
  *   - stay inside GSM-7: one curly quote or em dash drops the segment size
@@ -120,6 +120,13 @@ const TEMPLATES = {
   trialEndingSoon: () =>
     'PassReady Prep: your free trial ends in 1 day. Your progress is saved. '
     + 'Pick a plan: passreadyprep.com/checkout.html Reply STOP to opt out.',
+
+  // Card-up-front trial: the plan bills tomorrow unless they cancel, so the
+  // text says so and where to cancel (the account page opens the billing
+  // portal). No amount: it varies by plan and the email carries it.
+  cardTrialEndingSoon: () =>
+    'PassReady Prep: your free trial ends in 1 day, then your plan bills the card on file. '
+    + 'Keep it or cancel at passreadyprep.com/account.html Reply STOP to opt out.',
 
   paymentFailed: () =>
     "PassReady Prep: we couldn't take payment for your plan. Update your card at "

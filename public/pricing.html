@@ -49,7 +49,8 @@
   .pp-plan[aria-checked="true"]{border-top-color:var(--prp-accent); background:var(--prp-accent-tint)}
   .pp-plan-head{display:flex; justify-content:space-between; align-items:center; gap:8px}
   .pp-plan-name{font-weight:600; font-size:17px}
-  .pp-plan-price{display:flex; align-items:baseline; gap:6px}
+  .pp-plan-price{display:flex; align-items:baseline; gap:6px; flex-wrap:wrap}
+  .pp-plan-trial{flex-basis:100%; font-size:13px; font-weight:600; color:var(--prp-accent-text)}
   .pp-plan-amount{font-size:44px; font-weight:500; letter-spacing:-0.04em; font-variant-numeric:tabular-nums}
   .pp-plan-per{font-size:14px; color:var(--prp-muted)}
   .pp-plan-desc{font-size:14px; color:var(--prp-text-2); line-height:1.5}
@@ -110,6 +111,7 @@
     }
     .pp-plan-head{flex-direction:column; align-items:flex-start; gap:2px}
     .pp-plan-price{flex-direction:column; align-items:flex-end; gap:0}
+    .pp-plan-trial{flex-basis:auto; font-size:11px}
     .pp-plan-amount{font-size:17px; font-weight:600; letter-spacing:0}
     .pp-plan-per{font-size:11px}
     .pp-plan-desc,
@@ -283,6 +285,25 @@
   var live = {};        // tier → the price as the active store reports it
   var offered = null;   // tiers that store is actually selling, or null before it answers
   var storeDown = false; // the App Store could not be reached
+  // Free trial (card up front, website only). A recurring plan opens in
+  // Stripe with TRIAL_DAYS free and the card charged when they end unless
+  // the member cancels. `access` is this account's answer from the server
+  // (/api/content/access or /api/nce/access); signed out, a new visitor is
+  // assumed eligible and the server has the final say at checkout.
+  var access = null;
+  function recurring(cfg) { return !!cfg && !cfg.terms; }
+  function trialOffered() {
+    if (APP) return false;
+    if (!get('prp_token')) return true;
+    return !!(access && access.trialEligible);
+  }
+  function trialDaysFor(cfg) {
+    var l = live[cfg.tier];
+    return (l && l.trialDays) || 7;
+  }
+  function onPlan() {
+    return !!(access && (access.accessLevel === 'trial' || access.accessLevel === 'paid'));
+  }
 
   function money(cents) { return '$' + (cents / 100).toFixed(cents % 100 ? 2 : 0); }
 
@@ -338,6 +359,7 @@
           + '<span class="pp-plan-short">' + esc(p.short) + '</span>'
         + '</span>'
         + '<span class="pp-plan-price">'
+          + (trialOffered() && recurring(p) ? '<span class="pp-plan-trial">' + trialDaysFor(p) + ' days free, then</span>' : '')
           + '<span class="pp-plan-amount">' + esc(amount(p)) + '</span>'
           + '<span class="pp-plan-per">' + esc(periodLabel(p)) + '</span>'
         + '</span>'
@@ -361,12 +383,17 @@
       $('terms-wrap').hidden = true;
       return;
     }
-    $('summary').innerHTML = '<strong>' + esc(cfg.name) + '</strong> · ' + esc(amount(cfg)) + ' '
+    var trial = trialOffered() && recurring(cfg);
+    $('summary').innerHTML = '<strong>' + esc(cfg.name) + '</strong> · '
+      + (trial ? trialDaysFor(cfg) + ' days free, then ' : '') + esc(amount(cfg)) + ' '
       + esc(periodLabel(cfg)) + ' <span class="prp-meta">· ' + esc(cfg.note) + '</span>';
     // The check-in terms are acknowledged only for the until-you-pass plan.
     $('terms-wrap').hidden = !cfg.terms;
-    $('cta').disabled = false;
-    $('cta-label').textContent = APP ? 'Subscribe' : 'Continue to checkout';
+    // A member already on a plan for this exam changes it from the billing
+    // portal; a second checkout would open a second subscription.
+    var blocked = !APP && recurring(cfg) && onPlan();
+    $('cta').disabled = blocked;
+    $('cta-label').textContent = blocked ? 'Already on a plan' : trial ? 'Start free trial' : APP ? 'Subscribe' : 'Continue to checkout';
     $('footnote').innerHTML = cfg.terms
       ? 'One payment, and it never renews. Free check-in every 6 months (your exam date or your score report). '
         + 'If you don’t pass, your access is extended free for 3 months; you can take a refund instead on a '
@@ -375,6 +402,10 @@
       : (APP
           ? 'Payment is charged to your Apple ID when you confirm. It renews at the same price unless you cancel at '
             + 'least 24 hours before the period ends. Manage or cancel it in your App Store settings.'
+          : trial
+          ? 'Your card is saved today and charged ' + esc(amount(cfg)) + ' when the ' + trialDaysFor(cfg) + '-day trial ends, then '
+            + esc(cfg.note.replace(/^cancel anytime$/, 'monthly, cancel anytime')) + '. Cancel before the trial ends from your account page '
+            + 'and you pay nothing. We email you the day before the first charge.'
           : 'Renews automatically until you cancel. Cancel any time from your account page. Pass and your first CE '
             + 'course on CounselorReady is free: just come back and tell us you passed.');
   }
@@ -445,6 +476,17 @@
       .catch(function () { offered = null; });   // fall back to the listed prices
   }
 
+  // This account's access and trial state for the exam on screen. Signed out
+  // there is nothing to ask; the page then speaks to a new visitor.
+  function loadAccess() {
+    access = null;
+    if (APP || !get('prp_token')) return Promise.resolve();
+    return fetch(exam === 'nce' ? '/api/nce/access' : '/api/content/access', { headers: authHeaders(), cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (a) { access = a; })
+      .catch(function () { access = null; });
+  }
+
   function loadStats() {
     if (!get('prp_token')) return Promise.resolve(null);
     return fetch('/api/progress/summary?exam=' + exam, { headers: authHeaders() })
@@ -462,16 +504,51 @@
     ncmhce: 'Full access to every case simulation, timed mock exams and your readiness score. The AI debrief comes with the until-you-pass plan.',
     nce: 'Full access to the NCE question bank, timed mock exams and your readiness by domain. Billed separately from NCMHCE.',
   };
+  var SUBCOPY_TRIAL = {
+    ncmhce: 'Pick a plan and try every case simulation, the timed mock exams and your readiness score free for 7 days. Your card is not charged until the trial ends, and you can cancel before then from your account page.',
+    nce: 'Pick a plan and try the full NCE question bank, timed mock exams and your readiness by domain free for 7 days. Your card is not charged until the trial ends, and you can cancel before then from your account page.',
+  };
+
+  // Headline and lead for the state this account is in: a new visitor or a
+  // fresh account starts a trial; a lapsed account picks a plan; a member
+  // on a plan is told where to change it.
+  function renderHero() {
+    var signedIn = !!get('prp_token');
+    if (APP) {
+      $('eyebrow').textContent = 'Plans';
+      $('headline').textContent = 'Pick the plan that fits your exam date.';
+      $('subcopy').textContent = (signedIn ? SUBCOPY : SUBCOPY_NEW)[exam];
+      return;
+    }
+    if (trialOffered()) {
+      $('eyebrow').textContent = 'Start your 7-day free trial';
+      $('headline').textContent = 'Pick a plan. Pay nothing for 7 days.';
+      $('subcopy').textContent = SUBCOPY_TRIAL[exam];
+      return;
+    }
+    if (onPlan()) {
+      var trialing = access.accessLevel === 'trial';
+      $('eyebrow').textContent = trialing ? 'Free trial running' : 'Your plan';
+      $('headline').textContent = trialing ? 'Your free trial is running.' : 'You already have a plan for this exam.';
+      $('subcopy').textContent = trialing
+        ? 'Your plan starts when the trial ends. To switch plans or cancel, open Manage subscription on your account page. The Pass Guarantee can be bought here and replaces the trial.'
+        : 'To switch plans or cancel, open Manage subscription on your account page. The Pass Guarantee can be bought here and replaces your current plan.';
+      return;
+    }
+    $('eyebrow').textContent = signedIn ? 'Your free trial has ended' : 'Plans';
+    $('headline').textContent = signedIn ? 'Pick up where you left off.' : 'Pick the plan that fits your exam date.';
+    $('subcopy').textContent = (signedIn ? SUBCOPY : SUBCOPY_NEW)[exam];
+  }
 
   function loadExam() {
     showMsg('');
-    $('subcopy').textContent = (get('prp_token') ? SUBCOPY : SUBCOPY_NEW)[exam];
     $('back-link').href = STUDY_HOME[exam];
     Array.prototype.forEach.call($('exam-seg').children, function (b) {
       b.setAttribute('aria-pressed', b.getAttribute('data-exam') === exam ? 'true' : 'false');
     });
     $('stats').hidden = true;
-    return loadPrices().then(function () {
+    return Promise.all([loadPrices(), loadAccess()]).then(function () {
+      renderHero();
       renderPlans();
       if (storeDown) showMsg('The App Store could not be reached, so prices cannot be shown. Please try again in a moment, or tap Restore purchase if you already have a plan.');
       $('loading').hidden = true;
@@ -527,18 +604,35 @@
       return;
     }
 
-    fetch('/api/payment/create-checkout-session', {
-      method: 'POST',
-      headers: Object.assign({ 'content-type': 'application/json' }, authHeaders()),
-      body: JSON.stringify({ tier: cfg.tier, guaranteeTermsAccepted: !!cfg.terms }),
-    })
-      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+    // The server decides whether this account still has a trial to start
+    // (one per account per exam). If not, the same plan is bought outright,
+    // and the page says so before sending them on.
+    function checkout(withTrial) {
+      return fetch('/api/payment/create-checkout-session', {
+        method: 'POST',
+        headers: Object.assign({ 'content-type': 'application/json' }, authHeaders()),
+        body: JSON.stringify({ tier: cfg.tier, guaranteeTermsAccepted: !!cfg.terms, trial: withTrial }),
+      }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, j: j }; }); });
+    }
+    var withTrial = trialOffered() && recurring(cfg);
+    checkout(withTrial)
       .then(function (res) {
         if (!res.ok) {
           if (res.j && res.j.code === 'SESSION_INVALIDATED') {
             try { localStorage.removeItem('prp_token'); localStorage.removeItem('prp_user'); } catch (e) {}
             location.href = '/register.html?next=' + encodeURIComponent(location.pathname + location.search);
             return;
+          }
+          if (res.j && res.j.code === 'TRIAL_NOT_AVAILABLE' && withTrial) {
+            access = Object.assign({}, access || {}, { trialEligible: false });
+            renderPlans();
+            showMsg('This account has already had its free trial, so the plan starts right away. Continue to checkout to buy it.');
+            btn.disabled = false;
+            $('cta-label').textContent = 'Continue to checkout';
+            return;
+          }
+          if (res.j && res.j.code === 'ALREADY_SUBSCRIBED') {
+            return fail('You already have a plan for this exam. Change or cancel it from your account page.');
           }
           return fail((res.j && res.j.error) || 'Could not start checkout. Please try again.');
         }
@@ -591,10 +685,6 @@
   // ── Start ──────────────────────────────────────────────────────────────
   var u = user();
   if (u && u.email) $('signout').hidden = false;
-  if (!get('prp_token')) {
-    $('eyebrow').textContent = 'Plans';
-    $('headline').textContent = 'Pick the plan that fits your exam date.';
-  }
   selected = params.get('tier') || DEFAULT_TIER[exam];
   loadExam();
 })();

@@ -500,9 +500,10 @@ html.theme-light .facts input,html.theme-light .plan-date{color-scheme:light}
   function accessBanner(){
     var s = STATUS, msg = '', cls = 'info';
     if (s.examStatus !== 'live') { msg = '<b>NCE study is in early access.</b> The question bank is still growing. New questions are added every week.'; }
-    if (s.accessLevel === 'free') { cls='info'; msg += (msg?'<br>':'') + 'You\'re previewing '+s.freeLimit+' sample questions. <a href="/register.html?next=/nce.html">Create a free account</a> for a '+s.trialDays+'-day NCE trial with full access' + (APP ? ', or <a href="#pricing">choose a plan</a> (no account needed).' : '.'); }
-    else if (s.accessLevel === 'trial') { cls='ok'; msg += (msg?'<br>':'') + 'NCE free trial active' + (s.trialEndsAt ? ' until <b>'+new Date(s.trialEndsAt).toLocaleDateString()+'</b>' : '') + '. <a href="#pricing">See NCE plans</a>.'; }
+    if (s.accessLevel === 'free') { cls='info'; msg += (msg?'<br>':'') + 'You\'re previewing '+s.freeLimit+' sample questions. <a href="/register.html?exam=nce&next=/nce.html">Create a free account</a> and start a '+s.trialDays+'-day NCE free trial with full access' + (APP ? ', or <a href="#pricing">choose a plan</a> (no account needed).' : ' (cancel any time before it ends).'); }
+    else if (s.accessLevel === 'trial') { cls='ok'; msg += (msg?'<br>':'') + 'NCE free trial active' + (s.trialEndsAt ? ' until <b>'+new Date(s.trialEndsAt).toLocaleDateString()+'</b>' : '') + (s.cardTrial ? '. Your plan starts when it ends; <a href="/account.html">manage or cancel it</a> from your account page.' : '. <a href="#pricing">See NCE plans</a>.'); }
     else if (s.accessLevel === 'gated') { cls='warn'; msg += (msg?'<br>':'') + 'Your NCE Pass Guarantee check-in is due. <a href="/score-report.html?exam=nce">Submit your exam date or score report</a> to restore full access.'; }
+    else if (s.accessLevel === 'expired' && s.trialEligible && !APP) { cls='info'; msg += (msg?'<br>':'') + 'Practice is limited to '+s.freeLimit+' sample questions until you start your '+s.trialDays+'-day NCE free trial. <a href="/pricing.html?exam=nce&trial=1">Pick a plan</a>: your card isn\'t charged until the trial ends, and you can cancel before then.'; }
     else if (s.accessLevel === 'expired') { cls='warn'; msg += (msg?'<br>':'') + 'Your NCE trial has ended. Practice is limited to '+s.freeLimit+' sample questions. <a href="#pricing">Pick an NCE plan</a> to unlock everything.'; }
     else if (s.accessLevel === 'paid' && s.currentPeriodEnd) { cls='ok'; msg += (msg?'<br>':'') + 'NCE plan active' + (s.cancelAtPeriodEnd ? ' — ends ' : ' through ') + new Date(s.currentPeriodEnd).toLocaleDateString() + '.'; }
     return msg ? '<div class="banner '+cls+'">'+msg+'</div>' : '';
@@ -575,7 +576,7 @@ html.theme-light .facts input,html.theme-light .plan-date{color-scheme:light}
     '</div><div class="acts">'+
       '<a class="btn" href="#pricing">See NCE plans'+arrow+'</a>'+
       '<a class="btn btn-s" href="/guarantee.html">How the guarantee works'+arrow+'</a>'+
-      (APP ? '' : '<span class="fine">Plans from $24.99 a month. '+s.trialDays+'-day free trial, no card needed.</span>')+
+      (APP ? '' : '<span class="fine">Plans from $24.99 a month. '+s.trialDays+'-day free trial on every plan, cancel any time.</span>')+
     '</div></div>';
   }
 
@@ -879,10 +880,15 @@ html.theme-light .facts input,html.theme-light .plan-date{color-scheme:light}
   function renderMockSetup(){
     stopTimer();
     if (STATUS.accessLevel === 'free' || STATUS.accessLevel === 'expired') {
+      var startTrial = STATUS.accessLevel==='expired' && STATUS.trialEligible && !APP;
       stage.innerHTML = '<div class="card"><h2>Timed mock exams</h2><p>'+(STATUS.accessLevel==='free'
-        ? 'Create a free account to take a timed NCE mock exam. Your '+STATUS.trialDays+'-day NCE trial starts the first time you open this page signed in.'
+        ? 'Create a free account and start a '+STATUS.trialDays+'-day NCE free trial to take timed NCE mock exams.'
+        : startTrial
+        ? 'Timed mock exams come with the '+STATUS.trialDays+'-day NCE free trial. Pick a plan to start it; your card isn\'t charged until the trial ends.'
         : 'Your NCE trial has ended. Pick an NCE plan to keep taking timed mock exams.')+'</p>'+
-        '<div class="nav-row">'+(STATUS.accessLevel==='free' ? '<a class="btn" href="/register.html?next=/nce.html">Create free account</a>' : '<a class="btn" href="#pricing" id="to-pricing">See NCE plans</a>')+
+        '<div class="nav-row">'+(STATUS.accessLevel==='free' ? '<a class="btn" href="/register.html?exam=nce&next=/nce.html">Create free account</a>'
+          : startTrial ? '<a class="btn" href="/pricing.html?exam=nce&trial=1">Start free trial</a>'
+          : '<a class="btn" href="#pricing" id="to-pricing">See NCE plans</a>')+
         '<button class="btn btn-s" id="back">Back</button></div></div>';
       document.getElementById('back').onclick = renderHome;
       var tp = document.getElementById('to-pricing'); if (tp) tp.onclick = function(e){ e.preventDefault(); renderHome(); document.getElementById('pricing').scrollIntoView(); };

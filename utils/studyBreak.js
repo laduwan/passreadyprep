@@ -63,7 +63,7 @@ function validatePrefs(body, { canSms, accessible }) {
   const product = b.exam == null || b.exam === '' ? choices[0] : examProduct(b.exam);
   if (!product || !product.sold) return { error: 'Pick an exam.' };
   if (accessible && !accessible.some((p) => p.key === product.key)) {
-    return { error: `Study breaks come with a trial or plan for the ${product.name}. Open ${product.name} study first.` };
+    return { error: `Study breaks come with a trial or plan for the ${product.name}. Start a free trial or plan for the ${product.name} first.` };
   }
   v.exam = product.key;
   v.channel = b.channel === 'sms' ? 'sms' : 'email';

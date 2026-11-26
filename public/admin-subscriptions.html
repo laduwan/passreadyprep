@@ -482,7 +482,7 @@
       '<div class="kv"><span>Status</span><span>' + esc(u.nceStatus === 'none' ? 'not opened' : (u.nceStatus || '—')) + '</span></div>' +
       '<div class="kv"><span>Billed by</span><span>' + esc(nce.source || '—') + '</span></div>' +
       '<div class="kv"><span>Period end</span><span>' + esc(nce.tier && nce.tier !== 'free' ? dateStr(nce.currentPeriodEnd) : '—') + '</span></div>' +
-      '<div class="kv"><span>NCE trial started</span><span>' + esc(nce.trialStartedAt ? dateStr(nce.trialStartedAt) : 'never opened NCE') + '</span></div>' +
+      '<div class="kv"><span>NCE free trial</span><span>' + esc(nce.trialUsedAt ? 'started ' + dateStr(nce.trialUsedAt) + ' (card on file)' : nce.trialStartedAt ? 'legacy, started ' + dateStr(nce.trialStartedAt) : 'not started') + '</span></div>' +
       '<div class="kv"><span>NCE guide</span><span>' + esc(u.guideNcePurchasedAt ? dateStr(u.guideNcePurchasedAt) : '—') + '</span></div>' +
 
       '<div class="section-title">Account</div>' +

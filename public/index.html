@@ -466,7 +466,7 @@ async function fetchList(){
     const j = await r.json();
     if(!j.items || !j.items.length) throw 0;
     DATA_SOURCE = 'api';
-    ACCESS = { level: j.accessLevel || 'free', tier: j.tier || 'free', trialEndsAt: j.trialEndsAt || null, trialStarted: j.trialStarted !== false, total: j.total || j.items.length, freeLimit: j.freeLimit || 5, trialDays: j.trialDays || 7 };
+    ACCESS = { level: j.accessLevel || 'free', tier: j.tier || 'free', trialEndsAt: j.trialEndsAt || null, cardTrial: !!j.cardTrial, trialEligible: !!j.trialEligible, total: j.total || j.items.length, freeLimit: j.freeLimit || 5, trialDays: j.trialDays || 7 };
     return j.items;
   }catch(_){
     DATA_SOURCE = 'embedded';
@@ -814,10 +814,19 @@ function computeReadiness(){
 function planHref(tier){ return '/pricing.html?exam=ncmhce' + (tier ? '&tier=' + encodeURIComponent(tier) : ''); }
 function bankSize(){ return (ACCESS && ACCESS.total ? ACCESS.total : 270) + '+'; }
 function trialDays(){ return ACCESS && ACCESS.trialDays ? ACCESS.trialDays : 7; }
-// Signed-in member whose trial is over (or whose guarantee check-in is due).
+// Signed-in member with no running trial or plan (or whose guarantee check-in
+// is due). A new account has not started its free trial yet: the trial is
+// card up front (pick a plan, nothing charged for TRIAL_DAYS), so the card
+// sends them to the plan picker rather than telling them a trial ended.
 function accessCard(level, message){
   if(level === 'expired'){
     const guest = !!(currentUser() || {}).isGuest; // iOS guest: never had a trial, buys without an account
+    if(ACCESS && ACCESS.trialEligible && !window.PRP_NATIVE){
+      return '<div class="card gate-card"><div class="gate-tag">Free '+trialDays()+'-day trial</div>'
+        + '<h2>Start your free trial to keep studying</h2>'
+        + '<p class="lead" style="margin-bottom:0">Pick a plan and work all '+bankSize()+' cases, the timed mock exam and your readiness score free for '+trialDays()+' days. Your card isn\'t charged until the trial ends, and you can cancel before then.</p>'
+        + '<div class="row" style="margin-top:14px"><a class="btn" href="'+planHref()+'&trial=1">Start free trial ›</a></div></div>';
+    }
     return '<div class="card gate-card"><div class="gate-tag">🔒 '+(guest ? 'Choose a plan' : 'Free trial ended')+'</div>'
       + '<h2>'+(guest ? 'Choose a plan to keep studying' : 'Your free trial has ended')+'</h2>'
       + '<p class="lead" style="margin-bottom:0">'+(guest ? '' : 'Your progress and readiness score are saved. ')+'Pick a plan to keep working all '+bankSize()+' cases and the timed mock exam. The AI debrief comes with the Pass Guarantee plan.</p>'
@@ -830,22 +839,20 @@ function accessCard(level, message){
   }
   return signupCard('next');
 }
-// Trial countdown for the dashboard, signed-in trial members only.
+// Trial countdown for the dashboard, signed-in trial members only. A card
+// trial already has its plan: it bills on the end date unless cancelled, so
+// the link manages it rather than offering plans again.
 function trialBar(){
   if(!ACCESS || ACCESS.level !== 'trial') return '';
-  // The clock starts at the first case opened (utils/trial.js), so until then
-  // say what the trial is instead of counting down something that hasn't begun.
-  if(ACCESS.trialStarted === false){
-    return '<div class="trial-bar"><span>Free trial · '+trialDays()+' days of full access, starting when you open your first case</span><a href="#" onclick="goCases();return false">Open a case ›</a></div>';
-  }
   if(!ACCESS.trialEndsAt) return '';
   const ms = Date.parse(ACCESS.trialEndsAt) - Date.now();
   if(isNaN(ms)) return '';
   const days = Math.ceil(ms / 864e5);
   const when = days <= 1 ? 'less than a day left' : days + ' days left';
   let date = '';
-  try{ date = ' (ends ' + new Date(ACCESS.trialEndsAt).toLocaleDateString(undefined, { weekday:'short', month:'short', day:'numeric' }) + ')'; }catch(_){}
-  return '<div class="trial-bar"><span>Free trial · '+esc(when)+esc(date)+'</span><a href="'+planHref()+'">Choose a plan ›</a></div>';
+  try{ date = ' (' + (ACCESS.cardTrial ? 'your plan starts ' : 'ends ') + new Date(ACCESS.trialEndsAt).toLocaleDateString(undefined, { weekday:'short', month:'short', day:'numeric' }) + ')'; }catch(_){}
+  const link = ACCESS.cardTrial ? '<a href="/account.html">Manage plan ›</a>' : '<a href="'+planHref()+'">Choose a plan ›</a>';
+  return '<div class="trial-bar"><span>Free trial · '+esc(when)+esc(date)+'</span>'+link+'</div>';
 }
 // Signed-out visitor: the ask for the free account that starts the trial.
 // 'done' = shown on the results screen of the free case; 'next' = they tried
@@ -853,8 +860,8 @@ function trialBar(){
 function signupCard(why){
   const next = encodeURIComponent('/study');
   const lead = why === 'done'
-    ? 'That was your free case. A free account unlocks all '+bankSize()+' cases, the timed mock exam and your readiness score for '+trialDays()+' days. No card required, and this result comes with you.'
-    : 'Your first case was free. Create a free account to unlock all '+bankSize()+' cases, the timed mock exam and your readiness score for '+trialDays()+' days. No card required.';
+    ? 'That was your free case. Create a free account and start a '+trialDays()+'-day free trial of all '+bankSize()+' cases, the timed mock exam and your readiness score. Cancel any time before it ends, and this result comes with you.'
+    : 'Your first case was free. Create a free account and start a '+trialDays()+'-day free trial of all '+bankSize()+' cases, the timed mock exam and your readiness score. Cancel any time before it ends.';
   return '<div class="card gate-card"><div class="gate-tag">Free '+trialDays()+'-day trial</div>'
     + '<h2>'+(why === 'done' ? 'Keep going — it\'s free' : 'Create a free account to continue')+'</h2>'
     + '<p class="lead" style="margin-bottom:0">'+lead+'</p>'
@@ -1032,7 +1039,7 @@ async function showDashboard(){
   // only. The Account page (header button) has the same actions in full.
   if(authHeaders().Authorization){
     const sub = (currentUser() || {}).subscription || {};
-    const renewing = sub.tier === 'monthly' && ['active','past_due'].includes(sub.status);
+    const renewing = ['monthly','pass3','pass6'].includes(sub.tier) && ['active','trialing','past_due'].includes(sub.status);
     // The iOS app shows no billing link at all; the Account page states where
     // the plan is managed.
     const manage = !renewing || window.PRP_NATIVE ? ''
@@ -1094,7 +1101,7 @@ function sellTop(){
     + '</div><div class="acts">'
     + '<a class="btn" href="/pricing.html?exam=ncmhce">See plans <span aria-hidden="true">→</span></a>'
     + '<a class="btn secondary" href="/guarantee.html">How the guarantee works <span aria-hidden="true">→</span></a>'
-    + (window.PRP_NATIVE ? '' : '<span class="fine">Plans from $29 a month. '+trialDays()+'-day free trial, no card needed.</span>')
+    + (window.PRP_NATIVE ? '' : '<span class="fine">Plans from $29 a month. '+trialDays()+'-day free trial on every plan, cancel any time.</span>')
     + '</div></div>';
 
   h += '<div class="home-top"><div class="hero">'
@@ -1601,7 +1608,7 @@ function debriefLockedHtml(){
   if(!authHeaders().Authorization){
     return '<div class="debrief-lock" role="note">'
       + '<div class="gate-tag">Free during your '+trialDays()+'-day trial</div>'
-      + '<p style="margin:8px 0 10px;font-size:14px;color:var(--slate-300)">Create a free account and Dr. Claire Moreau debriefs this case, and every case you work during your trial. No card required.</p>'
+      + '<p style="margin:8px 0 10px;font-size:14px;color:var(--slate-300)">Create a free account and start your trial: Dr. Claire Moreau debriefs this case, and every case you work during it.</p>'
       + '<a class="btn" href="/register.html?next=' + encodeURIComponent('/study') + '">Create free account ›</a></div>';
   }
   return '<div class="debrief-lock" role="note">'

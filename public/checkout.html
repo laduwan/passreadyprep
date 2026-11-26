@@ -73,6 +73,8 @@
   .check-row a{color:var(--amber-400);text-decoration:none}
   .check-row a:hover{text-decoration:underline}
 
+  .trial-note{font-size:13px;color:var(--slate-400);line-height:1.6;margin:-8px 0 18px}
+
   /* auth prompt */
   .auth-prompt{text-align:center;padding:8px 0 4px}
   .auth-prompt p{color:var(--slate-400);font-size:14px;margin:0 0 14px}
@@ -122,6 +124,7 @@
   <div id="main">
     <!-- Tier summary — populated by JS -->
     <div id="tier-box" class="tier-box"></div>
+    <p class="trial-note" id="trial-note" style="display:none">Your card is saved today and charged when the 7-day free trial ends, then the plan renews until you cancel. Cancel before the trial ends from your account page and you pay nothing. We email you the day before the first charge.</p>
 
     <div class="divider"></div>
 
@@ -225,6 +228,14 @@
   const tierCfg = TIERS[tier] || TIERS.pass3;
   const token   = localStorage.getItem('prp_token');
   const isGuarantee = tier === 'guarantee' || tier === 'nce_guarantee';
+  const isRecurring = ['monthly', 'pass3', 'pass6', 'nce_monthly', 'nce_pass3', 'nce_pass6'].includes(tier);
+  // Free trial (card up front): a recurring plan opens with 7 days free and
+  // the card charged when they end unless the member cancels. Whether this
+  // account still has one to start comes from the server; signed out, a new
+  // visitor is assumed eligible and the server has the final say.
+  let trialEligible = isRecurring && !isGuarantee;
+  const fmtDate = (d) => { try { return new Date(d).toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' }); } catch (e) { return ''; } };
+  const money = (cents) => '$' + (cents / 100).toFixed(cents % 100 ? 2 : 0);
 
   function init() {
     // Post-payment success — Stripe redirected back with ?session_id=.
@@ -233,12 +244,30 @@
     if (params.get('session_id')) {
       document.getElementById('loading').style.display = 'none';
       document.getElementById('success-view').style.display = 'block';
+      const desc = document.getElementById('success-desc');
       if (TIERS[tier]) {
-        document.getElementById('success-desc').textContent = tier === 'test'
+        desc.textContent = tier === 'test'
           ? 'Test purchase received. No access was granted — refund it from the Stripe dashboard.'
           : `Your ${TIERS[tier].name} is active. We're glad you're preparing with us — good luck on the NCMHCE!`;
       }
       if (isGuarantee) document.getElementById('guar-success').classList.add('show');
+      // A free trial charged nothing today. Say what the card will be charged
+      // and when, from the subscription Stripe opened, and where to cancel.
+      if (params.get('trial') === '1' && TIERS[tier]) {
+        document.getElementById('thank-you').textContent = 'Your free trial has started!';
+        desc.textContent = `Your ${TIERS[tier].name} free trial is active. Nothing was charged today.`;
+        if (token) {
+          fetch('/api/payment/session/' + encodeURIComponent(params.get('session_id')), { headers: { Authorization: `Bearer ${token}` } })
+            .then(r => r.ok ? r.json() : null)
+            .then(d => {
+              if (!d || !d.trial) return;
+              const when = d.trialEnd ? ' on ' + fmtDate(d.trialEnd) : ' when the trial ends';
+              const amt = d.planAmount != null ? money(d.planAmount) : 'the plan price';
+              desc.textContent = `Your ${TIERS[tier].name} free trial is active. Nothing was charged today: your card will be charged ${amt}${when} unless you cancel first. Cancel any time from Manage subscription on your account page. We'll email you the day before.`;
+            })
+            .catch(() => {});
+        }
+      }
       return;
     }
 
@@ -273,6 +302,31 @@
     if (isGuarantee) {
       document.getElementById('pay-btn').className = 'btn amber';
       document.getElementById('guar-ack').classList.add('show');
+    }
+
+    // Free trial on a recurring plan: the price line and the button say so.
+    // Signed in, the server says whether this account still has a trial to
+    // start (one per account per exam); the page is drawn first and corrected
+    // if not, so nobody waits on the lookup.
+    function paintTrial() {
+      const priceEl = box.querySelector('.tier-price');
+      const btn = document.getElementById('pay-btn');
+      if (trialEligible) {
+        if (!priceEl.dataset.base) priceEl.dataset.base = priceEl.textContent;
+        priceEl.textContent = '7 days free, then ' + priceEl.dataset.base;
+        if (!btn.disabled) btn.innerHTML = 'Start free trial';
+        document.getElementById('trial-note').style.display = 'block';
+      } else {
+        if (priceEl.dataset.base) priceEl.textContent = priceEl.dataset.base;
+        document.getElementById('trial-note').style.display = 'none';
+      }
+    }
+    paintTrial();
+    if (trialEligible && token) {
+      fetch(tier.startsWith('nce_') ? '/api/nce/access' : '/api/content/access', { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' })
+        .then(r => r.ok ? r.json() : null)
+        .then(a => { if (a && !a.trialEligible) { trialEligible = false; paintTrial(); } })
+        .catch(() => {});
     }
 
     document.getElementById('loading').style.display = 'none';
@@ -318,10 +372,10 @@
     btn.innerHTML = 'Redirecting to Stripe…';
 
     try {
-      const body = { tier };
+      const body = { tier, trial: trialEligible };
       if (isGuarantee) body.guaranteeTermsAccepted = true;
 
-      const r = await fetch('/api/payment/create-checkout-session', {
+      let r = await fetch('/api/payment/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -330,7 +384,20 @@
         body: JSON.stringify(body),
       });
 
-      const data = await r.json();
+      let data = await r.json();
+
+      // The server says this account has had its trial: the plan starts
+      // right away. Say so and let them continue to a normal purchase.
+      if (!r.ok && data.code === 'TRIAL_NOT_AVAILABLE' && trialEligible) {
+        trialEligible = false;
+        const priceEl = document.querySelector('#tier-box .tier-price');
+        if (priceEl && priceEl.dataset.base) priceEl.textContent = priceEl.dataset.base;
+        document.getElementById('trial-note').style.display = 'none';
+        showErr('This account has already had its free trial, so the plan starts right away. Press Continue to payment to buy it.');
+        btn.disabled = false;
+        btn.innerHTML = 'Continue to payment';
+        return;
+      }
 
       if (!r.ok) {
         // Session invalidated — token stale, send to login
@@ -338,6 +405,12 @@
           localStorage.removeItem('prp_token');
           localStorage.removeItem('prp_user');
           window.location.href = `/register.html?next=${encodeURIComponent(location.pathname + location.search)}`;
+          return;
+        }
+        if (data.code === 'ALREADY_SUBSCRIBED') {
+          showErr('You already have a plan for this exam. Change or cancel it from Manage subscription on your account page.');
+          btn.disabled = false;
+          btn.innerHTML = 'Continue to payment';
           return;
         }
         showErr(data.error || 'Could not start checkout. Please try again.');

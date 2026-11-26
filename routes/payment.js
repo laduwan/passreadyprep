@@ -15,6 +15,18 @@
  *   nce_guarantee — NCE Pass Guarantee, same rules as `guarantee`, written to
  *                   User.nceAccess. Off until STRIPE_PRICE_NCE_GUARANTEE is set.
  *
+ * Free trial (card up front). A recurring plan can be started as a free trial:
+ * create-checkout-session with `trial: true` opens the Stripe subscription with
+ * trial_period_days (TRIAL_DAYS / NCE_TRIAL_DAYS) and the card collected at
+ * checkout. The webhook stores status 'trialing' plus trialUsedAt, and the
+ * access rules (utils/access.js, utils/nceAccess.js) read that as the trial.
+ * When the trial ends Stripe charges the card: a success makes the plan
+ * 'active'; a decline moves currentPeriodEnd to now so access stops at once
+ * instead of running through an unpaid period. One trial per account per exam
+ * (cardTrialEligible / nceTrialEligible), and buying a Pass Guarantee cancels
+ * a trialing subscription so the card is never charged for the plan it
+ * replaced. Nothing else starts a trial: there is no no-card trial any more.
+ *
  * ENV vars required (add to .env and Render dashboard):
  *   STRIPE_SECRET_KEY       — sk_live_xxx  (or sk_test_xxx for dev)
  *   STRIPE_WEBHOOK_SECRET   — whsec_xxx  (from Stripe dashboard → Webhooks)
@@ -49,6 +61,9 @@ const { cleanDomainScores, buildRetakePlan } = require('../utils/retakePlan');
 const { isForfeited, nextRequestDue, RESULT_WINDOW_DAYS } = require('../utils/guaranteeRules');
 const { refundEligibility, REFUND_RULES, REFUND_PLAN } = require('../utils/guaranteeRefund');
 const { sendUserSms, canText, TEMPLATES } = require('../utils/sms');
+const { TRIAL_DAYS } = require('../utils/trial');
+const { cardTrialEligible, RECURRING_TIERS } = require('../utils/access');
+const { nceTrialEligible, NCE_RECURRING_TIERS, NCE_TRIAL_DAYS } = require('../utils/nceAccess');
 
 // Lazy init: construct the Stripe client on first use, not at module load.
 // Building it at require-time meant a missing STRIPE_SECRET_KEY crashed the
@@ -238,9 +253,29 @@ const TIERS = {
 // ── POST /api/payment/create-checkout-session ─────────────────────────────────
 // Creates a Stripe Checkout session and returns the URL to redirect to.
 // The frontend redirects the browser; no payment details ever touch your server.
+// Which User plan a tier bills: NCE tiers live on nceAccess, the rest on
+// subscription. Shared by the checkout guard and the webhook.
+function planPathFor(tierConfig) {
+  return tierConfig.exam === 'nce' ? 'nceAccess' : 'subscription';
+}
+function isRecurringTier(tier) {
+  return RECURRING_TIERS.includes(tier) || NCE_RECURRING_TIERS.includes(tier);
+}
+// A Stripe subscription on this plan that is still running (or will bill
+// again). A second checkout would open a second subscription and bill twice,
+// so the route refuses while one of these exists.
+function liveStripeSubscription(plan, now = new Date()) {
+  if (!plan || plan.source === 'apple' || !plan.stripeSubscriptionId) return false;
+  if (!isRecurringTier(plan.tier)) return false;
+  if (!['active', 'trialing', 'past_due'].includes(plan.status)) return false;
+  if (plan.cancelAtPeriodEnd) return false;
+  return !plan.currentPeriodEnd || new Date(plan.currentPeriodEnd) > now;
+}
+
 router.post('/create-checkout-session', requireAuth, async (req, res) => {
   try {
     const { tier, guaranteeTermsAccepted } = req.body;
+    const wantsTrial = req.body.trial === true || req.body.trial === 'true' || req.body.trial === 1;
 
     if (!TIERS[tier]) {
       return res.status(400).json({ error: 'Invalid tier' });
@@ -266,6 +301,32 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
 
     if (tierConfig.adminOnly && user.role !== 'admin') {
       return res.status(403).json({ error: 'Admin only' });
+    }
+
+    // One running subscription per exam. A trialist or subscriber who wants a
+    // different recurring plan changes it from the billing portal; the Pass
+    // Guarantee (mode 'payment') is still allowed and the webhook cancels the
+    // subscription it replaces.
+    if (tierConfig.mode === 'subscription' && liveStripeSubscription(user[planPathFor(tierConfig)])) {
+      return res.status(409).json({
+        code: 'ALREADY_SUBSCRIBED',
+        error: 'You already have a plan for this exam. Manage or change it from your account page.',
+      });
+    }
+
+    // Free trial: only on a recurring plan, only once per account per exam
+    // (utils/access.js, utils/nceAccess.js). The card is collected now and
+    // charged when the trial ends unless the member cancels first.
+    let trialDays = 0;
+    if (wantsTrial) {
+      if (tierConfig.mode !== 'subscription') {
+        return res.status(400).json({ code: 'TRIAL_NOT_AVAILABLE', error: 'The free trial is for the recurring plans. The Pass Guarantee is a one-time purchase.' });
+      }
+      const eligible = tierConfig.exam === 'nce' ? nceTrialEligible(user) : cardTrialEligible(user);
+      if (!eligible) {
+        return res.status(400).json({ code: 'TRIAL_NOT_AVAILABLE', error: 'This account has already had its free trial, so this plan starts right away.' });
+      }
+      trialDays = tierConfig.exam === 'nce' ? NCE_TRIAL_DAYS : TRIAL_DAYS;
     }
 
     // Retrieve or create Stripe customer so we can pre-fill their email
@@ -311,8 +372,15 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
     // For subscriptions, attach metadata to the subscription too
     if (tierConfig.mode === 'subscription') {
       sessionParams.subscription_data = {
-        metadata: { userId: user._id.toString(), tier },
+        metadata: { userId: user._id.toString(), tier, trial: trialDays ? '1' : '0' },
       };
+      if (trialDays) {
+        sessionParams.subscription_data.trial_period_days = trialDays;
+        // Card up front: Checkout collects a payment method even though
+        // nothing is charged today, so the plan can bill when the trial ends.
+        sessionParams.payment_method_collection = 'always';
+        sessionParams.success_url = `${process.env.CLIENT_URL}/checkout.html?tier=${tier}&trial=1&session_id={CHECKOUT_SESSION_ID}`;
+      }
     }
 
     // For one-time payments, embed metadata in payment_intent
@@ -335,7 +403,7 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
 
     // NCE plans return to the NCE study page.
     if (tierConfig.exam === 'nce') {
-      sessionParams.success_url = `${process.env.CLIENT_URL}/nce.html?purchase=success&tier=${tier}&session_id={CHECKOUT_SESSION_ID}`;
+      sessionParams.success_url = `${process.env.CLIENT_URL}/nce.html?purchase=success&tier=${tier}${trialDays ? '&trial=1' : ''}&session_id={CHECKOUT_SESSION_ID}`;
       sessionParams.cancel_url = `${process.env.CLIENT_URL}/nce.html#pricing`;
     }
 
@@ -388,11 +456,16 @@ router.get('/session/:id', requireAuth, async (req, res) => {
   const id = String(req.params.id || '');
   if (!/^cs_[A-Za-z0-9_]{10,200}$/.test(id)) return res.status(400).json({ error: 'Invalid session id' });
   try {
-    const session = await getStripe().checkout.sessions.retrieve(id);
+    const session = await getStripe().checkout.sessions.retrieve(id, { expand: ['subscription'] });
     if (!session || session.metadata?.userId !== String(req.userId)) {
       return res.status(404).json({ error: 'Session not found' });
     }
     const tier = session.metadata?.tier || '';
+    // A free trial charged nothing today; the success page says what the card
+    // will be charged and when, from the subscription Stripe opened.
+    const sub = session.subscription && typeof session.subscription === 'object' ? session.subscription : null;
+    const trial = !!(sub && sub.status === 'trialing' && sub.trial_end);
+    const price = sub && sub.items && sub.items.data && sub.items.data[0] && sub.items.data[0].price;
     res.json({
       id: session.id,
       tier,
@@ -400,6 +473,9 @@ router.get('/session/:id', requireAuth, async (req, res) => {
       test: !!TIERS[tier]?.testOnly,
       value: (session.amount_total || 0) / 100,
       currency: String(session.currency || 'usd').toUpperCase(),
+      trial,
+      trialEnd: trial ? new Date(sub.trial_end * 1000) : null,
+      planAmount: price && typeof price.unit_amount === 'number' ? price.unit_amount : null,
     });
   } catch (err) {
     console.error('payment session lookup error:', err.message);
@@ -459,6 +535,29 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         if (!userId || !tier || !TIERS[tier]) break;
 
         const tierConfig = TIERS[tier];
+
+        // A Pass Guarantee replaces whatever recurring plan the account had
+        // on that exam, so the card is never charged for it again: a trial
+        // ends now (nothing was paid), a paid plan runs out its period. Done
+        // before the grant so a failure here is logged but never blocks it.
+        if (tierConfig.guarantee) {
+          const holder = await User.findById(userId).select('subscription nceAccess');
+          const plan = holder && holder[planPathFor(tierConfig)];
+          if (plan && plan.source !== 'apple' && plan.stripeSubscriptionId && ['trialing', 'active', 'past_due'].includes(plan.status)) {
+            try {
+              if (plan.status === 'trialing') {
+                await getStripe().subscriptions.cancel(plan.stripeSubscriptionId);
+              } else {
+                await getStripe().subscriptions.update(plan.stripeSubscriptionId, { cancel_at_period_end: true });
+              }
+              console.log(`✓ ${tier} replaces subscription ${plan.stripeSubscriptionId} (${plan.status}) for user ${userId}`);
+              logActivity({ type: 'subscription.canceled', severity: 'info', userId, message: `${plan.tier} ${plan.status === 'trialing' ? 'trial cancelled' : 'set to end at period end'}: replaced by ${tier}`, meta: { tier: plan.tier, subscriptionId: plan.stripeSubscriptionId, replacedBy: tier }, req });
+            } catch (cancelErr) {
+              console.error(`Could not cancel subscription ${plan.stripeSubscriptionId} replaced by ${tier}:`, cancelErr.message);
+              logActivity({ type: 'subscription.cancel_failed', severity: 'warn', userId, message: `Could not cancel ${plan.tier} replaced by ${tier}: ${cancelErr.message}`, meta: { tier: plan.tier, subscriptionId: plan.stripeSubscriptionId, replacedBy: tier }, req });
+            }
+          }
+        }
 
         // $1 test purchase: log it, change nothing on the account.
         if (tierConfig.testOnly) {
@@ -542,80 +641,122 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         break;
       }
 
-      // ── Monthly subscription activated ────────────────────────────────────
+      // ── Recurring plan opened or changed (monthly, 3- and 6-month passes) ──
       case 'customer.subscription.created':
       case 'customer.subscription.updated': {
         const sub = event.data.object;
         const userId = sub.metadata?.userId;
         if (!userId) break;
 
-        // NCE monthly lives on User.nceAccess — never touch the NCMHCE plan.
-        if (TIERS[sub.metadata?.tier]?.exam === 'nce') {
-          const nceUpdate = {
-            'nceAccess.tier': sub.metadata.tier,
-            'nceAccess.status': sub.status,
-            'nceAccess.stripeSubscriptionId': sub.id,
-            'nceAccess.cancelAtPeriodEnd': !!sub.cancel_at_period_end,
-          };
-          const ncePeriodEnd = subPeriodEnd(sub);
-          if (ncePeriodEnd) nceUpdate['nceAccess.currentPeriodEnd'] = ncePeriodEnd;
-          await User.findByIdAndUpdate(userId, nceUpdate);
-          console.log(`✓ NCE subscription ${event.type}: user ${userId}, status ${sub.status}`);
-          if (event.type === 'customer.subscription.created') {
-            logActivity({ type: 'payment.succeeded', severity: 'info', userId, message: 'NCE monthly subscription started', meta: { status: sub.status }, req });
-          } else if (sub.status === 'past_due') {
-            logActivity({ type: 'subscription.past_due', severity: 'warn', userId, message: 'NCE monthly subscription is past due', meta: { status: sub.status }, req });
-          }
+        // The tier the checkout was opened for. NCE tiers live on
+        // User.nceAccess and never touch the NCMHCE plan; an NCMHCE
+        // subscription with an unknown tier is recorded as monthly.
+        const metaTier = sub.metadata?.tier;
+        const subTier = TIERS[metaTier]?.mode === 'subscription' ? metaTier : 'monthly';
+        const cfg = TIERS[subTier];
+        const path = planPathFor(cfg);
+        const label = cfg.exam === 'nce' ? `NCE ${subTier}` : subTier;
+
+        // A Pass Guarantee on this exam outranks any recurring plan: once it is
+        // on the account, events from the subscription it replaced (set to
+        // cancel at period end by the checkout handler above) must not write
+        // over it.
+        const holder = await User.findById(userId).select('subscription nceAccess');
+        const current = holder && holder[path];
+        if (current && current.tier === (cfg.exam === 'nce' ? 'nce_guarantee' : 'guarantee')) {
+          console.log(`– Subscription ${event.type} ignored: user ${userId} holds the ${current.tier}`);
           break;
         }
 
+        const price = sub.items && sub.items.data && sub.items.data[0] && sub.items.data[0].price;
         const update = {
-          'subscription.tier': 'monthly',
-          'subscription.status': sub.status, // 'active', 'past_due', etc.
-          'subscription.stripeSubscriptionId': sub.id,
-          'subscription.cancelAtPeriodEnd': !!sub.cancel_at_period_end,
+          [`${path}.tier`]: subTier,
+          [`${path}.status`]: sub.status, // 'trialing', 'active', 'past_due', etc.
+          [`${path}.source`]: 'stripe',
+          [`${path}.stripeSubscriptionId`]: sub.id,
+          [`${path}.cancelAtPeriodEnd`]: !!sub.cancel_at_period_end,
         };
+        if (price && typeof price.unit_amount === 'number') update[`${path}.planAmount`] = price.unit_amount;
         // Only write the date when Stripe actually gave us one — never
         // overwrite a good value with null, and never write an Invalid Date.
         const periodEnd = subPeriodEnd(sub);
-        if (periodEnd) update['subscription.currentPeriodEnd'] = periodEnd;
+        if (periodEnd) update[`${path}.currentPeriodEnd`] = periodEnd;
+
+        // Free trial (card up front). While it runs, currentPeriodEnd is the
+        // day the card is charged, and trialUsedAt records that this account
+        // has had its one trial. The transition out of 'trialing' is the
+        // moment that matters: to 'active' the card was charged and the plan
+        // is paid; to anything else the charge failed, so access stops now
+        // rather than running through a period nobody paid for (Stripe keeps
+        // retrying; a later success arrives as another update, back to
+        // 'active', and restores the real period end).
+        const wasTrialing = event.data.previous_attributes?.status === 'trialing';
+        let trialNote = null;
+        if (sub.status === 'trialing') {
+          update[`${path}.trialUsedAt`] = sub.trial_start ? new Date(sub.trial_start * 1000) : new Date();
+        } else if (wasTrialing && sub.status === 'active') {
+          trialNote = 'converted';
+        } else if (wasTrialing && ['past_due', 'unpaid', 'incomplete', 'incomplete_expired'].includes(sub.status)) {
+          trialNote = 'declined';
+          update[`${path}.currentPeriodEnd`] = new Date();
+        }
 
         await User.findByIdAndUpdate(userId, update);
 
-        console.log(`✓ Subscription ${event.type}: user ${userId}, status ${sub.status}`);
+        console.log(`✓ Subscription ${event.type}: user ${userId}, ${label}, status ${sub.status}${trialNote ? ` (trial ${trialNote})` : ''}`);
+        const amount = price && typeof price.unit_amount === 'number' ? price.unit_amount : null;
         if (event.type === 'customer.subscription.created') {
-          logActivity({ type: 'payment.succeeded', severity: 'info', userId, message: 'Monthly subscription started', meta: { status: sub.status }, req });
+          logActivity({ type: 'payment.succeeded', severity: 'info', userId, message: sub.status === 'trialing' ? `${label} free trial started (card on file, bills ${periodEnd ? periodEnd.toISOString().slice(0, 10) : 'at trial end'})` : `${label} subscription started`, meta: { tier: subTier, status: sub.status, trial: sub.status === 'trialing', periodEnd, amount }, req });
+        } else if (trialNote === 'converted') {
+          logActivity({ type: 'payment.succeeded', severity: 'info', userId, message: `${label} free trial converted: first charge succeeded`, meta: { tier: subTier, status: sub.status, periodEnd, amount }, req });
+        } else if (trialNote === 'declined') {
+          logActivity({ type: 'payment.failed', severity: 'warn', userId, message: `${label} free trial ended but the card was declined; access stopped`, meta: { tier: subTier, status: sub.status, amount }, req });
         } else if (sub.status === 'past_due') {
-          logActivity({ type: 'subscription.past_due', severity: 'warn', userId, message: 'Monthly subscription is past due', meta: { status: sub.status }, req });
+          logActivity({ type: 'subscription.past_due', severity: 'warn', userId, message: `${label} subscription is past due`, meta: { tier: subTier, status: sub.status }, req });
         }
         break;
       }
 
-      // ── Monthly subscription cancelled ────────────────────────────────────
+      // ── Recurring plan cancelled ──────────────────────────────────────────
       case 'customer.subscription.deleted': {
         const sub = event.data.object;
         const userId = sub.metadata?.userId;
         if (!userId) break;
 
-        if (TIERS[sub.metadata?.tier]?.exam === 'nce') {
-          const nceCancel = { 'nceAccess.status': 'canceled' };
-          const nceCancelEnd = subPeriodEnd(sub);
-          if (nceCancelEnd) nceCancel['nceAccess.currentPeriodEnd'] = nceCancelEnd;
-          await User.findByIdAndUpdate(userId, nceCancel);
-          console.log(`✓ NCE subscription cancelled: user ${userId}`);
-          logActivity({ type: 'subscription.canceled', severity: 'info', userId, message: 'NCE monthly subscription cancelled', meta: { periodEnd: nceCancelEnd }, req });
+        const cfg = TIERS[sub.metadata?.tier]?.mode === 'subscription' ? TIERS[sub.metadata.tier] : TIERS.monthly;
+        const path = planPathFor(cfg);
+        const label = cfg.exam === 'nce' ? 'NCE' : 'NCMHCE';
+
+        const holder = await User.findById(userId).select('subscription nceAccess');
+        const current = holder && holder[path];
+        // A Pass Guarantee bought meanwhile outranks the subscription it
+        // replaced (see the created/updated handler).
+        if (current && current.tier === (cfg.exam === 'nce' ? 'nce_guarantee' : 'guarantee')) {
+          console.log(`– Subscription deleted ignored: user ${userId} holds the ${current.tier}`);
+          break;
+        }
+        // A subscription deleted for the account's own sake is not the one on
+        // file any more (a newer one replaced it): leave the current plan be.
+        if (current && current.stripeSubscriptionId && current.stripeSubscriptionId !== sub.id) {
+          console.log(`– Subscription deleted ignored: ${sub.id} is not user ${userId}'s current ${label} plan`);
           break;
         }
 
-        // Don't immediately drop to free — let them use through period end
-        const cancelUpdate = { 'subscription.status': 'canceled' };
+        // Don't immediately drop to free — a voluntary cancel runs through
+        // the period already paid for. The date Stripe sends is only taken
+        // when none is on file: a plan Stripe cancelled for non-payment (a
+        // declined card at the end of a trial, say) carries the end of the
+        // unpaid period, and the one already stored is the honest one.
+        const cancelUpdate = { [`${path}.status`]: 'canceled' };
         const cancelPeriodEnd = subPeriodEnd(sub);
-        if (cancelPeriodEnd) cancelUpdate['subscription.currentPeriodEnd'] = cancelPeriodEnd;
+        if (cancelPeriodEnd && !(current && current.currentPeriodEnd)) cancelUpdate[`${path}.currentPeriodEnd`] = cancelPeriodEnd;
 
         await User.findByIdAndUpdate(userId, cancelUpdate);
 
-        console.log(`✓ Subscription cancelled: user ${userId}`);
-        logActivity({ type: 'subscription.canceled', severity: 'info', userId, message: 'Monthly subscription cancelled', meta: { periodEnd: cancelPeriodEnd }, req });
+        const endsAt = (current && current.currentPeriodEnd) || cancelPeriodEnd;
+        const duringTrial = current && current.status === 'trialing';
+        console.log(`✓ ${label} subscription cancelled: user ${userId}${duringTrial ? ' (during the free trial)' : ''}`);
+        logActivity({ type: 'subscription.canceled', severity: 'info', userId, message: `${label} ${(current && current.tier) || 'subscription'} cancelled${duringTrial ? ' during the free trial; no charge' : ''}`, meta: { tier: current && current.tier, periodEnd: endsAt, duringTrial: !!duringTrial }, req });
         break;
       }
 
@@ -1175,6 +1316,8 @@ router.get('/plans', async (req, res) => {
         intervalMismatch,                   // true when Stripe disagrees with it
         guarantee: !!cfg.guarantee,
         accessDays: cfg.accessDays || null,
+        // Days of free trial a new account gets on this plan (card up front).
+        trialDays: cfg.mode === 'subscription' ? (cfg.exam === 'nce' ? NCE_TRIAL_DAYS : TRIAL_DAYS) : null,
       };
     }));
     const body = { exam, plans };

@@ -5,7 +5,8 @@ const AppleTransaction = require('../models/AppleTransaction');
 const adminOrAdminUser = require('../middleware/adminOrAdminUser');
 const { logActivity } = require('../utils/activity');
 const { trialEndFor } = require('../utils/trial');
-const { nceTrialEnd } = require('../utils/nceAccess');
+const { RECURRING_TIERS } = require('../utils/access');
+const { NCE_RECURRING_TIERS, nceTrialEnd } = require('../utils/nceAccess');
 const { appleSandboxUserIds } = require('../utils/appleSandbox');
 
 const router = express.Router();
@@ -37,15 +38,16 @@ function withPlanStatus(u, now = new Date()) {
   let effectiveStatus;
   if (tier && tier !== 'free') {
     effectiveStatus = status || 'active';
-  } else if (!u.trialStartedAt && !u.isGuest) {
-    // The standard trial only starts on the first case, so "never opened a
-    // case" is its own state rather than an active or expired trial.
+  } else if (!u.trialStartedAt && !u.trialEndsAt && !u.isGuest) {
+    // No trial behind this account: the free trial starts in checkout with a
+    // card (it then shows here as a plan with status 'trialing'), and this
+    // account has not started one or been granted one.
     effectiveStatus = 'not started';
   } else {
     effectiveStatus = trialEndFor(u) > now ? 'trial' : 'expired';
   }
-  // NCE trial only starts on the first NCE visit, so "never opened NCE"
-  // is its own state rather than an expired trial.
+  // An NCE trial is a plan in 'trialing' status (card up front); "none" is an
+  // account with no NCE plan and no legacy no-card trial behind it.
   const nce = u.nceAccess || {};
   let nceStatus;
   if (nce.tier && nce.tier !== 'free') nceStatus = nce.status || 'active';
@@ -134,8 +136,8 @@ router.get('/revenue', async (req, res) => {
     const ncmhceIds = new Set(ncmhce.map(u => String(u._id)));
     const bothPaid = nce.filter(u => ncmhceIds.has(String(u._id))).length;
 
-    const activeMonthly = ncmhce.filter(u => u.subscription.tier === 'monthly' && u.subscription.status === 'active').length;
-    const activeNceMonthly = nce.filter(u => u.nceAccess.tier === 'nce_monthly' && u.nceAccess.status === 'active').length;
+    const activeMonthly = ncmhce.filter(u => RECURRING_TIERS.includes(u.subscription.tier) && u.subscription.status === 'active').length;
+    const activeNceMonthly = nce.filter(u => NCE_RECURRING_TIERS.includes(u.nceAccess.tier) && u.nceAccess.status === 'active').length;
     const pastDue = users.filter(u => u.role !== 'admin' && (
       (u.subscription && u.subscription.status === 'past_due' && isBilled(u.subscription)) ||
       (u.nceAccess && u.nceAccess.status === 'past_due' && isBilled(u.nceAccess))
@@ -150,8 +152,15 @@ router.get('/revenue', async (req, res) => {
       nceByTier[t] = nce.filter(u => u.nceAccess.tier === t && ['active', 'canceled'].includes(u.nceAccess.status)).length;
     }
 
-    const ncmhceMrr = activeMonthly * TIER_PRICES.monthly;
-    const nceMrr = Math.round(activeNceMonthly * NCE_TIER_PRICES.nce_monthly * 100) / 100;
+    // Each recurring plan spread over its billing months. Trials ('trialing')
+    // are not counted: nothing has been charged yet.
+    const MONTHS = { monthly: 1, pass3: 3, pass6: 6, nce_monthly: 1, nce_pass3: 3, nce_pass6: 6 };
+    const monthly = (list, plan, prices) => list.reduce((sum, u) => {
+      const p = u[plan];
+      return p.status === 'active' && MONTHS[p.tier] ? sum + (prices[p.tier] || 0) / MONTHS[p.tier] : sum;
+    }, 0);
+    const ncmhceMrr = monthly(ncmhce, 'subscription', TIER_PRICES);
+    const nceMrr = monthly(nce, 'nceAccess', NCE_TIER_PRICES);
     const mrrEstimate = Math.round((ncmhceMrr + nceMrr) * 100) / 100;
 
     // Guide sales and NCE trials are not billing-plan counts; admin accounts

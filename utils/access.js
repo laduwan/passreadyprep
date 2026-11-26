@@ -8,10 +8,13 @@
 // calls it with the user document it loaded. Neither re-derives it.
 //
 // Levels:
-//   'free'    — no account, or an account that is not on a plan and whose
-//               trial has not started (see trialLevel)
-//   'trial'   — on the standard or an admin-granted trial
-//   'expired' — trial over, no active paid tier
+//   'free'    — no account
+//   'trial'   — a Stripe subscription in 'trialing' status (card on file, the
+//               plan bills when the trial ends), a legacy no-card trial that
+//               is still running, or an admin-granted trial
+//   'expired' — registered account with no running trial and no active paid
+//               tier; also the state of a brand-new account until it starts
+//               its trial through checkout (trialEligible says whether it can)
 //   'paid'    — active monthly, pass3, pass6 or guarantee
 //   'gated'   — guarantee tier past its period with no check-in on file
 //
@@ -19,10 +22,25 @@
 const { trialEndFor, trialLevel } = require('./trial');
 const { isForfeited } = require('./guaranteeRules');
 
-const FALLS_BACK_TO_TRIAL_CLOCK = ['monthly', 'pass3'];
+// The recurring NCMHCE plans: Stripe subscriptions (or App Store auto-renewals)
+// that run to currentPeriodEnd and then either renew or lapse. Once lapsed,
+// access falls back to the trial clock (long past → 'expired').
+const RECURRING_TIERS = ['monthly', 'pass3', 'pass6'];
+
+// Can this account start the card-up-front free trial for the NCMHCE?
+// One trial per account: never for a guest, never once any plan has been on
+// the account, never after a Stripe trial (trialUsedAt) or the legacy no-card
+// trial (trialStartedAt), and not while an admin-granted trial is running.
+function cardTrialEligible(user, now = new Date()) {
+  if (!user || user.isGuest) return false;
+  const sub = user.subscription || {};
+  if (sub.tier && sub.tier !== 'free') return false;
+  if (sub.trialUsedAt || user.trialStartedAt) return false;
+  return !(trialEndFor(user) > now);
+}
 
 function accessFor(user, now = new Date()) {
-  const out = { accessLevel: 'free', gateReason: null, trialEndsAt: null, subscriptionTier: 'free', trialNotStarted: false };
+  const out = { accessLevel: 'free', gateReason: null, trialEndsAt: null, subscriptionTier: 'free', cardTrial: false, trialEligible: false };
   if (!user) return out;
 
   const sub = user.subscription || {};
@@ -46,22 +64,30 @@ function accessFor(user, now = new Date()) {
     }
   }
 
-  // The standard trial starts on the first case (utils/trial.js). An account
-  // whose access rests on that clock but hasn't started it is flagged so the
-  // single-case route can start it — only there, never from a list.
-  out.trialNotStarted = !user.isGuest && !user.trialStartedAt;
-  out.trialEndsAt = trialEndFor(user);
-
-  // Monthly / pass3: if expired, fall back to the trial clock (long past → 'expired').
-  if (FALLS_BACK_TO_TRIAL_CLOCK.includes(tier) && expired) {
-    out.accessLevel = trialLevel(user);
+  // A recurring plan still inside its Stripe free trial: full access, shown as
+  // a trial that ends (and bills) at currentPeriodEnd. routes/payment.js moves
+  // currentPeriodEnd to "now" if the card is declined when the trial ends, so
+  // a failed conversion drops to 'expired' here without a special case.
+  if (RECURRING_TIERS.includes(tier) && sub.status === 'trialing' && !expired) {
+    out.accessLevel = 'trial';
+    out.cardTrial = true;
+    out.trialEndsAt = sub.currentPeriodEnd || null;
     return out;
   }
 
-  out.accessLevel = tier === 'free' ? trialLevel(user) : 'paid';
+  out.trialEndsAt = trialEndFor(user);
+
+  // A lapsed recurring plan falls back to the trial clock (long past → 'expired').
+  if (RECURRING_TIERS.includes(tier) && expired) {
+    out.accessLevel = trialLevel(user);
+  } else {
+    out.accessLevel = tier === 'free' ? trialLevel(user) : 'paid';
+  }
   // The plan behind that level, for features sold on one plan only.
   out.subscriptionTier = out.accessLevel === 'paid' ? tier : 'free';
+  if (out.accessLevel === 'expired') out.trialEligible = cardTrialEligible(user, now);
+  if (out.accessLevel !== 'trial') out.trialEndsAt = out.trialEndsAt > new Date(0) ? out.trialEndsAt : null;
   return out;
 }
 
-module.exports = { accessFor };
+module.exports = { accessFor, cardTrialEligible, RECURRING_TIERS };

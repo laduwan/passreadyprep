@@ -108,6 +108,7 @@ function publicUser(user) {
       source: nce.source || null,
       currentPeriodEnd: nce.currentPeriodEnd || null,
       cancelAtPeriodEnd: !!nce.cancelAtPeriodEnd,
+      planAmount: nce.planAmount || null,
     },
     guidePurchasedAt: user.guidePurchasedAt || null,
   };
@@ -450,15 +451,26 @@ router.delete('/account', requireAuth, async (req, res) => {
       return res.status(401).json({ code: 'wrong_password', error: 'Password is incorrect' });
     }
 
-    const sub = user.subscription || {};
-    // Canceled-but-running subscriptions (cancelAtPeriodEnd) won't bill again.
-    // A plan billed by Apple is not blocked: we cannot cancel it for them, and
-    // App Store rules say deletion must not depend on it — the page tells them
-    // to cancel it in their Apple ID settings (delete-account.html).
-    if (sub.tier === 'monthly' && sub.source !== 'apple' && ['active', 'past_due'].includes(sub.status) && !sub.cancelAtPeriodEnd) {
+    // A recurring Stripe plan that will bill again (including a free trial,
+    // whose card is charged when it ends) blocks deletion until it is
+    // cancelled. Canceled-but-running subscriptions (cancelAtPeriodEnd) won't
+    // bill again. A plan billed by Apple is not blocked: we cannot cancel it
+    // for them, and App Store rules say deletion must not depend on it — the
+    // page tells them to cancel it in their Apple ID settings
+    // (delete-account.html).
+    const { RECURRING_TIERS } = require('../utils/access');
+    const { NCE_RECURRING_TIERS } = require('../utils/nceAccess');
+    const billing = [[user.subscription, RECURRING_TIERS, 'NCMHCE'], [user.nceAccess, NCE_RECURRING_TIERS, 'NCE']]
+      .find(([plan, tiers]) => plan && tiers.includes(plan.tier) && plan.source !== 'apple'
+        && ['active', 'trialing', 'past_due'].includes(plan.status) && !plan.cancelAtPeriodEnd
+        && (!plan.currentPeriodEnd || new Date(plan.currentPeriodEnd) > new Date()));
+    if (billing) {
+      const [plan, , exam] = billing;
       return res.status(409).json({
         code: 'active_subscription',
-        error: 'Your Monthly subscription is still active. Cancel it first so you are not billed again, then delete your account.',
+        error: plan.status === 'trialing'
+          ? `Your ${exam} free trial is still running and its plan would bill when it ends. Cancel it first from your account page, then delete your account.`
+          : `Your ${exam} subscription is still active. Cancel it first so you are not billed again, then delete your account.`,
       });
     }
 
